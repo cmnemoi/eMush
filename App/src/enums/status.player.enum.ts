@@ -11,11 +11,15 @@ const DEMORALIZED = "demoralized";
 const SUICIDAL = "suicidal";
 const SPORES = "spores";
 const ANTISOCIAL = "antisocial";
+const FIRST_TIME = "first_time";
 
 
 export const statusPlayerEnum: {[index: string]: any} = {
     [STARVING]: {
         'icon': require('@/assets/images/status/starving.png')
+    },
+    [FIRST_TIME]: {
+        'icon': require('@/assets/images/status/first_time.png')
     },
     [BURDENED]: {
         'icon': require('@/assets/images/status/heavy.png')

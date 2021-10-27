@@ -5,29 +5,15 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class GetUp extends AbstractAction
 {
     protected string $name = ActionEnum::GET_UP;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator
-        );
-    }
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -45,9 +31,17 @@ class GetUp extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        if ($lyingDownStatus = $this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN)) {
-            $this->player->removeStatus($lyingDownStatus);
+        if (!$lyingDownStatus = $this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN)) {
+            throw new \LogicException('Player should have a lying down status');
         }
+        $statusEvent = new StatusEvent(
+            $lyingDownStatus->getName(),
+            $this->player,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $statusEvent->setStatusTarget($lyingDownStatus->getTarget());
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
 
         return new Success();
     }

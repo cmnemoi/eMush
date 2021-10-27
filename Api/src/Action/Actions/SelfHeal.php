@@ -6,38 +6,17 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\FullHealth;
 use Mush\Player\Event\PlayerModifierEvent;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SelfHeal extends AbstractAction
 {
     public const BASE_HEAL = 2;
 
     protected string $name = ActionEnum::SELF_HEAL;
-
-    private PlayerServiceInterface $playerService;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        PlayerServiceInterface $playerService
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator
-        );
-
-        $this->playerService = $playerService;
-    }
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -72,8 +51,6 @@ class SelfHeal extends AbstractAction
             new \DateTime()
         );
         $this->eventDispatcher->dispatch($healEvent, ApplyEffectEvent::HEAL);
-
-        $this->playerService->persist($this->player);
 
         $healedQuantity = $this->player->getHealthPoint() - $initialHealth;
 

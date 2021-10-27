@@ -12,10 +12,10 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -25,14 +25,12 @@ class Drop extends AbstractAction
     protected string $name = ActionEnum::DROP;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private PlayerServiceInterface $playerService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
-        PlayerServiceInterface $playerService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -41,7 +39,6 @@ class Drop extends AbstractAction
         );
 
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->playerService = $playerService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -62,17 +59,22 @@ class Drop extends AbstractAction
 
         $parameter->setHolder($this->player->getPlace());
 
+        $this->gameEquipmentService->persist($parameter);
+
         // Remove BURDENED status if no other heavy item in the inventory
-        if (($burdened = $this->player->getStatusByName(PlayerStatusEnum::BURDENED)) &&
+        if ($this->player->hasStatus(PlayerStatusEnum::BURDENED) &&
             $this->player->getEquipments()->filter(function (GameItem $item) {
                 return $item->hasStatus(EquipmentStatusEnum::HEAVY);
             })->isEmpty()
         ) {
-            $this->player->removeStatus($burdened);
+            $statusEvent = new StatusEvent(
+                PlayerStatusEnum::BURDENED,
+                $parameter,
+                $this->getActionName(),
+                new \DateTime()
+            );
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
         }
-
-        $this->gameEquipmentService->persist($parameter);
-        $this->playerService->persist($this->player);
 
         return new Success();
     }

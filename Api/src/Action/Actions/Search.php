@@ -12,9 +12,9 @@ use Mush\Action\Validator\IsRoom;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Player\Entity\Player;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -24,14 +24,12 @@ class Search extends AbstractAction
 {
     protected string $name = ActionEnum::SEARCH;
 
-    private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        PlayerServiceInterface $playerService,
         StatusServiceInterface $statusService
     ) {
         parent::__construct(
@@ -40,7 +38,6 @@ class Search extends AbstractAction
             $validator
         );
 
-        $this->playerService = $playerService;
         $this->statusService = $statusService;
     }
 
@@ -78,11 +75,15 @@ class Search extends AbstractAction
             }
 
             $itemFound = $mostRecentHiddenItem;
-            $itemFound->removeStatus($hiddenStatus);
 
-            $hiddenBy->removeStatus($hiddenStatus);
-
-            $this->playerService->persist($hiddenBy);
+            $statusEvent = new StatusEvent(
+                $hiddenStatus->getName(),
+                $itemFound,
+                $this->getActionName(),
+                new \DateTime()
+            );
+            $statusEvent->setStatusTarget($hiddenBy);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
 
             $success = new Success();
 

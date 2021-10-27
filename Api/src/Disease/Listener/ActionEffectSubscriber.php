@@ -2,7 +2,6 @@
 
 namespace Mush\Disease\Listener;
 
-use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;

@@ -15,6 +15,7 @@ use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Service\StatusServiceInterface;
@@ -54,7 +55,7 @@ class ModifierService implements ModifierServiceInterface
         ?Place $place,
         ?Player $player,
         ?GameEquipment $gameEquipment,
-        ?ChargeStatus $chargeStatus
+        ?ChargeStatus $chargeStatus = null
     ): void {
         switch ($modifierConfig->getReach()) {
             case ModifierReachEnum::DAEDALUS:
@@ -188,11 +189,11 @@ class ModifierService implements ModifierServiceInterface
         $modifiers = $this->getActionModifiers($action, $player, $parameter);
 
         switch ($target) {
-            case ModifierTargetEnum::ACTION_POINT:
+            case PlayerVariableEnum::ACTION_POINT:
                 return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $action->getActionCost()->getActionPointCost());
-            case ModifierTargetEnum::MOVEMENT_POINT:
+            case PlayerVariableEnum::MOVEMENT_POINT:
                 return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $action->getActionCost()->getMovementPointCost());
-            case ModifierTargetEnum::MORAL_POINT:
+            case PlayerVariableEnum::MORAL_POINT:
                 return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $action->getActionCost()->getMoralPointCost());
             case ModifierTargetEnum::PERCENTAGE:
                 if ($attemptNumber === null) {

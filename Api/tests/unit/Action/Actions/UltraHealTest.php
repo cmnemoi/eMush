@@ -9,8 +9,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 
@@ -64,7 +64,7 @@ class UltraHealActionTest extends AbstractActionTest
 
         $this->playerVariableService
             ->shouldReceive('setPlayerVariableToMax')
-            ->with($player, ModifierTargetEnum::HEALTH_POINT);
+            ->with($player, PlayerVariableEnum::HEALTH_POINT);
         $this->playerService->shouldReceive('persist');
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);

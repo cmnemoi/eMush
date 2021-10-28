@@ -22,6 +22,7 @@ use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Status;
@@ -567,6 +568,58 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $this->satiety += $satiety;
 
         return $this;
+    }
+
+    public function getVariableFromName(string $variableName): int
+    {
+        switch ($variableName) {
+            case PlayerVariableEnum::MORAL_POINT:
+                return $this->moralPoint;
+            case PlayerVariableEnum::MOVEMENT_POINT:
+                return $this->movementPoint;
+            case PlayerVariableEnum::HEALTH_POINT:
+                return $this->healthPoint;
+            case PlayerVariableEnum::ACTION_POINT:
+                return $this->actionPoint;
+            case PlayerVariableEnum::SATIETY:
+                return $this->satiety;
+            case PlayerVariableEnum::TRIUMPH:
+                return $this->triumph;
+            default:
+                throw new \LogicException('this is not a valid playerVariable');
+        }
+    }
+
+    public function setVariableFromName(string $variableName, int $value): self
+    {
+        switch ($variableName) {
+            case PlayerVariableEnum::MORAL_POINT:
+                $this->moralPoint = $value;
+
+                return $this;
+            case PlayerVariableEnum::MOVEMENT_POINT:
+                $this->movementPoint = $value;
+
+                return $this;
+            case PlayerVariableEnum::HEALTH_POINT:
+                $this->healthPoint = $value;
+
+                return $this;
+            case PlayerVariableEnum::ACTION_POINT:
+                $this->actionPoint = $value;
+
+                return $this;
+            case PlayerVariableEnum::SATIETY:
+                $this->satiety = $value;
+
+                return $this;
+            case PlayerVariableEnum::TRIUMPH:
+                $this->triumph = $value;
+
+                return $this;
+            default:
+                throw new \LogicException('this is not a valid playerVariable');
+        }
     }
 
     public function getClassName(): string

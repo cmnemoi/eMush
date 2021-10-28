@@ -12,7 +12,7 @@ use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
 
 class StatusModifierConfigFixtures extends Fixture
 {
@@ -29,7 +29,7 @@ class StatusModifierConfigFixtures extends Fixture
 
         $frozenModifier
             ->setScope(ActionEnum::CONSUME)
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setReach(ModifierReachEnum::EQUIPMENT)
             ->setMode(ModifierModeEnum::ADDITIVE)
@@ -40,7 +40,7 @@ class StatusModifierConfigFixtures extends Fixture
         $disabledModifier = new ModifierConfig();
         $disabledModifier
             ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
-            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
@@ -51,7 +51,7 @@ class StatusModifierConfigFixtures extends Fixture
         $pacifistModifier = new ModifierConfig();
         $pacifistModifier
             ->setScope(ActionTypeEnum::ACTION_AGGRESSIVE)
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
             ->setReach(ModifierReachEnum::PLACE)
             ->setMode(ModifierModeEnum::ADDITIVE)

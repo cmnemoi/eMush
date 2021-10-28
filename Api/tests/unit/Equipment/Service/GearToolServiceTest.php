@@ -18,6 +18,7 @@ use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -361,7 +362,7 @@ class GearToolServiceTest extends TestCase
 
         $modifier3 = new ModifierConfig();
         $modifier3
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setScope(ActionEnum::REPAIR)
             ->setReach(ReachEnum::INVENTORY)

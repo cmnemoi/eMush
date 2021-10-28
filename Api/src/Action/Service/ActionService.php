@@ -8,6 +8,7 @@ use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -70,7 +71,7 @@ class ActionService implements ActionServiceInterface
         return $this->modifierService->getEventModifiedValue(
             $player,
             [ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION],
-            ModifierTargetEnum::ACTION_POINT,
+            PlayerVariableEnum::ACTION_POINT,
             self::BASE_MOVEMENT_POINT_CONVERSION_COST,
             $consumeCharge
         );
@@ -81,7 +82,7 @@ class ActionService implements ActionServiceInterface
         return $this->modifierService->getEventModifiedValue(
             $player,
             [ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION],
-            ModifierTargetEnum::MOVEMENT_POINT,
+            PlayerVariableEnum::MOVEMENT_POINT,
             self::BASE_MOVEMENT_POINT_CONVERSION_GAIN,
             $consumeCharge
         );
@@ -104,7 +105,7 @@ class ActionService implements ActionServiceInterface
         return $this->modifierService->getActionModifiedValue(
             $action,
             $player,
-            ModifierTargetEnum::ACTION_POINT,
+            PlayerVariableEnum::ACTION_POINT,
             $parameter,
         ) + $conversionCost;
     }
@@ -117,7 +118,7 @@ class ActionService implements ActionServiceInterface
         return $this->modifierService->getActionModifiedValue(
             $action,
             $player,
-            ModifierTargetEnum::MOVEMENT_POINT,
+            PlayerVariableEnum::MOVEMENT_POINT,
             $parameter,
         );
     }
@@ -130,7 +131,7 @@ class ActionService implements ActionServiceInterface
         return $this->modifierService->getActionModifiedValue(
             $action,
             $player,
-            ModifierTargetEnum::MORAL_POINT,
+            PlayerVariableEnum::MORAL_POINT,
             $parameter,
         );
     }

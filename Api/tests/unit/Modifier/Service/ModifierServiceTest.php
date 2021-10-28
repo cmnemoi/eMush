@@ -17,6 +17,7 @@ use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierService;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -169,7 +170,7 @@ class ModifierServiceTest extends TestCase
         $action->setName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
 
         // get action point modified without modifiers
-        $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::ACTION_POINT, null);
+        $modifiedCost = $this->service->getActionModifiedValue($action, $player, PlayerVariableEnum::ACTION_POINT, null);
 
         $this->assertEquals(1, $modifiedCost);
 
@@ -178,7 +179,7 @@ class ModifierServiceTest extends TestCase
         $modifierConfig1
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope('action')
-            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
@@ -188,13 +189,13 @@ class ModifierServiceTest extends TestCase
         $modifierConfig2
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope('notThisAction')
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $modifier2 = new Modifier($daedalus, $modifierConfig2);
 
-        $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::ACTION_POINT, null);
+        $modifiedCost = $this->service->getActionModifiedValue($action, $player, PlayerVariableEnum::ACTION_POINT, null);
 
         $this->assertEquals(1, $modifiedCost);
 
@@ -203,13 +204,13 @@ class ModifierServiceTest extends TestCase
         $modifierConfig3
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope('action')
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $modifier3 = new Modifier($daedalus, $modifierConfig3);
 
-        $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::ACTION_POINT, null);
+        $modifiedCost = $this->service->getActionModifiedValue($action, $player, PlayerVariableEnum::ACTION_POINT, null);
 
         $this->assertEquals(2, $modifiedCost);
 
@@ -218,13 +219,13 @@ class ModifierServiceTest extends TestCase
         $modifierConfig4
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope('type1')
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $modifier4 = new Modifier($daedalus, $modifierConfig4);
 
-        $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::ACTION_POINT, null);
+        $modifiedCost = $this->service->getActionModifiedValue($action, $player, PlayerVariableEnum::ACTION_POINT, null);
 
         $this->assertEquals(4, $modifiedCost);
     }
@@ -252,7 +253,7 @@ class ModifierServiceTest extends TestCase
         $modifierConfig1
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope('action')
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
@@ -263,7 +264,7 @@ class ModifierServiceTest extends TestCase
         $modifierConfig2
             ->setReach(ModifierReachEnum::PLACE)
             ->setScope('action')
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(3)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
@@ -274,7 +275,7 @@ class ModifierServiceTest extends TestCase
         $modifierConfig3
             ->setReach(ModifierReachEnum::PLAYER)
             ->setScope('action')
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(5)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
@@ -285,13 +286,13 @@ class ModifierServiceTest extends TestCase
         $modifierConfig4
             ->setReach(ModifierReachEnum::EQUIPMENT)
             ->setScope('action')
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(7)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $modifier4 = new Modifier($gameEquipment, $modifierConfig4);
 
-        $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::ACTION_POINT, $gameEquipment);
+        $modifiedCost = $this->service->getActionModifiedValue($action, $player, PlayerVariableEnum::ACTION_POINT, $gameEquipment);
 
         $this->assertEquals(18, $modifiedCost);
     }
@@ -318,13 +319,13 @@ class ModifierServiceTest extends TestCase
         $modifierConfig1
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope('action')
-            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
-        $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::MOVEMENT_POINT, null);
+        $modifiedCost = $this->service->getActionModifiedValue($action, $player, PlayerVariableEnum::MOVEMENT_POINT, null);
 
         $this->assertEquals(0, $modifiedCost);
 
@@ -340,13 +341,13 @@ class ModifierServiceTest extends TestCase
         $modifierConfig1
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope('action')
-            ->setTarget(ModifierTargetEnum::MORAL_POINT)
+            ->setTarget(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
-        $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::MORAL_POINT, null);
+        $modifiedCost = $this->service->getActionModifiedValue($action, $player, PlayerVariableEnum::MORAL_POINT, null);
 
         $this->assertEquals(1, $modifiedCost);
 
@@ -453,13 +454,13 @@ class ModifierServiceTest extends TestCase
         $modifierConfig1
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope('action')
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(5)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
-        $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::ACTION_POINT, null, null);
+        $modifiedCost = $this->service->getActionModifiedValue($action, $player, PlayerVariableEnum::ACTION_POINT, null, null);
 
         $this->assertEquals(0, $modifiedCost);
     }
@@ -489,7 +490,7 @@ class ModifierServiceTest extends TestCase
         $modifierConfig1
             ->setReach(ModifierReachEnum::PLAYER)
             ->setScope('action')
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
@@ -509,20 +510,20 @@ class ModifierServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus)->setPlace($room);
 
-        $modifiedValue = $this->service->getEventModifiedValue($player, [ModifierScopeEnum::MAX_POINT], ModifierTargetEnum::MOVEMENT_POINT, 12);
+        $modifiedValue = $this->service->getEventModifiedValue($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::MOVEMENT_POINT, 12);
         $this->assertEquals(12, $modifiedValue);
 
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope(ModifierScopeEnum::MAX_POINT)
-            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-6)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
-        $modifiedValue = $this->service->getEventModifiedValue($player, [ModifierScopeEnum::MAX_POINT], ModifierTargetEnum::MOVEMENT_POINT, 12);
+        $modifiedValue = $this->service->getEventModifiedValue($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::MOVEMENT_POINT, 12);
         $this->assertEquals(6, $modifiedValue);
 
         //add a modifier with a charge
@@ -533,7 +534,7 @@ class ModifierServiceTest extends TestCase
         $modifierConfig2
             ->setReach(ModifierReachEnum::PLAYER)
             ->setScope(ModifierScopeEnum::MAX_POINT)
-            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(2)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
         ;
@@ -542,7 +543,7 @@ class ModifierServiceTest extends TestCase
 
         $this->statusService->shouldReceive('updateCharge')->with($status, -1)->once();
 
-        $modifiedValue = $this->service->getEventModifiedValue($player, [ModifierScopeEnum::MAX_POINT], ModifierTargetEnum::MOVEMENT_POINT, 12);
+        $modifiedValue = $this->service->getEventModifiedValue($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::MOVEMENT_POINT, 12);
         $this->assertEquals(18, $modifiedValue);
     }
 }

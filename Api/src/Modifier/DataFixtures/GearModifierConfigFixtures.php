@@ -15,6 +15,7 @@ use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
 
 class GearModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -51,7 +52,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $armorModifier = new ModifierConfig();
         $armorModifier
             ->setScope(ModifierScopeEnum::INJURY)
-            ->setTarget(ModifierTargetEnum::HEALTH_POINT)
+            ->setTarget(PlayerVariableEnum::HEALTH_POINT)
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::TARGET_PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
@@ -84,7 +85,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $soapModifier = new ModifierConfig();
         $soapModifier
             ->setScope(ActionEnum::SHOWER)
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
@@ -106,7 +107,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $antiGravScooterModifier = new ModifierConfig();
         $antiGravScooterModifier
             ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
-            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
@@ -139,7 +140,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $antennaModifier = new ModifierConfig();
         $antennaModifier
             ->setScope('TODO comms. action')
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
@@ -150,7 +151,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $gravityConversionModifier = new ModifierConfig();
         $gravityConversionModifier
             ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
-            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
@@ -161,7 +162,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $gravityCycleModifier = new ModifierConfig();
         $gravityCycleModifier
             ->setScope(ModifierScopeEnum::CYCLE_CHANGE)
-            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)

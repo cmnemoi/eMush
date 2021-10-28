@@ -19,10 +19,10 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierReachEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\DoorEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -81,7 +81,7 @@ class CreateDaedalusCest
             ->setGameConfig($gameConfig)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope(ActionEnum::MOVE)
-            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
         ;
         $I->haveInRepository($gravityModifier);
         $gear = new Gear();

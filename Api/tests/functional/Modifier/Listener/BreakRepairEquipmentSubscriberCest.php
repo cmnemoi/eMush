@@ -17,10 +17,10 @@ use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -65,7 +65,7 @@ class BreakRepairEquipmentSubscriberCest
         $modifierConfig = new ModifierConfig();
         $modifierConfig
             ->setScope(ActionEnum::SHOWER)
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)

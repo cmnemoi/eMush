@@ -25,10 +25,10 @@ use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
@@ -181,7 +181,7 @@ class ConsumeChargeOnActionCest
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setTarget(ModifierTargetEnum::ACTION_POINT)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setScope(ActionEnum::COFFEE)
             ->setReach(ReachEnum::INVENTORY)
@@ -293,7 +293,7 @@ class ConsumeChargeOnActionCest
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setTarget(ModifierTargetEnum::MOVEMENT_POINT)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
             ->setReach(ReachEnum::INVENTORY)

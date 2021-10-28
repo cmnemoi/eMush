@@ -33,7 +33,7 @@
 
         <unit id="broken_equipments">
             <segment id="name">
-                <source>broken_equipments.name.single</source>
+                <source>broken_equipments.name</source>
                 <target>{quantity, plural, one {# Equipement hors-service} other {# Equipements hors-service}}</target>
             </segment>
             <segment id="description">

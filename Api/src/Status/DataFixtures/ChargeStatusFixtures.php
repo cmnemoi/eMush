@@ -49,8 +49,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
-            ->setMaxCharge(0)
-            ->setStartCharge(4)
+            ->setMaxCharge(4)
+            ->setStartCharge(1)
             ->setDischargeStrategy(ActionEnum::EXPRESS_COOK)
             ->setGameConfig($gameConfig)
         ;
@@ -182,6 +182,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setName(PlayerStatusEnum::FIRST_TIME)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setStartCharge(1)
             ->setAutoRemove(true)
             ->setGameConfig($gameConfig)
         ;
@@ -229,6 +230,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
+            ->setStartCharge(2)
             ->setAutoRemove(true)
             ->setGameConfig($gameConfig)
         ;

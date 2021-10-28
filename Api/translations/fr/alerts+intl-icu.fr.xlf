@@ -4,7 +4,7 @@
         <unit id="broken_doors">
             <segment id="name">
                 <source>broken_doors.name</source>
-                <target>{quantity, plural,  one {# Porte cassée} other {# Portes cassées}}</target>
+                <target>{quantity, plural, one {# Porte cassée} other {# Portes cassées}}</target>
             </segment>
             <segment id="description">
                 <source>broken_doors.description</source>

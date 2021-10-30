@@ -10,6 +10,7 @@ use Mush\Action\Validator\ChargedValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -45,11 +46,11 @@ class ChargedValidatorTest extends TestCase
         $target = new GameItem();
         $target->setEquipment($itemConfig);
 
-        $chargeStatus = new ChargeStatus($target, PlayerStatusEnum::EUREKA_MOMENT);
-        $chargeStatus
-            ->setCharge(1)
-            ->setDischargeStrategy(ActionEnum::EXPRESS_COOK)
-        ;
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig->setName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategy(ActionEnum::EXPRESS_COOK);
+        $chargeStatus = new ChargeStatus($target, $statusConfig);
+
+        $chargeStatus->setCharge(1);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -89,10 +90,11 @@ class ChargedValidatorTest extends TestCase
             ])
         ;
 
-        $chargeStatus = new ChargeStatus($target, PlayerStatusEnum::EUREKA_MOMENT);
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig->setName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategy(ActionEnum::EXPRESS_COOK);
+        $chargeStatus = new ChargeStatus($target, $statusConfig);
         $chargeStatus
             ->setCharge(0)
-            ->setDischargeStrategy(ActionEnum::EXPRESS_COOK)
         ;
 
         $this->initValidator($this->constraint->message);

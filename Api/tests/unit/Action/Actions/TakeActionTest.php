@@ -12,8 +12,6 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\EquipmentStatusEnum;
 
 class TakeActionTest extends AbstractActionTest
 {
@@ -86,8 +84,6 @@ class TakeActionTest extends AbstractActionTest
             ->setName('itemName')
             ->setHolder($room)
         ;
-
-        $heavy = new Status($gameItem, EquipmentStatusEnum::HEAVY);
 
         $gameConfig = new GameConfig();
         $gameConfig->setMaxItemInInventory(3);

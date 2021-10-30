@@ -19,8 +19,10 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
@@ -43,14 +45,18 @@ class CycleEventCest
         $time = new DateTime();
         $player = $I->have(Player::class);
 
-        $status = new ChargeStatus($player, 'charged');
-
-        $status
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::FROZEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setThreshold(1)
-            ->setCharge(0)
+            ->setMaxCharge(1)
             ->setAutoRemove(true)
-            ->setStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+        ;
+        $I->haveInRepository($statusConfig);
+        $status = new ChargeStatus($player, $statusConfig);
+        $status
+            ->setCharge(0)
         ;
 
         $I->haveInRepository($status);
@@ -78,17 +84,14 @@ class CycleEventCest
 
         $time = new DateTime();
 
-        $status = new Status($player, PlayerStatusEnum::LYING_DOWN);
-
-        $status
-            ->setVisibility(VisibilityEnum::PUBLIC)
-        ;
-
-        $player->addStatus($status);
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(PlayerStatusEnum::LYING_DOWN);
+        $I->haveInRepository($statusConfig);
+        $status = new Status($player, $statusConfig);
+        $I->haveInRepository($status);
 
         $cycleEvent = new StatusCycleEvent($status, $player, EventEnum::NEW_CYCLE, $time);
 
-        $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus);
 
         $this->cycleSubscriber->onNewCycle($cycleEvent);
@@ -162,18 +165,17 @@ class CycleEventCest
 
         $time = new DateTime();
 
-        $status = new ChargeStatus($room, StatusEnum::FIRE);
-
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig->setName(StatusEnum::FIRE);
+        $I->haveInRepository($statusConfig);
+        $status = new ChargeStatus($room, $statusConfig);
         $status
-            ->setVisibility(VisibilityEnum::PUBLIC)
             ->setCharge(1)
         ;
-
-        $room->addStatus($status);
+        $I->haveInRepository($status);
 
         $cycleEvent = new StatusCycleEvent($status, $room, EventEnum::NEW_CYCLE, $time);
 
-        $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus);
 
         $this->cycleSubscriber->onNewCycle($cycleEvent);

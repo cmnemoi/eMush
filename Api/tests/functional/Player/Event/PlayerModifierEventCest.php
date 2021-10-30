@@ -13,8 +13,9 @@ use Mush\Player\Event\PlayerModifierEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -203,10 +204,11 @@ class PlayerModifierEventCest
         ;
         $I->haveInRepository($fullStatusConfig);
 
-        $mushStatus = new Status($player, PlayerStatusEnum::MUSH);
-        $mushStatus
-            ->setVisibility(VisibilityEnum::MUSH)
-        ;
+        $mushConfig = new ChargeStatusConfig();
+        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $I->haveInRepository($mushConfig);
+        $mushStatus = new ChargeStatus($player, $mushConfig);
+        $I->haveInRepository($mushStatus);
 
         $playerEvent = new PlayerModifierEvent($player, -1, EventEnum::NEW_CYCLE, new \DateTime());
         $this->eventDispatcherService->dispatch($playerEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);

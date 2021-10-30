@@ -21,6 +21,7 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -77,13 +78,19 @@ class PlantCycleEventCest
 
         $I->haveInRepository($gameEquipment);
 
-        $youngStatus = new ChargeStatus($gameEquipment, EquipmentStatusEnum::PLANT_YOUNG);
-        $youngStatus
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::PLANT_YOUNG)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setCharge(6)
-            ->setStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
-            ->setThreshold(8)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
+            ->setMaxCharge(8)
         ;
+        $I->haveInRepository($statusConfig);
+        $youngStatus = new ChargeStatus($gameEquipment, $statusConfig);
+        $youngStatus
+            ->setCharge(6)
+        ;
+        $I->haveInRepository($youngStatus);
 
         $time = new DateTime();
 
@@ -174,13 +181,19 @@ class PlantCycleEventCest
 
         $I->haveInRepository($gameEquipment);
 
-        $youngStatus = new ChargeStatus($gameEquipment, EquipmentStatusEnum::PLANT_YOUNG);
-        $youngStatus
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::PLANT_YOUNG)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setCharge(6)
-            ->setStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
-            ->setThreshold(8)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
+            ->setMaxCharge(8)
         ;
+        $I->haveInRepository($statusConfig);
+        $youngStatus = new ChargeStatus($gameEquipment, $statusConfig);
+        $youngStatus
+            ->setCharge(6)
+        ;
+        $I->haveInRepository($youngStatus);
 
         //Plant is young : no fruit or oxygen
         $time = new DateTime();
@@ -195,10 +208,14 @@ class PlantCycleEventCest
         $I->assertEquals(10, $daedalus->getOxygen());
 
         //Plant is diseased
-        $diseasedStatus = new Status($gameEquipment, EquipmentStatusEnum::PLANT_DISEASED);
-        $diseasedStatus
+        $diseasedConfig = new StatusConfig();
+        $diseasedConfig
+            ->setName(EquipmentStatusEnum::PLANT_DISEASED)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
+        $I->haveInRepository($diseasedConfig);
+        $diseasedStatus = new Status($gameEquipment, $diseasedConfig);
+        $I->haveInRepository($diseasedStatus);
 
         $gameEquipment->removeStatus($youngStatus);
 
@@ -248,10 +265,14 @@ class PlantCycleEventCest
 
         $daedalus->setCycle(8);
 
-        $driedOutStatus = new Status($gameEquipment2, EquipmentStatusEnum::PLANT_DRY);
-        $driedOutStatus
+        $dryConfig = new StatusConfig();
+        $dryConfig
+            ->setName(EquipmentStatusEnum::PLANT_DRY)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
+        $I->haveInRepository($dryConfig);
+        $driedOutStatus = new Status($gameEquipment2, $dryConfig);
+        $I->haveInRepository($driedOutStatus);
 
         $time = new DateTime();
         $cycleEvent = new EquipmentCycleEvent($gameEquipment2, $daedalus, EventEnum::PLANT_PRODUCTION, $time);

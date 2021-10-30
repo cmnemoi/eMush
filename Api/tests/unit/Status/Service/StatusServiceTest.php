@@ -74,7 +74,7 @@ class StatusServiceTest extends TestCase
     public function testPersist()
     {
         $gameEquipment = new GameItem();
-        $status = new Status($gameEquipment, EquipmentStatusEnum::ELECTRIC_CHARGES);
+        $status = new Status($gameEquipment, new StatusConfig());
 
         $this->entityManager->shouldReceive('persist')->with($status)->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -84,7 +84,7 @@ class StatusServiceTest extends TestCase
     public function testRemove()
     {
         $gameEquipment = new GameItem();
-        $status = new Status($gameEquipment, EquipmentStatusEnum::ELECTRIC_CHARGES);
+        $status = new Status($gameEquipment, new StatusConfig());
 
         $this->entityManager->shouldReceive('remove')->with($status)->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -103,15 +103,18 @@ class StatusServiceTest extends TestCase
         $item3 = new GameItem();
         $item3->setHolder($room)->setName('item 3');
 
-        $hidden1 = new Status($item1, EquipmentStatusEnum::HIDDEN);
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(EquipmentStatusEnum::HIDDEN);
+
+        $hidden1 = new Status($item1, $statusConfig);
         $hidden1
             ->setCreatedAt(new DateTime());
 
-        $hidden2 = new Status($item3, EquipmentStatusEnum::HIDDEN);
+        $hidden2 = new Status($item3, $statusConfig);
         $hidden2
             ->setCreatedAt(new DateTime());
 
-        $hidden3 = new Status($item2, EquipmentStatusEnum::HIDDEN);
+        $hidden3 = new Status($item2, $statusConfig);
         $hidden3
             ->setCreatedAt(new DateTime());
 
@@ -123,11 +126,14 @@ class StatusServiceTest extends TestCase
     public function testChangeCharge()
     {
         $gameEquipment = new GameItem();
-        $chargeStatus = new ChargeStatus($gameEquipment, EquipmentStatusEnum::HIDDEN);
+        $chargeStatusConfig = new ChargeStatusConfig();
+        $chargeStatusConfig
+            ->setMaxCharge(6)
+        ;
+        $chargeStatus = new ChargeStatus($gameEquipment, $chargeStatusConfig);
 
         $chargeStatus
             ->setCharge(4)
-            ->setThreshold(6)
         ;
 
         $this->entityManager->shouldReceive('persist')->once();
@@ -148,7 +154,7 @@ class StatusServiceTest extends TestCase
 
         $this->assertEquals(6, $chargeStatus->getCharge());
 
-        $chargeStatus->setAutoRemove(true);
+        $chargeStatusConfig->setAutoRemove(true);
 
         $this->entityManager->shouldReceive('remove')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -209,9 +215,21 @@ class StatusServiceTest extends TestCase
 
     public function testCreateAttemptStatus()
     {
+        $daedalus = new Daedalus();
         $player = new Player();
+        $player->setDaedalus($daedalus);
+
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig->setName(StatusEnum::ATTEMPT);
+
         $actionResult = new Fail();
 
+        $this->configRepository
+            ->shouldReceive('findByNameAndDaedalus')
+            ->with(StatusEnum::ATTEMPT, $daedalus)
+            ->once()
+            ->andReturn($attemptConfig)
+        ;
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
         $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE, $actionResult);
@@ -226,7 +244,10 @@ class StatusServiceTest extends TestCase
     {
         $player = new Player();
         $actionResult = new Fail();
-        $attempt = new Attempt($player, StatusEnum::ATTEMPT);
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig->setName(StatusEnum::ATTEMPT);
+
+        $attempt = new Attempt($player, $attemptConfig);
         $attempt
             ->setAction(ActionEnum::DISASSEMBLE)
             ->setCharge(3)
@@ -247,7 +268,10 @@ class StatusServiceTest extends TestCase
     {
         $player = new Player();
         $actionResult = new Fail();
-        $attempt = new Attempt($player, StatusEnum::ATTEMPT);
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig->setName(StatusEnum::ATTEMPT);
+
+        $attempt = new Attempt($player, $attemptConfig);
         $attempt
             ->setAction(ActionEnum::DISASSEMBLE)
             ->setCharge(3)
@@ -267,8 +291,12 @@ class StatusServiceTest extends TestCase
     public function testHandleAttemptStatusSuccess()
     {
         $player = new Player();
+
         $actionResult = new Success();
-        $attempt = new Attempt($player, StatusEnum::ATTEMPT);
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig->setName(StatusEnum::ATTEMPT);
+
+        $attempt = new Attempt($player, $attemptConfig);
         $attempt
             ->setAction(ActionEnum::DISASSEMBLE)
             ->setCharge(3)

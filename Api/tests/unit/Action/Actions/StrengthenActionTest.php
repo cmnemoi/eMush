@@ -13,7 +13,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Attempt;
-use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 
 class StrengthenActionTest extends AbstractActionTest
 {
@@ -63,7 +63,7 @@ class StrengthenActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $attempt = new Attempt($player, StatusEnum::ATTEMPT);
+        $attempt = new Attempt($player, new ChargeStatusConfig());
         $attempt
             ->setAction($this->action->getActionName())
         ;
@@ -96,7 +96,7 @@ class StrengthenActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $attempt = new Attempt($player, StatusEnum::ATTEMPT);
+        $attempt = new Attempt($player, new ChargeStatusConfig());
         $attempt
             ->setAction($this->action->getActionName())
         ;

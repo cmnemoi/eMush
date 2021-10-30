@@ -13,7 +13,7 @@ use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Place\Entity\Place;
-use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
@@ -59,7 +59,9 @@ class ExpressCookActionTest extends AbstractActionTest
             ->setName('ration')
         ;
 
-        $frozenStatus = new Status($gameRation, EquipmentStatusEnum::FROZEN);
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(EquipmentStatusEnum::FROZEN);
+        $frozenStatus = new Status($gameRation, $statusConfig);
 
         $gameMicrowave = new GameItem();
         $microwave = new ItemConfig();
@@ -68,11 +70,6 @@ class ExpressCookActionTest extends AbstractActionTest
             ->setEquipment($microwave)
             ->setName(ToolItemEnum::MICROWAVE)
             ->setHolder($room)
-        ;
-
-        $chargeStatus = new ChargeStatus($gameMicrowave, EquipmentStatusEnum::ELECTRIC_CHARGES);
-        $chargeStatus
-            ->setCharge(3)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
@@ -85,9 +82,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(1, $player->getEquipments());
-        $this->assertCount(1, $room->getEquipments()->first()->getStatuses());
         $this->assertEquals($gameRation->getName(), $player->getEquipments()->first()->getName());
-        $this->assertCount(0, $player->getStatuses());
         $this->assertEquals(10, $player->getActionPoint());
     }
 
@@ -115,11 +110,6 @@ class ExpressCookActionTest extends AbstractActionTest
             ->setHolder($room)
         ;
 
-        $chargeStatus = new ChargeStatus($gameMicrowave, EquipmentStatusEnum::ELECTRIC_CHARGES);
-        $chargeStatus
-            ->setCharge(3)
-        ;
-
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
@@ -140,8 +130,5 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(2, $room->getEquipments());
-        $this->assertCount(1, $gameMicrowave->getStatuses());
-        $this->assertCount(0, $player->getStatuses());
-        $this->assertEquals(10, $player->getActionPoint());
     }
 }

@@ -14,6 +14,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
@@ -150,7 +151,9 @@ class IsReportedValidatorTest extends TestCase
         $room->setDaedalus($daedalus);
 
         $gameEquipment = new GameEquipment();
-        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
+        $brokenConfig = new StatusConfig();
+        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, $brokenConfig);
 
         $alertElement = new AlertElement();
         $alertElement->setEquipment($gameEquipment);
@@ -197,7 +200,9 @@ class IsReportedValidatorTest extends TestCase
         $room->setDaedalus($daedalus);
 
         $gameEquipment = new GameEquipment();
-        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
+        $brokenConfig = new StatusConfig();
+        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, $brokenConfig);
 
         $alertElement = new AlertElement();
         $alertElement->setEquipment($gameEquipment)->setPlace($room)->setPlayer($player);

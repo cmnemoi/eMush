@@ -21,6 +21,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -166,8 +167,14 @@ class TakeSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::HAZARDOUS);
         $I->haveInRepository($statusConfig);
 
-        $status = new ChargeStatus($gameEquipment, EquipmentStatusEnum::HAZARDOUS);
-        $status->setDischargeStrategy(ActionEnum::SHOWER);
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::HAZARDOUS)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setDischargeStrategy(ActionEnum::SHOWER);
+
+        $I->haveInRepository($statusConfig);
+        $status = new ChargeStatus($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
         $this->takeAction->loadParameters($takeActionEntity, $player, $gameEquipment);
@@ -243,8 +250,14 @@ class TakeSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::HAZARDOUS);
         $I->haveInRepository($statusConfig);
 
-        $status = new ChargeStatus($gameEquipment, EquipmentStatusEnum::HAZARDOUS);
-        $status->setDischargeStrategy(ActionEnum::REPAIR);
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(ActionEnum::REPAIR)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setDischargeStrategy(ActionEnum::SHOWER);
+
+        $I->haveInRepository($statusConfig);
+        $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
         $this->takeAction->loadParameters($takeActionEntity, $player, $gameEquipment);
@@ -320,7 +333,13 @@ class TakeSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($statusConfig);
 
-        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+        ;
+        $I->haveInRepository($statusConfig);
+        $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
         $this->takeAction->loadParameters($takeActionEntity, $player, $gameEquipment);
@@ -394,7 +413,13 @@ class TakeSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($statusConfig);
 
-        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+        ;
+        $I->haveInRepository($statusConfig);
+        $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
         $this->takeAction->loadParameters($takeActionEntity, $player, $gameEquipment);

@@ -18,6 +18,7 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -199,7 +200,9 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->randomService->shouldReceive('random')->andReturn(1)->once();
 
         $equipment = new GameEquipment();
-        $brokenStatus = new Status($equipment, EquipmentStatusEnum::BROKEN);
+        $brokenConfig = new StatusConfig();
+        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $brokenStatus = new Status($equipment, $brokenConfig);
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByCriteria')
@@ -306,7 +309,10 @@ class DaedalusIncidentServiceTest extends TestCase
         $player->setGameStatus(GameStatusEnum::CURRENT);
         $mushPlayer = new Player();
         $mushPlayer->setGameStatus(GameStatusEnum::CURRENT);
-        $mush = new Status($mushPlayer, PlayerStatusEnum::MUSH);
+
+        $mushConfig = new StatusConfig();
+        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mush = new Status($mushPlayer, $mushConfig);
         $daedalus->addPlayer($mushPlayer);
         $daedalus->addPlayer($player);
 

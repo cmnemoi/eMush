@@ -16,8 +16,6 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\EquipmentStatusEnum;
 
 class DispenseActionTest extends AbstractActionTest
 {
@@ -64,10 +62,6 @@ class DispenseActionTest extends AbstractActionTest
             ->setHolder($room);
 
         $distillerMachine->setActions(new ArrayCollection([$this->actionEntity]));
-
-        $chargeStatus = new ChargeStatus($gameDistillerMachine, EquipmentStatusEnum::ELECTRIC_CHARGES);
-        $chargeStatus
-            ->setCharge(1);
 
         $daedalus = new Daedalus();
 

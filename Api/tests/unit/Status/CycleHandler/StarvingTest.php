@@ -6,6 +6,7 @@ use Mockery;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\CycleHandler\Starving;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
@@ -45,7 +46,9 @@ class StarvingTest extends TestCase
             ->setPlace($room)
         ;
 
-        $status = new Status($player, PlayerStatusEnum::STARVING);
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(PlayerStatusEnum::STARVING);
+        $status = new Status($player, $statusConfig);
 
         $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->cycleHandler->handleNewCycle($status, $player, new \DateTime());

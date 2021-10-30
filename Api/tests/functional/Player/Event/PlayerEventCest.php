@@ -107,11 +107,14 @@ class PlayerEventCest
         ;
         $I->haveInRepository($mushStatusConfig);
 
-        $mushStatus = new ChargeStatus($player, PlayerStatusEnum::SPORES);
-        $mushStatus
-            ->setVisibility(VisibilityEnum::MUSH)
+        $sporeConfig = new ChargeStatusConfig();
+        $sporeConfig->setName(PlayerStatusEnum::SPORES)->setVisibility(VisibilityEnum::MUSH);
+        $I->haveInRepository($sporeConfig);
+        $sporeStatus = new ChargeStatus($player, $sporeConfig);
+        $sporeStatus
             ->setCharge(0)
         ;
+        $I->haveInRepository($sporeStatus);
 
         $playerEvent = new PlayerEvent($player, ActionEnum::INFECT, new \DateTime());
 

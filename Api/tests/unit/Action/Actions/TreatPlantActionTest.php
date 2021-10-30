@@ -14,8 +14,6 @@ use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 class TreatPlantActionTest extends AbstractActionTest
@@ -70,8 +68,6 @@ class TreatPlantActionTest extends AbstractActionTest
         $plant = new Plant();
         $plant->addAction($this->actionEntity);
         $item->setMechanics(new ArrayCollection([$plant]));
-
-        $diseased = new Status($gameItem, EquipmentStatusEnum::PLANT_DISEASED);
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

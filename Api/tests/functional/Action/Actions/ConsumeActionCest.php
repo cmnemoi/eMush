@@ -142,10 +142,15 @@ class ConsumeActionCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $mushStatus = new Status($player, PlayerStatusEnum::MUSH);
-        $mushStatus
-            ->setVisibility(VisibilityEnum::MUSH)
+        $mushConfig = new StatusConfig();
+        $mushConfig
+            ->setName(PlayerStatusEnum::MUSH)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setGameConfig($gameConfig)
         ;
+        $I->haveInRepository($mushConfig);
+        $mushStatus = new Status($player, $mushConfig);
+        $I->haveInRepository($mushStatus);
 
         $actionCost = new ActionCost();
         $I->haveInRepository($actionCost);

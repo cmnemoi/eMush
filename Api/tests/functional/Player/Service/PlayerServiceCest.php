@@ -15,6 +15,8 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerService;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -38,7 +40,11 @@ class PlayerServiceCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
 
-        $status = new Status($player, PlayerStatusEnum::FULL_STOMACH);
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(PlayerStatusEnum::FULL_STOMACH);
+        $I->haveInRepository($statusConfig);
+        $status = new Status($player, $statusConfig);
+        $I->haveInRepository($status);
 
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
@@ -65,8 +71,17 @@ class PlayerServiceCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
 
-        new ChargeStatus($player, PlayerStatusEnum::MUSH);
-        new Status($player, PlayerStatusEnum::FULL_STOMACH);
+        $mushConfig = new ChargeStatusConfig();
+        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $I->haveInRepository($mushConfig);
+        $mushStatus = new ChargeStatus($player, $mushConfig);
+        $I->haveInRepository($mushStatus);
+
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(PlayerStatusEnum::FULL_STOMACH);
+        $I->haveInRepository($statusConfig);
+        $status = new Status($player, $statusConfig);
+        $I->haveInRepository($status);
 
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
@@ -100,7 +115,12 @@ class PlayerServiceCest
 
         /** @var Player $mushPlayer */
         $mushPlayer = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus, 'characterConfig' => $characterConfig]);
-        $status = new ChargeStatus($mushPlayer, PlayerStatusEnum::MUSH);
+
+        $mushConfig = new ChargeStatusConfig();
+        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $I->haveInRepository($mushConfig);
+        $mushStatus = new ChargeStatus($mushPlayer, $mushConfig);
+        $I->haveInRepository($mushStatus);
 
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 

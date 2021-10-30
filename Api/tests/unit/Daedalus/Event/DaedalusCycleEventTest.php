@@ -12,6 +12,7 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
@@ -64,7 +65,9 @@ class DaedalusCycleEventTest extends TestCase
         $player->setGameStatus(GameStatusEnum::CURRENT);
         $player->setDaedalus($daedalus);
 
-        $mush = new Status($player, PlayerStatusEnum::MUSH);
+        $mushConfig = new StatusConfig();
+        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mush = new Status($player, $mushConfig);
 
         $date = new \DateTime('tomorrow');
 

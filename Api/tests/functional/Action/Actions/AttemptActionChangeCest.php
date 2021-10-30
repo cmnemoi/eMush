@@ -18,6 +18,8 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
@@ -88,10 +90,23 @@ class AttemptActionChangeCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
-        $status
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setName(StatusEnum::ATTEMPT)
+            ->setGameConfig($gameConfig)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+        ;
+        $I->haveInRepository($attemptConfig);
+
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setGameConfig($gameConfig)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
+        $I->haveInRepository($statusConfig);
+
+        $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
         $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
@@ -178,10 +193,23 @@ class AttemptActionChangeCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
-        $status
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setName(StatusEnum::ATTEMPT)
+            ->setGameConfig($gameConfig)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+        ;
+        $I->haveInRepository($attemptConfig);
+
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setGameConfig($gameConfig)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
+        $I->haveInRepository($statusConfig);
+
+        $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
         $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);

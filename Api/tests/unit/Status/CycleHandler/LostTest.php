@@ -6,6 +6,7 @@ use Mockery;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\CycleHandler\Lost;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
@@ -45,7 +46,9 @@ class LostTest extends TestCase
             ->setPlace($room)
         ;
 
-        $status = new Status($player, PlayerStatusEnum::LOST);
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(PlayerStatusEnum::LOST);
+        $status = new Status($player, $statusConfig);
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')

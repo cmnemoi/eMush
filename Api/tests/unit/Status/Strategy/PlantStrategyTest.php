@@ -8,8 +8,8 @@ use Mush\Player\Entity\Player;
 use Mush\Status\ChargeStrategies\AbstractChargeStrategy;
 use Mush\Status\ChargeStrategies\PlantStrategy;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -48,11 +48,14 @@ class PlantStrategyTest extends TestCase
 
     private function createStatus(): ChargeStatus
     {
-        $status = new ChargeStatus(new Player(), EquipmentStatusEnum::PLANT_YOUNG);
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
+            ->setMaxCharge(10)
+        ;
+        $status = new ChargeStatus(new Player(), $statusConfig);
         $status
             ->setCharge(0)
-            ->setThreshold(10)
-            ->setStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
         ;
 
         return $status;

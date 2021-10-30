@@ -29,7 +29,9 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
 class ConsumeChargeOnActionCest
@@ -103,9 +105,15 @@ class ConsumeChargeOnActionCest
         $room->addEquipment($gameEquipment);
         $I->refreshEntities($room);
 
-        $chargeStatus = new ChargeStatus($gameEquipment, EquipmentStatusEnum::ELECTRIC_CHARGES);
-        $chargeStatus
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setVisibility(VisibilityEnum::PUBLIC)
             ->setDischargeStrategy(ActionEnum::COFFEE)
+        ;
+        $I->haveInRepository($statusConfig);
+        $chargeStatus = new ChargeStatus($gameEquipment, $statusConfig);
+        $chargeStatus
             ->setCharge(2)
         ;
         $I->haveInRepository($chargeStatus);
@@ -208,9 +216,15 @@ class ConsumeChargeOnActionCest
         $player->addEquipment($gameGear);
         $I->refreshEntities($player);
 
-        $chargeStatus = new ChargeStatus($gameGear, EquipmentStatusEnum::ELECTRIC_CHARGES);
-        $chargeStatus
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setVisibility(VisibilityEnum::PUBLIC)
             ->setDischargeStrategy(ActionEnum::COFFEE)
+        ;
+        $I->haveInRepository($statusConfig);
+        $chargeStatus = new ChargeStatus($gameGear, $statusConfig);
+        $chargeStatus
             ->setCharge(1)
         ;
         $I->haveInRepository($chargeStatus);
@@ -320,9 +334,15 @@ class ConsumeChargeOnActionCest
         $player->addEquipment($gameGear);
         $I->refreshEntities($player);
 
-        $chargeStatus = new ChargeStatus($gameGear, EquipmentStatusEnum::ELECTRIC_CHARGES);
-        $chargeStatus
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setVisibility(VisibilityEnum::PUBLIC)
             ->setDischargeStrategy(ActionEnum::COFFEE)
+        ;
+        $I->haveInRepository($statusConfig);
+        $chargeStatus = new ChargeStatus($gameGear, $statusConfig);
+        $chargeStatus
             ->setCharge(1)
         ;
         $I->haveInRepository($chargeStatus);

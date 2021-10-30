@@ -18,6 +18,7 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -71,9 +72,14 @@ class ForceGetUpCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $lyingDownStatus = new Status($player, PlayerStatusEnum::LYING_DOWN);
-        $lyingDownStatus
-            ->setVisibility(VisibilityEnum::PUBLIC);
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(PlayerStatusEnum::LYING_DOWN)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+        ;
+        $I->haveInRepository($statusConfig);
+        $lyingDownStatus = new Status($player, $statusConfig);
+        $I->haveInRepository($lyingDownStatus);
 
         $this->hitAction->loadParameters($action, $player2, $player);
 

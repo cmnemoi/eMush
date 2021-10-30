@@ -9,6 +9,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -53,11 +54,16 @@ class ExtractSporeActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $mushStatus = new ChargeStatus($player, PlayerStatusEnum::MUSH);
+        $mushConfig = new ChargeStatusConfig();
+        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mushStatus = new ChargeStatus($player, $mushConfig);
         $mushStatus
-            ->setCharge(0)
+            ->setCharge(1)
         ;
-        $sporeStatus = new ChargeStatus($player, PlayerStatusEnum::SPORES);
+
+        $sporeConfig = new ChargeStatusConfig();
+        $sporeConfig->setName(PlayerStatusEnum::SPORES);
+        $sporeStatus = new ChargeStatus($player, $sporeConfig);
         $sporeStatus
             ->setCharge(1)
         ;

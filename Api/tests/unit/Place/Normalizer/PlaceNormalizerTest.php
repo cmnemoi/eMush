@@ -11,6 +11,7 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Normalizer\PlaceNormalizer;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
@@ -187,7 +188,9 @@ class PlaceNormalizerTest extends TestCase
         $gameItem2 = $this->createGameItem('name', true);
         $gameItem3 = $this->createGameItem('name', true);
 
-        $status = new Status($gameItem3, EquipmentStatusEnum::FROZEN);
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(EquipmentStatusEnum::FROZEN);
+        $status = new Status($gameItem3, $statusConfig);
 
         $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 

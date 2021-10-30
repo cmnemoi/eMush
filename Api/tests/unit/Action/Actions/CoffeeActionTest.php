@@ -15,8 +15,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Place\Entity\Place;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 class CoffeeActionTest extends AbstractActionTest
@@ -64,11 +62,6 @@ class CoffeeActionTest extends AbstractActionTest
         ;
 
         $coffeeMachine->setActions(new ArrayCollection([$this->actionEntity]));
-
-        $chargeStatus = new ChargeStatus($gameCoffeeMachine, EquipmentStatusEnum::ELECTRIC_CHARGES);
-        $chargeStatus
-            ->setCharge(1)
-        ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

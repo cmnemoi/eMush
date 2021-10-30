@@ -12,8 +12,6 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 class ShowerActionTest extends AbstractActionTest
@@ -65,8 +63,6 @@ class ShowerActionTest extends AbstractActionTest
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
         $player = $this->createPlayer(new Daedalus(), $room);
-
-        $dirty = new Status($player, PlayerStatusEnum::DIRTY);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

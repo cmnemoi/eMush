@@ -199,7 +199,10 @@ class TakeDropActionCest
         ;
         $I->haveInRepository($gameItem);
 
-        $heavyStatus = new Status($gameItem, EquipmentStatusEnum::HEAVY);
+        $heavyConfig = new StatusConfig();
+        $heavyConfig->setName(EquipmentStatusEnum::HEAVY)->setGameConfig($gameConfig);
+        $I->haveInRepository($heavyConfig);
+        $heavyStatus = new Status($gameItem, $heavyConfig);
         $I->haveInRepository($heavyStatus);
 
         // first let's test take action
@@ -295,7 +298,10 @@ class TakeDropActionCest
         ;
         $I->haveInRepository($gameItem);
 
-        $hiddenStatus = new Status($gameItem, EquipmentStatusEnum::HIDDEN);
+        $hiddenConfig = new StatusConfig();
+        $hiddenConfig->setName(EquipmentStatusEnum::HIDDEN)->setGameConfig($gameConfig);
+        $I->haveInRepository($hiddenConfig);
+        $hiddenStatus = new Status($gameItem, $hiddenConfig);
         $hiddenStatus->setTarget($player);
         $I->haveInRepository($hiddenStatus);
 
@@ -371,9 +377,16 @@ class TakeDropActionCest
         ;
         $I->haveInRepository($gameItem);
 
-        $burdenedStatus = new Status($player, PlayerStatusEnum::BURDENED);
+        $burdenedStatusConfig = new StatusConfig();
+        $burdenedStatusConfig->setName(PlayerStatusEnum::BURDENED)->setGameConfig($gameConfig);
+        $I->haveInRepository($burdenedStatusConfig);
+        $burdenedStatus = new Status($player, $burdenedStatusConfig);
         $I->haveInRepository($burdenedStatus);
-        $heavyStatus = new Status($gameItem, EquipmentStatusEnum::HEAVY);
+        $heavyConfig = new StatusConfig();
+
+        $heavyConfig->setName(EquipmentStatusEnum::HEAVY)->setGameConfig($gameConfig);
+        $I->haveInRepository($heavyConfig);
+        $heavyStatus = new Status($gameItem, $heavyConfig);
         $I->haveInRepository($heavyStatus);
 
         // Take action

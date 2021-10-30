@@ -58,8 +58,6 @@ class PlayerVariableServiceTest extends TestCase
         $this->playerService->shouldReceive('persist')->once();
         $this->service->handleSatietyModifier(4, $player);
 
-        $status = new Status($player, PlayerStatusEnum::FULL_STOMACH);
-
         $this->playerService->shouldReceive('persist')->once();
         $this->service->handleSatietyModifier(-1, $player);
 
@@ -74,15 +72,12 @@ class PlayerVariableServiceTest extends TestCase
     public function testMushSatietyModifier()
     {
         $player = new Player();
-        $mushStatus = new Status($player, PlayerStatusEnum::MUSH);
 
         $this->playerService->shouldReceive('persist')->once();
         $this->service->handleSatietyModifier(-1, $player);
 
         $this->playerService->shouldReceive('persist')->once();
         $this->service->handleSatietyModifier(1, $player);
-
-        $status = new Status($player, PlayerStatusEnum::FULL_STOMACH);
 
         $this->playerService->shouldReceive('persist')->once();
         $this->service->handleSatietyModifier(-1, $player);
@@ -119,8 +114,6 @@ class PlayerVariableServiceTest extends TestCase
 
         $this->assertEquals(3, $player->getMoralPoint());
 
-        $status = new Status($player, PlayerStatusEnum::DEMORALIZED);
-
         //go below 1 moral
         $this->playerService->shouldReceive('persist')->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')
@@ -131,8 +124,6 @@ class PlayerVariableServiceTest extends TestCase
         $this->service->handleMoralPointModifier(-2, $player);
 
         $this->assertEquals(1, $player->getMoralPoint());
-
-        $status = new Status($player, PlayerStatusEnum::SUICIDAL);
 
         //regain more moral than suicidal threshold
         $this->playerService->shouldReceive('persist')->once();
@@ -145,7 +136,7 @@ class PlayerVariableServiceTest extends TestCase
 
         $this->assertEquals(3, $player->getMoralPoint());
 
-        $status = new Status($player, PlayerStatusEnum::DEMORALIZED);
+        //$status = new Status($player, PlayerStatusEnum::DEMORALIZED);
 
         //gain more than morale threshold
         $this->playerService->shouldReceive('persist')->once();

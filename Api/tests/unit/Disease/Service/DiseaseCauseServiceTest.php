@@ -16,6 +16,7 @@ use Mush\Disease\Service\PlayerDiseaseService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
@@ -73,7 +74,9 @@ class DiseaseCauseServiceTest extends TestCase
 
         $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
 
-        $hazardous = new Status($gameEquipment, EquipmentStatusEnum::HAZARDOUS);
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(EquipmentStatusEnum::HAZARDOUS);
+        $hazardous = new Status($gameEquipment, $statusConfig);
 
         $this->randomService
             ->shouldReceive('isSuccessful')
@@ -113,7 +116,9 @@ class DiseaseCauseServiceTest extends TestCase
 
         $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
 
-        $hazardous = new Status($gameEquipment, EquipmentStatusEnum::DECOMPOSING);
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(EquipmentStatusEnum::DECOMPOSING);
+        $hazardous = new Status($gameEquipment, $statusConfig);
 
         $this->randomService
             ->shouldReceive('isSuccessful')

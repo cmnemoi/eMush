@@ -33,7 +33,7 @@ class ActionCostFixture extends Fixture
         $fourActionPointCost = $this->buildActionCost(4);
         $manager->persist($fourActionPointCost);
 
-        $oneMovementPoint = $this->buildActionCost(null, 1);
+        $oneMovementPoint = $this->buildActionCost(0, 1);
         $manager->persist($oneMovementPoint);
 
         $twoMovementPoint = $this->buildActionCost(null, 2);

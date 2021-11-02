@@ -138,10 +138,6 @@ class ModifierService implements ModifierServiceInterface
 
     private function getModifiedValue(ModifierCollection $modifierCollection, ?float $initValue): int
     {
-        if ($initValue === null) {
-            return 0;
-        }
-
         $multiplicativeDelta = 1;
         $additiveDelta = 0;
 
@@ -161,8 +157,16 @@ class ModifierService implements ModifierServiceInterface
             }
         }
 
-        $modifiedValue = intval($initValue * $multiplicativeDelta + $additiveDelta);
+        return $this->computeModifiedValue($initValue, $multiplicativeDelta, $additiveDelta);
+    }
 
+    private function computeModifiedValue(?float $initValue, float $multiplicativeDelta, float $additiveDelta): int
+    {
+        if ($initValue === null) {
+            return 0;
+        }
+
+        $modifiedValue = intval($initValue * $multiplicativeDelta + $additiveDelta);
         if (($initValue > 0 && $modifiedValue < 0) || ($initValue < 0 && $modifiedValue > 0)) {
             return 0;
         }

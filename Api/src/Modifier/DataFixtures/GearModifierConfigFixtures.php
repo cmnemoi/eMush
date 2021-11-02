@@ -134,7 +134,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $oscilloscopeRepairModifier = new ModifierConfig();
         $oscilloscopeRepairModifier
             ->setScope(DaedalusModifierEvent::CHANGE_HULL)
-            ->setTarget(ModifierTargetEnum::HULL)
+            ->setTarget(DaedalusVariableEnum::HULL)
             ->setDelta(2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)

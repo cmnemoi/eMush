@@ -9,6 +9,7 @@ class PlayerStatusEnum
     public const BRAINSYNC = 'brainsync';
     public const BURDENED = 'burdened';
     public const DEMORALIZED = 'demoralized';
+    public const DID_THE_THING = 'did_the_thing';
     public const DIRTY = 'dirty';
     public const DISABLED = 'disabled';
     public const EUREKA_MOMENT = 'eureka_moment';

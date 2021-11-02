@@ -20,14 +20,18 @@ class FlirtedAlreadyValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, FlirtedAlready::class);
         }
 
-        $parameter = $value->getParameter();
-        if (!$parameter instanceof Player) {
-            throw new UnexpectedTypeException($parameter, Player::class);
+        $initiator = $constraint->initiator ? $value->getPlayer() : $value->getParameter();
+        $target = $constraint->initiator ? $value->getParameter() : $value->getPlayer();
+
+        if (!$initiator instanceof Player) {
+            throw new UnexpectedTypeException($initiator, Player::class);
         }
 
-        $player = $value->getPlayer();
+        if (!$target instanceof Player) {
+            throw new UnexpectedTypeException($target, Player::class);
+        }
 
-        if ($player->HasFlirtedWith($parameter)) {
+        if ($initiator->HasFlirtedWith($target) !== $constraint->expectedValue) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

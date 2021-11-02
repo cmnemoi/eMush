@@ -211,6 +211,13 @@
             </segment>
         </unit>
 
+        <unit id="do_the_thing_no_bed">
+            <segment id="description">
+                <source>do_the_thing_no_bed.description</source>
+                <target>TODO.do_the_thing_no_bed.description</target>
+            </segment>
+        </unit>
+
         <unit id="flirt_already_flirted">
             <segment id="description">
                 <source>flirt_already_flirted.description</source>

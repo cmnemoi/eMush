@@ -145,6 +145,15 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return $this->players;
     }
 
+    public function getNumberPlayers(): int
+    {
+        if (!$this->players instanceof PlayerCollection) {
+            $this->players = new PlayerCollection($this->players->toArray());
+        }
+
+        return $this->players->count();
+    }
+
     /**
      * @return static
      */

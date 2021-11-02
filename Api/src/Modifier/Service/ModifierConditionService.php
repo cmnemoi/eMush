@@ -27,8 +27,14 @@ class ModifierConditionService implements ModifierConditionServiceInterface
         $validatedModifiers = new ModifierCollection();
 
         foreach ($modifiers as $modifier) {
-            if ($this->checkModifier($modifier, $reason, $holder)) {
-                $validatedModifiers->add($modifier);
+            $chargeStatus = $modifier->getCharge();
+            if (
+                $chargeStatus === null ||
+                $chargeStatus->getCharge() > 0
+            ) {
+                if ($this->checkModifier($modifier, $reason, $holder)) {
+                    $validatedModifiers->add($modifier);
+                }
             }
         }
 

@@ -147,20 +147,17 @@ class ModifierService implements ModifierServiceInterface
 
         /** @var Modifier $modifier */
         foreach ($modifierCollection as $modifier) {
-            $chargeStatus = $modifier->getCharge();
-            if (
-                $chargeStatus === null ||
-                $chargeStatus->getCharge() !== 0
-            ) {
-                if ($modifier->getModifierConfig()->getMode() === ModifierModeEnum::SET_VALUE) {
+            switch ($modifier->getModifierConfig()->getMode()) {
+                case ModifierModeEnum::SET_VALUE:
                     return intval($modifier->getModifierConfig()->getDelta());
-                } elseif ($modifier->getModifierConfig()->getMode() === ModifierModeEnum::ADDITIVE) {
+                case ModifierModeEnum::ADDITIVE:
                     $additiveDelta += $modifier->getModifierConfig()->getDelta();
-                } elseif ($modifier->getModifierConfig()->getMode() === ModifierModeEnum::MULTIPLICATIVE) {
+                    break;
+                case ModifierModeEnum::MULTIPLICATIVE:
                     $multiplicativeDelta *= $modifier->getModifierConfig()->getDelta();
-                } else {
+                    break;
+                default:
                     throw new \LogicException('this modifier mode is not handled');
-                }
             }
         }
 
@@ -191,7 +188,7 @@ class ModifierService implements ModifierServiceInterface
             $modifiers = $modifiers->addModifiers($parameter->getModifiers()->getScopedModifiers($scopes));
         }
 
-        return $modifiers;
+        return $this->conditionService->getActiveModifiers($modifiers, $action->getName(), $player);
     }
 
     public function getActionModifiedValue(Action $action, Player $player, string $target, ?LogParameterInterface $parameter, ?int $attemptNumber = null): int

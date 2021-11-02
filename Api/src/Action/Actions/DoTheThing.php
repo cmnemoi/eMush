@@ -24,6 +24,7 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -156,6 +157,7 @@ class DoTheThing extends AbstractAction
                 $this->getActionName(),
                 new \DateTime()
             );
+            $pregnantStatus->setVisibility(VisibilityEnum::PRIVATE);
 
             $this->eventDispatcher->dispatch($pregnantStatus, StatusEvent::STATUS_APPLIED);
         }

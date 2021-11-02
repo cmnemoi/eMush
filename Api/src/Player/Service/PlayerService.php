@@ -20,6 +20,7 @@ use Mush\Player\Repository\PlayerRepository;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -265,12 +266,17 @@ class PlayerService implements PlayerServiceInterface
         $this->entityManager->persist($deadPlayerInfo);
 
         if ($reason !== EndCauseEnum::DEPRESSION) {
+            $moraleLoss = -1;
+            if ($player->hasStatus(PlayerStatusEnum::PREGNANT)) {
+                $moraleLoss = -2;
+            }
+
             /** @var Player $daedalusPlayer */
             foreach ($player->getDaedalus()->getPlayers()->getPlayerAlive() as $daedalusPlayer) {
                 if ($daedalusPlayer !== $player) {
                     $playerModifierEvent = new PlayerModifierEvent(
                         $daedalusPlayer,
-                        -1,
+                        $moraleLoss,
                         EventEnum::PLAYER_DEATH,
                         $time
                     );

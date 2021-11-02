@@ -31,6 +31,16 @@
                 <target>Permet de distiller une nouvelle petite gourmandise.</target>
             </segment>
         </unit>
+        <unit id="do_the_thing">
+            <segment id="name">
+                <source>do_the_thing.name</source>
+                <target>Le faire</target>
+            </segment>
+            <segment id="description">
+                <source>do_the_thing.description</source>
+                <target>Permet de le faire.</target>
+            </segment>
+        </unit>
         <unit id="consume">
             <segment id="consume">
                 <source>consume.name</source>

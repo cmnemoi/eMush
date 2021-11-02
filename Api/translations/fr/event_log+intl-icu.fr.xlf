@@ -247,6 +247,12 @@
                 <target>Ces importuns vous importunent au plus haut point, les voir s'affairer à de si inutiles besognes vous rend pessimiste pour l'avenir de l'Humanité...</target>
             </segment>
         </unit>
+        <unit id="become_pregnant">
+            <segment>
+                <source>become_pregnant</source>
+                <target>Vous attendez un heureux évènement ! Ceci vous donne un bonus de triomphe et si vous venez à mourir, le moral de l'équipage en sera lourdement affecté.</target>
+            </segment>
+        </unit>
         <unit id="disease_appear">
             <segment>
                 <source>disease_appear</source>

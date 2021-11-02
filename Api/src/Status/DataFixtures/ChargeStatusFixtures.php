@@ -37,6 +37,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const CONTAMINATED_FOOD = 'contaminated_food';
     public const COMBUSTION_CHAMBER = 'combustion_chamber';
     public const DRUG_EATEN_STATUS = 'drug_eaten_status';
+    public const DID_THE_THING_STATUS = 'did_the_thing_status';
 
     public function load(ObjectManager $manager): void
     {
@@ -236,6 +237,18 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($drug_eaten);
 
+        $did_the_thing = new ChargeStatusConfig();
+        $did_the_thing
+            ->setName(PlayerStatusEnum::DID_THE_THING)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
+            ->setStartCharge(1)
+            ->setAutoRemove(true)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($did_the_thing);
+
         $manager->flush();
 
         $this->addReference(self::SCOOTER_CHARGE, $scooterCharge);
@@ -256,6 +269,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::CONTAMINATED_FOOD, $contaminated);
         $this->addReference(self::COMBUSTION_CHAMBER, $combustionChamber);
         $this->addReference(self::DRUG_EATEN_STATUS, $drug_eaten);
+        $this->addReference(self::DID_THE_THING_STATUS, $did_the_thing);
     }
 
     public function getDependencies(): array

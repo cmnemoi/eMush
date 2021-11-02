@@ -96,6 +96,12 @@
                 }</target>
             </segment>
         </unit>
+        <unit id="do_the_thing_success">
+            <segment id="do_the_thing_success">
+                <source>do_the_thing_success</source>
+                <target>**{character}** et **{target_character}** éteignent la lumière et des bruits étranges se produisent...Quelques minutes plus tard, ils rallument. Ils ont un air satisfait.</target>
+            </segment>
+        </unit>
         <unit id="drop">
             <segment id="drop">
                 <source>drop</source>

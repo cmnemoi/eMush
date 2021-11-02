@@ -33,6 +33,7 @@ class LogEnum
     public const HUNGER = 'hunger';
     public const FORCE_GET_UP = 'force_get_up';
     public const ANTISOCIAL_MORALE_LOSS = 'antisocial_morale_loss';
+    public const BECOME_PREGNANT = 'become_pregnant';
 
     public const DISORDER_APPEAR = 'disorder_appear';
     public const DISEASE_APPEAR = 'disease_appear';

@@ -4,25 +4,26 @@ namespace Mush\Test\Action\Validator;
 
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Validator\FlirtedAlready;
-use Mush\Action\Validator\FlirtedAlreadyValidator;
+use Mush\Action\Validator\NumberPlayersInRoom;
+use Mush\Action\Validator\NumberPlayersInRoomValidator;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class FlirtedAlreadyValidatorTest extends TestCase
+class NumberPlayersInRoomValidatorTest extends TestCase
 {
-    private FlirtedAlreadyValidator $validator;
-    private FlirtedAlready $constraint;
+    private NumberPlayersInRoomValidator $validator;
+    private NumberPlayersInRoom $constraint;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new FlirtedAlreadyValidator();
-        $this->constraint = new FlirtedAlready();
+        $this->validator = new NumberPlayersInRoomValidator();
+        $this->constraint = new NumberPlayersInRoom();
     }
 
     /**
@@ -35,14 +36,22 @@ class FlirtedAlreadyValidatorTest extends TestCase
 
     public function testValid()
     {
-        $player = new Player();
+        $this->constraint->number = 3;
 
-        $target = new Player();
+        $room = new Place();
+
+        $player = new Player();
+        $player->setPlace($room);
+
+        $player2 = new Player();
+        $player2->setPlace($room);
+
+        $player3 = new Player();
+        $player3->setPlace($room);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
                 'getPlayer' => $player,
             ])
         ;
@@ -51,43 +60,41 @@ class FlirtedAlreadyValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testTargetInitiatorValid()
+    public function testTooFewPeople()
     {
-        // Target player is expected to have flirted with player
-        // This case is needed to be able to do the thing with target
-        $this->constraint->initiator = false;
-        $this->constraint->expectedValue = true;
+        $this->constraint->number = 3;
+
+        $room = new Place();
 
         $player = new Player();
-
-        $target = new Player();
-
-        $target->addFlirt($player);
+        $player->setPlace($room);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
                 'getPlayer' => $player,
             ])
         ;
 
-        $this->initValidator();
-        $this->validator->validate($action, $this->constraint);
+        $this->initValidator($this->constraint->message);
+        $this->validator->validate($action, $this->constraint, 'execute');
     }
 
-    public function testNotValid()
+    public function testTooManyPeople()
     {
+        $this->constraint->number = 1;
+
+        $room = new Place();
+
         $player = new Player();
+        $player->setPlace($room);
 
-        $target = new Player();
-
-        $player->addFlirt($target);
+        $player2 = new Player();
+        $player2->setPlace($room);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
                 'getPlayer' => $player,
             ])
         ;

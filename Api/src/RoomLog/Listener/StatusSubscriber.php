@@ -8,6 +8,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlantLogEnum;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -55,6 +56,22 @@ class StatusSubscriber implements EventSubscriberInterface
                 );
 
                 return;
+
+            //@TODO add pregnancy log when logs will have been refactored
+            // case PlayerStatusEnum::PREGNANT:
+            //     if (!$holder instanceof Player) {
+            //         throw new UnexpectedTypeException($holder, Player::class);
+            //     }
+
+            //     $this->roomLogService->createLog(
+            //         LogEnum::BECOME_PREGNANT,
+            //         $event->getPlace(),
+            //         VisibilityEnum::PRIVATE,
+            //         'event_log',
+            //         $holder,
+            //         $event->getLogParameters(),
+            //         $event->getTime(),
+            //     );
 
             case PlayerStatusEnum::DIRTY:
                 if (!$holder instanceof Player) {

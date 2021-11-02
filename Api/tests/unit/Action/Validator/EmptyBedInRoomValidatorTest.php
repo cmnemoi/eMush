@@ -4,25 +4,31 @@ namespace Mush\Test\Action\Validator;
 
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Validator\FlirtedAlready;
-use Mush\Action\Validator\FlirtedAlreadyValidator;
+use Mush\Action\Validator\EmptyBedInRoom;
+use Mush\Action\Validator\EmptyBedInRoomValidator;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class FlirtedAlreadyValidatorTest extends TestCase
+class EmptyBedInRoomValidatorTest extends TestCase
 {
-    private FlirtedAlreadyValidator $validator;
-    private FlirtedAlready $constraint;
+    private EmptyBedInRoomValidator $validator;
+    private EmptyBedInRoom $constraint;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new FlirtedAlreadyValidator();
-        $this->constraint = new FlirtedAlready();
+        $this->validator = new EmptyBedInRoomValidator();
+        $this->constraint = new EmptyBedInRoom();
     }
 
     /**
@@ -35,14 +41,17 @@ class FlirtedAlreadyValidatorTest extends TestCase
 
     public function testValid()
     {
-        $player = new Player();
+        $room = new Place();
 
-        $target = new Player();
+        $player = new Player();
+        $player->setPlace($room);
+
+        $gameEquipment = new GameItem();
+        $gameEquipment->setName(EquipmentEnum::MEDLAB_BED)->setHolder($room);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
                 'getPlayer' => $player,
             ])
         ;
@@ -51,43 +60,43 @@ class FlirtedAlreadyValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testTargetInitiatorValid()
+    public function testNotValidBedNotEmpty()
     {
-        // Target player is expected to have flirted with player
-        // This case is needed to be able to do the thing with target
-        $this->constraint->initiator = false;
-        $this->constraint->expectedValue = true;
+        $room = new Place();
 
         $player = new Player();
+        $player->setPlace($room);
 
-        $target = new Player();
+        $gameEquipment = new GameItem();
+        $gameEquipment->setName(EquipmentEnum::BED)->setHolder($room);
 
-        $target->addFlirt($player);
+        $lyingDownStatus = new Status($player, PlayerStatusEnum::LYING_DOWN);
+        $lyingDownStatus
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setTarget($gameEquipment)
+        ;
 
         $action = Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
                 'getPlayer' => $player,
             ])
         ;
 
-        $this->initValidator();
-        $this->validator->validate($action, $this->constraint);
+        $this->initValidator($this->constraint->message);
+        $this->validator->validate($action, $this->constraint, 'execute');
     }
 
-    public function testNotValid()
+    public function testNotValidNoBed()
     {
+        $room = new Place();
+
         $player = new Player();
-
-        $target = new Player();
-
-        $player->addFlirt($target);
+        $player->setPlace($room);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getParameter' => $target,
                 'getPlayer' => $player,
             ])
         ;

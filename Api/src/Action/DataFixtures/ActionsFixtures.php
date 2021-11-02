@@ -21,6 +21,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const HIDE_DEFAULT = 'hide.default';
     public const DEFAULT_TAKE = 'default.take';
     public const DEFAULT_DROP = 'default.drop';
+    public const DO_THE_THING = 'do.the.thing';
     public const DRUG_CONSUME = 'drug.consume';
     public const RATION_CONSUME = 'ration.consume';
     public const BUILD_DEFAULT = 'build.default';
@@ -561,6 +562,15 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($flirtAction);
 
+        $doTheThingAction = new Action();
+        $doTheThingAction
+            ->setName(ActionEnum::DO_THE_THING)
+            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setActionCost($oneActionPointCost)
+        ;
+
+        $manager->persist($doTheThingAction);
+
         $manager->flush();
 
         $this->addReference(self::REJUVENATE_ALPHA, $rejuvenateAlpha);
@@ -613,6 +623,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::REMOVE_CAMERA, $removeCameraAction);
         $this->addReference(self::EXAMINE_EQUIPMENT, $examineEquipmentAction);
         $this->addReference(self::FLIRT_DEFAULT, $flirtAction);
+        $this->addReference(self::DO_THE_THING, $doTheThingAction);
     }
 
     public function getDependencies(): array

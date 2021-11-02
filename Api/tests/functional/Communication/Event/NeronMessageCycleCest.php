@@ -18,7 +18,6 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
@@ -117,9 +116,11 @@ class NeronMessageCycleCest
         $room4->addDoor($door3);
 
         $time = new DateTime();
-        $status = new ChargeStatus($room, StatusEnum::FIRE);
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig->setName(StatusEnum::FIRE);
+        $I->haveInRepository($statusConfig);
+        $status = new ChargeStatus($room, $statusConfig);
         $status
-            ->setVisibility(VisibilityEnum::PUBLIC)
             ->setCharge(1);
 
         $room->addStatus($status);

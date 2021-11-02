@@ -18,6 +18,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 
@@ -95,8 +96,9 @@ class GearModifierServiceTest extends TestCase
         $this->service->gearCreated($gameEquipment);
 
         //with a charge
-        $charge = new ChargeStatus($gameEquipment, EquipmentStatusEnum::ALIEN_ARTEFACT);
-        $charge->setDischargeStrategy('action');
+        $chargeConfig = new ChargeStatusConfig();
+        $chargeConfig->setDischargeStrategy('action');
+        $charge = new ChargeStatus($gameEquipment, $chargeConfig);
 
         $this->modifierService
             ->shouldReceive('createModifier')
@@ -248,8 +250,12 @@ class GearModifierServiceTest extends TestCase
         $this->service->takeGear($gameEquipment, $player);
 
         //Modifier with a charge
-        $charge = new ChargeStatus($gameEquipment, EquipmentStatusEnum::UNSTABLE);
-        $charge->setDischargeStrategy('action');
+        $chargeConfig = new ChargeStatusConfig();
+        $chargeConfig
+            ->setName(EquipmentStatusEnum::FUEL_CHARGE)
+            ->setDischargeStrategy('action')
+        ;
+        $charge = new ChargeStatus($gameEquipment, $chargeConfig);
 
         $this->modifierService
             ->shouldReceive('persist')

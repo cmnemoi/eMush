@@ -18,7 +18,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -66,10 +66,11 @@ class CycleEventCest
 
         $I->haveInRepository($gameEquipment);
 
-        $status = new Status($player, PlayerStatusEnum::LYING_DOWN);
-
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(PlayerStatusEnum::LYING_DOWN);
+        $I->haveInRepository($statusConfig);
+        $status = new Status($player, $statusConfig);
         $status
-            ->setVisibility(VisibilityEnum::PUBLIC)
             ->setTarget($gameEquipment)
         ;
 

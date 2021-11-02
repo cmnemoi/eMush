@@ -15,8 +15,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 
 class SabotageActionTest extends AbstractActionTest
 {
@@ -63,14 +62,11 @@ class SabotageActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $mushStatus = new ChargeStatus($player, PlayerStatusEnum::MUSH);
-        $mushStatus
-            ->setCharge(0)
-        ;
+        $mushStatus = new ChargeStatus($player, new ChargeStatusConfig());
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
-        $attempt = new Attempt(new Player(), StatusEnum::ATTEMPT);
+        $attempt = new Attempt(new Player(), new ChargeStatusConfig());
         $attempt
             ->setAction($this->action->getActionName())
         ;

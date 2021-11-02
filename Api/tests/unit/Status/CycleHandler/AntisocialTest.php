@@ -8,6 +8,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\CycleHandler\Antisocial;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
@@ -51,7 +52,9 @@ class AntisocialTest extends TestCase
             ->setGameStatus(GameStatusEnum::CURRENT)
         ;
 
-        $status = new Status($player, PlayerStatusEnum::ANTISOCIAL);
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(PlayerStatusEnum::ANTISOCIAL);
+        $status = new Status($player, $statusConfig);
 
         $this->eventDispatcher->shouldReceive('dispatch')->never();
         $this->cycleHandler->handleNewCycle($status, $player, new \DateTime());

@@ -11,7 +11,6 @@ use Mush\Action\ActionResult\Success;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
@@ -19,7 +18,6 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -103,26 +101,11 @@ class StatusService implements StatusServiceInterface
         ?StatusHolderInterface $target = null
     ): Status {
         if ($statusConfig instanceof ChargeStatusConfig) {
-            $status = $this->createChargeStatus(
-                $statusConfig->getName(),
-                $holder,
-                $statusConfig->getChargeStrategy(),
-                $target,
-                $statusConfig->getVisibility(),
-                $statusConfig->getChargeVisibility(),
-                $statusConfig->getDischargeStrategy(),
-                $statusConfig->getStartCharge(),
-                $statusConfig->getMaxCharge(),
-                $statusConfig->isAutoRemove()
-            );
+            $status = new ChargeStatus($holder, $statusConfig);
         } else {
-            $status = $this->createCoreStatus(
-                $statusConfig->getName(),
-                $holder,
-                $target,
-                $statusConfig->getVisibility()
-            );
+            $status = new Status($holder, $statusConfig);
         }
+        $status->setTarget($target);
 
         $this->persist($status);
 
@@ -149,82 +132,24 @@ class StatusService implements StatusServiceInterface
         $statusConfig = $this->getStatusConfigByNameAndDaedalus($statusName, $daedalus);
 
         if ($statusConfig instanceof ChargeStatusConfig) {
-            $status = $this->createChargeStatus(
-                $statusConfig->getName(),
-                $holder,
-                $statusConfig->getChargeStrategy(),
-                $target,
-                $statusConfig->getVisibility(),
-                $statusConfig->getChargeVisibility(),
-                $statusConfig->getDischargeStrategy(),
-                $statusConfig->getStartCharge(),
-                $statusConfig->getMaxCharge(),
-                $statusConfig->isAutoRemove()
-            );
+            $status = new ChargeStatus($holder, $statusConfig);
         } else {
-            $status = $this->createCoreStatus(
-                $statusConfig->getName(),
-                $holder,
-                $target,
-                $statusConfig->getVisibility()
-            );
+            $status = new Status($holder, $statusConfig);
         }
+        $status->setTarget($target);
 
         return $this->persist($status);
     }
 
-    private function createCoreStatus(
-        string $statusName,
-        StatusHolderInterface $owner,
-        ?StatusHolderInterface $target = null,
-        string $visibility = VisibilityEnum::PUBLIC
-    ): Status {
-        $status = new Status($owner, $statusName);
-        $status
-            ->setTarget($target)
-            ->setVisibility($visibility)
-        ;
-
-        return $status;
-    }
-
-    private function createChargeStatus(
-        string $statusName,
-        StatusHolderInterface $owner,
-        string $strategy,
-        ?StatusHolderInterface $target = null,
-        string $visibility = VisibilityEnum::PUBLIC,
-        string $chargeVisibility = VisibilityEnum::PUBLIC,
-        string $dischargeStrategy = ChargeStrategyTypeEnum::NONE,
-        int $charge = 0,
-        int $threshold = null,
-        bool $autoRemove = false
-    ): ChargeStatus {
-        $status = new ChargeStatus($owner, $statusName);
-        $status
-            ->setTarget($target)
-            ->setStrategy($strategy)
-            ->setVisibility($visibility)
-            ->setChargeVisibility($chargeVisibility)
-            ->setCharge($charge)
-            ->setThreshold($threshold)
-            ->setAutoRemove($autoRemove)
-            ->setDischargeStrategy($dischargeStrategy)
-        ;
-
-        return $status;
-    }
-
     private function createAttemptStatus(string $action, Player $player): Attempt
     {
-        $status = new Attempt($player, StatusEnum::ATTEMPT);
-        $status
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setAction($action)
-            ->setCharge(0)
-        ;
+        /** @var ChargeStatusConfig $attemptConfig */
+        $attemptConfig = $this->getStatusConfigByNameAndDaedalus(StatusEnum::ATTEMPT, $player->getDaedalus());
 
-        return $status;
+        $attempt = new Attempt($player, $attemptConfig);
+        $attempt->setAction($action);
+
+        return $attempt;
     }
 
     public function handleAttempt(Player $player, string $actionName, ActionResult $result): void

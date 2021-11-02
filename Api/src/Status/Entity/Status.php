@@ -7,7 +7,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 
 /**
  * Class Status.
@@ -34,16 +34,6 @@ class Status
     protected ?int $id = null;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
-     */
-    protected string $name;
-
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
-    protected string $visibility = VisibilityEnum::PUBLIC;
-
-    /**
      * @ORM\OneToOne(targetEntity="Mush\Status\Entity\StatusTarget", cascade={"ALL"}, inversedBy="owner")
      */
     protected ?StatusTarget $owner;
@@ -53,10 +43,20 @@ class Status
      */
     protected ?StatusTarget $target = null;
 
-    public function __construct(StatusHolderInterface $statusHolder, string $name)
+    /**
+     * @ORM\ManyToOne(targetEntity="Mush\Status\Entity\Config\StatusConfig")
+     */
+    protected StatusConfig $statusConfig;
+
+    public function __construct(StatusHolderInterface $statusHolder, StatusConfig $statusConfig)
     {
         $this->setOwner($statusHolder);
-        $this->name = $name;
+        $this->statusConfig = $statusConfig;
+    }
+
+    public function getStatusConfig(): StatusConfig
+    {
+        return $this->statusConfig;
     }
 
     public function getId(): ?int
@@ -66,22 +66,12 @@ class Status
 
     public function getName(): string
     {
-        return $this->name;
+        return $this->statusConfig->getName();
     }
 
     public function getVisibility(): string
     {
-        return $this->visibility;
-    }
-
-    /**
-     * @return static
-     */
-    public function setVisibility(string $visibility): self
-    {
-        $this->visibility = $visibility;
-
-        return $this;
+        return $this->statusConfig->getVisibility();
     }
 
     public function getOwner(): StatusHolderInterface

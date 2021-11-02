@@ -8,8 +8,8 @@ use Mush\Player\Entity\Player;
 use Mush\Status\ChargeStrategies\AbstractChargeStrategy;
 use Mush\Status\ChargeStrategies\DailyDecrement;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -56,11 +56,13 @@ class DailyDecrementTest extends TestCase
 
     private function createStatus(): ChargeStatus
     {
-        $status = new ChargeStatus(new Player(), EquipmentStatusEnum::PLANT_YOUNG);
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
+        ;
+        $status = new ChargeStatus(new Player(), $statusConfig);
         $status
             ->setCharge(10)
-            ->setThreshold(0)
-            ->setStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
         ;
 
         return $status;

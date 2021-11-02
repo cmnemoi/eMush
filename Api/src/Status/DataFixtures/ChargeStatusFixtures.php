@@ -44,6 +44,17 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setName(StatusEnum::ATTEMPT)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::NONE)
+            ->setStartCharge(0)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($attemptConfig);
+
         $microwaveCharge = new ChargeStatusConfig();
         $microwaveCharge
             ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)

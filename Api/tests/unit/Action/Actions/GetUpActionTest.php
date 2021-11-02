@@ -11,6 +11,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Place\Entity\Place;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -57,7 +58,9 @@ class GetUpActionTest extends AbstractActionTest
             ->setName(EquipmentEnum::BED)
         ;
 
-        $status = new Status($player, PlayerStatusEnum::LYING_DOWN);
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(PlayerStatusEnum::LYING_DOWN);
+        $status = new Status($player, $statusConfig);
         $status
             ->setTarget($gameItem)
         ;

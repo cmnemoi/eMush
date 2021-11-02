@@ -22,6 +22,8 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -87,7 +89,10 @@ class PlantCycleHandlerTest extends TestCase
         $gamePlant
             ->setEquipment($plant);
 
-        $chargeStatus = new ChargeStatus($gamePlant, EquipmentStatusEnum::PLANT_YOUNG);
+        $chargeStatusConfig = new ChargeStatusConfig();
+        $chargeStatusConfig->setName(EquipmentStatusEnum::PLANT_YOUNG);
+
+        $chargeStatus = new ChargeStatus($gamePlant, $chargeStatusConfig);
         $chargeStatus->setCharge(1);
 
         $plantEffect = new PlantEffect();
@@ -130,7 +135,9 @@ class PlantCycleHandlerTest extends TestCase
         $gamePlant
                 ->setEquipment($plant);
 
-        $chargeStatus = new ChargeStatus($gamePlant, EquipmentStatusEnum::PLANT_YOUNG);
+        $chargeStatusConfig = new ChargeStatusConfig();
+        $chargeStatusConfig->setName(EquipmentStatusEnum::PLANT_YOUNG);
+        $chargeStatus = new ChargeStatus($gamePlant, $chargeStatusConfig);
         $chargeStatus->setCharge(1);
 
         //Plant get disease and grow
@@ -183,7 +190,9 @@ class PlantCycleHandlerTest extends TestCase
             ->setEquipment($plant);
 
         //Plant already diseased can't get disease
-        $diseaseStatus = new Status($gamePlant, EquipmentStatusEnum::PLANT_DISEASED);
+        $diseaseConfig = new StatusConfig();
+        $diseaseConfig->setName(EquipmentStatusEnum::PLANT_DISEASED);
+        $diseaseStatus = new Status($gamePlant, $diseaseConfig);
 
         $plantEffect = new PlantEffect();
         $plantEffect
@@ -297,7 +306,9 @@ class PlantCycleHandlerTest extends TestCase
             ->setEquipment($plant)
             ->setHolder($room);
 
-        $status = new Status($gamePlant, EquipmentStatusEnum::PLANT_THIRSTY);
+        $thirstyConfig = new StatusConfig();
+        $thirstyConfig->setName(EquipmentStatusEnum::PLANT_THIRSTY);
+        $status = new Status($gamePlant, $thirstyConfig);
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
@@ -357,7 +368,9 @@ class PlantCycleHandlerTest extends TestCase
             ->setHolder($room)
         ;
 
-        $status = new Status($gamePlant, EquipmentStatusEnum::PLANT_DRY);
+        $dryConfig = new StatusConfig();
+        $dryConfig->setName(EquipmentStatusEnum::PLANT_DRY);
+        $status = new Status($gamePlant, $dryConfig);
 
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
 

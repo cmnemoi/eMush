@@ -10,6 +10,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusTarget;
 
@@ -47,9 +48,13 @@ class StatusRepository extends ServiceEntityRepository
 
         if ($name = $criteria->getName()) {
             if (is_array($name)) {
-                $queryBuilder->andWhere($queryBuilder->expr()->in('status.name', ':name'));
+                $queryBuilder
+                    ->join(StatusConfig::class, 'status_config', Join::WITH, 'status_config = status.statusConfig')
+                    ->andWhere($queryBuilder->expr()->in('status_config.name', ':name'));
             } else {
-                $queryBuilder->andWhere($queryBuilder->expr()->eq('status.name', ':name'));
+                $queryBuilder
+                    ->join(StatusConfig::class, 'status_config', Join::WITH, 'status_config = status.statusConfig')
+                    ->andWhere($queryBuilder->expr()->eq('status_config.name', ':name'));
             }
             $queryBuilder->setParameter('name', $name);
         }

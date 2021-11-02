@@ -9,7 +9,7 @@ use Mush\Action\Validator\CookableValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
-use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
@@ -57,7 +57,10 @@ class CookableValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
 
         $itemConfig->setName('toto');
-        $chargeStatus = new Status($target, EquipmentStatusEnum::FROZEN);
+
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(EquipmentStatusEnum::FROZEN);
+        $chargeStatus = new Status($target, $statusConfig);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -83,10 +86,9 @@ class CookableValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $chargeStatus = new ChargeStatus($target, EquipmentStatusEnum::HAZARDOUS);
-        $chargeStatus
-            ->setCharge(0)
-        ;
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(EquipmentStatusEnum::HAZARDOUS);
+        $chargeStatus = new Status($target, $statusConfig);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);

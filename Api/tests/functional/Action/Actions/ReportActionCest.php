@@ -27,6 +27,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
@@ -102,10 +103,11 @@ class ReportActionCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
-        $status
-            ->setVisibility(VisibilityEnum::PUBLIC)
-        ;
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(EquipmentStatusEnum::BROKEN)->setVisibility(VisibilityEnum::PUBLIC);
+        $I->haveInRepository($statusConfig);
+        $status = new Status($gameEquipment, $statusConfig);
+        $I->haveInRepository($status);
 
         $reportedAlert = new AlertElement();
         $reportedAlert->setEquipment($gameEquipment);
@@ -182,10 +184,11 @@ class ReportActionCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $status = new Status($room, StatusEnum::FIRE);
-        $status
-            ->setVisibility(VisibilityEnum::PUBLIC)
-        ;
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(StatusEnum::FIRE)->setVisibility(VisibilityEnum::PUBLIC)->setGameConfig($gameConfig);
+        $I->haveInRepository($statusConfig);
+        $status = new Status($room, $statusConfig);
+        $I->haveInRepository($status);
 
         $reportedAlert = new AlertElement();
         $reportedAlert->setPlace($room);

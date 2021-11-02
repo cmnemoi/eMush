@@ -10,6 +10,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
@@ -26,13 +27,16 @@ class ModifierService implements ModifierServiceInterface
     private const ATTEMPT_INCREASE = 1.25;
     private EntityManagerInterface $entityManager;
     private StatusServiceInterface $statusService;
+    private ModifierConditionServiceInterface $conditionService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        ModifierConditionServiceInterface $conditionService,
     ) {
         $this->entityManager = $entityManager;
         $this->statusService = $statusService;
+        $this->conditionService = $conditionService;
     }
 
     public function persist(Modifier $modifier): Modifier
@@ -160,7 +164,13 @@ class ModifierService implements ModifierServiceInterface
             }
         }
 
-        return intval($initValue * $multiplicativeDelta + $additiveDelta);
+        $modifiedValue = intval($initValue * $multiplicativeDelta + $additiveDelta);
+
+        if (($initValue > 0 && $modifiedValue < 0) || ($initValue < 0 && $modifiedValue > 0)) {
+            return 0;
+        }
+
+        return $modifiedValue;
     }
 
     private function getActionModifiers(Action $action, Player $player, ?LogParameterInterface $parameter): ModifierCollection
@@ -220,18 +230,38 @@ class ModifierService implements ModifierServiceInterface
     }
 
     public function getEventModifiedValue(
-        Player $player,
+        ModifierHolder $holder,
         array $scopes,
         string $target,
         int $initValue,
+        string $reason,
         bool $consumeCharge = true
     ): int {
-        $modifiers = new ModifierCollection();
-        $modifiers = $modifiers
-            ->addModifiers($player->getModifiers()->getScopedModifiers($scopes)->getTargetedModifiers($target))
-            ->addModifiers($player->getPlace()->getModifiers()->getScopedModifiers($scopes)->getTargetedModifiers($target))
-            ->addModifiers($player->getDaedalus()->getModifiers()->getScopedModifiers($scopes)->getTargetedModifiers($target))
-        ;
+        $modifiers = $holder->getModifiers();
+
+        switch (true) {
+            case $holder instanceof Player:
+                $modifiers = $modifiers
+                    ->addModifiers($holder->getPlace()->getModifiers())
+                    ->addModifiers($holder->getDaedalus()->getModifiers())
+                ;
+                break;
+            case $holder instanceof Place:
+                $modifiers = $modifiers
+                    ->addModifiers($holder->getDaedalus()->getModifiers())
+                ;
+                break;
+            case $holder instanceof GameEquipment:
+                $modifiers = $modifiers
+                    ->addModifiers($holder->getPlace()->getModifiers())
+                    ->addModifiers($holder->getPlace()->getDaedalus()->getModifiers())
+                ;
+                break;
+        }
+
+        $modifiers = $modifiers->getScopedModifiers($scopes)->getTargetedModifiers($target);
+
+        $this->conditionService->getActiveModifiers($modifiers, $reason, $holder);
 
         $modifiedValue = $this->getModifiedValue($modifiers, $initValue);
 

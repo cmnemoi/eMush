@@ -57,7 +57,8 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                 $player,
                 [ModifierScopeEnum::EVENT_DIRTY],
                 ModifierTargetEnum::PERCENTAGE,
-                $baseDirtyRate
+                $baseDirtyRate,
+                $action->getName()
             );
 
             $percent = $this->randomService->randomPercent();
@@ -88,7 +89,8 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
                 $player,
                 [ModifierScopeEnum::EVENT_CLUMSINESS],
                 ModifierTargetEnum::PERCENTAGE,
-                $baseInjuryRate
+                $baseInjuryRate,
+                $action->getName()
             );
 
             $percent = $this->randomService->randomPercent();

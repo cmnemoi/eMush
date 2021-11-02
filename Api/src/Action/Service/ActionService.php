@@ -73,6 +73,7 @@ class ActionService implements ActionServiceInterface
             [ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION],
             PlayerVariableEnum::ACTION_POINT,
             self::BASE_MOVEMENT_POINT_CONVERSION_COST,
+            ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION,
             $consumeCharge
         );
     }
@@ -84,6 +85,7 @@ class ActionService implements ActionServiceInterface
             [ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION],
             PlayerVariableEnum::MOVEMENT_POINT,
             self::BASE_MOVEMENT_POINT_CONVERSION_GAIN,
+            ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION,
             $consumeCharge
         );
     }

@@ -42,7 +42,13 @@ class PlayerVariableService implements PlayerVariableServiceInterface
                 throw new Error('getMaxPlayerVariable : invalid target string');
         }
 
-        return $this->modifierService->getEventModifiedValue($player, [ModifierScopeEnum::MAX_POINT], $target, $maxValue);
+        return $this->modifierService->getEventModifiedValue(
+            $player,
+            [ModifierScopeEnum::MAX_POINT],
+            $target,
+            $maxValue,
+            ModifierScopeEnum::MAX_POINT
+        );
     }
 
     public function setPlayerVariableToMax(Player $player, string $target, \DateTime $date = null): Player

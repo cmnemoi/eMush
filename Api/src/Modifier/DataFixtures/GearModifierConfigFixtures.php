@@ -7,10 +7,14 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
+use Mush\Modifier\Entity\ModifierCondition;
 use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Enum\ModifierConditionEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
@@ -31,6 +35,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
     public const ANTENNA_MODIFIER = 'antenna_modifier';
     public const GRAVITY_CONVERSION_MODIFIER = 'gravity_conversion_modifier';
     public const GRAVITY_CYCLE_MODIFIER = 'gravity_cycle_modifier';
+    public const OXYGEN_TANK_MODIFIER = 'oxygen_tank_modifier';
 
     public function load(ObjectManager $manager): void
     {
@@ -170,6 +175,21 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         ;
         $manager->persist($gravityCycleModifier);
 
+        $cycleEventCondition = new ModifierCondition(ModifierConditionEnum::REASON, EventEnum::NEW_CYCLE);
+        $manager->persist($cycleEventCondition);
+
+        $oxygenTankModifier = new ModifierConfig();
+        $oxygenTankModifier
+            ->setScope(DaedalusModifierEvent::CHANGE_OXYGEN)
+            ->setTarget(DaedalusVariableEnum::OXYGEN)
+            ->setDelta(1)
+            ->setReach(ModifierReachEnum::DAEDALUS)
+            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setGameConfig($gameConfig)
+            ->addModifierConditions($cycleEventCondition)
+        ;
+        $manager->persist($oxygenTankModifier);
+
         $manager->flush();
 
         $this->addReference(self::APRON_MODIFIER, $apronModifier);
@@ -184,6 +204,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $this->addReference(self::ANTENNA_MODIFIER, $antennaModifier);
         $this->addReference(self::GRAVITY_CONVERSION_MODIFIER, $gravityConversionModifier);
         $this->addReference(self::GRAVITY_CYCLE_MODIFIER, $gravityCycleModifier);
+        $this->addReference(self::OXYGEN_TANK_MODIFIER, $oxygenTankModifier);
     }
 
     public function getDependencies(): array

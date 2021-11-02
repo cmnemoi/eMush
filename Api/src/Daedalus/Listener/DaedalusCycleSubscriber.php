@@ -8,16 +8,15 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\EventEnum;
-use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusCycleSubscriber implements EventSubscriberInterface
 {
+    public const CYCLE_OXYGEN_LOSS = -3;
+
     private DaedalusServiceInterface $daedalusService;
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
     private EventDispatcherInterface $eventDispatcher;
@@ -87,39 +86,19 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     private function handleOxygen(Daedalus $daedalus, \DateTime $date): Daedalus
     {
         //Handle oxygen loss
-        $oxygenLoss = 1;
-
-        //@TODO: We shouldn't assume the oxygen tank are in these storages
-        if (($alphaStorageRoom = $daedalus->getPlaceByName(RoomEnum::CENTER_ALPHA_STORAGE)) &&
-            $alphaStorageRoom
-                ->getEquipments()
-                ->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
-                ->first()
-                ->isBroken()
-        ) {
-            $oxygenLoss = $oxygenLoss + 1;
-        }
-        if (($bravoStorageRoom = $daedalus->getPlaceByName(RoomEnum::CENTER_BRAVO_STORAGE)) &&
-            $bravoStorageRoom
-                ->getEquipments()
-                ->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getName() === EquipmentEnum::OXYGEN_TANK)
-                ->first()
-                ->isBroken()
-        ) {
-            $oxygenLoss = $oxygenLoss + 1;
-        }
-
-        if ($daedalus->getOxygen() <= $oxygenLoss) {
-            $this->daedalusService->getRandomAsphyxia($daedalus, $date);
-        }
+        $oxygenLoss = self::CYCLE_OXYGEN_LOSS;
 
         $daedalusEvent = new DaedalusModifierEvent(
             $daedalus,
-            -$oxygenLoss,
+            $oxygenLoss,
             EventEnum::NEW_CYCLE,
             $date
         );
         $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_OXYGEN);
+
+        if ($daedalus->getOxygen() === 0) {
+            $this->daedalusService->getRandomAsphyxia($daedalus, $date);
+        }
 
         return $daedalus;
     }

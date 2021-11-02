@@ -2,11 +2,11 @@
 
 namespace Mush\Modifier\Entity;
 
-use Doctrine\Common\Collections\Collection;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
 
 interface ModifierHolder
 {
-    public function getModifiers(): Collection;
+    public function getModifiers(): ModifierCollection;
 
     public function addModifier(Modifier $modifier): self;
 

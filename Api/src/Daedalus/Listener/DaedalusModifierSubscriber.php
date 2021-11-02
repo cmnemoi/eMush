@@ -35,9 +35,24 @@ class DaedalusModifierSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
         $date = $event->getTime();
         $change = $event->getQuantity();
+        $reason = $event->getReason();
 
-        if ($change > 0 && ($player = $event->getPlayer())) {
-            $change = $this->modifierService->getEventModifiedValue($player, [DaedalusModifierEvent::CHANGE_HULL], ModifierTargetEnum::HULL, $change);
+        if ($player = $event->getPlayer()) {
+            $change = $this->modifierService->getEventModifiedValue(
+                $player,
+                [DaedalusModifierEvent::CHANGE_HULL],
+                ModifierTargetEnum::HULL,
+                $change,
+                $reason
+            );
+        } else {
+            $change = $this->modifierService->getEventModifiedValue(
+                $daedalus,
+                [DaedalusModifierEvent::CHANGE_HULL],
+                ModifierTargetEnum::HULL,
+                $change,
+                $reason
+            );
         }
 
         $this->daedalusService->changeHull($daedalus, $change, $date);

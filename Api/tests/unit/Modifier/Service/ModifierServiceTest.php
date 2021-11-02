@@ -8,12 +8,14 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
+use Mush\Modifier\Service\ModifierConditionServiceInterface;
 use Mush\Modifier\Service\ModifierService;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -29,6 +31,8 @@ class ModifierServiceTest extends TestCase
     private EntityManagerInterface $entityManager;
     /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
+    /** @var ModifierConditionServiceInterface|Mockery\Mock */
+    private ModifierConditionServiceInterface $conditionService;
 
     private ModifierService $service;
 
@@ -39,10 +43,12 @@ class ModifierServiceTest extends TestCase
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->conditionService = Mockery::mock(ModifierConditionServiceInterface::class);
 
         $this->service = new ModifierService(
             $this->entityManager,
-            $this->statusService
+            $this->statusService,
+            $this->conditionService,
         );
     }
 
@@ -510,7 +516,15 @@ class ModifierServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus)->setPlace($room);
 
-        $modifiedValue = $this->service->getEventModifiedValue($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::MOVEMENT_POINT, 12);
+        $this->conditionService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection())->once();
+
+        $modifiedValue = $this->service->getEventModifiedValue(
+            $player,
+            [ModifierScopeEnum::MAX_POINT],
+            PlayerVariableEnum::MOVEMENT_POINT,
+            12,
+            ModifierScopeEnum::MAX_POINT
+        );
         $this->assertEquals(12, $modifiedValue);
 
         $modifierConfig1 = new ModifierConfig();
@@ -523,7 +537,15 @@ class ModifierServiceTest extends TestCase
         ;
         $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
-        $modifiedValue = $this->service->getEventModifiedValue($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::MOVEMENT_POINT, 12);
+        $this->conditionService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1]))->once();
+
+        $modifiedValue = $this->service->getEventModifiedValue(
+            $player,
+            [ModifierScopeEnum::MAX_POINT],
+            PlayerVariableEnum::MOVEMENT_POINT,
+            12,
+            ModifierScopeEnum::MAX_POINT
+        );
         $this->assertEquals(6, $modifiedValue);
 
         //add a modifier with a charge
@@ -542,8 +564,45 @@ class ModifierServiceTest extends TestCase
         $modifier2->setCharge($status);
 
         $this->statusService->shouldReceive('updateCharge')->with($status, -1)->once();
+        $this->conditionService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1, $modifier2]))->once();
 
-        $modifiedValue = $this->service->getEventModifiedValue($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::MOVEMENT_POINT, 12);
+        $modifiedValue = $this->service->getEventModifiedValue(
+            $player,
+            [ModifierScopeEnum::MAX_POINT],
+            PlayerVariableEnum::MOVEMENT_POINT,
+            12,
+            ModifierScopeEnum::MAX_POINT
+        );
         $this->assertEquals(18, $modifiedValue);
+    }
+
+    public function testGetEventModifiedValueWithChangeInSign()
+    {
+        $daedalus = new Daedalus();
+        $room = new Place();
+        $room->setDaedalus($daedalus);
+        $player = new Player();
+        $player->setDaedalus($daedalus)->setPlace($room);
+
+        $modifierConfig1 = new ModifierConfig();
+        $modifierConfig1
+            ->setReach(ModifierReachEnum::DAEDALUS)
+            ->setScope(ModifierScopeEnum::MAX_POINT)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setDelta(-6)
+            ->setMode(ModifierModeEnum::ADDITIVE)
+        ;
+        $modifier1 = new Modifier($daedalus, $modifierConfig1);
+
+        $this->conditionService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1]))->once();
+
+        $modifiedValue = $this->service->getEventModifiedValue(
+            $player,
+            [ModifierScopeEnum::MAX_POINT],
+            PlayerVariableEnum::MOVEMENT_POINT,
+            4,
+            ModifierScopeEnum::MAX_POINT
+        );
+        $this->assertEquals(0, $modifiedValue);
     }
 }

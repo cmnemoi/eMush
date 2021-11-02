@@ -37,7 +37,7 @@ class MoveSubscriberCest
         $this->moveAction = $I->grabService(Move::class);
     }
 
-    public function testDropGearWithPlayerReach(FunctionalTester $I)
+    public function testMoveWithPlaceModifiers(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);

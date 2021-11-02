@@ -234,9 +234,9 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return LogParameterKeyEnum::EQUIPMENT;
     }
 
-    public function getModifiersConfigs(): Collection
+    public function getModifierConfigs(): Collection
     {
-        $modifierConfigs = new ArrayCollection();
+        $modifierConfigs = $this->getAllStatusesModifierConfigs();
 
         $gearMechanic = $this->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR);
         if ($gearMechanic instanceof Gear) {
@@ -245,8 +245,6 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
             }
         }
 
-        foreach ($this->getStatuses() as $status) {
-
-        }
+        return $modifierConfigs;
     }
 }

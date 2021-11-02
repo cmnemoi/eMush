@@ -250,4 +250,22 @@ class ModifierService implements ModifierServiceInterface
             }
         }
     }
+
+    public function playerEnterRoom(Player $player): void
+    {
+        foreach ($player->getModifiersConfigs()
+                    ->filter(fn (ModifierConfig $modifierConfig) => $modifierConfig->getReach() === ModifierReachEnum::PLACE)
+        as $placeModifierConfigs) {
+            $this->createModifier($placeModifierConfigs, $player->getDaedalus(), $player->getPlace(), null, null);
+        }
+    }
+
+    public function playerLeaveRoom(Player $player): void
+    {
+        foreach ($player->getModifiersConfigs()
+                    ->filter(fn (ModifierConfig $modifierConfig) => $modifierConfig->getReach() === ModifierReachEnum::PLACE)
+                as $placeModifierConfigs) {
+            $this->deleteModifier($placeModifierConfigs, $player->getDaedalus(), $player->getPlace(), null, null);
+        }
+    }
 }

@@ -2,9 +2,9 @@
 
 namespace Mush\Status\Entity\Config;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\RoomLog\Enum\VisibilityEnum;
 
@@ -48,6 +48,10 @@ class StatusConfig
      */
     private Collection $modifierConfigs;
 
+    public function __construct()
+    {
+        $this->modifierConfigs = new ArrayCollection();
+    }
 
     public function getId(): int
     {

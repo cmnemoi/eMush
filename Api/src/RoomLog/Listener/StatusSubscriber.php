@@ -2,19 +2,13 @@
 
 namespace Mush\RoomLog\Listener;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\PlantLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class StatusSubscriber implements EventSubscriberInterface
 {
@@ -39,90 +33,56 @@ class StatusSubscriber implements EventSubscriberInterface
         $holder = $event->getStatusHolder();
         $statusName = $event->getStatusName();
 
-        switch ($statusName) {
-            case PlayerStatusEnum::STARVING:
-                if (!$holder instanceof Player) {
-                    throw new UnexpectedTypeException($holder, Player::class);
-                }
+        $logMap = StatusEventLogEnum::STATUS_EVENT_LOGS[StatusEvent::STATUS_APPLIED];
+        if (isset($logMap[$statusName])) {
+            $logKey = $logMap[$statusName];
+        } else {
+            return;
+        }
 
-                $this->roomLogService->createLog(
-                    LogEnum::HUNGER,
-                    $event->getPlace(),
-                    $event->getVisibility(),
-                    'event_log',
-                    $holder,
-                    $event->getLogParameters(),
-                    $event->getTime(),
-                );
+        $this->createEventLog($logKey, $event);
 
-                return;
-
-            //@TODO add pregnancy log when logs will have been refactored
-            // case PlayerStatusEnum::PREGNANT:
-            //     if (!$holder instanceof Player) {
-            //         throw new UnexpectedTypeException($holder, Player::class);
-            //     }
-
-            //     $this->roomLogService->createLog(
-            //         LogEnum::BECOME_PREGNANT,
-            //         $event->getPlace(),
-            //         VisibilityEnum::PRIVATE,
-            //         'event_log',
-            //         $holder,
-            //         $event->getLogParameters(),
-            //         $event->getTime(),
-            //     );
-
-            case PlayerStatusEnum::DIRTY:
-                if (!$holder instanceof Player) {
-                    throw new UnexpectedTypeException($holder, Player::class);
-                }
-
-                $this->roomLogService->createLog(
-                    LogEnum::SOILED,
-                    $event->getPlace(),
-                    $event->getVisibility(),
-                    'event_log',
-                    $holder,
-                    $event->getLogParameters(),
-                    $event->getTime(),
-                );
-
-                // no break
-            case EquipmentStatusEnum::BROKEN:
-                $rooms = new ArrayCollection([]);
-                if ($holder instanceof Door) {
-                    $rooms = $holder->getRooms()->toArray();
-                } elseif ($holder instanceof GameEquipment) {
-                    $rooms = [$holder->getPlace()];
-                }
-
-                foreach ($rooms as $room) {
-                    $this->roomLogService->createLog(
-                        LogEnum::EQUIPMENT_BROKEN,
-                        $room,
-                        $event->getVisibility(),
-                        'event_log',
-                        null,
-                        $event->getLogParameters(),
-                        $event->getTime()
-                    );
-                }
+        if ($holder instanceof Door && $statusName === EquipmentStatusEnum::BROKEN) {
+            $this->roomLogService->createLog(
+                $logKey,
+                $holder->getOtherRoom($event->getPlace()),
+                $event->getVisibility(),
+                'event_log',
+                null,
+                $event->getLogParameters(),
+                $event->getTime()
+            );
         }
     }
 
     public function onStatusRemoved(StatusEvent $event): void
     {
-        if ($event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG) {
-            $this->roomLogService->createLog(
-                PlantLogEnum::PLANT_MATURITY,
-                $event->getPlace(),
-                $event->getVisibility(),
-                'event_log',
-                null,
-                $event->getLogParameters(),
-                $event->getTime(),
-            );
+        $statusName = $event->getStatusName();
+        $logMap = StatusEventLogEnum::STATUS_EVENT_LOGS[StatusEvent::STATUS_REMOVED];
+        if (isset($logMap[$statusName])) {
+            $logKey = $logMap[$statusName];
+        } else {
+            return;
         }
+
+        $this->createEventLog($logKey, $event);
+    }
+
+    private function createEventLog(string $logKey, StatusEvent $event): void
+    {
+        $player = $event->getStatusHolder();
+        if (!$player instanceof Player) {
+            $player = null;
+        }
+
+        $this->roomLogService->createLog(
+            $logKey,
+            $event->getPlace(),
+            $event->getVisibility(),
+            'event_log',
+            $player,
+            $event->getLogParameters(),
+            $event->getTime()
+        );
     }
 }

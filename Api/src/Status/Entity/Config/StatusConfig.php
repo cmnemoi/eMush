@@ -2,6 +2,8 @@
 
 namespace Mush\Status\Entity\Config;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\GameConfig;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -40,6 +42,16 @@ class StatusConfig
      * @ORM\Column(type="string", nullable=false)
      */
     protected string $visibility = VisibilityEnum::PUBLIC;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Mush\Modifier\Entity\ModifierConfig")
+     */
+    private Collection $modifierConfigs;
+
+    public function __construct()
+    {
+        $this->modifierConfigs = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -84,6 +96,21 @@ class StatusConfig
     public function setVisibility(string $visibility): self
     {
         $this->visibility = $visibility;
+
+        return $this;
+    }
+
+    public function getModifierConfigs(): Collection
+    {
+        return $this->modifierConfigs;
+    }
+
+    /**
+     * @return static
+     */
+    public function setModifierConfigs(Collection $modifierConfigs): self
+    {
+        $this->modifierConfigs = $modifierConfigs;
 
         return $this;
     }

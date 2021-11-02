@@ -46,4 +46,8 @@ interface ModifierServiceInterface
         int $initValue,
         bool $consumeCharge = true
     ): int;
+
+    public function playerEnterRoom(Player $player): void;
+
+    public function playerLeaveRoom(Player $player): void;
 }

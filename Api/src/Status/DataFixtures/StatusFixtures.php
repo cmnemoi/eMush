@@ -3,10 +3,13 @@
 namespace Mush\Status\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
+use Mush\Modifier\Entity\ModifierConfig;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -123,10 +126,14 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($decomposing);
 
+        /** @var ModifierConfig $frozenModifier */
+        $frozenModifier = $this->getReference(StatusModifierConfigFixtures::FROZEN_MODIFIER);
+
         $frozen = new StatusConfig();
         $frozen
             ->setName(EquipmentStatusEnum::FROZEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setModifierConfigs(new ArrayCollection([$frozenModifier]))
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($frozen);
@@ -195,10 +202,13 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($brainsync);
 
+        /** @var ModifierConfig $burdenedModifier */
+        $burdenedModifier = $this->getReference(StatusModifierConfigFixtures::BURDENED_MODIFIER);
         $burdened = new StatusConfig();
         $burdened
             ->setName(PlayerStatusEnum::BURDENED)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setModifierConfigs(new ArrayCollection([$burdenedModifier]))
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($burdened);
@@ -219,10 +229,13 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($dirty);
 
+        /** @var ModifierConfig $disabledModifier */
+        $disabledModifier = $this->getReference(StatusModifierConfigFixtures::DISABLED_MODIFIER);
         $disabled = new StatusConfig();
         $disabled
             ->setName(PlayerStatusEnum::DISABLED)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setModifierConfigs(new ArrayCollection([$disabledModifier]))
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($disabled);
@@ -331,10 +344,13 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($outcast);
 
+        /** @var ModifierConfig $pacifistModifier */
+        $pacifistModifier = $this->getReference(StatusModifierConfigFixtures::PACIFIST_MODIFIER);
         $pacifist = new StatusConfig();
         $pacifist
             ->setName(PlayerStatusEnum::PACIFIST)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setModifierConfigs(new ArrayCollection([$pacifistModifier]))
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($pacifist);
@@ -418,6 +434,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             GameConfigFixtures::class,
+            StatusModifierConfigFixtures::class,
         ];
     }
 }

@@ -19,6 +19,7 @@ class StatusModifierConfigFixtures extends Fixture
     public const FROZEN_MODIFIER = 'frozen_modifier';
     public const DISABLED_MODIFIER = 'disabled_modifier';
     public const PACIFIST_MODIFIER = 'pacifist_modifier';
+    public const BURDENED_MODIFIER = 'burdened_modifier';
 
     public function load(ObjectManager $manager): void
     {
@@ -59,9 +60,23 @@ class StatusModifierConfigFixtures extends Fixture
         ;
         $manager->persist($pacifistModifier);
 
+        $burdenedModifier = new ModifierConfig();
+        $burdenedModifier
+            ->setScope(ActionEnum::MOVE)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(1)
+            ->setReach(ModifierReachEnum::PLAYER)
+            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($burdenedModifier);
+
+        $manager->flush();
+
         $this->addReference(self::FROZEN_MODIFIER, $frozenModifier);
         $this->addReference(self::DISABLED_MODIFIER, $disabledModifier);
         $this->addReference(self::PACIFIST_MODIFIER, $pacifistModifier);
+        $this->addReference(self::BURDENED_MODIFIER, $burdenedModifier);
     }
 
     public function getDependencies(): array

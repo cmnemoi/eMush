@@ -4,6 +4,7 @@ namespace Mush\Tests\Status\Event;
 
 use App\Tests\FunctionalTester;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -141,8 +142,8 @@ class CycleEventCest
         $statusConfig
             ->setName(StatusEnum::FIRE)
             ->setGameConfig($gameConfig)
+            ->setModifierConfigs(new ArrayCollection([]))
         ;
-
         $I->haveInRepository($statusConfig);
 
         $doorConfig

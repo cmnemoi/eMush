@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Mechanics\Gear;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -230,5 +232,19 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     public function getLogKey(): string
     {
         return LogParameterKeyEnum::EQUIPMENT;
+    }
+
+    public function getModifierConfigs(): Collection
+    {
+        $modifierConfigs = $this->getAllStatusesModifierConfigs();
+
+        $gearMechanic = $this->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR);
+        if ($gearMechanic instanceof Gear) {
+            foreach ($gearMechanic->getModifierConfigs() as $modifierConfig) {
+                $modifierConfigs->add($modifierConfig);
+            }
+        }
+
+        return $modifierConfigs;
     }
 }

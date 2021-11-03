@@ -175,7 +175,8 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         ;
         $manager->persist($gravityCycleModifier);
 
-        $cycleEventCondition = new ModifierCondition(ModifierConditionEnum::REASON, EventEnum::NEW_CYCLE);
+        $cycleEventCondition = new ModifierCondition(ModifierConditionEnum::REASON);
+        $cycleEventCondition->setCondition(EventEnum::NEW_CYCLE);
         $manager->persist($cycleEventCondition);
 
         $oxygenTankModifier = new ModifierConfig();

@@ -25,14 +25,32 @@ class ModifierCondition
     private string $name;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=true)
      */
-    private string $condition;
+    private ?string $condition;
 
-    public function __construct(string $name, string $condition)
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private ?int $value;
+
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
+
+    public function setValue(int $value): self
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    public function setCondition(string $condition): self
     {
         $this->condition = $condition;
-        $this->name = $name;
+
+        return $this;
     }
 
     public function getName(): string
@@ -40,8 +58,13 @@ class ModifierCondition
         return $this->name;
     }
 
-    public function getCondition(): string
+    public function getCondition(): ?string
     {
         return $this->condition;
+    }
+
+    public function getValue(): ?int
+    {
+        return $this->value;
     }
 }

@@ -53,7 +53,8 @@ class ModifierConditionServiceTest extends TestCase
         $room = new Place();
         $room->setDaedalus($daedalus);
 
-        $modifierCondition = new ModifierCondition(ModifierConditionEnum::RANDOM, '50');
+        $modifierCondition = new ModifierCondition(ModifierConditionEnum::RANDOM);
+        $modifierCondition->setValue(50);
 
         // create a gear with daedalus modifier
         $modifierConfig1 = new ModifierConfig();
@@ -85,7 +86,8 @@ class ModifierConditionServiceTest extends TestCase
         $room = new Place();
         $room->setDaedalus($daedalus);
 
-        $modifierCondition = new ModifierCondition(ModifierConditionEnum::REASON, ActionEnum::HIDE);
+        $modifierCondition = new ModifierCondition(ModifierConditionEnum::REASON);
+        $modifierCondition->setCondition(ActionEnum::HIDE);
 
         // create a gear with daedalus modifier
         $modifierConfig1 = new ModifierConfig();
@@ -117,7 +119,8 @@ class ModifierConditionServiceTest extends TestCase
         $player1 = new Player();
         $player1->setPlace($room);
 
-        $modifierCondition = new ModifierCondition(ModifierConditionEnum::PLAYER_IN_ROOM, '2');
+        $modifierCondition = new ModifierCondition(ModifierConditionEnum::PLAYER_IN_ROOM);
+        $modifierCondition->setCondition(ModifierConditionEnum::NOT_ALONE);
 
         // create a gear with daedalus modifier
         $modifierConfig1 = new ModifierConfig();

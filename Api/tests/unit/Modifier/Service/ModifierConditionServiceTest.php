@@ -64,7 +64,7 @@ class ModifierConditionServiceTest extends TestCase
             ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->addModifierConditions($modifierCondition)
+            ->addModifierCondition($modifierCondition)
         ;
 
         $modifier = new Modifier($room, $modifierConfig1);
@@ -97,7 +97,7 @@ class ModifierConditionServiceTest extends TestCase
             ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->addModifierConditions($modifierCondition)
+            ->addModifierCondition($modifierCondition)
         ;
 
         $modifier = new Modifier($room, $modifierConfig1);
@@ -130,7 +130,7 @@ class ModifierConditionServiceTest extends TestCase
             ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->addModifierConditions($modifierCondition)
+            ->addModifierCondition($modifierCondition)
         ;
 
         $modifier = new Modifier($room, $modifierConfig1);

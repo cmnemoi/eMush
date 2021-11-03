@@ -143,7 +143,7 @@ class ModifierConfig
         return $this->modifierConditions;
     }
 
-    public function addModifierConditions(ModifierCondition $modifierCondition): self
+    public function addModifierCondition(ModifierCondition $modifierCondition): self
     {
         $this->modifierConditions->add($modifierCondition);
 

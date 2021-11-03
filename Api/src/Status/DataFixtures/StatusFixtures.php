@@ -230,12 +230,13 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($dirty);
 
         /** @var ModifierConfig $disabledModifier */
-        $disabledModifier = $this->getReference(StatusModifierConfigFixtures::DISABLED_MODIFIER);
+        $disabledConversionModifier = $this->getReference(StatusModifierConfigFixtures::DISABLED_CONVERSION_MODIFIER);
+        $disabledNotAloneModifier = $this->getReference(StatusModifierConfigFixtures::DISABLED_NOT_ALONE_MODIFIER);
         $disabled = new StatusConfig();
         $disabled
             ->setName(PlayerStatusEnum::DISABLED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs(new ArrayCollection([$disabledModifier]))
+            ->setModifierConfigs(new ArrayCollection([$disabledNotAloneModifier, $disabledConversionModifier]))
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($disabled);

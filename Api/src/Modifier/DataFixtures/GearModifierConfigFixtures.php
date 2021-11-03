@@ -187,7 +187,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->setGameConfig($gameConfig)
-            ->addModifierConditions($cycleEventCondition)
+            ->addModifierCondition($cycleEventCondition)
         ;
         $manager->persist($oxygenTankModifier);
 

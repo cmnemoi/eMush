@@ -543,7 +543,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($fuelTankMechanic);
 
         $oxygenTankMechanic = new Tool();
-
         /** @var Action $oxygenInjectAction */
         $oxygenInjectAction = $this->getReference(ActionsFixtures::OXYGEN_INJECT);
         /** @var Action $oxygenRetrieveAction */
@@ -552,6 +551,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $oxygenTankMechanic->addAction($oxygenInjectAction);
         $oxygenTankMechanic->addAction($oxygenRetrieveAction);
 
+        /** @var ModifierConfig $oxygenTankModifier */
+        $oxygenTankModifier = $this->getReference(GearModifierConfigFixtures::OXYGEN_TANK_MODIFIER);
+
+        $oxygenTankGear = new Gear();
+        $oxygenTankGear->setModifierConfigs(new ArrayCollection([$oxygenTankModifier]));
+
         $oxygenTank = new EquipmentConfig();
         $oxygenTank
             ->setGameConfig($gameConfig)
@@ -559,11 +564,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$oxygenTankMechanic]))
+            ->setMechanics(new ArrayCollection([$oxygenTankMechanic, $oxygenTankGear]))
             ->setActions(new ArrayCollection([$repair25, $sabotage25, $reportAction, $examineAction]))
         ;
         $manager->persist($oxygenTank);
         $manager->persist($oxygenTankMechanic);
+        $manager->persist($oxygenTankGear);
 
         $gravityGear = $this->createGear([GearModifierConfigFixtures::GRAVITY_CYCLE_MODIFIER, GearModifierConfigFixtures::GRAVITY_CONVERSION_MODIFIER]);
 

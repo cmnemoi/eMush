@@ -2,6 +2,8 @@
 
 namespace Mush\Modifier\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
@@ -48,6 +50,16 @@ class ModifierConfig
      * @ORM\Column(type="string", nullable=false)
      */
     private string $mode = ModifierModeEnum::ADDITIVE;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Mush\Modifier\Entity\ModifierCondition")
+     */
+    private Collection $modifierConditions;
+
+    public function __construct()
+    {
+        $this->modifierConditions = new ArrayCollection([]);
+    }
 
     public function getId(): int
     {
@@ -122,6 +134,18 @@ class ModifierConfig
     public function setMode(string $mode): self
     {
         $this->mode = $mode;
+
+        return $this;
+    }
+
+    public function getModifierConditions(): Collection
+    {
+        return $this->modifierConditions;
+    }
+
+    public function addModifierConditions(ModifierCondition $modifierCondition): self
+    {
+        $this->modifierConditions->add($modifierCondition);
 
         return $this;
     }

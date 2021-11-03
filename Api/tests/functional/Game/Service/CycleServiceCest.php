@@ -30,6 +30,7 @@ class CycleServiceCest
         $daedalus = $I->have(Daedalus::class, [
             'cycle' => 1,
             'day' => 1,
+            'oxygen' => 32,
             'gameConfig' => $gameConfig,
             'createdAt' => $daedalusCreatedAt,
             'cycleStartedAt' => $daedalusCreatedAt,
@@ -56,6 +57,7 @@ class CycleServiceCest
         $daedalus = $I->have(Daedalus::class, [
             'cycle' => 1,
             'day' => 1,
+            'oxygen' => 32,
             'gameConfig' => $gameConfig,
             'createdAt' => $daedalusCreatedAt,
             'cycleStartedAt' => $daedalusCreatedAt,

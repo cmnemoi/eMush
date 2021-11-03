@@ -5,6 +5,7 @@ namespace unit\Action\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionSideEffectsService;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -74,6 +75,7 @@ class ActionSideEffectsServiceTest extends TestCase
         $action
             ->setDirtyRate(0)
             ->setInjuryRate(0)
+            ->setName(ActionEnum::DROP)
         ;
 
         $this->eventDispatcher->shouldReceive('dispatch')->never();
@@ -86,7 +88,7 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ModifierScopeEnum::EVENT_DIRTY], ModifierTargetEnum::PERCENTAGE, 10)
+            ->with($player, [ModifierScopeEnum::EVENT_DIRTY], ModifierTargetEnum::PERCENTAGE, 10, ActionEnum::DROP)
             ->andReturn(100)
         ;
         $this->eventDispatcher->shouldReceive('dispatch')->never();
@@ -111,6 +113,7 @@ class ActionSideEffectsServiceTest extends TestCase
         $action
             ->setDirtyRate(100)
             ->setInjuryRate(0)
+            ->setName(ActionEnum::DROP)
         ;
 
         $itemConfig = new ItemConfig();
@@ -130,7 +133,7 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ModifierScopeEnum::EVENT_DIRTY], ModifierTargetEnum::PERCENTAGE, 100)
+            ->with($player, [ModifierScopeEnum::EVENT_DIRTY], ModifierTargetEnum::PERCENTAGE, 100, ActionEnum::DROP)
             ->andReturn(0);
         $this->eventDispatcher->shouldReceive('dispatch')->never();
         $this->roomLogService->shouldReceive('createLog')->once();
@@ -158,7 +161,7 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $this->assertCount(0, $player->getStatuses());
 
-        $action->setInjuryRate(100);
+        $action->setInjuryRate(100)->setName(ActionEnum::DROP);
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(
@@ -169,7 +172,7 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ModifierScopeEnum::EVENT_CLUMSINESS], ModifierTargetEnum::PERCENTAGE, 100)
+            ->with($player, [ModifierScopeEnum::EVENT_CLUMSINESS], ModifierTargetEnum::PERCENTAGE, 100, ActionEnum::DROP)
             ->andReturn(100)
         ;
 
@@ -194,6 +197,7 @@ class ActionSideEffectsServiceTest extends TestCase
         $action
             ->setDirtyRate(0)
             ->setInjuryRate(100)
+            ->setName(ActionEnum::DROP)
         ;
 
         $itemConfig = new ItemConfig();
@@ -213,7 +217,7 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ModifierScopeEnum::EVENT_CLUMSINESS], ModifierTargetEnum::PERCENTAGE, 100)
+            ->with($player, [ModifierScopeEnum::EVENT_CLUMSINESS], ModifierTargetEnum::PERCENTAGE, 100, ActionEnum::DROP)
             ->andReturn(0)
         ;
         $this->eventDispatcher->shouldReceive('dispatch')->never();

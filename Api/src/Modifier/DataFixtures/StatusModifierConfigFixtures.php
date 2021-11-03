@@ -82,8 +82,8 @@ class StatusModifierConfigFixtures extends Fixture
         $burdenedModifier = new ModifierConfig();
         $burdenedModifier
             ->setScope(ActionEnum::MOVE)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(1)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setDelta(2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->setGameConfig($gameConfig)

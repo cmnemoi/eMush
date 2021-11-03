@@ -21,12 +21,16 @@ class DaedalusModifierSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DaedalusModifierEvent::class => 'onChangeVariable',
+            AbstractQuantityEvent::CHANGE_VARIABLE => 'onChangeVariable',
         ];
     }
 
-    public function onChangeVariable(DaedalusModifierEvent $event): void
+    public function onChangeVariable(AbstractQuantityEvent $event): void
     {
+        if (!$event instanceof DaedalusModifierEvent) {
+            return;
+        }
+
         $daedalus = $event->getDaedalus();
         $date = $event->getTime();
         $change = $event->getQuantity();

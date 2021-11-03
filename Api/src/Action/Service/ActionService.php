@@ -173,9 +173,7 @@ class ActionService implements ActionServiceInterface
             'action_cost', //@TODO fix that
             new \DateTime()
         );
-        dump('coucou');
-        dump($variable);
-        dump($delta);
+
         $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }

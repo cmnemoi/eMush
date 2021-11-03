@@ -262,7 +262,7 @@ class ModifierService implements ModifierServiceInterface
 
         $modifiers = $modifiers->getScopedModifiers($scopes)->getTargetedModifiers($target);
 
-        $this->conditionService->getActiveModifiers($modifiers, $reason, $holder);
+        $modifiers = $this->conditionService->getActiveModifiers($modifiers, $reason, $holder);
 
         $modifiedValue = $this->getModifiedValue($modifiers, $initValue);
 

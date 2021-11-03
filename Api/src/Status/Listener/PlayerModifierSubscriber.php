@@ -22,12 +22,16 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerModifierEvent::class => ['onChangeVariable', -10], //Applied after player modification
+            AbstractQuantityEvent::CHANGE_VARIABLE => ['onChangeVariable', -10], //Applied after player modification
         ];
     }
 
-    public function onChangeVariable(PlayerModifierEvent $playerEvent): void
+    public function onChangeVariable(AbstractQuantityEvent $playerEvent): void
     {
+        if (!$playerEvent instanceof PlayerModifierEvent) {
+            return;
+        }
+
         $player = $playerEvent->getPlayer();
         $date = $playerEvent->getTime();
 

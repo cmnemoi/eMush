@@ -21,9 +21,9 @@ interface AlertServiceInterface
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?Alert;
 
-    public function hullAlert(Daedalus $daedalus, int $change): void;
+    public function hullAlert(Daedalus $daedalus): void;
 
-    public function oxygenAlert(Daedalus $daedalus, int $change): void;
+    public function oxygenAlert(Daedalus $daedalus): void;
 
     public function gravityAlert(Daedalus $daedalus, bool $activate): void;
 

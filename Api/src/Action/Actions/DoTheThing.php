@@ -17,6 +17,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -176,11 +177,12 @@ class DoTheThing extends AbstractAction
 
         $playerModifierEvent = new PlayerModifierEvent(
             $player,
+            PlayerVariableEnum::MORAL_POINT,
             $moralePoints,
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         if ($firstTimeStatus) {
             $player->removeStatus($firstTimeStatus);

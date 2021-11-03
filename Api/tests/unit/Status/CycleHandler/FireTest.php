@@ -5,15 +5,18 @@ namespace Mush\Test\Status\CycleHandler;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Status\CycleHandler\Fire;
 use Mush\Status\Entity\ChargeStatus;
@@ -98,14 +101,19 @@ class FireTest extends TestCase
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (PlayerModifierEvent $playerEvent, string $eventName) => (
-                intval($playerEvent->getQuantity()) === -2 && $eventName === PlayerModifierEvent::HEALTH_POINT_MODIFIER
+                intval($playerEvent->getQuantity()) === -2 &&
+                $eventName === AbstractQuantityEvent::CHANGE_VARIABLE &&
+                $playerEvent->getModifiedVariable() === PlayerVariableEnum::HEALTH_POINT
             ))
             ->once()
         ;
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (DaedalusModifierEvent $daedalusEvent, string $eventName) => ($eventName === DaedalusModifierEvent::CHANGE_HULL))
+            ->withArgs(fn (DaedalusModifierEvent $daedalusEvent, string $eventName) => (
+                $eventName === AbstractQuantityEvent::CHANGE_VARIABLE &&
+                $daedalusEvent->getModifiedVariable() === DaedalusVariableEnum::HULL
+            ))
             ->once()
         ;
 

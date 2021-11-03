@@ -12,7 +12,9 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\SkillMushEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -59,12 +61,13 @@ class Hit extends AttemptAction
             } else {
                 $playerModifierEvent = new PlayerModifierEvent(
                     $parameter,
+                    PlayerVariableEnum::HEALTH_POINT,
                     -$damage,
                     $this->getActionName(),
                     new \DateTime()
                 );
 
-                $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+                $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
             }
         }
 

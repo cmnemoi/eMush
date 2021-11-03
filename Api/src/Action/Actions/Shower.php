@@ -11,6 +11,8 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -51,11 +53,12 @@ class Shower extends AbstractAction
         if ($this->player->isMush()) {
             $playerModifierEvent = new PlayerModifierEvent(
                 $this->player,
+                PlayerVariableEnum::HEALTH_POINT,
                 self::MUSH_SHOWER_DAMAGES,
                 $this->getActionName(),
                 new \DateTime()
             );
-            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
 
         //@Hack: Mush 'fails' the shower to get different log

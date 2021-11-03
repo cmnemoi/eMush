@@ -10,21 +10,18 @@ use Mush\RoomLog\Event\LoggableEventInterface;
 
 class PlayerModifierEvent extends PlayerEvent implements LoggableEventInterface, AbstractQuantityEvent
 {
-    public const ACTION_POINT_MODIFIER = 'action.point.modifier';
-    public const MOVEMENT_POINT_MODIFIER = 'movement.point.modifier';
-    public const HEALTH_POINT_MODIFIER = 'health.point.modifier';
-    public const MORAL_POINT_MODIFIER = 'moral.point.modifier';
-    public const SATIETY_POINT_MODIFIER = 'satiety.point.modifier';
-
     private int $quantity;
+    private string $modifiedVariable;
 
     public function __construct(
         Player $player,
+        string $modifiedVariable,
         int $quantity,
         string $reason,
         \DateTime $time
     ) {
         $this->quantity = $quantity;
+        $this->modifiedVariable = $modifiedVariable;
 
         parent::__construct($player, $reason, $time);
     }
@@ -32,6 +29,11 @@ class PlayerModifierEvent extends PlayerEvent implements LoggableEventInterface,
     public function getQuantity(): int
     {
         return $this->quantity;
+    }
+
+    public function getModifiedVariable(): string
+    {
+        return $this->modifiedVariable;
     }
 
     public function setQuantity(int $quantity): self

@@ -4,6 +4,7 @@ namespace Mush\Test\Player\Event;
 
 use Mockery;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Listener\PlayerModifierSubscriber;
 use Mush\Player\Service\PlayerVariableServiceInterface;
@@ -47,8 +48,9 @@ class PlayerModifierSubscriberTest extends TestCase
 
         $event = new PlayerModifierEvent(
             $player,
+            PlayerVariableEnum::MOVEMENT_POINT,
             3,
-            PlayerModifierEvent::MOVEMENT_POINT_MODIFIER,
+            'reason',
             new \DateTime()
         );
 
@@ -58,14 +60,20 @@ class PlayerModifierSubscriberTest extends TestCase
             ->once()
         ;
 
-        $this->playerModifierSubscriber->onMovementPointModifier($event);
+        $this->playerModifierSubscriber->onChangeVariable($event);
     }
 
     public function testOnActionPointModifier()
     {
         $player = new Player();
 
-        $event = new PlayerModifierEvent($player, 1, 'movement point conversion', new \DateTime());
+        $event = new PlayerModifierEvent(
+            $player,
+            PlayerVariableEnum::ACTION_POINT,
+            1,
+            'movement point conversion',
+            new \DateTime()
+        );
 
         $this->playerVariableService
             ->shouldReceive('handleActionPointModifier')
@@ -73,7 +81,7 @@ class PlayerModifierSubscriberTest extends TestCase
             ->once()
         ;
 
-        $this->playerModifierSubscriber->onActionPointModifier($event);
+        $this->playerModifierSubscriber->onChangeVariable($event);
     }
 
     public function testOnMoralPointModifier()
@@ -84,8 +92,9 @@ class PlayerModifierSubscriberTest extends TestCase
 
         $event = new PlayerModifierEvent(
             $player,
+            PlayerVariableEnum::MORAL_POINT,
             -1,
-            PlayerModifierEvent::MOVEMENT_POINT_MODIFIER,
+            'reason',
             new \DateTime()
         );
 
@@ -95,7 +104,7 @@ class PlayerModifierSubscriberTest extends TestCase
             ->once()
         ;
 
-        $this->playerModifierSubscriber->onMoralPointModifier($event);
+        $this->playerModifierSubscriber->onChangeVariable($event);
 
         // 0 moral point left
         $player->setMoralPoint(0);
@@ -108,7 +117,7 @@ class PlayerModifierSubscriberTest extends TestCase
 
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
-        $this->playerModifierSubscriber->onMoralPointModifier($event);
+        $this->playerModifierSubscriber->onChangeVariable($event);
     }
 
     public function testOnHealthPointModifier()
@@ -118,8 +127,9 @@ class PlayerModifierSubscriberTest extends TestCase
         $player->setHealthPoint(1);
         $event = new PlayerModifierEvent(
             $player,
+            PlayerVariableEnum::HEALTH_POINT,
             1,
-            PlayerModifierEvent::MOVEMENT_POINT_MODIFIER,
+            'reason',
             new \DateTime()
         );
 
@@ -129,7 +139,7 @@ class PlayerModifierSubscriberTest extends TestCase
             ->once()
         ;
 
-        $this->playerModifierSubscriber->onHealthPointModifier($event);
+        $this->playerModifierSubscriber->onChangeVariable($event);
 
         // 0 health point left
         $player->setHealthPoint(0);
@@ -142,7 +152,7 @@ class PlayerModifierSubscriberTest extends TestCase
 
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
-        $this->playerModifierSubscriber->onHealthPointModifier($event);
+        $this->playerModifierSubscriber->onChangeVariable($event);
     }
 
     public function testOnSatietyPointModifier()
@@ -151,8 +161,9 @@ class PlayerModifierSubscriberTest extends TestCase
 
         $event = new PlayerModifierEvent(
             $player,
+            PlayerVariableEnum::SATIETY,
             1,
-            PlayerModifierEvent::MOVEMENT_POINT_MODIFIER,
+    'reason',
             new \DateTime()
         );
 
@@ -162,6 +173,6 @@ class PlayerModifierSubscriberTest extends TestCase
             ->once()
         ;
 
-        $this->playerModifierSubscriber->onSatietyPointModifier($event);
+        $this->playerModifierSubscriber->onChangeVariable($event);
     }
 }

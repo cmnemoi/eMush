@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierScopeEnum;
@@ -19,6 +20,7 @@ use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -165,7 +167,11 @@ class ActionSideEffectsServiceTest extends TestCase
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(
-                fn (PlayerModifierEvent $playerEvent, string $eventName) => ($playerEvent->getQuantity() === -2 && $eventName === PlayerModifierEvent::HEALTH_POINT_MODIFIER)
+                fn (PlayerModifierEvent $playerEvent, string $eventName) => (
+                    $playerEvent->getQuantity() === -2 &&
+                    $eventName === AbstractQuantityEvent::CHANGE_VARIABLE &&
+                    $playerEvent->getModifiedVariable() === PlayerVariableEnum::HEALTH_POINT
+                )
             )
             ->once()
         ;

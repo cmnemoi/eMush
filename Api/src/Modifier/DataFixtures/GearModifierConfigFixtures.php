@@ -8,10 +8,10 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Entity\ModifierCondition;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierConditionEnum;
@@ -133,7 +133,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
         $oscilloscopeRepairModifier = new ModifierConfig();
         $oscilloscopeRepairModifier
-            ->setScope(DaedalusModifierEvent::CHANGE_HULL)
+            ->setScope(AbstractQuantityEvent::CHANGE_VARIABLE)
             ->setTarget(DaedalusVariableEnum::HULL)
             ->setDelta(2)
             ->setReach(ModifierReachEnum::PLAYER)
@@ -181,7 +181,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
         $oxygenTankModifier = new ModifierConfig();
         $oxygenTankModifier
-            ->setScope(DaedalusModifierEvent::CHANGE_OXYGEN)
+            ->setScope(AbstractQuantityEvent::CHANGE_VARIABLE)
             ->setTarget(DaedalusVariableEnum::OXYGEN)
             ->setDelta(1)
             ->setReach(ModifierReachEnum::DAEDALUS)

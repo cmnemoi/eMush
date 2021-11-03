@@ -3,12 +3,14 @@
 namespace Mush\Daedalus\Listener;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -90,11 +92,12 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
         $daedalusEvent = new DaedalusModifierEvent(
             $daedalus,
+            DaedalusVariableEnum::OXYGEN,
             $oxygenLoss,
             EventEnum::NEW_CYCLE,
             $date
         );
-        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_OXYGEN);
+        $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         if ($daedalus->getOxygen() === 0) {
             $this->daedalusService->getRandomAsphyxia($daedalus, $date);

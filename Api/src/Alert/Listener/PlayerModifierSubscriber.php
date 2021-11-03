@@ -3,6 +3,8 @@
 namespace Mush\Alert\Listener;
 
 use Mush\Alert\Service\AlertServiceInterface;
+use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -19,12 +21,14 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerModifierEvent::SATIETY_POINT_MODIFIER => 'onSatietyPointModifier',
+            PlayerModifierEvent::class => ['onChangeVariable', -10], //Applied after player modification
         ];
     }
 
-    public function onSatietyPointModifier(PlayerModifierEvent $playerEvent): void
+    public function onChangeVariable(PlayerModifierEvent $playerEvent): void
     {
-        $this->alertService->handleSatietyAlert($playerEvent->getPlayer()->getDaedalus());
+        if ($playerEvent->getModifiedVariable() === PlayerVariableEnum::SATIETY) {
+            $this->alertService->handleSatietyAlert($playerEvent->getPlayer()->getDaedalus());
+        }
     }
 }

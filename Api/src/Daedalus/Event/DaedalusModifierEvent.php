@@ -9,19 +9,18 @@ use Mush\Player\Entity\Player;
 
 class DaedalusModifierEvent extends DaedalusEvent implements AbstractQuantityEvent
 {
-    public const CHANGE_HULL = 'change.hull';
-    public const CHANGE_OXYGEN = 'change.oxygen';
-    public const CHANGE_FUEL = 'change.fuel';
-
     private int $quantity;
+    private string $modifiedVariable;
     private ?Player $player = null;
 
     public function __construct(
         Daedalus $daedalus,
+        string $modifiedVariable,
         int $quantity,
         string $reason,
         \DateTime $time
     ) {
+        $this->modifiedVariable = $modifiedVariable;
         $this->quantity = $quantity;
 
         parent::__construct($daedalus, $reason, $time);
@@ -37,6 +36,11 @@ class DaedalusModifierEvent extends DaedalusEvent implements AbstractQuantityEve
     public function getQuantity(): int
     {
         return $this->quantity;
+    }
+
+    public function getModifiedVariable(): string
+    {
+        return $this->modifiedVariable;
     }
 
     public function getPlayer(): ?Player

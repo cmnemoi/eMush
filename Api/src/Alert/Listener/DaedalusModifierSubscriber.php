@@ -3,7 +3,9 @@
 namespace Mush\Alert\Listener;
 
 use Mush\Alert\Service\AlertServiceInterface;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusModifierSubscriber implements EventSubscriberInterface
@@ -19,24 +21,23 @@ class DaedalusModifierSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DaedalusModifierEvent::CHANGE_HULL => 'onChangeHull',
-            DaedalusModifierEvent::CHANGE_OXYGEN => 'onChangeOxygen',
+            DaedalusModifierEvent::class => ['onChangeVariable', -10], //Applied after player modification
         ];
     }
 
-    public function onChangeHull(DaedalusModifierEvent $event): void
+    public function onChangeVariable(DaedalusModifierEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-        $change = $event->getQuantity();
 
-        $this->alertService->hullAlert($daedalus, $change);
-    }
+        switch ($event->getModifiedVariable()) {
+            case DaedalusVariableEnum::HULL:
+                $this->alertService->hullAlert($daedalus);
 
-    public function onChangeOxygen(DaedalusModifierEvent $event): void
-    {
-        $daedalus = $event->getDaedalus();
-        $change = $event->getQuantity();
+                return;
+            case DaedalusVariableEnum::OXYGEN:
+                $this->alertService->oxygenAlert($daedalus);
 
-        $this->alertService->oxygenAlert($daedalus, $change);
+                return;
+        }
     }
 }

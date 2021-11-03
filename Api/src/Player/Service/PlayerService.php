@@ -8,16 +8,18 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TriumphEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Repository\DeadPlayerInfoRepository;
 use Mush\Player\Repository\PlayerRepository;
-use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -170,26 +172,29 @@ class PlayerService implements PlayerServiceInterface
 
         $playerModifierEvent = new PlayerModifierEvent(
             $player,
+            PlayerVariableEnum::ACTION_POINT,
             1,
             EventEnum::NEW_CYCLE,
             $date);
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::ACTION_POINT_MODIFIER);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $playerModifierEvent = new PlayerModifierEvent(
             $player,
+            PlayerVariableEnum::MOVEMENT_POINT,
             1,
             EventEnum::NEW_CYCLE,
             $date
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MOVEMENT_POINT_MODIFIER);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $playerModifierEvent = new PlayerModifierEvent(
             $player,
+            PlayerVariableEnum::SATIETY,
             -1,
             EventEnum::NEW_CYCLE,
             $date
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::SATIETY_POINT_MODIFIER);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $triumphChange = 0;
 
@@ -210,7 +215,7 @@ class PlayerService implements PlayerServiceInterface
         $player->addTriumph($triumphChange);
 
         $this->roomLogService->createLog(
-            LogEnum::GAIN_TRIUMPH,
+            PlayerModifierLogEnum::GAIN_TRIUMPH,
             $player->getPlace(),
             VisibilityEnum::PRIVATE,
             'event_log',
@@ -230,20 +235,22 @@ class PlayerService implements PlayerServiceInterface
 
         $playerModifierEvent = new PlayerModifierEvent(
             $player,
+            PlayerVariableEnum::HEALTH_POINT,
             1,
             EventEnum::NEW_DAY,
             $date
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         if (!$player->isMush()) {
             $playerModifierEvent = new PlayerModifierEvent(
                 $player,
+                PlayerVariableEnum::MORAL_POINT,
                 -2,
                 EventEnum::NEW_DAY,
                 $date
             );
-            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
+            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
 
         return $this->persist($player);
@@ -276,11 +283,12 @@ class PlayerService implements PlayerServiceInterface
                 if ($daedalusPlayer !== $player) {
                     $playerModifierEvent = new PlayerModifierEvent(
                         $daedalusPlayer,
+                        PlayerVariableEnum::MORAL_POINT,
                         $moraleLoss,
                         EventEnum::PLAYER_DEATH,
                         $time
                     );
-                    $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
+                    $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
                 }
             }
         }

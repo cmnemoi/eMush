@@ -3,6 +3,7 @@
 namespace Mush\Player\Event;
 
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
@@ -33,6 +34,13 @@ class PlayerModifierEvent extends PlayerEvent implements LoggableEventInterface,
         return $this->quantity;
     }
 
+    public function setQuantity(int $quantity): self
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
     public function getPlace(): Place
     {
         return $this->player->getPlace();
@@ -44,5 +52,10 @@ class PlayerModifierEvent extends PlayerEvent implements LoggableEventInterface,
             $this->player->getLogKey() => $this->player->getLogName(),
             'quantity' => $this->quantity,
         ];
+    }
+
+    public function getModifierHolder(): ModifierHolder
+    {
+        return $this->player;
     }
 }

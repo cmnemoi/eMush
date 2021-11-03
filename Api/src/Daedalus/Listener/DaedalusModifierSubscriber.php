@@ -2,7 +2,6 @@
 
 namespace Mush\Daedalus\Listener;
 
-use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Modifier\Service\ModifierServiceInterface;
@@ -35,25 +34,6 @@ class DaedalusModifierSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
         $date = $event->getTime();
         $change = $event->getQuantity();
-        $reason = $event->getReason();
-
-        if ($player = $event->getPlayer()) {
-            $change = $this->modifierService->getEventModifiedValue(
-                $player,
-                [DaedalusModifierEvent::CHANGE_HULL],
-                DaedalusVariableEnum::HULL,
-                $change,
-                $reason
-            );
-        } else {
-            $change = $this->modifierService->getEventModifiedValue(
-                $daedalus,
-                [DaedalusModifierEvent::CHANGE_HULL],
-                DaedalusVariableEnum::HULL,
-                $change,
-                $reason
-            );
-        }
 
         $this->daedalusService->changeHull($daedalus, $change, $date);
     }
@@ -62,25 +42,6 @@ class DaedalusModifierSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
         $change = $event->getQuantity();
-        $reason = $event->getReason();
-
-        if ($player = $event->getPlayer()) {
-            $change = $this->modifierService->getEventModifiedValue(
-                $player,
-                [DaedalusModifierEvent::CHANGE_OXYGEN],
-                DaedalusVariableEnum::OXYGEN,
-                $change,
-                $reason
-            );
-        } else {
-            $change = $this->modifierService->getEventModifiedValue(
-                $daedalus,
-                [DaedalusModifierEvent::CHANGE_OXYGEN],
-                DaedalusVariableEnum::OXYGEN,
-                $change,
-                $reason
-            );
-        }
 
         $this->daedalusService->changeOxygenLevel($daedalus, $change);
     }

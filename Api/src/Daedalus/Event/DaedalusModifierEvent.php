@@ -4,6 +4,7 @@ namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Player\Entity\Player;
 
 class DaedalusModifierEvent extends DaedalusEvent implements AbstractQuantityEvent
@@ -26,6 +27,13 @@ class DaedalusModifierEvent extends DaedalusEvent implements AbstractQuantityEve
         parent::__construct($daedalus, $reason, $time);
     }
 
+    public function setQuantity(int $quantity): self
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
     public function getQuantity(): int
     {
         return $this->quantity;
@@ -41,5 +49,14 @@ class DaedalusModifierEvent extends DaedalusEvent implements AbstractQuantityEve
         $this->player = $player;
 
         return $this;
+    }
+
+    public function getModifierHolder(): ModifierHolder
+    {
+        if ($this->player !== null) {
+            return $this->player;
+        }
+
+        return $this->daedalus;
     }
 }

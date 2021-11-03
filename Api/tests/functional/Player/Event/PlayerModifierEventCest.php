@@ -11,7 +11,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -166,7 +166,7 @@ class PlayerModifierEventCest
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
             'player' => $player->getId(),
-            'log' => LogEnum::HUNGER,
+            'log' => StatusEventLogEnum::HUNGER,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
     }

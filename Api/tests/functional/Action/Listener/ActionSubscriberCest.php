@@ -22,6 +22,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
@@ -109,7 +110,7 @@ class ActionSubscriberCest
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
             'player' => $player->getId(),
-            'log' => LogEnum::SOILED,
+            'log' => StatusEventLogEnum::SOILED,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
     }

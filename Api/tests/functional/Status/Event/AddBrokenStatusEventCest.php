@@ -13,7 +13,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -85,7 +85,7 @@ class AddBrokenStatusEventCest
         $I->assertTrue($room->getEquipments()->first()->isBroken());
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'log' => LogEnum::EQUIPMENT_BROKEN,
+            'log' => StatusEventLogEnum::EQUIPMENT_BROKEN,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
     }

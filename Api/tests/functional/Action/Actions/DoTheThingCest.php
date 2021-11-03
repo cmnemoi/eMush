@@ -21,18 +21,24 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class DoTheThingCest
 {
     private DoTheThing $doTheThingAction;
+    private EventDispatcherInterface $eventDispatcherService;
 
     public function _before(FunctionalTester $I)
     {
         $this->doTheThingAction = $I->grabService(DoTheThing::class);
+        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testDoTheThing(FunctionalTester $I)
@@ -106,6 +112,15 @@ class DoTheThingCest
 
         $I->haveInRepository($didTheThingStatus);
 
+        $pregnantStatus = new StatusConfig();
+        $pregnantStatus
+            ->setName(PlayerStatusEnum::PREGNANT)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setGameConfig($gameConfig)
+        ;
+
+        $I->haveInRepository($pregnantStatus);
+
         $targetPlayer->setFlirts(new ArrayCollection([$player]));
 
         $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
@@ -123,6 +138,23 @@ class DoTheThingCest
             'player' => $player->getId(),
             'log' => ActionLogEnum::DO_THE_THING_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+
+        //Check if pregnancy log works
+        $pregnantStatusEvent = new StatusEvent(
+            PlayerStatusEnum::PREGNANT,
+            $player,
+            $this->doTheThingAction->getActionName(),
+            new \DateTime()
+          );
+        $pregnantStatusEvent->setVisibility(VisibilityEnum::PRIVATE);
+
+        $this->eventDispatcherService->dispatch($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);
+
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $room->getId(),
+            'log' => StatusEventLogEnum::BECOME_PREGNANT,
+            'visibility' => VisibilityEnum::PRIVATE,
         ]);
     }
 

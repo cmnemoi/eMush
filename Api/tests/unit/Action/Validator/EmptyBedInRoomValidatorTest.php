@@ -11,6 +11,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
@@ -70,9 +71,10 @@ class EmptyBedInRoomValidatorTest extends TestCase
         $gameEquipment = new GameItem();
         $gameEquipment->setName(EquipmentEnum::BED)->setHolder($room);
 
-        $lyingDownStatus = new Status($player, PlayerStatusEnum::LYING_DOWN);
+        $statusConfig = new StatusConfig();
+        $statusConfig->setVisibility(VisibilityEnum::PUBLIC)->setName(PlayerStatusEnum::LYING_DOWN);
+        $lyingDownStatus = new Status($player, $statusConfig);
         $lyingDownStatus
-            ->setVisibility(VisibilityEnum::PUBLIC)
             ->setTarget($gameEquipment)
         ;
 

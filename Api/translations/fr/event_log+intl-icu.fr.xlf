@@ -250,7 +250,7 @@
         <unit id="become_pregnant">
             <segment>
                 <source>become_pregnant</source>
-                <target>Vous attendez un heureux évènement ! Ceci vous donne un bonus de triomphe et si vous venez à mourir, le moral de l'équipage en sera lourdement affecté.</target>
+                <target>Vous avez gagné *8 Triomphe* car vous attendez un heureux évènement !</target>
             </segment>
         </unit>
         <unit id="disease_appear">

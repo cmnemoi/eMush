@@ -51,6 +51,31 @@ class FlirtedAlreadyValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
+    public function testTargetInitiatorValid()
+    {
+        // Target player is expected to have flirted with player
+        // This case is needed to be able to do the thing with target
+        $this->constraint->initiator = false;
+        $this->constraint->expectedValue = true;
+
+        $player = new Player();
+
+        $target = new Player();
+
+        $target->addFlirt($player);
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getParameter' => $target,
+                'getPlayer' => $player,
+            ])
+        ;
+
+        $this->initValidator();
+        $this->validator->validate($action, $this->constraint);
+    }
+
     public function testNotValid()
     {
         $player = new Player();

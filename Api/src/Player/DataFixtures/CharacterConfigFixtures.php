@@ -43,6 +43,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $getUpAction = $this->getReference(ActionsFixtures::GET_UP);
         /** @var Action $flirtAction */
         $flirtAction = $this->getReference(ActionsFixtures::FLIRT_DEFAULT);
+        /** @var Action $doTheThingAction */
+        $doTheThingAction = $this->getReference(ActionsFixtures::DO_THE_THING);
 
         /** @var Action $extractSporeAction */
         $extractSporeAction = $this->getReference(ActionsFixtures::EXTRACT_SPORE);
@@ -63,6 +65,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $rejuvenateAlphaAction,
             $spreadFireAction,
             $flirtAction,
+            $doTheThingAction,
         ]);
 
         /** @var StatusConfig $sporeStatus */

@@ -12,6 +12,7 @@ const SUICIDAL = "suicidal";
 const SPORES = "spores";
 const ANTISOCIAL = "antisocial";
 const FIRST_TIME = "first_time";
+const PREGNANT = "pregnant";
 
 
 export const statusPlayerEnum: {[index: string]: any} = {
@@ -56,5 +57,11 @@ export const statusPlayerEnum: {[index: string]: any} = {
     },
     [ANTISOCIAL]: {
         'icon': require('@/assets/images/status/unsociable.png')
+    },
+    [FIRST_TIME]: {
+        'icon': require('@/assets/images/status/first_time.png')
+    },
+    [PREGNANT]: {
+        'icon': require('@/assets/images/status/pregnant.png')
     }
 };

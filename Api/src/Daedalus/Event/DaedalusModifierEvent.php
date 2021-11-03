@@ -13,7 +13,7 @@ class DaedalusModifierEvent extends DaedalusEvent implements AbstractQuantityEve
     public const CHANGE_FUEL = 'change.fuel';
 
     private int $quantity;
-    private ?Player $player;
+    private ?Player $player = null;
 
     public function __construct(
         Daedalus $daedalus,

@@ -14,10 +14,8 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Player;
-use Mush\Status\Entity\Attempt;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
-use Mush\Status\Enum\StatusEnum;
 
 class ExtinguishActionTest extends AbstractActionTest
 {
@@ -54,7 +52,7 @@ class ExtinguishActionTest extends AbstractActionTest
     public function testExecuteFail()
     {
         $room = new Place();
-        $fire = new Status($room, StatusEnum::FIRE);
+        $fire = new Status($room, new StatusConfig());
 
         $gameItem = new GameItem();
         $item = new ItemConfig();
@@ -69,12 +67,6 @@ class ExtinguishActionTest extends AbstractActionTest
         $actionParameter->setItem($gameItem);
 
         $player = $this->createPlayer(new Daedalus(), $room);
-
-        $attempt = new Attempt(new Player(), StatusEnum::ATTEMPT);
-        $attempt
-            ->setAction($this->action->getActionName())
-        ;
-        $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
@@ -88,13 +80,12 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->assertInstanceOf(Fail::class, $result);
         $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(1, $room->getStatuses());
-        $this->assertEquals(0, $attempt->getCharge());
     }
 
     public function testExecuteSuccess()
     {
         $room = new Place();
-        $fire = new Status($room, StatusEnum::FIRE);
+        $fire = new Status($room, new StatusConfig());
 
         $gameItem = new GameItem();
         $item = new ItemConfig();
@@ -109,12 +100,6 @@ class ExtinguishActionTest extends AbstractActionTest
         $actionParameter->setItem($gameItem);
 
         $player = $this->createPlayer(new Daedalus(), $room);
-
-        $attempt = new Attempt(new Player(), StatusEnum::ATTEMPT);
-        $attempt
-            ->setAction($this->action->getActionName())
-        ;
-        $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

@@ -9,6 +9,7 @@ use Mush\Action\Validator\DailySporesLimitValidator;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -90,7 +91,9 @@ class DailySporesLimitValidatorTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $mushStatus = new ChargeStatus($player, PlayerStatusEnum::MUSH);
+        $mushConfig = new ChargeStatusConfig();
+        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mushStatus = new ChargeStatus($player, $mushConfig);
         $mushStatus->setCharge(1);
 
         $this->constraint->target = DailySporesLimit::PLAYER;
@@ -128,7 +131,9 @@ class DailySporesLimitValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $mushStatus = new ChargeStatus($player, PlayerStatusEnum::MUSH);
+        $mushConfig = new ChargeStatusConfig();
+        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mushStatus = new ChargeStatus($player, $mushConfig);
         $mushStatus->setCharge(0);
 
         $this->initValidator($this->constraint->message);

@@ -19,7 +19,7 @@ class StatusSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            StatusEvent::STATUS_APPLIED => 'onStatusApplied',
+            StatusEvent::STATUS_APPLIED => ['onStatusApplied', 1000],
             StatusEvent::STATUS_REMOVED => 'onStatusRemoved',
         ];
     }
@@ -36,6 +36,8 @@ class StatusSubscriber implements EventSubscriberInterface
                 $event->getStatusTarget()
             );
         }
+        $statusConfig = $this->statusService->getStatusConfigByNameAndDaedalus($event->getStatusName(), $event->getPlace()->getDaedalus());
+        $event->setStatusConfig($statusConfig);
     }
 
     public function onStatusRemoved(StatusEvent $event): void

@@ -22,6 +22,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -170,7 +171,13 @@ class DropSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($statusConfig);
 
-        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+        ;
+        $I->haveInRepository($statusConfig);
+        $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
         $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);
@@ -248,7 +255,13 @@ class DropSubscriberCest
         $statusConfig->setName(EquipmentStatusEnum::BROKEN);
         $I->haveInRepository($statusConfig);
 
-        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+        ;
+        $I->haveInRepository($statusConfig);
+        $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
         $this->dropAction->loadParameters($takeActionEntity, $player, $gameEquipment);

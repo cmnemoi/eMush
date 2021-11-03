@@ -19,6 +19,7 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -66,7 +67,14 @@ class EquipmentSubscriberCest
 
         $I->haveInRepository($gravitySimulator);
 
-        $broken = new Status($gravitySimulator, EquipmentStatusEnum::BROKEN);
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+        ;
+        $I->haveInRepository($statusConfig);
+        $broken = new Status($gravitySimulator, $statusConfig);
+        $I->haveInRepository($broken);
 
         $reportedAlert = new AlertElement();
         $reportedAlert->setEquipment($gravitySimulator);

@@ -228,7 +228,21 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function setPlace(Place $place): self
     {
         $this->place = $place;
+        $place->addPlayer($this);
 
+        return $this;
+    }
+
+    /**
+     * @return static
+     */
+    public function changePlace(Place $place): self
+    {
+        if ($this->place !== $place) {
+            $this->place->removePlayer($this);
+        }
+
+        $this->place = $place;
         $place->addPlayer($this);
 
         return $this;
@@ -240,7 +254,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function canReachEquipment(GameEquipment $gameEquipment): bool
     {
         if ($gameEquipment instanceof Door &&
-            $this->getPlace()->getDoors()->contains($gameEquipment)
+            $gameEquipment->getRooms()->contains($this->getPlace())
         ) {
             return true;
         }
@@ -647,5 +661,18 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function getLogKey(): string
     {
         return LogParameterKeyEnum::CHARACTER;
+    }
+
+    public function getModifiersConfigs(): Collection
+    {
+        $modifierConfigs = $this->getAllStatusesModifierConfigs();
+
+        foreach ($this->getEquipments() as $equipment) {
+            foreach ($equipment->getModifierConfigs() as $modifierConfig) {
+                $modifierConfigs->add($modifierConfig);
+            }
+        }
+
+        return $modifierConfigs;
     }
 }

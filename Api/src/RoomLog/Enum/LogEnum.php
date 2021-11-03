@@ -18,7 +18,6 @@ class LogEnum
     public const OBJECT_FELT = 'object_felt';
     public const CLUMSINESS = 'clumsiness';
     public const CLUMSINESS_PREVENTED = 'clumsiness_prevented';
-    public const SOILED = 'soiled';
     public const SOIL_PREVENTED = 'soil_prevented';
     public const SOIL_PREVENTED_OCD = 'soil_prevented_ocd';
     public const OXY_LOW_USE_CAPSULE = 'oxy_low_use_capsule';
@@ -28,9 +27,7 @@ class LogEnum
     public const METAL_PLATE = 'metal_plate';
     public const PANIC_CRISIS = 'panic_crisis';
     public const EQUIPMENT_DESTROYED = 'equipment_destroyed';
-    public const EQUIPMENT_BROKEN = 'equipment_broken';
     public const GARDEN_DESTROYED = 'garden_destroyed';
-    public const HUNGER = 'hunger';
     public const FORCE_GET_UP = 'force_get_up';
     public const ANTISOCIAL_MORALE_LOSS = 'antisocial_morale_loss';
 

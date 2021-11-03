@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Place\Entity\Place;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
@@ -59,7 +60,9 @@ class CookActionTest extends AbstractActionTest
             ->setName('ration')
         ;
 
-        $frozenStatus = new Status($gameRation, EquipmentStatusEnum::FROZEN);
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(EquipmentStatusEnum::FROZEN);
+        $frozenStatus = new Status($gameRation, $statusConfig);
 
         $gameKitchen = new GameEquipment();
         $kitchen = new ItemConfig();

@@ -14,6 +14,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Status\Entity\Attempt;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -230,7 +231,9 @@ class ActionServiceTest extends TestCase
     {
         $player = $this->createPlayer(5, 5, 5);
 
-        $attempt = new Attempt($player, StatusEnum::ATTEMPT);
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig->setName(StatusEnum::ATTEMPT);
+        $attempt = new Attempt($player, $statusConfig);
         $attempt
             ->setAction(ActionEnum::TAKE)
             ->setCharge(0)

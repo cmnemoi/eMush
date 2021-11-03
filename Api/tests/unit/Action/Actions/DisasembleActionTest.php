@@ -15,9 +15,6 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Player;
-use Mush\Status\Entity\Attempt;
-use Mush\Status\Enum\StatusEnum;
 
 class DisasembleActionTest extends AbstractActionTest
 {
@@ -70,12 +67,6 @@ class DisasembleActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
 
-        $attempt = new Attempt(new Player(), StatusEnum::ATTEMPT);
-        $attempt
-            ->setAction($this->action->getActionName())
-        ;
-        $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
-
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
@@ -87,7 +78,6 @@ class DisasembleActionTest extends AbstractActionTest
 
         $this->assertInstanceOf(Fail::class, $result);
         $this->assertCount(1, $room->getEquipments());
-        $this->assertEquals(0, $attempt->getCharge());
     }
 
     public function testExecuteSuccess()
@@ -108,12 +98,6 @@ class DisasembleActionTest extends AbstractActionTest
         ;
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
-
-        $attempt = new Attempt(new Player(), StatusEnum::ATTEMPT);
-        $attempt
-            ->setAction($this->action->getActionName())
-        ;
-        $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);

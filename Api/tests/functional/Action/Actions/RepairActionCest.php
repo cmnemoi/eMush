@@ -25,6 +25,7 @@ use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
@@ -87,11 +88,13 @@ class RepairActionCest
 
         $I->assertFalse($this->repairAction->isVisible());
 
-        $status = new Status($gameEquipment, EquipmentStatusEnum::BROKEN);
-        $status
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
-
+        $I->haveInRepository($statusConfig);
+        $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
         $I->assertEquals(25, $this->repairAction->getSuccessRate());

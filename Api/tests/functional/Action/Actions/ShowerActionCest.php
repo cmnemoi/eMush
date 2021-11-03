@@ -28,6 +28,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -61,10 +62,11 @@ class ShowerActionCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $mushStatus = new Status($player, PlayerStatusEnum::MUSH);
-        $mushStatus
-            ->setVisibility(VisibilityEnum::MUSH)
-        ;
+        $mushConfig = new StatusConfig();
+        $mushConfig->setName(PlayerStatusEnum::MUSH)->setVisibility(VisibilityEnum::MUSH);
+        $I->haveInRepository($mushConfig);
+        $mushStatus = new Status($player, $mushConfig);
+        $I->haveInRepository($mushStatus);
 
         $actionCost = new ActionCost();
 

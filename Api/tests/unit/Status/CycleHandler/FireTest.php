@@ -17,6 +17,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Status\CycleHandler\Fire;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -79,7 +80,9 @@ class FireTest extends TestCase
         $daedalusHull = 100;
         $daedalus->setHull($daedalusHull);
 
-        $status = new ChargeStatus($room, StatusEnum::FIRE);
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig->setName(StatusEnum::FIRE);
+        $status = new ChargeStatus($room, $statusConfig);
         $status
             ->setCharge(1)
         ;

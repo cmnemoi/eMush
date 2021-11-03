@@ -55,7 +55,7 @@ class Move extends AbstractAction
         $parameter = $this->parameter;
 
         $newRoom = $parameter->getOtherRoom($this->player->getPlace());
-        $this->player->setPlace($newRoom);
+        $this->player->changePlace($newRoom);
 
         $this->playerService->persist($this->player);
 

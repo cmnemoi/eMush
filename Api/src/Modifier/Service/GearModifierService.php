@@ -115,23 +115,6 @@ class GearModifierService implements GearModifierServiceInterface
         }
     }
 
-    public function handleDisplacement(Player $player): void
-    {
-        foreach ($player->getEquipments() as $gameItem) {
-            if ($gearMechanic = $gameItem->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR)) {
-                if (!$gearMechanic instanceof Gear) {
-                    throw new UnexpectedTypeException($gearMechanic, Gear::class);
-                }
-
-                foreach ($gearMechanic->getModifierConfigs() as $modifierConfig) {
-                    if ($modifierConfig->getReach() === ModifierReachEnum::PLACE) {
-                        // @TODO once we can set a room in ActionResult
-                    }
-                }
-            }
-        }
-    }
-
     private function createModifier(ModifierConfig $modifierConfig, GameEquipment $gameEquipment, Place $place, ?Player $player): void
     {
         $charge = $this->getChargeStatus($modifierConfig->getScope(), $gameEquipment);

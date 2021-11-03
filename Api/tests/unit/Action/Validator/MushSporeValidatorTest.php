@@ -9,6 +9,7 @@ use Mush\Action\Validator\MushSporeValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -43,7 +44,9 @@ class MushSporeValidatorTest extends TestCase
 
         $player = new Player();
 
-        $chargeStatus = new ChargeStatus($player, PlayerStatusEnum::SPORES);
+        $sporeConfig = new ChargeStatusConfig();
+        $sporeConfig->setName(PlayerStatusEnum::SPORES);
+        $chargeStatus = new ChargeStatus($player, $sporeConfig);
         $chargeStatus
             ->setCharge(1)
         ;
@@ -75,7 +78,9 @@ class MushSporeValidatorTest extends TestCase
             ])
         ;
 
-        $chargeStatus = new ChargeStatus($player, PlayerStatusEnum::SPORES);
+        $sporeConfig = new ChargeStatusConfig();
+        $sporeConfig->setName(PlayerStatusEnum::SPORES);
+        $chargeStatus = new ChargeStatus($player, $sporeConfig);
         $chargeStatus
             ->setCharge(0)
         ;

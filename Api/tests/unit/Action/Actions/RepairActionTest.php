@@ -13,11 +13,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Player;
-use Mush\Status\Entity\Attempt;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\StatusEnum;
 
 class RepairActionTest extends AbstractActionTest
 {
@@ -61,20 +56,12 @@ class RepairActionTest extends AbstractActionTest
             ->setIsBreakable(true)
         ;
 
-        $broken = new Status($gameItem, EquipmentStatusEnum::BROKEN);
-
         $gameItem
             ->setEquipment($item)
             ->setHolder($room)
         ;
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
-
-        $attempt = new Attempt(new Player(), StatusEnum::ATTEMPT);
-        $attempt
-            ->setAction($this->action->getActionName())
-        ;
-        $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
@@ -86,8 +73,6 @@ class RepairActionTest extends AbstractActionTest
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Fail::class, $result);
-        $this->assertCount(1, $room->getEquipments()->first()->getStatuses());
-        $this->assertEquals(0, $attempt->getCharge());
     }
 
     public function testExecuteSuccess()
@@ -100,17 +85,12 @@ class RepairActionTest extends AbstractActionTest
             ->setIsBreakable(true)
         ;
 
-        $broken = new Status($gameItem, EquipmentStatusEnum::BROKEN);
-
         $gameItem
             ->setEquipment($item)
             ->setHolder($room)
         ;
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
-
-        $attempt = new Attempt(new Player(), StatusEnum::ATTEMPT);
-        $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

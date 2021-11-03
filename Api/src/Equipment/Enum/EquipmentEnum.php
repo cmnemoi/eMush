@@ -29,6 +29,7 @@ class EquipmentEnum
     public const RESEARCH_LABORATORY = 'research_laboratory';
     public const BED = 'bed';
     public const MEDLAB_BED = 'medlab_bed';
+    public const SWEDISH_SOFA = 'swedish_sofa';
     public const COFFEE_MACHINE = 'coffee_machine';
     public const CRYO_MODULE = 'cryo_module';
     public const MYCOSCAN = 'mycoscan';
@@ -49,4 +50,13 @@ class EquipmentEnum
     public const BIOS_TERMINAL = 'bios_terminal';
     public const AUXILIARY_TERMINAL = 'auxiliary_terminal';
     public const CAMERA_EQUIPMENT = 'camera_equipment';
+
+    public static function getBeds(): array
+    {
+        return [
+            self::BED,
+            self::MEDLAB_BED,
+            self::SWEDISH_SOFA,
+        ];
+    }
 }

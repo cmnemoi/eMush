@@ -3,6 +3,8 @@
 namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  * Class ChargeStatus.
@@ -12,48 +14,29 @@ use Doctrine\ORM\Mapping as ORM;
 class ChargeStatus extends Status
 {
     /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private string $chargeVisibility;
-
-    /**
      * @ORM\Column(type="integer", nullable=false)
      */
     private int $charge = 0;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private ?string $strategy = null;
+    public function __construct(StatusHolderInterface $statusHolder, ChargeStatusConfig $statusConfig)
+    {
+        parent::__construct($statusHolder, $statusConfig);
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private ?string $dischargeStrategy = null;
+        $this->charge = $this->getStatusConfig()->getStartCharge();
+    }
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private ?int $threshold = null;
+    public function getStatusConfig(): ChargeStatusConfig
+    {
+        if (!$this->statusConfig instanceof ChargeStatusConfig) {
+            throw new UnexpectedTypeException($this->statusConfig, ChargeStatusConfig::class);
+        }
 
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
-    private bool $autoRemove = false;
+        return $this->statusConfig;
+    }
 
     public function getChargeVisibility(): string
     {
-        return $this->chargeVisibility;
-    }
-
-    /**
-     * @return static
-     */
-    public function setChargeVisibility(string $chargeVisibility): self
-    {
-        $this->chargeVisibility = $chargeVisibility;
-
-        return $this;
+        return $this->getStatusConfig()->getChargeVisibility();
     }
 
     public function getCharge(): int
@@ -83,61 +66,21 @@ class ChargeStatus extends Status
 
     public function getStrategy(): ?string
     {
-        return $this->strategy;
-    }
-
-    /**
-     * @return static
-     */
-    public function setStrategy(?string $strategy): self
-    {
-        $this->strategy = $strategy;
-
-        return $this;
+        return $this->getStatusConfig()->getChargeStrategy();
     }
 
     public function getDischargeStrategy(): ?string
     {
-        return $this->dischargeStrategy;
-    }
-
-    /**
-     * @return static
-     */
-    public function setDischargeStrategy(?string $dischargeStrategy): self
-    {
-        $this->dischargeStrategy = $dischargeStrategy;
-
-        return $this;
+        return $this->getStatusConfig()->getDischargeStrategy();
     }
 
     public function getThreshold(): ?int
     {
-        return $this->threshold;
-    }
-
-    /**
-     * @return static
-     */
-    public function setThreshold(?int $threshold): self
-    {
-        $this->threshold = $threshold;
-
-        return $this;
+        return $this->getStatusConfig()->getMaxCharge();
     }
 
     public function isAutoRemove(): bool
     {
-        return $this->autoRemove;
-    }
-
-    /**
-     * @return static
-     */
-    public function setAutoRemove(bool $autoRemove): self
-    {
-        $this->autoRemove = $autoRemove;
-
-        return $this;
+        return $this->getStatusConfig()->isAutoRemove();
     }
 }

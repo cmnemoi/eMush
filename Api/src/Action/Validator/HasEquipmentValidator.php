@@ -25,24 +25,40 @@ class HasEquipmentValidator extends ConstraintValidator
 
         $player = $value->getPlayer();
 
-        if ($this->canReachEquipment($player, $constraint->equipment, $constraint->reach) !== $constraint->contains) {
+        if ($this->canReachEquipment($player, $constraint->equipment, $constraint->reach, $constraint->checkIfOperational) !== $constraint->contains) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }
     }
 
-    private function canReachEquipment(Player $player, string $equipmentName, string $reach): bool
+    private function canReachEquipment(Player $player, string $equipmentName, string $reach, bool $checkIfOperational): bool
     {
         switch ($reach) {
             case ReachEnum::INVENTORY:
-                return !$player->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName)->isEmpty();
+                $equipments = $player->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName);
+                if ($checkIfOperational) {
+                    return !$equipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
+                }
+
+                return !$equipments->isEmpty();
 
             case ReachEnum::SHELVE:
-                return !$player->getPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName)->isEmpty();
+                $equipments = $player->getPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName);
+                if ($checkIfOperational) {
+                    return !$equipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
+                }
+
+                return !$equipments->isEmpty();
 
             case ReachEnum::ROOM:
-                return !($player->getPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName)->isEmpty() &&
-                    $player->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName)->isEmpty());
+                $shelfEquipments = $player->getPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName);
+                $playerEquipments = $player->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName);
+                if ($checkIfOperational) {
+                    return !($playerEquipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty() &&
+                    $shelfEquipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty());
+                }
+
+                return !($shelfEquipments->isEmpty() && $playerEquipments->isEmpty());
         }
 
         return true;

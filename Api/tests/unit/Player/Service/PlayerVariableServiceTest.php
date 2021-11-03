@@ -58,8 +58,6 @@ class PlayerVariableServiceTest extends TestCase
         $this->playerService->shouldReceive('persist')->once();
         $this->service->handleSatietyModifier(4, $player);
 
-        $status = new Status($player, PlayerStatusEnum::FULL_STOMACH);
-
         $this->playerService->shouldReceive('persist')->once();
         $this->service->handleSatietyModifier(-1, $player);
 
@@ -74,15 +72,12 @@ class PlayerVariableServiceTest extends TestCase
     public function testMushSatietyModifier()
     {
         $player = new Player();
-        $mushStatus = new Status($player, PlayerStatusEnum::MUSH);
 
         $this->playerService->shouldReceive('persist')->once();
         $this->service->handleSatietyModifier(-1, $player);
 
         $this->playerService->shouldReceive('persist')->once();
         $this->service->handleSatietyModifier(1, $player);
-
-        $status = new Status($player, PlayerStatusEnum::FULL_STOMACH);
 
         $this->playerService->shouldReceive('persist')->once();
         $this->service->handleSatietyModifier(-1, $player);
@@ -111,7 +106,7 @@ class PlayerVariableServiceTest extends TestCase
         //go below 4 moral
         $this->playerService->shouldReceive('persist')->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->with($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::MORAL_POINT, 16)
+            ->with($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::MORAL_POINT, 16, ModifierScopeEnum::MAX_POINT)
             ->andReturn(16)
             ->once();
 
@@ -119,12 +114,10 @@ class PlayerVariableServiceTest extends TestCase
 
         $this->assertEquals(3, $player->getMoralPoint());
 
-        $status = new Status($player, PlayerStatusEnum::DEMORALIZED);
-
         //go below 1 moral
         $this->playerService->shouldReceive('persist')->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->with($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::MORAL_POINT, 16)
+            ->with($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::MORAL_POINT, 16, ModifierScopeEnum::MAX_POINT)
             ->andReturn(16)
             ->once();
 
@@ -132,12 +125,10 @@ class PlayerVariableServiceTest extends TestCase
 
         $this->assertEquals(1, $player->getMoralPoint());
 
-        $status = new Status($player, PlayerStatusEnum::SUICIDAL);
-
         //regain more moral than suicidal threshold
         $this->playerService->shouldReceive('persist')->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->with($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::MORAL_POINT, 16)
+            ->with($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::MORAL_POINT, 16, ModifierScopeEnum::MAX_POINT)
             ->andReturn(16)
             ->once();
 
@@ -145,12 +136,12 @@ class PlayerVariableServiceTest extends TestCase
 
         $this->assertEquals(3, $player->getMoralPoint());
 
-        $status = new Status($player, PlayerStatusEnum::DEMORALIZED);
+        //$status = new Status($player, PlayerStatusEnum::DEMORALIZED);
 
         //gain more than morale threshold
         $this->playerService->shouldReceive('persist')->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->with($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::MORAL_POINT, 16)
+            ->with($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::MORAL_POINT, 16, ModifierScopeEnum::MAX_POINT)
             ->andReturn(16)
             ->once();
 
@@ -178,7 +169,7 @@ class PlayerVariableServiceTest extends TestCase
 
         $this->playerService->shouldReceive('persist')->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->with($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::ACTION_POINT, 16)
+            ->with($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::ACTION_POINT, 16, ModifierScopeEnum::MAX_POINT)
             ->andReturn(16)
             ->once();
 
@@ -189,7 +180,7 @@ class PlayerVariableServiceTest extends TestCase
         //less than 0
         $this->playerService->shouldReceive('persist')->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->with($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::ACTION_POINT, 16)
+            ->with($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::ACTION_POINT, 16, ModifierScopeEnum::MAX_POINT)
             ->andReturn(16)
             ->once();
 
@@ -200,7 +191,7 @@ class PlayerVariableServiceTest extends TestCase
         //more than threshold
         $this->playerService->shouldReceive('persist')->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->with($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::ACTION_POINT, 16)
+            ->with($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::ACTION_POINT, 16, ModifierScopeEnum::MAX_POINT)
             ->andReturn(16)
             ->once();
 
@@ -227,7 +218,7 @@ class PlayerVariableServiceTest extends TestCase
         ;
 
         $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->with($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::HEALTH_POINT, 16)
+            ->with($player, [ModifierScopeEnum::MAX_POINT], PlayerVariableEnum::HEALTH_POINT, 16, ModifierScopeEnum::MAX_POINT)
             ->andReturn(16)
             ->once();
         $this->playerService->shouldReceive('persist')->once();

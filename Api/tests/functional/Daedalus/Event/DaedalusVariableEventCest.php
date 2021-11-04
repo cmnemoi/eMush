@@ -62,7 +62,7 @@ class DaedalusVariableEventCest
             ->setDelta(1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope(AbstractQuantityEvent::CHANGE_VARIABLE)
-            ->addModifierConditions($modifierCondition)
+            ->addModifierCondition($modifierCondition)
         ;
         $I->haveInRepository($modifierConfig);
 

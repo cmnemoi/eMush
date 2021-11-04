@@ -8,22 +8,20 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Search;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 class SearchActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface | Mockery\Mock */
-    private PlayerServiceInterface $playerService;
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
     /**
@@ -36,14 +34,12 @@ class SearchActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::SEARCH, 1);
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new Search(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->playerService,
             $this->statusService,
         );
     }
@@ -84,7 +80,7 @@ class SearchActionTest extends AbstractActionTest
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
@@ -100,13 +96,14 @@ class SearchActionTest extends AbstractActionTest
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
-        $hidden = new Status($gameItem);
+        $hiddenConfig = new StatusConfig();
+        $hiddenConfig->setName(EquipmentStatusEnum::HIDDEN);
+        $hidden = new Status($gameItem, $hiddenConfig);
         $hiddenBy = $this->createPlayer(new Daedalus(), new Place());
         $hidden
-            ->setName(EquipmentStatusEnum::HIDDEN)
             ->setTarget($hiddenBy)
         ;
 
@@ -117,14 +114,13 @@ class SearchActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
         $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
         $this->statusService->shouldReceive('delete');
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(0, $player->getStatuses());
         $this->assertCount(0, $hiddenBy->getStatuses());
     }
@@ -138,25 +134,26 @@ class SearchActionTest extends AbstractActionTest
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $hiddenBy = $this->createPlayer(new Daedalus(), new Place());
-        $hidden = new Status($gameItem);
+
+        $hiddenConfig = new StatusConfig();
+        $hiddenConfig->setName(EquipmentStatusEnum::HIDDEN);
+        $hidden = new Status($gameItem, $hiddenConfig);
         $hidden
-            ->setName(EquipmentStatusEnum::HIDDEN)
             ->setTarget($hiddenBy)
         ;
 
         $gameItem2 = new GameItem();
         $gameItem2
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
-        $hidden2 = new Status($gameItem2);
+        $hidden2 = new Status($gameItem2, $hiddenConfig);
         $hidden2
-            ->setName(EquipmentStatusEnum::HIDDEN)
             ->setTarget($hiddenBy)
         ;
 
@@ -166,15 +163,13 @@ class SearchActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(2, $room->getEquipments());
-        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $this->assertCount(1, $room->getEquipments()->last()->getStatuses());
-        $this->assertEquals($hidden2, $hiddenBy->getTargetingStatuses()->first());
     }
 }

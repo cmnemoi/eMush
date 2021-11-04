@@ -15,17 +15,17 @@
                 <target>TODO</target>
             </segment>
         </unit>
-        <unit id="charges">
+        <unit id="electric_charges">
             <segment id="name">
-                <source>charges.name</source>
+                <source>electric_charges.name</source>
                 <target>Charge</target>
             </segment>
             <segment id="description">
-                <source>charges.description</source>
+                <source>electric_charges.description</source>
                 <target>Les charges sont le nombre d'utilisation que vous pouvez faire de cet objet. Les objets chargés regagnent une charge par cycle.</target>
             </segment>
             <segment id="effect">
-                <source>charges.examine</source>
+                <source>electric_charges.examine</source>
                 <target>TODO</target>
             </segment>
         </unit>
@@ -155,59 +155,59 @@
                 <target>TODO</target>
             </segment>
         </unit>
-        <unit id="young_plant">
+        <unit id="plant_young">
             <segment id="name">
-                <source>young_plant.name</source>
+                <source>plant_young.name</source>
                 <target>Jeune Plant</target>
             </segment>
             <segment id="description">
-                <source>young_plant.description</source>
+                <source>plant_young.description</source>
                 <target>Cette plante est jeune. Elle ne produira ni oxygène ni fruits jusqu'à maturation.</target>
             </segment>
             <segment id="effect">
-                <source>young_plant.examine</source>
+                <source>plant_young.examine</source>
                 <target>TODO</target>
             </segment>
         </unit>
-        <unit id="thirsty">
+        <unit id="plant_thirsty">
             <segment id="name">
-                <source>thirsty.name</source>
+                <source>plant_thirsty.name</source>
                 <target>Soif</target>
             </segment>
             <segment id="description">
-                <source>thirsty.description</source>
+                <source>plant_thirsty.description</source>
                 <target>Cette plante a **Soif**, elle ne produira plus que de l'oxygène. Si elle n'est pas arrosée, demain elle deviendra **Desséchée**.</target>
             </segment>
             <segment id="effect">
-                <source>thirsty.examine</source>
+                <source>plant_thirsty.examine</source>
                 <target>TODO</target>
             </segment>
         </unit>
-        <unit id="dried_out">
+        <unit id="plant_dry">
             <segment id="name">
-                <source>dried_out.name</source>
+                <source>plant_dry.name</source>
                 <target>Désséché</target>
             </segment>
             <segment id="description">
-                <source>dried_out.description</source>
+                <source>plant_dry.description</source>
                 <target>Cette plante est **Desséchée**, elle ne produira ni fruits ni oxygène. Si elle n'est pas arrosée, demain elle sera morte.</target>
             </segment>
             <segment id="effect">
-                <source>dried_out.examine</source>
+                <source>plant_dry.examine</source>
                 <target>TODO</target>
             </segment>
         </unit>
-        <unit id="diseased">
+        <unit id="plant_diseased">
             <segment id="name">
-                <source>diseased.name</source>
+                <source>plant_diseased.name</source>
                 <target>Malade</target>
             </segment>
             <segment id="description">
-                <source>diseased.description</source>
+                <source>plant_diseased.description</source>
                 <target>Cette plante est **Malade**, elle ne produira ni fruits ni oxygène.</target>
             </segment>
             <segment id="effect">
-                <source>diseased.examine</source>
+                <source>plant_diseased.examine</source>
                 <target>TODO</target>
             </segment>
         </unit>

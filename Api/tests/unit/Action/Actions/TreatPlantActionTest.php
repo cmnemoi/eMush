@@ -8,23 +8,21 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\TreatPlant;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 class TreatPlantActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface | Mockery\Mock */
+    /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
     /**
@@ -64,17 +62,12 @@ class TreatPlantActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
               ->setEquipment($item)
-              ->setPlace($room)
+              ->setHolder($room)
         ;
 
         $plant = new Plant();
         $plant->addAction($this->actionEntity);
         $item->setMechanics(new ArrayCollection([$plant]));
-
-        $diseased = new Status($gameItem);
-        $diseased
-            ->setName(EquipmentStatusEnum::PLANT_DISEASED)
-        ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

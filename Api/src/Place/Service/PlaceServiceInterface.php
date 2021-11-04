@@ -12,5 +12,5 @@ interface PlaceServiceInterface
 
     public function findById(int $id): ?Place;
 
-    public function createPlace(PlaceConfig $roomConfig, Daedalus $daedalus): Place;
+    public function createPlace(PlaceConfig $roomConfig, Daedalus $daedalus, string $reason, \DateTime $time): Place;
 }

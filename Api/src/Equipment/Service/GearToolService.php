@@ -7,18 +7,19 @@ use Doctrine\Common\Collections\Collection;
 use Error;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Game\Enum\EventEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Exception\LogicException;
 
 class GearToolService implements GearToolServiceInterface
 {
@@ -33,43 +34,16 @@ class GearToolService implements GearToolServiceInterface
         $this->statusService = $statusService;
     }
 
-    public function getApplicableGears(Player $player, array $scopes, ?string $target = null): Collection
-    {
-        /** @var Collection $gears */
-        $gears = new ArrayCollection();
-
-        /** @var GameItem $item */
-        foreach ($player->getItems() as $item) {
-            /** @var Gear $gear */
-            $gear = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR);
-
-            if ($gear) {
-                foreach ($gear->getModifiers() as $modifier) {
-                    if (in_array($modifier->getScope(), $scopes) &&
-                        ($target === null || $modifier->getTarget() === $target) &&
-                        in_array($modifier->getReach(), [ReachEnum::INVENTORY]) &&
-                        $item->isOperational()
-                    ) {
-                        $gears->add($item);
-                        break;
-                    }
-                }
-            }
-        }
-
-        return $gears;
-    }
-
     public function getEquipmentsOnReach(Player $player, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): Collection
     {
         //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
         switch ($reach) {
             case ReachEnum::INVENTORY:
-                return $player->getItems();
+                return $player->getEquipments();
 
             case ReachEnum::SHELVE_NOT_HIDDEN:
                 return new ArrayCollection(array_merge(
-                    $player->getItems()->toArray(),
+                    $player->getEquipments()->toArray(),
                     array_filter($player->getPlace()->getEquipments()->toArray(),
                         function (GameEquipment $gameEquipment) use ($player) {
                             return ($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) === null ||
@@ -80,7 +54,7 @@ class GearToolService implements GearToolServiceInterface
 
             case $reach === ReachEnum::SHELVE:
                 return new ArrayCollection(array_merge(
-                    $player->getItems()->toArray(),
+                    $player->getEquipments()->toArray(),
                     $player->getPlace()->getEquipments()->toArray()));
             default:
                 $room = $player->getDaedalus()->getPlaceByName($reach);
@@ -142,8 +116,10 @@ class GearToolService implements GearToolServiceInterface
             if ($toolMechanic &&
                 !$toolMechanic->getActions()->filter(fn (Action $action) => $action->getName() === $actionName)->isEmpty()
             ) {
-                $chargeStatus = $tool->getStatusByName(EquipmentStatusEnum::CHARGES);
-                if ($chargeStatus === null || !($chargeStatus instanceof ChargeStatus)) {
+                $chargeStatus = $this->getChargeStatus($actionName, $tool);
+
+                // if one tool provide this action for free prioritize it
+                if ($chargeStatus === null) {
                     return $tool;
                 } elseif ($chargeStatus->getCharge() > 0) {
                     $tools->add($tool);
@@ -160,34 +136,45 @@ class GearToolService implements GearToolServiceInterface
 
     public function applyChargeCost(Player $player, string $actionName, array $types = []): void
     {
-        $gears = $this->getApplicableGears(
-            $player,
-            array_merge([$actionName], $types)
-        );
-
-        foreach ($gears as $gear) {
-            $this->removeCharge($gear);
-        }
-
         $tool = $this->getUsedTool($player, $actionName);
         if ($tool) {
-            $this->removeCharge($tool);
+            $this->removeCharge($tool, $actionName);
         }
     }
 
-    private function removeCharge(GameEquipment $equipment): void
+    private function removeCharge(GameEquipment $equipment, string $actionName): void
     {
-        $chargeStatus = $equipment->getStatusByName(EquipmentStatusEnum::CHARGES);
+        $chargeStatus = $this->getChargeStatus($actionName, $equipment);
 
-        if ($chargeStatus &&
-            $chargeStatus instanceof ChargeStatus
-        ) {
+        if ($chargeStatus !== null) {
             $chargeStatus = $this->statusService->updateCharge($chargeStatus, -1);
 
             if ($chargeStatus === null) {
-                $equipmentEvent = new EquipmentEvent($equipment, VisibilityEnum::HIDDEN, new \DateTime());
+                $equipmentEvent = new EquipmentEvent(
+                    $equipment->getName(),
+                    $equipment->getPlace(),
+                    VisibilityEnum::HIDDEN,
+                    EventEnum::OUT_OF_CHARGE,
+                    new \DateTime()
+                );
                 $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
+        }
+    }
+
+    private function getChargeStatus(string $actionName, GameEquipment $equipment): ?ChargeStatus
+    {
+        $charges = $equipment->getStatuses()->filter(function (Status $status) use ($actionName) {
+            return $status instanceof ChargeStatus &&
+                $status->getDischargeStrategy() === $actionName;
+        });
+
+        if ($charges->count() > 0) {
+            return $charges->first();
+        } elseif ($charges->count() === 0) {
+            return null;
+        } else {
+            throw new LogicException('there should be maximum 1 chargeStatus with this dischargeStrategy on this statusHolder');
         }
     }
 }

@@ -155,13 +155,24 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
         $medLab
             ->setDaedalusConfig($daedalusConfig)
             ->setName(RoomEnum::MEDLAB)
+            ->setItems([
+                GameDrugEnum::BACTA,
+                GameDrugEnum::BACTA,
+                GameDrugEnum::BACTA,
+                GameDrugEnum::BACTA,
+                GameDrugEnum::BACTA,
+                GameDrugEnum::NEWKE,
+                GameDrugEnum::BETAPROPYL,
+                GameDrugEnum::PYMP,
+                GameDrugEnum::PYMP,
+            ])
             ->setDoors([
                 DoorEnum::MEDLAB_CENTRAL_BRAVO_TURRET,
                 DoorEnum::MEDLAB_LABORATORY,
                 DoorEnum::FRONT_CORRIDOR_MEDLAB,
             ])
             ->setEquipments([
-                EquipmentEnum::SURGICAL_PLOT,
+                EquipmentEnum::SURGERY_PLOT,
                 EquipmentEnum::NARCOTIC_DISTILLER,
                 EquipmentEnum::MEDLAB_BED,
             ])
@@ -181,13 +192,10 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setItems([
                 ItemEnum::APPRENTON . '_' . SkillEnum::PILOT,
                 GearItemEnum::SNIPER_HELMET . '_' . ItemEnum::BLUEPRINT,
+                GearItemEnum::ALIEN_BOTTLE_OPENER,
+                GearItemEnum::ROLLING_BOULDER,
                 ItemEnum::METAL_SCRAPS,
                 ItemEnum::PLASTIC_SCRAPS,
-                GameDrugEnum::BACTA,
-                GameDrugEnum::BACTA,
-                GameDrugEnum::BACTA,
-                GameDrugEnum::BACTA,
-                GameDrugEnum::BACTA,
                 GameFruitEnum::BANANA,
                 GameFruitEnum::CREEPNUT,
                 GameFruitEnum::BOTTINE,
@@ -199,6 +207,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::MEDLAB_LABORATORY,
             ])
             ->setEquipments([
+                EquipmentEnum::GRAVITY_SIMULATOR,
                 EquipmentEnum::RESEARCH_LABORATORY,
                 EquipmentEnum::CRYO_MODULE,
                 EquipmentEnum::MYCOSCAN,

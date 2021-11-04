@@ -8,16 +8,16 @@ use Mush\Communication\Entity\Message;
 use Mush\Communication\Normalizer\MessageNormalizer;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use PHPUnit\Framework\TestCase;
 
 class MessageNormalizerTest extends TestCase
 {
-    /** @var TranslationServiceInterface | Mockery\Mock */
+    /** @var TranslationServiceInterface|Mockery\Mock */
     private TranslationServiceInterface $translationService;
 
     private MessageNormalizer $normalizer;

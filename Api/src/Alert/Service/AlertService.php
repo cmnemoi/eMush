@@ -68,17 +68,17 @@ class AlertService implements AlertServiceInterface
         return new ArrayCollection($this->repository->findBy(['daedalus' => $daedalus]));
     }
 
-    public function hullAlert(Daedalus $daedalus, int $change): void
+    public function hullAlert(Daedalus $daedalus): void
     {
         if (
-            $daedalus->getHull() + $change > self::HULL_ALERT &&
+            $daedalus->getHull() > self::HULL_ALERT &&
             ($hullAlert = $this->findByNameAndDaedalus(AlertEnum::LOW_HULL, $daedalus)) !== null
         ) {
             $this->delete($hullAlert);
 
             return;
         } elseif (
-            $daedalus->getHull() + $change <= self::HULL_ALERT &&
+            $daedalus->getHull() <= self::HULL_ALERT &&
             $this->findByNameAndDaedalus(AlertEnum::LOW_HULL, $daedalus) === null
         ) {
             $hullAlert = new Alert();
@@ -91,17 +91,17 @@ class AlertService implements AlertServiceInterface
         }
     }
 
-    public function oxygenAlert(Daedalus $daedalus, int $change): void
+    public function oxygenAlert(Daedalus $daedalus): void
     {
         if (
-            $daedalus->getOxygen() + $change > self::OXYGEN_ALERT &&
+            $daedalus->getOxygen() > self::OXYGEN_ALERT &&
             ($oxygenAlert = $this->findByNameAndDaedalus(AlertEnum::LOW_OXYGEN, $daedalus)) !== null
         ) {
             $this->delete($oxygenAlert);
 
             return;
         } elseif (
-            $daedalus->getOxygen() + $change <= self::OXYGEN_ALERT &&
+            $daedalus->getOxygen() <= self::OXYGEN_ALERT &&
             $this->findByNameAndDaedalus(AlertEnum::LOW_OXYGEN, $daedalus) === null
         ) {
             $oxygenAlert = new Alert();
@@ -128,7 +128,7 @@ class AlertService implements AlertServiceInterface
             $gravityAlert = $this->findByNameAndDaedalus(AlertEnum::NO_GRAVITY, $daedalus);
 
             if ($gravityAlert === null) {
-                throw new \LogicException('there should be a gravitySituation on this Daedalus');
+                throw new \LogicException('there should be a gravity alert on this Daedalus');
             }
             $this->delete($gravityAlert);
         }
@@ -140,7 +140,7 @@ class AlertService implements AlertServiceInterface
             $daedalus = $equipment->getRooms()->first()->getDaedalus();
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_DOORS);
         } else {
-            $daedalus = $equipment->getCurrentPlace()->getDaedalus();
+            $daedalus = $equipment->getPlace()->getDaedalus();
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_EQUIPMENTS);
         }
 
@@ -162,7 +162,7 @@ class AlertService implements AlertServiceInterface
             $daedalus = $equipment->getRooms()->first()->getDaedalus();
             $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_DOORS, $daedalus);
         } else {
-            $daedalus = $equipment->getCurrentPlace()->getDaedalus();
+            $daedalus = $equipment->getPlace()->getDaedalus();
             $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_EQUIPMENTS, $daedalus);
         }
 

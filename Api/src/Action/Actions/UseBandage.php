@@ -4,21 +4,19 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\FullHealth;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
-use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UseBandage extends AbstractAction
 {
@@ -26,24 +24,7 @@ class UseBandage extends AbstractAction
 
     protected string $name = ActionEnum::USE_BANDAGE;
 
-    private PlayerServiceInterface $playerService;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        PlayerServiceInterface $playerService
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator
-        );
-
-        $this->playerService = $playerService;
-    }
-
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameEquipment;
     }
@@ -61,17 +42,31 @@ class UseBandage extends AbstractAction
 
         $initialHealth = $this->player->getHealthPoint();
 
-        $playerModifierEvent = new PlayerModifierEvent($this->player, self::BANDAGE_HEAL, new \DateTime());
-        $playerModifierEvent->setIsDisplayedRoomLog(false);
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+        $playerModifierEvent = new PlayerModifierEvent(
+            $this->player,
+            PlayerVariableEnum::HEALTH_POINT,
+            self::BANDAGE_HEAL,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
-        $this->playerService->persist($this->player);
-
-        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
+        //destroy the bandage
+        $equipmentEvent = new EquipmentEvent(
+            $parameter->getName(),
+            $this->player,
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $equipmentEvent->setExistingEquipment($parameter);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $healedQuantity = $this->player->getHealthPoint() - $initialHealth;
 
-        return new Success(null, $healedQuantity);
+        $success = new Success();
+
+        return $success->setQuantity($healedQuantity);
     }
 }

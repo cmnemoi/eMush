@@ -23,24 +23,23 @@
     </div>
 </template>
 
-<script>
-import TipsTab from "@/components/Game/Communications/TipsTab";
-import RoomEventsTab from "@/components/Game/Communications/RoomEventsTab";
-import FavouritesTab from "@/components/Game/Communications/FavouritesTab";
-import DiscussionTab from "@/components/Game/Communications/DiscussionTab";
-import PrivateTab from "@/components/Game/Communications/PrivateTab";
-import MushTab from "@/components/Game/Communications/MushTab";
-import Tab from "@/components/Game/Communications/Tab";
+<script lang="ts">
+import TipsTab from "@/components/Game/Communications/TipsTab.vue";
+import RoomEventsTab from "@/components/Game/Communications/RoomEventsTab.vue";
+import FavouritesTab from "@/components/Game/Communications/FavouritesTab.vue";
+import DiscussionTab from "@/components/Game/Communications/DiscussionTab.vue";
+import PrivateTab from "@/components/Game/Communications/PrivateTab.vue";
+import MushTab from "@/components/Game/Communications/MushTab.vue";
+import Tab from "@/components/Game/Communications/Tab.vue";
 import { Room } from "@/entities/Room";
 import { mapActions, mapState, mapGetters } from "vuex";
-import { PRIVATE, PUBLIC, ROOM_LOG, TIPS } from '@/enums/communication.enum';
 import { Channel } from "@/entities/Channel";
-
+import { ChannelType } from "@/enums/communication.enum";
+import { Component, defineComponent } from "vue";
 
 const MAX_PRIVATE_TABS_NB = 3;
 
-
-export default {
+export default defineComponent ({
     name: "CommsPanel",
     components: {
         TipsTab,
@@ -63,20 +62,20 @@ export default {
         ...mapGetters('communication', [
             'channels'
         ]),
-        displayNewTab() {
+        displayNewTab(): boolean {
             if (! this.channels || ! this.channels.length) { return false; }
-            return this.channels.filter(channel => channel.scope === PRIVATE).length < MAX_PRIVATE_TABS_NB;
+            return this.channels.filter((channel: Channel) => channel.scope === ChannelType.PRIVATE).length < MAX_PRIVATE_TABS_NB;
         },
-        currentTabComponent() {
+        currentTabComponent(): Component {
             if (this.currentChannel instanceof Channel) {
                 switch (this.currentChannel.scope) {
-                case TIPS:
+                case ChannelType.TIPS:
                     return TipsTab;
-                case ROOM_LOG:
+                case ChannelType.ROOM_LOG:
                     return RoomEventsTab;
-                case PRIVATE:
+                case ChannelType.PRIVATE:
                     return PrivateTab;
-                case PUBLIC:
+                case ChannelType.PUBLIC:
                 default:
                     return DiscussionTab;
                 }
@@ -84,7 +83,7 @@ export default {
             return DiscussionTab;
         }
     },
-    beforeMount() {
+    beforeMount(): void {
         this.loadChannels();
     },
     methods: {
@@ -94,7 +93,7 @@ export default {
             'createPrivateChannel'
         ])
     }
-};
+});
 </script>
 
 <style lang="scss"> //Not scoped to apply to children components
@@ -113,11 +112,12 @@ export default {
             border-radius: 3px;
             text-transform: uppercase;
             letter-spacing: 0.03em;
-            background: #a6eefb;
+            background: $lightCyan;
 
             span {
                 flex: 1;
                 text-align: center;
+                font-size: .92em;
             }
 
             .expand {
@@ -168,20 +168,20 @@ export default {
             }
         }
     }
+}
 
-    /* TIMER STYLING */
+/* TIMER STYLING */
 
-    .cycle-time {
-        flex-direction: row;
-        align-items: center;
-        margin: 0 12px;
-        min-height: 25px;
-        float: right;
-        font-size: 0.7em;
-        font-variant: small-caps;
+.cycle-time {
+    flex-direction: row;
+    align-items: center;
+    margin: 0 12px;
+    min-height: 25px;
+    float: right;
+    font-size: 0.8em;
+    font-variant: small-caps;
 
-        img { margin-right: 3px; }
-    }
+    img { margin-right: 3px; }
 }
 
 </style>

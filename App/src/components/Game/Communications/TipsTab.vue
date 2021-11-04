@@ -45,12 +45,13 @@
     </TabContainer>
 </template>
 
-<script>
+<script lang="ts">
 import { Channel } from "@/entities/Channel";
-import TabContainer from "@/components/Game/Communications/TabContainer";
+import TabContainer from "@/components/Game/Communications/TabContainer.vue";
+import { defineComponent } from "vue";
 
 
-export default {
+export default defineComponent ({
     name: "TipsTab",
     components: {
         TabContainer
@@ -58,7 +59,7 @@ export default {
     props: {
         channel: Channel
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -87,13 +88,13 @@ export default {
         word-break: break-word;
 
         .author {
-            color: #2081e2;
+            color: $blue;
             font-weight: 700;
             font-variant: small-caps;
             padding-right: 0.25em;
         }
 
-        em { color: #cf1830; }
+        em { color: $red; }
     }
 
     &.new p {
@@ -180,7 +181,7 @@ export default {
     p {
         margin: 0;
         font-size: 0.95em;
-        >>> img { vertical-align: middle; }
+        &::v-deep img { vertical-align: middle; }
     }
 }
 
@@ -198,7 +199,7 @@ export default {
         box-shadow: 0 1px 1px 0 rgba(9, 10, 97, 0.15);
 
         &.focus {
-            border: 3px solid #84e100;
+            border: 3px solid $green;
             box-shadow: 0 7px 6px -4px rgba(9, 10, 97, 0.5);
         }
 

@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -12,12 +11,11 @@ use Mush\Action\Validator\Charged;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -28,14 +26,12 @@ class Dispense extends AbstractAction
 {
     protected string $name = ActionEnum::DISPENSE;
 
-    private GameEquipmentServiceInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService
     ) {
         parent::__construct(
@@ -44,11 +40,10 @@ class Dispense extends AbstractAction
             $validator
         );
 
-        $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter !== null && $parameter->getClassName() === GameEquipment::class;
     }
@@ -66,16 +61,14 @@ class Dispense extends AbstractAction
     {
         $drugName = current($this->randomService->getRandomElements(GameDrugEnum::getAll()));
 
-        /** @var GameItem $newItem */
-        $newItem = $this->gameEquipmentService
-            ->createGameEquipmentFromName($drugName, $this->player->getDaedalus())
-        ;
-
-        $equipmentEvent = new EquipmentEvent($newItem, VisibilityEnum::HIDDEN, new \DateTime());
-        $equipmentEvent->setPlayer($this->player);
+        $equipmentEvent = new EquipmentEvent(
+            $drugName,
+            $this->player,
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime()
+        );
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
-
-        $this->gameEquipmentService->persist($newItem);
 
         return new Success();
     }

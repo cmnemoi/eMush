@@ -2,10 +2,10 @@
 
 namespace Mush\RoomLog\Listener;
 
-use Mush\Player\Entity\Player;
+use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerModifierEvent;
-use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -22,76 +22,47 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerModifierEvent::ACTION_POINT_MODIFIER => 'onActionPointModifier',
-            PlayerModifierEvent::MOVEMENT_POINT_MODIFIER => 'onMovementPointModifier',
-            PlayerModifierEvent::HEALTH_POINT_MODIFIER => 'onHealthPointModifier',
-            PlayerModifierEvent::MORAL_POINT_MODIFIER => 'onMoralPointModifier',
+            AbstractQuantityEvent::CHANGE_VARIABLE => 'onChangeVariable',
         ];
     }
 
-    public function onActionPointModifier(PlayerModifierEvent $playerEvent): void
+    public function onChangeVariable(AbstractQuantityEvent $playerEvent): void
     {
-        $player = $playerEvent->getPlayer();
-        $delta = $playerEvent->getDelta();
-
-        if (!$playerEvent->isDisplayedRoomLog() || $delta === 0) {
+        if (!$playerEvent instanceof PlayerModifierEvent) {
             return;
         }
 
-        $logKey = $delta > 0 ? LogEnum::GAIN_ACTION_POINT : LogEnum::LOSS_ACTION_POINT;
-        $this->createPrivateLog($player, $logKey, $playerEvent->getTime(), abs($delta));
-    }
+        $delta = $playerEvent->getQuantity();
+        $modifiedVariable = $playerEvent->getModifiedVariable();
 
-    public function onMovementPointModifier(PlayerModifierEvent $playerEvent): void
-    {
-        $player = $playerEvent->getPlayer();
-        $delta = $playerEvent->getDelta();
-
-        if (!$playerEvent->isDisplayedRoomLog() || $delta === 0) {
+        if ($delta === 0) {
             return;
         }
 
-        $logKey = $delta > 0 ? LogEnum::GAIN_MOVEMENT_POINT : LogEnum::LOSS_MOVEMENT_POINT;
-        $this->createPrivateLog($player, $logKey, $playerEvent->getTime(), abs($delta));
-    }
+        $gainOrLoss = $delta > 0 ? PlayerModifierLogEnum::GAIN : PlayerModifierLogEnum::LOSS;
+        $logMap = PlayerModifierLogEnum::PLAYER_VARIABLE_LOGS[$gainOrLoss];
 
-    public function onHealthPointModifier(PlayerModifierEvent $playerEvent): void
-    {
-        $player = $playerEvent->getPlayer();
-        $delta = $playerEvent->getDelta();
-
-        if (!$playerEvent->isDisplayedRoomLog() || $delta === 0) {
+        if (isset($logMap[$modifiedVariable])) {
+            $logKey = $logMap[$modifiedVariable];
+        } else {
             return;
         }
 
-        $logKey = $delta > 0 ? LogEnum::GAIN_HEALTH_POINT : LogEnum::LOSS_HEALTH_POINT;
-        $this->createPrivateLog($player, $logKey, $playerEvent->getTime(), abs($delta));
+        $this->createEventLog($logKey, $playerEvent);
     }
 
-    public function onMoralPointModifier(PlayerModifierEvent $playerEvent): void
+    private function createEventLog(string $logKey, PlayerEvent $event): void
     {
-        $player = $playerEvent->getPlayer();
-        $delta = $playerEvent->getDelta();
+        $player = $event->getPlayer();
 
-        if (!$playerEvent->isDisplayedRoomLog() || $delta === 0) {
-            return;
-        }
-
-        $logKey = $delta > 0 ? LogEnum::GAIN_MORAL_POINT : LogEnum::LOSS_MORAL_POINT;
-        $this->createPrivateLog($player, $logKey, $playerEvent->getTime(), abs($delta));
-    }
-
-    private function createPrivateLog(Player $player, string $logKey, \DateTime $time, ?int $quantity = null): void
-    {
         $this->roomLogService->createLog(
             $logKey,
-            $player->getPlace(),
-            VisibilityEnum::PRIVATE,
+            $event->getPlace(),
+            $event->getVisibility(),
             'event_log',
             $player,
-            null,
-            $quantity,
-            $time
+            $event->getLogParameters(),
+            $event->getTime()
         );
     }
 }

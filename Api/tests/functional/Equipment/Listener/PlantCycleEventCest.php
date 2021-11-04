@@ -7,31 +7,34 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentCycleEvent;
-use Mush\Equipment\Listener\EquipmentCycleSubscriber;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlantCycleEventCest
 {
-    private EquipmentCycleSubscriber $cycleSubscriber;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function _before(FunctionalTester $I)
     {
-        $this->cycleSubscriber = $I->grabService(EquipmentCycleSubscriber::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testPlantGrowing(FunctionalTester $I)
@@ -70,25 +73,31 @@ class PlantCycleEventCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('plant name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $I->haveInRepository($gameEquipment);
 
-        $youngStatus = new ChargeStatus($gameEquipment);
-        $youngStatus
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setGameConfig($gameConfig)
             ->setName(EquipmentStatusEnum::PLANT_YOUNG)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setCharge(6)
-            ->setStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
-            ->setThreshold(8)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
+            ->setMaxCharge(8)
         ;
+        $I->haveInRepository($statusConfig);
+        $youngStatus = new ChargeStatus($gameEquipment, $statusConfig);
+        $youngStatus
+            ->setCharge(6)
+        ;
+        $I->haveInRepository($youngStatus);
 
         $time = new DateTime();
 
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::NEW_CYCLE, $time);
 
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
 
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(1, $gameEquipment->getStatuses());
@@ -96,8 +105,9 @@ class PlantCycleEventCest
 
         //growing up
         $time = new DateTime();
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::NEW_CYCLE, $time);
+
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
 
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(0, $room->getEquipments()->first()->getStatuses());
@@ -122,6 +132,25 @@ class PlantCycleEventCest
         $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'cycle' => 8, 'oxygen' => 10]);
+
+        $thirstyStatusConfig = new StatusConfig();
+        $thirstyStatusConfig
+            ->setName(EquipmentStatusEnum::PLANT_THIRSTY)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($thirstyStatusConfig);
+        $dryStatusConfig = new StatusConfig();
+        $dryStatusConfig
+            ->setName(EquipmentStatusEnum::PLANT_DRY)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($dryStatusConfig);
+        $diseasedStatusConfig = new StatusConfig();
+        $diseasedStatusConfig
+            ->setName(EquipmentStatusEnum::PLANT_DISEASED)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($diseasedStatusConfig);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -148,26 +177,31 @@ class PlantCycleEventCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('plant name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $I->haveInRepository($gameEquipment);
 
-        $youngStatus = new ChargeStatus($gameEquipment);
-        $youngStatus
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
             ->setName(EquipmentStatusEnum::PLANT_YOUNG)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setCharge(6)
-            ->setStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
-            ->setThreshold(8)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
+            ->setMaxCharge(8)
         ;
+        $I->haveInRepository($statusConfig);
+        $youngStatus = new ChargeStatus($gameEquipment, $statusConfig);
+        $youngStatus
+            ->setCharge(6)
+        ;
+        $I->haveInRepository($youngStatus);
 
         //Plant is young : no fruit or oxygen
         $time = new DateTime();
 
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::PLANT_PRODUCTION, $time);
 
-        $this->cycleSubscriber->onNewDay($cycleEvent);
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
 
         $I->assertCount(2, $gameEquipment->getStatuses());
         $I->assertCount(1, $room->getEquipments());
@@ -175,17 +209,20 @@ class PlantCycleEventCest
         $I->assertEquals(10, $daedalus->getOxygen());
 
         //Plant is diseased
-        $diseasedStatus = new Status($gameEquipment);
-        $diseasedStatus
+        $diseasedConfig = new StatusConfig();
+        $diseasedConfig
             ->setName(EquipmentStatusEnum::PLANT_DISEASED)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
+        $I->haveInRepository($diseasedConfig);
+        $diseasedStatus = new Status($gameEquipment, $diseasedConfig);
+        $I->haveInRepository($diseasedStatus);
 
         $gameEquipment->removeStatus($youngStatus);
 
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::PLANT_PRODUCTION, $time);
 
-        $this->cycleSubscriber->onNewDay($cycleEvent);
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
 
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(1, $room->getEquipments());
@@ -200,8 +237,9 @@ class PlantCycleEventCest
         $gameEquipment->removeStatus($thirstyStatus);
 
         $time = new DateTime();
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, $time);
-        $this->cycleSubscriber->onNewDay($cycleEvent);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::PLANT_PRODUCTION, $time);
+
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
 
         $I->assertCount(2, $room->getEquipments());
         $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
@@ -221,22 +259,26 @@ class PlantCycleEventCest
         $gameEquipment2
             ->setEquipment($equipmentConfig)
             ->setName('plant name')
-            ->setPlace($room2)
+            ->setHolder($room2)
         ;
 
         $I->haveInRepository($gameEquipment2);
 
         $daedalus->setCycle(8);
 
-        $driedOutStatus = new Status($gameEquipment2);
-        $driedOutStatus
+        $dryConfig = new StatusConfig();
+        $dryConfig
             ->setName(EquipmentStatusEnum::PLANT_DRY)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
+        $I->haveInRepository($dryConfig);
+        $driedOutStatus = new Status($gameEquipment2, $dryConfig);
+        $I->haveInRepository($driedOutStatus);
 
         $time = new DateTime();
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment2, $daedalus, $time);
-        $this->cycleSubscriber->onNewDay($cycleEvent);
+        $cycleEvent = new EquipmentCycleEvent($gameEquipment2, $daedalus, EventEnum::PLANT_PRODUCTION, $time);
+
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
 
         $I->assertCount(0, $room2->getStatuses());
         $I->assertCount(1, $room2->getEquipments());

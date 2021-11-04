@@ -2,53 +2,30 @@
 
 namespace Mush\Action\ActionResult;
 
-use Mush\Action\Entity\ActionParameter;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Player\Entity\Player;
 
 abstract class ActionResult
 {
-    private ?Player $targetPlayer = null;
-    private ?GameEquipment $targetEquipment = null;
+    private ?GameEquipment $equipment = null;
     private ?int $quantity = null;
 
-    public function __construct(ActionParameter $actionParameter = null, $quantity = null)
+    public function setEquipment(GameEquipment $equipment): self
     {
-        if ($actionParameter !== null) {
-            $this->setActionParameter($actionParameter);
-        }
-
-        $this->quantity = $quantity;
-    }
-
-    public function setActionParameter(ActionParameter $actionParameter): self
-    {
-        if ($actionParameter instanceof Player) {
-            if ($this->targetEquipment !== null) {
-                throw new \Exception('Action result should be either Player or GameEquipment');
-            }
-
-            $this->targetPlayer = $actionParameter;
-        }
-        if ($actionParameter instanceof GameEquipment) {
-            if ($this->targetEquipment !== null) {
-                throw new \Exception('Action result should be either Player or GameEquipment');
-            }
-
-            $this->targetEquipment = $actionParameter;
-        }
+        $this->equipment = $equipment;
 
         return $this;
     }
 
-    public function getTargetPlayer(): ?Player
+    public function getEquipment(): ?GameEquipment
     {
-        return $this->targetPlayer;
+        return $this->equipment;
     }
 
-    public function getTargetEquipment(): ?GameEquipment
+    public function setQuantity(int $quantity): self
     {
-        return $this->targetEquipment;
+        $this->quantity = $quantity;
+
+        return $this;
     }
 
     public function getQuantity(): ?int

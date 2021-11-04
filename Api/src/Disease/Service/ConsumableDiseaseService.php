@@ -67,7 +67,7 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
             ));
         }
 
-        $diseaseNumberPossible = count($consumableDiseaseConfig->getDiseasesName());
+        $diseasesNumberPossible = count($consumableDiseaseConfig->getDiseasesName());
         $curesNumberPossible = count($consumableDiseaseConfig->getCuresName());
 
         if ($effectsNumber > 0) {
@@ -75,9 +75,8 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
             $pickedEffects = $this->randomService->getRandomElements(
                 range(
                     1,
-                    $diseaseNumberPossible + $curesNumberPossible,
+                    $diseasesNumberPossible + $curesNumberPossible),
                     $effectsNumber
-                )
             );
 
             //Get the number of cures, disease and special effect from the id
@@ -85,12 +84,12 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
 
             $diseasesNumber = $effectsNumber - $curesNumber;
 
-            if ($curesNumber > 0) {
-                $this->createCuresFromConfigForConsumableDisease($consumableDisease, $consumableDiseaseConfig, $diseasesNumber);
+            if ($curesNumber > 0 && $curesNumberPossible > 0) {
+                $this->createMedicinalEffectFromConfigForConsumableDisease($consumableDisease, $consumableDiseaseConfig, TypeEnum::CURE, $curesNumber);
             }
 
-            if ($diseasesNumber > 0) {
-                $this->createDiseasesFromConfigForConsumableDisease($consumableDisease, $consumableDiseaseConfig, $diseasesNumber);
+            if ($diseasesNumber > 0 && $diseasesNumberPossible > 0) {
+                $this->createMedicinalEffectFromConfigForConsumableDisease($consumableDisease, $consumableDiseaseConfig, TypeEnum::DISEASE, $diseasesNumber);
             }
         }
 
@@ -113,14 +112,16 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
         return $consumableDisease;
     }
 
-    private function createDiseasesFromConfigForConsumableDisease(
+    private function createMedicinalEffectFromConfigForConsumableDisease(
         ConsumableDisease $consumableDisease,
         ConsumableDiseaseConfig $consumableDiseaseConfig,
+        string $type,
         int $number
     ): ConsumableDisease {
-        $diseasesNames = $this->randomService->getRandomElementsFromProbaArray($consumableDiseaseConfig->getDiseasesName(), $number);
+        $names = $type === TypeEnum::DISEASE ? $consumableDiseaseConfig->getDiseasesName() : $consumableDiseaseConfig->getCuresName();
+        $diseasesNames = $this->randomService->getRandomElementsFromProbaArray($names, $number);
         foreach ($diseasesNames as $diseaseName) {
-            $diseaseCharacteristic = $this->createDiseaseCharacteristic($diseaseName, $consumableDiseaseConfig);
+            $diseaseCharacteristic = $this->createMedicalCharacteristic($diseaseName, $consumableDiseaseConfig, $type);
             $diseaseCharacteristic->setConsumableDisease($consumableDisease);
             $this->entityManager->persist($diseaseCharacteristic);
         }
@@ -128,22 +129,7 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
         return $consumableDisease;
     }
 
-    private function createCuresFromConfigForConsumableDisease(
-        ConsumableDisease $consumableDisease,
-        ConsumableDiseaseConfig $consumableDiseaseConfig,
-        int $number
-    ): ConsumableDisease {
-        $diseasesNames = $this->randomService->getRandomElementsFromProbaArray($consumableDiseaseConfig->getCuresName(), $number);
-        foreach ($diseasesNames as $diseaseName) {
-            $diseaseCharacteristic = $this->createDiseaseCharacteristic($diseaseName, $consumableDiseaseConfig, TypeEnum::CURE);
-            $diseaseCharacteristic->setConsumableDisease($consumableDisease);
-            $this->entityManager->persist($diseaseCharacteristic);
-        }
-
-        return $consumableDisease;
-    }
-
-    private function createDiseaseCharacteristic(string $diseaseName, ConsumableDiseaseConfig $config, string $type = TypeEnum::DISEASE): ConsumableDiseaseAttribute
+    private function createMedicalCharacteristic(string $diseaseName, ConsumableDiseaseConfig $config, string $type): ConsumableDiseaseAttribute
     {
         $ConsumableDiseaseAttribute = new ConsumableDiseaseAttribute();
 
@@ -154,12 +140,15 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
             ->setType($type)
             ->setRate((int) $this->randomService->getSingleRandomElementFromProbaArray($rates))
         ;
-        $delay = (int) $this->randomService->getSingleRandomElementFromProbaArray($config->getDiseasesDelayMin());
 
-        if ($delay > 0) {
-            $ConsumableDiseaseAttribute
-                ->setDelayMin($delay)
-                ->setDelayLength((int) $this->randomService->getSingleRandomElementFromProbaArray($config->getDiseasesDelayLength()));
+        if ($type === TypeEnum::DISEASE) {
+            $delay = (int) $this->randomService->getSingleRandomElementFromProbaArray($config->getDiseasesDelayMin());
+
+            if ($delay > 0) {
+                $ConsumableDiseaseAttribute
+                    ->setDelayMin($delay)
+                    ->setDelayLength((int) $this->randomService->getSingleRandomElementFromProbaArray($config->getDiseasesDelayLength()));
+            }
         }
 
         return $ConsumableDiseaseAttribute;

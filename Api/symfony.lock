@@ -231,12 +231,6 @@
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
-    "laminas/laminas-eventmanager": {
-        "version": "3.3.0"
-    },
-    "laminas/laminas-zendframework-bridge": {
-        "version": "1.1.1"
-    },
     "lcobucci/clock": {
         "version": "2.0.0"
     },
@@ -376,6 +370,9 @@
         "version": "1.0.0"
     },
     "psr/http-client": {
+        "version": "1.0.1"
+    },
+    "psr/http-factory": {
         "version": "1.0.1"
     },
     "psr/http-message": {
@@ -590,6 +587,9 @@
     "symfony/orm-pack": {
         "version": "v2.0.0"
     },
+    "symfony/password-hasher": {
+        "version": "v5.3.2"
+    },
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.18.1"
     },
@@ -747,7 +747,7 @@
         "version": "2.3.0"
     },
     "weirdan/doctrine-psalm-plugin": {
-        "version": "1.0.0"
+        "version": "1.1.0"
     },
     "willdurand/jsonp-callback-validator": {
         "version": "v1.1.0"

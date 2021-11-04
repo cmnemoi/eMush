@@ -51,7 +51,7 @@ class ConsumableDisease
         return $this->daedalus;
     }
 
-    public function setDaedalus(Daedalus $daedalus): ConsumableDisease
+    public function setDaedalus(Daedalus $daedalus): self
     {
         $this->daedalus = $daedalus;
 
@@ -63,7 +63,7 @@ class ConsumableDisease
         return $this->name;
     }
 
-    public function setName(string $name): ConsumableDisease
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -80,14 +80,14 @@ class ConsumableDisease
         return $this->diseaseAttributes->filter(fn (ConsumableDiseaseAttribute $attribute) => $attribute->getType() === TypeEnum::CURE);
     }
 
-    public function setDiseasesAttribute(Collection $diseaseAttributes): ConsumableDisease
+    public function setDiseasesAttribute(Collection $diseaseAttributes): self
     {
         $this->diseaseAttributes = $diseaseAttributes;
 
         return $this;
     }
 
-    public function addDiseaseAttribute(ConsumableDiseaseAttribute $diseaseAttribute): ConsumableDisease
+    public function addDiseaseAttribute(ConsumableDiseaseAttribute $diseaseAttribute): self
     {
         if (!$this->diseaseAttributes->contains($diseaseAttribute)) {
             $this->diseaseAttributes->add($diseaseAttribute);

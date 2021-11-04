@@ -2,17 +2,19 @@
 
 namespace Mush\Disease\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Game\Entity\GameConfig;
-use Mush\RoomLog\Entity\LogParameter;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="disease_config")
  */
-class DiseaseConfig implements LogParameter
+class DiseaseConfig implements LogParameterInterface
 {
     /**
      * @ORM\Id
@@ -37,6 +39,11 @@ class DiseaseConfig implements LogParameter
     private string $type = TypeEnum::DISEASE;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Mush\Modifier\Entity\ModifierConfig")
+     */
+    private Collection $modifierConfigs;
+
+    /**
      * @ORM\Column(type="integer", nullable=false)
      */
     private int $resistance = 0;
@@ -49,12 +56,12 @@ class DiseaseConfig implements LogParameter
     /**
      * @ORM\Column (type="integer")
      */
-    private int $delayMin = 4;
+    private int $delayMin = 0;
 
     /**
      * @ORM\Column (type="integer")
      */
-    private int $delayLength = 4;
+    private int $delayLength = 0;
 
     /**
      * @ORM\Column (type="integer")
@@ -66,6 +73,11 @@ class DiseaseConfig implements LogParameter
      */
     private int $diseasePointLength = 4;
 
+    public function __construct()
+    {
+        $this->modifierConfigs = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,7 +88,7 @@ class DiseaseConfig implements LogParameter
         return $this->gameConfig;
     }
 
-    public function setGameConfig(GameConfig $gameConfig): DiseaseConfig
+    public function setGameConfig(GameConfig $gameConfig): self
     {
         $this->gameConfig = $gameConfig;
 
@@ -88,7 +100,7 @@ class DiseaseConfig implements LogParameter
         return $this->name;
     }
 
-    public function setName(string $name): DiseaseConfig
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -100,9 +112,24 @@ class DiseaseConfig implements LogParameter
         return $this->type;
     }
 
-    public function setType(string $type): DiseaseConfig
+    public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getModifierConfigs(): Collection
+    {
+        return $this->modifierConfigs;
+    }
+
+    /**
+     * @return static
+     */
+    public function setModifierConfigs(Collection $modifierConfigs): self
+    {
+        $this->modifierConfigs = $modifierConfigs;
 
         return $this;
     }
@@ -112,7 +139,7 @@ class DiseaseConfig implements LogParameter
         return $this->resistance;
     }
 
-    public function setResistance(int $resistance): DiseaseConfig
+    public function setResistance(int $resistance): self
     {
         $this->resistance = $resistance;
 
@@ -124,7 +151,7 @@ class DiseaseConfig implements LogParameter
         return $this->causes;
     }
 
-    public function setCauses(array $causes): DiseaseConfig
+    public function setCauses(array $causes): self
     {
         $this->causes = $causes;
 
@@ -151,7 +178,7 @@ class DiseaseConfig implements LogParameter
         return $this->delayMin;
     }
 
-    public function setDelayMin(int $delayMin): DiseaseConfig
+    public function setDelayMin(int $delayMin): self
     {
         $this->delayMin = $delayMin;
 
@@ -163,7 +190,7 @@ class DiseaseConfig implements LogParameter
         return $this->delayLength;
     }
 
-    public function setDelayLength(int $delayLength): DiseaseConfig
+    public function setDelayLength(int $delayLength): self
     {
         $this->delayLength = $delayLength;
 
@@ -175,7 +202,7 @@ class DiseaseConfig implements LogParameter
         return $this->diseasePointMin;
     }
 
-    public function setDiseasePointMin(int $diseasePointMin): DiseaseConfig
+    public function setDiseasePointMin(int $diseasePointMin): self
     {
         $this->diseasePointMin = $diseasePointMin;
 
@@ -187,7 +214,7 @@ class DiseaseConfig implements LogParameter
         return $this->diseasePointLength;
     }
 
-    public function setDiseasePointLength(int $diseasePointLength): DiseaseConfig
+    public function setDiseasePointLength(int $diseasePointLength): self
     {
         $this->diseasePointLength = $diseasePointLength;
 

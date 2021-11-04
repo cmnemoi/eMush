@@ -3,6 +3,7 @@
 namespace Mush\Disease\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Disease\Entity\DiseaseConfig;
@@ -10,6 +11,8 @@ use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\DataFixtures\DiseaseModifierConfigFixtures;
+use Mush\Modifier\Entity\ModifierConfig;
 
 class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -18,10 +21,15 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        /** @var ModifierConfig $reduceMax1ActionPoint */
+        $reduceMax1ActionPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_1PA);
+
         $foodPoisoning = new DiseaseConfig();
-        $foodPoisoning->setGameConfig($gameConfig);
-        $foodPoisoning->setName(DiseaseEnum::FOOD_POISONING);
-        $foodPoisoning->setCauses([
+        $foodPoisoning
+            ->setGameConfig($gameConfig)
+            ->setName(DiseaseEnum::FOOD_POISONING)
+            ->setModifierConfigs(new ArrayCollection([$reduceMax1ActionPoint]))
+            ->setCauses([
             DiseaseCauseEnum::PERISHED_FOOD,
         ]);
 
@@ -220,6 +228,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             GameConfigFixtures::class,
+            DiseaseModifierConfigFixtures::class,
         ];
     }
 }

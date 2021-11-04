@@ -4,12 +4,14 @@ namespace Mush\Place\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Game\Entity\ConfigInterface;
+use Mush\Game\Entity\GameConfig;
 use Mush\Place\Enum\PlaceTypeEnum;
 
 /**
  * @ORM\Entity()
  */
-class PlaceConfig
+class PlaceConfig implements ConfigInterface
 {
     /**
      * @ORM\Id
@@ -58,10 +60,15 @@ class PlaceConfig
         return $this->daedalusConfig;
     }
 
+    public function getGameConfig(): GameConfig
+    {
+        return $this->daedalusConfig->getGameConfig();
+    }
+
     /**
      * @return static
      */
-    public function setDaedalusConfig(DaedalusConfig $daedalusConfig): PlaceConfig
+    public function setDaedalusConfig(DaedalusConfig $daedalusConfig): self
     {
         $this->daedalusConfig = $daedalusConfig;
 
@@ -76,7 +83,7 @@ class PlaceConfig
     /**
      * @return static
      */
-    public function setName(string $name): PlaceConfig
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -88,7 +95,7 @@ class PlaceConfig
         return $this->type;
     }
 
-    public function setType(string $type): PlaceConfig
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -103,7 +110,7 @@ class PlaceConfig
     /**
      * @return static
      */
-    public function setDoors(array $doors): PlaceConfig
+    public function setDoors(array $doors): self
     {
         $this->doors = $doors;
 
@@ -118,7 +125,7 @@ class PlaceConfig
     /**
      * @return static
      */
-    public function setItems(array $items): PlaceConfig
+    public function setItems(array $items): self
     {
         $this->items = $items;
 
@@ -133,7 +140,7 @@ class PlaceConfig
     /**
      * @return static
      */
-    public function setEquipments(array $equipments): PlaceConfig
+    public function setEquipments(array $equipments): self
     {
         $this->equipments = $equipments;
 

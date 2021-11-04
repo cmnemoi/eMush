@@ -77,7 +77,7 @@ class Message
     /**
      * @return static
      */
-    public function setAuthor(?Player $author): Message
+    public function setAuthor(?Player $author): self
     {
         $this->author = $author;
 
@@ -89,7 +89,7 @@ class Message
         return $this->neron;
     }
 
-    public function setNeron(?Neron $neron): Message
+    public function setNeron(?Neron $neron): self
     {
         $this->neron = $neron;
 
@@ -104,7 +104,7 @@ class Message
     /**
      * @return static
      */
-    public function setParent(?Message $parent): Message
+    public function setParent(?Message $parent): self
     {
         $this->parent = $parent;
 
@@ -119,7 +119,7 @@ class Message
     /**
      * @return static
      */
-    public function setMessage(string $message): Message
+    public function setMessage(string $message): self
     {
         $this->message = $message;
 
@@ -134,7 +134,7 @@ class Message
     /**
      * @return static
      */
-    public function setTranslationParameters(array $translationParameters): Message
+    public function setTranslationParameters(array $translationParameters): self
     {
         $this->translationParameters = $translationParameters;
 
@@ -149,7 +149,7 @@ class Message
     /**
      * @return static
      */
-    public function setChannel(Channel $channel): Message
+    public function setChannel(Channel $channel): self
     {
         $this->channel = $channel;
 
@@ -164,7 +164,7 @@ class Message
     /**
      * @return static
      */
-    public function setChild(Collection $child): Message
+    public function setChild(Collection $child): self
     {
         $this->child = $child;
 

@@ -8,9 +8,9 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
 use Mush\Action\Validator\HasAction;
 use Mush\Action\Validator\HasActionValidator;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
@@ -22,7 +22,7 @@ class ParameterHasActionValidatorTest extends TestCase
     private HasActionValidator $validator;
     private HasAction $constraint;
 
-    /** @var GearToolServiceInterface | Mockery\Mock */
+    /** @var GearToolServiceInterface|Mockery\Mock */
     private GearToolServiceInterface $gearToolService;
 
     /**

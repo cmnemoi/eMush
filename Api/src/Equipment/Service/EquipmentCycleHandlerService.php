@@ -2,7 +2,6 @@
 
 namespace Mush\Equipment\Service;
 
-use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
 
 class EquipmentCycleHandlerService implements EquipmentCycleHandlerServiceInterface
@@ -14,12 +13,12 @@ class EquipmentCycleHandlerService implements EquipmentCycleHandlerServiceInterf
         $this->strategies[$cycleHandler->getName()] = $cycleHandler;
     }
 
-    public function getEquipmentCycleHandler(EquipmentMechanic $mechanic): ?AbstractCycleHandler
+    public function getEquipmentCycleHandler(string $mechanicName): ?AbstractCycleHandler
     {
-        if (!isset($this->strategies[$mechanic->getMechanic()])) {
+        if (!isset($this->strategies[$mechanicName])) {
             return null;
         }
 
-        return $this->strategies[$mechanic->getMechanic()];
+        return $this->strategies[$mechanicName];
     }
 }

@@ -5,7 +5,12 @@
                 {{ room.name }}
                 <Statuses :statuses="room.statuses" type="room" />
             </p>
+            <PhaserShip
+                v-if="isPhaserDisplayed(room.key)"
+                :player="player"
+            />
             <TextualInterface
+                v-else
                 class="ship-view"
                 :room="room"
                 @clickOnDoor="executeDoorAction"
@@ -23,25 +28,30 @@
             />
         </div>
         <p v-else class="loading">
-            Loading...
+            {{ $t('loading') }}
         </p>
     </div>
 </template>
 
-<script>
-import CrewmatePanel from "@/components/Game/Ship/CrewmatePanel";
-import EquipmentPanel from "@/components/Game/Ship/EquipmentPanel";
-import MiniMap from "@/components/Game/Ship/MiniMap";
-import RoomInventoryPanel from "@/components/Game/Ship/RoomInventoryPanel";
-import Statuses from "@/components/Utils/Statuses";
-import TextualInterface from "@/components/Game/Ship/TextualInterface";
-import { Room } from "@/entities/Room";
+<script lang="ts">
+import CrewmatePanel from "@/components/Game/Ship/CrewmatePanel.vue";
+import EquipmentPanel from "@/components/Game/Ship/EquipmentPanel.vue";
+import MiniMap from "@/components/Game/Ship/MiniMap.vue";
+import RoomInventoryPanel from "@/components/Game/Ship/RoomInventoryPanel.vue";
+import Statuses from "@/components/Utils/Statuses.vue";
+import TextualInterface from "@/components/Game/Ship/TextualInterface.vue";
+import { PhaserRooms, Room } from "@/entities/Room";
 import { Player } from "@/entities/Player";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
+import PhaserShip from "@/components/Game/Ship/PhaserShip.vue";
+import { defineComponent } from "vue";
+import { Action } from "@/entities/Action";
+import { Equipment } from "@/entities/Equipment";
 
-export default {
+export default defineComponent ({
     name: "ShipPanel",
     components: {
+        PhaserShip,
         CrewmatePanel,
         EquipmentPanel,
         MiniMap,
@@ -50,44 +60,43 @@ export default {
         TextualInterface
     },
     props: {
-        room: Room
-    },
-    data() {
-        return {
-            isInventoryOpen: false,
-            selectedTarget: null
-        };
+        room: Room,
+        player: Player
     },
     computed: {
         ...mapState('player', [
             'loading'
+        ]),
+        ...mapGetters('room', [
+            'isInventoryOpen',
+            'selectedTarget'
         ]),
         targetPanel() {
             return this.selectedTarget instanceof Player ? CrewmatePanel : EquipmentPanel;
         }
     },
     methods: {
-        ...mapActions('action', [
-            'executeAction'
-        ]),
-        async executeDoorAction({ door, action }) {
-            this.isInventoryOpen = false;
-            this.selectedTarget = null;
+        ...mapActions({
+            'executeAction': 'action/executeAction',
+            'selectTarget': 'room/selectTarget',
+            'openInventory': 'room/openInventory'
+        }),
+        async executeDoorAction({ door, action }: Record<any, any>): Promise<void> {
             await this.executeAction({ target: door, action });
+            this.setTarget(null);
         },
-        async executeTargetAction(action) {
+        async executeTargetAction(action: Action) {
             await this.executeAction({ target: this.selectedTarget, action });
-            this.selectedTarget = null;
+            this.setTarget(null);
         },
-        setTarget(target) {
-            this.selectedTarget = target;
-            this.isInventoryOpen = false;
+        setTarget(target: Player | Equipment | null): void {
+            this.selectTarget({ target: target });
         },
-        openInventory() {
-            this.isInventoryOpen = true;
+        isPhaserDisplayed(roomKey: string): boolean {
+            return PhaserRooms.includes(roomKey);
         }
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -100,22 +109,22 @@ export default {
     background: #09092d url("~@/assets/images/shipview/background.png") center repeat;
 
     .ship-panel-content {
+        width: 100%;
         flex-direction: row;
     }
 
-    & .ship-view {
-        position: absolute;
+    .ship-view {
         width: 100%;
         height: 100%;
 
         @include corner-bezel(6.5px, 6.5px, 0);
     }
 
-    & .room {
+    .room {
         position: absolute;
         z-index: 5;
         margin: 8px 16px;
-        font-family: 'Pixel-Square';
+        font-family: $font-pixel-square;
         font-size: 10px;
         font-weight: 700;
     }

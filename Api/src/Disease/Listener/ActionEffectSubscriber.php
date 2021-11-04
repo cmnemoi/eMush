@@ -2,7 +2,7 @@
 
 namespace Mush\Disease\Listener;
 
-use Mush\Action\Event\ActionEffectEvent;
+use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
@@ -26,12 +26,12 @@ class ActionEffectSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ActionEffectEvent::CONSUME => 'onConsume',
-            ActionEffectEvent::HEAL => 'onHeal',
+            ApplyEffectEvent::CONSUME => 'onConsume',
+            ApplyEffectEvent::HEAL => 'onHeal',
         ];
     }
 
-    public function onConsume(ActionEffectEvent $event)
+    public function onConsume(ApplyEffectEvent $event)
     {
         $equipment = $event->getParameter();
 
@@ -43,7 +43,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
         $this->diseaseCauseService->handleConsumable($event->getPlayer(), $equipment);
     }
 
-    public function onHeal(ActionEffectEvent $event)
+    public function onHeal(ApplyEffectEvent $event)
     {
         $player = $event->getParameter();
 
@@ -54,7 +54,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
         $diseases = $player->getMedicalConditions()->getActiveDiseases()->getByDiseaseType(TypeEnum::DISEASE);
 
         foreach ($diseases as $disease) {
-            $this->playerDiseaseService->healDisease($event->getPlayer(), $disease, new \DateTime());
+            $this->playerDiseaseService->healDisease($event->getPlayer(), $disease, $event->getReason(), $event->getTime());
         }
     }
 }

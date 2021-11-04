@@ -9,11 +9,12 @@
     </GamePopUp>
 </template>
 
-<script>
-import GamePopUp from "@/components/Utils/GamePopUp";
+<script lang="ts">
+import GamePopUp from "@/components/Utils/GamePopUp.vue";
 import { characterEnum } from "@/enums/character";
 import { mapActions, mapGetters } from "vuex";
-export default {
+import { defineComponent } from "vue";
+export default defineComponent ({
     name: "InvitationPrivateChannelMenu",
     components: { GamePopUp },
     computed: {
@@ -24,7 +25,7 @@ export default {
         ])
     },
     methods: {
-        characterBody: function(character) {
+        characterBody: function(character: string): string {
             const images = characterEnum[character];
             return images.body;
         },
@@ -33,7 +34,7 @@ export default {
             'closeInvitation'
         ])
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

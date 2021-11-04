@@ -5,27 +5,28 @@
     </section>
 </template>
 
-<script>
+<script lang="ts">
 import { formatText } from "@/utils/formatText";
 import { RoomLog } from "@/entities/RoomLog";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { fr } from 'date-fns/locale';
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: "Log",
     props: {
         roomLog: RoomLog
     },
     methods: {
-        formatDate: (date) => {
+        formatDate: (date: Date): string => {
             return formatDistanceToNow(date, { locale : fr });
         },
-        formatLog(value) {
+        formatLog(value: string): string {
             if (! value) return '';
             return formatText(value.toString());
         }
     }
-};
+});
 </script>return
 
 <style lang="scss" scoped>
@@ -36,7 +37,7 @@ export default {
     margin: 1px 0;
     border-bottom: 1px solid rgb(170, 212, 229);
 
-    >>> p:not(.timestamp) em { color: #cf1830; }
+    &::v-deep p:not(.timestamp) em { color: $red; }
 
     &.new {
         border-left: 2px solid #ea9104;
@@ -79,7 +80,7 @@ export default {
     &.covert,
     &.secret,
     &.spotted {
-        & .timestamp::before {
+        .timestamp::before {
             content: "";
             display: inline-block;
             margin-right: 4px;
@@ -114,8 +115,7 @@ export default {
 
 .text-log {
     margin: 0;
-    font-size: 0.95em;
-    >>> img { vertical-align: middle; }
+    font-size: 0.92em;
 }
 
 </style>

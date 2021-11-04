@@ -81,7 +81,7 @@ class RoomLog
     /**
      * @return static
      */
-    public function setPlace(Place $place): RoomLog
+    public function setPlace(Place $place): self
     {
         $this->place = $place;
 
@@ -96,7 +96,7 @@ class RoomLog
     /**
      * @return static
      */
-    public function setPlayer(?Player $player): RoomLog
+    public function setPlayer(?Player $player): self
     {
         $this->player = $player;
 
@@ -111,7 +111,7 @@ class RoomLog
     /**
      * @return static
      */
-    public function setVisibility(string $visibility): RoomLog
+    public function setVisibility(string $visibility): self
     {
         $this->visibility = $visibility;
 
@@ -126,7 +126,7 @@ class RoomLog
     /**
      * @return static
      */
-    public function setLog(string $log): RoomLog
+    public function setLog(string $log): self
     {
         $this->log = $log;
 
@@ -141,7 +141,7 @@ class RoomLog
     /**
      * @return static
      */
-    public function setParameters(array $parameters): RoomLog
+    public function setParameters(array $parameters): self
     {
         $this->parameters = $parameters;
 
@@ -153,7 +153,7 @@ class RoomLog
         return $this->type;
     }
 
-    public function setType(string $type): RoomLog
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -168,7 +168,7 @@ class RoomLog
     /**
      * @return static
      */
-    public function setDate(\DateTime $date): RoomLog
+    public function setDate(\DateTime $date): self
     {
         $this->date = $date;
 
@@ -183,7 +183,7 @@ class RoomLog
     /**
      * @return static
      */
-    public function setDay(int $day): RoomLog
+    public function setDay(int $day): self
     {
         $this->day = $day;
 
@@ -198,7 +198,7 @@ class RoomLog
     /**
      * @return static
      */
-    public function setCycle(int $cycle): RoomLog
+    public function setCycle(int $cycle): self
     {
         $this->cycle = $cycle;
 

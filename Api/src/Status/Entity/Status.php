@@ -7,7 +7,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 
 /**
  * Class Status.
@@ -19,7 +19,6 @@ use Mush\RoomLog\Enum\VisibilityEnum;
  *     "status" = "Mush\Status\Entity\Status",
  *     "charge_status" = "Mush\Status\Entity\ChargeStatus",
  *     "attempt" = "Mush\Status\Entity\Attempt",
- *     "medical_condition" = "Mush\Status\Entity\MedicalCondition",
  *     "content_status" = "Mush\Status\Entity\ContentStatus",
  * })
  */
@@ -35,16 +34,6 @@ class Status
     protected ?int $id = null;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
-     */
-    protected ?string $name = null;
-
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
-    protected string $visibility = VisibilityEnum::PUBLIC;
-
-    /**
      * @ORM\OneToOne(targetEntity="Mush\Status\Entity\StatusTarget", cascade={"ALL"}, inversedBy="owner")
      */
     protected ?StatusTarget $owner;
@@ -54,9 +43,20 @@ class Status
      */
     protected ?StatusTarget $target = null;
 
-    public function __construct(StatusHolderInterface $statusHolder)
+    /**
+     * @ORM\ManyToOne(targetEntity="Mush\Status\Entity\Config\StatusConfig")
+     */
+    protected StatusConfig $statusConfig;
+
+    public function __construct(StatusHolderInterface $statusHolder, StatusConfig $statusConfig)
     {
         $this->setOwner($statusHolder);
+        $this->statusConfig = $statusConfig;
+    }
+
+    public function getStatusConfig(): StatusConfig
+    {
+        return $this->statusConfig;
     }
 
     public function getId(): ?int
@@ -64,34 +64,14 @@ class Status
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
-        return $this->name;
-    }
-
-    /**
-     * @return static
-     */
-    public function setName(?string $name): Status
-    {
-        $this->name = $name;
-
-        return $this;
+        return $this->statusConfig->getName();
     }
 
     public function getVisibility(): string
     {
-        return $this->visibility;
-    }
-
-    /**
-     * @return static
-     */
-    public function setVisibility(string $visibility): Status
-    {
-        $this->visibility = $visibility;
-
-        return $this;
+        return $this->statusConfig->getVisibility();
     }
 
     public function getOwner(): StatusHolderInterface
@@ -113,7 +93,7 @@ class Status
         throw new \LogicException('There should always be a target on a status target');
     }
 
-    private function setOwner(StatusHolderInterface $owner): Status
+    private function setOwner(StatusHolderInterface $owner): self
     {
         $statusOwner = new StatusTarget();
         $statusOwner->setOwner($this);
@@ -130,7 +110,7 @@ class Status
         return $this;
     }
 
-    public function setTargetOwner(StatusTarget $owner): Status
+    public function setTargetOwner(StatusTarget $owner): self
     {
         $this->owner = $owner;
 
@@ -159,7 +139,7 @@ class Status
     /**
      * @return static
      */
-    public function setTarget(?StatusHolderInterface $target): Status
+    public function setTarget(?StatusHolderInterface $target): self
     {
         $statusTarget = new StatusTarget();
         $statusTarget->setTarget($this);
@@ -179,7 +159,7 @@ class Status
         return $this;
     }
 
-    public function setStatusTargetOwner(StatusTarget $statusTarget): Status
+    public function setStatusTargetOwner(StatusTarget $statusTarget): self
     {
         $this->owner = $statusTarget;
 
@@ -195,7 +175,7 @@ class Status
         return $this->owner;
     }
 
-    public function setStatusTargetTarget(StatusTarget $statusTarget): Status
+    public function setStatusTargetTarget(StatusTarget $statusTarget): self
     {
         $this->target = $statusTarget;
 

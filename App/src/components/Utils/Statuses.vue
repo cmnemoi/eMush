@@ -5,32 +5,34 @@
         class="status"
     >
         <Tooltip>
-            <template v-slot:tooltip-trigger>
+            <template #tooltip-trigger>
                 <img :src="statusIcon(status)">
                 <span v-if="status.charge">{{ status.charge }}</span>
             </template>
             <template #tooltip-content="{ formatContent }">
-                <h1 v-html="formatContent(status.name)"></h1>
-                <p v-html="formatContent(status.description)"></p>
+                <h1 v-html="formatContent(status.name)" />
+                <p v-html="formatContent(status.description)" />
             </template>
         </Tooltip>
     </span>
 </template>
 
-<script>
+<script lang="ts">
 import { statusPlayerEnum } from "@/enums/status.player.enum";
 import { statusItemEnum } from "@/enums/status.item.enum";
-import Tooltip from "@/components/Utils/ToolTip";
+import Tooltip from "@/components/Utils/ToolTip.vue";
+import { defineComponent } from "vue";
+import { Status } from "@/entities/Status";
 
-export default {
-    components: {Tooltip},
+export default defineComponent ({
+    components: { Tooltip },
     props: {
         statuses: Array,
-        type: Array
+        type: String
     },
     computed: {
         statusIcon() {
-            return (status) => {
+            return (status: Status): string|null => {
                 switch (this.type) {
                 case "player":
                     return statusPlayerEnum[status.key]?.icon || null;
@@ -47,5 +49,5 @@ export default {
             };
         }
     }
-};
+});
 </script>

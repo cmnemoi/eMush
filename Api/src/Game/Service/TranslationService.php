@@ -20,8 +20,10 @@ class TranslationService implements TranslationServiceInterface
         'target_character' => 'character',
         'cause' => 'end_cause',
         'title' => 'status',
-        'targetEquipment' => 'equipments',
-        'targetItem' => 'items',
+        'target_equipment' => 'equipments',
+        'equipment' => 'equipments',
+        'target_item' => 'items',
+        'item' => 'items',
         'disease' => 'disease',
         'place' => 'rooms',
     ];
@@ -46,7 +48,7 @@ class TranslationService implements TranslationServiceInterface
     {
         return match ($key) {
             'character', 'target_character' => $this->getFrenchCharacterTranslateParameter($key, $element),
-            'targetEquipment', 'targetItem' => $this->getFrenchEquipmentTranslateParameter($element, self::$conversionArray[$key]),
+            'target_equipment', 'target_item', 'equipment', 'item' => $this->getFrenchEquipmentTranslateParameter($element, $key),
             'place' => [
                 'place' => $this->translator->trans($element . '.name', [], 'rooms'),
                 'loc_prep' => $this->translator->trans($element . '.loc_prep', [], 'rooms'),
@@ -56,13 +58,21 @@ class TranslationService implements TranslationServiceInterface
         };
     }
 
-    private function getFrenchEquipmentTranslateParameter(string $element, string $domain): array
+    private function getFrenchEquipmentTranslateParameter(string $element, string $key): array
     {
+        $domain = self::$conversionArray[$key];
+
+        if ($key === 'target_item') {
+            $key = 'target_equipment';
+        } elseif ($key === 'item') {
+            $key = 'equipment';
+        }
+
         $params = [];
-        $params['target'] = $this->translator->trans($element . '.short_name', [], $domain);
-        $params['target_gender'] = $this->translator->trans($element . '.genre', [], $domain);
-        $params['target_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
-        $params['target_plural'] = $this->translator->trans($element . '.plural_name', [], $domain);
+        $params[$key] = $this->translator->trans($element . '.short_name', [], $domain);
+        $params[$key . '_gender'] = $this->translator->trans($element . '.genre', [], $domain);
+        $params[$key . '_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
+        $params[$key . '_plural'] = $this->translator->trans($element . '.plural_name', [], $domain);
 
         return $params;
     }

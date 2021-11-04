@@ -8,47 +8,64 @@
             @click="$emit('select', item)"
         >
             <Tooltip>
-                <template v-slot:tooltip-trigger>
+                <template #tooltip-trigger>
                     <img :src="itemImage(item)" :alt="item.name">
                     <span class="qty">{{ item.number }}</span>
                 </template>
-                <template v-slot:tooltip-content>
+                <template #tooltip-content>
                     <h1>{{ item.name }}</h1>
                     <p>{{ item.description }}</p>
+                    <span v-if="item.effectTitle">
+                        {{item.effectTitle}}
+                        <ul class="effect_list">
+                            <li v-for="(effect, key) in item.effects" :key="key" v-html="formatContent(effect)"></li>
+                        </ul>
+                    </span>
                 </template>
             </Tooltip>
-
         </li>
         <li v-for="n in emptySlots" :key="n" class="slot empty" />
     </ul>
 </template>
 
-<script>
+<script lang="ts">
 import { itemEnum } from "@/enums/item";
-import Tooltip from "../Utils/ToolTip";
+import Tooltip from "@/components/Utils/ToolTip.vue";
+import { Item } from "@/entities/Item";
+import { defineComponent } from "vue";
+import { formatText } from "@/utils/formatText";
 
-export default {
+export default defineComponent ({
     name: "Inventory",
-    components: {Tooltip},
+    components: { Tooltip },
     props: {
-        items: Array,
-        minSlot: Number
+        items: {
+            type: Array,
+            required: true
+        },
+        minSlot: {
+            type: Number,
+            required: true
+        }
     },
     emits: [
         'select'
     ],
     computed: {
-        emptySlots: function () {
+        emptySlots: function (): number {
             const emptySlots = (this.minSlot - this.items.length);
             return emptySlots < 0 ? 0 : emptySlots;
         }
     },
     methods: {
-        itemImage: function(item) {
+        itemImage: function(item: Item): string {
             return itemEnum[item.key] ? itemEnum[item.key].image : require('@/assets/images/items/todo.jpg');
+        },
+        formatContent(value: any) {
+            return !value ? '' : formatText(value.toString());
         }
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -59,5 +76,10 @@ export default {
     .slot {
         @include inventory-slot();
     }
+}
+
+.effect_list {
+    display: flex;
+    flex-direction: column;
 }
 </style>

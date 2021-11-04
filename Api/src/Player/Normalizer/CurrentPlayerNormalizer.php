@@ -10,7 +10,9 @@ use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Player\Service\PlayerVariableServiceInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -20,15 +22,18 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
     use NormalizerAwareTrait;
 
     private PlayerServiceInterface $playerService;
+    private PlayerVariableServiceInterface $playerVariableService;
     private TranslationServiceInterface $translationService;
     private GearToolServiceInterface $gearToolService;
 
     public function __construct(
         PlayerServiceInterface $playerService,
+        PlayerVariableServiceInterface $playerVariableService,
         TranslationServiceInterface $translationService,
         GearToolServiceInterface $gearToolService
     ) {
         $this->playerService = $playerService;
+        $this->playerVariableService = $playerVariableService;
         $this->translationService = $translationService;
         $this->gearToolService = $gearToolService;
     }
@@ -47,7 +52,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
 
         $items = [];
         /** @var GameItem $item */
-        foreach ($player->getItems() as $item) {
+        foreach ($player->getEquipments() as $item) {
             $items[] = $this->normalizer->normalize($item, $format, $context);
         }
 
@@ -90,19 +95,24 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
                 'diseases' => $diseases,
                 'actionPoint' => [
                     'quantity' => $player->getActionPoint(),
+                    'max' => $this->playerVariableService->getMaxPlayerVariable($player, PlayerVariableEnum::ACTION_POINT),
                     'name' => $this->translationService->translate('actionPoint.name', [], 'player'),
                     'description' => $this->translationService->translate('actionPoint.description', [
                         'quantityaction' => $player->getActionPoint(),
                         'quantitymovement' => $player->getMovementPoint(),
                     ], 'player'), ],
                 'movementPoint' => [
-                    'quantity' => $player->getMovementPoint(), ],
+                    'quantity' => $player->getMovementPoint(),
+                    'max' => $this->playerVariableService->getMaxPlayerVariable($player, PlayerVariableEnum::MOVEMENT_POINT),
+                    ],
                 'healthPoint' => [
                     'quantity' => $player->getHealthPoint(),
+                    'max' => $this->playerVariableService->getMaxPlayerVariable($player, PlayerVariableEnum::HEALTH_POINT),
                     'name' => $this->translationService->translate('healthPoint.name', ['quantity' => $player->getHealthPoint()], 'player'),
                     'description' => $this->translationService->translate('healthPoint.description', [], 'player'), ],
                 'moralPoint' => [
                     'quantity' => $player->getMoralPoint(),
+                    'max' => $this->playerVariableService->getMaxPlayerVariable($player, PlayerVariableEnum::MORAL_POINT),
                     'name' => $this->translationService->translate('moralPoint.name', ['quantity' => $player->getMoralPoint()], 'player'),
                     'description' => $this->translationService->translate('moralPoint.description', [], 'player'), ],
             ]);

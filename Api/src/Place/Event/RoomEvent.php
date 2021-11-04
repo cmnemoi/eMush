@@ -2,45 +2,45 @@
 
 namespace Mush\Place\Event;
 
-use Mush\Place\Entity\Place;
-use Symfony\Contracts\EventDispatcher\Event;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Event\LoggableEventInterface;
 
-class RoomEvent extends Event
+class RoomEvent extends PlaceCycleEvent implements LoggableEventInterface
 {
     public const TREMOR = 'tremor';
     public const ELECTRIC_ARC = 'electric.arc';
-    public const STARTING_FIRE = 'starting.fire';
-    public const STOP_FIRE = 'stop.fire';
+    //public const STARTING_FIRE = 'starting.fire';
+    //public const STOP_FIRE = 'stop.fire';
 
-    private Place $room;
-    private ?string $reason = null;
-    private \DateTime $time;
+    private bool $isGravity = true;
+    private string $visibility = VisibilityEnum::PUBLIC;
 
-    public function __construct(Place $room, $time)
+    public function getVisibility(): string
     {
-        $this->time = $time;
-        $this->room = $room;
+        return $this->visibility;
     }
 
-    public function getRoom(): Place
+    public function setVisibility(string $visibility): self
     {
-        return $this->room;
-    }
-
-    public function getTime(): \DateTime
-    {
-        return $this->time;
-    }
-
-    public function getReason(): ?string
-    {
-        return $this->reason;
-    }
-
-    public function setReason(?string $reason): RoomEvent
-    {
-        $this->reason = $reason;
+        $this->visibility = $visibility;
 
         return $this;
+    }
+
+    public function isGravity(): bool
+    {
+        return $this->isGravity;
+    }
+
+    public function setIsGravity(bool $isGravity): self
+    {
+        $this->isGravity = $isGravity;
+
+        return $this;
+    }
+
+    public function getLogParameters(): array
+    {
+        return [];
     }
 }

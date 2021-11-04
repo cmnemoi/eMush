@@ -1,6 +1,6 @@
 <template>
     <div class="textual" @click="$emit('clickOnNothing')">
-        <h1>Doors</h1>
+        <h1>{{ $t('alpha.doors') }}</h1>
         <div v-for="door in room.doors" :key="door.id" class="door">
             <p>{{ door.direction }} :</p>
             <ActionButton
@@ -12,33 +12,34 @@
             />
         </div>
 
-        <h1>Inventory</h1>
+        <h1>{{ $t('alpha.inventory') }}</h1>
         <p @click="$emit('clickOnInventory'); $event.stopPropagation()">
-            Click here to open the Room Inventory
+            {{ $t('alpha.inventoryDescription') }}
         </p>
 
-        <h1>Equipment</h1>
+        <h1>{{ $t('alpha.equipement') }}</h1>
         <div v-for="(equipment,key) in room.equipments" :key="key">
             <p @click="$emit('clickOnTarget', equipment); $event.stopPropagation()">
                 {{ equipment.name }}
                 <Statuses :statuses="equipment.statuses" type="equipment" />
             </p>
         </div>
-        <h1>Players</h1>
+        <h1>{{ $t('alpha.player') }}</h1>
         <div v-for="(player,key) in room.players" :key="key">
             <p @click="$emit('clickOnTarget', player); $event.stopPropagation()">
-                {{ player.characterValue }}
+                {{ player.character.name }}
             </p>
         </div>
     </div>
 </template>
 
-<script>
-import ActionButton from "@/components/Utils/ActionButton";
-import Statuses from "@/components/Utils/Statuses";
+<script lang="ts">
+import ActionButton from "@/components/Utils/ActionButton.vue";
+import Statuses from "@/components/Utils/Statuses.vue";
 import { Room } from "@/entities/Room";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     components: {
         ActionButton,
         Statuses
@@ -52,7 +53,7 @@ export default {
         "clickOnTarget",
         "clickOnNothing"
     ]
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -60,12 +61,11 @@ export default {
 .textual {
     overflow: auto;
     padding: 18px 12px;
-    font-size: 0.83em;
 
     h1,
     h2,
     h3 {
-        color: #cf1830;
+        color: $red;
         font-size: 1.5em;
         font-variant: small-caps;
         margin: 12px 0 4px 0;

@@ -14,6 +14,9 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -23,7 +26,7 @@ class IsReportedValidatorTest extends TestCase
     private IsReportedValidator $validator;
     private IsReported $constraint;
 
-    /** @var AlertServiceInterface | Mockery\Mock */
+    /** @var AlertServiceInterface|Mockery\Mock */
     private AlertServiceInterface $alertService;
 
     /**
@@ -148,6 +151,9 @@ class IsReportedValidatorTest extends TestCase
         $room->setDaedalus($daedalus);
 
         $gameEquipment = new GameEquipment();
+        $brokenConfig = new StatusConfig();
+        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, $brokenConfig);
 
         $alertElement = new AlertElement();
         $alertElement->setEquipment($gameEquipment);
@@ -194,6 +200,9 @@ class IsReportedValidatorTest extends TestCase
         $room->setDaedalus($daedalus);
 
         $gameEquipment = new GameEquipment();
+        $brokenConfig = new StatusConfig();
+        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, $brokenConfig);
 
         $alertElement = new AlertElement();
         $alertElement->setEquipment($gameEquipment)->setPlace($room)->setPlayer($player);

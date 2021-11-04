@@ -5,11 +5,11 @@ namespace functional\Equipment\Repository;
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
@@ -47,7 +47,7 @@ class GameEquipmentRepositoryCest
         $gameEquipment = new GameEquipment();
         $gameEquipment
             ->setName('equipment 1')
-            ->setPlace($room)
+            ->setHolder($room)
             ->setEquipment($equipmentConfig)
         ;
         $I->haveInRepository($gameEquipment);
@@ -58,7 +58,7 @@ class GameEquipmentRepositoryCest
         $door = new Door();
         $door
             ->setName('equipment 1')
-            ->setPlace($room)
+            ->setHolder($room)
             ->setEquipment($doorConfig)
         ;
         $I->haveInRepository($door);
@@ -69,7 +69,7 @@ class GameEquipmentRepositoryCest
         $gameEquipment2 = new GameItem();
         $gameEquipment2
             ->setName('item 2')
-            ->setPlayer($player)
+            ->setHolder($player)
             ->setEquipment($equipmentConfig2)
         ;
         $I->haveInRepository($gameEquipment2);
@@ -80,7 +80,7 @@ class GameEquipmentRepositoryCest
         $gameEquipment3 = new GameEquipment();
         $gameEquipment3
             ->setName('equipment 3')
-            ->setPlace($room2)
+            ->setHolder($room2)
             ->setEquipment($equipmentConfig3)
         ;
         $I->haveInRepository($gameEquipment3);
@@ -130,7 +130,7 @@ class GameEquipmentRepositoryCest
         $breakableEquipment = new GameEquipment();
         $breakableEquipment
             ->setName('equipment 1')
-            ->setPlace($room)
+            ->setHolder($room)
             ->setEquipment($breakableConfig)
         ;
         $I->haveInRepository($breakableEquipment);
@@ -138,7 +138,7 @@ class GameEquipmentRepositoryCest
         $unbreakableItem = new GameItem();
         $unbreakableItem
             ->setName('item 2')
-            ->setPlayer($player)
+            ->setHolder($player)
             ->setEquipment($unbreakableConfig)
         ;
         $I->haveInRepository($unbreakableItem);
@@ -176,7 +176,7 @@ class GameEquipmentRepositoryCest
         $gameEquipment = new GameEquipment();
         $gameEquipment
             ->setName('equipment 1')
-            ->setPlace($room)
+            ->setHolder($room)
             ->setEquipment($equipmentConfig)
         ;
         $I->haveInRepository($gameEquipment);
@@ -187,7 +187,7 @@ class GameEquipmentRepositoryCest
         $door = new Door();
         $door
             ->setName('door 1')
-            ->setPlace($room)
+            ->setHolder($room)
             ->setEquipment($doorConfig)
         ;
         $I->haveInRepository($door);
@@ -198,7 +198,7 @@ class GameEquipmentRepositoryCest
         $item = new GameItem();
         $item
             ->setName('item 2')
-            ->setPlace($room)
+            ->setHolder($room)
             ->setEquipment($equipmentConfig2)
         ;
         $I->haveInRepository($item);
@@ -246,7 +246,7 @@ class GameEquipmentRepositoryCest
         $gameEquipment = new GameEquipment();
         $gameEquipment
             ->setName('equipment 1')
-            ->setPlace($room)
+            ->setHolder($room)
             ->setEquipment($equipmentConfig)
         ;
         $I->haveInRepository($gameEquipment);
@@ -258,7 +258,7 @@ class GameEquipmentRepositoryCest
         $door = new Door();
         $door
             ->setName('door 1')
-            ->setPlace($room)
+            ->setHolder($room)
             ->setEquipment($doorConfig)
         ;
         $I->haveInRepository($door);
@@ -269,7 +269,7 @@ class GameEquipmentRepositoryCest
         $item = new GameItem();
         $item
             ->setName('item 2')
-            ->setPlace($room)
+            ->setHolder($room)
             ->setEquipment($equipmentConfig2)
         ;
         $I->haveInRepository($item);
@@ -325,7 +325,7 @@ class GameEquipmentRepositoryCest
         $gameEquipment = new GameEquipment();
         $gameEquipment
             ->setName('equipment1')
-            ->setPlace($room)
+            ->setHolder($room)
             ->setEquipment($equipmentConfig)
         ;
         $I->haveInRepository($gameEquipment);
@@ -336,7 +336,7 @@ class GameEquipmentRepositoryCest
         $door = new Door();
         $door
             ->setName('equipment1')
-            ->setPlace($room)
+            ->setHolder($room)
             ->setEquipment($doorConfig)
         ;
         $I->haveInRepository($door);
@@ -347,7 +347,7 @@ class GameEquipmentRepositoryCest
         $gameEquipment2 = new GameItem();
         $gameEquipment2
             ->setName('equipment2')
-            ->setPlayer($player)
+            ->setHolder($player)
             ->setEquipment($equipmentConfig2)
         ;
         $I->haveInRepository($gameEquipment2);
@@ -358,7 +358,7 @@ class GameEquipmentRepositoryCest
         $gameEquipment3 = new GameEquipment();
         $gameEquipment3
             ->setName('equipment1')
-            ->setPlace($room2)
+            ->setHolder($room2)
             ->setEquipment($equipmentConfig3)
         ;
         $I->haveInRepository($gameEquipment3);

@@ -21,13 +21,20 @@
     </div>
 </template>
 
-<script>
-import Inventory from "@/components/Game/Inventory";
-import ActionPanel from "@/components/Game/Ship/ActionPanel";
-import Statuses from "@/components/Utils/Statuses";
+<script lang="ts">
+import Inventory from "@/components/Game/Inventory.vue";
+import ActionPanel from "@/components/Game/Ship/ActionPanel.vue";
+import Statuses from "@/components/Utils/Statuses.vue";
 import { mapActions } from "vuex";
+import { defineComponent } from "vue";
+import { Action } from "@/entities/Action";
+import { Item } from "@/entities/Item";
 
-export default {
+interface RoomInventoryPanelState {
+    selectedItem: null | Item
+}
+
+export default defineComponent ({
     name: "RoomInventoryPanel",
     components: {
         ActionPanel,
@@ -37,23 +44,23 @@ export default {
     props: {
         items: Array
     },
-    data: () => {
+    data: () : RoomInventoryPanelState => {
         return {
             selectedItem: null
         };
     },
     methods: {
-        selectItem: function(item) {
+        selectItem: function(item: Item) {
             this.selectedItem = item;
         },
-        async executeItemAction(action) {
+        async executeItemAction(action: Action) {
             this.executeAction({ target: this.selectedItem, action });
         },
         ...mapActions('action', [
             'executeAction'
         ])
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -71,45 +78,44 @@ export default {
 
         .item-name {
             text-align: center;
-            font-size: 0.85em;
             font-variant: small-caps;
             margin: 0;
             padding: 8px 0;
 
-            >>> .status {
+            &::v-deep .status {
                 vertical-align: middle;
                 margin-left: 2px;
             }
         }
     }
+}
 
-    .inventory {
-        overflow: hidden;
-        overflow-x: scroll;
+.inventory {
+    overflow: hidden;
+    overflow-x: scroll;
 
-        /* SCROLLBAR STYLING */
+    /* SCROLLBAR STYLING */
 
-        --scrollbarBG: rgba(0, 0, 0, 0.4);
-        --thumbBG: rgba(0, 116, 223, 1);
-        --border-radius: 4px;
+    --scrollbarBG: rgba(0, 0, 0, 0.4);
+    --thumbBG: rgba(0, 116, 223, 1);
+    --border-radius: 4px;
 
-        scrollbar-width: thin;
-        scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
 
-        &::-webkit-scrollbar {
-            height: 8px;
-            border-radius: var(--border-radius);
-        }
+    &::-webkit-scrollbar {
+        height: 8px;
+        border-radius: var(--border-radius);
+    }
 
-        &::-webkit-scrollbar-track {
-            background: var(--scrollbarBG);
-            border-radius: var(--border-radius);
-        }
+    &::-webkit-scrollbar-track {
+        background: var(--scrollbarBG);
+        border-radius: var(--border-radius);
+    }
 
-        &::-webkit-scrollbar-thumb {
-            background-color: var(--thumbBG);
-            border-radius: var(--border-radius);
-        }
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--thumbBG);
+        border-radius: var(--border-radius);
     }
 }
 </style>

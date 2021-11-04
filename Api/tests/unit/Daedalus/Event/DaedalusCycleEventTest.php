@@ -5,13 +5,14 @@ namespace Mush\Tests\unit\Daedalus\Event;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Daedalus\Event\DaedalusCycleSubscriber;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Daedalus\Listener\DaedalusCycleSubscriber;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
@@ -19,11 +20,11 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DaedalusCycleEventTest extends TestCase
 {
-    /** @var DaedalusServiceInterface | Mockery\Mock */
+    /** @var DaedalusServiceInterface|Mockery\Mock */
     private DaedalusServiceInterface $daedalusService;
-    /** @var DaedalusIncidentServiceInterface | Mockery\Mock */
+    /** @var DaedalusIncidentServiceInterface|Mockery\Mock */
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
 
     private DaedalusCycleSubscriber $daedalusCycleSubscriber;
@@ -64,12 +65,13 @@ class DaedalusCycleEventTest extends TestCase
         $player->setGameStatus(GameStatusEnum::CURRENT);
         $player->setDaedalus($daedalus);
 
-        $mush = new Status($player);
-        $mush->setName(PlayerStatusEnum::MUSH);
+        $mushConfig = new StatusConfig();
+        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mush = new Status($player, $mushConfig);
 
         $date = new \DateTime('tomorrow');
 
-        $event = new DaedalusCycleEvent($daedalus, $date);
+        $event = new DaedalusCycleEvent($daedalus, DaedalusEvent::END_DAEDALUS, $date);
 
         $this->eventDispatcher->shouldReceive('dispatch')
             ->withArgs(fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::END_DAEDALUS))

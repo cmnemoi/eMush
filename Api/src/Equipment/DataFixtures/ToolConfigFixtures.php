@@ -9,15 +9,16 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
-use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Entity\Mechanics\Charged;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\DataFixtures\ChargeStatusFixtures;
+use Mush\Status\DataFixtures\StatusFixtures;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 
 class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -32,8 +33,10 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
         /** @var Action $buildAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+        /** @var Action $examineAction */
+        $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
+        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
 
         /** @var Action $reportAction */
         $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
@@ -55,6 +58,11 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var Action $sabotage50 */
         $sabotage50 = $this->getReference(TechnicianFixtures::SABOTAGE_50);
 
+        /** @var StatusConfig $alienArtifactStatus */
+        $alienArtifactStatus = $this->getReference(StatusFixtures::ALIEN_ARTEFACT_STATUS);
+        /** @var StatusConfig $heavyStatus */
+        $heavyStatus = $this->getReference(StatusFixtures::HEAVY_STATUS);
+
         //@TODO
         $hackerKitMechanic = new Tool();
 
@@ -62,7 +70,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $hackerKit
             ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::HACKER_KIT)
-            ->setIsHeavy(false)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
@@ -83,7 +90,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $blockOfPostIt
             ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::BLOCK_OF_POST_IT)
-            ->setIsHeavy(false)
             ->setIsStackable(false)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -93,6 +99,27 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($blockOfPostIt);
         $manager->persist($blockOfPostItMechanic);
+
+        /** @var Action $installCamera */
+        $installCamera = $this->getReference(ActionsFixtures::INSTALL_CAMERA);
+        $cameraMechanics = new Tool();
+        $cameraMechanics->addAction($installCamera);
+
+        $camera = new ItemConfig();
+        $camera
+            ->setGameConfig($gameConfig)
+            ->setName(ItemEnum::CAMERA_ITEM)
+            ->setIsStackable(false)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(true)
+            ->setIsBreakable(true)
+            ->setMechanics(new ArrayCollection([$cameraMechanics]))
+            ->setActions(new ArrayCollection([$takeAction, $this->getReference(TechnicianFixtures::DISMANTLE_3_25), $repair25, $sabotage25, $reportAction]))
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
+        ;
+
+        $manager->persist($camera);
+        $manager->persist($cameraMechanics);
 
         $extinguisherActions = clone $actions;
         $extinguisherActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
@@ -110,7 +137,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $extinguisher
             ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::EXTINGUISHER)
-            ->setIsHeavy(false)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -133,7 +159,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $ductTape
             ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::DUCT_TAPE)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -154,7 +179,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $madKube
             ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::MAD_KUBE)
-            ->setIsHeavy(false)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -171,37 +195,31 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $microwaveActions->add($sabotage50);
         $microwaveActions->add($reportAction);
 
-        $chargedMechanic = new Charged();
-        $chargedMechanic
-            ->setMaxCharge(4)
-            ->setStartCharge(1)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
-            ->setIsVisible(true)
-        ;
-
         /** @var Action $expressCookAction */
         $expressCookAction = $this->getReference(ActionsFixtures::COOK_EXPRESS);
 
         $microwaveMechanic = new Tool();
         $microwaveMechanic->addAction($expressCookAction);
 
+        /** @var ChargeStatusConfig $microwaveCharge */
+        $microwaveCharge = $this->getReference(ChargeStatusFixtures::MICROWAVE_CHARGE);
+
         $microwave = new ItemConfig();
         $microwave
             ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::MICROWAVE)
-            ->setIsHeavy(true)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$microwaveMechanic, $chargedMechanic]))
+            ->setMechanics(new ArrayCollection([$microwaveMechanic]))
             ->setActions($microwaveActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 2])
+            ->setInitStatus(new ArrayCollection([$heavyStatus, $microwaveCharge]))
         ;
 
         $manager->persist($microwave);
         $manager->persist($microwaveMechanic);
-        $manager->persist($chargedMechanic);
 
         /** @var Action $hyperfreezeAction */
         $hyperfreezeAction = $this->getReference(ActionsFixtures::HYPERFREEZE_DEFAULT);
@@ -219,7 +237,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $superFreezer
             ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::SUPERFREEZER)
-            ->setIsHeavy(true)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
@@ -227,6 +244,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMechanics(new ArrayCollection([$superFreezerMechanic]))
             ->setActions($superfreezerActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 2])
+            ->setInitStatus(new ArrayCollection([$heavyStatus]))
         ;
 
         $manager->persist($superFreezer);
@@ -240,14 +258,13 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $alienHolographicTV
             ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setIsAlienArtifact(true)
             ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$alienHolographicTVMechanic]))
             ->setActions(new ArrayCollection([$takeAction, $dropAction, $hideAction, $repair3, $sabotage3, $reportAction]))
+            ->setInitStatus(new ArrayCollection([$alienArtifactStatus]))
         ;
 
         $manager->persist($alienHolographicTV);
@@ -268,11 +285,10 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $medikit
             ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::MEDIKIT)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
+            ->setIsBreakable(false)
             ->setMechanics(new ArrayCollection([$medikitMechanic]))
             ->setActions($actions)
         ;
@@ -286,7 +302,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $sporeSucker = new ItemConfig();
         $sporeSucker->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::SPORE_SUCKER)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -306,13 +321,12 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $jarOfAlienOil = new ItemConfig();
         $jarOfAlienOil->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::JAR_OF_ALIEN_OIL)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
-            ->setIsAlienArtifact(true)
             ->setMechanics(new ArrayCollection([$jarOfAlienOilMechanic]))
             ->setActions($actions)
+            ->setInitStatus(new ArrayCollection([$alienArtifactStatus]))
         ;
 
         $manager->persist($jarOfAlienOil);
@@ -327,7 +341,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $bandage = new ItemConfig();
         $bandage->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::BANDAGE)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
@@ -347,7 +360,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $retroFungalSerum = new ItemConfig();
         $retroFungalSerum->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::RETRO_FUNGAL_SERUM)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -367,7 +379,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $spaceCapsule = new ItemConfig();
         $spaceCapsule->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::SPACE_CAPSULE)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -389,6 +400,8 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ActionsFixtures::class,
             TechnicianFixtures::class,
             GameConfigFixtures::class,
+            ChargeStatusFixtures::class,
+            StatusFixtures::class,
         ];
     }
 }

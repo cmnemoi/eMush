@@ -12,8 +12,6 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
  */
 class Weapon extends Tool
 {
-    protected string $mechanic = EquipmentMechanicEnum::WEAPON;
-
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
@@ -44,6 +42,15 @@ class Weapon extends Tool
      */
     private array $criticalFailEvents = [];
 
+    /**
+     * Weapon constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->mechanics[] = EquipmentMechanicEnum::WEAPON;
+    }
+
     public function getBaseAccuracy(): int
     {
         return $this->baseAccuracy;
@@ -52,7 +59,7 @@ class Weapon extends Tool
     /**
      * @return static
      */
-    public function setBaseAccuracy(int $baseAccuracy): Weapon
+    public function setBaseAccuracy(int $baseAccuracy): self
     {
         $this->baseAccuracy = $baseAccuracy;
 
@@ -67,7 +74,7 @@ class Weapon extends Tool
     /**
      * @return static
      */
-    public function setBaseDamageRange(array $baseDamageRange): Weapon
+    public function setBaseDamageRange(array $baseDamageRange): self
     {
         $this->baseDamageRange = $baseDamageRange;
 
@@ -82,7 +89,7 @@ class Weapon extends Tool
     /**
      * @return static
      */
-    public function setBaseInjuryNumber(array $baseInjuryNumber): Weapon
+    public function setBaseInjuryNumber(array $baseInjuryNumber): self
     {
         $this->baseInjuryNumber = $baseInjuryNumber;
 
@@ -97,7 +104,7 @@ class Weapon extends Tool
     /**
      * @return static
      */
-    public function setExpeditionBonus(int $expeditionBonus): Weapon
+    public function setExpeditionBonus(int $expeditionBonus): self
     {
         $this->expeditionBonus = $expeditionBonus;
 
@@ -112,7 +119,7 @@ class Weapon extends Tool
     /**
      * @return static
      */
-    public function setCriticalSucessEvents(array $criticalSucessEvents): Weapon
+    public function setCriticalSucessEvents(array $criticalSucessEvents): self
     {
         $this->criticalSucessEvents = $criticalSucessEvents;
 
@@ -127,7 +134,7 @@ class Weapon extends Tool
     /**
      * @return static
      */
-    public function setCriticalFailEvents(array $criticalFailEvents): Weapon
+    public function setCriticalFailEvents(array $criticalFailEvents): self
     {
         $this->criticalFailEvents = $criticalFailEvents;
 

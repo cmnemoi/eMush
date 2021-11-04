@@ -8,8 +8,9 @@ use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Listener\PlayerCycleSubscriber;
-use Mush\Game\Entity\CharacterConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\RoomLog\Entity\RoomLog;
@@ -57,7 +58,11 @@ class PlayerCycleSubscriberCest
 
         $I->refreshEntities($player);
 
-        $event = new PlayerCycleEvent($player, new \DateTime());
+        $event = new PlayerCycleEvent(
+            $player,
+            EventEnum::NEW_CYCLE,
+            new \DateTime()
+        );
 
         $this->subscriber->onPlayerNewCycle($event);
 
@@ -101,7 +106,7 @@ class PlayerCycleSubscriberCest
 
         $I->refreshEntities($player);
 
-        $event = new PlayerCycleEvent($player, new \DateTime());
+        $event = new PlayerCycleEvent($player, EventEnum::NEW_CYCLE, new \DateTime());
 
         $this->subscriber->onPlayerNewCycle($event);
 
@@ -111,8 +116,8 @@ class PlayerCycleSubscriberCest
         ]);
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
-            'place' => $place,
+            'player' => $player->getId(),
+            'place' => $place->getId(),
             'log' => LogEnum::DISEASE_CURED,
         ]);
     }
@@ -151,7 +156,7 @@ class PlayerCycleSubscriberCest
 
         $I->refreshEntities($player);
 
-        $event = new PlayerCycleEvent($player, new \DateTime());
+        $event = new PlayerCycleEvent($player, EventEnum::NEW_CYCLE, new \DateTime());
 
         $this->subscriber->onPlayerNewCycle($event);
 

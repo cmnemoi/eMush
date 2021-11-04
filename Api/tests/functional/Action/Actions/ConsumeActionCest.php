@@ -10,15 +10,16 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\ConsumableEffect;
-use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -100,7 +101,7 @@ class ConsumeActionCest
 
         $gameItem = new GameItem();
         $gameItem
-            ->setPlace($room)
+            ->setHolder($room)
             ->setEquipment($equipmentConfig)
             ->setName('ration')
         ;
@@ -141,11 +142,15 @@ class ConsumeActionCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $mushStatus = new Status($player);
-        $mushStatus
+        $mushConfig = new StatusConfig();
+        $mushConfig
             ->setName(PlayerStatusEnum::MUSH)
-            ->setVisibility(VisibilityEnum::MUSH)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setGameConfig($gameConfig)
         ;
+        $I->haveInRepository($mushConfig);
+        $mushStatus = new Status($player, $mushConfig);
+        $I->haveInRepository($mushStatus);
 
         $actionCost = new ActionCost();
         $I->haveInRepository($actionCost);
@@ -174,6 +179,13 @@ class ConsumeActionCest
         ;
         $I->haveInRepository($effect);
 
+        $statusDirty = new StatusConfig();
+        $statusDirty
+            ->setName(PlayerStatusEnum::FULL_STOMACH)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($statusDirty);
+
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$ration]),
@@ -190,7 +202,7 @@ class ConsumeActionCest
 
         $gameItem = new GameItem();
         $gameItem
-            ->setPlace($room)
+            ->setHolder($room)
             ->setEquipment($equipmentConfig)
             ->setName('ration')
         ;

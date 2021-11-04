@@ -8,29 +8,34 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
-use Mush\Place\Event\RoomSubscriber;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Event\StatusEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RoomEventCest
 {
-    private RoomSubscriber $roomSubscriber;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function _before(FunctionalTester $I)
     {
-        $this->roomSubscriber = $I->grabService(RoomSubscriber::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testRoomEventOnNonRoomPlace(FunctionalTester $I)
@@ -46,21 +51,43 @@ class RoomEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10]);
 
-        $roomEvent = new RoomEvent($room, $time);
+        $roomEvent = new RoomEvent($room, RoomEvent::ELECTRIC_ARC, $time);
 
-        $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {$this->roomSubscriber->onStartingFire($roomEvent); });
+        $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
+        }
+        );
 
-        $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {$this->roomSubscriber->onTremor($roomEvent); });
-
-        $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {$this->roomSubscriber->onElectricArc($roomEvent); });
+        $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::ELECTRIC_ARC);
+        }
+        );
     }
 
     public function testNewFire(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
+        $neron = new Neron();
+        $neron->setIsInhibited(true);
+        $I->haveInRepository($neron);
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(StatusEnum::FIRE)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($statusConfig);
+
+        $channel = new Channel();
+        $channel
+            ->setDaedalus($daedalus)
+            ->setScope(ChannelScopeEnum::PUBLIC);
+        $I->haveInRepository($channel);
 
         $time = new DateTime();
         /** @var Place $room */
@@ -68,9 +95,8 @@ class RoomEventCest
 
         $room->setDaedalus($daedalus);
 
-        $roomEvent = new RoomEvent($room, $time);
-
-        $this->roomSubscriber->onStartingFire($roomEvent);
+        $statusEvent = new StatusEvent(StatusEnum::FIRE, $room, EventEnum::NEW_CYCLE, $time);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertEquals(1, $room->getStatuses()->count());
 
@@ -99,8 +125,9 @@ class RoomEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10, 'characterConfig' => $characterConfig]);
 
-        $roomEvent = new RoomEvent($room, $time);
-        $this->roomSubscriber->onTremor($roomEvent);
+        $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
+
+        $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
 
         $I->assertEquals(8, $player->getHealthPoint());
         $I->seeInRepository(RoomLog::class, [
@@ -117,6 +144,13 @@ class RoomEventCest
         $difficultyConfig = $I->have(DifficultyConfig::class);
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig]);
+
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($statusConfig);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
@@ -147,12 +181,12 @@ class RoomEventCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
-        $roomEvent = new RoomEvent($room, $time);
-        $this->roomSubscriber->onElectricArc($roomEvent);
+        $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
+        $this->eventDispatcher->dispatch($roomEvent, RoomEvent::ELECTRIC_ARC);
 
         $I->assertEquals(7, $player->getHealthPoint());
         $I->assertTrue($gameEquipment->isBroken());

@@ -4,16 +4,15 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Event\ActionEffectEvent;
-use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Validator\FullHealth;
+use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
-use Mush\Player\Service\PlayerServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SelfHeal extends AbstractAction
 {
@@ -21,24 +20,7 @@ class SelfHeal extends AbstractAction
 
     protected string $name = ActionEnum::SELF_HEAL;
 
-    private PlayerServiceInterface $playerService;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        PlayerServiceInterface $playerService
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator
-        );
-
-        $this->playerService = $playerService;
-    }
-
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter === null;
     }
@@ -54,17 +36,29 @@ class SelfHeal extends AbstractAction
 
         $initialHealth = $this->player->getHealthPoint();
 
-        $playerModifierEvent = new PlayerModifierEvent($this->player, self::BASE_HEAL, new \DateTime());
-        $playerModifierEvent->setIsDisplayedRoomLog(false);
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+        $playerModifierEvent = new PlayerModifierEvent(
+            $this->player,
+            PlayerVariableEnum::HEALTH_POINT,
+            self::BASE_HEAL,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
-        $healEvent = new ActionEffectEvent($this->player, $this->player);
-        $this->eventDispatcher->dispatch($healEvent, ActionEffectEvent::HEAL);
-
-        $this->playerService->persist($this->player);
+        $healEvent = new ApplyEffectEvent(
+            $this->player,
+            $this->player,
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $this->eventDispatcher->dispatch($healEvent, ApplyEffectEvent::HEAL);
 
         $healedQuantity = $this->player->getHealthPoint() - $initialHealth;
 
-        return new Success(null, $healedQuantity);
+        $success = new Success();
+
+        return $success->setQuantity($healedQuantity);
     }
 }

@@ -31,10 +31,11 @@ class ActionImpossibleCauseEnum
     public const DO_THE_THING_CAMERA = 'do_the_thing_camera';
     public const DO_THE_THING_WITNESS = 'do_the_thing_witness';
     public const DO_THE_THING_ASLEEP = 'do_the_thing_asleep';
+    public const DO_THE_THING_NO_BED = 'do_the_thing_no_bed';
     public const DO_THE_THING_NOT_INTERESTED = 'do_the_thing_not_interested';
     public const FLIRT_ALREADY_FLIRTED = 'flirt_already_flirted';
-    public const FLIRT_RALUCA = 'flirt_raluca';
-    public const FLIRT_GIOELE_PAOLA = 'flirt_gioele_paola';
+    public const FLIRT_ANTISOCIAL = 'flirt_antisocial';
+    public const FLIRT_SAME_FAMILY = 'flirt_same_family';
     public const DAILY_SPORE_LIMIT = 'daily_spore_limit';
     public const PERSONAL_SPORE_LIMIT = 'personal_spore_limit';
     public const BOOBYTRAP_ALREADY_DONE = 'boobytrap_already_done';

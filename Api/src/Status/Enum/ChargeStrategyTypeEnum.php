@@ -11,4 +11,5 @@ class ChargeStrategyTypeEnum
     public const GROWING_PLANT = 'growing_plant';
     public const DAILY_RESET = 'dayly_reset';
     public const NONE = 'none';
+    public const NO_DISCHARGE = 'no_discharge';
 }

@@ -8,7 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -22,7 +26,7 @@ use Mush\Status\Entity\TargetStatusTrait;
  *
  * @ORM\Entity(repositoryClass="Mush\Place\Repository\PlaceRepository")
  */
-class Place implements StatusHolderInterface
+class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInterface
 {
     use TimestampableEntity;
     use TargetStatusTrait;
@@ -69,12 +73,18 @@ class Place implements StatusHolderInterface
      */
     private Collection $statuses;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\Modifier", mappedBy="place")
+     */
+    private Collection $modifiers;
+
     public function __construct()
     {
         $this->players = new PlayerCollection();
         $this->equipments = new ArrayCollection();
         $this->doors = new ArrayCollection();
         $this->statuses = new ArrayCollection();
+        $this->modifiers = new ModifierCollection();
     }
 
     public function getId(): ?int
@@ -90,7 +100,7 @@ class Place implements StatusHolderInterface
     /**
      * @return static
      */
-    public function setName(string $name): Place
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -102,7 +112,7 @@ class Place implements StatusHolderInterface
         return $this->type;
     }
 
-    public function setType(string $type): Place
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -117,7 +127,7 @@ class Place implements StatusHolderInterface
     /**
      * @return static
      */
-    public function setDaedalus(Daedalus $daedalus): Place
+    public function setDaedalus(Daedalus $daedalus): self
     {
         $this->daedalus = $daedalus;
 
@@ -135,10 +145,19 @@ class Place implements StatusHolderInterface
         return $this->players;
     }
 
+    public function getNumberPlayers(): int
+    {
+        if (!$this->players instanceof PlayerCollection) {
+            $this->players = new PlayerCollection($this->players->toArray());
+        }
+
+        return $this->players->count();
+    }
+
     /**
      * @return static
      */
-    public function setPlayers(ArrayCollection $players): Place
+    public function setPlayers(ArrayCollection $players): self
     {
         $this->players = $players;
 
@@ -148,7 +167,7 @@ class Place implements StatusHolderInterface
     /**
      * @return static
      */
-    public function addPlayer(Player $player): Place
+    public function addPlayer(Player $player): self
     {
         if (!$this->getPlayers()->contains($player)) {
             $this->players->add($player);
@@ -161,7 +180,7 @@ class Place implements StatusHolderInterface
     /**
      * @return static
      */
-    public function removePlayer(Player $player): Place
+    public function removePlayer(Player $player): self
     {
         $this->players->removeElement($player);
 
@@ -176,7 +195,7 @@ class Place implements StatusHolderInterface
     /**
      * @return static
      */
-    public function setEquipments(ArrayCollection $equipments): Place
+    public function setEquipments(ArrayCollection $equipments): self
     {
         $this->equipments = $equipments;
 
@@ -186,11 +205,11 @@ class Place implements StatusHolderInterface
     /**
      * @return static
      */
-    public function addEquipment(GameEquipment $equipment): Place
+    public function addEquipment(GameEquipment $gameEquipment): self
     {
-        if (!$this->equipments->contains($equipment)) {
-            $this->equipments->add($equipment);
-            $equipment->setPlace($this);
+        if (!$this->equipments->contains($gameEquipment)) {
+            $this->equipments->add($gameEquipment);
+            $gameEquipment->setHolder($this);
         }
 
         return $this;
@@ -199,11 +218,11 @@ class Place implements StatusHolderInterface
     /**
      * @return static
      */
-    public function removeEquipment(GameEquipment $equipment): Place
+    public function removeEquipment(GameEquipment $gameEquipment): self
     {
-        if ($this->equipments->contains($equipment)) {
-            $this->equipments->removeElement($equipment);
-            $equipment->setPlace(null);
+        if ($this->equipments->contains($gameEquipment)) {
+            $this->equipments->removeElement($gameEquipment);
+            $gameEquipment->setHolder(null);
         }
 
         return $this;
@@ -217,7 +236,7 @@ class Place implements StatusHolderInterface
     /**
      * @return static
      */
-    public function setDoors(ArrayCollection $doors): Place
+    public function setDoors(ArrayCollection $doors): self
     {
         $this->doors = $doors;
         foreach ($doors as $door) {
@@ -232,7 +251,7 @@ class Place implements StatusHolderInterface
     /**
      * @return static
      */
-    public function addDoor(Door $door): Place
+    public function addDoor(Door $door): self
     {
         $this->doors->add($door);
         if (!$door->getRooms()->contains($this)) {
@@ -259,8 +278,28 @@ class Place implements StatusHolderInterface
         return $this;
     }
 
+    public function getModifiers(): ModifierCollection
+    {
+        return new ModifierCollection($this->modifiers->toArray());
+    }
+
+    /**
+     * @return static
+     */
+    public function addModifier(Modifier $modifier): self
+    {
+        $this->modifiers->add($modifier);
+
+        return $this;
+    }
+
     public function getClassName(): string
     {
         return get_class($this);
+    }
+
+    public function getPlace(): self
+    {
+        return $this;
     }
 }

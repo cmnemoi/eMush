@@ -8,9 +8,9 @@ use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Normalizer\AlertNormalizer;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Service\TranslationService;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 
@@ -18,7 +18,7 @@ class AlertNormalizerTest extends TestCase
 {
     private AlertNormalizer $normalizer;
 
-    /** @var TranslationService | Mockery\Mock */
+    /** @var TranslationService|Mockery\Mock */
     private TranslationService $translationService;
 
     /**

@@ -5,16 +5,16 @@ namespace Mush\Daedalus\Service;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Place\Enum\RoomEventEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Event\PlayerEvent;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class DaedalusIncidentService implements DaedalusIncidentServiceInterface
@@ -44,9 +44,13 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         /** @var Place $room */
         foreach ($newFireRooms as $room) {
             if (!$room->hasStatus(StatusEnum::FIRE)) {
-                $roomEvent = new RoomEvent($room, $date);
-                $roomEvent->setReason(RoomEventEnum::CYCLE_FIRE);
-                $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
+                $statusEvent = new StatusEvent(
+                    StatusEnum::FIRE,
+                    $room,
+                    EventEnum::NEW_CYCLE,
+                    $date
+                );
+                $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }
 
@@ -63,8 +67,11 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
         /** @var Place $room */
         foreach ($newTremorRooms as $room) {
-            $roomEvent = new RoomEvent($room, $date);
-            $roomEvent->setReason(RoomEventEnum::TREMOR);
+            $roomEvent = new RoomEvent(
+                $room,
+                EventEnum::NEW_CYCLE,
+                $date
+            );
             $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
         }
 
@@ -81,8 +88,11 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
         /** @var Place $room */
         foreach ($newElectricArcs as $room) {
-            $roomEvent = new RoomEvent($room, $date);
-            $roomEvent->setReason(RoomEventEnum::ELECTRIC_ARC);
+            $roomEvent = new RoomEvent(
+                $room,
+                EventEnum::NEW_CYCLE,
+                $date
+            );
             $this->eventDispatcher->dispatch($roomEvent, RoomEvent::ELECTRIC_ARC);
         }
 
@@ -104,8 +114,13 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
             foreach ($brokenEquipments as $gameEquipment) {
                 if (!$gameEquipment->isBroken()) {
-                    $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::HIDDEN, $date);
-                    $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
+                    $statusEvent = new StatusEvent(
+                        EquipmentStatusEnum::BROKEN,
+                        $gameEquipment,
+                        EventEnum::NEW_CYCLE,
+                        new \DateTime()
+                    );
+                    $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
                 }
             }
         }
@@ -127,8 +142,13 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             $brokenDoors = $this->randomService->getRandomElements($daedalusDoor, $numberOfDoorBroken);
 
             foreach ($brokenDoors as $door) {
-                $equipmentEvent = new EquipmentEvent($door, VisibilityEnum::HIDDEN, $date);
-                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
+                $statusEvent = new StatusEvent(
+                    EquipmentStatusEnum::BROKEN,
+                    $door,
+                    EventEnum::NEW_CYCLE,
+                    new \DateTime()
+                );
+                $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }
 
@@ -146,7 +166,11 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                 $humansCrisis = $this->randomService->getRandomElements($humans->toArray(), $numberOfPanicCrisis);
 
                 foreach ($humansCrisis as $player) {
-                    $playerEvent = new PlayerEvent($player, $date);
+                    $playerEvent = new PlayerEvent(
+                        $player,
+                        EventEnum::NEW_CYCLE,
+                        $date
+                    );
                     $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::PANIC_CRISIS);
                 }
             }
@@ -168,7 +192,11 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                 $metalPlatesPlayer = $this->randomService->getRandomElements($players->toArray(), $numberOfMetalPlates);
 
                 foreach ($metalPlatesPlayer as $player) {
-                    $playerEvent = new PlayerEvent($player, $date);
+                    $playerEvent = new PlayerEvent(
+                        $player,
+                        EventEnum::NEW_CYCLE,
+                        $date
+                    );
                     $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::METAL_PLATE);
                 }
             }

@@ -34,7 +34,7 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setGameConfig($gameConfig)
             ->setInitOxygen(32)
             ->setInitFuel(32)
-            ->setInitHull(100)
+            ->setInitHull(70)
             ->setInitShield(-2)
             ->setDailySporeNb(4)
             ->setMaxOxygen(32)
@@ -51,9 +51,9 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
                 ItemEnum::BLASTER,
                 ItemEnum::BLASTER,
                 ItemEnum::QUADRIMETRIC_COMPASS,
-                ItemEnum::CAMERA,
-                ItemEnum::CAMERA,
-                ItemEnum::CAMERA,
+                ItemEnum::CAMERA_ITEM,
+                ItemEnum::CAMERA_ITEM,
+                ItemEnum::CAMERA_ITEM,
                 GearItemEnum::ADJUSTABLE_WRENCH,
                 ItemEnum::ROPE,
                 ItemEnum::ROPE,
@@ -68,6 +68,7 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
                 ToolItemEnum::DUCT_TAPE,
                 GearItemEnum::SOAP,
                 GearItemEnum::STAINPROOF_APRON,
+                GearItemEnum::ANTIGRAV_SCOOTER,
             ])
             ->setPlaces([
                 RoomEnum::FRONT_STORAGE,

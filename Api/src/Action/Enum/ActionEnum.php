@@ -52,6 +52,7 @@ class ActionEnum
     public const USE_BANDAGE = 'use_bandage';
     public const TRY_THE_KUBE = 'try_the_kube';
     public const OPEN = 'open';
+    public const SHOOT = 'shoot';
 
     // Item-enabled actions
     public const INSERT_FUEL = 'insert_fuel';
@@ -71,14 +72,18 @@ class ActionEnum
     public const DISPENSE = 'dispense';
     public const SHOOT_HUNTER = 'shoot_hunter';
     public const ACCES_TERMINAL = 'acces_terminal';
+    public const INSTALL_CAMERA = 'install_camera';
+    public const REMOVE_CAMERA = 'remove_camera';
 
     // Permanent Player Actions
     public const UNGAG = 'ungag';
+    public const FLIRT = 'flirt';
     public const GET_UP = 'get_up';
     public const GUARD = 'guard';
     public const HIT = 'hit';
     public const WHISPER = 'whisper';
     public const REPORT_FIRE = 'report_fire';
+    public const DO_THE_THING = 'do_the_thing';
 
     // Skill-related actions (Humans)
     public const FIERY_SPEECH = 'fiery_speech';
@@ -93,7 +98,6 @@ class ActionEnum
     public const REINFORCE_EQUIPMENT = 'reinforce_equipment'; // /!\ This is preventing disassembly, not reinforcing the hull!
     public const PREMONITION = 'premonition';
     public const HAND_EXTINGUISH = 'hand_extinguish';
-    public const CEASE_FIRE = 'cease_fire';
     public const CEASEFIRE = 'ceasefire';
     public const TORTURE = 'torture';
     public const GENIUS = 'become_genius';

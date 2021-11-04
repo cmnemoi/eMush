@@ -42,7 +42,7 @@ class RandomItemPlaces
     /**
      * @return static
      */
-    public function setPlaces(array $places): RandomItemPlaces
+    public function setPlaces(array $places): self
     {
         $this->places = $places;
 
@@ -57,7 +57,7 @@ class RandomItemPlaces
     /**
      * @return static
      */
-    public function setItems(array $items): RandomItemPlaces
+    public function setItems(array $items): self
     {
         $this->items = $items;
 

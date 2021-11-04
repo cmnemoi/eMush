@@ -2,6 +2,7 @@
 
 namespace Mush\Status\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 trait TargetStatusTrait
@@ -77,5 +78,19 @@ trait TargetStatusTrait
         }
 
         return $this;
+    }
+
+    public function getAllStatusesModifierConfigs(): Collection
+    {
+        $modifierConfigs = new ArrayCollection();
+
+        /** @var Status $status */
+        foreach ($this->getStatuses() as $status) {
+            foreach ($status->getStatusConfig()->getModifierConfigs() as $modifierConfig) {
+                $modifierConfigs->add($modifierConfig);
+            }
+        }
+
+        return $modifierConfigs;
     }
 }

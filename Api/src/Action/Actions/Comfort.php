@@ -4,17 +4,15 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
-use Mush\Player\Service\PlayerServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Comfort extends AbstractAction
 {
@@ -22,24 +20,7 @@ class Comfort extends AbstractAction
 
     protected string $name = ActionEnum::COMFORT;
 
-    private PlayerServiceInterface $playerService;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        PlayerServiceInterface $playerService
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator
-        );
-
-        $this->playerService = $playerService;
-    }
-
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof Player;
     }
@@ -55,11 +36,15 @@ class Comfort extends AbstractAction
         /** @var Player $parameter */
         $parameter = $this->parameter;
 
-        $playerModifierEvent = new PlayerModifierEvent($parameter, self::BASE_CONFORT, new \DateTime());
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
+        $playerModifierEvent = new PlayerModifierEvent(
+            $parameter,
+            PlayerVariableEnum::MORAL_POINT,
+            self::BASE_CONFORT,
+            $this->getActionName(),
+            new \DateTime(),
+        );
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
-        $this->playerService->persist($parameter);
-
-        return new Success($parameter);
+        return new Success();
     }
 }

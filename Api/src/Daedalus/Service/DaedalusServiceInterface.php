@@ -22,6 +22,8 @@ interface DaedalusServiceInterface
 
     public function createDaedalus(GameConfig $gameConfig): Daedalus;
 
+    public function startDaedalus(Daedalus $daedalus): Daedalus;
+
     public function selectAlphaMush(Daedalus $daedalus, \DateTime $date): Daedalus;
 
     public function getRandomAsphyxia(Daedalus $daedalus, \DateTime $date): Daedalus;

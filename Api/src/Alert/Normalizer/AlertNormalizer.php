@@ -33,7 +33,7 @@ class AlertNormalizer implements ContextAwareNormalizerInterface
             'key' => $key,
         ];
 
-        if ($quantity = $this->getAlertQuantity($alert) !== null) {
+        if (($quantity = $this->getAlertQuantity($alert)) !== null) {
             $normalizedAlert['name'] = $this->translationService->translate($alert->getName() . '.name', ['quantity' => $quantity], 'alerts');
             $normalizedAlert['description'] = $this->translationService->translate("{$key}.description", ['quantity' => $quantity], 'alerts');
         } else {

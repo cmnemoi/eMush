@@ -14,6 +14,7 @@ interface PlayerDiseaseServiceInterface
     public function createDiseaseFromName(
         string $diseaseName,
         Player $player,
+        string $cause,
         int $delayMin = null,
         int $delayLength = null
     ): PlayerDisease;
@@ -22,5 +23,5 @@ interface PlayerDiseaseServiceInterface
 
     public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void;
 
-    public function healDisease(Player $author, PlayerDisease $playerDisease, \DateTime $time): void;
+    public function healDisease(Player $author, PlayerDisease $playerDisease, string $reason, \DateTime $time): void;
 }

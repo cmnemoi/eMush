@@ -21,6 +21,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const HIDE_DEFAULT = 'hide.default';
     public const DEFAULT_TAKE = 'default.take';
     public const DEFAULT_DROP = 'default.drop';
+    public const DO_THE_THING = 'do.the.thing';
     public const DRUG_CONSUME = 'drug.consume';
     public const RATION_CONSUME = 'ration.consume';
     public const BUILD_DEFAULT = 'build.default';
@@ -42,6 +43,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const GAG_DEFAULT = 'gag.default';
     public const HYPERFREEZE_DEFAULT = 'hyperfreeze.default';
     public const SHOWER_DEFAULT = 'shower.default';
+    public const FLIRT_DEFAULT = 'flirt.default';
     public const FUEL_INJECT = 'fuel.inject';
     public const FUEL_RETRIEVE = 'fuel.retrieve';
     public const OXYGEN_INJECT = 'oxygen.inject';
@@ -56,6 +58,10 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const WATER_PLANT = 'water.plant';
     public const REPORT_EQUIPMENT = 'report.equipment';
     public const REPORT_FIRE = 'report.fire';
+    public const SPREAD_FIRE = 'spread.fire';
+    public const INSTALL_CAMERA = 'install.camera';
+    public const REMOVE_CAMERA = 'remove.camera';
+    public const EXAMINE_EQUIPMENT = 'examine.equipment';
 
     public const EXTRACT_SPORE = 'extract.spore';
     public const INFECT_PLAYER = 'infect.player';
@@ -70,6 +76,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $twoActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_TWO_ACTION);
         /** @var ActionCost $threeActionPointCost */
         $threeActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_THREE_ACTION);
+        /** @var ActionCost $fourActionPointCost */
+        $fourActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_FOUR_ACTION);
         /** @var ActionCost $oneMovementPointCost */
         $oneMovementPointCost = $this->getReference(ActionCostFixture::ACTION_COST_ONE_MOVEMENT);
 
@@ -503,6 +511,66 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($reportFireAction);
 
+        $spreadFireAction = new Action();
+        $spreadFireAction
+            ->setName(ActionEnum::SPREAD_FIRE)
+            ->setScope(ActionScopeEnum::SELF)
+            ->setActionCost($fourActionPointCost)
+        ;
+
+        $manager->persist($spreadFireAction);
+
+        $installCameraAction = new Action();
+        $installCameraAction
+            ->setName(ActionEnum::INSTALL_CAMERA)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($twoActionPointCost)
+            ->setInjuryRate(20)
+            ->setDirtyRate(20)
+        ;
+
+        $manager->persist($installCameraAction);
+
+        $removeCameraAction = new Action();
+        $removeCameraAction
+            ->setName(ActionEnum::REMOVE_CAMERA)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($oneActionPointCost)
+            ->setInjuryRate(20)
+            ->setDirtyRate(20)
+        ;
+
+        $manager->persist($removeCameraAction);
+
+        $examineEquipmentAction = new Action();
+        $examineEquipmentAction
+            ->setName(ActionEnum::EXAMINE)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($freeCost)
+            ->setInjuryRate(0)
+            ->setDirtyRate(0)
+        ;
+
+        $manager->persist($examineEquipmentAction);
+
+        $flirtAction = new Action();
+        $flirtAction
+            ->setName(ActionEnum::FLIRT)
+            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setActionCost($oneActionPointCost)
+        ;
+
+        $manager->persist($flirtAction);
+
+        $doTheThingAction = new Action();
+        $doTheThingAction
+            ->setName(ActionEnum::DO_THE_THING)
+            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setActionCost($oneActionPointCost)
+        ;
+
+        $manager->persist($doTheThingAction);
+
         $manager->flush();
 
         $this->addReference(self::REJUVENATE_ALPHA, $rejuvenateAlpha);
@@ -550,6 +618,12 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::INFECT_PLAYER, $infectAction);
         $this->addReference(self::REPORT_FIRE, $reportFireAction);
         $this->addReference(self::REPORT_EQUIPMENT, $reportEquipmentAction);
+        $this->addReference(self::SPREAD_FIRE, $spreadFireAction);
+        $this->addReference(self::INSTALL_CAMERA, $installCameraAction);
+        $this->addReference(self::REMOVE_CAMERA, $removeCameraAction);
+        $this->addReference(self::EXAMINE_EQUIPMENT, $examineEquipmentAction);
+        $this->addReference(self::FLIRT_DEFAULT, $flirtAction);
+        $this->addReference(self::DO_THE_THING, $doTheThingAction);
     }
 
     public function getDependencies(): array

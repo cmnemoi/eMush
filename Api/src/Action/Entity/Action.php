@@ -66,7 +66,7 @@ class Action
         return $this->name;
     }
 
-    public function setName(string $name): Action
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -78,7 +78,7 @@ class Action
         return $this->types;
     }
 
-    public function setTypes(array $types): Action
+    public function setTypes(array $types): self
     {
         $this->types = $types;
 
@@ -90,7 +90,7 @@ class Action
         return $this->target;
     }
 
-    public function setTarget(?string $target): Action
+    public function setTarget(?string $target): self
     {
         $this->target = $target;
 
@@ -102,7 +102,7 @@ class Action
         return $this->scope;
     }
 
-    public function setScope(string $scope): Action
+    public function setScope(string $scope): self
     {
         $this->scope = $scope;
 
@@ -114,7 +114,7 @@ class Action
         return $this->successRate;
     }
 
-    public function setSuccessRate(int $successRate): Action
+    public function setSuccessRate(int $successRate): self
     {
         $this->successRate = $successRate;
 
@@ -126,7 +126,7 @@ class Action
         return $this->injuryRate;
     }
 
-    public function setInjuryRate(int $injuryRate): Action
+    public function setInjuryRate(int $injuryRate): self
     {
         $this->injuryRate = $injuryRate;
 
@@ -138,7 +138,7 @@ class Action
         return $this->dirtyRate;
     }
 
-    public function setDirtyRate(int $dirtyRate): Action
+    public function setDirtyRate(int $dirtyRate): self
     {
         $this->dirtyRate = $dirtyRate;
 
@@ -150,7 +150,7 @@ class Action
         return $this->actionCost;
     }
 
-    public function setActionCost(ActionCost $actionCost): Action
+    public function setActionCost(ActionCost $actionCost): self
     {
         $this->actionCost = $actionCost;
 

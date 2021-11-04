@@ -7,6 +7,7 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
+use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Disease\Service\PlayerDiseaseService;
@@ -20,16 +21,16 @@ class PlayerDiseaseServiceTest extends TestCase
 {
     private PlayerDiseaseService $playerDiseaseService;
 
-    /** @var EntityManagerInterface | Mockery\Mock */
+    /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
 
-    /** @var DiseaseConfigRepository | Mockery\Mock */
+    /** @var DiseaseConfigRepository|Mockery\Mock */
     private DiseaseConfigRepository $diseaseConfigRepository;
 
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
 
     /**
@@ -67,6 +68,7 @@ class PlayerDiseaseServiceTest extends TestCase
         $player->setDaedalus($daedalus);
 
         $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig->setDelayMin(4)->setDelayLength(4);
 
         $this->entityManager->shouldReceive(['persist' => null, 'flush' => null]);
 
@@ -85,7 +87,7 @@ class PlayerDiseaseServiceTest extends TestCase
         ;
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
-        $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player);
+        $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, DiseaseCauseEnum::INCUBATING_END);
 
         $this->assertInstanceOf(PlayerDisease::class, $disease);
         $this->assertEquals($diseaseConfig, $disease->getDiseaseConfig());
@@ -119,7 +121,7 @@ class PlayerDiseaseServiceTest extends TestCase
             ->once();
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
-        $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, 10, 5);
+        $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, 'cause', 10, 5);
 
         $this->assertInstanceOf(PlayerDisease::class, $disease);
         $this->assertEquals($diseaseConfig, $disease->getDiseaseConfig());
@@ -153,7 +155,7 @@ class PlayerDiseaseServiceTest extends TestCase
             ->once();
         $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
-        $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, 0, 0);
+        $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, 'reason');
 
         $this->assertInstanceOf(PlayerDisease::class, $disease);
         $this->assertEquals($diseaseConfig, $disease->getDiseaseConfig());
@@ -170,7 +172,11 @@ class PlayerDiseaseServiceTest extends TestCase
         $player->setDaedalus($daedalus);
 
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setName('name');
+        $diseaseConfig
+            ->setName('name')
+            ->setDelayMin(4)
+            ->setDelayLength(4)
+        ;
 
         $this->diseaseConfigRepository
             ->shouldReceive('findByCauses')
@@ -304,7 +310,7 @@ class PlayerDiseaseServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
-        $this->playerDiseaseService->healDisease($player, $diseasePlayer, new \DateTime());
+        $this->playerDiseaseService->healDisease($player, $diseasePlayer, 'reason', new \DateTime());
     }
 
     public function testTreatDisease()
@@ -324,7 +330,7 @@ class PlayerDiseaseServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
-        $this->playerDiseaseService->healDisease($player, $diseasePlayer, new \DateTime());
+        $this->playerDiseaseService->healDisease($player, $diseasePlayer, 'reason', new \DateTime());
 
         $this->assertEquals(0, $diseasePlayer->getResistancePoint());
     }

@@ -5,13 +5,13 @@ namespace Mush\Action\Actions;
 use Error;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\DailySporesLimit;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\MushSpore;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -47,7 +47,7 @@ class ExtractSpore extends AbstractAction
         $metadata->addConstraint(new MushSpore(['threshold' => 2, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PERSONAL_SPORE_LIMIT]));
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter === null;
     }

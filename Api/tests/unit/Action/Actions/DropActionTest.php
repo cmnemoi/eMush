@@ -8,22 +8,12 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Drop;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
 
 class DropActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface | Mockery\Mock */
-    private PlayerServiceInterface $playerService;
-    /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusService;
-
     /**
      * @before
      */
@@ -31,19 +21,12 @@ class DropActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
-
         $this->actionEntity = $this->createActionEntity(ActionEnum::DROP);
 
         $this->action = new Drop(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService,
-            $this->playerService,
-            $this->statusService,
         );
     }
 
@@ -67,25 +50,20 @@ class DropActionTest extends AbstractActionTest
 
         $item
             ->setName('itemName')
-            ->setIsHeavy(false)
         ;
-
-        $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $gameItem
             ->setName('itemName')
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($player->getItems());
-        $this->assertCount(1, $room->getEquipments());
     }
 }

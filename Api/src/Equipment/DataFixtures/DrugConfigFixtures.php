@@ -8,7 +8,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\Action;
-use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -28,8 +28,10 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
         $consumeDrugAction = $this->getReference(ActionsFixtures::DRUG_CONSUME);
         /** @var Action $buildAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+        /** @var Action $examineAction */
+        $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
+        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
 
         $drugMechanic = new Drug();
         //  possibilities are stored as key, array value represent the probability to get the key value
@@ -45,7 +47,6 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
             $drug
                 ->setGameConfig($gameConfig)
                 ->setName($drugName)
-                ->setIsHeavy(false)
                 ->setIsStackable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)

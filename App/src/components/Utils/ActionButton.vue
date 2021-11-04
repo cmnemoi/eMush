@@ -10,22 +10,23 @@
             </a>
         </template>
         <template #tooltip-content="{ formatContent }">
-            <h1 v-html="formatContent(action.name)"> </h1>
-            <p v-html="formatContent(action.description)"> </p>
+            <h1 v-html="formatContent(action.name)" />
+            <p v-html="formatContent(action.description)" />
             <!--<p v-else v-html="formatContent(action_fail.description)"> </p>-->
         </template>
-        </Tooltip>
+    </Tooltip>
 </template>
 
-<script>
-import Tooltip from "@/components/Utils/ToolTip";
+<script lang="ts">
+import Tooltip from "@/components/Utils/ToolTip.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
+    components: { Tooltip },
     props: {
         action: Object
-    },
-    components: {Tooltip},
-};
+    }
+});
 </script>
 
 <style lang="scss" scoped>

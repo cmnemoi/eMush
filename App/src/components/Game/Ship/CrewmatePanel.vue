@@ -1,5 +1,5 @@
 <template>
-    <div class="crewmate-container" :class="target.characterValue">
+    <div class="crewmate-container" :class="target.character.key">
         <div class="mate">
             <div class="card">
                 <div class="avatar">
@@ -7,7 +7,7 @@
                 </div>
                 <div>
                     <p class="name">
-                        {{ target.characterValue }}
+                        {{ target.character.name }}
                     </p>
                     <div class="statuses">
                         <Statuses :statuses="target.statuses" type="player" />
@@ -32,31 +32,35 @@
     </div>
 </template>
 
-<script>
-import ActionButton from "@/components/Utils/ActionButton";
-import Statuses from "@/components/Utils/Statuses";
+<script lang="ts">
+import ActionButton from "@/components/Utils/ActionButton.vue";
+import Statuses from "@/components/Utils/Statuses.vue";
 import { Player } from "@/entities/Player";
 import { characterEnum } from '@/enums/character';
+import { defineComponent } from "vue";
 
 
-export default {
+export default defineComponent ({
     name: "CrewmatePanel",
     components: {
         ActionButton,
         Statuses
     },
     props: {
-        target: Player
+        target: {
+            type: Player,
+            required: true
+        }
     },
     emits: [
         'executeAction'
     ],
     computed: {
-        portrait() {
-            return characterEnum[this.target.characterKey].portrait;
+        portrait(): string {
+            return characterEnum[this.target.character.key].portrait ?? '';
         }
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -68,92 +72,70 @@ export default {
     flex-direction: row;
     padding: 3px;
     background-color: #222a6b;
+}
 
-    .mate {
-        flex: 1;
-        max-width: 50%;
-        border-right: 1px dotted #4a5d8f;
-        padding: 1px;
-        padding-right: 4px;
-        font-size: 0.85em;
+.mate {
+    flex: 1;
+    max-width: 50%;
+    border-right: 1px dotted #4a5d8f;
+    padding: 1px;
+    padding-right: 4px;
+}
 
-        .card {
-            flex-flow: row wrap;
+.card {
+    flex-flow: row wrap;
 
-            .avatar {
-                align-items: center;
-                justify-content: center;
-                width: 110px;
-                height: 70px;
-                overflow: hidden;
-                border: 1px solid #161951;
+    .avatar {
+        align-items: center;
+        justify-content: center;
+        width: 110px;
+        height: 70px;
+        overflow: hidden;
+        border: 1px solid #161951;
 
-                img {
-                    position: relative;
-                    width: 210px;
-                    height: auto;
-                }
-            }
-
-            .statuses {
-                flex-direction: row;
-                flex-wrap: wrap;
-                font-size: 0.9em;
-
-                >>> .status {
-                    padding: 1px;
-                }
-            }
-
-            .name {
-                font-weight: 700;
-                text-transform: uppercase;
-                padding-left: 4px;
-                margin: 0;
-            }
-        }
-
-        .presentation {
-            margin: 0;
-            padding: 2px 0;
-            font-size: 0.9em;
-            font-style: italic;
-        }
-
-        .skills {
-            flex-direction: row;
-            flex-wrap: wrap;
+        img {
+            position: relative;
+            width: 210px;
+            height: auto;
         }
     }
 
-    .interactions {
-        flex: 1;
-        max-width: 50%;
-        padding: 1px;
+    .statuses {
+        flex-direction: row;
+        flex-wrap: wrap;
+        font-size: 0.9em;
+
+        &::v-deep .status {
+            padding: 1px;
+        }
+    }
+
+    .name {
+        font-weight: 700;
+        text-transform: uppercase;
         padding-left: 4px;
+        margin: 0;
     }
 }
 
-$face-position: //defines the position of the face in reference to top left
-    "Andie"    56% 37%,
-    "Chao"     63% 28%,
-    "Chun"     52% 24%,
-    "Derek"    39% 24%,
-    "Eleesha"  47% 32%,
-    "Finola"   50% 30%,
-    "Frieda"   46% 35%,
-    "Gioele"   47% 26%,
-    "Hua"      50% 28%,
-    "Ian"      49% 26%,
-    "Janice"   55% 35%,
-    "Jin"      50% 25%,
-    "Kuan"     52% 20%,
-    "Paola"    70% 37%,
-    "Raluca"   40% 22%,
-    "Roland"   43% 28%,
-    "Stephen"  51% 29%,
-    "Terrence" 67% 30%,
-;
+.presentation {
+    margin: 0;
+    padding: 2px 0;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+.skills {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.interactions {
+    flex: 1;
+    max-width: 50%;
+    padding: 1px;
+    padding-left: 4px;
+}
 
 @each $crewmate, $face-position-x, $face-position-y in $face-position { // adjust the image position in the crewmate avatar div
     $translate-x : (50% - $face-position-x);

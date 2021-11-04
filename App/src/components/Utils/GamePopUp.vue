@@ -10,14 +10,16 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent ({
     name: "GamePopUp",
     props: {
         title: String
     }
-};
+});
 </script>
 
 <style  lang="scss" scoped>
@@ -49,7 +51,8 @@ export default {
         font-variant: small-caps;
         text-shadow: 0 0 4px black, 0 0 4px black;
         background: #2d2f89;
-        & img { padding-right: 4px; }
+        
+        img { padding-right: 4px; }
 
         @include corner-bezel(0, 0, 22px, 22px );
     }

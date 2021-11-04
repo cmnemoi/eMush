@@ -15,11 +15,13 @@ class ActionLogEnum
     public const CONSUME_DRUG = 'consume_drug';
     public const COOK_SUCCESS = 'cook_success';
     public const DISPENSE_SUCCESS = 'dispense_success';
+    public const DO_THE_THING_SUCCESS = 'do_the_thing_success';
     public const DROP = 'drop';
     public const EXPRESS_COOK_SUCCESS = 'express_cook_success';
     public const EXTINGUISH_SUCCESS = 'extinguish_success';
     public const EXTINGUISH_FAIL = 'extinguish_fail';
     public const EXTRACT_SPORE_SUCCESS = 'extract_spore_success';
+    public const FLIRT_SUCCESS = 'flirt_success';
     public const GET_UP = 'get_up';
     public const HEAL_SUCCESS = 'heal_success';
     public const HIDE_SUCCESS = 'hide_success';
@@ -47,6 +49,8 @@ class ActionLogEnum
     public const SHRED_SUCCESS = 'shred_success';
     public const SHOWER_HUMAN = 'shower_human';
     public const SHOWER_MUSH = 'shower_mush';
+    public const STRENGTHEN_SUCCESS = 'srengthen_success';
+    public const SPREAD_FIRE_SUCCESS = 'spread_fire_success';
     public const TAKE = 'take';
     public const TRANSPLANT_SUCCESS = 'transplant_success';
     public const TREAT_PLANT_SUCCESS = 'treat_plant_success';
@@ -55,9 +59,13 @@ class ActionLogEnum
     public const WATER_PLANT_SUCCESS = 'water_plant_success';
     public const WRITE_SUCCESS = 'write_success';
     public const OPEN_SUCCESS = 'open_success';
+    public const INSTALL_CAMERA = 'install_camera';
+    public const REMOVE_CAMERA = 'remove_camera';
 
     public const SUCCESS = 'success';
     public const FAIL = 'fail';
+
+    public const DEFAULT_FAIL = 'default_fail';
 
     public const VISIBILITY = 'visibility';
     public const VALUE = 'value';
@@ -163,12 +171,6 @@ class ActionLogEnum
                 self::VISIBILITY => VisibilityEnum::COVERT,
             ],
         ],
-        ActionEnum::BUILD => [
-            self::SUCCESS => [
-                self::VALUE => self::BUILD_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::PRIVATE,
-            ],
-        ],
         ActionEnum::WATER_PLANT => [
             self::SUCCESS => [
                 self::VALUE => self::WATER_PLANT_SUCCESS,
@@ -178,12 +180,6 @@ class ActionLogEnum
         ActionEnum::TREAT_PLANT => [
             self::SUCCESS => [
                 self::VALUE => self::TREAT_PLANT_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::PRIVATE,
-            ],
-        ],
-        ActionEnum::TRANSPLANT => [
-            self::SUCCESS => [
-                self::VALUE => self::TRANSPLANT_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
@@ -329,9 +325,53 @@ class ActionLogEnum
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
-        ActionEnum::OPEN => [
+        ActionEnum::SPREAD_FIRE => [
             self::SUCCESS => [
-                self::VALUE => self::OPEN_SUCCESS,
+                self::VALUE => self::SPREAD_FIRE_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::COVERT,
+            ],
+        ],
+        ActionEnum::INSTALL_CAMERA => [
+            self::SUCCESS => [
+                self::VALUE => self::INSTALL_CAMERA,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::REMOVE_CAMERA => [
+            self::SUCCESS => [
+                self::VALUE => self::REMOVE_CAMERA,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+
+        ActionEnum::STRENGTHEN_HULL => [
+            self::SUCCESS => [
+                self::VALUE => self::STRENGTHEN_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+            self::FAIL => [
+                self::VALUE => self::DEFAULT_FAIL,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+        ],
+
+        ActionEnum::FLIRT => [
+            self::SUCCESS => [
+                self::VALUE => self::FLIRT_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+
+        ActionEnum::MOVE => [
+            self::SUCCESS => [
+                self::VALUE => self::ENTER_ROOM,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+
+        ActionEnum::DO_THE_THING => [
+            self::SUCCESS => [
+                self::VALUE => self::DO_THE_THING_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],

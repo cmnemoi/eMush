@@ -10,13 +10,16 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
@@ -47,7 +50,7 @@ class CoffeeActionCest
 
         $I->assertFalse($this->coffeeAction->isVisible());
 
-        $gameEquipment->setPlace($room1);
+        $gameEquipment->setHolder($room1);
 
         $I->assertTrue($this->coffeeAction->isVisible());
     }
@@ -88,10 +91,12 @@ class CoffeeActionCest
 
         $gameEquipment->getEquipment()->setActions(new ArrayCollection([$coffeeActionEntity]));
 
-        $brokenStatus = new Status($gameEquipment);
-        $brokenStatus
+        $statusConfig = new StatusConfig();
+        $statusConfig
             ->setName(EquipmentStatusEnum::BROKEN)
+            ->setVisibility(VisibilityEnum::PUBLIC)
         ;
+        $status = new Status($gameEquipment, $statusConfig);
 
         $I->assertEquals(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $this->coffeeAction->cannotExecuteReason());
     }
@@ -112,11 +117,16 @@ class CoffeeActionCest
 
         $gameEquipment->getEquipment()->setActions(new ArrayCollection([$coffeeActionEntity]));
 
-        $I->assertEquals(ActionImpossibleCauseEnum::DAILY_LIMIT, $this->coffeeAction->cannotExecuteReason());
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::HEAVY)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setDischargeStrategy(ActionEnum::COFFEE)
+        ;
 
-        $brokenStatus = new ChargeStatus($gameEquipment);
-        $brokenStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
+        $chargeStatus = new ChargeStatus($gameEquipment, $statusConfig);
+        $chargeStatus
+            ->setCharge(0)
         ;
 
         $I->assertEquals(ActionImpossibleCauseEnum::DAILY_LIMIT, $this->coffeeAction->cannotExecuteReason());
@@ -148,7 +158,7 @@ class CoffeeActionCest
         $equipment->setName($name);
         $gameEquipment
             ->setEquipment($equipment)
-            ->setPlace($place)
+            ->setHolder($place)
             ->setName($name)
         ;
 

@@ -6,12 +6,14 @@ use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
+use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -20,13 +22,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractActionTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     protected EventDispatcherInterface $eventDispatcher;
 
-    /** @var ActionServiceInterface | Mockery\Mock */
+    /** @var ActionServiceInterface|Mockery\Mock */
     protected ActionServiceInterface $actionService;
 
-    /** @var ValidatorInterface | Mockery\Mock */
+    /** @var ValidatorInterface|Mockery\Mock */
     protected ValidatorInterface $validator;
 
     protected AbstractAction $action;
@@ -38,7 +40,13 @@ abstract class AbstractActionTest extends TestCase
     public function before()
     {
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->eventDispatcher->shouldReceive('dispatch')->times(3);
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof ActionEvent &&
+                $event->getAction() === $this->actionEntity
+            )
+            ->times(3)
+        ;
 
         $this->actionService = Mockery::mock(ActionServiceInterface::class);
         $this->actionService->shouldReceive('canPlayerDoAction')->andReturn(true);
@@ -73,7 +81,10 @@ abstract class AbstractActionTest extends TestCase
     protected function createPlayer(Daedalus $daedalus, Place $room, array $skills = []): Player
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setMaxHealthPoint(16);
+        $gameConfig
+            ->setMaxHealthPoint(16)
+            ->setMaxItemInInventory(3)
+        ;
 
         $characterConfig = new CharacterConfig();
         $characterConfig

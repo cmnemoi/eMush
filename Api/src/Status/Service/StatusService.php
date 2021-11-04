@@ -6,80 +6,42 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Error;
+use Mush\Action\ActionResult\ActionResult;
+use Mush\Action\ActionResult\Success;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Event\StatusEvent;
+use Mush\Status\Repository\StatusConfigRepository;
 use Mush\Status\Repository\StatusRepository;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class StatusService implements StatusServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private StatusRepository $statusRepository;
+    private StatusConfigRepository $statusConfigRepository;
+    private EventDispatcherInterface $eventDispatcher;
 
-    public function __construct(EntityManagerInterface $entityManager, StatusRepository $statusRepository)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        EventDispatcherInterface $eventDispatcher,
+        StatusRepository $statusRepository,
+        StatusConfigRepository $statusConfigRepository,
+    ) {
         $this->entityManager = $entityManager;
+        $this->eventDispatcher = $eventDispatcher;
         $this->statusRepository = $statusRepository;
-    }
-
-    public function createCoreStatus(
-        string $statusName,
-        StatusHolderInterface $owner,
-        ?StatusHolderInterface $target = null,
-        string $visibility = VisibilityEnum::PUBLIC
-    ): Status {
-        $status = new Status($owner);
-        $status
-            ->setName($statusName)
-            ->setTarget($target)
-            ->setVisibility($visibility)
-        ;
-
-        return $status;
-    }
-
-    public function createChargeStatus(
-        string $statusName,
-        StatusHolderInterface $owner,
-        string $strategy,
-        ?StatusHolderInterface $target = null,
-        string $visibilty = VisibilityEnum::PUBLIC,
-        string $chargeVisibilty = VisibilityEnum::PUBLIC,
-        int $charge = 0,
-        int $threshold = null,
-        bool $autoRemove = false
-    ): ChargeStatus {
-        $status = new ChargeStatus($owner);
-        $status
-            ->setName($statusName)
-            ->setTarget($target)
-            ->setStrategy($strategy)
-            ->setVisibility($visibilty)
-            ->setChargeVisibility($chargeVisibilty)
-            ->setCharge($charge)
-            ->setThreshold($threshold)
-            ->setAutoRemove($autoRemove)
-        ;
-
-        return $status;
-    }
-
-    public function createAttemptStatus(string $statusName, string $action, Player $player): Attempt
-    {
-        $status = new Attempt($player);
-        $status
-            ->setName($statusName)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setAction($action)
-            ->setCharge(0)
-        ;
-
-        return $status;
+        $this->statusConfigRepository = $statusConfigRepository;
     }
 
     public function persist(Status $status): Status
@@ -98,6 +60,122 @@ class StatusService implements StatusServiceInterface
         $this->entityManager->flush();
 
         return true;
+    }
+
+    public function removeAllStatuses(StatusHolderInterface $holder, string $reason, \DateTime $time): void
+    {
+        foreach ($holder->getStatuses() as $status) {
+            if (($statusName = $status->getName()) !== PlayerStatusEnum::MUSH) {
+                $this->removeStatus($statusName, $holder, $reason, $time);
+            }
+        }
+    }
+
+    public function removeStatus(string $statusName, StatusHolderInterface $holder, string $reason, \DateTime $time): void
+    {
+        $statusEvent = new StatusEvent(
+            $statusName,
+            $holder,
+            $reason,
+            $time
+        );
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+    }
+
+    public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
+    {
+        $statusConfig = $this->statusConfigRepository->findByNameAndDaedalus($name, $daedalus);
+
+        if ($statusConfig === null) {
+            throw new \LogicException('No status config found');
+        }
+
+        return $statusConfig;
+    }
+
+    public function createStatusFromConfig(
+        StatusConfig $statusConfig,
+        StatusHolderInterface $holder,
+        string $reason,
+        \DateTime $time,
+        ?StatusHolderInterface $target = null
+    ): Status {
+        if ($statusConfig instanceof ChargeStatusConfig) {
+            $status = new ChargeStatus($holder, $statusConfig);
+        } else {
+            $status = new Status($holder, $statusConfig);
+        }
+        $status->setTarget($target);
+
+        $this->persist($status);
+
+        $statusEvent = new StatusEvent(
+            $statusConfig->getName(),
+            $holder,
+            $reason,
+            $time
+        );
+        $statusEvent->setStatusConfig($statusConfig);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+
+        return $status;
+    }
+
+    public function createStatusFromName(
+        string $statusName,
+        Daedalus $daedalus,
+        StatusHolderInterface $holder,
+        string $reason,
+        \DateTime $time,
+        ?StatusHolderInterface $target = null
+    ): Status {
+        $statusConfig = $this->getStatusConfigByNameAndDaedalus($statusName, $daedalus);
+
+        if ($statusConfig instanceof ChargeStatusConfig) {
+            $status = new ChargeStatus($holder, $statusConfig);
+        } else {
+            $status = new Status($holder, $statusConfig);
+        }
+        $status->setTarget($target);
+
+        return $this->persist($status);
+    }
+
+    private function createAttemptStatus(string $action, Player $player): Attempt
+    {
+        /** @var ChargeStatusConfig $attemptConfig */
+        $attemptConfig = $this->getStatusConfigByNameAndDaedalus(StatusEnum::ATTEMPT, $player->getDaedalus());
+
+        $attempt = new Attempt($player, $attemptConfig);
+        $attempt->setAction($action);
+
+        return $attempt;
+    }
+
+    public function handleAttempt(Player $player, string $actionName, ActionResult $result): void
+    {
+        /** @var Attempt $attempt */
+        $attempt = $player->getStatusByName(StatusEnum::ATTEMPT);
+
+        if ($result instanceof Success && $attempt !== null) {
+            $this->delete($attempt);
+        } else {
+            if ($attempt && $attempt->getAction() !== $actionName) {
+                // Re-initialize attempts with new action
+                $attempt
+                    ->setAction($actionName)
+                    ->setCharge(0)
+                ;
+            } elseif ($attempt === null) { //Create Attempt
+                $attempt = $this->createAttemptStatus(
+                    $actionName,
+                    $player
+                );
+            }
+
+            $attempt->addCharge(1);
+            $this->persist($attempt);
+        }
     }
 
     public function getMostRecent(string $statusName, Collection $equipments): gameEquipment

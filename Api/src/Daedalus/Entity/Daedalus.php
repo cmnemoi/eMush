@@ -9,6 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -19,7 +22,7 @@ use Mush\Player\Entity\Player;
  *
  * @ORM\Entity(repositoryClass="Mush\Daedalus\Repository\DaedalusRepository")
  */
-class Daedalus
+class Daedalus implements ModifierHolder
 {
     use TimestampableEntity;
 
@@ -48,12 +51,17 @@ class Daedalus
     /**
      * @ORM\Column(type="string", nullable=false)
      */
-    private string $gameStatus = GameStatusEnum::STARTING;
+    private string $gameStatus = GameStatusEnum::STANDBY;
 
     /**
      * @ORM\OneToMany(targetEntity="Mush\Place\Entity\Place", mappedBy="daedalus")
      */
     private Collection $places;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\Modifier", mappedBy="daedalus")
+     */
+    private Collection $modifiers;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -106,9 +114,9 @@ class Daedalus
     private ?DateTime $finishedAt = null;
 
     /**
-     * @ORM\Column(type="datetime", nullable=false)
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private DateTime $cycleStartedAt;
+    private ?DateTime $cycleStartedAt = null;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
@@ -119,6 +127,7 @@ class Daedalus
     {
         $this->players = new ArrayCollection();
         $this->places = new ArrayCollection();
+        $this->modifiers = new ModifierCollection();
     }
 
     public function getId(): ?int
@@ -134,7 +143,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function setPlayers(Collection $players): Daedalus
+    public function setPlayers(Collection $players): self
     {
         $this->players = $players;
 
@@ -144,7 +153,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function addPlayer(Player $player): Daedalus
+    public function addPlayer(Player $player): self
     {
         if (!$this->getPlayers()->contains($player)) {
             $this->players->add($player);
@@ -158,7 +167,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function removePlayer(Player $player): Daedalus
+    public function removePlayer(Player $player): self
     {
         $this->players->removeElement($player);
 
@@ -173,7 +182,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function setGameConfig(GameConfig $gameConfig): Daedalus
+    public function setGameConfig(GameConfig $gameConfig): self
     {
         $this->gameConfig = $gameConfig;
 
@@ -185,7 +194,7 @@ class Daedalus
         return $this->neron;
     }
 
-    public function setNeron(Neron $neron): Daedalus
+    public function setNeron(Neron $neron): self
     {
         $this->neron = $neron;
 
@@ -200,7 +209,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function setGameStatus(string $gameStatus): Daedalus
+    public function setGameStatus(string $gameStatus): self
     {
         $this->gameStatus = $gameStatus;
 
@@ -227,7 +236,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function setPlaces(Collection $places): Daedalus
+    public function setPlaces(Collection $places): self
     {
         $this->places = $places;
 
@@ -237,7 +246,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function addPlace(Place $place): Daedalus
+    public function addPlace(Place $place): self
     {
         if (!$this->getPlaces()->contains($place)) {
             $this->places->add($place);
@@ -251,9 +260,24 @@ class Daedalus
     /**
      * @return static
      */
-    public function removePlace(Place $place): Daedalus
+    public function removePlace(Place $place): self
     {
         $this->places->removeElement($place);
+
+        return $this;
+    }
+
+    public function getModifiers(): ModifierCollection
+    {
+        return new ModifierCollection($this->modifiers->toArray());
+    }
+
+    /**
+     * @return static
+     */
+    public function addModifier(Modifier $modifier): self
+    {
+        $this->modifiers->add($modifier);
 
         return $this;
     }
@@ -266,7 +290,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function setOxygen(int $oxygen): Daedalus
+    public function setOxygen(int $oxygen): self
     {
         $this->oxygen = $oxygen;
 
@@ -276,7 +300,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function addOxygen(int $change): Daedalus
+    public function addOxygen(int $change): self
     {
         $this->oxygen += $change;
 
@@ -291,7 +315,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function setFuel(int $fuel): Daedalus
+    public function setFuel(int $fuel): self
     {
         $this->fuel = $fuel;
 
@@ -301,7 +325,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function addFuel(int $change): Daedalus
+    public function addFuel(int $change): self
     {
         $this->fuel += $change;
 
@@ -316,7 +340,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function addHull(int $change): Daedalus
+    public function addHull(int $change): self
     {
         $this->hull += $change;
 
@@ -326,7 +350,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function setHull(int $hull): Daedalus
+    public function setHull(int $hull): self
     {
         $this->hull = $hull;
 
@@ -341,7 +365,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function setCycle(int $cycle): Daedalus
+    public function setCycle(int $cycle): self
     {
         $this->cycle = $cycle;
 
@@ -356,7 +380,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function setDay(int $day): Daedalus
+    public function setDay(int $day): self
     {
         $this->day = $day;
 
@@ -371,7 +395,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function setShield(int $shield): Daedalus
+    public function setShield(int $shield): self
     {
         $this->shield = $shield;
 
@@ -386,7 +410,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function setSpores(int $spores): Daedalus
+    public function setSpores(int $spores): self
     {
         $this->spores = $spores;
 
@@ -401,7 +425,7 @@ class Daedalus
     /**
      * @return static
      */
-    public function setDailySpores(int $dailySpores): Daedalus
+    public function setDailySpores(int $dailySpores): self
     {
         $this->dailySpores = $dailySpores;
 
@@ -413,7 +437,7 @@ class Daedalus
         return $this->filledAt;
     }
 
-    public function setFilledAt(DateTime $filledAt): Daedalus
+    public function setFilledAt(DateTime $filledAt): self
     {
         $this->filledAt = $filledAt;
 
@@ -425,19 +449,19 @@ class Daedalus
         return $this->finishedAt;
     }
 
-    public function setFinishedAt(DateTime $finishedAt): Daedalus
+    public function setFinishedAt(DateTime $finishedAt): self
     {
         $this->finishedAt = $finishedAt;
 
         return $this;
     }
 
-    public function getCycleStartedAt(): DateTime
+    public function getCycleStartedAt(): ?DateTime
     {
         return $this->cycleStartedAt;
     }
 
-    public function setCycleStartedAt(DateTime $cycleStartedAt): Daedalus
+    public function setCycleStartedAt(DateTime $cycleStartedAt): self
     {
         $this->cycleStartedAt = $cycleStartedAt;
 
@@ -449,10 +473,15 @@ class Daedalus
         return $this->isCycleChange;
     }
 
-    public function setIsCycleChange(bool $isCycleChange): Daedalus
+    public function setIsCycleChange(bool $isCycleChange): self
     {
         $this->isCycleChange = $isCycleChange;
 
         return $this;
+    }
+
+    public function getClassName(): string
+    {
+        return get_class($this);
     }
 }

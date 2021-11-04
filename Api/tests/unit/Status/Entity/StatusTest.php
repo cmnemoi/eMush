@@ -7,6 +7,8 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use PHPUnit\Framework\TestCase;
@@ -17,7 +19,8 @@ class StatusTest extends TestCase
     {
         $player = new Player();
 
-        $status = new Status($player);
+        $statusConfig = new StatusConfig();
+        $status = new Status($player, $statusConfig);
 
         $this->assertEquals($player, $status->getOwner());
         $this->assertEquals(1, $player->getStatuses()->count());
@@ -36,7 +39,8 @@ class StatusTest extends TestCase
     {
         $equipment = new GameEquipment();
 
-        $status = new Status($equipment);
+        $statusConfig = new StatusConfig();
+        $status = new Status($equipment, $statusConfig);
         $player = new Player();
 
         $status->setTarget($player);
@@ -56,14 +60,16 @@ class StatusTest extends TestCase
     {
         $room = new Place();
 
-        $status = new ChargeStatus($room);
-        $status
-            ->setName('status name')
-            ->setStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
-            ->setCharge(0)
             ->setAutoRemove(false)
+        ;
+        $status = new ChargeStatus($room, $statusConfig);
+        $status
+            ->setCharge(0)
         ;
 
         $status->getOwner();

@@ -3,7 +3,7 @@
 namespace Mush\Equipment\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Repository\EquipmentRepository;
 
 class EquipmentService implements EquipmentServiceInterface

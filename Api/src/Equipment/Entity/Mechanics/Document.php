@@ -12,8 +12,6 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
  */
 class Document extends Tool
 {
-    protected string $mechanic = EquipmentMechanicEnum::DOCUMENT;
-
     /**
      * @ORM\Column(type="string", nullable=false)
      */
@@ -29,6 +27,14 @@ class Document extends Tool
      */
     private bool $canShred = false;
 
+    public function getMechanics(): array
+    {
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::DOCUMENT;
+
+        return $mechanics;
+    }
+
     public function getContent(): string
     {
         return $this->content;
@@ -37,7 +43,7 @@ class Document extends Tool
     /**
      * @return static
      */
-    public function setContent(string $content): Document
+    public function setContent(string $content): self
     {
         $this->content = $content;
 
@@ -52,7 +58,7 @@ class Document extends Tool
     /**
      * @return static
      */
-    public function setIsTranslated(bool $isTranslated): Document
+    public function setIsTranslated(bool $isTranslated): self
     {
         $this->isTranslated = $isTranslated;
 
@@ -67,7 +73,7 @@ class Document extends Tool
     /**
      * @return static
      */
-    public function setCanShred(bool $canShred): Document
+    public function setCanShred(bool $canShred): self
     {
         $this->canShred = $canShred;
 

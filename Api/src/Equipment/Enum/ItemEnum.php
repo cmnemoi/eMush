@@ -16,7 +16,7 @@ class ItemEnum
     public const PLASTIC_SCRAPS = 'plastic_scraps';
     public const METAL_SCRAPS = 'metal_scraps';
     public const THICK_TUBE = 'thick_tube';
-    public const CAMERA = 'camera';
+    public const CAMERA_ITEM = 'camera_item';
     public const MUSH_GENOME_DISK = 'mush_genome_disk';
     public const MUSH_SAMPLE = 'mush_sample';
     public const MYCO_ALARM = 'myco_alarm';

@@ -2,47 +2,62 @@
 
 namespace Mush\Player\Event;
 
+use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Event\LoggableEventInterface;
 
-class PlayerModifierEvent extends PlayerEvent
+class PlayerModifierEvent extends PlayerEvent implements LoggableEventInterface, AbstractQuantityEvent
 {
-    public const ACTION_POINT_MODIFIER = 'action.point.modifier';
-    public const MOVEMENT_POINT_MODIFIER = 'movement.point.modifier';
-    public const HEALTH_POINT_MODIFIER = 'health.point.modifier';
-    public const MORAL_POINT_MODIFIER = 'moral.point.modifier';
-    public const SATIETY_POINT_MODIFIER = 'satiety.point.modifier';
-    public const MOVEMENT_POINT_CONVERSION = 'movement.point.conversion';
+    private int $quantity;
+    private string $modifiedVariable;
 
-    private int $delta;
-    private bool $isDisplayedRoomLog = true;
+    public function __construct(
+        Player $player,
+        string $modifiedVariable,
+        int $quantity,
+        string $reason,
+        \DateTime $time
+    ) {
+        $this->quantity = $quantity;
+        $this->modifiedVariable = $modifiedVariable;
 
-    public function __construct(Player $player, int $delta, \DateTime $time)
-    {
-        parent::__construct($player, $time);
-        $this->delta = $delta;
+        parent::__construct($player, $reason, $time);
     }
 
-    public function getDelta(): int
+    public function getQuantity(): int
     {
-        return $this->delta;
+        return $this->quantity;
     }
 
-    public function setDelta(int $delta): PlayerModifierEvent
+    public function getModifiedVariable(): string
     {
-        $this->delta = $delta;
+        return $this->modifiedVariable;
+    }
+
+    public function setQuantity(int $quantity): self
+    {
+        $this->quantity = $quantity;
 
         return $this;
     }
 
-    public function isDisplayedRoomLog(): bool
+    public function getPlace(): Place
     {
-        return $this->isDisplayedRoomLog;
+        return $this->player->getPlace();
     }
 
-    public function setIsDisplayedRoomLog(bool $isDisplayedRoomLog): PlayerModifierEvent
+    public function getLogParameters(): array
     {
-        $this->isDisplayedRoomLog = $isDisplayedRoomLog;
+        return [
+            $this->player->getLogKey() => $this->player->getLogName(),
+            'quantity' => $this->quantity,
+        ];
+    }
 
-        return $this;
+    public function getModifierHolder(): ModifierHolder
+    {
+        return $this->player;
     }
 }

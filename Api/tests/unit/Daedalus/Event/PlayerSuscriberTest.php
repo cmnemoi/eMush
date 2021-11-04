@@ -5,7 +5,7 @@ namespace Mush\Tests\unit\Daedalus\Event;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
-use Mush\Daedalus\Event\PlayerSubscriber;
+use Mush\Daedalus\Listener\PlayerSubscriber;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
@@ -15,7 +15,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerSuscriberTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
 
     private PlayerSubscriber $playerSubscriber;
@@ -55,7 +55,11 @@ class PlayerSuscriberTest extends TestCase
 
         $date = new \DateTime('tomorrow');
 
-        $event = new PlayerEvent($player, $date);
+        $event = new PlayerEvent(
+            $player,
+            DaedalusEvent::END_DAEDALUS,
+            $date
+        );
 
         $this->eventDispatcher->shouldReceive('dispatch')
             ->withArgs(fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::END_DAEDALUS))

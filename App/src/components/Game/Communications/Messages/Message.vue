@@ -33,21 +33,25 @@
     </div>
 </template>
 
-<script>
-import ActionButtons from "@/components/Game/Communications/ActionButtons";
+<script lang="ts">
+import ActionButtons from "@/components/Game/Communications/ActionButtons.vue";
 import { formatText } from "@/utils/formatText";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { fr } from 'date-fns/locale';
 import { Message } from "@/entities/Message";
-import { characterEnum, NERON } from "@/enums/character";
+import { CharacterEnum, characterEnum } from "@/enums/character";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: "Message",
     components: {
         ActionButtons
     },
     props: {
-        message: Message,
+        message: {
+            type: Message,
+            required: true
+        },
         isRoot: {
             type: Boolean,
             default: false
@@ -58,30 +62,30 @@ export default {
         click: null
     },
     computed: {
-        characterPortrait: function() {
+        characterPortrait: function(): string| null {
             if (this.message.character.key !== null) {
                 const images = characterEnum[this.message.character.key];
                 return this.isRoot ? images.body : images.head;
             }
             return null;
         },
-        isNeronMessage: function() {
-            return this.message.character.key === NERON;
+        isNeronMessage: function(): boolean {
+            return this.message.character.key === CharacterEnum.NERON;
         },
-        isSystemMessage: function() {
+        isSystemMessage: function(): boolean {
             return this.message.character.key === null;
         }
     },
     methods: {
-        formatDate: (date) => {
+        formatDate: (date: Date): string => {
             return formatDistanceToNow(date, { locale : fr });
         },
-        formatMessage(value) {
+        formatMessage(value: string): string {
             if (! value) return '';
             return formatText(value.toString());
         }
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -95,7 +99,6 @@ export default {
     p {
         margin: 0;
         font-size: .95em;
-        >>> img { vertical-align: middle; }
     }
 }
 
@@ -103,48 +106,48 @@ export default {
     position: relative;
     align-items: flex-start;
     flex-direction: row;
+}
 
-    .character-body {
-        align-items: flex-start;
-        justify-content: flex-start;
-        min-width: 36px;
-        margin-top: 4px;
-        padding: 6px 2px;
+.character-body {
+    align-items: flex-start;
+    justify-content: flex-start;
+    min-width: 36px;
+    margin-top: 4px;
+    padding: 6px 2px;
+}
+
+.author {
+    color: $blue;
+    font-weight: 700;
+    font-variant: small-caps;
+    padding-right: 0.25em;
+}
+
+.text {
+    position: relative;
+    flex: 1;
+    margin: 3px 0;
+    padding: 4px 6px;
+    border-radius: 3px;
+    background: white;
+    word-break: break-word;
+
+    &::v-deep em {
+        color: $red; // Makes italic text red
     }
 
-    .author {
-        color: #2081e2;
-        font-weight: 700;
-        font-variant: small-caps;
-        padding-right: 0.25em;
-    }
+    &.unread { // unread messages styling
+        border-left: 2px solid #ea9104;
 
-    .text {
-        position: relative;
-        flex: 1;
-        margin: 3px 0;
-        padding: 4px 6px;
-        border-radius: 3px;
-        background: white;
-        word-break: break-word;
-
-        >>> em {
-            color: #cf1830; // Makes italic text red
-        }
-
-        &.unread { // unread messages styling
-            border-left: 2px solid #ea9104;
-
-            &::after {
-                content: "";
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: -6px;
-                min-height: 11px;
-                width: 11px;
-                background: transparent url('~@/assets/images/comms/thinklinked.png') center no-repeat;
-            }
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -6px;
+            min-height: 11px;
+            width: 11px;
+            background: transparent url('~@/assets/images/comms/thinklinked.png') center no-repeat;
         }
     }
 }

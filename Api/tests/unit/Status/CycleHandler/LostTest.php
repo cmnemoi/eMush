@@ -3,10 +3,10 @@
 namespace Mush\Test\Status\CycleHandler;
 
 use Mockery;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\CycleHandler\Lost;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +14,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class LostTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
 
     private Lost $cycleHandler;
@@ -46,16 +46,15 @@ class LostTest extends TestCase
             ->setPlace($room)
         ;
 
-        $status = new Status($player);
-        $status
-            ->setName(PlayerStatusEnum::LOST)
-        ;
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(PlayerStatusEnum::LOST);
+        $status = new Status($player, $statusConfig);
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->once()
         ;
-        $this->cycleHandler->handleNewCycle($status, new Daedalus(), $player, new \DateTime());
+        $this->cycleHandler->handleNewCycle($status, $player, new \DateTime());
 
         $this->assertTrue(true);
     }

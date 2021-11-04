@@ -5,16 +5,16 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\Room;
+use Mush\Action\Validator\IsRoom;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Player\Entity\Player;
-use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -24,14 +24,12 @@ class Search extends AbstractAction
 {
     protected string $name = ActionEnum::SEARCH;
 
-    private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        PlayerServiceInterface $playerService,
         StatusServiceInterface $statusService
     ) {
         parent::__construct(
@@ -40,18 +38,17 @@ class Search extends AbstractAction
             $validator
         );
 
-        $this->playerService = $playerService;
         $this->statusService = $statusService;
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter === null;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Room(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NOT_A_ROOM]));
+        $metadata->addConstraint(new IsRoom(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NOT_A_ROOM]));
     }
 
     protected function applyEffects(): ActionResult
@@ -78,13 +75,19 @@ class Search extends AbstractAction
             }
 
             $itemFound = $mostRecentHiddenItem;
-            $itemFound->removeStatus($hiddenStatus);
 
-            $hiddenBy->removeStatus($hiddenStatus);
+            $statusEvent = new StatusEvent(
+                $hiddenStatus->getName(),
+                $itemFound,
+                $this->getActionName(),
+                new \DateTime()
+            );
+            $statusEvent->setStatusTarget($hiddenBy);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
 
-            $this->playerService->persist($hiddenBy);
+            $success = new Success();
 
-            return new Success($itemFound);
+            return $success->setEquipment($itemFound);
         } else {
             return new Fail();
         }

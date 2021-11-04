@@ -41,7 +41,7 @@ class ChannelPlayer
         return $this->channel;
     }
 
-    public function setChannel(Channel $channel): ChannelPlayer
+    public function setChannel(Channel $channel): self
     {
         $this->channel = $channel;
 
@@ -53,7 +53,7 @@ class ChannelPlayer
         return $this->participant;
     }
 
-    public function setParticipant(Player $participant): ChannelPlayer
+    public function setParticipant(Player $participant): self
     {
         $this->participant = $participant;
 

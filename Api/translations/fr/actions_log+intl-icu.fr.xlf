@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
     <file id="actions_log.ext">
-        <unit id="build_success">
-            <segment id="build_success">
-                <source>build_success</source>
-                <target>{target_gender, select,
-                        male {Vous avez assemblé un {target}.}
-                        female {Vous avez assemblé une {target}.}
-                        other {invalid gender input}
-                }</target>
-            </segment>
-        </unit>
         <unit id="coffee_success">
             <segment id="coffee_success">
                 <source>coffee_success</source>
@@ -99,19 +89,25 @@
         <unit id="disassemble_success">
             <segment id="disassemble_success">
                 <source>disassemble_success</source>
-                <target>{target_gender, select,
-                        male {**{character}** a désassemblé un **{target}**.}
-                        female {**{character}** a désassemblé une **{target}**.}
+                <target>{target_equipment_gender, select,
+                        male {**{character}** a désassemblé un **{target_equipment}**.}
+                        female {**{character}** a désassemblé une **{target_equipment}**.}
                         other {invalid gender input}
                 }</target>
+            </segment>
+        </unit>
+        <unit id="do_the_thing_success">
+            <segment id="do_the_thing_success">
+                <source>do_the_thing_success</source>
+                <target>**{character}** et **{target_character}** éteignent la lumière et des bruits étranges se produisent...Quelques minutes plus tard, ils rallument. Ils ont un air satisfait.</target>
             </segment>
         </unit>
         <unit id="drop">
             <segment id="drop">
                 <source>drop</source>
-                <target>{target_gender, select,
-                        male {**{character}** a lâché un **{target}**.}
-                        female {**{character}** a lâché une **{target}**.}
+                <target>{target_equipment_gender, select,
+                        male {**{character}** a lâché un **{target_equipment}**.}
+                        female {**{character}** a lâché une **{target_equipment}**.}
                         other {invalid gender input}
                 }</target>
             </segment>
@@ -128,6 +124,16 @@
                 <target>**{character}** s'extirpe un spore. C'est vraiment répugnant. Et l'odeur...</target>
             </segment>
         </unit>
+        <unit id="flirt_success">
+            <segment id="flirt_success">
+                <source>flirt_success</source>
+                <target>{character_gender, select,
+                    male {**{character}** semble intéressé par **{target_character}**. Ce regard qu'il lui lance ne trompera personne sur ses intentions.}
+                    female {**{character}** a l'air intéressée par **{target_character}**, ce papillonnement de sourcil est tout à fait révélateur de ses pensées secrètes.}
+                    other {invalid gender input}
+                }</target>
+            </segment>
+        </unit>
         <unit id="get_up">
             <segment id="get_up">
                 <source>get_up</source>
@@ -137,9 +143,9 @@
         <unit id="hide_success">
             <segment id="hide_success">
                 <source>hide_success</source>
-                <target>{target_gender, select,
-                        male {**{character}** a dissimulé un **{target}**.}
-                        female {**{character}** a dissimulé une **{target}**.}
+                <target>{target_equipment_gender, select,
+                        male {**{character}** a dissimulé un **{target_equipment}**.}
+                        female {**{character}** a dissimulé une **{target_equipment}**.}
                         other {invalid gender input}
                 }</target>
             </segment>
@@ -148,7 +154,7 @@
             <segment id="hit_success">
                 <source>hit_success</source>
                 <target>{character_gender, select,
-                     other {{target_gender, select,
+                     other {{target_character_gender, select,
                         other {@TODO hit log}
                      }}
                 }</target>
@@ -158,7 +164,7 @@
             <segment id="hit_fail">
                 <source>hit_fail</source>
                 <target>{character_gender, select,
-                     other {{target_gender, select,
+                     other {{target_character_gender, select,
                         other {@TODO hit fail log}
                      }}
                 }</target>
@@ -230,78 +236,78 @@
             <segment id="repair_fail">
                 <source>repair_fail</source>
                 <target>{versionPart1, select,
-                    1 {**{target}** ou pas **{target}**… Telle est la question...}
-                    2 {{target_gender, select,
-                        male {{target_first_letter, select,
-                            vowel {Cet **{target}** n'est toujours pas réparé.}
-                            other {Ce **{target}** n'est toujours pas réparé.}
+                    1 {**{target_equipment}** ou pas **{target_equipment}**… Telle est la question...}
+                    2 {{target_equipment_gender, select,
+                        male {{target_equipment_first_letter, select,
+                            vowel {Cet **{target_equipment}** n'est toujours pas réparé.}
+                            other {Ce **{target_equipment}** n'est toujours pas réparé.}
                         }}
-                        female {Cette **{target}** n'est toujours pas réparée.}
+                        female {Cette **{target_equipment}** n'est toujours pas réparée.}
                         other {invalid gender input}
                     }}
-                    3 {{target_gender, select,
-                        male {Encore un essai pathétique pour réparer ce maudit **{target}**.}
-                        female {Encore un essai pathétique pour réparer cette maudite **{target}**.}
+                    3 {{target_equipment_gender, select,
+                        male {Encore un essai pathétique pour réparer ce maudit **{target_equipment}**.}
+                        female {Encore un essai pathétique pour réparer cette maudite **{target_equipment}**.}
                         other {invalid gender input}
                     }}
-                    4 {{target_gender, select,
-                        male {{target_first_letter, select,
-                            vowel {L'état de cet **{target}** demeure...}
-                            other {L'état de ce **{target}** demeure...}
+                    4 {{target_equipment_gender, select,
+                        male {{target_equipment_first_letter, select,
+                            vowel {L'état de cet **{target_equipment}** demeure...}
+                            other {L'état de ce **{target_equipment}** demeure...}
                         }}
-                        female {L'état de cette **{target}** demeure...}
+                        female {L'état de cette **{target_equipment}** demeure...}
                         other {invalid gender input}
                     }}
-                    5 {{target_first_letter, select,
-                        vowel {{target_gender, select,
-                            male {L'**{target}** est toujours cassé.}
-                            female {L'**{target}** est toujours cassée.}
+                    5 {{target_equipment_first_letter, select,
+                        vowel {{target_equipment_gender, select,
+                            male {L'**{target_equipment}** est toujours cassé.}
+                            female {L'**{target_equipment}** est toujours cassée.}
                             other {invalid gender input}
                         }}
-                        other {{target_gender, select,
-                            male {Le **{target}** est toujours cassé.}
-                            female {La **{target}** est toujours cassée.}
+                        other {{target_equipment_gender, select,
+                            male {Le **{target_equipment}** est toujours cassé.}
+                            female {La **{target_equipment}** est toujours cassée.}
                             other {invalid gender input}
                         }}
                     }}
-                    6 {{target_first_letter, select,
-                        vowel {L'**{target}** sent le cramé.}
-                        other {{target_gender, select,
-                            male {Le **{target}** sent le cramé.}
-                            female {La **{target}** sent le cramé.}
+                    6 {{target_equipment_first_letter, select,
+                        vowel {L'**{target_equipment}** sent le cramé.}
+                        other {{target_equipment_gender, select,
+                            male {Le **{target_equipment}** sent le cramé.}
+                            female {La **{target_equipment}** sent le cramé.}
                             other {invalid gender input}
                         }}
                     }}
 
-                    7 {{target_first_letter, select,
-                        vowel {L'**{target}** n'a pas l'air de mieux se porter et dégage une odeur de cramé.}
-                        other {{target_gender, select,
-                            male {Le **{target}** n'a pas l'air de mieux se porter et dégage une odeur de cramé.}
-                            female {La **{target}** n'a pas l'air de mieux se porter et dégage une odeur de cramé.}
+                    7 {{target_equipment_first_letter, select,
+                        vowel {L'**{target_equipment}** n'a pas l'air de mieux se porter et dégage une odeur de cramé.}
+                        other {{target_equipment_gender, select,
+                            male {Le **{target_equipment}** n'a pas l'air de mieux se porter et dégage une odeur de cramé.}
+                            female {La **{target_equipment}** n'a pas l'air de mieux se porter et dégage une odeur de cramé.}
                             other {invalid gender input}
                         }}
                     }}
-                    8 {{target_first_letter, select,
-                        vowel {Malgré votre ténacité, vos tentatives de réparation de l'**{target}** restent infructueuses.}
-                        other {{target_gender, select,
-                            male {Malgré votre ténacité, vos tentatives de réparation du **{target}** restent infructueuses.}
-                            female {Malgré votre ténacité, vos tentatives de réparation de la **{target}** restent infructueuses.}
+                    8 {{target_equipment_first_letter, select,
+                        vowel {Malgré votre ténacité, vos tentatives de réparation de l'**{target_equipment}** restent infructueuses.}
+                        other {{target_equipment_gender, select,
+                            male {Malgré votre ténacité, vos tentatives de réparation du **{target_equipment}** restent infructueuses.}
+                            female {Malgré votre ténacité, vos tentatives de réparation de la **{target_equipment}** restent infructueuses.}
                             other {invalid gender input}
                         }}
                     }}
-                    9 {{target_gender, select,
-                        male {{target_first_letter, select,
-                            vowel {Qui aurait cru que cet **{target}** soit en fait une telle énigme.}
-                            other {Qui aurait cru que ce **{target}** soit en fait une telle énigme.}
+                    9 {{target_equipment_gender, select,
+                        male {{target_equipment_first_letter, select,
+                            vowel {Qui aurait cru que cet **{target_equipment}** soit en fait une telle énigme.}
+                            other {Qui aurait cru que ce **{target_equipment}** soit en fait une telle énigme.}
                         }}
-                        female {Qui aurait cru que cette **{target}** soit en fait une telle énigme.}
+                        female {Qui aurait cru que cette **{target_equipment}** soit en fait une telle énigme.}
                         other {invalid gender input}
                     }}
-                    10 {{target_first_letter, select,
-                        vowel {Vous avez échoué les réparations de l'**{target}**.}
-                        other {{target_gender, select,
-                            male {Vous avez échoué les réparations du **{target}**.}
-                            female {Vous avez échoué les réparations de la **{target}**.}
+                    10 {{target_equipment_first_letter, select,
+                        vowel {Vous avez échoué les réparations de l'**{target_equipment}**.}
+                        other {{target_equipment_gender, select,
+                            male {Vous avez échoué les réparations du **{target_equipment}**.}
+                            female {Vous avez échoué les réparations de la **{target_equipment}**.}
                             other {invalid gender input}
                         }}
                     }}
@@ -365,64 +371,64 @@
             <segment id="repair_success">
                 <source>repair_success</source>
                 <target>{version, select,
-                    1 {{target_first_letter, select,
-                        vowel {La dernière tentative de **{character}** pour réparer l'**{target}** s'est avérée fructueuse.}
-                        other {{target_gender, select,
-                            male {La dernière tentative de **{character}** pour réparer le **{target}** s'est avérée fructueuse.}
-                            female {La dernière tentative de **{character}** pour réparer la **{target}** s'est avérée fructueuse.}
+                    1 {{target_equipment_first_letter, select,
+                        vowel {La dernière tentative de **{character}** pour réparer l'**{target_equipment}** s'est avérée fructueuse.}
+                        other {{target_equipment_gender, select,
+                            male {La dernière tentative de **{character}** pour réparer le **{target_equipment}** s'est avérée fructueuse.}
+                            female {La dernière tentative de **{character}** pour réparer la **{target_equipment}** s'est avérée fructueuse.}
                             other {invalid gender input}
                         }}
                     }}
-                    2 {{target_first_letter, select,
-                        vowel {Félicitation **{character}**. L'**{target}** fonctionne à nouveau.}
-                        other {{target_gender, select,
-                            male {Félicitation **{character}**. Le **{target}** fonctionne à nouveau.}
-                            female {Félicitation **{character}**. La **{target}** fonctionne à nouveau.}
+                    2 {{target_equipment_first_letter, select,
+                        vowel {Félicitation **{character}**. L'**{target_equipment}** fonctionne à nouveau.}
+                        other {{target_equipment_gender, select,
+                            male {Félicitation **{character}**. Le **{target_equipment}** fonctionne à nouveau.}
+                            female {Félicitation **{character}**. La **{target_equipment}** fonctionne à nouveau.}
                             other {invalid gender input}
                         }}
                     }}
-                    3 {{target_first_letter, select,
-                        vowel {{target_gender, select,
-                            male {L'**{target}** est à nouveau fonctionnel, merci **{character}**.}
-                            female {L'**{target}** est à nouveau fonctionnelle, merci **{character}**.}
+                    3 {{target_equipment_first_letter, select,
+                        vowel {{target_equipment_gender, select,
+                            male {L'**{target_equipment}** est à nouveau fonctionnel, merci **{character}**.}
+                            female {L'**{target_equipment}** est à nouveau fonctionnelle, merci **{character}**.}
                             other {invalid gender input}
                         }}
-                        other {{target_gender, select,
-                            male {Le **{target}** est à nouveau fonctionnel, merci **{character}**.}
-                            female {La **{target}** est à nouveau fonctionnelle, merci **{character}**.}
+                        other {{target_equipment_gender, select,
+                            male {Le **{target_equipment}** est à nouveau fonctionnel, merci **{character}**.}
+                            female {La **{target_equipment}** est à nouveau fonctionnelle, merci **{character}**.}
                             other {invalid gender input}
                         }}
                     }}
-                    4 {{target_gender, select,
-                        male {**{character}** a enfin réussi les réparations sur ce maudit **{target}**.}
-                        female {**{character}** a enfin réussi les réparations sur cette maudite **{target}**.}
+                    4 {{target_equipment_gender, select,
+                        male {**{character}** a enfin réussi les réparations sur ce maudit **{target_equipment}**.}
+                        female {**{character}** a enfin réussi les réparations sur cette maudite **{target_equipment}**.}
                         other {invalid gender input}
                     }}
-                    5 {{target_first_letter, select,
-                        vowel {**{character}** a enfin remis l'**{target}** à neuf.}
-                        other {{target_gender, select,
-                            male {**{character}** a enfin remis le **{target}** à neuf.}
-                            female {**{character}** a enfin remis la **{target}** à neuf.}
+                    5 {{target_equipment_first_letter, select,
+                        vowel {**{character}** a enfin remis l'**{target_equipment}** à neuf.}
+                        other {{target_equipment_gender, select,
+                            male {**{character}** a enfin remis le **{target_equipment}** à neuf.}
+                            female {**{character}** a enfin remis la **{target_equipment}** à neuf.}
                             other {invalid gender input}
                         }}
                     }}
-                    6 {{target_first_letter, select,
-                        vowel {{target_gender, select,
-                            male {**{character}** peut se féliciter. L'**{target}** est réparé.}
-                            female {**{character}** peut se féliciter. L'**{target}** est réparée.}
+                    6 {{target_equipment_first_letter, select,
+                        vowel {{target_equipment_gender, select,
+                            male {**{character}** peut se féliciter. L'**{target_equipment}** est réparé.}
+                            female {**{character}** peut se féliciter. L'**{target_equipment}** est réparée.}
                             other {invalid gender input}
                         }}
-                        other {{target_gender, select,
-                            male {**{character}** peut se féliciter. Le **{target}** est réparé.}
-                            female {**{character}** peut se féliciter. La **{target}** est réparée.}
+                        other {{target_equipment_gender, select,
+                            male {**{character}** peut se féliciter. Le **{target_equipment}** est réparé.}
+                            female {**{character}** peut se féliciter. La **{target_equipment}** est réparée.}
                             other {invalid gender input}
                         }}
                     }}
-                    7 {{target_first_letter, select,
-                        vowel {**{character}** s'est finalement motivé et a réparé l'**{target}**. Bravo.}
-                        other {{target_gender, select,
-                            male {**{character}** s'est finalement motivé et a réparé le **{target}**. Bravo.}
-                            female {**{character}** s'est finalement motivée et a réparé la **{target}**. Bravo.}
+                    7 {{target_equipment_first_letter, select,
+                        vowel {**{character}** s'est finalement motivé et a réparé l'**{target_equipment}**. Bravo.}
+                        other {{target_equipment_gender, select,
+                            male {**{character}** s'est finalement motivé et a réparé le **{target_equipment}**. Bravo.}
+                            female {**{character}** s'est finalement motivée et a réparé la **{target_equipment}**. Bravo.}
                             other {invalid gender input}
                         }}
                     }}
@@ -433,9 +439,9 @@
         <unit id="search_success">
             <segment id="search_success">
                 <source>search_success</source>
-                <target>{target_gender, select,
-                        male {**{character}** a découvert un **{target}** caché.}
-                        female {**{character}** a découvert une **{target}** cachée.}
+                <target>{target_equipment_gender, select,
+                        male {**{character}** a découvert un **{target_equipment}** caché.}
+                        female {**{character}** a découvert une **{target_equipment}** cachée.}
                         other {invalid gender input}
                 }</target>
             </segment>
@@ -478,37 +484,28 @@
         <unit id="take">
             <segment id="take">
                 <source>take</source>
-                <target>{target_gender, select,
-                        male {**{character}** a pris un **{target}**.}
-                        female {**{character}** a pris une **{target}**.}
+                <target>{target_equipment_gender, select,
+                        male {**{character}** a pris un **{target_equipment}**.}
+                        female {**{character}** a pris une **{target_equipment}**.}
                         other {invalid gender input}
-                }</target>
-            </segment>
-        </unit>
-        <unit id="transplant_success">
-            <segment id="transplant_success">
-                <source>transplant_success</source>
-                <target>{target_first_letter, select,
-                    vowel {**{character}** entreprend de reproduire un plant d'**{target}**. Félicitation ! Le jeune plant est en parfaite santé.}
-                    other {**{character}** entreprend de reproduire un plant de **{target}**. Félicitation ! Le jeune plant est en parfaite santé.}
                 }</target>
             </segment>
         </unit>
         <unit id="hybridize_success">
             <segment id="hybridize_success">
                 <source>hybridize_success</source>
-                <target>{target_first_letter, select,
-                    vowel {Quel soulagement, **{character}** a réussi sa grèffe d'**{target}**. Le petite plante se porte bien !}
-                    other {Quel soulagement, **{character}** a réussi sa grèffe de **{target}**. Le petite plante se porte bien !}
+                <target>{target_equipment_first_letter, select,
+                    vowel {Quel soulagement, **{character}** a réussi sa grèffe d'**{target_equipment}**. Le petite plante se porte bien !}
+                    other {Quel soulagement, **{character}** a réussi sa grèffe de **{target_equipment}**. Le petite plante se porte bien !}
                 }</target>
             </segment>
         </unit>
         <unit id="hybridize_fail">
             <segment id="hybridize_fail">
                 <source>hybridize_fail</source>
-                <target>{target_first_letter, select,
-                    vowel {Quel soulagement... oh mais... **{character}** n'a pas réussi sa greffe d'**{target}**. La petite plante reste chétive et meurt... Quelque chose a du contaminer l'opération.}
-                    other {Quel soulagement... oh mais... **{character}** n'a pas réussi sa greffe de **{target}**. La petite plante reste chétive et meurt... Quelque chose a du contaminer l'opération.}
+                <target>{target_equipment_first_letter, select,
+                    vowel {Quel soulagement... oh mais... **{character}** n'a pas réussi sa greffe d'**{target_equipment}**. La petite plante reste chétive et meurt... Quelque chose a du contaminer l'opération.}
+                    other {Quel soulagement... oh mais... **{character}** n'a pas réussi sa greffe de **{target_equipment}**. La petite plante reste chétive et meurt... Quelque chose a du contaminer l'opération.}
                 }</target>
             </segment>
         </unit>
@@ -582,9 +579,9 @@
         <unit id="sabotage_success">
             <segment id="sabotage_success">
                 <source>sabotage_success</source>
-                <target>{target_gender, select,
-                        male {Étrange, **{character}** s'affaire sur un **{target}** qui émet une petite fumée...}
-                        female {Étrange, **{character}** s'affaire sur une **{target}** qui émet une petite fumée...}
+                <target>{target_equipment_gender, select,
+                        male {Étrange, **{character}** s'affaire sur un **{target_equipment}** qui émet une petite fumée...}
+                        female {Étrange, **{character}** s'affaire sur une **{target_equipment}** qui émet une petite fumée...}
                         other {invalid gender input}
                 }</target>
             </segment>
@@ -636,14 +633,34 @@
                 </target>
             </segment>
         </unit>
-        <unit id="open_success">
-            <segment id="open_success">
-                <source>open_success</source>
-                <target>{target_gender, select,
-                    male {**{player}** a trouvé un **{target}** dans une Capsule Spatiale.}
-                    female {**{player}** a trouvé une **{target}** dans une Capsule Spatiale.}
-                    other {invalid gender input}
-                }</target>
+        <unit id="strengthen_success">
+            <segment id="strengthen_success">
+                <source>strengthen_success</source>
+                <target>La tentative de **{character}** de réparation de la coque a réussi. Il était temps que quelqu'un s'occupe de ça...</target>
+            </segment>
+        </unit>
+        <unit id="default_fail">
+            <segment id="default_fail">
+                <source>default_fail</source>
+                <target>Votre tentative a échouée.</target>
+            </segment>
+        </unit>
+        <unit id="spread_fire_success">
+            <segment id="spread_fire_success">
+                <source>spread_fire_success</source>
+                <target>Tiens... ça se réchauffe par ici... **{character}** a mis le feu...</target>
+            </segment>
+        </unit>
+        <unit id="install_camera">
+            <segment id="install_camera">
+                <source>install_camera</source>
+                <target>**{character}** installe sa petite **Camera** avec application.</target>
+            </segment>
+        </unit>
+        <unit id="remove_camera">
+            <segment id="remove_camera">
+                <source>remove_camera</source>
+                <target>**{character}** enlève la **Caméra**. Elle était sans doute devenue inutile...</target>
             </segment>
         </unit>
     </file>

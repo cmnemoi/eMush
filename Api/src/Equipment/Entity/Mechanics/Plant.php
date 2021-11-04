@@ -3,7 +3,7 @@
 namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
@@ -14,10 +14,16 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
  */
 class Plant extends EquipmentMechanic
 {
-    protected string $mechanic = EquipmentMechanicEnum::PLANT;
+    public function getMechanics(): array
+    {
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::PLANT;
+
+        return $mechanics;
+    }
 
     /**
-     * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\EquipmentConfig", inversedBy=")
+     * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\Config\EquipmentConfig", inversedBy=")
      */
     private EquipmentConfig $fruit;
 
@@ -39,7 +45,7 @@ class Plant extends EquipmentMechanic
     /**
      * @return static
      */
-    public function setFruit(EquipmentConfig $fruit): Plant
+    public function setFruit(EquipmentConfig $fruit): self
     {
         $this->fruit = $fruit;
 
@@ -54,7 +60,7 @@ class Plant extends EquipmentMechanic
     /**
      * @return static
      */
-    public function setMaturationTime(array $maturationTime): Plant
+    public function setMaturationTime(array $maturationTime): self
     {
         $this->maturationTime = $maturationTime;
 
@@ -69,7 +75,7 @@ class Plant extends EquipmentMechanic
     /**
      * @return static
      */
-    public function setOxygen(array $oxygen): Plant
+    public function setOxygen(array $oxygen): self
     {
         $this->oxygen = $oxygen;
 

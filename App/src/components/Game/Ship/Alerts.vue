@@ -12,7 +12,7 @@
                     </template>
                 </Tooltip>
             </span>
-            <span v-else>Alertes :</span>
+            <span v-else>{{ $t('alerts') }}</span>
             <Tooltip v-for="(alert, key) in alertsDisplayed" :key="key">
                 <template #tooltip-trigger>
                     <img
@@ -34,29 +34,39 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Daedalus } from "@/entities/Daedalus";
 import DaedalusService from "@/services/daedalus.service";
 import { AlertsIcons, NO_ALERT } from "@/enums/alerts.enum";
-import Tooltip from "../../Utils/ToolTip";
+import Tooltip from "../../Utils/ToolTip.vue";
+import { defineComponent } from "vue";
+import { Alert } from "@/entities/Alerts";
 
-export default {
+interface AlertsState {
+    loading: boolean,
+    alerts: Alert[]
+}
+
+export default defineComponent ({
     name: "Alerts",
-    components: {Tooltip},
+    components: { Tooltip },
     props: {
-        daedalus: Daedalus
+        daedalus: {
+            type: Daedalus,
+            required: true
+        }
     },
-    data: function () {
+    data: function (): AlertsState {
         return {
             loading: false,
             alerts: []
         };
     },
     computed: {
-        isNoAlert: function () {
-            return this.alerts.length === 0 || (this.alerts.length === 1 && this.alerts[0].key === NO_ALERT);
+        isNoAlert: function (): boolean {
+            return this.alerts.length === 0 || (this.alerts.length === 1 && (this.alerts[0].key ?? '') === NO_ALERT);
         },
-        alertsDisplayed: function () {
+        alertsDisplayed: function (): Alert[] {
             if (this.isNoAlert) {
                 return [];
             }
@@ -66,20 +76,23 @@ export default {
     },
     beforeMount() {
         this.loading = true;
-        DaedalusService.loadAlerts(this.daedalus).then((res) => {
+        DaedalusService.loadAlerts(this.daedalus).then((res: Alert[]) => {
             this.loading = false;
             this.alerts = res;
         });
     },
     methods: {
-        alertIcon: function (alert) {
+        alertIcon: function (alert: Alert): string {
             return AlertsIcons[alert.key];
         }
     }
-};
+});
 </script>
 
 <style scoped lang="scss">
+
+$redAlert: #ff4e64;
+
 .daedalus-alarms p {
     display: flex;
     align-items: center;
@@ -88,11 +101,12 @@ export default {
     margin: 0;
     max-height: 25px;
     color: white;
-    font-size: 1em;
+    letter-spacing: 0.03em;
+    font-variant: small-caps;
     font-weight: 400;
-    border: 1px solid rgba(58, 106, 171, 1);;
+    border: 1px solid $greyBlue;
     border-radius: 3px;
-    background: rgba(58, 106, 171, 1);
+    background: $greyBlue;
     box-shadow: 0 0 5px 1px inset rgba(28, 29, 56, 1);
     text-shadow: 0 0 2px rgba(0, 0, 0, 1), 0 0 2px rgba(0, 0, 0, 1); /* twice the same shadow */
 
@@ -101,14 +115,21 @@ export default {
     }
 
     span img {
-        vertical-align: top;
+            position: relative;
+            top: -0.1em;
     }
 
     &.alarm {
-        color: #ff4e64;
+        color: $redAlert;
         font-weight: 700;
-        animation: alarms-border-color 0.85s ease-in-out infinite; /* keyframes at the end of the doc */
+        animation: alarms-border-color 0.85s ease-in-out infinite;
     }
+}
+
+@keyframes alarms-border-color {
+    0% { border: 1px solid $redAlert; }
+    50% { border: 1px solid $greyBlue; }
+    100% { border: 1px solid $redAlert; }
 }
 
 </style>

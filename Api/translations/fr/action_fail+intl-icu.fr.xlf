@@ -211,6 +211,13 @@
             </segment>
         </unit>
 
+        <unit id="do_the_thing_no_bed">
+            <segment id="description">
+                <source>do_the_thing_no_bed.description</source>
+                <target>TODO.do_the_thing_no_bed.description</target>
+            </segment>
+        </unit>
+
         <unit id="flirt_already_flirted">
             <segment id="description">
                 <source>flirt_already_flirted.description</source>
@@ -218,17 +225,17 @@
             </segment>
         </unit>
 
-        <unit id="flirt_raluca">
+        <unit id="flirt_antisocial">
             <segment id="description">
-                <source>flirt_raluca.description</source>
-                <target>TODO.flirt_raluca.description</target>
+                <source>flirt_antisocial.description</source>
+                <target>Vous n'êtes pas intéressé(e) par ce genre d'interaction sociale...</target>
             </segment>
         </unit>
 
-        <unit id="flirt_gioele_paola">
+        <unit id="flirt_same_family">
             <segment id="description">
-                <source>flirt_gioele_paola.description</source>
-                <target>TODO.flirt_gioele_paola.description</target>
+                <source>flirt_same_family.description</source>
+                <target>Ce flirt est impossible.</target>
             </segment>
         </unit>
 

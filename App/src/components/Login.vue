@@ -1,11 +1,10 @@
 <template>
     <div>
-        <a v-if="! loggedIn" class="login-button" @click="openPopup">Login</a>
-        <a v-if="loggedIn" class="logout-button" @click="logout">Logout</a>
+        <a v-if="! loggedIn" class="login-button" @click="openPopup">{{ $t('login') }}</a>
+        <a v-if="loggedIn" class="logout-button" @click="logout">{{ $t('logout') }}</a>
         <PopUp :is-open="isPassphrasePopupOpen" @close="closePopup">
-            <span>Ceci est une alpha reservée aux testeurs</span>
-            <span>This is an alpha for testers only</span>
-            <label for="passphrase" class="passphrase">Passphrase:</label>
+            <span>{{ $t('alpha.description') }}</span>
+            <label for="passphrase" class="passphrase">{{ $t('alpha.passphrase') }}</label>
             <input
                 id="passphrase"
                 ref="passphrase_input"
@@ -14,17 +13,18 @@
                 @keyup.enter="submitPassphrase"
             >
             <button type="submit" @click="submitPassphrase">
-                Submit
+                {{ $t('alpha.valide') }}
             </button>
         </PopUp>
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions, mapGetters } from "vuex";
-import PopUp from "@/components/Utils/PopUp";
+import PopUp from "@/components/Utils/PopUp.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: 'Login',
     components: {
         PopUp
@@ -46,23 +46,24 @@ export default {
             'redirect',
             'logout'
         ]),
-        submitPassphrase() {
+        submitPassphrase(): void {
             if (this.passphrase !== "") {
                 this.redirect({ passphrase: this.passphrase });
                 this.passphrase = "";
             }
             this.closePopup();
         },
-        async openPopup() {
+        async openPopup(): Promise<void> {
             this.isPassphrasePopupOpen = true;
             await this.$nextTick;
-            this.$refs.passphrase_input.focus();
+            const ref: HTMLElement = this.$refs.passphrase_input as HTMLHtmlElement;
+            ref.focus();
         },
-        closePopup() {
+        closePopup(): void {
             this.isPassphrasePopupOpen = false;
         }
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -72,6 +73,8 @@ export default {
     margin: 0 20px;
     padding: 5px 10px;
     color: white;
+    font-size: 1.1em;
+    letter-spacing: .06em;
 
     &:hover,
     &:active {
@@ -80,9 +83,12 @@ export default {
     }
 }
 
+.modal-box { font-size: 1em; }
+
 .passphrase {
     margin-top: 15px;
-    font-size: 150%;
+    font-size: 1.4em;
+    font-weight: 700;
     font-variant: small-caps;
 }
 

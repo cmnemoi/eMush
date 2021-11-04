@@ -5,21 +5,15 @@ namespace Mush\Equipment\Listener;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Equipment\Service\EquipmentCycleHandlerServiceInterface;
-use Mush\Status\Entity\Status;
-use Mush\Status\Event\StatusCycleEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentCycleSubscriber implements EventSubscriberInterface
 {
-    private EventDispatcherInterface $eventDispatcher;
     private EquipmentCycleHandlerServiceInterface $equipmentCycleHandler;
 
     public function __construct(
         EquipmentCycleHandlerServiceInterface $equipmentCycleHandler,
-        EventDispatcherInterface $eventDispatcher
     ) {
-        $this->eventDispatcher = $eventDispatcher;
         $this->equipmentCycleHandler = $equipmentCycleHandler;
     }
 
@@ -35,16 +29,12 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getGameEquipment();
 
-        /** @var Status $status */
-        foreach ($equipment->getStatuses() as $status) {
-            $statusNewCycle = new StatusCycleEvent($status, $equipment, $event->getDaedalus(), $event->getTime());
-            $this->eventDispatcher->dispatch($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
-        }
-
-        /** @var EquipmentMechanic $mechanic */
-        foreach ($equipment->getEquipment()->getMechanics() as $mechanic) {
-            if ($cycleHandler = $this->equipmentCycleHandler->getEquipmentCycleHandler($mechanic)) {
-                $cycleHandler->handleNewCycle($equipment, $event->getDaedalus(), $event->getTime());
+        /* @var EquipmentMechanic $mechanic */
+        foreach ($equipment->getEquipment()->getMechanics() as $mechanics) {
+            foreach ($mechanics->getMechanics() as $mechanicName) {
+                if ($cycleHandler = $this->equipmentCycleHandler->getEquipmentCycleHandler($mechanicName)) {
+                    $cycleHandler->handleNewCycle($equipment, $event->getDaedalus(), $event->getTime());
+                }
             }
         }
     }
@@ -53,16 +43,12 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getGameEquipment();
 
-        /** @var Status $status */
-        foreach ($equipment->getStatuses() as $status) {
-            $statusNewDay = new StatusCycleEvent($status, $equipment, $event->getDaedalus(), $event->getTime());
-            $this->eventDispatcher->dispatch($statusNewDay, StatusCycleEvent::STATUS_NEW_DAY);
-        }
-
         /** @var EquipmentMechanic $mechanics */
         foreach ($equipment->getEquipment()->getMechanics() as $mechanics) {
-            if ($cycleHandler = $this->equipmentCycleHandler->getEquipmentCycleHandler($mechanics)) {
-                $cycleHandler->handleNewDay($equipment, $event->getDaedalus(), $event->getTime());
+            foreach ($mechanics->getMechanics() as $mechanicName) {
+                if ($cycleHandler = $this->equipmentCycleHandler->getEquipmentCycleHandler($mechanicName)) {
+                    $cycleHandler->handleNewDay($equipment, $event->getDaedalus(), $event->getTime());
+                }
             }
         }
     }

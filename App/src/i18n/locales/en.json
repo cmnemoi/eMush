@@ -1,0 +1,28 @@
+{
+	"title":"Mush - Humanity's last ship, lost in space... with a traitor aboard!",
+	"alpha": {
+		"homepage":"<em>eMush</em> is not currently open to the public as the game is not fully finished and is infested with <em class='red'>Mush</em><em>!!!</em><br><br>If you are interested in the game, feel free to join us on <a href='https://discord.gg/ERc3svy'>Discord</a> and on the <a href='https://eternal-twin.net/forum'>Eternal-Twin forums</a>. All information is available on <a href='https://eternal-twin.net'>Eternal-Twin</a>.<br><br>About the eMush alpha, private ships are regularly being launched with the help of volunteers on <a href='https://discord.gg/ERc3svy'>Discord</a>. To be part of an alpha ship, you will have to register on <a href='https://eternal-twin.net'>Eternal-Twin</a> and join the list of volunteers on <a href='https://discord.gg/ERc3svy'>Discord</a>.<br><br><em>If you are not shortlisted for an alpha ship, don't worry!</em> The selection list rotates for each ship to offer everyone a chance.",
+		"description":"This is an alpha for testers only.",
+		"valide":"Submit",
+		"passphrase":"Alpha Pass Phrase",
+		"doors":"Doors",
+		"inventory":"Inventory",
+		"inventoryDescription":"Click here to open the Room Inventory",
+		"equipement":"Equipement",
+		"player":"Players"
+	},
+	"login":"Login",
+	"logout":"Logout",
+	"deathpage": {
+		"title":"You are dead !",
+		"name":"name",
+		"death":"death",
+		"reason":"reason",
+		"like":"like",
+		"notyet":"Vous serez notifié quand le classement de fin de partie sera publié.",
+		"endgame":"Valider et continuer"
+	},
+	"alerts":"Alerts :",
+	"downloading":"Downloading ...",
+	"loading":"Loading ..."
+}

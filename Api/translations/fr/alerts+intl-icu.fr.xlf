@@ -33,7 +33,7 @@
 
         <unit id="broken_equipments">
             <segment id="name">
-                <source>broken_equipments.name.single</source>
+                <source>broken_equipments.name</source>
                 <target>{quantity, plural, one {# Equipement hors-service} other {# Equipements hors-service}}</target>
             </segment>
             <segment id="description">
@@ -46,13 +46,13 @@
             </segment>
         </unit>
 
-        <unit id="gravity_broken">
+        <unit id="no_gravity">
             <segment id="name">
-                <source>gravity_broken.name</source>
+                <source>no_gravity.name</source>
                 <target>Pas de simulateur de gravité</target>
             </segment>
             <segment id="description">
-                <source>gravity_broken.description</source>
+                <source>no_gravity.description</source>
                 <target>Le Simulateur de gravité n'est pas démarré. Chaque gain de Points de mouvement est réduit de 1 ! Réparez-le pour que NERON puisse rétablir la gravité au cycle d'après.</target>
             </segment>
         </unit>

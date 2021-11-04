@@ -8,7 +8,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\Action;
-use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Enum\DocumentContentEnum;
@@ -34,8 +34,10 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $readBook = $this->getReference(ActionsFixtures::READ_BOOK);
         /** @var Action $buildAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+        /** @var Action $examineAction */
+        $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
+        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
 
         //First Mage Books
         $skillsArray = [SkillEnum::ASTROPHYSICIST,
@@ -67,7 +69,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             $apprenton
                 ->setGameConfig($gameConfig)
                 ->setName(ItemEnum::APPRENTON . '_' . $skillName)
-                ->setIsHeavy(false)
                 ->setIsStackable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
@@ -91,7 +92,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $document
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::DOCUMENT)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -113,7 +113,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $commandersManual
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::COMMANDERS_MANUAL)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -135,7 +134,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $mushResearch
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::MUSH_RESEARCH_REVIEW)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -157,7 +155,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
         $postIt
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::POST_IT)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)

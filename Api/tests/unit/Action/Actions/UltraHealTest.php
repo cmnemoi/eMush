@@ -7,20 +7,19 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\UltraHeal;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Enum\ModifierTargetEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 
 class UltraHealActionTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface | Mockery\Mock */
+    /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
 
-    /** @var PlayerVariableServiceInterface | Mockery\Mock */
+    /** @var PlayerVariableServiceInterface|Mockery\Mock */
     private PlayerVariableServiceInterface $playerVariableService;
 
     /**
@@ -31,7 +30,6 @@ class UltraHealActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::SELF_HEAL);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->playerVariableService = Mockery::mock(PlayerVariableServiceInterface::class);
 
@@ -58,14 +56,15 @@ class UltraHealActionTest extends AbstractActionTest
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem
+            ->setName('item')
             ->setEquipment($item)
-            ->setPlace($room);
+            ->setHolder($room);
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->playerVariableService
             ->shouldReceive('setPlayerVariableToMax')
-            ->with($player, ModifierTargetEnum::HEALTH_POINT);
+            ->with($player, PlayerVariableEnum::HEALTH_POINT);
         $this->playerService->shouldReceive('persist');
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);

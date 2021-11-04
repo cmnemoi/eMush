@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -28,7 +29,16 @@ class CycleService implements CycleServiceInterface
     {
         $gameConfig = $daedalus->getGameConfig();
 
-        $dateDaedalusLastCycle = clone $daedalus->getCycleStartedAt();
+        if (!in_array($daedalus->getGameStatus(), [GameStatusEnum::STARTING, GameStatusEnum::CURRENT])) {
+            return 0;
+        }
+
+        $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
+        if ($dateDaedalusLastCycle === null) {
+            throw new \LogicException('Daedalus should have a CycleStartedAt Value');
+        } else {
+            $dateDaedalusLastCycle = clone $dateDaedalusLastCycle;
+        }
 
         $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $gameConfig);
 
@@ -40,7 +50,11 @@ class CycleService implements CycleServiceInterface
             try {
                 for ($i = 0; $i < $cycleElapsed; ++$i) {
                     $dateDaedalusLastCycle->add(new DateInterval('PT' . strval($gameConfig->getCycleLength()) . 'M'));
-                    $cycleEvent = new DaedalusCycleEvent($daedalus, $dateDaedalusLastCycle);
+                    $cycleEvent = new DaedalusCycleEvent(
+                        $daedalus,
+                        EventEnum::NEW_CYCLE,
+                        $dateDaedalusLastCycle
+                    );
                     $this->eventDispatcher->dispatch($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
                     //Do not continue make cycle if Daedalus is finish
@@ -63,10 +77,14 @@ class CycleService implements CycleServiceInterface
     public function getDateStartNextCycle(Daedalus $daedalus): DateTime
     {
         $gameConfig = $daedalus->getGameConfig();
-        $nextCycleStartAt = clone $daedalus->getCycleStartedAt();
-        $nextCycleStartAt = $nextCycleStartAt->add(new DateInterval('PT' . strval($gameConfig->getCycleLength()) . 'M'));
 
-        return $nextCycleStartAt;
+        if (($dateDaedalusLastCycle = $daedalus->getCycleStartedAt()) === null) {
+            throw new \LogicException('Daedalus should have a CycleStartedAt Value');
+        }
+
+        $nextCycleStartAt = clone $dateDaedalusLastCycle;
+
+        return $nextCycleStartAt->add(new DateInterval('PT' . strval($gameConfig->getCycleLength()) . 'M'));
     }
 
     //get day cycle from date (value between 1 and $gameConfig->getCyclePerGameDay())
@@ -83,7 +101,7 @@ class CycleService implements CycleServiceInterface
 
     /**
      * Get Daedalus first cycle date
-     * First actual cycle of the ship (ie 3h cycle in fr, if the ship start C8, then it will be 21h:00).
+     * First actual cycle of the ship (ie: for 3h cycle in fr, if the ship start C8, then it will be 21h:00).
      */
     public function getDaedalusStartingCycleDate(Daedalus $daedalus): DateTime
     {

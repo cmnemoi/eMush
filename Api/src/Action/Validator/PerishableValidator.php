@@ -5,6 +5,7 @@ namespace Mush\Action\Validator;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Ration;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -27,7 +28,7 @@ class PerishableValidator extends ConstraintValidator
         }
 
         /** @var Ration $rationMechanic */
-        $rationMechanic = $parameter->getEquipment()->getRationsMechanic();
+        $rationMechanic = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
 
         if (!$rationMechanic || !$rationMechanic->isPerishable()) {
             $this->context->buildViolation($constraint->message)

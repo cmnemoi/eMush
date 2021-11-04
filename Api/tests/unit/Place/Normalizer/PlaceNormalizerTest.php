@@ -3,14 +3,15 @@
 namespace Mush\Test\Place\Normalizer;
 
 use Mockery;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Normalizer\PlaceNormalizer;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +21,7 @@ class PlaceNormalizerTest extends TestCase
 {
     private PlaceNormalizer $normalizer;
 
-    /** @var TranslationServiceInterface | Mockery\Mock */
+    /** @var TranslationServiceInterface|Mockery\Mock */
     private TranslationServiceInterface $translationService;
 
     /**
@@ -187,8 +188,9 @@ class PlaceNormalizerTest extends TestCase
         $gameItem2 = $this->createGameItem('name', true);
         $gameItem3 = $this->createGameItem('name', true);
 
-        $status = new Status($gameItem3);
-        $status->setName(EquipmentStatusEnum::FROZEN);
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(EquipmentStatusEnum::FROZEN);
+        $status = new Status($gameItem3, $statusConfig);
 
         $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 

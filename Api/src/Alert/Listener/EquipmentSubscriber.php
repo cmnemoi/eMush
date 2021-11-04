@@ -2,10 +2,9 @@
 
 namespace Mush\Alert\Listener;
 
+use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
@@ -21,40 +20,29 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_FIXED => 'onEquipmentFixed',
-            EquipmentEvent::EQUIPMENT_BROKEN => 'onEquipmentBroken',
-            EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
+            EquipmentEvent::EQUIPMENT_TRANSFORM => 'onEquipmentTransform',
         ];
     }
 
-    public function onEquipmentDestroyed(EquipmentEvent $event): void
+    public function onEquipmentTransform(EquipmentEvent $event): void
     {
-        $equipment = $event->getEquipment();
+        $newEquipment = $event->getNewEquipment();
+        $oldEquipment = $event->getExistingEquipment();
 
-        if ($equipment->hasStatus(EquipmentStatusEnum::BROKEN)) {
-            $this->alertService->handleEquipmentRepair($equipment);
+        if ($newEquipment === null || $oldEquipment === null) {
+            throw new \LogicException('2 equipments should be provided');
         }
-    }
 
-    public function onEquipmentBroken(EquipmentEvent $event): void
-    {
-        $equipment = $event->getEquipment();
+        if ($oldEquipment->isBroken()) {
+            $alert = $this->alertService->findByNameAndDaedalus(AlertEnum::BROKEN_EQUIPMENTS, $event->getPlace()->getDaedalus());
 
-        $this->alertService->handleEquipmentBreak($equipment);
+            if ($alert === null) {
+                throw new \LogicException('there should be a broken alert on this Daedalus');
+            }
 
-        if ($equipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR) {
-            $this->alertService->gravityAlert($equipment->getCurrentPlace()->getDaedalus(), true);
-        }
-    }
+            $alertElement = $this->alertService->getAlertEquipmentElement($alert, $oldEquipment);
 
-    public function onEquipmentFixed(EquipmentEvent $event): void
-    {
-        $equipment = $event->getEquipment();
-
-        $this->alertService->handleEquipmentRepair($equipment);
-
-        if ($equipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR) {
-            $this->alertService->gravityAlert($equipment->getCurrentPlace()->getDaedalus(), false);
+            $alertElement->setEquipment($newEquipment);
         }
     }
 }

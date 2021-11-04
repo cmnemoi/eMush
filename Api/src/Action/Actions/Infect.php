@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -15,6 +14,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -43,7 +43,7 @@ class Infect extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof Player;
     }
@@ -73,7 +73,7 @@ class Infect extends AbstractAction
         /** @var Player $parameter */
         $parameter = $this->parameter;
 
-        $playerEvent = new PlayerEvent($parameter, new \DateTime());
+        $playerEvent = new PlayerEvent($parameter, $this->getActionName(), new \DateTime());
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         /** @var ChargeStatus $sporeStatus */
@@ -86,6 +86,6 @@ class Infect extends AbstractAction
         $mushStatus->addCharge(-1);
         $this->statusService->persist($mushStatus);
 
-        return new Success($this->parameter);
+        return new Success();
     }
 }

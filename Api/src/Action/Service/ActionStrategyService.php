@@ -7,10 +7,10 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ActionStrategyService implements ActionStrategyServiceInterface
@@ -64,7 +64,7 @@ class ActionStrategyService implements ActionStrategyServiceInterface
         return $actionService->execute();
     }
 
-    private function loadParameter(?array $parameter): ?ActionParameter
+    private function loadParameter(?array $parameter): ?LogParameterInterface
     {
         if ($parameter !== null) {
             if (($equipmentId = $parameter['door'] ?? null) ||

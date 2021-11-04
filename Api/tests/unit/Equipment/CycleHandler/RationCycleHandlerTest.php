@@ -6,22 +6,23 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\CycleHandler\RationCycleHandler;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Event\StatusEvent;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RationCycleHandlerTest extends TestCase
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusService;
+    /** @var EventDispatcherInterface|Mockery\Mock */
+    private EventDispatcherInterface $eventDispatcher;
 
     private RationCycleHandler $rationCycleHandler;
 
@@ -31,11 +32,11 @@ class RationCycleHandlerTest extends TestCase
     public function before()
     {
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
 
         $this->rationCycleHandler = new RationCycleHandler(
             $this->gameEquipmentService,
-            $this->statusService
+            $this->eventDispatcher
         );
     }
 
@@ -60,15 +61,19 @@ class RationCycleHandlerTest extends TestCase
             ->setEquipment($fruit)
         ;
 
-        $frozen = new Status($gameFruit);
-        $frozen->setName(EquipmentStatusEnum::FROZEN);
+        $frozenConfig = new StatusConfig();
+        $frozenConfig->setName(EquipmentStatusEnum::FROZEN);
+        $frozen = new Status($gameFruit, $frozenConfig);
 
-        $unstable = new Status(new GameItem());
-        $unstable->setName(EquipmentStatusEnum::UNSTABLE);
-        $hazardous = new Status(new GameItem());
-        $hazardous->setName(EquipmentStatusEnum::HAZARDOUS);
-        $decomposing = new Status(new GameItem());
-        $decomposing->setName(EquipmentStatusEnum::DECOMPOSING);
+        $unstableConfig = new StatusConfig();
+        $unstableConfig->setName(EquipmentStatusEnum::UNSTABLE);
+        $unstable = new Status(new GameItem(), $unstableConfig);
+        $hazardousConfig = new StatusConfig();
+        $hazardousConfig->setName(EquipmentStatusEnum::HAZARDOUS);
+        $hazardous = new Status(new GameItem(), $hazardousConfig);
+        $decomposingConfig = new StatusConfig();
+        $decomposingConfig->setName(EquipmentStatusEnum::DECOMPOSING);
+        $decomposing = new Status(new GameItem(), $decomposingConfig);
 
         //frozen
         $this->gameEquipmentService->shouldReceive('persist')->once();
@@ -80,16 +85,11 @@ class RationCycleHandlerTest extends TestCase
 
         //unfrozen day 1
         $this->gameEquipmentService->shouldReceive('persist')->once();
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->with(EquipmentStatusEnum::UNSTABLE,
-                $gameFruit,
-                null,
-                VisibilityEnum::HIDDEN
-            )
-            ->andReturn($unstable)
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::UNSTABLE && $event->getStatusHolder() === $gameFruit)
             ->once()
-    ;
+        ;
 
         $this->rationCycleHandler->handleNewDay($gameFruit, $daedalus, new \DateTime());
         $this->assertCount(0, $gameFruit->getStatuses());
@@ -98,14 +98,9 @@ class RationCycleHandlerTest extends TestCase
 
         //day 2
         $this->gameEquipmentService->shouldReceive('persist')->once();
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->with(EquipmentStatusEnum::HAZARDOUS,
-                    $gameFruit,
-                    null,
-                    VisibilityEnum::HIDDEN
-                )
-            ->andReturn($hazardous)
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::HAZARDOUS && $event->getStatusHolder() === $gameFruit)
             ->once()
         ;
 
@@ -116,14 +111,10 @@ class RationCycleHandlerTest extends TestCase
 
         //day 3
         $this->gameEquipmentService->shouldReceive('persist')->once();
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->with(EquipmentStatusEnum::DECOMPOSING,
-                    $gameFruit,
-                    null,
-                    VisibilityEnum::HIDDEN
-                )
-            ->andReturn($decomposing)
+
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::DECOMPOSING && $event->getStatusHolder() === $gameFruit)
             ->once()
         ;
 

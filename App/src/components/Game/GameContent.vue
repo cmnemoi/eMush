@@ -7,7 +7,7 @@
             </div>
             <div class="game-content">
                 <CharPanel :player="player" />
-                <ShipPanel :room="player.room" />
+                <ShipPanel :room="player.room" :player="player" />
                 <CommsPanel :day="player.daedalus.day" :cycle="player.daedalus.cycle" />
             </div>
             <ProjectsPanel />
@@ -19,17 +19,18 @@
     </div>
 </template>
 
-<script>
-import BannerPanel from "@/components/Game/BannerPanel";
-import CharPanel from "@/components/Game/CharPanel";
-import ShipPanel from "@/components/Game/Ship/ShipPanel";
-import CommsPanel from "@/components/Game/Communications/CommsPanel";
-import ProjectsPanel from "@/components/Game/ProjectsPanel";
+<script lang="ts">
+import BannerPanel from "@/components/Game/BannerPanel.vue";
+import CharPanel from "@/components/Game/CharPanel.vue";
+import ShipPanel from "@/components/Game/Ship/ShipPanel.vue";
+import CommsPanel from "@/components/Game/Communications/CommsPanel.vue";
+import ProjectsPanel from "@/components/Game/ProjectsPanel.vue";
 import { mapActions, mapState } from "vuex";
-import Purgatory from "@/components/PurgatoryPage";
-import InvitationPrivateChannelMenu from "@/components/Game/Communications/InvitationPrivateChannelMenu";
+import Purgatory from "@/components/PurgatoryPage.vue";
+import InvitationPrivateChannelMenu from "@/components/Game/Communications/InvitationPrivateChannelMenu.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: 'GameContent',
     components: {
         InvitationPrivateChannelMenu,
@@ -48,7 +49,7 @@ export default {
             'player'
         ])
     },
-    beforeMount() {
+    beforeMount(): void {
         this.loadPlayer({ playerId: this.playerId });
     },
     methods: {
@@ -56,7 +57,7 @@ export default {
             'loadPlayer'
         ])
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

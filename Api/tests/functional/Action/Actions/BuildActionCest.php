@@ -8,14 +8,14 @@ use Mush\Action\Actions\Build;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 
 class BuildActionCest
@@ -47,7 +47,7 @@ class BuildActionCest
 
         $I->assertFalse($this->buildAction->isVisible());
 
-        $gameEquipment->setPlace($room1);
+        $gameEquipment->setHolder($room1);
 
         $I->assertTrue($this->buildAction->isVisible());
     }
@@ -100,7 +100,7 @@ class BuildActionCest
         $equipment->setName($name);
         $gameEquipment
             ->setEquipment($equipment)
-            ->setPlace($place)
+            ->setHolder($place)
             ->setName($name)
         ;
 

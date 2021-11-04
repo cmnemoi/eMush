@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\CycleHandler;
 
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -9,18 +10,22 @@ use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
+use Mush\Game\Enum\EventEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Validator\Exception\LogicException;
 
 class PlantCycleHandler extends AbstractCycleHandler
 {
@@ -29,24 +34,18 @@ class PlantCycleHandler extends AbstractCycleHandler
     private EventDispatcherInterface $eventDispatcher;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
-    private RoomLogServiceInterface $roomLogService;
-    private StatusServiceInterface $statusService;
     private EquipmentEffectServiceInterface $equipmentEffectService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
-        RoomLogServiceInterface $roomLogService,
-        StatusServiceInterface $statusService,
         EquipmentEffectServiceInterface $equipmentEffectService
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
-        $this->roomLogService = $roomLogService;
         $this->equipmentEffectService = $equipmentEffectService;
-        $this->statusService = $statusService;
     }
 
     public function handleNewCycle($object, $daedalus, \DateTime $dateTime, array $context = []): void
@@ -71,19 +70,15 @@ class PlantCycleHandler extends AbstractCycleHandler
         if ($youngStatus &&
             $youngStatus->getCharge() >= $plantEffect->getMaturationTime()
         ) {
-            $place = $gamePlant->getCurrentPlace();
-
-            $gamePlant->removeStatus($youngStatus);
-            $this->roomLogService->createLog(
-                PlantLogEnum::PLANT_MATURITY,
-                $place,
-                VisibilityEnum::PUBLIC,
-                'event_log',
-                null,
+            $statusEvent = new StatusEvent(
+                EquipmentStatusEnum::PLANT_YOUNG,
                 $gamePlant,
-                null,
+                EventEnum::NEW_CYCLE,
                 $dateTime
             );
+            $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
+
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
         }
 
         $diseaseRate = $daedalus->getGameConfig()->getDifficultyConfig()->getPlantDiseaseRate();
@@ -91,10 +86,10 @@ class PlantCycleHandler extends AbstractCycleHandler
         if ($this->randomService->isSuccessful($diseaseRate) &&
             !$gamePlant->hasStatus(EquipmentStatusEnum::PLANT_DISEASED)
         ) {
-            $this->statusService->createCoreStatus(EquipmentStatusEnum::PLANT_DISEASED, $gamePlant);
-        }
+            $statusEvent = new StatusEvent(EquipmentStatusEnum::PLANT_DISEASED, $gamePlant, EventEnum::NEW_CYCLE, new \DateTime());
 
-        $this->gameEquipmentService->persist($gamePlant);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        }
     }
 
     public function handleNewDay($object, $daedalus, \DateTime $dateTime, array $context = []): void
@@ -139,8 +134,6 @@ class PlantCycleHandler extends AbstractCycleHandler
         }
 
         $this->handleStatus($gamePlant, $dateTime);
-
-        $this->gameEquipmentService->persist($gamePlant);
     }
 
     private function handleStatus(GameItem $gamePlant, \DateTime $dateTime): void
@@ -148,51 +141,48 @@ class PlantCycleHandler extends AbstractCycleHandler
         // If plant was thirsty, become dried
         if (($thirsty = $gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)) !== null) {
             $gamePlant->removeStatus($thirsty);
-            $driedStatus = $this->statusService
-                ->createCoreStatus(EquipmentStatusEnum::PLANT_DRY, $gamePlant)
-            ;
-            $gamePlant->addStatus($driedStatus);
+            $statusEvent = new StatusEvent(EquipmentStatusEnum::PLANT_DRY, $gamePlant, EventEnum::NEW_CYCLE, new \DateTime());
+
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         // If plant was dried, become hydropot
         } elseif ($gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_DRY) !== null) {
             $this->handleDriedPlant($gamePlant, $dateTime);
         // If plant was not thirsty or dried become thirsty
         } else {
-            $thirstyStatus = $this->statusService
-                ->createCoreStatus(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant)
-            ;
-            $gamePlant->addStatus($thirstyStatus);
+            $statusEvent = new StatusEvent(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant, EventEnum::NEW_CYCLE, new \DateTime());
+
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         }
     }
 
     private function handleDriedPlant(GameItem $gamePlant, \DateTime $dateTime): void
     {
-        $place = $gamePlant->getCurrentPlace();
+        $place = $gamePlant->getPlace();
+        $holder = $gamePlant->getHolder();
+
+        if ($holder === null) {
+            throw new LogicException('Equipment holder is empty');
+        }
 
         // Create a new hydropot
-        /** @var GameItem $hydropot */
-        $hydropot = $this->gameEquipmentService->createGameEquipmentFromName(ItemEnum::HYDROPOT, $place->getDaedalus());
-
-        if ($player = $gamePlant->getPlayer()) {
-            $gamePlant->setPlayer(null);
-            $hydropot->setPlayer($player);
-        } else {
-            $gamePlant->setPlace(null);
-            $hydropot->setPlace($place);
-        }
-        $this->roomLogService->createLog(
-            PlantLogEnum::PLANT_DEATH,
+        $equipmentEvent = new EquipmentEvent(
+            $gamePlant->getName(),
             $place,
             VisibilityEnum::PUBLIC,
-            'event_log',
-            null,
-            $gamePlant,
-            null,
-            $dateTime
+            PlantLogEnum::PLANT_DEATH,
+            new \DateTime()
         );
+        $equipmentEvent->setExistingEquipment($gamePlant);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        $gamePlant->removeLocation();
-        $this->gameEquipmentService->delete($gamePlant); // Remove plant
-        $this->gameEquipmentService->persist($hydropot); // Add hydropot
+        $equipmentEvent = new EquipmentEvent(
+            ItemEnum::HYDROPOT,
+            $holder,
+            VisibilityEnum::HIDDEN,
+            PlantLogEnum::PLANT_DEATH,
+            new \DateTime()
+        );
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
     }
 
     private function addFruit(GameItem $gamePlant, Plant $plantType, \DateTime $dateTime): void
@@ -215,35 +205,31 @@ class PlantCycleHandler extends AbstractCycleHandler
             return;
         }
         // If plant is not in a room, it is in player inventory
-        $place = $gamePlant->getCurrentPlace();
+        $place = $gamePlant->getPlace();
 
-        /** @var GameItem $gameFruit */
-        $gameFruit = $this->gameEquipmentService->createGameEquipment($plantType->getFruit(), $place->getDaedalus());
-
-        $gameFruit->setPlace($place);
-
-        $this->gameEquipmentService->persist($gameFruit);
-
-        $this->roomLogService->createLog(
-            PlantLogEnum::PLANT_NEW_FRUIT,
+        $equipmentEvent = new EquipmentEvent(
+            $plantType->getFruit()->getName(),
             $place,
             VisibilityEnum::PUBLIC,
-            'event_log',
-            null,
-            $gameFruit,
-            null,
+            EventEnum::PLANT_PRODUCTION,
             $dateTime
         );
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
     }
 
     private function addOxygen(GameItem $gamePlant, PlantEffect $plantEffect, \DateTime $date): void
     {
-        $daedalus = $gamePlant->getCurrentPlace()->getDaedalus();
+        $daedalus = $gamePlant->getPlace()->getDaedalus();
         //Add Oxygen
         if (($oxygen = $plantEffect->getOxygen())) {
-            $daedalusEvent = new DaedalusModifierEvent($daedalus, $date);
-            $daedalusEvent->setQuantity($oxygen);
-            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_OXYGEN);
+            $daedalusEvent = new DaedalusModifierEvent(
+                $daedalus,
+                DaedalusVariableEnum::OXYGEN,
+                $oxygen,
+                EventEnum::PLANT_PRODUCTION,
+                $date
+            );
+            $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 }

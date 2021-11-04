@@ -17,13 +17,13 @@ use PHPUnit\Framework\TestCase;
 
 class NeronMessageServiceTest extends TestCase
 {
-    /** @var EntityManagerInterface | Mockery\mock */
+    /** @var EntityManagerInterface|Mockery\mock */
     private EntityManagerInterface $entityManager;
-    /** @var ChannelServiceInterface | Mockery\Mock */
+    /** @var ChannelServiceInterface|Mockery\Mock */
     private ChannelServiceInterface $channelService;
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var MessageRepository | Mockery\Mock */
+    /** @var MessageRepository|Mockery\Mock */
     private MessageRepository $repository;
 
     private NeronMessageServiceInterface $service;

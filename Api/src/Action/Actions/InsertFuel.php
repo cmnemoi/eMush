@@ -4,37 +4,24 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Fuel;
 use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class InsertFuel extends AbstractAction
 {
     protected string $name = ActionEnum::INSERT_FUEL;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator
-        );
-    }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -45,7 +32,7 @@ class InsertFuel extends AbstractAction
         ]);
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameItem;
     }
@@ -56,14 +43,25 @@ class InsertFuel extends AbstractAction
         $item = $this->getParameter();
 
         //delete the item
-        $equipmentEvent = new EquipmentEvent($item, VisibilityEnum::HIDDEN, new \DateTime());
-        $equipmentEvent->setPlayer($this->player);
+        $equipmentEvent = new EquipmentEvent(
+            $item->getName(),
+            $this->player,
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $equipmentEvent->setExistingEquipment($item);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        //add Oxygen
-        $daedalusEvent = new DaedalusModifierEvent($this->player->getDaedalus(), new \DateTime());
-        $daedalusEvent->setQuantity(1);
-        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_FUEL);
+        //add Fuel
+        $daedalusEvent = new DaedalusModifierEvent(
+            $this->player->getDaedalus(),
+            DaedalusVariableEnum::FUEL,
+            1,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         return new Success();
     }

@@ -8,22 +8,20 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Hide;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
-use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Event\StatusEvent;
 
 class HideActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface | Mockery\Mock */
-    private PlayerServiceInterface $playerService;
-    /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -35,16 +33,12 @@ class HideActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::HIDE, 1);
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new Hide(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService,
-            $this->statusService,
-            $this->playerService,
         );
     }
 
@@ -74,20 +68,36 @@ class HideActionTest extends AbstractActionTest
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
-        $this->statusService->shouldReceive('createCoreStatus')->once();
+
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
+                $event->getStatusName() === EquipmentStatusEnum::HIDDEN &&
+                $event->getStatusHolder() === $gameItem &&
+                $event->getStatusTarget() === $player
+            )
+            ->once()
+        ;
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
+                $event->getEquipmentName() === 'itemName' &&
+                $event->getHolder() === $room &&
+                $event->getExistingEquipment() === $gameItem &&
+                $event->getReason() === ActionEnum::HIDE
+            )
+            ->once()
+        ;
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $player->getItems());
     }
 }

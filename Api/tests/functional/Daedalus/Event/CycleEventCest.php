@@ -10,25 +10,26 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Daedalus\Event\DaedalusCycleSubscriber;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CycleEventCest
 {
-    private DaedalusCycleSubscriber $cycleSubscriber;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function _before(FunctionalTester $I)
     {
-        $this->cycleSubscriber = $I->grabService(DaedalusCycleSubscriber::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testLieDownStatusCycleSubscriber(FunctionalTester $I)
@@ -60,20 +61,16 @@ class CycleEventCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $I->haveInRepository($gameEquipment);
 
-        $time = new DateTime();
-
-        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
-
-        $status = new Status($player);
-
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(PlayerStatusEnum::LYING_DOWN);
+        $I->haveInRepository($statusConfig);
+        $status = new Status($player, $statusConfig);
         $status
-            ->setName(PlayerStatusEnum::LYING_DOWN)
-            ->setVisibility(VisibilityEnum::PUBLIC)
             ->setTarget($gameEquipment)
         ;
 
@@ -82,7 +79,8 @@ class CycleEventCest
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus, $gameEquipment);
 
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
+        $event = new DaedalusCycleEvent($daedalus, EventEnum::NEW_CYCLE, new DateTime());
+        $this->eventDispatcher->dispatch($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         $I->assertEquals(4, $player->getActionPoint());
     }
@@ -125,11 +123,8 @@ class CycleEventCest
             ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig2, 'healthPoint' => 99]
         );
 
-        $time = new DateTime();
-
-        $cycleEvent = new DaedalusCycleEvent($daedalus, $time);
-
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
+        $event = new DaedalusCycleEvent($daedalus, EventEnum::NEW_CYCLE, new DateTime());
+        $this->eventDispatcher->dispatch($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         $I->assertEquals(0, $daedalus->getOxygen());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerAlive());

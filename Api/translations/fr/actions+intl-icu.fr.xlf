@@ -31,6 +31,16 @@
                 <target>Permet de distiller une nouvelle petite gourmandise.</target>
             </segment>
         </unit>
+        <unit id="do_the_thing">
+            <segment id="name">
+                <source>do_the_thing.name</source>
+                <target>Le faire</target>
+            </segment>
+            <segment id="description">
+                <source>do_the_thing.description</source>
+                <target>Permet de le faire.</target>
+            </segment>
+        </unit>
         <unit id="consume">
             <segment id="consume">
                 <source>consume.name</source>
@@ -99,6 +109,16 @@
             <segment id="description">
                 <source>extract_spore.description</source>
                 <target>Extirpez-vous un spore pour ensuite contaminer un coéquipier (avant de contaminer repérez les caméras).</target>
+            </segment>
+        </unit>
+        <unit id="flirt">
+            <segment id="name">
+                <source>flirt.name</source>
+                <target>Fleureter</target>
+            </segment>
+            <segment id="description">
+                <source>flirt.description</source>
+                <target>Permet de fleureter avec quelqu'un, cela lui permettra de le faire avec vous. Cette action est **irrémédiable**.</target>
             </segment>
         </unit>
         <unit id="get_up">
@@ -420,6 +440,66 @@
             <segment id="description">
                 <source>strengthen_hull.description</source>
                 <target>Permet de faire des réparation sur la coque du Daedalus.</target>
+            </segment>
+        </unit>
+        <unit id="spread_fire">
+            <segment id="name">
+                <source>spread_fire.name</source>
+                <target>Mettre le feu</target>
+            </segment>
+            <segment id="description">
+                <source>spread_fire.description</source>
+                <target>Permet de satisfaire un des besoins de NERON... et vos intérêts.</target>
+            </segment>
+        </unit>
+        <unit id="install_camera">
+            <segment id="name">
+                <source>install_camera.name</source>
+                <target>Installer</target>
+            </segment>
+            <segment id="description">
+                <source>install_camera.description</source>
+                <target>Cette action permet d'installer un matériel pour le rendre fonctionnel.</target>
+            </segment>
+        </unit>
+        <unit id="remove_camera">
+            <segment id="name">
+                <source>remove_camera.name</source>
+                <target>Installer</target>
+            </segment>
+            <segment id="description">
+                <source>remove_camera.description</source>
+                <target>Cette action permet d'enlever un matériel pour le rendre inopérant ou le déplacer.</target>
+            </segment>
+        </unit>
+        <unit id="examine">
+            <segment id="name">
+                <source>examine.name</source>
+                <target>Examiner</target>
+            </segment>
+            <segment id="description">
+                <source>examine.description</source>
+                <target>Qu'est ce donc que cette petite chose ?</target>
+            </segment>
+        </unit>
+        <unit id="report_equipment">
+            <segment id="name">
+                <source>report_equipment.name</source>
+                <target>Signaler</target>
+            </segment>
+            <segment id="description">
+                <source>report_equipment.description</source>
+                <target>Permet de faire remonter l'information et ainsi vous faire remarquer au passage.</target>
+            </segment>
+        </unit>
+        <unit id="report_fire">
+            <segment id="name">
+                <source>report_fire.name</source>
+                <target>Signaler : Incendie</target>
+            </segment>
+            <segment id="description">
+                <source>report_fire.description</source>
+                <target>Oui, faire part à vos colègues de cet incendie est une bonne idée.</target>
             </segment>
         </unit>
     </file>

@@ -30,16 +30,12 @@ abstract class AttemptAction extends AbstractAction
 
     protected function makeAttempt(): ActionResult
     {
-        $attempt = $this->actionService->getAttempt($this->player, $this->getActionName());
-
         $successChance = $this->getSuccessRate();
 
         if ($this->randomService->isSuccessful($successChance)) {
-            $this->player->removeStatus($attempt);
             $response = new Success();
         } else {
             $response = new Fail();
-            $attempt->addCharge(1);
         }
 
         return $response;
@@ -47,6 +43,6 @@ abstract class AttemptAction extends AbstractAction
 
     public function getSuccessRate(): int
     {
-        return $this->actionService->getSuccessRate($this->action, $this->player);
+        return $this->actionService->getSuccessRate($this->action, $this->player, $this->parameter);
     }
 }

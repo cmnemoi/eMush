@@ -212,6 +212,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($antiGravScooter);
 
+        $rollingBoulderGear = $this->createGear([GearModifierConfigFixtures::ROLLING_BOULDER]);
         $rollingBoulder = new ItemConfig();
         $rollingBoulder
             ->setGameConfig($gameConfig)
@@ -220,9 +221,11 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setActions($actions)
+            ->setMechanics(new ArrayCollection([$rollingBoulderGear]))
             ->setInitStatus(new ArrayCollection([$alienArtifactStatus]))
         ;
         $manager->persist($rollingBoulder);
+        $manager->persist($rollingBoulderGear);
 
         $actions12 = clone $actions;
         $actions12->add($repair12);

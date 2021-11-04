@@ -47,15 +47,15 @@ class StatusSubscriber implements EventSubscriberInterface
                 case $holder instanceof Player:
                     $this->modifierService->createModifier($modifierConfig, $holder->getDaedalus(), $holder->getPlace(), $holder, null);
 
-                    return;
+                    break;
                 case $holder instanceof Place:
                     $this->modifierService->createModifier($modifierConfig, $holder->getDaedalus(), $holder, null, null);
 
-                    return;
+                    break;
                 case $holder instanceof GameEquipment:
                     $this->modifierService->createModifier($modifierConfig, $holder->getPlace()->getDaedalus(), $holder->getPlace(), null, $holder);
 
-                    return;
+                    break;
             }
         }
 
@@ -88,15 +88,15 @@ class StatusSubscriber implements EventSubscriberInterface
                 case $holder instanceof Player:
                     $this->modifierService->deleteModifier($modifierConfig, $holder->getDaedalus(), $holder->getPlace(), $holder, null);
 
-                    return;
+                    break;
                 case $holder instanceof Place:
                     $this->modifierService->deleteModifier($modifierConfig, $holder->getDaedalus(), $holder, null, null);
 
-                    return;
+                    break;
                 case $holder instanceof GameEquipment:
                     $this->modifierService->deleteModifier($modifierConfig, $holder->getPlace()->getDaedalus(), $holder->getPlace(), null, $holder);
 
-                    return;
+                    break;
             }
         }
     }

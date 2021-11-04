@@ -30,6 +30,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
     public const SOAP_MODIFIER = 'soap_modifier';
     public const AIM_MODIFIER = 'aim_modifier';
     public const SCOOTER_MODIFIER = 'scooter_modifier';
+    public const ROLLING_BOULDER = 'rolling_boulder';
     public const OSCILLOSCOPE_SUCCESS_MODIFIER = 'oscilloscope_success_modifier';
     public const OSCILLOSCOPE_REPAIR_MODIFIER = 'oscilloscope_repair_modifier';
     public const ANTENNA_MODIFIER = 'antenna_modifier';
@@ -120,6 +121,22 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         ;
         $manager->persist($antiGravScooterModifier);
 
+        $evenCyclesCondition = new ModifierCondition(ModifierConditionEnum::CYCLE);
+        $evenCyclesCondition->setCondition(ModifierConditionEnum::EVEN);
+        $manager->persist($evenCyclesCondition);
+
+        $rollingBoulderModifier = new ModifierConfig();
+        $rollingBoulderModifier
+            ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
+            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setDelta(1)
+            ->setReach(ModifierReachEnum::PLAYER)
+            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setGameConfig($gameConfig)
+            ->addModifierCondition($evenCyclesCondition)
+        ;
+        $manager->persist($rollingBoulderModifier);
+
         $oscilloscopeSuccessModifier = new ModifierConfig();
         $oscilloscopeSuccessModifier
             ->setScope(ActionEnum::STRENGTHEN_HULL)
@@ -131,6 +148,10 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         ;
         $manager->persist($oscilloscopeSuccessModifier);
 
+        $strengthenCondition = new ModifierCondition(ModifierConditionEnum::REASON);
+        $strengthenCondition->setCondition(ActionEnum::STRENGTHEN_HULL);
+        $manager->persist($strengthenCondition);
+
         $oscilloscopeRepairModifier = new ModifierConfig();
         $oscilloscopeRepairModifier
             ->setScope(AbstractQuantityEvent::CHANGE_VARIABLE)
@@ -139,6 +160,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
             ->setGameConfig($gameConfig)
+            ->addModifierCondition($strengthenCondition)
         ;
         $manager->persist($oscilloscopeRepairModifier);
 
@@ -200,6 +222,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $this->addReference(self::SOAP_MODIFIER, $soapModifier);
         $this->addReference(self::AIM_MODIFIER, $aimModifier);
         $this->addReference(self::SCOOTER_MODIFIER, $antiGravScooterModifier);
+        $this->addReference(self::ROLLING_BOULDER, $rollingBoulderModifier);
         $this->addReference(self::OSCILLOSCOPE_SUCCESS_MODIFIER, $oscilloscopeSuccessModifier);
         $this->addReference(self::OSCILLOSCOPE_REPAIR_MODIFIER, $oscilloscopeRepairModifier);
         $this->addReference(self::ANTENNA_MODIFIER, $antennaModifier);

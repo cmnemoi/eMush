@@ -14,6 +14,7 @@ use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -59,7 +60,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         $consumableEffect = $this->equipmentServiceEffect->getConsumableEffect($rationType, $player->getDaedalus());
 
         if (!$player->isMush()) {
-            $this->dispatchConsumableEffects($consumableEffect, $player);
+            $this->dispatchConsumableEffects($consumableEffect, $player, $ration->hasStatus(EquipmentStatusEnum::FROZEN));
         } else {
             $this->dispatchMushEffect($player);
         }
@@ -68,7 +69,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         $this->gameEquipmentService->delete($ration);
     }
 
-    protected function dispatchConsumableEffects(ConsumableEffect $consumableEffect, Player $player): void
+    protected function dispatchConsumableEffects(ConsumableEffect $consumableEffect, Player $player, bool $isFrozen): void
     {
         if (($delta = $consumableEffect->getActionPoint()) !== null) {
             $playerModifierEvent = new PlayerModifierEvent(
@@ -100,7 +101,8 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             );
             $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
-        if (($delta = $consumableEffect->getMoralPoint()) !== null) {
+        if (($delta = $consumableEffect->getMoralPoint()) !== null &&
+            !($isFrozen && $delta > 0)) {
             $playerModifierEvent = new PlayerModifierEvent(
                 $player,
                 PlayerVariableEnum::MORAL_POINT,

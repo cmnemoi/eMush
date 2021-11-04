@@ -53,7 +53,7 @@ class AlertServiceTest extends TestCase
     public function testNoOxygenAlert()
     {
         $daedalus = new Daedalus();
-        $daedalus->setOxygen(20);
+        $daedalus->setOxygen(15);
 
         //oxygen don't go bellow the threshold of 8 oxygen
         $this->entityManager->shouldReceive('persist')->never();
@@ -61,26 +61,26 @@ class AlertServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->never();
         $this->repository->shouldReceive('findOneBy')->once();
 
-        $this->alertService->oxygenAlert($daedalus, -5);
+        $this->alertService->oxygenAlert($daedalus);
     }
 
     public function testOxygenAlert()
     {
         $daedalus = new Daedalus();
-        $daedalus->setOxygen(9);
+        $daedalus->setOxygen(8);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('remove')->never();
         $this->entityManager->shouldReceive('flush')->once();
         $this->repository->shouldReceive('findOneBy')->once();
 
-        $this->alertService->oxygenAlert($daedalus, -1);
+        $this->alertService->oxygenAlert($daedalus);
     }
 
     public function testSolveOxygenAlert()
     {
         $daedalus = new Daedalus();
-        $daedalus->setOxygen(7);
+        $daedalus->setOxygen(9);
 
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::LOW_OXYGEN);
@@ -93,13 +93,13 @@ class AlertServiceTest extends TestCase
         $this->entityManager->shouldReceive('remove')->with($alert)->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->alertService->oxygenAlert($daedalus, 2);
+        $this->alertService->oxygenAlert($daedalus);
     }
 
     public function testNoHullAlert()
     {
         $daedalus = new Daedalus();
-        $daedalus->setHull(100);
+        $daedalus->setHull(95);
 
         //oxygen don't go bellow the threshold of 8 oxygen
         $this->entityManager->shouldReceive('persist')->never();
@@ -107,26 +107,26 @@ class AlertServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->never();
         $this->repository->shouldReceive('findOneBy')->once();
 
-        $this->alertService->hullAlert($daedalus, -5);
+        $this->alertService->hullAlert($daedalus);
     }
 
     public function testHullAlert()
     {
         $daedalus = new Daedalus();
-        $daedalus->setHull(100);
+        $daedalus->setHull(20);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('remove')->never();
         $this->entityManager->shouldReceive('flush')->once();
         $this->repository->shouldReceive('findOneBy')->once();
 
-        $this->alertService->hullAlert($daedalus, -80);
+        $this->alertService->hullAlert($daedalus);
     }
 
     public function testSolveHullAlert()
     {
         $daedalus = new Daedalus();
-        $daedalus->setHull(10);
+        $daedalus->setHull(90);
 
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::LOW_HULL);
@@ -139,7 +139,7 @@ class AlertServiceTest extends TestCase
         $this->entityManager->shouldReceive('remove')->with($alert)->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->alertService->hullAlert($daedalus, 80);
+        $this->alertService->hullAlert($daedalus);
     }
 
     public function testGravityAlert()

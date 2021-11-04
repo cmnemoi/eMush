@@ -2,10 +2,12 @@
 
 namespace Mush\Player\Listener;
 
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -45,11 +47,12 @@ class RoomSubscriber implements EventSubscriberInterface
 
             $playerModifierEvent = new PlayerModifierEvent(
                 $player,
+                PlayerVariableEnum::HEALTH_POINT,
                 -$damage,
                 EndCauseEnum::INJURY,
                 $event->getTime()
             );
-            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 
@@ -67,11 +70,12 @@ class RoomSubscriber implements EventSubscriberInterface
 
             $playerModifierEvent = new PlayerModifierEvent(
                 $player,
+                PlayerVariableEnum::HEALTH_POINT,
                 -$damage,
                 EndCauseEnum::ELECTROCUTED,
                 $event->getTime()
             );
-            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 }

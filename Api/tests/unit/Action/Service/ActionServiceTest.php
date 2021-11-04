@@ -8,6 +8,7 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
@@ -91,7 +92,7 @@ class ActionServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs($eventDispatched(-1, PlayerModifierEvent::ACTION_POINT_MODIFIER))
+            ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
             ->once()
         ;
 
@@ -122,7 +123,7 @@ class ActionServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs($eventDispatched(-1, PlayerModifierEvent::MOVEMENT_POINT_MODIFIER))
+            ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
             ->once()
         ;
 
@@ -153,7 +154,7 @@ class ActionServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs($eventDispatched(-1, PlayerModifierEvent::MORAL_POINT_MODIFIER))
+            ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
             ->once()
         ;
 
@@ -187,8 +188,7 @@ class ActionServiceTest extends TestCase
             ->withArgs(
                 fn (PlayerModifierEvent $event, string $eventName) => (
                     $event->getQuantity() === -1 &&
-                    in_array($eventName, [PlayerModifierEvent::ACTION_POINT_MODIFIER, PlayerModifierEvent::MORAL_POINT_MODIFIER])
-                )
+                    $eventName === AbstractQuantityEvent::CHANGE_VARIABLE)
             )
             ->twice()
         ;
@@ -220,7 +220,7 @@ class ActionServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs($eventDispatched(-3, PlayerModifierEvent::ACTION_POINT_MODIFIER))
+            ->withArgs($eventDispatched(-3, AbstractQuantityEvent::CHANGE_VARIABLE))
             ->once()
         ;
 

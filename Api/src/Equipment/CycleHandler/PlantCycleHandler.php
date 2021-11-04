@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\CycleHandler;
 
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -14,6 +15,7 @@ use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\PlantLogEnum;
@@ -222,11 +224,12 @@ class PlantCycleHandler extends AbstractCycleHandler
         if (($oxygen = $plantEffect->getOxygen())) {
             $daedalusEvent = new DaedalusModifierEvent(
                 $daedalus,
+                DaedalusVariableEnum::OXYGEN,
                 $oxygen,
                 EventEnum::PLANT_PRODUCTION,
                 $date
             );
-            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_OXYGEN);
+            $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 }

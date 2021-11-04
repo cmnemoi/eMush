@@ -27,12 +27,12 @@ class ModifierCondition
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    private ?string $condition;
+    private ?string $condition = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private ?int $value;
+    private ?int $value = null;
 
     public function __construct(string $name)
     {

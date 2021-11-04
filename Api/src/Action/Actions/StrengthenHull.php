@@ -7,10 +7,12 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Validator\FullHull;
 use Mush\Action\Validator\Reach;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -46,11 +48,12 @@ class StrengthenHull extends AttemptAction
 
             $daedalusEvent = new DaedalusModifierEvent(
                 $this->player->getDaedalus(),
+                DaedalusVariableEnum::HULL,
                 $quantity,
                 $this->getActionName(),
                 new \DateTime()
             );
-            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_HULL);
+            $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
             $equipmentEvent = new EquipmentEvent(
                 $parameter->getName(),

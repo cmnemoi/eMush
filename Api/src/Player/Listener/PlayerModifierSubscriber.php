@@ -2,7 +2,9 @@
 
 namespace Mush\Player\Listener;
 
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\PlayerVariableServiceInterface;
@@ -26,15 +28,45 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerModifierEvent::ACTION_POINT_MODIFIER => 'onActionPointModifier',
-            PlayerModifierEvent::MOVEMENT_POINT_MODIFIER => 'onMovementPointModifier',
-            PlayerModifierEvent::HEALTH_POINT_MODIFIER => 'onHealthPointModifier',
-            PlayerModifierEvent::MORAL_POINT_MODIFIER => 'onMoralPointModifier',
-            PlayerModifierEvent::SATIETY_POINT_MODIFIER => 'onSatietyPointModifier',
+            AbstractQuantityEvent::CHANGE_VARIABLE => 'onChangeVariable',
         ];
     }
 
-    public function onActionPointModifier(PlayerModifierEvent $playerEvent): void
+    public function onChangeVariable(AbstractQuantityEvent $playerEvent): void
+    {
+        if (!$playerEvent instanceof PlayerModifierEvent) {
+            return;
+        }
+
+        switch ($playerEvent->getModifiedVariable()) {
+            case PlayerVariableEnum::MORAL_POINT:
+                $this->handleMoralPointModifier($playerEvent);
+
+                return;
+
+            case PlayerVariableEnum::HEALTH_POINT:
+                $this->handleHealthPointModifier($playerEvent);
+
+                return;
+
+            case PlayerVariableEnum::MOVEMENT_POINT:
+                $this->handleMovementPointModifier($playerEvent);
+
+                return;
+
+            case PlayerVariableEnum::ACTION_POINT:
+                $this->handleActionPointModifier($playerEvent);
+
+                return;
+
+            case PlayerVariableEnum::SATIETY:
+                $this->handleSatietyPointModifier($playerEvent);
+
+                return;
+        }
+    }
+
+    private function handleActionPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getQuantity();
@@ -42,7 +74,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $this->playerVariableService->handleActionPointModifier($delta, $player);
     }
 
-    public function onMovementPointModifier(PlayerModifierEvent $playerEvent): void
+    private function handleMovementPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getQuantity();
@@ -50,7 +82,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $this->playerVariableService->handleMovementPointModifier($delta, $player);
     }
 
-    public function onHealthPointModifier(PlayerModifierEvent $playerEvent): void
+    private function handleHealthPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getQuantity();
@@ -63,7 +95,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onMoralPointModifier(PlayerModifierEvent $playerEvent): void
+    private function handleMoralPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getQuantity();
@@ -81,24 +113,11 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onSatietyPointModifier(PlayerModifierEvent $playerEvent): void
+    private function handleSatietyPointModifier(PlayerModifierEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getQuantity();
 
         $this->playerVariableService->handleSatietyModifier($delta, $player);
-    }
-
-    public function onMovementPointConversion(PlayerModifierEvent $playerEvent): void
-    {
-        $player = $playerEvent->getPlayer();
-        $delta = $playerEvent->getQuantity();
-
-        if ($player->getActionPoint() < 1) {
-            throw new \Exception('Trying to convert movement point without action point');
-        }
-
-        $this->playerVariableService->handleActionPointModifier(-1, $player);
-        $this->playerVariableService->handleMovementPointModifier($delta, $player);
     }
 }

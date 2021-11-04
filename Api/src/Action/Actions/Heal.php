@@ -9,7 +9,9 @@ use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Validator\FullHealth;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -41,11 +43,12 @@ class Heal extends AbstractAction
 
         $playerModifierEvent = new PlayerModifierEvent(
             $this->player,
+PlayerVariableEnum::HEALTH_POINT,
             $healedQuantity,
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $healEvent = new ApplyEffectEvent(
             $this->player,

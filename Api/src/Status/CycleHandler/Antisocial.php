@@ -2,7 +2,9 @@
 
 namespace Mush\Status\CycleHandler;
 
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -33,11 +35,12 @@ class Antisocial extends AbstractStatusCycleHandler
         if ($statusHolder->getPlace()->getPlayers()->getPlayerAlive()->count() > 1) {
             $playerModifierEvent = new PlayerModifierEvent(
                 $statusHolder,
+                PlayerVariableEnum::MORAL_POINT,
                 -1,
                 PlayerStatusEnum::ANTISOCIAL,
                 $dateTime
             );
-            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
+            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
             $this->roomLogService->createLog(
                 LogEnum::ANTISOCIAL_MORALE_LOSS,

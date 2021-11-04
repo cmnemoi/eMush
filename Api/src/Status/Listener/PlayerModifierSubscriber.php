@@ -2,7 +2,9 @@
 
 namespace Mush\Status\Listener;
 
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Status\Service\PlayerStatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -20,29 +22,30 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerModifierEvent::MORAL_POINT_MODIFIER => ['onMoralPointModifier', -10], //Applied after player modification
-            PlayerModifierEvent::SATIETY_POINT_MODIFIER => ['onSatietyPointModifier', -10], //Applied after player modification
+            AbstractQuantityEvent::CHANGE_VARIABLE => ['onChangeVariable', -10], //Applied after player modification
         ];
     }
 
-    public function onMoralPointModifier(PlayerModifierEvent $playerEvent): void
+    public function onChangeVariable(AbstractQuantityEvent $playerEvent): void
     {
-        $player = $playerEvent->getPlayer();
-
-        if (!$player->isMush()) {
-            $this->playerStatus->handleMoralStatus($player, $playerEvent->getTime());
+        if (!$playerEvent instanceof PlayerModifierEvent) {
+            return;
         }
-    }
 
-    public function onSatietyPointModifier(PlayerModifierEvent $playerEvent): void
-    {
         $player = $playerEvent->getPlayer();
+        $date = $playerEvent->getTime();
 
-        $this->playerStatus->handleSatietyStatus($player, $playerEvent->getTime());
-    }
+        switch ($playerEvent->getModifiedVariable()) {
+            case PlayerVariableEnum::MORAL_POINT:
+                if (!$player->isMush()) {
+                    $this->playerStatus->handleMoralStatus($player, $date);
+                }
 
-    public function onMovementPointConversion(PlayerModifierEvent $playerEvent): void
-    {
-        //@TODO incoming in modifier merge
+                return;
+            case PlayerVariableEnum::SATIETY:
+                $this->playerStatus->handleSatietyStatus($player, $date);
+
+                return;
+        }
     }
 }

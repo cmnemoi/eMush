@@ -2,8 +2,10 @@
 
 namespace Mush\Player\Listener;
 
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -56,11 +58,12 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $playerModifierEvent = new PlayerModifierEvent(
             $player,
+            PlayerVariableEnum::HEALTH_POINT,
             -$damage,
             EndCauseEnum::METAL_PLATE,
             $event->getTime()
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
     public function onPanicCrisis(PlayerEvent $event): void
@@ -73,11 +76,12 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $playerModifierEvent = new PlayerModifierEvent(
             $player,
+            PlayerVariableEnum::MORAL_POINT,
             -$damage,
             $event->getReason(),
             $event->getTime()
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::MORAL_POINT_MODIFIER);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
     public function onInfectionPlayer(PlayerEvent $playerEvent): void

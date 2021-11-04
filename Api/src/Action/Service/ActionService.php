@@ -40,7 +40,8 @@ class ActionService implements ActionServiceInterface
         }
 
         if (($movementPointCost = $this->getTotalMovementPointCost($player, $action, $parameter)) > 0) {
-            $missingMovementPoints = $action->getActionCost()->getMovementPointCost() - $player->getMovementPoint();
+            $missingMovementPoints = $movementPointCost - $player->getMovementPoint();
+
             if ($missingMovementPoints > 0) {
                 $movementPointGain = $this->getMovementPointConversionGain($player, true);
                 $numberOfConversions = (int) ceil($missingMovementPoints / $movementPointGain);

@@ -69,6 +69,7 @@ class EquipmentSubscriberCest
 
         $statusConfig = new StatusConfig();
         $statusConfig
+            ->setGameConfig($gameConfig)
             ->setName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;

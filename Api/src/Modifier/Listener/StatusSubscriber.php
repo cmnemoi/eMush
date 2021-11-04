@@ -70,11 +70,34 @@ class StatusSubscriber implements EventSubscriberInterface
     public function onStatusRemoved(StatusEvent $event): void
     {
         $holder = $event->getStatusHolder();
+
+        $statusConfig = $event->getStatusConfig();
+        if ($statusConfig === null) {
+            throw new \LogicException('statusConfig should be provided');
+        }
+
         if ($event->getStatusName() === EquipmentStatusEnum::BROKEN) {
             if (!$holder instanceof GameEquipment) {
                 throw new UnexpectedTypeException($holder, GameEquipment::class);
             }
             $this->gearModifierService->gearCreated($holder);
+        }
+
+        foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
+            switch (true) {
+                case $holder instanceof Player:
+                    $this->modifierService->deleteModifier($modifierConfig, $holder->getDaedalus(), $holder->getPlace(), $holder, null);
+
+                    return;
+                case $holder instanceof Place:
+                    $this->modifierService->deleteModifier($modifierConfig, $holder->getDaedalus(), $holder, null, null);
+
+                    return;
+                case $holder instanceof GameEquipment:
+                    $this->modifierService->deleteModifier($modifierConfig, $holder->getPlace()->getDaedalus(), $holder->getPlace(), null, $holder);
+
+                    return;
+            }
         }
     }
 }

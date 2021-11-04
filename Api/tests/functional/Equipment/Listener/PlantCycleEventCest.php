@@ -80,6 +80,7 @@ class PlantCycleEventCest
 
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
+            ->setGameConfig($gameConfig)
             ->setName(EquipmentStatusEnum::PLANT_YOUNG)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)

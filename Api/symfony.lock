@@ -174,7 +174,7 @@
     "eternal-twin/etwin": {
         "version": "0.3.2"
     },
-    "eternaltwin/oauth-client": {
+    "eternal-twin/oauth-client": {
         "version": "0.1.1"
     },
     "fakerphp/faker": {

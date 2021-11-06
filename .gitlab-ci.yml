@@ -1,5 +1,5 @@
 .php_template: &php_template
-  image: registry.gitlab.com/eternaltwin/mush/mush/api:latest
+  image: registry.gitlab.com/eternal-twin/mush/mush/api:latest
   cache:
     paths:
       - "Api/vendor/"

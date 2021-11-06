@@ -1552,12 +1552,12 @@
             "version": "0.3.2",
             "source": {
                 "type": "git",
-                "url": "https://gitlab.com/eternaltwin/etwin-php.git",
+                "url": "https://gitlab.com/eternal-twin/etwin-php.git",
                 "reference": "ae3b130648467b74362a7a461c21886a03698749"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/eternaltwin%2Fetwin-php/repository/archive.zip?sha=ae3b130648467b74362a7a461c21886a03698749",
+                "url": "https://gitlab.com/api/v4/projects/eternal-twin%2Fetwin-php/repository/archive.zip?sha=ae3b130648467b74362a7a461c21886a03698749",
                 "reference": "ae3b130648467b74362a7a461c21886a03698749",
                 "shasum": ""
             },
@@ -1598,16 +1598,16 @@
             "time": "2020-12-14T17:36:03+00:00"
         },
         {
-            "name": "eternaltwin/oauth-client",
+            "name": "eternal-twin/oauth-client",
             "version": "0.1.2",
             "source": {
                 "type": "git",
-                "url": "https://gitlab.com/eternaltwin/oauth-client-php.git",
+                "url": "https://gitlab.com/eternal-twin/oauth-client-php.git",
                 "reference": "f884a968014237ebd44ba3aca69ba6fce957d717"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/eternaltwin%2Foauth-client-php/repository/archive.zip?sha=f884a968014237ebd44ba3aca69ba6fce957d717",
+                "url": "https://gitlab.com/api/v4/projects/eternal-twin%2Foauth-client-php/repository/archive.zip?sha=f884a968014237ebd44ba3aca69ba6fce957d717",
                 "reference": "f884a968014237ebd44ba3aca69ba6fce957d717",
                 "shasum": ""
             },

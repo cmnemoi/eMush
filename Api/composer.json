@@ -11,7 +11,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.8",
         "eternal-twin/etwin": "^0.3.2",
-        "eternaltwin/oauth-client": "^0.1.1",
+        "eternaltwin/oauth-client": "^1.0",
         "friendsofsymfony/rest-bundle": "^3.0",
         "gedmo/doctrine-extensions": "^3.0",
         "lexik/jwt-authentication-bundle": "^2.11",

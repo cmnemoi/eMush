@@ -2,10 +2,10 @@
 
 namespace Mush\User\Service;
 
+use Eternaltwin\OauthClient\RfcOauthClient;
 use Etwin\Auth\AccessTokenAuthContext;
 use Etwin\Client\Auth;
 use Etwin\Client\HttpEtwinClient;
-use Etwin\OauthClient\RfcOauthClient;
 use GuzzleHttp\Exception\GuzzleException;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTDecodeFailureException;

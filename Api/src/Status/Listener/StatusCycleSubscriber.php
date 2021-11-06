@@ -30,9 +30,7 @@ class StatusCycleSubscriber implements EventSubscriberInterface
 
     public function onNewCycle(StatusCycleEvent $event): void
     {
-        if (!($status = $event->getStatus())) {
-            return;
-        }
+        $status = $event->getStatus();
 
         if ($status instanceof ChargeStatus && ($strategyName = $status->getStrategy())) {
             if ($strategy = $this->chargeStrategyService->getStrategy($strategyName)) {

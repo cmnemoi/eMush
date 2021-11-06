@@ -5,8 +5,10 @@ import { Player } from "@/entities/Player";
 import { Equipment } from "@/entities/Equipment";
 import { Action } from "@/entities/Action";
 import { AxiosResponse } from "axios";
+import urlJoin from "url-join";
 
-const ACTION_ENDPOINT = process.env.VUE_APP_API_URL+'action';
+// @ts-ignore
+const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "action");
 
 const ActionService = {
     executeTargetAction(target: Door | Item | Equipment | Player | null, action: Action): Promise<AxiosResponse> {

@@ -4,10 +4,13 @@ import { Message } from "@/entities/Message";
 import { RoomLog } from "@/entities/RoomLog";
 import { Player } from "@/entities/Player";
 import { ChannelType } from "@/enums/communication.enum";
-import { AxiosPromise, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
+import urlJoin from "url-join";
 
-const CHANNELS_ENDPOINT = process.env.VUE_APP_API_URL + 'channel';
-const ROOM_LOGS_ENDPOINT = process.env.VUE_APP_API_URL + 'room-log';
+// @ts-ignore
+const CHANNELS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "channel");
+// @ts-ignore
+const ROOM_LOGS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "room-log");
 
 const CommunicationService = {
 

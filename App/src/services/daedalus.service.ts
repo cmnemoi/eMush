@@ -1,8 +1,10 @@
 import ApiService from "@/services/api.service";
 import { Alert } from "@/entities/Alerts";
 import { Daedalus } from "@/entities/Daedalus";
+import urlJoin from "url-join";
 
-const DAEDALUS_ALERTS_ENDPOINT = process.env.VUE_APP_API_URL + 'alert';
+// @ts-ignore
+const DAEDALUS_ALERTS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "alert");
 
 const DaedalusService = {
     loadAlerts: async (daedalus: Daedalus): Promise<Alert[]> => {

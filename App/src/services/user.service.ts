@@ -1,10 +1,14 @@
 import ApiService from './api.service';
 import { TokenService } from './storage.service';
 import { User } from "@/entities/User";
+import urlJoin from "url-join";
 
-const authorizationUrl = process.env.VUE_APP_OAUTH_URL + '/authorize';
-const tokenUrl = process.env.VUE_APP_OAUTH_URL + '/token';
-const callBackUrl = process.env.VUE_APP_URL + '/token';
+// @ts-ignore
+const authorizationUrl = urlJoin(process.env.VUE_APP_OAUTH_URL, "authorize");
+// @ts-ignore
+const tokenUrl = urlJoin(process.env.VUE_APP_OAUTH_URL, "token");
+// @ts-ignore
+const callBackUrl = urlJoin(process.env.VUE_APP_URL, "token");
 
 class AuthenticationError extends Error {
     public errorCode: number

@@ -4,6 +4,8 @@ const METAL_SCRAP = "metal_scraps";
 const ANTIGRAV_SCOOTER = "antigrav_scooter";
 const MEDIKIT = "medikit";
 const OSCILLOSCOPE = 'oscilloscope';
+const ROLLING_BOULDER = 'oscilloscope';
+const ALIEN_BOTTLE_OPENER = 'alien_bottle_opener';
 
 const BACTA = 'bacta';
 const BETAPROPYL = 'betapropyl';
@@ -83,6 +85,12 @@ const BANDAGE = "bandage";
 
 
 export const itemEnum: {[index: string]: any} = {
+    [ALIEN_BOTTLE_OPENER]: {
+        'image': require('@/assets/images/items/alien_can_opener.jpg')
+    },
+    [ROLLING_BOULDER]: {
+        'image': require('@/assets/images/items/rolling_boulder.jpg')
+    },
     [OSCILLOSCOPE]: {
         'image': require('@/assets/images/items/wavoscope.jpg')
     },

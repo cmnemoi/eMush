@@ -9,6 +9,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Equipment\Entity\GameItem;
 
 class ActionsFixtures extends Fixture implements DependentFixtureInterface
@@ -109,7 +110,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $hitAction = new Action();
         $hitAction
             ->setName(ActionEnum::HIT)
-            ->setTypes([]) //@TODO
+            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(1)
             ->setActionCost($oneActionPointCost)
@@ -487,6 +488,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $infectAction = new Action();
         $infectAction
             ->setName(ActionEnum::INFECT)
+            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost($oneActionPointCost)
         ;

@@ -134,11 +134,11 @@ class ActionLogEnum
         ActionEnum::SABOTAGE => [
             self::SUCCESS => [
                 self::VALUE => self::SABOTAGE_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::MUSH,
+                self::VISIBILITY => VisibilityEnum::SECRET,
             ],
             self::FAIL => [
                 self::VALUE => self::SABOTAGE_FAIL,
-                self::VISIBILITY => VisibilityEnum::MUSH,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::READ_DOCUMENT => [

@@ -52,7 +52,7 @@ class PlayerModifierEvent extends PlayerEvent implements LoggableEventInterface,
     {
         return [
             $this->player->getLogKey() => $this->player->getLogName(),
-            'quantity' => $this->quantity,
+            'quantity' => abs($this->quantity),
         ];
     }
 

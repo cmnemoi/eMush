@@ -101,13 +101,12 @@ yarn test
 
 ## Contributing
 
-We write our tasks on the Trello board https://trello.com/b/4E10Z1Kc/dev-emush-front. Use this invite link if you're not already a member: https://trello.com/invite/b/4E10Z1Kc/2a62a2f7a080375f970d81c23945c912/dev-emush-front
 
 To start working on something / implement a new feature:
 
-- Find the appropriate card in the Todo / Bugs / Priority lists. Make sure it's not already in the "In progress" / "MR" list. If the card doesn't exist, feel free to create it
-- Make sure no one else is already working on it (they will be a member of the card)
-- Assign yourself to the task by joining the card, and move it to the "In progress" list
+- Find the appropriate card in the git issue list. Make sure it's not already assigned to another developer. If the issue doesn't exist, feel free to create it
+- Make sure no one else is already working on it (the issue should be assigned)
+- Assign yourself to the issue.
 - Code your feature
 - Once done, open a MR on Gitlab with the 'Front' label
 - Add at least one reviewer, you can ask for volunteers on the Discord or assign any dev you know can review

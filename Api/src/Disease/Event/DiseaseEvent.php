@@ -63,6 +63,13 @@ class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
         return $this->playerDisease;
     }
 
+    public function setVisibility(string $visibility): self
+    {
+        $this->visibility = $visibility;
+
+        return $this;
+    }
+
     public function getVisibility(): string
     {
         return $this->visibility;

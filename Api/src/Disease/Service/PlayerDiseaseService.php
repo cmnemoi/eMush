@@ -11,6 +11,7 @@ use Mush\Disease\Event\DiseaseEvent;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class PlayerDiseaseService implements PlayerDiseaseServiceInterface
@@ -100,6 +101,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $this->eventDispatcher->dispatch($event, DiseaseEvent::NEW_DISEASE);
 
         if ($disease->getStatus() === DiseaseStatusEnum::ACTIVE) {
+            $event->setVisibility(VisibilityEnum::PRIVATE);
             $this->eventDispatcher->dispatch($event, DiseaseEvent::APPEAR_DISEASE);
         }
 
@@ -148,6 +150,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
                     DiseaseCauseEnum::INCUBATING_END,
                     $time
                 );
+                $event->setVisibility(VisibilityEnum::PRIVATE);
                 $this->eventDispatcher->dispatch($event, DiseaseEvent::APPEAR_DISEASE);
             } else {
                 $this->removePlayerDisease($playerDisease, DiseaseStatusEnum::SPONTANEOUS_CURE, $time);

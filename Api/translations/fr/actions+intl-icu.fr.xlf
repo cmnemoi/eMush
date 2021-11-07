@@ -465,7 +465,7 @@
         <unit id="remove_camera">
             <segment id="name">
                 <source>remove_camera.name</source>
-                <target>Installer</target>
+                <target>Enlever</target>
             </segment>
             <segment id="description">
                 <source>remove_camera.description</source>

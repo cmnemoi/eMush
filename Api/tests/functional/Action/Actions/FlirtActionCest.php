@@ -19,6 +19,8 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Enum\StatusEnum;
 
 class FlirtActionCest
 {
@@ -45,6 +47,14 @@ class FlirtActionCest
             ->setActionPointCost(1)
         ;
         $I->haveInRepository($actionCost);
+
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setName(StatusEnum::ATTEMPT)
+            ->setGameConfig($gameConfig)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+        ;
+        $I->haveInRepository($attemptConfig);
 
         $action = new Action();
         $action

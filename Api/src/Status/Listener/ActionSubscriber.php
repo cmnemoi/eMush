@@ -25,15 +25,16 @@ class ActionSubscriber implements EventSubscriberInterface
 
     public function onResultAction(ActionEvent $event): void
     {
-        $actionParameter = $event->getActionParameter();
         $player = $event->getPlayer();
 
         if (($actionResult = $event->getActionResult()) === null) {
             throw new \LogicException('actionResult should be provided');
         }
 
-        if ($event->getAction()->getSuccessRate() < 100) {
-            $this->statusService->handleAttempt($event->getPlayer(), $event->getAction()->getName(), $actionResult);
+        $actionPaCost = $event->getAction()->getActionCost()->getActionPointCost();
+
+        if ($actionPaCost !== null && $actionPaCost > 0) {
+            $this->statusService->handleAttempt($player, $event->getAction()->getName(), $actionResult);
         }
     }
 }

@@ -28,9 +28,11 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\StatusEnum;
 
 class ShowerActionCest
 {
@@ -61,6 +63,14 @@ class ShowerActionCest
             'healthPoint' => 6,
             'characterConfig' => $characterConfig,
         ]);
+
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setName(StatusEnum::ATTEMPT)
+            ->setGameConfig($gameConfig)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+        ;
+        $I->haveInRepository($attemptConfig);
 
         $mushConfig = new StatusConfig();
         $mushConfig->setName(PlayerStatusEnum::MUSH)->setVisibility(VisibilityEnum::MUSH);

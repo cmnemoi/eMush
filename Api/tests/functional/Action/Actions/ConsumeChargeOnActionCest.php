@@ -33,6 +33,7 @@ use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\StatusEnum;
 
 class ConsumeChargeOnActionCest
 {
@@ -70,6 +71,14 @@ class ConsumeChargeOnActionCest
             ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($equipmentCoffee);
+
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setName(StatusEnum::ATTEMPT)
+            ->setGameConfig($gameConfig)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+        ;
+        $I->haveInRepository($attemptConfig);
 
         $actionCost = new ActionCost();
         $actionCost->setActionPointCost(2);
@@ -156,6 +165,14 @@ class ConsumeChargeOnActionCest
             ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($equipmentCoffee);
+
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setName(StatusEnum::ATTEMPT)
+            ->setGameConfig($gameConfig)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+        ;
+        $I->haveInRepository($attemptConfig);
 
         $actionCost = new ActionCost();
         $actionCost->setActionPointCost(2);

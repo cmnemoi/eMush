@@ -46,10 +46,10 @@ class AttemptActionChangeCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 2, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 10, 'characterConfig' => $characterConfig]);
 
         $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(0)
+        $actionCost->setActionPointCost(1)
             ->setMovementPointCost(0)
             ->setMoralPointCost(0);
         $I->haveInRepository($actionCost);
@@ -124,6 +124,7 @@ class AttemptActionChangeCest
         $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
 
         $this->disassembleAction->loadParameters($actionDisassemble, $player, $gameEquipment);
+
         //Now execute the other action
         $this->disassembleAction->execute();
         $I->assertCount(1, $player->getStatuses());
@@ -149,10 +150,10 @@ class AttemptActionChangeCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 2, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 10, 'characterConfig' => $characterConfig]);
 
         $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(0)
+        $actionCost->setActionPointCost(1)
             ->setMovementPointCost(0)
             ->setMoralPointCost(0);
         $I->haveInRepository($actionCost);

@@ -123,8 +123,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $dispenserCharge = new ChargeStatusConfig();
         $dispenserCharge
             ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setChargeVisibility(VisibilityEnum::PRIVATE)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
             ->setMaxCharge(1)
             ->setStartCharge(1)
@@ -136,8 +136,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $coffeeCharge = new ChargeStatusConfig();
         $coffeeCharge
             ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setChargeVisibility(VisibilityEnum::PRIVATE)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
             ->setMaxCharge(1)
             ->setStartCharge(1)
@@ -165,6 +165,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setGameConfig($gameConfig)
         ;
 
         $manager->persist($fireStatus);

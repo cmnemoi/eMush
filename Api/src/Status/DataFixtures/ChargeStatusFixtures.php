@@ -165,6 +165,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->setGameConfig($gameConfig)
         ;
 
         $manager->persist($fireStatus);

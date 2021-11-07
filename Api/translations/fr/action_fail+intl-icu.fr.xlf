@@ -179,7 +179,7 @@
         <unit id="do_the_thing_already_done">
             <segment id="description">
                 <source>do_the_thing_already_done.description</source>
-                <target>TODO.do_the_thing_already_done.description</target>
+                <target>Vous l'avez déjà fait aujourd'hui.</target>
             </segment>
         </unit>
 
@@ -270,7 +270,7 @@
         <unit id="infect_immune">
             <segment id="description">
                 <source>infect_immune.description</source>
-                <target>TODO.infect_immune.description</target>
+                <target>Cette cible est immunisée au mush.</target>
             </segment>
         </unit>
 
@@ -284,14 +284,14 @@
         <unit id="infect_mush">
             <segment id="description">
                 <source>infect_mush.description</source>
-                <target>TODO.infect_mush.description</target>
+                <target>Cette cible est déjà agent du mush.</target>
             </segment>
         </unit>
 
         <unit id="infect_daily_limit">
             <segment id="description">
                 <source>infect_daily_limit.description</source>
-                <target>TODO.infect_daily_limit.description</target>
+                <target>Vous ne pouvez plus effectuer cette action aujourd'hui.</target>
             </segment>
         </unit>
 

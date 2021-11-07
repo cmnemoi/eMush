@@ -937,29 +937,29 @@
                 <target>Un superbe sofa en cuir de Nubuk véritable, cousu main. Conçu en Suède mais fabriqué sur Encelade pour pas cher. Qui eu crû que quelques coussins et une structure de contre-plaqué puissent autant détendre...</target>
             </segment>
         </unit>
-        <unit id="surgical_plot">
+        <unit id="surgery_plot">
             <segment id="name">
-                <source>surgical_plot.name</source>
+                <source>surgery_plot.name</source>
                 <target>Plot Chirurgical</target>
             </segment>
             <segment id="short_name">
-                <source>surgical_plot.short_name</source>
+                <source>surgery_plot.short_name</source>
                 <target>Plot Chirurgical</target>
             </segment>
             <segment id="plural_name">
-                <source>surgical_plot.plural_name</source>
+                <source>surgery_plot.plural_name</source>
                 <target>Plots Chirurgicaux</target>
             </segment>
             <segment id="genre">
-                <source>surgical_plot.genre</source>
+                <source>surgery_plot.genre</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
-                <source>surgical_plot.first_letter</source>
+                <source>surgery_plot.first_letter</source>
                 <target>consonant</target>
             </segment>
             <segment id="examine">
-                <source>surgical_plot.examine</source>
+                <source>surgery_plot.examine</source>
                 <target>Ce plot comprend tous les instruments. Automate nécessaire à des soins efficaces. En cas de coups durs vous devriez toujours savoir où il se trouve.</target>
             </segment>
         </unit>

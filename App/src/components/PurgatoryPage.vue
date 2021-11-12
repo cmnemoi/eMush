@@ -1,7 +1,7 @@
 <template>
     <div class="purgatory-container">
         <div v-if="deadPlayerInfo" class="death-summary">
-            <h1>{{ $t('deathpage.title') }}</h1>
+            <Title :title="$t('deathpage.title')" />
             <div class="char-sheet">
                 <img class="avatar" :src="characterPortrait" alt="avatar">
                 <div>
@@ -75,6 +75,7 @@ import HistoryLogs from "@/components/Game/HistoryLogs.vue";
 import CommsPanel from "@/components/Game/Communications/CommsPanel.vue";
 import { defineComponent } from "vue";
 import { DeadPlayerInfo } from "@/entities/DeadPlayerInfo";
+import Title from "@/components/Utils/Title.vue";
 
 interface PurgatoryState {
     deadPlayerInfo: DeadPlayerInfo | null,
@@ -84,7 +85,7 @@ interface PurgatoryState {
 
 export default defineComponent ({
     name: 'Purgatory',
-    components: { CommsPanel, HistoryLogs },
+    components: { CommsPanel, HistoryLogs, Title },
     props: {
         player: {
             type: Player,

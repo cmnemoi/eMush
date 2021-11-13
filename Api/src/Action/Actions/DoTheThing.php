@@ -12,6 +12,7 @@ use Mush\Action\Validator\EmptyBedInRoom;
 use Mush\Action\Validator\FlirtedAlready;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\IsSameGender;
 use Mush\Action\Validator\NumberPlayersInRoom;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -74,6 +75,10 @@ class DoTheThing extends AbstractAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
 
+        $metadata->addConstraint(new IsSameGender(['groups' => ['visibility']]));
+
+        $metadata->addConstraint(new EmptyBedInRoom(['groups' => ['visibility']]));
+
         $metadata->addConstraint(new FlirtedAlready([
             'groups' => ['execute'],
             'expectedValue' => true,
@@ -104,8 +109,6 @@ class DoTheThing extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DO_THE_THING_ALREADY_DONE,
         ]));
-
-        $metadata->addConstraint(new EmptyBedInRoom(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DO_THE_THING_NO_BED]));
 
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::SHELVE,

@@ -9,7 +9,7 @@
                         <img class="body" :src="characterBody(player.character.key)" alt="">
                         <div>
                             <h3 class="char-name">
-                                {{ player.characterValue }}
+                                {{ player.character.name }}
                             </h3>
                             <p class="pseudo">
                                 {{ getUserInfo.username }}
@@ -46,10 +46,10 @@
                         <th>{{ $t('deathpage.reason') }}</th>
                         <th>{{ $t('deathpage.like') }}</th>
                     </tr>
-                    <tr v-for="(player,key) in deadPlayerInfo.players" :key="key">
-                        <td><img :src="characterBody(player.character.key)" class="char hua"> <span class="charname">{{ player.characterValue }}</span></td>
-                        <td>{{ player.deathTime ? player.deathTime : '-' }}</td>
-                        <td>{{ player.endCauseValue ? player.endCauseValue : "Pas Encore" }}</td>
+                    <tr v-for="crewPlayer in deadPlayerInfo.players" :key="crewPlayer.id">
+                        <td><img :src="characterBody(crewPlayer.character.key)" class="char hua"> <span class="charname">{{ crewPlayer.character.name }}</span></td>
+                        <td>{{ crewPlayer.deathTime ? crewPlayer.deathTime : '-' }}</td>
+                        <td>{{ crewPlayer.endCauseValue ? crewPlayer.endCauseValue : "Pas Encore" }}</td>
                         <td>
                             <button class="like">
                                 1 <img src="@/assets/images/dislike.png">

@@ -9,7 +9,7 @@ import { QuantityPoint } from "@/entities/QuantityPoint";
 export class Player {
     public id!: number;
     public gameStatus: string|null;
-    public character!: Character
+    public character!: Character;
     public actionPoint: QuantityPoint|null;
     public movementPoint: QuantityPoint|null;
     public healthPoint: QuantityPoint|null;

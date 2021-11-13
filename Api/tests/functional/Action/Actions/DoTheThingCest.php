@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -75,7 +76,13 @@ class DoTheThingCest
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, [
+        $femaleCharacterConfig = $I->have(CharacterConfig::class, [
+            'name' => CharacterEnum::CHUN,
+            'actions' => new ArrayCollection([$action]),
+        ]);
+
+        $maleCharacterConfig = $I->have(CharacterConfig::class, [
+            'name' => CharacterEnum::DEREK,
             'actions' => new ArrayCollection([$action]),
         ]);
 
@@ -84,7 +91,7 @@ class DoTheThingCest
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $characterConfig,
+            'characterConfig' => $femaleCharacterConfig,
         ]);
 
         /** @var Player $targetPlayer */
@@ -92,7 +99,7 @@ class DoTheThingCest
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $characterConfig,
+            'characterConfig' => $maleCharacterConfig,
         ]);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -192,7 +199,13 @@ class DoTheThingCest
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, [
+        $femaleCharacterConfig = $I->have(CharacterConfig::class, [
+            'name' => CharacterEnum::CHUN,
+            'actions' => new ArrayCollection([$action]),
+        ]);
+
+        $maleCharacterConfig = $I->have(CharacterConfig::class, [
+            'name' => CharacterEnum::DEREK,
             'actions' => new ArrayCollection([$action]),
         ]);
 
@@ -201,7 +214,7 @@ class DoTheThingCest
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $characterConfig,
+            'characterConfig' => $femaleCharacterConfig,
         ]);
 
         /** @var Player $targetPlayer */
@@ -209,8 +222,21 @@ class DoTheThingCest
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $characterConfig,
+            'characterConfig' => $maleCharacterConfig,
         ]);
+
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->have(EquipmentConfig::class, [
+            'name' => EquipmentEnum::BED,
+        ]);
+
+        $gameEquipment = new GameEquipment();
+        $gameEquipment
+            ->setName(EquipmentEnum::BED)
+            ->setEquipment($equipmentConfig)
+            ->setHolder($room)
+        ;
+        $I->haveInRepository($gameEquipment);
 
         $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
 
@@ -245,7 +271,13 @@ class DoTheThingCest
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, [
+        $femaleCharacterConfig = $I->have(CharacterConfig::class, [
+            'name' => CharacterEnum::CHUN,
+            'actions' => new ArrayCollection([$action]),
+        ]);
+
+        $maleCharacterConfig = $I->have(CharacterConfig::class, [
+            'name' => CharacterEnum::DEREK,
             'actions' => new ArrayCollection([$action]),
         ]);
 
@@ -254,7 +286,7 @@ class DoTheThingCest
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $characterConfig,
+            'characterConfig' => $femaleCharacterConfig,
         ]);
 
         /** @var Player $targetPlayer */
@@ -262,8 +294,21 @@ class DoTheThingCest
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $characterConfig,
+            'characterConfig' => $maleCharacterConfig,
         ]);
+
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->have(EquipmentConfig::class, [
+            'name' => EquipmentEnum::BED,
+        ]);
+
+        $gameEquipment = new GameEquipment();
+        $gameEquipment
+            ->setName(EquipmentEnum::BED)
+            ->setEquipment($equipmentConfig)
+            ->setHolder($room)
+        ;
+        $I->haveInRepository($gameEquipment);
 
         $targetPlayer->setFlirts(new ArrayCollection([$player]));
 
@@ -272,8 +317,15 @@ class DoTheThingCest
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $characterConfig,
+            'characterConfig' => $femaleCharacterConfig,
         ]);
+
+        $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
+
+        $I->assertTrue($this->doTheThingAction->isVisible());
+        $I->assertEquals(ActionImpossibleCauseEnum::DO_THE_THING_WITNESS,
+            $this->doTheThingAction->cannotExecuteReason()
+        );
     }
 
     public function testRoomHasBed(FunctionalTester $I)
@@ -301,7 +353,13 @@ class DoTheThingCest
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, [
+        $femaleCharacterConfig = $I->have(CharacterConfig::class, [
+            'name' => CharacterEnum::CHUN,
+            'actions' => new ArrayCollection([$action]),
+        ]);
+
+        $maleCharacterConfig = $I->have(CharacterConfig::class, [
+            'name' => CharacterEnum::DEREK,
             'actions' => new ArrayCollection([$action]),
         ]);
 
@@ -310,7 +368,7 @@ class DoTheThingCest
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $characterConfig,
+            'characterConfig' => $femaleCharacterConfig,
         ]);
 
         /** @var Player $targetPlayer */
@@ -318,16 +376,13 @@ class DoTheThingCest
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $characterConfig,
+            'characterConfig' => $maleCharacterConfig,
         ]);
 
         $targetPlayer->setFlirts(new ArrayCollection([$player]));
 
         $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
 
-        $I->assertTrue($this->doTheThingAction->isVisible());
-        $I->assertEquals(ActionImpossibleCauseEnum::DO_THE_THING_NO_BED,
-            $this->doTheThingAction->cannotExecuteReason()
-        );
+        $I->assertFalse($this->doTheThingAction->isVisible());
     }
 }

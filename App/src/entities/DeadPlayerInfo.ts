@@ -1,7 +1,8 @@
+import { Character } from "@/entities/Character";
+
 export class DeadPlayerInfo {
     public id: number|null;
-    public characterKey: string|null;
-    public characterValue: string|null;
+    public character!: Character;
     public endCauseKey: string|null;
     public endCauseValue: string|null;
     public endCauseDescription: string|null;
@@ -10,8 +11,7 @@ export class DeadPlayerInfo {
 
     constructor() {
         this.id = null;
-        this.characterKey = null;
-        this.characterValue = null;
+        this.character = new Character();
         this.endCauseKey = null;
         this.endCauseValue = null;
         this.endCauseDescription= null;
@@ -30,8 +30,8 @@ export class DeadPlayerInfo {
             }
 
             if (typeof object.character !== "undefined") {
-                this.characterKey = object.character['key'];
-                this.characterValue = object.character['value'];
+                this.character.key = object.character['key'];
+                this.character.name = object.character['value'];
             }
 
             if (typeof object.players !== 'undefined') {

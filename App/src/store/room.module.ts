@@ -3,14 +3,15 @@ import { Room } from "@/entities/Room";
 import { Player } from "@/entities/Player";
 import { Equipment } from "@/entities/Equipment";
 
-const state =  {
-    loading: false,
-    room: null,
-    inventoryOpen: false,
-    selectedTarget: null
+class state {
+    loading = false;
+    room: Room | null = null;
+    inventoryOpen = false;
+    selectedTarget: Player | Equipment | null = null;
+    player: Player | null = null;
 };
 
-const getters: GetterTree<any, any> = {
+const getters = <GetterTree<state, state>>  {
     isInventoryOpen: (state) => {
         return state.inventoryOpen;
     },
@@ -19,7 +20,7 @@ const getters: GetterTree<any, any> = {
     }
 };
 
-const actions: ActionTree<any, any> = {
+const actions = <ActionTree<state, state>> {
     openInventory({ commit } ) {
         commit('openInventory');
     },
@@ -30,7 +31,7 @@ const actions: ActionTree<any, any> = {
         commit('setRoom', room);
     },
     async reloadPlayer({ state, dispatch }) {
-        return dispatch("loadPlayer", { playerId: state.player.id });
+        return dispatch("loadPlayer", { playerId: state.player?.id });
     },
     setLoading({ commit }, { loading }) {
         commit('setLoading', loading);
@@ -40,7 +41,7 @@ const actions: ActionTree<any, any> = {
     }
 };
 
-const mutations : MutationTree<any> = {
+const mutations = <MutationTree<state>> {
     setLoading(state, newValue) {
         state.loading = newValue;
     },

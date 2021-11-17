@@ -13,6 +13,6 @@ export const AlertsIcons: {[index: string]: string} = {
     [FIRES]: require('@/assets/images/alerts/fire.png'),
     [BROKEN_DOORS]: require('@/assets/images/alerts/door.png'),
     [BROKEN_EQUIPMENTS]: require('@/assets/images/alerts/broken.png'),
-    [NO_GRAVITY]: require('@/assets/images/alerts/simulator.png')
+    [NO_GRAVITY]: require('@/assets/images/alerts/simulator.png'),
 }
 ;

@@ -7,13 +7,62 @@ import { Status } from "@/entities/Status";
 //@Hack: rooms that are handled by phaser and displayed with Phaser
 export const PhaserRooms = ['medlab', 'laboratory'];
 
-export interface Room {
-    id: number;
-    key: string;
-    name: string;
-    items: Array<Item>;
-    doors: Array<Door>;
-    statuses: Array<Status>;
-    equipments: Array<Equipment>;
-    players: Array<Player>;
+export class Room {
+    public id: number|null;
+    public key?: string;
+    public name?: string;
+    public items: Array<Item>;
+    public doors: Array<Door>;
+    public statuses: Array<Status>;
+    public equipments: Array<Equipment>;
+    public players: Array<Player>;
+
+    constructor() {
+        this.id = null;
+        this.items = [];
+        this.doors = [];
+        this.equipments = [];
+        this.players = [];
+        this.statuses = [];
+    }
+    load(object: any): Room {
+        if (typeof object !== "undefined") {
+            this.id = object.id;
+            this.key = object.key;
+            this.name = object.name;
+            object.items.forEach((itemObject: any) => {
+                const item = (new Item).load(itemObject);
+                this.items.push(item);
+            });
+            object.doors.forEach((doorObject: any) => {
+                const door = (new Door).load(doorObject);
+                this.doors.push(door);
+            });
+            object.players.forEach((playerObject: any) => {
+                const player = (new Player).load(playerObject);
+                this.players.push(player);
+            });
+
+            object.equipments.forEach((equipmentObject:any) => {
+                const equipment = (new Equipment()).load(equipmentObject);
+                this.equipments.push(equipment);
+            });
+            object.statuses.forEach((statusObject:any) => {
+                const status = (new Status()).load(statusObject);
+                this.statuses.push(status);
+            });
+        }
+        return this;
+    }
+    jsonEncode(): string {
+        return JSON.stringify(this);
+    }
+    decode(jsonString:string): Room {
+        if (jsonString) {
+            const object = JSON.parse(jsonString);
+            this.load(object);
+        }
+
+        return this;
+    }
 }

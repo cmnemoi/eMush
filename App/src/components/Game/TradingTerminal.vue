@@ -34,7 +34,7 @@
         </div>
 
         <hr>
-
+        
         <section class="trade">
             <div class="proposal">
                 <img src="@/assets/images/trading.png">

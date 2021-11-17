@@ -229,7 +229,7 @@ export default defineComponent ({
         flex-direction: row;
         align-items: center;
         filter: drop-shadow(0 0 5px $deepBlue);
-
+        
 
         ol {
             align-items: center;

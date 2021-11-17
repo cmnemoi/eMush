@@ -1,25 +1,33 @@
-import { ActionTree, GetterTree, MutationTree } from "vuex";
+import { ActionTree } from "vuex";
 import { Room } from "@/entities/Room";
 import { Player } from "@/entities/Player";
 import { Equipment } from "@/entities/Equipment";
+
+interface StoreState {
+    player?: Player;
+	loading: boolean;
+	room: Room | null;
+	inventoryOpen: boolean;
+    selectedTarget: Player | Equipment | null
+}
 
 const state =  {
     loading: false,
     room: null,
     inventoryOpen: false,
     selectedTarget: null
-};
+} as StoreState;
 
-const getters: GetterTree<any, any> = {
-    isInventoryOpen: (state) => {
+const getters = {
+    isInventoryOpen: (state: StoreState): boolean => {
         return state.inventoryOpen;
     },
-    selectedTarget: (state) => {
+    selectedTarget: (state: StoreState): Player | Equipment | null => {
         return state.selectedTarget;
     }
 };
 
-const actions: ActionTree<any, any> = {
+const actions: ActionTree<StoreState, StoreState> = {
     openInventory({ commit } ) {
         commit('openInventory');
     },
@@ -30,7 +38,7 @@ const actions: ActionTree<any, any> = {
         commit('setRoom', room);
     },
     async reloadPlayer({ state, dispatch }) {
-        return dispatch("loadPlayer", { playerId: state.player.id });
+        return dispatch("loadPlayer", { playerId: state.player?.id });
     },
     setLoading({ commit }, { loading }) {
         commit('setLoading', loading);
@@ -40,22 +48,22 @@ const actions: ActionTree<any, any> = {
     }
 };
 
-const mutations : MutationTree<any> = {
-    setLoading(state, newValue) {
-        state.loading = newValue;
+const mutations = {
+    setLoading: (state: StoreState, newValue : boolean): boolean => {
+        return state.loading = newValue;
     },
-    openInventory(state) {
-        state.inventoryOpen = true;
+    openInventory: (state: StoreState): Player | Equipment | null | boolean => {
+        return state.inventoryOpen = true,
         state.selectedTarget = null;
     },
-    closeInventory(state) {
-        state.inventoryOpen = false;
+    closeInventory: (state: StoreState): boolean => {
+        return state.inventoryOpen = false;
     },
-    setRoom(state, room: Room) {
-        state.room = room;
+    setRoom: (state: StoreState, room: Room): Room => {
+        return state.room = room;
     },
-    setSelectedTarget(state, target: Player | Equipment | null) {
-        state.selectedTarget = target;
+    setSelectedTarget: (state: StoreState, target: Player | Equipment | null): Player | Equipment | null | boolean => {
+        return state.selectedTarget = target,
         state.inventoryOpen = false;
     }
 };

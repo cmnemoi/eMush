@@ -1,16 +1,8 @@
 import { expect } from 'chai';
-import sinon from 'sinon';
-import { formatText, helpers } from './formatText';
+import { formatText } from './formatText';
 
 describe('formatText', () => {
 
-    before(() => {
-        sinon.stub(helpers, "computeImageHtml").returns("<img/>");
-    });
-
-    after(() => {
-        (helpers.computeImageHtml as any).restore();
-    });
 
     describe('Simple tests', () => {
         it('return an empty string when given an empty string', () => {

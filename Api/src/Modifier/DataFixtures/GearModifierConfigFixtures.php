@@ -186,20 +186,21 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         ;
         $manager->persist($gravityConversionModifier);
 
+        $cycleEventCondition = new ModifierCondition(ModifierConditionEnum::REASON);
+        $cycleEventCondition->setCondition(EventEnum::NEW_CYCLE);
+        $manager->persist($cycleEventCondition);
+
         $gravityCycleModifier = new ModifierConfig();
         $gravityCycleModifier
-            ->setScope(ModifierScopeEnum::CYCLE_CHANGE)
+            ->setScope(AbstractQuantityEvent::CHANGE_VARIABLE)
             ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->addModifierCondition($cycleEventCondition)
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($gravityCycleModifier);
-
-        $cycleEventCondition = new ModifierCondition(ModifierConditionEnum::REASON);
-        $cycleEventCondition->setCondition(EventEnum::NEW_CYCLE);
-        $manager->persist($cycleEventCondition);
 
         $oxygenTankModifier = new ModifierConfig();
         $oxygenTankModifier

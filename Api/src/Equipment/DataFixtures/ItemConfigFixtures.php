@@ -68,7 +68,13 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($mycoAlarm);
 
-        $tabulatrixActions = new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_12), $repair12, $sabotage12, $reportAction]);
+        $tabulatrixActions = new ArrayCollection([
+            $this->getReference(TechnicianFixtures::DISMANTLE_3_12),
+            $repair12,
+            $sabotage12,
+            $reportAction,
+            $examineAction,
+        ]);
 
         $tabulatrix = new ItemConfig();
         $tabulatrix
@@ -209,7 +215,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions(new ArrayCollection([$takeAction]))
+            ->setActions(new ArrayCollection([$takeAction, $examineAction]))
         ;
         $manager->persist($oxygenCapsule);
 
@@ -220,7 +226,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions(new ArrayCollection([$takeAction]))
+            ->setActions(new ArrayCollection([$takeAction, $examineAction]))
         ;
         $manager->persist($fuelCapsule);
 

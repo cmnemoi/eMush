@@ -7,10 +7,8 @@ import { ChannelType } from "@/enums/communication.enum";
 import { AxiosResponse } from "axios";
 import urlJoin from "url-join";
 
-// @ts-ignore
-const CHANNELS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "channel");
-// @ts-ignore
-const ROOM_LOGS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "room-log");
+const CHANNELS_ENDPOINT = urlJoin((process.env.VUE_APP_API_URL) as string, "channel");
+const ROOM_LOGS_ENDPOINT = urlJoin((process.env.VUE_APP_API_URL) as string, "room-log");
 
 const CommunicationService = {
 
@@ -22,7 +20,7 @@ const CommunicationService = {
             (new Channel()).load({ scope: ChannelType.ROOM_LOG, id: ChannelType.ROOM_LOG })
         ];
         if (channelsData.data) {
-            channelsData.data.forEach((data: any) => {
+            channelsData.data.forEach((data: Channel) => {
                 channels.push((new Channel()).load(data));
             });
         }
@@ -55,7 +53,7 @@ const CommunicationService = {
 
             const messages: Message[] = [];
             if (messagesData.data) {
-                messagesData.data.forEach((data: any) => {
+                messagesData.data.forEach((data: Message) => {
                     messages.push((new Message()).load(data));
                 });
             }
@@ -71,7 +69,7 @@ const CommunicationService = {
                 Object.keys(days).map((day) => {
                     Object.keys(days[day]).map((cycle) => {
                         const roomLogs: RoomLog[] = [];
-                        days[day][cycle].forEach((value: any) => {
+                        days[day][cycle].forEach((value: string) => {
                             const roomLog = (new RoomLog()).load(value);
                             roomLogs.push(roomLog);
                         });
@@ -90,9 +88,9 @@ const CommunicationService = {
     loadInvitablePlayers: async (channel: Channel): Promise<Player[]> => {
         const playersData = await ApiService.get(CHANNELS_ENDPOINT + '/' + channel.id + '/invite');
 
-        const players:Player[] = [];
+        const players:Array<Player> = [];
         if (playersData.data) {
-            playersData.data.forEach((data: any) => {
+            playersData.data.forEach((data: Player) => {
                 players.push((new Player()).load(data));
             });
         }
@@ -119,7 +117,7 @@ const CommunicationService = {
 
         const messages: Message[] = [];
         if (messagesData.data) {
-            messagesData.data.forEach((data: any) => {
+            messagesData.data.forEach((data: Message) => {
                 messages.push((new Message()).load(data));
             });
         }

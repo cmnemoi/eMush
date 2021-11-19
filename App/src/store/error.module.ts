@@ -1,11 +1,22 @@
 import { ActionTree, MutationTree } from "vuex";
 
-const state =  {
-    error: null
+interface StoreState {
+    error: ErrorModule | null
 };
 
-const actions: ActionTree<any, any> = {
-    setError({ commit }, error: any): void {
+interface ErrorModule {
+    message: string;
+    status: string
+    statusText: string;
+    request: Record<string, unknown>;
+    response: Record<string, unknown>
+}
+const state =  {
+    error: null
+} as StoreState;
+
+const actions: ActionTree<StoreState, StoreState> = {
+    setError({ commit }, error): void {
         commit('setError', error);
     },
     clearError({ commit }): void {
@@ -13,8 +24,8 @@ const actions: ActionTree<any, any> = {
     }
 };
 
-const mutations: MutationTree<any> = {
-    setError(state:any, error: any): void {
+const mutations: MutationTree<StoreState> = {
+    setError(state, error): void {
         state.error = {
             message: error.message,
             status: error.request?.status,
@@ -30,7 +41,7 @@ const mutations: MutationTree<any> = {
             }
         };
     },
-    resetError(state: any): void {
+    resetError(state): void {
         state.error = null;
     }
 };

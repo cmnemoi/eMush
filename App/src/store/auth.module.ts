@@ -17,7 +17,7 @@ const state =  {
     accessToken: TokenService.getToken(),
     refreshTokenPromise: null,
     loading: false
-};
+} as AuthState;
 
 const getters = {
     loggedIn: (state : AuthState): boolean => {
@@ -33,7 +33,7 @@ const getters = {
     }
 };
 
-const actions: ActionTree<any, any> = {
+const actions: ActionTree<AuthState, AuthState> = {
     async setToken({ commit }, { token }): Promise<void> {
         TokenService.saveToken(token);
         ApiService.setHeader();

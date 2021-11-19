@@ -4,8 +4,7 @@ import store from "@/store/index";
 import { DeadPlayerInfo } from "@/entities/DeadPlayerInfo";
 import urlJoin from "url-join";
 
-// @ts-ignore
-const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player");
+const ACTION_ENDPOINT = urlJoin((process.env.VUE_APP_API_URL) as string, "player");
 
 const PlayerService = {
     loadPlayer: async(playerId: number): Promise<Player | null> => {

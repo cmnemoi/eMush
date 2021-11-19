@@ -39,7 +39,7 @@ export default class PlayableCharacterObject extends CharacterObject {
         //find the path in isometric coordinates using navMeshPlugin
         const path = this.navMesh.findPath({ x: startingPoint.x, y: startingPoint.y }, { x: finishPoint.x, y: finishPoint.y });
 
-        // @ts-ignore
+
         //this.navMesh.debugDrawPath(path, 0xffd900);;
 
         if (path !== null){
@@ -134,10 +134,11 @@ export default class PlayableCharacterObject extends CharacterObject {
 
             this.anims.play('right');
 
-            // @ts-ignore
-            this.body.stop();
-            this.isoPath = [];
+            if(this.body instanceof Phaser.Physics.Arcade.Body) {
+                this.body.stop();
+                this.isoPath = [];
 
+            }
             return this.currentMove = -1;
         }
     }
@@ -160,50 +161,52 @@ export default class PlayableCharacterObject extends CharacterObject {
 
         const currentMove = this.isoPath[this.currentMove];
 
-        //if move on EW axis
-        if (currentMove.direction === 'west') {
-            this.flipX = false;
-            // @ts-ignore
-            this.body.setVelocityX(-cartSpeed.x);
-            // @ts-ignore
-            this.body.setVelocityY(-cartSpeed.y);
-            if (this.anims.currentAnim.key !== 'move_left') {
-                this.anims.play('move_left');
+        if(this.body instanceof Phaser.Physics.Arcade.Body) {
+            //if move on EW axis
+            if (currentMove.direction === 'west') {
+                this.flipX = false;
+
+                this.body.setVelocityX(-cartSpeed.x);
+
+                this.body.setVelocityY(-cartSpeed.y);
+                if (this.anims.currentAnim.key !== 'move_left') {
+                    this.anims.play('move_left');
+                }
+
+
+            } else if (currentMove.direction === 'east') { //move to the E
+                this.flipX = false;
+
+                this.body.setVelocityX(cartSpeed.x);
+
+                this.body.setVelocityY(cartSpeed.y);
+                if (this.anims.currentAnim.key !== 'move_right') {
+                    this.anims.play('move_right');
+                }
+
+
+            } else if (currentMove.direction === 'south') {//move to the S
+                this.flipX = true;
+
+                this.body.setVelocityX(-cartSpeed.x);
+
+                this.body.setVelocityY(cartSpeed.y);
+                if (this.anims.currentAnim.key !== 'move_right') {
+                    this.anims.play('move_right');
+                }
+
+
+            } else if (currentMove.direction === 'north') {//move to the N
+                this.flipX = true;
+
+                this.body.setVelocityX(cartSpeed.x);
+
+                this.body.setVelocityY(-cartSpeed.y);
+                if (this.anims.currentAnim.key !== 'move_left') {
+                    this.anims.play('move_left');
+                }
+
             }
-
-
-        } else if (currentMove.direction === 'east') { //move to the E
-            this.flipX = false;
-            // @ts-ignore
-            this.body.setVelocityX(cartSpeed.x);
-            // @ts-ignore
-            this.body.setVelocityY(cartSpeed.y);
-            if (this.anims.currentAnim.key !== 'move_right') {
-                this.anims.play('move_right');
-            }
-
-
-        } else if (currentMove.direction === 'south') {//move to the S
-            this.flipX = true;
-            // @ts-ignore
-            this.body.setVelocityX(-cartSpeed.x);
-            // @ts-ignore
-            this.body.setVelocityY(cartSpeed.y);
-            if (this.anims.currentAnim.key !== 'move_right') {
-                this.anims.play('move_right');
-            }
-
-
-        } else if (currentMove.direction === 'north') {//move to the N
-            this.flipX = true;
-            // @ts-ignore
-            this.body.setVelocityX(cartSpeed.x);
-            // @ts-ignore
-            this.body.setVelocityY(-cartSpeed.y);
-            if (this.anims.currentAnim.key !== 'move_left') {
-                this.anims.play('move_left');
-            }
-
         }
 
         const iso_coords = toIsometricCoords({ x: this.x, y: this.getFeetY() });

@@ -11,7 +11,7 @@ import { messages, defaultLocale } from '@/i18n';
 
 
 // Set the base URL of the API
-ApiService.init(process.env.VUE_APP_API_URL!);
+ApiService.init(process.env.VUE_APP_API_URL as string);
 
 // If token exists set header
 if (TokenService.getToken()) {

@@ -12,7 +12,7 @@ export class Status {
         this.description = null;
     }
 
-    load(object: any): Status {
+    load(object: Status): Status {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.key = object.key;
@@ -25,7 +25,7 @@ export class Status {
     jsonEncode(): string {
         return JSON.stringify(this);
     }
-    decode(jsonString: any): Status {
+    decode(jsonString: string): Status {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.load(object);

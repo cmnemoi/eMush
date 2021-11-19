@@ -174,7 +174,8 @@ export default class DaedalusScene extends Phaser.Scene
         this.createPlayers(sceneAspectRatio);
     }
 
-    update (time: number, delta: number): void
+    // update (time: number, delta: number): void
+    update (): void
     {
         this.playerSprite.update();
     }
@@ -254,7 +255,7 @@ export default class DaedalusScene extends Phaser.Scene
 
     //This function extract the tileset corresponding to a given gid
     // //(is gid comprised between first gid of this tileset and the first gid of next tileset)
-    getTileset(tilesets: any, gid: number): any
+    getTileset(tilesets: Phaser.Tilemaps.Tileset[], gid: number): Phaser.Tilemaps.Tileset
     {
         let chosenTileset = tilesets[0];
 
@@ -301,7 +302,6 @@ export default class DaedalusScene extends Phaser.Scene
             return new DecorationObject(this, cart_coords, this.getIsoCenter(obj), tileset, frame, name, sceneAspectRatio);
 
         case 'door':
-            // @ts-ignore
             const currentDoor = this.room.doors.find((door: DoorEntity) => (door.key === obj.name));
             if (typeof currentDoor !== "undefined") {
                 return new DoorObject(this, cart_coords, frame, currentDoor);

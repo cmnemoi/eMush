@@ -1,6 +1,6 @@
 import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
-import { characterEnum } from "@/enums/character";
+import { characterEnum, CharacterInfos } from "@/enums/character";
 import { CartesianCoordinates, IsometricDistance, toIsometricCoords } from "@/game/types";
 import { Player } from "@/entities/Player";
 import store from "@/store";
@@ -19,7 +19,7 @@ export default class CharacterObject extends Phaser.GameObjects.Sprite {
         this.navMesh = scene.navMesh;
         this.player = player;
 
-        let characterFrames: any = characterEnum[player.character.key];
+        let characterFrames: CharacterInfos = characterEnum[player.character.key];
 
         if (!characterFrames.moveLeftFirstFrame){
             characterFrames = characterEnum["default"];
@@ -53,7 +53,7 @@ export default class CharacterObject extends Phaser.GameObjects.Sprite {
 
 
         //If this is clicked then:
-        this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
+        this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: Event) {
             store.dispatch('room/selectTarget', { target: player });
             event.stopPropagation(); //Need that one to prevent other effects
         });
@@ -65,7 +65,7 @@ export default class CharacterObject extends Phaser.GameObjects.Sprite {
 
 
 
-    createAnimations(characterFrames: any): void
+    createAnimations(characterFrames: CharacterInfos): void
     {
         this.anims.create({
             key: 'move_left',

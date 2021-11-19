@@ -28,7 +28,7 @@ export default class InteractObject extends DecorationObject {
 
 
         //If this is clicked then:
-        this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
+        this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: Event) {
             store.dispatch('room/selectTarget', { target: equipment });
             event.stopPropagation(); //Need that one to prevent other effects
         });

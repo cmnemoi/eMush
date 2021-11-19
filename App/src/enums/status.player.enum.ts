@@ -1,3 +1,5 @@
+import { TypeEnum } from "./type.enums";
+
 const STARVING = "starving";
 const BURDENED = "burdened";
 const DISABLED = "disabled";
@@ -15,7 +17,7 @@ const FIRST_TIME = "first_time";
 const PREGNANT = "pregnant";
 
 
-export const statusPlayerEnum: {[index: string]: any} = {
+export const statusPlayerEnum: {[index: string]: TypeEnum} = {
     [STARVING]: {
         'icon': require('@/assets/images/status/starving.png')
     },

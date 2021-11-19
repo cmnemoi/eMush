@@ -1,3 +1,5 @@
+import { TypeEnum } from "./type.enums";
+
 const COFFEE = "coffee";
 const PLASTIC_SCRAP = "plastic_scraps";
 const METAL_SCRAP = "metal_scraps";
@@ -84,7 +86,7 @@ const JAR_OF_ALIEN_OIL = "jar_of_alien_oil";
 const BANDAGE = "bandage";
 
 
-export const itemEnum: {[index: string]: any} = {
+export const itemEnum: {[index: string]: TypeEnum} = {
     [ALIEN_BOTTLE_OPENER]: {
         'image': require('@/assets/images/items/alien_can_opener.jpg')
     },

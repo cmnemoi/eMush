@@ -2,20 +2,31 @@ import CommunicationService from "@/services/communication.service";
 import { Channel } from "@/entities/Channel";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { ChannelType } from "@/enums/communication.enum";
+import { Player } from "@/entities/Player";
 
+interface StoreState {
+    currentChannel: Channel;
+    invitablePlayerMenuOpen: boolean,
+    invitablePlayers: Array<Player> | null,
+    invitationChannel: null,
+    channels?: Array<Channel> | null,
+    loadingChannels: boolean,
+    loadingByChannelId: Array<number>,
+    messagesByChannelId: Record<string, unknown>
+};
 
 const state =  {
     currentChannel: new Channel(),
     invitablePlayerMenuOpen: false,
-    invitablePlayers: [],
+    invitablePlayers: null,
     invitationChannel: null,
-    channels: [],
+    channels: null,
     loadingChannels: false,
     loadingByChannelId: {},
     messagesByChannelId: {}
-};
+} as StoreState;
 
-const getters: GetterTree<any, any> = {
+const getters: GetterTree<StoreState, StoreState> = {
     loading(state) {
         return state.loadingByChannelId[state.currentChannel.id] || false;
     },
@@ -23,7 +34,7 @@ const getters: GetterTree<any, any> = {
         return state.messagesByChannelId[state.currentChannel.id] || [];
     },
     roomChannel(state) {
-        return state.channels.find((channel: Channel) => channel.scope === ChannelType.ROOM_LOG);
+        return state.channels?.find((channel: Channel) => channel.scope === ChannelType.ROOM_LOG);
     },
     invitablePlayerMenuOpen(state) {
         return state.invitablePlayerMenuOpen;
@@ -39,7 +50,7 @@ const getters: GetterTree<any, any> = {
     }
 };
 
-const actions: ActionTree<any, any> = {
+const actions: ActionTree<StoreState, any> = {
     async changeChannel({ commit, dispatch }, { channel }) {
         commit('setCurrentChannel', channel);
         dispatch('loadMessages', { channel });
@@ -144,43 +155,43 @@ const actions: ActionTree<any, any> = {
     }
 };
 
-const mutations: MutationTree<any> = {
-    setLoadingOfChannels(state: any, newStatus: string): void {
+const mutations: MutationTree<StoreState> = {
+    setLoadingOfChannels(state, newStatus: boolean): void {
         state.loadingChannels = newStatus;
     },
 
-    setLoadingForChannel(state: any, { channel, newStatus }): void {
+    setLoadingForChannel(state, { channel, newStatus }): void {
         state.loadingByChannelId[channel.id] = newStatus;
     },
 
-    setCurrentChannel(state: any, channel: Channel): void {
+    setCurrentChannel(state, channel: Channel): void {
         state.currentChannel = channel;
     },
 
-    setChannels(state: any, channels: Channel[]): void {
+    setChannels(state, channels: Channel[]): void {
         state.channels = channels;
     },
 
-    addChannel(state: any, channel: Channel): void {
-        state.channels.push(channel);
+    addChannel(state, channel: Channel): void {
+        state.channels?.push(channel);
     },
 
-    removeChannel(state: any, channel: Channel): void {
-        state.channels = state.channels.filter(({ id }: {id: number}) => id !== channel.id);
+    removeChannel(state, channel: Channel): void {
+        state.channels = state.channels?.filter(({ id }: {id: number}) => id !== channel.id);
         delete state.loadingByChannelId[channel.id];
         delete state.messagesByChannelId[channel.id];
     },
 
-    invitablePlayerMenu(state: any, { isOpen, channel }): void {
+    invitablePlayerMenu(state, { isOpen, channel }): void {
         state.invitablePlayerMenuOpen = isOpen;
         state.invitationChannel = channel;
     },
 
-    setInvitablePlayers(state: any, { invitablePlayers }): void {
+    setInvitablePlayers(state, { invitablePlayers }): void {
         state.invitablePlayers = invitablePlayers;
     },
 
-    setChannelMessages(state: any, { channel, messages }): void {
+    setChannelMessages(state, { channel, messages }): void {
         state.messagesByChannelId[channel.id] = messages;
     }
 };

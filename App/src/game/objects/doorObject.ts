@@ -34,7 +34,7 @@ export default class DoorObject extends Phaser.GameObjects.Sprite {
         this.setDepth(2);
 
         this.interactBox = this.setInteractBox();
-        this.scene.input.on('pointerdown', (pointer: any) => {
+        this.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             this.onDoorClicked(pointer);
         }, this);
 
@@ -61,7 +61,7 @@ export default class DoorObject extends Phaser.GameObjects.Sprite {
 
     }
 
-    onDoorClicked(pointer: any): void
+    onDoorClicked(pointer: Phaser.Input.Pointer): void
     {
         if (Phaser.Geom.Polygon.Contains(this.interactBox, pointer.worldX, pointer.worldY)){
 
@@ -79,12 +79,11 @@ export default class DoorObject extends Phaser.GameObjects.Sprite {
             } else {
                 //If the door is broken propose the repair action
                 const door = this.door;
-                this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
+                this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: Event) {
                     store.dispatch('room/selectTarget', { target: door });
                     event.stopPropagation(); //Need that one to prevent other effects
                 });
             }
-            // @ts-ignore
         } else if (String(this.frame.name) ===  String(this.firstFrame + 10))
         {
             //if player click outside the door AND the door is open

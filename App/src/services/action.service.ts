@@ -7,8 +7,7 @@ import { Action } from "@/entities/Action";
 import { AxiosResponse } from "axios";
 import urlJoin from "url-join";
 
-// @ts-ignore
-const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "action");
+const ACTION_ENDPOINT = urlJoin((process.env.VUE_APP_API_URL) as string, "action");
 
 const ActionService = {
     executeTargetAction(target: Door | Item | Equipment | Player | null, action: Action): Promise<AxiosResponse> {

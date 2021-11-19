@@ -3,12 +3,9 @@ import { TokenService } from './storage.service';
 import { User } from "@/entities/User";
 import urlJoin from "url-join";
 
-// @ts-ignore
-const authorizationUrl = urlJoin(process.env.VUE_APP_OAUTH_URL, "authorize");
-// @ts-ignore
-const tokenUrl = urlJoin(process.env.VUE_APP_OAUTH_URL, "token");
-// @ts-ignore
-const callBackUrl = urlJoin(process.env.VUE_APP_URL, "token");
+const authorizationUrl = urlJoin((process.env.VUE_APP_OAUTH_URL) as string, "authorize");
+const tokenUrl = urlJoin((process.env.VUE_APP_OAUTH_URL) as string, "token");
+const callBackUrl = urlJoin((process.env.VUE_APP_URL) as string, "token");
 
 class AuthenticationError extends Error {
     public errorCode: number
@@ -40,7 +37,7 @@ const UserService = {
             ApiService.setHeader();
 
             return response.data.token;
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
             // eslint-disable-next-line no-console
             throw new AuthenticationError(error.response.status, error.response.data.detail);
@@ -89,7 +86,7 @@ const UserService = {
             TokenService.saveUserInfo(user.load(response.data));
 
             return user;
-        } catch (error) {
+        } catch (error: any) {
             // eslint-disable-next-line no-console
             throw new AuthenticationError(error.response.status, error.response.data.detail);
         }

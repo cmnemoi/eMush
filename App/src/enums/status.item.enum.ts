@@ -1,3 +1,5 @@
+import { TypeEnum } from "./type.enums";
+
 const HEAVY = "heavy";
 const HIDDEN = "hidden";
 const PLANT_YOUNG = "plant_young";
@@ -9,7 +11,7 @@ const BROKEN = "broken";
 const FROZEN = "frozen";
 
 
-export const statusItemEnum: {[index: string]: any} = {
+export const statusItemEnum: {[index: string]: TypeEnum} = {
     [HEAVY]: {
         'icon': require('@/assets/images/status/heavy.png')
     },

@@ -8,7 +8,7 @@ export class User {
         this.username = null;
         this.currentGame = null;
     }
-    load(object: any): User {
+    load(object: User): User {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.username = object.username;

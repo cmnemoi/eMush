@@ -61,7 +61,7 @@ export default class DoorGroundObject extends Phaser.GameObjects.Sprite {
         } else {
             //If the door is broken propose the repair action
             const door = this.door;
-            this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
+            this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: Event) {
                 store.dispatch('room/selectTarget', { target: door });
                 event.stopPropagation(); //Need that one to prevent other effects
             });

@@ -87,7 +87,7 @@ const ApiService = {
      *    - username
      *    - password
      **/
-    customRequest(data: Record<string, unknown>): AxiosPromise<any> {
+    customRequest(data: Record<string, unknown>): AxiosPromise<string> {
         return axios(data);
     }
 };

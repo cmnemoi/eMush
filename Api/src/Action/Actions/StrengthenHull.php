@@ -39,8 +39,6 @@ class StrengthenHull extends AttemptAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
-        $parameter->setHolder(null);
-
         $response = $this->makeAttempt();
 
         if ($response instanceof Success) {
@@ -53,6 +51,7 @@ class StrengthenHull extends AttemptAction
                 $this->getActionName(),
                 new \DateTime()
             );
+            $daedalusEvent->setPlayer($this->player);
             $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
             $equipmentEvent = new EquipmentEvent(

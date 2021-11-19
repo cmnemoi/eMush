@@ -49,7 +49,7 @@ class ActionLogEnum
     public const SHRED_SUCCESS = 'shred_success';
     public const SHOWER_HUMAN = 'shower_human';
     public const SHOWER_MUSH = 'shower_mush';
-    public const STRENGTHEN_SUCCESS = 'srengthen_success';
+    public const STRENGTHEN_SUCCESS = 'strengthen_success';
     public const SPREAD_FIRE_SUCCESS = 'spread_fire_success';
     public const TAKE = 'take';
     public const TRANSPLANT_SUCCESS = 'transplant_success';

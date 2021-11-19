@@ -50,7 +50,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             $cause,
             $time
         );
-        $event->setAuthor($author);
+        $event->setAuthor($author)->setVisibility(VisibilityEnum::PRIVATE);
         $this->eventDispatcher->dispatch($event, DiseaseEvent::CURE_DISEASE);
 
         $this->entityManager->remove($playerDisease);

@@ -75,7 +75,15 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$hackerKitMechanic]))
-            ->setActions(new ArrayCollection([$takeAction, $dropAction, $hideAction, $repair6, $sabotage6, $reportAction]))
+            ->setActions(new ArrayCollection([
+                $takeAction,
+                $dropAction,
+                $hideAction,
+                $repair6,
+                $sabotage6,
+                $reportAction,
+                $examineAction,
+            ]))
         ;
         $manager->persist($hackerKit);
         $manager->persist($hackerKitMechanic);
@@ -105,6 +113,15 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $cameraMechanics = new Tool();
         $cameraMechanics->addAction($installCamera);
 
+        $cameraActions = new ArrayCollection([
+            $takeAction,
+            $this->getReference(TechnicianFixtures::DISMANTLE_3_25),
+            $repair25,
+            $sabotage25,
+            $reportAction,
+            $examineAction,
+        ]);
+
         $camera = new ItemConfig();
         $camera
             ->setGameConfig($gameConfig)
@@ -114,7 +131,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$cameraMechanics]))
-            ->setActions(new ArrayCollection([$takeAction, $this->getReference(TechnicianFixtures::DISMANTLE_3_25), $repair25, $sabotage25, $reportAction]))
+            ->setActions($cameraActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
@@ -263,7 +280,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$alienHolographicTVMechanic]))
-            ->setActions(new ArrayCollection([$takeAction, $dropAction, $hideAction, $repair3, $sabotage3, $reportAction]))
+            ->setActions(new ArrayCollection([$takeAction, $dropAction, $hideAction, $repair3, $sabotage3, $reportAction, $examineAction]))
             ->setInitStatus(new ArrayCollection([$alienArtifactStatus]))
         ;
 

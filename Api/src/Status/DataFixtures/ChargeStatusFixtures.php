@@ -215,6 +215,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setName(PlayerStatusEnum::MUSH)
             ->setVisibility(VisibilityEnum::MUSH)
             ->setChargeVisibility(VisibilityEnum::MUSH)
+            ->setMaxCharge(1)
+            ->setStartCharge(1)
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($mushStatus);

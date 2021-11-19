@@ -64,6 +64,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
 
+        /** @var Action $dismantle12 */
         $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
 
         /** @var StatusConfig $alienArtifactStatus */
@@ -254,6 +255,14 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ]
         );
 
+        /** @var Action $dismantle12 */
+        $dismantle6 = $this->getReference(TechnicianFixtures::DISMANTLE_4_6);
+
+        $oscilloscopeActions = clone $actions;
+        $oscilloscopeActions->add($sabotage6);
+        $oscilloscopeActions->add($repair6);
+        $oscilloscopeActions->add($dismantle6);
+
         $oscilloscope = new ItemConfig();
         $oscilloscope
             ->setGameConfig($gameConfig)
@@ -262,8 +271,9 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setMechanics(new ArrayCollection([$oscilloscopeGear]))
-            ->setActions($actions) //@FIXME add repair and sabotage with right %
+            ->setActions($oscilloscopeActions)
             ->setInitStatus(new ArrayCollection([$heavyStatus]))
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 2])
         ;
         $manager->persist($oscilloscope);
 

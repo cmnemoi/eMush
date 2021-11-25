@@ -66,12 +66,12 @@ export default defineComponent ({
         background: #88def8;
         font-style: italic;
         border: none;
+    }
 
-        &.spotted {
-            background: #e29ec3;
-            border: 1px solid #ff3f58;
-            font-style: normal;
-        }
+    &.revealed {
+        background: #e29ec3;
+        border: 1px solid #ff3f58;
+        font-style: normal;
     }
 
     //Add corresponding icons next to the timestamp
@@ -79,7 +79,7 @@ export default defineComponent ({
     &.personnal,
     &.covert,
     &.secret,
-    &.spotted {
+    &.revealed {
         .timestamp::before {
             content: "";
             display: inline-block;
@@ -106,7 +106,7 @@ export default defineComponent ({
         background: url('~@/assets/images/comms/discrete.png') center no-repeat;
     }
 
-    &.spotted .timestamp::before {
+    &.revealed .timestamp::before {
         width: 20px;
         height: 16px;
         background: url('~@/assets/images/comms/spotted.png') center no-repeat;

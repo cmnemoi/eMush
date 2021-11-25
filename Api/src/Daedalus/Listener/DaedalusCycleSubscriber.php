@@ -18,6 +18,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class DaedalusCycleSubscriber implements EventSubscriberInterface
 {
     public const CYCLE_OXYGEN_LOSS = -3;
+    public const LOBBY_TIME_LIMIT = 3 * 24 * 60;
 
     private DaedalusServiceInterface $daedalusService;
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
@@ -51,8 +52,6 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         }
 
         $this->dispatchCycleChangeEvent($daedalus, $event->getTime());
-
-        $daedalus = $this->handleOxygen($daedalus, $event->getTime());
 
         $this->daedalusService->persist($daedalus);
     }
@@ -125,6 +124,18 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $this->daedalusIncidentService->handleTremorEvents($daedalus, $time);
         $this->daedalusIncidentService->handleElectricArcEvents($daedalus, $time);
         $this->daedalusIncidentService->handleFireEvents($daedalus, $time);
+
+        $daedalus = $this->handleOxygen($daedalus, $time);
+
+        $timeElapsedSinceStart = ($daedalus->getCycle() + $daedalus->getDay() * $gameConfig->getCyclePerGameDay()) * $gameConfig->getCycleLength();
+        if ($timeElapsedSinceStart >= self::LOBBY_TIME_LIMIT) {
+            $daedalusEvent = new DaedalusEvent(
+                $daedalus,
+                EventEnum::NEW_CYCLE,
+                $time
+            );
+            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::START_DAEDALUS);
+        }
 
         if ($newDay) {
             $dayEvent = new DaedalusCycleEvent(

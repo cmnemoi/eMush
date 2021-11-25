@@ -11,6 +11,7 @@ use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Communication\Specification\SpecificationInterface;
 use Mush\Communication\Voter\ChannelVoter;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
@@ -68,6 +69,10 @@ class ChannelController extends AbstractFOSRestController
         $player = $user->getCurrentGame();
         if (!$player) {
             throw new AccessDeniedException('User should be in game');
+        }
+
+        if ($player->getGameStatus() !== GameStatusEnum::CURRENT) {
+            throw new AccessDeniedException('Player is dead');
         }
 
         $daedalus = $player->getDaedalus();
@@ -270,6 +275,10 @@ class ChannelController extends AbstractFOSRestController
 
         if (!$player) {
             throw new AccessDeniedException('User should be in game');
+        }
+
+        if ($player->getGameStatus() !== GameStatusEnum::CURRENT) {
+            throw new AccessDeniedException('Player is dead');
         }
 
         $this->messageService->createPlayerMessage($player, $messageCreate);

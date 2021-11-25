@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Communication\Enum\CommunicationActionEnum;
 use Mush\Communication\Event\ChannelEvent;
 use Mush\Communication\Repository\ChannelPlayerRepository;
 use Mush\Communication\Repository\ChannelRepository;
@@ -71,7 +72,7 @@ class ChannelService implements ChannelServiceInterface
         $this->entityManager->persist($channel);
         $this->entityManager->flush();
 
-        $event = new ChannelEvent($channel, $player);
+        $event = new ChannelEvent($channel, CommunicationActionEnum::CREATE_CHANNEL, new \DateTime(), $player);
         $this->eventDispatcher->dispatch($event, ChannelEvent::NEW_CHANNEL);
 
         return $channel;
@@ -86,15 +87,22 @@ class ChannelService implements ChannelServiceInterface
 
     public function invitePlayer(Player $player, Channel $channel): Channel
     {
-        $event = new ChannelEvent($channel, $player);
+        $event = new ChannelEvent($channel, CommunicationActionEnum::INVITED, new \DateTime(), $player);
         $this->eventDispatcher->dispatch($event, ChannelEvent::JOIN_CHANNEL);
 
         return $channel;
     }
 
-    public function exitChannel(Player $player, Channel $channel): bool
-    {
-        $event = new ChannelEvent($channel, $player);
+    public function exitChannel(
+        Player $player,
+        Channel $channel,
+        \DateTime $time = null,
+        string $reason = CommunicationActionEnum::EXIT
+    ): bool {
+        if ($time === null) {
+            $time = new \DateTime();
+        }
+        $event = new ChannelEvent($channel, $reason, $time, $player);
         $this->eventDispatcher->dispatch($event, ChannelEvent::EXIT_CHANNEL);
 
         return true;

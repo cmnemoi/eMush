@@ -65,12 +65,16 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         string $cause,
         int $delayMin = null,
         int $delayLength = null
-    ): PlayerDisease {
+    ): ?PlayerDisease {
         /** @var DiseaseConfig $diseaseConfig */
         $diseaseConfig = $this->diseaseConfigRepository->findOneBy(['name' => $diseaseName, 'gameConfig' => $player->getDaedalus()->getGameConfig()]);
 
         if ($diseaseConfig === null) {
             throw new \LogicException("{$diseaseName} do not have any disease config for the daedalus {$player->getDaedalus()->getId()}");
+        }
+
+        if ($player->getMedicalConditionByName($diseaseName) !== null) {
+            return null;
         }
 
         $disease = new PlayerDisease();

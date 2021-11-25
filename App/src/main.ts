@@ -1,6 +1,5 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import Title from './Title.vue';
 import './assets/scss/main.scss';
 import ApiService from "./services/api.service";
 import { TokenService } from "./services/storage.service";
@@ -34,7 +33,4 @@ createApp(App)
     .use(i18n)
     .mount('#app');
 
-createApp(Title)
-    .use(i18n)
-    .mount('#title');
 

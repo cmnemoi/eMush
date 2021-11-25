@@ -4,7 +4,7 @@ const METAL_SCRAP = "metal_scraps";
 const ANTIGRAV_SCOOTER = "antigrav_scooter";
 const MEDIKIT = "medikit";
 const OSCILLOSCOPE = 'oscilloscope';
-const ROLLING_BOULDER = 'oscilloscope';
+const ROLLING_BOULDER = 'rolling_boulder';
 const ALIEN_BOTTLE_OPENER = 'alien_bottle_opener';
 
 const BACTA = 'bacta';

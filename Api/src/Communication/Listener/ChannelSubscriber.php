@@ -3,11 +3,14 @@
 namespace Mush\Communication\Listener;
 
 use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Communication\Enum\CommunicationActionEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Event\ChannelEvent;
 use Mush\Communication\Services\ChannelPlayerServiceInterface;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
+use Mush\Player\Event\PlayerEvent;
+use SebastianBergmann\Type\LogicException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ChannelSubscriber implements EventSubscriberInterface
@@ -67,8 +70,10 @@ class ChannelSubscriber implements EventSubscriberInterface
         if ($player = $event->getPlayer()) {
             $this->channelPlayerService->removePlayer($player, $channel);
 
+            $key = $this->createPlayerLeaveMessage($event->getReason());
+
             $this->messageService->createSystemMessage(
-                NeronMessageEnum::PLAYER_LEAVE_CHAT,
+                $key,
                 $channel,
                 ['character' => $player->getCharacterConfig()->getName()],
                 new \DateTime()
@@ -77,6 +82,20 @@ class ChannelSubscriber implements EventSubscriberInterface
 
         if ($channel->getScope() === ChannelScopeEnum::PRIVATE && $channel->getParticipants()->isEmpty()) {
             $this->channelService->deleteChannel($channel);
+        }
+    }
+
+    private function createPlayerLeaveMessage(string $reason): string
+    {
+        switch ($reason) {
+            case CommunicationActionEnum::EXIT:
+                return NeronMessageEnum::PLAYER_LEAVE_CHAT;
+
+            case PlayerEvent::DEATH_PLAYER:
+                return NeronMessageEnum::PLAYER_LEAVE_CHAT_DEATH;
+
+            default:
+                throw new LogicException('unknown leave chat reason');
         }
     }
 }

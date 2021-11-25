@@ -17,7 +17,7 @@ interface PlayerDiseaseServiceInterface
         string $cause,
         int $delayMin = null,
         int $delayLength = null
-    ): PlayerDisease;
+    ): ?PlayerDisease;
 
     public function handleDiseaseForCause(string $cause, Player $player): void;
 

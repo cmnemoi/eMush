@@ -96,6 +96,7 @@ class MoveSubscriberCest
         $I->haveInRepository($modifierConfig1);
         $I->refreshEntities($player);
         $modifier = new Modifier($player, $modifierConfig1);
+        $modifier->setCause('some name');
         $I->haveInRepository($modifier);
 
         $gear = new Gear();
@@ -130,6 +131,7 @@ class MoveSubscriberCest
         ;
         $I->haveInRepository($modifierConfig2);
         $modifier2 = new Modifier($room, $modifierConfig2);
+        $modifier2->setCause('some name');
         $I->haveInRepository($modifier2);
 
         $gear2 = new Gear();
@@ -154,6 +156,7 @@ class MoveSubscriberCest
 
         //lets create a status with modifier with room reach on player
         $modifier3 = new Modifier($room, $modifierConfig2);
+        $modifier3->setCause('some name');
         $I->haveInRepository($modifier3);
 
         $statusConfig = new StatusConfig();
@@ -168,6 +171,7 @@ class MoveSubscriberCest
 
         //lets create a status with modifier with room reach on equipment2
         $modifier4 = new Modifier($room, $modifierConfig2);
+        $modifier4->setCause('some name');
         $I->haveInRepository($modifier4);
 
         $I->haveInRepository($statusConfig);

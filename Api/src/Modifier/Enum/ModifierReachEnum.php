@@ -9,4 +9,15 @@ class ModifierReachEnum
     public const PLACE = 'place';
     public const DAEDALUS = 'daedalus';
     public const EQUIPMENT = 'equipment';
+
+    public static function getAllReaches(): array
+    {
+        return [
+            self::DAEDALUS,
+            self::PLACE,
+            self::PLAYER,
+            self::TARGET_PLAYER,
+            self::EQUIPMENT,
+        ];
+    }
 }

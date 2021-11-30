@@ -662,17 +662,4 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     {
         return LogParameterKeyEnum::CHARACTER;
     }
-
-    public function getModifiersConfigs(): Collection
-    {
-        $modifierConfigs = $this->getAllStatusesModifierConfigs();
-
-        foreach ($this->getEquipments() as $equipment) {
-            foreach ($equipment->getModifierConfigs() as $modifierConfig) {
-                $modifierConfigs->add($modifierConfig);
-            }
-        }
-
-        return $modifierConfigs;
-    }
 }

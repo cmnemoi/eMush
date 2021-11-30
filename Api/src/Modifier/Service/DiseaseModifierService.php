@@ -19,7 +19,7 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
     {
         $place = $player->getPlace();
         foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
-            $this->modifierService->createModifier($modifierConfig, $player->getDaedalus(), $place, $player, null);
+            $this->modifierService->createModifier($modifierConfig, $player->getDaedalus(), $diseaseConfig->getName(), $place, $player, null);
         }
     }
 

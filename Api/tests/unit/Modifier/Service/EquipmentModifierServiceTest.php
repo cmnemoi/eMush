@@ -12,7 +12,7 @@ use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
-use Mush\Modifier\Service\GearModifierService;
+use Mush\Modifier\Service\EquipmentModifierService;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -22,12 +22,12 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 
-class GearModifierServiceTest extends TestCase
+class EquipmentModifierServiceTest extends TestCase
 {
     /** @var ModifierServiceInterface|Mockery\Mock */
     private ModifierServiceInterface $modifierService;
 
-    private GearModifierService $service;
+    private EquipmentModifierService $service;
 
     /**
      * @before
@@ -36,7 +36,7 @@ class GearModifierServiceTest extends TestCase
     {
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
 
-        $this->service = new GearModifierService(
+        $this->service = new EquipmentModifierService(
             $this->modifierService,
         );
     }
@@ -74,11 +74,15 @@ class GearModifierServiceTest extends TestCase
             ->setMechanics(new ArrayCollection([$gear]))
         ;
         $gameEquipment = new GameItem();
-        $gameEquipment->setEquipment($equipmentConfig)->setHolder($room);
+        $gameEquipment
+            ->setEquipment($equipmentConfig)
+            ->setName($equipmentConfig->getName())
+            ->setHolder($room)
+        ;
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, $room, null, null, null)
+            ->with($modifierConfig1, $daedalus, $equipmentConfig->getName(), $room, null, $gameEquipment, null)
             ->once()
         ;
         $this->service->gearCreated($gameEquipment);
@@ -90,7 +94,7 @@ class GearModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, $room, $player, null, null)
+            ->with($modifierConfig1, $daedalus, $equipmentConfig->getName(), $room, $player, $gameEquipment, null)
             ->once()
         ;
         $this->service->gearCreated($gameEquipment);
@@ -102,7 +106,7 @@ class GearModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, $room, $player, null, $charge)
+            ->with($modifierConfig1, $daedalus, $equipmentConfig->getName(), $room, $player, $gameEquipment, $charge)
             ->once()
         ;
         $this->service->gearCreated($gameEquipment);
@@ -125,16 +129,20 @@ class GearModifierServiceTest extends TestCase
             ->setMechanics(new ArrayCollection([$gear]))
         ;
         $gameEquipment = new GameItem();
-        $gameEquipment->setEquipment($equipmentConfig)->setHolder($room);
+        $gameEquipment
+            ->setEquipment($equipmentConfig)
+            ->setName($equipmentConfig->getName())
+            ->setHolder($room)
+        ;
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, $room, null, null, null)
+            ->with($modifierConfig1, $daedalus, $equipmentConfig->getName(), $room, null, $gameEquipment, null)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig2, $daedalus, $room, null, null, null)
+            ->with($modifierConfig2, $daedalus, $equipmentConfig->getName(), $room, null, $gameEquipment, null)
             ->once()
         ;
         $this->service->gearCreated($gameEquipment);
@@ -169,7 +177,7 @@ class GearModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('deleteModifier')
-            ->with($modifierConfig1, $daedalus, $room, null, null)
+            ->with($modifierConfig1, $daedalus, $room, null, $gameEquipment)
             ->once()
         ;
         $this->service->gearDestroyed($gameEquipment);
@@ -181,7 +189,7 @@ class GearModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('deleteModifier')
-            ->with($modifierConfig1, $daedalus, $room, $player, null)
+            ->with($modifierConfig1, $daedalus, $room, $player, $gameEquipment)
             ->once()
         ;
         $this->service->gearDestroyed($gameEquipment);
@@ -214,9 +222,13 @@ class GearModifierServiceTest extends TestCase
             ->setMechanics(new ArrayCollection([$gear]))
         ;
         $gameEquipment = new GameItem();
-        $gameEquipment->setEquipment($equipmentConfig)->setHolder($room);
+        $gameEquipment
+            ->setEquipment($equipmentConfig)
+            ->setName($equipmentConfig->getName())
+            ->setHolder($room)
+        ;
 
-        $this->service->takeGear($gameEquipment, $player);
+        $this->service->takeEquipment($gameEquipment, $player);
 
         // gear with player Modifier
         $modifierConfig1 = new ModifierConfig();
@@ -237,17 +249,18 @@ class GearModifierServiceTest extends TestCase
             ->setMechanics(new ArrayCollection([$gear]))
         ;
         $gameEquipment = new GameItem();
-        $gameEquipment->setEquipment($equipmentConfig)->setHolder($room);
+        $gameEquipment
+            ->setEquipment($equipmentConfig)
+            ->setName($equipmentConfig->getName())
+            ->setHolder($room)
+        ;
 
         $this->modifierService
-            ->shouldReceive('persist')
-            ->withArgs(fn (Modifier $modifier) => (
-                $modifier->getModifierHolder() === $player &&
-                $modifier->getModifierConfig() === $modifierConfig1
-            ))
+            ->shouldReceive('createModifier')
+            ->with($modifierConfig1, $daedalus, $equipmentConfig->getName(), $room, $player, $gameEquipment, null)
             ->once()
         ;
-        $this->service->takeGear($gameEquipment, $player);
+        $this->service->takeEquipment($gameEquipment, $player);
 
         //Modifier with a charge
         $chargeConfig = new ChargeStatusConfig();
@@ -258,15 +271,11 @@ class GearModifierServiceTest extends TestCase
         $charge = new ChargeStatus($gameEquipment, $chargeConfig);
 
         $this->modifierService
-            ->shouldReceive('persist')
-            ->withArgs(fn (Modifier $modifier) => (
-                $modifier->getModifierHolder() === $player &&
-                $modifier->getModifierConfig() === $modifierConfig1 &&
-                $modifier->getCharge() === $charge
-            ))
+            ->shouldReceive('createModifier')
+            ->with($modifierConfig1, $daedalus, $equipmentConfig->getName(), $room, $player, $gameEquipment, $charge)
             ->once()
         ;
-        $this->service->takeGear($gameEquipment, $player);
+        $this->service->takeEquipment($gameEquipment, $player);
     }
 
     public function testDropGear()
@@ -298,7 +307,7 @@ class GearModifierServiceTest extends TestCase
         $gameEquipment = new GameItem();
         $gameEquipment->setEquipment($equipmentConfig)->setHolder($room);
 
-        $this->service->dropGear($gameEquipment, $player);
+        $this->service->dropEquipment($gameEquipment, $player);
 
         // gear with player Modifier
         $modifierConfig1 = new ModifierConfig();
@@ -324,13 +333,10 @@ class GearModifierServiceTest extends TestCase
         $gameEquipment->setEquipment($equipmentConfig)->setHolder($room);
 
         $this->modifierService
-            ->shouldReceive('delete')
-            ->withArgs(fn (Modifier $modifier) => (
-                $modifier->getModifierHolder() === $player &&
-                $modifier->getModifierConfig() === $modifierConfig1
-            ))
+            ->shouldReceive('deleteModifier')
+            ->with($modifierConfig1, $daedalus, $room, $player, $gameEquipment)
             ->once()
         ;
-        $this->service->dropGear($gameEquipment, $player);
+        $this->service->dropEquipment($gameEquipment, $player);
     }
 }

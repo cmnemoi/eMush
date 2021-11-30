@@ -94,7 +94,7 @@ class ModifierServiceTest extends TestCase
             ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->createModifier($modifierConfig, $daedalus, null, null, null, null);
+        $this->service->createModifier($modifierConfig, $daedalus, 'cause name', null, null, null, null);
 
         // create a place Modifier
         $room = new Place();
@@ -108,7 +108,7 @@ class ModifierServiceTest extends TestCase
         ;
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->createModifier($modifierConfig, $daedalus, $room, null, null, null);
+        $this->service->createModifier($modifierConfig, $daedalus, 'cause name', $room, null, null, null);
 
         // create a player Modifier
         $player = new Player();
@@ -122,7 +122,7 @@ class ModifierServiceTest extends TestCase
         ;
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->createModifier($modifierConfig, $daedalus, null, $player, null, null);
+        $this->service->createModifier($modifierConfig, $daedalus, 'cause name', null, $player, null, null);
 
         // create a player Modifier with charge
         $player = new Player();
@@ -142,7 +142,7 @@ class ModifierServiceTest extends TestCase
         ;
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->createModifier($modifierConfig, $daedalus, null, $player, null, $charge);
+        $this->service->createModifier($modifierConfig, $daedalus, 'cause name', null, $player, null, $charge);
 
         // create an equipment Modifier
         $equipment = new GameEquipment();
@@ -155,7 +155,7 @@ class ModifierServiceTest extends TestCase
             ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->service->createModifier($modifierConfig, $daedalus, null, null, $equipment, null);
+        $this->service->createModifier($modifierConfig, $daedalus, 'cause name', null, null, $equipment, null);
     }
 
     public function testGetActionModifiedActionPointCost()

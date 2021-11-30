@@ -119,6 +119,7 @@ class ShowerActionCest
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($player, $modifierConfig);
+        $modifier->setCause(GearItemEnum::SOAP);
         $I->haveInRepository($modifier);
 
         $I->refreshEntities($player);

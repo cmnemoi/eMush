@@ -188,6 +188,7 @@ class ActionSubscriberCest
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($player, $modifierConfig);
+        $modifier->setCause(GearItemEnum::SOAP);
         $I->refreshEntities($player);
         $I->haveInRepository($modifier);
 

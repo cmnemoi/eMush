@@ -56,6 +56,7 @@ class ModifierService implements ModifierServiceInterface
     public function createModifier(
         ModifierConfig $modifierConfig,
         Daedalus $daedalus,
+        string $cause,
         ?Place $place,
         ?Player $player,
         ?GameEquipment $gameEquipment,
@@ -88,6 +89,7 @@ class ModifierService implements ModifierServiceInterface
         }
 
         $modifier = new Modifier($holder, $modifierConfig);
+        $modifier->setCause($cause);
 
         if ($chargeStatus) {
             $modifier->setCharge($chargeStatus);
@@ -284,19 +286,31 @@ class ModifierService implements ModifierServiceInterface
 
     public function playerEnterRoom(Player $player): void
     {
-        foreach ($player->getModifiersConfigs()
-                    ->filter(fn (ModifierConfig $modifierConfig) => $modifierConfig->getReach() === ModifierReachEnum::PLACE)
-        as $placeModifierConfigs) {
-            $this->createModifier($placeModifierConfigs, $player->getDaedalus(), $player->getPlace(), null, null);
+        $place = $player->getPlace();
+        $daedalus = $player->getDaedalus();
+
+        foreach ($player->getStatuses() as $status) {
+            $statusConfig = $status->getStatusConfig();
+            foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
+                if ($modifierConfig->getReach() === ModifierReachEnum::PLACE) {
+                    $this->createModifier($modifierConfig, $daedalus, $statusConfig->getName(), $place, $player, null);
+                }
+            }
         }
     }
 
     public function playerLeaveRoom(Player $player): void
     {
-        foreach ($player->getModifiersConfigs()
-                    ->filter(fn (ModifierConfig $modifierConfig) => $modifierConfig->getReach() === ModifierReachEnum::PLACE)
-                as $placeModifierConfigs) {
-            $this->deleteModifier($placeModifierConfigs, $player->getDaedalus(), $player->getPlace(), null, null);
+        $place = $player->getPlace();
+        $daedalus = $player->getDaedalus();
+
+        foreach ($player->getStatuses() as $status) {
+            $statusConfig = $status->getStatusConfig();
+            foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
+                if ($modifierConfig->getReach() === ModifierReachEnum::PLACE) {
+                    $this->deleteModifier($modifierConfig, $daedalus, $place, $player, null);
+                }
+            }
         }
     }
 }

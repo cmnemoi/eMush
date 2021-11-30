@@ -22,6 +22,7 @@ interface ModifierServiceInterface
     public function createModifier(
         ModifierConfig $modifierConfig,
         Daedalus $daedalus,
+        string $cause,
         ?Place $place,
         ?Player $player,
         ?GameEquipment $gameEquipment,

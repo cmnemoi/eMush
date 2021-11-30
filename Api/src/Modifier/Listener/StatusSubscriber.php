@@ -3,7 +3,7 @@
 namespace Mush\Modifier\Listener;
 
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Modifier\Service\GearModifierService;
+use Mush\Modifier\Service\EquipmentModifierService;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -14,11 +14,11 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class StatusSubscriber implements EventSubscriberInterface
 {
-    private GearModifierService $gearModifierService;
+    private EquipmentModifierService $gearModifierService;
     private ModifierServiceInterface $modifierService;
 
     public function __construct(
-        GearModifierService $gearModifierService,
+        EquipmentModifierService $gearModifierService,
         ModifierServiceInterface $modifierService,
     ) {
         $this->gearModifierService = $gearModifierService;
@@ -45,15 +45,15 @@ class StatusSubscriber implements EventSubscriberInterface
         foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
             switch (true) {
                 case $holder instanceof Player:
-                    $this->modifierService->createModifier($modifierConfig, $holder->getDaedalus(), $holder->getPlace(), $holder, null);
+                    $this->modifierService->createModifier($modifierConfig, $holder->getDaedalus(), $statusConfig->getName(), $holder->getPlace(), $holder, null);
 
                     break;
                 case $holder instanceof Place:
-                    $this->modifierService->createModifier($modifierConfig, $holder->getDaedalus(), $holder, null, null);
+                    $this->modifierService->createModifier($modifierConfig, $holder->getDaedalus(), $statusConfig->getName(), $holder, null, null);
 
                     break;
                 case $holder instanceof GameEquipment:
-                    $this->modifierService->createModifier($modifierConfig, $holder->getPlace()->getDaedalus(), $holder->getPlace(), null, $holder);
+                    $this->modifierService->createModifier($modifierConfig, $holder->getPlace()->getDaedalus(), $statusConfig->getName(), $holder->getPlace(), null, $holder);
 
                     break;
             }

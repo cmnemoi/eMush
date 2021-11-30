@@ -7,6 +7,7 @@ use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
+use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Game\Service\RandomServiceInterface;
@@ -41,7 +42,12 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         return $playerDisease;
     }
 
-    public function removePlayerDisease(PlayerDisease $playerDisease, string $cause, \DateTime $time, Player $author = null): bool
+    public function removePlayerDisease(
+        PlayerDisease $playerDisease,
+        string $cause,
+        \DateTime $time,
+        string $visibility,
+        Player $author = null): bool
     {
         $playerDisease->setStatus($cause);
 
@@ -50,7 +56,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             $cause,
             $time
         );
-        $event->setAuthor($author)->setVisibility(VisibilityEnum::PRIVATE);
+        $event->setAuthor($author)->setVisibility($visibility);
         $this->eventDispatcher->dispatch($event, DiseaseEvent::CURE_DISEASE);
 
         $this->entityManager->remove($playerDisease);
@@ -71,6 +77,10 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
         if ($diseaseConfig === null) {
             throw new \LogicException("{$diseaseName} do not have any disease config for the daedalus {$player->getDaedalus()->getId()}");
+        }
+
+        if ($player->isMush() && $diseaseConfig->getType() !== TypeEnum::INJURY) {
+            return null;
         }
 
         if ($player->getMedicalConditionByName($diseaseName) !== null) {
@@ -129,6 +139,12 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
     public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void
     {
+        if ($playerDisease->getPlayer()->isMush() && $playerDisease->getDiseaseConfig()->getType() === TypeEnum::DISEASE) {
+            $visibility = ($playerDisease->getStatus() === DiseaseStatusEnum::INCUBATING) ? VisibilityEnum::HIDDEN : VisibilityEnum::PRIVATE;
+
+            $this->removePlayerDisease($playerDisease, DiseaseStatusEnum::MUSH_CURE, $time, $visibility);
+        }
+
         $newDiseasePoint = $playerDisease->getDiseasePoint() - 1;
         $playerDisease->setDiseasePoint($newDiseasePoint);
 
@@ -157,7 +173,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
                 $event->setVisibility(VisibilityEnum::PRIVATE);
                 $this->eventDispatcher->dispatch($event, DiseaseEvent::APPEAR_DISEASE);
             } else {
-                $this->removePlayerDisease($playerDisease, DiseaseStatusEnum::SPONTANEOUS_CURE, $time);
+                $this->removePlayerDisease($playerDisease, DiseaseStatusEnum::SPONTANEOUS_CURE, $time, VisibilityEnum::PRIVATE);
             }
         } else {
             $this->persist($playerDisease);
@@ -167,7 +183,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
     public function healDisease(Player $author, PlayerDisease $playerDisease, string $reason, \DateTime $time): void
     {
         if ($playerDisease->getResistancePoint() === 0) {
-            $this->removePlayerDisease($playerDisease, $reason, $time, $author);
+            $this->removePlayerDisease($playerDisease, $reason, $time, VisibilityEnum::PRIVATE, $author);
         } else {
             $event = new DiseaseEvent(
                 $playerDisease,

@@ -8,12 +8,14 @@ use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -66,7 +68,16 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         }
 
         // if no charges consume equipment
-        $this->gameEquipmentService->delete($ration);
+        $equipmentEvent = new EquipmentEvent(
+                $ration->getName(),
+                $ration->getHolder() ?: $ration->getPlace(),
+                VisibilityEnum::HIDDEN,
+                $consumeEvent->getReason(),
+                new \DateTime()
+        );
+
+        $equipmentEvent->setExistingEquipment($ration);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 
     protected function dispatchConsumableEffects(ConsumableEffect $consumableEffect, Player $player, bool $isFrozen): void

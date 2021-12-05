@@ -16,6 +16,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
     public const DISMANTLE_3_12 = 'dismantle.3.12';
     public const DISMANTLE_3_25 = 'dismantle.3.25';
     public const DISMANTLE_3_50 = 'dismantle.3.50';
+    public const DISMANTLE_4_6 = 'dismantle.4.6';
     public const DISMANTLE_4_12 = 'dismantle.4.12';
     public const DISMANTLE_4_25 = 'dismantle.4.25';
 
@@ -152,6 +153,18 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($dismantle350);
 
+        $dismantle46 = new Action();
+        $dismantle46
+            ->setName(ActionEnum::DISASSEMBLE)
+            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setDirtyRate(25)
+            ->setInjuryRate(10)
+            ->setSuccessRate(6)
+            ->setActionCost($fourActionPointCost)
+        ;
+        $manager->persist($dismantle46);
+
         $dismantle412 = new Action();
         $dismantle412
             ->setName(ActionEnum::DISASSEMBLE)
@@ -253,6 +266,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::DISMANTLE_3_12, $dismantle312);
         $this->addReference(self::DISMANTLE_3_25, $dismantle325);
         $this->addReference(self::DISMANTLE_3_50, $dismantle350);
+        $this->addReference(self::DISMANTLE_4_6, $dismantle46);
         $this->addReference(self::DISMANTLE_4_12, $dismantle412);
         $this->addReference(self::DISMANTLE_4_25, $dismantle425);
         $this->addReference(self::REPAIR_1, $repair1);

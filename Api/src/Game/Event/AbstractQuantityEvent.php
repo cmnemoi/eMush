@@ -17,4 +17,6 @@ interface AbstractQuantityEvent
     public function getReason(): string;
 
     public function getModifierHolder(): ModifierHolder;
+
+    public function getTime(): \DateTime;
 }

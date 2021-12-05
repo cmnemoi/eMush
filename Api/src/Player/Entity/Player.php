@@ -371,6 +371,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return new ModifierCollection($this->modifiers->toArray());
     }
 
+    public function getAllModifiers(): ModifierCollection
+    {
+        $allModifiers = new ModifierCollection($this->modifiers->toArray());
+        $allModifiers = $allModifiers->addModifiers($this->place->getModifiers());
+
+        return $allModifiers->addModifiers($this->daedalus->getModifiers());
+    }
+
     /**
      * @return static
      */
@@ -661,18 +669,5 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function getLogKey(): string
     {
         return LogParameterKeyEnum::CHARACTER;
-    }
-
-    public function getModifiersConfigs(): Collection
-    {
-        $modifierConfigs = $this->getAllStatusesModifierConfigs();
-
-        foreach ($this->getEquipments() as $equipment) {
-            foreach ($equipment->getModifierConfigs() as $modifierConfig) {
-                $modifierConfigs->add($modifierConfig);
-            }
-        }
-
-        return $modifierConfigs;
     }
 }

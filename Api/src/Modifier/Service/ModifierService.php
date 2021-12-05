@@ -2,11 +2,11 @@
 
 namespace Mush\Modifier\Service;
 
-use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\Action;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
@@ -14,29 +14,31 @@ use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
-use Mush\Place\Entity\Place;
+use Mush\Modifier\Event\ModifierEvent;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ModifierService implements ModifierServiceInterface
 {
     private const ATTEMPT_INCREASE = 1.25;
     private EntityManagerInterface $entityManager;
-    private StatusServiceInterface $statusService;
+    private EventDispatcherInterface $eventDispatcher;
     private ModifierConditionServiceInterface $conditionService;
+    private RandomServiceInterface $randomService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        StatusServiceInterface $statusService,
+        EventDispatcherInterface $eventDispatcher,
         ModifierConditionServiceInterface $conditionService,
+        RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
-        $this->statusService = $statusService;
+        $this->eventDispatcher = $eventDispatcher;
         $this->conditionService = $conditionService;
+        $this->randomService = $randomService;
     }
 
     public function persist(Modifier $modifier): Modifier
@@ -55,38 +57,9 @@ class ModifierService implements ModifierServiceInterface
 
     public function createModifier(
         ModifierConfig $modifierConfig,
-        Daedalus $daedalus,
-        ?Place $place,
-        ?Player $player,
-        ?GameEquipment $gameEquipment,
+        ModifierHolder $holder,
         ?ChargeStatus $chargeStatus = null
     ): void {
-        switch ($modifierConfig->getReach()) {
-            case ModifierReachEnum::DAEDALUS:
-                $holder = $daedalus;
-                break;
-
-            case ModifierReachEnum::PLACE:
-                $holder = $place;
-                break;
-
-            case ModifierReachEnum::PLAYER:
-            case ModifierReachEnum::TARGET_PLAYER:
-                $holder = $player;
-                break;
-
-            case ModifierReachEnum::EQUIPMENT:
-                $holder = $gameEquipment;
-                break;
-
-            default:
-                throw new \LogicException('this reach is not handled');
-        }
-
-        if ($holder === null) {
-            return;
-        }
-
         $modifier = new Modifier($holder, $modifierConfig);
 
         if ($chargeStatus) {
@@ -98,42 +71,10 @@ class ModifierService implements ModifierServiceInterface
 
     public function deleteModifier(
         ModifierConfig $modifierConfig,
-        Daedalus $daedalus,
-        ?Place $place,
-        ?Player $player,
-        ?GameEquipment $gameEquipment
+        ModifierHolder $holder,
     ): void {
-        switch ($modifierConfig->getReach()) {
-            case ModifierReachEnum::DAEDALUS:
-                $modifier = $daedalus->getModifiers()->getModifierFromConfig($modifierConfig);
-                $this->delete($modifier);
-
-                return;
-
-            case ModifierReachEnum::PLACE:
-                if ($place !== null) {
-                    $modifier = $place->getModifiers()->getModifierFromConfig($modifierConfig);
-                    $this->delete($modifier);
-                }
-
-                return;
-
-            case ModifierReachEnum::PLAYER:
-            case ModifierReachEnum::TARGET_PLAYER:
-                if ($player !== null) {
-                    $modifier = $player->getModifiers()->getModifierFromConfig($modifierConfig);
-                    $this->delete($modifier);
-                }
-
-                return;
-            case ModifierReachEnum::EQUIPMENT:
-                if ($gameEquipment !== null) {
-                    $modifier = $gameEquipment->getModifiers()->getModifierFromConfig($modifierConfig);
-                    $this->delete($modifier);
-                }
-
-                return;
-        }
+        $modifier = $holder->getModifiers()->getModifierFromConfig($modifierConfig);
+        $this->delete($modifier);
     }
 
     private function getModifiedValue(ModifierCollection $modifierCollection, ?float $initValue): int
@@ -176,15 +117,9 @@ class ModifierService implements ModifierServiceInterface
 
     private function getActionModifiers(Action $action, Player $player, ?LogParameterInterface $parameter): ModifierCollection
     {
-        $modifiers = new ModifierCollection();
-
         $scopes = array_merge([$action->getName()], $action->getTypes());
 
-        $modifiers = $modifiers
-            ->addModifiers($player->getModifiers()->getScopedModifiers($scopes))
-            ->addModifiers($player->getPlace()->getModifiers()->getScopedModifiers($scopes))
-            ->addModifiers($player->getDaedalus()->getModifiers()->getScopedModifiers($scopes))
-        ;
+        $modifiers = $player->getAllModifiers()->getScopedModifiers($scopes);
 
         if ($parameter instanceof Player) {
             $modifiers = $modifiers->addModifiers($parameter->getModifiers()->getScopedModifiers($scopes));
@@ -199,35 +134,49 @@ class ModifierService implements ModifierServiceInterface
     {
         $modifiers = $this->getActionModifiers($action, $player, $parameter);
 
-        switch ($target) {
-            case PlayerVariableEnum::ACTION_POINT:
-                return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $action->getActionCost()->getActionPointCost());
-            case PlayerVariableEnum::MOVEMENT_POINT:
-                return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $action->getActionCost()->getMovementPointCost());
-            case PlayerVariableEnum::MORAL_POINT:
-                return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $action->getActionCost()->getMoralPointCost());
-            case ModifierTargetEnum::PERCENTAGE:
-                if ($attemptNumber === null) {
-                    throw new InvalidTypeException('number of attempt should be provided');
-                }
+        if ($target === ModifierTargetEnum::PERCENTAGE) {
+            if ($attemptNumber === null) {
+                throw new InvalidTypeException('number of attempt should be provided');
+            }
+            $initialValue = $action->getSuccessRate() * (self::ATTEMPT_INCREASE) ** $attemptNumber;
 
-                $initialValue = $action->getSuccessRate() * (self::ATTEMPT_INCREASE) ** $attemptNumber;
-
-                return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $initialValue);
+            return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $initialValue);
         }
 
-        throw new \LogicException('This target is not handled');
+        return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $action->getActionCost()->getVariableCost($target));
     }
 
-    public function consumeActionCharges(Action $action, Player $player, ?LogParameterInterface $parameter): void
+    public function applyActionModifiers(Action $action, Player $player, ?LogParameterInterface $parameter): void
     {
         $modifiers = $this->getActionModifiers($action, $player, $parameter);
 
-        foreach ($modifiers as $modifier) {
-            if (($charge = $modifier->getCharge()) !== null) {
-                $this->statusService->updateCharge($charge, -1);
-            }
+        $this->dispatchModifiersEvent($modifiers, $action->getName(), new \DateTime());
+    }
+
+    public function isSuccessfulWithModifiers(
+        int $successRate,
+        array $scopes,
+        string $reason,
+        \DateTime $time,
+        ModifierHolder $holder
+    ): bool {
+        $modifiers = $holder->getAllModifiers()
+            ->getScopedModifiers($scopes)
+            ->getTargetedModifiers(ModifierTargetEnum::PERCENTAGE)
+        ;
+
+        $modifiedValue = $this->getModifiedValue($modifiers, $successRate);
+
+        $percent = $this->randomService->randomPercent();
+
+        if ($percent <= $successRate && $percent > $modifiedValue) {
+            $modifierUsed = true;
+        } else {
+            $modifierUsed = false;
         }
+        $this->dispatchModifiersEvent($modifiers, $reason, $time, $modifierUsed);
+
+        return $modifiedValue >= $percent;
     }
 
     public function getEventModifiedValue(
@@ -236,67 +185,60 @@ class ModifierService implements ModifierServiceInterface
         string $target,
         int $initValue,
         string $reason,
-        bool $consumeCharge = true
+        \DateTime $time,
+        bool $applyModifier = true,
     ): int {
-        $modifiers = $holder->getModifiers();
-
-        switch (true) {
-            case $holder instanceof Player:
-                $modifiers = $modifiers
-                    ->addModifiers($holder->getPlace()->getModifiers())
-                    ->addModifiers($holder->getDaedalus()->getModifiers())
-                ;
-                break;
-            case $holder instanceof Place:
-                $modifiers = $modifiers
-                    ->addModifiers($holder->getDaedalus()->getModifiers())
-                ;
-                break;
-            case $holder instanceof GameEquipment:
-                $modifiers = $modifiers
-                    ->addModifiers($holder->getPlace()->getModifiers())
-                    ->addModifiers($holder->getPlace()->getDaedalus()->getModifiers())
-                ;
-                break;
-        }
-
-        $modifiers = $modifiers->getScopedModifiers($scopes)->getTargetedModifiers($target);
+        $modifiers = $holder->getAllModifiers()
+            ->getScopedModifiers($scopes)
+            ->getTargetedModifiers($target)
+        ;
 
         $modifiers = $this->conditionService->getActiveModifiers($modifiers, $reason, $holder);
 
         $modifiedValue = $this->getModifiedValue($modifiers, $initValue);
 
-        if ($consumeCharge) {
-            $this->consumeEventCharges($modifiers);
+        if ($applyModifier) {
+            $this->dispatchModifiersEvent($modifiers, $reason, $time);
         }
 
         return $modifiedValue;
     }
 
-    private function consumeEventCharges(Collection $modifiers): void
+    private function dispatchModifiersEvent(ArrayCollection $modifiers, string $reason, \DateTime $time, bool $isSuccessful = true): void
     {
         foreach ($modifiers as $modifier) {
-            if (($charge = $modifier->getCharge()) !== null) {
-                $this->statusService->updateCharge($charge, -1);
-            }
+            $reason = $modifier->getModifierConfig()->getName() ?: $reason;
+            $modifierEvent = new ModifierEvent($modifier, $reason, $time, $isSuccessful);
+
+            $this->eventDispatcher->dispatch($modifierEvent, ModifierEvent::APPLY_MODIFIER);
         }
     }
 
     public function playerEnterRoom(Player $player): void
     {
-        foreach ($player->getModifiersConfigs()
-                    ->filter(fn (ModifierConfig $modifierConfig) => $modifierConfig->getReach() === ModifierReachEnum::PLACE)
-        as $placeModifierConfigs) {
-            $this->createModifier($placeModifierConfigs, $player->getDaedalus(), $player->getPlace(), null, null);
+        $place = $player->getPlace();
+
+        foreach ($player->getStatuses() as $status) {
+            $statusConfig = $status->getStatusConfig();
+            foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
+                if ($modifierConfig->getReach() === ModifierReachEnum::PLACE) {
+                    $this->createModifier($modifierConfig, $place);
+                }
+            }
         }
     }
 
     public function playerLeaveRoom(Player $player): void
     {
-        foreach ($player->getModifiersConfigs()
-                    ->filter(fn (ModifierConfig $modifierConfig) => $modifierConfig->getReach() === ModifierReachEnum::PLACE)
-                as $placeModifierConfigs) {
-            $this->deleteModifier($placeModifierConfigs, $player->getDaedalus(), $player->getPlace(), null, null);
+        $place = $player->getPlace();
+
+        foreach ($player->getStatuses() as $status) {
+            $statusConfig = $status->getStatusConfig();
+            foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
+                if ($modifierConfig->getReach() === ModifierReachEnum::PLACE) {
+                    $this->deleteModifier($modifierConfig, $place);
+                }
+            }
         }
     }
 }

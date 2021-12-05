@@ -28,6 +28,12 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerService implements PlayerServiceInterface
 {
+    public const CYCLE_ACTION_CHANGE = 1;
+    public const CYCLE_MOVEMENT_CHANGE = 0;
+    public const CYCLE_SATIETY_CHANGE = -1;
+    public const DAY_HEALTH_CHANGE = 1;
+    public const DAY_MORAL_CHANGE = -2;
+
     private EntityManagerInterface $entityManager;
 
     private EventDispatcherInterface $eventDispatcher;
@@ -173,7 +179,7 @@ class PlayerService implements PlayerServiceInterface
         $playerModifierEvent = new PlayerModifierEvent(
             $player,
             PlayerVariableEnum::ACTION_POINT,
-            1,
+            self::CYCLE_ACTION_CHANGE,
             EventEnum::NEW_CYCLE,
             $date);
         $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
@@ -181,7 +187,7 @@ class PlayerService implements PlayerServiceInterface
         $playerModifierEvent = new PlayerModifierEvent(
             $player,
             PlayerVariableEnum::MOVEMENT_POINT,
-            1,
+            self::CYCLE_MOVEMENT_CHANGE,
             EventEnum::NEW_CYCLE,
             $date
         );
@@ -190,7 +196,7 @@ class PlayerService implements PlayerServiceInterface
         $playerModifierEvent = new PlayerModifierEvent(
             $player,
             PlayerVariableEnum::SATIETY,
-            -1,
+            self::CYCLE_SATIETY_CHANGE,
             EventEnum::NEW_CYCLE,
             $date
         );
@@ -236,7 +242,7 @@ class PlayerService implements PlayerServiceInterface
         $playerModifierEvent = new PlayerModifierEvent(
             $player,
             PlayerVariableEnum::HEALTH_POINT,
-            1,
+            self::DAY_HEALTH_CHANGE,
             EventEnum::NEW_DAY,
             $date
         );
@@ -246,7 +252,7 @@ class PlayerService implements PlayerServiceInterface
             $playerModifierEvent = new PlayerModifierEvent(
                 $player,
                 PlayerVariableEnum::MORAL_POINT,
-                -2,
+                self::DAY_MORAL_CHANGE,
                 EventEnum::NEW_DAY,
                 $date
             );

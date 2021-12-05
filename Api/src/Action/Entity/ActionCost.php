@@ -3,6 +3,7 @@
 namespace Mush\Action\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Player\Enum\PlayerVariableEnum;
 
 /**
  * @ORM\Entity()
@@ -70,5 +71,19 @@ class ActionCost
         $this->moralPointCost = $moralPointCost;
 
         return $this;
+    }
+
+    public function getVariableCost(string $variable): ?int
+    {
+        switch ($variable) {
+            case PlayerVariableEnum::ACTION_POINT:
+                return $this->actionPointCost;
+            case PlayerVariableEnum::MOVEMENT_POINT:
+                return $this->movementPointCost;
+            case PlayerVariableEnum::MORAL_POINT:
+                return $this->moralPointCost;
+        }
+
+        return null;
     }
 }

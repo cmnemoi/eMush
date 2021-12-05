@@ -3,15 +3,15 @@
 namespace Mush\Modifier\Listener;
 
 use Mush\Equipment\Event\EquipmentInitEvent;
-use Mush\Modifier\Service\GearModifierServiceInterface;
+use Mush\Modifier\Service\EquipmentModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentInitSubscriber implements EventSubscriberInterface
 {
-    private GearModifierServiceInterface $gearModifierService;
+    private EquipmentModifierServiceInterface $gearModifierService;
 
     public function __construct(
-        GearModifierServiceInterface $gearModifierService,
+        EquipmentModifierServiceInterface $gearModifierService,
     ) {
         $this->gearModifierService = $gearModifierService;
     }

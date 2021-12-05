@@ -6,16 +6,16 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
-use Mush\Modifier\Service\GearModifierServiceInterface;
+use Mush\Modifier\Service\EquipmentModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
 {
-    private GearModifierServiceInterface $gearModifierService;
+    private EquipmentModifierServiceInterface $gearModifierService;
 
     public function __construct(
-        GearModifierServiceInterface $gearModifierService,
+        EquipmentModifierServiceInterface $gearModifierService,
     ) {
         $this->gearModifierService = $gearModifierService;
     }
@@ -54,7 +54,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $holder instanceof Player &&
             $holder->getEquipments()->count() > $this->getGameConfig($newEquipment)->getMaxItemInInventory()
         ) {
-            $this->gearModifierService->dropGear($newEquipment, $holder);
+            $this->gearModifierService->dropEquipment($newEquipment, $holder);
         }
     }
 

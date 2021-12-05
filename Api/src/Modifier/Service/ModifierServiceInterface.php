@@ -3,12 +3,9 @@
 namespace Mush\Modifier\Service;
 
 use Mush\Action\Entity\Action;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
-use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
@@ -21,24 +18,18 @@ interface ModifierServiceInterface
 
     public function createModifier(
         ModifierConfig $modifierConfig,
-        Daedalus $daedalus,
-        ?Place $place,
-        ?Player $player,
-        ?GameEquipment $gameEquipment,
+        ModifierHolder $holder,
         ?ChargeStatus $chargeStatus = null
     ): void;
 
     public function deleteModifier(
         ModifierConfig $modifierConfig,
-        Daedalus $daedalus,
-        ?Place $place,
-        ?Player $player,
-        ?GameEquipment $gameEquipment
+        ModifierHolder $holder
     ): void;
 
     public function getActionModifiedValue(Action $action, Player $player, string $target, ?LogParameterInterface $parameter, ?int $attemptNumber = null): int;
 
-    public function consumeActionCharges(Action $action, Player $player, ?LogParameterInterface $parameter): void;
+    public function applyActionModifiers(Action $action, Player $player, ?LogParameterInterface $parameter): void;
 
     public function getEventModifiedValue(
         ModifierHolder $holder,
@@ -46,8 +37,17 @@ interface ModifierServiceInterface
         string $target,
         int $initValue,
         string $reason,
-        bool $consumeCharge = true
+        \DateTime $time,
+        bool $applyModifier = true
     ): int;
+
+    public function isSuccessfulWithModifiers(
+        int $successRate,
+        array $scopes,
+        string $reason,
+        \DateTime $time,
+        ModifierHolder $holder
+    ): bool;
 
     public function playerEnterRoom(Player $player): void;
 

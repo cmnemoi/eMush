@@ -113,6 +113,7 @@ class RepairActionCest
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($player, $modifierConfig);
+
         $I->haveInRepository($modifier);
         $I->refreshEntities($player);
 

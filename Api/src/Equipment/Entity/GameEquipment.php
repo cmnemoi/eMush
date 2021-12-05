@@ -7,12 +7,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\Mechanics\Gear;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -189,6 +188,18 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return new ModifierCollection($this->modifiers->toArray());
     }
 
+    public function getAllModifiers(): ModifierCollection
+    {
+        $allModifiers = new ModifierCollection($this->modifiers->toArray());
+
+        if (($player = $this->getHolder()) instanceof Player) {
+            $allModifiers = $allModifiers->addModifiers($player->getModifiers());
+        }
+        $allModifiers = $allModifiers->addModifiers($this->getPlace()->getModifiers());
+
+        return $allModifiers->addModifiers($this->getPlace()->getDaedalus()->getModifiers());
+    }
+
     /**
      * @return static
      */
@@ -232,19 +243,5 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     public function getLogKey(): string
     {
         return LogParameterKeyEnum::EQUIPMENT;
-    }
-
-    public function getModifierConfigs(): Collection
-    {
-        $modifierConfigs = $this->getAllStatusesModifierConfigs();
-
-        $gearMechanic = $this->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR);
-        if ($gearMechanic instanceof Gear) {
-            foreach ($gearMechanic->getModifierConfigs() as $modifierConfig) {
-                $modifierConfigs->add($modifierConfig);
-            }
-        }
-
-        return $modifierConfigs;
     }
 }

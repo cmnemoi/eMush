@@ -399,7 +399,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $strengthenHullAction = new Action();
         $strengthenHullAction
             ->setName(ActionEnum::STRENGTHEN_HULL)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
+            ->setScope(ActionScopeEnum::CURRENT)
             ->setTarget(GameItem::class)
             ->setDirtyRate(50)
             ->setInjuryRate(25)

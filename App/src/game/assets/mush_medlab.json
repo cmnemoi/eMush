@@ -437,7 +437,7 @@
  "nextobjectid":91,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.7.0",
+ "tiledversion":"1.7.2",
  "tileheight":16,
  "tilesets":[
         {

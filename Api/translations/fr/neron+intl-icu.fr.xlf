@@ -10,7 +10,31 @@
         <unit id="player_leave_chat">
             <segment id="player_leave_chat">
                 <source>player_leave_chat</source>
-                <target>**{character}** a quitté la discussion</target>
+                <target>{character_gender, select,
+                    male {**{character}** a quitté la discussion, il a fermé l'onglet.}
+                    female {**{character}** a quitté la discussion, elle a fermé l'onglet.}
+                    }
+                </target>
+            </segment>
+        </unit>
+        <unit id="player_leave_chat_death">
+            <segment id="player_leave_chat_death">
+                <source>player_leave_chat_death</source>
+                <target>{character_gender, select,
+                    male {**{character}** a quitté la discussion, il a quitté notre monde.}
+                    female {**{character}** a quitté la discussion, elle a quitté notre monde.}
+                    }
+                </target>
+            </segment>
+        </unit>
+        <unit id="player_leave_chat_talky">
+            <segment id="player_leave_chat_talky">
+                <source>player_leave_chat_talky</source>
+                <target>{character_gender, select,
+                    male {**{character}** a quitté la discussion, il a quitté la pièce et n'a pas de talky...}
+                    female {**{character}** a quitté la discussion, elle a quitté la pièce et n'a pas de talky...}
+                    }
+                </target>
             </segment>
         </unit>
         <unit id="cycle_failures">

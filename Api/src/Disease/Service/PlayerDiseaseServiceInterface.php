@@ -9,7 +9,12 @@ interface PlayerDiseaseServiceInterface
 {
     public function persist(PlayerDisease $playerDisease): PlayerDisease;
 
-    public function removePlayerDisease(PlayerDisease $playerDisease, string $cause, \DateTime $time, Player $author = null): bool;
+    public function removePlayerDisease(
+        PlayerDisease $playerDisease,
+        string $cause,
+        \DateTime $time,
+        string $visibility,
+        Player $author = null): bool;
 
     public function createDiseaseFromName(
         string $diseaseName,
@@ -17,7 +22,7 @@ interface PlayerDiseaseServiceInterface
         string $cause,
         int $delayMin = null,
         int $delayLength = null
-    ): PlayerDisease;
+    ): ?PlayerDisease;
 
     public function handleDiseaseForCause(string $cause, Player $player): void;
 

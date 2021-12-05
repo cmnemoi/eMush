@@ -1,5 +1,6 @@
 <template>
     <div class="main-container">
+        <Title :title="$t('title')" />
         <Spinner :loading="userLoading || playerLoading" />
         <Banner />
         <router-view />
@@ -15,6 +16,7 @@ import ErrorPopup from "@/components/ErrorPopup";
 import Spinner from "@/components/Utils/Spinner";
 import { mapGetters } from "vuex";
 import LocaleChange from "@/components/Utils/LocaleChange.vue";
+import Title from "@/components/Utils/Title.vue";
 
 export default {
     name: 'App',
@@ -22,7 +24,8 @@ export default {
         Spinner,
         Banner,
         ErrorPopup,
-        LocaleChange
+        LocaleChange,
+        Title
     },
     computed: {
         ...mapGetters({

@@ -74,6 +74,12 @@
                 <target>**{character}**  s'envoie un cachet.</target>
             </segment>
         </unit>
+        <unit id="consume_mush">
+            <segment id="consume_mush">
+                <source>consume_mush</source>
+                <target>Vous mangez cette pitoyable nourriture pour donner le change mais elle ne vous fait rien...</target>
+            </segment>
+        </unit>
         <unit id="cook_success">
             <segment id="cook_success">
                 <source>cook_success</source>
@@ -332,7 +338,7 @@
                     17 {Peut-être pourriez vous tenter avec un outil plus approprié.}
                     18 {Peut-être que ce maudit papillon n'a pas battu des ailes.}
                     19 {Peut-être que le destin ne vous a pas souri aujourd'hui.}
-                    20 {Peut-être que les {targetPlural} sont des mensonges...}
+                    20 {Peut-être que les {target_equipment_plural} sont des mensonges...}
                     21 {Peut-être que vous n'êtes pas fait pour cela.}
                     22 {Prenez de la distance...}
                     23 {Prenez du recul...}

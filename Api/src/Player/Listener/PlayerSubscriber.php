@@ -78,7 +78,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             $player,
             PlayerVariableEnum::MORAL_POINT,
             -$damage,
-            $event->getReason(),
+            PlayerEvent::PANIC_CRISIS,
             $event->getTime()
         );
         $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);

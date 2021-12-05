@@ -5,20 +5,20 @@ namespace Mush\Modifier\Listener;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Modifier\Service\GearModifierServiceInterface;
+use Mush\Modifier\Service\EquipmentModifierServiceInterface;
 use Mush\Modifier\Service\ModifierService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ActionSubscriber implements EventSubscriberInterface
 {
-    private GearModifierServiceInterface $gearModifierService;
+    private EquipmentModifierServiceInterface $equipmentModifierService;
     private ModifierService $modifierService;
 
     public function __construct(
-        GearModifierServiceInterface $gearModifierService,
+        EquipmentModifierServiceInterface $equipmentModifierService,
         ModifierService $modifierService
     ) {
-        $this->gearModifierService = $gearModifierService;
+        $this->equipmentModifierService = $equipmentModifierService;
         $this->modifierService = $modifierService;
     }
 
@@ -43,7 +43,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $target = $event->getActionParameter();
 
         // handle modifiers with charges
-        $this->modifierService->consumeActionCharges($event->getAction(), $player, $target);
+        $this->modifierService->applyActionModifiers($event->getAction(), $player, $target);
 
         switch ($actionName) {
         // handle gear modifiers when taken or dropped
@@ -52,7 +52,7 @@ class ActionSubscriber implements EventSubscriberInterface
                     throw new \LogicException('a game equipment should be given');
                 }
 
-                $this->gearModifierService->takeGear($target, $player);
+                $this->equipmentModifierService->takeEquipment($target, $player);
 
                 return;
             case ActionEnum::DROP:
@@ -60,13 +60,17 @@ class ActionSubscriber implements EventSubscriberInterface
                     throw new \LogicException('a game equipment should be given');
                 }
 
-                $this->gearModifierService->dropGear($target, $player);
+                $this->equipmentModifierService->dropEquipment($target, $player);
 
                 return;
 
             // handle movement of a player
             case ActionEnum::MOVE:
                 $this->modifierService->playerEnterRoom($player);
+
+                foreach ($player->getEquipments() as $equipment) {
+                    $this->equipmentModifierService->equipmentEnterRoom($equipment, $player->getPlace());
+                }
         }
     }
 
@@ -79,6 +83,10 @@ class ActionSubscriber implements EventSubscriberInterface
             case ActionEnum::MOVE:
                 // handle movement of a player
                 $this->modifierService->playerLeaveRoom($player);
+
+                foreach ($player->getEquipments() as $equipment) {
+                    $this->equipmentModifierService->equipmentLeaveRoom($equipment, $player->getPlace());
+                }
 
                 return;
         }

@@ -3,6 +3,9 @@
 namespace Mush\Modifier\Service;
 
 use Mush\Disease\Entity\DiseaseConfig;
+use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Player\Entity\Player;
 
 class DiseaseModifierService implements DiseaseModifierServiceInterface
@@ -17,16 +20,40 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
 
     public function newDisease(Player $player, DiseaseConfig $diseaseConfig): void
     {
-        $place = $player->getPlace();
         foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
-            $this->modifierService->createModifier($modifierConfig, $player->getDaedalus(), $place, $player, null);
+            $holder = $this->getModifierHolderFromConfig($player, $modifierConfig);
+            if ($holder === null) {
+                return;
+            }
+
+            $this->modifierService->createModifier($modifierConfig, $player);
         }
     }
 
     public function cureDisease(Player $player, DiseaseConfig $diseaseConfig): void
     {
         foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
-            $this->modifierService->deleteModifier($modifierConfig, $player->getDaedalus(), $player->getPlace(), $player, null);
+            $holder = $this->getModifierHolderFromConfig($player, $modifierConfig);
+            if ($holder === null) {
+                return;
+            }
+
+            $this->modifierService->deleteModifier($modifierConfig, $player);
         }
+    }
+
+    private function getModifierHolderFromConfig(Player $player, ModifierConfig $modifierConfig): ?ModifierHolder
+    {
+        switch ($modifierConfig->getReach()) {
+            case ModifierReachEnum::DAEDALUS:
+                return $player->getDaedalus();
+            case ModifierReachEnum::PLACE:
+                return $player->getPlace();
+            case ModifierReachEnum::PLAYER:
+            case ModifierReachEnum::TARGET_PLAYER:
+                return $player;
+        }
+
+        return null;
     }
 }

@@ -3,10 +3,10 @@
 namespace Mush\Communication\Event;
 
 use Mush\Communication\Entity\Channel;
+use Mush\Game\Event\AbstractGameEvent;
 use Mush\Player\Entity\Player;
-use Symfony\Contracts\EventDispatcher\Event;
 
-class ChannelEvent extends Event
+class ChannelEvent extends AbstractGameEvent
 {
     public const NEW_CHANNEL = 'new_channel';
     public const JOIN_CHANNEL = 'join_channel';
@@ -16,8 +16,9 @@ class ChannelEvent extends Event
 
     private ?Player $player;
 
-    public function __construct(Channel $channel, ?Player $player = null)
+    public function __construct(Channel $channel, string $reason, \DateTime $time, ?Player $player = null)
     {
+        parent::__construct($reason, $time);
         $this->channel = $channel;
         $this->player = $player;
     }

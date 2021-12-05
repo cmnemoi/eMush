@@ -56,6 +56,11 @@ class ModifierConfig
      */
     private Collection $modifierConditions;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $name = null;
+
     public function __construct()
     {
         $this->modifierConditions = new ArrayCollection([]);
@@ -148,5 +153,17 @@ class ModifierConfig
         $this->modifierConditions->add($modifierCondition);
 
         return $this;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
     }
 }

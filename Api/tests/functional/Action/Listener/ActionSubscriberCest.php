@@ -14,6 +14,7 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
@@ -22,6 +23,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -67,7 +69,7 @@ class ActionSubscriberCest
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
             'player' => $player->getId(),
-            'log' => LogEnum::CLUMSINESS,
+            'log' => PlayerModifierLogEnum::CLUMSINESS,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
     }
@@ -184,6 +186,7 @@ class ActionSubscriberCest
             ->setDelta(-100)
             ->setTarget(ModifierTargetEnum::PERCENTAGE)
             ->setScope(ModifierScopeEnum::EVENT_DIRTY)
+            ->setName(ModifierNameEnum::APRON_MODIFIER)
         ;
         $I->haveInRepository($modifierConfig);
 

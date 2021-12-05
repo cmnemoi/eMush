@@ -1,7 +1,7 @@
 <template>
     <div class="purgatory-container">
         <div v-if="deadPlayerInfo" class="death-summary">
-            <h1>{{ $t('deathpage.title') }}</h1>
+            <Title :title="$t('deathpage.title')" />
             <div class="char-sheet">
                 <img class="avatar" :src="characterPortrait" alt="avatar">
                 <div>
@@ -9,7 +9,7 @@
                         <img class="body" :src="characterBody(player.character.key)" alt="">
                         <div>
                             <h3 class="char-name">
-                                {{ player.characterValue }}
+                                {{ player.character.name }}
                             </h3>
                             <p class="pseudo">
                                 {{ getUserInfo.username }}
@@ -46,10 +46,10 @@
                         <th>{{ $t('deathpage.reason') }}</th>
                         <th>{{ $t('deathpage.like') }}</th>
                     </tr>
-                    <tr v-for="(player,key) in deadPlayerInfo.players" :key="key">
-                        <td><img :src="characterBody(player.character.key)" class="char hua"> <span class="charname">{{ player.characterValue }}</span></td>
-                        <td>{{ player.deathTime ? player.deathTime : '-' }}</td>
-                        <td>{{ player.endCauseValue ? player.endCauseValue : "Pas Encore" }}</td>
+                    <tr v-for="crewPlayer in deadPlayerInfo.players" :key="crewPlayer.id">
+                        <td><img :src="characterBody(crewPlayer.character.key)" class="char hua"> <span class="charname">{{ crewPlayer.character.name }}</span></td>
+                        <td>{{ crewPlayer.deathTime ? crewPlayer.deathTime : '-' }}</td>
+                        <td>{{ crewPlayer.endCauseValue ? crewPlayer.endCauseValue : "Pas Encore" }}</td>
                         <td>
                             <button class="like">
                                 1 <img src="@/assets/images/dislike.png">
@@ -75,6 +75,7 @@ import HistoryLogs from "@/components/Game/HistoryLogs.vue";
 import CommsPanel from "@/components/Game/Communications/CommsPanel.vue";
 import { defineComponent } from "vue";
 import { DeadPlayerInfo } from "@/entities/DeadPlayerInfo";
+import Title from "@/components/Utils/Title.vue";
 
 interface PurgatoryState {
     deadPlayerInfo: DeadPlayerInfo | null,
@@ -84,7 +85,7 @@ interface PurgatoryState {
 
 export default defineComponent ({
     name: 'Purgatory',
-    components: { CommsPanel, HistoryLogs },
+    components: { CommsPanel, HistoryLogs, Title },
     props: {
         player: {
             type: Player,

@@ -6,6 +6,8 @@ class NeronMessageEnum
 {
     public const PLAYER_ENTER_CHAT = 'player_enter_chat';
     public const PLAYER_LEAVE_CHAT = 'player_leave_chat';
+    public const PLAYER_LEAVE_CHAT_DEATH = 'player_leave_chat_death';
+    public const PLAYER_LEAVE_CHAT_TALKY = 'player_leave_chat_talky';
 
     public const ACTIVATE_DMZ = 'activate_dmz';
     public const AUTOMATIC_SPRINKLERS = 'automatic_sprinklers';

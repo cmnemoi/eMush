@@ -42,11 +42,6 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->createEventLog(LogEnum::METAL_PLATE, $event);
     }
 
-    public function onPanicCrisis(PlayerEvent $event): void
-    {
-        $this->createEventLog(LogEnum::PANIC_CRISIS, $event);
-    }
-
     private function createEventLog(string $logKey, PlayerEvent $event): void
     {
         $player = $event->getPlayer();

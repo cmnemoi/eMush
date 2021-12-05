@@ -3,6 +3,8 @@
 namespace Mush\RoomLog\Enum;
 
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerEvent;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 class PlayerModifierLogEnum
 {
@@ -16,6 +18,9 @@ class PlayerModifierLogEnum
     public const LOSS_HEALTH_POINT = 'loss_health_point';
     public const GAIN_MORAL_POINT = 'gain_moral_point';
     public const LOSS_MORAL_POINT = 'loss_moral_point';
+
+    public const ANTISOCIAL_MORALE_LOSS = 'antisocial_morale_loss';
+    public const PANIC_CRISIS = 'panic_crisis';
 
     public const GAIN = 'gain';
     public const LOSS = 'loss';
@@ -36,4 +41,9 @@ class PlayerModifierLogEnum
             PlayerVariableEnum::TRIUMPH => self::LOSS_TRIUMPH,
         ],
     ];
+
+    public const PLAYER_VARIABLE_SPECIAL_LOGS = [
+        PlayerStatusEnum::ANTISOCIAL => self::ANTISOCIAL_MORALE_LOSS,
+        PlayerEvent::PANIC_CRISIS => self::PANIC_CRISIS,
+        ];
 }

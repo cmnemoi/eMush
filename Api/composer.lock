@@ -1555,12 +1555,12 @@
             "version": "0.3.2",
             "source": {
                 "type": "git",
-                "url": "https://gitlab.com/eternal-twin/etwin-php.git",
+                "url": "https://gitlab.com/eternaltwin/etwin-php.git",
                 "reference": "ae3b130648467b74362a7a461c21886a03698749"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/eternal-twin%2Fetwin-php/repository/archive.zip?sha=ae3b130648467b74362a7a461c21886a03698749",
+                "url": "https://gitlab.com/api/v4/projects/eternaltwin%2Fetwin-php/repository/archive.zip?sha=ae3b130648467b74362a7a461c21886a03698749",
                 "reference": "ae3b130648467b74362a7a461c21886a03698749",
                 "shasum": ""
             },

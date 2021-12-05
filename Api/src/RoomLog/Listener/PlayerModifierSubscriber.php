@@ -39,16 +39,19 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $gainOrLoss = $delta > 0 ? PlayerModifierLogEnum::GAIN : PlayerModifierLogEnum::LOSS;
-        $logMap = PlayerModifierLogEnum::PLAYER_VARIABLE_LOGS[$gainOrLoss];
-
-        if (isset($logMap[$modifiedVariable])) {
-            $logKey = $logMap[$modifiedVariable];
-        } else {
-            return;
+        //add special logs
+        $logMap = PlayerModifierLogEnum::PLAYER_VARIABLE_SPECIAL_LOGS;
+        if (isset($logMap[$playerEvent->getReason()])) {
+            $logKey = $logMap[$playerEvent->getReason()];
+            $this->createEventLog($logKey, $playerEvent);
         }
 
-        $this->createEventLog($logKey, $playerEvent);
+        $gainOrLoss = $delta > 0 ? PlayerModifierLogEnum::GAIN : PlayerModifierLogEnum::LOSS;
+        $logMap = PlayerModifierLogEnum::PLAYER_VARIABLE_LOGS[$gainOrLoss];
+        if (isset($logMap[$modifiedVariable])) {
+            $logKey = $logMap[$modifiedVariable];
+            $this->createEventLog($logKey, $playerEvent);
+        }
     }
 
     private function createEventLog(string $logKey, PlayerEvent $event): void

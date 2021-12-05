@@ -16,11 +16,9 @@ class LogEnum
     public const TREMOR_GRAVITY = 'tremor_gravity';
     public const ELECTRIC_ARC = 'electric_arc';
     public const METAL_PLATE = 'metal_plate';
-    public const PANIC_CRISIS = 'panic_crisis';
     public const EQUIPMENT_DESTROYED = 'equipment_destroyed';
     public const GARDEN_DESTROYED = 'garden_destroyed';
     public const FORCE_GET_UP = 'force_get_up';
-    public const ANTISOCIAL_MORALE_LOSS = 'antisocial_morale_loss';
 
     public const DISORDER_APPEAR = 'disorder_appear';
     public const DISEASE_APPEAR = 'disease_appear';

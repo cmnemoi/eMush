@@ -178,10 +178,14 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($reinforced);
 
+        /** @var ModifierConfig $frozenModifier */
+        $antisocialModifier = $this->getReference(StatusModifierConfigFixtures::ANTISOCIAL_MODIFIER);
+
         $antisocial = new StatusConfig();
         $antisocial
             ->setName(PlayerStatusEnum::ANTISOCIAL)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setModifierConfigs(new ArrayCollection([$antisocialModifier]))
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($antisocial);
@@ -229,8 +233,9 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($dirty);
 
-        /** @var ModifierConfig $disabledModifier */
+        /** @var ModifierConfig $disabledConversionModifier */
         $disabledConversionModifier = $this->getReference(StatusModifierConfigFixtures::DISABLED_CONVERSION_MODIFIER);
+        /** @var ModifierConfig $disabledNotAloneModifier */
         $disabledNotAloneModifier = $this->getReference(StatusModifierConfigFixtures::DISABLED_NOT_ALONE_MODIFIER);
         $disabled = new StatusConfig();
         $disabled
@@ -313,18 +318,25 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($inactive);
 
+        /** @var ModifierConfig $lostModifier */
+        $lostModifier = $this->getReference(StatusModifierConfigFixtures::LOST_MODIFIER);
+
         $lost = new StatusConfig();
         $lost
             ->setName(PlayerStatusEnum::LOST)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setModifierConfigs(new ArrayCollection([$lostModifier]))
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($lost);
 
+        /** @var ModifierConfig $disabledConversionModifier */
+        $lyingDownModifier = $this->getReference(StatusModifierConfigFixtures::LYING_DOWN_MODIFIER);
         $lyingDown = new StatusConfig();
         $lyingDown
             ->setName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setModifierConfigs(new ArrayCollection([$lyingDownModifier]))
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($lyingDown);
@@ -364,10 +376,13 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($pregnant);
 
+        /** @var ModifierConfig $pacifistModifier */
+        $starvingModifier = $this->getReference(StatusModifierConfigFixtures::STARVING_MODIFIER);
         $starving = new StatusConfig();
         $starving
             ->setName(PlayerStatusEnum::STARVING)
             ->setVisibility(VisibilityEnum::PRIVATE)
+            ->setModifierConfigs(new ArrayCollection([$starvingModifier]))
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($starving);

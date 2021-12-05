@@ -37,6 +37,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
     {
         return [
             PlayerCycleEvent::PLAYER_NEW_CYCLE => 'onNewCycle',
+            DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => 'onNewDay',
             PlaceCycleEvent::PLACE_NEW_CYCLE => 'onNewCycle',
             EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE => 'onNewCycle',
             PlayerCycleEvent::PLAYER_NEW_DAY => 'onNewDay',

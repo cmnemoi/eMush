@@ -20,11 +20,8 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Listener\StatusCycleSubscriber;
@@ -68,36 +65,6 @@ class CycleEventCest
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 
         $I->dontSeeInRepository(ChargeStatus::class, ['id' => $id]);
-    }
-
-    public function testLieDownStatusCycleSubscriber(FunctionalTester $I)
-    {
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-        /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
-
-        $actionPointBefore = $player->getActionPoint();
-
-        $time = new DateTime();
-
-        $statusConfig = new StatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::LYING_DOWN);
-        $I->haveInRepository($statusConfig);
-        $status = new Status($player, $statusConfig);
-        $I->haveInRepository($status);
-
-        $cycleEvent = new StatusCycleEvent($status, $player, EventEnum::NEW_CYCLE, $time);
-
-        $I->refreshEntities($player, $daedalus);
-
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
-
-        $I->assertEquals($actionPointBefore + 1, $player->getActionPoint());
     }
 
     public function testFireStatusCycleSubscriber(FunctionalTester $I)

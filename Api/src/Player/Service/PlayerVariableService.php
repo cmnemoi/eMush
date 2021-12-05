@@ -47,7 +47,8 @@ class PlayerVariableService implements PlayerVariableServiceInterface
             [ModifierScopeEnum::MAX_POINT],
             $target,
             $maxValue,
-            ModifierScopeEnum::MAX_POINT
+            ModifierScopeEnum::MAX_POINT,
+            new \DateTime()
         );
     }
 

@@ -2,14 +2,13 @@
 
 namespace Mush\RoomLog\Enum;
 
+use Mush\Modifier\Enum\ModifierNameEnum;
+
 class LogEnum
 {
     public const AWAKEN = 'awaken';
     public const DEATH = 'death';
     public const OBJECT_FELT = 'object_felt';
-    public const CLUMSINESS = 'clumsiness';
-    public const CLUMSINESS_PREVENTED = 'clumsiness_prevented';
-    public const SOIL_PREVENTED = 'soil_prevented';
     public const SOIL_PREVENTED_OCD = 'soil_prevented_ocd';
     public const OXY_LOW_USE_CAPSULE = 'oxy_low_use_capsule';
     public const TREMOR_NO_GRAVITY = 'tremor_no_gravity';
@@ -19,6 +18,11 @@ class LogEnum
     public const EQUIPMENT_DESTROYED = 'equipment_destroyed';
     public const GARDEN_DESTROYED = 'garden_destroyed';
     public const FORCE_GET_UP = 'force_get_up';
+
+    public const CONSUME_MUSH = 'consume_mush';
+    public const SOIL_PREVENTED = 'soil_prevented';
+    public const HELP_DISABLED = 'help_disabled';
+    public const CLUMSINESS_PREVENTED = 'clumsiness_prevented';
 
     public const DISORDER_APPEAR = 'disorder_appear';
     public const DISEASE_APPEAR = 'disease_appear';
@@ -30,4 +34,26 @@ class LogEnum
     public const DISEASE_TREATED_PLAYER = 'disease_treated_player';
     public const DISORDER_CURED = 'disorder_cured';
     public const DISORDER_TREATED = 'disorder_treated';
+
+    public const VISIBILITY = 'visibility';
+    public const VALUE = 'value';
+
+    public const MODIFIER_LOG_ENUM = [
+        ModifierNameEnum::MUSH_SATIETY_CONSUME => [
+            self::VISIBILITY => VisibilityEnum::PRIVATE,
+            self::VALUE => self::CONSUME_MUSH,
+        ],
+        ModifierNameEnum::DISABLED_MOVE_MODIFIER => [
+            self::VISIBILITY => VisibilityEnum::PUBLIC,
+            self::VALUE => self::HELP_DISABLED,
+        ],
+        ModifierNameEnum::APRON_MODIFIER => [
+            self::VISIBILITY => VisibilityEnum::PRIVATE,
+            self::VALUE => self::SOIL_PREVENTED,
+        ],
+        ModifierNameEnum::GLOVES_MODIFIER => [
+            self::VISIBILITY => VisibilityEnum::PRIVATE,
+            self::VALUE => self::CLUMSINESS_PREVENTED,
+        ],
+    ];
 }

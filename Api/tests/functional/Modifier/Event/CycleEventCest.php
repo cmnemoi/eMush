@@ -11,6 +11,7 @@ use Mush\Modifier\Entity\ModifierCondition;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierConditionEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Listener\CycleEventSubscriber;
 use Mush\Place\Entity\Place;
@@ -66,7 +67,6 @@ class CycleEventCest
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($player, $modifierConfig);
-        $modifier->setCause(PlayerStatusEnum::LYING_DOWN);
         $I->haveInRepository($modifier);
 
         $cycleEvent = new PlayerCycleEvent($player, EventEnum::NEW_CYCLE, $time);
@@ -112,12 +112,12 @@ class CycleEventCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setName(ModifierNameEnum::ANTISOCIAL_MODIFIER)
             ->addModifierCondition($notAloneCondition)
         ;
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($player, $modifierConfig);
-        $modifier->setCause(PlayerStatusEnum::ANTISOCIAL);
         $I->haveInRepository($modifier);
 
         $cycleEvent = new PlayerCycleEvent($player, EventEnum::NEW_CYCLE, $time);

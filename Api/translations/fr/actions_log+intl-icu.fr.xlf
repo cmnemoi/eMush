@@ -74,6 +74,12 @@
                 <target>**{character}**  s'envoie un cachet.</target>
             </segment>
         </unit>
+        <unit id="consume_mush">
+            <segment id="consume_mush">
+                <source>consume_mush</source>
+                <target>Vous mangez cette pitoyable nourriture pour donner le change mais elle ne vous fait rien...</target>
+            </segment>
+        </unit>
         <unit id="cook_success">
             <segment id="cook_success">
                 <source>cook_success</source>

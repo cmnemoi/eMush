@@ -16,6 +16,7 @@ use Mush\Modifier\Entity\ModifierCondition;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierConditionEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
@@ -51,6 +52,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(-100)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setName(ModifierNameEnum::APRON_MODIFIER)
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($apronModifier);
@@ -84,6 +86,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(0)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
+            ->setName(ModifierNameEnum::GLOVES_MODIFIER)
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($glovesModifier);

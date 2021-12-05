@@ -73,7 +73,6 @@ class BreakRepairEquipmentSubscriberCest
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($daedalus, $modifierConfig);
-        $modifier->setCause('some name');
         $I->haveInRepository($modifier);
 
         $gear = new Gear();

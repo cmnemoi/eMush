@@ -283,6 +283,13 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return new ModifierCollection($this->modifiers->toArray());
     }
 
+    public function getAllModifiers(): ModifierCollection
+    {
+        $allModifiers = new ModifierCollection($this->modifiers->toArray());
+
+        return $allModifiers->addModifiers($this->daedalus->getModifiers());
+    }
+
     /**
      * @return static
      */

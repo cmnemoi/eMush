@@ -371,6 +371,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return new ModifierCollection($this->modifiers->toArray());
     }
 
+    public function getAllModifiers(): ModifierCollection
+    {
+        $allModifiers = new ModifierCollection($this->modifiers->toArray());
+        $allModifiers = $allModifiers->addModifiers($this->place->getModifiers());
+
+        return $allModifiers->addModifiers($this->daedalus->getModifiers());
+    }
+
     /**
      * @return static
      */

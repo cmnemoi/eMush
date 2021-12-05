@@ -11,6 +11,7 @@ use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -185,6 +186,18 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     public function getModifiers(): ModifierCollection
     {
         return new ModifierCollection($this->modifiers->toArray());
+    }
+
+    public function getAllModifiers(): ModifierCollection
+    {
+        $allModifiers = new ModifierCollection($this->modifiers->toArray());
+
+        if (($player = $this->getHolder()) instanceof Player) {
+            $allModifiers = $allModifiers->addModifiers($player->getModifiers());
+        }
+        $allModifiers = $allModifiers->addModifiers($this->getPlace()->getModifiers());
+
+        return $allModifiers->addModifiers($this->getPlace()->getDaedalus()->getModifiers());
     }
 
     /**

@@ -20,7 +20,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 
 class ActionServiceCest
 {
@@ -130,7 +129,6 @@ class ActionServiceCest
         $I->haveInRepository($modifierConfig);
 
         $disabledModifier = new Modifier($player, $modifierConfig);
-        $disabledModifier->setCause(PlayerStatusEnum::DISABLED);
 
         $I->haveInRepository($disabledModifier);
 

@@ -57,7 +57,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
         /** @var Modifier $modifier */
         foreach ($cycleModifiers as $modifier) {
-            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime());
+            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
 
             $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
@@ -72,7 +72,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
         /** @var Modifier $modifier */
         foreach ($cycleModifiers as $modifier) {
-            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime());
+            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
 
             $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
@@ -87,7 +87,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
         /** @var Modifier $modifier */
         foreach ($modifiers as $modifier) {
-            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime());
+            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
 
             $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
@@ -109,24 +109,30 @@ class CycleEventSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function createQuantityEvent(ModifierHolder $holder, Modifier $modifier, \DateTime $time): AbstractQuantityEvent
+    private function createQuantityEvent(ModifierHolder $holder, Modifier $modifier, \DateTime $time, string $eventReason): AbstractQuantityEvent
     {
+        $modifierConfig = $modifier->getModifierConfig();
+
+        $target = $modifierConfig->getTarget();
+        $value = intval($modifierConfig->getDelta());
+        $reason = $modifierConfig->getName() ?: $eventReason;
+
         switch (true) {
             case $holder instanceof Player:
                 return new PlayerModifierEvent(
                     $holder,
-                    $modifier->getModifierConfig()->getTarget(),
-                    intval($modifier->getModifierConfig()->getDelta()),
-                    $modifier->getCause(),
+                    $target,
+                    $value,
+                    $reason,
                     $time,
                 );
 
             case $holder instanceof Daedalus:
                 return new DaedalusModifierEvent(
                     $holder,
-                    $modifier->getModifierConfig()->getTarget(),
-                    intval($modifier->getModifierConfig()->getDelta()),
-                    $modifier->getCause(),
+                    $target,
+                    $value,
+                    $reason,
                     $time,
                 );
             default:

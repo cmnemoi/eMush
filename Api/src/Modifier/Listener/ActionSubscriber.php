@@ -43,7 +43,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $target = $event->getActionParameter();
 
         // handle modifiers with charges
-        $this->modifierService->consumeActionCharges($event->getAction(), $player, $target);
+        $this->modifierService->applyActionModifiers($event->getAction(), $player, $target);
 
         switch ($actionName) {
         // handle gear modifiers when taken or dropped

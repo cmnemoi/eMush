@@ -8,7 +8,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
@@ -68,7 +67,6 @@ class DaedalusVariableEventCest
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($daedalus, $modifierConfig);
-        $modifier->setCause(EquipmentEnum::OXYGEN_TANK);
         $I->haveInRepository($modifier);
 
         $event = new DaedalusModifierEvent(

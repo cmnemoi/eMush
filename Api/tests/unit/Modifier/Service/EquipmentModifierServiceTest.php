@@ -82,7 +82,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, $equipmentConfig->getName(), $room, null, $gameEquipment, null)
+            ->with($modifierConfig1, $daedalus, null)
             ->once()
         ;
         $this->service->gearCreated($gameEquipment);
@@ -94,7 +94,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, $equipmentConfig->getName(), $room, $player, $gameEquipment, null)
+            ->with($modifierConfig1, $daedalus, null)
             ->once()
         ;
         $this->service->gearCreated($gameEquipment);
@@ -106,7 +106,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, $equipmentConfig->getName(), $room, $player, $gameEquipment, $charge)
+            ->with($modifierConfig1, $daedalus, $charge)
             ->once()
         ;
         $this->service->gearCreated($gameEquipment);
@@ -137,12 +137,12 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, $equipmentConfig->getName(), $room, null, $gameEquipment, null)
+            ->with($modifierConfig1, $daedalus, null)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig2, $daedalus, $equipmentConfig->getName(), $room, null, $gameEquipment, null)
+            ->with($modifierConfig2, $daedalus, null)
             ->once()
         ;
         $this->service->gearCreated($gameEquipment);
@@ -177,7 +177,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('deleteModifier')
-            ->with($modifierConfig1, $daedalus, $room, null, $gameEquipment)
+            ->with($modifierConfig1, $daedalus)
             ->once()
         ;
         $this->service->gearDestroyed($gameEquipment);
@@ -189,7 +189,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('deleteModifier')
-            ->with($modifierConfig1, $daedalus, $room, $player, $gameEquipment)
+            ->with($modifierConfig1, $daedalus)
             ->once()
         ;
         $this->service->gearDestroyed($gameEquipment);
@@ -257,7 +257,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, $equipmentConfig->getName(), $room, $player, $gameEquipment, null)
+            ->with($modifierConfig1, $player, null)
             ->once()
         ;
         $this->service->takeEquipment($gameEquipment, $player);
@@ -272,7 +272,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, $equipmentConfig->getName(), $room, $player, $gameEquipment, $charge)
+            ->with($modifierConfig1, $player, $charge)
             ->once()
         ;
         $this->service->takeEquipment($gameEquipment, $player);
@@ -310,8 +310,8 @@ class EquipmentModifierServiceTest extends TestCase
         $this->service->dropEquipment($gameEquipment, $player);
 
         // gear with player Modifier
-        $modifierConfig1 = new ModifierConfig();
-        $modifierConfig1
+        $modifierConfig2 = new ModifierConfig();
+        $modifierConfig2
             ->setReach(ModifierReachEnum::TARGET_PLAYER)
             ->setScope('action')
             ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
@@ -319,10 +319,10 @@ class EquipmentModifierServiceTest extends TestCase
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
 
-        $modifier = new Modifier($player, $modifierConfig1);
+        $modifier2 = new Modifier($player, $modifierConfig2);
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig1]));
+        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig2]));
 
         $equipmentConfig = new ItemConfig();
         $equipmentConfig
@@ -334,7 +334,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('deleteModifier')
-            ->with($modifierConfig1, $daedalus, $room, $player, $gameEquipment)
+            ->with($modifierConfig2, $player)
             ->once()
         ;
         $this->service->dropEquipment($gameEquipment, $player);

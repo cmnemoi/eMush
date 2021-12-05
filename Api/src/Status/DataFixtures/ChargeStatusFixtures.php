@@ -3,11 +3,14 @@
 namespace Mush\Status\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
+use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -210,6 +213,19 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($spores);
 
+        /** @var ModifierConfig $showerModifier */
+        $showerModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_SHOWER_MODIFIER);
+        /** @var ModifierConfig $consumeSatietyModifier */
+        $consumeSatietyModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_SATIETY_MODIFIER);
+        /** @var ModifierConfig $consumeActionModifier */
+        $consumeActionModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_ACTION_MODIFIER);
+        /** @var ModifierConfig $consumeMovementModifier */
+        $consumeMovementModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_MOVEMENT_MODIFIER);
+        /** @var ModifierConfig $consumeHealthModifier */
+        $consumeHealthModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_HEALTH_MODIFIER);
+        /** @var ModifierConfig $consumeMoralModifier */
+        $consumeMoralModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_MORAL_MODIFIER);
+
         $mushStatus = new ChargeStatusConfig();
         $mushStatus
             ->setName(PlayerStatusEnum::MUSH)
@@ -217,6 +233,14 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeVisibility(VisibilityEnum::MUSH)
             ->setMaxCharge(1)
             ->setStartCharge(1)
+            ->setModifierConfigs(new ArrayCollection([
+                $showerModifier,
+                $consumeActionModifier,
+                $consumeHealthModifier,
+                $consumeMoralModifier,
+                $consumeMovementModifier,
+                $consumeSatietyModifier,
+            ]))
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($mushStatus);
@@ -290,6 +314,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             GameConfigFixtures::class,
+            StatusModifierConfigFixtures::class,
         ];
     }
 }

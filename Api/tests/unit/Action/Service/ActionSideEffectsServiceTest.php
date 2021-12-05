@@ -2,21 +2,14 @@
 
 namespace unit\Action\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionSideEffectsService;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
-use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Gear;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -53,8 +46,6 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $this->actionService = new ActionSideEffectsService(
             $this->eventDispatcher,
-            $this->randomService,
-            $this->roomLogService,
             $this->modifierService
         );
     }
@@ -80,29 +71,41 @@ class ActionSideEffectsServiceTest extends TestCase
             ->setName(ActionEnum::DROP)
         ;
 
+        $date = new \DateTime();
+
+        $this->modifierService
+            ->shouldReceive('isSuccessfulWithModifiers')
+            ->with(0, [ModifierScopeEnum::EVENT_DIRTY], ActionEnum::DROP, $date, $player)
+            ->andReturn(false)
+            ->once()
+        ;
+        $this->modifierService
+            ->shouldReceive('isSuccessfulWithModifiers')
+            ->with(0, [ModifierScopeEnum::EVENT_CLUMSINESS], ActionEnum::DROP, $date, $player)
+            ->andReturn(false)
+            ->twice()
+        ;
         $this->eventDispatcher->shouldReceive('dispatch')->never();
 
-        $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
+        $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
         $this->assertCount(0, $player->getStatuses());
 
         $action->setDirtyRate(10);
 
         $this->modifierService
-            ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ModifierScopeEnum::EVENT_DIRTY], ModifierTargetEnum::PERCENTAGE, 10, ActionEnum::DROP)
-            ->andReturn(100)
+            ->shouldReceive('isSuccessfulWithModifiers')
+            ->with(10, [ModifierScopeEnum::EVENT_DIRTY], ActionEnum::DROP, $date, $player)
+            ->andReturn(true)
+            ->once()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
-        $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
-
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::DIRTY && $event->getStatusHolder() === $player)
             ->once()
         ;
 
-        $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
+        $this->actionService->handleActionSideEffect($action, $player, $date);
     }
 
     public function testHandleActionSideEffectDirtyWithApron()
@@ -112,35 +115,29 @@ class ActionSideEffectsServiceTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
 
+        $date = new \DateTime();
+
         $action
             ->setDirtyRate(100)
             ->setInjuryRate(0)
             ->setName(ActionEnum::DROP)
         ;
 
-        $itemConfig = new ItemConfig();
-
-        $apronGear = $this->createGear(
-            ModifierTargetEnum::PERCENTAGE,
-            -100,
-            ModifierScopeEnum::EVENT_DIRTY,
-            ReachEnum::INVENTORY
-        );
-
-        $itemConfig->setMechanics(new ArrayCollection([$apronGear]));
-        $gameItem = new GameItem();
-        $gameItem->setEquipment($itemConfig);
-
-        $player->addEquipment($gameItem);
-
         $this->modifierService
-            ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ModifierScopeEnum::EVENT_DIRTY], ModifierTargetEnum::PERCENTAGE, 100, ActionEnum::DROP)
-            ->andReturn(0);
+            ->shouldReceive('isSuccessfulWithModifiers')
+            ->with(100, [ModifierScopeEnum::EVENT_DIRTY], ActionEnum::DROP, $date, $player)
+            ->andReturn(false)
+            ->once()
+        ;
+        $this->modifierService
+            ->shouldReceive('isSuccessfulWithModifiers')
+            ->with(0, [ModifierScopeEnum::EVENT_CLUMSINESS], ActionEnum::DROP, $date, $player)
+            ->andReturn(false)
+            ->once()
+        ;
         $this->eventDispatcher->shouldReceive('dispatch')->never();
-        $this->roomLogService->shouldReceive('createLog')->once();
-        $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
-        $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
+
+        $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
         $this->assertCount(0, $player->getStatuses());
     }
@@ -151,19 +148,38 @@ class ActionSideEffectsServiceTest extends TestCase
         $room = new Place();
         $player = new Player();
         $player->setPlace($room);
+        $date = new \DateTime();
 
         $action
             ->setDirtyRate(0)
             ->setInjuryRate(0)
+            ->setName(ActionEnum::DROP)
         ;
 
+        $this->modifierService
+            ->shouldReceive('isSuccessfulWithModifiers')
+            ->with(0, [ModifierScopeEnum::EVENT_CLUMSINESS], ActionEnum::DROP, $date, $player)
+            ->andReturn(false)
+            ->once()
+        ;
+        $this->modifierService
+            ->shouldReceive('isSuccessfulWithModifiers')
+            ->with(0, [ModifierScopeEnum::EVENT_DIRTY], ActionEnum::DROP, $date, $player)
+            ->andReturn(false)
+            ->twice()
+        ;
         $this->eventDispatcher->shouldReceive('dispatch')->never();
 
-        $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
-
-        $this->assertCount(0, $player->getStatuses());
+        $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
         $action->setInjuryRate(100)->setName(ActionEnum::DROP);
+
+        $this->modifierService
+            ->shouldReceive('isSuccessfulWithModifiers')
+            ->with(100, [ModifierScopeEnum::EVENT_CLUMSINESS], ActionEnum::DROP, $date, $player)
+            ->andReturn(true)
+            ->once()
+        ;
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(
@@ -175,78 +191,8 @@ class ActionSideEffectsServiceTest extends TestCase
             )
             ->once()
         ;
-
-        $this->modifierService
-            ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ModifierScopeEnum::EVENT_CLUMSINESS], ModifierTargetEnum::PERCENTAGE, 100, ActionEnum::DROP)
-            ->andReturn(100)
-        ;
-
-        $this->roomLogService->shouldReceive('createLog')->once();
-        $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
-            ->never()
-        ;
-        $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
+        $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
         $this->assertCount(0, $player->getStatuses());
-    }
-
-    public function testHandleActionSideEffectInjuryWithGloves()
-    {
-        $action = new Action();
-        $room = new Place();
-        $player = new Player();
-        $player->setPlace($room);
-
-        $action
-            ->setDirtyRate(0)
-            ->setInjuryRate(100)
-            ->setName(ActionEnum::DROP)
-        ;
-
-        $itemConfig = new ItemConfig();
-
-        $apronGear = $this->createGear(
-            ModifierTargetEnum::PERCENTAGE,
-            -100,
-            ModifierScopeEnum::EVENT_CLUMSINESS,
-            ReachEnum::INVENTORY
-        );
-
-        $itemConfig->setMechanics(new ArrayCollection([$apronGear]));
-        $gameItem = new GameItem();
-        $gameItem->setEquipment($itemConfig);
-
-        $player->addEquipment($gameItem);
-
-        $this->modifierService
-            ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ModifierScopeEnum::EVENT_CLUMSINESS], ModifierTargetEnum::PERCENTAGE, 100, ActionEnum::DROP)
-            ->andReturn(0)
-        ;
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
-        $this->roomLogService->shouldReceive('createLog')->once();
-        $this->randomService->shouldReceive('randomPercent')->andReturn(10)->once();
-        $player = $this->actionService->handleActionSideEffect($action, $player, new \DateTime());
-
-        $this->assertCount(0, $player->getStatuses());
-    }
-
-    private function createGear(string $target, float $delta, string $scope, string $reach): Gear
-    {
-        $modifier = new ModifierConfig();
-        $modifier
-            ->setTarget($target)
-            ->setDelta($delta)
-            ->setScope($scope)
-            ->setReach($reach)
-        ;
-
-        $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifier]));
-
-        return $gear;
     }
 }

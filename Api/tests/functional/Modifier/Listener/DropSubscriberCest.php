@@ -76,7 +76,6 @@ class DropSubscriberCest
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($player, $modifierConfig);
-        $modifier->setCause('some name');
         $I->haveInRepository($modifier);
 
         $gear = new Gear();
@@ -230,7 +229,6 @@ class DropSubscriberCest
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($room, $modifierConfig);
-        $modifier->setCause('some name');
         $I->haveInRepository($modifier);
 
         $gear = new Gear();
@@ -326,11 +324,9 @@ class DropSubscriberCest
         $I->haveInRepository($modifierConfig2);
 
         $modifier = new Modifier($player, $modifierConfig);
-        $modifier->setCause('some name');
         $I->haveInRepository($modifier);
 
         $modifier2 = new Modifier($player, $modifierConfig2);
-        $modifier2->setCause('some name');
         $I->haveInRepository($modifier2);
 
         $gear = new Gear();
@@ -425,10 +421,8 @@ class DropSubscriberCest
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($player, $modifierConfig);
-        $modifier->setCause('some name');
         $I->haveInRepository($modifier);
         $modifier2 = new Modifier($player, $modifierConfig);
-        $modifier2->setCause('some name');
         $I->haveInRepository($modifier2);
 
         $gear = new Gear();

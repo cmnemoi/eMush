@@ -247,7 +247,7 @@ class ConsumeChargeOnActionCest
         $I->haveInRepository($chargeStatus);
 
         $modifier = new Modifier($player, $modifierConfig);
-        $modifier->setCharge($chargeStatus)->setCause(GearItemEnum::SOAP);
+        $modifier->setCharge($chargeStatus);
         $I->haveInRepository($modifier);
 
         $this->coffeeAction->loadParameters($actionEntity, $player, $gameEquipment);
@@ -365,7 +365,7 @@ class ConsumeChargeOnActionCest
         $I->haveInRepository($chargeStatus);
 
         $modifier = new Modifier($player, $modifierConfig);
-        $modifier->setCharge($chargeStatus)->setCause(GearItemEnum::SOAP);
+        $modifier->setCharge($chargeStatus);
         $I->haveInRepository($modifier);
 
         $this->coffeeAction->loadParameters($actionEntity, $player, $gameEquipment);

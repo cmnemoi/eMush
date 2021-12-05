@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\Collection;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -120,19 +122,20 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
             $this->getGearModifierConfigs($gameEquipment),
             $reaches,
             $gameEquipment,
-            $gameEquipment->getName(),
             $player,
         );
     }
 
     private function deleteGearModifiers(GameEquipment $gameEquipment, array $reaches, ?Player $player): void
     {
-        $place = $gameEquipment->getPlace();
-        $daedalus = $place->getDaedalus();
-
         foreach ($this->getGearModifierConfigs($gameEquipment) as $modifierConfig) {
             if (in_array($modifierConfig->getReach(), $reaches)) {
-                $this->modifierService->deleteModifier($modifierConfig, $daedalus, $place, $player, $gameEquipment);
+                $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
+                if ($holder === null) {
+                    return;
+                }
+
+                $this->modifierService->deleteModifier($modifierConfig, $holder);
             }
         }
     }
@@ -158,7 +161,6 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
                 $statusConfig->getModifierConfigs(),
                 $reaches,
                 $gameEquipment,
-                $statusConfig->getName(),
                 $player
             );
         }
@@ -166,15 +168,17 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
 
     private function deleteEquipmentStatusModifiers(GameEquipment $gameEquipment, array $reaches, ?Player $player): void
     {
-        $place = $gameEquipment->getPlace();
-        $daedalus = $place->getDaedalus();
-
         foreach ($gameEquipment->getStatuses() as $status) {
             $statusConfig = $status->getStatusConfig();
 
             foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
                 if (in_array($modifierConfig->getReach(), $reaches)) {
-                    $this->modifierService->deleteModifier($modifierConfig, $daedalus, $place, $player, $gameEquipment);
+                    $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
+                    if ($holder === null) {
+                        return;
+                    }
+
+                    $this->modifierService->deleteModifier($modifierConfig, $holder);
                 }
             }
         }
@@ -184,26 +188,43 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         Collection $modifiers,
         array $reaches,
         GameEquipment $gameEquipment,
-        string $cause,
-        ?Player $player,
+        ?Player $player
     ): void {
-        $place = $gameEquipment->getPlace();
-        $daedalus = $place->getDaedalus();
-
         foreach ($modifiers as $modifierConfig) {
             if (in_array($modifierConfig->getReach(), $reaches)) {
                 $charge = $this->getChargeStatus($modifierConfig->getScope(), $gameEquipment);
 
+                $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
+                if ($holder === null) {
+                    return;
+                }
+
                 $this->modifierService->createModifier(
                     $modifierConfig,
-                    $daedalus,
-                    $cause,
-                    $place,
-                    $player,
-                    $gameEquipment,
+                    $holder,
                     $charge
                 );
             }
         }
+    }
+
+    private function getModifierHolderFromConfig(GameEquipment $gameEquipment, ModifierConfig $modifierConfig, ?Player $player): ?ModifierHolder
+    {
+        switch ($modifierConfig->getReach()) {
+            case ModifierReachEnum::DAEDALUS:
+                return $gameEquipment->getPlace()->getDaedalus();
+            case ModifierReachEnum::PLACE:
+                return $gameEquipment->getPlace();
+            case ModifierReachEnum::EQUIPMENT:
+                return $gameEquipment;
+            case ModifierReachEnum::PLAYER:
+            case ModifierReachEnum::TARGET_PLAYER:
+                $player = $player ?: $gameEquipment->getHolder();
+                if ($player instanceof Player) {
+                    return $player;
+                }
+        }
+
+        return null;
     }
 }

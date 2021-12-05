@@ -55,11 +55,6 @@ class Modifier
      */
     private ?ChargeStatus $charge = null;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
-    private string $cause;
-
     public function __construct(ModifierHolder $holder, ModifierConfig $modifierConfig)
     {
         $this->modifierConfig = $modifierConfig;
@@ -110,18 +105,6 @@ class Modifier
     public function setCharge(ChargeStatus $charge): self
     {
         $this->charge = $charge;
-
-        return $this;
-    }
-
-    public function getCause(): string
-    {
-        return $this->cause;
-    }
-
-    public function setCause(string $cause): self
-    {
-        $this->cause = $cause;
 
         return $this;
     }

@@ -54,8 +54,6 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
         $this->dispatchCycleChangeEvent($daedalus, $event->getTime());
 
-        $daedalus = $this->handleOxygen($daedalus, $event->getTime());
-
         $this->daedalusService->persist($daedalus);
     }
 

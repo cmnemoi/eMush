@@ -7,6 +7,7 @@ use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Status\Enum\StatusEnum;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -40,8 +41,9 @@ class IsReportedValidator extends ConstraintValidator
     {
         $player = $value->getPlayer();
         $equipment = $value->getParameter();
+        $place = $player->getPlace();
 
-        if ($equipment !== null) {
+        if ($equipment !== null || !$place->hasStatus(StatusEnum::FIRE)) {
             return false;
         }
 

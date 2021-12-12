@@ -66,7 +66,16 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        $this->createEventLog(LogEnum::EQUIPMENT_DESTROYED, $event);
+        switch ($event->getReason()) {
+            case EventEnum::FIRE:
+                $this->createEventLog(LogEnum::EQUIPMENT_DESTROYED, $event);
+
+                return;
+            case PlantLogEnum::PLANT_DEATH:
+                $this->createEventLog(PlantLogEnum::PLANT_DEATH, $event);
+
+                return;
+        }
     }
 
     public function onInventoryOverflow(EquipmentEvent $event): void

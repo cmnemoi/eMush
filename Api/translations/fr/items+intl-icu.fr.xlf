@@ -2713,8 +2713,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
             </segment>
             <segment id="examine">
                 <source>banana_tree.examine</source>
-                <target>Le bananier est une sorte d'herbacée qui produit des fruits nourrissants et savoureux.
-Permet d'accueillir une plante du jardin hydroponique.</target>
+                <target>Le bananier est une sorte d'herbacée qui produit des fruits nourrissants et savoureux.</target>
             </segment>
         </unit>
         <unit id="creepist">
@@ -2740,8 +2739,7 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
             </segment>
             <segment id="examine">
                 <source>creepist.examine</source>
-                <target>Le lianiste est un arbre curieusement tordu.
-Permet d'accueuillir une plante du jardin hydroponique.</target>
+                <target>Le lianiste est un arbre curieusement tordu.</target>
             </segment>
         </unit>
         <unit id="cactax">
@@ -2767,8 +2765,7 @@ Permet d'accueuillir une plante du jardin hydroponique.</target>
             </segment>
             <segment id="examine">
                 <source>cactax.examine</source>
-                <target>Originaire des grands désert de Tantris, le cactuor est utilisé dans certains rites indigènes pour les cérémonies sa...
-Permet d'accueillir une plante du jardin hydroponique.</target>
+                <target>Originaire des grands désert de Tantris, le cactuor est utilisé dans certains rites indigènes pour les cérémonies sa...</target>
             </segment>
         </unit>
         <unit id="bifflon">
@@ -2794,8 +2791,7 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
             </segment>
             <segment id="examine">
                 <source>bifflon.examine</source>
-                <target>Une vraie curiosité de la nature, le Bifalon est un arbre qui parle... mais il passe son temps à réciter du Keats. Ce qui rend sa compagnie déprimante...
-Permet d'accueillir une plante du jardin hydroponique.</target>
+                <target>Une vraie curiosité de la nature, le Bifalon est un arbre qui parle... mais il passe son temps à réciter du Keats. Ce qui rend sa compagnie déprimante...</target>
             </segment>
         </unit>
         <unit id="pulminagro">
@@ -2821,8 +2817,7 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
             </segment>
             <segment id="examine">
                 <source>pulminagro.examine</source>
-                <target>Le Poulmino est un arbre issu de croisement entre un palmier et une forme de Sphègne alien. Sa particularité de pousser en milieux peu lumineux [...]
-Permet d'accueillir une plante du jardin hydroponique.</target>
+                <target>Le Poulmino est un arbre issu de croisement entre un palmier et une forme de Sphègne alien. Sa particularité de pousser en milieux peu lumineux [...]</target>
             </segment>
         </unit>
         <unit id="precatus">
@@ -2848,8 +2843,7 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
             </segment>
             <segment id="examine">
                 <source>precatus.examine</source>
-                <target>Cet arbre étrange produit une forme alien de gomme totalement inutile mais fort salissante...
-Permet d'accueillir une plante du jardin hydroponique.</target>
+                <target>Cet arbre étrange produit une forme alien de gomme totalement inutile mais fort salissante...</target>
             </segment>
         </unit>
         <unit id="buttalien">
@@ -2875,8 +2869,7 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
             </segment>
             <segment id="examine">
                 <source>buttalien.examine</source>
-                <target>Le Buitalien est un arbuste rigolo, ses fruits juteux reflète la lumière étrangement.
-Permet d'accueillir une plante du jardin hydroponique.</target>
+                <target>Le Buitalien est un arbuste rigolo, ses fruits juteux reflète la lumière étrangement.</target>
             </segment>
         </unit>
         <unit id="platacia">
@@ -2902,8 +2895,7 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
             </segment>
             <segment id="examine">
                 <source>platacia.examine</source>
-                <target>Le Platacia est un arbre de savane allergisant sans réel intérêt...
-Permet d'accueillir une plante du jardin hydroponique.</target>
+                <target>Le Platacia est un arbre de savane allergisant sans réel intérêt...</target>
             </segment>
         </unit>
         <unit id="tubiliscus">
@@ -2929,8 +2921,7 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
             </segment>
             <segment id="examine">
                 <source>tubiliscus.examine</source>
-                <target>La dernière mode en matière arboricole sur Vénus est de posséder un Tubiliscus. Ses excroissances présentent des intérêts multiples et variés.
-Permet d'accueillir une plante du jardin hydroponique.</target>
+                <target>La dernière mode en matière arboricole sur Vénus est de posséder un Tubiliscus. Ses excroissances présentent des intérêts multiples et variés.</target>
             </segment>
         </unit>
         <unit id="graapshoot">
@@ -2956,8 +2947,7 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
             </segment>
             <segment id="examine">
                 <source>graapshoot.examine</source>
-                <target>Le Peuplimoune est un arbre design et élégant. Ses feuilles dégagent une odeur cuivrée.
-Permet d'accueillir une plante du jardin hydroponique.</target>
+                <target>Le Peuplimoune est un arbre design et élégant. Ses feuilles dégagent une odeur cuivrée.</target>
             </segment>
         </unit>
         <unit id="peniraft">
@@ -3009,8 +2999,7 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
             </segment>
             <segment id="examine">
                 <source>fiboniccus.examine</source>
-                <target>Lointain ancêtre du Ficcus terrestre, le fiboniccus a longtemps été méconnu.Et pour cause, il ne poussait pas sur Terre...
-Permet d'accueillir une plante du jardin hydroponique.</target>
+                <target>Lointain ancêtre du Ficcus terrestre, le fiboniccus a longtemps été méconnu.Et pour cause, il ne poussait pas sur Terre...</target>
             </segment>
         </unit>
         <unit id="mycopia">
@@ -3036,8 +3025,7 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
             </segment>
             <segment id="examine">
                 <source>mycopia.examine</source>
-                <target>Le mycopia a une forme intrigante, certaines de ses propriétés ne sont pas sans rappeler celle d'un Fungus célèbre.
-Permet d'accueillir une plante du jardin hydroponique.</target>
+                <target>Le mycopia a une forme intrigante, certaines de ses propriétés ne sont pas sans rappeler celle d'un Fungus célèbre.</target>
             </segment>
         </unit>
         <unit id="asperagunk">
@@ -3063,8 +3051,7 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
             </segment>
             <segment id="examine">
                 <source>asperagunk.examine</source>
-                <target>L'Asperginulk n'est pas sans rappeler l'Asparagus Terrien, à ceci près qu'il est géant.
-Permet d'accueillir une plante du jardin hydroponique.</target>
+                <target>L'Asperginulk n'est pas sans rappeler l'Asparagus Terrien, à ceci près qu'il est géant.</target>
             </segment>
         </unit>
         <unit id="filandra">
@@ -3116,8 +3103,7 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
             </segment>
             <segment id="examine">
                 <source>bumpjunkin.examine</source>
-                <target>La cucurbitatrouille est une plante d'origine extra-terrestre, des rumeurs la donnent originaire d'Amérique du Sud. C'est dire....
-Permet d'accueillir une plante du jardin hydroponique.</target>
+                <target>La cucurbitatrouille est une plante d'origine extra-terrestre, des rumeurs la donnent originaire d'Amérique du Sud. C'est dire....</target>
             </segment>
         </unit>
         <unit id="jumpkin">

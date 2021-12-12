@@ -129,7 +129,10 @@ class PlayerService implements PlayerServiceInterface
             EventEnum::CREATE_DAEDALUS,
             new \DateTime()
         );
-        $playerEvent->setCharacterConfig($characterConfig);
+        $playerEvent
+            ->setCharacterConfig($characterConfig)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+        ;
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
 
         return $player;

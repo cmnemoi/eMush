@@ -10,6 +10,7 @@ use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -128,13 +129,13 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $daedalus = $this->handleOxygen($daedalus, $time);
 
         $timeElapsedSinceStart = ($daedalus->getCycle() + $daedalus->getDay() * $gameConfig->getCyclePerGameDay()) * $gameConfig->getCycleLength();
-        if ($timeElapsedSinceStart >= self::LOBBY_TIME_LIMIT) {
+        if ($timeElapsedSinceStart >= self::LOBBY_TIME_LIMIT && $daedalus->getGameStatus() === GameStatusEnum::STARTING) {
             $daedalusEvent = new DaedalusEvent(
                 $daedalus,
                 EventEnum::NEW_CYCLE,
                 $time
             );
-            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::START_DAEDALUS);
+            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::FULL_DAEDALUS);
         }
 
         if ($newDay) {

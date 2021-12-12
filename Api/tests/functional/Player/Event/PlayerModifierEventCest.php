@@ -12,9 +12,6 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
-use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Enum\StatusEventLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -202,13 +199,6 @@ class PlayerModifierEventCest
         $this->eventDispatcherService->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(-25, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
-
-        $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
-            'player' => $player->getId(),
-            'log' => StatusEventLogEnum::HUNGER,
-            'visibility' => VisibilityEnum::PRIVATE,
-        ]);
     }
 
     public function testDispatchMushSatietyChange(FunctionalTester $I)

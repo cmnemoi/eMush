@@ -24,6 +24,7 @@ class PlayerModifierLogEnum
     public const ANTISOCIAL_MORALE_LOSS = 'antisocial_morale_loss';
     public const PANIC_CRISIS = 'panic_crisis';
     public const CLUMSINESS = 'clumsiness';
+    public const HUNGER = 'hunger';
 
     public const GAIN = 'gain';
     public const LOSS = 'loss';
@@ -47,6 +48,7 @@ class PlayerModifierLogEnum
 
     public const PLAYER_VARIABLE_SPECIAL_LOGS = [
         ModifierNameEnum::ANTISOCIAL_MODIFIER => self::ANTISOCIAL_MORALE_LOSS,
+        ModifierNameEnum::STARVING => self::HUNGER,
         PlayerEvent::PANIC_CRISIS => self::PANIC_CRISIS,
         ModifierNameEnum::MUSH_SHOWER_MALUS => self::SHOWER_MUSH,
         EndCauseEnum::CLUMSINESS => self::CLUMSINESS,

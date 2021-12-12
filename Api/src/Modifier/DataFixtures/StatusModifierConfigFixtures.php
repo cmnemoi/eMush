@@ -147,6 +147,7 @@ class StatusModifierConfigFixtures extends Fixture
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setName(ModifierNameEnum::STARVING)
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($starvingModifier);

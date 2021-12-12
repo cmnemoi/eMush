@@ -10,4 +10,5 @@ class ModifierNameEnum
     public const DISABLED_MOVE_MODIFIER = 'disabled_move_modifier';
     public const APRON_MODIFIER = 'apron_modifier';
     public const GLOVES_MODIFIER = 'gloves_modifier';
+    public const STARVING = 'starving';
 }

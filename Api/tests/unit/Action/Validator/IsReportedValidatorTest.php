@@ -17,6 +17,7 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -59,6 +60,10 @@ class IsReportedValidatorTest extends TestCase
             ->setPlace($room)
         ;
         $room->setDaedalus($daedalus);
+
+        $fireConfig = new StatusConfig();
+        $fireConfig->setName(StatusEnum::FIRE);
+        $fireStatus = new Status($room, $fireConfig);
 
         $alertElement = new AlertElement();
         $alertElement->setPlace($room);
@@ -103,6 +108,10 @@ class IsReportedValidatorTest extends TestCase
             ->setPlace($room)
         ;
         $room->setDaedalus($daedalus);
+
+        $fireConfig = new StatusConfig();
+        $fireConfig->setName(StatusEnum::FIRE);
+        $fireStatus = new Status($room, $fireConfig);
 
         $alertElement = new AlertElement();
         $alertElement->setPlace($room)->setPlayer($player);

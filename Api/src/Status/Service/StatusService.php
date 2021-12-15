@@ -157,24 +157,35 @@ class StatusService implements StatusServiceInterface
         /** @var Attempt $attempt */
         $attempt = $player->getStatusByName(StatusEnum::ATTEMPT);
 
-        if ($result instanceof Success && $attempt !== null) {
-            $this->delete($attempt);
+        if ($result instanceof Success) {
+            $this->handleAttemptOnSuccess($attempt);
         } else {
-            if ($attempt && $attempt->getAction() !== $actionName) {
-                // Re-initialize attempts with new action
-                $attempt
-                    ->setAction($actionName)
-                    ->setCharge(0)
-                ;
-            } elseif ($attempt === null) { //Create Attempt
-                $attempt = $this->createAttemptStatus(
-                    $actionName,
-                    $player
-                );
-            }
+            $this->handleAttemptOnFailure($attempt, $player, $actionName);
+        }
+    }
 
-            $attempt->addCharge(1);
-            $this->persist($attempt);
+    public function handleAttemptOnFailure(?Attempt $attempt, Player $player, string $actionName): void
+    {
+        if ($attempt && $attempt->getAction() !== $actionName) {
+            // Re-initialize attempts with new action
+            $attempt
+                ->setAction($actionName)
+                ->setCharge(0)
+            ;
+        } elseif ($attempt === null) { //Create Attempt
+            $attempt = $this->createAttemptStatus(
+                $actionName,
+                $player
+            );
+        }
+        $attempt->addCharge(1);
+        $this->persist($attempt);
+    }
+
+    public function handleAttemptOnSuccess(?Attempt $attempt): void
+    {
+        if ($attempt !== null) {
+            $this->delete($attempt);
         }
     }
 

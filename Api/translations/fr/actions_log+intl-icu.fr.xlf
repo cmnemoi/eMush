@@ -445,9 +445,9 @@
         <unit id="search_success">
             <segment id="search_success">
                 <source>search_success</source>
-                <target>{target_equipment_gender, select,
-                        male {**{character}** a découvert un **{target_equipment}** caché.}
-                        female {**{character}** a découvert une **{target_equipment}** cachée.}
+                <target>{equipment_gender, select,
+                        male {**{character}** a découvert un **{equipment}** caché.}
+                        female {**{character}** a découvert une **{equipment}** cachée.}
                         other {invalid gender input}
                 }</target>
             </segment>

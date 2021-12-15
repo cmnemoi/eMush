@@ -124,6 +124,11 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
         if (($delta = $consumableEffect->getSatiety()) !== null) {
+            $currentSatiety = $player->getSatiety();
+            if ($currentSatiety < 0) {
+                $delta = $delta - $currentSatiety;
+            }
+
             $playerModifierEvent = new PlayerModifierEvent(
                 $player,
                 PlayerVariableEnum::SATIETY,

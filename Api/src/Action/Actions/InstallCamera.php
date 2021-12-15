@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\HasEquipment;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -14,6 +15,7 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class InstallCamera extends AbstractAction
@@ -30,6 +32,12 @@ class InstallCamera extends AbstractAction
                 'contains' => false,
                 'groups' => ['execute'],
                 'message' => ActionImpossibleCauseEnum::ALREADY_INSTALLED_CAMERA,
+            ]),
+            new HasStatus([
+                'status' => EquipmentStatusEnum::BROKEN,
+                'contain' => false,
+                'groups' => ['execute'],
+                'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
             ]),
         ]);
     }

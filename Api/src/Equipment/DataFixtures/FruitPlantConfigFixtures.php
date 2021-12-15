@@ -52,6 +52,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setMovementPoints([0 => 1])
             ->setHealthPoints([1 => 1])
             ->setMoralPoints([1 => 1])
+            ->setSatiety(1)
             ->setActions($fruitActions)
         ;
 
@@ -112,6 +113,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
                 ->setActionPoints([1 => 90, 2 => 9, 3 => 1])
                 ->setMoralPoints([0 => 30, 1 => 70])
                 ->setExtraEffects([ExtraEffectEnum::EXTRA_PA_GAIN => 50])
+                ->setSatiety(1)
                 ->setActions($fruitActions)
             ;
             $manager->persist($alienFruitMechanic);

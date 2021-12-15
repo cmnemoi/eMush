@@ -13,6 +13,7 @@
                 <target>{character_gender, select,
                     male {**{character}** a quitté la discussion, il a fermé l'onglet.}
                     female {**{character}** a quitté la discussion, elle a fermé l'onglet.}
+                    other {invalid gender input}
                     }
                 </target>
             </segment>
@@ -23,6 +24,7 @@
                 <target>{character_gender, select,
                     male {**{character}** a quitté la discussion, il a quitté notre monde.}
                     female {**{character}** a quitté la discussion, elle a quitté notre monde.}
+                    other {invalid gender input}
                     }
                 </target>
             </segment>
@@ -33,6 +35,7 @@
                 <target>{character_gender, select,
                     male {**{character}** a quitté la discussion, il a quitté la pièce et n'a pas de talky...}
                     female {**{character}** a quitté la discussion, elle a quitté la pièce et n'a pas de talky...}
+                    other {invalid gender input}
                     }
                 </target>
             </segment>

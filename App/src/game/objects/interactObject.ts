@@ -24,7 +24,7 @@ export default class InteractObject extends DecorationObject {
 
         this.equipment = equipment;
 
-        this.setInteractive();
+        this.setInteractive({ pixelPerfect: true });
 
 
         //If this is clicked then:

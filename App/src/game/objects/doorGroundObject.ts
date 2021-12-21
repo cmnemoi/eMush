@@ -36,7 +36,7 @@ export default class DoorGroundObject extends Phaser.GameObjects.Sprite {
         });
         this.anims.play('door_light');
 
-        this.setInteractive();
+        this.setInteractive({ pixelPerfect: true });
         this.on('pointerdown', () => {this.onDoorClicked();}, this);
 
     }

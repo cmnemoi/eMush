@@ -29,8 +29,18 @@ export default class InteractObject extends DecorationObject {
 
         //If this is clicked then:
         this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
+            console.log('interact');
             store.dispatch('room/selectTarget', { target: equipment });
-            event.stopPropagation(); //Need that one to prevent other effects
+            //event.stopPropagation(); //Need that one to prevent other effects
         });
+
+
+        //  highlight hovered sprite
+        this.on('pointerover', (pointer: Phaser.Input.Pointer) => {
+            this.setTint(0xff0000);
+        }, this);
+        this.on('pointerout', (pointer: Phaser.Input.Pointer) => {
+            this.clearTint();
+        }, this);
     }
 }

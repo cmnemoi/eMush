@@ -170,6 +170,9 @@ export default class DaedalusScene extends Phaser.Scene
         //     drawPortals: true
         // });
 
+        this.input.setTopOnly(true);
+        this.input.setGlobalTopOnly(true);
+
 
         this.createPlayers(sceneAspectRatio);
     }

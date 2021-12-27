@@ -28,5 +28,14 @@ export default class ShelfObject extends DecorationObject {
         this.scene.input.on('pointerdown', function(){
             store.dispatch('room/closeInventory');
         });
+
+
+        //  highlight hovered sprite
+        this.on('pointerover', (pointer: Phaser.Input.Pointer) => {
+            this.setTint(0xff0000);
+        }, this);
+        this.on('pointerout', (pointer: Phaser.Input.Pointer) => {
+            this.clearTint();
+        }, this);
     }
 }

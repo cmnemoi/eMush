@@ -3,14 +3,14 @@ import Vector2 = Phaser.Math.Vector2;
 import DaedalusScene from "@/game/scenes/daedalusScene";
 import { CartesianCoordinates } from "@/game/types";
 import { Door as DoorEntity } from "@/entities/Door";
-import store from "@/store";
 import { Action } from "@/entities/Action";
+import store from "@/store";
+
 
 export default class DoorObject extends Phaser.GameObjects.Sprite {
     private firstFrame : number;
     private openFrames: Phaser.Types.Animations.AnimationFrame[];
     private closeFrames: Phaser.Types.Animations.AnimationFrame[];
-    private interactBox : Phaser.Geom.Polygon;
     private door : DoorEntity;
 
     constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, firstFrame: number, door: DoorEntity)
@@ -31,16 +31,25 @@ export default class DoorObject extends Phaser.GameObjects.Sprite {
         this.setTexture('door_object', this.firstFrame);
 
         // doors are always on the bottom (just in front of the back_wall layer)
-        this.setDepth(2);
+        this.setDepth(0);
 
-        this.interactBox = this.setInteractBox();
-        this.scene.input.on('pointerdown', (pointer: any) => {
-            this.onDoorClicked(pointer);
-        }, this);
+        this.setInteractive(this.setInteractBox(), Phaser.Geom.Polygon.Contains);
 
+        this.scene.input.enableDebug(this, 0xff00ff);
 
         this.createAnimations();
 
+        this.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+            this.onDoorClicked(pointer);
+        }, this);
+
+        //  highlight hovered sprite
+        this.on('pointerover', () => {
+            this.setTint(0xff0000);
+        }, this);
+        this.on('pointerout', () => {
+            this.clearTint();
+        }, this);
     }
 
     createAnimations(): void
@@ -61,10 +70,12 @@ export default class DoorObject extends Phaser.GameObjects.Sprite {
 
     }
 
-    onDoorClicked(pointer: any): void
+    onDoorClicked(pointer: Phaser.Input.Pointer): void
     {
-        if (Phaser.Geom.Polygon.Contains(this.interactBox, pointer.worldX, pointer.worldY)){
+        const objectX = pointer.worldX - (this.x - this.width/2);
+        const objectY = pointer.worldY - (this.y - this.height/2);
 
+        if (this.input.hitArea.contains(objectX, objectY)){
             if(
                 String(this.frame.name) === String(this.firstFrame)  &&
                 !this.door.isBroken
@@ -79,12 +90,8 @@ export default class DoorObject extends Phaser.GameObjects.Sprite {
             } else {
                 //If the door is broken propose the repair action
                 const door = this.door;
-                this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
-                    store.dispatch('room/selectTarget', { target: door });
-                    event.stopPropagation(); //Need that one to prevent other effects
-                });
+                store.dispatch('room/selectTarget', { target: door });
             }
-            // @ts-ignore
         } else if (String(this.frame.name) ===  String(this.firstFrame + 10))
         {
             //if player click outside the door AND the door is open
@@ -99,7 +106,7 @@ export default class DoorObject extends Phaser.GameObjects.Sprite {
             if (actionObject.key === 'move') {
                 return actionObject;
             }
-        };
+        }
 
         throw new Error('door do not have the move action');
     }
@@ -110,26 +117,19 @@ export default class DoorObject extends Phaser.GameObjects.Sprite {
 
         if (leftDoorsFrames.includes(this.firstFrame))
         {
-            const leftBottomX = this.x - this.width/2;
-            const leftBottomY = this.y + this.height/2;
-
             return new Phaser.Geom.Polygon([
-                new Vector2(leftBottomX, leftBottomY),
-                new Vector2(leftBottomX + 34, leftBottomY - 17),
-                new Vector2(leftBottomX + 34, leftBottomY - 57),
-                new Vector2(leftBottomX, leftBottomY - 40)
+                new Vector2(4, 35),
+                new Vector2(34, 20),
+                new Vector2( 34,  58),
+                new Vector2(4,  73)
             ]);
         } else {
-            const rightBottomX = this.x + this.width/2;
-            const rightBottomY = this.y + this.height/2;
-
             return new Phaser.Geom.Polygon([
-                new Vector2(rightBottomX, rightBottomY),
-                new Vector2(rightBottomX - 34, rightBottomY - 17),
-                new Vector2(rightBottomX - 34, rightBottomY - 57),
-                new Vector2(rightBottomX, rightBottomY - 40)
+                new Vector2(14, 20),
+                new Vector2(44,  35),
+                new Vector2( 44,  73),
+                new Vector2(14,   58)
             ]);
-
         }
     }
 }

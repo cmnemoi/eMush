@@ -36,9 +36,17 @@ export default class DoorGroundObject extends Phaser.GameObjects.Sprite {
         });
         this.anims.play('door_light');
 
-        this.setInteractive({ pixelPerfect: true });
+        this.setInteractive();
         this.on('pointerdown', () => {this.onDoorClicked();}, this);
 
+
+        //  highlight hovered sprite
+        this.on('pointerover', (pointer: Phaser.Input.Pointer) => {
+            this.setTint(0xff0000);
+        }, this);
+        this.on('pointerout', (pointer: Phaser.Input.Pointer) => {
+            this.clearTint();
+        }, this);
     }
 
     getMoveAction(): Action

@@ -109,7 +109,7 @@ button {
 	pointer-events: none;
 	z-index: 10;
 	padding: .75em;
-	max-width: 270px;
+	max-width: 270px !important;
 	width: max-content;
 	background-color: rgba(35, 37, 100, .9);
     font-size: 1rem;
@@ -151,6 +151,7 @@ button {
 	};
 }
 
-/* span.tippy-tooltip {
-    font-size: initial !important;
-} */
+.tippy-content span {
+    display: flex;
+    flex-direction: column;
+}

@@ -3,7 +3,7 @@
         <ActionButton
             v-for="(action, key) in actions"
             :key="key"
-            class="action-button"
+            class="action-buttons"
             :action="action"
             @click="$emit('clickOnAction', action)"
         />
@@ -53,7 +53,7 @@ export default defineComponent ({
         border-right: 8px solid transparent;
     }
 
-    .action-button {
+    .action-buttons {
         flex-basis: 48%;
         margin: 0;
         display: inline-block;

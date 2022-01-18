@@ -21,6 +21,7 @@ import mycoscan_object from "@/game/assets/tilemaps/mycoscan_object.png";
 import laboratory_object from "@/game/assets/tilemaps/laboratory_object.png";
 import mural_shelf_object from "@/game/assets/tilemaps/mural_shelf.png";
 import centrifuge_object from "@/game/assets/tilemaps/centrifuge_object.png";
+import wall_box from "@/game/assets/tilemaps/wall_box.png";
 
 import character from "@/game/assets/images/characters.png";
 import CharacterObject from "@/game/objects/characterObject";
@@ -33,6 +34,7 @@ import { Door as DoorEntity } from "@/entities/Door";
 
 import laboratory from "@/game/assets/mush_lab.json";
 import medlab from "@/game/assets/mush_medlab.json";
+import central_corridor from "@/game/assets/central_corridor.json";
 
 
 import { PhaserNavMeshPlugin } from "phaser-navmesh/src/index";
@@ -75,7 +77,7 @@ export default class DaedalusScene extends Phaser.Scene
     {
         this.load.tilemapTiledJSON('medlab', medlab);
         this.load.tilemapTiledJSON('laboratory', laboratory);
-
+        this.load.tilemapTiledJSON('central_corridor', central_corridor);
 
 
         this.load.image('ground_tileset', ground_tileset);
@@ -90,6 +92,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.spritesheet('mycoscan_object', mycoscan_object, { frameHeight: 57, frameWidth: 81 });
 
         this.load.spritesheet('gravity_object', gravity_object, { frameHeight: 46, frameWidth: 28 });
+        this.load.spritesheet('wall_box', wall_box, { frameHeight: 15, frameWidth: 14 });
         this.load.spritesheet('cryomodule_object', cryomodule_object, { frameHeight: 104, frameWidth: 128 });
         this.load.spritesheet('distiller_object', distiller_object, { frameHeight: 58, frameWidth: 45 });
         this.load.spritesheet('camera_object', camera_object, { frameHeight: 17, frameWidth: 25 });

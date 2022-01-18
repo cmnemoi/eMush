@@ -31,7 +31,7 @@ Iso directions........Iso coordinates.......Cart coordinates
 
 ## 1. Creating tilesets files
 
-Check if all needed images are in _mush/App/scr/game/assets/tilemaps_.
+Check if all needed images are in _mush/App/scr/game/assets/tilemaps/tiledFiles_.
 
 If not, look for the needed assets in https://gitlab.com/eternaltwin/mush/assets
 
@@ -39,11 +39,14 @@ For new tilesets you will need to edit them in an image editor software (e.g. Gi
 
 ## 2. Adding a tileset in Tiled
 
-Simply drag and drop the .png file in the tileset window of Tiled. Size of the images of the tileset is required in px.
+Simply drag and drop the .tsx file in the tileset window of Tiled.
 
-**Before placing any tile of the tileset** : in Tiled, right-click on the tileset and open its properties and set `object alligment` on `bottom left`
+If the .tsx does not exist yet:
+* drag the .png. Size of the images of the tileset is required in px.
+* In tileset properties, set `object alligment` on `bottom left`.
+* If the tileset is animated, this is the time to create the animation within Tiled.
+* Finally export the tileset in the tiledFiles folder as a .tsx.
 
-Is there is the tileset is animated, this is the time to create the animation within Tiled.
 
 ## 3. Creating the skeleton of the room
 

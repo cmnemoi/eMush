@@ -22,6 +22,8 @@ import laboratory_object from "@/game/assets/tilemaps/laboratory_object.png";
 import mural_shelf_object from "@/game/assets/tilemaps/mural_shelf.png";
 import centrifuge_object from "@/game/assets/tilemaps/centrifuge_object.png";
 import wall_box from "@/game/assets/tilemaps/wall_box.png";
+import paper_dispenser from "@/game/assets/tilemaps/paper_dispenser.png";
+import desk_object from "@/game/assets/tilemaps/desk_object.png";
 
 import character from "@/game/assets/images/characters.png";
 import CharacterObject from "@/game/objects/characterObject";
@@ -35,6 +37,7 @@ import { Door as DoorEntity } from "@/entities/Door";
 import laboratory from "@/game/assets/mush_lab.json";
 import medlab from "@/game/assets/mush_medlab.json";
 import central_corridor from "@/game/assets/central_corridor.json";
+import front_corridor from "@/game/assets/front_corridor.json";
 
 
 import { PhaserNavMeshPlugin } from "phaser-navmesh/src/index";
@@ -53,6 +56,7 @@ export default class DaedalusScene extends Phaser.Scene
     private navMeshPolygons : Array<Array<IsometricCoordinates>>;
     private characterSize : number;
     private room : Room;
+    private cameraTarget : { x : number, y : number}
 
     constructor(player: Player) {
         super('game-scene');
@@ -70,6 +74,8 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshPolygons);
         this.layer = null;
+
+        this.cameraTarget = { x: 0 , y: 0 };
     }
 
 
@@ -87,6 +93,8 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.spritesheet('character', character, { frameHeight: 48, frameWidth: 32 });
 
         this.load.spritesheet('centrifuge_object', centrifuge_object, { frameHeight: 34, frameWidth: 30 });
+        this.load.spritesheet('desk_object', desk_object, { frameHeight: 37, frameWidth: 45 });
+        this.load.spritesheet('paper_dispenser', paper_dispenser, { frameHeight: 15, frameWidth: 9 });
         this.load.spritesheet('laboratory_object', laboratory_object, { frameHeight: 57, frameWidth: 79 });
         this.load.spritesheet('mural_shelf', mural_shelf_object, { frameHeight: 28, frameWidth: 46 });
         this.load.spritesheet('mycoscan_object', mycoscan_object, { frameHeight: 57, frameWidth: 81 });
@@ -116,8 +124,8 @@ export default class DaedalusScene extends Phaser.Scene
 
         const IsoTileSize = 16;
 
-        const sceneIsoSizeX = map.width * IsoTileSize;
-        const sceneIsoSizeY = map.height * IsoTileSize;
+        const sceneIsoSizeX = (map.width) * IsoTileSize;
+        const sceneIsoSizeY = (map.height) * IsoTileSize;
 
         //this variable is used for depth sorting
         //max isoX and max isoY should be represented at the same depth layer
@@ -131,8 +139,6 @@ export default class DaedalusScene extends Phaser.Scene
             map.addTilesetImage('wall_tileset', 'wall_tileset'),
             map.addTilesetImage('door_ground_tileset', 'door_ground_tileset')
         ];
-
-        this.cameras.main.setBounds(-275, -125, 500, 500);
 
 
         //this shift is yet to be understood, but it is required to align tile layers with object layers
@@ -151,7 +157,6 @@ export default class DaedalusScene extends Phaser.Scene
 
 
         map.createLayer('wallBack', tilesets, magicalShift.x, magicalShift.y);
-
         this.createFromTiledObject(map.getObjectLayer('doors'), this, map.tilesets, { x: 0, y: 0 }, sceneAspectRatio, this.room);
         map.createLayer('wall', tilesets, magicalShift.x, magicalShift.y);
         this.layer = map.createLayer('ground', tilesets, magicalShift.x, magicalShift.y);
@@ -173,11 +178,27 @@ export default class DaedalusScene extends Phaser.Scene
         //     drawPortals: true
         // });
 
+        //place the starting camera.
+        //If the scene size is larger than the camera the camera is centered on the player
+        //else it is centered on the scene
+        const playerCoordinates = this.getPlayerCoordinates();
+
+        const cameraWidth = 424;
+        const cameraHeight = 560;
+        const sceneCartWidth = (map.width + map.height) * IsoTileSize;
+        const sceneCartHeight = (map.width + map.height) * IsoTileSize/2; //72 is wall height
+
+        const wallHeight = 72;
+        this.cameras.main.setBounds(-map.height*IsoTileSize, -wallHeight, sceneCartWidth , sceneCartHeight + wallHeight);
+
+
         this.input.setTopOnly(true);
         this.input.setGlobalTopOnly(true);
 
 
-        this.createPlayers(sceneAspectRatio);
+        this.createPlayers(sceneAspectRatio, playerCoordinates);
+
+        this.cameras.main.startFollow(this.playerSprite);
     }
 
     update (time: number, delta: number): void
@@ -185,11 +206,12 @@ export default class DaedalusScene extends Phaser.Scene
         this.playerSprite.update();
     }
 
-    createPlayers(sceneAspectRatio: CartesianDistance): void
+
+    createPlayers(sceneAspectRatio: CartesianDistance, playerCoordinates: CartesianCoordinates): void
     {
         this.playerSprite = new PlayableCharacterObject(
             this,
-            this.getPlayerCoordinates(),
+            playerCoordinates,
             sceneAspectRatio,
             this.player
         );

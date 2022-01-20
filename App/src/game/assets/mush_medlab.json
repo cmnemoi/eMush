@@ -28,7 +28,7 @@
          "name":"doors",
          "objects":[
                 {
-                 "gid":115,
+                 "gid":114,
                  "height":36,
                  "id":41,
                  "name":"medlab_laboratory",
@@ -46,7 +46,7 @@
                  "y":95
                 }, 
                 {
-                 "gid":105,
+                 "gid":104,
                  "height":36,
                  "id":42,
                  "name":"front_corridor_medlab",
@@ -64,7 +64,7 @@
                  "y":52
                 }, 
                 {
-                 "gid":168,
+                 "gid":167,
                  "height":73,
                  "id":43,
                  "name":"medlab_laboratory",
@@ -82,7 +82,7 @@
                  "y":76
                 }, 
                 {
-                 "gid":192,
+                 "gid":191,
                  "height":73,
                  "id":44,
                  "name":"front_corridor_medlab",
@@ -135,7 +135,7 @@
          "name":"objects",
          "objects":[
                 {
-                 "gid":75,
+                 "gid":74,
                  "height":42,
                  "id":9,
                  "name":"shelf",
@@ -163,7 +163,7 @@
                  "y":133.5
                 }, 
                 {
-                 "gid":313,
+                 "gid":312,
                  "height":64,
                  "id":95,
                  "name":"neron_auxiliary_terminal_",
@@ -181,7 +181,7 @@
                  "y":55
                 }, 
                 {
-                 "gid":320,
+                 "gid":319,
                  "height":64,
                  "id":96,
                  "name":"neron_participation_auxiliary_terminal",
@@ -193,7 +193,7 @@
                  "y":55
                 }, 
                 {
-                 "gid":312,
+                 "gid":311,
                  "height":64,
                  "id":15,
                  "name":"neron_terminal_object",
@@ -221,7 +221,7 @@
                  "y":55
                 }, 
                 {
-                 "gid":67,
+                 "gid":66,
                  "height":60,
                  "id":36,
                  "name":"medlab_bed",
@@ -249,7 +249,7 @@
                  "y":113
                 }, 
                 {
-                 "gid":46,
+                 "gid":45,
                  "height":61,
                  "id":32,
                  "name":"tube",
@@ -277,7 +277,7 @@
                  "y":131.5
                 }, 
                 {
-                 "gid":71,
+                 "gid":70,
                  "height":60,
                  "id":8,
                  "name":"surgery_plot",
@@ -305,7 +305,7 @@
                  "y":173
                 }, 
                 {
-                 "gid":76,
+                 "gid":75,
                  "height":52,
                  "id":11,
                  "name":"surgery_console",
@@ -333,7 +333,7 @@
                  "y":192.5
                 }, 
                 {
-                 "gid":561,
+                 "gid":559,
                  "height":37,
                  "id":91,
                  "name":"desk_object",
@@ -342,6 +342,16 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":14
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -351,7 +361,7 @@
                  "y":54.3778406115824
                 }, 
                 {
-                 "gid":92,
+                 "gid":91,
                  "height":38,
                  "id":12,
                  "name":"chair",
@@ -379,7 +389,7 @@
                  "y":189
                 }, 
                 {
-                 "gid":100,
+                 "gid":99,
                  "height":36,
                  "id":59,
                  "name":"medlab_central_bravo_turret",
@@ -397,11 +407,16 @@
                  "y":240
                 }, 
                 {
-                 "gid":89,
+                 "gid":88,
                  "height":38,
                  "id":85,
                  "name":"chair",
                  "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
@@ -420,7 +435,7 @@
                  "y":66.5
                 }, 
                 {
-                 "gid":328,
+                 "gid":327,
                  "height":58,
                  "id":89,
                  "name":"narcotic_distiller",
@@ -448,7 +463,7 @@
                  "y":60.5
                 }, 
                 {
-                 "gid":329,
+                 "gid":328,
                  "height":17,
                  "id":90,
                  "name":"camera_equipment",
@@ -476,10 +491,26 @@
                  "y":15.5
                 }, 
                 {
-                 "gid":562,
+                 "gid":560,
                  "height":15,
                  "id":93,
-                 "name":"distributeur_papier",
+                 "name":"paper_dispenser",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
@@ -488,10 +519,26 @@
                  "y":9.94096240444027
                 }, 
                 {
-                 "gid":563,
+                 "gid":561,
                  "height":15,
                  "id":94,
                  "name":"wall_box",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":4
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
@@ -533,7 +580,7 @@
          "tilewidth":32
         }, 
         {
-         "columns":15,
+         "columns":14,
          "firstgid":31,
          "grid":
             {
@@ -543,18 +590,18 @@
             },
          "image":"tilemaps\/wall_tileset.png",
          "imageheight":72,
-         "imagewidth":480,
+         "imagewidth":448,
          "margin":0,
          "name":"wall_tileset",
          "objectalignment":"bottomleft",
          "spacing":0,
-         "tilecount":15,
+         "tilecount":14,
          "tileheight":72,
          "tilewidth":32
         }, 
         {
          "columns":9,
-         "firstgid":46,
+         "firstgid":45,
          "grid":
             {
              "height":61,
@@ -655,7 +702,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":64,
+         "firstgid":63,
          "grid":
             {
              "height":60,
@@ -675,7 +722,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":72,
+         "firstgid":71,
          "image":"tilemaps\/shelf_object.png",
          "imageheight":42,
          "imagewidth":140,
@@ -689,7 +736,7 @@
         }, 
         {
          "columns":8,
-         "firstgid":76,
+         "firstgid":75,
          "grid":
             {
              "height":52,
@@ -746,7 +793,7 @@
         }, 
         {
          "columns":8,
-         "firstgid":84,
+         "firstgid":83,
          "grid":
             {
              "height":38,
@@ -766,7 +813,7 @@
         }, 
         {
          "columns":5,
-         "firstgid":100,
+         "firstgid":99,
          "grid":
             {
              "height":36,
@@ -883,7 +930,7 @@
         }, 
         {
          "columns":24,
-         "firstgid":120,
+         "firstgid":119,
          "grid":
             {
              "height":73,
@@ -1704,7 +1751,7 @@
         }, 
         {
          "columns":8,
-         "firstgid":312,
+         "firstgid":311,
          "image":"tilemaps\/neron_terminal_object.png",
          "imageheight":128,
          "imagewidth":328,
@@ -1791,7 +1838,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":328,
+         "firstgid":327,
          "image":"tilemaps\/distiller_object.png",
          "imageheight":58,
          "imagewidth":45,
@@ -1805,7 +1852,7 @@
         }, 
         {
          "columns":14,
-         "firstgid":329,
+         "firstgid":328,
          "image":"tilemaps\/camera_object.png",
          "imageheight":17,
          "imagewidth":350,
@@ -1932,7 +1979,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":343,
+         "firstgid":342,
          "image":"tilemaps\/centrifuge_object.png",
          "imageheight":34,
          "imagewidth":30,
@@ -1946,7 +1993,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":344,
+         "firstgid":343,
          "image":"tilemaps\/cryomodule_object.png",
          "imageheight":104,
          "imagewidth":128,
@@ -1960,7 +2007,7 @@
         }, 
         {
          "columns":24,
-         "firstgid":345,
+         "firstgid":344,
          "grid":
             {
              "height":73,
@@ -2780,16 +2827,16 @@
          "tilewidth":48
         }, 
         {
-         "columns":10,
-         "firstgid":537,
+         "columns":9,
+         "firstgid":536,
          "image":"tilemaps\/gravity_object.png",
          "imageheight":46,
-         "imagewidth":280,
+         "imagewidth":279,
          "margin":0,
          "name":"gravity_object",
          "objectalignment":"bottomleft",
          "spacing":0,
-         "tilecount":10,
+         "tilecount":9,
          "tileheight":46,
          "tiles":[
                 {
@@ -2836,7 +2883,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":547,
+         "firstgid":545,
          "image":"tilemaps\/laboratory_object.png",
          "imageheight":57,
          "imagewidth":79,
@@ -2850,7 +2897,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":548,
+         "firstgid":546,
          "image":"tilemaps\/mural_shelf.png",
          "imageheight":28,
          "imagewidth":46,
@@ -2864,7 +2911,7 @@
         }, 
         {
          "columns":12,
-         "firstgid":549,
+         "firstgid":547,
          "image":"tilemaps\/mycoscan_object.png",
          "imageheight":57,
          "imagewidth":972,
@@ -2931,7 +2978,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":561,
+         "firstgid":559,
          "image":"tilemaps\/desk_object.png",
          "imageheight":37,
          "imagewidth":45,
@@ -2945,12 +2992,12 @@
         }, 
         {
          "columns":1,
-         "firstgid":562,
+         "firstgid":560,
          "image":"tilemaps\/paper_dispenser.png",
          "imageheight":15,
          "imagewidth":9,
          "margin":0,
-         "name":"distributeur_papier",
+         "name":"paper_dispenser",
          "objectalignment":"bottomleft",
          "spacing":0,
          "tilecount":1,
@@ -2959,7 +3006,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":563,
+         "firstgid":561,
          "image":"tilemaps\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,

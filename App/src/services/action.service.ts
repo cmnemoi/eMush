@@ -11,7 +11,7 @@ import urlJoin from "url-join";
 const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "action");
 
 const ActionService = {
-    executeTargetAction(target: Door | Item | Equipment | Player | null, action: Action): Promise<AxiosResponse> {
+    executeTargetAction(target: Item | Equipment | Player | null, action: Action): Promise<AxiosResponse> {
         return ApiService.post(ACTION_ENDPOINT, {
             action: action.id,
             params: buildParams()

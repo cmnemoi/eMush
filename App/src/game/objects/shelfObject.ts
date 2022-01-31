@@ -3,9 +3,10 @@ import DaedalusScene from "@/game/scenes/daedalusScene";
 import store from '@/store/index';
 import { IsometricCoordinates, CartesianCoordinates, CartesianDistance, IsometricDistance, toIsometricCoords } from "@/game/types";
 import DecorationObject from "@/game/objects/decorationObject";
+import InteractObject from "@/game/objects/interactObject";
 
 /*eslint no-unused-vars: "off"*/
-export default class ShelfObject extends DecorationObject {
+export default class ShelfObject extends InteractObject {
     constructor(
         scene: DaedalusScene,
         cart_coords: CartesianCoordinates,
@@ -17,25 +18,17 @@ export default class ShelfObject extends DecorationObject {
     {
         super(scene, cart_coords, iso_coords, tileset, frame, 'shelf', sceneAspectRatio);
 
-        this.setInteractive();
 
         //If this is clicked then:
         this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
             store.dispatch('room/openInventory');
-            event.stopPropagation(); //Need that one to prevent other effects
         });
+
         //if clicked outside
-        this.scene.input.on('pointerdown', function(){
-            store.dispatch('room/closeInventory');
-        });
-
-
-        //  highlight hovered sprite
-        this.on('pointerover', (pointer: Phaser.Input.Pointer) => {
-            this.setTint(0xff0000);
-        }, this);
-        this.on('pointerout', (pointer: Phaser.Input.Pointer) => {
-            this.clearTint();
+        this.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer, currentlyOver: Phaser.GameObjects.GameObject[]) => {
+            if (!currentlyOver.includes(this)) {
+                store.dispatch('room/closeInventory');
+            }
         }, this);
     }
 }

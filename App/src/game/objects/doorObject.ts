@@ -1,39 +1,41 @@
 import * as Phaser from "phaser";
 import Vector2 = Phaser.Math.Vector2;
 import DaedalusScene from "@/game/scenes/daedalusScene";
-import { CartesianCoordinates } from "@/game/types";
+import { CartesianCoordinates, IsometricCoordinates, IsometricDistance } from "@/game/types";
 import { Door as DoorEntity } from "@/entities/Door";
 import { Action } from "@/entities/Action";
 import store from "@/store";
+import InteractObject from "@/game/objects/interactObject";
 
 
-export default class DoorObject extends Phaser.GameObjects.Sprite {
+export default class DoorObject extends InteractObject {
     private firstFrame : number;
     private openFrames: Phaser.Types.Animations.AnimationFrame[];
     private closeFrames: Phaser.Types.Animations.AnimationFrame[];
     private door : DoorEntity;
 
-    constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, firstFrame: number, door: DoorEntity)
+    constructor(
+        scene: DaedalusScene,
+        cart_coords: CartesianCoordinates,
+        iso_coords: IsometricCoordinates,
+        tileset: Phaser.Tilemaps.Tileset,
+        firstFrame: number,
+        door: DoorEntity,
+        sceneAspectRatio: IsometricDistance
+    )
     {
-        super(scene, cart_coords.x, cart_coords.y, door.name);
+        super(scene, cart_coords, iso_coords, tileset, firstFrame, door.key, sceneAspectRatio);
 
-        this.scene = scene;
         this.door = door;
         this.firstFrame = firstFrame;
 
-        this.scene.add.existing(this);
-
         this.openFrames = this.anims.generateFrameNames('door_object', { start: this.firstFrame, end: this.firstFrame + 10 });
+
         this.closeFrames = this.anims.generateFrameNames('door_object', { start: this.firstFrame + 10, end: this.firstFrame + 23 });
-
         this.closeFrames[this.closeFrames.length + 1] = this.openFrames[0];
-
-        this.setTexture('door_object', this.firstFrame);
 
         // doors are always on the bottom (just in front of the back_wall layer)
         this.setDepth(0);
-
-        this.setInteractive(this.setInteractBox(), Phaser.Geom.Polygon.Contains);
 
         this.scene.input.enableDebug(this, 0xff00ff);
 
@@ -41,16 +43,10 @@ export default class DoorObject extends Phaser.GameObjects.Sprite {
 
         this.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             this.onDoorClicked(pointer);
-        }, this);
-
-        //  highlight hovered sprite
-        this.on('pointerover', () => {
-            this.setTint(0xff0000);
-        }, this);
-        this.on('pointerout', () => {
-            this.clearTint();
+            //this.scene.input.stopPropagation();
         }, this);
     }
+
 
     createAnimations(): void
     {
@@ -70,6 +66,15 @@ export default class DoorObject extends Phaser.GameObjects.Sprite {
 
     }
 
+    applyTexture(tileset: Phaser.Tilemaps.Tileset, frame: number, name: string) {
+        this.setTexture('door_object', frame);
+    }
+
+    createInteractionArea():void
+    {
+        this.setInteractive(this.setInteractBox(), Phaser.Geom.Polygon.Contains);
+    }
+
     onDoorClicked(pointer: Phaser.Input.Pointer): void
     {
         const objectX = pointer.worldX - (this.x - this.width/2);
@@ -83,14 +88,15 @@ export default class DoorObject extends Phaser.GameObjects.Sprite {
             {
                 //if player click on the door AND the door is closed
                 this.anims.play('door_open');
-            } else if (!this.door.isBroken) {
-                //if player click on the door AND the door is open
+                store.dispatch('room/selectTarget', { target: null });
+            } else if (!this.door.isBroken && this.getMoveAction().canExecute) {
+                //if player click on the door AND the door is open AND player can move
                 const moveAction = this.getMoveAction();
                 store.dispatch('action/executeAction', { target: this.door, action: moveAction });
             } else {
                 //If the door is broken propose the repair action
                 const door = this.door;
-                store.dispatch('room/selectTarget', { target: door });
+                store.dispatch('room/selectTarget', { target: this.door });
             }
         } else if (String(this.frame.name) ===  String(this.firstFrame + 10))
         {
@@ -101,14 +107,13 @@ export default class DoorObject extends Phaser.GameObjects.Sprite {
 
     getMoveAction(): Action
     {
-        for (let i = 0; i < this.door.actions.length; i++) {
-            const actionObject = this.door.actions[i];
-            if (actionObject.key === 'move') {
-                return actionObject;
-            }
+        const moveAction = this.door.actions.filter((action: Action) => {return action.key === 'move';});
+
+        if (moveAction.length !==1 ) {
+            throw new Error("this door should have exactly one move action");
         }
 
-        throw new Error('door do not have the move action');
+        return moveAction[0];
     }
 
     setInteractBox() : Phaser.Geom.Polygon
@@ -130,6 +135,30 @@ export default class DoorObject extends Phaser.GameObjects.Sprite {
                 new Vector2( 44,  73),
                 new Vector2(14,   58)
             ]);
+        }
+    }
+
+    onHovering(): void
+    {
+        if (this.door.isBroken || (!this.getMoveAction().canExecute)) {
+            this.setPostPipeline('outline');
+            const pipeline = this.postPipelines[0];
+            //@ts-ignore
+            pipeline.resetFromJSON({ thickness: 1, outlineColor: 0xff0000 });
+        } else {
+            super.onHovering();
+        }
+    }
+
+    onSelected(): void
+    {
+        if (this.door.isBroken || (!this.getMoveAction().canExecute)) {
+            this.setPostPipeline('outline');
+            const pipeline = this.postPipelines[0];
+            //@ts-ignore
+            pipeline.resetFromJSON({ thickness: 1, outlineColor: 0xff0000 });
+        } else {
+            super.onSelected();
         }
     }
 }

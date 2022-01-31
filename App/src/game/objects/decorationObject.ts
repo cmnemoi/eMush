@@ -6,6 +6,8 @@ import { IsometricCoordinates, CartesianCoordinates, IsometricDistance } from "@
 /*eslint no-unused-vars: "off"*/
 export default class DecorationObject extends Phaser.GameObjects.Sprite {
     protected animName : string|null = null;
+    public sceneAspectRatio: IsometricCoordinates;
+
 
     constructor(
         scene: DaedalusScene,
@@ -20,6 +22,8 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         super(scene, cart_coords.x, cart_coords.y, name);
 
         this.scene = scene;
+        this.name = name;
+        this.sceneAspectRatio = sceneAspectRatio;
 
         //the first sprite to be displayed are the ones on the last row of either x or y isometric coordinates
         //a second order sorting is applied using the y axis of cartesian coordinates
@@ -38,17 +42,19 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         this.applyTexture(tileset, frame, name);
     }
 
-    applyTexture(tileset: any , frame: number, name: string): void
+    applyTexture(tileset: Phaser.Tilemaps.Tileset , frame: number, name: string): void
     {
-
+        //@ts-ignore
         if (tileset.tileData[frame])
         {
             this.animName = `${name}Animation`;
 
-            const endFrame = tileset.tileData[frame].animation.length -1;
+            //@ts-ignore
+            const endFrame = frame + tileset.tileData[frame].animation.length -1;
             const frames = this.anims.generateFrameNames(tileset.name, { start: frame, end: endFrame });
 
-            this.scene.anims.create({
+
+            this.anims.create({
                 key: this.animName,
                 frames: frames,
                 frameRate: 10,

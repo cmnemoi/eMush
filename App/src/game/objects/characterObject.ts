@@ -1,33 +1,32 @@
 import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
-import { characterEnum } from "@/enums/character";
+import { characterEnum, CharacterInfos } from "@/enums/character";
 import { CartesianCoordinates, IsometricDistance, toIsometricCoords } from "@/game/types";
 import { Player } from "@/entities/Player";
 import store from "@/store";
 import { PhaserNavMesh } from "phaser-navmesh/src";
+import InteractObject from "@/game/objects/interactObject";
+import Tileset = Phaser.Tilemaps.Tileset;
 
-export default class CharacterObject extends Phaser.GameObjects.Sprite {
-    protected sceneAspectRatio : IsometricDistance;
+export default class CharacterObject extends InteractObject {
     protected player : Player;
     protected navMesh: PhaserNavMesh;
 
     constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, sceneAspectRatio: IsometricDistance, player: Player) {
-        super(scene, cart_coords.x, cart_coords.y, player.character.key);
-        scene.physics.world.enable(this);
+        super(
+            scene,
+            cart_coords,
+            toIsometricCoords(cart_coords),
+            new Tileset('character', 0, 48, 32),
+            (<number>(<CharacterInfos>characterEnum[player.character.key]).rightFrame),
+            player.character.key,
+            sceneAspectRatio
+        );
 
-        this.scene = scene;
-        this.navMesh = scene.navMesh;
         this.player = player;
+        this.navMesh = scene.navMesh;
 
-        let characterFrames: any = characterEnum[player.character.key];
-
-        if (!characterFrames.moveLeftFirstFrame){
-            characterFrames = characterEnum["default"];
-        }
-
-        this.scene.add.existing(this);
-        this.setInteractive();
-        this.sceneAspectRatio = sceneAspectRatio;
+        scene.physics.world.enable(this);
 
         const iso_coords = toIsometricCoords({ x: this.x, y: this.getFeetY() });
         //the first sprite to be displayed are the ones on the last row of either x or y isometric coordinates
@@ -41,9 +40,8 @@ export default class CharacterObject extends Phaser.GameObjects.Sprite {
         //
         this.setDepth(Math.max(iso_coords.x + this.sceneAspectRatio.x, iso_coords.y + this.sceneAspectRatio.y) * 1000 + this.getFeetY());
 
-
+        const characterFrames: CharacterInfos = characterEnum[this.player.character.key];
         this.createAnimations(characterFrames);
-
 
         //Set the initial sprite randomly such as it faces the screen
         if (Math.random() > 0.5) {
@@ -55,20 +53,12 @@ export default class CharacterObject extends Phaser.GameObjects.Sprite {
         //If this is clicked then:
         this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
             store.dispatch('room/selectTarget', { target: player });
-            event.stopPropagation(); //Need that one to prevent other effects
         });
-        //if clicked outside
-        this.scene.input.on('pointerdown', function(){
-            store.dispatch('room/selectTarget', { target: null });
-        });
+    }
 
-        //  highlight hovered sprite
-        this.on('pointerover', (pointer: Phaser.Input.Pointer) => {
-            this.setTint(0xff0000);
-        }, this);
-        this.on('pointerout', (pointer: Phaser.Input.Pointer) => {
-            this.clearTint();
-        }, this);
+
+    applyTexture(tileset: Phaser.Tilemaps.Tileset, frame: number, name: string) {
+        this.setTexture('character', frame);
     }
 
 
@@ -108,8 +98,6 @@ export default class CharacterObject extends Phaser.GameObjects.Sprite {
             repeat: -1
         });
     }
-
-
 
     getFeetY(): number
     {

@@ -41,9 +41,12 @@ import front_corridor from "@/game/assets/front_corridor.json";
 
 
 import { PhaserNavMeshPlugin } from "phaser-navmesh/src/index";
+import OutlinePostFx from 'phaser3-rex-plugins/plugins/outlinepipeline.js';
+
 import { Player } from "@/entities/Player";
 import PlayableCharacterObject from "@/game/objects/playableCharacterObject";
 import { IsometricCoordinates, CartesianCoordinates, CartesianDistance, IsometricDistance, toCartesianCoords } from "@/game/types";
+import EquipmentObject from "@/game/objects/equipmentObject";
 
 export default class DaedalusScene extends Phaser.Scene
 {
@@ -57,6 +60,8 @@ export default class DaedalusScene extends Phaser.Scene
     private characterSize : number;
     private room : Room;
     private cameraTarget : { x : number, y : number}
+
+    public selectedGameObject : Phaser.GameObjects.GameObject | null;
 
     constructor(player: Player) {
         super('game-scene');
@@ -74,6 +79,8 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshPolygons);
         this.layer = null;
+
+        this.selectedGameObject = null;
 
         this.cameraTarget = { x: 0 , y: 0 };
     }
@@ -107,14 +114,13 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.spritesheet('tube_object', tube_object, { frameHeight: 61, frameWidth: 42 });
         this.load.spritesheet('surgery_console_object', surgery_object, { frameHeight: 52, frameWidth: 41 });
         this.load.spritesheet('beds_object', beds_object, { frameHeight: 60, frameWidth: 67 });
-        this.load.spritesheet('door_ground_object', door_ground_tileset, { frameHeight: 36, frameWidth: 64 });
+        this.load.spritesheet('door_ground_tileset', door_ground_tileset, { frameHeight: 36, frameWidth: 64 });
         this.load.spritesheet('chair_object', chair_object, { frameHeight: 38, frameWidth: 36 });
         this.load.spritesheet('door_object', door_object, { frameHeight: 73, frameWidth: 48 });
         this.load.spritesheet('neron_terminal_object', neron_object, { frameHeight: 64, frameWidth: 41 });
         this.load.spritesheet('shelf_object', shelf_object, { frameHeight: 42, frameWidth: 35 });
 
         this.load.spritesheet('ground_object', ground_tileset, { frameHeight: 72, frameWidth: 32 });
-        this.load.image('door_ground_tileset', door_ground_tileset);
     }
 
     // eslint-disable-next-line no-unused-vars
@@ -137,7 +143,6 @@ export default class DaedalusScene extends Phaser.Scene
         const tilesets = [
             map.addTilesetImage('ground_tileset', 'ground_tileset'),
             map.addTilesetImage('wall_tileset', 'wall_tileset'),
-            map.addTilesetImage('door_ground_tileset', 'door_ground_tileset')
         ];
 
 
@@ -156,13 +161,20 @@ export default class DaedalusScene extends Phaser.Scene
         this.navMeshPolygons.push(globalPolygon);
 
 
+
+        (<Phaser.Renderer.WebGL.WebGLRenderer>this.game.renderer).pipelines.addPostPipeline('outline', OutlinePostFx );
+
         map.createLayer('wallBack', tilesets, magicalShift.x, magicalShift.y);
+
         this.createFromTiledObject(map.getObjectLayer('doors'), this, map.tilesets, { x: 0, y: 0 }, sceneAspectRatio, this.room);
+
         map.createLayer('wall', tilesets, magicalShift.x, magicalShift.y);
+
         this.layer = map.createLayer('ground', tilesets, magicalShift.x, magicalShift.y);
-        this.layer.setInteractive();
 
         this.createFromTiledObject(map.getObjectLayer('objects'), this, map.tilesets, { x: 0, y: 0 }, sceneAspectRatio, this.room);
+
+
 
         this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshPolygons, 8);
 
@@ -199,6 +211,21 @@ export default class DaedalusScene extends Phaser.Scene
         this.createPlayers(sceneAspectRatio, playerCoordinates);
 
         this.cameras.main.startFollow(this.playerSprite);
+
+
+        this.input.on('gameobjectdown', (pointer: Phaser.Input.Pointer, gameObject: InteractObject, event: any) => {
+            if (this.selectedGameObject !== null &&
+                this.selectedGameObject instanceof InteractObject &&
+                this.selectedGameObject !== gameObject
+            ) {
+                this.selectedGameObject.removeOutline();
+                this.selectedGameObject = gameObject;
+            }
+            if (gameObject instanceof InteractObject){
+                gameObject.onSelected();
+                this.selectedGameObject = gameObject;
+            }
+        });
     }
 
     update (time: number, delta: number): void
@@ -318,7 +345,6 @@ export default class DaedalusScene extends Phaser.Scene
         const frame = obj.gid - tileset.firstgid;
         const name = obj.name;
 
-
         if (this.isObjectCollision(obj)){
             this.updateNavMesh(obj);
         }
@@ -332,7 +358,7 @@ export default class DaedalusScene extends Phaser.Scene
             // @ts-ignore
             const currentDoor = this.room.doors.find((door: DoorEntity) => (door.key === obj.name));
             if (typeof currentDoor !== "undefined") {
-                return new DoorObject(this, cart_coords, frame, currentDoor);
+                return new DoorObject(this, cart_coords, this.getIsoCenter(obj), tileset, frame, currentDoor, sceneAspectRatio);
             }
 
         case 'door_ground':
@@ -340,12 +366,12 @@ export default class DaedalusScene extends Phaser.Scene
                 return (door.key === obj.name);
             });
             if (typeof currentDoorGround !== "undefined") {
-                return new DoorGroundObject(this, cart_coords, frame, currentDoorGround);
+                return new DoorGroundObject(this, cart_coords, this.getIsoCenter(obj), tileset, frame, currentDoorGround, sceneAspectRatio);
             }
         case 'interact':
             const currentEquipment = this.room.equipments.find((equipment: Equipment) => (equipment.key === obj.name));
             if (typeof currentEquipment !== "undefined") {
-                return new InteractObject(this, cart_coords, this.getIsoCenter(obj), tileset, frame, currentEquipment, sceneAspectRatio);
+                return new EquipmentObject(this, cart_coords, this.getIsoCenter(obj), tileset, frame, currentEquipment, sceneAspectRatio);
             }
 
         case 'shelf':

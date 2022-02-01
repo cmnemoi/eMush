@@ -2,10 +2,10 @@
 
 namespace Mush\User\Service;
 
+use Eternaltwin\Auth\AccessTokenAuthContext;
+use Eternaltwin\Client\Auth;
+use Eternaltwin\Client\HttpEtwinClient;
 use Eternaltwin\OauthClient\RfcOauthClient;
-use Etwin\Auth\AccessTokenAuthContext;
-use Etwin\Client\Auth;
-use Etwin\Client\HttpEtwinClient;
 use GuzzleHttp\Exception\GuzzleException;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTDecodeFailureException;
@@ -29,7 +29,6 @@ class LoginService
         UserServiceInterface $userService,
         JWTEncoderInterface $jwtEncoder
     ) {
-        $this->userService = $userService;
         $this->userService = $userService;
         $this->etwinUri = $etwinUri;
         $this->jwtEncoder = $jwtEncoder;
@@ -90,7 +89,7 @@ class LoginService
         $user = $this->userService->findUserByUserId($userId);
 
         if ($user === null) {
-            $username = $apiUser->getUser()->getDisplayName()->getCurrent()->getInner()->toString();
+            $username = $apiUser->getUser()->getDisplayName()->getCurrent()->getValue()->toString();
             $user = $this->userService->createUser($userId, $username);
         }
 

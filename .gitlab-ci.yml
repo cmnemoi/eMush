@@ -29,7 +29,7 @@
     - echo y | bin/console doctrine:fixture:load
 
 .node_template: &node_template
-  image: node:15
+  image: node:16
   cache:
     paths:
       - node_modules/

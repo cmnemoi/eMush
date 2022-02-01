@@ -68,6 +68,9 @@
     "composer/package-versions-deprecated": {
         "version": "1.11.99"
     },
+    "composer/pcre": {
+        "version": "1.0.1"
+    },
     "composer/semver": {
         "version": "3.2.4"
     },
@@ -171,7 +174,7 @@
     "doctrine/sql-formatter": {
         "version": "1.1.1"
     },
-    "eternal-twin/etwin": {
+    "eternaltwin/etwin": {
         "version": "0.3.2"
     },
     "eternaltwin/oauth-client": {
@@ -553,9 +556,6 @@
             "src/Controller/.gitignore",
             "src/Kernel.php"
         ]
-    },
-    "symfony/http-client-contracts": {
-        "version": "v2.3.1"
     },
     "symfony/http-foundation": {
         "version": "v5.1.7"

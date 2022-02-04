@@ -21,8 +21,8 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
 
     public function getMinimap(Daedalus $daedalus): array
     {
-        $equipmentsProject = false;
-        $doorsProject = false;
+        $equipmentsProject = true;
+        $doorsProject = true;
 
         $brokenEquipments = $this->getDisplayedBrokenEquipments($daedalus, AlertEnum::BROKEN_EQUIPMENTS, $equipmentsProject);
         $brokenDoors = $this->getDisplayedBrokenEquipments($daedalus, AlertEnum::BROKEN_DOORS, $doorsProject);
@@ -47,10 +47,11 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
                 'actopi' => [],
                 'fire' => $this->isFireDisplayed($room),
                 'broken_count' => count($brokenEquipmentsList) + count($brokenDoorsList),
-                'broken_doors' => [],
-                'broken_equipments' => [],
-                //'broken_doors' => $doorsProject ? [] : $brokenDoorsList,
-                //'broken_equipments' => $equipmentsProject ? [] : $brokenEquipmentsList,
+                'broken_doors' => $brokenDoorsList,
+                'broken_equipments' => $brokenEquipmentsList,
+                'name' => $roomName,
+                // 'broken_doors' => $doorsProject ? $brokenDoorsList : [],
+                // 'broken_equipments' => $equipmentsProject ? $brokenEquipmentsList : [],
             ];
         }
 

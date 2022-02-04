@@ -142,7 +142,7 @@ export default class DaedalusScene extends Phaser.Scene
 
         const tilesets = [
             map.addTilesetImage('ground_tileset', 'ground_tileset'),
-            map.addTilesetImage('wall_tileset', 'wall_tileset'),
+            map.addTilesetImage('wall_tileset', 'wall_tileset')
         ];
 
 

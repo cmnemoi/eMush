@@ -18,7 +18,10 @@
                 @clickOnTarget="setTarget"
                 @clickOnNothing="setTarget(null)"
             />
-            <MiniMap />
+            <MiniMap
+                :my-position="room"
+                :minimap="player.daedalus.minimap"
+            />
             <RoomInventoryPanel v-if="isInventoryOpen" :items="room.items" />
             <component
                 :is="targetPanel"

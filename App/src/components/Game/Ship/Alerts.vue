@@ -19,7 +19,7 @@
                 <template #content>
                     <h1>{{ alert.name }}</h1>
                     <p>{{ alert.description }}</p>
-                    <ul v-if="alert.reports.length > 0">
+                    <ul v-if="alert.reports.length > 0" style="flex-direction:column">
                         <li v-for="(report, reportKey) in alert.reports" :key="reportKey">
                             {{ report }}
                         </li>
@@ -31,18 +31,32 @@
 </template>
 
 <script lang="ts">
+import { Daedalus } from "@/entities/Daedalus";
+import DaedalusService from "@/services/daedalus.service";
 import { AlertsIcons, NO_ALERT } from "@/enums/alerts.enum";
 import { defineComponent } from "vue";
 import { Alert } from "@/entities/Alerts";
-import { mapGetters } from "vuex";
+
+interface AlertsState {
+    loading: boolean,
+    alerts: Alert[]
+}
 
 export default defineComponent ({
     name: "Alerts",
+    props: {
+        daedalus: {
+            type: Daedalus,
+            required: true
+        }
+    },
+    data: function (): AlertsState {
+        return {
+            loading: false,
+            alerts: []
+        };
+    },
     computed: {
-        ...mapGetters('daedalus', [
-            'alerts',
-            'loadingAlerts',
-        ]),
         isNoAlert: function (): boolean {
             return this.alerts.length === 0 || (this.alerts.length === 1 && (this.alerts[0].key ?? '') === NO_ALERT);
         },
@@ -53,6 +67,13 @@ export default defineComponent ({
 
             return this.alerts;
         }
+    },
+    beforeMount() {
+        this.loading = true;
+        DaedalusService.loadAlerts(this.daedalus).then((res: Alert[]) => {
+            this.loading = false;
+            this.alerts = res;
+        });
     },
     methods: {
         alertIcon: function (alert: Alert): string {

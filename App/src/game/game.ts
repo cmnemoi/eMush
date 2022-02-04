@@ -19,7 +19,7 @@ function launch(containerId: any, player: Player): Phaser.Game {
                     plugin: PhaserNavMeshPlugin, // Class that constructs plugins
                     mapping: "navMeshPlugin", // Property mapping to use for the scene, e.g. this.navMeshPlugin
                     start: true
-                },
+                }
             ]
         },
         scene: [new daedalusScene(player)],
@@ -28,7 +28,7 @@ function launch(containerId: any, player: Player): Phaser.Game {
             arcade: {
                 debug: true
             }
-        },
+        }
     });
 }
 

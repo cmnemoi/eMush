@@ -4,7 +4,7 @@
         :key="key"
         class="status"
     >
-        <Tippy tag="div">
+        <Tippy>
             <img :src="statusIcon(status)">
             <span v-if="status.charge">{{ status.charge }}</span>
             <template #content>

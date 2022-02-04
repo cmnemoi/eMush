@@ -20,8 +20,18 @@
                         y="73"
                         width="12"
                         height="12"
+                        @mouseenter="displayName($t('room.rearBravoTurret'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('rear_bravo_turret')}"
                     />
-                    <path id="Engine-Room" serif:id="Engine Room" d="M183,28.005l-2,1.241l0,5.553l2,1.242l0,7.941l-2,1.241l0,5.554l2,1.241l0,7.941l-2,1.242l0,5.553l2,1.241l0,5.005l-34,0l0,-50l34,0l0,5.005Z" />
+                    <path
+                        id="Engine-Room"
+                        serif:id="Engine Room"
+                        d="M183,28.005l-2,1.241l0,5.553l2,1.242l0,7.941l-2,1.241l0,5.554l2,1.241l0,7.941l-2,1.242l0,5.553l2,1.241l0,5.005l-34,0l0,-50l34,0l0,5.005Z"
+                        @mouseenter="displayName($t('room.engineRoom'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('engine_room')}"
+                    />
                     <rect
                         id="Rear-Alpha-Turret"
                         serif:id="Rear Alpha Turret"
@@ -29,6 +39,9 @@
                         y="11"
                         width="12"
                         height="12"
+                        @mouseenter="displayName($t('room.rearAlphaTurret'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('rear_alpha_turret')}"
                     />
                     <rect
                         id="Icarus-Bay"
@@ -37,6 +50,9 @@
                         y="73"
                         width="34"
                         height="22"
+                        @mouseenter="displayName($t('room.icarusBay'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('icarus_bay')}"
                     />
                     <rect
                         id="Rear-Bravo-Storage"
@@ -45,6 +61,9 @@
                         y="61"
                         width="24"
                         height="12"
+                        @mouseenter="displayName($t('room.rearBravoStorage'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('rear_bravo_storage')}"
                     />
                     <rect
                         id="Rear-Alpha-Storage"
@@ -53,6 +72,9 @@
                         y="23"
                         width="24"
                         height="12"
+                        @mouseenter="displayName($t('room.rearAlphaStorage'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('rear_alpha_storage')}"
                     />
                     <rect
                         id="Rear-Corridor"
@@ -61,6 +83,9 @@
                         y="23"
                         width="6"
                         height="60"
+                        @mouseenter="displayName($t('room.rearCorridor'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('rear_corridor')}"
                     />
                     <rect
                         id="Alpha-Bay-2"
@@ -69,16 +94,36 @@
                         y="1"
                         width="42"
                         height="22"
+                        @mouseenter="displayName($t('room.alphaBay2'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('alpha_bay_2')}"
                     />
-                    <path id="Bravo-Dorm" serif:id="Bravo Dorm" d="M119,73l-20,0l0,-14l6,0l0,-4l14,0l0,18Z" />
+                    <path
+                        id="Bravo-Dorm"
+                        serif:id="Bravo Dorm"
+                        d="M119,73l-20,0l0,-14l6,0l0,-4l14,0l0,18Z"
+                        @mouseenter="displayName($t('room.bravoDorm'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('bravo_dorm')}"
+                    />
                     <rect
                         id="Nexus"
                         x="105"
                         y="41"
                         width="14"
                         height="14"
+                        @mouseenter="displayName($t('room.nexus'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('nexus')}"
                     />
-                    <path id="Alpha-Dorm" serif:id="Alpha Dorm" d="M119,23l-20,0l0,14l6,0l0,4l14,0l0,-18Z" />
+                    <path
+                        id="Alpha-Dorm"
+                        serif:id="Alpha Dorm"
+                        d="M119,23l-20,0l0,14l6,0l0,4l14,0l0,-18Z"
+                        @mouseenter="displayName($t('room.alphaDorm'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('alpha_dorm')}"
+                    />
                     <rect
                         id="Centre-Bravo-Storage"
                         serif:id="Centre Bravo Storage"
@@ -86,6 +131,9 @@
                         y="59"
                         width="16"
                         height="14"
+                        @mouseenter="displayName($t('room.centreBravoTurret'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('center_bravo_storage')}"
                     />
                     <rect
                         id="Refectory"
@@ -93,6 +141,9 @@
                         y="37"
                         width="22"
                         height="22"
+                        @mouseenter="displayName($t('room.refectory'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('refectory')}"
                     />
                     <rect
                         id="Centre-Alpha-Storage"
@@ -101,6 +152,9 @@
                         y="23"
                         width="16"
                         height="14"
+                        @mouseenter="displayName($t('room.centerAlphaStorage'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('center_alpha_storage')}"
                     />
                     <rect
                         id="Bravo-Bay"
@@ -109,6 +163,9 @@
                         y="73"
                         width="44"
                         height="22"
+                        @mouseenter="displayName($t('room.bravoBay'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('bravo_bay')}"
                     />
                     <rect
                         id="Centre-Corridor"
@@ -117,6 +174,9 @@
                         y="23"
                         width="6"
                         height="50"
+                        @mouseenter="displayName($t('room.centralCorridor'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('central_corridor')}"
                     />
                     <rect
                         id="Alpha-Bay"
@@ -125,6 +185,9 @@
                         y="1"
                         width="42"
                         height="22"
+                        @mouseenter="displayName($t('room.alphaBay'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('alpha_bay')}"
                     />
                     <rect
                         id="Centre-Bravo-Turret"
@@ -133,6 +196,9 @@
                         y="73"
                         width="12"
                         height="12"
+                        @mouseenter="displayName($t('room.centreBravoTurret'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('centre_bravo_turret')}"
                     />
                     <rect
                         id="Medlab"
@@ -140,6 +206,9 @@
                         y="51"
                         width="22"
                         height="22"
+                        @mouseenter="displayName($t('room.medlab'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('medlab')}"
                     />
                     <rect
                         id="Front-Storage"
@@ -148,6 +217,9 @@
                         y="23"
                         width="22"
                         height="22"
+                        @mouseenter="displayName($t('room.frontStorage'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('front_storage')}"
                     />
                     <rect
                         id="Centre-Alpha-Turret"
@@ -156,6 +228,9 @@
                         y="11"
                         width="12"
                         height="12"
+                        @mouseenter="displayName($t('room.centreAlphaTurret'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('centre_alpha_turret')}"
                     />
                     <rect
                         id="Laboratory"
@@ -163,6 +238,9 @@
                         y="51"
                         width="22"
                         height="22"
+                        @mouseenter="displayName($t('room.laboratory'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('laboratory')}"
                     />
                     <rect
                         id="Hydroponic-Garden"
@@ -171,8 +249,18 @@
                         y="23"
                         width="22"
                         height="22"
+                        @mouseenter="displayName($t('room.hydroponicGarden'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('hydroponic_garden')}"
                     />
-                    <path id="Front-Corridor" serif:id="Front Corridor" d="M33,71l-6,0l0,-46l6,0l0,20l44,0l0,6l-44,0l0,20Z" />
+                    <path
+                        id="Front-Corridor"
+                        serif:id="Front Corridor"
+                        d="M33,71l-6,0l0,-46l6,0l0,20l44,0l0,6l-44,0l0,20Z"
+                        @mouseenter="displayName($t('room.frontCorridor'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('front_corridor')}"
+                    />
                     <rect
                         id="Front-Bravo-Turret"
                         serif:id="Front Bravo Turret"
@@ -180,8 +268,17 @@
                         y="61"
                         width="12"
                         height="12"
+                        @mouseenter="displayName($t('room.frontBravoTurret'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('front_bravo_turret')}"
                     />
-                    <path id="Bridge" d="M6,42.121l0,-7.121l21,0l0,26l-21,0l0,-7.121l-5,-3.102l0,-5.554l5,-3.102Z" />
+                    <path
+                        id="Bridge"
+                        d="M6,42.121l0,-7.121l21,0l0,26l-21,0l0,-7.121l-5,-3.102l0,-5.554l5,-3.102Z"
+                        @mouseenter="displayName($t('room.bridge'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('bridge')}"
+                    />
                     <rect
                         id="Front-Alpha-Turret"
                         serif:id="Front Alpha Turret"
@@ -189,53 +286,17 @@
                         y="23"
                         width="12"
                         height="12"
+                        @mouseenter="displayName($t('room.frontAlphaTurret'))"
+                        @mouseleave="displayName('')"
+                        :class="{fire: isFire('front_alpha_turret')}"
                     />
                 </g>
-                <g id="doors">
-                    <path id="Engine-Room---Rear-Bravo-Turret" serif:id="Engine Room - Rear Bravo Turret" d="M162.452,73.026l3,-0" />
-                    <path id="Rear-Alpha-Turret---Engine-Room" serif:id="Rear Alpha Turret - Engine Room" d="M162.452,22.99l3,-0" />
-                    <path id="Icarus-Bay---Rear-Bravo-Turret" serif:id="Icarus Bay - Rear Bravo Turret" d="M158.967,76.522l-0,3" />
-                    <path id="Alpha-Bay-2---Rear-Alpha-Turret" serif:id="Alpha Bay 2 - Rear Alpha Turret" d="M158.967,16.5l-0,3" />
-                    <path id="Icarus-Bay---Engine-Room" serif:id="Icarus Bay - Engine Room" d="M152.467,73.026l3,-0" />
-                    <path id="Alpha-Bay-2---Engine-Room" serif:id="Alpha Bay 2 - Engine Room" d="M152.467,22.99l3,-0" />
-                    <path id="Rear-Bravo-Storage---Engine-Room" serif:id="Rear Bravo Storage - Engine Room" d="M148.957,64.5l0,3" />
-                    <path id="Rear-Alpha-Storage---Engine-Room" serif:id="Rear Alpha Storage - Engine Room" d="M148.957,27.452l0,3" />
-                    <path id="Rear-Corridor---Icarus-Bay" serif:id="Rear Corridor - Icarus Bay" d="M125.013,76.522l-0,3" />
-                    <path id="Rear-Corridor---Rear-Bravo-Storage" serif:id="Rear Corridor - Rear Bravo Storage" d="M125.013,64.5l-0,3" />
-                    <path id="Rear-Corridor---Rear-Alpha-Storage" serif:id="Rear Corridor - Rear Alpha Storage" d="M125.013,27.452l-0,3" />
-                    <path id="Alpha-Bay-2---Rear-Corridor" serif:id="Alpha Bay 2 - Rear Corridor" d="M120.469,22.99l3,-0" />
-                    <path id="Bravo-Bay---Rear-Corridor" serif:id="Bravo Bay - Rear Corridor" d="M119,76.522l0,3" />
-                    <path id="Bravo-Dorm---Rear-Corridor" serif:id="Bravo Dorm - Rear Corridor" d="M119,64.5l0,3" />
-                    <path id="Nexus---Rear-Corridor" serif:id="Nexus - Rear Corridor" d="M118.97,46.5l0,3" />
-                    <path id="Alpha-Dorm---Rear-Corridor" serif:id="Alpha Dorm - Rear Corridor" d="M119,27.452l0,3" />
-                    <path id="Alpha-Bay---Alpha-Bay-2" serif:id="Alpha Bay - Alpha Bay 2" d="M116.983,16.5l0,3" />
-                    <path id="Bravo-Bay---Bravo-Dorm" serif:id="Bravo Bay - Bravo Dorm" d="M102.538,73.026l3,-0" />
-                    <path id="Alpha-Bay---Alpha-Dorm" serif:id="Alpha Bay - Alpha Dorm" d="M102.538,22.99l3,-0" />
-                    <path id="Bravo-Bay---Centre-Bravo-Storage" serif:id="Bravo Bay - Centre Bravo Storage" d="M86.539,73.026l3,-0" />
-                    <path id="Alpha-Bay---Centre-Alpha-Storage" serif:id="Alpha Bay - Centre Alpha Storage" d="M86.539,22.99l3,-0" />
-                    <path id="Centre-Corridor---Refectory" serif:id="Centre Corridor - Refectory" d="M83,46.5l0,3" />
-                    <path id="Centre-Corridor---Bravo-Bay" serif:id="Centre Corridor - Bravo Bay" d="M78.486,73.026l3,-0" />
-                    <path id="Alpha-Bay---Centre-Corridor" serif:id="Alpha Bay - Centre Corridor" d="M78.486,22.99l3,-0" />
-                    <path id="Front-Corridor---Centre-Corridor" serif:id="Front Corridor - Centre Corridor" d="M77.036,46.5l0,3" />
-                    <path id="Centre-Bravo-Turret---Bravo-Bay" serif:id="Centre Bravo Turret - Bravo Bay" d="M75,76.522l0,3" />
-                    <path id="Centre-Alpha-Turret----Alpha-Bay" serif:id="Centre Alpha Turret -  Alpha Bay" d="M75,16.5l0,3" />
-                    <path id="Medlab---Centre-Bravo-Turret" serif:id="Medlab - Centre Bravo Turret" d="M68.5,73.026l3,-0" />
-                    <path id="Centre-Alpha-Turret---Front-Storage" serif:id="Centre Alpha Turret - Front Storage" d="M68.5,22.99l3,-0" />
-                    <path id="Front-Corridor---Medlab" serif:id="Front Corridor - Medlab" d="M58.51,51.014l3,0" />
-                    <path id="Front-Corridor---Front-Storage" serif:id="Front Corridor - Front Storage" d="M58.51,45.001l3,0" />
-                    <path id="Laboratory---Medlab" serif:id="Laboratory - Medlab" d="M55.025,54.499l-0,3" />
-                    <path id="Hydroponic-Garden---Front-Storage" serif:id="Hydroponic Garden - Front Storage" d="M55.025,38.5l-0,3" />
-                    <path id="Front-Corridor---Laboratory" serif:id="Front Corridor - Laboratory" d="M48.525,51.014l3,0" />
-                    <path id="Front-Corridor---Hydroponic-Garden" serif:id="Front Corridor - Hydroponic Garden" d="M48.525,45.001l3,0" />
-                    <path id="Front-Bravo-Turret---Front-Corridor" serif:id="Front Bravo Turret - Front Corridor" d="M27,64.539l0,3" />
-                    <path id="Bridge---Front-Corridor" serif:id="Bridge - Front Corridor" d="M27,46.5l0,3" />
-                    <path id="Front-Alpha-Turret---Front-Corridor" serif:id="Front Alpha Turret - Front Corridor" d="M27,28.5l0,3" />
-                    <path id="Bridge---Front-Bravo-Turret" serif:id="Bridge - Front Bravo Turret" d="M20.5,61l3,0" />
-                    <path id="Bridge---Front-Alpha-Turret" serif:id="Bridge - Front Alpha Turret" d="M20.5,35.015l3,0" />
+                <g id="doors" v-for="door in doorsList" :key="door.name">
+                    <path :id="door.name" :d="door.svg" :class="{broken : isBroken('door', `${door.room1} ${door.room2}`, door.name)}"/>
                 </g>
                 <g id="broken-equipment">
                     <g id="Rear-Bravo-Turret1" serif:id="Rear Bravo Turret">
-                        <g id="Turret-Command" serif:id="Turret Command">
+                        <g id="Turret-Command" serif:id="Turret Command" :class="{visible : isBroken('equipment', 'rear_bravo_turret' , 'turret_command')}">
                             <rect
                                 class="floor"
                                 x="164"
@@ -247,19 +308,19 @@
                         </g>
                     </g>
                     <g id="Engine-Room1" serif:id="Engine Room">
-                        <g id="Reactor-3" serif:id="Reactor 3">
+                        <g id="Reactor-3" serif:id="Reactor 3" :class="{visible : isBroken('equipment', 'engine_room' , 'reactor_lateral_bravo')}">
                             <path class="floor" serif:id="floor" d="M179.958,67l0,-6l-6,-0l0,6l6,0Z" />
                             <path class="wall" serif:id="wall" d="M180.958,61l0,6" />
                         </g>
-                        <g id="Reactor-2" serif:id="Reactor 2">
+                        <g id="Reactor-2" serif:id="Reactor 2" :class="{visible : isBroken('equipment', 'engine_room' , 'reactor_lateral')}">
                             <path class="floor" serif:id="floor" d="M179.958,51l0,-6l-6,0l0,6l6,0Z" />
                             <path class="wall" serif:id="wall" d="M180.958,45l0,6" />
                         </g>
-                        <g id="Reactor-1" serif:id="Reactor 1">
+                        <g id="Reactor-1" serif:id="Reactor 1" :class="{visible : isBroken('equipment', 'engine_room' , 'reactor_lateral_alpha')}">
                             <path class="floor" serif:id="floor" d="M179.958,35l0,-6l-6,0l0,6l6,0Z" />
                             <path class="wall" serif:id="wall" d="M180.958,29l0,6" />
                         </g>
-                        <g id="Planet-Scanner" serif:id="Planet Scanner">
+                        <g id="Planet-Scanner" serif:id="Planet Scanner" :class="{visible : isBroken('equipment', 'engine_room' , 'planet_scanner')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -270,7 +331,7 @@
                             />
                             <path class="wall" serif:id="wall" d="M176,73l-6,0" />
                         </g>
-                        <g id="Antenna">
+                        <g id="Antenna" :class="{visible : isBroken('equipment', 'engine_room' , 'antenna')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -281,7 +342,7 @@
                             />
                             <path class="wall" serif:id="wall" d="M170,23l6,0" />
                         </g>
-                        <g id="Combustion-Chamber" serif:id="Combustion Chamber">
+                        <g id="Combustion-Chamber" serif:id="Combustion Chamber" :class="{visible : isBroken('equipment', 'engine_room' , 'combustion_chamber')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -291,7 +352,7 @@
                                 height="8"
                             />
                         </g>
-                        <g id="Auxiliary-NERON-Terminal" serif:id="Auxiliary NERON Terminal">
+                        <g id="Auxiliary-NERON-Terminal" serif:id="Auxiliary NERON Terminal" :class="{visible : isBroken('equipment', 'engine_room' , 'auxiliary_terminal')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -304,13 +365,13 @@
                         </g>
                     </g>
                     <g id="Rear-Alpha-Turret1" serif:id="Rear Alpha Turret">
-                        <g id="Turret-Command1" serif:id="Turret Command">
+                        <g id="Turret-Command1" serif:id="Turret Command" :class="{visible : isBroken('equipment', 'rear_alpha_turret' , 'turret_command')}">
                             <path class="floor" serif:id="floor" d="M170,18l-0,-6l-6,-0l-0,6l6,-0Z" />
                             <path class="wall" serif:id="wall" d="M164,11l7,0l0,7" />
                         </g>
                     </g>
                     <g id="Icarus-Bay1" serif:id="Icarus Bay">
-                        <g id="Icarus">
+                        <g id="Icarus" :class="{visible : isBroken('equipment', 'icarus_bay' , 'icarus')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -323,7 +384,7 @@
                         </g>
                     </g>
                     <g id="Rear-Bravo-Storage1" serif:id="Rear Bravo Storage">
-                        <g id="Fuel-Tank" serif:id="Fuel Tank">
+                        <g id="Fuel-Tank" serif:id="Fuel Tank" :class="{visible : isBroken('equipment', 'rear_bravo_storage' , 'fuel_tank')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -336,7 +397,7 @@
                         </g>
                     </g>
                     <g id="Rear-Alpha-Storage1" serif:id="Rear Alpha Storage">
-                        <g id="Fuel-Tank1" serif:id="Fuel Tank">
+                        <g id="Fuel-Tank1" serif:id="Fuel Tank" :class="{visible : isBroken('equipment', 'rear_alpha_storage' , 'oxygen_tank')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -349,7 +410,7 @@
                         </g>
                     </g>
                     <g id="Alpha-Bay-21" serif:id="Alpha Bay 2">
-                        <g id="Pasiphae">
+                        <g id="Pasiphae" :class="{visible : isBroken('equipment', 'alpha_bay_2' , 'pasiphae')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -360,7 +421,7 @@
                             />
                             <path class="wall" serif:id="wall" d="M146,1l10,0" />
                         </g>
-                        <g id="Patrol-Ship-8" serif:id="Patrol Ship 8">
+                        <g id="Patrol-Ship-8" serif:id="Patrol Ship 8" :class="{visible : isBroken('equipment', 'alpha_bay_2' , 'patrol_ship_alpha2_wallis')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -371,7 +432,7 @@
                             />
                             <path class="wall" serif:id="wall" d="M134,1l10,0" />
                         </g>
-                        <g id="Patrol-Ship-7" serif:id="Patrol Ship 7">
+                        <g id="Patrol-Ship-7" serif:id="Patrol Ship 7" :class="{visible : isBroken('equipment', 'alpha_bay_2' , 'patrol_ship_alpha2_wallis')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -382,19 +443,19 @@
                             />
                             <path class="wall" serif:id="wall" d="M121.958,1l10,0" />
                         </g>
-                        <g id="Jukebox">
+                        <g id="Jukebox" :class="{visible : isBroken('equipment', 'alpha_bay_2' , 'jukebox')}">
                             <path class="floor" serif:id="floor" d="M117.958,9l0,4l4,0l0,-4l-4,0Z" />
                             <path class="wall" serif:id="wall" d="M116.958,13l0,-4" />
                         </g>
                     </g>
                     <g id="Bravo-Dorm1" serif:id="Bravo Dorm">
-                        <g id="Shower">
+                        <g id="Shower" :class="{visible : isBroken('equipment', 'bravo_dorm' , 'shower')}">
                             <path class="floor" serif:id="floor" d="M100,64l0,4l4,0l0,-4l-4,0Z" />
                             <path class="wall" serif:id="wall" d="M99,68l0,-4" />
                         </g>
                     </g>
                     <g id="Nexus1" serif:id="Nexus">
-                        <g id="BIOS-Terminal" serif:id="BIOS Terminal">
+                        <g id="BIOS-Terminal" serif:id="BIOS Terminal" :class="{visible : isBroken('equipment', 'nexus' , 'bios_terminal')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -414,19 +475,19 @@
                             />
                             <path class="wall" serif:id="wall" d="M116,55l-4,0" />
                         </g>
-                        <g id="NERON-Core" serif:id="NERON Core">
+                        <g id="NERON-Core" serif:id="NERON Core" :class="{visible : isBroken('equipment', 'nexus' , 'neron_core')}">
                             <path class="floor" serif:id="floor" d="M106,44l0,8l4,0l0,-8l-4,-0Z" />
                             <path class="wall" serif:id="wall" d="M105,52l0,-8" />
                         </g>
                     </g>
                     <g id="Alpha-Dorm1" serif:id="Alpha Dorm">
-                        <g id="Shower1" serif:id="Shower">
+                        <g id="Shower1" serif:id="Shower" :class="{visible : isBroken('equipment', 'alpha_dorm' , 'shower')}">
                             <path class="floor" serif:id="floor" d="M100,28l0,4l4,0l0,-4l-4,0Z" />
                             <path class="wall" serif:id="wall" d="M99,32l0,-4" />
                         </g>
                     </g>
                     <g id="Bravo-Bay1" serif:id="Bravo Bay">
-                        <g id="Patrol-Ship-6" serif:id="Patrol Ship 6">
+                        <g id="Patrol-Ship-6" serif:id="Patrol Ship 6" :class="{visible : isBroken('equipment', 'bravo_bay' , 'patrol_ship_alpha_epicure')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -437,7 +498,7 @@
                             />
                             <path class="wall" serif:id="wall" d="M113.958,95l-10,0" />
                         </g>
-                        <g id="Patrol-Ship-5" serif:id="Patrol Ship 5">
+                        <g id="Patrol-Ship-5" serif:id="Patrol Ship 5" :class="{visible : isBroken('equipment', 'bravo_bay' , 'patrol_ship_alpha_planton')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -448,7 +509,7 @@
                             />
                             <path class="wall" serif:id="wall" d="M101.958,95l-10,0" />
                         </g>
-                        <g id="Patrol-Ship-4" serif:id="Patrol Ship 4">
+                        <g id="Patrol-Ship-4" serif:id="Patrol Ship 4" :class="{visible : isBroken('equipment', 'bravo_bay' , 'patrol_ship_alpha_socrate')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -461,17 +522,17 @@
                         </g>
                     </g>
                     <g id="Centre-Bravo-Storage1" serif:id="Centre Bravo Storage">
-                        <g id="Oxygen-Tank" serif:id="Oxygen Tank">
+                        <g id="Oxygen-Tank" serif:id="Oxygen Tank" :class="{visible : isBroken('equipment', 'center_bravo_storage' , 'oxygen_tank')}">
                             <path class="floor" serif:id="floor" d="M98,68l-0,-6l-4,0l-0,6l4,0Z" />
                             <path class="wall" serif:id="wall" d="M99,62l0,6" />
                         </g>
                     </g>
                     <g id="Refectory1" serif:id="Refectory">
-                        <g id="Coffee-Machine" serif:id="Coffee Machine">
+                        <g id="Coffee-Machine" serif:id="Coffee Machine" :class="{visible : isBroken('equipment', 'refectory' , 'kitchen')}">
                             <path class="floor" serif:id="floor" d="M84,52l0,4l4,0l0,-4l-4,0Z" />
                             <path class="wall" serif:id="wall" d="M83,56l0,-4" />
                         </g>
-                        <g id="Kitchen">
+                        <g id="Kitchen" :class="{visible : isBroken('equipment', 'refectory' , 'coffee_machine')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -483,14 +544,14 @@
                             <path class="wall" serif:id="wall" d="M84,37l20,-0" />
                         </g>
                     </g>
-                    <g id="Centre-Alpha-Storage1" serif:id="Centre Alpha Storage">
-                        <g id="Oxygen-Tank1" serif:id="Oxygen Tank">
+                    <g id="Centre-Alpha-Storage1" serif:id="Centre Alpha Storage" >
+                        <g id="Oxygen-Tank1" serif:id="Oxygen Tank" :class="{visible : isBroken('equipment', 'center_alpha_storage' , 'oxygen_tank')}">
                             <path class="floor" serif:id="floor" d="M84,28l0,6l4,0l0,-6l-4,0Z" />
                             <path class="wall" serif:id="wall" d="M83,34l0,-6" />
                         </g>
                     </g>
                     <g id="Alpha-Bay1" serif:id="Alpha Bay">
-                        <g id="Patrol-Ship-3" serif:id="Patrol Ship 3">
+                        <g id="Patrol-Ship-3" serif:id="Patrol Ship 3" :class="{visible : isBroken('equipment', 'alpha_bay' , 'patrol_ship_alpha_tamarin')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -501,7 +562,7 @@
                             />
                             <path class="wall" serif:id="wall" d="M102.958,1l10,0" />
                         </g>
-                        <g id="Patrol-Ship-2" serif:id="Patrol Ship 2">
+                        <g id="Patrol-Ship-2" serif:id="Patrol Ship 2" :class="{visible : isBroken('equipment', 'alpha_bay' , 'patrol_ship_alpha_longane')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -512,7 +573,7 @@
                             />
                             <path class="wall" serif:id="wall" d="M91,1l10,0" />
                         </g>
-                        <g id="Patrol-Ship-1" serif:id="Patrol Ship 1">
+                        <g id="Patrol-Ship-1" serif:id="Patrol Ship 1" :class="{visible : isBroken('equipment', 'alpha_bay' , 'patrol_ship_alpha_jujube')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -525,13 +586,13 @@
                         </g>
                     </g>
                     <g id="Centre-Bravo-Turret1" serif:id="Centre Bravo Turret">
-                        <g id="Turret-Command2" serif:id="Turret Command">
+                        <g id="Turret-Command2" serif:id="Turret Command" :class="{visible : isBroken('equipment', 'centre_bravo_turret' , 'turret_command')}">
                             <path class="floor" serif:id="floor" d="M64,78l0,6l6,0l0,-6l-6,0Z" />
                             <path class="wall" serif:id="wall" d="M70,85l-7,-0l0,-7" />
                         </g>
                     </g>
                     <g id="Medlab1" serif:id="Medlab">
-                        <g id="Auxiliary-NERON-Terminal1" serif:id="Auxiliary NERON Terminal">
+                        <g id="Auxiliary-NERON-Terminal1" serif:id="Auxiliary NERON Terminal" :class="{visible : isBroken('equipment', 'medlab' , 'auxiliary_terminal')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -542,13 +603,13 @@
                             />
                             <path class="wall" serif:id="wall" d="M69.983,51l4,-0" />
                         </g>
-                        <g id="Surgery-Pod" serif:id="Surgery Pod">
+                        <g id="Surgery-Pod" serif:id="Surgery Pod" :class="{visible : isBroken('equipment', 'medlab' , 'surgery_plot')}">
                             <path class="floor" serif:id="floor" d="M56,64l0,8l4,0l0,-8l-4,0Z" />
                             <path class="wall" serif:id="wall" d="M55,72l0,-8" />
                         </g>
                     </g>
                     <g id="Centre-Alpha-Turret1" serif:id="Centre Alpha Turret">
-                        <g id="Turret-Command3" serif:id="Turret Command">
+                        <g id="Turret-Command3" serif:id="Turret Command" :class="{visible : isBroken('equipment', 'centre_alpha_turret' , 'turret_command')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -561,10 +622,10 @@
                         </g>
                     </g>
                     <g id="Laboratory1" serif:id="Laboratory">
-                        <g id="Mycoscan">
+                        <g id="Mycoscan" :class="{visible : isBroken('equipment', 'laboratory' , 'mycoscan')}">
                             <path class="floor" serif:id="floor" d="M46,60l0,8l6,0l0,-8l-6,0Z" />
                         </g>
-                        <g id="Gravity-Simulator" serif:id="Gravity Simulator">
+                        <g id="Gravity-Simulator" serif:id="Gravity Simulator" :class="{visible : isBroken('equipment', 'laboratory' , 'gravity_simulator')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -575,21 +636,21 @@
                             />
                             <path class="wall" serif:id="wall" d="M41.983,51l4,-0" />
                         </g>
-                        <g id="Research-Lab" serif:id="Research Lab">
+                        <g id="Research-Lab" serif:id="Research Lab" :class="{visible : isBroken('equipment', 'laboratory' , 'research_laboratory')}">
                             <path class="floor" serif:id="floor" d="M34,64l0,8l4,0l0,-8l-4,0Z" />
                             <path class="wall" serif:id="wall" d="M33,72l-0,-8" />
                         </g>
                     </g>
                     <g id="Bridge1" serif:id="Bridge">
-                        <g id="AstroTerminal">
+                        <g id="AstroTerminal" :class="{visible : isBroken('equipment', 'bridge' , 'astro_terminal')}">
                             <path class="floor" serif:id="floor" d="M7,54l0,6l9,-0l-0,-6l-9,-0Z" />
                             <path class="wall" serif:id="wall" d="M16,61l-10,-0l0,-7" />
                         </g>
-                        <g id="Command-Terminal" serif:id="Command Terminal">
+                        <g id="Command-Terminal" serif:id="Command Terminal" :class="{visible : isBroken('equipment', 'bridge' , 'command_terminal')}">
                             <path class="floor" serif:id="floor" d="M2,44l0,8l12,0l0,-8l-12,0Z" />
                             <path class="wall" serif:id="wall" d="M1,52l-0,-8" />
                         </g>
-                        <g id="Comms-Center" serif:id="Comms Center">
+                        <g id="Comms-Center" serif:id="Comms Center" :class="{visible : isBroken('equipment', 'bridge' , 'communication_center')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -608,7 +669,7 @@
                         </g>
                     </g>
                     <g id="Front-Alpha-Turret1" serif:id="Front Alpha Turret">
-                        <g id="Turret-Command5" serif:id="Turret Command">
+                        <g id="Turret-Command5" serif:id="Turret Command" :class="{visible : isBroken('equipment', 'front_alpha_turret' , 'turret_command')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -622,163 +683,163 @@
                     </g>
                 </g>
                 <g id="broken-cameras">
-                    <g id="Rear-Bravo-Turret2" serif:id="Rear Bravo Turret">
+                    <g id="Rear-Bravo-Turret2" serif:id="Rear Bravo Turret" :class="{visible : isBroken('equipment', 'rear_bravo_turret', 'camera_equipment')}">
                         <g class="cam">
                             <path d="M162,76l4,4" />
                             <path d="M162,80l4,-4" />
                         </g>
                     </g>
-                    <g id="Engine-Room2" serif:id="Engine Room">
+                    <g id="Engine-Room2" serif:id="Engine Room" :class="{visible : isBroken('equipment', 'engine_room', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M162,46l4,4" />
                             <path d="M162,50l4,-4" />
                         </g>
                     </g>
-                    <g id="Rear-Alpha-Turret2" serif:id="Rear Alpha Turret">
+                    <g id="Rear-Alpha-Turret2" serif:id="Rear Alpha Turret" :class="{visible : isBroken('equipment', 'rear_alpha_turret', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M162,16l4,4" />
                             <path d="M162,20l4,-4" />
                         </g>
                     </g>
-                    <g id="Icarus-Bay2" serif:id="Icarus Bay">
+                    <g id="Icarus-Bay2" serif:id="Icarus Bay" :class="{visible : isBroken('equipment', 'icarus_bay', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M140,77l4,4" />
                             <path d="M140,81l4,-4" />
                         </g>
                     </g>
-                    <g id="Rear-Bravo-Storage2" serif:id="Rear Bravo Storage">
+                    <g id="Rear-Bravo-Storage2" serif:id="Rear Bravo Storage" :class="{visible : isBroken('equipment', 'rear_bravo_storage', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M137,65l4,4" />
                             <path d="M137,69l4,-4" />
                         </g>
                     </g>
-                    <g id="Rear-Alpha-Storage2" serif:id="Rear Alpha Storage">
+                    <g id="Rear-Alpha-Storage2" serif:id="Rear Alpha Storage" :class="{visible : isBroken('equipment', 'rear_alpha_storage', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M137,27l4,4" />
                             <path d="M137,31l4,-4" />
                         </g>
                     </g>
-                    <g id="Rear-Corridor1" serif:id="Rear Corridor">
+                    <g id="Rear-Corridor1" serif:id="Rear Corridor" :class="{visible : isBroken('equipment', 'rear_corridor', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M120,39l4,4" />
                             <path d="M120,43l4,-4" />
                         </g>
                     </g>
-                    <g id="Alpha-Bay-22" serif:id="Alpha Bay 2">
+                    <g id="Alpha-Bay-22" serif:id="Alpha Bay 2" :class="{visible : isBroken('equipment', 'alpha_bay_2', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M137,14l4,4" />
                             <path d="M137,18l4,-4" />
                         </g>
                     </g>
-                    <g id="Bravo-Dorm2" serif:id="Bravo Dorm">
+                    <g id="Bravo-Dorm2" serif:id="Bravo Dorm" :class="{visible : isBroken('equipment', 'bravo_dorm', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M108,62l4,4" />
                             <path d="M108,66l4,-4" />
                         </g>
                     </g>
-                    <g id="Nexus2" serif:id="Nexus">
+                    <g id="Nexus2" serif:id="Nexus" :class="{visible : isBroken('equipment', 'nexus', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M109.962,46l4,4" />
                             <path d="M109.962,50l4,-4" />
                         </g>
                     </g>
-                    <g id="Alpha-Dorm2" serif:id="Alpha Dorm">
+                    <g id="Alpha-Dorm2" serif:id="Alpha Dorm" :class="{visible : isBroken('equipment', 'alpha_dorm', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M109,29l4,4" />
                             <path d="M109,33l4,-4" />
                         </g>
                     </g>
-                    <g id="Centre-Bravo-Storage2" serif:id="Centre Bravo Storage">
+                    <g id="Centre-Bravo-Storage2" serif:id="Centre Bravo Storage" :class="{visible : isBroken('equipment', 'center_bravo_storage', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M89,64l4,4" />
                             <path d="M89,68l4,-4" />
                         </g>
                     </g>
-                    <g id="Refectory2" serif:id="Refectory">
+                    <g id="Refectory2" serif:id="Refectory" :class="{visible : isBroken('equipment', 'refectory', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M92,46l4,4" />
                             <path d="M92,50l4,-4" />
                         </g>
                     </g>
-                    <g id="Centre-Alpha-Storage2" serif:id="Centre Alpha Storage">
+                    <g id="Centre-Alpha-Storage2" serif:id="Centre Alpha Storage" :class="{visible : isBroken('equipment', 'center_alpha_storage', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M89,28l4,4" />
                             <path d="M89,32l4,-4" />
                         </g>
                     </g>
-                    <g id="Bravo-Bay2" serif:id="Bravo Bay">
+                    <g id="Bravo-Bay2" serif:id="Bravo Bay" :class="{visible : isBroken('equipment', 'bravo_bay', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M95,78l4,4" />
                             <path d="M95,82l4,-4" />
                         </g>
                     </g>
-                    <g id="Centre-Corridor1" serif:id="Centre Corridor">
+                    <g id="Centre-Corridor1" serif:id="Centre Corridor" :class="{visible : isBroken('equipment', 'central_corridor', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M78,39l4,4" />
                             <path d="M78,43l4,-4" />
                         </g>
                     </g>
-                    <g id="Alpha-Bay2" serif:id="Alpha Bay">
+                    <g id="Alpha-Bay2" serif:id="Alpha Bay" :class="{visible : isBroken('equipment', 'alpha_bay', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M94,14l4,4" />
                             <path d="M94,18l4,-4" />
                         </g>
                     </g>
-                    <g id="Centre-Bravo-Turret2" serif:id="Centre Bravo Turret">
+                    <g id="Centre-Bravo-Turret2" serif:id="Centre Bravo Turret" :class="{visible : isBroken('equipment', 'centre_bravo_turret', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M68,76l4,4" />
                             <path d="M68,80l4,-4" />
                         </g>
                     </g>
-                    <g id="Medlab2" serif:id="Medlab">
+                    <g id="Medlab2" serif:id="Medlab" :class="{visible : isBroken('equipment', 'medlab', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M63.983,60l4,4" />
                             <path d="M63.983,64l4,-4" />
                         </g>
                     </g>
-                    <g id="Front-Storage1" serif:id="Front Storage">
+                    <g id="Front-Storage1" serif:id="Front Storage" :class="{visible : isBroken('equipment', 'front_storage', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M64,32l4,4" />
                             <path d="M64,36l4,-4" />
                         </g>
                     </g>
-                    <g id="Centre-Alpha-Turret2" serif:id="Centre Alpha Turret">
+                    <g id="Centre-Alpha-Turret2" serif:id="Centre Alpha Turret" :class="{visible : isBroken('equipment', 'centre_alpha_turret', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M68,16l4,4" />
                             <path d="M68,20l4,-4" />
                         </g>
                     </g>
-                    <g id="Laboratory2" serif:id="Laboratory">
+                    <g id="Laboratory2" serif:id="Laboratory" :class="{visible : isBroken('equipment', 'laboratory', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M40,59l4,4" />
                             <path d="M40,63l4,-4" />
                         </g>
                     </g>
-                    <g id="Hydroponic-Garden1" serif:id="Hydroponic Garden">
+                    <g id="Hydroponic-Garden1" serif:id="Hydroponic Garden" :class="{visible : isBroken('equipment', 'hydroponic_garden', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M42,32l4,4" />
                             <path d="M42,36l4,-4" />
                         </g>
                     </g>
-                    <g id="Front-Corridor1" serif:id="Front Corridor">
+                    <g id="Front-Corridor1" serif:id="Front Corridor" :class="{visible : isBroken('equipment', 'front_corridor', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M30,46l4,4" />
                             <path d="M30,50l4,-4" />
                         </g>
                     </g>
-                    <g id="Front-Bravo-Turret1" serif:id="Front Bravo Turret">
+                    <g id="Front-Bravo-Turret1" serif:id="Front Bravo Turret" :class="{visible : isBroken('equipment', 'front_bravo_turret', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M20,64l4,4" />
                             <path d="M20,68l4,-4" />
                         </g>
                     </g>
-                    <g id="Bridge2" serif:id="Bridge">
+                    <g id="Bridge2" serif:id="Bridge" :class="{visible : isBroken('equipment', 'bridge', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M17,46l4,4" />
                             <path d="M17,50l4,-4" />
                         </g>
                     </g>
-                    <g id="Front-Alpha-Turret2" serif:id="Front Alpha Turret">
+                    <g id="Front-Alpha-Turret2" serif:id="Front Alpha Turret" :class="{visible : isBroken('equipment', 'front_alpha_turret', 'camera_equipment')}">
                         <g class="cam" serif:id="cam">
                             <path d="M20,28l4,4" />
                             <path d="M20,32l4,-4" />
@@ -786,34 +847,127 @@
                     </g>
                 </g>
             </svg>
-            <!--  <ul class="crew-position">
-                <li class="self" />
-                <li class="Andie" />
-                <li class="Chao" />
-                <li class="Chun" />
-                <li class="Derek" />
-                <li class="Eleesha" />
-                <li class="Finola" />
-                <li class="Frieda" />
-                <li class="Gioele" />
-                <li class="Hua" />
-                <li class="Ian" />
-                <li class="Janice" />
-                <li class="Jin" />
-                <li class="Kuan" />
-                <li class="Paola" />
-                <li class="Raluca" />
-                <li class="Roland" />
-                <li class="Stephen" />
-                <li class="Terrence" />
-            </ul>  -->
+            <ul class="crew-position">
+                <li
+                    class="self"
+                    :style="{
+                        left: `${me.left}px`,
+                        top: `${me.top}px`
+                    }"
+                />
+                <li
+                    v-for="player in playersPoints"
+                    :key="player.name"
+                    :style="{
+                        left: `${player.left}px`,
+                        top: `${player.top}px`
+                    }"
+                    :class="`${player.name}`"
+                />
+            </ul>
         </div>
         <h3 class="room">
-            Room name
+            {{roomName}}
         </h3>
     </div>
 </template>
 
+
+<script lang="ts">
+import { defineComponent, PropType } from "vue";
+import { RoomsEnum } from '@/enums/room.enum';
+import { DoorsEnum } from '@/enums/doors.enum';
+
+export default defineComponent ({
+    name: "MiniMap",
+    props: {
+        myPosition: Object,
+        minimap: Object as PropType<MiniMap>
+    },
+    data() {
+        return {
+            roomName : '' as string,
+            actopi: false as boolean,
+            me : {
+                left: 0 as number,
+                top: 0 as number
+            },
+            playersPoints: [] as Array<PlayersPoints>,
+            doorsList: DoorsEnum as Array<Doors>
+        };
+    },
+    methods: {
+        displayName(room: string): void {
+            this.roomName = room;
+        },
+        displayMe(): void {
+            const myCoord = RoomsEnum[this.myPosition?.key];
+            this.me.left = myCoord.A.x + Math.round(Math.random() * (myCoord.B.x - 6 - myCoord.A.x) );
+            this.me.top = myCoord.A.y + Math.round(Math.random() * (myCoord.C.y - 6 - myCoord.B.y));
+        },
+        displayerOther(): void {
+            if (this.minimap){
+                const roomsWithPlayers = Object.values(this.minimap).filter(room => room.players_count > 0);
+                roomsWithPlayers.forEach(room => {
+                    let roomCoord = RoomsEnum[room.name];
+                    let i = 0;
+                    if (room.name === this.myPosition?.key) {
+                        i++;
+                    };
+                    while ( i < room.players_count ){
+                        let left = roomCoord.A.x + Math.round(Math.random() * (roomCoord.B.x - 4 - roomCoord.A.x));
+                        let top = roomCoord.A.y + Math.round(Math.random() * (roomCoord.C.y - 4 - roomCoord.B.y));
+                        let name = '';
+                        this.playersPoints.push( { left, top, name } );
+                        i++;
+                    };
+                });
+            };
+        },
+        isFire(room: string): boolean {
+            return Object.values(this.minimap!).find(rooms => rooms.name === room)!.fire;
+        },
+        isBroken(type: string, room: string, object: string): boolean {
+            switch (type) {
+            case 'door':
+                return Object.values(this.minimap!).find(rooms => rooms.name === room.split(' ')[0])!.broken_doors.includes(object) || Object.values(this.minimap!).find(rooms => rooms.name === room.split(' ')[1])!.broken_doors.includes(object);
+            case 'equipment':
+                return Object.values(this.minimap!).find(rooms => rooms.name === room)!.broken_equipments.includes(object);
+            default:
+                return false;
+            }
+        }
+    },
+    mounted(): void {
+        this.displayMe();
+        this.displayerOther();
+    }
+});
+
+interface MiniMap {
+    [name : string] : ApiRooms
+};
+interface ApiRooms {
+    actopi : Array<number>,
+    broken_count: number,
+    broken_doors: Array<string>,
+    broken_equipments: Array<string>,
+    fire: boolean,
+    players_count: number,
+    name: string
+};
+interface PlayersPoints {
+    left: number;
+    top: number;
+    name: string;
+};
+interface Doors {
+    name: string,
+    svg: string,
+    room1: string,
+    room2: string
+}
+</script>
 <style lang="scss" scoped>
 
 .map-container {
@@ -893,6 +1047,10 @@ svg {
         stroke-width: 2px;
         stroke-linecap: butt;
     }
+
+    .visible {
+        visibility: visible;
+    }
 }
 
 #broken-cameras {
@@ -901,6 +1059,9 @@ svg {
     fill: none;
     stroke: #ffce80;
     stroke-width: 1.8px;
+    .visible {
+        visibility: visible;
+    }
 }
 
 .crew-position {
@@ -913,13 +1074,17 @@ svg {
         height: 4px;
         background: #f88;
         box-shadow: 0 0 2px 1px #133951;
-
-        @for $i from 1 through 19 { // randomize crew position, for testing only
-            &:nth-child(#{$i}) {
-                left: random(156) + 10px;
-                top: random(52) + 18px;
-            }
+        &.hidden {
+            background: none;
+            box-shadow: none;
         }
+
+        // @for $i from 1 through 19 { // randomize crew position, for testing only
+        //     &:nth-child(#{$i}) {
+        //         left: random(156) + 10px;
+        //         top: random(52) + 18px;
+        //     }
+        // }
 
         &.self {
             z-index: 2;

@@ -12,13 +12,13 @@
                 <div class="life">
                     <Tippy tag="div">
                         <ol>
-                            <li>
-                                <p><img src="@/assets/images/lp.png" alt="lp">{{ player.healthPoint.quantity }}</p>
-                            </li>
-                            <li>
+                            <li class="quantityLife">
                                 <ul>
                                     <li v-for="n in 14" :key="n" :class="isFull(n, player.healthPoint.quantity)" />
                                 </ul>
+                            </li>
+                            <li class="iconLife">
+                                <p><img src="@/assets/images/lp.png" alt="lp">{{ player.healthPoint.quantity }}</p>
                             </li>
                         </ol>
                         <template #content>
@@ -30,13 +30,13 @@
                 <div class="morale">
                     <Tippy tag="div">
                         <ol>
-                            <li>
-                                <p><img src="@/assets/images/moral.png" alt="mp">{{ player.moralPoint.quantity }}</p>
-                            </li>
-                            <li>
+                            <li class="quantityMorale">
                                 <ul>
                                     <li v-for="n in 14" :key="n" :class="isFull(n, player.moralPoint.quantity)" />
                                 </ul>
+                            </li>
+                            <li class="iconMorale">
+                                <p><img src="@/assets/images/moral.png" alt="mp">{{ player.moralPoint.quantity }}</p>
                             </li>
                         </ol>
                         <template #content>
@@ -181,6 +181,28 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
+@keyframes popUpSlide {
+    0% {top: 17px; opacity: 0%;}
+    100% {top: 0; opacity: 100%;}
+}
+.iconLife{
+    position: relative;
+    opacity: 0;
+    top: 17px;
+}
+.quantityLife {
+    z-index: 10;
+    &:hover + .iconLife { animation: popUpSlide 0.7s linear 1; opacity: 1; top: 0; }
+}
+.iconMorale{
+    position: relative;
+    opacity: 0;
+    top: 17px;
+}
+.quantityMorale {
+    z-index: 10;
+    &:hover + .iconMorale { animation: popUpSlide 0.7s linear 1; opacity: 1; top: 0; }
+}
 
 .char-panel {
     flex-direction: row;
@@ -225,7 +247,7 @@ export default defineComponent ({
 
         ol {
             align-items: center;
-            flex-direction: column;
+            flex-direction: column-reverse;
 
             li:first-child { z-index: 1; }
         }

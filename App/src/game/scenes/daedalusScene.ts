@@ -40,13 +40,27 @@ import central_corridor from "@/game/assets/central_corridor.json";
 import front_corridor from "@/game/assets/front_corridor.json";
 
 
+import fire_particles_frame from "@/game/assets/images/fire_particles.json";
+import fire_particles from "@/game/assets/images/fire_particles.png";
+import smoke_particle from "@/game/assets/images/smoke_particle.png";
+
+
 import { PhaserNavMeshPlugin } from "phaser-navmesh/src/index";
 import OutlinePostFx from 'phaser3-rex-plugins/plugins/outlinepipeline.js';
 
 import { Player } from "@/entities/Player";
 import PlayableCharacterObject from "@/game/objects/playableCharacterObject";
-import { IsometricCoordinates, CartesianCoordinates, CartesianDistance, IsometricDistance, toCartesianCoords } from "@/game/types";
+import {
+    IsometricCoordinates,
+    CartesianCoordinates,
+    CartesianDistance,
+    IsometricDistance,
+    toCartesianCoords,
+    toIsometricCoords
+} from "@/game/types";
+import Vector2 = Phaser.Math.Vector2;
 import EquipmentObject from "@/game/objects/equipmentObject";
+import IsometricGeom from "@/game/objects/isometricGeom";
 
 export default class DaedalusScene extends Phaser.Scene
 {
@@ -59,7 +73,7 @@ export default class DaedalusScene extends Phaser.Scene
     private navMeshPolygons : Array<Array<IsometricCoordinates>>;
     private characterSize : number;
     private room : Room;
-    private cameraTarget : { x : number, y : number}
+    private cameraTarget : { x : number, y : number};
 
     public selectedGameObject : Phaser.GameObjects.GameObject | null;
 
@@ -121,6 +135,9 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.spritesheet('shelf_object', shelf_object, { frameHeight: 42, frameWidth: 35 });
 
         this.load.spritesheet('ground_object', ground_tileset, { frameHeight: 72, frameWidth: 32 });
+
+        this.load.image('smoke_particle', smoke_particle);
+        this.load.atlas('fire_particles', fire_particles, fire_particles_frame);
     }
 
     // eslint-disable-next-line no-unused-vars
@@ -151,6 +168,7 @@ export default class DaedalusScene extends Phaser.Scene
         const magicalShift: CartesianDistance = { x: -tileSize, y: tileSize - 72 }; //Why ????
 
 
+
         const globalPolygon = [
             { x: 2 * IsoTileSize + this.characterSize, y: 2 * IsoTileSize + this.characterSize },
             { x: (map.width - 2) * IsoTileSize - this.characterSize, y: 2 * IsoTileSize + this.characterSize },
@@ -159,7 +177,6 @@ export default class DaedalusScene extends Phaser.Scene
         ];
 
         this.navMeshPolygons.push(globalPolygon);
-
 
 
         (<Phaser.Renderer.WebGL.WebGLRenderer>this.game.renderer).pipelines.addPostPipeline('outline', OutlinePostFx );
@@ -171,6 +188,7 @@ export default class DaedalusScene extends Phaser.Scene
         map.createLayer('wall', tilesets, magicalShift.x, magicalShift.y);
 
         this.layer = map.createLayer('ground', tilesets, magicalShift.x, magicalShift.y);
+
 
         this.createFromTiledObject(map.getObjectLayer('objects'), this, map.tilesets, { x: 0, y: 0 }, sceneAspectRatio, this.room);
 
@@ -225,6 +243,82 @@ export default class DaedalusScene extends Phaser.Scene
                 gameObject.onSelected();
                 this.selectedGameObject = gameObject;
             }
+        });
+
+        if (this.room.isOnFire) {
+            this.displayFire(map.getLayer('ground'));
+        }
+    }
+
+    displayFire(layer: Phaser.Tilemaps.LayerData): void
+    {
+        for (let i = 1; i < layer.data.length; i++) {
+            const test = layer.data[i];
+            for (let j = 1; j < test.length; j++) {
+                if (test[j].index !== -1) {
+                    //is the tile on fire
+                    if (Math.random() < 0.2) {
+                        //intensity of fire
+                        if (Math.random() > 0.2) {
+                            this.createFireCell({ x: i * 16, y: (j+1) * 16 }, 1);
+                        } else {
+                            this.createFireCell({ x: i * 16, y: (j+1) * 16 }, 2);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    createFireCell(isoCoords: IsometricCoordinates, intensity: number): void
+    {
+        const particles = this.add.particles('fire_particles');
+
+
+        const tile = new IsometricGeom({ x: isoCoords.x, y: isoCoords.y }, { x: 16, y: 16 });
+
+        particles.createEmitter({
+            frame: ['flame1', 'flame2'],
+            x: 0, y: 0,
+            lifespan: 200,
+            speed: { min: 30, max: 50 },
+            angle: { min: 260, max: 280 },
+            gravityY: 50,
+            scale: { start: 1, end: 1 },
+            alpha: { start: 0, end: 0.8 },
+            quantity: 5,
+            //@ts-ignore
+            emitZone: { type: 'random', source: tile }
+        });
+
+        if (intensity > 1) {
+            particles.createEmitter({
+                frame: ['flame2','flame3'],
+                x: 0, y: 0,
+                lifespan: 600,
+                speed: { min: 40, max: 60 },
+                angle: { min: 260, max: 280 },
+                gravityY: 40,
+                scale: { start: 0, end: 1 },
+                alpha: { start: 0, end: 0.8 },
+                quantity: 2,
+                //@ts-ignore
+                emitZone: { type: 'random', source: tile }
+            });
+        }
+
+        particles.createEmitter({
+            frame: ['flame4','flame5','flame6'],
+            x: 0, y: -8,
+            lifespan: 800,
+            speed: { min: 20, max: 40 },
+            angle: { min: 260, max: 280 },
+            gravityY: 20,
+            scale: { start: 0, end: 1 },
+            alpha: { start: 0, end: 0.5 },
+            quantity: 2,
+            //@ts-ignore
+            emitZone: { type: 'random', source: tile }
         });
     }
 

@@ -57,8 +57,8 @@ export default class CharacterObject extends InteractObject {
     }
 
 
-    applyTexture(tileset: Phaser.Tilemaps.Tileset, frame: number, name: string) {
-        this.setTexture('character', frame);
+    applyTexture(tileset: Phaser.Tilemaps.Tileset, name: string) {
+        this.setTexture('character', this.tiledFrame);
     }
 
 

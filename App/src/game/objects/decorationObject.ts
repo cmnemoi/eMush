@@ -6,6 +6,7 @@ import { IsometricCoordinates, CartesianCoordinates, IsometricDistance } from "@
 /*eslint no-unused-vars: "off"*/
 export default class DecorationObject extends Phaser.GameObjects.Sprite {
     protected animName : string|null = null;
+    protected tiledFrame: number;
     public sceneAspectRatio: IsometricCoordinates;
 
 
@@ -24,6 +25,7 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         this.scene = scene;
         this.name = name;
         this.sceneAspectRatio = sceneAspectRatio;
+        this.tiledFrame = frame;
 
         //the first sprite to be displayed are the ones on the last row of either x or y isometric coordinates
         //a second order sorting is applied using the y axis of cartesian coordinates
@@ -39,19 +41,19 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
 
         this.scene.add.existing(this);
 
-        this.applyTexture(tileset, frame, name);
+        this.applyTexture(tileset, name);
     }
 
-    applyTexture(tileset: Phaser.Tilemaps.Tileset , frame: number, name: string): void
+    applyTexture(tileset: Phaser.Tilemaps.Tileset, name: string): void
     {
         //@ts-ignore
-        if (tileset.tileData[frame])
+        if (tileset.tileData[this.tiledFrame])
         {
             this.animName = `${name}Animation`;
 
             //@ts-ignore
-            const endFrame = frame + tileset.tileData[frame].animation.length -1;
-            const frames = this.anims.generateFrameNames(tileset.name, { start: frame, end: endFrame });
+            const endFrame = this.tiledFrame + tileset.tileData[this.tiledFrame].animation.length -1;
+            const frames = this.anims.generateFrameNames(tileset.name, { start: this.tiledFrame, end: endFrame });
 
 
             this.anims.create({
@@ -63,7 +65,7 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
 
             this.anims.play(this.animName);
         } else {
-            this.setTexture(tileset.name, frame);
+            this.setTexture(tileset.name, this.tiledFrame);
         }
     }
 }

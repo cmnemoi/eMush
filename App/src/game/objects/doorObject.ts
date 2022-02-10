@@ -9,7 +9,6 @@ import InteractObject from "@/game/objects/interactObject";
 
 
 export default class DoorObject extends InteractObject {
-    private firstFrame : number;
     private openFrames: Phaser.Types.Animations.AnimationFrame[];
     private closeFrames: Phaser.Types.Animations.AnimationFrame[];
     private door : DoorEntity;
@@ -19,19 +18,18 @@ export default class DoorObject extends InteractObject {
         cart_coords: CartesianCoordinates,
         iso_coords: IsometricCoordinates,
         tileset: Phaser.Tilemaps.Tileset,
-        firstFrame: number,
+        tiledFrame: number,
         door: DoorEntity,
         sceneAspectRatio: IsometricDistance
     )
     {
-        super(scene, cart_coords, iso_coords, tileset, firstFrame, door.key, sceneAspectRatio);
+        super(scene, cart_coords, iso_coords, tileset, tiledFrame, door.key, sceneAspectRatio);
 
         this.door = door;
-        this.firstFrame = firstFrame;
 
-        this.openFrames = this.anims.generateFrameNames('door_object', { start: this.firstFrame, end: this.firstFrame + 10 });
+        this.openFrames = this.anims.generateFrameNames('door_object', { start: this.tiledFrame, end: this.tiledFrame + 10 });
 
-        this.closeFrames = this.anims.generateFrameNames('door_object', { start: this.firstFrame + 10, end: this.firstFrame + 23 });
+        this.closeFrames = this.anims.generateFrameNames('door_object', { start: this.tiledFrame + 10, end: this.tiledFrame + 23 });
         this.closeFrames[this.closeFrames.length + 1] = this.openFrames[0];
 
         // doors are always on the bottom (just in front of the back_wall layer)
@@ -66,8 +64,8 @@ export default class DoorObject extends InteractObject {
 
     }
 
-    applyTexture(tileset: Phaser.Tilemaps.Tileset, frame: number, name: string) {
-        this.setTexture('door_object', frame);
+    applyTexture(tileset: Phaser.Tilemaps.Tileset, name: string) {
+        this.setTexture('door_object', this.tiledFrame);
     }
 
     createInteractionArea():void
@@ -82,7 +80,7 @@ export default class DoorObject extends InteractObject {
 
         if (this.input.hitArea.contains(objectX, objectY)){
             if(
-                String(this.frame.name) === String(this.firstFrame)  &&
+                String(this.frame.name) === String(this.tiledFrame)  &&
                 !this.door.isBroken
             )
             {
@@ -98,7 +96,7 @@ export default class DoorObject extends InteractObject {
                 const door = this.door;
                 store.dispatch('room/selectTarget', { target: this.door });
             }
-        } else if (String(this.frame.name) ===  String(this.firstFrame + 10))
+        } else if (String(this.frame.name) ===  String(this.tiledFrame + 10))
         {
             //if player click outside the door AND the door is open
             this.anims.play('door_close');
@@ -120,7 +118,7 @@ export default class DoorObject extends InteractObject {
     {
         const leftDoorsFrames = [0, 48, 96, 144];
 
-        if (leftDoorsFrames.includes(this.firstFrame))
+        if (leftDoorsFrames.includes(this.tiledFrame))
         {
             return new Phaser.Geom.Polygon([
                 new Vector2(4, 35),

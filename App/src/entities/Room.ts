@@ -16,6 +16,7 @@ export class Room {
     public statuses: Array<Status>;
     public equipments: Array<Equipment>;
     public players: Array<Player>;
+    public isOnFire: boolean
 
     constructor() {
         this.id = null;
@@ -24,6 +25,7 @@ export class Room {
         this.equipments = [];
         this.players = [];
         this.statuses = [];
+        this.isOnFire = false;
     }
     load(object: any): Room {
         if (typeof object !== "undefined") {
@@ -50,6 +52,10 @@ export class Room {
             object.statuses.forEach((statusObject:any) => {
                 const status = (new Status()).load(statusObject);
                 this.statuses.push(status);
+
+                if (status.key === 'fire') {
+                    this.isOnFire = true;
+                }
             });
         }
         return this;

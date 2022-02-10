@@ -115,8 +115,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":128,
-                 "x":59,
-                 "y":123
+                 "x":44,
+                 "y":38
                 }, 
                 {
                  "gid":290,
@@ -1429,7 +1429,7 @@
          "imagewidth":128,
          "margin":0,
          "name":"cryomodule_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
          "tileheight":104,

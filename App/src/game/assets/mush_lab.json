@@ -34,8 +34,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":159,
-                 "y":51
+                 "x":158,
+                 "y":14
                 }, 
                 {
                  "gid":117,
@@ -52,8 +52,8 @@
                  "type":"door",
                  "visible":true,
                  "width":48,
-                 "x":148,
-                 "y":44
+                 "x":123.5,
+                 "y":-4.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -143,8 +143,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":30,
-                 "x":35,
-                 "y":113
+                 "x":28,
+                 "y":88
                 }, 
                 {
                  "gid":290,
@@ -171,8 +171,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":30,
-                 "x":35,
-                 "y":129
+                 "x":28,
+                 "y":104
                 }, 
                 {
                  "gid":247,
@@ -189,8 +189,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":207,
-                 "y":95
+                 "x":205,
+                 "y":59
                 }, 
                 {
                  "gid":258,
@@ -217,8 +217,8 @@
                  "type":"shelf",
                  "visible":true,
                  "width":35,
-                 "x":102,
-                 "y":196
+                 "x":80,
+                 "y":146
                 }, 
                 {
                  "gid":311,
@@ -245,8 +245,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":28,
-                 "x":132,
-                 "y":48
+                 "x":114,
+                 "y":16
                 }, 
                 {
                  "gid":262,
@@ -273,8 +273,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":81,
-                 "x":152.5,
-                 "y":185.5
+                 "x":143.5,
+                 "y":128
                 }, 
                 {
                  "gid":274,
@@ -301,8 +301,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":79,
-                 "x":36,
-                 "y":194
+                 "x":27.5,
+                 "y":146
                 }, 
                 {
                  "gid":275,
@@ -329,8 +329,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":25,
-                 "x":144,
-                 "y":10.0037878787879
+                 "x":144.75,
+                 "y":-7.74621212121211
                 }, 
                 {
                  "gid":289,
@@ -357,8 +357,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":46,
-                 "x":5.5,
-                 "y":144.5
+                 "x":-2,
+                 "y":108
                 }, 
                 {
                  "gid":297,
@@ -385,8 +385,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":36,
-                 "x":55,
-                 "y":145
+                 "x":45.5,
+                 "y":130.5
                 }, 
                 {
                  "gid":307,
@@ -413,8 +413,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":14,
-                 "x":88,
-                 "y":0
+                 "x":77.25,
+                 "y":-7.75
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -426,7 +426,7 @@
  "nextobjectid":18,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.0",
  "tileheight":16,
  "tilesets":[
         {
@@ -443,7 +443,7 @@
          "imagewidth":960,
          "margin":0,
          "name":"ground_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":30,
          "tileheight":72,
@@ -463,7 +463,7 @@
          "imagewidth":448,
          "margin":0,
          "name":"wall_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":14,
          "tileheight":72,
@@ -483,7 +483,7 @@
          "imagewidth":1152,
          "margin":0,
          "name":"door_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":192,
          "tileheight":73,
@@ -1304,7 +1304,7 @@
          "imagewidth":320,
          "margin":0,
          "name":"door_ground_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":20,
          "tileheight":36,
@@ -1415,7 +1415,7 @@
          "imagewidth":140,
          "margin":0,
          "name":"shelf_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
          "tileheight":42,
@@ -1443,7 +1443,7 @@
          "imagewidth":972,
          "margin":0,
          "name":"mycoscan_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":12,
          "tileheight":57,
@@ -1510,7 +1510,7 @@
          "imagewidth":79,
          "margin":0,
          "name":"laboratory_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
          "tileheight":57,
@@ -1524,7 +1524,7 @@
          "imagewidth":350,
          "margin":0,
          "name":"camera_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":14,
          "tileheight":17,
@@ -1651,7 +1651,7 @@
          "imagewidth":46,
          "margin":0,
          "name":"mural_shelf",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
          "tileheight":28,
@@ -1665,7 +1665,7 @@
          "imagewidth":30,
          "margin":0,
          "name":"centrifuge_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
          "tileheight":34,
@@ -1685,7 +1685,7 @@
          "imagewidth":288,
          "margin":0,
          "name":"chair_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":16,
          "tileheight":38,
@@ -1699,6 +1699,7 @@
          "imagewidth":56,
          "margin":0,
          "name":"wall_box",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
          "tileheight":15,
@@ -1712,7 +1713,7 @@
          "imagewidth":279,
          "margin":0,
          "name":"gravity_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":9,
          "tileheight":46,
@@ -1758,9 +1759,22 @@
                  "id":0
                 }],
          "tilewidth":28
+        }, 
+        {
+         "columns":29,
+         "firstgid":320,
+         "image":"images\/characters.png",
+         "imageheight":2315,
+         "imagewidth":953,
+         "margin":0,
+         "name":"characters",
+         "spacing":0,
+         "tilecount":1392,
+         "tileheight":48,
+         "tilewidth":32
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":14
 }

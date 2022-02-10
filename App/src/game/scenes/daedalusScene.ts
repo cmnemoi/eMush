@@ -50,15 +50,7 @@ import OutlinePostFx from 'phaser3-rex-plugins/plugins/outlinepipeline.js';
 
 import { Player } from "@/entities/Player";
 import PlayableCharacterObject from "@/game/objects/playableCharacterObject";
-import {
-    IsometricCoordinates,
-    CartesianCoordinates,
-    CartesianDistance,
-    IsometricDistance,
-    toCartesianCoords,
-    toIsometricCoords
-} from "@/game/types";
-import Vector2 = Phaser.Math.Vector2;
+import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
 import EquipmentObject from "@/game/objects/equipmentObject";
 import IsometricGeom from "@/game/objects/isometricGeom";
 
@@ -70,7 +62,7 @@ export default class DaedalusScene extends Phaser.Scene
     private layer : Phaser.Tilemaps.TilemapLayer | null;
     private playerSprite! : PlayableCharacterObject;
     private player : Player;
-    private navMeshPolygons : Array<Array<IsometricCoordinates>>;
+    private navMeshPolygons : Array<Array<{ x: number, y: number }>>;
     private characterSize : number;
     private room : Room;
     private cameraTarget : { x : number, y : number};
@@ -82,7 +74,7 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.navMeshPolygons = [];
 
-        this.characterSize = 8;
+        this.characterSize = 4;
 
         if (player.room === null){
             throw new Error('player should have a room');
@@ -152,10 +144,10 @@ export default class DaedalusScene extends Phaser.Scene
 
         //this variable is used for depth sorting
         //max isoX and max isoY should be represented at the same depth layer
-        const sceneAspectRatio: IsometricDistance = {
-            x: Math.max(sceneIsoSizeX, sceneIsoSizeY) - sceneIsoSizeX,
-            y: Math.max(sceneIsoSizeX, sceneIsoSizeY) - sceneIsoSizeY
-        };
+        const sceneAspectRatio = new IsometricCoordinates(
+            Math.max(sceneIsoSizeX, sceneIsoSizeY) - sceneIsoSizeX,
+            Math.max(sceneIsoSizeX, sceneIsoSizeY) - sceneIsoSizeY
+        );
 
         const tilesets = [
             map.addTilesetImage('ground_tileset', 'ground_tileset'),
@@ -163,17 +155,19 @@ export default class DaedalusScene extends Phaser.Scene
         ];
 
 
-        //this shift is yet to be understood, but it is required to align tile layers with object layers
-        const tileSize = 16;
-        const magicalShift: CartesianDistance = { x: -tileSize, y: tileSize - 72 }; //Why ????
+        // ground and wall tilesets are aligned to their top left, contrary to objects,
+        // tilemaps must be then shifted to set the center of the ground tile (only the 32 x 32 at the bottom)
+        const tilemapsShift = new CartesianCoordinates(- 16, -(72 - 16));
+        const objectsShift = new CartesianCoordinates(0, 0);
 
 
 
+        const groundTilesThickness = 4;
         const globalPolygon = [
-            { x: 2 * IsoTileSize + this.characterSize, y: 2 * IsoTileSize + this.characterSize },
-            { x: (map.width - 2) * IsoTileSize - this.characterSize, y: 2 * IsoTileSize + this.characterSize },
-            { x: (map.width - 2) * IsoTileSize- this.characterSize, y: (map.height - 2) * IsoTileSize - this.characterSize },
-            { x: 2 * IsoTileSize + this.characterSize, y: (map.height - 2) * IsoTileSize - this.characterSize }
+            { x: 2 * IsoTileSize - groundTilesThickness + this.characterSize, y: 2 * IsoTileSize - groundTilesThickness + this.characterSize },
+            { x: (map.width - 2) * IsoTileSize- groundTilesThickness - this.characterSize, y: 2 * IsoTileSize + groundTilesThickness- this.characterSize },
+            { x: (map.width - 2) * IsoTileSize- groundTilesThickness - this.characterSize, y: (map.height - 2) * IsoTileSize - groundTilesThickness - this.characterSize },
+            { x: 2 * IsoTileSize- groundTilesThickness + this.characterSize, y: (map.height - 2) * IsoTileSize- groundTilesThickness- this.characterSize }
         ];
 
         this.navMeshPolygons.push(globalPolygon);
@@ -181,35 +175,59 @@ export default class DaedalusScene extends Phaser.Scene
 
         (<Phaser.Renderer.WebGL.WebGLRenderer>this.game.renderer).pipelines.addPostPipeline('outline', OutlinePostFx );
 
-        map.createLayer('wallBack', tilesets, magicalShift.x, magicalShift.y);
+        map.createLayer('wallBack', tilesets, tilemapsShift.x, tilemapsShift.y);
 
-        this.createFromTiledObject(map.getObjectLayer('doors'), this, map.tilesets, { x: 0, y: 0 }, sceneAspectRatio, this.room);
+        this.createFromTiledObject(map.getObjectLayer('doors'), this, map.tilesets, objectsShift, sceneAspectRatio, this.room);
 
-        map.createLayer('wall', tilesets, magicalShift.x, magicalShift.y);
+        map.createLayer('wall', tilesets, tilemapsShift.x, tilemapsShift.y);
 
-        this.layer = map.createLayer('ground', tilesets, magicalShift.x, magicalShift.y);
-
-
-        this.createFromTiledObject(map.getObjectLayer('objects'), this, map.tilesets, { x: 0, y: 0 }, sceneAspectRatio, this.room);
+        this.layer = map.createLayer('ground', tilesets, tilemapsShift.x, tilemapsShift.y);
 
 
+        this.createFromTiledObject(map.getObjectLayer('objects'), this, map.tilesets, objectsShift, sceneAspectRatio, this.room);
 
-        this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshPolygons, 8);
 
 
-        // const debugGraphics = this.add.graphics().setAlpha(1);
-        // this.navMesh.enableDebug(debugGraphics);
-        // this.navMesh.debugDrawClear(); // Clears the overlay
-        // // Visualize the underlying navmesh
-        // this.navMesh.debugDrawMesh({
-        //     drawCentroid: true,
-        //     drawBounds: false,
-        //     drawNeighbors: true,
-        //     drawPortals: true
-        // });
+        this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshPolygons, 0);
+
+
+        /* // navMesh Debug
+        const debugGraphics = this.add.graphics().setAlpha(1);
+        for (let i = 0; i < this.navMeshPolygons.length; i++) {
+            const polygon = this.navMeshPolygons[i];
+
+            let maxX = polygon[0].x;
+            let minX = polygon[0].x;
+            let maxY = polygon[0].y;
+            let minY = polygon[0].y;
+
+            polygon.forEach((point: {x: number, y: number}) => {
+                if (point.x >maxX) { maxX = point.x; }
+                if (point.y >maxY) { maxY = point.y; }
+                if (point.x <minX) { minX = point.x; }
+                if (point.y <minY) { minY = point.y; }
+            });
+
+            const cartPoly = new IsometricGeom(new IsometricCoordinates((maxX+minX)/2, (maxY+minY)/2), new IsometricCoordinates(maxX-minX, maxY-minY));
+            debugGraphics.fillStyle(0x00ff08, 0.5);
+            debugGraphics.lineStyle(1, 0x000000, 1.0);
+            debugGraphics.fillPoints(cartPoly.getCartesianPolygon().points, true);
+            debugGraphics.strokePoints(cartPoly.getCartesianPolygon().points, true);
+        }
+
+        const debugGraphics2 = this.add.graphics().setAlpha(1);
+        this.navMesh.enableDebug(debugGraphics2);
+        this.navMesh.debugDrawClear(); // Clears the overlay
+        // Visualize the underlying navmesh
+        this.navMesh.debugDrawMesh({
+            drawCentroid: true,
+            drawBounds: false,
+            drawNeighbors: true,
+            drawPortals: true
+        });*/
 
         //place the starting camera.
-        //If the scene size is larger than the camera the camera is centered on the player
+        //If the scene size is larger than the camera, the camera is centered on the player
         //else it is centered on the scene
         const playerCoordinates = this.getPlayerCoordinates();
 
@@ -259,10 +277,11 @@ export default class DaedalusScene extends Phaser.Scene
                     //is the tile on fire
                     if (Math.random() < 0.2) {
                         //intensity of fire
+                        const tileCoordinates = new IsometricCoordinates(8 + i*16, 8 + (j+1) * 16);
                         if (Math.random() > 0.2) {
-                            this.createFireCell({ x: i * 16, y: (j+1) * 16 }, 1);
+                            this.createFireCell(tileCoordinates, 1);
                         } else {
-                            this.createFireCell({ x: i * 16, y: (j+1) * 16 }, 2);
+                            this.createFireCell(tileCoordinates, 2);
                         }
                     }
                 }
@@ -275,7 +294,7 @@ export default class DaedalusScene extends Phaser.Scene
         const particles = this.add.particles('fire_particles');
 
 
-        const tile = new IsometricGeom({ x: isoCoords.x, y: isoCoords.y }, { x: 16, y: 16 });
+        const tile = new IsometricGeom(isoCoords, new IsometricCoordinates(16, 16));
 
         particles.createEmitter({
             frame: ['flame1', 'flame2'],
@@ -328,20 +347,28 @@ export default class DaedalusScene extends Phaser.Scene
     }
 
 
-    createPlayers(sceneAspectRatio: CartesianDistance, playerCoordinates: CartesianCoordinates): void
+    createPlayers(sceneAspectRatio: IsometricCoordinates, playerCoordinates: CartesianCoordinates): void
     {
+        const playerIsoSize = new IsometricCoordinates(16,16);
+        let feetCenter = new CartesianCoordinates(playerCoordinates.x, playerCoordinates.y + 16);
+
         this.playerSprite = new PlayableCharacterObject(
             this,
             playerCoordinates,
+            new IsometricGeom(feetCenter.toIsometricCoordinates(), playerIsoSize),
             sceneAspectRatio,
             this.player
         );
 
         this.room.players.forEach((roomPlayer: Player) => {
             if (roomPlayer.id !== this.player.id) {
+                const otherPlayerCoordinates = this.getPlayerCoordinates();
+                feetCenter = new CartesianCoordinates(otherPlayerCoordinates.x, otherPlayerCoordinates.y + 16);
+
                 new CharacterObject(
                     this,
-                    this.getPlayerCoordinates(),
+                    otherPlayerCoordinates,
+                    new IsometricGeom(feetCenter.toIsometricCoordinates(), playerIsoSize),
                     sceneAspectRatio,
                     roomPlayer
                 );
@@ -355,14 +382,16 @@ export default class DaedalusScene extends Phaser.Scene
 
         const polyExtremum = this.getPolygonExtremum(randomPoly);
 
-        const randomX = polyExtremum.min.x + Math.random() * (polyExtremum.max.x - polyExtremum.min.x);
-        const randomY = polyExtremum.min.y + Math.random() * (polyExtremum.max.y - polyExtremum.min.y);
+        const randomIsoCord = new IsometricCoordinates(
+            polyExtremum.min.x + Math.random() * (polyExtremum.max.x - polyExtremum.min.x),
+            polyExtremum.min.y + Math.random() * (polyExtremum.max.y - polyExtremum.min.y)
+        );
 
-        const cartCoords = toCartesianCoords({ x : randomX, y: randomY });
+        const cartCoords = randomIsoCord.toCartesianCoordinates();
 
         //Coordinates of player in the navMesh is given relative to the feet of the player
         //Coordinates given in the constructor of player are the center of the sprite
-        cartCoords.y = cartCoords.y - 24;
+        cartCoords.setTo(cartCoords.x, cartCoords.y - 16);
 
         return cartCoords;
     }
@@ -371,8 +400,8 @@ export default class DaedalusScene extends Phaser.Scene
         objectLayer: Phaser.Tilemaps.ObjectLayer,
         scene: Phaser.Scene,
         tilesets: Array<Phaser.Tilemaps.Tileset>,
-        shift: CartesianDistance,
-        sceneAspectRatio: IsometricDistance,
+        shift: CartesianCoordinates,
+        sceneAspectRatio: IsometricCoordinates,
         room: Room
     ): Array<Phaser.GameObjects.GameObject>
     {
@@ -401,8 +430,8 @@ export default class DaedalusScene extends Phaser.Scene
     }
 
 
-    //This function extract the tileset corresponding to a given gid
-    // //(is gid comprised between first gid of this tileset and the first gid of next tileset)
+    // This function extract the tileset corresponding to a given gid
+    // (is gid comprised between first gid of this tileset and the first gid of next tileset)
     getTileset(tilesets: any, gid: number): any
     {
         let chosenTileset = tilesets[0];
@@ -425,8 +454,8 @@ export default class DaedalusScene extends Phaser.Scene
     createPhaserObject(
         obj: Phaser.Types.Tilemaps.TiledObject,
         tileset: Phaser.Tilemaps.Tileset,
-        shift: CartesianDistance,
-        sceneAspectRatio: IsometricDistance
+        shift: CartesianCoordinates,
+        sceneAspectRatio: IsometricCoordinates
     ): Phaser.GameObjects.GameObject
     {
         //object coordinates are stored in tiled in iso coords
@@ -446,13 +475,13 @@ export default class DaedalusScene extends Phaser.Scene
         switch (obj.type)
         {
         case 'decoration':
-            return new DecorationObject(this, cart_coords, this.getIsoCenter(obj), tileset, frame, name, sceneAspectRatio);
+            return new DecorationObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, sceneAspectRatio);
 
         case 'door':
             // @ts-ignore
             const currentDoor = this.room.doors.find((door: DoorEntity) => (door.key === obj.name));
             if (typeof currentDoor !== "undefined") {
-                return new DoorObject(this, cart_coords, this.getIsoCenter(obj), tileset, frame, currentDoor, sceneAspectRatio);
+                return new DoorObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, currentDoor, sceneAspectRatio);
             }
 
         case 'door_ground':
@@ -460,17 +489,17 @@ export default class DaedalusScene extends Phaser.Scene
                 return (door.key === obj.name);
             });
             if (typeof currentDoorGround !== "undefined") {
-                return new DoorGroundObject(this, cart_coords, this.getIsoCenter(obj), tileset, frame, currentDoorGround, sceneAspectRatio);
+                return new DoorGroundObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, currentDoorGround, sceneAspectRatio);
             }
         case 'interact':
             const currentEquipment = this.room.equipments.find((equipment: Equipment) => (equipment.key === obj.name));
             if (typeof currentEquipment !== "undefined") {
-                return new EquipmentObject(this, cart_coords, this.getIsoCenter(obj), tileset, frame, currentEquipment, sceneAspectRatio);
+                return new EquipmentObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, currentEquipment, sceneAspectRatio);
             }
 
         case 'shelf':
             this.updateNavMesh(obj);
-            return new ShelfObject(this, cart_coords, this.getIsoCenter(obj), tileset, frame, name, sceneAspectRatio);
+            return new ShelfObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, sceneAspectRatio);
         }
 
         throw new Error(obj.name + "does not exist");
@@ -481,20 +510,9 @@ export default class DaedalusScene extends Phaser.Scene
     updateNavMesh(obj: Phaser.Types.Tilemaps.TiledObject): void
     {
         //get object coordinates
-        const isoCoords = this.getIsoCenter(obj);
-        const isoSize = this.getObjectIsoSize(obj);
+        const isoGeom = this.getIsometricGeom(obj).enlargeGeom(this.characterSize);
 
-
-        const objSize = {
-            max: {
-                x: isoCoords.x + isoSize.x/2 + this.characterSize,
-                y: isoCoords.y + isoSize.y/2 + this.characterSize
-            },
-            min: {
-                x: isoCoords.x - isoSize.x/2 - this.characterSize,
-                y: isoCoords.y - isoSize.y/2 - this.characterSize
-            }
-        };
+        const objSize = { max: isoGeom.getMaxIso(), min: isoGeom.getMinIso() };
 
 
         const newNavMeshPolys = [];
@@ -565,10 +583,10 @@ export default class DaedalusScene extends Phaser.Scene
     }
 
 
-    getPolygonExtremum(polygon: Array<IsometricCoordinates>): { max: IsometricCoordinates, min: IsometricCoordinates }
+    getPolygonExtremum(polygon: Array<{ x: number, y: number }>): { max: IsometricCoordinates, min: IsometricCoordinates }
     {
-        const min = { x: polygon[0].x, y: polygon[0].y };
-        const max = { x: polygon[0].x, y: polygon[0].y };
+        const min = new IsometricCoordinates(polygon[0].x, polygon[0].y);
+        const max = new IsometricCoordinates(polygon[0].x, polygon[0].y);
 
         for (let i = 1; i < polygon.length; i++) {
             if (polygon[i].x > max.x) {
@@ -588,7 +606,7 @@ export default class DaedalusScene extends Phaser.Scene
     }
 
 
-    //tiled object coordinates are isometric
+    //tiled object coordinates in the isometric frame
     //This function computes cartesian coordinates for the object
     getObjectCartesianCoordinates(obj: Phaser.Types.Tilemaps.TiledObject, shift: CartesianCoordinates): CartesianCoordinates
     {
@@ -596,23 +614,25 @@ export default class DaedalusScene extends Phaser.Scene
             throw new Error('coordinates should be provided');
         }
 
-        const cartCoords = toCartesianCoords({ x: obj.x, y: obj.y });
+        const isoCoords = new IsometricCoordinates(obj.x, obj.y);
+        const cartCoords = isoCoords.toCartesianCoordinates();
 
         //The tiled coordinates should be given relative to the bottom left of the object
         //hence this shift of half the size of the sprite
-        return { x : cartCoords.x + obj.width/2 + shift.x, y: cartCoords.y - obj.height/2 + shift.y };
+        return new CartesianCoordinates(cartCoords.x + shift.x, cartCoords.y + shift.y);
     }
 
 
     //Isometric size of the object is stored as a custom property of the object
-    getObjectIsoSize(obj: Phaser.Types.Tilemaps.TiledObject): IsometricDistance
+    getObjectIsoSize(obj: Phaser.Types.Tilemaps.TiledObject): IsometricCoordinates
     {
-        const isoSize = { x: 0, y: 0 };
+        const isoSize = new IsometricCoordinates(0,0);
         for (let i = 0; i < obj.properties.length; i++) {
             if (obj.properties[i].name === 'isoSizeX') {
-                isoSize.x = obj.properties[i].value;
+                isoSize.setTo(obj.properties[i].value, isoSize.y);
+
             } else if (obj.properties[i].name === 'isoSizeY') {
-                isoSize.y = obj.properties[i].value;
+                isoSize.setTo(isoSize.x, obj.properties[i].value);
             }
         }
         return isoSize;
@@ -633,22 +653,21 @@ export default class DaedalusScene extends Phaser.Scene
     //bounding box of the object is not really fit to the object (due to isometric projection)
     //let compute the coordinates of the bottom left of the object in isometric coordinates
     //to do this we use the isoSizeX and isoSizeY custom properties of the object
-    getIsoCenter(obj: Phaser.Types.Tilemaps.TiledObject): IsometricCoordinates
+    getIsometricGeom(obj: Phaser.Types.Tilemaps.TiledObject): IsometricGeom
     {
-        if (obj.x === undefined || obj.y === undefined){
+        if (obj.x === undefined || obj.y === undefined || obj.height === undefined){
             throw new Error('coordinates should be provided');
         }
 
-        //first compute cartesian coords (because the bounding box of the objet have a cartesian shape
-        const cartBoundingX = (obj.x - obj.y);
-        const cartBoundingY = (obj.x + obj.y)/2;
-
-        //no lets get the cart coords of the true bottom left of the object (only y changes)
         const isoSize = this.getObjectIsoSize(obj);
 
+        const CartCoords = (new IsometricCoordinates(obj.x, obj.y)).toCartesianCoordinates();
 
-        const cartObjectY = cartBoundingY - isoSize.x/2;
-        //now get back to isoCoords...
-        return { x: (cartObjectY + cartBoundingX/2) + isoSize.x/2, y: (cartObjectY - cartBoundingX/2) - isoSize.y/2 };
+        //The center of the isometric shape is different from the center of the sprite (i.e. we need to remove the height part of the object
+        const cartGroundCenter = new CartesianCoordinates(CartCoords.x, CartCoords.y + obj.height/2 - (isoSize.x + isoSize.y)/4);
+
+        const isoCoords = cartGroundCenter.toIsometricCoordinates();
+
+        return new IsometricGeom(isoCoords, isoSize);
     }
 }

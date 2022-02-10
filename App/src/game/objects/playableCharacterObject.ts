@@ -1,17 +1,18 @@
 import DaedalusScene from "@/game/scenes/daedalusScene";
 
 import CharacterObject from "@/game/objects/characterObject";
-import { IsometricCoordinates, CartesianCoordinates, IsometricDistance, toIsometricCoords, toCartesianCoords } from "@/game/types";
+import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
 import { Player } from "@/entities/Player";
+import IsometricGeom from "@/game/objects/isometricGeom";
 
 /*eslint no-unused-vars: "off"*/
 export default class PlayableCharacterObject extends CharacterObject {
     private isoPath : Array<{ direction: string, cartX: number, cartY: number }>;
     private currentMove : number;
 
-    constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, sceneAspectRatio: IsometricDistance, player: Player)
+    constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, isoGeom: IsometricGeom, sceneAspectRatio: IsometricCoordinates, player: Player)
     {
-        super(scene, cart_coords, sceneAspectRatio, player);
+        super(scene, cart_coords, isoGeom, sceneAspectRatio, player);
 
         this.isoPath = [];
         this.currentMove = -1;
@@ -25,6 +26,10 @@ export default class PlayableCharacterObject extends CharacterObject {
     update(): void
     {
         this.movement();
+
+        // const debugGraphics = this.scene.add.graphics().setAlpha(1);
+        // debugGraphics.fillStyle(0xfbff00, 1);
+        // debugGraphics.fillPointShape(this.getFeetCartCoords(), 5);
     }
 
 
@@ -32,15 +37,26 @@ export default class PlayableCharacterObject extends CharacterObject {
     //this function return an array of direction to follow to get from character position to the pointed coordinates
     getCartPath(pointer: Phaser.Input.Pointer): Array<{ direction: string, cartX: number, cartY: number }>
     {
-        const startingPoint = toIsometricCoords({ x: this.x, y: this.getFeetY() });
-        const finishPoint = toIsometricCoords({ x: pointer.worldX, y: pointer.worldY });
+        const startingPoint = this.getFeetCartCoords().toIsometricCoordinates();
+        const finishPoint = (new CartesianCoordinates(pointer.worldX, pointer.worldY)).toIsometricCoordinates();
 
 
         //find the path in isometric coordinates using navMeshPlugin
         const path = this.navMesh.findPath({ x: startingPoint.x, y: startingPoint.y }, { x: finishPoint.x, y: finishPoint.y });
 
-        // @ts-ignore
-        //this.navMesh.debugDrawPath(path, 0xffd900);;
+        /* // @ts-ignore
+        this.navMesh.debugDrawPath(path, 0xffd900);;
+
+        const debugGraphics = this.scene.add.graphics().setAlpha(1);
+        debugGraphics.fillStyle(0xff0000, 1);
+        debugGraphics.lineStyle(1, 0x000000, 1.0);
+        if (path !== null){
+            for (let i = 1; i < path.length; i++) {
+                const isoCoord = new IsometricCoordinates(path[i].x, path[i].y);
+                debugGraphics.fillPointShape(isoCoord.toCartesianCoordinates(), 5);
+            }
+        }*/
+
 
         if (path !== null){
             this.isoPath = [];
@@ -48,6 +64,7 @@ export default class PlayableCharacterObject extends CharacterObject {
 
             //now convert the isometric path into a cartesian path
             for (let i = 1; i < path.length; i++) {
+
 
                 const deltaEW = path[i].x - path[i-1].x;
                 const deltaNS = path[i].y - path[i-1].y;
@@ -57,8 +74,8 @@ export default class PlayableCharacterObject extends CharacterObject {
 
                 //if the character only move NS or EW in the current part of the path
                 if (deltaNS === 0 || deltaEW === 0){
-                    cartPoint = toCartesianCoords({ x: path[i].x, y: path[i].y });
-                    direction = this.getDirection( { x: path[i-1].x, y: path[i-1].y }, { x: path[i].x, y: path[i].y });
+                    cartPoint = (new IsometricCoordinates(path[i].x, path[i].y)).toCartesianCoordinates();
+                    direction = this.getDirection( new IsometricCoordinates(path[i-1].x, path[i-1].y), new IsometricCoordinates(path[i].x, path[i].y));
 
                     this.isoPath.push({ "direction": direction, "cartX": cartPoint.x, "cartY": cartPoint.y });
 
@@ -67,17 +84,17 @@ export default class PlayableCharacterObject extends CharacterObject {
                     let intermediatePoint = null;
                     //randomly choose if the character is going to complete first the EW of NS component
                     if (Math.random() > 0.5){
-                        intermediatePoint = { x: path[i].x, y: path[i - 1].y };
+                        intermediatePoint = new IsometricCoordinates(path[i].x, path[i - 1].y);
                     } else {
-                        intermediatePoint = { x: path[i - 1].x, y: path[i].y };
+                        intermediatePoint = new IsometricCoordinates(path[i - 1].x, path[i].y);
                     }
 
-                    cartPoint = toCartesianCoords(intermediatePoint);
-                    direction = this.getDirection({ x: path[i-1].x, y: path[i-1].y }, intermediatePoint);
+                    cartPoint = intermediatePoint.toCartesianCoordinates();
+                    direction = this.getDirection(new IsometricCoordinates(path[i-1].x, path[i-1].y), intermediatePoint);
                     this.isoPath.push({ direction: direction, "cartX": cartPoint.x, "cartY": cartPoint.y });
 
-                    cartPoint = toCartesianCoords({ x: path[i].x, y: path[i].y });
-                    direction = this.getDirection(intermediatePoint, { x: path[i].x, y: path[i].y });
+                    cartPoint = (new IsometricCoordinates(path[i].x, path[i].y)).toCartesianCoordinates();
+                    direction = this.getDirection(intermediatePoint, new IsometricCoordinates(path[i].x, path[i].y));
                     this.isoPath.push({ "direction": direction, "cartX": cartPoint.x, "cartY": cartPoint.y });
                 }
             }
@@ -85,6 +102,7 @@ export default class PlayableCharacterObject extends CharacterObject {
 
         return this.isoPath;
     }
+
 
     //Get direction from two points in isometric format
     // Iso directions    Iso coordinates     Cart coordinates
@@ -118,7 +136,7 @@ export default class PlayableCharacterObject extends CharacterObject {
 
         const distance = Math.sqrt(
             Math.pow(this.isoPath[this.currentMove].cartX - this.x, 2) +
-            Math.pow(this.isoPath[this.currentMove].cartY - this.getFeetY(), 2)
+            Math.pow(this.isoPath[this.currentMove].cartY - this.getFeetCartCoords().y, 2)
         );
 
 
@@ -206,7 +224,7 @@ export default class PlayableCharacterObject extends CharacterObject {
 
         }
 
-        const iso_coords = toIsometricCoords({ x: this.x, y: this.getFeetY() });
-        this.setDepth(Math.max(iso_coords.x + this.sceneAspectRatio.x, iso_coords.y + this.sceneAspectRatio.y)*1000 + this.getFeetY());
+        const iso_coords = this.getFeetCartCoords().toIsometricCoordinates();
+        this.setDepth(Math.max(iso_coords.x + this.sceneAspectRatio.x, iso_coords.y + this.sceneAspectRatio.y)*1000 + this.getFeetCartCoords().y);
     }
 }

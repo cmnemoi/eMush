@@ -26,7 +26,7 @@ function launch(containerId: any, player: Player): Phaser.Game {
         physics: {
             default: 'arcade',
             arcade: {
-                debug: true
+                debug: false
             }
         }
     });

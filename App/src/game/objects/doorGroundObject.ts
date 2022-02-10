@@ -1,10 +1,11 @@
 import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
-import { CartesianCoordinates, IsometricCoordinates, IsometricDistance } from "@/game/types";
+import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import { Door as DoorEntity } from "@/entities/Door";
 import store from "@/store";
 import { Action } from "@/entities/Action";
 import InteractObject from "@/game/objects/interactObject";
+import IsometricGeom from "@/game/objects/isometricGeom";
 
 
 /*eslint no-unused-vars: "off"*/
@@ -14,14 +15,14 @@ export default class DoorGroundObject extends InteractObject {
     constructor(
         scene: DaedalusScene,
         cart_coords: CartesianCoordinates,
-        iso_coords: IsometricCoordinates,
+        iso_geom: IsometricGeom,
         tileset: Phaser.Tilemaps.Tileset,
         firstFrame: number,
         door: DoorEntity,
-        sceneAspectRatio: IsometricDistance
+        sceneAspectRatio: IsometricCoordinates
     )
     {
-        super(scene, cart_coords, iso_coords, tileset, firstFrame, door.key, sceneAspectRatio);
+        super(scene, cart_coords, iso_geom, tileset, firstFrame, door.key, sceneAspectRatio);
 
         this.door = door;
 

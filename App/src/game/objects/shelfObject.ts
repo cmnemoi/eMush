@@ -1,22 +1,23 @@
 import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
 import store from '@/store/index';
-import { IsometricCoordinates, CartesianCoordinates, CartesianDistance, IsometricDistance, toIsometricCoords } from "@/game/types";
+import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
 import DecorationObject from "@/game/objects/decorationObject";
 import InteractObject from "@/game/objects/interactObject";
+import IsometricGeom from "@/game/objects/isometricGeom";
 
 /*eslint no-unused-vars: "off"*/
 export default class ShelfObject extends InteractObject {
     constructor(
         scene: DaedalusScene,
         cart_coords: CartesianCoordinates,
-        iso_coords: IsometricCoordinates,
+        iso_geom: IsometricGeom,
         tileset: Phaser.Tilemaps.Tileset,
         frame: number,
         name: string,
-        sceneAspectRatio: IsometricDistance)
+        sceneAspectRatio: IsometricCoordinates)
     {
-        super(scene, cart_coords, iso_coords, tileset, frame, 'shelf', sceneAspectRatio);
+        super(scene, cart_coords, iso_geom, tileset, frame, 'shelf', sceneAspectRatio);
 
 
         //If this is clicked then:

@@ -34,8 +34,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":19,
-                 "y":255
+                 "x":13.3333333333333,
+                 "y":220.666666666667
                 }, 
                 {
                  "gid":113,
@@ -52,8 +52,8 @@
                  "type":"door",
                  "visible":true,
                  "width":48,
-                 "x":20,
-                 "y":236
+                 "x":-4.125,
+                 "y":187.625
                 }, 
                 {
                  "gid":50,
@@ -70,8 +70,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":47.1666666666667,
-                 "y":48.1666666666667
+                 "x":45.3333333333334,
+                 "y":13.3333333333334
                 }, 
                 {
                  "gid":137,
@@ -88,8 +88,8 @@
                  "type":"door",
                  "visible":true,
                  "width":48,
-                 "x":37.6666666666667,
-                 "y":44.3333333333333
+                 "x":12.8333333333334,
+                 "y":-4.16666666666669
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -157,8 +157,8 @@
                  "type":"shelf",
                  "visible":true,
                  "width":35,
-                 "x":36.55,
-                 "y":149.550889328063
+                 "x":24.05,
+                 "y":151.384222661396
                 }, 
                 {
                  "gid":277,
@@ -185,8 +185,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":14,
-                 "x":-2,
-                 "y":156
+                 "x":-8.125,
+                 "y":158.625
                 }, 
                 {
                  "gid":257,
@@ -231,8 +231,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":79,
-                 "y":255
+                 "x":76.8333333333333,
+                 "y":221.166666666667
                 }, 
                 {
                  "gid":45,
@@ -249,8 +249,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":47,
-                 "y":463
+                 "x":44.1666666666667,
+                 "y":428.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -262,7 +262,7 @@
  "nextobjectid":32,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.0",
  "tileheight":16,
  "tilesets":[
         {
@@ -279,7 +279,7 @@
          "imagewidth":960,
          "margin":0,
          "name":"ground_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":30,
          "tileheight":72,
@@ -299,7 +299,7 @@
          "imagewidth":448,
          "margin":0,
          "name":"wall_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":14,
          "tileheight":72,
@@ -319,7 +319,7 @@
          "imagewidth":320,
          "margin":0,
          "name":"door_ground_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":20,
          "tileheight":36,
@@ -436,7 +436,7 @@
          "imagewidth":1152,
          "margin":0,
          "name":"door_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":192,
          "tileheight":73,
@@ -1251,7 +1251,7 @@
          "imagewidth":350,
          "margin":0,
          "name":"camera_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":14,
          "tileheight":17,
@@ -1378,7 +1378,7 @@
          "imagewidth":140,
          "margin":0,
          "name":"shelf_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
          "tileheight":42,
@@ -1392,7 +1392,7 @@
          "imagewidth":56,
          "margin":0,
          "name":"wall_box",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
          "tileheight":15,
@@ -1400,6 +1400,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":6
 }

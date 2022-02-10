@@ -1,11 +1,12 @@
 import * as Phaser from "phaser";
 import Vector2 = Phaser.Math.Vector2;
 import DaedalusScene from "@/game/scenes/daedalusScene";
-import { CartesianCoordinates, IsometricCoordinates, IsometricDistance } from "@/game/types";
+import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import { Door as DoorEntity } from "@/entities/Door";
 import { Action } from "@/entities/Action";
 import store from "@/store";
 import InteractObject from "@/game/objects/interactObject";
+import IsometricGeom from "@/game/objects/isometricGeom";
 
 
 export default class DoorObject extends InteractObject {
@@ -16,14 +17,14 @@ export default class DoorObject extends InteractObject {
     constructor(
         scene: DaedalusScene,
         cart_coords: CartesianCoordinates,
-        iso_coords: IsometricCoordinates,
+        iso_geom: IsometricGeom,
         tileset: Phaser.Tilemaps.Tileset,
         tiledFrame: number,
         door: DoorEntity,
-        sceneAspectRatio: IsometricDistance
+        sceneAspectRatio: IsometricCoordinates
     )
     {
-        super(scene, cart_coords, iso_coords, tileset, tiledFrame, door.key, sceneAspectRatio);
+        super(scene, cart_coords, iso_geom, tileset, tiledFrame, door.key, sceneAspectRatio);
 
         this.door = door;
 
@@ -35,7 +36,7 @@ export default class DoorObject extends InteractObject {
         // doors are always on the bottom (just in front of the back_wall layer)
         this.setDepth(0);
 
-        this.scene.input.enableDebug(this, 0xff00ff);
+        //this.scene.input.enableDebug(this, 0xff00ff);
 
         this.createAnimations();
 

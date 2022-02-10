@@ -1,6 +1,6 @@
 import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
-import { IsometricCoordinates, CartesianCoordinates, IsometricDistance } from "@/game/types";
+import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
 import { Equipment } from "@/entities/Equipment";
 import store from "@/store";
 import WhiteOutlinePipeline from "@/game/pipeline/shader";
@@ -16,14 +16,14 @@ export default class EquipmentObject extends InteractObject {
     constructor(
         scene: DaedalusScene,
         cart_coords: CartesianCoordinates,
-        iso_coords: IsometricCoordinates,
+        iso_geom: IsometricGeom,
         tileset: Phaser.Tilemaps.Tileset,
         frame: number,
         equipment: Equipment,
-        sceneAspectRatio: IsometricDistance
+        sceneAspectRatio: IsometricCoordinates
     )
     {
-        super(scene, cart_coords, iso_coords, tileset, frame, equipment.key, sceneAspectRatio);
+        super(scene, cart_coords, iso_geom, tileset, frame, equipment.key, sceneAspectRatio);
 
         this.equipment = equipment;
 
@@ -33,15 +33,11 @@ export default class EquipmentObject extends InteractObject {
         });
 
 
-        //const groundShape = new IsometricGeom({ x: this.x, y: this.y }, { x: this.width, y: this.height });
-        const groundShape = new Phaser.Geom.Polygon(
-            [
-                new Vector2(this.x - this.width/2, this.y - this.height/2),
-                new Vector2(this.x + this.width/2, this.y - this.height/2),
-                new Vector2(this.x + this.width/2, this.y + this.height/2),
-                new Vector2(this.x - this.width/2, this.y + this.height/2),
-            ]
-        );
+        // const graphics = this.scene.add.graphics();
+        // graphics.lineStyle(5, 0xFFFFFF, 1.0);
+        // graphics.fillStyle(0x00ff08, 0.5);
+        // graphics.fillPoints(iso_geom.getCartesianPolygon().points, true);
+
 
         if (this.equipment.isBroken) {
             const particles = this.scene.add.particles('smoke_particle');
@@ -57,6 +53,7 @@ export default class EquipmentObject extends InteractObject {
                 alpha: { start: 0.5, end: 0, ease: 'Quad.easeIn' },
                 tint: [ 0x666666, 0xFFFFFF, 0x10EEEEEE ],
                 quantity: 1,
+                frequency: 100000/(this.width * this.height ),
                 //@ts-ignore
                 emitZone: { type: 'random', source: this }
             });

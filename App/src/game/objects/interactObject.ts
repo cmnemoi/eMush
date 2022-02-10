@@ -59,4 +59,12 @@ export default class InteractObject extends DecorationObject {
     {
         return (<DaedalusScene>this.scene).selectedGameObject === this;
     }
+
+    getRandomPoint(point: Phaser.Geom.Point): Phaser.Geom.Point {
+
+        const x = Phaser.Math.Between(0, this.width - 1);
+        const y = Phaser.Math.Between(0, this.height - 1);
+
+        return point.setTo(x + this.x, - y + this.y);
+    }
 }

@@ -2,7 +2,7 @@
     <div class="daedalus-alarms">
         <p v-if="!loadingAlerts" class="calme">
             <span v-if="isNoAlert && alerts.length > 0">
-                <Tippy tag="div">
+                <Tippy>
                     <img :src="alertIcon(alerts[0])">{{ alerts[0].name }}
                     <template #content>
                         <h1>{{ alerts[0].name }}</h1>

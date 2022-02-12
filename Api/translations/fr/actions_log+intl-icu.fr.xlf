@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
     <file id="actions_log.ext">
+        <unit id="check_spore_level">
+            <segment id="check_spore_level">
+                <source>check_spore_level</source>
+                <target>Vous entamez une détection des traces Mush... Niveau pré-fongique {quantity, select, 0 {nul} other {{quantity}}}</target>
+            </segment>
+        </unit>
         <unit id="coffee_success">
             <segment id="coffee_success">
                 <source>coffee_success</source>

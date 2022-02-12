@@ -53,6 +53,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
 
+        /** @var Action $checkSporeLevelAction */
+        $checkSporeLevelAction = $this->getReference(ActionsFixtures::CHECK_SPORE_LEVEL);
+
         //@TODO terminals
         $icarus = new EquipmentConfig();
         $icarus
@@ -481,7 +484,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$mycoscanMechanic]))
-            ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
+            ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction, $checkSporeLevelAction]))
         ;
         $manager->persist($mycoscan);
         $manager->persist($mycoscanMechanic);

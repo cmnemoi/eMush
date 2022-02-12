@@ -41,6 +41,16 @@
                 <target>Permet de le faire.</target>
             </segment>
         </unit>
+        <unit id="check_spore_level">
+            <segment id="check_spore_level">
+                <source>check_spore_level.name</source>
+                <target>Vérifier</target>
+            </segment>
+            <segment id="description">
+                <source>check_spore_level.description</source>
+                <target>Permet de vérifier son propre niveau d'infection par des spores de Mush.</target>
+            </segment>
+        </unit>
         <unit id="consume">
             <segment id="consume">
                 <source>consume.name</source>

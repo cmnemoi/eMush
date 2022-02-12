@@ -74,6 +74,7 @@ class ActionEnum
     public const ACCES_TERMINAL = 'acces_terminal';
     public const INSTALL_CAMERA = 'install_camera';
     public const REMOVE_CAMERA = 'remove_camera';
+    public const CHECK_SPORE_LEVEL = 'check_spore_level';
 
     // Permanent Player Actions
     public const UNGAG = 'ungag';

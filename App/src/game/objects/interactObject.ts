@@ -3,6 +3,7 @@ import DaedalusScene from "@/game/scenes/daedalusScene";
 import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
 import DecorationObject from "@/game/objects/decorationObject";
 import IsometricGeom from "@/game/objects/isometricGeom";
+import InteractGroup from "@/game/objects/gameObjectGroup";
 
 /*eslint no-unused-vars: "off"*/
 export default class InteractObject extends DecorationObject {
@@ -13,21 +14,21 @@ export default class InteractObject extends DecorationObject {
         tileset: Phaser.Tilemaps.Tileset,
         frame: number,
         name: string,
-        sceneAspectRatio: IsometricCoordinates
+        sceneAspectRatio: IsometricCoordinates,
+        group: Phaser.GameObjects.Group | null = null
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, frame, name, sceneAspectRatio);
+        super(scene, cart_coords, iso_geom, tileset, frame, name, sceneAspectRatio, group);
 
         this.createInteractionArea();
 
 
         this.on('pointerover', () => {
-            if (!this.isSelected()) {this.onHovering();}
+            this.onHovering();
+
         }, this);
 
-        this.on('pointerout', () => {
-            if (!this.isSelected()) {this.removeOutline();}
-        }, this);
+        this.on('pointerout', () => { this.onPointerOut(); }, this);
     }
 
     createInteractionArea():void
@@ -37,13 +38,65 @@ export default class InteractObject extends DecorationObject {
 
     onHovering(): void
     {
+        if (!this.isSelected()) {
+            this.setHoveringOutline();
+            if (this.group !== null) {
+                this.group.getChildren().forEach((object: Phaser.GameObjects.GameObject) => {
+                    if (object instanceof InteractObject) {
+                        object.setHoveringOutline();
+                    }
+                });
+            }
+        }
+    }
+
+    onSelected(): void
+    {
+        this.setSelectedOutline();
+        if (this.group !== null) {
+            this.group.getChildren().forEach((object: Phaser.GameObjects.GameObject) => {
+                if (object instanceof InteractObject) {
+                    object.setSelectedOutline();
+                }
+            });
+        }
+    }
+
+    onPointerOut(): void
+    {
+        if (!this.isSelected()) {
+            this.removeOutline();
+            if (this.group !== null) {
+                this.group.getChildren().forEach((object: Phaser.GameObjects.GameObject) => {
+                    if (object instanceof InteractObject) {
+                        object.removeOutline();
+                    }
+                });
+            }
+        }
+    }
+
+    onClickedOut(): void
+    {
+        this.removeOutline();
+        if (this.group !== null) {
+            this.group.getChildren().forEach((object: Phaser.GameObjects.GameObject) => {
+                if (object instanceof InteractObject) {
+                    object.removeOutline();
+                }
+            });
+        }
+    }
+
+    setHoveringOutline(): void
+    {
         this.setPostPipeline('outline');
         const pipeline = this.postPipelines[0];
         //@ts-ignore
         pipeline.resetFromJSON({ thickness: 1, outlineColor: 0xffffff });
     }
 
-    onSelected(): void
+    setSelectedOutline(): void
     {
         this.setPostPipeline('outline');
         const pipeline = this.postPipelines[0];
@@ -58,7 +111,9 @@ export default class InteractObject extends DecorationObject {
 
     isSelected(): boolean
     {
-        return (<DaedalusScene>this.scene).selectedGameObject === this;
+        const selectedObject = (<DaedalusScene>this.scene).selectedGameObject;
+
+        return selectedObject !== null && selectedObject.name === this.name;
     }
 
     getRandomPoint(point: Phaser.Geom.Point): Phaser.Geom.Point {

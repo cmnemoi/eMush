@@ -11,7 +11,7 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
     public sceneAspectRatio: IsometricCoordinates;
     public isoGeom: IsometricGeom;
     public isoHeight: number;
-
+    protected group: Phaser.GameObjects.Group | null;
 
     constructor(
         scene: DaedalusScene,
@@ -20,7 +20,8 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         tileset: Phaser.Tilemaps.Tileset,
         frame: number,
         name: string,
-        sceneAspectRatio: IsometricCoordinates
+        sceneAspectRatio: IsometricCoordinates,
+        group: Phaser.GameObjects.Group | null = null
     )
     {
         super(scene, cart_coords.x, cart_coords.y, name);
@@ -30,6 +31,7 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         this.sceneAspectRatio = sceneAspectRatio;
         this.isoGeom = iso_geom;
         this.tiledFrame = frame;
+        this.group = group;
 
         //the first sprite to be displayed are the ones on the last row of either x or y isometric coordinates
         //a second order sorting is applied using the y axis of cartesian coordinates
@@ -42,8 +44,11 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         //
         this.setDepth(Math.max(this.isoGeom.getIsoCoords().x + sceneAspectRatio.x, this.isoGeom.getIsoCoords().y + sceneAspectRatio.y)*1000 + this.y + this.width/2);
 
-
         this.scene.add.existing(this);
+
+        if (group !== null) {
+            group.add(this);
+        }
 
         this.applyTexture(tileset, name);
 

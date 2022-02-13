@@ -24,6 +24,13 @@ import centrifuge_object from "@/game/assets/tilemaps/centrifuge_object.png";
 import wall_box from "@/game/assets/tilemaps/wall_box.png";
 import paper_dispenser from "@/game/assets/tilemaps/paper_dispenser.png";
 import desk_object from "@/game/assets/tilemaps/desk_object.png";
+import shelf_front_storage1 from "@/game/assets/tilemaps/shelf_front_storage1.png";
+import shelf_front_storage2 from "@/game/assets/tilemaps/shelf_front_storage2.png";
+import shelf_front_storage3 from "@/game/assets/tilemaps/shelf_front_storage3.png";
+import shelf_front_storage4 from "@/game/assets/tilemaps/shelf_front_storage4.png";
+import papers from "@/game/assets/tilemaps/papers.png";
+import broom from "@/game/assets/tilemaps/broom.png";
+
 
 import character from "@/game/assets/images/characters.png";
 import CharacterObject from "@/game/objects/characterObject";
@@ -37,6 +44,7 @@ import { Door as DoorEntity } from "@/entities/Door";
 import laboratory from "@/game/assets/mush_lab.json";
 import medlab from "@/game/assets/mush_medlab.json";
 import central_corridor from "@/game/assets/central_corridor.json";
+import front_storage from "@/game/assets/front_storage.json";
 import front_corridor from "@/game/assets/front_corridor.json";
 
 
@@ -66,6 +74,7 @@ export default class DaedalusScene extends Phaser.Scene
     private characterSize : number;
     private room : Room;
     private cameraTarget : { x : number, y : number};
+    private groups: Array<Phaser.GameObjects.Group>;
 
     public selectedGameObject : Phaser.GameObjects.GameObject | null;
 
@@ -89,6 +98,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.selectedGameObject = null;
 
         this.cameraTarget = { x: 0 , y: 0 };
+        this.groups = [];
     }
 
 
@@ -97,6 +107,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.tilemapTiledJSON('medlab', medlab);
         this.load.tilemapTiledJSON('laboratory', laboratory);
         this.load.tilemapTiledJSON('central_corridor', central_corridor);
+        this.load.tilemapTiledJSON('front_storage', front_storage);
 
 
         this.load.image('ground_tileset', ground_tileset);
@@ -125,6 +136,13 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.spritesheet('door_object', door_object, { frameHeight: 73, frameWidth: 48 });
         this.load.spritesheet('neron_terminal_object', neron_object, { frameHeight: 64, frameWidth: 41 });
         this.load.spritesheet('shelf_object', shelf_object, { frameHeight: 42, frameWidth: 35 });
+        this.load.spritesheet('papers', papers, { frameHeight: 14, frameWidth: 18 });
+        this.load.spritesheet('broom', broom, { frameHeight: 29, frameWidth: 17 });
+        this.load.spritesheet('shelf_front_storage1', shelf_front_storage1, { frameHeight: 101, frameWidth: 123 });
+        this.load.spritesheet('shelf_front_storage2', shelf_front_storage2, { frameHeight: 91, frameWidth: 111 });
+        this.load.spritesheet('shelf_front_storage3', shelf_front_storage3, { frameHeight: 74, frameWidth: 109 });
+        this.load.spritesheet('shelf_front_storage4', shelf_front_storage4, { frameHeight: 79, frameWidth: 109 });
+
 
         this.load.spritesheet('ground_object', ground_tileset, { frameHeight: 72, frameWidth: 32 });
 
@@ -254,18 +272,26 @@ export default class DaedalusScene extends Phaser.Scene
                 this.selectedGameObject instanceof InteractObject &&
                 this.selectedGameObject !== gameObject
             ) {
-                this.selectedGameObject.removeOutline();
+                this.selectedGameObject.onClickedOut();
                 this.selectedGameObject = gameObject;
             }
             if (gameObject instanceof InteractObject){
                 gameObject.onSelected();
                 this.selectedGameObject = gameObject;
             }
+            if (!(gameObject instanceof DoorObject)) {
+                event.stopPropagation();
+            }
         });
+
+        // this.input.on('pointerdown', () => {
+        //     this.input.stopPropagation();
+        // });
 
         if (this.room.isOnFire) {
             this.displayFire(map.getLayer('ground'));
         }
+
     }
 
     displayFire(layer: Phaser.Tilemaps.LayerData): void
@@ -422,7 +448,8 @@ export default class DaedalusScene extends Phaser.Scene
 
             //if the equipment is present according to the API
             if (!(obj.type === 'interact' && room.equipments.filter(function (equipment: Equipment) {return equipment.key === obj.name;}).length === 0)){
-                results.push(this.createPhaserObject(obj, tileset, shift, sceneAspectRatio));
+                const newObject = this.createPhaserObject(obj, tileset, shift, sceneAspectRatio);
+                results.push(newObject);
             }
         }
 
@@ -472,37 +499,89 @@ export default class DaedalusScene extends Phaser.Scene
             this.updateNavMesh(obj);
         }
 
+        const equipmentEntity = this.getEquipmentFromTiledObject(obj);
+        const group = this.getGroupOfObject(obj, equipmentEntity);
+
         switch (obj.type)
         {
         case 'decoration':
             return new DecorationObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, sceneAspectRatio);
-
         case 'door':
-            // @ts-ignore
-            const currentDoor = this.room.doors.find((door: DoorEntity) => (door.key === obj.name));
-            if (typeof currentDoor !== "undefined") {
-                return new DoorObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, currentDoor, sceneAspectRatio);
+            if (equipmentEntity instanceof DoorEntity) {
+                return new DoorObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity, sceneAspectRatio);
             }
-
         case 'door_ground':
-            const currentDoorGround = this.room.doors.find((door: DoorEntity) => {
-                return (door.key === obj.name);
-            });
-            if (typeof currentDoorGround !== "undefined") {
-                return new DoorGroundObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, currentDoorGround, sceneAspectRatio);
+            if (equipmentEntity instanceof DoorEntity) {
+                return new DoorGroundObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity, sceneAspectRatio);
             }
         case 'interact':
-            const currentEquipment = this.room.equipments.find((equipment: Equipment) => (equipment.key === obj.name));
-            if (typeof currentEquipment !== "undefined") {
-                return new EquipmentObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, currentEquipment, sceneAspectRatio);
+            if (equipmentEntity instanceof Equipment) {
+                return new EquipmentObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity, sceneAspectRatio, group);
             }
-
         case 'shelf':
-            this.updateNavMesh(obj);
-            return new ShelfObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, sceneAspectRatio);
+            return new ShelfObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, sceneAspectRatio, group);
+        }
+        throw new Error(obj.name + "type does not exist");
+    }
+
+    getEquipmentFromTiledObject(obj: Phaser.Types.Tilemaps.TiledObject): DoorEntity | Equipment | undefined
+    {
+        switch (obj.type)
+        {
+        case 'door':
+        case 'door_ground':
+            return this.room.doors.find((door: DoorEntity) => {
+                return (door.key === obj.name);
+            });
+        case 'interact':
+            return this.room.equipments.find((equipment: Equipment) => (equipment.key === obj.name));
         }
 
-        throw new Error(obj.name + "does not exist");
+        return undefined;
+    }
+
+    getGroupOfObject(obj: Phaser.Types.Tilemaps.TiledObject, equipmentEntity: DoorEntity | Equipment | undefined): Phaser.GameObjects.Group | null
+    {
+        if ( !this.isPartOfGroup(obj) ) {
+            return null;
+        } else {
+            let filteredGroups: Array<Phaser.GameObjects.Group> = [];
+            const groupName = this.getGroupName(obj);
+
+            switch (obj.type)
+            {
+            case 'door':
+            case 'door_ground':
+            case 'interact':
+            case 'shelf':
+                filteredGroups = this.groups.filter((group: Phaser.GameObjects.Group) => {
+                    return group.name === groupName;
+                });
+                break;
+            }
+            if (filteredGroups.length === 1) {
+                return filteredGroups[0];
+            } else {
+                const group = this.add.group(undefined, { name: groupName });
+                this.groups.push(group);
+                return group;
+            }
+        }
+    }
+
+    getGroupName(obj: Phaser.Types.Tilemaps.TiledObject): string
+    {
+        switch (obj.type)
+        {
+        case 'door':
+        case 'door_ground':
+        case 'interact':
+            return obj.name;
+        case 'shelf':
+            return 'shelf';
+        }
+
+        return 'undefined';
     }
 
 
@@ -647,6 +726,17 @@ export default class DaedalusScene extends Phaser.Scene
             }
         }
 
+        return false;
+    }
+
+    //The information if the object is part of a group is stored in a custom property
+    isPartOfGroup(obj: Phaser.Types.Tilemaps.TiledObject): boolean
+    {
+        for (let i = 0; i < obj.properties.length; i++) {
+            if (obj.properties[i].name === 'grouped') {
+                return obj.properties[i].value;
+            }
+        }
         return false;
     }
 

@@ -5,7 +5,7 @@ import { Equipment } from "@/entities/Equipment";
 import { Status } from "@/entities/Status";
 
 //@Hack: rooms that are handled by phaser and displayed with Phaser
-export const PhaserRooms = ['medlab', 'laboratory', 'central_corridor'];
+export const PhaserRooms = ['medlab', 'laboratory', 'central_corridor', 'front_storage'];
 
 export class Room {
     public id: number|null;

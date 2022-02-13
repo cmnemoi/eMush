@@ -288,6 +288,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":52
@@ -308,10 +313,15 @@
                  "gid":75,
                  "height":52,
                  "id":11,
-                 "name":"surgery_console",
+                 "name":"surgery_plot",
                  "properties":[
                         {
                          "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
                          "type":"bool",
                          "value":true
                         }, 
@@ -326,7 +336,7 @@
                          "value":24
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"interact",
                  "visible":true,
                  "width":41,
                  "x":17.3333333333333,
@@ -364,10 +374,15 @@
                  "gid":91,
                  "height":38,
                  "id":12,
-                 "name":"chair",
+                 "name":"surgery_plot",
                  "properties":[
                         {
                          "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
                          "type":"bool",
                          "value":true
                         }, 
@@ -382,7 +397,7 @@
                          "value":12
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"interact",
                  "visible":true,
                  "width":36,
                  "x":40.8333333333333,

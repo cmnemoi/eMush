@@ -7,6 +7,7 @@ import WhiteOutlinePipeline from "@/game/pipeline/shader";
 import InteractObject from "@/game/objects/interactObject";
 import IsometricGeom from "@/game/objects/isometricGeom";
 import Vector2 = Phaser.Math.Vector2;
+import InteractGroup from "@/game/objects/gameObjectGroup";
 
 
 /*eslint no-unused-vars: "off"*/
@@ -20,10 +21,11 @@ export default class EquipmentObject extends InteractObject {
         tileset: Phaser.Tilemaps.Tileset,
         frame: number,
         equipment: Equipment,
-        sceneAspectRatio: IsometricCoordinates
+        sceneAspectRatio: IsometricCoordinates,
+        group: Phaser.GameObjects.Group | null = null
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, frame, equipment.key, sceneAspectRatio);
+        super(scene, cart_coords, iso_geom, tileset, frame, equipment.key, sceneAspectRatio, group);
 
         this.equipment = equipment;
 
@@ -60,25 +62,27 @@ export default class EquipmentObject extends InteractObject {
         }
     }
 
-    onHovering() {
+
+    setHoveringOutline() {
         if (this.equipment.isBroken) {
             this.setPostPipeline('outline');
             const pipeline = this.postPipelines[0];
             //@ts-ignore
             pipeline.resetFromJSON({ thickness: 1, outlineColor: 0xff0000 });
         } else {
-            super.onHovering();
+            super.setHoveringOutline();
         }
     }
 
-    onSelected() {
+    setSelectedOutline()
+    {
         if (this.equipment.isBroken) {
             this.setPostPipeline('outline');
             const pipeline = this.postPipelines[0];
             //@ts-ignore
             pipeline.resetFromJSON({ thickness: 1, outlineColor: 0xff0000 });
         } else {
-            super.onSelected();
+            super.setSelectedOutline();
         }
     }
 }

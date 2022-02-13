@@ -15,9 +15,10 @@ export default class ShelfObject extends InteractObject {
         tileset: Phaser.Tilemaps.Tileset,
         frame: number,
         name: string,
-        sceneAspectRatio: IsometricCoordinates)
-    {
-        super(scene, cart_coords, iso_geom, tileset, frame, 'shelf', sceneAspectRatio);
+        sceneAspectRatio: IsometricCoordinates,
+        group: Phaser.GameObjects.Group | null = null
+    ) {
+        super(scene, cart_coords, iso_geom, tileset, frame, 'shelf', sceneAspectRatio, group);
 
 
         //If this is clicked then:

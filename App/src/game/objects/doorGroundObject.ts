@@ -62,7 +62,7 @@ export default class DoorGroundObject extends InteractObject {
         }
     }
 
-    onHovering(): void
+    setHoveringOutline(): void
     {
         if (this.door.isBroken || (!this.canMove())) {
             this.setPostPipeline('outline');
@@ -70,11 +70,11 @@ export default class DoorGroundObject extends InteractObject {
             //@ts-ignore
             pipeline.resetFromJSON({ thickness: 1, outlineColor: 0xff0000 });
         } else {
-            super.onHovering();
+            super.setHoveringOutline();
         }
     }
 
-    onSelected(): void
+    setSelectedOutline(): void
     {
         if (this.door.isBroken || (!this.canMove())) {
             this.setPostPipeline('outline');
@@ -82,7 +82,7 @@ export default class DoorGroundObject extends InteractObject {
             //@ts-ignore
             pipeline.resetFromJSON({ thickness: 1, outlineColor: 0xff0000 });
         } else {
-            super.onSelected();
+            super.setSelectedOutline();
         }
     }
 

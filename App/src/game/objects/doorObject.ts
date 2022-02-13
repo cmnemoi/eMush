@@ -42,7 +42,7 @@ export default class DoorObject extends InteractObject {
 
         this.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             this.onDoorClicked(pointer);
-            //this.scene.input.stopPropagation();
+            this.scene.input.stopPropagation();
         }, this);
     }
 
@@ -137,7 +137,7 @@ export default class DoorObject extends InteractObject {
         }
     }
 
-    onHovering(): void
+    setHoveringOutline(): void
     {
         if (this.door.isBroken || (!this.getMoveAction().canExecute)) {
             this.setPostPipeline('outline');
@@ -145,11 +145,11 @@ export default class DoorObject extends InteractObject {
             //@ts-ignore
             pipeline.resetFromJSON({ thickness: 1, outlineColor: 0xff0000 });
         } else {
-            super.onHovering();
+            super.setHoveringOutline();
         }
     }
 
-    onSelected(): void
+    setSelectedOutline(): void
     {
         if (this.door.isBroken || (!this.getMoveAction().canExecute)) {
             this.setPostPipeline('outline');
@@ -157,7 +157,7 @@ export default class DoorObject extends InteractObject {
             //@ts-ignore
             pipeline.resetFromJSON({ thickness: 1, outlineColor: 0xff0000 });
         } else {
-            super.onSelected();
+            super.setSelectedOutline();
         }
     }
 }

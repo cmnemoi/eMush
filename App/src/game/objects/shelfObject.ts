@@ -16,9 +16,10 @@ export default class ShelfObject extends InteractObject {
         frame: number,
         name: string,
         sceneAspectRatio: IsometricCoordinates,
+        isAnimationYoyo?: boolean,
         group: Phaser.GameObjects.Group | null = null
     ) {
-        super(scene, cart_coords, iso_geom, tileset, frame, 'shelf', sceneAspectRatio, group);
+        super(scene, cart_coords, iso_geom, tileset, frame, 'shelf', sceneAspectRatio, isAnimationYoyo, group);
 
 
         //If this is clicked then:

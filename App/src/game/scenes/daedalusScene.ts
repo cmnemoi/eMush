@@ -495,17 +495,18 @@ export default class DaedalusScene extends Phaser.Scene
         const frame = obj.gid - tileset.firstgid;
         const name = obj.name;
 
-        if (this.isObjectCollision(obj)){
+        if (this.getCustomPropertyByName(obj, 'collides')){
             this.updateNavMesh(obj);
         }
 
         const equipmentEntity = this.getEquipmentFromTiledObject(obj);
         const group = this.getGroupOfObject(obj, equipmentEntity);
+        const isAnimationYoyo = this.getCustomPropertyByName(obj, 'animationYoyo');
 
         switch (obj.type)
         {
         case 'decoration':
-            return new DecorationObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, sceneAspectRatio);
+            return new DecorationObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, sceneAspectRatio, isAnimationYoyo);
         case 'door':
             if (equipmentEntity instanceof DoorEntity) {
                 return new DoorObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity, sceneAspectRatio);
@@ -516,10 +517,10 @@ export default class DaedalusScene extends Phaser.Scene
             }
         case 'interact':
             if (equipmentEntity instanceof Equipment) {
-                return new EquipmentObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity, sceneAspectRatio, group);
+                return new EquipmentObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity, sceneAspectRatio, isAnimationYoyo, group);
             }
         case 'shelf':
-            return new ShelfObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, sceneAspectRatio, group);
+            return new ShelfObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, sceneAspectRatio, isAnimationYoyo, group);
         }
         throw new Error(obj.name + "type does not exist");
     }
@@ -542,7 +543,7 @@ export default class DaedalusScene extends Phaser.Scene
 
     getGroupOfObject(obj: Phaser.Types.Tilemaps.TiledObject, equipmentEntity: DoorEntity | Equipment | undefined): Phaser.GameObjects.Group | null
     {
-        if ( !this.isPartOfGroup(obj) ) {
+        if ( !this.getCustomPropertyByName(obj, 'grouped') ) {
             return null;
         } else {
             let filteredGroups: Array<Phaser.GameObjects.Group> = [];
@@ -717,24 +718,14 @@ export default class DaedalusScene extends Phaser.Scene
         return isoSize;
     }
 
-    //collision property of the object is stored in a custom property
-    isObjectCollision(obj: Phaser.Types.Tilemaps.TiledObject): boolean
+    getCustomPropertyByName(obj: Phaser.Types.Tilemaps.TiledObject, property: string): boolean
     {
-        for (let i = 0; i < obj.properties.length; i++) {
-            if (obj.properties[i].name === 'collides') {
-                return obj.properties[i].value;
-            }
-        }
-
-        return false;
-    }
-
-    //The information if the object is part of a group is stored in a custom property
-    isPartOfGroup(obj: Phaser.Types.Tilemaps.TiledObject): boolean
-    {
-        for (let i = 0; i < obj.properties.length; i++) {
-            if (obj.properties[i].name === 'grouped') {
-                return obj.properties[i].value;
+        const existingKeys = ['grouped', 'collides', 'animationYoyo'];
+        if (existingKeys.includes(property)) {
+            for (let i = 0; i < obj.properties.length; i++) {
+                if (obj.properties[i].name === property) {
+                    return obj.properties[i].value;
+                }
             }
         }
         return false;

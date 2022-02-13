@@ -3,11 +3,8 @@ import DaedalusScene from "@/game/scenes/daedalusScene";
 import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
 import { Equipment } from "@/entities/Equipment";
 import store from "@/store";
-import WhiteOutlinePipeline from "@/game/pipeline/shader";
 import InteractObject from "@/game/objects/interactObject";
 import IsometricGeom from "@/game/objects/isometricGeom";
-import Vector2 = Phaser.Math.Vector2;
-import InteractGroup from "@/game/objects/gameObjectGroup";
 
 
 /*eslint no-unused-vars: "off"*/
@@ -22,10 +19,11 @@ export default class EquipmentObject extends InteractObject {
         frame: number,
         equipment: Equipment,
         sceneAspectRatio: IsometricCoordinates,
+        isAnimationYoyo?: boolean,
         group: Phaser.GameObjects.Group | null = null
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, frame, equipment.key, sceneAspectRatio, group);
+        super(scene, cart_coords, iso_geom, tileset, frame, equipment.key, sceneAspectRatio, isAnimationYoyo, group);
 
         this.equipment = equipment;
 

@@ -65,7 +65,7 @@ export default class DoorObject extends InteractObject {
 
     }
 
-    applyTexture(tileset: Phaser.Tilemaps.Tileset, name: string) {
+    applyTexture(tileset: Phaser.Tilemaps.Tileset, name: string, isAnimationYoyo?: boolean) {
         this.setTexture('door_object', this.tiledFrame);
     }
 

@@ -88,8 +88,8 @@
                  "type":"door",
                  "visible":true,
                  "width":48,
-                 "x":123.25,
-                 "y":-4.25
+                 "x":123.5,
+                 "y":-4.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -161,6 +161,11 @@
                  "name":"camera_equipment",
                  "properties":[
                         {
+                         "name":"animationYoyo",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"collides",
                          "type":"bool",
                          "value":false
@@ -168,19 +173,19 @@
                         {
                          "name":"isoSizeX",
                          "type":"int",
-                         "value":8
+                         "value":16
                         }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
-                         "value":8
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
                  "width":25,
-                 "x":145.5,
-                 "y":-6.5
+                 "x":146.25,
+                 "y":-5.25
                 }, 
                 {
                  "gid":60,
@@ -342,8 +347,8 @@
                  "type":"shelf",
                  "visible":true,
                  "width":123,
-                 "x":17.5,
-                 "y":64.5
+                 "x":18.25,
+                 "y":66.75
                 }, 
                 {
                  "gid":282,
@@ -375,8 +380,8 @@
                  "type":"shelf",
                  "visible":true,
                  "width":111,
-                 "x":76.25,
-                 "y":17.25
+                 "x":75.25,
+                 "y":17.75
                 }, 
                 {
                  "gid":283,
@@ -408,8 +413,8 @@
                  "type":"shelf",
                  "visible":true,
                  "width":109,
-                 "x":84.25,
-                 "y":72.25
+                 "x":85.25,
+                 "y":74.75
                 }, 
                 {
                  "gid":284,
@@ -441,8 +446,8 @@
                  "type":"shelf",
                  "visible":true,
                  "width":109,
-                 "x":81.75,
-                 "y":117.75
+                 "x":82.75,
+                 "y":120.25
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -527,112 +532,60 @@
                 {
                  "animation":[
                         {
-                         "duration":300,
+                         "duration":100,
                          "tileid":0
                         }, 
                         {
-                         "duration":300,
+                         "duration":100,
                          "tileid":1
                         }, 
                         {
-                         "duration":300,
+                         "duration":100,
                          "tileid":2
                         }, 
                         {
-                         "duration":300,
+                         "duration":100,
                          "tileid":3
                         }, 
                         {
-                         "duration":300,
+                         "duration":100,
                          "tileid":4
                         }, 
                         {
-                         "duration":300,
+                         "duration":100,
                          "tileid":5
                         }, 
                         {
-                         "duration":300,
+                         "duration":100,
                          "tileid":6
                         }, 
                         {
-                         "duration":300,
+                         "duration":100,
                          "tileid":7
                         }, 
                         {
-                         "duration":300,
+                         "duration":100,
                          "tileid":8
                         }, 
                         {
-                         "duration":300,
+                         "duration":100,
                          "tileid":9
                         }, 
                         {
-                         "duration":300,
+                         "duration":100,
                          "tileid":10
                         }, 
                         {
-                         "duration":300,
+                         "duration":100,
                          "tileid":11
                         }, 
                         {
-                         "duration":300,
+                         "duration":100,
                          "tileid":12
                         }, 
                         {
-                         "duration":300,
+                         "duration":100,
                          "tileid":13
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":12
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":11
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":10
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":9
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":8
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":7
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":6
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":5
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":4
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":3
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":2
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":1
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":0
                         }],
                  "id":0
                 }],

@@ -195,6 +195,11 @@
                  "name":"camera_equipment",
                  "properties":[
                         {
+                         "name":"animationYoyo",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"collides",
                          "type":"bool",
                          "value":false
@@ -202,12 +207,12 @@
                         {
                          "name":"isoSizeX",
                          "type":"int",
-                         "value":8
+                         "value":16
                         }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
-                         "value":8
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"interact",

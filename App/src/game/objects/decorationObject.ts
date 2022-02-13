@@ -21,7 +21,8 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         frame: number,
         name: string,
         sceneAspectRatio: IsometricCoordinates,
-        group: Phaser.GameObjects.Group | null = null
+        isAnimationYoyo?: boolean,
+        group: Phaser.GameObjects.Group | null = null,
     )
     {
         super(scene, cart_coords.x, cart_coords.y, name);
@@ -50,12 +51,12 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
             group.add(this);
         }
 
-        this.applyTexture(tileset, name);
+        this.applyTexture(tileset, name, isAnimationYoyo);
 
         this.isoHeight = this.height - (this.isoGeom.getIsoSize().x + this.isoGeom.getIsoSize().y)/2;
     }
 
-    applyTexture(tileset: Phaser.Tilemaps.Tileset, name: string): void
+    applyTexture(tileset: Phaser.Tilemaps.Tileset, name: string, isAnimationYoyo?: boolean): void
     {
         //@ts-ignore
         if (tileset.tileData[this.tiledFrame])
@@ -74,7 +75,8 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
                 repeat: -1
             });
 
-            this.anims.play(this.animName);
+            this.anims.play({ key: this.animName, yoyo: isAnimationYoyo });
+
         } else {
             this.setTexture(tileset.name, this.tiledFrame);
         }

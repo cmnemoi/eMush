@@ -7,13 +7,13 @@ import store from "@/store";
 import { PhaserNavMesh } from "phaser-navmesh/src";
 import InteractObject from "@/game/objects/interactObject";
 import Tileset = Phaser.Tilemaps.Tileset;
-import IsometricGeom from "@/game/objects/isometricGeom";
+import IsometricGeom from "@/game/scenes/isometricGeom";
 
 export default class CharacterObject extends InteractObject {
     protected player : Player;
     protected navMesh: PhaserNavMesh;
 
-    constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, isoGeom: IsometricGeom, sceneAspectRatio: IsometricCoordinates, player: Player) {
+    constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, isoGeom: IsometricGeom, player: Player) {
         super(
             scene,
             cart_coords,
@@ -21,7 +21,7 @@ export default class CharacterObject extends InteractObject {
             new Tileset('character', 0, 48, 32),
             (<number>(<CharacterInfos>characterEnum[player.character.key]).rightFrame),
             player.character.key,
-            sceneAspectRatio
+            false
         );
 
         this.player = player;
@@ -29,17 +29,6 @@ export default class CharacterObject extends InteractObject {
 
         scene.physics.world.enable(this);
 
-        //const iso_coords = toIsometricCoords({ x: this.x, y: this.getFeetY() });
-        //the first sprite to be displayed are the ones on the last row of either x or y isometric coordinates
-        //a second order sorting is applied using the y axis of cartesian coordinates
-        //              4
-        //            3   3
-        //          2   3    2
-        //       1    2   2    1           / \
-        //          1   2   1             y   x
-        //              1
-        //
-        this.setDepth(Math.max(this.isoGeom.getIsoCoords().x + this.sceneAspectRatio.x, this.isoGeom.getIsoCoords().y + this.sceneAspectRatio.y) * 1000 + this.getFeetCartCoords().y);
 
         const characterFrames: CharacterInfos = characterEnum[this.player.character.key];
         this.createAnimations(characterFrames);
@@ -50,12 +39,12 @@ export default class CharacterObject extends InteractObject {
         }
         this.anims.play('right');
 
-        /*const graphics = this.scene.add.graphics();
-        graphics.lineStyle(1, 0x000000, 1.0);
-        graphics.fillStyle(0xff0000, 1);
-        graphics.strokePoints(this.isoGeom.getCartesianPolygon().points, true);
-        graphics.fillPointShape(new Phaser.Geom.Point(this.getFeetCartCoords().x, this.getFeetCartCoords().y), 5);
-        */
+        // const graphics = this.scene.add.graphics();
+        // graphics.lineStyle(1, 0x000000, 0.5);
+        // graphics.fillStyle(0xff0000, 1);
+        // graphics.fillPoints(this.isoGeom.getCartesianPolygon().points, true);
+        //graphics.fillPointShape(new Phaser.Geom.Point(this.getFeetCartCoords().x, this.getFeetCartCoords().y), 5);
+
 
         //If this is clicked then:
         this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
@@ -107,7 +96,14 @@ export default class CharacterObject extends InteractObject {
 
     getFeetCartCoords(): CartesianCoordinates
     {
-        const tileHeight = 16;
-        return new CartesianCoordinates(this.x, this.y + this.height / 2 - tileHeight/2);
+        const isoWidth = 16;
+        return new CartesianCoordinates(this.x, this.y + this.height / 2 - isoWidth/2);
+    }
+
+    checkPositionDepth(): void
+    {
+        const polygonDepth = (<DaedalusScene>this.scene).sceneGrid.getDepthOfPoint(this.getFeetCartCoords().toIsometricCoordinates());
+
+        this.depth = polygonDepth + this.getFeetCartCoords().x;
     }
 }

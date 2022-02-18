@@ -5,7 +5,7 @@ import { Door as DoorEntity } from "@/entities/Door";
 import store from "@/store";
 import { Action } from "@/entities/Action";
 import InteractObject from "@/game/objects/interactObject";
-import IsometricGeom from "@/game/objects/isometricGeom";
+import IsometricGeom from "@/game/scenes/isometricGeom";
 
 
 /*eslint no-unused-vars: "off"*/
@@ -19,10 +19,9 @@ export default class DoorGroundObject extends InteractObject {
         tileset: Phaser.Tilemaps.Tileset,
         firstFrame: number,
         door: DoorEntity,
-        sceneAspectRatio: IsometricCoordinates
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, firstFrame, door.key, sceneAspectRatio);
+        super(scene, cart_coords, iso_geom, tileset, firstFrame, door.key, false);
 
         this.door = door;
 

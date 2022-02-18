@@ -1,14 +1,13 @@
 import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
 import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
-import IsometricGeom from "@/game/objects/isometricGeom";
+import IsometricGeom from "@/game/scenes/isometricGeom";
 
 
 /*eslint no-unused-vars: "off"*/
 export default class DecorationObject extends Phaser.GameObjects.Sprite {
     protected animName : string|null = null;
     protected tiledFrame: number;
-    public sceneAspectRatio: IsometricCoordinates;
     public isoGeom: IsometricGeom;
     public isoHeight: number;
     protected group: Phaser.GameObjects.Group | null;
@@ -20,8 +19,7 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         tileset: Phaser.Tilemaps.Tileset,
         frame: number,
         name: string,
-        sceneAspectRatio: IsometricCoordinates,
-        isAnimationYoyo?: boolean,
+        isAnimationYoyo: boolean,
         group: Phaser.GameObjects.Group | null = null,
     )
     {
@@ -29,21 +27,10 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
 
         this.scene = scene;
         this.name = name;
-        this.sceneAspectRatio = sceneAspectRatio;
         this.isoGeom = iso_geom;
         this.tiledFrame = frame;
         this.group = group;
 
-        //the first sprite to be displayed are the ones on the last row of either x or y isometric coordinates
-        //a second order sorting is applied using the y axis of cartesian coordinates
-        //              4
-        //            3   3
-        //          2   3    2
-        //       1    2   2    1           / \
-        //          1   2   1             y   x
-        //              1
-        //
-        this.setDepth(Math.max(this.isoGeom.getIsoCoords().x + sceneAspectRatio.x, this.isoGeom.getIsoCoords().y + sceneAspectRatio.y)*1000 + this.y + this.width/2);
 
         this.scene.add.existing(this);
 
@@ -54,9 +41,15 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         this.applyTexture(tileset, name, isAnimationYoyo);
 
         this.isoHeight = this.height - (this.isoGeom.getIsoSize().x + this.isoGeom.getIsoSize().y)/2;
+
+
+        /* const graphics = this.scene.add.graphics();
+        graphics.lineStyle(1, 0x000000, 0.5);
+        graphics.fillStyle(0xff0000, 1);
+        graphics.fillPoints(this.isoGeom.getCartesianPolygon().points, true);*/
     }
 
-    applyTexture(tileset: Phaser.Tilemaps.Tileset, name: string, isAnimationYoyo?: boolean): void
+    applyTexture(tileset: Phaser.Tilemaps.Tileset, name: string, isAnimationYoyo: boolean): void
     {
         //@ts-ignore
         if (tileset.tileData[this.tiledFrame])
@@ -80,7 +73,7 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         } else {
             this.setTexture(tileset.name, this.tiledFrame);
         }
-        //this.setAlpha(0);
+        //this.setAlpha(1);
     }
 
     //@ts-ignore

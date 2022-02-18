@@ -6,7 +6,7 @@ import { Door as DoorEntity } from "@/entities/Door";
 import { Action } from "@/entities/Action";
 import store from "@/store";
 import InteractObject from "@/game/objects/interactObject";
-import IsometricGeom from "@/game/objects/isometricGeom";
+import IsometricGeom from "@/game/scenes/isometricGeom";
 
 
 export default class DoorObject extends InteractObject {
@@ -21,10 +21,9 @@ export default class DoorObject extends InteractObject {
         tileset: Phaser.Tilemaps.Tileset,
         tiledFrame: number,
         door: DoorEntity,
-        sceneAspectRatio: IsometricCoordinates
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, tiledFrame, door.key, sceneAspectRatio);
+        super(scene, cart_coords, iso_geom, tileset, tiledFrame, door.key, false);
 
         this.door = door;
 
@@ -65,7 +64,7 @@ export default class DoorObject extends InteractObject {
 
     }
 
-    applyTexture(tileset: Phaser.Tilemaps.Tileset, name: string, isAnimationYoyo?: boolean) {
+    applyTexture(tileset: Phaser.Tilemaps.Tileset, name: string, isAnimationYoyo: boolean) {
         this.setTexture('door_object', this.tiledFrame);
     }
 

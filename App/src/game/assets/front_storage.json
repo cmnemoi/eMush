@@ -6,8 +6,14 @@
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
          "id":1,
-         "name":"wallBack",
+         "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":0
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":14,
@@ -47,6 +53,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"door",
@@ -83,6 +94,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"door",
@@ -103,6 +119,12 @@
          "id":4,
          "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":14,
@@ -115,6 +137,12 @@
          "id":5,
          "name":"ground",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":14,
@@ -188,108 +216,6 @@
                  "y":-5.25
                 }, 
                 {
-                 "gid":60,
-                 "height":36,
-                 "id":34,
-                 "name":"front_corridor_front_storage",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }],
-                 "rotation":0,
-                 "type":"door_ground",
-                 "visible":true,
-                 "width":64,
-                 "x":61.4318181818182,
-                 "y":204.477272727273
-                }, 
-                {
-                 "gid":272,
-                 "height":14,
-                 "id":45,
-                 "name":"paper3",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":8
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":8
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":18,
-                 "x":118.5,
-                 "y":165.5
-                }, 
-                {
-                 "gid":274,
-                 "height":14,
-                 "id":46,
-                 "name":"paper2",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":8
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":8
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":18,
-                 "x":167.5,
-                 "y":134.5
-                }, 
-                {
-                 "gid":273,
-                 "height":14,
-                 "id":47,
-                 "name":"paper1",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":8
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":8
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":18,
-                 "x":167,
-                 "y":71
-                }, 
-                {
                  "gid":279,
                  "height":15,
                  "id":48,
@@ -299,6 +225,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
                         }, 
                         {
                          "name":"isoSizeX",
@@ -448,8 +379,131 @@
                  "width":109,
                  "x":82.75,
                  "y":120.25
+                }, 
+                {
+                 "gid":272,
+                 "height":12,
+                 "id":45,
+                 "name":"paper3",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":16,
+                 "x":118.5,
+                 "y":165.5
+                }, 
+                {
+                 "gid":274,
+                 "height":12,
+                 "id":46,
+                 "name":"paper2",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":16,
+                 "x":167.5,
+                 "y":134.5
+                }, 
+                {
+                 "gid":273,
+                 "height":12,
+                 "id":47,
+                 "name":"paper1",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":16,
+                 "x":167,
+                 "y":71
+                }, 
+                {
+                 "gid":60,
+                 "height":36,
+                 "id":34,
+                 "name":"front_corridor_front_storage",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"door_ground",
+                 "visible":true,
+                 "width":64,
+                 "x":61.4318181818182,
+                 "y":204.477272727273
                 }],
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":4
+                }],
          "type":"objectgroup",
          "visible":true,
          "x":0,
@@ -459,7 +513,7 @@
  "nextobjectid":53,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.0",
+ "tiledversion":"1.8.1",
  "tileheight":16,
  "tilesets":[
         {
@@ -1533,15 +1587,15 @@
          "columns":5,
          "firstgid":272,
          "image":"tilemaps\/papers.png",
-         "imageheight":14,
-         "imagewidth":99,
+         "imageheight":12,
+         "imagewidth":80,
          "margin":0,
          "name":"papers",
          "objectalignment":"center",
          "spacing":0,
          "tilecount":5,
-         "tileheight":14,
-         "tilewidth":18
+         "tileheight":12,
+         "tilewidth":16
         }, 
         {
          "columns":4,

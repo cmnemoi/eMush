@@ -4,7 +4,7 @@ import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
 import { Equipment } from "@/entities/Equipment";
 import store from "@/store";
 import InteractObject from "@/game/objects/interactObject";
-import IsometricGeom from "@/game/objects/isometricGeom";
+import IsometricGeom from "@/game/scenes/isometricGeom";
 
 
 /*eslint no-unused-vars: "off"*/
@@ -18,12 +18,11 @@ export default class EquipmentObject extends InteractObject {
         tileset: Phaser.Tilemaps.Tileset,
         frame: number,
         equipment: Equipment,
-        sceneAspectRatio: IsometricCoordinates,
-        isAnimationYoyo?: boolean,
+        isAnimationYoyo: boolean,
         group: Phaser.GameObjects.Group | null = null
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, frame, equipment.key, sceneAspectRatio, isAnimationYoyo, group);
+        super(scene, cart_coords, iso_geom, tileset, frame, equipment.key, isAnimationYoyo, group);
 
         this.equipment = equipment;
 

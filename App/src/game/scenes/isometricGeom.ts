@@ -59,6 +59,11 @@ export default class IsometricGeom extends Phaser.Geom.Polygon implements Phaser
         return new Phaser.Geom.Polygon(this.cart_array);
     }
 
+    getIsoArray(): Array<IsometricCoordinates>
+    {
+        return this.iso_array;
+    }
+
     getMaxIso(): IsometricCoordinates
     {
         return this.iso_array[2];
@@ -83,4 +88,27 @@ export default class IsometricGeom extends Phaser.Geom.Polygon implements Phaser
         return new IsometricGeom(this.iso_coords, new IsometricCoordinates(this.iso_size.x + buffer, this.iso_size.y + buffer));
     }
 
+    newPosition(newIsoCoords: IsometricCoordinates): IsometricGeom
+    {
+        return new IsometricGeom(newIsoCoords, this.iso_size);
+    }
+
+    isPointInGeom(isoCoords: IsometricCoordinates) {
+        return (
+            this.getMaxIso().x > isoCoords.x &&
+            this.getMinIso().x < isoCoords.x &&
+            this.getMaxIso().y > isoCoords.y &&
+            this.getMinIso().y < isoCoords.y
+        );
+    }
+
+    isGeomTouchingGeom(isoGeom: IsometricGeom) {
+        // no horizontal overlap
+        if (this.getMinIso().x >= isoGeom.getMaxIso().x || this.getMaxIso().x <= isoGeom.getMinIso().x) return false;
+
+        // no vertical overlap
+        if (this.getMaxIso().y <= isoGeom.getMinIso().y || this.getMinIso().y >= isoGeom.getMaxIso().y) return false;
+
+        return true;
+    }
 }

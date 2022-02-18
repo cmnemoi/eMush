@@ -16,6 +16,12 @@
          "id":13,
          "name":"wallBack",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":0
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":14,
@@ -28,7 +34,7 @@
          "name":"doors",
          "objects":[
                 {
-                 "gid":114,
+                 "gid":112,
                  "height":36,
                  "id":41,
                  "name":"medlab_laboratory",
@@ -46,7 +52,7 @@
                  "y":59.6666666666667
                 }, 
                 {
-                 "gid":104,
+                 "gid":102,
                  "height":36,
                  "id":42,
                  "name":"front_corridor_medlab",
@@ -64,7 +70,7 @@
                  "y":12.1666666666667
                 }, 
                 {
-                 "gid":167,
+                 "gid":165,
                  "height":73,
                  "id":43,
                  "name":"medlab_laboratory",
@@ -73,6 +79,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"door",
@@ -82,7 +93,7 @@
                  "y":27
                 }, 
                 {
-                 "gid":191,
+                 "gid":189,
                  "height":73,
                  "id":44,
                  "name":"front_corridor_medlab",
@@ -91,6 +102,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"door",
@@ -111,6 +127,12 @@
          "id":2,
          "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":14,
@@ -123,6 +145,12 @@
          "id":1,
          "name":"ground",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":14,
@@ -163,7 +191,7 @@
                  "y":71
                 }, 
                 {
-                 "gid":312,
+                 "gid":310,
                  "height":64,
                  "id":95,
                  "name":"neron_auxiliary_terminal_",
@@ -181,7 +209,7 @@
                  "y":11.75
                 }, 
                 {
-                 "gid":319,
+                 "gid":317,
                  "height":64,
                  "id":96,
                  "name":"neron_participation_auxiliary_terminal",
@@ -193,7 +221,7 @@
                  "y":11.75
                 }, 
                 {
-                 "gid":311,
+                 "gid":309,
                  "height":64,
                  "id":15,
                  "name":"neron_terminal_object",
@@ -343,7 +371,7 @@
                  "y":156
                 }, 
                 {
-                 "gid":559,
+                 "gid":557,
                  "height":37,
                  "id":91,
                  "name":"desk_object",
@@ -371,8 +399,8 @@
                  "y":26.8778406115824
                 }, 
                 {
-                 "gid":91,
-                 "height":38,
+                 "gid":92,
+                 "height":36,
                  "id":12,
                  "name":"surgery_plot",
                  "properties":[
@@ -399,12 +427,12 @@
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
-                 "width":36,
-                 "x":40.8333333333333,
-                 "y":163.166666666667
+                 "width":34,
+                 "x":35.5,
+                 "y":158.5
                 }, 
                 {
-                 "gid":99,
+                 "gid":97,
                  "height":36,
                  "id":59,
                  "name":"medlab_central_bravo_turret",
@@ -423,7 +451,7 @@
                 }, 
                 {
                  "gid":88,
-                 "height":38,
+                 "height":36,
                  "id":85,
                  "name":"chair",
                  "properties":[
@@ -445,12 +473,12 @@
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
-                 "width":36,
-                 "x":166,
-                 "y":33.3333333333333
+                 "width":34,
+                 "x":162,
+                 "y":36
                 }, 
                 {
-                 "gid":327,
+                 "gid":325,
                  "height":58,
                  "id":89,
                  "name":"narcotic_distiller",
@@ -474,11 +502,11 @@
                  "type":"interact",
                  "visible":true,
                  "width":45,
-                 "x":89.8958333333334,
-                 "y":15.5
+                 "x":90.25,
+                 "y":15.75
                 }, 
                 {
-                 "gid":328,
+                 "gid":326,
                  "height":17,
                  "id":90,
                  "name":"camera_equipment",
@@ -506,7 +534,7 @@
                  "y":-5.50000000000001
                 }, 
                 {
-                 "gid":560,
+                 "gid":558,
                  "height":15,
                  "id":93,
                  "name":"paper_dispenser",
@@ -515,6 +543,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
                         }, 
                         {
                          "name":"isoSizeX",
@@ -534,7 +567,7 @@
                  "y":2.44096240444027
                 }, 
                 {
-                 "gid":561,
+                 "gid":559,
                  "height":15,
                  "id":94,
                  "name":"wall_box",
@@ -543,6 +576,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
                         }, 
                         {
                          "name":"isoSizeX",
@@ -571,7 +609,7 @@
  "nextobjectid":97,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.0",
+ "tiledversion":"1.8.1",
  "tileheight":16,
  "tilesets":[
         {
@@ -807,28 +845,28 @@
          "tilewidth":41
         }, 
         {
-         "columns":8,
+         "columns":7,
          "firstgid":83,
          "grid":
             {
-             "height":38,
+             "height":36,
              "orientation":"isometric",
-             "width":36
+             "width":34
             },
          "image":"tilemaps\/chair_object.png",
-         "imageheight":76,
-         "imagewidth":288,
+         "imageheight":72,
+         "imagewidth":238,
          "margin":0,
          "name":"chair_object",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":16,
-         "tileheight":38,
-         "tilewidth":36
+         "tilecount":14,
+         "tileheight":36,
+         "tilewidth":34
         }, 
         {
          "columns":5,
-         "firstgid":99,
+         "firstgid":97,
          "grid":
             {
              "height":36,
@@ -945,7 +983,7 @@
         }, 
         {
          "columns":24,
-         "firstgid":119,
+         "firstgid":117,
          "grid":
             {
              "height":73,
@@ -1766,7 +1804,7 @@
         }, 
         {
          "columns":8,
-         "firstgid":311,
+         "firstgid":309,
          "image":"tilemaps\/neron_terminal_object.png",
          "imageheight":128,
          "imagewidth":328,
@@ -1853,7 +1891,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":327,
+         "firstgid":325,
          "image":"tilemaps\/distiller_object.png",
          "imageheight":58,
          "imagewidth":45,
@@ -1867,7 +1905,7 @@
         }, 
         {
          "columns":14,
-         "firstgid":328,
+         "firstgid":326,
          "image":"tilemaps\/camera_object.png",
          "imageheight":17,
          "imagewidth":350,
@@ -1994,7 +2032,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":342,
+         "firstgid":340,
          "image":"tilemaps\/centrifuge_object.png",
          "imageheight":34,
          "imagewidth":30,
@@ -2008,7 +2046,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":343,
+         "firstgid":341,
          "image":"tilemaps\/cryomodule_object.png",
          "imageheight":104,
          "imagewidth":128,
@@ -2022,7 +2060,7 @@
         }, 
         {
          "columns":24,
-         "firstgid":344,
+         "firstgid":342,
          "grid":
             {
              "height":73,
@@ -2843,7 +2881,7 @@
         }, 
         {
          "columns":9,
-         "firstgid":536,
+         "firstgid":534,
          "image":"tilemaps\/gravity_object.png",
          "imageheight":46,
          "imagewidth":279,
@@ -2898,7 +2936,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":545,
+         "firstgid":543,
          "image":"tilemaps\/laboratory_object.png",
          "imageheight":57,
          "imagewidth":79,
@@ -2912,7 +2950,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":546,
+         "firstgid":544,
          "image":"tilemaps\/mural_shelf.png",
          "imageheight":28,
          "imagewidth":46,
@@ -2926,7 +2964,7 @@
         }, 
         {
          "columns":12,
-         "firstgid":547,
+         "firstgid":545,
          "image":"tilemaps\/mycoscan_object.png",
          "imageheight":57,
          "imagewidth":972,
@@ -2993,7 +3031,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":559,
+         "firstgid":557,
          "image":"tilemaps\/desk_object.png",
          "imageheight":37,
          "imagewidth":45,
@@ -3007,7 +3045,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":560,
+         "firstgid":558,
          "image":"tilemaps\/paper_dispenser.png",
          "imageheight":15,
          "imagewidth":9,
@@ -3021,7 +3059,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":561,
+         "firstgid":559,
          "image":"tilemaps\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,

@@ -6,8 +6,14 @@
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 34, 32, 32, 32, 32, 32, 32, 32, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
          "id":3,
-         "name":"wallBack",
+         "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":0
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":14,
@@ -29,6 +35,16 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":32
                         }],
                  "rotation":0,
                  "type":"door_ground",
@@ -47,6 +63,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"door",
@@ -67,6 +88,12 @@
          "id":4,
          "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":14,
@@ -79,6 +106,12 @@
          "id":1,
          "name":"ground",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":14,
@@ -115,7 +148,7 @@
                  "type":"interact",
                  "visible":true,
                  "width":128,
-                 "x":44,
+                 "x":42,
                  "y":38
                 }, 
                 {
@@ -144,7 +177,7 @@
                  "visible":true,
                  "width":30,
                  "x":28,
-                 "y":88
+                 "y":89
                 }, 
                 {
                  "gid":290,
@@ -172,7 +205,7 @@
                  "visible":true,
                  "width":30,
                  "x":28,
-                 "y":104
+                 "y":105
                 }, 
                 {
                  "gid":247,
@@ -184,6 +217,16 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":32
                         }],
                  "rotation":0,
                  "type":"door_ground",
@@ -221,7 +264,7 @@
                  "y":146
                 }, 
                 {
-                 "gid":311,
+                 "gid":309,
                  "height":46,
                  "id":8,
                  "name":"gravity_simulator",
@@ -262,7 +305,7 @@
                         {
                          "name":"isoSizeX",
                          "type":"int",
-                         "value":46
+                         "value":48
                         }, 
                         {
                          "name":"isoSizeY",
@@ -301,8 +344,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":79,
-                 "x":27.5,
-                 "y":146
+                 "x":27.25,
+                 "y":145.75
                 }, 
                 {
                  "gid":275,
@@ -319,6 +362,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
                         }, 
                         {
                          "name":"isoSizeX",
@@ -349,6 +397,11 @@
                          "value":false
                         }, 
                         {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":4
@@ -367,7 +420,7 @@
                 }, 
                 {
                  "gid":297,
-                 "height":38,
+                 "height":36,
                  "id":15,
                  "name":"chair_object",
                  "properties":[
@@ -389,12 +442,12 @@
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
-                 "width":36,
-                 "x":45.5,
-                 "y":130.5
+                 "width":34,
+                 "x":39,
+                 "y":143
                 }, 
                 {
-                 "gid":307,
+                 "gid":305,
                  "height":15,
                  "id":17,
                  "name":"wall_box",
@@ -403,6 +456,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
                         }, 
                         {
                          "name":"isoSizeX",
@@ -431,7 +489,7 @@
  "nextobjectid":18,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.0",
+ "tiledversion":"1.8.1",
  "tileheight":16,
  "tilesets":[
         {
@@ -1677,28 +1735,28 @@
          "tilewidth":30
         }, 
         {
-         "columns":8,
+         "columns":7,
          "firstgid":291,
          "grid":
             {
-             "height":38,
+             "height":36,
              "orientation":"isometric",
-             "width":36
+             "width":34
             },
          "image":"tilemaps\/chair_object.png",
-         "imageheight":76,
-         "imagewidth":288,
+         "imageheight":72,
+         "imagewidth":238,
          "margin":0,
          "name":"chair_object",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":16,
-         "tileheight":38,
-         "tilewidth":36
+         "tilecount":14,
+         "tileheight":36,
+         "tilewidth":34
         }, 
         {
          "columns":4,
-         "firstgid":307,
+         "firstgid":305,
          "image":"tilemaps\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
@@ -1712,7 +1770,7 @@
         }, 
         {
          "columns":9,
-         "firstgid":311,
+         "firstgid":309,
          "image":"tilemaps\/gravity_object.png",
          "imageheight":46,
          "imagewidth":279,
@@ -1767,7 +1825,7 @@
         }, 
         {
          "columns":29,
-         "firstgid":320,
+         "firstgid":318,
          "image":"images\/characters.png",
          "imageheight":2315,
          "imagewidth":953,

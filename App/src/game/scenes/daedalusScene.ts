@@ -30,6 +30,7 @@ import shelf_front_storage3 from "@/game/assets/tilemaps/shelf_front_storage3.pn
 import shelf_front_storage4 from "@/game/assets/tilemaps/shelf_front_storage4.png";
 import papers from "@/game/assets/tilemaps/papers.png";
 import broom from "@/game/assets/tilemaps/broom.png";
+import transparent_wall_object from "@/game/assets/tilemaps/transparent_wall_object.png";
 
 
 import character from "@/game/assets/images/characters.png";
@@ -60,7 +61,8 @@ import { Player } from "@/entities/Player";
 import PlayableCharacterObject from "@/game/objects/playableCharacterObject";
 import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
 import EquipmentObject from "@/game/objects/equipmentObject";
-import IsometricGeom from "@/game/objects/isometricGeom";
+import IsometricGeom from "@/game/scenes/isometricGeom";
+import { SceneGrid } from "@/game/scenes/sceneGrid";
 
 export default class DaedalusScene extends Phaser.Scene
 {
@@ -75,6 +77,7 @@ export default class DaedalusScene extends Phaser.Scene
     private room : Room;
     private cameraTarget : { x : number, y : number};
     private groups: Array<Phaser.GameObjects.Group>;
+    public sceneGrid: SceneGrid;
 
     public selectedGameObject : Phaser.GameObjects.GameObject | null;
 
@@ -82,8 +85,7 @@ export default class DaedalusScene extends Phaser.Scene
         super('game-scene');
 
         this.navMeshPolygons = [];
-
-        this.characterSize = 4;
+        this.characterSize = 8;
 
         if (player.room === null){
             throw new Error('player should have a room');
@@ -93,6 +95,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.player = player;
 
         this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshPolygons);
+        this.sceneGrid = new SceneGrid(this);
         this.layer = null;
 
         this.selectedGameObject = null;
@@ -108,6 +111,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.tilemapTiledJSON('laboratory', laboratory);
         this.load.tilemapTiledJSON('central_corridor', central_corridor);
         this.load.tilemapTiledJSON('front_storage', front_storage);
+        this.load.tilemapTiledJSON('front_corridor', front_corridor);
 
 
         this.load.image('ground_tileset', ground_tileset);
@@ -132,16 +136,17 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.spritesheet('surgery_console_object', surgery_object, { frameHeight: 52, frameWidth: 41 });
         this.load.spritesheet('beds_object', beds_object, { frameHeight: 60, frameWidth: 67 });
         this.load.spritesheet('door_ground_tileset', door_ground_tileset, { frameHeight: 36, frameWidth: 64 });
-        this.load.spritesheet('chair_object', chair_object, { frameHeight: 38, frameWidth: 36 });
+        this.load.spritesheet('chair_object', chair_object, { frameHeight: 36, frameWidth: 34 });
         this.load.spritesheet('door_object', door_object, { frameHeight: 73, frameWidth: 48 });
         this.load.spritesheet('neron_terminal_object', neron_object, { frameHeight: 64, frameWidth: 41 });
         this.load.spritesheet('shelf_object', shelf_object, { frameHeight: 42, frameWidth: 35 });
-        this.load.spritesheet('papers', papers, { frameHeight: 14, frameWidth: 18 });
+        this.load.spritesheet('papers', papers, { frameHeight: 12, frameWidth: 16 });
         this.load.spritesheet('broom', broom, { frameHeight: 29, frameWidth: 17 });
         this.load.spritesheet('shelf_front_storage1', shelf_front_storage1, { frameHeight: 101, frameWidth: 123 });
         this.load.spritesheet('shelf_front_storage2', shelf_front_storage2, { frameHeight: 91, frameWidth: 111 });
         this.load.spritesheet('shelf_front_storage3', shelf_front_storage3, { frameHeight: 74, frameWidth: 109 });
         this.load.spritesheet('shelf_front_storage4', shelf_front_storage4, { frameHeight: 79, frameWidth: 109 });
+        this.load.spritesheet('transparent_wall_object', transparent_wall_object, { frameHeight: 69, frameWidth: 54 });
 
 
         this.load.spritesheet('ground_object', ground_tileset, { frameHeight: 72, frameWidth: 32 });
@@ -157,15 +162,6 @@ export default class DaedalusScene extends Phaser.Scene
 
         const IsoTileSize = 16;
 
-        const sceneIsoSizeX = (map.width) * IsoTileSize;
-        const sceneIsoSizeY = (map.height) * IsoTileSize;
-
-        //this variable is used for depth sorting
-        //max isoX and max isoY should be represented at the same depth layer
-        const sceneAspectRatio = new IsometricCoordinates(
-            Math.max(sceneIsoSizeX, sceneIsoSizeY) - sceneIsoSizeX,
-            Math.max(sceneIsoSizeX, sceneIsoSizeY) - sceneIsoSizeY
-        );
 
         const tilesets = [
             map.addTilesetImage('ground_tileset', 'ground_tileset'),
@@ -188,28 +184,39 @@ export default class DaedalusScene extends Phaser.Scene
             { x: 2 * IsoTileSize- groundTilesThickness + this.characterSize, y: (map.height - 2) * IsoTileSize- groundTilesThickness- this.characterSize }
         ];
 
+        this.sceneGrid.addSceneGeom([new IsometricGeom(
+            new IsometricCoordinates(map.width * IsoTileSize/2, map.height * IsoTileSize/2),
+            new IsometricCoordinates((map.width - 4) * IsoTileSize, (map.height - 4) * IsoTileSize))
+        ]);
+
         this.navMeshPolygons.push(globalPolygon);
 
 
         (<Phaser.Renderer.WebGL.WebGLRenderer>this.game.renderer).pipelines.addPostPipeline('outline', OutlinePostFx );
 
-        map.createLayer('wallBack', tilesets, tilemapsShift.x, tilemapsShift.y);
 
-        this.createFromTiledObject(map.getObjectLayer('doors'), this, map.tilesets, objectsShift, sceneAspectRatio, this.room);
+        for (let i=0; i < map.layers.length; i++) {
+            const buildingLayer = map.layers[i];
 
-        map.createLayer('wall', tilesets, tilemapsShift.x, tilemapsShift.y);
+            if (buildingLayer.name === 'wall') {
+                const wallLayer = map.createLayer(i, tilesets, tilemapsShift.x, tilemapsShift.y);
+                wallLayer.setDepth(this.computeFixedDepth(this.getCustomPropertyByName(buildingLayer, 'depth')));
 
-        this.layer = map.createLayer('ground', tilesets, tilemapsShift.x, tilemapsShift.y);
+            } else if (buildingLayer.name === 'ground') {
+                const groundLayer = map.createLayer(i, tilesets, tilemapsShift.x, tilemapsShift.y);
+                groundLayer.setDepth(this.computeFixedDepth(this.getCustomPropertyByName(buildingLayer, 'depth')));
+            }
+        }
+
+        this.createFromTiledObject(map.getObjectLayer('doors'), this, map.tilesets, objectsShift, this.room);
+        this.createFromTiledObject(map.getObjectLayer('objects'), this, map.tilesets, objectsShift, this.room);
 
 
-        this.createFromTiledObject(map.getObjectLayer('objects'), this, map.tilesets, objectsShift, sceneAspectRatio, this.room);
-
-
-
+        this.sceneGrid.updateDepth();
         this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshPolygons, 0);
 
 
-        /* // navMesh Debug
+        /*  // navMesh Debug
         const debugGraphics = this.add.graphics().setAlpha(1);
         for (let i = 0; i < this.navMeshPolygons.length; i++) {
             const polygon = this.navMeshPolygons[i];
@@ -231,18 +238,19 @@ export default class DaedalusScene extends Phaser.Scene
             debugGraphics.lineStyle(1, 0x000000, 1.0);
             debugGraphics.fillPoints(cartPoly.getCartesianPolygon().points, true);
             debugGraphics.strokePoints(cartPoly.getCartesianPolygon().points, true);
-        }
+        }*/
 
-        const debugGraphics2 = this.add.graphics().setAlpha(1);
-        this.navMesh.enableDebug(debugGraphics2);
-        this.navMesh.debugDrawClear(); // Clears the overlay
-        // Visualize the underlying navmesh
-        this.navMesh.debugDrawMesh({
-            drawCentroid: true,
-            drawBounds: false,
-            drawNeighbors: true,
-            drawPortals: true
-        });*/
+        // const debugGraphics2 = this.add.graphics().setAlpha(1);
+        // this.navMesh.enableDebug(debugGraphics2);
+        // this.navMesh.debugDrawClear(); // Clears the overlay
+        // // Visualize the underlying navmesh
+        // this.navMesh.debugDrawMesh({
+        //     drawCentroid: true,
+        //     drawBounds: false,
+        //     drawNeighbors: true,
+        //     drawPortals: true
+        // });
+
 
         //place the starting camera.
         //If the scene size is larger than the camera, the camera is centered on the player
@@ -262,7 +270,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.input.setGlobalTopOnly(true);
 
 
-        this.createPlayers(sceneAspectRatio, playerCoordinates);
+        this.createPlayers(playerCoordinates);
 
         this.cameras.main.startFollow(this.playerSprite);
 
@@ -284,14 +292,27 @@ export default class DaedalusScene extends Phaser.Scene
             }
         });
 
-        // this.input.on('pointerdown', () => {
-        //     this.input.stopPropagation();
-        // });
 
         if (this.room.isOnFire) {
             this.displayFire(map.getLayer('ground'));
         }
 
+
+        /*console.log(this.sceneGrid);
+        // debug scene grid
+        console.log(this.sceneGrid.polygonArray.length);
+        const debugGraphics = this.add.graphics().setAlpha(1);
+        for (let i = 0; i < this.sceneGrid.polygonArray.length; i++) {
+            const polygon = this.sceneGrid.polygonArray[i].geom;
+
+
+            const cartPoly = polygon.getCartesianPolygon();
+            debugGraphics.fillStyle(0x00ff08, 0.1);
+            debugGraphics.setDepth(10000000);
+            debugGraphics.lineStyle(1, 0x000000, 1.0);
+            debugGraphics.fillPoints(cartPoly.points, true);
+            debugGraphics.strokePoints(cartPoly.points, true);
+        }*/
     }
 
     displayFire(layer: Phaser.Tilemaps.LayerData): void
@@ -373,16 +394,15 @@ export default class DaedalusScene extends Phaser.Scene
     }
 
 
-    createPlayers(sceneAspectRatio: IsometricCoordinates, playerCoordinates: CartesianCoordinates): void
+    createPlayers(playerCoordinates: CartesianCoordinates): void
     {
-        const playerIsoSize = new IsometricCoordinates(16,16);
+        const playerIsoSize = new IsometricCoordinates(this.characterSize, this.characterSize);
         let feetCenter = new CartesianCoordinates(playerCoordinates.x, playerCoordinates.y + 16);
 
         this.playerSprite = new PlayableCharacterObject(
             this,
             playerCoordinates,
             new IsometricGeom(feetCenter.toIsometricCoordinates(), playerIsoSize),
-            sceneAspectRatio,
             this.player
         );
 
@@ -391,11 +411,10 @@ export default class DaedalusScene extends Phaser.Scene
                 const otherPlayerCoordinates = this.getPlayerCoordinates();
                 feetCenter = new CartesianCoordinates(otherPlayerCoordinates.x, otherPlayerCoordinates.y + 16);
 
-                new CharacterObject(
+                const newCharacter = new CharacterObject(
                     this,
                     otherPlayerCoordinates,
                     new IsometricGeom(feetCenter.toIsometricCoordinates(), playerIsoSize),
-                    sceneAspectRatio,
                     roomPlayer
                 );
             }
@@ -427,7 +446,6 @@ export default class DaedalusScene extends Phaser.Scene
         scene: Phaser.Scene,
         tilesets: Array<Phaser.Tilemaps.Tileset>,
         shift: CartesianCoordinates,
-        sceneAspectRatio: IsometricCoordinates,
         room: Room
     ): Array<Phaser.GameObjects.GameObject>
     {
@@ -448,12 +466,29 @@ export default class DaedalusScene extends Phaser.Scene
 
             //if the equipment is present according to the API
             if (!(obj.type === 'interact' && room.equipments.filter(function (equipment: Equipment) {return equipment.key === obj.name;}).length === 0)){
-                const newObject = this.createPhaserObject(obj, tileset, shift, sceneAspectRatio);
+                const newObject = this.createPhaserObject(obj, tileset, shift);
                 results.push(newObject);
+
+                // some equipment have depth already fixed (stuff on the wall, doors, flat things on the ground)
+                const fixedDepth = this.getCustomPropertyByName(obj, 'depth');
+                if (fixedDepth !== -1) {
+                    newObject.setDepth(this.computeFixedDepth(fixedDepth));
+                }
+
+                if (obj.type !== 'door' && obj.type !== 'door_ground' &&
+                    (fixedDepth === -1 || this.isCustomPropertyByName(obj, 'collides'))
+                ) {
+                    this.sceneGrid.addObject(newObject);
+                }
             }
         }
 
         return results;
+    }
+
+    computeFixedDepth(tiledDepth: number): number
+    {
+        return tiledDepth + 5;
     }
 
 
@@ -482,8 +517,7 @@ export default class DaedalusScene extends Phaser.Scene
         obj: Phaser.Types.Tilemaps.TiledObject,
         tileset: Phaser.Tilemaps.Tileset,
         shift: CartesianCoordinates,
-        sceneAspectRatio: IsometricCoordinates
-    ): Phaser.GameObjects.GameObject
+    ): DecorationObject
     {
         //object coordinates are stored in tiled in iso coords
         //to correctly place them in phaser we need the cartesian coordinates
@@ -495,32 +529,34 @@ export default class DaedalusScene extends Phaser.Scene
         const frame = obj.gid - tileset.firstgid;
         const name = obj.name;
 
-        if (this.getCustomPropertyByName(obj, 'collides')){
+        if (this.isCustomPropertyByName(obj, 'collides')){
             this.updateNavMesh(obj);
         }
 
         const equipmentEntity = this.getEquipmentFromTiledObject(obj);
         const group = this.getGroupOfObject(obj, equipmentEntity);
-        const isAnimationYoyo = this.getCustomPropertyByName(obj, 'animationYoyo');
+        const isAnimationYoyo = this.isCustomPropertyByName(obj, 'animationYoyo');
 
         switch (obj.type)
         {
         case 'decoration':
-            return new DecorationObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, sceneAspectRatio, isAnimationYoyo);
+            return new DecorationObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, isAnimationYoyo);
         case 'door':
             if (equipmentEntity instanceof DoorEntity) {
-                return new DoorObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity, sceneAspectRatio);
+                const newDoor = new DoorObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity);
+                newDoor.setDepth(this.getCustomPropertyByName(obj, 'depth') + 5);
+                return newDoor;
             }
         case 'door_ground':
             if (equipmentEntity instanceof DoorEntity) {
-                return new DoorGroundObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity, sceneAspectRatio);
+                return new DoorGroundObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity);
             }
         case 'interact':
             if (equipmentEntity instanceof Equipment) {
-                return new EquipmentObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity, sceneAspectRatio, isAnimationYoyo, group);
+                return new EquipmentObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity, isAnimationYoyo, group);
             }
         case 'shelf':
-            return new ShelfObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, sceneAspectRatio, isAnimationYoyo, group);
+            return new ShelfObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, isAnimationYoyo, group);
         }
         throw new Error(obj.name + "type does not exist");
     }
@@ -543,7 +579,7 @@ export default class DaedalusScene extends Phaser.Scene
 
     getGroupOfObject(obj: Phaser.Types.Tilemaps.TiledObject, equipmentEntity: DoorEntity | Equipment | undefined): Phaser.GameObjects.Group | null
     {
-        if ( !this.getCustomPropertyByName(obj, 'grouped') ) {
+        if ( !this.isCustomPropertyByName(obj, 'grouped') ) {
             return null;
         } else {
             let filteredGroups: Array<Phaser.GameObjects.Group> = [];
@@ -718,7 +754,7 @@ export default class DaedalusScene extends Phaser.Scene
         return isoSize;
     }
 
-    getCustomPropertyByName(obj: Phaser.Types.Tilemaps.TiledObject, property: string): boolean
+    isCustomPropertyByName(obj: Phaser.Types.Tilemaps.TiledObject, property: string): boolean
     {
         const existingKeys = ['grouped', 'collides', 'animationYoyo'];
         if (existingKeys.includes(property)) {
@@ -730,6 +766,20 @@ export default class DaedalusScene extends Phaser.Scene
         }
         return false;
     }
+
+    getCustomPropertyByName(obj: Phaser.Types.Tilemaps.TiledObject | Phaser.Types.Tilemaps.ObjectLayerConfig, property: string): number
+    {
+        const existingKeys = ['depth'];
+        if (existingKeys.includes(property)) {
+            for (let i = 0; i < obj.properties.length; i++) {
+                if (obj.properties[i].name === property) {
+                    return obj.properties[i].value;
+                }
+            }
+        }
+        return -1;
+    }
+
 
     //bounding box of the object is not really fit to the object (due to isometric projection)
     //let compute the coordinates of the bottom left of the object in isometric coordinates

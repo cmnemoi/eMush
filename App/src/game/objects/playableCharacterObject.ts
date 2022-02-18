@@ -3,19 +3,22 @@ import DaedalusScene from "@/game/scenes/daedalusScene";
 import CharacterObject from "@/game/objects/characterObject";
 import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
 import { Player } from "@/entities/Player";
-import IsometricGeom from "@/game/objects/isometricGeom";
+import IsometricGeom from "@/game/scenes/isometricGeom";
+import { DepthElement } from "@/game/scenes/depthSortingArray";
 
 /*eslint no-unused-vars: "off"*/
 export default class PlayableCharacterObject extends CharacterObject {
     private isoPath : Array<{ direction: string, cartX: number, cartY: number }>;
     private currentMove : number;
+    private indexDepthArray: number;
 
-    constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, isoGeom: IsometricGeom, sceneAspectRatio: IsometricCoordinates, player: Player)
+    constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, isoGeom: IsometricGeom, player: Player)
     {
-        super(scene, cart_coords, isoGeom, sceneAspectRatio, player);
+        super(scene, cart_coords, isoGeom, player);
 
         this.isoPath = [];
         this.currentMove = -1;
+        this.indexDepthArray = 0;
 
 
         this.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
@@ -26,6 +29,8 @@ export default class PlayableCharacterObject extends CharacterObject {
     update(): void
     {
         this.movement();
+
+        this.checkPositionDepth();
 
         // const debugGraphics = this.scene.add.graphics().setAlpha(1);
         // debugGraphics.fillStyle(0xfbff00, 1);
@@ -223,8 +228,5 @@ export default class PlayableCharacterObject extends CharacterObject {
             }
 
         }
-
-        const iso_coords = this.getFeetCartCoords().toIsometricCoordinates();
-        this.setDepth(Math.max(iso_coords.x + this.sceneAspectRatio.x, iso_coords.y + this.sceneAspectRatio.y)*1000 + this.getFeetCartCoords().y);
     }
 }

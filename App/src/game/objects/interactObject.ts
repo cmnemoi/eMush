@@ -2,7 +2,7 @@ import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
 import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
 import DecorationObject from "@/game/objects/decorationObject";
-import IsometricGeom from "@/game/objects/isometricGeom";
+import IsometricGeom from "@/game/scenes/isometricGeom";
 
 /*eslint no-unused-vars: "off"*/
 export default class InteractObject extends DecorationObject {
@@ -13,12 +13,11 @@ export default class InteractObject extends DecorationObject {
         tileset: Phaser.Tilemaps.Tileset,
         frame: number,
         name: string,
-        sceneAspectRatio: IsometricCoordinates,
-        isAnimationYoyo?: boolean,
+        isAnimationYoyo: boolean,
         group: Phaser.GameObjects.Group | null = null
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, frame, name, sceneAspectRatio, isAnimationYoyo, group);
+        super(scene, cart_coords, iso_geom, tileset, frame, name, isAnimationYoyo, group);
 
         this.createInteractionArea();
 

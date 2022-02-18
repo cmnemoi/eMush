@@ -4,7 +4,7 @@ import store from '@/store/index';
 import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
 import DecorationObject from "@/game/objects/decorationObject";
 import InteractObject from "@/game/objects/interactObject";
-import IsometricGeom from "@/game/objects/isometricGeom";
+import IsometricGeom from "@/game/scenes/isometricGeom";
 
 /*eslint no-unused-vars: "off"*/
 export default class ShelfObject extends InteractObject {
@@ -15,11 +15,10 @@ export default class ShelfObject extends InteractObject {
         tileset: Phaser.Tilemaps.Tileset,
         frame: number,
         name: string,
-        sceneAspectRatio: IsometricCoordinates,
-        isAnimationYoyo?: boolean,
+        isAnimationYoyo: boolean,
         group: Phaser.GameObjects.Group | null = null
     ) {
-        super(scene, cart_coords, iso_geom, tileset, frame, 'shelf', sceneAspectRatio, isAnimationYoyo, group);
+        super(scene, cart_coords, iso_geom, tileset, frame, 'shelf', isAnimationYoyo, group);
 
 
         //If this is clicked then:

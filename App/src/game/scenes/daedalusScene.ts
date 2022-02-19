@@ -52,6 +52,7 @@ import front_corridor from "@/game/assets/front_corridor.json";
 import fire_particles_frame from "@/game/assets/images/fire_particles.json";
 import fire_particles from "@/game/assets/images/fire_particles.png";
 import smoke_particle from "@/game/assets/images/smoke_particle.png";
+import tile_highlight from "@/game/assets/images/tile_highlight.png";
 
 
 import { PhaserNavMeshPlugin } from "phaser-navmesh/src/index";
@@ -74,9 +75,11 @@ export default class DaedalusScene extends Phaser.Scene
     private player : Player;
     private navMeshPolygons : Array<Array<{ x: number, y: number }>>;
     private characterSize : number;
+    private isoTileSize : number;
     private room : Room;
     private cameraTarget : { x : number, y : number};
     private groups: Array<Phaser.GameObjects.Group>;
+    private targetHighlightObject?: Phaser.GameObjects.Sprite;
     public sceneGrid: SceneGrid;
 
     public selectedGameObject : Phaser.GameObjects.GameObject | null;
@@ -86,6 +89,7 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.navMeshPolygons = [];
         this.characterSize = 8;
+        this.isoTileSize = 16;
 
         if (player.room === null){
             throw new Error('player should have a room');
@@ -153,15 +157,13 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.load.image('smoke_particle', smoke_particle);
         this.load.atlas('fire_particles', fire_particles, fire_particles_frame);
+        this.load.image('tile_highlight', tile_highlight);
     }
 
     // eslint-disable-next-line no-unused-vars
     create(): void
     {
         const map = this.add.tilemap(this.room.key);
-
-        const IsoTileSize = 16;
-
 
         const tilesets = [
             map.addTilesetImage('ground_tileset', 'ground_tileset'),
@@ -178,15 +180,15 @@ export default class DaedalusScene extends Phaser.Scene
 
         const groundTilesThickness = 4;
         const globalPolygon = [
-            { x: 2 * IsoTileSize - groundTilesThickness + this.characterSize, y: 2 * IsoTileSize - groundTilesThickness + this.characterSize },
-            { x: (map.width - 2) * IsoTileSize- groundTilesThickness - this.characterSize, y: 2 * IsoTileSize + groundTilesThickness- this.characterSize },
-            { x: (map.width - 2) * IsoTileSize- groundTilesThickness - this.characterSize, y: (map.height - 2) * IsoTileSize - groundTilesThickness - this.characterSize },
-            { x: 2 * IsoTileSize- groundTilesThickness + this.characterSize, y: (map.height - 2) * IsoTileSize- groundTilesThickness- this.characterSize }
+            { x: 2 * this.isoTileSize - groundTilesThickness + this.characterSize, y: 2 * this.isoTileSize - groundTilesThickness + this.characterSize },
+            { x: (map.width - 2) * this.isoTileSize- groundTilesThickness - this.characterSize, y: 2 * this.isoTileSize + groundTilesThickness- this.characterSize },
+            { x: (map.width - 2) * this.isoTileSize- groundTilesThickness - this.characterSize, y: (map.height - 2) * this.isoTileSize - groundTilesThickness - this.characterSize },
+            { x: 2 * this.isoTileSize- groundTilesThickness + this.characterSize, y: (map.height - 2) * this.isoTileSize- groundTilesThickness- this.characterSize }
         ];
 
         this.sceneGrid.addSceneGeom([new IsometricGeom(
-            new IsometricCoordinates(map.width * IsoTileSize/2, map.height * IsoTileSize/2),
-            new IsometricCoordinates((map.width - 4) * IsoTileSize, (map.height - 4) * IsoTileSize))
+            new IsometricCoordinates(map.width * this.isoTileSize/2, map.height * this.isoTileSize/2),
+            new IsometricCoordinates((map.width - 4) * this.isoTileSize, (map.height - 4) * this.isoTileSize))
         ]);
 
         this.navMeshPolygons.push(globalPolygon);
@@ -211,6 +213,10 @@ export default class DaedalusScene extends Phaser.Scene
         this.createFromTiledObject(map.getObjectLayer('doors'), this, map.tilesets, objectsShift, this.room);
         this.createFromTiledObject(map.getObjectLayer('objects'), this, map.tilesets, objectsShift, this.room);
 
+        // add target tile highlight
+        this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
+        this.add.existing(this.targetHighlightObject);
+        this.targetHighlightObject.setDepth(500);
 
         this.sceneGrid.updateDepth();
         this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshPolygons, 0);
@@ -259,11 +265,11 @@ export default class DaedalusScene extends Phaser.Scene
 
         const cameraWidth = 424;
         const cameraHeight = 560;
-        const sceneCartWidth = (map.width + map.height) * IsoTileSize;
-        const sceneCartHeight = (map.width + map.height) * IsoTileSize/2; //72 is wall height
+        const sceneCartWidth = (map.width + map.height) * this.isoTileSize;
+        const sceneCartHeight = (map.width + map.height) * this.isoTileSize/2; //72 is wall height
 
         const wallHeight = 72;
-        this.cameras.main.setBounds(-map.height*IsoTileSize, -wallHeight, sceneCartWidth , sceneCartHeight + wallHeight);
+        this.cameras.main.setBounds(-map.height*this.isoTileSize, -wallHeight, sceneCartWidth , sceneCartHeight + wallHeight);
 
 
         this.input.setTopOnly(true);
@@ -290,6 +296,13 @@ export default class DaedalusScene extends Phaser.Scene
             if (!(gameObject instanceof DoorObject)) {
                 event.stopPropagation();
             }
+        });
+
+        this.input.on('gameobjectout', () => {
+            if (this.targetHighlightObject !== undefined) {this.targetHighlightObject.setAlpha(1);}
+        });
+        this.input.on('gameobjectover', () => {
+            if (this.targetHighlightObject !== undefined) {this.targetHighlightObject.setAlpha(0);}
         });
 
 
@@ -391,7 +404,25 @@ export default class DaedalusScene extends Phaser.Scene
     update (time: number, delta: number): void
     {
         this.playerSprite.update();
+
+        if (this.targetHighlightObject !== undefined) {
+            const worldPointer = this.input.mousePointer.updateWorldPoint(this.cameras.main);
+            const pointerCoords = new CartesianCoordinates(worldPointer.worldX, worldPointer.worldY);
+            const cellCoords = this.getGridIsoCoordinate(pointerCoords.toIsometricCoordinates()).toCartesianCoordinates();
+            this.targetHighlightObject.setPosition(cellCoords.x, cellCoords.y);
+            this.targetHighlightObject.setDepth(this.sceneGrid.getDepthOfPoint(cellCoords.toIsometricCoordinates()));
+        }
     }
+
+    // return the center of the currently pointed tile
+    getGridIsoCoordinate(isoCoord: IsometricCoordinates): IsometricCoordinates
+    {
+        return new IsometricCoordinates(
+            Math.floor(((isoCoord.x + 4)/this.isoTileSize)) * this.isoTileSize,
+            Math.floor(((isoCoord.y + 4)/this.isoTileSize)) * this.isoTileSize
+        );
+    }
+
 
 
     createPlayers(playerCoordinates: CartesianCoordinates): void

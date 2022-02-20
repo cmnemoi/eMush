@@ -64,6 +64,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const REMOVE_CAMERA = 'remove.camera';
     public const CHECK_SPORE_LEVEL = 'check.spore.level';
     public const EXAMINE_EQUIPMENT = 'examine.equipment';
+    public const CHECK_ROSTER = 'check.roster';
 
     public const EXTRACT_SPORE = 'extract.spore';
     public const INFECT_PLAYER = 'infect.player';
@@ -587,6 +588,15 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($doTheThingAction);
 
+        $checkRosterAction = new Action();
+        $checkRosterAction
+            ->setName(ActionEnum::CHECK_ROSTER)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($freeCost)
+        ;
+
+        $manager->persist($checkRosterAction);
+
         $manager->flush();
 
         $this->addReference(self::REJUVENATE_ALPHA, $rejuvenateAlpha);
@@ -641,6 +651,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::CHECK_SPORE_LEVEL, $checkSporeLevelAction);
         $this->addReference(self::FLIRT_DEFAULT, $flirtAction);
         $this->addReference(self::DO_THE_THING, $doTheThingAction);
+        $this->addReference(self::CHECK_ROSTER, $checkRosterAction);
     }
 
     public function getDependencies(): array

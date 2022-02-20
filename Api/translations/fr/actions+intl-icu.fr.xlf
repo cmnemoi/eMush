@@ -51,6 +51,16 @@
                 <target>Permet de vérifier son propre niveau d'infection par des spores de Mush.</target>
             </segment>
         </unit>
+        <unit id="check_roster">
+            <segment id="check_roster">
+                <source>check_roster.name</source>
+                <target>Lister l'équipage</target>
+            </segment>
+            <segment id="description">
+                <source>check_roster.description</source>
+                <target>Permet de vérifier qui se trouve à bord.</target>
+            </segment>
+        </unit>
         <unit id="consume">
             <segment id="consume">
                 <source>consume.name</source>

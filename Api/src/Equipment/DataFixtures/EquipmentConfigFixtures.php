@@ -460,8 +460,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($coffeMachine);
         $manager->persist($coffeMachineMechanic);
 
+        /** @var Action $checkRosterAction */
+        $checkRosterAction = $this->getReference(ActionsFixtures::CHECK_ROSTER);
+
         $cryoModuleMechanic = new Tool();
-//        $cryoModuleMechanic->setActions([ActionEnum::CHECK_ROSTER]);
+        $cryoModuleMechanic->addAction($checkRosterAction);
+
         $cryoModule = new EquipmentConfig();
         $cryoModule
             ->setGameConfig($gameConfig)

@@ -61,6 +61,7 @@ class ActionLogEnum
     public const INSTALL_CAMERA = 'install_camera';
     public const REMOVE_CAMERA = 'remove_camera';
     public const CHECK_SPORE_LEVEL = 'check_spore_level';
+    public const CHECK_ROSTER = 'check_roster';
 
     public const SUCCESS = 'success';
     public const FAIL = 'fail';
@@ -375,6 +376,13 @@ class ActionLogEnum
         ActionEnum::CHECK_SPORE_LEVEL => [
             self::SUCCESS => [
                 self::VALUE => self::CHECK_SPORE_LEVEL,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+        ],
+
+        ActionEnum::CHECK_ROSTER => [
+            self::SUCCESS => [
+                self::VALUE => self::CHECK_ROSTER,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],

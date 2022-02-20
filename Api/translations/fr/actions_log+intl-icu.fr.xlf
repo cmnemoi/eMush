@@ -7,6 +7,12 @@
                 <target>Vous entamez une détection des traces Mush... Niveau pré-fongique {quantity, select, 0 {nul} other {{quantity}}}</target>
             </segment>
         </unit>
+        <unit id="check_roster">
+            <segment id="check_roster">
+                <source>check_roster</source>
+                <target>{crew}</target>
+            </segment>
+        </unit>
         <unit id="coffee_success">
             <segment id="coffee_success">
                 <source>coffee_success</source>

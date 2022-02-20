@@ -50,6 +50,8 @@ export default class CharacterObject extends InteractObject {
         this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
             store.dispatch('room/selectTarget', { target: player });
         });
+
+        this.checkPositionDepth();
     }
 
 
@@ -104,6 +106,6 @@ export default class CharacterObject extends InteractObject {
     {
         const polygonDepth = (<DaedalusScene>this.scene).sceneGrid.getDepthOfPoint(this.getFeetCartCoords().toIsometricCoordinates());
 
-        this.depth = polygonDepth + this.getFeetCartCoords().x;
+        this.setDepth(polygonDepth + this.getFeetCartCoords().x);
     }
 }

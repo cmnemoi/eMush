@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
@@ -62,6 +63,10 @@ class RoomLogService implements RoomLogServiceInterface
         // first lets handle the special case of examine action
         if ($actionName === ActionEnum::EXAMINE) {
             return $this->createExamineLog($player, $actionParameter);
+        }
+
+        if ($actionName === ActionEnum::CHECK_ROSTER) {
+            return $this->createRosterLog($player, $actionParameter);
         }
 
         $logMapping = ActionLogEnum::ACTION_LOGS[$actionName] ?? null;
@@ -141,6 +146,60 @@ class RoomLogService implements RoomLogServiceInterface
         } else {
             throw new \LogicException('examine action is not implemented for this type of entity');
         }
+    }
+
+    private function createRosterLog(
+        Player $player,
+        ?LogParameterInterface $actionParameter,
+        array $parameters = [],
+    ): RoomLog {
+        $daedalus = $player->getDaedalus();
+        $gameConfig = $daedalus->getGameConfig();
+        $alivePlayers = $daedalus->getPlayers()->getPlayerAlive();
+        $deadPlayers = $daedalus->getPlayers()->getPlayerDead();
+        $nbCryoPlayers = $gameConfig->getCharactersConfig()->count() - $daedalus->getPlayers()->count();
+
+        $log = "";
+        
+        foreach ($alivePlayers as $player) {
+            $characterConfig = $player->getCharacterConfig();
+            $name = $characterConfig->getName();
+            if (CharacterEnum::isMale($name)) {
+                $log = $log.$name.": Éveillé<br>";
+            }
+            else {
+                $log = $log.$name.": Éveillée<br>";
+            }
+        }
+
+        foreach ($deadPlayers as $player) {
+            $characterConfig = $player->getCharacterConfig();
+            $name = $characterConfig->getName();
+            if (CharacterEnum::isMale($name)) {
+                $log = $log.$name.": Décédé<br>";
+            }
+            else {
+                $log = $log.$name.": Décédée<br>";
+            }
+        }
+
+        for ($i=0; $i < $nbCryoPlayers; ++$i) {
+            $log = $log."???: Cryogénisé(e)<br>";
+        }
+
+        $logMapping = ActionLogEnum::ACTION_LOGS[ActionEnum::CHECK_ROSTER] ?? null;
+        $logData = $logMapping[ActionLogEnum::SUCCESS];
+
+        $parameters['crew'] = $log;
+
+        return $this->createLog(
+            $logData[ActionLogEnum::VALUE],
+            $player->getPlace(),
+            $logData[ActionLogEnum::VISIBILITY],
+            'actions_log',
+            $player,
+            $parameters,
+        );
     }
 
     public function createLog(

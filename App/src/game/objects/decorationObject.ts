@@ -10,6 +10,7 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
     protected tiledFrame: number;
     public isoGeom: IsometricGeom;
     public isoHeight: number;
+    public collides: boolean;
     protected group: Phaser.GameObjects.Group | null;
 
     constructor(
@@ -19,6 +20,7 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         tileset: Phaser.Tilemaps.Tileset,
         frame: number,
         name: string,
+        collides: boolean,
         isAnimationYoyo: boolean,
         group: Phaser.GameObjects.Group | null = null,
     )
@@ -30,6 +32,7 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         this.isoGeom = iso_geom;
         this.tiledFrame = frame;
         this.group = group;
+        this.collides = collides;
 
 
         this.scene.add.existing(this);
@@ -73,7 +76,7 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         } else {
             this.setTexture(tileset.name, this.tiledFrame);
         }
-        //this.setAlpha(1);
+        //this.setAlpha(0);
     }
 
     //@ts-ignore

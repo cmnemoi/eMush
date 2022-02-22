@@ -21,7 +21,7 @@ export default class DoorGroundObject extends InteractObject {
         door: DoorEntity,
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, firstFrame, door.key, false);
+        super(scene, cart_coords, iso_geom, tileset, firstFrame, door.key, true, false);
 
         this.door = door;
 

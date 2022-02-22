@@ -14,7 +14,7 @@
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 34, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
          "id":13,
-         "name":"wallBack",
+         "name":"wall",
          "opacity":1,
          "properties":[
                 {
@@ -367,8 +367,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":41,
-                 "x":17.3333333333333,
-                 "y":156
+                 "x":17.75,
+                 "y":156.25
                 }, 
                 {
                  "gid":557,
@@ -609,7 +609,7 @@
  "nextobjectid":97,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.1",
+ "tiledversion":"1.8.2",
  "tileheight":16,
  "tilesets":[
         {
@@ -763,15 +763,15 @@
              "width":67
             },
          "image":"tilemaps\/beds_object.png",
-         "imageheight":120,
-         "imagewidth":268,
+         "imageheight":116,
+         "imagewidth":264,
          "margin":0,
          "name":"beds_object",
          "objectalignment":"center",
          "spacing":0,
          "tilecount":8,
-         "tileheight":60,
-         "tilewidth":67
+         "tileheight":58,
+         "tilewidth":66
         }, 
         {
          "columns":4,

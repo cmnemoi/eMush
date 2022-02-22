@@ -73,7 +73,6 @@ export default class DaedalusScene extends Phaser.Scene
     private layer : Phaser.Tilemaps.TilemapLayer | null;
     private playerSprite! : PlayableCharacterObject;
     private player : Player;
-    private navMeshPolygons : Array<Array<{ x: number, y: number }>>;
     private characterSize : number;
     private isoTileSize : number;
     private room : Room;
@@ -87,9 +86,8 @@ export default class DaedalusScene extends Phaser.Scene
     constructor(player: Player) {
         super('game-scene');
 
-        this.navMeshPolygons = [];
-        this.characterSize = 8;
         this.isoTileSize = 16;
+        this.characterSize = 4;
 
         if (player.room === null){
             throw new Error('player should have a room');
@@ -98,7 +96,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.room = player.room;
         this.player = player;
 
-        this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshPolygons);
+        this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', []);
         this.sceneGrid = new SceneGrid(this);
         this.layer = null;
 
@@ -138,7 +136,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.spritesheet('camera_object', camera_object, { frameHeight: 17, frameWidth: 25 });
         this.load.spritesheet('tube_object', tube_object, { frameHeight: 61, frameWidth: 42 });
         this.load.spritesheet('surgery_console_object', surgery_object, { frameHeight: 52, frameWidth: 41 });
-        this.load.spritesheet('beds_object', beds_object, { frameHeight: 60, frameWidth: 67 });
+        this.load.spritesheet('beds_object', beds_object, { frameHeight: 58, frameWidth: 66 });
         this.load.spritesheet('door_ground_tileset', door_ground_tileset, { frameHeight: 36, frameWidth: 64 });
         this.load.spritesheet('chair_object', chair_object, { frameHeight: 36, frameWidth: 34 });
         this.load.spritesheet('door_object', door_object, { frameHeight: 73, frameWidth: 48 });
@@ -176,26 +174,11 @@ export default class DaedalusScene extends Phaser.Scene
         const tilemapsShift = new CartesianCoordinates(- 16, -(72 - 16));
         const objectsShift = new CartesianCoordinates(0, 0);
 
-
-
         const groundTilesThickness = 4;
-        const globalPolygon = [
-            { x: 2 * this.isoTileSize - groundTilesThickness + this.characterSize, y: 2 * this.isoTileSize - groundTilesThickness + this.characterSize },
-            { x: (map.width - 2) * this.isoTileSize- groundTilesThickness - this.characterSize, y: 2 * this.isoTileSize + groundTilesThickness- this.characterSize },
-            { x: (map.width - 2) * this.isoTileSize- groundTilesThickness - this.characterSize, y: (map.height - 2) * this.isoTileSize - groundTilesThickness - this.characterSize },
-            { x: 2 * this.isoTileSize- groundTilesThickness + this.characterSize, y: (map.height - 2) * this.isoTileSize- groundTilesThickness- this.characterSize }
-        ];
-
-        this.sceneGrid.addSceneGeom([new IsometricGeom(
-            new IsometricCoordinates(map.width * this.isoTileSize/2, map.height * this.isoTileSize/2),
-            new IsometricCoordinates((map.width - 4) * this.isoTileSize, (map.height - 4) * this.isoTileSize))
-        ]);
-
-        this.navMeshPolygons.push(globalPolygon);
+        this.sceneGrid.addSceneGeom(new IsometricCoordinates(map.width * isoTileSize, map.height * isoTileSize), groundTilesThickness);
 
 
         (<Phaser.Renderer.WebGL.WebGLRenderer>this.game.renderer).pipelines.addPostPipeline('outline', OutlinePostFx );
-
 
         for (let i=0; i < map.layers.length; i++) {
             const buildingLayer = map.layers[i];
@@ -205,10 +188,16 @@ export default class DaedalusScene extends Phaser.Scene
                 wallLayer.setDepth(this.computeFixedDepth(this.getCustomPropertyByName(buildingLayer, 'depth')));
 
             } else if (buildingLayer.name === 'ground') {
+                //ground layers needs to be rectangular
                 const groundLayer = map.createLayer(i, tilesets, tilemapsShift.x, tilemapsShift.y);
                 groundLayer.setDepth(this.computeFixedDepth(this.getCustomPropertyByName(buildingLayer, 'depth')));
+
+                //groundLayer.setAlpha(0.);
+                this.sceneGrid.addGroundGeom(groundLayer.layer, groundTilesThickness);
+                //const groundPolygon = this.buildPolygonFromGroundLayer(groundLayer);
             }
         }
+
 
         this.createFromTiledObject(map.getObjectLayer('doors'), this, map.tilesets, objectsShift, this.room);
         this.createFromTiledObject(map.getObjectLayer('objects'), this, map.tilesets, objectsShift, this.room);
@@ -219,13 +208,16 @@ export default class DaedalusScene extends Phaser.Scene
         this.targetHighlightObject.setDepth(500);
 
         this.sceneGrid.updateDepth();
-        this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshPolygons, 0);
+        this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.sceneGrid.buildPolygonsForNavMesh(this.characterSize));
 
 
-        /*  // navMesh Debug
+        /*// navMesh Debug
+        const navMeshPolygons = this.sceneGrid.buildPolygonsForNavMesh(this.characterSize);
+
         const debugGraphics = this.add.graphics().setAlpha(1);
-        for (let i = 0; i < this.navMeshPolygons.length; i++) {
-            const polygon = this.navMeshPolygons[i];
+        debugGraphics.setDepth(1000000);
+        for (let i = 0; i < navMeshPolygons.length; i++) {
+            const polygon = navMeshPolygons[i];
 
             let maxX = polygon[0].x;
             let minX = polygon[0].x;
@@ -240,22 +232,23 @@ export default class DaedalusScene extends Phaser.Scene
             });
 
             const cartPoly = new IsometricGeom(new IsometricCoordinates((maxX+minX)/2, (maxY+minY)/2), new IsometricCoordinates(maxX-minX, maxY-minY));
-            debugGraphics.fillStyle(0x00ff08, 0.5);
-            debugGraphics.lineStyle(1, 0x000000, 1.0);
+
+            debugGraphics.fillStyle(0xF0FFFF, 0.5);
+            debugGraphics.lineStyle(1, 0xff0000, 1.0);
             debugGraphics.fillPoints(cartPoly.getCartesianPolygon().points, true);
             debugGraphics.strokePoints(cartPoly.getCartesianPolygon().points, true);
         }*/
 
-        // const debugGraphics2 = this.add.graphics().setAlpha(1);
-        // this.navMesh.enableDebug(debugGraphics2);
-        // this.navMesh.debugDrawClear(); // Clears the overlay
-        // // Visualize the underlying navmesh
-        // this.navMesh.debugDrawMesh({
-        //     drawCentroid: true,
-        //     drawBounds: false,
-        //     drawNeighbors: true,
-        //     drawPortals: true
-        // });
+        /*const debugGraphics2 = this.add.graphics().setAlpha(1);
+        this.navMesh.enableDebug(debugGraphics2);
+        this.navMesh.debugDrawClear(); // Clears the overlay
+        // Visualize the underlying navmesh
+        this.navMesh.debugDrawMesh({
+            drawCentroid: true,
+            drawBounds: false,
+            drawNeighbors: true,
+            drawPortals: true
+        });*/
 
 
         //place the starting camera.
@@ -263,8 +256,7 @@ export default class DaedalusScene extends Phaser.Scene
         //else it is centered on the scene
         const playerCoordinates = this.getPlayerCoordinates();
 
-        const cameraWidth = 424;
-        const cameraHeight = 560;
+
         const sceneCartWidth = (map.width + map.height) * this.isoTileSize;
         const sceneCartHeight = (map.width + map.height) * this.isoTileSize/2; //72 is wall height
 
@@ -311,21 +303,26 @@ export default class DaedalusScene extends Phaser.Scene
         }
 
 
-        /*console.log(this.sceneGrid);
-        // debug scene grid
-        console.log(this.sceneGrid.polygonArray.length);
-        const debugGraphics = this.add.graphics().setAlpha(1);
-        for (let i = 0; i < this.sceneGrid.polygonArray.length; i++) {
-            const polygon = this.sceneGrid.polygonArray[i].geom;
-
-
-            const cartPoly = polygon.getCartesianPolygon();
-            debugGraphics.fillStyle(0x00ff08, 0.1);
-            debugGraphics.setDepth(10000000);
-            debugGraphics.lineStyle(1, 0x000000, 1.0);
-            debugGraphics.fillPoints(cartPoly.points, true);
-            debugGraphics.strokePoints(cartPoly.points, true);
-        }*/
+        // console.log(this.sceneGrid);
+        // // debug scene grid
+        // console.log(this.sceneGrid.polygonArray.length);
+        // const debugGraphics3 = this.add.graphics().setAlpha(1);
+        // for (let i = 0; i < this.sceneGrid.polygonArray.length; i++) {
+        // // for (let i = 2; i < 5; i++) {
+        //     const polygon = this.sceneGrid.polygonArray[i].geom;
+        //
+        //
+        //     if(this.sceneGrid.polygonArray[i].isNavigable) {
+        //         debugGraphics3.fillStyle(0x00ff08, 0.1);
+        //     } else {
+        //         debugGraphics3.fillStyle(0xff0000, 0.1);
+        //     }
+        //     const cartPoly = polygon.getCartesianPolygon();
+        //     debugGraphics3.setDepth(10000000);
+        //     debugGraphics3.lineStyle(1, 0x000000, 1.0);
+        //     debugGraphics3.fillPoints(cartPoly.points, true);
+        //     debugGraphics3.strokePoints(cartPoly.points, true);
+        // }
     }
 
     displayFire(layer: Phaser.Tilemaps.LayerData): void
@@ -454,17 +451,7 @@ export default class DaedalusScene extends Phaser.Scene
 
     getPlayerCoordinates(): CartesianCoordinates
     {
-        const randomPoly = this.navMeshPolygons[Math.floor(Math.random() * this.navMeshPolygons.length)];
-
-        const polyExtremum = this.getPolygonExtremum(randomPoly);
-
-        const randomIsoCord = new IsometricCoordinates(
-            polyExtremum.min.x + Math.random() * (polyExtremum.max.x - polyExtremum.min.x),
-            polyExtremum.min.y + Math.random() * (polyExtremum.max.y - polyExtremum.min.y)
-        );
-
-        const cartCoords = randomIsoCord.toCartesianCoordinates();
-
+        const cartCoords = this.sceneGrid.getRandomPoint(true);
         //Coordinates of player in the navMesh is given relative to the feet of the player
         //Coordinates given in the constructor of player are the center of the sprite
         cartCoords.setTo(cartCoords.x, cartCoords.y - 16);
@@ -560,18 +547,16 @@ export default class DaedalusScene extends Phaser.Scene
         const frame = obj.gid - tileset.firstgid;
         const name = obj.name;
 
-        if (this.isCustomPropertyByName(obj, 'collides')){
-            this.updateNavMesh(obj);
-        }
 
         const equipmentEntity = this.getEquipmentFromTiledObject(obj);
         const group = this.getGroupOfObject(obj, equipmentEntity);
         const isAnimationYoyo = this.isCustomPropertyByName(obj, 'animationYoyo');
+        const collides = this.isCustomPropertyByName(obj, 'collides');
 
         switch (obj.type)
         {
         case 'decoration':
-            return new DecorationObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, isAnimationYoyo);
+            return new DecorationObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, collides, isAnimationYoyo);
         case 'door':
             if (equipmentEntity instanceof DoorEntity) {
                 const newDoor = new DoorObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity);
@@ -584,10 +569,10 @@ export default class DaedalusScene extends Phaser.Scene
             }
         case 'interact':
             if (equipmentEntity instanceof Equipment) {
-                return new EquipmentObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity, isAnimationYoyo, group);
+                return new EquipmentObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity, collides, isAnimationYoyo, group);
             }
         case 'shelf':
-            return new ShelfObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, isAnimationYoyo, group);
+            return new ShelfObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, collides, isAnimationYoyo, group);
         }
         throw new Error(obj.name + "type does not exist");
     }
@@ -650,106 +635,6 @@ export default class DaedalusScene extends Phaser.Scene
         }
 
         return 'undefined';
-    }
-
-
-    //this function modifies the pathfinding grid each time a new object is added
-    updateNavMesh(obj: Phaser.Types.Tilemaps.TiledObject): void
-    {
-        //get object coordinates
-        const isoGeom = this.getIsometricGeom(obj).enlargeGeom(this.characterSize);
-
-        const objSize = { max: isoGeom.getMaxIso(), min: isoGeom.getMinIso() };
-
-
-        const newNavMeshPolys = [];
-
-
-        //Loop through the current navMesh polygons
-        for (let i = 0; i < this.navMeshPolygons.length; i++) {
-            //Check if this object is within existing polygon
-            const polyExtremum = this.getPolygonExtremum(this.navMeshPolygons[i]);
-
-            if (this.isInPolygon(polyExtremum, objSize)) {
-                //if the object is within the polygon we need to cut this polygon into 2 to 3 new polygons
-                const maxX = Math.min(objSize.max.x, polyExtremum.max.x);
-                const maxY = Math.min(objSize.max.y, polyExtremum.max.y);
-                const minX = Math.max(objSize.min.x, polyExtremum.min.x);
-                const minY = Math.max(objSize.min.y, polyExtremum.min.y);
-
-                if (polyExtremum.min.y < objSize.min.y) {
-                    newNavMeshPolys.push([
-                        { x: polyExtremum.min.x, y: polyExtremum.min.y },
-                        { x: polyExtremum.min.x, y: objSize.min.y },
-                        { x: maxX, y: objSize.min.y },
-                        { x: maxX, y: polyExtremum.min.y }
-                    ]);
-                }
-
-                if (polyExtremum.max.x > objSize.max.x) {
-                    newNavMeshPolys.push([
-                        { x: objSize.max.x, y: polyExtremum.min.y },
-                        { x: polyExtremum.max.x, y: polyExtremum.min.y },
-                        { x: polyExtremum.max.x, y: maxY },
-                        { x: objSize.max.x, y: maxY }
-                    ]);
-                }
-
-                if (polyExtremum.max.y > objSize.max.y) {
-                    newNavMeshPolys.push([
-                        { x: minX, y: objSize.max.y },
-                        { x: polyExtremum.max.x, y: objSize.max.y },
-                        { x: polyExtremum.max.x, y: polyExtremum.max.y },
-                        { x: minX, y: polyExtremum.max.y }
-                    ]);
-                }
-
-                if (polyExtremum.min.x < objSize.min.x) {
-                    newNavMeshPolys.push([
-                        { x: polyExtremum.min.x, y: minY },
-                        { x: objSize.min.x, y: minY },
-                        { x: objSize.min.x, y: polyExtremum.max.y },
-                        { x: polyExtremum.min.x, y: polyExtremum.max.y }
-                    ]);
-                }
-
-                delete this.navMeshPolygons[i];
-            } else {
-                newNavMeshPolys.push(this.navMeshPolygons[i]);
-            }
-        }
-
-        // once we checked all polygons we replace the old grid by the new one
-        this.navMeshPolygons = newNavMeshPolys;
-    }
-
-    isInPolygon(polyExtremum: {max: IsometricCoordinates, min: IsometricCoordinates}, objSize: {max: IsometricCoordinates, min: IsometricCoordinates}): boolean
-    {
-        return polyExtremum.min.x < objSize.max.x && polyExtremum.max.x > objSize.min.x &&
-            polyExtremum.min.y < objSize.max.y && polyExtremum.max.y > objSize.min.y;
-    }
-
-
-    getPolygonExtremum(polygon: Array<{ x: number, y: number }>): { max: IsometricCoordinates, min: IsometricCoordinates }
-    {
-        const min = new IsometricCoordinates(polygon[0].x, polygon[0].y);
-        const max = new IsometricCoordinates(polygon[0].x, polygon[0].y);
-
-        for (let i = 1; i < polygon.length; i++) {
-            if (polygon[i].x > max.x) {
-                max.x = polygon[i].x;
-            } else if (polygon[i].x < min.x) {
-                min.x = polygon[i].x;
-            }
-
-            if (polygon[i].y > max.y) {
-                max.y = polygon[i].y;
-            } else if (polygon[i].y < min.y) {
-                min.y = polygon[i].y;
-            }
-        }
-
-        return { min: min, max: max };
     }
 
 

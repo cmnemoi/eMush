@@ -21,6 +21,7 @@ export default class CharacterObject extends InteractObject {
             new Tileset('character', 0, 48, 32),
             (<number>(<CharacterInfos>characterEnum[player.character.key]).rightFrame),
             player.character.key,
+            false,
             false
         );
 

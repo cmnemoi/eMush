@@ -13,11 +13,12 @@ export default class InteractObject extends DecorationObject {
         tileset: Phaser.Tilemaps.Tileset,
         frame: number,
         name: string,
+        collides: boolean,
         isAnimationYoyo: boolean,
         group: Phaser.GameObjects.Group | null = null
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, frame, name, isAnimationYoyo, group);
+        super(scene, cart_coords, iso_geom, tileset, frame, name, collides, isAnimationYoyo, group);
 
         this.createInteractionArea();
 

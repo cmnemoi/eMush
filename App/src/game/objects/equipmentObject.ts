@@ -18,11 +18,12 @@ export default class EquipmentObject extends InteractObject {
         tileset: Phaser.Tilemaps.Tileset,
         frame: number,
         equipment: Equipment,
+        collides: boolean,
         isAnimationYoyo: boolean,
         group: Phaser.GameObjects.Group | null = null
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, frame, equipment.key, isAnimationYoyo, group);
+        super(scene, cart_coords, iso_geom, tileset, frame, equipment.key, collides, isAnimationYoyo, group);
 
         this.equipment = equipment;
 

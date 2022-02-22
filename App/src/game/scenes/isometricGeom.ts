@@ -85,7 +85,7 @@ export default class IsometricGeom extends Phaser.Geom.Polygon implements Phaser
 
     enlargeGeom(buffer: number): IsometricGeom
     {
-        return new IsometricGeom(this.iso_coords, new IsometricCoordinates(this.iso_size.x + buffer, this.iso_size.y + buffer));
+        return new IsometricGeom(this.iso_coords, new IsometricCoordinates(this.iso_size.x + buffer * 2, this.iso_size.y + buffer * 2));
     }
 
     newPosition(newIsoCoords: IsometricCoordinates): IsometricGeom

@@ -89,41 +89,41 @@ export class SceneGrid {
 
                 //check top of this polygon. If there is a navigable polygon, compensate for the shrink of the neighbouring polygon, else, shrink
                 let minY = currentGeom.getMinIso().y + meshShrink;
-                const topRightPolygonIndex = this.getPolygonFromPoint(new IsometricCoordinates(currentGeom.getMinIso().x+2, currentGeom.getMinIso().y - 2));
-                const topLeftPolygonIndex = this.getPolygonFromPoint(new IsometricCoordinates(currentGeom.getMaxIso().x-2, currentGeom.getMinIso().y - 2));
-                if (topRightPolygonIndex !== -1 && topLeftPolygonIndex !== -1 &&
-                    this.polygonArray[topLeftPolygonIndex].isNavigable &&
-                    this.polygonArray[topRightPolygonIndex].isNavigable &&
-                    topLeftPolygonIndex  === topRightPolygonIndex
+                const topRightPolygonIndex = this.getPolygonFromPoint(new IsometricCoordinates(
+                    currentGeom.getMinIso().x+meshShrink,
+                    currentGeom.getMinIso().y - meshShrink)
+                );
+                const topLeftPolygonIndex = this.getPolygonFromPoint(new IsometricCoordinates(
+                    currentGeom.getMaxIso().x-meshShrink,
+                    currentGeom.getMinIso().y - meshShrink)
+                );
+                if (topLeftPolygonIndex  === topRightPolygonIndex &&
+                    topRightPolygonIndex !== -1 &&
+                    this.polygonArray[topLeftPolygonIndex].isNavigable
                 ) {
                     minY = currentGeom.getMinIso().y - meshShrink;
                 }
 
+
                 //check bottom of this polygon. If there is a navigable polygon, compensate for the shrink of the neighbouring polygon, else, shrink
                 let maxY = currentGeom.getMaxIso().y - meshShrink;
-                const bottomLeftPolygonIndex = this.getPolygonFromPoint(new IsometricCoordinates(currentGeom.getMinIso().x +2, currentGeom.getMaxIso().y + 2));
-                const bottomRightPolygonIndex = this.getPolygonFromPoint(new IsometricCoordinates(currentGeom.getMaxIso().x -2, currentGeom.getMaxIso().y + 2));
-
-                if (bottomRightPolygonIndex !== -1 && bottomLeftPolygonIndex !== -1){
-                    console.log('coucou');
-                    console.log(bottomLeftPolygonIndex);
-                    console.log(bottomRightPolygonIndex);
-                    console.log(this.polygonArray[bottomLeftPolygonIndex].geom.getIsoSize().x);
-                    console.log(currentGeom.getIsoSize().x);
-                }
-
-
-                if (bottomRightPolygonIndex !== -1 && bottomLeftPolygonIndex !== -1 &&
-                    this.polygonArray[bottomRightPolygonIndex].isNavigable &&
-                    this.polygonArray[bottomLeftPolygonIndex].isNavigable &&
-                    bottomRightPolygonIndex === bottomLeftPolygonIndex
+                const bottomLeftPolygonIndex = this.getPolygonFromPoint(new IsometricCoordinates(
+                    currentGeom.getMinIso().x +meshShrink,
+                    currentGeom.getMaxIso().y + meshShrink
+                ));
+                const bottomRightPolygonIndex = this.getPolygonFromPoint(new IsometricCoordinates(
+                    currentGeom.getMaxIso().x -meshShrink,
+                    currentGeom.getMaxIso().y + meshShrink
+                ));
+                if (bottomRightPolygonIndex === bottomLeftPolygonIndex &&
+                    bottomRightPolygonIndex !== -1 &&
+                    this.polygonArray[bottomRightPolygonIndex].isNavigable
                 ) {
                     maxY = currentGeom.getMaxIso().y + meshShrink;
                 }
 
-                if (currentGeom.getIsoSize().x > meshShrink &&
-                    currentGeom.getIsoSize().y>meshShrink
-                ) {
+
+                if (maxX>minX && maxY>minY) {
                     polygonArray.push([
                         { x: minX, y: minY },
                         { x: minX, y: maxY },

@@ -68,18 +68,21 @@ import { SceneGrid } from "@/game/scenes/sceneGrid";
 export default class DaedalusScene extends Phaser.Scene
 {
     public navMesh : PhaserNavMesh;
-
     private navMeshPlugin!: PhaserNavMeshPlugin;
-    private layer : Phaser.Tilemaps.TilemapLayer | null;
+
+    private characterSize: number;
+    private isoTileSize: number;
+    private sceneIsoSize: IsometricCoordinates;
+
     private playerSprite! : PlayableCharacterObject;
     private player : Player;
-    private characterSize : number;
-    private isoTileSize : number;
     private room : Room;
     private cameraTarget : { x : number, y : number};
     private groups: Array<Phaser.GameObjects.Group>;
     private targetHighlightObject?: Phaser.GameObjects.Sprite;
+
     public sceneGrid: SceneGrid;
+    public navMeshPolygons: Array<Array<{x: number, y: number}>>;
 
     public selectedGameObject : Phaser.GameObjects.GameObject | null;
 
@@ -87,7 +90,8 @@ export default class DaedalusScene extends Phaser.Scene
         super('game-scene');
 
         this.isoTileSize = 16;
-        this.characterSize = 4;
+        this.characterSize = 6;
+        this.sceneIsoSize= new IsometricCoordinates(0, 0);
 
         if (player.room === null){
             throw new Error('player should have a room');
@@ -98,7 +102,7 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', []);
         this.sceneGrid = new SceneGrid(this);
-        this.layer = null;
+        this.navMeshPolygons = [];
 
         this.selectedGameObject = null;
 
@@ -168,6 +172,8 @@ export default class DaedalusScene extends Phaser.Scene
             map.addTilesetImage('wall_tileset', 'wall_tileset')
         ];
 
+        this.sceneIsoSize= new IsometricCoordinates(map.width* this.isoTileSize, map.height * this.isoTileSize);
+
 
         // ground and wall tilesets are aligned to their top left, contrary to objects,
         // tilemaps must be then shifted to set the center of the ground tile (only the 32 x 32 at the bottom)
@@ -175,7 +181,7 @@ export default class DaedalusScene extends Phaser.Scene
         const objectsShift = new CartesianCoordinates(0, 0);
 
         const groundTilesThickness = 4;
-        this.sceneGrid.addSceneGeom(new IsometricCoordinates(map.width * isoTileSize, map.height * isoTileSize), groundTilesThickness);
+        this.sceneGrid.addSceneGeom(this.sceneIsoSize, groundTilesThickness);
 
 
         (<Phaser.Renderer.WebGL.WebGLRenderer>this.game.renderer).pipelines.addPostPipeline('outline', OutlinePostFx );
@@ -208,7 +214,9 @@ export default class DaedalusScene extends Phaser.Scene
         this.targetHighlightObject.setDepth(500);
 
         this.sceneGrid.updateDepth();
-        this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.sceneGrid.buildPolygonsForNavMesh(this.characterSize));
+
+        this.navMeshPolygons = this.sceneGrid.buildPolygonsForNavMesh(this.characterSize);
+        this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshPolygons, this.characterSize);
 
 
         /*// navMesh Debug
@@ -217,6 +225,7 @@ export default class DaedalusScene extends Phaser.Scene
         const debugGraphics = this.add.graphics().setAlpha(1);
         debugGraphics.setDepth(1000000);
         for (let i = 0; i < navMeshPolygons.length; i++) {
+        //for (let i = 4; i < 5; i++) {
             const polygon = navMeshPolygons[i];
 
             let maxX = polygon[0].x;
@@ -239,16 +248,17 @@ export default class DaedalusScene extends Phaser.Scene
             debugGraphics.strokePoints(cartPoly.getCartesianPolygon().points, true);
         }*/
 
-        /*const debugGraphics2 = this.add.graphics().setAlpha(1);
-        this.navMesh.enableDebug(debugGraphics2);
-        this.navMesh.debugDrawClear(); // Clears the overlay
-        // Visualize the underlying navmesh
-        this.navMesh.debugDrawMesh({
-            drawCentroid: true,
-            drawBounds: false,
-            drawNeighbors: true,
-            drawPortals: true
-        });*/
+        // const debugGraphics2 = this.add.graphics().setAlpha(1);
+        // debugGraphics2.setDepth(100000000);
+        // this.navMesh.enableDebug(debugGraphics2);
+        // this.navMesh.debugDrawClear(); // Clears the overlay
+        // // Visualize the underlying navmesh
+        // this.navMesh.debugDrawMesh({
+        //     drawCentroid: true,
+        //     drawBounds: false,
+        //     drawNeighbors: true,
+        //     drawPortals: true
+        // });
 
 
         //place the starting camera.
@@ -299,42 +309,41 @@ export default class DaedalusScene extends Phaser.Scene
 
 
         if (this.room.isOnFire) {
-            this.displayFire(map.getLayer('ground'));
+            this.displayFire();
         }
 
+        /*
+        console.log(this.sceneGrid);
+        // debug scene grid
+        console.log(this.sceneGrid.polygonArray.length);
+        const debugGraphics3 = this.add.graphics().setAlpha(1);
+        for (let i = 0; i < this.sceneGrid.polygonArray.length; i++) {
+        // for (let i = 2; i < 5; i++) {
+            const polygon = this.sceneGrid.polygonArray[i].geom;
 
-        // console.log(this.sceneGrid);
-        // // debug scene grid
-        // console.log(this.sceneGrid.polygonArray.length);
-        // const debugGraphics3 = this.add.graphics().setAlpha(1);
-        // for (let i = 0; i < this.sceneGrid.polygonArray.length; i++) {
-        // // for (let i = 2; i < 5; i++) {
-        //     const polygon = this.sceneGrid.polygonArray[i].geom;
-        //
-        //
-        //     if(this.sceneGrid.polygonArray[i].isNavigable) {
-        //         debugGraphics3.fillStyle(0x00ff08, 0.1);
-        //     } else {
-        //         debugGraphics3.fillStyle(0xff0000, 0.1);
-        //     }
-        //     const cartPoly = polygon.getCartesianPolygon();
-        //     debugGraphics3.setDepth(10000000);
-        //     debugGraphics3.lineStyle(1, 0x000000, 1.0);
-        //     debugGraphics3.fillPoints(cartPoly.points, true);
-        //     debugGraphics3.strokePoints(cartPoly.points, true);
-        // }
+            const cartPoly = polygon.getCartesianPolygon();
+            if(this.sceneGrid.polygonArray[i].isNavigable) {
+                debugGraphics3.fillStyle(0x00ff08, 0.1);
+            } else {
+                debugGraphics3.fillStyle(0xff0000, 0.1);
+                debugGraphics3.fillPoints(cartPoly.points, true);
+                debugGraphics3.strokePoints(cartPoly.points, true);
+            }
+            debugGraphics3.setDepth(10000000);
+            debugGraphics3.lineStyle(1, 0x000000, 1.0);
+
+        }*/
     }
 
-    displayFire(layer: Phaser.Tilemaps.LayerData): void
+    displayFire(): void
     {
-        for (let i = 1; i < layer.data.length; i++) {
-            const test = layer.data[i];
-            for (let j = 1; j < test.length; j++) {
-                if (test[j].index !== -1) {
+        for (let i = this.isoTileSize/2; i < this.sceneIsoSize.x; i = i + this.isoTileSize) {
+            for (let j = this.isoTileSize/2; j < this.sceneIsoSize.y; j = j + this.isoTileSize) {
+                const tileCoordinates = new IsometricCoordinates(i, 8 + j);
+                if (this.sceneGrid.getPolygonFromPoint(tileCoordinates) !== -1) {
                     //is the tile on fire
                     if (Math.random() < 0.2) {
                         //intensity of fire
-                        const tileCoordinates = new IsometricCoordinates(8 + i*16, 8 + (j+1) * 16);
                         if (Math.random() > 0.2) {
                             this.createFireCell(tileCoordinates, 1);
                         } else {
@@ -349,6 +358,7 @@ export default class DaedalusScene extends Phaser.Scene
     createFireCell(isoCoords: IsometricCoordinates, intensity: number): void
     {
         const particles = this.add.particles('fire_particles');
+        particles.setDepth(this.sceneGrid.getDepthOfPoint(isoCoords));
 
 
         const tile = new IsometricGeom(isoCoords, new IsometricCoordinates(16, 16));
@@ -406,8 +416,14 @@ export default class DaedalusScene extends Phaser.Scene
             const worldPointer = this.input.mousePointer.updateWorldPoint(this.cameras.main);
             const pointerCoords = new CartesianCoordinates(worldPointer.worldX, worldPointer.worldY);
             const cellCoords = this.getGridIsoCoordinate(pointerCoords.toIsometricCoordinates()).toCartesianCoordinates();
-            this.targetHighlightObject.setPosition(cellCoords.x, cellCoords.y);
-            this.targetHighlightObject.setDepth(this.sceneGrid.getDepthOfPoint(cellCoords.toIsometricCoordinates()));
+
+            const sceneGridIndex = this.sceneGrid.getPolygonFromPoint(cellCoords.toIsometricCoordinates());
+            if (sceneGridIndex !== -1 && this.sceneGrid.polygonArray[sceneGridIndex].isNavigable) {
+                this.targetHighlightObject.setPosition(cellCoords.x, cellCoords.y);
+                this.targetHighlightObject.setDepth(this.sceneGrid.getDepthOfPoint(cellCoords.toIsometricCoordinates()));
+            } else {
+                this.targetHighlightObject.setDepth(0);
+            }
         }
     }
 

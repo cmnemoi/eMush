@@ -47,11 +47,11 @@ export default class PlayableCharacterObject extends CharacterObject {
 
 
         //find the path in isometric coordinates using navMeshPlugin
-        const path = this.navMesh.findPath({ x: startingPoint.x, y: startingPoint.y }, { x: finishPoint.x, y: finishPoint.y });
+        let path = this.navMesh.findPath({ x: startingPoint.x, y: startingPoint.y }, { x: finishPoint.x, y: finishPoint.y });
 
-        /* // @ts-ignore
-        this.navMesh.debugDrawPath(path, 0xffd900);;
-
+        /* // naMesh debug
+        // @ts-ignore
+        this.navMesh.debugDrawPath(path, 0xffd900, 2);
         const debugGraphics = this.scene.add.graphics().setAlpha(1);
         debugGraphics.fillStyle(0xff0000, 1);
         debugGraphics.lineStyle(1, 0x000000, 1.0);
@@ -63,7 +63,9 @@ export default class PlayableCharacterObject extends CharacterObject {
         }*/
 
 
-        if (path !== null){
+        if (path !== null) {
+            path = (<DaedalusScene>this.scene).navMeshGrid.cutPathWithGrid(path);
+
             this.isoPath = [];
             this.currentMove = 0;
 
@@ -82,10 +84,12 @@ export default class PlayableCharacterObject extends CharacterObject {
                     cartPoint = (new IsometricCoordinates(path[i].x, path[i].y)).toCartesianCoordinates();
                     direction = this.getDirection( new IsometricCoordinates(path[i-1].x, path[i-1].y), new IsometricCoordinates(path[i].x, path[i].y));
 
-                    this.isoPath.push({ "direction": direction, "cartX": cartPoint.x, "cartY": cartPoint.y });
+                    if (direction !== 'none') {
+                        this.isoPath.push({ "direction": direction, "cartX": cartPoint.x, "cartY": cartPoint.y });
+                    }
 
 
-                } else{ //if there is a NS AND EW component to the current part of the path
+                } else { //if there is a NS AND EW component to the current part of the path
                     let intermediatePoint = null;
                     //randomly choose if the character is going to complete first the EW of NS component
                     if (Math.random() > 0.5){
@@ -96,11 +100,15 @@ export default class PlayableCharacterObject extends CharacterObject {
 
                     cartPoint = intermediatePoint.toCartesianCoordinates();
                     direction = this.getDirection(new IsometricCoordinates(path[i-1].x, path[i-1].y), intermediatePoint);
-                    this.isoPath.push({ direction: direction, "cartX": cartPoint.x, "cartY": cartPoint.y });
+                    if (direction !== 'none') {
+                        this.isoPath.push({ direction: direction, "cartX": cartPoint.x, "cartY": cartPoint.y });
+                    }
 
                     cartPoint = (new IsometricCoordinates(path[i].x, path[i].y)).toCartesianCoordinates();
                     direction = this.getDirection(intermediatePoint, new IsometricCoordinates(path[i].x, path[i].y));
-                    this.isoPath.push({ "direction": direction, "cartX": cartPoint.x, "cartY": cartPoint.y });
+                    if (direction !== 'none') {
+                        this.isoPath.push({ "direction": direction, "cartX": cartPoint.x, "cartY": cartPoint.y });
+                    }
                 }
             }
         }
@@ -115,7 +123,8 @@ export default class PlayableCharacterObject extends CharacterObject {
     //   \ /                  / \                |
     //   / \                 y   x               y
     //  S   E
-    getDirection(start: IsometricCoordinates, finish: IsometricCoordinates): string {
+    getDirection(start: IsometricCoordinates, finish: IsometricCoordinates): string
+    {
         const deltaEW = finish.x - start.x;
         const deltaNS = finish.y - start.y;
 
@@ -129,7 +138,7 @@ export default class PlayableCharacterObject extends CharacterObject {
             return 'west';
         }
 
-        throw new Error('no direction found');
+        return 'none';
     }
 
 

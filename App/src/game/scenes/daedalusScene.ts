@@ -64,6 +64,7 @@ import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
 import EquipmentObject from "@/game/objects/equipmentObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import { SceneGrid } from "@/game/scenes/sceneGrid";
+import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 
 export default class DaedalusScene extends Phaser.Scene
 {
@@ -82,7 +83,7 @@ export default class DaedalusScene extends Phaser.Scene
     private targetHighlightObject?: Phaser.GameObjects.Sprite;
 
     public sceneGrid: SceneGrid;
-    public navMeshPolygons: Array<Array<{x: number, y: number}>>;
+    public navMeshGrid: NavMeshGrid;
 
     public selectedGameObject : Phaser.GameObjects.GameObject | null;
 
@@ -102,7 +103,7 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', []);
         this.sceneGrid = new SceneGrid(this);
-        this.navMeshPolygons = [];
+        this.navMeshGrid = new NavMeshGrid();
 
         this.selectedGameObject = null;
 
@@ -215,12 +216,12 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.sceneGrid.updateDepth();
 
-        this.navMeshPolygons = this.sceneGrid.buildPolygonsForNavMesh(this.characterSize);
-        this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshPolygons, this.characterSize);
+        this.navMeshGrid = this.sceneGrid.buildNavMeshGrid(this.characterSize);
+        this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshGrid.exportForNavMesh(), this.characterSize);
 
 
         /*// navMesh Debug
-        const navMeshPolygons = this.sceneGrid.buildPolygonsForNavMesh(this.characterSize);
+        const navMeshPolygons = this.navMeshGrid.exportForNavMesh();
 
         const debugGraphics = this.add.graphics().setAlpha(1);
         debugGraphics.setDepth(1000000);
@@ -246,19 +247,19 @@ export default class DaedalusScene extends Phaser.Scene
             debugGraphics.lineStyle(1, 0xff0000, 1.0);
             debugGraphics.fillPoints(cartPoly.getCartesianPolygon().points, true);
             debugGraphics.strokePoints(cartPoly.getCartesianPolygon().points, true);
-        }*/
+        }
 
-        // const debugGraphics2 = this.add.graphics().setAlpha(1);
-        // debugGraphics2.setDepth(100000000);
-        // this.navMesh.enableDebug(debugGraphics2);
-        // this.navMesh.debugDrawClear(); // Clears the overlay
-        // // Visualize the underlying navmesh
-        // this.navMesh.debugDrawMesh({
-        //     drawCentroid: true,
-        //     drawBounds: false,
-        //     drawNeighbors: true,
-        //     drawPortals: true
-        // });
+        const debugGraphics2 = this.add.graphics().setAlpha(1);
+        debugGraphics2.setDepth(100000000);
+        this.navMesh.enableDebug(debugGraphics2);
+        this.navMesh.debugDrawClear(); // Clears the overlay
+        // Visualize the underlying navmesh
+        this.navMesh.debugDrawMesh({
+            drawCentroid: false,
+            drawBounds: false,
+            drawNeighbors: true,
+            drawPortals: false
+        });*/
 
 
         //place the starting camera.
@@ -467,7 +468,7 @@ export default class DaedalusScene extends Phaser.Scene
 
     getPlayerCoordinates(): CartesianCoordinates
     {
-        const cartCoords = this.sceneGrid.getRandomPoint(true);
+        const cartCoords = this.navMeshGrid.getRandomPoint();
         //Coordinates of player in the navMesh is given relative to the feet of the player
         //Coordinates given in the constructor of player are the center of the sprite
         cartCoords.setTo(cartCoords.x, cartCoords.y - 16);

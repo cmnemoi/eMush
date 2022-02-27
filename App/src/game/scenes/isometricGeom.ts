@@ -95,14 +95,14 @@ export default class IsometricGeom extends Phaser.Geom.Polygon implements Phaser
 
     isPointInGeom(isoCoords: IsometricCoordinates) {
         return (
-            this.getMaxIso().x > isoCoords.x &&
-            this.getMinIso().x < isoCoords.x &&
-            this.getMaxIso().y > isoCoords.y &&
-            this.getMinIso().y < isoCoords.y
+            this.getMaxIso().x >= isoCoords.x &&
+            this.getMinIso().x <= isoCoords.x &&
+            this.getMaxIso().y >= isoCoords.y &&
+            this.getMinIso().y <= isoCoords.y
         );
     }
 
-    isGeomTouchingGeom(isoGeom: IsometricGeom) {
+    isGeomOverlapingGeom(isoGeom: IsometricGeom) {
         // no horizontal overlap
         if (this.getMinIso().x >= isoGeom.getMaxIso().x || this.getMaxIso().x <= isoGeom.getMinIso().x) return false;
 

@@ -4,12 +4,11 @@ import { DepthElement } from "@/game/scenes/depthSortingArray";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import Tile = Phaser.Tilemaps.Tile;
+import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 
 export class SceneGrid {
     private scene : DaedalusScene;
     public polygonArray: Array<GridElement>;
-    private cumuProbaAllPolygons: Array<number>;
-    private cumuProbaNavigablePolygons: Array<number>;
 
     constructor(
         scene: DaedalusScene,
@@ -18,9 +17,6 @@ export class SceneGrid {
         this.scene = scene;
 
         this.polygonArray = [];
-
-        this.cumuProbaAllPolygons = [0];
-        this.cumuProbaNavigablePolygons = [0];
     }
 
     addSceneGeom(size: IsometricCoordinates, groundTilesThickness: number): void
@@ -63,9 +59,10 @@ export class SceneGrid {
         this.addGeom(groundGeom, true);
     }
 
-    buildPolygonsForNavMesh(meshShrink = 0): Array<Array<{ x: number, y: number }>>
+    buildNavMeshGrid(meshShrink = 0): NavMeshGrid
     {
-        const polygonArray = [];
+        const navMeshGrid = new NavMeshGrid();
+
         for (let i = 0; i < this.polygonArray.length; i++) {
             const currentPolygon =this.polygonArray[i];
             if (currentPolygon.isNavigable) {
@@ -73,11 +70,6 @@ export class SceneGrid {
 
                 //always shrink the right part of the polygon
                 const maxX = currentGeom.getMaxIso().x - meshShrink;
-
-                //const minX = currentGeom.getMinIso().x;
-                //const maxY = currentGeom.getMaxIso().y;
-                //const minY = currentGeom.getMinIso().y;
-
 
 
                 //check left of this polygon. If there is a navigable polygon, compensate for the shrink of the neighbouring polygon, else, shrink
@@ -124,39 +116,12 @@ export class SceneGrid {
 
 
                 if (maxX>minX && maxY>minY) {
-                    polygonArray.push([
-                        { x: minX, y: minY },
-                        { x: minX, y: maxY },
-                        { x: maxX, y: maxY },
-                        { x: maxX, y: minY }
-                    ]);
+                    navMeshGrid.addPolygon(minX, maxX, minY, maxY);
                 }
             }
         }
 
-        return polygonArray;
-    }
-
-    getRandomPoint(isNavigable: boolean): CartesianCoordinates
-    {
-        let cumuProba = this.cumuProbaAllPolygons;
-        if (isNavigable) {
-            cumuProba = this.cumuProbaNavigablePolygons;
-        }
-
-        const maxProba = cumuProba[cumuProba.length-1];
-
-        const randomIndex = Math.random()*maxProba;
-
-        for (let i = 0; i <  cumuProba.length; i++) {
-            if (cumuProba[i+1] > randomIndex) {
-                const randomPoint = this.polygonArray[i].geom.getRandomPoint(new Phaser.Geom.Point);
-                return new CartesianCoordinates(randomPoint.x, randomPoint.y);
-            }
-        }
-
-        const randomPoint = this.polygonArray[cumuProba.length - 1].geom.getRandomPoint(new Phaser.Geom.Point(0, 0));
-        return new CartesianCoordinates(randomPoint.x, randomPoint.y);
+        return navMeshGrid;
     }
 
     addObject(phaserObject: DecorationObject): void
@@ -186,7 +151,7 @@ export class SceneGrid {
         // first get the polygon(s) to cut (max 4 polygons)
         const polygonsToCutIndex: Array<number> = [];
         for (let i = 0; i < this.polygonArray.length; i++) {
-            if (this.polygonArray[i].geom.isGeomTouchingGeom(objectGeom) &&
+            if (this.polygonArray[i].geom.isGeomOverlapingGeom(objectGeom) &&
                 this.polygonArray[i].object === undefined
             ) {
                 polygonsToCutIndex.push(i);
@@ -227,17 +192,6 @@ export class SceneGrid {
 
         for (let i = 0; i < this.polygonArray.length; i++) {
             const currentElement = this.polygonArray[i];
-
-            const elementSize = currentElement.geom.getIsoSize();
-            this.cumuProbaAllPolygons[i +1] = (elementSize.x * elementSize.y) + this.cumuProbaAllPolygons[i];
-            if (currentElement.isNavigable) {
-                this.cumuProbaNavigablePolygons[i +1] = (elementSize.x * elementSize.y) + this.cumuProbaNavigablePolygons[i];
-            } else {
-                this.cumuProbaNavigablePolygons[i +1] = this.cumuProbaNavigablePolygons[i];
-            }
-
-
-            this.cumuProbaAllPolygons[i] = elementSize.x * elementSize.y;
 
             const object = currentElement.object;
             if (object !== undefined) {

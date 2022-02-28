@@ -79,7 +79,6 @@ export class NavMeshGrid
 
     cutPathWithGrid(path: Phaser.Geom.Point[]): Phaser.Geom.Point[]
     {
-        console.log(path);
         let currentPoint = path[0];
 
         let currentGeomIndex = this.getGeomFromPoint(currentPoint);
@@ -98,37 +97,50 @@ export class NavMeshGrid
             if (currentGeom.isPointInGeom(new IsometricCoordinates(nextPoint.x, nextPoint.y))) {
                 currentPoint = nextPoint;
             } else {
-                const slope = (currentPoint.y - nextPoint.y)/(currentPoint.x - nextPoint.x);
-                const intersect = currentPoint.y - (slope * currentPoint.x);
-
                 const borderPoint = new Phaser.Geom.Point(0, 0);
-
-                //find the new point that is on the border of the current polygon
-                //escape side 1 = right, 2 = left, 3 = top, 4 = bottom
                 let escapeSide = 0;
-                if (nextPoint.x > currentPoint.x) {
-                    borderPoint.x = currentGeom.getMaxIso().x;
-                    borderPoint.y = slope * borderPoint.x + intersect;
-                    escapeSide = 1;
+
+                if (currentPoint.x === nextPoint.x) {
+                    borderPoint.x = currentPoint.x;
+                    if (currentPoint.y <= nextPoint.y) {
+                        escapeSide = 3;
+                        borderPoint.y = currentGeom.getMaxIso().y;
+                    } else {
+                        escapeSide = 4;
+                        borderPoint.y = currentGeom.getMinIso().y;
+                    }
                 } else {
-                    borderPoint.x = currentGeom.getMinIso().x;
-                    borderPoint.y = slope * borderPoint.x + intersect;
-                    escapeSide = 2;
+                    const slope = (currentPoint.y - nextPoint.y) / (currentPoint.x - nextPoint.x);
+                    const intersect = currentPoint.y - (slope * currentPoint.x);
+
+
+                    //find the new point that is on the border of the current polygon
+                    //escape side 1 = right, 2 = left, 3 = top, 4 = bottom
+                    if (nextPoint.x > currentPoint.x) {
+                        borderPoint.x = currentGeom.getMaxIso().x;
+                        borderPoint.y = slope * borderPoint.x + intersect;
+                        escapeSide = 1;
+                    } else {
+                        borderPoint.x = currentGeom.getMinIso().x;
+                        borderPoint.y = slope * borderPoint.x + intersect;
+                        escapeSide = 2;
+                    }
+
+                    // now check if the escape point is ot the top or bottom
+                    if (borderPoint.y > currentGeom.getMaxIso().y) {
+                        borderPoint.y = currentGeom.getMaxIso().y;
+                        borderPoint.x = (borderPoint.y - intersect) / slope;
+                        escapeSide = 3;
+                    } else if (borderPoint.y < currentGeom.getMinIso().y) {
+                        borderPoint.y = currentGeom.getMinIso().y;
+                        borderPoint.x = (borderPoint.y - intersect) / slope;
+                        escapeSide = 4;
+                    }
                 }
 
-                // now check if the escape point is ot the top or bottom
-                if (borderPoint.y > currentGeom.getMaxIso().y) {
-                    borderPoint.y = currentGeom.getMaxIso().y;
-                    borderPoint.x = (borderPoint.y - intersect)/slope;
-                    escapeSide = 3;
-                } else if (borderPoint.y < currentGeom.getMinIso().y) {
-                    borderPoint.y = currentGeom.getMinIso().y;
-                    borderPoint.x = (borderPoint.y - intersect)/slope;
-                    escapeSide = 4;
-                }
 
                 // find the adjacent polygon
-                for (let j = 1; j < this.geomArray.length - 1; j++) {
+                for (let j = 0; j < this.geomArray.length - 1; j++) {
                     const testedGeom = this.geomArray[j];
 
                     if (j !== currentGeomIndex &&
@@ -139,6 +151,7 @@ export class NavMeshGrid
                                 (escapeSide === 2 && currentGeom.getMinIso().x === testedGeom.getMaxIso().x)) &&
                                 testedGeom.getMinIso().y <= borderPoint.y && testedGeom.getMaxIso().y >= borderPoint.y
                             ) ||
+                            // if escape top or bottom
                             (
                                 ((escapeSide === 3 && currentGeom.getMaxIso().y === testedGeom.getMinIso().y) ||
                                 (escapeSide === 4 && currentGeom.getMinIso().y === testedGeom.getMaxIso().y)) &&

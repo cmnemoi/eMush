@@ -49,7 +49,7 @@ export default class PlayableCharacterObject extends CharacterObject {
         //find the path in isometric coordinates using navMeshPlugin
         let path = this.navMesh.findPath({ x: startingPoint.x, y: startingPoint.y }, { x: finishPoint.x, y: finishPoint.y });
 
-        /* // naMesh debug
+        // naMesh debug
         // @ts-ignore
         this.navMesh.debugDrawPath(path, 0xffd900, 2);
         const debugGraphics = this.scene.add.graphics().setAlpha(1);
@@ -60,7 +60,7 @@ export default class PlayableCharacterObject extends CharacterObject {
                 const isoCoord = new IsometricCoordinates(path[i].x, path[i].y);
                 debugGraphics.fillPointShape(isoCoord.toCartesianCoordinates(), 5);
             }
-        }*/
+        }
 
 
         if (path !== null) {

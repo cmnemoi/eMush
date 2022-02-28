@@ -248,7 +248,7 @@ export default class DaedalusScene extends Phaser.Scene
             debugGraphics.lineStyle(1, 0xff0000, 1.0);
             debugGraphics.fillPoints(cartPoly.getCartesianPolygon().points, true);
             debugGraphics.strokePoints(cartPoly.getCartesianPolygon().points, true);
-        }
+        }*/
 
         const debugGraphics2 = this.add.graphics().setAlpha(1);
         debugGraphics2.setDepth(100000000);
@@ -260,7 +260,7 @@ export default class DaedalusScene extends Phaser.Scene
             drawBounds: false,
             drawNeighbors: true,
             drawPortals: false
-        });*/
+        });
 
 
         //place the starting camera.

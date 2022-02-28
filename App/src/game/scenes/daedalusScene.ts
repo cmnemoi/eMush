@@ -65,6 +65,7 @@ import EquipmentObject from "@/game/objects/equipmentObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import { SceneGrid } from "@/game/scenes/sceneGrid";
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
+import store from "@/store";
 
 export default class DaedalusScene extends Phaser.Scene
 {
@@ -284,20 +285,28 @@ export default class DaedalusScene extends Phaser.Scene
         this.cameras.main.startFollow(this.playerSprite);
 
 
-        this.input.on('gameobjectdown', (pointer: Phaser.Input.Pointer, gameObject: InteractObject, event: any) => {
+        this.input.on('pointerdown', (pointer: Phaser.Input.Pointer, gameObjects: Array<Phaser.GameObjects.GameObject> ) => {
+            let gameObject = null;
+            if (gameObjects.length>0) {
+                gameObject = gameObjects[0];
+            }
+
             if (this.selectedGameObject !== null &&
                 this.selectedGameObject instanceof InteractObject &&
                 this.selectedGameObject !== gameObject
             ) {
                 this.selectedGameObject.onClickedOut();
+
                 this.selectedGameObject = gameObject;
+
+                if(gameObject === null) {
+                    store.dispatch('room/selectTarget', { target: null });
+                    store.dispatch('room/closeInventory');
+                }
             }
             if (gameObject instanceof InteractObject){
                 gameObject.onSelected();
                 this.selectedGameObject = gameObject;
-            }
-            if (!(gameObject instanceof DoorObject)) {
-                event.stopPropagation();
             }
         });
 

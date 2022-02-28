@@ -26,12 +26,5 @@ export default class ShelfObject extends InteractObject {
         this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
             store.dispatch('room/openInventory');
         });
-
-        //if clicked outside
-        this.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer, currentlyOver: Phaser.GameObjects.GameObject[]) => {
-            if (!currentlyOver.includes(this)) {
-                store.dispatch('room/closeInventory');
-            }
-        }, this);
     }
 }

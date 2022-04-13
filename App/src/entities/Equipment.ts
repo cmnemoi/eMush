@@ -2,7 +2,7 @@ import { Action } from "@/entities/Action";
 import { Status } from "@/entities/Status";
 
 export class Equipment {
-    public id: number|null;
+    public id: number;
     public key!: string;
     public name: string|null;
     public description: string|null;
@@ -11,7 +11,7 @@ export class Equipment {
     public isBroken: boolean;
 
     constructor() {
-        this.id = null;
+        this.id = 0;
         this.name = null;
         this.actions = [];
         this.statuses = [];

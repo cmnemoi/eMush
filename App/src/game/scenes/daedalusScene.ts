@@ -31,6 +31,13 @@ import shelf_front_storage4 from "@/game/assets/tilemaps/shelf_front_storage4.pn
 import papers from "@/game/assets/tilemaps/papers.png";
 import broom from "@/game/assets/tilemaps/broom.png";
 import transparent_wall_object from "@/game/assets/tilemaps/transparent_wall_object.png";
+import puddle from "@/game/assets/tilemaps/puddle.png";
+import shower from "@/game/assets/tilemaps/shower.png";
+import washRoom1 from "@/game/assets/tilemaps/washRoom1.png";
+import washRoom2 from "@/game/assets/tilemaps/washRoom2.png";
+import towelRack from "@/game/assets/tilemaps/towelRack.png";
+import slippers from "@/game/assets/tilemaps/slippers.png";
+import poster from "@/game/assets/tilemaps/poster.png";
 
 
 import character from "@/game/assets/images/characters.png";
@@ -47,6 +54,8 @@ import medlab from "@/game/assets/mush_medlab.json";
 import central_corridor from "@/game/assets/central_corridor.json";
 import front_storage from "@/game/assets/front_storage.json";
 import front_corridor from "@/game/assets/front_corridor.json";
+import alpha_dorm from "@/game/assets/alpha_dorm.json";
+import bravo_dorm from "@/game/assets/bravo_dorm.json";
 
 
 import fire_particles_frame from "@/game/assets/images/fire_particles.json";
@@ -120,6 +129,8 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.tilemapTiledJSON('central_corridor', central_corridor);
         this.load.tilemapTiledJSON('front_storage', front_storage);
         this.load.tilemapTiledJSON('front_corridor', front_corridor);
+        this.load.tilemapTiledJSON('bravo_dorm', bravo_dorm);
+        this.load.tilemapTiledJSON('alpha_dorm', alpha_dorm);
 
 
         this.load.image('ground_tileset', ground_tileset);
@@ -155,6 +166,14 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.spritesheet('shelf_front_storage3', shelf_front_storage3, { frameHeight: 74, frameWidth: 109 });
         this.load.spritesheet('shelf_front_storage4', shelf_front_storage4, { frameHeight: 79, frameWidth: 109 });
         this.load.spritesheet('transparent_wall_object', transparent_wall_object, { frameHeight: 69, frameWidth: 54 });
+
+        this.load.spritesheet('puddle', puddle, { frameHeight: 8, frameWidth: 12 });
+        this.load.spritesheet('shower', shower, { frameHeight: 60, frameWidth: 32 });
+        this.load.spritesheet('washRoom1', washRoom1, { frameHeight: 90, frameWidth: 88 });
+        this.load.spritesheet('washRoom2', washRoom2, { frameHeight: 92, frameWidth: 95 });
+        this.load.spritesheet('towelRack', towelRack, { frameHeight: 26, frameWidth: 16 });
+        this.load.spritesheet('slippers', slippers, { frameHeight: 9, frameWidth: 13 });
+        this.load.spritesheet('poster', poster, { frameHeight: 31, frameWidth: 18 });
 
 
         this.load.spritesheet('ground_object', ground_tileset, { frameHeight: 72, frameWidth: 32 });
@@ -207,8 +226,8 @@ export default class DaedalusScene extends Phaser.Scene
         }
 
 
-        this.createFromTiledObject(map.getObjectLayer('doors'), this, map.tilesets, objectsShift, this.room);
-        this.createFromTiledObject(map.getObjectLayer('objects'), this, map.tilesets, objectsShift, this.room);
+        this.createFromTiledObjects(map.getObjectLayer('doors'), this, map.tilesets, objectsShift, this.room);
+        this.createFromTiledObjects(map.getObjectLayer('objects'), this, map.tilesets, objectsShift, this.room);
 
         // add target tile highlight
         this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
@@ -250,17 +269,17 @@ export default class DaedalusScene extends Phaser.Scene
             debugGraphics.strokePoints(cartPoly.getCartesianPolygon().points, true);
         }*/
 
-        const debugGraphics2 = this.add.graphics().setAlpha(1);
-        debugGraphics2.setDepth(100000000);
-        this.navMesh.enableDebug(debugGraphics2);
-        this.navMesh.debugDrawClear(); // Clears the overlay
-        // Visualize the underlying navmesh
-        this.navMesh.debugDrawMesh({
-            drawCentroid: false,
-            drawBounds: false,
-            drawNeighbors: true,
-            drawPortals: false
-        });
+        // const debugGraphics2 = this.add.graphics().setAlpha(1);
+        // debugGraphics2.setDepth(100000000);
+        // this.navMesh.enableDebug(debugGraphics2);
+        // this.navMesh.debugDrawClear(); // Clears the overlay
+        // // Visualize the underlying navmesh
+        // this.navMesh.debugDrawMesh({
+        //     drawCentroid: false,
+        //     drawBounds: false,
+        //     drawNeighbors: true,
+        //     drawPortals: false
+        // });
 
 
         //place the starting camera.
@@ -485,7 +504,7 @@ export default class DaedalusScene extends Phaser.Scene
         return cartCoords;
     }
 
-    createFromTiledObject(
+    createFromTiledObjects(
         objectLayer: Phaser.Tilemaps.ObjectLayer,
         scene: Phaser.Scene,
         tilesets: Array<Phaser.Tilemaps.Tileset>,
@@ -494,6 +513,7 @@ export default class DaedalusScene extends Phaser.Scene
     ): Array<Phaser.GameObjects.GameObject>
     {
         const results = [];
+        const addedObjectId: Array<number> = [];
 
         const objects = objectLayer.objects;
 
@@ -508,9 +528,13 @@ export default class DaedalusScene extends Phaser.Scene
 
             const tileset = this.getTileset(tilesets, obj.gid);
 
+            const objEntity = this.getEquipmentFromTiledObject(obj, addedObjectId);
+
             //if the equipment is present according to the API
-            if (!(obj.type === 'interact' && room.equipments.filter(function (equipment: Equipment) {return equipment.key === obj.name;}).length === 0)){
-                const newObject = this.createPhaserObject(obj, tileset, shift);
+            if (!(obj.type === 'interact' &&
+                objEntity === undefined)
+            ){
+                const newObject = this.createPhaserObject(obj, tileset, shift, objEntity);
                 results.push(newObject);
 
                 // some equipment have depth already fixed (stuff on the wall, doors, flat things on the ground)
@@ -523,6 +547,10 @@ export default class DaedalusScene extends Phaser.Scene
                     (fixedDepth === -1 || this.isCustomPropertyByName(obj, 'collides'))
                 ) {
                     this.sceneGrid.addObject(newObject);
+                }
+
+                if (newObject instanceof EquipmentObject) {
+                    addedObjectId.push(newObject.equipment.id);
                 }
             }
         }
@@ -561,6 +589,7 @@ export default class DaedalusScene extends Phaser.Scene
         obj: Phaser.Types.Tilemaps.TiledObject,
         tileset: Phaser.Tilemaps.Tileset,
         shift: CartesianCoordinates,
+        equipmentEntity: DoorEntity | Equipment | undefined
     ): DecorationObject
     {
         //object coordinates are stored in tiled in iso coords
@@ -573,8 +602,6 @@ export default class DaedalusScene extends Phaser.Scene
         const frame = obj.gid - tileset.firstgid;
         const name = obj.name;
 
-
-        const equipmentEntity = this.getEquipmentFromTiledObject(obj);
         const group = this.getGroupOfObject(obj, equipmentEntity);
         const isAnimationYoyo = this.isCustomPropertyByName(obj, 'animationYoyo');
         const collides = this.isCustomPropertyByName(obj, 'collides');
@@ -603,7 +630,7 @@ export default class DaedalusScene extends Phaser.Scene
         throw new Error(obj.name + "type does not exist");
     }
 
-    getEquipmentFromTiledObject(obj: Phaser.Types.Tilemaps.TiledObject): DoorEntity | Equipment | undefined
+    getEquipmentFromTiledObject(obj: Phaser.Types.Tilemaps.TiledObject, createdObjectId: Array<number>): DoorEntity | Equipment | undefined
     {
         switch (obj.type)
         {
@@ -613,7 +640,7 @@ export default class DaedalusScene extends Phaser.Scene
                 return (door.key === obj.name);
             });
         case 'interact':
-            return this.room.equipments.find((equipment: Equipment) => (equipment.key === obj.name));
+            return this.room.equipments.find((equipment: Equipment) => (equipment.key === obj.name && !(createdObjectId.includes(equipment.id))));
         }
 
         return undefined;

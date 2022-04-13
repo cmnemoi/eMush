@@ -3,11 +3,26 @@
  "infinite":false,
  "layers":[
         {
-         "data":[284, 282, 0, 0, 0, 0, 0, 0, 0, 0, 0, 283, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 283, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 283, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 283, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 283, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 283, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[282, 280, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
          "id":3,
-         "name":"wallBack",
+         "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":0
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":11,
@@ -17,44 +32,87 @@
         {
          "draworder":"topdown",
          "id":4,
-         "name":"door",
+         "name":"doors",
          "objects":[
                 {
                  "gid":28,
                  "height":36,
                  "id":1,
                  "name":"alpha_bay_alpha_dorm",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }],
                  "rotation":0,
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":47,
-                 "y":35
+                 "x":47.3406348453159,
+                 "y":-2.9617809239729
                 }, 
                 {
                  "gid":115,
                  "height":73,
                  "id":2,
                  "name":"alpha_bay_alpha_dorm",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
+                        }],
                  "rotation":0,
                  "type":"door",
                  "visible":true,
                  "width":48,
-                 "x":36,
-                 "y":28
+                 "x":11.9363302431248,
+                 "y":-20.1807797327355
                 }],
          "opacity":1,
+         "properties":[
+                {
+                 "name":"collides",
+                 "type":"bool",
+                 "value":false
+                }, 
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":1
+                }],
          "type":"objectgroup",
          "visible":true,
          "x":0,
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 282, 282, 282, 282, 282, 282, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 280, 280, 280, 280, 280, 280, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
          "id":2,
          "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":11,
@@ -62,11 +120,53 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 235, 236, 236, 235, 235, 235, 235, 235, 235, 0, 0, 235, 236, 236, 236, 236, 236, 236, 236, 236, 0, 0, 235, 240, 236, 236, 236, 236, 236, 236, 236, 0, 0, 235, 235, 235, 235, 235, 235, 235, 235, 235, 0, 0, 235, 235, 235, 235, 235, 235, 235, 235, 235, 0, 0, 235, 235, 235, 235, 235, 235, 235, 235, 235, 0, 0, 0, 0, 0, 235, 235, 235, 235, 235, 235, 0, 0, 0, 0, 0, 235, 235, 235, 235, 235, 235, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 235, 236, 236, 235, 235, 235, 235, 235, 235, 0,
+            0, 235, 236, 236, 236, 236, 236, 236, 236, 236, 0,
+            0, 235, 240, 236, 236, 236, 236, 236, 236, 236, 0,
+            0, 235, 235, 235, 235, 235, 235, 235, 235, 235, 0,
+            0, 235, 235, 235, 235, 235, 235, 235, 235, 235, 0,
+            0, 235, 235, 235, 235, 235, 235, 235, 235, 235, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":10,
+         "id":6,
+         "name":"ground",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":11,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 235, 235, 235, 235, 235, 235, 0,
+            0, 0, 0, 0, 235, 235, 235, 235, 235, 235, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
          "id":1,
          "name":"ground",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":4
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":11,
@@ -74,45 +174,69 @@
          "y":0
         }, 
         {
-         "draworder":"topdown",
+         "draworder":"index",
          "id":5,
          "name":"objects",
          "objects":[
                 {
-                 "gid":277,
+                 "gid":275,
                  "height":15,
                  "id":4,
                  "name":"wall_box",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":14,
-                 "x":55.999295112782,
-                 "y":-16
-                }, 
-                {
-                 "gid":275,
-                 "height":90,
-                 "id":3,
-                 "name":"washRoom1",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":4
                         }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
-                 "width":88,
-                 "x":35.796992481203,
-                 "y":132.02692214407
+                 "width":14,
+                 "x":63,
+                 "y":-24
                 }, 
                 {
-                 "gid":273,
+                 "gid":272,
                  "height":9,
                  "id":6,
                  "name":"slippers",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":8
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
@@ -121,43 +245,7 @@
                  "y":98.75
                 }, 
                 {
-                 "gid":270,
-                 "height":60,
-                 "id":7,
-                 "name":"shower",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":32,
-                 "x":23.4961117511521,
-                 "y":69.1307300509338
-                }, 
-                {
-                 "gid":271,
-                 "height":60,
-                 "id":8,
-                 "name":"showerOr",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":32,
-                 "x":22.9040747028862,
-                 "y":68.6307300509338
-                }, 
-                {
-                 "gid":268,
+                 "gid":267,
                  "height":42,
                  "id":9,
                  "name":"shelf",
@@ -166,103 +254,276 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"shelf",
                  "visible":true,
                  "width":35,
-                 "x":20.5,
-                 "y":37.5
+                 "x":10.25,
+                 "y":9.75
                 }, 
                 {
                  "gid":9,
                  "height":17,
                  "id":10,
                  "name":"camera_equipment",
+                 "properties":[
+                        {
+                         "name":"animationYoyo",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
                  "width":25,
-                 "x":35.5,
-                 "y":-9.5
+                 "x":38.2987685418416,
+                 "y":-22.0944584382871
                 }, 
                 {
                  "gid":1,
                  "height":60,
                  "id":11,
-                 "name":"bed1",
+                 "name":"bed",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":52
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
                  "width":67,
-                 "x":81,
-                 "y":163
+                 "x":69.5,
+                 "y":110.75
                 }, 
                 {
                  "gid":3,
                  "height":60,
                  "id":13,
-                 "name":"bed2",
+                 "name":"bed",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":52
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
                  "width":67,
-                 "x":81,
-                 "y":131
+                 "x":71.25,
+                 "y":85
                 }, 
                 {
                  "gid":2,
                  "height":60,
                  "id":12,
-                 "name":"bed3",
+                 "name":"bed",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":52
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
                  "width":67,
-                 "x":81,
-                 "y":99
+                 "x":69.5,
+                 "y":58.75
                 }, 
                 {
                  "gid":33,
                  "height":36,
                  "id":14,
                  "name":"rear_corridor_alpha_dorm",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }],
                  "rotation":0,
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":175,
-                 "y":79
+                 "x":172,
+                 "y":46
                 }, 
                 {
-                 "gid":274,
-                 "height":17,
+                 "gid":270,
+                 "height":60,
+                 "id":8,
+                 "name":"thalasso",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":18
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":32,
+                 "x":-2.5,
+                 "y":16.5
+                }, 
+                {
+                 "gid":269,
+                 "height":60,
+                 "id":7,
+                 "name":"shower",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":18
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":32,
+                 "x":-2.5,
+                 "y":16.5
+                }, 
+                {
+                 "gid":273,
+                 "height":26,
                  "id":5,
                  "name":"towelRack",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":14
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":16,
-                 "x":0.572277467863195,
-                 "y":66.1951249090468
+                 "x":2.51800155220686,
+                 "y":43.4905929531061
+                },
+            
+                {
+                 "gid":274,
+                 "height":90,
+                 "id":3,
+                 "name":"washRoom1",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":48
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":48
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":88,
+                 "x":14,
+                 "y":64
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -270,11 +531,11 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":6,
+ "nextlayerid":7,
  "nextobjectid":15,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.4",
  "tileheight":16,
  "tilesets":[
         {
@@ -287,15 +548,15 @@
              "width":67
             },
          "image":"tilemaps\/beds_object.png",
-         "imageheight":120,
-         "imagewidth":268,
+         "imageheight":116,
+         "imagewidth":264,
          "margin":0,
          "name":"beds_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":8,
-         "tileheight":60,
-         "tilewidth":67
+         "tileheight":58,
+         "tilewidth":66
         }, 
         {
          "columns":14,
@@ -305,7 +566,7 @@
          "imagewidth":350,
          "margin":0,
          "name":"camera_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":14,
          "tileheight":17,
@@ -355,7 +616,8 @@
                         {
                          "duration":300,
                          "tileid":10
-                        }, 
+                        },
+                    
                         {
                          "duration":300,
                          "tileid":11
@@ -399,7 +661,8 @@
                         {
                          "duration":300,
                          "tileid":5
-                        }, 
+                        },
+                    
                         {
                          "duration":300,
                          "tileid":4
@@ -438,7 +701,7 @@
          "imagewidth":320,
          "margin":0,
          "name":"door_ground_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":20,
          "tileheight":36,
@@ -555,7 +818,7 @@
          "imagewidth":1152,
          "margin":0,
          "name":"door_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":192,
          "tileheight":73,
@@ -605,7 +868,8 @@
                         {
                          "duration":100,
                          "tileid":10
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":11
@@ -649,7 +913,8 @@
                         {
                          "duration":100,
                          "tileid":21
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":22
@@ -705,7 +970,8 @@
                         {
                          "duration":100,
                          "tileid":34
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":35
@@ -749,7 +1015,8 @@
                         {
                          "duration":100,
                          "tileid":45
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":46
@@ -805,7 +1072,8 @@
                         {
                          "duration":100,
                          "tileid":58
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":59
@@ -849,7 +1117,8 @@
                         {
                          "duration":100,
                          "tileid":69
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":70
@@ -905,7 +1174,8 @@
                         {
                          "duration":100,
                          "tileid":82
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":83
@@ -949,7 +1219,8 @@
                         {
                          "duration":100,
                          "tileid":93
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":94
@@ -1005,7 +1276,8 @@
                         {
                          "duration":100,
                          "tileid":106
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":107
@@ -1049,7 +1321,8 @@
                         {
                          "duration":100,
                          "tileid":117
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":118
@@ -1105,7 +1378,8 @@
                         {
                          "duration":100,
                          "tileid":130
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":131
@@ -1149,7 +1423,8 @@
                         {
                          "duration":100,
                          "tileid":141
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":142
@@ -1205,7 +1480,8 @@
                         {
                          "duration":100,
                          "tileid":154
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":155
@@ -1249,7 +1525,8 @@
                         {
                          "duration":100,
                          "tileid":165
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":166
@@ -1305,7 +1582,8 @@
                         {
                          "duration":100,
                          "tileid":178
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":179
@@ -1349,7 +1627,8 @@
                         {
                          "duration":100,
                          "tileid":189
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":190
@@ -1383,28 +1662,14 @@
          "tilewidth":32
         }, 
         {
-         "columns":1,
-         "firstgid":265,
-         "image":"tilemaps\/puddle.png",
-         "imageheight":8,
-         "imagewidth":12,
-         "margin":0,
-         "name":"puddle",
-         "objectalignment":"bottomleft",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":8,
-         "tilewidth":12
-        }, 
-        {
          "columns":4,
-         "firstgid":266,
+         "firstgid":265,
          "image":"tilemaps\/shelf_object.png",
          "imageheight":42,
          "imagewidth":140,
          "margin":0,
          "name":"shelf_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
          "tileheight":42,
@@ -1412,13 +1677,13 @@
         }, 
         {
          "columns":2,
-         "firstgid":270,
+         "firstgid":269,
          "image":"tilemaps\/shower.png",
          "imageheight":60,
          "imagewidth":64,
          "margin":0,
          "name":"shower",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":2,
          "tileheight":60,
@@ -1426,13 +1691,13 @@
         }, 
         {
          "columns":2,
-         "firstgid":272,
+         "firstgid":271,
          "image":"tilemaps\/slippers.png",
          "imageheight":9,
          "imagewidth":26,
          "margin":0,
          "name":"slippers",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":2,
          "tileheight":9,
@@ -1440,87 +1705,50 @@
         }, 
         {
          "columns":1,
-         "firstgid":274,
+         "firstgid":273,
          "image":"tilemaps\/towelRack.png",
-         "imageheight":17,
+         "imageheight":26,
          "imagewidth":16,
          "margin":0,
          "name":"towelRack",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
-         "tileheight":17,
+         "tileheight":26,
          "tilewidth":16
         }, 
         {
          "columns":1,
-         "firstgid":275,
+         "firstgid":274,
          "image":"tilemaps\/washRoom1.png",
          "imageheight":90,
          "imagewidth":88,
          "margin":0,
          "name":"washRoom1",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
          "tileheight":90,
          "tilewidth":88
         }, 
         {
-         "columns":1,
-         "firstgid":276,
-         "image":"tilemaps\/washRoom2.png",
-         "imageheight":92,
-         "imagewidth":95,
-         "margin":0,
-         "name":"washRoom2",
-         "objectalignment":"bottomleft",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":92,
-         "tilewidth":95
-        }, 
-        {
          "columns":4,
-         "firstgid":277,
+         "firstgid":275,
          "image":"tilemaps\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
          "margin":0,
          "name":"wall_box",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
          "tileheight":15,
-         "tiles":[
-                {
-                 "animation":[
-                        {
-                         "duration":1500,
-                         "tileid":0
-                        }, 
-                        {
-                         "duration":1500,
-                         "tileid":1
-                        }],
-                 "id":0
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":1500,
-                         "tileid":2
-                        }, 
-                        {
-                         "duration":1500,
-                         "tileid":3
-                        }],
-                 "id":2
-                }],
          "tilewidth":14
-        }, 
+        },
+    
         {
-         "columns":15,
-         "firstgid":281,
+         "columns":14,
+         "firstgid":279,
          "grid":
             {
              "height":72,
@@ -1529,17 +1757,17 @@
             },
          "image":"tilemaps\/wall_tileset.png",
          "imageheight":72,
-         "imagewidth":480,
+         "imagewidth":448,
          "margin":0,
          "name":"wall_tileset",
          "objectalignment":"bottomleft",
          "spacing":0,
-         "tilecount":15,
+         "tilecount":14,
          "tileheight":72,
          "tilewidth":32
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":11
 }

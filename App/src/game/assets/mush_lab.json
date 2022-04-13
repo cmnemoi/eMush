@@ -37,6 +37,11 @@
                          "value":false
                         }, 
                         {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":32

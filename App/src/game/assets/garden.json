@@ -3,11 +3,28 @@
  "infinite":false,
  "layers":[
         {
-         "data":[264, 262, 262, 262, 262, 262, 262, 262, 262, 262, 262, 0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[264, 262, 262, 262, 262, 262, 262, 262, 262, 262, 262, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":12,
          "id":1,
          "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":0
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":12,
@@ -15,11 +32,28 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0, 0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0, 0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0, 0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0, 0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0, 0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0, 0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0, 0, 227, 227, 227, 227, 227, 227, 229, 228, 228, 228, 0, 0, 227, 227, 227, 227, 227, 227, 228, 228, 228, 228, 0, 0, 227, 227, 227, 227, 227, 227, 228, 228, 227, 227, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0,
+            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0,
+            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0,
+            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0,
+            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0,
+            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0,
+            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0,
+            0, 227, 227, 227, 227, 227, 227, 229, 228, 228, 228, 0,
+            0, 227, 227, 227, 227, 227, 227, 228, 228, 228, 228, 0,
+            0, 227, 227, 227, 227, 227, 227, 228, 228, 227, 227, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":12,
          "id":2,
          "name":"ground",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":1
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":12,
@@ -27,104 +61,42 @@
          "y":0
         }, 
         {
-         "draworder":"topdown",
-         "id":4,
-         "name":"garden",
-         "objects":[
-                {
-                 "gid":280,
-                 "height":168,
-                 "id":1,
-                 "name":"garden",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":268,
-                 "x":88.25,
-                 "y":200.75
-                }, 
-                {
-                 "gid":281,
-                 "height":168,
-                 "id":2,
-                 "name":"incubator",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":false,
-                 "width":268,
-                 "x":152,
-                 "y":126
-                }, 
-                {
-                 "gid":285,
-                 "height":168,
-                 "id":3,
-                 "name":"incubator_lamps",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":false,
-                 "width":268,
-                 "x":151,
-                 "y":125
-                }, 
-                {
-                 "gid":284,
-                 "height":168,
-                 "id":4,
-                 "name":"lamps",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":false,
-                 "width":268,
-                 "x":151,
-                 "y":125
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
+         "draworder":"index",
          "id":3,
          "name":"objects",
          "objects":[
                 {
-                 "gid":278,
+                 "gid":277,
                  "height":15,
                  "id":5,
                  "name":"wall_box",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":10
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":14,
-                 "x":-13,
-                 "y":98
+                 "x":-23,
+                 "y":96
                 }, 
                 {
                  "gid":259,
@@ -136,16 +108,199 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"shelf",
                  "visible":true,
                  "width":35,
-                 "x":20.5,
-                 "y":181.5
+                 "x":8.25,
+                 "y":149.75
                 }, 
                 {
-                 "gid":288,
+                 "gid":25,
+                 "height":36,
+                 "id":8,
+                 "name":"front_storage_garden",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"door_ground",
+                 "visible":true,
+                 "width":64,
+                 "x":188,
+                 "y":140
+                }, 
+                {
+                 "gid":15,
+                 "height":36,
+                 "id":9,
+                 "name":"front_corridor_garden",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"door_ground",
+                 "visible":true,
+                 "width":64,
+                 "x":125,
+                 "y":189
+                }, 
+                {
+                 "gid":1,
+                 "height":17,
+                 "id":10,
+                 "name":"camera_equipment",
+                 "properties":[
+                        {
+                         "name":"animationYoyo",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":25,
+                 "x":-21.5,
+                 "y":127.5
+                }, 
+                {
+                 "gid":280,
+                 "height":156,
+                 "id":13,
+                 "name":"garden",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":128
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":96
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":219,
+                 "x":84.25,
+                 "y":35.75
+                }, 
+                {
+                 "gid":284,
+                 "height":42,
+                 "id":14,
+                 "name":"garden",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":45,
+                 "x":50.25,
+                 "y":103.75
+                }, 
+                {
+                 "gid":285,
+                 "height":112,
+                 "id":15,
+                 "name":"garden",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":112
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":140,
+                 "x":8,
+                 "y":46
+                }, 
+                {
+                 "gid":279,
                  "height":42,
                  "id":7,
                  "name":"pneumatic_distributor",
@@ -154,61 +309,46 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":35,
-                 "x":164.75,
-                 "y":126.25
-                }, 
-                {
-                 "gid":25,
-                 "height":36,
-                 "id":8,
-                 "name":"front_storage_garden",
-                 "rotation":0,
-                 "type":"door_ground",
-                 "visible":true,
-                 "width":64,
-                 "x":191,
-                 "y":175
-                }, 
-                {
-                 "gid":15,
-                 "height":36,
-                 "id":9,
-                 "name":"front_corridor_garden",
-                 "rotation":0,
-                 "type":"door_ground",
-                 "visible":true,
-                 "width":64,
-                 "x":128,
-                 "y":222
-                }, 
-                {
-                 "gid":1,
-                 "height":17,
-                 "id":10,
-                 "name":"camera_equipment",
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":25,
-                 "x":-21.5,
-                 "y":127.5
+                 "x":141.75,
+                 "y":100.247159090909
                 }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":5,
+         "name":"doors",
+         "objects":[],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":5,
- "nextobjectid":11,
+ "nextlayerid":6,
+ "nextobjectid":16,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.4",
  "tileheight":16,
  "tilesets":[
         {
@@ -219,7 +359,7 @@
          "imagewidth":350,
          "margin":0,
          "name":"camera_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":14,
          "tileheight":17,
@@ -273,7 +413,8 @@
                         {
                          "duration":300,
                          "tileid":11
-                        }, 
+                        },
+                    
                         {
                          "duration":300,
                          "tileid":12
@@ -321,7 +462,8 @@
                         {
                          "duration":300,
                          "tileid":3
-                        }, 
+                        },
+                    
                         {
                          "duration":300,
                          "tileid":2
@@ -352,7 +494,7 @@
          "imagewidth":320,
          "margin":0,
          "name":"door_ground_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":20,
          "tileheight":36,
@@ -469,7 +611,7 @@
          "imagewidth":1152,
          "margin":0,
          "name":"door_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":192,
          "tileheight":73,
@@ -523,7 +665,8 @@
                         {
                          "duration":100,
                          "tileid":11
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":12
@@ -623,7 +766,8 @@
                         {
                          "duration":100,
                          "tileid":35
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":36
@@ -723,7 +867,8 @@
                         {
                          "duration":100,
                          "tileid":59
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":60
@@ -823,7 +968,8 @@
                         {
                          "duration":100,
                          "tileid":83
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":84
@@ -923,7 +1069,8 @@
                         {
                          "duration":100,
                          "tileid":107
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":108
@@ -1023,7 +1170,8 @@
                         {
                          "duration":100,
                          "tileid":131
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":132
@@ -1123,7 +1271,8 @@
                         {
                          "duration":100,
                          "tileid":155
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":156
@@ -1223,7 +1372,8 @@
                         {
                          "duration":100,
                          "tileid":179
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":180
@@ -1290,7 +1440,7 @@
          "imagewidth":960,
          "margin":0,
          "name":"ground_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":30,
          "tileheight":72,
@@ -1304,14 +1454,14 @@
          "imagewidth":140,
          "margin":0,
          "name":"shelf_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
          "tileheight":42,
          "tilewidth":35
         }, 
         {
-         "columns":15,
+         "columns":14,
          "firstgid":261,
          "grid":
             {
@@ -1321,24 +1471,24 @@
             },
          "image":"tilemaps\/wall_tileset.png",
          "imageheight":72,
-         "imagewidth":480,
+         "imagewidth":448,
          "margin":0,
          "name":"wall_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
-         "tilecount":15,
+         "tilecount":14,
          "tileheight":72,
          "tilewidth":32
         }, 
         {
          "columns":4,
-         "firstgid":276,
+         "firstgid":275,
          "image":"tilemaps\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
          "margin":0,
          "name":"wall_box",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
          "tileheight":15,
@@ -1370,56 +1520,80 @@
          "tilewidth":14
         }, 
         {
-         "columns":4,
-         "firstgid":280,
-         "image":"tilemaps\/garden.png",
-         "imageheight":336,
-         "imagewidth":1073,
-         "margin":0,
-         "name":"garden",
-         "objectalignment":"bottomleft",
-         "spacing":0,
-         "tilecount":8,
-         "tileheight":168,
-         "tiles":[
-                {
-                 "animation":[
-                        {
-                         "duration":60,
-                         "tileid":0
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":2
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":3
-                        }, 
-                        {
-                         "duration":60,
-                         "tileid":0
-                        }],
-                 "id":0
-                }],
-         "tilewidth":268
-        }, 
-        {
          "columns":1,
-         "firstgid":288,
+         "firstgid":279,
          "image":"tilemaps\/pneumatic_distributor.png",
          "imageheight":42,
          "imagewidth":35,
          "margin":0,
          "name":"pneumatic_distributor",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
          "tileheight":42,
          "tilewidth":35
+        }, 
+        {
+         "columns":2,
+         "firstgid":280,
+         "image":"tilemaps\/garden_equipment.png",
+         "imageheight":312,
+         "imagewidth":438,
+         "margin":0,
+         "name":"garden_equipment",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":4,
+         "tileheight":156,
+         "tilewidth":219
+        }, 
+        {
+         "columns":1,
+         "firstgid":284,
+         "image":"tilemaps\/garden_console.png",
+         "imageheight":42,
+         "imagewidth":45,
+         "margin":0,
+         "name":"garden_console",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":42,
+         "tilewidth":45
+        }, 
+        {
+         "columns":3,
+         "firstgid":285,
+         "image":"tilemaps\/garden_engine.png",
+         "imageheight":112,
+         "imagewidth":420,
+         "margin":0,
+         "name":"garden_engine",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":3,
+         "tileheight":112,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":2
+                        }],
+                 "id":0
+                }],
+         "tilewidth":140
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":12
 }

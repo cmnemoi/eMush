@@ -5,7 +5,23 @@ import { Equipment } from "@/entities/Equipment";
 import { Status } from "@/entities/Status";
 
 //@Hack: rooms that are handled by phaser and displayed with Phaser
-export const PhaserRooms = ['medlab', 'laboratory', 'central_corridor', 'front_storage', 'front_corridor', 'bravo_dorm', 'alpha_dorm'];
+export const PhaserRooms = [
+    'medlab',
+    'laboratory',
+    'central_corridor',
+    'front_storage',
+    'front_corridor',
+    'bravo_dorm',
+    'alpha_dorm',
+    'hydroponic_garden',
+    'refectory',
+    'center_alpha_storage',
+    'center_bravo_storage',
+    'rear_corridor',
+    'nexus',
+    'rear_alpha_storage',
+    'rear_bravo_storage',
+];
 
 export class Room {
     public id: number|null;

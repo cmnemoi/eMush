@@ -8,7 +8,8 @@ import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 
 export class SceneGrid {
     private scene : DaedalusScene;
-    public polygonArray: Array<GridElement>;
+    public depthSortingArray: Array<GridElement>;
+    public navigationArray: Array<GridElement>;
 
     constructor(
         scene: DaedalusScene,
@@ -16,16 +17,19 @@ export class SceneGrid {
     {
         this.scene = scene;
 
-        this.polygonArray = [];
+        this.depthSortingArray = [];
+        this.navigationArray = [];
     }
 
-    addSceneGeom(size: IsometricCoordinates, groundTilesThickness: number): void
+    addSceneGeom(size: IsometricCoordinates, groundTilesThickness: number, ): void
     {
         const sceneGeom = new IsometricGeom(
             new IsometricCoordinates(size.x/2 + groundTilesThickness, size.y/2 + groundTilesThickness),
             size
         );
-        this.polygonArray.push(new GridElement(sceneGeom, false));
+        this.depthSortingArray.push(new GridElement(sceneGeom, false));
+
+        //this.navigationArray.push();
     }
 
 
@@ -63,8 +67,8 @@ export class SceneGrid {
     {
         const navMeshGrid = new NavMeshGrid();
 
-        for (let i = 0; i < this.polygonArray.length; i++) {
-            const currentPolygon =this.polygonArray[i];
+        for (let i = 0; i < this.depthSortingArray.length; i++) {
+            const currentPolygon =this.depthSortingArray[i];
             if (currentPolygon.isNavigable) {
                 const currentGeom = currentPolygon.geom;
 
@@ -75,7 +79,7 @@ export class SceneGrid {
                 //check left of this polygon. If there is a navigable polygon, compensate for the shrink of the neighbouring polygon, else, shrink
                 let minX = currentGeom.getMinIso().x + meshShrink;
                 const leftPolygonIndex = this.getPolygonFromPoint(new IsometricCoordinates(currentGeom.getMinIso().x - 1, currentGeom.getIsoCoords().y));
-                if (leftPolygonIndex !== -1 && this.polygonArray[leftPolygonIndex].isNavigable) {
+                if (leftPolygonIndex !== -1 && this.depthSortingArray[leftPolygonIndex].isNavigable) {
                     minX = currentGeom.getMinIso().x - meshShrink;
                 }
 
@@ -91,7 +95,7 @@ export class SceneGrid {
                 );
                 if (topLeftPolygonIndex  === topRightPolygonIndex &&
                     topRightPolygonIndex !== -1 &&
-                    this.polygonArray[topLeftPolygonIndex].isNavigable
+                    this.depthSortingArray[topLeftPolygonIndex].isNavigable
                 ) {
                     minY = currentGeom.getMinIso().y - meshShrink;
                 }
@@ -109,7 +113,7 @@ export class SceneGrid {
                 ));
                 if (bottomRightPolygonIndex === bottomLeftPolygonIndex &&
                     bottomRightPolygonIndex !== -1 &&
-                    this.polygonArray[bottomRightPolygonIndex].isNavigable
+                    this.depthSortingArray[bottomRightPolygonIndex].isNavigable
                 ) {
                     maxY = currentGeom.getMaxIso().y + meshShrink;
                 }
@@ -150,9 +154,9 @@ export class SceneGrid {
 
         // first get the polygon(s) to cut (max 4 polygons)
         const polygonsToCutIndex: Array<number> = [];
-        for (let i = 0; i < this.polygonArray.length; i++) {
-            if (this.polygonArray[i].geom.isGeomOverlapingGeom(objectGeom) &&
-                this.polygonArray[i].object === undefined
+        for (let i = 0; i < this.depthSortingArray.length; i++) {
+            if (this.depthSortingArray[i].geom.isGeomOverlapingGeom(objectGeom) &&
+                this.depthSortingArray[i].object === undefined
             ) {
                 polygonsToCutIndex.push(i);
             }
@@ -190,11 +194,11 @@ export class SceneGrid {
     {
         this.finalizeGrid();
 
-        for (let i = 0; i < this.polygonArray.length; i++) {
-            const currentElement = this.polygonArray[i];
-
+        for (let i = 0; i < this.depthSortingArray.length; i++) {
+            const currentElement = this.depthSortingArray[i];
             const object = currentElement.object;
-            if (object !== undefined) {
+
+            if (object !== undefined && object.depth === 0) {
                 object.setDepth((i + 1)*10000);
             }
         }
@@ -202,13 +206,13 @@ export class SceneGrid {
 
     finalizeGrid(): void
     {
-        for (let i = 0; i < this.polygonArray.length; i++) {
-            const currentElement = this.polygonArray[i];
+        for (let i = 0; i < this.depthSortingArray.length; i++) {
+            const currentElement = this.depthSortingArray[i];
 
             if (currentElement.object === undefined &&
                 !currentElement.isNavigable
             ) {
-                this.polygonArray.splice(i, 1);
+                this.depthSortingArray.splice(i, 1);
                 i =i-1;
             }
         }
@@ -226,7 +230,7 @@ export class SceneGrid {
 
     simplifyGrid(indexes?: Array<number>): void
     {
-        let length = this.polygonArray.length;
+        let length = this.depthSortingArray.length;
         if (indexes !== undefined) {
             length = indexes.length;
         }
@@ -237,7 +241,7 @@ export class SceneGrid {
                 globalIndexi = indexes[i];
             }
 
-            const currentElement = this.polygonArray[globalIndexi];
+            const currentElement = this.depthSortingArray[globalIndexi];
 
             for (let j = i + 1; j < length; j++) {
                 let globalIndexj = j;
@@ -245,7 +249,7 @@ export class SceneGrid {
                     globalIndexj = indexes[j];
                 }
 
-                const comparedElement = this.polygonArray[globalIndexj];
+                const comparedElement = this.depthSortingArray[globalIndexj];
 
                 // first lets check for duplicates
                 if (
@@ -255,7 +259,7 @@ export class SceneGrid {
                     currentElement.geom.getIsoSize().x === comparedElement.geom.getIsoSize().x
                 ) {
                     // only keep the one with the biggest index
-                    this.polygonArray.splice(Math.min(globalIndexj, globalIndexi), 1);
+                    this.depthSortingArray.splice(Math.min(globalIndexj, globalIndexi), 1);
 
                     //we need to update the indexes that may have been changed
                     if (indexes !== undefined) {
@@ -292,8 +296,8 @@ export class SceneGrid {
                             )
                         );
                         // the new polygon replace the on with biggest index
-                        this.polygonArray[Math.max(globalIndexj, globalIndexi)] = new GridElement(newPolygon, currentElement.isNavigable);
-                        this.polygonArray.splice(Math.min(globalIndexj, globalIndexi), 1);
+                        this.depthSortingArray[Math.max(globalIndexj, globalIndexi)] = new GridElement(newPolygon, currentElement.isNavigable);
+                        this.depthSortingArray.splice(Math.min(globalIndexj, globalIndexi), 1);
                         //we need to update the indexes that may have been changed
                         if (indexes !== undefined) {
                             for (let k = 0; k < length; k++) {
@@ -330,8 +334,8 @@ export class SceneGrid {
                         );
 
                         // the new polygon replace the on with biggest index
-                        this.polygonArray[Math.max(globalIndexj, globalIndexi)] = new GridElement(newPolygon, currentElement.isNavigable);
-                        this.polygonArray.splice(Math.min(globalIndexj, globalIndexi), 1);
+                        this.depthSortingArray[Math.max(globalIndexj, globalIndexi)] = new GridElement(newPolygon, currentElement.isNavigable);
+                        this.depthSortingArray.splice(Math.min(globalIndexj, globalIndexi), 1);
 
                         //we need to update the indexes that may have been changed
                         if (indexes !== undefined) {
@@ -359,18 +363,18 @@ export class SceneGrid {
         phaserObject?: DecorationObject
     ): Array<number>
     {
-        const cuttedPolygon = this.polygonArray[index];
+        const cuttedPolygon = this.depthSortingArray[index];
         const cuttedGeom = cuttedPolygon.geom;
         const polygonsIndexes: Array<number> = [];
 
-        this.polygonArray.splice(index, 1);
+        this.depthSortingArray.splice(index, 1);
 
         let spliceIndex = index;
         //Polygon A (only if not of the edge of the cut polygon)
         if (objectGeom.getMinIso().x > cuttedGeom.getMinIso().x) {
             const isoSizeA = new IsometricCoordinates(objectGeom.getMinIso().x - cuttedGeom.getMinIso().x, cuttedGeom.getIsoSize().y);
             const isoCoordsA = new IsometricCoordinates((objectGeom.getMinIso().x + cuttedGeom.getMinIso().x)/2, cuttedGeom.getIsoCoords().y);
-            this.polygonArray.splice(spliceIndex, 0, new GridElement(new IsometricGeom(isoCoordsA, isoSizeA), cuttedPolygon.isNavigable));
+            this.depthSortingArray.splice(spliceIndex, 0, new GridElement(new IsometricGeom(isoCoordsA, isoSizeA), cuttedPolygon.isNavigable));
             polygonsIndexes.push(spliceIndex);
             spliceIndex = spliceIndex + 1;
         }
@@ -388,13 +392,13 @@ export class SceneGrid {
                 (maxX + minX)/2,
                 (objectGeom.getMinIso().y + cuttedGeom.getMinIso().y)/2
             );
-            this.polygonArray.splice(spliceIndex, 0, new GridElement(new IsometricGeom(isoCoordsB, isoSizeB), cuttedPolygon.isNavigable));
+            this.depthSortingArray.splice(spliceIndex, 0, new GridElement(new IsometricGeom(isoCoordsB, isoSizeB), cuttedPolygon.isNavigable));
             polygonsIndexes.push(spliceIndex);
             spliceIndex = spliceIndex + 1;
         }
 
         // add the object geometry
-        this.polygonArray.splice(spliceIndex, 0, new GridElement(objectGeom, isNavigable, phaserObject));
+        this.depthSortingArray.splice(spliceIndex, 0, new GridElement(objectGeom, isNavigable, phaserObject));
         polygonsIndexes.push(spliceIndex);
         spliceIndex = spliceIndex + 1;
 
@@ -411,7 +415,7 @@ export class SceneGrid {
                 (cuttedGeom.getMaxIso().x + objectGeom.getMaxIso().x)/2,
                 (maxY + minY)/2
             );
-            this.polygonArray.splice(spliceIndex, 0, new GridElement(new IsometricGeom(isoCoordsD, isoSizeD), cuttedPolygon.isNavigable));
+            this.depthSortingArray.splice(spliceIndex, 0, new GridElement(new IsometricGeom(isoCoordsD, isoSizeD), cuttedPolygon.isNavigable));
             polygonsIndexes.push(spliceIndex);
             spliceIndex = spliceIndex + 1;
         }
@@ -429,7 +433,7 @@ export class SceneGrid {
                 (maxX + minX)/2,
                 (cuttedGeom.getMaxIso().y + objectGeom.getMaxIso().y)/2
             );
-            this.polygonArray.splice(spliceIndex, 0, new GridElement(new IsometricGeom(isoCoordsC, isoSizeC), cuttedPolygon.isNavigable));
+            this.depthSortingArray.splice(spliceIndex, 0, new GridElement(new IsometricGeom(isoCoordsC, isoSizeC), cuttedPolygon.isNavigable));
             polygonsIndexes.push(spliceIndex);
         }
 
@@ -438,8 +442,8 @@ export class SceneGrid {
 
     getPolygonFromPoint(isoCoords: IsometricCoordinates): number
     {
-        for (let i = 0; i < this.polygonArray.length; i++) {
-            const gridElement = this.polygonArray[i];
+        for (let i = 0; i < this.depthSortingArray.length; i++) {
+            const gridElement = this.depthSortingArray[i];
             if (gridElement.geom.isPointInGeom(isoCoords)) {
                 return i;
             }

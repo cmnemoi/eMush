@@ -3,11 +3,23 @@
  "infinite":false,
  "layers":[
         {
-         "data":[4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":1,
-         "name":"wallBack",
+         "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":0
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":13,
@@ -17,31 +29,43 @@
         {
          "draworder":"topdown",
          "id":5,
-         "name":"door",
+         "name":"doors",
          "objects":[
                 {
-                 "gid":61,
+                 "gid":60,
                  "height":36,
                  "id":1,
                  "name":"rear_corridor_rear_bravo_storage",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }],
                  "rotation":0,
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":3,
-                 "y":95
+                 "x":-3,
+                 "y":61
                 }, 
                 {
-                 "gid":114,
+                 "gid":113,
                  "height":73,
                  "id":2,
                  "name":"rear_corridor_rear_bravo_storage",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }],
                  "rotation":0,
                  "type":"door",
                  "visible":true,
                  "width":48,
-                 "x":4,
-                 "y":76
+                 "x":-20.5,
+                 "y":27.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -50,11 +74,23 @@
          "y":0
         }, 
         {
-         "data":[0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":3,
          "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":13,
@@ -62,11 +98,23 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 0, 0, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 0, 0, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 0, 0, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 0, 0, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 0,
+            0, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 0,
+            0, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 0,
+            0, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 0,
+            0, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":4,
          "name":"ground",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":13,
@@ -79,19 +127,25 @@
          "name":"objects",
          "objects":[
                 {
-                 "gid":56,
+                 "gid":55,
                  "height":36,
                  "id":9,
                  "name":"engine_room_rear_bravo_storage",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }],
                  "rotation":0,
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":207,
-                 "y":95
+                 "x":204,
+                 "y":62
                 }, 
                 {
-                 "gid":258,
+                 "gid":257,
                  "height":45,
                  "id":3,
                  "name":"fuel_tank",
@@ -100,16 +154,26 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":24
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
                  "width":46,
-                 "x":145,
-                 "y":105
+                 "x":136.5,
+                 "y":70.5
                 }, 
                 {
-                 "gid":270,
+                 "gid":269,
                  "height":134,
                  "id":4,
                  "name":"shelf",
@@ -118,77 +182,182 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":176
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"shelf",
                  "visible":true,
                  "width":192,
-                 "x":99.75,
-                 "y":118.25
+                 "x":81,
+                 "y":-1
                 }, 
                 {
-                 "gid":274,
-                 "height":14,
-                 "id":5,
-                 "name":"paper2",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":18,
-                 "x":90.5,
-                 "y":63.5
-                }, 
-                {
-                 "gid":275,
-                 "height":14,
-                 "id":6,
-                 "name":"paper1",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":18,
-                 "x":74,
-                 "y":80
-                }, 
-                {
-                 "gid":278,
+                 "gid":272,
                  "height":15,
                  "id":7,
                  "name":"wall_box",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":10
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":14,
-                 "x":-16.5,
-                 "y":61.5
+                 "x":-24,
+                 "y":47
                 }, 
                 {
-                 "gid":280,
+                 "gid":274,
                  "height":17,
                  "id":8,
                  "name":"camera_equipment",
+                 "properties":[
+                        {
+                         "name":"animationYoyo",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
                  "width":25,
-                 "x":-21.5,
-                 "y":15.5
+                 "x":-18.75,
+                 "y":3.75
+                }, 
+                {
+                 "gid":291,
+                 "height":12,
+                 "id":10,
+                 "name":"paper",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":16,
+                 "x":88,
+                 "y":58
+                }, 
+                {
+                 "gid":292,
+                 "height":12,
+                 "id":11,
+                 "name":"paper",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":16,
+                 "x":67.5,
+                 "y":74.5
                 }],
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":1
+                }],
          "type":"objectgroup",
          "visible":true,
          "x":0,
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":10,
+ "nextobjectid":12,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.4",
  "tileheight":16,
  "tilesets":[
         {
-         "columns":15,
+         "columns":14,
          "firstgid":1,
          "grid":
             {
@@ -198,18 +367,18 @@
             },
          "image":"tilemaps\/wall_tileset.png",
          "imageheight":72,
-         "imagewidth":480,
+         "imagewidth":448,
          "margin":0,
          "name":"wall_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
-         "tilecount":15,
+         "tilecount":14,
          "tileheight":72,
          "tilewidth":32
         }, 
         {
          "columns":30,
-         "firstgid":16,
+         "firstgid":15,
          "grid":
             {
              "height":72,
@@ -221,7 +390,7 @@
          "imagewidth":960,
          "margin":0,
          "name":"ground_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":30,
          "tileheight":72,
@@ -229,7 +398,7 @@
         }, 
         {
          "columns":5,
-         "firstgid":46,
+         "firstgid":45,
          "grid":
             {
              "height":36,
@@ -241,7 +410,7 @@
          "imagewidth":320,
          "margin":0,
          "name":"door_ground_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":20,
          "tileheight":36,
@@ -346,7 +515,7 @@
         }, 
         {
          "columns":24,
-         "firstgid":66,
+         "firstgid":65,
          "grid":
             {
              "height":73,
@@ -358,7 +527,7 @@
          "imagewidth":1152,
          "margin":0,
          "name":"door_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":192,
          "tileheight":73,
@@ -416,7 +585,8 @@
                         {
                          "duration":100,
                          "tileid":12
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":13
@@ -516,7 +686,8 @@
                         {
                          "duration":100,
                          "tileid":36
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":37
@@ -616,7 +787,8 @@
                         {
                          "duration":100,
                          "tileid":60
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":61
@@ -716,7 +888,8 @@
                         {
                          "duration":100,
                          "tileid":84
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":85
@@ -816,7 +989,8 @@
                         {
                          "duration":100,
                          "tileid":108
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":109
@@ -916,7 +1090,8 @@
                         {
                          "duration":100,
                          "tileid":132
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":133
@@ -1016,7 +1191,8 @@
                         {
                          "duration":100,
                          "tileid":156
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":157
@@ -1116,7 +1292,8 @@
                         {
                          "duration":100,
                          "tileid":180
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":181
@@ -1167,13 +1344,13 @@
         }, 
         {
          "columns":6,
-         "firstgid":258,
+         "firstgid":257,
          "image":"tilemaps\/fuel_tank.png",
          "imageheight":90,
          "imagewidth":276,
          "margin":0,
          "name":"fuel_tank",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":12,
          "tileheight":45,
@@ -1222,41 +1399,41 @@
         }, 
         {
          "columns":1,
-         "firstgid":270,
+         "firstgid":269,
          "image":"tilemaps\/shelf_rear_bravo_storage.png",
          "imageheight":134,
          "imagewidth":192,
          "margin":0,
          "name":"shelf_rear_bravo_storage",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
          "tileheight":134,
          "tilewidth":192
         }, 
         {
-         "columns":5,
-         "firstgid":271,
+         "columns":4,
+         "firstgid":270,
          "image":"tilemaps\/papers.png",
-         "imageheight":14,
-         "imagewidth":99,
+         "imageheight":12,
+         "imagewidth":80,
          "margin":0,
          "name":"papers",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
-         "tilecount":5,
+         "tilecount":0,
          "tileheight":14,
          "tilewidth":18
         }, 
         {
          "columns":4,
-         "firstgid":276,
+         "firstgid":270,
          "image":"tilemaps\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
          "margin":0,
          "name":"wall_box",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
          "tileheight":15,
@@ -1289,13 +1466,13 @@
         }, 
         {
          "columns":14,
-         "firstgid":280,
+         "firstgid":274,
          "image":"tilemaps\/camera_object.png",
          "imageheight":17,
          "imagewidth":350,
          "margin":0,
          "name":"camera_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":14,
          "tileheight":17,
@@ -1353,7 +1530,8 @@
                         {
                          "duration":300,
                          "tileid":12
-                        }, 
+                        },
+                    
                         {
                          "duration":300,
                          "tileid":13
@@ -1405,7 +1583,8 @@
                         {
                          "duration":300,
                          "tileid":1
-                        }, 
+                        },
+                    
                         {
                          "duration":300,
                          "tileid":0
@@ -1413,9 +1592,22 @@
                  "id":0
                 }],
          "tilewidth":25
+        }, 
+        {
+         "columns":5,
+         "firstgid":288,
+         "image":"tilemaps\/papers.png",
+         "imageheight":12,
+         "imagewidth":80,
+         "margin":0,
+         "name":"papers",
+         "spacing":0,
+         "tilecount":5,
+         "tileheight":12,
+         "tilewidth":16
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":13
 }

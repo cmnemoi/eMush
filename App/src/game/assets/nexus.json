@@ -3,11 +3,24 @@
  "infinite":false,
  "layers":[
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            7, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0],
          "height":8,
          "id":2,
          "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":4
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":8,
@@ -15,11 +28,24 @@
          "y":0
         }, 
         {
-         "data":[8, 6, 6, 6, 6, 6, 6, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[8, 6, 6, 6, 6, 6, 6, 0,
+            7, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0],
          "height":8,
          "id":1,
-         "name":"wallBack",
+         "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":0
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":8,
@@ -27,169 +53,27 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 26, 26, 26, 26, 26, 0, 0, 26, 26, 26, 26, 26, 26, 0, 0, 26, 26, 26, 26, 26, 26, 0, 0, 26, 26, 26, 26, 26, 26, 0, 0, 26, 26, 26, 26, 26, 26, 0, 0, 26, 26, 26, 26, 26, 26, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0,
+            0, 25, 25, 25, 25, 25, 25, 0,
+            0, 25, 25, 25, 25, 25, 25, 0,
+            0, 25, 25, 25, 25, 25, 25, 0,
+            0, 25, 25, 25, 25, 25, 25, 0,
+            0, 25, 25, 25, 25, 25, 25, 0,
+            0, 25, 25, 25, 25, 25, 25, 0,
+            0, 0, 0, 0, 0, 0, 0, 0],
          "height":8,
          "id":4,
          "name":"ground",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":8,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":3,
-         "name":"objects1",
-         "objects":[
-                {
-                 "gid":50,
-                 "height":90,
-                 "id":1,
-                 "name":"neron_core",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":87,
-                 "x":19.0833333333333,
-                 "y":106.25
-                }, 
-                {
-                 "gid":58,
-                 "height":90,
-                 "id":2,
-                 "name":"neron_core_participation",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":87,
-                 "x":17.25,
-                 "y":104.083333333333
-                }, 
-                {
-                 "gid":66,
-                 "height":60,
-                 "id":5,
-                 "name":"bios",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":32,
-                 "x":47.6666666666667,
-                 "y":38.3333333333333
-                }, 
-                {
-                 "gid":67,
-                 "height":60,
-                 "id":6,
-                 "name":"tower",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":32,
-                 "x":86,
-                 "y":39.3333333333333
-                }, 
-                {
-                 "gid":68,
-                 "height":60,
-                 "id":7,
-                 "name":"calculator",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":32,
-                 "x":85.6666666666667,
-                 "y":39.6666666666667
-                }, 
-                {
-                 "gid":1,
-                 "height":15,
-                 "id":9,
-                 "name":"wall_box",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":14,
-                 "x":69,
-                 "y":-12.3333333333333
-                }, 
-                {
-                 "gid":89,
-                 "height":42,
-                 "id":11,
-                 "name":"shelf",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"shelf",
-                 "visible":true,
-                 "width":35,
-                 "x":20.5,
-                 "y":37.5
-                }, 
-                {
-                 "gid":101,
-                 "height":36,
-                 "id":12,
-                 "name":"rear_corridor_nexus",
-                 "rotation":0,
-                 "type":"door_ground",
-                 "visible":true,
-                 "width":64,
-                 "x":127.000946969697,
-                 "y":94.999053030303
-                }, 
-                {
-                 "gid":71,
-                 "height":59,
-                 "id":8,
-                 "name":"lamp",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":107,
-                 "x":60.4166666666667,
-                 "y":111.583333333333
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -199,7 +83,7 @@
          "name":"objects",
          "objects":[
                 {
-                 "gid":70,
+                 "gid":69,
                  "height":60,
                  "id":4,
                  "name":"tower",
@@ -208,16 +92,26 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":82.5,
-                 "y":115.5
+                 "x":70,
+                 "y":70
                 }, 
                 {
-                 "gid":70,
+                 "gid":69,
                  "height":60,
                  "id":3,
                  "name":"tower",
@@ -226,37 +120,314 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":53.8333333333333,
-                 "y":114.833333333333
+                 "x":38,
+                 "y":70.0037878787875
                 }, 
                 {
-                 "gid":73,
+                 "gid":72,
                  "height":17,
                  "id":10,
                  "name":"camera_equipment",
+                 "properties":[
+                        {
+                         "name":"animationYoyo",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
                  "width":25,
-                 "x":-15.5,
-                 "y":81.5
+                 "x":-20.75,
+                 "y":69.75
+                }, 
+                {
+                 "gid":49,
+                 "height":90,
+                 "id":1,
+                 "name":"neron_core",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":80
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":87,
+                 "x":-2.75,
+                 "y":40.75
+                }, 
+                {
+                 "gid":65,
+                 "height":60,
+                 "id":5,
+                 "name":"bios_terminal",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":32,
+                 "x":38,
+                 "y":6
+                }, 
+                {
+                 "gid":66,
+                 "height":60,
+                 "id":6,
+                 "name":"tower",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":70,
+                 "y":6
+                }, 
+                {
+                 "gid":67,
+                 "height":60,
+                 "id":7,
+                 "name":"calculator",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":32,
+                 "x":70.5,
+                 "y":5.5
+                }, 
+                {
+                 "gid":1,
+                 "height":15,
+                 "id":9,
+                 "name":"wall_box",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":14,
+                 "x":65,
+                 "y":-24
+                },
+            
+                {
+                 "gid":88,
+                 "height":42,
+                 "id":11,
+                 "name":"shelf",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"shelf",
+                 "visible":true,
+                 "width":35,
+                 "x":7.25,
+                 "y":8.75
+                }, 
+                {
+                 "gid":100,
+                 "height":36,
+                 "id":12,
+                 "name":"rear_corridor_nexus",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"door_ground",
+                 "visible":true,
+                 "width":64,
+                 "x":124.5,
+                 "y":61.5
+                }, 
+                {
+                 "gid":70,
+                 "height":59,
+                 "id":8,
+                 "name":"lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":80
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":107,
+                 "x":74.25,
+                 "y":58.75
                 }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":6,
+         "name":"doors",
+         "objects":[],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":6,
- "nextobjectid":13,
+ "nextlayerid":7,
+ "nextobjectid":32,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.4",
  "tileheight":16,
  "tilesets":[
         {
@@ -267,7 +438,7 @@
          "imagewidth":56,
          "margin":0,
          "name":"wall_box",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
          "tileheight":15,
@@ -299,7 +470,7 @@
          "tilewidth":14
         }, 
         {
-         "columns":15,
+         "columns":14,
          "firstgid":5,
          "grid":
             {
@@ -309,18 +480,18 @@
             },
          "image":"tilemaps\/wall_tileset.png",
          "imageheight":72,
-         "imagewidth":480,
+         "imagewidth":448,
          "margin":0,
          "name":"wall_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
-         "tilecount":15,
+         "tilecount":14,
          "tileheight":72,
          "tilewidth":32
         }, 
         {
          "columns":30,
-         "firstgid":20,
+         "firstgid":19,
          "grid":
             {
              "height":72,
@@ -332,7 +503,7 @@
          "imagewidth":960,
          "margin":0,
          "name":"ground_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":30,
          "tileheight":72,
@@ -340,13 +511,13 @@
         }, 
         {
          "columns":8,
-         "firstgid":50,
-         "image":"tilemaps\/nerons_core.png",
+         "firstgid":49,
+         "image":"tilemaps\/neron_core.png",
          "imageheight":180,
          "imagewidth":696,
          "margin":0,
-         "name":"nerons_core",
-         "objectalignment":"bottomleft",
+         "name":"neron_core",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":16,
          "tileheight":90,
@@ -427,13 +598,13 @@
         }, 
         {
          "columns":5,
-         "firstgid":66,
+         "firstgid":65,
          "image":"tilemaps\/bios_terminal_calculator.png",
          "imageheight":60,
          "imagewidth":160,
          "margin":0,
          "name":"bios_terminal_calculator",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":5,
          "tileheight":60,
@@ -466,13 +637,13 @@
         }, 
         {
          "columns":1,
-         "firstgid":71,
+         "firstgid":70,
          "image":"tilemaps\/nexus_lamp.png",
          "imageheight":119,
          "imagewidth":107,
          "margin":0,
          "name":"nexus_lamp",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":2,
          "tileheight":59,
@@ -493,13 +664,13 @@
         }, 
         {
          "columns":14,
-         "firstgid":73,
+         "firstgid":72,
          "image":"tilemaps\/camera_object.png",
          "imageheight":17,
          "imagewidth":350,
          "margin":0,
          "name":"camera_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":14,
          "tileheight":17,
@@ -537,7 +708,8 @@
                         {
                          "duration":300,
                          "tileid":7
-                        }, 
+                        },
+                    
                         {
                          "duration":300,
                          "tileid":8
@@ -569,7 +741,8 @@
                         {
                          "duration":300,
                          "tileid":11
-                        }, 
+                        },
+                    
                         {
                          "duration":300,
                          "tileid":10
@@ -601,7 +774,8 @@
                         {
                          "duration":300,
                          "tileid":3
-                        }, 
+                        },
+                    
                         {
                          "duration":300,
                          "tileid":2
@@ -620,21 +794,22 @@
         }, 
         {
          "columns":4,
-         "firstgid":87,
+         "firstgid":86,
          "image":"tilemaps\/shelf_object.png",
          "imageheight":42,
          "imagewidth":140,
          "margin":0,
          "name":"shelf_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
          "tileheight":42,
          "tilewidth":35
-        }, 
+        },
+    
         {
          "columns":5,
-         "firstgid":91,
+         "firstgid":90,
          "grid":
             {
              "height":36,
@@ -646,7 +821,7 @@
          "imagewidth":320,
          "margin":0,
          "name":"door_ground_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":20,
          "tileheight":36,
@@ -751,6 +926,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":8
 }

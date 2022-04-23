@@ -3,11 +3,30 @@
  "infinite":false,
  "layers":[
         {
-         "data":[11, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[9, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 0,
+            8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
          "id":1,
-         "name":"wallBack",
+         "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":0
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":14,
@@ -17,31 +36,43 @@
         {
          "draworder":"topdown",
          "id":5,
-         "name":"door",
+         "name":"doors",
          "objects":[
                 {
-                 "gid":68,
+                 "gid":65,
                  "height":36,
                  "id":1,
                  "name":"refectory_central_corridor",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }],
                  "rotation":0,
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":3.33333333333331,
-                 "y":128
+                 "x":-5,
+                 "y":89
                 }, 
                 {
-                 "gid":121,
+                 "gid":118,
                  "height":73,
                  "id":2,
                  "name":"refectory_central_corridor",
+                 "properties":[
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
+                        }],
                  "rotation":0,
                  "type":"door",
                  "visible":true,
                  "width":48,
-                 "x":4.66666666666666,
-                 "y":106.666666666667
+                 "x":-20.5,
+                 "y":59.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -50,11 +81,30 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
          "id":2,
          "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":14,
@@ -62,11 +112,92 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 0, 0, 0, 0, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 0, 0, 0, 0, 23, 23, 23, 23, 23, 23, 23, 23, 23, 0, 0, 0, 0, 0, 23, 23, 23, 23, 23, 23, 23, 23, 23, 0, 0, 0, 0, 0, 23, 23, 23, 23, 23, 23, 23, 23, 23, 0, 0, 0, 0, 0, 23, 23, 23, 23, 23, 23, 23, 23, 23, 0, 0, 0, 0, 0, 23, 23, 23, 23, 23, 23, 23, 23, 23, 0, 0, 0, 0, 0, 23, 23, 23, 23, 23, 23, 23, 23, 23, 0, 0, 0, 0, 0, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 0, 0, 0, 0, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0,
+            0, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0,
+            0, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0,
+            0, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0,
+            0, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0,
+            0, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0,
+            0, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0,
+            0, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0,
+            0, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0,
+            0, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
          "id":3,
          "name":"ground",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":14,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":14,
+         "id":7,
+         "name":"ground",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":4
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":14,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":14,
+         "id":8,
+         "name":"ground",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":4
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":14,
@@ -79,19 +210,40 @@
          "name":"objects",
          "objects":[
                 {
-                 "gid":267,
+                 "gid":264,
                  "height":15,
                  "id":3,
                  "name":"wall_box",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":10
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":14,
-                 "x":-19.5,
-                 "y":140.5
+                 "x":-24,
+                 "y":127
                 }, 
                 {
-                 "gid":6,
+                 "gid":4,
                  "height":81,
                  "id":4,
                  "name":"table",
@@ -100,34 +252,26 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":125,
-                 "x":88,
-                 "y":192
-                }, 
-                {
-                 "gid":7,
-                 "height":81,
-                 "id":5,
-                 "name":"table_gold",
-                 "properties":[
+                        }, 
                         {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":72
                         }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":125,
-                 "x":88,
-                 "y":192
+                 "x":79.75,
+                 "y":125.25
                 }, 
                 {
-                 "gid":271,
+                 "gid":268,
                  "height":42,
                  "id":6,
                  "name":"shelf",
@@ -136,16 +280,26 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"shelf",
                  "visible":true,
                  "width":35,
-                 "x":148.5,
-                 "y":85.5
+                 "x":134.75,
+                 "y":57.25
                 }, 
                 {
-                 "gid":5,
+                 "gid":3,
                  "height":41,
                  "id":7,
                  "name":"pneumatic_distributor",
@@ -154,193 +308,413 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":31,
-                 "x":20.25,
-                 "y":65.75
+                 "x":7.25,
+                 "y":37.75
                 }, 
                 {
-                 "gid":3,
-                 "height":134,
-                 "id":8,
+                 "gid":2,
+                 "height":52,
+                 "id":10,
+                 "name":"coffee_machine_project",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":31,
+                 "x":-0.25,
+                 "y":112.25
+                }, 
+                {
+                 "gid":1,
+                 "height":52,
+                 "id":11,
+                 "name":"coffee_machine",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":31,
+                 "x":1.75,
+                 "y":114.25
+                }, 
+                {
+                 "gid":270,
+                 "height":17,
+                 "id":12,
+                 "name":"camera_equipment",
+                 "properties":[
+                        {
+                         "name":"animationYoyo",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":25,
+                 "x":-22.75,
+                 "y":33.75
+                }, 
+                {
+                 "gid":292,
+                 "height":36,
+                 "id":14,
+                 "name":"chair_object",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":34,
+                 "x":58,
+                 "y":148
+                }, 
+                {
+                 "gid":292,
+                 "height":36,
+                 "id":15,
+                 "name":"chair_object",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":34,
+                 "x":58,
+                 "y":132
+                }, 
+                {
+                 "gid":292,
+                 "height":36,
+                 "id":16,
+                 "name":"chair_object",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":34,
+                 "x":58,
+                 "y":116
+                }, 
+                {
+                 "gid":292,
+                 "height":36,
+                 "id":17,
+                 "name":"chair_object",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":34,
+                 "x":58,
+                 "y":100
+                }, 
+                {
+                 "gid":293,
+                 "height":36,
+                 "id":18,
+                 "name":"chair_object",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":34,
+                 "x":102.5,
+                 "y":151.5
+                }, 
+                {
+                 "gid":293,
+                 "height":36,
+                 "id":19,
+                 "name":"chair_object",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":34,
+                 "x":102.5,
+                 "y":135.5
+                }, 
+                {
+                 "gid":293,
+                 "height":36,
+                 "id":20,
+                 "name":"chair_object",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":34,
+                 "x":102.49604743083,
+                 "y":119.49604743083
+                },
+            
+                {
+                 "gid":293,
+                 "height":36,
+                 "id":21,
+                 "name":"chair_object",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":34,
+                 "x":102.50404040404,
+                 "y":103.5
+                }, 
+                {
+                 "gid":298,
+                 "height":111,
+                 "id":22,
                  "name":"kitchen",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":144
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"interact",
                  "visible":true,
-                 "width":176,
-                 "x":101.75,
-                 "y":112.25
+                 "width":159,
+                 "x":60.25,
+                 "y":-3.25
                 }, 
                 {
-                 "gid":4,
-                 "height":134,
-                 "id":9,
-                 "name":"kitchen_gold",
+                 "gid":300,
+                 "height":62,
+                 "id":23,
+                 "name":"kitchen",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":true
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":176,
-                 "x":101.298447732234,
-                 "y":111.252364782925
-                }, 
-                {
-                 "gid":2,
-                 "height":52,
-                 "id":10,
-                 "name":"cofee_machine_project",
-                 "properties":[
+                        }, 
                         {
-                         "name":"collides",
+                         "name":"grouped",
                          "type":"bool",
                          "value":true
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":31,
-                 "x":15,
-                 "y":148
-                }, 
-                {
-                 "gid":1,
-                 "height":52,
-                 "id":11,
-                 "name":"cofee_machine",
-                 "properties":[
+                        }, 
                         {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":32
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
-                 "width":31,
-                 "x":17,
-                 "y":150
-                }, 
-                {
-                 "gid":273,
-                 "height":17,
-                 "id":12,
-                 "name":"camera_equipment",
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":25,
-                 "x":-20.5,
-                 "y":46.5
-                }, 
-                {
-                 "gid":296,
-                 "height":38,
-                 "id":14,
-                 "name":"chair_object",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":36,
-                 "x":69,
-                 "y":177
-                }, 
-                {
-                 "gid":296,
-                 "height":38,
-                 "id":15,
-                 "name":"chair_object",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":36,
-                 "x":69,
-                 "y":161
-                }, 
-                {
-                 "gid":296,
-                 "height":38,
-                 "id":16,
-                 "name":"chair_object",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":36,
-                 "x":68.9957386363636,
-                 "y":145
-                }, 
-                {
-                 "gid":296,
-                 "height":38,
-                 "id":17,
-                 "name":"chair_object",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":36,
-                 "x":69,
-                 "y":129
-                }, 
-                {
-                 "gid":297,
-                 "height":38,
-                 "id":18,
-                 "name":"chair_object",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":36,
-                 "x":119,
-                 "y":177
-                }, 
-                {
-                 "gid":297,
-                 "height":38,
-                 "id":19,
-                 "name":"chair_object",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":36,
-                 "x":119,
-                 "y":161
-                }, 
-                {
-                 "gid":297,
-                 "height":38,
-                 "id":20,
-                 "name":"chair_object",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":36,
-                 "x":118.99604743083,
-                 "y":144.99604743083
-                }, 
-                {
-                 "gid":297,
-                 "height":38,
-                 "id":21,
-                 "name":"chair_object",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":36,
-                 "x":119,
-                 "y":129
+                 "width":46,
+                 "x":143.5,
+                 "y":8.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -348,11 +722,37 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":6,
- "nextobjectid":22,
+ "nextlayerid":9,
+ "nextobjectid":24,
  "orientation":"isometric",
+ "properties":[
+        {
+         "name":"animationYoyo",
+         "type":"bool",
+         "value":true
+        }, 
+        {
+         "name":"collides",
+         "type":"bool",
+         "value":false
+        }, 
+        {
+         "name":"depth",
+         "type":"int",
+         "value":5
+        }, 
+        {
+         "name":"isoSizeX",
+         "type":"int",
+         "value":16
+        }, 
+        {
+         "name":"isoSizeY",
+         "type":"int",
+         "value":16
+        }],
  "renderorder":"right-down",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.4",
  "tileheight":16,
  "tilesets":[
         {
@@ -363,35 +763,21 @@
          "imagewidth":62,
          "margin":0,
          "name":"coffee_machine",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":2,
          "tileheight":52,
          "tilewidth":31
         }, 
         {
-         "columns":2,
-         "firstgid":3,
-         "image":"tilemaps\/kitchen.png",
-         "imageheight":134,
-         "imagewidth":352,
-         "margin":0,
-         "name":"kitchen",
-         "objectalignment":"bottomleft",
-         "spacing":0,
-         "tilecount":2,
-         "tileheight":134,
-         "tilewidth":176
-        }, 
-        {
          "columns":1,
-         "firstgid":5,
-         "image":"tilemaps\/pneumatic_distributor2.png",
+         "firstgid":3,
+         "image":"tilemaps\/pneumatic_distributor_2.png",
          "imageheight":41,
          "imagewidth":31,
          "margin":0,
-         "name":"pneumatic_distributor2",
-         "objectalignment":"bottomleft",
+         "name":"pneumatic_distributor_2",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
          "tileheight":41,
@@ -399,21 +785,21 @@
         }, 
         {
          "columns":2,
-         "firstgid":6,
+         "firstgid":4,
          "image":"tilemaps\/table.png",
          "imageheight":81,
          "imagewidth":250,
          "margin":0,
          "name":"table",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":2,
          "tileheight":81,
          "tilewidth":125
         }, 
         {
-         "columns":15,
-         "firstgid":8,
+         "columns":14,
+         "firstgid":6,
          "grid":
             {
              "height":72,
@@ -422,18 +808,18 @@
             },
          "image":"tilemaps\/wall_tileset.png",
          "imageheight":72,
-         "imagewidth":480,
+         "imagewidth":448,
          "margin":0,
          "name":"wall_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
-         "tilecount":15,
+         "tilecount":14,
          "tileheight":72,
          "tilewidth":32
         }, 
         {
          "columns":30,
-         "firstgid":23,
+         "firstgid":20,
          "grid":
             {
              "height":72,
@@ -445,7 +831,7 @@
          "imagewidth":960,
          "margin":0,
          "name":"ground_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":30,
          "tileheight":72,
@@ -453,7 +839,7 @@
         }, 
         {
          "columns":5,
-         "firstgid":53,
+         "firstgid":50,
          "grid":
             {
              "height":36,
@@ -465,7 +851,7 @@
          "imagewidth":320,
          "margin":0,
          "name":"door_ground_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":20,
          "tileheight":36,
@@ -570,7 +956,7 @@
         }, 
         {
          "columns":24,
-         "firstgid":73,
+         "firstgid":70,
          "grid":
             {
              "height":73,
@@ -582,7 +968,7 @@
          "imagewidth":1152,
          "margin":0,
          "name":"door_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":192,
          "tileheight":73,
@@ -644,7 +1030,8 @@
                         {
                          "duration":100,
                          "tileid":13
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":14
@@ -744,7 +1131,8 @@
                         {
                          "duration":100,
                          "tileid":37
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":38
@@ -844,7 +1232,8 @@
                         {
                          "duration":100,
                          "tileid":61
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":62
@@ -944,7 +1333,8 @@
                         {
                          "duration":100,
                          "tileid":85
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":86
@@ -1044,7 +1434,8 @@
                         {
                          "duration":100,
                          "tileid":109
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":110
@@ -1144,7 +1535,8 @@
                         {
                          "duration":100,
                          "tileid":133
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":134
@@ -1244,7 +1636,8 @@
                         {
                          "duration":100,
                          "tileid":157
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":158
@@ -1344,7 +1737,8 @@
                         {
                          "duration":100,
                          "tileid":181
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":182
@@ -1391,13 +1785,13 @@
         }, 
         {
          "columns":4,
-         "firstgid":265,
+         "firstgid":262,
          "image":"tilemaps\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
          "margin":0,
          "name":"wall_box",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
          "tileheight":15,
@@ -1430,13 +1824,13 @@
         }, 
         {
          "columns":4,
-         "firstgid":269,
+         "firstgid":266,
          "image":"tilemaps\/shelf_object.png",
          "imageheight":42,
          "imagewidth":140,
          "margin":0,
          "name":"shelf_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
          "tileheight":42,
@@ -1444,13 +1838,13 @@
         }, 
         {
          "columns":14,
-         "firstgid":273,
+         "firstgid":270,
          "image":"tilemaps\/camera_object.png",
          "imageheight":17,
          "imagewidth":350,
          "margin":0,
          "name":"camera_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":14,
          "tileheight":17,
@@ -1512,7 +1906,8 @@
                         {
                          "duration":300,
                          "tileid":13
-                        }, 
+                        },
+                    
                         {
                          "duration":300,
                          "tileid":12
@@ -1570,27 +1965,49 @@
          "tilewidth":25
         }, 
         {
-         "columns":8,
-         "firstgid":287,
-         "grid":
-            {
-             "height":38,
-             "orientation":"isometric",
-             "width":36
-            },
+         "columns":7,
+         "firstgid":284,
          "image":"tilemaps\/chair_object.png",
-         "imageheight":76,
-         "imagewidth":288,
+         "imageheight":72,
+         "imagewidth":238,
          "margin":0,
          "name":"chair_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
-         "tilecount":16,
-         "tileheight":38,
-         "tilewidth":36
+         "tilecount":14,
+         "tileheight":36,
+         "tilewidth":34
+        }, 
+        {
+         "columns":2,
+         "firstgid":298,
+         "image":"tilemaps\/kitchen_1.png",
+         "imageheight":111,
+         "imagewidth":318,
+         "margin":0,
+         "name":"kitchen_1",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":111,
+         "tilewidth":159
+        }, 
+        {
+         "columns":2,
+         "firstgid":300,
+         "image":"tilemaps\/kitchen_2.png",
+         "imageheight":62,
+         "imagewidth":92,
+         "margin":0,
+         "name":"kitchen_2",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":62,
+         "tilewidth":46
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":14
 }

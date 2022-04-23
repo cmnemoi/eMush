@@ -38,6 +38,31 @@ import washRoom2 from "@/game/assets/tilemaps/washRoom2.png";
 import towelRack from "@/game/assets/tilemaps/towelRack.png";
 import slippers from "@/game/assets/tilemaps/slippers.png";
 import poster from "@/game/assets/tilemaps/poster.png";
+import garden_equipment from "@/game/assets/tilemaps/garden_equipment.png";
+import garden_console from "@/game/assets/tilemaps/garden_console.png";
+import garden_engine from "@/game/assets/tilemaps/garden_engine.png";
+import pneumatic_distributor from "@/game/assets/tilemaps/pneumatic_distributor.png";
+import kitchen_1 from "@/game/assets/tilemaps/kitchen_1.png";
+import kitchen_2 from "@/game/assets/tilemaps/kitchen_2.png";
+import pneumatic_distributor_2 from "@/game/assets/tilemaps/pneumatic_distributor_2.png";
+import coffee_machine from "@/game/assets/tilemaps/coffee_machine.png";
+import table from "@/game/assets/tilemaps/table.png";
+import oxygen_tank from "@/game/assets/tilemaps/oxygen_tank.png";
+import shelf_center_alpha_storage_1 from "@/game/assets/tilemaps/shelf_center_alpha_storage_1.png";
+import shelf_center_alpha_storage_2 from "@/game/assets/tilemaps/shelf_center_alpha_storage_2.png";
+import shelf_center_bravo_storage_1 from "@/game/assets/tilemaps/shelf_center_bravo_storage_1.png";
+import shelf_center_bravo_storage_2 from "@/game/assets/tilemaps/shelf_center_bravo_storage_2.png";
+import shelf_center_bravo_storage_3 from "@/game/assets/tilemaps/shelf_center_bravo_storage_3.png";
+import neron_core from "@/game/assets/tilemaps/neron_core.png";
+import nexus_lamp from "@/game/assets/tilemaps/nexus_lamp.png";
+import bios_terminal_calculator from "@/game/assets/tilemaps/bios_terminal_calculator.png";
+import fuel_tank from "@/game/assets/tilemaps/fuel_tank.png";
+import board from "@/game/assets/tilemaps/board.png";
+import shelf_rear_alpha_storage from "@/game/assets/tilemaps/shelf_rear_alpha_storage.png";
+import shelf_rear_bravo_storage from "@/game/assets/tilemaps/shelf_rear_bravo_storage.png";
+import workshop from "@/game/assets/tilemaps/workshop.png";
+import worktable from "@/game/assets/tilemaps/worktable.png";
+
 
 
 import character from "@/game/assets/images/characters.png";
@@ -56,7 +81,14 @@ import front_storage from "@/game/assets/front_storage.json";
 import front_corridor from "@/game/assets/front_corridor.json";
 import alpha_dorm from "@/game/assets/alpha_dorm.json";
 import bravo_dorm from "@/game/assets/bravo_dorm.json";
-
+import hydroponic_garden from "@/game/assets/garden.json";
+import refectory from "@/game/assets/refectory.json";
+import center_alpha_storage from "@/game/assets/center_alpha_storage.json";
+import center_bravo_storage from "@/game/assets/center_bravo_storage.json";
+import rear_corridor from "@/game/assets/rear_corridor.json";
+import nexus from "@/game/assets/nexus.json";
+import rear_bravo_storage from "@/game/assets/rear_bravo_storage.json";
+import rear_alpha_storage from "@/game/assets/rear_alpha_storage.json";
 
 import fire_particles_frame from "@/game/assets/images/fire_particles.json";
 import fire_particles from "@/game/assets/images/fire_particles.png";
@@ -75,6 +107,7 @@ import IsometricGeom from "@/game/scenes/isometricGeom";
 import { SceneGrid } from "@/game/scenes/sceneGrid";
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 import store from "@/store";
+
 
 export default class DaedalusScene extends Phaser.Scene
 {
@@ -131,6 +164,14 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.tilemapTiledJSON('front_corridor', front_corridor);
         this.load.tilemapTiledJSON('bravo_dorm', bravo_dorm);
         this.load.tilemapTiledJSON('alpha_dorm', alpha_dorm);
+        this.load.tilemapTiledJSON('hydroponic_garden', hydroponic_garden);
+        this.load.tilemapTiledJSON('refectory', refectory);
+        this.load.tilemapTiledJSON('center_alpha_storage', center_alpha_storage);
+        this.load.tilemapTiledJSON('center_bravo_storage', center_bravo_storage);
+        this.load.tilemapTiledJSON('rear_corridor', rear_corridor);
+        this.load.tilemapTiledJSON('nexus', nexus);
+        this.load.tilemapTiledJSON('rear_bravo_storage', rear_bravo_storage);
+        this.load.tilemapTiledJSON('rear_alpha_storage', rear_alpha_storage);
 
 
         this.load.image('ground_tileset', ground_tileset);
@@ -166,7 +207,6 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.spritesheet('shelf_front_storage3', shelf_front_storage3, { frameHeight: 74, frameWidth: 109 });
         this.load.spritesheet('shelf_front_storage4', shelf_front_storage4, { frameHeight: 79, frameWidth: 109 });
         this.load.spritesheet('transparent_wall_object', transparent_wall_object, { frameHeight: 69, frameWidth: 54 });
-
         this.load.spritesheet('puddle', puddle, { frameHeight: 8, frameWidth: 12 });
         this.load.spritesheet('shower', shower, { frameHeight: 60, frameWidth: 32 });
         this.load.spritesheet('washRoom1', washRoom1, { frameHeight: 90, frameWidth: 88 });
@@ -174,6 +214,30 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.spritesheet('towelRack', towelRack, { frameHeight: 26, frameWidth: 16 });
         this.load.spritesheet('slippers', slippers, { frameHeight: 9, frameWidth: 13 });
         this.load.spritesheet('poster', poster, { frameHeight: 31, frameWidth: 18 });
+        this.load.spritesheet('garden_equipment', garden_equipment, { frameHeight: 156, frameWidth: 219 });
+        this.load.spritesheet('garden_console', garden_console, { frameHeight: 42, frameWidth: 45 });
+        this.load.spritesheet('garden_engine', garden_engine, { frameHeight: 112, frameWidth: 140 });
+        this.load.spritesheet('pneumatic_distributor', pneumatic_distributor, { frameHeight: 42, frameWidth: 35 });
+        this.load.spritesheet('pneumatic_distributor_2', pneumatic_distributor_2, { frameHeight: 41, frameWidth: 31 });
+        this.load.spritesheet('kitchen_1', kitchen_1, { frameHeight: 111, frameWidth: 159 });
+        this.load.spritesheet('kitchen_2', kitchen_2, { frameHeight: 62, frameWidth: 46 });
+        this.load.spritesheet('table', table, { frameHeight: 81, frameWidth: 125 });
+        this.load.spritesheet('coffee_machine', coffee_machine, { frameHeight: 52, frameWidth: 31 });
+        this.load.spritesheet('oxygen_tank', oxygen_tank, { frameHeight: 45, frameWidth: 45 });
+        this.load.spritesheet('shelf_center_alpha_storage_1', shelf_center_alpha_storage_1, { frameHeight: 80, frameWidth: 105 });
+        this.load.spritesheet('shelf_center_alpha_storage_2', shelf_center_alpha_storage_2, { frameHeight: 72, frameWidth: 77 });
+        this.load.spritesheet('shelf_center_bravo_storage_1', shelf_center_bravo_storage_1, { frameHeight: 93, frameWidth: 106 });
+        this.load.spritesheet('shelf_center_bravo_storage_2', shelf_center_bravo_storage_2, { frameHeight: 50, frameWidth: 65 });
+        this.load.spritesheet('shelf_center_bravo_storage_3', shelf_center_bravo_storage_3, { frameHeight: 64, frameWidth: 64 });
+        this.load.spritesheet('nexus_lamp', nexus_lamp, { frameHeight: 59, frameWidth: 107 });
+        this.load.spritesheet('bios_terminal_calculator', bios_terminal_calculator, { frameHeight: 60, frameWidth: 32 });
+        this.load.spritesheet('neron_core', neron_core, { frameHeight: 90, frameWidth: 87 });
+        this.load.spritesheet('fuel_tank', fuel_tank, { frameHeight: 45, frameWidth: 46 });
+        this.load.spritesheet('shelf_rear_alpha_storage', shelf_rear_alpha_storage, { frameHeight: 48, frameWidth: 50 });
+        this.load.spritesheet('shelf_rear_bravo_storage', shelf_rear_bravo_storage, { frameHeight: 134, frameWidth: 192 });
+        this.load.spritesheet('workshop', workshop, { frameHeight: 81, frameWidth: 87 });
+        this.load.spritesheet('worktable', worktable, { frameHeight: 54, frameWidth: 45 });
+        this.load.spritesheet('board', board, { frameHeight: 56, frameWidth: 34 });
 
 
         this.load.spritesheet('ground_object', ground_tileset, { frameHeight: 72, frameWidth: 32 });
@@ -226,8 +290,8 @@ export default class DaedalusScene extends Phaser.Scene
         }
 
 
-        this.createFromTiledObjects(map.getObjectLayer('doors'), this, map.tilesets, objectsShift, this.room);
-        this.createFromTiledObjects(map.getObjectLayer('objects'), this, map.tilesets, objectsShift, this.room);
+        this.createFromTiledObjects(map.getObjectLayer('doors'), this, map.tilesets, objectsShift);
+        this.createFromTiledObjects(map.getObjectLayer('objects'), this, map.tilesets, objectsShift);
 
         // add target tile highlight
         this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
@@ -240,14 +304,19 @@ export default class DaedalusScene extends Phaser.Scene
         this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshGrid.exportForNavMesh(), this.characterSize);
 
 
-        /*// navMesh Debug
-        const navMeshPolygons = this.navMeshGrid.exportForNavMesh();
+        // navMesh Debug
+        //const navMeshPolygons = this.navMeshGrid.exportForNavMesh();
+        const navMeshPolygons = this.sceneGrid.depthSortingArray;
 
         const debugGraphics = this.add.graphics().setAlpha(1);
         debugGraphics.setDepth(1000000);
         for (let i = 0; i < navMeshPolygons.length; i++) {
         //for (let i = 4; i < 5; i++) {
-            const polygon = navMeshPolygons[i];
+            //const polygon = navMeshPolygons[i];
+            const polygon = navMeshPolygons[i].geom.getIsoArray();
+
+            //console.log(navMeshPolygons[i].object?.name);
+            //console.log(navMeshPolygons[i].object?.depth);
 
             let maxX = polygon[0].x;
             let minX = polygon[0].x;
@@ -263,11 +332,11 @@ export default class DaedalusScene extends Phaser.Scene
 
             const cartPoly = new IsometricGeom(new IsometricCoordinates((maxX+minX)/2, (maxY+minY)/2), new IsometricCoordinates(maxX-minX, maxY-minY));
 
-            debugGraphics.fillStyle(0xF0FFFF, 0.5);
+            debugGraphics.fillStyle(0xF0FFFF, 0.2);
             debugGraphics.lineStyle(1, 0xff0000, 1.0);
             debugGraphics.fillPoints(cartPoly.getCartesianPolygon().points, true);
             debugGraphics.strokePoints(cartPoly.getCartesianPolygon().points, true);
-        }*/
+        }
 
         // const debugGraphics2 = this.add.graphics().setAlpha(1);
         // debugGraphics2.setDepth(100000000);
@@ -447,7 +516,7 @@ export default class DaedalusScene extends Phaser.Scene
             const cellCoords = this.getGridIsoCoordinate(pointerCoords.toIsometricCoordinates()).toCartesianCoordinates();
 
             const sceneGridIndex = this.sceneGrid.getPolygonFromPoint(cellCoords.toIsometricCoordinates());
-            if (sceneGridIndex !== -1 && this.sceneGrid.polygonArray[sceneGridIndex].isNavigable) {
+            if (sceneGridIndex !== -1 && this.sceneGrid.depthSortingArray[sceneGridIndex].isNavigable) {
                 this.targetHighlightObject.setPosition(cellCoords.x, cellCoords.y);
                 this.targetHighlightObject.setDepth(this.sceneGrid.getDepthOfPoint(cellCoords.toIsometricCoordinates()));
             } else {
@@ -509,7 +578,6 @@ export default class DaedalusScene extends Phaser.Scene
         scene: Phaser.Scene,
         tilesets: Array<Phaser.Tilemaps.Tileset>,
         shift: CartesianCoordinates,
-        room: Room
     ): Array<Phaser.GameObjects.GameObject>
     {
         const results = [];
@@ -522,6 +590,7 @@ export default class DaedalusScene extends Phaser.Scene
             const obj = objects[i];
 
 
+            console.log(obj.name);
             if (obj.gid === undefined){
                 throw new Error(obj.name + "gid is not defined");
             }
@@ -539,15 +608,15 @@ export default class DaedalusScene extends Phaser.Scene
 
                 // some equipment have depth already fixed (stuff on the wall, doors, flat things on the ground)
                 const fixedDepth = this.getCustomPropertyByName(obj, 'depth');
+                const isCollision = this.isCustomPropertyByName(obj, 'collides');
+
                 if (fixedDepth !== -1) {
                     newObject.setDepth(this.computeFixedDepth(fixedDepth));
                 }
 
-                if (obj.type !== 'door' && obj.type !== 'door_ground' &&
-                    (fixedDepth === -1 || this.isCustomPropertyByName(obj, 'collides'))
-                ) {
-                    this.sceneGrid.addObject(newObject);
-                }
+
+                this.sceneGrid.addObject(newObject);
+
 
                 if (newObject instanceof EquipmentObject) {
                     addedObjectId.push(newObject.equipment.id);
@@ -640,7 +709,9 @@ export default class DaedalusScene extends Phaser.Scene
                 return (door.key === obj.name);
             });
         case 'interact':
-            return this.room.equipments.find((equipment: Equipment) => (equipment.key === obj.name && !(createdObjectId.includes(equipment.id))));
+            return this.room.equipments.find((equipment: Equipment) => (equipment.key === obj.name &&
+                (!(createdObjectId.includes(equipment.id))) || this.isCustomPropertyByName(obj, 'grouped'))
+            );
         }
 
         return undefined;

@@ -3,11 +3,24 @@
  "infinite":false,
  "layers":[
         {
-         "data":[4, 2, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[4, 2, 0, 0, 0, 0, 0, 0, 0,
+            3, 0, 0, 0, 0, 0, 0, 0, 0,
+            3, 0, 0, 0, 0, 0, 0, 0, 0,
+            3, 0, 0, 0, 0, 0, 0, 0, 0,
+            3, 0, 0, 0, 0, 0, 0, 0, 0,
+            3, 0, 0, 0, 0, 0, 0, 0, 0,
+            3, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":8,
          "id":2,
-         "name":"wallBack",
+         "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":0
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":9,
@@ -17,31 +30,48 @@
         {
          "draworder":"topdown",
          "id":4,
-         "name":"door",
+         "name":"doors",
          "objects":[
                 {
-                 "gid":243,
+                 "gid":242,
                  "height":36,
                  "id":2,
-                 "name":"center_alpha_storage",
+                 "name":"alpha_bay_center_alpha_storage",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }],
                  "rotation":0,
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":47,
-                 "y":35
+                 "x":45,
+                 "y":-3
                 }, 
                 {
-                 "gid":118,
+                 "gid":117,
                  "height":73,
                  "id":1,
-                 "name":"center_alpha_storage",
+                 "name":"alpha_bay_center_alpha_storage",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
+                        }],
                  "rotation":0,
                  "type":"door",
                  "visible":true,
                  "width":48,
-                 "x":36,
-                 "y":28
+                 "x":11.5,
+                 "y":-20.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -50,11 +80,24 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 2, 2, 2, 2, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":8,
          "id":1,
          "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":9,
@@ -62,11 +105,24 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 16, 16, 16, 16, 16, 16, 0, 0, 16, 16, 16, 16, 16, 16, 16, 0, 0, 16, 16, 16, 16, 16, 16, 16, 0, 0, 16, 16, 16, 16, 16, 16, 16, 0, 0, 16, 16, 16, 16, 16, 16, 16, 0, 0, 16, 16, 16, 16, 16, 16, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 15, 15, 15, 15, 15, 15, 15, 0,
+            0, 15, 15, 15, 15, 15, 15, 15, 0,
+            0, 15, 15, 15, 15, 15, 15, 15, 0,
+            0, 15, 15, 15, 15, 15, 15, 15, 0,
+            0, 15, 15, 15, 15, 15, 15, 15, 0,
+            0, 15, 15, 15, 15, 15, 15, 15, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":8,
          "id":3,
          "name":"ground",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":9,
@@ -79,10 +135,36 @@
          "name":"objects",
          "objects":[
                 {
-                 "gid":258,
+                 "gid":257,
                  "height":17,
                  "id":3,
                  "name":"camera_equipment",
+                 "properties":[
+                        {
+                         "name":"animationYoyo",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
@@ -91,7 +173,7 @@
                  "y":12
                 }, 
                 {
-                 "gid":272,
+                 "gid":271,
                  "height":45,
                  "id":4,
                  "name":"oxygen_tank",
@@ -100,61 +182,122 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":24
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":24
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
                  "width":45,
-                 "x":26.2906257579432,
-                 "y":115.546871210284
+                 "x":13.6590909090909,
+                 "y":79.1590909090909
                 }, 
                 {
-                 "gid":285,
+                 "gid":284,
                  "height":72,
                  "id":5,
-                 "name":"shelf2",
+                 "name":"shelf",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":64
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"shelf",
                  "visible":true,
                  "width":77,
-                 "x":94.3721198156682,
-                 "y":57.9519160805239
+                 "x":73.25,
+                 "y":0.75
                 }, 
                 {
-                 "gid":284,
+                 "gid":283,
                  "height":80,
                  "id":6,
-                 "name":"shelf1",
+                 "name":"shelf",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":96
                         }],
                  "rotation":0,
                  "type":"shelf",
                  "visible":true,
                  "width":105,
-                 "x":118.23726655348,
-                 "y":115.816577734659
+                 "x":101.25,
+                 "y":48.75
                 }, 
                 {
-                 "gid":288,
+                 "gid":287,
                  "height":15,
                  "id":7,
                  "name":"wall_box",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":10
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":14,
-                 "x":-14.5,
-                 "y":40.5
+                 "x":-15.5,
+                 "y":39.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -166,11 +309,11 @@
  "nextobjectid":8,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.4",
  "tileheight":16,
  "tilesets":[
         {
-         "columns":15,
+         "columns":14,
          "firstgid":1,
          "grid":
             {
@@ -180,18 +323,18 @@
             },
          "image":"tilemaps\/wall_tileset.png",
          "imageheight":72,
-         "imagewidth":480,
+         "imagewidth":448,
          "margin":0,
          "name":"wall_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
-         "tilecount":15,
+         "tilecount":14,
          "tileheight":72,
          "tilewidth":32
         }, 
         {
          "columns":30,
-         "firstgid":16,
+         "firstgid":15,
          "grid":
             {
              "height":72,
@@ -203,7 +346,7 @@
          "imagewidth":960,
          "margin":0,
          "name":"ground_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":30,
          "tileheight":72,
@@ -211,7 +354,7 @@
         }, 
         {
          "columns":24,
-         "firstgid":46,
+         "firstgid":45,
          "grid":
             {
              "height":73,
@@ -223,7 +366,7 @@
          "imagewidth":1152,
          "margin":0,
          "name":"door_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":192,
          "tileheight":73,
@@ -265,7 +408,8 @@
                         {
                          "duration":100,
                          "tileid":8
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":9
@@ -301,7 +445,8 @@
                         {
                          "duration":100,
                          "tileid":17
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":18
@@ -365,7 +510,8 @@
                         {
                          "duration":100,
                          "tileid":32
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":33
@@ -401,7 +547,8 @@
                         {
                          "duration":100,
                          "tileid":41
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":42
@@ -465,7 +612,8 @@
                         {
                          "duration":100,
                          "tileid":56
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":57
@@ -501,7 +649,8 @@
                         {
                          "duration":100,
                          "tileid":65
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":66
@@ -565,7 +714,8 @@
                         {
                          "duration":100,
                          "tileid":80
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":81
@@ -601,7 +751,8 @@
                         {
                          "duration":100,
                          "tileid":89
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":90
@@ -665,7 +816,8 @@
                         {
                          "duration":100,
                          "tileid":104
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":105
@@ -701,7 +853,8 @@
                         {
                          "duration":100,
                          "tileid":113
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":114
@@ -765,7 +918,8 @@
                         {
                          "duration":100,
                          "tileid":128
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":129
@@ -801,7 +955,8 @@
                         {
                          "duration":100,
                          "tileid":137
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":138
@@ -865,7 +1020,8 @@
                         {
                          "duration":100,
                          "tileid":152
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":153
@@ -901,7 +1057,8 @@
                         {
                          "duration":100,
                          "tileid":161
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":162
@@ -965,7 +1122,8 @@
                         {
                          "duration":100,
                          "tileid":176
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":177
@@ -1001,7 +1159,8 @@
                         {
                          "duration":100,
                          "tileid":185
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":186
@@ -1032,7 +1191,7 @@
         }, 
         {
          "columns":5,
-         "firstgid":238,
+         "firstgid":237,
          "grid":
             {
              "height":36,
@@ -1044,7 +1203,7 @@
          "imagewidth":320,
          "margin":0,
          "name":"door_ground_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":20,
          "tileheight":36,
@@ -1149,13 +1308,13 @@
         }, 
         {
          "columns":14,
-         "firstgid":258,
+         "firstgid":257,
          "image":"tilemaps\/camera_object.png",
          "imageheight":17,
          "imagewidth":350,
          "margin":0,
          "name":"camera_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":14,
          "tileheight":17,
@@ -1197,7 +1356,8 @@
                         {
                          "duration":300,
                          "tileid":8
-                        }, 
+                        },
+                    
                         {
                          "duration":300,
                          "tileid":9
@@ -1233,7 +1393,8 @@
                         {
                          "duration":300,
                          "tileid":9
-                        }, 
+                        },
+                    
                         {
                          "duration":300,
                          "tileid":8
@@ -1276,13 +1437,13 @@
         }, 
         {
          "columns":6,
-         "firstgid":272,
+         "firstgid":271,
          "image":"tilemaps\/oxygen_tank.png",
          "imageheight":91,
          "imagewidth":270,
          "margin":0,
          "name":"oxygen_tank",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":12,
          "tileheight":45,
@@ -1347,13 +1508,13 @@
         }, 
         {
          "columns":1,
-         "firstgid":284,
-         "image":"tilemaps\/shelf_center_alpha_storage.png",
+         "firstgid":283,
+         "image":"tilemaps\/shelf_center_alpha_storage_1.png",
          "imageheight":80,
          "imagewidth":105,
          "margin":0,
-         "name":"shelf_center_alpha_storage",
-         "objectalignment":"bottomleft",
+         "name":"shelf_center_alpha_storage_1",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
          "tileheight":80,
@@ -1361,13 +1522,13 @@
         }, 
         {
          "columns":1,
-         "firstgid":285,
-         "image":"tilemaps\/shelf_center_alpha_storage2.png",
+         "firstgid":284,
+         "image":"tilemaps\/shelf_center_alpha_storage_2.png",
          "imageheight":72,
          "imagewidth":77,
          "margin":0,
-         "name":"shelf_center_alpha_storage2",
-         "objectalignment":"bottomleft",
+         "name":"shelf_center_alpha_storage_2",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
          "tileheight":72,
@@ -1375,7 +1536,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":286,
+         "firstgid":285,
          "image":"tilemaps\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
@@ -1413,6 +1574,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":9
 }

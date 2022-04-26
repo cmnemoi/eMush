@@ -62,6 +62,7 @@ import shelf_rear_alpha_storage from "@/game/assets/tilemaps/shelf_rear_alpha_st
 import shelf_rear_bravo_storage from "@/game/assets/tilemaps/shelf_rear_bravo_storage.png";
 import workshop from "@/game/assets/tilemaps/workshop.png";
 import worktable from "@/game/assets/tilemaps/worktable.png";
+import garden_engine_anim from "@/game/assets/tilemaps/garden_engine_anim.png";
 
 
 
@@ -238,6 +239,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.spritesheet('workshop', workshop, { frameHeight: 81, frameWidth: 87 });
         this.load.spritesheet('worktable', worktable, { frameHeight: 54, frameWidth: 45 });
         this.load.spritesheet('board', board, { frameHeight: 56, frameWidth: 34 });
+        this.load.spritesheet('garden_engine_anim', garden_engine_anim, { frameHeight: 27, frameWidth: 56 });
 
 
         this.load.spritesheet('ground_object', ground_tileset, { frameHeight: 72, frameWidth: 32 });

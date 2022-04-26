@@ -326,6 +326,39 @@
                  "width":35,
                  "x":141.75,
                  "y":100.247159090909
+                }, 
+                {
+                 "gid":291,
+                 "height":27,
+                 "id":17,
+                 "name":"garden_engine",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":24
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":48
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":56,
+                 "x":-10.5,
+                 "y":35.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -345,7 +378,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":16,
+ "nextobjectid":18,
  "orientation":"isometric",
  "renderorder":"right-down",
  "tiledversion":"1.8.4",
@@ -1562,17 +1595,31 @@
          "tilewidth":45
         }, 
         {
-         "columns":3,
+         "columns":1,
          "firstgid":285,
          "image":"tilemaps\/garden_engine.png",
          "imageheight":112,
-         "imagewidth":420,
+         "imagewidth":140,
          "margin":0,
          "name":"garden_engine",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":3,
+         "tilecount":6,
          "tileheight":112,
+         "tilewidth":140
+        }, 
+        {
+         "columns":6,
+         "firstgid":291,
+         "image":"tilemaps\/garden_engine_anim.png",
+         "imageheight":27,
+         "imagewidth":336,
+         "margin":0,
+         "name":"garden_engine_anim",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":6,
+         "tileheight":27,
          "tiles":[
                 {
                  "animation":[
@@ -1587,10 +1634,22 @@
                         {
                          "duration":100,
                          "tileid":2
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":5
                         }],
                  "id":0
                 }],
-         "tilewidth":140
+         "tilewidth":56
         }],
  "tilewidth":32,
  "type":"map",

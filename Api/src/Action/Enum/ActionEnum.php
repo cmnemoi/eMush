@@ -50,7 +50,7 @@ class ActionEnum
     public const ULTRAHEAL = 'ultraheal';
     public const CURE = 'cure';
     public const USE_BANDAGE = 'use_bandage';
-    public const TRY_THE_KUBE = 'try_the_kube';
+    public const TRY_KUBE = 'try_kube';
     public const OPEN = 'open';
     public const SHOOT = 'shoot';
 

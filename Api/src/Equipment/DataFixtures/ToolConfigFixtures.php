@@ -186,11 +186,11 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($ductTape);
         $manager->persist($ductTapeMechanic);
 
-        /** @var Action $tryTheKubeAction */
-        $tryTheKubeAction = $this->getReference(ActionsFixtures::TRY_KUBE);
+        /** @var Action $tryKubeAction */
+        $tryKubeAction = $this->getReference(ActionsFixtures::TRY_KUBE);
 
         $madKubeMechanic = new Tool();
-        $madKubeMechanic->addAction($tryTheKubeAction);
+        $madKubeMechanic->addAction($tryKubeAction);
 
         $madKube = new ItemConfig();
         $madKube

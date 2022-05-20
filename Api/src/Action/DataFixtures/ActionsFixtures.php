@@ -229,7 +229,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $tryKubeAction = new Action();
         $tryKubeAction
-            ->setName(ActionEnum::TRY_THE_KUBE)
+            ->setName(ActionEnum::TRY_KUBE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($oneActionPointCost)
         ;

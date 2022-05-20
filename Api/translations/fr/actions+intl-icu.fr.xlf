@@ -512,5 +512,15 @@
                 <target>Oui, faire part à vos colègues de cet incendie est une bonne idée.</target>
             </segment>
         </unit>
+        <unit id="try_kube">
+            <segment id="name">
+                <source>try_kube.name</source>
+                <target>Tenter le kube</target>
+            </segment>
+            <segment id="description">
+                <source>try_kube.description</source>
+                <target>Tenter le Kube qui rend fou. Bien peu arrivent à le résoudre en moins de 26 mouvements.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

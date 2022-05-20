@@ -53,6 +53,7 @@ class ActionLogEnum
     public const TAKE = 'take';
     public const TRANSPLANT_SUCCESS = 'transplant_success';
     public const TREAT_PLANT_SUCCESS = 'treat_plant_success';
+    public const TRY_KUBE = 'try_kube';
     public const ULTRAHEAL_SUCCESS = 'ultraheal_success';
     public const SELF_HEAL = 'self_heal';
     public const WATER_PLANT_SUCCESS = 'water_plant_success';
@@ -181,6 +182,12 @@ class ActionLogEnum
             self::SUCCESS => [
                 self::VALUE => self::TREAT_PLANT_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+        ],
+        ActionEnum::TRY_KUBE => [
+            self::SUCCESS => [
+                self::VALUE => self::TRY_KUBE,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::HYBRIDIZE => [

@@ -675,6 +675,17 @@
                 <target>**{character}** enlève la **Caméra**. Elle était sans doute devenue inutile...</target>
             </segment>
         </unit>
+        <unit id="try_kube">
+            <segment id="try_kube">
+                <source>try_kube</source>
+                <target>{character_gender, select,
+                    male {**{character}** essaie de résoudre cet affreux kube.}
+                    female {**{character}** a décidé de tenter cet insupportable petit kube.}
+                    other {invalid gender input}
+                }
+                </target>
+            </segment>
+        </unit>
     </file>
 </xliff>
 

@@ -41,6 +41,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"door_ground",
@@ -59,6 +64,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
                         }],
                  "rotation":0,
                  "type":"door",
@@ -89,7 +99,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":2
+                 "value":3
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -201,7 +211,7 @@
                  "y":-1
                 }, 
                 {
-                 "gid":272,
+                 "gid":270,
                  "height":15,
                  "id":7,
                  "name":"wall_box",

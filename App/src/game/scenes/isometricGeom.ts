@@ -111,4 +111,11 @@ export default class IsometricGeom extends Phaser.Geom.Polygon implements Phaser
 
         return true;
     }
+
+    isGeomContainingGeom(isoGeom: IsometricGeom) {
+        return this.getMinIso().x <= isoGeom.getMinIso().x &&
+            this.getMaxIso().x >= isoGeom.getMaxIso().x &&
+            this.getMaxIso().y >= isoGeom.getMaxIso().y &&
+            this.getMinIso().y <= isoGeom.getMinIso().y;
+    }
 }

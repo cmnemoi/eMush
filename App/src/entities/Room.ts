@@ -25,7 +25,7 @@ export const PhaserRooms = [
 
 export class Room {
     public id: number|null;
-    public key?: string;
+    public key: string;
     public name?: string;
     public items: Array<Item>;
     public doors: Array<Door>;
@@ -36,6 +36,7 @@ export class Room {
 
     constructor() {
         this.id = null;
+        this.key = 'none';
         this.items = [];
         this.doors = [];
         this.equipments = [];

@@ -9,16 +9,18 @@ import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 export class SceneGrid {
     private scene : DaedalusScene;
     public depthSortingArray: Array<GridElement>;
-    public navigationArray: Array<GridElement>;
+
+    private shrinkAmount: number;
 
     constructor(
         scene: DaedalusScene,
+        shrinkAmount: number,
     )
     {
         this.scene = scene;
 
+        this.shrinkAmount = shrinkAmount;
         this.depthSortingArray = [];
-        this.navigationArray = [];
     }
 
     addSceneGeom(size: IsometricCoordinates, groundTilesThickness: number, ): void
@@ -28,8 +30,6 @@ export class SceneGrid {
             size
         );
         this.depthSortingArray.push(new GridElement(sceneGeom, false));
-
-        //this.navigationArray.push();
     }
 
 
@@ -63,65 +63,38 @@ export class SceneGrid {
         this.addGeom(groundGeom, true);
     }
 
-    buildNavMeshGrid(meshShrink = 0): NavMeshGrid
+    finalizeGroundMesh() {
+        const polygonsToEnlarge: Array<GridElement>  = [];
+        for (let i = 0; i < this.depthSortingArray.length; i++) {
+            const currentPolygon = this.depthSortingArray[i];
+            if (!currentPolygon.isNavigable) {
+                polygonsToEnlarge.push(currentPolygon);
+                this.depthSortingArray.splice(i, 1);
+                i=i-1;
+            }
+        }
+
+        for (let i = 0; i < polygonsToEnlarge.length; i++) {
+            this.addGeom(polygonsToEnlarge[i].geom.enlargeGeom(this.shrinkAmount), false);
+        }
+
+        this.simplifyGrid();
+    }
+
+    buildNavMeshGrid(): NavMeshGrid
     {
         const navMeshGrid = new NavMeshGrid();
 
         for (let i = 0; i < this.depthSortingArray.length; i++) {
             const currentPolygon =this.depthSortingArray[i];
             if (currentPolygon.isNavigable) {
-                const currentGeom = currentPolygon.geom;
-
-                //always shrink the right part of the polygon
-                const maxX = currentGeom.getMaxIso().x - meshShrink;
-
-
-                //check left of this polygon. If there is a navigable polygon, compensate for the shrink of the neighbouring polygon, else, shrink
-                let minX = currentGeom.getMinIso().x + meshShrink;
-                const leftPolygonIndex = this.getPolygonFromPoint(new IsometricCoordinates(currentGeom.getMinIso().x - 1, currentGeom.getIsoCoords().y));
-                if (leftPolygonIndex !== -1 && this.depthSortingArray[leftPolygonIndex].isNavigable) {
-                    minX = currentGeom.getMinIso().x - meshShrink;
-                }
-
-                //check top of this polygon. If there is a navigable polygon, compensate for the shrink of the neighbouring polygon, else, shrink
-                let minY = currentGeom.getMinIso().y + meshShrink;
-                const topRightPolygonIndex = this.getPolygonFromPoint(new IsometricCoordinates(
-                    currentGeom.getMinIso().x+meshShrink,
-                    currentGeom.getMinIso().y - meshShrink)
+                navMeshGrid.addPolygon(
+                    currentPolygon.geom.getMinIso().x,
+                    currentPolygon.geom.getMaxIso().x,
+                    currentPolygon.geom.getMinIso().y,
+                    currentPolygon.geom.getMaxIso().y,
+                    this.getDepthOfPolygon(i),
                 );
-                const topLeftPolygonIndex = this.getPolygonFromPoint(new IsometricCoordinates(
-                    currentGeom.getMaxIso().x-meshShrink,
-                    currentGeom.getMinIso().y - meshShrink)
-                );
-                if (topLeftPolygonIndex  === topRightPolygonIndex &&
-                    topRightPolygonIndex !== -1 &&
-                    this.depthSortingArray[topLeftPolygonIndex].isNavigable
-                ) {
-                    minY = currentGeom.getMinIso().y - meshShrink;
-                }
-
-
-                //check bottom of this polygon. If there is a navigable polygon, compensate for the shrink of the neighbouring polygon, else, shrink
-                let maxY = currentGeom.getMaxIso().y - meshShrink;
-                const bottomLeftPolygonIndex = this.getPolygonFromPoint(new IsometricCoordinates(
-                    currentGeom.getMinIso().x +meshShrink,
-                    currentGeom.getMaxIso().y + meshShrink
-                ));
-                const bottomRightPolygonIndex = this.getPolygonFromPoint(new IsometricCoordinates(
-                    currentGeom.getMaxIso().x -meshShrink,
-                    currentGeom.getMaxIso().y + meshShrink
-                ));
-                if (bottomRightPolygonIndex === bottomLeftPolygonIndex &&
-                    bottomRightPolygonIndex !== -1 &&
-                    this.depthSortingArray[bottomRightPolygonIndex].isNavigable
-                ) {
-                    maxY = currentGeom.getMaxIso().y + meshShrink;
-                }
-
-
-                if (maxX>minX && maxY>minY) {
-                    navMeshGrid.addPolygon(minX, maxX, minY, maxY);
-                }
             }
         }
 
@@ -130,12 +103,13 @@ export class SceneGrid {
 
     addObject(phaserObject: DecorationObject): void
     {
-        const addedPolygonsIndexes = this.addGeom(phaserObject.isoGeom, !phaserObject.collides, phaserObject);
+        const addedPolygonsIndexes = this.addGeom(phaserObject.isoGeom.enlargeGeom(this.shrinkAmount), !phaserObject.collides, phaserObject);
         //const addedPolygonsIndexes = this.addGeom(phaserObject.isoGeom, !phaserObject.collides, phaserObject);
 
         // we may have added the object geometry twice
         // If several polygons have been cut, some new polygons may be grouped
         this.simplifyGrid(addedPolygonsIndexes);
+        this.finalizeGrid();
     }
 
     addGeom(objectGeom: IsometricGeom, isNavigable: boolean, phaserObject?: DecorationObject): Array<number>
@@ -221,25 +195,30 @@ export class SceneGrid {
     getDepthOfPoint(isoCoords: IsometricCoordinates): number
     {
         const index = this.getPolygonFromPoint(isoCoords);
+
+        return this.getDepthOfPolygon(index);
+    }
+
+    getDepthOfPolygon(index: number): number
+    {
         if (index !== -1) {
             return (index + 1) * 10000;
         }
-        return 0;
-    }
 
+        return -1;
+    }
 
     simplifyGrid(indexes?: Array<number>): void
     {
-        let length = this.depthSortingArray.length;
-        if (indexes !== undefined) {
-            length = indexes.length;
+        if (indexes === undefined) {
+            indexes = Array.from(Array(this.depthSortingArray.length), (v, k) => k);
         }
 
+        const length = indexes.length;
+
+
         for (let i = 0; i < length; i++) {
-            let globalIndexi = i;
-            if (indexes !== undefined) {
-                globalIndexi = indexes[i];
-            }
+            const globalIndexi = indexes[i];
 
             const currentElement = this.depthSortingArray[globalIndexi];
 
@@ -259,14 +238,29 @@ export class SceneGrid {
                     currentElement.geom.getIsoSize().x === comparedElement.geom.getIsoSize().x
                 ) {
                     // only keep the one with the biggest index
-                    this.depthSortingArray.splice(Math.min(globalIndexj, globalIndexi), 1);
+                    this.depthSortingArray.splice(globalIndexi, 1);
 
                     //we need to update the indexes that may have been changed
-                    if (indexes !== undefined) {
-                        for (let k = 0; k < length; k++) {
-                            if (indexes[k] > Math.min(globalIndexj, globalIndexi)) {
-                                indexes[k] = indexes[k] - 1;
-                            }
+                    for (let k = 0; k < length; k++) {
+                        if (indexes[k] > globalIndexi) {
+                            indexes[k] = indexes[k] - 1;
+                        }
+                    }
+
+                    break;
+
+                    // check if one polygon totally include another one
+                } else if (
+                    comparedElement.geom.isGeomContainingGeom(currentElement.geom) &&
+                    currentElement.object === undefined
+                ) {
+                    //remove the current geometry
+                    this.depthSortingArray.splice(globalIndexi, 1);
+
+                    //we need to update the indexes that may have been changed
+                    for (let k = 0; k < length; k++) {
+                        if (indexes[k] > globalIndexi) {
+                            indexes[k] = indexes[k] - 1;
                         }
                     }
 
@@ -398,7 +392,12 @@ export class SceneGrid {
         }
 
         // add the object geometry
-        this.depthSortingArray.splice(spliceIndex, 0, new GridElement(objectGeom, isNavigable, phaserObject));
+        if (isNavigable) {
+            this.depthSortingArray.splice(spliceIndex, 0, new GridElement(objectGeom, isNavigable, phaserObject));
+        } else {
+            this.depthSortingArray.splice(spliceIndex, 0, new GridElement(objectGeom.enlargeGeom(-this.shrinkAmount), isNavigable, phaserObject));
+        }
+
         polygonsIndexes.push(spliceIndex);
         spliceIndex = spliceIndex + 1;
 

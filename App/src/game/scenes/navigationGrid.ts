@@ -1,24 +1,29 @@
 import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import IsometricGeom from "@/game/scenes/isometricGeom";
+import DecorationObject from "@/game/objects/decorationObject";
 
 
 export class NavMeshGrid
 {
     public geomArray: Array<IsometricGeom>;
+    public depthArray: Array<number>;
     private cumuProbaNavigablePolygons: Array<number>;
 
 
     constructor() {
         this.geomArray = [];
+        this.depthArray = [];
         this.cumuProbaNavigablePolygons = [0];
     }
 
-    addPolygon(minX: number, maxX: number, minY: number, maxY: number): Array<IsometricGeom>
+    addPolygon(minX: number, maxX: number, minY: number, maxY: number, depth: number): Array<IsometricGeom>
     {
         this.geomArray.push(new IsometricGeom(
             new IsometricCoordinates((minX + maxX)/2, (minY +maxY)/2),
             new IsometricCoordinates((maxX - minX), (maxY - minY)),
         ));
+
+        this.depthArray.push(depth);
 
         this.cumuProbaNavigablePolygons.push((maxX - minX) * (maxY - minY));
 
@@ -77,97 +82,229 @@ export class NavMeshGrid
         return navMeshPolygons;
     }
 
-    cutPathWithGrid(path: Phaser.Geom.Point[]): Phaser.Geom.Point[]
+    cutPathWithGrid(path: Phaser.Geom.Point[]): { point: IsometricCoordinates, depth: number }[]
     {
-        let currentPoint = path[0];
-
+        let currentPoint = new IsometricCoordinates(path[0].x, path[0].y);
         let currentGeomIndex = this.getGeomFromPoint(currentPoint);
+
         //check if next point is out of the current polygon
         if (currentGeomIndex === -1) {
             throw new Error('point should be in grid');
         }
         let currentGeom = this.geomArray[currentGeomIndex];
+        const crossedPolygons = [currentGeomIndex];
+
+        let cutPath = [{ point: currentPoint, depth: this.depthArray[currentGeomIndex] }];
+
 
 
         for (let i = 1; i < path.length; i++) {
-            const nextPoint = path[i];
+            const nextPoint = new IsometricCoordinates( path[i].x, path[i].y );
+            currentPoint = cutPath[cutPath.length - 1].point;
 
             //the intermediate points are in both polygons (on the edge of each polygon)
             // we need to assign a new polygon different from the current of if the next point is not in current polygon
-            if (currentGeom.isPointInGeom(new IsometricCoordinates(nextPoint.x, nextPoint.y))) {
-                currentPoint = nextPoint;
-            } else {
-                const borderPoint = new Phaser.Geom.Point(0, 0);
-                let escapeSide = 0;
+            if (
+                currentPoint.x !== nextPoint.x ||
+                currentPoint.y !== nextPoint.y
+            ) {
+                const escapeSide = this.getEscapeSide(currentPoint, nextPoint, currentGeom);
 
-                if (currentPoint.x === nextPoint.x) {
-                    borderPoint.x = currentPoint.x;
-                    if (currentPoint.y <= nextPoint.y) {
-                        escapeSide = 3;
-                        borderPoint.y = currentGeom.getMaxIso().y;
-                    } else {
-                        escapeSide = 4;
-                        borderPoint.y = currentGeom.getMinIso().y;
-                    }
-                } else {
-                    const slope = (currentPoint.y - nextPoint.y) / (currentPoint.x - nextPoint.x);
-                    const intersect = currentPoint.y - (slope * currentPoint.x);
+                let nextX = nextPoint.x;
+                let nextY = nextPoint.y;
 
-
-                    //find the new point that is on the border of the current polygon
-                    //escape side 1 = right, 2 = left, 3 = top, 4 = bottom
-                    if (nextPoint.x > currentPoint.x) {
-                        borderPoint.x = currentGeom.getMaxIso().x;
-                        borderPoint.y = slope * borderPoint.x + intersect;
-                        escapeSide = 1;
-                    } else {
-                        borderPoint.x = currentGeom.getMinIso().x;
-                        borderPoint.y = slope * borderPoint.x + intersect;
-                        escapeSide = 2;
-                    }
-
-                    // now check if the escape point is ot the top or bottom
-                    if (borderPoint.y > currentGeom.getMaxIso().y) {
-                        borderPoint.y = currentGeom.getMaxIso().y;
-                        borderPoint.x = (borderPoint.y - intersect) / slope;
-                        escapeSide = 3;
-                    } else if (borderPoint.y < currentGeom.getMinIso().y) {
-                        borderPoint.y = currentGeom.getMinIso().y;
-                        borderPoint.x = (borderPoint.y - intersect) / slope;
-                        escapeSide = 4;
-                    }
+                switch (escapeSide) {
+                case 1:
+                    nextX = currentGeom.getMaxIso().x;
+                    nextY = this.getPointOnSide(nextY, currentGeom.getMaxIso().y, currentGeom.getMinIso().y);
+                    break;
+                case 2:
+                    nextX = currentGeom.getMinIso().x;
+                    nextY = this.getPointOnSide(nextY, currentGeom.getMaxIso().y, currentGeom.getMinIso().y);
+                    break;
+                case 3:
+                    nextY = currentGeom.getMaxIso().y;
+                    nextX = this.getPointOnSide(nextX, currentGeom.getMaxIso().x, currentGeom.getMinIso().x);
+                    break;
+                case 4:
+                    nextY = currentGeom.getMinIso().y;
+                    nextX = this.getPointOnSide(nextX, currentGeom.getMaxIso().x, currentGeom.getMinIso().x);
+                    break;
                 }
 
+                cutPath = this.randomizeIntermediatePoint(cutPath, new IsometricCoordinates(nextX, nextY), this.depthArray[currentGeomIndex]);
 
-                // find the adjacent polygon
-                for (let j = 0; j < this.geomArray.length - 1; j++) {
-                    const testedGeom = this.geomArray[j];
 
-                    if (j !== currentGeomIndex &&
-                        (
-                            //if escape on right or left
+                if (escapeSide !==0) {
+                    const lastPoint = cutPath[cutPath.length - 1].point;
+
+
+                    // find the adjacent polygon
+                    for (let j = 0; j < this.geomArray.length ; j++) {
+                        const testedGeom = this.geomArray[j];
+
+                        if (!crossedPolygons.includes(j) &&
                             (
-                                ((escapeSide === 1 && currentGeom.getMaxIso().x === testedGeom.getMinIso().x) ||
-                                (escapeSide === 2 && currentGeom.getMinIso().x === testedGeom.getMaxIso().x)) &&
-                                testedGeom.getMinIso().y <= borderPoint.y && testedGeom.getMaxIso().y >= borderPoint.y
-                            ) ||
-                            // if escape top or bottom
-                            (
-                                ((escapeSide === 3 && currentGeom.getMaxIso().y === testedGeom.getMinIso().y) ||
-                                (escapeSide === 4 && currentGeom.getMinIso().y === testedGeom.getMaxIso().y)) &&
-                                testedGeom.getMinIso().x <= borderPoint.x && testedGeom.getMaxIso().x >= borderPoint.x
+                                //if escape on right or left
+                                (
+                                    (([1, 6, 7].includes(escapeSide) && currentGeom.getMaxIso().x === testedGeom.getMinIso().x) ||
+                                        ([2, 5, 8].includes(escapeSide) && currentGeom.getMinIso().x === testedGeom.getMaxIso().x)) &&
+                                    testedGeom.getMinIso().y <= lastPoint.y && testedGeom.getMaxIso().y >= lastPoint.y
+                                ) ||
+                                // if escape top or bottom
+                                (
+                                    (([3, 5, 6].includes(escapeSide) && currentGeom.getMaxIso().y === testedGeom.getMinIso().y) ||
+                                        ([4, 7, 8].includes(escapeSide) && currentGeom.getMinIso().y === testedGeom.getMaxIso().y)) &&
+                                    testedGeom.getMinIso().x <= lastPoint.x && testedGeom.getMaxIso().x >= lastPoint.x
+                                )
                             )
-                        )
-                    ) {
-                        currentGeomIndex = j;
-                        currentGeom = testedGeom;
-                        path.splice(i,0, borderPoint);
-                        currentPoint = borderPoint;
+                        ) {
+                            currentGeomIndex = j;
+                            currentGeom = this.geomArray[currentGeomIndex];
+                            crossedPolygons.push(j);
+                            i = i-1;
+                            break;
+                        }
                     }
                 }
             }
         }
 
-        return path;
+        return cutPath;
+    }
+
+    getPointOnSide(next: number, currentGeomMax: number, currentGeomMin: number): number
+    {
+        if (next>currentGeomMax) { return currentGeomMax; }
+        if (next<currentGeomMin) { return currentGeomMin; }
+        return next;
+    }
+
+    // 1 is left (E), 2 is right(W), 3 is top (S), 4 is bottom (N)
+    //corners topRight = 5, topLeft = 6, bottomLeft = 7, bottomRight = 8
+    getEscapeSide(currentPoint: IsometricCoordinates, nextPoint: IsometricCoordinates, currentGeom: IsometricGeom): number
+    {
+        const slopeX = (currentPoint.y - nextPoint.y) / (currentPoint.x - nextPoint.x);
+        const slopeY = (currentPoint.x - nextPoint.x) / (currentPoint.y - nextPoint.y);
+
+        // handle cases where the point is on the corner of the currentGeom
+        if (nextPoint.x === currentGeom.getMaxIso().x &&
+            nextPoint.y === currentGeom.getMaxIso().y       //top right
+        ) {
+            return 5;
+        } else if (nextPoint.x === currentGeom.getMinIso().x &&
+            nextPoint.y === currentGeom.getMaxIso().y       //top left
+        ) {
+            return 6;
+        } else if (nextPoint.x === currentGeom.getMinIso().x &&
+            nextPoint.y === currentGeom.getMinIso().y       //bottom left
+        ) {
+            return 7;
+        } else if (nextPoint.x === currentGeom.getMaxIso().x &&
+            nextPoint.y === currentGeom.getMinIso().y       //bottom right
+        ) {
+            return 8;
+
+        } else if ( // right
+            nextPoint.x >= currentGeom.getMaxIso().x &&
+            currentGeom.getMaxIso().y >= currentPoint.y + (currentGeom.getMaxIso().x - currentPoint.x) * slopeX &&
+            currentGeom.getMinIso().y <= currentPoint.y + (currentGeom.getMaxIso().x - currentPoint.x) * slopeX
+        ) {
+            return 1;
+        } else if ( //left
+            nextPoint.x <= currentGeom.getMinIso().x &&
+            currentGeom.getMaxIso().y >= currentPoint.y + (currentGeom.getMinIso().x - currentPoint.x) * slopeX &&
+            currentGeom.getMinIso().y <= currentPoint.y + (currentGeom.getMinIso().x - currentPoint.x) * slopeX
+        ) {
+            return 2;
+        } else if ( //top
+            nextPoint.y >= currentGeom.getMaxIso().y &&
+            currentGeom.getMaxIso().x >= currentPoint.x + (currentGeom.getMaxIso().y - currentPoint.y) * slopeY &&
+            currentGeom.getMinIso().x <= currentPoint.x + (currentGeom.getMaxIso().y - currentPoint.y) * slopeY
+        ) {
+            return 3;
+        } else if ( //bottom
+            nextPoint.y <= currentGeom.getMinIso().y &&
+            currentGeom.getMaxIso().x >= currentPoint.x + (currentGeom.getMinIso().y - currentPoint.y) * slopeY &&
+            currentGeom.getMinIso().x <= currentPoint.x + (currentGeom.getMinIso().y - currentPoint.y) * slopeY
+        ) {
+            return 4;
+        }
+
+
+        return 0;
+    }
+
+
+
+    randomizeIntermediatePoint(cutPath: { point: IsometricCoordinates, depth: number }[], nextPoint: IsometricCoordinates, depth: number): { point: IsometricCoordinates, depth: number }[]
+    {
+        const currentPoint = cutPath[cutPath.length -1].point;
+        if (Math.random() >0.5) {
+            cutPath.push({
+                point: new IsometricCoordinates(currentPoint.x, nextPoint.y),
+                depth: depth
+            });
+        } else {
+            cutPath.push({
+                point: new IsometricCoordinates(nextPoint.x, currentPoint.y),
+                depth: depth
+            });
+        }
+
+        cutPath.push({
+            point: nextPoint,
+            depth: depth
+        });
+        return cutPath;
+    }
+
+    convertNavMeshPathToMushPath(path: Phaser.Geom.Point[]): MushPath
+    {
+        const cutPath = this.cutPathWithGrid(path);
+
+        const mushPath: MushPath = [];
+
+        for (let i=1; i < cutPath.length; i++) {
+            const cartPoint = (new IsometricCoordinates(cutPath[i].point.x, cutPath[i].point.y)).toCartesianCoordinates();
+            const direction = this.getDirection(
+                new IsometricCoordinates(cutPath[i-1].point.x, cutPath[i-1].point.y),
+                new IsometricCoordinates(cutPath[i].point.x, cutPath[i].point.y)
+            );
+
+            if (direction !== undefined) {
+                mushPath.push({ "direction": direction, "cartX": cartPoint.x, "cartY": cartPoint.y, "depth": cutPath[i].depth });
+            }
+        }
+
+        return mushPath;
+    }
+
+    //Get direction from two points in isometric format
+    // Iso directions    Iso coordinates     Cart coordinates
+    //  W   N                                     _x
+    //   \ /                  / \                |
+    //   / \                 y   x               y
+    //  S   E
+    getDirection(start: IsometricCoordinates, finish: IsometricCoordinates): string | undefined
+    {
+        const deltaEW = finish.x - start.x;
+        const deltaNS = finish.y - start.y;
+
+        if (deltaNS !== 0 && deltaEW !== 0){
+            throw new Error('EW and NS cannot both change at the same time');
+        }
+
+        if (deltaNS > 0) {
+            return 'south';
+        } else if (deltaNS < 0) {
+            return 'north';
+        } else if (deltaEW > 0) {
+            return 'east';
+        } else if (deltaEW < 0) {
+            return 'west';
+        }
     }
 }
+
+export type MushPath = Array<{ direction: string, cartX: number, cartY: number, depth: number }>

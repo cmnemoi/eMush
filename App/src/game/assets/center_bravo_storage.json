@@ -155,7 +155,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":3
+                         "value":1
                         }, 
                         {
                          "name":"isoSizeX",

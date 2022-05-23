@@ -62,10 +62,12 @@ services:
   eternal_twin:
     container_name: eternal_twin
     build:
-      context: ./EternalTwin
-      dockerfile: Dockerfile
+      context: ../EternalTwin
+      dockerfile: ../docker/EternalTwin/Dockerfile
     volumes:
-      - ../EternalTwin:/www
+      - ../EternalTwin/package.json:/www/package.json
+      - ../EternalTwin/yarn.lock:/www/yarn.lock
+      - ../EternalTwin/etwin.toml:/www/etwin.toml
     networks:
       - mush_network
     stdin_open: true

@@ -45,7 +45,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":1
+                         "value":2
                         }],
                  "rotation":0,
                  "type":"door",
@@ -64,6 +64,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"door_ground",
@@ -94,7 +99,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":2
+                 "value":3
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -114,6 +119,12 @@
          "id":3,
          "name":"ground",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":4
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":13,
@@ -175,10 +186,15 @@
                  "gid":286,
                  "height":48,
                  "id":11,
-                 "name":"shelf_decoration",
+                 "name":"shelf",
                  "properties":[
                         {
                          "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
                          "type":"bool",
                          "value":true
                         }, 
@@ -193,7 +209,7 @@
                          "value":32
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"shelf",
                  "visible":true,
                  "width":50,
                  "x":40,
@@ -203,10 +219,15 @@
                  "gid":287,
                  "height":48,
                  "id":12,
-                 "name":"shelf_decoration",
+                 "name":"shelf",
                  "properties":[
                         {
                          "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
                          "type":"bool",
                          "value":true
                         }, 
@@ -221,7 +242,7 @@
                          "value":32
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"shelf",
                  "visible":true,
                  "width":50,
                  "x":88,
@@ -235,6 +256,11 @@
                  "properties":[
                         {
                          "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
                          "type":"bool",
                          "value":true
                         }, 
@@ -358,7 +384,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":5
+                         "value":4
                         }, 
                         {
                          "name":"isoSizeX",
@@ -391,7 +417,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":3
+                         "value":4
                         }, 
                         {
                          "name":"isoSizeX",

@@ -108,6 +108,7 @@ import IsometricGeom from "@/game/scenes/isometricGeom";
 import { SceneGrid } from "@/game/scenes/sceneGrid";
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 import store from "@/store";
+import MushTiledMap from "@/game/tiled/mushTiledMap";
 
 
 export default class DaedalusScene extends Phaser.Scene
@@ -115,7 +116,7 @@ export default class DaedalusScene extends Phaser.Scene
     public navMesh : PhaserNavMesh;
     private navMeshPlugin!: PhaserNavMeshPlugin;
 
-    private characterSize: number;
+    private characterSize = 6;
     private isoTileSize: number;
     private sceneIsoSize: IsometricCoordinates;
 
@@ -123,7 +124,6 @@ export default class DaedalusScene extends Phaser.Scene
     private player : Player;
     private room : Room;
     private cameraTarget : { x : number, y : number};
-    private groups: Array<Phaser.GameObjects.Group>;
     private targetHighlightObject?: Phaser.GameObjects.Sprite;
 
     public sceneGrid: SceneGrid;
@@ -135,7 +135,6 @@ export default class DaedalusScene extends Phaser.Scene
         super('game-scene');
 
         this.isoTileSize = 16;
-        this.characterSize = 6;
         this.sceneIsoSize= new IsometricCoordinates(0, 0);
 
         if (player.room === null){
@@ -146,13 +145,12 @@ export default class DaedalusScene extends Phaser.Scene
         this.player = player;
 
         this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', []);
-        this.sceneGrid = new SceneGrid(this);
+        this.sceneGrid = new SceneGrid(this, this.characterSize);
         this.navMeshGrid = new NavMeshGrid();
 
         this.selectedGameObject = null;
 
         this.cameraTarget = { x: 0 , y: 0 };
-        this.groups = [];
     }
 
 
@@ -252,48 +250,13 @@ export default class DaedalusScene extends Phaser.Scene
     // eslint-disable-next-line no-unused-vars
     create(): void
     {
-        const map = this.add.tilemap(this.room.key);
-
-        const tilesets = [
-            map.addTilesetImage('ground_tileset', 'ground_tileset'),
-            map.addTilesetImage('wall_tileset', 'wall_tileset')
-        ];
-
-        this.sceneIsoSize= new IsometricCoordinates(map.width* this.isoTileSize, map.height * this.isoTileSize);
-
-
-        // ground and wall tilesets are aligned to their top left, contrary to objects,
-        // tilemaps must be then shifted to set the center of the ground tile (only the 32 x 32 at the bottom)
-        const tilemapsShift = new CartesianCoordinates(- 16, -(72 - 16));
-        const objectsShift = new CartesianCoordinates(0, 0);
-
-        const groundTilesThickness = 4;
-        this.sceneGrid.addSceneGeom(this.sceneIsoSize, groundTilesThickness);
-
-
         (<Phaser.Renderer.WebGL.WebGLRenderer>this.game.renderer).pipelines.addPostPipeline('outline', OutlinePostFx );
 
-        for (let i=0; i < map.layers.length; i++) {
-            const buildingLayer = map.layers[i];
 
-            if (buildingLayer.name === 'wall') {
-                const wallLayer = map.createLayer(i, tilesets, tilemapsShift.x, tilemapsShift.y);
-                wallLayer.setDepth(this.computeFixedDepth(this.getCustomPropertyByName(buildingLayer, 'depth')));
+        const map = new MushTiledMap(this, this.room.key);
 
-            } else if (buildingLayer.name === 'ground') {
-                //ground layers needs to be rectangular
-                const groundLayer = map.createLayer(i, tilesets, tilemapsShift.x, tilemapsShift.y);
-                groundLayer.setDepth(this.computeFixedDepth(this.getCustomPropertyByName(buildingLayer, 'depth')));
-
-                //groundLayer.setAlpha(0.);
-                this.sceneGrid.addGroundGeom(groundLayer.layer, groundTilesThickness);
-                //const groundPolygon = this.buildPolygonFromGroundLayer(groundLayer);
-            }
-        }
-
-
-        this.createFromTiledObjects(map.getObjectLayer('doors'), this, map.tilesets, objectsShift);
-        this.createFromTiledObjects(map.getObjectLayer('objects'), this, map.tilesets, objectsShift);
+        map.createInitialSceneGrid(this.sceneGrid);
+        map.createLayers(this.room, this.sceneGrid);
 
         // add target tile highlight
         this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
@@ -302,20 +265,20 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.sceneGrid.updateDepth();
 
-        this.navMeshGrid = this.sceneGrid.buildNavMeshGrid(this.characterSize);
-        this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshGrid.exportForNavMesh(), this.characterSize);
+        this.navMeshGrid = this.sceneGrid.buildNavMeshGrid();
+        this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshGrid.exportForNavMesh());
 
 
-        // navMesh Debug
-        //const navMeshPolygons = this.navMeshGrid.exportForNavMesh();
-        const navMeshPolygons = this.sceneGrid.depthSortingArray;
+        /* // navMesh Debug
+        const navMeshPolygons = this.navMeshGrid.exportForNavMesh();
+        //const navMeshPolygons = this.sceneGrid.depthSortingArray;
 
         const debugGraphics = this.add.graphics().setAlpha(1);
         debugGraphics.setDepth(1000000);
         for (let i = 0; i < navMeshPolygons.length; i++) {
         //for (let i = 4; i < 5; i++) {
-            //const polygon = navMeshPolygons[i];
-            const polygon = navMeshPolygons[i].geom.getIsoArray();
+            const polygon = navMeshPolygons[i];
+            //const polygon = navMeshPolygons[i].geom.getIsoArray();
 
             //console.log(navMeshPolygons[i].object?.name);
             //console.log(navMeshPolygons[i].object?.depth);
@@ -334,23 +297,29 @@ export default class DaedalusScene extends Phaser.Scene
 
             const cartPoly = new IsometricGeom(new IsometricCoordinates((maxX+minX)/2, (maxY+minY)/2), new IsometricCoordinates(maxX-minX, maxY-minY));
 
+            // if (navMeshPolygons[i].isNavigable) {
+            //     debugGraphics.fillStyle(0x00FF00, 0.);
+            // } else {
+            //     debugGraphics.fillStyle(0xFF0000, 0.);
+            // }
             debugGraphics.fillStyle(0xF0FFFF, 0.2);
+
             debugGraphics.lineStyle(1, 0xff0000, 1.0);
             debugGraphics.fillPoints(cartPoly.getCartesianPolygon().points, true);
             debugGraphics.strokePoints(cartPoly.getCartesianPolygon().points, true);
         }
 
-        // const debugGraphics2 = this.add.graphics().setAlpha(1);
-        // debugGraphics2.setDepth(100000000);
-        // this.navMesh.enableDebug(debugGraphics2);
-        // this.navMesh.debugDrawClear(); // Clears the overlay
-        // // Visualize the underlying navmesh
-        // this.navMesh.debugDrawMesh({
-        //     drawCentroid: false,
-        //     drawBounds: false,
-        //     drawNeighbors: true,
-        //     drawPortals: false
-        // });
+        const debugGraphics2 = this.add.graphics().setAlpha(1);
+        debugGraphics2.setDepth(100000000);
+        this.navMesh.enableDebug(debugGraphics2);
+        this.navMesh.debugDrawClear(); // Clears the overlay
+        // Visualize the underlying navmesh
+        this.navMesh.debugDrawMesh({
+            drawCentroid: false,
+            drawBounds: false,
+            drawNeighbors: true,
+            drawPortals: false
+        });*/
 
 
         //place the starting camera.
@@ -359,11 +328,8 @@ export default class DaedalusScene extends Phaser.Scene
         const playerCoordinates = this.getPlayerCoordinates();
 
 
-        const sceneCartWidth = (map.width + map.height) * this.isoTileSize;
-        const sceneCartHeight = (map.width + map.height) * this.isoTileSize/2; //72 is wall height
-
-        const wallHeight = 72;
-        this.cameras.main.setBounds(-map.height*this.isoTileSize, -wallHeight, sceneCartWidth , sceneCartHeight + wallHeight);
+        const cameraPosition = map.getCameraPosition();
+        this.cameras.main.setBounds(cameraPosition.x, cameraPosition.y, cameraPosition.width, cameraPosition.height);
 
 
         this.input.setTopOnly(true);
@@ -518,7 +484,7 @@ export default class DaedalusScene extends Phaser.Scene
             const cellCoords = this.getGridIsoCoordinate(pointerCoords.toIsometricCoordinates()).toCartesianCoordinates();
 
             const sceneGridIndex = this.sceneGrid.getPolygonFromPoint(cellCoords.toIsometricCoordinates());
-            if (sceneGridIndex !== -1 && this.sceneGrid.depthSortingArray[sceneGridIndex].isNavigable) {
+            if (sceneGridIndex !== -1) {
                 this.targetHighlightObject.setPosition(cellCoords.x, cellCoords.y);
                 this.targetHighlightObject.setDepth(this.sceneGrid.getDepthOfPoint(cellCoords.toIsometricCoordinates()));
             } else {
@@ -573,274 +539,5 @@ export default class DaedalusScene extends Phaser.Scene
         cartCoords.setTo(cartCoords.x, cartCoords.y - 16);
 
         return cartCoords;
-    }
-
-    createFromTiledObjects(
-        objectLayer: Phaser.Tilemaps.ObjectLayer,
-        scene: Phaser.Scene,
-        tilesets: Array<Phaser.Tilemaps.Tileset>,
-        shift: CartesianCoordinates,
-    ): Array<Phaser.GameObjects.GameObject>
-    {
-        const results = [];
-        const addedObjectId: Array<number> = [];
-
-        const objects = objectLayer.objects;
-
-        //loop for each tiled object
-        for (let i = 0; i < objects.length; i++) {
-            const obj = objects[i];
-
-
-            console.log(obj.name);
-            if (obj.gid === undefined){
-                throw new Error(obj.name + "gid is not defined");
-            }
-
-            const tileset = this.getTileset(tilesets, obj.gid);
-
-            const objEntity = this.getEquipmentFromTiledObject(obj, addedObjectId);
-
-            //if the equipment is present according to the API
-            if (!(obj.type === 'interact' &&
-                objEntity === undefined)
-            ){
-                const newObject = this.createPhaserObject(obj, tileset, shift, objEntity);
-                results.push(newObject);
-
-                // some equipment have depth already fixed (stuff on the wall, doors, flat things on the ground)
-                const fixedDepth = this.getCustomPropertyByName(obj, 'depth');
-                const isCollision = this.isCustomPropertyByName(obj, 'collides');
-
-                if (fixedDepth !== -1) {
-                    newObject.setDepth(this.computeFixedDepth(fixedDepth));
-                }
-
-
-                this.sceneGrid.addObject(newObject);
-
-
-                if (newObject instanceof EquipmentObject) {
-                    addedObjectId.push(newObject.equipment.id);
-                }
-            }
-        }
-
-        return results;
-    }
-
-    computeFixedDepth(tiledDepth: number): number
-    {
-        return tiledDepth + 5;
-    }
-
-
-    // This function extract the tileset corresponding to a given gid
-    // (is gid comprised between first gid of this tileset and the first gid of next tileset)
-    getTileset(tilesets: any, gid: number): any
-    {
-        let chosenTileset = tilesets[0];
-
-        for (let i = 1; i < tilesets.length; i++) {
-
-            const tileset = tilesets[i];
-
-            if (((gid - tileset.firstgid) < (gid - chosenTileset.firstgid)) &&
-                (tileset.firstgid <= gid))
-            {
-                chosenTileset = tileset;
-            }
-        }
-
-        return chosenTileset;
-    }
-
-
-    createPhaserObject(
-        obj: Phaser.Types.Tilemaps.TiledObject,
-        tileset: Phaser.Tilemaps.Tileset,
-        shift: CartesianCoordinates,
-        equipmentEntity: DoorEntity | Equipment | undefined
-    ): DecorationObject
-    {
-        //object coordinates are stored in tiled in iso coords
-        //to correctly place them in phaser we need the cartesian coordinates
-        const cart_coords = this.getObjectCartesianCoordinates(obj, shift);
-
-        if (obj.gid === undefined){
-            throw new Error(obj.name + "gid is not defined");
-        }
-        const frame = obj.gid - tileset.firstgid;
-        const name = obj.name;
-
-        const group = this.getGroupOfObject(obj, equipmentEntity);
-        const isAnimationYoyo = this.isCustomPropertyByName(obj, 'animationYoyo');
-        const collides = this.isCustomPropertyByName(obj, 'collides');
-
-        switch (obj.type)
-        {
-        case 'decoration':
-            return new DecorationObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, collides, isAnimationYoyo);
-        case 'door':
-            if (equipmentEntity instanceof DoorEntity) {
-                const newDoor = new DoorObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity);
-                newDoor.setDepth(this.getCustomPropertyByName(obj, 'depth') + 5);
-                return newDoor;
-            }
-        case 'door_ground':
-            if (equipmentEntity instanceof DoorEntity) {
-                return new DoorGroundObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity);
-            }
-        case 'interact':
-            if (equipmentEntity instanceof Equipment) {
-                return new EquipmentObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, equipmentEntity, collides, isAnimationYoyo, group);
-            }
-        case 'shelf':
-            return new ShelfObject(this, cart_coords, this.getIsometricGeom(obj), tileset, frame, name, collides, isAnimationYoyo, group);
-        }
-        throw new Error(obj.name + "type does not exist");
-    }
-
-    getEquipmentFromTiledObject(obj: Phaser.Types.Tilemaps.TiledObject, createdObjectId: Array<number>): DoorEntity | Equipment | undefined
-    {
-        switch (obj.type)
-        {
-        case 'door':
-        case 'door_ground':
-            return this.room.doors.find((door: DoorEntity) => {
-                return (door.key === obj.name);
-            });
-        case 'interact':
-            return this.room.equipments.find((equipment: Equipment) => (equipment.key === obj.name &&
-                (!(createdObjectId.includes(equipment.id))) || this.isCustomPropertyByName(obj, 'grouped'))
-            );
-        }
-
-        return undefined;
-    }
-
-    getGroupOfObject(obj: Phaser.Types.Tilemaps.TiledObject, equipmentEntity: DoorEntity | Equipment | undefined): Phaser.GameObjects.Group | null
-    {
-        if ( !this.isCustomPropertyByName(obj, 'grouped') ) {
-            return null;
-        } else {
-            let filteredGroups: Array<Phaser.GameObjects.Group> = [];
-            const groupName = this.getGroupName(obj);
-
-            switch (obj.type)
-            {
-            case 'door':
-            case 'door_ground':
-            case 'interact':
-            case 'shelf':
-                filteredGroups = this.groups.filter((group: Phaser.GameObjects.Group) => {
-                    return group.name === groupName;
-                });
-                break;
-            }
-            if (filteredGroups.length === 1) {
-                return filteredGroups[0];
-            } else {
-                const group = this.add.group(undefined, { name: groupName });
-                this.groups.push(group);
-                return group;
-            }
-        }
-    }
-
-    getGroupName(obj: Phaser.Types.Tilemaps.TiledObject): string
-    {
-        switch (obj.type)
-        {
-        case 'door':
-        case 'door_ground':
-        case 'interact':
-            return obj.name;
-        case 'shelf':
-            return 'shelf';
-        }
-
-        return 'undefined';
-    }
-
-
-    //tiled object coordinates in the isometric frame
-    //This function computes cartesian coordinates for the object
-    getObjectCartesianCoordinates(obj: Phaser.Types.Tilemaps.TiledObject, shift: CartesianCoordinates): CartesianCoordinates
-    {
-        if (obj.x === undefined || obj.y === undefined  || obj.width === undefined || obj.height === undefined){
-            throw new Error('coordinates should be provided');
-        }
-
-        const isoCoords = new IsometricCoordinates(obj.x, obj.y);
-        const cartCoords = isoCoords.toCartesianCoordinates();
-
-        //The tiled coordinates should be given relative to the bottom left of the object
-        //hence this shift of half the size of the sprite
-        return new CartesianCoordinates(cartCoords.x + shift.x, cartCoords.y + shift.y);
-    }
-
-
-    //Isometric size of the object is stored as a custom property of the object
-    getObjectIsoSize(obj: Phaser.Types.Tilemaps.TiledObject): IsometricCoordinates
-    {
-        const isoSize = new IsometricCoordinates(0,0);
-        for (let i = 0; i < obj.properties.length; i++) {
-            if (obj.properties[i].name === 'isoSizeX') {
-                isoSize.setTo(obj.properties[i].value, isoSize.y);
-
-            } else if (obj.properties[i].name === 'isoSizeY') {
-                isoSize.setTo(isoSize.x, obj.properties[i].value);
-            }
-        }
-        return isoSize;
-    }
-
-    isCustomPropertyByName(obj: Phaser.Types.Tilemaps.TiledObject, property: string): boolean
-    {
-        const existingKeys = ['grouped', 'collides', 'animationYoyo'];
-        if (existingKeys.includes(property)) {
-            for (let i = 0; i < obj.properties.length; i++) {
-                if (obj.properties[i].name === property) {
-                    return obj.properties[i].value;
-                }
-            }
-        }
-        return false;
-    }
-
-    getCustomPropertyByName(obj: Phaser.Types.Tilemaps.TiledObject | Phaser.Types.Tilemaps.ObjectLayerConfig, property: string): number
-    {
-        const existingKeys = ['depth'];
-        if (existingKeys.includes(property)) {
-            for (let i = 0; i < obj.properties.length; i++) {
-                if (obj.properties[i].name === property) {
-                    return obj.properties[i].value;
-                }
-            }
-        }
-        return -1;
-    }
-
-
-    //bounding box of the object is not really fit to the object (due to isometric projection)
-    //let compute the coordinates of the bottom left of the object in isometric coordinates
-    //to do this we use the isoSizeX and isoSizeY custom properties of the object
-    getIsometricGeom(obj: Phaser.Types.Tilemaps.TiledObject): IsometricGeom
-    {
-        if (obj.x === undefined || obj.y === undefined || obj.height === undefined){
-            throw new Error('coordinates should be provided');
-        }
-
-        const isoSize = this.getObjectIsoSize(obj);
-
-        const CartCoords = (new IsometricCoordinates(obj.x, obj.y)).toCartesianCoordinates();
-
-        //The center of the isometric shape is different from the center of the sprite (i.e. we need to remove the height part of the object
-        const cartGroundCenter = new CartesianCoordinates(CartCoords.x, CartCoords.y + obj.height/2 - (isoSize.x + isoSize.y)/4);
-
-        const isoCoords = cartGroundCenter.toIsometricCoordinates();
-
-        return new IsometricGeom(isoCoords, isoSize);
     }
 }

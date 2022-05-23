@@ -5,10 +5,11 @@ import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
 import { Player } from "@/entities/Player";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import { DepthElement } from "@/game/scenes/depthSortingArray";
+import { MushPath } from "@/game/scenes/navigationGrid";
 
 /*eslint no-unused-vars: "off"*/
 export default class PlayableCharacterObject extends CharacterObject {
-    private isoPath : Array<{ direction: string, cartX: number, cartY: number }>;
+    private isoPath : MushPath;
     private currentMove : number;
     private indexDepthArray: number;
 
@@ -30,8 +31,6 @@ export default class PlayableCharacterObject extends CharacterObject {
     {
         this.movement();
 
-        this.checkPositionDepth();
-
         // const debugGraphics = this.scene.add.graphics().setAlpha(1);
         // debugGraphics.fillStyle(0xfbff00, 1);
         // debugGraphics.fillPointShape(this.getFeetCartCoords(), 5);
@@ -47,99 +46,31 @@ export default class PlayableCharacterObject extends CharacterObject {
 
 
         //find the path in isometric coordinates using navMeshPlugin
-        let path = this.navMesh.findPath({ x: startingPoint.x, y: startingPoint.y }, { x: finishPoint.x, y: finishPoint.y });
+        const path = this.navMesh.findPath({ x: startingPoint.x, y: startingPoint.y }, { x: finishPoint.x, y: finishPoint.y });
 
-        // naMesh debug
-        // @ts-ignore
-        this.navMesh.debugDrawPath(path, 0xffd900, 2);
-        const debugGraphics = this.scene.add.graphics().setAlpha(1);
-        debugGraphics.fillStyle(0xff0000, 1);
-        debugGraphics.lineStyle(1, 0x000000, 1.0);
-        if (path !== null){
-            for (let i = 1; i < path.length; i++) {
-                const isoCoord = new IsometricCoordinates(path[i].x, path[i].y);
-                debugGraphics.fillPointShape(isoCoord.toCartesianCoordinates(), 5);
-            }
-        }
-
+        // // naMesh debug
+        // // @ts-ignore
+        // this.navMesh.debugDrawPath(path, 0xffd900, 2);
+        // const debugGraphics = this.scene.add.graphics().setAlpha(1);
+        // debugGraphics.fillStyle(0x00FF00, 1);
+        // debugGraphics.lineStyle(3, 0x00FF00, 1.0);
+        // if (path !== null){
+        //     for (let i = 1; i < path.length; i++) {
+        //         const isoCoord = new IsometricCoordinates(path[i].x, path[i].y);
+        //         debugGraphics.fillPointShape(isoCoord.toCartesianCoordinates(), 5);
+        //     }
+        // }
 
         if (path !== null) {
-            path = (<DaedalusScene>this.scene).navMeshGrid.cutPathWithGrid(path);
-
-            this.isoPath = [];
+            this.isoPath = (<DaedalusScene>this.scene).navMeshGrid.convertNavMeshPathToMushPath(path);
             this.currentMove = 0;
-
-            //now convert the isometric path into a cartesian path
-            for (let i = 1; i < path.length; i++) {
-
-
-                const deltaEW = path[i].x - path[i-1].x;
-                const deltaNS = path[i].y - path[i-1].y;
-
-                let cartPoint = null;
-                let direction = 'none';
-
-                //if the character only move NS or EW in the current part of the path
-                if (deltaNS === 0 || deltaEW === 0){
-                    cartPoint = (new IsometricCoordinates(path[i].x, path[i].y)).toCartesianCoordinates();
-                    direction = this.getDirection( new IsometricCoordinates(path[i-1].x, path[i-1].y), new IsometricCoordinates(path[i].x, path[i].y));
-
-                    if (direction !== 'none') {
-                        this.isoPath.push({ "direction": direction, "cartX": cartPoint.x, "cartY": cartPoint.y });
-                    }
-
-
-                } else { //if there is a NS AND EW component to the current part of the path
-                    let intermediatePoint = null;
-                    //randomly choose if the character is going to complete first the EW of NS component
-                    if (Math.random() > 0.5){
-                        intermediatePoint = new IsometricCoordinates(path[i].x, path[i - 1].y);
-                    } else {
-                        intermediatePoint = new IsometricCoordinates(path[i - 1].x, path[i].y);
-                    }
-
-                    cartPoint = intermediatePoint.toCartesianCoordinates();
-                    direction = this.getDirection(new IsometricCoordinates(path[i-1].x, path[i-1].y), intermediatePoint);
-                    if (direction !== 'none') {
-                        this.isoPath.push({ direction: direction, "cartX": cartPoint.x, "cartY": cartPoint.y });
-                    }
-
-                    cartPoint = (new IsometricCoordinates(path[i].x, path[i].y)).toCartesianCoordinates();
-                    direction = this.getDirection(intermediatePoint, new IsometricCoordinates(path[i].x, path[i].y));
-                    if (direction !== 'none') {
-                        this.isoPath.push({ "direction": direction, "cartX": cartPoint.x, "cartY": cartPoint.y });
-                    }
-                }
-            }
         }
 
         return this.isoPath;
     }
 
 
-    //Get direction from two points in isometric format
-    // Iso directions    Iso coordinates     Cart coordinates
-    //  W   N                                     _x
-    //   \ /                  / \                |
-    //   / \                 y   x               y
-    //  S   E
-    getDirection(start: IsometricCoordinates, finish: IsometricCoordinates): string
-    {
-        const deltaEW = finish.x - start.x;
-        const deltaNS = finish.y - start.y;
 
-        if (deltaNS > 0) {
-            return 'south';
-        } else if (deltaNS < 0) {
-            return 'north';
-        } else if (deltaEW > 0) {
-            return 'east';
-        } else if (deltaEW < 0) {
-            return 'west';
-        }
-
-        return 'none';
-    }
 
 
     // this function get the first part of the computed path that haven't been completed yet
@@ -157,6 +88,7 @@ export default class PlayableCharacterObject extends CharacterObject {
         if (Math.abs(distance) > displacementThreshold){
             return this.currentMove;
         } else if (this.currentMove < this.isoPath.length - 1) {
+            this.setDepth(this.isoPath[this.currentMove+1].depth);
             return this.currentMove = this.currentMove +1;
         } else {
 
@@ -170,6 +102,7 @@ export default class PlayableCharacterObject extends CharacterObject {
             this.body.stop();
             this.isoPath = [];
 
+            this.checkPositionDepth();
             return this.currentMove = -1;
         }
     }

@@ -3,7 +3,6 @@ import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { Daedalus } from "@/entities/Daedalus";
 import { Alert } from "@/entities/Alerts";
 
-
 const state =  {
     daedalus: null,
     alerts: [],

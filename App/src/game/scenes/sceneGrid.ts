@@ -7,14 +7,14 @@ import Tile = Phaser.Tilemaps.Tile;
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 
 export class SceneGrid {
-    private scene : DaedalusScene;
     public depthSortingArray: Array<GridElement>;
 
-    private shrinkAmount: number;
+    private scene : DaedalusScene;
+    private readonly shrinkAmount: number;
 
     constructor(
         scene: DaedalusScene,
-        shrinkAmount: number,
+        shrinkAmount: number
     )
     {
         this.scene = scene;
@@ -32,10 +32,8 @@ export class SceneGrid {
         this.depthSortingArray.push(new GridElement(sceneGeom, false));
     }
 
-
     addGroundGeom(groundLayer: Phaser.Tilemaps.LayerData, groundTilesThickness: number): void
     {
-
         let maxX = 0;
         let maxY = 0;
         let minX = groundLayer.width;
@@ -215,7 +213,6 @@ export class SceneGrid {
         }
 
         const length = indexes.length;
-
 
         for (let i = 0; i < length; i++) {
             const globalIndexi = indexes[i];

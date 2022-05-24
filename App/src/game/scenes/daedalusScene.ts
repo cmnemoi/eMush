@@ -3,6 +3,7 @@ import { PhaserNavMesh } from "phaser-navmesh/src";
 import { Room } from "@/entities/Room";
 import { Equipment } from "@/entities/Equipment";
 
+import background from '@/game/assets/tilemaps/background.png';
 import door_ground_tileset from "@/game/assets/tilemaps/door_ground_tileset.png";
 import ground_tileset from "@/game/assets/tilemaps/ground_tileset.png";
 import wall_tileset from "@/game/assets/tilemaps/wall_tileset.png";
@@ -63,7 +64,6 @@ import shelf_rear_bravo_storage from "@/game/assets/tilemaps/shelf_rear_bravo_st
 import workshop from "@/game/assets/tilemaps/workshop.png";
 import worktable from "@/game/assets/tilemaps/worktable.png";
 import garden_engine_anim from "@/game/assets/tilemaps/garden_engine_anim.png";
-
 
 
 import character from "@/game/assets/images/characters.png";
@@ -153,7 +153,6 @@ export default class DaedalusScene extends Phaser.Scene
         this.cameraTarget = { x: 0 , y: 0 };
     }
 
-
     preload(): void
     {
         this.load.tilemapTiledJSON('medlab', medlab);
@@ -172,10 +171,9 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.tilemapTiledJSON('rear_bravo_storage', rear_bravo_storage);
         this.load.tilemapTiledJSON('rear_alpha_storage', rear_alpha_storage);
 
-
         this.load.image('ground_tileset', ground_tileset);
         this.load.image('wall_tileset', wall_tileset);
-
+        this.load.image('background', background);
 
         this.load.spritesheet('character', character, { frameHeight: 48, frameWidth: 32 });
 
@@ -250,8 +248,7 @@ export default class DaedalusScene extends Phaser.Scene
     // eslint-disable-next-line no-unused-vars
     create(): void
     {
-        (<Phaser.Renderer.WebGL.WebGLRenderer>this.game.renderer).pipelines.addPostPipeline('outline', OutlinePostFx );
-
+        (<Phaser.Renderer.WebGL.WebGLRenderer>this.game.renderer).pipelines.addPostPipeline('outline', OutlinePostFx);
 
         const map = new MushTiledMap(this, this.room.key);
 
@@ -268,111 +265,26 @@ export default class DaedalusScene extends Phaser.Scene
         this.navMeshGrid = this.sceneGrid.buildNavMeshGrid();
         this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshGrid.exportForNavMesh());
 
-
-        /* // navMesh Debug
-        const navMeshPolygons = this.navMeshGrid.exportForNavMesh();
-        //const navMeshPolygons = this.sceneGrid.depthSortingArray;
-
-        const debugGraphics = this.add.graphics().setAlpha(1);
-        debugGraphics.setDepth(1000000);
-        for (let i = 0; i < navMeshPolygons.length; i++) {
-        //for (let i = 4; i < 5; i++) {
-            const polygon = navMeshPolygons[i];
-            //const polygon = navMeshPolygons[i].geom.getIsoArray();
-
-            //console.log(navMeshPolygons[i].object?.name);
-            //console.log(navMeshPolygons[i].object?.depth);
-
-            let maxX = polygon[0].x;
-            let minX = polygon[0].x;
-            let maxY = polygon[0].y;
-            let minY = polygon[0].y;
-
-            polygon.forEach((point: {x: number, y: number}) => {
-                if (point.x >maxX) { maxX = point.x; }
-                if (point.y >maxY) { maxY = point.y; }
-                if (point.x <minX) { minX = point.x; }
-                if (point.y <minY) { minY = point.y; }
-            });
-
-            const cartPoly = new IsometricGeom(new IsometricCoordinates((maxX+minX)/2, (maxY+minY)/2), new IsometricCoordinates(maxX-minX, maxY-minY));
-
-            // if (navMeshPolygons[i].isNavigable) {
-            //     debugGraphics.fillStyle(0x00FF00, 0.);
-            // } else {
-            //     debugGraphics.fillStyle(0xFF0000, 0.);
-            // }
-            debugGraphics.fillStyle(0xF0FFFF, 0.2);
-
-            debugGraphics.lineStyle(1, 0xff0000, 1.0);
-            debugGraphics.fillPoints(cartPoly.getCartesianPolygon().points, true);
-            debugGraphics.strokePoints(cartPoly.getCartesianPolygon().points, true);
-        }
-
-        const debugGraphics2 = this.add.graphics().setAlpha(1);
-        debugGraphics2.setDepth(100000000);
-        this.navMesh.enableDebug(debugGraphics2);
-        this.navMesh.debugDrawClear(); // Clears the overlay
-        // Visualize the underlying navmesh
-        this.navMesh.debugDrawMesh({
-            drawCentroid: false,
-            drawBounds: false,
-            drawNeighbors: true,
-            drawPortals: false
-        });*/
-
+        // this.enableDebugView();
 
         //place the starting camera.
         //If the scene size is larger than the camera, the camera is centered on the player
         //else it is centered on the scene
         const playerCoordinates = this.getPlayerCoordinates();
 
-
         const cameraPosition = map.getCameraPosition();
         this.cameras.main.setBounds(cameraPosition.x, cameraPosition.y, cameraPosition.width, cameraPosition.height);
 
-
         this.input.setTopOnly(true);
         this.input.setGlobalTopOnly(true);
-
 
         this.createPlayers(playerCoordinates);
 
         this.cameras.main.startFollow(this.playerSprite);
 
+        this.enableEventListeners();
 
-        this.input.on('pointerdown', (pointer: Phaser.Input.Pointer, gameObjects: Array<Phaser.GameObjects.GameObject> ) => {
-            let gameObject = null;
-            if (gameObjects.length>0) {
-                gameObject = gameObjects[0];
-            }
-
-            if (this.selectedGameObject !== null &&
-                this.selectedGameObject instanceof InteractObject &&
-                this.selectedGameObject !== gameObject
-            ) {
-                this.selectedGameObject.onClickedOut();
-
-                this.selectedGameObject = gameObject;
-
-                if(gameObject === null) {
-                    store.dispatch('room/selectTarget', { target: null });
-                    store.dispatch('room/closeInventory');
-                }
-            }
-            if (gameObject instanceof InteractObject){
-                gameObject.onSelected();
-                this.selectedGameObject = gameObject;
-            }
-        });
-
-        this.input.on('gameobjectout', () => {
-            if (this.targetHighlightObject !== undefined) {this.targetHighlightObject.setAlpha(1);}
-        });
-        this.input.on('gameobjectover', () => {
-            if (this.targetHighlightObject !== undefined) {this.targetHighlightObject.setAlpha(0);}
-        });
-
+        this.add.tileSprite(0, 0, 848, 920, 'background');
 
         if (this.room.isOnFire) {
             this.displayFire();
@@ -426,7 +338,6 @@ export default class DaedalusScene extends Phaser.Scene
         const particles = this.add.particles('fire_particles');
         particles.setDepth(this.sceneGrid.getDepthOfPoint(isoCoords));
 
-
         const tile = new IsometricGeom(isoCoords, new IsometricCoordinates(16, 16));
 
         particles.createEmitter({
@@ -474,7 +385,7 @@ export default class DaedalusScene extends Phaser.Scene
         });
     }
 
-    update (time: number, delta: number): void
+    update(time: number, delta: number): void
     {
         this.playerSprite.update();
 
@@ -501,8 +412,6 @@ export default class DaedalusScene extends Phaser.Scene
             Math.floor(((isoCoord.y + 4)/this.isoTileSize)) * this.isoTileSize
         );
     }
-
-
 
     createPlayers(playerCoordinates: CartesianCoordinates): void
     {
@@ -539,5 +448,99 @@ export default class DaedalusScene extends Phaser.Scene
         cartCoords.setTo(cartCoords.x, cartCoords.y - 16);
 
         return cartCoords;
+    }
+
+    enableEventListeners(): void
+    {
+        this.input.on('pointerdown', (pointer: Phaser.Input.Pointer, gameObjects: Array<Phaser.GameObjects.GameObject>) => {
+            let gameObject = null;
+            if (gameObjects.length>0) {
+                gameObject = gameObjects[0];
+            }
+
+            if (this.selectedGameObject !== null &&
+                this.selectedGameObject instanceof InteractObject &&
+                this.selectedGameObject !== gameObject
+            ) {
+                this.selectedGameObject.onClickedOut();
+
+                this.selectedGameObject = gameObject;
+
+                if (gameObject === null) {
+                    store.dispatch('room/selectTarget', { target: null });
+                    store.dispatch('room/closeInventory');
+                }
+            }
+            if (gameObject instanceof InteractObject){
+                gameObject.onSelected();
+                this.selectedGameObject = gameObject;
+            }
+        });
+
+        this.input.on('gameobjectout', () => {
+            if (this.targetHighlightObject !== undefined) {
+                this.targetHighlightObject.setAlpha(1);
+            }
+        });
+        this.input.on('gameobjectover', () => {
+            if (this.targetHighlightObject !== undefined) {
+                this.targetHighlightObject.setAlpha(0);
+            }
+        });
+    }
+
+    enableDebugView(): void
+    {
+        // navMesh Debug
+        const navMeshPolygons = this.navMeshGrid.exportForNavMesh();
+        //const navMeshPolygons = this.sceneGrid.depthSortingArray;
+
+        const debugGraphics = this.add.graphics().setAlpha(1);
+        debugGraphics.setDepth(1000000);
+        for (let i = 0; i < navMeshPolygons.length; i++) {
+        // for (let i = 4; i < 5; i++) {
+            const polygon = navMeshPolygons[i];
+            //const polygon = navMeshPolygons[i].geom.getIsoArray();
+
+            //console.log(navMeshPolygons[i].object?.name);
+            //console.log(navMeshPolygons[i].object?.depth);
+
+            let maxX = polygon[0].x;
+            let minX = polygon[0].x;
+            let maxY = polygon[0].y;
+            let minY = polygon[0].y;
+
+            polygon.forEach((point: {x: number, y: number}) => {
+                if (point.x >maxX) { maxX = point.x; }
+                if (point.y >maxY) { maxY = point.y; }
+                if (point.x <minX) { minX = point.x; }
+                if (point.y <minY) { minY = point.y; }
+            });
+
+            const cartPoly = new IsometricGeom(new IsometricCoordinates((maxX+minX)/2, (maxY+minY)/2), new IsometricCoordinates(maxX-minX, maxY-minY));
+
+            // if (navMeshPolygons[i].isNavigable) {
+            //     debugGraphics.fillStyle(0x00FF00, 0.);
+            // } else {
+            //     debugGraphics.fillStyle(0xFF0000, 0.);
+            // }
+            debugGraphics.fillStyle(0xF0FFFF, 0.2);
+
+            debugGraphics.lineStyle(1, 0xff0000, 1.0);
+            debugGraphics.fillPoints(cartPoly.getCartesianPolygon().points, true);
+            debugGraphics.strokePoints(cartPoly.getCartesianPolygon().points, true);
+        }
+
+        const debugGraphics2 = this.add.graphics().setAlpha(1);
+        debugGraphics2.setDepth(100000000);
+        this.navMesh.enableDebug(debugGraphics2);
+        this.navMesh.debugDrawClear(); // Clears the overlay
+        // Visualize the underlying navmesh
+        this.navMesh.debugDrawMesh({
+            drawCentroid: false,
+            drawBounds: false,
+            drawNeighbors: true,
+            drawPortals: false
+        });
     }
 }

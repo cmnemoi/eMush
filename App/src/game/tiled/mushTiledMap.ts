@@ -7,7 +7,6 @@ import EquipmentObject from "@/game/objects/equipmentObject";
 import MushTiledObject from "@/game/tiled/mushTiledObject";
 import { Room } from "@/entities/Room";
 
-
 export default class MushTiledMap {
     // ground and wall tilesets are aligned to their top left, contrary to objects,
     // tilemaps must be then shifted to set the center of the ground tile (only the 32 x 32 at the bottom)
@@ -31,9 +30,8 @@ export default class MushTiledMap {
         this.tilemap.addTilesetImage('wall_tileset', 'wall_tileset');
     }
 
-
     createInitialSceneGrid(sceneGrid: SceneGrid) {
-        const sceneIsoSize= new IsometricCoordinates(this.tilemap.width* this.isoTileSize, this.tilemap.height * this.isoTileSize);
+        const sceneIsoSize = new IsometricCoordinates(this.tilemap.width* this.isoTileSize, this.tilemap.height * this.isoTileSize);
         sceneGrid.addSceneGeom(sceneIsoSize, this.groundTilesThickness);
     }
 
@@ -75,7 +73,6 @@ export default class MushTiledMap {
         //loop for each tiled object
         for (let i = 0; i < objects.length; i++) {
             const obj = new MushTiledObject(objects[i]);
-
 
             if (obj.tiledObj.gid === undefined){
                 throw new Error(obj.tiledObj.name + "gid is not defined");

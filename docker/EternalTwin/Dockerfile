@@ -2,7 +2,6 @@ FROM node:16
 
 USER node
 
-#RUN mkdir -p /www
 WORKDIR /www
 
 COPY --chown=node:node ./package.json ./yarn.lock ./etwin.toml ./

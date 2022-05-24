@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM --platform=amd64 node:16
 
 USER node
 

@@ -130,7 +130,9 @@ class RoomLogService implements RoomLogServiceInterface
                 'items',
                 $player,
             );
-        } elseif ($actionParameter instanceof GameEquipment) {
+        }
+
+        if ($actionParameter instanceof GameEquipment) {
             return $this->createLog(
                 $actionParameter->getLogName() . '.examine',
                 $player->getPlace(),
@@ -138,9 +140,9 @@ class RoomLogService implements RoomLogServiceInterface
                 'equipments',
                 $player,
             );
-        } else {
-            throw new \LogicException('examine action is not implemented for this type of entity');
         }
+
+        throw new \LogicException('examine action is not implemented for this type of entity');
     }
 
     public function createLog(

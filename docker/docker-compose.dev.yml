@@ -3,8 +3,8 @@ version: '3'
 services:
   mush_apache:
     ports:
-      - 8080:80
-      - 8443:8443
+      - "8080:80"
+      - "8443:8443"
 
   mush_php:
     build:
@@ -26,9 +26,6 @@ services:
         - GID=1000
 
   eternal_twin:
+    platform: linux/amd64
     ports:
       - "50320:50320"
-    build:
-      args:
-        - UID=1000
-        - GID=1000

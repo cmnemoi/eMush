@@ -51,7 +51,7 @@ class HasEquipmentValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
         $target = new GameItem();
-        $target->setHolder($room);
+        $target->setHolder($room)->setName('target');
 
         $gameEquipment = new GameItem();
         $gameEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT)->setHolder($room);
@@ -66,7 +66,6 @@ class HasEquipmentValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
 
         $gameEquipment->setHolder(null);
-        $gameEquipment->setPlayer($player);
 
         $this->validator->validate($action, $this->constraint);
 
@@ -86,7 +85,7 @@ class HasEquipmentValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
         $target = new GameItem();
-        $target->setHolder($room);
+        $target->setHolder($room)->setName('target');
 
         $gameEquipment = new GameItem();
         $gameEquipment->setName(ItemEnum::CAMERA_ITEM)->setHolder($room);

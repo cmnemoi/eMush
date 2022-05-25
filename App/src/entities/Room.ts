@@ -21,6 +21,10 @@ export const PhaserRooms = [
     'nexus',
     'rear_alpha_storage',
     'rear_bravo_storage',
+    'alpha_bay_2',
+    'alpha_bay',
+    'bravo_bay',
+    'icarus_bay',
 ];
 
 export class Room {

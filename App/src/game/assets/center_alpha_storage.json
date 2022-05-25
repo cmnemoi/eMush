@@ -19,7 +19,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":0
+                 "value":1
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -46,7 +46,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":1
+                         "value":2
                         }],
                  "rotation":0,
                  "type":"door_ground",
@@ -69,7 +69,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":2
+                         "value":3
                         }],
                  "rotation":0,
                  "type":"door",
@@ -101,7 +101,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":3
+                 "value":4
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -126,7 +126,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":4
+                 "value":5
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -314,7 +314,7 @@
  "nextobjectid":8,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.4",
+ "tiledversion":"1.8.5",
  "tileheight":16,
  "tilesets":[
         {

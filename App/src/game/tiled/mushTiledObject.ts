@@ -80,16 +80,10 @@ export default class MushTiledObject {
     //Isometric size of the object is stored as a custom property of the object
     getObjectIsoSize(): IsometricCoordinates
     {
-        const isoSize = new IsometricCoordinates(0,0);
-        for (let i = 0; i < this.tiledObj.properties.length; i++) {
-            if (this.tiledObj.properties[i].name === 'isoSizeX') {
-                isoSize.setTo(this.tiledObj.properties[i].value, isoSize.y);
-
-            } else if (this.tiledObj.properties[i].name === 'isoSizeY') {
-                isoSize.setTo(isoSize.x, this.tiledObj.properties[i].value);
-            }
-        }
-        return isoSize;
+        return new IsometricCoordinates(
+            this.getCustomPropertyByName('isoSizeX'),
+            this.getCustomPropertyByName('isoSizeY')
+        );
     }
 
     isCustomPropertyByName(property: string): boolean
@@ -107,7 +101,7 @@ export default class MushTiledObject {
 
     getCustomPropertyByName(property: string): number
     {
-        const existingKeys = ['depth'];
+        const existingKeys = ['depth', 'isoSizeX', 'isoSizeY', 'isoShiftHitboxX', 'isoShiftHitboxY'];
         if (existingKeys.includes(property)) {
             for (let i = 0; i < this.tiledObj.properties.length; i++) {
                 if (this.tiledObj.properties[i].name === property) {
@@ -115,7 +109,7 @@ export default class MushTiledObject {
                 }
             }
         }
-        return -1;
+        return 0;
     }
 
     //tiled object coordinates in the isometric frame
@@ -145,8 +139,12 @@ export default class MushTiledObject {
         }
 
         const isoSize = this.getObjectIsoSize();
+        const isoShift = new IsometricCoordinates(
+            this.getCustomPropertyByName('isoShiftHitboxX'),
+            this.getCustomPropertyByName('isoShiftHitboxX')
+        );
 
-        const CartCoords = (new IsometricCoordinates(this.tiledObj.x, this.tiledObj.y)).toCartesianCoordinates();
+        const CartCoords = (new IsometricCoordinates(this.tiledObj.x + isoShift.x, this.tiledObj.y+isoShift.y)).toCartesianCoordinates();
 
         //The center of the isometric shape is different from the center of the sprite (i.e. we need to remove the height part of the object
         const cartGroundCenter = new CartesianCoordinates(CartCoords.x, CartCoords.y + this.tiledObj.height/2 - (isoSize.x + isoSize.y)/4);

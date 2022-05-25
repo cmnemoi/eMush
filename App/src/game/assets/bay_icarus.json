@@ -3,11 +3,28 @@
  "infinite":false,
  "layers":[
         {
-         "data":[14, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[14, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 0, 0, 0, 0, 0,
+            13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":12,
          "id":1,
-         "name":"wallBack",
+         "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":1
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":18,
@@ -17,55 +34,99 @@
         {
          "draworder":"topdown",
          "id":4,
-         "name":"door",
+         "name":"doors",
          "objects":[
                 {
-                 "gid":61,
+                 "gid":60,
                  "height":36,
                  "id":1,
                  "name":"rear_corridor_bay_icarus",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }],
                  "rotation":0,
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":3.99999999999999,
-                 "y":78
+                 "x":-3,
+                 "y":45
                 }, 
                 {
-                 "gid":66,
+                 "gid":65,
                  "height":73,
                  "id":2,
                  "name":"rear_corridor_bay_icarus",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }],
                  "rotation":0,
                  "type":"door",
                  "visible":true,
                  "width":48,
-                 "x":4,
-                 "y":58
+                 "x":-20.5,
+                 "y":9.5
                 }, 
                 {
-                 "gid":51,
+                 "gid":50,
                  "height":36,
                  "id":4,
                  "name":"engine_room_bay_icarus",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }],
                  "rotation":0,
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":222,
-                 "y":36
+                 "x":220,
+                 "y":-2
                 }, 
                 {
-                 "gid":90,
+                 "gid":89,
                  "height":73,
                  "id":3,
                  "name":"engine_room_bay_icarus",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }],
                  "rotation":0,
                  "type":"door",
                  "visible":true,
                  "width":48,
-                 "x":210,
-                 "y":28
+                 "x":185.5,
+                 "y":-20.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -74,11 +135,28 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 12, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":12,
          "id":3,
          "name":"wall",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":4
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":18,
@@ -86,11 +164,28 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 28, 30, 32, 26, 28, 30, 32, 26, 28, 30, 32, 36, 35, 26, 28, 0, 0, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 40, 43, 34, 34, 0, 0, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 0, 13, 25, 27, 25, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 25, 27, 0, 13, 26, 28, 27, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 26, 28, 0, 13, 25, 27, 27, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 25, 27, 0, 13, 30, 32, 26, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 30, 32, 0, 13, 29, 31, 25, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 29, 31, 0, 13, 26, 28, 26, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 26, 28, 0, 13, 25, 27, 25, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 25, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 25, 27, 29, 31, 25, 27, 29, 31, 25, 27, 29, 31, 35, 34, 25, 27, 0,
+            0, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 39, 42, 33, 33, 0,
+            0, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 0,
+            0, 24, 26, 24, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 24, 26, 0,
+            0, 25, 27, 26, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 25, 27, 0,
+            0, 24, 26, 26, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 24, 26, 0,
+            0, 29, 31, 25, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 29, 31, 0,
+            0, 28, 30, 24, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 28, 30, 0,
+            0, 25, 27, 25, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 25, 27, 0,
+            0, 24, 26, 24, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 24, 26, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":12,
          "id":2,
          "name":"ground",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":18,
@@ -98,15 +193,21 @@
          "y":0
         }, 
         {
-         "draworder":"topdown",
+         "draworder":"index",
          "id":5,
          "name":"objects",
          "objects":[
                 {
-                 "gid":56,
+                 "gid":55,
                  "height":36,
                  "id":6,
                  "name":"rear_bravo_turret_bay_icarus",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }],
                  "rotation":0,
                  "type":"door_ground",
                  "visible":true,
@@ -115,46 +216,120 @@
                  "y":79
                 }, 
                 {
-                 "gid":266,
+                 "gid":265,
                  "height":17,
                  "id":7,
                  "name":"camera_equipment",
+                 "properties":[
+                        {
+                         "name":"animationYoyo",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
                  "width":25,
-                 "x":50.5,
-                 "y":-8.5
+                 "x":12.25,
+                 "y":-27.5
                 }, 
                 {
-                 "gid":261,
+                 "gid":260,
                  "height":55,
                  "id":8,
                  "name":"wall_icarus",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":83,
-                 "x":114.53486538928,
-                 "y":28.8529590104293
+                 "x":89.75,
+                 "y":-16.75
                 }, 
                 {
-                 "gid":282,
+                 "gid":281,
                  "height":42,
                  "id":9,
                  "name":"shelf",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
                  "rotation":0,
                  "type":"shelf",
                  "visible":true,
                  "width":35,
-                 "x":20.5,
-                 "y":101.5
+                 "x":10.25,
+                 "y":7.75
                 }, 
                 {
-                 "gid":286,
+                 "gid":285,
                  "height":15,
                  "id":10,
                  "name":"wall_box",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":4
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
@@ -163,126 +338,188 @@
                  "y":81.5
                 }, 
                 {
-                 "gid":288,
-                 "height":69,
-                 "id":11,
-                 "name":"yellow_lamp",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":54,
-                 "x":32.998023715415,
-                 "y":145.001976284585
-                }, 
-                {
-                 "gid":288,
-                 "height":69,
-                 "id":12,
-                 "name":"yellow_lamp",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":54,
-                 "x":250.613388309483,
-                 "y":180.790443851564
-                }, 
-                {
-                 "gid":258,
+                 "gid":257,
                  "height":206,
                  "id":13,
-                 "name":"take-off_platform",
+                 "name":"takeoff_platform",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":192
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":128
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":328,
-                 "x":154.651467378123,
-                 "y":291.258792141644
+                 "x":131.5,
+                 "y":116.5
                 }, 
                 {
-                 "gid":260,
+                 "gid":259,
                  "height":35,
                  "id":14,
                  "name":"magnetic_return",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":51,
-                 "x":95.25,
-                 "y":214.75
+                 "x":38.25,
+                 "y":180.75
                 }, 
                 {
-                 "gid":260,
+                 "gid":259,
                  "height":35,
                  "id":15,
                  "name":"magnetic_return",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":51,
-                 "x":268.308088770313,
-                 "y":210.520434149891
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":6,
-         "name":"icarus_ship",
-         "objects":[
-                {
-                 "gid":265,
-                 "height":140,
-                 "id":16,
-                 "name":"anti-gravity_thrusters_large_bay_upgrade",
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":false,
-                 "width":171,
-                 "x":174.75,
-                 "y":175.25
+                 "x":267.75,
+                 "y":181.25
                 }, 
                 {
-                 "gid":264,
-                 "height":140,
-                 "id":17,
-                 "name":"large_bay_upgrade",
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":false,
-                 "width":171,
-                 "x":175.75,
-                 "y":176.25
-                }, 
-                {
-                 "gid":263,
-                 "height":140,
-                 "id":18,
-                 "name":"anti-gravity_thrusters",
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":false,
-                 "width":171,
-                 "x":176.75,
-                 "y":177.25
-                }, 
-                {
-                 "gid":262,
+                 "gid":261,
                  "height":140,
                  "id":19,
                  "name":"icarus",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":128
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":128
+                        }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
                  "width":171,
-                 "x":177.75,
-                 "y":178.25
+                 "x":113.75,
+                 "y":123.25
+                }, 
+                {
+                 "gid":287,
+                 "height":69,
+                 "id":11,
+                 "name":"yellow_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":-16
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":-16
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":54,
+                 "x":6,
+                 "y":103
+                }, 
+                {
+                 "gid":287,
+                 "height":69,
+                 "id":12,
+                 "name":"yellow_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":-16
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":-16
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":54,
+                 "x":231,
+                 "y":102
                 }],
-         "offsetx":-88.9158379820519,
-         "offsety":-4.41426146010187,
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -293,11 +530,11 @@
  "nextobjectid":20,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.5",
  "tileheight":16,
  "tilesets":[
         {
-         "columns":15,
+         "columns":14,
          "firstgid":1,
          "grid":
             {
@@ -307,18 +544,18 @@
             },
          "image":"tilemaps\/wall_tileset.png",
          "imageheight":72,
-         "imagewidth":480,
+         "imagewidth":448,
          "margin":0,
          "name":"wall_tileset",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":15,
+         "tilecount":14,
          "tileheight":72,
          "tilewidth":32
         }, 
         {
          "columns":30,
-         "firstgid":16,
+         "firstgid":15,
          "grid":
             {
              "height":72,
@@ -338,7 +575,7 @@
         }, 
         {
          "columns":5,
-         "firstgid":46,
+         "firstgid":45,
          "grid":
             {
              "height":36,
@@ -455,7 +692,7 @@
         }, 
         {
          "columns":24,
-         "firstgid":66,
+         "firstgid":65,
          "grid":
             {
              "height":73,
@@ -545,7 +782,8 @@
                         {
                          "duration":100,
                          "tileid":17
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":18
@@ -645,7 +883,8 @@
                         {
                          "duration":100,
                          "tileid":41
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":42
@@ -745,7 +984,8 @@
                         {
                          "duration":100,
                          "tileid":65
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":66
@@ -845,7 +1085,8 @@
                         {
                          "duration":100,
                          "tileid":89
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":90
@@ -945,7 +1186,8 @@
                         {
                          "duration":100,
                          "tileid":113
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":114
@@ -1045,7 +1287,8 @@
                         {
                          "duration":100,
                          "tileid":137
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":138
@@ -1145,7 +1388,8 @@
                         {
                          "duration":100,
                          "tileid":161
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":162
@@ -1245,7 +1489,8 @@
                         {
                          "duration":100,
                          "tileid":185
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":186
@@ -1276,12 +1521,12 @@
         }, 
         {
          "columns":2,
-         "firstgid":258,
-         "image":"tilemaps\/take-off_platform.png",
+         "firstgid":257,
+         "image":"tilemaps\/takeoff_platform.png",
          "imageheight":206,
          "imagewidth":656,
          "margin":0,
-         "name":"take-off_platform",
+         "name":"takeoff_platform",
          "objectalignment":"center",
          "spacing":0,
          "tilecount":2,
@@ -1303,7 +1548,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":260,
+         "firstgid":259,
          "image":"tilemaps\/magnetic_return.png",
          "imageheight":35,
          "imagewidth":51,
@@ -1317,12 +1562,12 @@
         }, 
         {
          "columns":1,
-         "firstgid":261,
-         "image":"tilemaps\/icarus.png",
+         "firstgid":260,
+         "image":"tilemaps\/icarus_wall.png",
          "imageheight":55,
          "imagewidth":83,
          "margin":0,
-         "name":"icarus",
+         "name":"icarus_wall",
          "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
@@ -1331,7 +1576,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":262,
+         "firstgid":261,
          "image":"tilemaps\/icarus_access.png",
          "imageheight":560,
          "imagewidth":171,
@@ -1345,7 +1590,7 @@
         }, 
         {
          "columns":14,
-         "firstgid":266,
+         "firstgid":265,
          "image":"tilemaps\/camera_object.png",
          "imageheight":17,
          "imagewidth":350,
@@ -1429,7 +1674,8 @@
                         {
                          "duration":300,
                          "tileid":9
-                        }, 
+                        },
+                    
                         {
                          "duration":300,
                          "tileid":8
@@ -1472,7 +1718,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":280,
+         "firstgid":279,
          "image":"tilemaps\/shelf_object.png",
          "imageheight":42,
          "imagewidth":140,
@@ -1486,7 +1732,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":284,
+         "firstgid":283,
          "image":"tilemaps\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
@@ -1524,10 +1770,10 @@
         }, 
         {
          "columns":6,
-         "firstgid":288,
+         "firstgid":287,
          "image":"tilemaps\/yellow_lamp.png",
          "imageheight":69,
-         "imagewidth":325,
+         "imagewidth":324,
          "margin":0,
          "name":"yellow_lamp",
          "objectalignment":"center",
@@ -1567,6 +1813,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":18
 }

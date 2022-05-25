@@ -94,7 +94,7 @@ export default class MushTiledMap {
                 const fixedDepth = obj.getCustomPropertyByName('depth');
                 const isCollision = obj.isCustomPropertyByName('collides');
 
-                if (fixedDepth !== -1) {
+                if (fixedDepth !== 0) {
                     newObject.setDepth(this.computeFixedDepth(fixedDepth));
                 }
 

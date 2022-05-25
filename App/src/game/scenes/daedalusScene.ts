@@ -1,7 +1,6 @@
 import Phaser from 'phaser';
 import { PhaserNavMesh } from "phaser-navmesh/src";
 import { Room } from "@/entities/Room";
-import { Equipment } from "@/entities/Equipment";
 
 import background from '@/game/assets/tilemaps/background.png';
 import door_ground_tileset from "@/game/assets/tilemaps/door_ground_tileset.png";
@@ -64,16 +63,25 @@ import shelf_rear_bravo_storage from "@/game/assets/tilemaps/shelf_rear_bravo_st
 import workshop from "@/game/assets/tilemaps/workshop.png";
 import worktable from "@/game/assets/tilemaps/worktable.png";
 import garden_engine_anim from "@/game/assets/tilemaps/garden_engine_anim.png";
+import patrol_ship from "@/game/assets/tilemaps/patrol_ship.png";
+import small_takeoff_platform from "@/game/assets/tilemaps/small_takeoff_platform.png";
+import bay_door from "@/game/assets/tilemaps/bay_door.png";
+import yellow_lamp from "@/game/assets/tilemaps/yellow_lamp.png";
+import jukebox from "@/game/assets/tilemaps/jukebox.png";
+import floor_lamp from "@/game/assets/tilemaps/floor_lamp.png";
+import magnetic_net from "@/game/assets/tilemaps/magnetic_net.png";
+import pasiphae from "@/game/assets/tilemaps/pasiphae.png";
+import dynarcade from "@/game/assets/tilemaps/dynarcade.png";
+import bay from "@/game/assets/tilemaps/bay.png";
+import icarus_wall from "@/game/assets/tilemaps/icarus_wall.png";
+import icarus_access from "@/game/assets/tilemaps/icarus_access.png";
+import takeoff_platform from "@/game/assets/tilemaps/takeoff_platform.png";
+import magnetic_return from "@/game/assets/tilemaps/magnetic_return.png";
 
 
 import character from "@/game/assets/images/characters.png";
 import CharacterObject from "@/game/objects/characterObject";
-import DoorGroundObject from "@/game/objects/doorGroundObject";
-import DoorObject from "@/game/objects/doorObject";
 import InteractObject from "@/game/objects/interactObject";
-import DecorationObject from "../objects/decorationObject";
-import ShelfObject from "@/game/objects/shelfObject";
-import { Door as DoorEntity } from "@/entities/Door";
 
 import laboratory from "@/game/assets/mush_lab.json";
 import medlab from "@/game/assets/mush_medlab.json";
@@ -90,6 +98,11 @@ import rear_corridor from "@/game/assets/rear_corridor.json";
 import nexus from "@/game/assets/nexus.json";
 import rear_bravo_storage from "@/game/assets/rear_bravo_storage.json";
 import rear_alpha_storage from "@/game/assets/rear_alpha_storage.json";
+import alpha_bay_2 from "@/game/assets/alpha_bay_2.json";
+import alpha_bay from "@/game/assets/bay_alpha.json";
+import bravo_bay from "@/game/assets/bravo_bay.json";
+import icarus_bay from "@/game/assets/bay_icarus.json";
+
 
 import fire_particles_frame from "@/game/assets/images/fire_particles.json";
 import fire_particles from "@/game/assets/images/fire_particles.png";
@@ -103,7 +116,6 @@ import OutlinePostFx from 'phaser3-rex-plugins/plugins/outlinepipeline.js';
 import { Player } from "@/entities/Player";
 import PlayableCharacterObject from "@/game/objects/playableCharacterObject";
 import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
-import EquipmentObject from "@/game/objects/equipmentObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import { SceneGrid } from "@/game/scenes/sceneGrid";
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
@@ -170,6 +182,10 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.tilemapTiledJSON('nexus', nexus);
         this.load.tilemapTiledJSON('rear_bravo_storage', rear_bravo_storage);
         this.load.tilemapTiledJSON('rear_alpha_storage', rear_alpha_storage);
+        this.load.tilemapTiledJSON('alpha_bay_2', alpha_bay_2);
+        this.load.tilemapTiledJSON('alpha_bay', alpha_bay);
+        this.load.tilemapTiledJSON('bravo_bay', bravo_bay);
+        this.load.tilemapTiledJSON('icarus_bay', icarus_bay);
 
         this.load.image('ground_tileset', ground_tileset);
         this.load.image('wall_tileset', wall_tileset);
@@ -236,6 +252,20 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.spritesheet('worktable', worktable, { frameHeight: 54, frameWidth: 45 });
         this.load.spritesheet('board', board, { frameHeight: 56, frameWidth: 34 });
         this.load.spritesheet('garden_engine_anim', garden_engine_anim, { frameHeight: 27, frameWidth: 56 });
+        this.load.spritesheet('patrol_ship', patrol_ship, { frameHeight: 78, frameWidth: 103 });
+        this.load.spritesheet('small_takeoff_platform', small_takeoff_platform, { frameHeight: 106, frameWidth: 194 });
+        this.load.spritesheet('bay_door', bay_door, { frameHeight: 230, frameWidth: 334 });
+        this.load.spritesheet('yellow_lamp', yellow_lamp, { frameHeight: 69, frameWidth: 54 });
+        this.load.spritesheet('jukebox', jukebox, { frameHeight: 31, frameWidth: 20 });
+        this.load.spritesheet('floor_lamp', floor_lamp, { frameHeight: 24, frameWidth: 32 });
+        this.load.spritesheet('magnetic_net', magnetic_net, { frameHeight: 33, frameWidth: 48 });
+        this.load.spritesheet('pasiphae', pasiphae, { frameHeight: 93, frameWidth: 106 });
+        this.load.spritesheet('dynarcade', dynarcade, { frameHeight: 82, frameWidth: 77 });
+        this.load.spritesheet('bay', bay, { frameHeight: 27, frameWidth: 27 });
+        this.load.spritesheet('icarus_wall', icarus_wall, { frameHeight: 55, frameWidth: 83 });
+        this.load.spritesheet('icarus_access', icarus_access, { frameHeight: 140, frameWidth: 171 });
+        this.load.spritesheet('takeoff_platform', takeoff_platform, { frameHeight: 206, frameWidth: 328 });
+        this.load.spritesheet('magnetic_return', magnetic_return, { frameHeight: 35, frameWidth: 51 });
 
 
         this.load.spritesheet('ground_object', ground_tileset, { frameHeight: 72, frameWidth: 32 });
@@ -289,28 +319,6 @@ export default class DaedalusScene extends Phaser.Scene
         if (this.room.isOnFire) {
             this.displayFire();
         }
-
-        /*
-        console.log(this.sceneGrid);
-        // debug scene grid
-        console.log(this.sceneGrid.polygonArray.length);
-        const debugGraphics3 = this.add.graphics().setAlpha(1);
-        for (let i = 0; i < this.sceneGrid.polygonArray.length; i++) {
-        // for (let i = 2; i < 5; i++) {
-            const polygon = this.sceneGrid.polygonArray[i].geom;
-
-            const cartPoly = polygon.getCartesianPolygon();
-            if(this.sceneGrid.polygonArray[i].isNavigable) {
-                debugGraphics3.fillStyle(0x00ff08, 0.1);
-            } else {
-                debugGraphics3.fillStyle(0xff0000, 0.1);
-                debugGraphics3.fillPoints(cartPoly.points, true);
-                debugGraphics3.strokePoints(cartPoly.points, true);
-            }
-            debugGraphics3.setDepth(10000000);
-            debugGraphics3.lineStyle(1, 0x000000, 1.0);
-
-        }*/
     }
 
     displayFire(): void

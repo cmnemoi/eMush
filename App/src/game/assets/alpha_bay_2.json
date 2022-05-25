@@ -29,7 +29,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":0
+                 "value":1
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -52,6 +52,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
                         }],
                  "rotation":0,
                  "type":"door_ground",
@@ -74,7 +79,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":1
+                         "value":3
                         }],
                  "rotation":0,
                  "type":"door",
@@ -116,7 +121,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":2
+                 "value":4
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -151,7 +156,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":3
+                 "value":5
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -178,7 +183,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":5
+                         "value":7
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -201,7 +206,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":1
+                         "value":2
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -242,7 +247,7 @@
                          "value":16
                         }],
                  "rotation":0,
-                 "type":"intercat",
+                 "type":"interact",
                  "visible":true,
                  "width":25,
                  "x":-30.75,
@@ -318,7 +323,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":1
+                         "value":2
                         }, 
                         {
                          "name":"isoSizeX",
@@ -351,25 +356,40 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":48,
-                 "x":354.546875,
-                 "y":26.515625
+                 "x":354.5,
+                 "y":26.5
                 }, 
                 {
                  "gid":315,
                  "height":106,
                  "id":12,
-                 "name":"small_take-off_platform",
+                 "name":"small_takeoff_platform",
                  "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":64
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":70
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -382,7 +402,28 @@
                  "gid":315,
                  "height":106,
                  "id":14,
-                 "name":"small_take-off_platform",
+                 "name":"small_takeoff_platform",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":64
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":70
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
@@ -394,7 +435,28 @@
                  "gid":315,
                  "height":106,
                  "id":16,
-                 "name":"small_take-off_platform",
+                 "name":"small_takeoff_platform",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":64
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":70
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
@@ -416,7 +478,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":6
                         }, 
                         {
                          "name":"isoSizeX",
@@ -449,7 +511,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":6
                         }, 
                         {
                          "name":"isoSizeX",
@@ -482,7 +544,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":6
                         }, 
                         {
                          "name":"isoSizeX",
@@ -506,6 +568,27 @@
                  "height":24,
                  "id":48,
                  "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
@@ -527,7 +610,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":6
                         }, 
                         {
                          "name":"isoSizeX",
@@ -560,7 +643,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":6
                         }, 
                         {
                          "name":"isoSizeX",
@@ -593,7 +676,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":6
                         }, 
                         {
                          "name":"isoSizeX",
@@ -626,7 +709,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":6
                         }, 
                         {
                          "name":"isoSizeX",
@@ -659,7 +742,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":6
                         }, 
                         {
                          "name":"isoSizeX",
@@ -692,7 +775,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":6
                         }, 
                         {
                          "name":"isoSizeX",
@@ -725,7 +808,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":6
                         }, 
                         {
                          "name":"isoSizeX",
@@ -758,7 +841,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":6
                         }, 
                         {
                          "name":"isoSizeX",
@@ -792,7 +875,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":6
                         }, 
                         {
                          "name":"isoSizeX",
@@ -816,6 +899,27 @@
                  "height":24,
                  "id":58,
                  "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":2
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
@@ -837,7 +941,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":6
                         }, 
                         {
                          "name":"isoSizeX",
@@ -870,7 +974,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":6
                         }, 
                         {
                          "name":"isoSizeX",
@@ -903,7 +1007,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":6
                         }, 
                         {
                          "name":"isoSizeX",
@@ -986,9 +1090,19 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":58
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":70
                         }],
                  "rotation":0,
-                 "type":"intercat",
+                 "type":"interact",
                  "visible":true,
                  "width":77,
                  "x":50.75,
@@ -1004,9 +1118,19 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":64
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":70
                         }],
                  "rotation":0,
-                 "type":"intercat",
+                 "type":"interact",
                  "visible":true,
                  "width":103,
                  "x":162.75,
@@ -1022,9 +1146,19 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":64
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":70
                         }],
                  "rotation":0,
-                 "type":"intercat",
+                 "type":"interact",
                  "visible":true,
                  "width":106,
                  "x":255,
@@ -1044,22 +1178,22 @@
                         {
                          "name":"isoShiftHitboxX",
                          "type":"int",
-                         "value":6
+                         "value":-16
                         }, 
                         {
                          "name":"isoShiftHitboxY",
                          "type":"int",
-                         "value":6
+                         "value":-16
                         }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
-                         "value":6
+                         "value":4
                         }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
-                         "value":6
+                         "value":4
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -1078,7 +1212,7 @@
  "nextobjectid":63,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.4",
+ "tiledversion":"1.8.5",
  "tileheight":16,
  "tilesets":[
         {
@@ -2405,11 +2539,11 @@
         {
          "columns":2,
          "firstgid":315,
-         "image":"tilemaps\/small_take-off_platform.png",
+         "image":"tilemaps\/small_takeoff_platform.png",
          "imageheight":430,
          "imagewidth":388,
          "margin":0,
-         "name":"small_take-off_platform",
+         "name":"small_takeoff_platform",
          "objectalignment":"center",
          "spacing":0,
          "tilecount":8,
@@ -2498,7 +2632,7 @@
          "firstgid":329,
          "image":"tilemaps\/yellow_lamp.png",
          "imageheight":69,
-         "imagewidth":325,
+         "imagewidth":324,
          "margin":0,
          "name":"yellow_lamp",
          "objectalignment":"center",
@@ -2593,7 +2727,7 @@
          "firstgid":341,
          "image":"tilemaps\/floor_lamp.png",
          "imageheight":159,
-         "imagewidth":58,
+         "imagewidth":32,
          "margin":0,
          "name":"floor_lamp",
          "objectalignment":"center",
@@ -2601,19 +2735,6 @@
          "tilecount":6,
          "tileheight":24,
          "tilewidth":32
-        }, 
-        {
-         "columns":1,
-         "firstgid":347,
-         "image":"tilemaps\/yellow_lamp_hitBox.png",
-         "imageheight":8,
-         "imagewidth":12,
-         "margin":0,
-         "name":"yellow_lamp_hitBox",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":8,
-         "tilewidth":12
         }],
  "tilewidth":32,
  "type":"map",

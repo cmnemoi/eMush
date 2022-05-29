@@ -329,7 +329,7 @@
             
                 {
                  "gid":88,
-                 "height":42,
+                 "height":40,
                  "id":11,
                  "name":"shelf",
                  "properties":[
@@ -351,7 +351,7 @@
                  "rotation":0,
                  "type":"shelf",
                  "visible":true,
-                 "width":35,
+                 "width":33,
                  "x":7.25,
                  "y":8.75
                 }, 
@@ -796,15 +796,15 @@
          "columns":4,
          "firstgid":86,
          "image":"tilemaps\/shelf_object.png",
-         "imageheight":42,
-         "imagewidth":140,
+         "imageheight":40,
+         "imagewidth":132,
          "margin":0,
          "name":"shelf_object",
          "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
-         "tileheight":42,
-         "tilewidth":35
+         "tileheight":40,
+         "tilewidth":33
         },
     
         {

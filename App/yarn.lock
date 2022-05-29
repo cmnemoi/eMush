@@ -3274,9 +3274,9 @@ core-js-compat@^3.20.0, core-js-compat@^3.20.2, core-js-compat@^3.6.5:
     semver "7.0.0"
 
 core-js@3:
-  version "3.21.1"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.21.1.tgz#f2e0ddc1fc43da6f904706e8e955bc19d06a0d94"
-  integrity sha512-FRq5b/VMrWlrmCzwRrpDYNxyHP9BcAZC+xHJaqTgIE5091ZV1NTmyh0sGOg5XqpnHvR0svdy0sv1gWA1zmhxig==
+  version "3.22.7"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.22.7.tgz#8d6c37f630f6139b8732d10f2c114c3f1d00024f"
+  integrity sha512-Jt8SReuDKVNZnZEzyEQT5eK6T2RRCXkfTq7Lo09kpm+fHjgGewSbNjV+Wt4yZMhPDdzz2x1ulI5z/w4nxpBseg==
 
 core-js@^3.12.1, core-js@^3.6.5:
   version "3.21.0"
@@ -7362,7 +7362,7 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
-phaser-navmesh@^2.3.0:
+phaser-navmesh@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/phaser-navmesh/-/phaser-navmesh-2.3.1.tgz#ccf271ed6649c0d1ba74cfe01170efd8d9160530"
   integrity sha512-804eKhaa0cyVBFBQ1TA1M6QclclbFiPoBYyLInw7GKO8EITQbNWrBHkmS3jlbVOor89oTUALbwZDd74pVdMP3w==

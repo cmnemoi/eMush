@@ -1,8 +1,7 @@
 import DaedalusScene from "@/game/scenes/daedalusScene";
 import DecorationObject from "@/game/objects/decorationObject";
-import { DepthElement } from "@/game/scenes/depthSortingArray";
 import IsometricGeom from "@/game/scenes/isometricGeom";
-import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
+import { IsometricCoordinates } from "@/game/types";
 import Tile = Phaser.Tilemaps.Tile;
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 
@@ -81,7 +80,7 @@ export class SceneGrid {
 
     buildNavMeshGrid(): NavMeshGrid
     {
-        const navMeshGrid = new NavMeshGrid();
+        const navMeshGrid = new NavMeshGrid(this.scene);
 
         for (let i = 0; i < this.depthSortingArray.length; i++) {
             const currentPolygon =this.depthSortingArray[i];
@@ -95,6 +94,8 @@ export class SceneGrid {
                 );
             }
         }
+
+        navMeshGrid.buildPhaserNavMesh();
 
         return navMeshGrid;
     }

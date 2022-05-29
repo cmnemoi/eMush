@@ -1,11 +1,12 @@
 import DaedalusScene from "@/game/scenes/daedalusScene";
 
 import CharacterObject from "@/game/objects/characterObject";
-import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
+import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import { Player } from "@/entities/Player";
 import IsometricGeom from "@/game/scenes/isometricGeom";
-import { DepthElement } from "@/game/scenes/depthSortingArray";
 import { MushPath } from "@/game/scenes/navigationGrid";
+import InteractObject from "@/game/objects/interactObject";
+import GameObject = Phaser.GameObjects.GameObject;
 
 /*eslint no-unused-vars: "off"*/
 export default class PlayableCharacterObject extends CharacterObject {
@@ -20,11 +21,6 @@ export default class PlayableCharacterObject extends CharacterObject {
         this.isoPath = [];
         this.currentMove = -1;
         this.indexDepthArray = 0;
-
-
-        this.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            this.getCartPath(pointer);
-        }, this);
     }
 
     update(): void
@@ -38,31 +34,22 @@ export default class PlayableCharacterObject extends CharacterObject {
 
 
 
+
+
     //this function return an array of direction to follow to get from character position to the pointed coordinates
-    getCartPath(pointer: Phaser.Input.Pointer): Array<{ direction: string, cartX: number, cartY: number }>
+    updateMovement(pointer: Phaser.Input.Pointer, object : GameObject | null ): MushPath
     {
         const startingPoint = this.getFeetCartCoords().toIsometricCoordinates();
-        const finishPoint = (new CartesianCoordinates(pointer.worldX, pointer.worldY)).toIsometricCoordinates();
+        let finishPoint = (new CartesianCoordinates(pointer.worldX, pointer.worldY)).toIsometricCoordinates();
 
+        if (object !== null && object instanceof InteractObject) {
+            finishPoint = this.navMesh.getClosestPoint(object.isoGeom.getIsoCoords());
+        }
 
         //find the path in isometric coordinates using navMeshPlugin
-        const path = this.navMesh.findPath({ x: startingPoint.x, y: startingPoint.y }, { x: finishPoint.x, y: finishPoint.y });
+        this.isoPath = this.navMesh.getCharacterPath(startingPoint, finishPoint);
 
-        // // naMesh debug
-        // // @ts-ignore
-        // this.navMesh.debugDrawPath(path, 0xffd900, 2);
-        // const debugGraphics = this.scene.add.graphics().setAlpha(1);
-        // debugGraphics.fillStyle(0x00FF00, 1);
-        // debugGraphics.lineStyle(3, 0x00FF00, 1.0);
-        // if (path !== null){
-        //     for (let i = 1; i < path.length; i++) {
-        //         const isoCoord = new IsometricCoordinates(path[i].x, path[i].y);
-        //         debugGraphics.fillPointShape(isoCoord.toCartesianCoordinates(), 5);
-        //     }
-        // }
-
-        if (path !== null) {
-            this.isoPath = (<DaedalusScene>this.scene).navMeshGrid.convertNavMeshPathToMushPath(path);
+        if (this.isoPath.length !== 0) {
             this.currentMove = 0;
         }
 
@@ -70,13 +57,14 @@ export default class PlayableCharacterObject extends CharacterObject {
     }
 
 
-
-
-
     // this function get the first part of the computed path that haven't been completed yet
     // check if the character reached its destination (using a threshold)
     updateCurrentMove(): number
     {
+        if (this.isoPath.length === 0) {
+            return this.currentMove = -1;
+        }
+
         const displacementThreshold = 4;
 
         const distance = Math.sqrt(

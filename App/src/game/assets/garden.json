@@ -1,21 +1,20 @@
 { "compressionlevel":-1,
- "height":12,
+ "height":11,
  "infinite":false,
  "layers":[
         {
-         "data":[264, 262, 262, 262, 262, 262, 262, 262, 262, 262, 262, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":12,
+         "data":[264, 262, 262, 262, 262, 262, 262, 262, 262, 262, 262,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":11,
          "id":1,
          "name":"wall",
          "opacity":1,
@@ -27,24 +26,23 @@
                 }],
          "type":"tilelayer",
          "visible":true,
-         "width":12,
+         "width":11,
          "x":0,
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0,
-            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0,
-            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0,
-            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0,
-            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0,
-            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0,
-            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227, 0,
-            0, 227, 227, 227, 227, 227, 227, 229, 228, 228, 228, 0,
-            0, 227, 227, 227, 227, 227, 227, 228, 228, 228, 228, 0,
-            0, 227, 227, 227, 227, 227, 227, 228, 228, 227, 227, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":12,
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227,
+            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227,
+            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227,
+            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227,
+            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227,
+            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227,
+            0, 227, 227, 227, 227, 227, 227, 227, 227, 227, 227,
+            0, 227, 227, 227, 227, 227, 227, 229, 228, 228, 228,
+            0, 227, 227, 227, 227, 227, 227, 228, 228, 228, 228,
+            0, 227, 227, 227, 227, 227, 227, 228, 228, 227, 227],
+         "height":11,
          "id":2,
          "name":"ground",
          "opacity":1,
@@ -56,7 +54,7 @@
                 }],
          "type":"tilelayer",
          "visible":true,
-         "width":12,
+         "width":11,
          "x":0,
          "y":0
         }, 
@@ -97,34 +95,6 @@
                  "width":14,
                  "x":-23,
                  "y":96
-                }, 
-                {
-                 "gid":259,
-                 "height":42,
-                 "id":6,
-                 "name":"shelf",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }],
-                 "rotation":0,
-                 "type":"shelf",
-                 "visible":true,
-                 "width":35,
-                 "x":8.25,
-                 "y":149.75
                 }, 
                 {
                  "gid":25,
@@ -328,7 +298,7 @@
                  "y":100.247159090909
                 }, 
                 {
-                 "gid":291,
+                 "gid":286,
                  "height":27,
                  "id":17,
                  "name":"garden_engine",
@@ -359,6 +329,34 @@
                  "width":56,
                  "x":-10.5,
                  "y":35.5
+                }, 
+                {
+                 "gid":294,
+                 "height":40,
+                 "id":18,
+                 "name":"shelf",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"shelf",
+                 "visible":true,
+                 "width":33,
+                 "x":8.25,
+                 "y":149.75
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -378,10 +376,10 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":18,
+ "nextobjectid":19,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.4",
+ "tiledversion":"1.8.5",
  "tileheight":16,
  "tilesets":[
         {
@@ -442,12 +440,12 @@
                         {
                          "duration":300,
                          "tileid":10
-                        }, 
+                        },
+                    
                         {
                          "duration":300,
                          "tileid":11
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":12
@@ -487,7 +485,8 @@
                         {
                          "duration":300,
                          "tileid":5
-                        }, 
+                        },
+                    
                         {
                          "duration":300,
                          "tileid":4
@@ -495,8 +494,7 @@
                         {
                          "duration":300,
                          "tileid":3
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":2
@@ -694,12 +692,12 @@
                         {
                          "duration":100,
                          "tileid":10
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":11
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":12
@@ -739,7 +737,8 @@
                         {
                          "duration":100,
                          "tileid":21
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":22
@@ -795,12 +794,12 @@
                         {
                          "duration":100,
                          "tileid":34
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":35
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":36
@@ -840,7 +839,8 @@
                         {
                          "duration":100,
                          "tileid":45
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":46
@@ -896,12 +896,12 @@
                         {
                          "duration":100,
                          "tileid":58
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":59
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":60
@@ -941,7 +941,8 @@
                         {
                          "duration":100,
                          "tileid":69
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":70
@@ -997,12 +998,12 @@
                         {
                          "duration":100,
                          "tileid":82
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":83
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":84
@@ -1042,7 +1043,8 @@
                         {
                          "duration":100,
                          "tileid":93
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":94
@@ -1098,12 +1100,12 @@
                         {
                          "duration":100,
                          "tileid":106
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":107
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":108
@@ -1143,7 +1145,8 @@
                         {
                          "duration":100,
                          "tileid":117
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":118
@@ -1199,12 +1202,12 @@
                         {
                          "duration":100,
                          "tileid":130
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":131
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":132
@@ -1244,7 +1247,8 @@
                         {
                          "duration":100,
                          "tileid":141
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":142
@@ -1300,12 +1304,12 @@
                         {
                          "duration":100,
                          "tileid":154
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":155
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":156
@@ -1345,7 +1349,8 @@
                         {
                          "duration":100,
                          "tileid":165
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":166
@@ -1401,12 +1406,12 @@
                         {
                          "duration":100,
                          "tileid":178
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":179
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":180
@@ -1446,7 +1451,8 @@
                         {
                          "duration":100,
                          "tileid":189
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":190
@@ -1478,21 +1484,7 @@
          "tilecount":30,
          "tileheight":72,
          "tilewidth":32
-        }, 
-        {
-         "columns":4,
-         "firstgid":257,
-         "image":"tilemaps\/shelf_object.png",
-         "imageheight":42,
-         "imagewidth":140,
-         "margin":0,
-         "name":"shelf_object",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":4,
-         "tileheight":42,
-         "tilewidth":35
-        }, 
+        },
         {
          "columns":14,
          "firstgid":261,
@@ -1604,13 +1596,14 @@
          "name":"garden_engine",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":6,
+         "tilecount":1,
          "tileheight":112,
          "tilewidth":140
-        }, 
+        },
+    
         {
          "columns":6,
-         "firstgid":291,
+         "firstgid":286,
          "image":"tilemaps\/garden_engine_anim.png",
          "imageheight":27,
          "imagewidth":336,
@@ -1650,9 +1643,23 @@
                  "id":0
                 }],
          "tilewidth":56
+        }, 
+        {
+         "columns":4,
+         "firstgid":292,
+         "image":"tilemaps\/shelf_object.png",
+         "imageheight":40,
+         "imagewidth":132,
+         "margin":0,
+         "name":"shelf_object",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":4,
+         "tileheight":40,
+         "tilewidth":33
         }],
  "tilewidth":32,
  "type":"map",
  "version":"1.8",
- "width":12
+ "width":11
 }

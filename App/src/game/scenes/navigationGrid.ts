@@ -1,19 +1,28 @@
 import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import IsometricGeom from "@/game/scenes/isometricGeom";
-import DecorationObject from "@/game/objects/decorationObject";
-
+import { PhaserNavMesh, PhaserNavMeshPlugin } from "phaser-navmesh/src";
+import DaedalusScene from "@/game/scenes/daedalusScene";
 
 export class NavMeshGrid
 {
     public geomArray: Array<IsometricGeom>;
     public depthArray: Array<number>;
+    public phaserNavMesh : PhaserNavMesh;
+
+    private navMeshPlugin!: PhaserNavMeshPlugin;
+
+    private scene : DaedalusScene;
     private cumuProbaNavigablePolygons: Array<number>;
 
 
-    constructor() {
+    constructor(scene: DaedalusScene) {
         this.geomArray = [];
         this.depthArray = [];
         this.cumuProbaNavigablePolygons = [0];
+
+        this.scene = scene;
+
+        this.phaserNavMesh = new PhaserNavMesh(this.navMeshPlugin, this.scene, 'pathfinding', []);
     }
 
     addPolygon(minX: number, maxX: number, minY: number, maxY: number, depth: number): Array<IsometricGeom>
@@ -29,6 +38,61 @@ export class NavMeshGrid
 
 
         return this.geomArray;
+    }
+
+    getCharacterPath(startPoint: IsometricCoordinates, finishPoint: IsometricCoordinates): MushPath
+    {
+        if (!this.phaserNavMesh.isPointInMesh(startPoint)) {
+            startPoint = this.getClosestPoint(startPoint);
+        }
+        const path = this.phaserNavMesh.findPath({ x: startPoint.x, y: startPoint.y }, { x: finishPoint.x, y: finishPoint.y });
+
+        if (path !== null) {
+            return (<DaedalusScene>this.scene).navMeshGrid.convertNavMeshPathToMushPath(path);
+        }
+
+        return [];
+    }
+
+    getClosestPoint(point: IsometricCoordinates): IsometricCoordinates
+    {
+        if (this.phaserNavMesh.isPointInMesh(point)){
+            return point;
+        }
+
+        let closestPoint = new IsometricCoordinates(this.geomArray[0].getMaxIso().x,this.geomArray[0].getMaxIso().y);
+
+        for (let i = 0; i < this.geomArray.length; i++) {
+            const isoGeom = this.geomArray[i];
+
+            let iClosestPoint = new IsometricCoordinates(0,0);
+
+            //closest point depends on where the point is
+            if (point.x >= isoGeom.getMaxIso().x && point.y >= isoGeom.getMaxIso().y ) { //top right corner
+                iClosestPoint = new IsometricCoordinates(isoGeom.getMaxIso().x, isoGeom.getMaxIso().y);
+            } else if (point.x >= isoGeom.getMaxIso().x && point.y <= isoGeom.getMinIso().y ) { //bottom right corner
+                iClosestPoint = new IsometricCoordinates(isoGeom.getMaxIso().x, isoGeom.getMinIso().y);
+            } else if (point.x <= isoGeom.getMinIso().x && point.y >= isoGeom.getMaxIso().y ) { //top left corner
+                iClosestPoint = new IsometricCoordinates(isoGeom.getMinIso().x, isoGeom.getMaxIso().y);
+            } else if (point.x >= isoGeom.getMinIso().x && point.y >= isoGeom.getMinIso().y ) { //bottom left corner
+                iClosestPoint = new IsometricCoordinates(isoGeom.getMinIso().x, isoGeom.getMinIso().y);
+            } else if (point.x > isoGeom.getMaxIso().x) { //right
+                iClosestPoint = new IsometricCoordinates(isoGeom.getMaxIso().x, point.y);
+            } else if (point.x < isoGeom.getMinIso().x) { //left
+                iClosestPoint = new IsometricCoordinates(isoGeom.getMinIso().x, point.y);
+            } else if (point.y > isoGeom.getMaxIso().y) { //top
+                iClosestPoint = new IsometricCoordinates(point.x, isoGeom.getMaxIso().y);
+            } else { //bottom
+                iClosestPoint = new IsometricCoordinates(point.x, isoGeom.getMinIso().y);
+            }
+
+
+            if (iClosestPoint.getDistance(point) < closestPoint.getDistance(point)) {
+                closestPoint = iClosestPoint;
+            }
+        }
+
+        return closestPoint;
     }
 
     getGeomFromPoint(isoPoint: Phaser.Geom.Point): number
@@ -63,7 +127,7 @@ export class NavMeshGrid
         return new CartesianCoordinates(randomPoint.x, randomPoint.y);
     }
 
-    exportForNavMesh(): Array<Array<{x: number, y: number}>>
+    buildPhaserNavMesh(): PhaserNavMesh
     {
         const navMeshPolygons: Array<Array<{x: number, y: number}>> = [];
 
@@ -79,7 +143,10 @@ export class NavMeshGrid
                 ]
             );
         }
-        return navMeshPolygons;
+
+        this.phaserNavMesh = new PhaserNavMesh(this.navMeshPlugin, this.scene, 'pathfinding', navMeshPolygons);
+
+        return this.phaserNavMesh;
     }
 
     cutPathWithGrid(path: Phaser.Geom.Point[]): { point: IsometricCoordinates, depth: number }[]

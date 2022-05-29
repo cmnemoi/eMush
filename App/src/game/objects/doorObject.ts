@@ -1,7 +1,7 @@
 import * as Phaser from "phaser";
 import Vector2 = Phaser.Math.Vector2;
 import DaedalusScene from "@/game/scenes/daedalusScene";
-import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
+import { CartesianCoordinates } from "@/game/types";
 import { Door as DoorEntity } from "@/entities/Door";
 import { Action } from "@/entities/Action";
 import store from "@/store";

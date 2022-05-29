@@ -8,6 +8,11 @@ export class IsometricCoordinates extends Phaser.Geom.Point
     {
         return new CartesianCoordinates((this.x - this.y), (this.x + this.y)/2);
     }
+
+    getDistance(point: IsometricCoordinates): number
+    {
+        return Math.sqrt(Math.pow(this.x - point.x, 2) + Math.pow(this.y - point.y, 2));
+    }
 }
 
 export class CartesianCoordinates extends Phaser.Geom.Point

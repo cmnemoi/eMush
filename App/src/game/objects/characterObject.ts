@@ -4,14 +4,14 @@ import { characterEnum, CharacterInfos } from "@/enums/character";
 import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import { Player } from "@/entities/Player";
 import store from "@/store";
-import { PhaserNavMesh } from "phaser-navmesh/src";
 import InteractObject from "@/game/objects/interactObject";
 import Tileset = Phaser.Tilemaps.Tileset;
 import IsometricGeom from "@/game/scenes/isometricGeom";
+import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 
 export default class CharacterObject extends InteractObject {
     protected player : Player;
-    protected navMesh: PhaserNavMesh;
+    protected navMesh: NavMeshGrid;
 
     constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, isoGeom: IsometricGeom, player: Player) {
         super(
@@ -26,7 +26,7 @@ export default class CharacterObject extends InteractObject {
         );
 
         this.player = player;
-        this.navMesh = scene.navMesh;
+        this.navMesh = scene.navMeshGrid;
 
         scene.physics.world.enable(this);
 

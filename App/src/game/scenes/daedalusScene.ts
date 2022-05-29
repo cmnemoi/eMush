@@ -1,5 +1,4 @@
 import Phaser from 'phaser';
-import { PhaserNavMesh } from "phaser-navmesh/src";
 import { Room } from "@/entities/Room";
 
 import background from '@/game/assets/tilemaps/background.png';
@@ -78,7 +77,6 @@ import icarus_access from "@/game/assets/tilemaps/icarus_access.png";
 import takeoff_platform from "@/game/assets/tilemaps/takeoff_platform.png";
 import magnetic_return from "@/game/assets/tilemaps/magnetic_return.png";
 
-
 import character from "@/game/assets/images/characters.png";
 import CharacterObject from "@/game/objects/characterObject";
 import InteractObject from "@/game/objects/interactObject";
@@ -103,14 +101,11 @@ import alpha_bay from "@/game/assets/bay_alpha.json";
 import bravo_bay from "@/game/assets/bravo_bay.json";
 import icarus_bay from "@/game/assets/bay_icarus.json";
 
-
 import fire_particles_frame from "@/game/assets/images/fire_particles.json";
 import fire_particles from "@/game/assets/images/fire_particles.png";
 import smoke_particle from "@/game/assets/images/smoke_particle.png";
 import tile_highlight from "@/game/assets/images/tile_highlight.png";
 
-
-import { PhaserNavMeshPlugin } from "phaser-navmesh/src/index";
 import OutlinePostFx from 'phaser3-rex-plugins/plugins/outlinepipeline.js';
 
 import { Player } from "@/entities/Player";
@@ -125,14 +120,12 @@ import MushTiledMap from "@/game/tiled/mushTiledMap";
 
 export default class DaedalusScene extends Phaser.Scene
 {
-    public navMesh : PhaserNavMesh;
-    private navMeshPlugin!: PhaserNavMeshPlugin;
-
     private characterSize = 6;
     private isoTileSize: number;
     private sceneIsoSize: IsometricCoordinates;
 
-    private playerSprite! : PlayableCharacterObject;
+    public playerSprite! : PlayableCharacterObject;
+
     private player : Player;
     private room : Room;
     private cameraTarget : { x : number, y : number};
@@ -156,9 +149,8 @@ export default class DaedalusScene extends Phaser.Scene
         this.room = player.room;
         this.player = player;
 
-        this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', []);
         this.sceneGrid = new SceneGrid(this, this.characterSize);
-        this.navMeshGrid = new NavMeshGrid();
+        this.navMeshGrid = new NavMeshGrid(this);
 
         this.selectedGameObject = null;
 
@@ -212,7 +204,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.spritesheet('chair_object', chair_object, { frameHeight: 36, frameWidth: 34 });
         this.load.spritesheet('door_object', door_object, { frameHeight: 73, frameWidth: 48 });
         this.load.spritesheet('neron_terminal_object', neron_object, { frameHeight: 64, frameWidth: 41 });
-        this.load.spritesheet('shelf_object', shelf_object, { frameHeight: 42, frameWidth: 35 });
+        this.load.spritesheet('shelf_object', shelf_object, { frameHeight: 40, frameWidth: 33 });
         this.load.spritesheet('papers', papers, { frameHeight: 12, frameWidth: 16 });
         this.load.spritesheet('broom', broom, { frameHeight: 29, frameWidth: 17 });
         this.load.spritesheet('shelf_front_storage1', shelf_front_storage1, { frameHeight: 101, frameWidth: 123 });
@@ -293,7 +285,6 @@ export default class DaedalusScene extends Phaser.Scene
         this.sceneGrid.updateDepth();
 
         this.navMeshGrid = this.sceneGrid.buildNavMeshGrid();
-        this.navMesh = new PhaserNavMesh(this.navMeshPlugin, this, 'pathfinding', this.navMeshGrid.exportForNavMesh());
 
         // this.enableDebugView();
 
@@ -466,6 +457,8 @@ export default class DaedalusScene extends Phaser.Scene
                 gameObject = gameObjects[0];
             }
 
+            this.playerSprite.updateMovement(pointer, gameObject);
+
             if (this.selectedGameObject !== null &&
                 this.selectedGameObject instanceof InteractObject &&
                 this.selectedGameObject !== gameObject
@@ -500,15 +493,15 @@ export default class DaedalusScene extends Phaser.Scene
     enableDebugView(): void
     {
         // navMesh Debug
-        const navMeshPolygons = this.navMeshGrid.exportForNavMesh();
+        const navMeshPolygons = this.navMeshGrid.geomArray;
         //const navMeshPolygons = this.sceneGrid.depthSortingArray;
 
         const debugGraphics = this.add.graphics().setAlpha(1);
         debugGraphics.setDepth(1000000);
         for (let i = 0; i < navMeshPolygons.length; i++) {
         // for (let i = 4; i < 5; i++) {
-            const polygon = navMeshPolygons[i];
-            //const polygon = navMeshPolygons[i].geom.getIsoArray();
+            //const polygon = navMeshPolygons[i];
+            const polygon = navMeshPolygons[i].getIsoArray();
 
             //console.log(navMeshPolygons[i].object?.name);
             //console.log(navMeshPolygons[i].object?.depth);
@@ -541,10 +534,10 @@ export default class DaedalusScene extends Phaser.Scene
 
         const debugGraphics2 = this.add.graphics().setAlpha(1);
         debugGraphics2.setDepth(100000000);
-        this.navMesh.enableDebug(debugGraphics2);
-        this.navMesh.debugDrawClear(); // Clears the overlay
+        this.navMeshGrid.phaserNavMesh.enableDebug(debugGraphics2);
+        this.navMeshGrid.phaserNavMesh.debugDrawClear(); // Clears the overlay
         // Visualize the underlying navmesh
-        this.navMesh.debugDrawMesh({
+        this.navMeshGrid.phaserNavMesh.debugDrawMesh({
             drawCentroid: false,
             drawBounds: false,
             drawNeighbors: true,

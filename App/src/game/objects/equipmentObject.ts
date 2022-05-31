@@ -3,7 +3,7 @@ import DaedalusScene from "@/game/scenes/daedalusScene";
 import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
 import { Equipment } from "@/entities/Equipment";
 import store from "@/store";
-import InteractObject from "@/game/objects/interactObject";
+import InteractObject, { InteractionInformation } from "@/game/objects/interactObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 
 
@@ -17,13 +17,15 @@ export default class EquipmentObject extends InteractObject {
         iso_geom: IsometricGeom,
         tileset: Phaser.Tilemaps.Tileset,
         frame: number,
+        isFlipped: { x: boolean, y: boolean},
         equipment: Equipment,
         collides: boolean,
         isAnimationYoyo: boolean,
-        group: Phaser.GameObjects.Group | null = null
+        group: Phaser.GameObjects.Group | null = null,
+        interactionInformation: InteractionInformation | null = null
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, frame, equipment.key, collides, isAnimationYoyo, group);
+        super(scene, cart_coords, iso_geom, tileset, frame, equipment.key, isFlipped, collides, isAnimationYoyo, group, interactionInformation);
 
         this.equipment = equipment;
 

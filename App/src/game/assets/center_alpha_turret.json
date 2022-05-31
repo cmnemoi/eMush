@@ -6,9 +6,9 @@
          "data":[0, 0, 5, 2, 2, 2, 0,
             0, 0, 0, 0, 0, 0, 0,
             6, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
+            3, 0, 0, 0, 0, 0, 0,
+            3, 0, 0, 0, 0, 0, 0,
+            3, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":1,
@@ -30,53 +30,7 @@
          "draworder":"topdown",
          "id":7,
          "name":"doors",
-         "objects":[
-                {
-                 "gid":60,
-                 "height":36,
-                 "id":33,
-                 "name":"rear_alpha_turret_bay_alpha_2",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":5
-                        }],
-                 "rotation":0,
-                 "type":"door_ground",
-                 "visible":true,
-                 "width":64,
-                 "x":-4,
-                 "y":62
-                }, 
-                {
-                 "gid":113,
-                 "height":73,
-                 "id":34,
-                 "name":"rear_alpha_turret_bay_alpha_2",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":6
-                        }],
-                 "rotation":0,
-                 "type":"door",
-                 "visible":true,
-                 "width":48,
-                 "x":-20.5,
-                 "y":27.5
-                }],
+         "objects":[],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -86,20 +40,20 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            3, 0, 0, 0, 0, 0, 0,
+            0, 15, 0, 0, 0, 0, 0,
+            0, 15, 0, 0, 0, 0, 0,
+            0, 15, 0, 0, 0, 0, 0,
+            0, 15, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":9,
-         "name":"wall",
+         "name":"ground",
          "opacity":1,
          "properties":[
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":7
+                 "value":8
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -123,31 +77,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":9
-                }],
-         "type":"tilelayer",
-         "visible":true,
-         "width":7,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "data":[0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 15, 0, 0, 0, 0, 0,
-            0, 16, 0, 0, 0, 0, 0,
-            0, 16, 0, 0, 0, 0, 0,
-            0, 15, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0],
-         "height":7,
-         "id":11,
-         "name":"ground",
-         "opacity":1,
-         "properties":[
-                {
-                 "name":"depth",
-                 "type":"int",
-                 "value":9
+                 "value":8
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -159,9 +89,9 @@
          "data":[0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0,
             0, 0, 15, 15, 15, 15, 0,
-            0, 0, 16, 18, 15, 15, 0,
-            0, 0, 16, 16, 15, 15, 0,
-            0, 0, 16, 16, 15, 15, 0,
+            0, 0, 15, 17, 16, 16, 0,
+            0, 0, 15, 16, 16, 16, 0,
+            0, 0, 15, 16, 16, 15, 0,
             0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":2,
@@ -171,7 +101,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":10
+                 "value":9
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -203,7 +133,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":10
+                         "value":6
                         }, 
                         {
                          "name":"isoSizeX",
@@ -219,8 +149,26 @@
                  "type":"interact",
                  "visible":true,
                  "width":25,
-                 "x":-18.75,
-                 "y":53.75
+                 "x":-20.75,
+                 "y":33.75
+                }, 
+                {
+                 "gid":55,
+                 "height":36,
+                 "id":3,
+                 "name":"alpha_bay_central_alpha_turret",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }],
+                 "rotation":0,
+                 "type":"door_ground",
+                 "visible":true,
+                 "width":64,
+                 "x":108,
+                 "y":62
                 }, 
                 {
                  "gid":2147483928,
@@ -262,14 +210,14 @@
                  "type":"interact",
                  "visible":true,
                  "width":123,
-                 "x":-3.25,
-                 "y":-19.75
+                 "x":-4.246875,
+                 "y":-18.7458333333333
                 }, 
                 {
                  "gid":45,
                  "height":36,
                  "id":29,
-                 "name":"engine_room_rear_alpha_turret",
+                 "name":"front_storage_central_alpha_turret",
                  "properties":[
                         {
                          "name":"collides",
@@ -280,7 +228,7 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":45,
+                 "x":61,
                  "y":109
                 }, 
                 {
@@ -312,9 +260,9 @@
                  "y":9.25
                 }, 
                 {
-                 "gid":276,
+                 "gid":278,
                  "height":15,
-                 "id":32,
+                 "id":31,
                  "name":"wall_box",
                  "properties":[
                         {
@@ -325,19 +273,29 @@
                         {
                          "name":"depth",
                          "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
                          "value":10
                         }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":14,
-                 "x":38.5,
-                 "y":-16.5
+                 "x":-15.5,
+                 "y":55.5
                 }, 
                 {
                  "gid":2147483947,
                  "height":46,
-                 "id":35,
+                 "id":32,
                  "name":"turret_command",
                  "properties":[
                         {
@@ -364,13 +322,14 @@
                  "type":"interact",
                  "visible":true,
                  "width":71,
-                 "x":-11.75,
-                 "y":-14.25
-                }, 
+                 "x":-12.746875,
+                 "y":-13.2458333333333
+                },
+            
                 {
                  "gid":300,
                  "height":11,
-                 "id":36,
+                 "id":33,
                  "name":"ground",
                  "properties":[
                         {
@@ -381,7 +340,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":8
+                         "value":7
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -389,12 +348,11 @@
                  "width":32,
                  "x":25.5,
                  "y":25.5
-                },
-            
+                }, 
                 {
                  "gid":284,
                  "height":36,
-                 "id":37,
+                 "id":34,
                  "name":"turret_command",
                  "properties":[
                         {
@@ -457,8 +415,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":34,
-                 "x":-13.5,
-                 "y":-18.5
+                 "x":-15,
+                 "y":-17
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -466,8 +424,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":12,
- "nextobjectid":38,
+ "nextlayerid":11,
+ "nextobjectid":35,
  "orientation":"isometric",
  "renderorder":"right-down",
  "tiledversion":"1.8.5",

@@ -1,11 +1,14 @@
 import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
-import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
+import { CartesianCoordinates } from "@/game/types";
 import DecorationObject from "@/game/objects/decorationObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
+import EquipmentObject from "@/game/objects/equipmentObject";
 
 /*eslint no-unused-vars: "off"*/
 export default class InteractObject extends DecorationObject {
+    protected interactionInformation: InteractionInformation | null;
+
     constructor(
         scene: DaedalusScene,
         cart_coords: CartesianCoordinates,
@@ -13,14 +16,18 @@ export default class InteractObject extends DecorationObject {
         tileset: Phaser.Tilemaps.Tileset,
         frame: number,
         name: string,
+        isFlipped: { x: boolean, y: boolean},
         collides: boolean,
         isAnimationYoyo: boolean,
-        group: Phaser.GameObjects.Group | null = null
+        group: Phaser.GameObjects.Group | null = null,
+        interactionInformation: InteractionInformation | null = null
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, frame, name, collides, isAnimationYoyo, group);
+        super(scene, cart_coords, iso_geom, tileset, frame, name, isFlipped, collides, isAnimationYoyo, group);
 
         this.createInteractionArea();
+
+        this.interactionInformation = interactionInformation;
 
 
         this.on('pointerover', () => {
@@ -123,4 +130,35 @@ export default class InteractObject extends DecorationObject {
 
         return point.setTo(x + this.x, - y + this.y);
     }
+
+    getInteractionInformation(): InteractionInformation | null
+    {
+        return this.interactionInformation;
+    }
+
+    getInteractibleObject(): InteractObject | null
+    {
+        if (this.group !== null) {
+            for (let i = 0; i < this.group.getChildren().length; i++) {
+                const object = this.group.getChildren()[i];
+                if (object instanceof InteractObject && object.getInteractionInformation() !== null) {
+                    return object;
+                }
+            }
+        } else if (this.getInteractionInformation() !== null) {
+            return this;
+        }
+
+        return null;
+    }
+}
+
+
+export type InteractionInformation = {
+    sitAnimation: string,
+    sitDepth: number,
+    sitFlip: boolean,
+    sitX: number,
+    sitY: number,
+    sitAutoTrigger: boolean
 }

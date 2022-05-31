@@ -172,7 +172,7 @@ export class SceneGrid {
             const object = currentElement.object;
 
             if (object !== undefined && object.depth === 0) {
-                object.setDepth((i + 1)*10000);
+                object.setDepth((i + 1)*1000);
             }
         }
     }

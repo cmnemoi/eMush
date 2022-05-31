@@ -20,6 +20,7 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         tileset: Phaser.Tilemaps.Tileset,
         frame: number,
         name: string,
+        isFlipped: { x: boolean, y: boolean},
         collides: boolean,
         isAnimationYoyo: boolean,
         group: Phaser.GameObjects.Group | null = null,
@@ -34,14 +35,13 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         this.group = group;
         this.collides = collides;
 
-
         this.scene.add.existing(this);
 
         if (group !== null) {
             group.add(this);
         }
 
-        this.applyTexture(tileset, name, isAnimationYoyo);
+        this.applyTexture(tileset, name, isFlipped, isAnimationYoyo);
 
         this.isoHeight = this.height - (this.isoGeom.getIsoSize().x + this.isoGeom.getIsoSize().y)/2;
 
@@ -52,7 +52,12 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         graphics.fillPoints(this.isoGeom.getCartesianPolygon().points, true);*/
     }
 
-    applyTexture(tileset: Phaser.Tilemaps.Tileset, name: string, isAnimationYoyo: boolean): void
+    applyTexture(
+        tileset: Phaser.Tilemaps.Tileset,
+        name: string,
+        isFlipped: { x: boolean, y: boolean },
+        isAnimationYoyo: boolean
+    ): void
     {
         //@ts-ignore
         if (tileset.tileData[this.tiledFrame])
@@ -76,7 +81,9 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         } else {
             this.setTexture(tileset.name, this.tiledFrame);
         }
-        //this.setAlpha(0);
+
+        this.flipX = isFlipped.x;
+        this.flipY = isFlipped.y;
     }
 
     //@ts-ignore
@@ -87,5 +94,13 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
 
         point.setTo(randomGround.x, randomGround.y - randomHeight);
         return point;
+    }
+
+    setPositionFromIsometricCoordinates( isoCoords: IsometricCoordinates )
+    {
+        const cartCoords = isoCoords.toCartesianCoordinates();
+
+        this.x = cartCoords.x;
+        this.y = cartCoords.y;
     }
 }

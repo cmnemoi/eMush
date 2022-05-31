@@ -10,6 +10,7 @@ import DoorObject from "@/game/objects/doorObject";
 import DoorGroundObject from "@/game/objects/doorGroundObject";
 import ShelfObject from "@/game/objects/shelfObject";
 import DaedalusScene from "@/game/scenes/daedalusScene";
+import { InteractionInformation } from "@/game/objects/interactObject";
 
 export default class MushTiledObject {
     public tiledObj: Phaser.Types.Tilemaps.TiledObject;
@@ -55,24 +56,39 @@ export default class MushTiledObject {
 
         const isAnimationYoyo = this.isCustomPropertyByName('animationYoyo');
         const collides = this.isCustomPropertyByName('collides');
+        const isFlipped = { x: this.isCustomPropertyByName('flipX'), y : this.isCustomPropertyByName('flipY') };
+
+        const interactionInformation = this.getInteractionInformations();
 
         switch (this.tiledObj.type) {
         case 'decoration':
-            return new DecorationObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, name, collides, isAnimationYoyo);
+            return new DecorationObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, name, isFlipped, collides, isAnimationYoyo);
         case 'door':
             if (equipmentEntity instanceof Door) {
-                return new DoorObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, equipmentEntity);
+                return new DoorObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, isFlipped, equipmentEntity);
             } else {break;}
         case 'door_ground':
             if (equipmentEntity instanceof Door) {
-                return new DoorGroundObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, equipmentEntity);
+                return new DoorGroundObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, isFlipped, equipmentEntity);
             } else {break;}
         case 'interact':
             if (equipmentEntity instanceof Equipment) {
-                return new EquipmentObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, equipmentEntity, collides, isAnimationYoyo, group);
+                return new EquipmentObject(
+                    scene,
+                    cart_coords,
+                    this.getIsometricGeom(),
+                    tileset,
+                    frame,
+                    isFlipped,
+                    equipmentEntity,
+                    collides,
+                    isAnimationYoyo,
+                    group,
+                    interactionInformation
+                );
             } else {break;}
         case 'shelf':
-            return new ShelfObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, name, collides, isAnimationYoyo, group);
+            return new ShelfObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, name, isFlipped, collides, isAnimationYoyo, group);
         }
         throw new Error(this.tiledObj.name + "type does not exist");
     }
@@ -88,7 +104,7 @@ export default class MushTiledObject {
 
     isCustomPropertyByName(property: string): boolean
     {
-        const existingKeys = ['grouped', 'collides', 'animationYoyo'];
+        const existingKeys = ['grouped', 'collides', 'animationYoyo', 'isOnFront', 'flipX', 'flipY'];
         if (existingKeys.includes(property)) {
             for (let i = 0; i < this.tiledObj.properties.length; i++) {
                 if (this.tiledObj.properties[i].name === property) {
@@ -110,6 +126,59 @@ export default class MushTiledObject {
             }
         }
         return 0;
+    }
+
+    getInteractionInformations(): InteractionInformation | null
+    {
+        const intercationInformation = {
+            sitAnimation: 'none',
+            sitDepth: 1,
+            sitFlip: false,
+            sitAutoTrigger: false,
+            sitX: 0,
+            sitY: 0
+        };
+
+        const isPropertyFound = {
+            sitAnimation: false,
+            sitX: false,
+            sitY: false
+        };
+
+        for (let i = 0; i < this.tiledObj.properties.length; i++) {
+            switch (this.tiledObj.properties[i].name) {
+            case 'sitX':
+                intercationInformation.sitX = this.tiledObj.properties[i].value;
+                isPropertyFound.sitX = true;
+                break;
+            case 'sitY':
+                intercationInformation.sitY = this.tiledObj.properties[i].value;
+                isPropertyFound.sitY = true;
+                break;
+            case 'sitAnimation':
+                intercationInformation.sitAnimation = this.tiledObj.properties[i].value;
+                isPropertyFound.sitAnimation = true;
+                break;
+            case 'sitDepth':
+                intercationInformation.sitDepth = this.tiledObj.properties[i].value;
+                break;
+            case 'sitFlip':
+                intercationInformation.sitFlip = this.tiledObj.properties[i].value;
+                break;
+            case 'sitAutoTrigger':
+                intercationInformation.sitAutoTrigger = this.tiledObj.properties[i].value;
+                break;
+            }
+        }
+
+        if (
+            isPropertyFound.sitX && isPropertyFound.sitY &&
+            isPropertyFound.sitAnimation
+        ) {
+            return intercationInformation;
+        }
+
+        return null;
     }
 
     //tiled object coordinates in the isometric frame

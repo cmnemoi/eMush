@@ -1,6 +1,5 @@
 import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
-import { characterEnum, CharacterInfos } from "@/enums/character";
 import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import { Player } from "@/entities/Player";
 import store from "@/store";
@@ -19,8 +18,9 @@ export default class CharacterObject extends InteractObject {
             cart_coords,
             isoGeom,
             new Tileset('character', 0, 48, 32),
-            (<number>(<CharacterInfos>characterEnum[player.character.key]).rightFrame),
+            0,
             player.character.key,
+            { x: false, y: false },
             false,
             false
         );
@@ -28,23 +28,27 @@ export default class CharacterObject extends InteractObject {
         this.player = player;
         this.navMesh = scene.navMeshGrid;
 
+        this.setPositionFromFeet(cart_coords);
+
         scene.physics.world.enable(this);
 
+        this.createAnimations();
 
-        const characterFrames: CharacterInfos = characterEnum[this.player.character.key];
-        this.createAnimations(characterFrames);
+        const targetBed = this.player.isLyingDown();
 
-        //Set the initial sprite randomly such as it faces the screen
-        if (Math.random() > 0.5) {
-            this.flipX = true;
+        if (targetBed !== null) {
+            const bed = (<DaedalusScene>this.scene).findObjectByNameAndId(targetBed.key, targetBed.id);
+
+            if (bed !== null) {
+                this.applyEquipmentInteractionInformation(bed);
+            }
+        } else {
+            //Set the initial sprite randomly such as it faces the screen
+            if (Math.random() > 0.5) {
+                this.flipX = true;
+            }
+            this.anims.play('right');
         }
-        this.anims.play('right');
-
-        // const graphics = this.scene.add.graphics();
-        // graphics.lineStyle(1, 0x000000, 0.5);
-        // graphics.fillStyle(0xff0000, 1);
-        // graphics.fillPoints(this.isoGeom.getCartesianPolygon().points, true);
-        //graphics.fillPointShape(new Phaser.Geom.Point(this.getFeetCartCoords().x, this.getFeetCartCoords().y), 5);
 
 
         //If this is clicked then:
@@ -60,40 +64,94 @@ export default class CharacterObject extends InteractObject {
         this.setTexture('character', this.tiledFrame);
     }
 
+    applyEquipmentInteractionInformation(equipment: InteractObject)
+    {
+        const interactionInformation = equipment.getInteractionInformation();
 
-    createAnimations(characterFrames: any): void
+        if (interactionInformation !== null) {
+            this.flipX = interactionInformation.sitFlip;
+
+            const equiCartCoords = new CartesianCoordinates(equipment.x, equipment.y);
+            const charIsoCoords = new IsometricCoordinates(
+                equiCartCoords.toIsometricCoordinates().x  + interactionInformation.sitX,
+                equiCartCoords.toIsometricCoordinates().y + interactionInformation.sitY
+            );
+            this.setPositionFromIsometricCoordinates(charIsoCoords);
+
+            this.depth = equipment.depth + interactionInformation.sitDepth;
+            this.anims.play(interactionInformation.sitAnimation);
+        }
+    }
+
+
+    createAnimations(): void
     {
         this.anims.create({
-            key: 'move_left',
-            frames: this.anims.generateFrameNames('character', { start: characterFrames.moveLeftFirstFrame, end: characterFrames.moveLeftLastFrame }),
+            key: 'move_right',
+            frames: this.anims.generateFrameNames('character', {
+                prefix: this.player.character.key,
+                start: 5,
+                end: 10
+            }),
             frameRate: 10,
             repeat: -1
         });
         this.anims.create({
-            key: 'up',
-            frames: [{ key: 'character', frame: characterFrames.leftFrame }],
-            frameRate: 1
+            key: 'move_left',
+            frames: this.anims.generateFrameNames('character', {
+                prefix: this.player.character.key,
+                start: 11,
+                end: 16
+            }),
+            frameRate: 10,
+            repeat: -1
         });
+
         this.anims.create({
-            key: 'down',
-            frames: [{ key: 'character', frame: characterFrames.rightFrame }],
+            key: 'right',
+            frames: this.anims.generateFrameNames('character', {
+                prefix: this.player.character.key,
+                start: 1,
+                end: 1
+            }),
             frameRate: 1
         });
         this.anims.create({
             key: 'left',
-            frames: [{ key: 'character', frame: characterFrames.leftFrame }],
+            frames: this.anims.generateFrameNames('character', {
+                prefix: this.player.character.key,
+                start: 2,
+                end: 2
+            }),
+            frameRate: 1
+        });
+
+        this.anims.create({
+            key: 'sit_front',
+            frames: this.anims.generateFrameNames('character', {
+                prefix: this.player.character.key,
+                start: 3,
+                end: 3
+            }),
             frameRate: 1
         });
         this.anims.create({
-            key: 'right',
-            frames: [{ key: 'character', frame: characterFrames.rightFrame }],
+            key: 'sit_back',
+            frames: this.anims.generateFrameNames('character', {
+                prefix: this.player.character.key,
+                start: 4,
+                end: 4
+            }),
             frameRate: 1
         });
         this.anims.create({
-            key: 'move_right',
-            frames: this.anims.generateFrameNames('character', { start: characterFrames.moveRightFirstFrame, end: characterFrames.moveRightLastFrame }),
-            frameRate: 10,
-            repeat: -1
+            key: 'lie_down',
+            frames: this.anims.generateFrameNames('character', {
+                prefix: this.player.character.key,
+                start: 18,
+                end: 18
+            }),
+            frameRate: 1
         });
     }
 
@@ -101,6 +159,15 @@ export default class CharacterObject extends InteractObject {
     {
         const isoWidth = 16;
         return new CartesianCoordinates(this.x, this.y + this.height / 2 - isoWidth/2);
+    }
+
+    setPositionFromFeet(feetCoords: CartesianCoordinates): CartesianCoordinates
+    {
+        const isoWidth = 16;
+        this.x = feetCoords.x;
+        this.y = feetCoords.y - this.height / 2 + isoWidth/2;
+
+        return new CartesianCoordinates(this.x, this.y);
     }
 
     checkPositionDepth(): void

@@ -375,6 +375,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":16
@@ -466,10 +471,15 @@
                  "gid":297,
                  "height":36,
                  "id":15,
-                 "name":"chair_object",
+                 "name":"research_laboratory",
                  "properties":[
                         {
                          "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
                          "type":"bool",
                          "value":true
                         }, 
@@ -482,9 +492,39 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":12
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_back"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":0
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"interact",
                  "visible":true,
                  "width":34,
                  "x":39,

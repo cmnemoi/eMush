@@ -34,7 +34,8 @@ export class NavMeshGrid
 
         this.depthArray.push(depth);
 
-        this.cumuProbaNavigablePolygons.push((maxX - minX) * (maxY - minY));
+        const lastProba = this.cumuProbaNavigablePolygons[this.cumuProbaNavigablePolygons.length -1];
+        this.cumuProbaNavigablePolygons.push((maxX - minX) * (maxY - minY) + lastProba);
 
 
         return this.geomArray;
@@ -45,6 +46,7 @@ export class NavMeshGrid
         if (!this.phaserNavMesh.isPointInMesh(startPoint)) {
             startPoint = this.getClosestPoint(startPoint);
         }
+
         const path = this.phaserNavMesh.findPath({ x: startPoint.x, y: startPoint.y }, { x: finishPoint.x, y: finishPoint.y });
 
         if (path !== null) {
@@ -74,7 +76,7 @@ export class NavMeshGrid
                 iClosestPoint = new IsometricCoordinates(isoGeom.getMaxIso().x, isoGeom.getMinIso().y);
             } else if (point.x <= isoGeom.getMinIso().x && point.y >= isoGeom.getMaxIso().y ) { //top left corner
                 iClosestPoint = new IsometricCoordinates(isoGeom.getMinIso().x, isoGeom.getMaxIso().y);
-            } else if (point.x >= isoGeom.getMinIso().x && point.y >= isoGeom.getMinIso().y ) { //bottom left corner
+            } else if (point.x <= isoGeom.getMinIso().x && point.y <= isoGeom.getMinIso().y ) { //bottom left corner
                 iClosestPoint = new IsometricCoordinates(isoGeom.getMinIso().x, isoGeom.getMinIso().y);
             } else if (point.x > isoGeom.getMaxIso().x) { //right
                 iClosestPoint = new IsometricCoordinates(isoGeom.getMaxIso().x, point.y);
@@ -85,7 +87,6 @@ export class NavMeshGrid
             } else { //bottom
                 iClosestPoint = new IsometricCoordinates(point.x, isoGeom.getMinIso().y);
             }
-
 
             if (iClosestPoint.getDistance(point) < closestPoint.getDistance(point)) {
                 closestPoint = iClosestPoint;
@@ -164,7 +165,6 @@ export class NavMeshGrid
         let cutPath = [{ point: currentPoint, depth: this.depthArray[currentGeomIndex] }];
 
 
-
         for (let i = 1; i < path.length; i++) {
             const nextPoint = new IsometricCoordinates( path[i].x, path[i].y );
             currentPoint = cutPath[cutPath.length - 1].point;
@@ -214,8 +214,8 @@ export class NavMeshGrid
                             (
                                 //if escape on right or left
                                 (
-                                    (([1, 6, 7].includes(escapeSide) && currentGeom.getMaxIso().x === testedGeom.getMinIso().x) ||
-                                        ([2, 5, 8].includes(escapeSide) && currentGeom.getMinIso().x === testedGeom.getMaxIso().x)) &&
+                                    (([1, 5, 8].includes(escapeSide) && currentGeom.getMaxIso().x === testedGeom.getMinIso().x) ||
+                                        ([2, 6, 7].includes(escapeSide) && currentGeom.getMinIso().x === testedGeom.getMaxIso().x)) &&
                                     testedGeom.getMinIso().y <= lastPoint.y && testedGeom.getMaxIso().y >= lastPoint.y
                                 ) ||
                                 // if escape top or bottom
@@ -247,7 +247,7 @@ export class NavMeshGrid
         return next;
     }
 
-    // 1 is left (E), 2 is right(W), 3 is top (S), 4 is bottom (N)
+    // 1 is right (E), 2 is left (W), 3 is top (S), 4 is bottom (N)
     //corners topRight = 5, topLeft = 6, bottomLeft = 7, bottomRight = 8
     getEscapeSide(currentPoint: IsometricCoordinates, nextPoint: IsometricCoordinates, currentGeom: IsometricGeom): number
     {
@@ -330,7 +330,8 @@ export class NavMeshGrid
     {
         const cutPath = this.cutPathWithGrid(path);
 
-        const mushPath: MushPath = [];
+        const firstPoint = (new IsometricCoordinates(cutPath[0].point.x, cutPath[0].point.y)).toCartesianCoordinates();
+        const mushPath: MushPath = [{ "direction": 'none', "cartX": firstPoint.x, "cartY": firstPoint.y, "depth": cutPath[0].depth }];
 
         for (let i=1; i < cutPath.length; i++) {
             const cartPoint = (new IsometricCoordinates(cutPath[i].point.x, cutPath[i].point.y)).toCartesianCoordinates();

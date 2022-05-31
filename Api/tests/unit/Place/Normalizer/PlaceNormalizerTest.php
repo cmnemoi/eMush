@@ -2,6 +2,7 @@
 
 namespace Mush\Test\Place\Normalizer;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
@@ -10,6 +11,7 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Normalizer\PlaceNormalizer;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
@@ -44,9 +46,14 @@ class PlaceNormalizerTest extends TestCase
 
     public function testRoomNormalizer()
     {
-        $room = new Place();
+        $room = $this->createMock(Place::class);
 
-        $room->setName(RoomEnum::BRIDGE);
+        $room->method('getName')->willReturn(RoomEnum::BRIDGE);
+        $room->method('getPlayers')->willReturn(new PlayerCollection());
+        $room->method('getId')->willReturn(1);
+        $room->method('getDoors')->willReturn(new ArrayCollection());
+        $room->method('getEquipments')->willReturn(new ArrayCollection());
+        $room->method('getStatuses')->willReturn(new ArrayCollection());
 
         $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 
@@ -69,16 +76,22 @@ class PlaceNormalizerTest extends TestCase
 
     public function testRoomWithDoorsNormalizer()
     {
-        $room = new Place();
-
         $otherRoom = new Place();
         $otherRoom->setName(RoomEnum::LABORATORY);
+
+        $room = $this->createMock(Place::class);
+        $room->setName(RoomEnum::BRIDGE);
 
         $door = new Door();
         $door->addRoom($room);
         $door->addRoom($otherRoom);
 
-        $room->setName(RoomEnum::BRIDGE);
+        $room->method('getName')->willReturn(RoomEnum::BRIDGE);
+        $room->method('getPlayers')->willReturn(new PlayerCollection());
+        $room->method('getId')->willReturn(1);
+        $room->method('getDoors')->willReturn(new ArrayCollection([$door]));
+        $room->method('getEquipments')->willReturn(new ArrayCollection());
+        $room->method('getStatuses')->willReturn(new ArrayCollection());
 
         $this->translationService->shouldReceive('translate')->andReturn('translated')->twice();
 
@@ -90,7 +103,7 @@ class PlaceNormalizerTest extends TestCase
         $data = $this->normalizer->normalize($room, null, ['currentPlayer' => new Player()]);
 
         $expected = [
-            'id' => $room->getId(),
+            'id' => 1,
             'key' => $room->getName(),
             'name' => 'translated',
             'statuses' => [],
@@ -106,17 +119,20 @@ class PlaceNormalizerTest extends TestCase
 
     public function testRoomWithItemsNonStackedNormalizer()
     {
-        $room = new Place();
+        $room = $this->createMock(Place::class);
 
-        $room->setName(RoomEnum::BRIDGE);
+        $room->method('getName')->willReturn(RoomEnum::BRIDGE);
+        $room->method('getPlayers')->willReturn(new PlayerCollection());
+        $room->method('getId')->willReturn(1);
+        $room->method('getDoors')->willReturn(new ArrayCollection());
+        $room->method('getStatuses')->willReturn(new ArrayCollection());
 
         $gameItem1 = $this->createGameItem('name');
         $gameItem2 = $this->createGameItem('name2');
 
-        $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
+        $room->method('getEquipments')->willReturn(new ArrayCollection([$gameItem1, $gameItem2]));
 
-        $room->addEquipment($gameItem1);
-        $room->addEquipment($gameItem2);
+        $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 
         $normalizer = Mockery::mock(NormalizerInterface::class);
         $normalizer->shouldReceive('normalize')->andReturn([]);
@@ -126,7 +142,7 @@ class PlaceNormalizerTest extends TestCase
         $data = $this->normalizer->normalize($room, null, ['currentPlayer' => new Player()]);
 
         $expected = [
-            'id' => $room->getId(),
+            'id' => 1,
             'key' => $room->getName(),
             'name' => 'translated',
             'statuses' => [],
@@ -142,17 +158,20 @@ class PlaceNormalizerTest extends TestCase
 
     public function testRoomWithItemsStackedNormalizer()
     {
-        $room = new Place();
+        $room = $this->createMock(Place::class);
 
-        $room->setName(RoomEnum::BRIDGE);
+        $room->method('getName')->willReturn(RoomEnum::BRIDGE);
+        $room->method('getPlayers')->willReturn(new PlayerCollection());
+        $room->method('getId')->willReturn(1);
+        $room->method('getDoors')->willReturn(new ArrayCollection());
+        $room->method('getStatuses')->willReturn(new ArrayCollection());
 
         $gameItem1 = $this->createGameItem('name', true);
         $gameItem2 = $this->createGameItem('name', true);
 
-        $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
+        $room->method('getEquipments')->willReturn(new ArrayCollection([$gameItem1, $gameItem2]));
 
-        $room->addEquipment($gameItem1);
-        $room->addEquipment($gameItem2);
+        $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 
         $normalizer = Mockery::mock(NormalizerInterface::class);
         $normalizer->shouldReceive('normalize')->andReturn([]);
@@ -180,9 +199,13 @@ class PlaceNormalizerTest extends TestCase
 
     public function testRoomWithItemsStackedDifferentStatusNormalizer()
     {
-        $room = new Place();
+        $room = $this->createMock(Place::class);
 
-        $room->setName(RoomEnum::BRIDGE);
+        $room->method('getName')->willReturn(RoomEnum::BRIDGE);
+        $room->method('getPlayers')->willReturn(new PlayerCollection());
+        $room->method('getId')->willReturn(1);
+        $room->method('getDoors')->willReturn(new ArrayCollection());
+        $room->method('getStatuses')->willReturn(new ArrayCollection());
 
         $gameItem1 = $this->createGameItem('name', true);
         $gameItem2 = $this->createGameItem('name', true);
@@ -194,9 +217,7 @@ class PlaceNormalizerTest extends TestCase
 
         $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 
-        $room->addEquipment($gameItem1);
-        $room->addEquipment($gameItem2);
-        $room->addEquipment($gameItem3);
+        $room->method('getEquipments')->willReturn(new ArrayCollection([$gameItem1, $gameItem2, $gameItem3]));
 
         $normalizer = Mockery::mock(NormalizerInterface::class);
         $normalizer->shouldReceive('normalize')->andReturn([])->twice();

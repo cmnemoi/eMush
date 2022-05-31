@@ -75,15 +75,23 @@ import bay from "@/game/assets/tilemaps/bay.png";
 import icarus_wall from "@/game/assets/tilemaps/icarus_wall.png";
 import icarus_access from "@/game/assets/tilemaps/icarus_access.png";
 import takeoff_platform from "@/game/assets/tilemaps/takeoff_platform.png";
+import turret_tags from "@/game/assets/tilemaps/turret_tags.png";
+import turret_back_bravo from "@/game/assets/tilemaps/turret_back_bravo.png";
+import turret_back_alpha from "@/game/assets/tilemaps/turret_back_alpha.png";
+import alpha_turret_front from "@/game/assets/tilemaps/alpha_turret_front.png";
+import bravo_turret_front from "@/game/assets/tilemaps/bravo_turret_front.png";
+import structure from "@/game/assets/tilemaps/structure.png";
 import magnetic_return from "@/game/assets/tilemaps/magnetic_return.png";
+import turret_ground from "@/game/assets/tilemaps/turret_ground.png";
 
 import character from "@/game/assets/images/characters.png";
+import characterFrame from "@/game/assets/images/characters.json";
 import CharacterObject from "@/game/objects/characterObject";
 import InteractObject from "@/game/objects/interactObject";
 
 import laboratory from "@/game/assets/mush_lab.json";
 import medlab from "@/game/assets/mush_medlab.json";
-import central_corridor from "@/game/assets/central_corridor.json";
+import central_corridor from "@/game/assets/center_corridor.json";
 import front_storage from "@/game/assets/front_storage.json";
 import front_corridor from "@/game/assets/front_corridor.json";
 import alpha_dorm from "@/game/assets/alpha_dorm.json";
@@ -100,6 +108,12 @@ import alpha_bay_2 from "@/game/assets/alpha_bay_2.json";
 import alpha_bay from "@/game/assets/bay_alpha.json";
 import bravo_bay from "@/game/assets/bravo_bay.json";
 import icarus_bay from "@/game/assets/bay_icarus.json";
+import front_bravo_turret from "@/game/assets/front_bravo_turret.json";
+import centre_bravo_turret from "@/game/assets/center_bravo_turret.json";
+import rear_bravo_turret from "@/game/assets/rear_bravo_turret.json";
+import front_alpha_turret from "@/game/assets/front_alpha_turret.json";
+import centre_alpha_turret from "@/game/assets/center_alpha_turret.json";
+import rear_alpha_turret from "@/game/assets/rear_alpha_turret.json";
 
 import fire_particles_frame from "@/game/assets/images/fire_particles.json";
 import fire_particles from "@/game/assets/images/fire_particles.png";
@@ -116,6 +130,7 @@ import { SceneGrid } from "@/game/scenes/sceneGrid";
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 import store from "@/store";
 import MushTiledMap from "@/game/tiled/mushTiledMap";
+import EquipmentObject from "@/game/objects/equipmentObject";
 
 
 export default class DaedalusScene extends Phaser.Scene
@@ -128,6 +143,7 @@ export default class DaedalusScene extends Phaser.Scene
 
     private player : Player;
     private room : Room;
+    private equipments : Array<EquipmentObject>;
     private cameraTarget : { x : number, y : number};
     private targetHighlightObject?: Phaser.GameObjects.Sprite;
 
@@ -148,6 +164,7 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.room = player.room;
         this.player = player;
+        this.equipments = [];
 
         this.sceneGrid = new SceneGrid(this, this.characterSize);
         this.navMeshGrid = new NavMeshGrid(this);
@@ -178,12 +195,18 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.tilemapTiledJSON('alpha_bay', alpha_bay);
         this.load.tilemapTiledJSON('bravo_bay', bravo_bay);
         this.load.tilemapTiledJSON('icarus_bay', icarus_bay);
+        this.load.tilemapTiledJSON('front_bravo_turret', front_bravo_turret);
+        this.load.tilemapTiledJSON('centre_bravo_turret', centre_bravo_turret);
+        this.load.tilemapTiledJSON('rear_bravo_turret', rear_bravo_turret);
+        this.load.tilemapTiledJSON('front_alpha_turret', front_alpha_turret);
+        this.load.tilemapTiledJSON('centre_alpha_turret', centre_alpha_turret);
+        this.load.tilemapTiledJSON('rear_alpha_turret', rear_alpha_turret);
 
         this.load.image('ground_tileset', ground_tileset);
         this.load.image('wall_tileset', wall_tileset);
         this.load.image('background', background);
 
-        this.load.spritesheet('character', character, { frameHeight: 48, frameWidth: 32 });
+        this.load.atlas('character', character, characterFrame);
 
         this.load.spritesheet('centrifuge_object', centrifuge_object, { frameHeight: 34, frameWidth: 30 });
         this.load.spritesheet('desk_object', desk_object, { frameHeight: 37, frameWidth: 45 });
@@ -258,6 +281,13 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.spritesheet('icarus_access', icarus_access, { frameHeight: 140, frameWidth: 171 });
         this.load.spritesheet('takeoff_platform', takeoff_platform, { frameHeight: 206, frameWidth: 328 });
         this.load.spritesheet('magnetic_return', magnetic_return, { frameHeight: 35, frameWidth: 51 });
+        this.load.spritesheet('turret_tags', turret_tags, { frameHeight: 10, frameWidth: 18 });
+        this.load.spritesheet('turret_back_bravo', turret_back_bravo, { frameHeight: 26, frameWidth: 69 });
+        this.load.spritesheet('turret_back_alpha', turret_back_alpha, { frameHeight: 46, frameWidth: 71 });
+        this.load.spritesheet('turret_ground', turret_ground, { frameHeight: 11, frameWidth: 32 });
+        this.load.spritesheet('alpha_turret_front', alpha_turret_front, { frameHeight: 61, frameWidth: 123 });
+        this.load.spritesheet('bravo_turret_front', bravo_turret_front, { frameHeight: 48, frameWidth: 122 });
+        this.load.spritesheet('structure', structure, { frameHeight: 106, frameWidth: 175 });
 
 
         this.load.spritesheet('ground_object', ground_tileset, { frameHeight: 72, frameWidth: 32 });
@@ -275,7 +305,7 @@ export default class DaedalusScene extends Phaser.Scene
         const map = new MushTiledMap(this, this.room.key);
 
         map.createInitialSceneGrid(this.sceneGrid);
-        map.createLayers(this.room, this.sceneGrid);
+        this.equipments = map.createLayers(this.room, this.sceneGrid);
 
         // add target tile highlight
         this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
@@ -286,20 +316,18 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.navMeshGrid = this.sceneGrid.buildNavMeshGrid();
 
-        // this.enableDebugView();
+        this.enableDebugView();
 
         //place the starting camera.
         //If the scene size is larger than the camera, the camera is centered on the player
         //else it is centered on the scene
-        const playerCoordinates = this.getPlayerCoordinates();
-
         const cameraPosition = map.getCameraPosition();
         this.cameras.main.setBounds(cameraPosition.x, cameraPosition.y, cameraPosition.width, cameraPosition.height);
 
         this.input.setTopOnly(true);
         this.input.setGlobalTopOnly(true);
 
-        this.createPlayers(playerCoordinates);
+        this.createPlayers();
 
         this.cameras.main.startFollow(this.playerSprite);
 
@@ -412,41 +440,30 @@ export default class DaedalusScene extends Phaser.Scene
         );
     }
 
-    createPlayers(playerCoordinates: CartesianCoordinates): void
+    createPlayers(): void
     {
         const playerIsoSize = new IsometricCoordinates(this.characterSize, this.characterSize);
-        let feetCenter = new CartesianCoordinates(playerCoordinates.x, playerCoordinates.y + 16);
+        const playerCoordinates = this.navMeshGrid.getRandomPoint();
 
         this.playerSprite = new PlayableCharacterObject(
             this,
             playerCoordinates,
-            new IsometricGeom(feetCenter.toIsometricCoordinates(), playerIsoSize),
+            new IsometricGeom(playerCoordinates.toIsometricCoordinates(), playerIsoSize),
             this.player
         );
 
         this.room.players.forEach((roomPlayer: Player) => {
             if (roomPlayer.id !== this.player.id) {
-                const otherPlayerCoordinates = this.getPlayerCoordinates();
-                feetCenter = new CartesianCoordinates(otherPlayerCoordinates.x, otherPlayerCoordinates.y + 16);
+                const otherPlayerCoordinates = this.navMeshGrid.getRandomPoint();
 
                 const newCharacter = new CharacterObject(
                     this,
                     otherPlayerCoordinates,
-                    new IsometricGeom(feetCenter.toIsometricCoordinates(), playerIsoSize),
+                    new IsometricGeom(playerCoordinates.toIsometricCoordinates(), playerIsoSize),
                     roomPlayer
                 );
             }
         });
-    }
-
-    getPlayerCoordinates(): CartesianCoordinates
-    {
-        const cartCoords = this.navMeshGrid.getRandomPoint();
-        //Coordinates of player in the navMesh is given relative to the feet of the player
-        //Coordinates given in the constructor of player are the center of the sprite
-        cartCoords.setTo(cartCoords.x, cartCoords.y - 16);
-
-        return cartCoords;
     }
 
     enableEventListeners(): void
@@ -488,6 +505,18 @@ export default class DaedalusScene extends Phaser.Scene
                 this.targetHighlightObject.setAlpha(0);
             }
         });
+    }
+
+    findObjectByNameAndId(name: string, id: number) : EquipmentObject | null
+    {
+        for (let i = 0; i< this.equipments.length; i++) {
+            const equipment = this.equipments[i];
+            if (equipment.equipment.key === name && equipment.equipment.id === id) {
+                return equipment;
+            }
+        }
+
+        return null;
     }
 
     enableDebugView(): void
@@ -532,16 +561,16 @@ export default class DaedalusScene extends Phaser.Scene
             debugGraphics.strokePoints(cartPoly.getCartesianPolygon().points, true);
         }
 
-        const debugGraphics2 = this.add.graphics().setAlpha(1);
-        debugGraphics2.setDepth(100000000);
-        this.navMeshGrid.phaserNavMesh.enableDebug(debugGraphics2);
-        this.navMeshGrid.phaserNavMesh.debugDrawClear(); // Clears the overlay
-        // Visualize the underlying navmesh
-        this.navMeshGrid.phaserNavMesh.debugDrawMesh({
-            drawCentroid: false,
-            drawBounds: false,
-            drawNeighbors: true,
-            drawPortals: false
-        });
+        // const debugGraphics2 = this.add.graphics().setAlpha(1);
+        // debugGraphics2.setDepth(100000000);
+        // this.navMeshGrid.phaserNavMesh.enableDebug(debugGraphics2);
+        // this.navMeshGrid.phaserNavMesh.debugDrawClear(); // Clears the overlay
+        // // Visualize the underlying navmesh
+        // this.navMeshGrid.phaserNavMesh.debugDrawMesh({
+        //     drawCentroid: false,
+        //     drawBounds: false,
+        //     drawNeighbors: true,
+        //     drawPortals: false
+        // });
     }
 }

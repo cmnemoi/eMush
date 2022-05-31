@@ -25,6 +25,12 @@ export const PhaserRooms = [
     'alpha_bay',
     'bravo_bay',
     'icarus_bay',
+    'front_bravo_turret',
+    'centre_bravo_turret',
+    'rear_bravo_turret',
+    'front_alpha_turret',
+    'centre_alpha_turret',
+    'rear_alpha_turret'
 ];
 
 export class Room {

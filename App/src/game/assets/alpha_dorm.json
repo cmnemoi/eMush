@@ -317,7 +317,7 @@
                 }, 
                 {
                  "gid":1,
-                 "height":60,
+                 "height":58,
                  "id":11,
                  "name":"bed",
                  "properties":[
@@ -335,17 +335,47 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":16
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":8
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":4
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
-                 "width":67,
+                 "width":66,
                  "x":69.5,
                  "y":110.75
                 }, 
                 {
                  "gid":3,
-                 "height":60,
+                 "height":58,
                  "id":13,
                  "name":"bed",
                  "properties":[
@@ -363,17 +393,47 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":16
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":8
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":4
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
-                 "width":67,
+                 "width":66,
                  "x":71.25,
                  "y":85
                 }, 
                 {
                  "gid":2,
-                 "height":60,
+                 "height":58,
                  "id":12,
                  "name":"bed",
                  "properties":[
@@ -391,11 +451,41 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":16
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":8
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":4
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
-                 "width":67,
+                 "width":66,
                  "x":69.5,
                  "y":58.75
                 }, 
@@ -540,7 +630,7 @@
  "nextobjectid":15,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.4",
+ "tiledversion":"1.8.5",
  "tileheight":16,
  "tilesets":[
         {
@@ -548,9 +638,9 @@
          "firstgid":1,
          "grid":
             {
-             "height":60,
+             "height":58,
              "orientation":"isometric",
-             "width":67
+             "width":66
             },
          "image":"tilemaps\/beds_object.png",
          "imageheight":116,

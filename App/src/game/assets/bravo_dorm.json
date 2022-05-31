@@ -129,8 +129,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":14,
-                 "x":102.383006707878,
-                 "y":-16.3288175720111
+                 "x":102.5,
+                 "y":-16.5
                 }, 
                 {
                  "gid":245,
@@ -157,8 +157,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":16,
-                 "x":2.56064511341663,
-                 "y":107.563156054517
+                 "x":2.5,
+                 "y":107.5
                 }, 
                 {
                  "gid":264,
@@ -223,7 +223,7 @@
                 }, 
                 {
                  "gid":6,
-                 "height":60,
+                 "height":58,
                  "id":14,
                  "name":"bed",
                  "properties":[
@@ -241,13 +241,43 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":52
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":4
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":7
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
-                 "width":67,
+                 "width":66,
                  "x":93.5,
-                 "y":20.5
+                 "y":22.5
                 }, 
                 {
                  "gid":241,
@@ -476,7 +506,7 @@
                 }, 
                 {
                  "gid":5,
-                 "height":60,
+                 "height":58,
                  "id":13,
                  "name":"bed",
                  "properties":[
@@ -494,17 +524,47 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":52
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":4
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":7
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
-                 "width":67,
-                 "x":61.5,
-                 "y":20.5
+                 "width":66,
+                 "x":61.5014204545455,
+                 "y":22.4985795454545
                 }, 
                 {
                  "gid":7,
-                 "height":60,
+                 "height":58,
                  "id":15,
                  "name":"bed",
                  "properties":[
@@ -522,13 +582,43 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":52
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":4
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":7
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
-                 "width":67,
-                 "x":125.5,
-                 "y":20.5
+                 "width":66,
+                 "x":124.5,
+                 "y":22
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -537,10 +627,10 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":17,
+ "nextobjectid":19,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.4",
+ "tiledversion":"1.8.5",
  "tileheight":16,
  "tilesets":[
         {
@@ -548,9 +638,9 @@
          "firstgid":1,
          "grid":
             {
-             "height":60,
+             "height":58,
              "orientation":"isometric",
-             "width":67
+             "width":66
             },
          "image":"tilemaps\/beds_object.png",
          "imageheight":116,

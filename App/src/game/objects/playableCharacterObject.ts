@@ -13,6 +13,7 @@ export default class PlayableCharacterObject extends CharacterObject {
     private isoPath : MushPath;
     private currentMove : number;
     private indexDepthArray: number;
+    private lastMove: InteractObject | null;
 
     constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, isoGeom: IsometricGeom, player: Player)
     {
@@ -21,20 +22,13 @@ export default class PlayableCharacterObject extends CharacterObject {
         this.isoPath = [];
         this.currentMove = -1;
         this.indexDepthArray = 0;
+        this.lastMove = null;
     }
 
     update(): void
     {
         this.movement();
-
-        // const debugGraphics = this.scene.add.graphics().setAlpha(1);
-        // debugGraphics.fillStyle(0xfbff00, 1);
-        // debugGraphics.fillPointShape(this.getFeetCartCoords(), 5);
     }
-
-
-
-
 
     //this function return an array of direction to follow to get from character position to the pointed coordinates
     updateMovement(pointer: Phaser.Input.Pointer, object : GameObject | null ): MushPath
@@ -42,15 +36,31 @@ export default class PlayableCharacterObject extends CharacterObject {
         const startingPoint = this.getFeetCartCoords().toIsometricCoordinates();
         let finishPoint = (new CartesianCoordinates(pointer.worldX, pointer.worldY)).toIsometricCoordinates();
 
+        let interactEquipment: InteractObject | null = null;
         if (object !== null && object instanceof InteractObject) {
-            finishPoint = this.navMesh.getClosestPoint(object.isoGeom.getIsoCoords());
+            interactEquipment = object.getInteractibleObject();
+
+            if (interactEquipment !== null) {
+                finishPoint = this.navMesh.getClosestPoint(interactEquipment.isoGeom.getIsoCoords());
+            } else {
+                finishPoint = this.navMesh.getClosestPoint(object.isoGeom.getIsoCoords());
+            }
         }
 
         //find the path in isometric coordinates using navMeshPlugin
-        this.isoPath = this.navMesh.getCharacterPath(startingPoint, finishPoint);
+        const newPath = this.navMesh.getCharacterPath(startingPoint, finishPoint);
 
-        if (this.isoPath.length !== 0) {
-            this.currentMove = 0;
+        if (newPath.length !== 0) {
+            this.isoPath = newPath;
+            this.currentMove = 1;
+            this.lastMove = null;
+
+            this.setPositionFromFeet(new CartesianCoordinates(newPath[0].cartX, newPath[0].cartY));
+
+            // Character is sitting after walking to the equipment
+            if (interactEquipment !== null && interactEquipment.getInteractionInformation()?.sitAutoTrigger) {
+                this.lastMove = interactEquipment;
+            }
         }
 
         return this.isoPath;
@@ -79,18 +89,21 @@ export default class PlayableCharacterObject extends CharacterObject {
             this.setDepth(this.isoPath[this.currentMove+1].depth);
             return this.currentMove = this.currentMove +1;
         } else {
+            (<Phaser.Physics.Arcade.Body >this.body).stop();
 
-            if (Math.random() > 0.5) {
-                this.flipX = true;
+            if (this.lastMove !== null) {
+                this.applyEquipmentInteractionInformation(this.lastMove);
+                this.lastMove = null;
+            } else {
+                if (Math.random() > 0.5) {
+                    this.flipX = true;
+                }
+                this.anims.play('right');
+
+                this.checkPositionDepth();
             }
 
-            this.anims.play('right');
-
-            // @ts-ignore
-            this.body.stop();
             this.isoPath = [];
-
-            this.checkPositionDepth();
             return this.currentMove = -1;
         }
     }

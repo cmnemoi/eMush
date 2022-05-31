@@ -155,6 +155,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->user;
     }
 
+    public function getName(): string
+    {
+        return $this->characterConfig->getName();
+    }
+
     /**
      * @return static
      */

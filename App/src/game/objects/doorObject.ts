@@ -20,10 +20,11 @@ export default class DoorObject extends InteractObject {
         iso_geom: IsometricGeom,
         tileset: Phaser.Tilemaps.Tileset,
         tiledFrame: number,
+        isFlipped: { x: boolean, y: boolean},
         door: DoorEntity,
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, tiledFrame, door.key, false, false);
+        super(scene, cart_coords, iso_geom, tileset, tiledFrame, door.key, isFlipped, false, false);
 
         this.door = door;
 
@@ -64,8 +65,15 @@ export default class DoorObject extends InteractObject {
 
     }
 
-    applyTexture(tileset: Phaser.Tilemaps.Tileset, name: string, isAnimationYoyo: boolean) {
+    applyTexture(
+        tileset: Phaser.Tilemaps.Tileset,
+        name: string,
+        isFlipped: { x: boolean, y: boolean },
+        isAnimationYoyo: boolean
+    ) {
         this.setTexture('door_object', this.tiledFrame);
+        this.flipX = isFlipped.x;
+        this.flipY = isFlipped.y;
     }
 
     createInteractionArea():void

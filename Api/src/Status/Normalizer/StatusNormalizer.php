@@ -50,6 +50,10 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
                 $normedStatus['charge'] = $status->getCharge();
             }
 
+            if (($target = $status->getTarget()) !== null) {
+                $normedStatus['target'] = ['key' => $target->getName(), 'id' => $target->getId()];
+            }
+
             return $normedStatus;
         }
 

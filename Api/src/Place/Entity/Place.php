@@ -36,7 +36,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private ?int $id = null;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -87,7 +87,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         $this->modifiers = new ModifierCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }

@@ -343,6 +343,36 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":16
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":8
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":3
                         }],
                  "rotation":0,
                  "type":"interact",
@@ -498,6 +528,36 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":12
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_back"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":0
                         }],
                  "rotation":0,
                  "type":"interact",
@@ -692,7 +752,7 @@
          "y":0
         }],
  "nextlayerid":19,
- "nextobjectid":97,
+ "nextobjectid":98,
  "orientation":"isometric",
  "renderorder":"right-down",
  "tiledversion":"1.8.5",
@@ -3199,6 +3259,20 @@
                  "id":2
                 }],
          "tilewidth":14
+        }, 
+        {
+         "columns":1,
+         "firstgid":563,
+         "image":"images\/charLyongDown.png",
+         "imageheight":48,
+         "imagewidth":64,
+         "margin":0,
+         "name":"charLyongDown",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":40,
+         "tilewidth":64
         }],
  "tilewidth":32,
  "type":"map",

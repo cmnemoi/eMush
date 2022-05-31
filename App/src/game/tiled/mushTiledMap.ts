@@ -19,12 +19,14 @@ export default class MushTiledMap {
     public tilemap: Phaser.Tilemaps.Tilemap;
     public scene: DaedalusScene;
     private groups: Array<Phaser.GameObjects.Group>;
+    private equipments: Array<EquipmentObject>;
 
     constructor(scene: DaedalusScene, key: string) {
         this.tilemap = scene.add.tilemap(key);
         this.scene = scene;
 
         this.groups = [];
+        this.equipments = [];
 
         this.tilemap.addTilesetImage('ground_tileset', 'ground_tileset');
         this.tilemap.addTilesetImage('wall_tileset', 'wall_tileset');
@@ -35,7 +37,8 @@ export default class MushTiledMap {
         sceneGrid.addSceneGeom(sceneIsoSize, this.groundTilesThickness);
     }
 
-    createLayers(room: Room, sceneGrid: SceneGrid) {
+    createLayers(room: Room, sceneGrid: SceneGrid): Array<EquipmentObject>
+    {
         for (let i=0; i < this.tilemap.layers.length; i++) {
             const tiledLayer = new MushTiledLayer(this.tilemap.layers[i]);
 
@@ -56,6 +59,8 @@ export default class MushTiledMap {
         for (let i=0; i < this.tilemap.objects.length; i++) {
             this.createObjectsLayer(room, this.tilemap.objects[i], sceneGrid);
         }
+
+        return this.equipments;
     }
 
 
@@ -63,9 +68,7 @@ export default class MushTiledMap {
         room: Room,
         objectLayer: Phaser.Tilemaps.ObjectLayer,
         sceneGrid: SceneGrid,
-    ): Array<Phaser.GameObjects.GameObject>
-    {
-        const results = [];
+    ) {
         const addedObjectId: Array<number> = [];
 
         const objects = objectLayer.objects;
@@ -88,14 +91,14 @@ export default class MushTiledMap {
                 const group = this.getGroupOfObject(obj);
 
                 const newObject = obj.createPhaserObject(this.scene, tileset, this.objectsShift, objEntity, group);
-                results.push(newObject);
 
                 // some equipment have depth already fixed (stuff on the wall, doors, flat things on the ground)
                 const fixedDepth = obj.getCustomPropertyByName('depth');
+                const isOnFront = obj.isCustomPropertyByName('isOnFront');
                 const isCollision = obj.isCustomPropertyByName('collides');
 
                 if (fixedDepth !== 0) {
-                    newObject.setDepth(this.computeFixedDepth(fixedDepth));
+                    newObject.setDepth(this.computeFixedDepth(fixedDepth, isOnFront));
                 }
 
                 if (isCollision) {
@@ -104,11 +107,10 @@ export default class MushTiledMap {
 
                 if (newObject instanceof EquipmentObject) {
                     addedObjectId.push(newObject.equipment.id);
+                    this.equipments.push(newObject);
                 }
             }
         }
-
-        return results;
     }
 
     getGroupOfObject(obj: MushTiledObject): Phaser.GameObjects.Group | null
@@ -147,8 +149,11 @@ export default class MushTiledMap {
     }
 
 
-    computeFixedDepth(tiledDepth: number): number
+    computeFixedDepth(tiledDepth: number, isOnFront = false): number
     {
-        return tiledDepth + 5;
+        if (isOnFront) {
+            return tiledDepth*2 + 1000000;
+        }
+        return tiledDepth*2 + 5;
     }
 }

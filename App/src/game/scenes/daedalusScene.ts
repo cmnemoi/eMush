@@ -316,27 +316,31 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.navMeshGrid = this.sceneGrid.buildNavMeshGrid();
 
-        this.enableDebugView();
-
-        //place the starting camera.
-        //If the scene size is larger than the camera, the camera is centered on the player
-        //else it is centered on the scene
-        const cameraPosition = map.getCameraPosition();
-        this.cameras.main.setBounds(cameraPosition.x, cameraPosition.y, cameraPosition.width, cameraPosition.height);
+        // this.enableDebugView();
 
         this.input.setTopOnly(true);
         this.input.setGlobalTopOnly(true);
 
         this.createPlayers();
 
-        this.cameras.main.startFollow(this.playerSprite);
-
         this.enableEventListeners();
 
-        this.add.tileSprite(0, 0, 848, 920, 'background');
+        const background = this.add.tileSprite(0, 0, 848, 920, 'background');
+        background.setScrollFactor(0, 0);
 
         if (this.room.isOnFire) {
             this.displayFire();
+        }
+
+        //place the starting camera.
+        //If the scene size is larger than the camera, the camera is centered on the player
+        //else it is centered on the scene
+        const cameraPosition = map.getCameraPosition();
+        if (cameraPosition.width < 424 && cameraPosition.height < 460) {
+            this.cameras.main.setBounds(-212, -230, 424, 460);
+        } else {
+            this.cameras.main.setBounds(cameraPosition.x, cameraPosition.y, cameraPosition.width, cameraPosition.height);
+            this.cameras.main.startFollow(this.playerSprite);
         }
     }
 
@@ -522,15 +526,15 @@ export default class DaedalusScene extends Phaser.Scene
     enableDebugView(): void
     {
         // navMesh Debug
-        const navMeshPolygons = this.navMeshGrid.geomArray;
-        //const navMeshPolygons = this.sceneGrid.depthSortingArray;
+        //const navMeshPolygons = this.navMeshGrid.geomArray;
+        const navMeshPolygons = this.sceneGrid.depthSortingArray;
 
         const debugGraphics = this.add.graphics().setAlpha(1);
         debugGraphics.setDepth(1000000);
         for (let i = 0; i < navMeshPolygons.length; i++) {
         // for (let i = 4; i < 5; i++) {
-            //const polygon = navMeshPolygons[i];
-            const polygon = navMeshPolygons[i].getIsoArray();
+            const polygon = navMeshPolygons[i].geom.getIsoArray();
+            //const polygon = navMeshPolygons[i].getIsoArray();
 
             //console.log(navMeshPolygons[i].object?.name);
             //console.log(navMeshPolygons[i].object?.depth);
@@ -549,12 +553,12 @@ export default class DaedalusScene extends Phaser.Scene
 
             const cartPoly = new IsometricGeom(new IsometricCoordinates((maxX+minX)/2, (maxY+minY)/2), new IsometricCoordinates(maxX-minX, maxY-minY));
 
-            // if (navMeshPolygons[i].isNavigable) {
-            //     debugGraphics.fillStyle(0x00FF00, 0.);
-            // } else {
-            //     debugGraphics.fillStyle(0xFF0000, 0.);
-            // }
-            debugGraphics.fillStyle(0xF0FFFF, 0.2);
+            if (navMeshPolygons[i].isNavigable) {
+                debugGraphics.fillStyle(0x00FF00, 0.1);
+            } else {
+                debugGraphics.fillStyle(0xFF0000, 0.1);
+            }
+            //debugGraphics.fillStyle(0xF0FFFF, 0.2);
 
             debugGraphics.lineStyle(1, 0xff0000, 1.0);
             debugGraphics.fillPoints(cartPoly.getCartesianPolygon().points, true);

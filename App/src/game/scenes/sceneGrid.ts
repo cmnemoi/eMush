@@ -108,7 +108,6 @@ export class SceneGrid {
         // we may have added the object geometry twice
         // If several polygons have been cut, some new polygons may be grouped
         this.simplifyGrid(addedPolygonsIndexes);
-        this.finalizeGrid();
     }
 
     addGeom(objectGeom: IsometricGeom, isNavigable: boolean, phaserObject?: DecorationObject): Array<number>
@@ -172,7 +171,7 @@ export class SceneGrid {
             const object = currentElement.object;
 
             if (object !== undefined && object.depth === 0) {
-                object.setDepth((i + 1)*1000);
+                object.setDepth(this.getDepthOfPolygon(i));
             }
         }
     }
@@ -186,7 +185,7 @@ export class SceneGrid {
                 !currentElement.isNavigable
             ) {
                 this.depthSortingArray.splice(i, 1);
-                i =i-1;
+                i=i-1;
             }
         }
     }
@@ -201,7 +200,7 @@ export class SceneGrid {
     getDepthOfPolygon(index: number): number
     {
         if (index !== -1) {
-            return (index + 1) * 10000;
+            return (index + 1) * 1000;
         }
 
         return -1;
@@ -390,6 +389,10 @@ export class SceneGrid {
         }
 
         // add the object geometry
+        if (phaserObject instanceof DecorationObject && !phaserObject.collides) {
+            isNavigable =cuttedPolygon.isNavigable;
+        }
+
         if (isNavigable) {
             this.depthSortingArray.splice(spliceIndex, 0, new GridElement(objectGeom, isNavigable, phaserObject));
         } else {

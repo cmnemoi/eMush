@@ -210,10 +210,10 @@ export default class MushTiledObject {
         const isoSize = this.getObjectIsoSize();
         const isoShift = new IsometricCoordinates(
             this.getCustomPropertyByName('isoShiftHitboxX'),
-            this.getCustomPropertyByName('isoShiftHitboxX')
+            this.getCustomPropertyByName('isoShiftHitboxY')
         );
 
-        const CartCoords = (new IsometricCoordinates(this.tiledObj.x + isoShift.x, this.tiledObj.y+isoShift.y)).toCartesianCoordinates();
+        const CartCoords = (new IsometricCoordinates(this.tiledObj.x + isoShift.x, this.tiledObj.y + isoShift.y)).toCartesianCoordinates();
 
         //The center of the isometric shape is different from the center of the sprite (i.e. we need to remove the height part of the object
         const cartGroundCenter = new CartesianCoordinates(CartCoords.x, CartCoords.y + this.tiledObj.height/2 - (isoSize.x + isoSize.y)/4);

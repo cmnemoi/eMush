@@ -707,12 +707,17 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":-1
                         }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
-                         "value":48
+                         "value":40
                         }, 
                         {
                          "name":"isoSizeY",
@@ -736,7 +741,7 @@
  "nextobjectid":34,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.4",
+ "tiledversion":"1.8.5",
  "tileheight":16,
  "tilesets":[
         {

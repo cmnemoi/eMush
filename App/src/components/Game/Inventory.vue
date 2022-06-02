@@ -12,7 +12,7 @@
                 <span class="qty">{{ item.number }}</span>
                 <template #content>
                     <h1>{{ item.name }}</h1>
-                    <p>{{ item.description }}</p>
+                    <p v-html="formatDescription(item.description)" />
                     <span v-if="item.effectTitle">
                         {{item.effectTitle}}
                         <ul class="effect_list">
@@ -29,6 +29,7 @@
 <script lang="ts">
 import { itemEnum } from "@/enums/item";
 import { Item } from "@/entities/Item";
+import { formatText } from "@/utils/formatText";
 import { defineComponent } from "vue";
 
 export default defineComponent ({
@@ -55,6 +56,10 @@ export default defineComponent ({
     methods: {
         itemImage: function(item: Item): string {
             return itemEnum[item.key] ? itemEnum[item.key].image : require('@/assets/images/items/todo.jpg');
+        },
+        formatDescription(value: string): string {
+            if (! value) return '';
+            return formatText(value.toString());
         }
     }
 });

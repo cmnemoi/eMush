@@ -53,9 +53,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
 
-        /** @var Action $checkSporeLevelAction */
-        $checkSporeLevelAction = $this->getReference(ActionsFixtures::CHECK_SPORE_LEVEL);
-
         //@TODO terminals
         $icarus = new EquipmentConfig();
         $icarus
@@ -474,8 +471,10 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($cryoModule);
         $manager->persist($cryoModuleMechanic);
 
+        /** @var Action $checkSporeLevelAction */
+        $checkSporeLevelAction = $this->getReference(ActionsFixtures::CHECK_SPORE_LEVEL);
+
         $mycoscanMechanic = new Tool();
-//        $mycoscanMechanic->setActions([ActionEnum::CHECK_INFECTION]);
         $mycoscan = new EquipmentConfig();
         $mycoscan
             ->setGameConfig($gameConfig)

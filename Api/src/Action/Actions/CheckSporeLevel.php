@@ -43,8 +43,14 @@ class CheckSporeLevel extends AbstractAction
         /** @var Player $player */
         $player = $this->player;
 
+        if ($player->getStatusByName(PlayerStatusEnum::IMMUNIZED)) {
+            $success = new Success();
+
+            return $success->setQuantity(0);
+        }
+
         /** @var ?ChargeStatus $sporeStatus */
-        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
+        $sporeStatus = $player->getStatusByName(PlayerStatusEnum::SPORES);
 
         if ($sporeStatus === null) {
             throw new Error('Player should have a spore status');

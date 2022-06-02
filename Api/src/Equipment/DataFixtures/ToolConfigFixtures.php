@@ -312,9 +312,11 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($medikit);
         $manager->persist($medikitMechanic);
 
-        //@TODO
+        /** @var Action $removeSporeAction */
+        $removeSporeAction = $this->getReference(ActionsFixtures::REMOVE_SPORE);
+
         $sporeSuckerMechanic = new Tool();
-//        $sporeSuckerMechanic->setActions([ActionEnum::EXTRACT_SPORE]);
+        $sporeSuckerMechanic->addAction($removeSporeAction);
 
         $sporeSucker = new ItemConfig();
         $sporeSucker->setGameConfig($gameConfig)

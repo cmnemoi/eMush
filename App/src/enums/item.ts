@@ -82,6 +82,7 @@ const FUEL_CAPSULE = "fuel_capsule";
 const SPACE_CAPSULE = "space_capsule";
 const JAR_OF_ALIEN_OIL = "jar_of_alien_oil";
 const BANDAGE = "bandage";
+const SPORE_SUCKER = "spore_sucker";
 
 
 export const itemEnum: {[index: string]: any} = {
@@ -327,6 +328,9 @@ export const itemEnum: {[index: string]: any} = {
     },
     [SPACE_CAPSULE]: {
         'image': require('@/assets/images/items/space_capsule.jpg')
+    },
+    [SPORE_SUCKER]: {
+        'image': require('@/assets/images/items/spore_sucker.jpg')
     }
 }
 ;

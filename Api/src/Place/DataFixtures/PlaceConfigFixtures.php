@@ -181,6 +181,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 ToolItemEnum::BANDAGE,
                 ToolItemEnum::BANDAGE,
                 ToolItemEnum::JAR_OF_ALIEN_OIL,
+                ToolItemEnum::SPORE_SUCKER,
             ])
         ;
         $manager->persist($medLab);

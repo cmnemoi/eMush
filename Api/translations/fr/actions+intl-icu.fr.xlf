@@ -132,7 +132,7 @@
             </segment>
         </unit>
         <unit id="get_up">
-            <segment id="extract_spore">
+            <segment id="get_up">
                 <source>get_up.name</source>
                 <target>Se lever</target>
             </segment>
@@ -490,6 +490,16 @@
             <segment id="description">
                 <source>examine.description</source>
                 <target>Qu'est ce donc que cette petite chose ?</target>
+            </segment>
+        </unit>
+        <unit id="remove_spore">
+            <segment id="name">
+                <source>remove_spore.name</source>
+                <target>Extraire spore</target>
+            </segment>
+            <segment id="description">
+                <source>remove_spore.description</source>
+                <target>Permet d'ôter des vilains pustules suspectés de vous contaminer.</target>
             </segment>
         </unit>
         <unit id="report_equipment">

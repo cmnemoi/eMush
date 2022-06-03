@@ -52,6 +52,8 @@ export default class DoorGroundObject extends InteractObject {
 
     onDoorClicked(): void
     {
+        console.log('coucou');
+        console.log(this.door);
         if(!this.door.isBroken && this.canMove()) {
             //if player click on the door
             const moveAction = this.getMoveAction();
@@ -91,7 +93,7 @@ export default class DoorGroundObject extends InteractObject {
         const moveAction = this.door.actions.filter((action: Action) => {return action.key === 'move';});
 
         if (moveAction.length !==1 ) {
-            throw new Error("this door should have exactly one move action");
+            return false;
         }
 
         return moveAction[0].canExecute;

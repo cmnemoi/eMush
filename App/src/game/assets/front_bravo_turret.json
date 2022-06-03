@@ -147,6 +147,11 @@
                  "name":"depth",
                  "type":"int",
                  "value":6
+                }, 
+                {
+                 "name":"walkingDepth",
+                 "type":"int",
+                 "value":20
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -290,15 +295,10 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":2
+                         "value":22
                         }, 
                         {
                          "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isOnFront",
                          "type":"bool",
                          "value":true
                         }, 
@@ -316,13 +316,13 @@
                          "name":"sitAnimation",
                          "type":"string",
                          "value":"sit_front"
-                        },
-                    
+                        }, 
                         {
                          "name":"sitAutoTrigger",
                          "type":"bool",
                          "value":true
-                        }, 
+                        },
+                    
                         {
                          "name":"sitDepth",
                          "type":"int",
@@ -364,15 +364,10 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":3
+                         "value":23
                         }, 
                         {
                          "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isOnFront",
                          "type":"bool",
                          "value":true
                         }, 
@@ -390,8 +385,7 @@
                          "name":"isoSizeX",
                          "type":"int",
                          "value":48
-                        },
-                    
+                        }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
@@ -418,12 +412,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
-                        }, 
-                        {
-                         "name":"isOnFront",
-                         "type":"bool",
-                         "value":true
+                         "value":24
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -447,15 +436,10 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":1
+                         "value":21
                         }, 
                         {
                          "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isOnFront",
                          "type":"bool",
                          "value":true
                         }],

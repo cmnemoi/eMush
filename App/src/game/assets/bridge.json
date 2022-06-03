@@ -4,11 +4,197 @@
  "layers":[
         {
          "draworder":"topdown",
-         "id":7,
-         "name":"back",
+         "id":8,
+         "name":"doors",
          "objects":[
                 {
-                 "gid":316,
+                 "gid":107,
+                 "height":73,
+                 "id":9,
+                 "name":"bridge_front_alpha_turret",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"door",
+                 "visible":true,
+                 "width":48,
+                 "x":171.5,
+                 "y":-20.5
+                }, 
+                {
+                 "gid":20,
+                 "height":36,
+                 "id":10,
+                 "name":"bridge_front_alpha_turret",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"door_ground",
+                 "visible":true,
+                 "width":64,
+                 "x":205.998579545455,
+                 "y":-2
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 267,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":15,
+         "id":2,
+         "name":"wall",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":15,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":15,
+         "id":9,
+         "name":"ground",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }, 
+                {
+                 "name":"walkingDepth",
+                 "type":"int",
+                 "value":20
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":15,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 237, 239, 237, 239, 237, 239, 237, 247, 246, 238,
+            0, 0, 0, 0, 0, 236, 238, 236, 238, 236, 238, 236, 247, 246, 238,
+            0, 0, 0, 0, 0, 238, 238, 239, 239, 241, 243, 237, 247, 246, 239,
+            0, 0, 0, 0, 0, 238, 238, 238, 238, 240, 242, 236, 247, 246, 238,
+            0, 0, 0, 0, 0, 256, 256, 256, 239, 237, 239, 237, 247, 246, 243,
+            0, 0, 0, 0, 0, 256, 256, 256, 238, 236, 238, 236, 247, 250, 245,
+            0, 0, 0, 0, 0, 256, 256, 256, 238, 237, 239, 237, 247, 249, 244,
+            0, 0, 0, 0, 0, 256, 256, 256, 238, 236, 238, 236, 247, 246, 238,
+            0, 0, 0, 0, 0, 237, 239, 241, 243, 237, 239, 237, 247, 246, 243,
+            0, 0, 0, 0, 0, 236, 238, 240, 242, 236, 238, 236, 247, 246, 242,
+            0, 0, 0, 0, 0, 237, 239, 237, 239, 237, 239, 237, 247, 246, 239,
+            0, 0, 0, 0, 0, 236, 238, 236, 238, 236, 238, 236, 247, 246, 238,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":15,
+         "id":1,
+         "name":"ground",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":7
+                }, 
+                {
+                 "name":"walkingDepth",
+                 "type":"int",
+                 "value":21
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":15,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"index",
+         "id":5,
+         "name":"objects",
+         "objects":[
+                {
+                 "gid":318,
+                 "height":166,
+                 "id":31,
+                 "name":"cockpit_window",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":205,
+                 "x":47.25,
+                 "y":76.75
+                }, 
+                {
+                 "gid":299,
                  "height":106,
                  "id":8,
                  "name":"command_board",
@@ -16,117 +202,55 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
                         }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":120,
-                 "x":133.833333333333,
-                 "y":68.8333333333333
+                 "x":112.5,
+                 "y":-10.5
                 }, 
                 {
-                 "gid":335,
-                 "height":166,
-                 "id":31,
-                 "name":"cockpit_window",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":205,
-                 "x":67.1666666666667,
-                 "y":200.166666666667
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":8,
-         "name":"door",
-         "objects":[
-                {
-                 "gid":123,
-                 "height":73,
-                 "id":9,
-                 "name":"bridge_front_alpha_turret",
-                 "rotation":0,
-                 "type":"door",
-                 "visible":true,
-                 "width":48,
-                 "x":196,
-                 "y":28
-                }, 
-                {
-                 "gid":36,
-                 "height":36,
-                 "id":10,
-                 "name":"bridge_front_alpha_turret",
-                 "rotation":0,
-                 "type":"door_ground",
-                 "visible":true,
-                 "width":64,
-                 "x":207,
-                 "y":35
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 283, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":15,
-         "id":2,
-         "name":"wall",
-         "opacity":1,
-         "type":"tilelayer",
-         "visible":true,
-         "width":15,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 254, 253, 255, 253, 255, 253, 255, 253, 263, 262, 254, 0, 0, 0, 0, 254, 252, 254, 252, 254, 252, 254, 252, 263, 262, 254, 0, 0, 0, 0, 254, 254, 254, 255, 255, 257, 259, 253, 263, 262, 255, 0, 0, 0, 254, 254, 254, 254, 254, 254, 256, 258, 252, 263, 262, 254, 0, 0, 0, 254, 271, 272, 272, 272, 255, 253, 255, 253, 263, 262, 259, 0, 0, 0, 0, 272, 272, 272, 272, 254, 252, 254, 252, 263, 266, 261, 0, 0, 0, 0, 272, 272, 272, 272, 254, 253, 255, 253, 263, 265, 260, 0, 0, 0, 0, 272, 272, 272, 272, 254, 252, 254, 252, 263, 262, 254, 0, 0, 0, 254, 254, 253, 255, 257, 259, 253, 255, 253, 263, 262, 259, 0, 0, 0, 0, 254, 252, 254, 256, 258, 252, 254, 252, 263, 262, 258, 0, 0, 0, 0, 0, 253, 255, 253, 255, 253, 255, 253, 263, 262, 255, 0, 0, 0, 0, 0, 252, 254, 252, 254, 252, 254, 252, 263, 262, 254, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":15,
-         "id":1,
-         "name":"ground",
-         "opacity":1,
-         "type":"tilelayer",
-         "visible":true,
-         "width":15,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":5,
-         "name":"objects",
-         "objects":[
-                {
-                 "gid":293,
+                 "gid":276,
                  "height":48,
                  "id":26,
-                 "name":"comms_center_decoration",
+                 "name":"communication_center",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":24
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"interact",
                  "visible":true,
                  "width":64,
-                 "x":48,
-                 "y":47.3333333333333
+                 "x":48.5,
+                 "y":15.5
                 }, 
                 {
-                 "gid":301,
+                 "gid":284,
                  "height":52,
                  "id":5,
                  "name":"command_terminal",
@@ -134,41 +258,63 @@
                         {
                          "name":"collides",
                          "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
                          "value":true
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
                  "width":94,
-                 "x":25.6666666666667,
-                 "y":131
+                 "x":30,
+                 "y":88
                 }, 
                 {
-                 "gid":41,
+                 "gid":25,
                  "height":36,
                  "id":11,
                  "name":"front_corridor_bridge",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }],
                  "rotation":0,
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":255,
-                 "y":143
+                 "x":253,
+                 "y":109
                 }, 
                 {
-                 "gid":31,
+                 "gid":15,
                  "height":36,
                  "id":12,
                  "name":"bridge_front_bravo_turret",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }],
                  "rotation":0,
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":209.833333333333,
-                 "y":250.833333333333
+                 "x":205,
+                 "y":221
                 }, 
                 {
-                 "gid":323,
+                 "gid":306,
                  "height":40,
                  "id":13,
                  "name":"shelf",
@@ -177,269 +323,577 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"shelf",
                  "visible":true,
                  "width":33,
-                 "x":228.5,
-                 "y":69.5
+                 "x":215.75,
+                 "y":48.25
                 }, 
                 {
-                 "gid":273,
+                 "gid":257,
                  "height":15,
                  "id":14,
                  "name":"wall_box",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":14,
-                 "x":200,
-                 "y":-16
+                 "x":198.5,
+                 "y":-16.5
                 }, 
                 {
-                 "gid":324,
+                 "gid":307,
                  "height":29,
                  "id":15,
                  "name":"aeration4",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":8
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":54,
-                 "x":163.333333333333,
-                 "y":43.6666666666667
+                 "x":160.5,
+                 "y":20.5
                 }, 
                 {
-                 "gid":324,
+                 "gid":307,
                  "height":29,
                  "id":16,
                  "name":"aeration3",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":8
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":54,
-                 "x":103.333333333333,
-                 "y":45.3333333333333
+                 "x":100.5,
+                 "y":20.5
                 }, 
                 {
-                 "gid":324,
+                 "gid":307,
                  "height":29,
                  "id":17,
                  "name":"aeration2",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":8
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":54,
-                 "x":100.25,
-                 "y":226.75
+                 "x":100.5,
+                 "y":194.5
                 }, 
                 {
-                 "gid":324,
+                 "gid":307,
                  "height":29,
                  "id":18,
                  "name":"aeration1",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":8
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":54,
-                 "x":162.25,
-                 "y":227.75
+                 "x":160.5,
+                 "y":194.5
                 }, 
                 {
                  "gid":1,
                  "height":17,
                  "id":19,
                  "name":"camera_equipment",
+                 "properties":[
+                        {
+                         "name":"animationYoyo",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
                  "width":25,
-                 "x":147,
-                 "y":-9
+                 "x":141.5,
+                 "y":-22.1666666666667
                 }, 
                 {
-                 "gid":20,
-                 "height":38,
-                 "id":20,
-                 "name":"astro_chair",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":36,
-                 "x":90,
-                 "y":185.666666666667
-                }, 
-                {
-                 "gid":19,
-                 "height":38,
-                 "id":21,
-                 "name":"comms_chair",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":36,
-                 "x":97.5,
-                 "y":66.5
-                }, 
-                {
-                 "gid":352,
+                 "gid":335,
                  "height":51,
                  "id":28,
                  "name":"semi_circle_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":8
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":104,
-                 "x":127.5,
-                 "y":160.833333333333
+                 "x":128.5,
+                 "y":106.5
                 }, 
                 {
-                 "gid":325,
+                 "gid":308,
                  "height":37,
                  "id":27,
                  "name":"semicircle_floor",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":8
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":72,
-                 "x":49.6666666666666,
-                 "y":137.666666666667
-                }, 
+                 "x":57.5,
+                 "y":103.5
+                },
+            
                 {
-                 "gid":326,
+                 "gid":309,
                  "height":79,
                  "id":29,
                  "name":"floor_lamp",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":9
+                        }],
                  "rotation":0,
                  "type":"decoration",
                  "visible":true,
                  "width":96,
-                 "x":250.333333333333,
-                 "y":212.333333333333
+                 "x":83.5,
+                 "y":83.5
                 }, 
                 {
-                 "gid":328,
+                 "gid":311,
                  "height":61,
                  "id":30,
-                 "name":"comms_center2",
+                 "name":"communication_center",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":60
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
                  "width":86,
-                 "x":86.3373737373734,
-                 "y":99.0040404040404
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":3,
-         "name":"ground_light",
-         "objects":[],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":6,
-         "name":"objects",
-         "objects":[
+                 "x":84,
+                 "y":55.0020641194554
+                }, 
                 {
-                 "gid":292,
+                 "gid":275,
                  "height":46,
                  "id":3,
-                 "name":"astro_interact",
+                 "name":"astro_terminal",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":40
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
                  "width":52,
-                 "x":89,
-                 "y":167.333333333333
+                 "x":92.5,
+                 "y":135.5
                 }, 
                 {
-                 "gid":306,
-                 "height":72,
-                 "id":6,
-                 "name":"astro_decoration",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":77,
-                 "x":63.25,
-                 "y":196.083333333333
-                }, 
-                {
-                 "gid":22,
-                 "height":38,
-                 "id":22,
-                 "name":"command_chair",
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":36,
-                 "x":53,
-                 "y":111
-                }, 
-                {
-                 "gid":336,
+                 "gid":319,
                  "height":71,
                  "id":34,
-                 "name":"scanner",
+                 "name":"astro_terminal",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":24
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"interact",
                  "visible":true,
                  "width":60,
-                 "x":59,
-                 "y":200.333333333333
+                 "x":46,
+                 "y":153
                 }, 
                 {
-                 "gid":344,
-                 "height":71,
-                 "id":35,
-                 "name":"scanner_CPU_overclocking",
+                 "gid":289,
+                 "height":72,
+                 "id":6,
+                 "name":"astro_terminal",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":-12
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":-20
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":24
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":24
                         }],
                  "rotation":0,
-                 "type":"decoration",
-                 "visible":false,
-                 "width":60,
-                 "x":81.5,
-                 "y":188.5
+                 "type":"interact",
+                 "visible":true,
+                 "width":77,
+                 "x":54.75,
+                 "y":145.25
+                }, 
+                {
+                 "gid":350,
+                 "height":36,
+                 "id":39,
+                 "name":"command_terminal",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_back"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":34,
+                 "x":52,
+                 "y":88
+                }, 
+                {
+                 "gid":342,
+                 "height":36,
+                 "id":40,
+                 "name":"astro_terminal",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_back"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":34,
+                 "x":92.5,
+                 "y":153.5
+                }, 
+                {
+                 "gid":341,
+                 "height":36,
+                 "id":41,
+                 "name":"communication_center",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_front"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":34,
+                 "x":87.000946969697,
+                 "y":31
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -447,11 +901,11 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":9,
- "nextobjectid":37,
+ "nextlayerid":11,
+ "nextobjectid":42,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.5",
  "tileheight":16,
  "tilesets":[
         {
@@ -462,7 +916,7 @@
          "imagewidth":350,
          "margin":0,
          "name":"camera_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":14,
          "tileheight":17,
@@ -528,7 +982,8 @@
                         {
                          "duration":300,
                          "tileid":12
-                        }, 
+                        },
+                    
                         {
                          "duration":300,
                          "tileid":11
@@ -582,28 +1037,8 @@
          "tilewidth":25
         }, 
         {
-         "columns":8,
-         "firstgid":15,
-         "grid":
-            {
-             "height":38,
-             "orientation":"isometric",
-             "width":36
-            },
-         "image":"tilemaps\/chair_object.png",
-         "imageheight":76,
-         "imagewidth":288,
-         "margin":0,
-         "name":"chair_object",
-         "objectalignment":"bottomleft",
-         "spacing":0,
-         "tilecount":16,
-         "tileheight":38,
-         "tilewidth":36
-        }, 
-        {
          "columns":5,
-         "firstgid":31,
+         "firstgid":15,
          "grid":
             {
              "height":36,
@@ -615,7 +1050,7 @@
          "imagewidth":320,
          "margin":0,
          "name":"door_ground_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":20,
          "tileheight":36,
@@ -720,7 +1155,7 @@
         }, 
         {
          "columns":24,
-         "firstgid":51,
+         "firstgid":35,
          "grid":
             {
              "height":73,
@@ -732,7 +1167,7 @@
          "imagewidth":1152,
          "margin":0,
          "name":"door_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":192,
          "tileheight":73,
@@ -798,7 +1233,8 @@
                         {
                          "duration":100,
                          "tileid":14
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":15
@@ -898,7 +1334,8 @@
                         {
                          "duration":100,
                          "tileid":38
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":39
@@ -998,7 +1435,8 @@
                         {
                          "duration":100,
                          "tileid":62
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":63
@@ -1098,7 +1536,8 @@
                         {
                          "duration":100,
                          "tileid":86
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":87
@@ -1198,7 +1637,8 @@
                         {
                          "duration":100,
                          "tileid":110
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":111
@@ -1298,7 +1738,8 @@
                         {
                          "duration":100,
                          "tileid":134
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":135
@@ -1398,7 +1839,8 @@
                         {
                          "duration":100,
                          "tileid":158
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":159
@@ -1498,7 +1940,8 @@
                         {
                          "duration":100,
                          "tileid":182
-                        }, 
+                        },
+                    
                         {
                          "duration":100,
                          "tileid":183
@@ -1541,7 +1984,7 @@
         }, 
         {
          "columns":30,
-         "firstgid":243,
+         "firstgid":227,
          "grid":
             {
              "height":72,
@@ -1553,7 +1996,7 @@
          "imagewidth":960,
          "margin":0,
          "name":"ground_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":30,
          "tileheight":72,
@@ -1561,7 +2004,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":273,
+         "firstgid":257,
          "image":"tilemaps\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
@@ -1598,8 +2041,8 @@
          "tilewidth":14
         }, 
         {
-         "columns":15,
-         "firstgid":277,
+         "columns":14,
+         "firstgid":261,
          "grid":
             {
              "height":72,
@@ -1608,24 +2051,24 @@
             },
          "image":"tilemaps\/wall_tileset.png",
          "imageheight":72,
-         "imagewidth":480,
+         "imagewidth":448,
          "margin":0,
          "name":"wall_tileset",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
-         "tilecount":15,
+         "tilecount":14,
          "tileheight":72,
          "tilewidth":32
         }, 
         {
          "columns":1,
-         "firstgid":292,
+         "firstgid":275,
          "image":"tilemaps\/astro_terminal2.png",
          "imageheight":46,
          "imagewidth":52,
          "margin":0,
          "name":"astro_terminal2",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
          "tileheight":46,
@@ -1633,13 +2076,13 @@
         }, 
         {
          "columns":8,
-         "firstgid":293,
+         "firstgid":276,
          "image":"tilemaps\/comms_center.png",
          "imageheight":48,
          "imagewidth":512,
          "margin":0,
          "name":"comms_center",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":8,
          "tileheight":48,
@@ -1684,13 +2127,13 @@
         }, 
         {
          "columns":5,
-         "firstgid":301,
+         "firstgid":284,
          "image":"tilemaps\/command_terminal.png",
          "imageheight":52,
          "imagewidth":470,
          "margin":0,
          "name":"command_terminal",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":5,
          "tileheight":52,
@@ -1723,13 +2166,13 @@
         }, 
         {
          "columns":5,
-         "firstgid":306,
+         "firstgid":289,
          "image":"tilemaps\/astro_terminal.png",
          "imageheight":144,
          "imagewidth":385,
          "margin":0,
          "name":"astro_terminal",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":10,
          "tileheight":72,
@@ -1782,13 +2225,13 @@
         }, 
         {
          "columns":4,
-         "firstgid":316,
+         "firstgid":299,
          "image":"tilemaps\/command_board.png",
          "imageheight":106,
          "imagewidth":480,
          "margin":0,
          "name":"command_board",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
          "tileheight":106,
@@ -1817,13 +2260,13 @@
         }, 
         {
          "columns":4,
-         "firstgid":320,
+         "firstgid":303,
          "image":"tilemaps\/shelf_object.png",
          "imageheight":40,
          "imagewidth":132,
          "margin":0,
          "name":"shelf_object",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
          "tileheight":40,
@@ -1831,13 +2274,13 @@
         }, 
         {
          "columns":1,
-         "firstgid":324,
+         "firstgid":307,
          "image":"tilemaps\/aeration_grid.png",
          "imageheight":29,
          "imagewidth":54,
          "margin":0,
          "name":"aeration_grid",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
          "tileheight":29,
@@ -1846,13 +2289,13 @@
         }, 
         {
          "columns":1,
-         "firstgid":325,
+         "firstgid":308,
          "image":"tilemaps\/semicircle_floor.png",
          "imageheight":37,
          "imagewidth":72,
          "margin":0,
          "name":"semicircle_floor",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
          "tileheight":37,
@@ -1860,13 +2303,13 @@
         }, 
         {
          "columns":2,
-         "firstgid":326,
+         "firstgid":309,
          "image":"tilemaps\/floor_lamp_bridge.png",
          "imageheight":92,
          "imagewidth":192,
          "margin":0,
          "name":"floor_lamp_bridge",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":2,
          "tileheight":79,
@@ -1884,16 +2327,17 @@
                  "id":0
                 }],
          "tilewidth":96
-        }, 
+        },
+    
         {
          "columns":7,
-         "firstgid":328,
+         "firstgid":311,
          "image":"tilemaps\/comms_center2.png",
          "imageheight":61,
          "imagewidth":602,
          "margin":0,
          "name":"comms_center2",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":7,
          "tileheight":61,
@@ -1930,13 +2374,13 @@
         }, 
         {
          "columns":1,
-         "firstgid":335,
+         "firstgid":318,
          "image":"tilemaps\/cockpit_window.png",
          "imageheight":166,
          "imagewidth":205,
          "margin":0,
          "name":"cockpit_window",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
          "tileheight":166,
@@ -1944,13 +2388,13 @@
         }, 
         {
          "columns":8,
-         "firstgid":336,
+         "firstgid":319,
          "image":"tilemaps\/scanner.png",
          "imageheight":142,
          "imagewidth":480,
          "margin":0,
          "name":"scanner",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":16,
          "tileheight":71,
@@ -2031,13 +2475,13 @@
         }, 
         {
          "columns":2,
-         "firstgid":352,
+         "firstgid":335,
          "image":"tilemaps\/semi_circle_lamp.png",
          "imageheight":51,
          "imagewidth":208,
          "margin":0,
          "name":"semi_circle_lamp",
-         "objectalignment":"bottomleft",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":2,
          "tileheight":51,
@@ -2055,9 +2499,23 @@
                  "id":0
                 }],
          "tilewidth":104
+        }, 
+        {
+         "columns":7,
+         "firstgid":337,
+         "image":"tilemaps\/chair_object.png",
+         "imageheight":72,
+         "imagewidth":238,
+         "margin":0,
+         "name":"chair_object",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":14,
+         "tileheight":36,
+         "tilewidth":34
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":15
 }

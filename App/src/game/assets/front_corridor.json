@@ -456,6 +456,11 @@
                  "name":"depth",
                  "type":"int",
                  "value":10
+                }, 
+                {
+                 "name":"walkingDepth",
+                 "type":"int",
+                 "value":20
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -500,6 +505,11 @@
                  "name":"depth",
                  "type":"int",
                  "value":12
+                }, 
+                {
+                 "name":"walkingDepth",
+                 "type":"int",
+                 "value":30
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -710,19 +720,9 @@
                          "value":false
                         }, 
                         {
-                         "name":"isoShiftHitboxY",
+                         "name":"depth",
                          "type":"int",
-                         "value":-1
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":40
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":4
+                         "value":25
                         }],
                  "rotation":0,
                  "type":"decoration",

@@ -140,6 +140,11 @@
                  "name":"depth",
                  "type":"int",
                  "value":4
+                }, 
+                {
+                 "name":"walkingDepth",
+                 "type":"int",
+                 "value":20
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -171,6 +176,11 @@
                  "name":"depth",
                  "type":"int",
                  "value":5
+                }, 
+                {
+                 "name":"walkingDepth",
+                 "type":"int",
+                 "value":21
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -202,6 +212,11 @@
                  "name":"depth",
                  "type":"int",
                  "value":5
+                }, 
+                {
+                 "name":"walkingDepth",
+                 "type":"int",
+                 "value":22
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -757,7 +772,7 @@
          "value":16
         }],
  "renderorder":"right-down",
- "tiledversion":"1.8.4",
+ "tiledversion":"1.8.5",
  "tileheight":16,
  "tilesets":[
         {

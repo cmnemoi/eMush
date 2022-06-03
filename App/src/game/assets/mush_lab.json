@@ -155,6 +155,11 @@
                  "name":"depth",
                  "type":"int",
                  "value":4
+                }, 
+                {
+                 "name":"walkingDepth",
+                 "type":"int",
+                 "value":20
                 }],
          "type":"tilelayer",
          "visible":true,

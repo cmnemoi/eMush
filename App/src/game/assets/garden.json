@@ -3,17 +3,17 @@
  "infinite":false,
  "layers":[
         {
-         "data":[264, 262, 262, 262, 262, 262, 262, 262, 262, 262, 262,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[260, 258, 258, 258, 258, 258, 258, 258, 258, 258, 258,
+            259, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            259, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            259, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            259, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            259, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            259, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            259, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            259, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            259, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            259, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":11,
          "id":1,
          "name":"wall",
@@ -51,6 +51,11 @@
                  "name":"depth",
                  "type":"int",
                  "value":1
+                }, 
+                {
+                 "name":"walkingDepth",
+                 "type":"int",
+                 "value":20
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -64,7 +69,7 @@
          "name":"objects",
          "objects":[
                 {
-                 "gid":277,
+                 "gid":273,
                  "height":15,
                  "id":5,
                  "name":"wall_box",
@@ -171,7 +176,7 @@
                  "y":127.5
                 }, 
                 {
-                 "gid":280,
+                 "gid":276,
                  "height":156,
                  "id":13,
                  "name":"garden",
@@ -204,7 +209,7 @@
                  "y":35.75
                 }, 
                 {
-                 "gid":284,
+                 "gid":280,
                  "height":42,
                  "id":14,
                  "name":"garden",
@@ -237,7 +242,7 @@
                  "y":103.75
                 }, 
                 {
-                 "gid":285,
+                 "gid":281,
                  "height":112,
                  "id":15,
                  "name":"garden",
@@ -270,7 +275,7 @@
                  "y":46
                 }, 
                 {
-                 "gid":279,
+                 "gid":275,
                  "height":42,
                  "id":7,
                  "name":"pneumatic_distributor",
@@ -298,7 +303,7 @@
                  "y":100.247159090909
                 }, 
                 {
-                 "gid":286,
+                 "gid":282,
                  "height":27,
                  "id":17,
                  "name":"garden_engine",
@@ -331,7 +336,7 @@
                  "y":35.5
                 }, 
                 {
-                 "gid":294,
+                 "gid":290,
                  "height":40,
                  "id":18,
                  "name":"shelf",
@@ -1484,10 +1489,10 @@
          "tilecount":30,
          "tileheight":72,
          "tilewidth":32
-        },
+        }, 
         {
          "columns":14,
-         "firstgid":261,
+         "firstgid":257,
          "grid":
             {
              "height":72,
@@ -1507,7 +1512,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":275,
+         "firstgid":271,
          "image":"tilemaps\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
@@ -1546,7 +1551,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":279,
+         "firstgid":275,
          "image":"tilemaps\/pneumatic_distributor.png",
          "imageheight":42,
          "imagewidth":35,
@@ -1560,7 +1565,7 @@
         }, 
         {
          "columns":2,
-         "firstgid":280,
+         "firstgid":276,
          "image":"tilemaps\/garden_equipment.png",
          "imageheight":312,
          "imagewidth":438,
@@ -1574,7 +1579,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":284,
+         "firstgid":280,
          "image":"tilemaps\/garden_console.png",
          "imageheight":42,
          "imagewidth":45,
@@ -1588,7 +1593,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":285,
+         "firstgid":281,
          "image":"tilemaps\/garden_engine.png",
          "imageheight":112,
          "imagewidth":140,
@@ -1599,11 +1604,10 @@
          "tilecount":1,
          "tileheight":112,
          "tilewidth":140
-        },
-    
+        }, 
         {
          "columns":6,
-         "firstgid":286,
+         "firstgid":282,
          "image":"tilemaps\/garden_engine_anim.png",
          "imageheight":27,
          "imagewidth":336,
@@ -1643,10 +1647,11 @@
                  "id":0
                 }],
          "tilewidth":56
-        }, 
+        },
+    
         {
          "columns":4,
-         "firstgid":292,
+         "firstgid":288,
          "image":"tilemaps\/shelf_object.png",
          "imageheight":40,
          "imagewidth":132,

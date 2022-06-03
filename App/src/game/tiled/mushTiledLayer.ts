@@ -3,7 +3,7 @@ import Phaser from "phaser";
 export default class MushTiledLayer extends Phaser.Tilemaps.LayerData {
     getCustomPropertyByName(property: string): number
     {
-        const existingKeys = ['depth'];
+        const existingKeys = ['depth', 'walkingDepth'];
         if (existingKeys.includes(property)) {
             for (let i = 0; i < this.properties.length; i++) {
                 //@ts-ignore

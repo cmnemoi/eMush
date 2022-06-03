@@ -33,8 +33,13 @@ export default class MushTiledMap {
     }
 
     createInitialSceneGrid(sceneGrid: SceneGrid) {
-        const sceneIsoSize = new IsometricCoordinates(this.tilemap.width* this.isoTileSize, this.tilemap.height * this.isoTileSize);
+        const sceneIsoSize = this.getMapSize();
         sceneGrid.addSceneGeom(sceneIsoSize, this.groundTilesThickness);
+    }
+
+    getMapSize(): IsometricCoordinates
+    {
+        return new IsometricCoordinates(this.tilemap.width* this.isoTileSize, this.tilemap.height * this.isoTileSize);
     }
 
     createLayers(room: Room, sceneGrid: SceneGrid): Array<EquipmentObject>
@@ -49,9 +54,15 @@ export default class MushTiledMap {
             } else if (tiledLayer.name === 'ground') {
                 //ground layers needs to be rectangular
                 const groundLayer = this.tilemap.createLayer(i, 'ground_tileset', this.tilemapsShift.x, this.tilemapsShift.y);
-                groundLayer.setDepth(this.computeFixedDepth(tiledLayer.getCustomPropertyByName('depth')));
 
-                sceneGrid.addGroundGeom(groundLayer.layer, this.groundTilesThickness);
+                const depth = tiledLayer.getCustomPropertyByName('depth');
+                const walkingDepth = tiledLayer.getCustomPropertyByName('walkingDepth');
+
+                groundLayer.setDepth(this.computeFixedDepth(depth));
+
+                if (walkingDepth !== -1) {
+                    sceneGrid.addGroundGeom(groundLayer.layer, this.groundTilesThickness, this.computeFixedDepth(walkingDepth));
+                }
             }
         }
         sceneGrid.finalizeGroundMesh();
@@ -94,11 +105,10 @@ export default class MushTiledMap {
 
                 // some equipment have depth already fixed (stuff on the wall, doors, flat things on the ground)
                 const fixedDepth = obj.getCustomPropertyByName('depth');
-                const isOnFront = obj.isCustomPropertyByName('isOnFront');
                 const isCollision = obj.isCustomPropertyByName('collides');
 
                 if (fixedDepth !== 0) {
-                    newObject.setDepth(this.computeFixedDepth(fixedDepth, isOnFront));
+                    newObject.setDepth(this.computeFixedDepth(fixedDepth));
                 }
 
                 if (isCollision || fixedDepth === 0) {
@@ -149,11 +159,10 @@ export default class MushTiledMap {
     }
 
 
-    computeFixedDepth(tiledDepth: number, isOnFront = false): number
+    computeFixedDepth(tiledDepth: number): number
     {
-        if (isOnFront) {
-            return tiledDepth*2 + 1000000;
-        }
-        return tiledDepth*2 + 5;
+        return tiledDepth*1000000 + 5;
     }
+
+
 }

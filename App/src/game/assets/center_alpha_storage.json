@@ -127,6 +127,11 @@
                  "name":"depth",
                  "type":"int",
                  "value":5
+                }, 
+                {
+                 "name":"walkingDepth",
+                 "type":"int",
+                 "value":20
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -262,7 +267,7 @@
                         {
                          "name":"isoSizeY",
                          "type":"int",
-                         "value":96
+                         "value":80
                         }],
                  "rotation":0,
                  "type":"shelf",

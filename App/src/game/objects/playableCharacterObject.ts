@@ -37,7 +37,7 @@ export default class PlayableCharacterObject extends CharacterObject {
         let finishPoint = (new CartesianCoordinates(pointer.worldX, pointer.worldY)).toIsometricCoordinates();
 
         let interactEquipment: InteractObject | null = null;
-        if (object !== null && object instanceof InteractObject) {
+        if (object !== null && object instanceof InteractObject && !(object instanceof CharacterObject)) {
             interactEquipment = object.getInteractibleObject();
 
             if (interactEquipment !== null) {

@@ -124,6 +124,11 @@
                  "name":"depth",
                  "type":"int",
                  "value":9
+                }, 
+                {
+                 "name":"walkingDepth",
+                 "type":"int",
+                 "value":20
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -148,6 +153,11 @@
                  "name":"depth",
                  "type":"int",
                  "value":9
+                }, 
+                {
+                 "name":"walkingDepth",
+                 "type":"int",
+                 "value":20
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -172,6 +182,11 @@
                  "name":"depth",
                  "type":"int",
                  "value":10
+                }, 
+                {
+                 "name":"walkingDepth",
+                 "type":"int",
+                 "value":21
                 }],
          "type":"tilelayer",
          "visible":true,

@@ -83,6 +83,28 @@ import bravo_turret_front from "@/game/assets/tilemaps/bravo_turret_front.png";
 import structure from "@/game/assets/tilemaps/structure.png";
 import magnetic_return from "@/game/assets/tilemaps/magnetic_return.png";
 import turret_ground from "@/game/assets/tilemaps/turret_ground.png";
+import aeration_grid from "@/game/assets/tilemaps/aeration_grid.png";
+import comms_center from "@/game/assets/tilemaps/comms_center.png";
+import astro_terminal from "@/game/assets/tilemaps/astro_terminal.png";
+import astro_terminal2 from "@/game/assets/tilemaps/astro_terminal2.png";
+import cockpit_window from "@/game/assets/tilemaps/cockpit_window.png";
+import command_board from "@/game/assets/tilemaps/command_board.png";
+import command_terminal from "@/game/assets/tilemaps/command_terminal.png";
+import comms_center2 from "@/game/assets/tilemaps/comms_center2.png";
+import floor_lamp_bridge from "@/game/assets/tilemaps/floor_lamp_bridge.png";
+import semi_circle_lamp from "@/game/assets/tilemaps/semi_circle_lamp.png";
+import semicircle_floor from "@/game/assets/tilemaps/semicircle_floor.png";
+import scanner from "@/game/assets/tilemaps/scanner.png";
+import antenna from "@/game/assets/tilemaps/antenna.png";
+import combustion_chamber from "@/game/assets/tilemaps/combustion_chamber.png";
+import engine_room1 from "@/game/assets/tilemaps/engine_room1.png";
+import engine_room2 from "@/game/assets/tilemaps/engine_room2.png";
+import paraboles from "@/game/assets/tilemaps/paraboles.png";
+import pilgred from "@/game/assets/tilemaps/pilgred.png";
+import planet_scanner from "@/game/assets/tilemaps/planet_scanner.png";
+import quantum_sensors from "@/game/assets/tilemaps/quantum_sensors.png";
+import reactor from "@/game/assets/tilemaps/reactor.png";
+import terminal_pilgred from "@/game/assets/tilemaps/terminal_pilgred.png";
 
 import character from "@/game/assets/images/characters.png";
 import characterFrame from "@/game/assets/images/characters.json";
@@ -114,6 +136,8 @@ import rear_bravo_turret from "@/game/assets/rear_bravo_turret.json";
 import front_alpha_turret from "@/game/assets/front_alpha_turret.json";
 import centre_alpha_turret from "@/game/assets/center_alpha_turret.json";
 import rear_alpha_turret from "@/game/assets/rear_alpha_turret.json";
+import bridge from "@/game/assets/bridge.json";
+import engine_room from "@/game/assets/engine_room.json";
 
 import fire_particles_frame from "@/game/assets/images/fire_particles.json";
 import fire_particles from "@/game/assets/images/fire_particles.png";
@@ -201,6 +225,8 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.tilemapTiledJSON('front_alpha_turret', front_alpha_turret);
         this.load.tilemapTiledJSON('centre_alpha_turret', centre_alpha_turret);
         this.load.tilemapTiledJSON('rear_alpha_turret', rear_alpha_turret);
+        this.load.tilemapTiledJSON('bridge', bridge);
+        this.load.tilemapTiledJSON('engine_room', engine_room);
 
         this.load.image('ground_tileset', ground_tileset);
         this.load.image('wall_tileset', wall_tileset);
@@ -208,89 +234,114 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.load.atlas('character', character, characterFrame);
 
-        this.load.spritesheet('centrifuge_object', centrifuge_object, { frameHeight: 34, frameWidth: 30 });
-        this.load.spritesheet('desk_object', desk_object, { frameHeight: 37, frameWidth: 45 });
-        this.load.spritesheet('paper_dispenser', paper_dispenser, { frameHeight: 15, frameWidth: 9 });
-        this.load.spritesheet('laboratory_object', laboratory_object, { frameHeight: 57, frameWidth: 79 });
-        this.load.spritesheet('mural_shelf', mural_shelf_object, { frameHeight: 28, frameWidth: 46 });
-        this.load.spritesheet('mycoscan_object', mycoscan_object, { frameHeight: 57, frameWidth: 81 });
+        this.load.spritesheet('centrifuge_object', centrifuge_object, { frameWidth: 30, frameHeight: 34 });
+        this.load.spritesheet('desk_object', desk_object, { frameWidth: 45, frameHeight: 37 });
+        this.load.spritesheet('paper_dispenser', paper_dispenser, { frameWidth: 9, frameHeight: 15 });
+        this.load.spritesheet('laboratory_object', laboratory_object, { frameWidth: 79, frameHeight: 57 });
+        this.load.spritesheet('mural_shelf', mural_shelf_object, { frameWidth: 46, frameHeight: 28 });
+        this.load.spritesheet('mycoscan_object', mycoscan_object, { frameWidth: 81, frameHeight: 57 });
 
-        this.load.spritesheet('gravity_object', gravity_object, { frameHeight: 46, frameWidth: 28 });
-        this.load.spritesheet('wall_box', wall_box, { frameHeight: 15, frameWidth: 14 });
-        this.load.spritesheet('cryomodule_object', cryomodule_object, { frameHeight: 104, frameWidth: 128 });
-        this.load.spritesheet('distiller_object', distiller_object, { frameHeight: 58, frameWidth: 45 });
-        this.load.spritesheet('camera_object', camera_object, { frameHeight: 17, frameWidth: 25 });
-        this.load.spritesheet('tube_object', tube_object, { frameHeight: 61, frameWidth: 42 });
-        this.load.spritesheet('surgery_console_object', surgery_object, { frameHeight: 52, frameWidth: 41 });
-        this.load.spritesheet('beds_object', beds_object, { frameHeight: 58, frameWidth: 66 });
-        this.load.spritesheet('door_ground_tileset', door_ground_tileset, { frameHeight: 36, frameWidth: 64 });
-        this.load.spritesheet('chair_object', chair_object, { frameHeight: 36, frameWidth: 34 });
-        this.load.spritesheet('door_object', door_object, { frameHeight: 73, frameWidth: 48 });
-        this.load.spritesheet('neron_terminal_object', neron_object, { frameHeight: 64, frameWidth: 41 });
-        this.load.spritesheet('shelf_object', shelf_object, { frameHeight: 40, frameWidth: 33 });
-        this.load.spritesheet('papers', papers, { frameHeight: 12, frameWidth: 16 });
-        this.load.spritesheet('broom', broom, { frameHeight: 29, frameWidth: 17 });
-        this.load.spritesheet('shelf_front_storage1', shelf_front_storage1, { frameHeight: 101, frameWidth: 123 });
-        this.load.spritesheet('shelf_front_storage2', shelf_front_storage2, { frameHeight: 91, frameWidth: 111 });
-        this.load.spritesheet('shelf_front_storage3', shelf_front_storage3, { frameHeight: 74, frameWidth: 109 });
-        this.load.spritesheet('shelf_front_storage4', shelf_front_storage4, { frameHeight: 79, frameWidth: 109 });
-        this.load.spritesheet('transparent_wall_object', transparent_wall_object, { frameHeight: 69, frameWidth: 54 });
-        this.load.spritesheet('puddle', puddle, { frameHeight: 8, frameWidth: 12 });
-        this.load.spritesheet('shower', shower, { frameHeight: 60, frameWidth: 32 });
-        this.load.spritesheet('washRoom1', washRoom1, { frameHeight: 90, frameWidth: 88 });
-        this.load.spritesheet('washRoom2', washRoom2, { frameHeight: 92, frameWidth: 95 });
-        this.load.spritesheet('towelRack', towelRack, { frameHeight: 26, frameWidth: 16 });
-        this.load.spritesheet('slippers', slippers, { frameHeight: 9, frameWidth: 13 });
-        this.load.spritesheet('poster', poster, { frameHeight: 31, frameWidth: 18 });
-        this.load.spritesheet('garden_equipment', garden_equipment, { frameHeight: 156, frameWidth: 219 });
-        this.load.spritesheet('garden_console', garden_console, { frameHeight: 42, frameWidth: 45 });
-        this.load.spritesheet('garden_engine', garden_engine, { frameHeight: 112, frameWidth: 140 });
-        this.load.spritesheet('pneumatic_distributor', pneumatic_distributor, { frameHeight: 42, frameWidth: 35 });
-        this.load.spritesheet('pneumatic_distributor_2', pneumatic_distributor_2, { frameHeight: 41, frameWidth: 31 });
-        this.load.spritesheet('kitchen_1', kitchen_1, { frameHeight: 111, frameWidth: 159 });
-        this.load.spritesheet('kitchen_2', kitchen_2, { frameHeight: 62, frameWidth: 46 });
-        this.load.spritesheet('table', table, { frameHeight: 81, frameWidth: 125 });
-        this.load.spritesheet('coffee_machine', coffee_machine, { frameHeight: 52, frameWidth: 31 });
-        this.load.spritesheet('oxygen_tank', oxygen_tank, { frameHeight: 45, frameWidth: 45 });
-        this.load.spritesheet('shelf_center_alpha_storage_1', shelf_center_alpha_storage_1, { frameHeight: 80, frameWidth: 105 });
-        this.load.spritesheet('shelf_center_alpha_storage_2', shelf_center_alpha_storage_2, { frameHeight: 72, frameWidth: 77 });
-        this.load.spritesheet('shelf_center_bravo_storage_1', shelf_center_bravo_storage_1, { frameHeight: 93, frameWidth: 106 });
-        this.load.spritesheet('shelf_center_bravo_storage_2', shelf_center_bravo_storage_2, { frameHeight: 50, frameWidth: 65 });
-        this.load.spritesheet('shelf_center_bravo_storage_3', shelf_center_bravo_storage_3, { frameHeight: 64, frameWidth: 64 });
-        this.load.spritesheet('nexus_lamp', nexus_lamp, { frameHeight: 59, frameWidth: 107 });
-        this.load.spritesheet('bios_terminal_calculator', bios_terminal_calculator, { frameHeight: 60, frameWidth: 32 });
-        this.load.spritesheet('neron_core', neron_core, { frameHeight: 90, frameWidth: 87 });
-        this.load.spritesheet('fuel_tank', fuel_tank, { frameHeight: 45, frameWidth: 46 });
-        this.load.spritesheet('shelf_rear_alpha_storage', shelf_rear_alpha_storage, { frameHeight: 48, frameWidth: 50 });
-        this.load.spritesheet('shelf_rear_bravo_storage', shelf_rear_bravo_storage, { frameHeight: 134, frameWidth: 192 });
-        this.load.spritesheet('workshop', workshop, { frameHeight: 81, frameWidth: 87 });
-        this.load.spritesheet('worktable', worktable, { frameHeight: 54, frameWidth: 45 });
-        this.load.spritesheet('board', board, { frameHeight: 56, frameWidth: 34 });
-        this.load.spritesheet('garden_engine_anim', garden_engine_anim, { frameHeight: 27, frameWidth: 56 });
-        this.load.spritesheet('patrol_ship', patrol_ship, { frameHeight: 78, frameWidth: 103 });
-        this.load.spritesheet('small_takeoff_platform', small_takeoff_platform, { frameHeight: 106, frameWidth: 194 });
-        this.load.spritesheet('bay_door', bay_door, { frameHeight: 230, frameWidth: 334 });
-        this.load.spritesheet('yellow_lamp', yellow_lamp, { frameHeight: 69, frameWidth: 54 });
-        this.load.spritesheet('jukebox', jukebox, { frameHeight: 31, frameWidth: 20 });
-        this.load.spritesheet('floor_lamp', floor_lamp, { frameHeight: 24, frameWidth: 32 });
-        this.load.spritesheet('magnetic_net', magnetic_net, { frameHeight: 33, frameWidth: 48 });
-        this.load.spritesheet('pasiphae', pasiphae, { frameHeight: 93, frameWidth: 106 });
-        this.load.spritesheet('dynarcade', dynarcade, { frameHeight: 82, frameWidth: 77 });
-        this.load.spritesheet('bay', bay, { frameHeight: 27, frameWidth: 27 });
-        this.load.spritesheet('icarus_wall', icarus_wall, { frameHeight: 55, frameWidth: 83 });
-        this.load.spritesheet('icarus_access', icarus_access, { frameHeight: 140, frameWidth: 171 });
-        this.load.spritesheet('takeoff_platform', takeoff_platform, { frameHeight: 206, frameWidth: 328 });
-        this.load.spritesheet('magnetic_return', magnetic_return, { frameHeight: 35, frameWidth: 51 });
-        this.load.spritesheet('turret_tags', turret_tags, { frameHeight: 10, frameWidth: 18 });
-        this.load.spritesheet('turret_back_bravo', turret_back_bravo, { frameHeight: 26, frameWidth: 69 });
-        this.load.spritesheet('turret_back_alpha', turret_back_alpha, { frameHeight: 46, frameWidth: 71 });
-        this.load.spritesheet('turret_ground', turret_ground, { frameHeight: 11, frameWidth: 32 });
-        this.load.spritesheet('alpha_turret_front', alpha_turret_front, { frameHeight: 61, frameWidth: 123 });
-        this.load.spritesheet('bravo_turret_front', bravo_turret_front, { frameHeight: 48, frameWidth: 122 });
-        this.load.spritesheet('structure', structure, { frameHeight: 106, frameWidth: 175 });
+        this.load.spritesheet('gravity_object', gravity_object, { frameWidth: 28, frameHeight: 46 });
+        this.load.spritesheet('wall_box', wall_box, { frameWidth: 14, frameHeight: 15 });
+        this.load.spritesheet('cryomodule_object', cryomodule_object, { frameWidth: 128, frameHeight: 104 });
+        this.load.spritesheet('distiller_object', distiller_object, { frameWidth: 45, frameHeight: 58 });
+        this.load.spritesheet('camera_object', camera_object, { frameWidth: 25, frameHeight: 17 });
+        this.load.spritesheet('tube_object', tube_object, { frameWidth: 42, frameHeight: 61 });
+        this.load.spritesheet('surgery_console_object', surgery_object, { frameWidth: 41, frameHeight: 52 });
+        this.load.spritesheet('beds_object', beds_object, { frameWidth: 66, frameHeight: 58 });
+        this.load.spritesheet('door_ground_tileset', door_ground_tileset, { frameWidth: 64, frameHeight: 36 });
+        this.load.spritesheet('chair_object', chair_object, { frameWidth: 34, frameHeight: 36 });
+        this.load.spritesheet('door_object', door_object, { frameWidth: 48, frameHeight: 73 });
+        this.load.spritesheet('neron_terminal_object', neron_object, { frameWidth: 41, frameHeight: 64 });
+        this.load.spritesheet('shelf_object', shelf_object, { frameWidth: 33, frameHeight: 40 });
+        this.load.spritesheet('papers', papers, { frameWidth: 16, frameHeight: 12 });
+        this.load.spritesheet('broom', broom, { frameWidth: 17, frameHeight: 29 });
+        this.load.spritesheet('shelf_front_storage1', shelf_front_storage1, { frameWidth: 123, frameHeight: 101 });
+        this.load.spritesheet('shelf_front_storage2', shelf_front_storage2, { frameWidth: 111, frameHeight: 91 });
+        this.load.spritesheet('shelf_front_storage3', shelf_front_storage3, { frameWidth: 109, frameHeight: 74 });
+        this.load.spritesheet('shelf_front_storage4', shelf_front_storage4, { frameWidth: 109, frameHeight: 79 });
+        this.load.spritesheet('transparent_wall_object', transparent_wall_object, { frameWidth: 54, frameHeight: 69 });
+        this.load.spritesheet('puddle', puddle, { frameWidth: 12, frameHeight: 8 });
+        this.load.spritesheet('shower', shower, { frameWidth: 32, frameHeight: 60 });
+        this.load.spritesheet('washRoom1', washRoom1, { frameWidth: 88, frameHeight: 90 });
+        this.load.spritesheet('washRoom2', washRoom2, { frameWidth: 95, frameHeight: 92 });
+        this.load.spritesheet('towelRack', towelRack, { frameWidth: 16, frameHeight: 26 });
+        this.load.spritesheet('slippers', slippers, { frameWidth: 13, frameHeight: 9 });
+        this.load.spritesheet('poster', poster, { frameWidth: 18, frameHeight: 31 });
+        this.load.spritesheet('garden_equipment', garden_equipment, { frameWidth: 219, frameHeight: 156 });
+        this.load.spritesheet('garden_console', garden_console, { frameWidth: 45, frameHeight: 42 });
+        this.load.spritesheet('garden_engine', garden_engine, { frameWidth: 140, frameHeight: 112 });
+        this.load.spritesheet('pneumatic_distributor', pneumatic_distributor, { frameWidth: 35, frameHeight: 42 });
+        this.load.spritesheet('pneumatic_distributor_2', pneumatic_distributor_2, { frameWidth: 31, frameHeight: 41 });
+        this.load.spritesheet('kitchen_1', kitchen_1, { frameWidth: 159, frameHeight: 111 });
+        this.load.spritesheet('kitchen_2', kitchen_2, { frameWidth: 46, frameHeight: 62 });
+        this.load.spritesheet('table', table, { frameWidth: 125, frameHeight: 81 });
+        this.load.spritesheet('coffee_machine', coffee_machine, { frameWidth: 31, frameHeight: 52 });
+        this.load.spritesheet('oxygen_tank', oxygen_tank, { frameWidth: 45, frameHeight: 45 });
+        this.load.spritesheet('shelf_center_alpha_storage_1', shelf_center_alpha_storage_1, { frameWidth: 105, frameHeight: 80 });
+        this.load.spritesheet('shelf_center_alpha_storage_2', shelf_center_alpha_storage_2, { frameWidth: 77, frameHeight: 72 });
+        this.load.spritesheet('shelf_center_bravo_storage_1', shelf_center_bravo_storage_1, { frameWidth: 106, frameHeight: 93 });
+        this.load.spritesheet('shelf_center_bravo_storage_2', shelf_center_bravo_storage_2, { frameWidth: 65, frameHeight: 50 });
+        this.load.spritesheet('shelf_center_bravo_storage_3', shelf_center_bravo_storage_3, { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet('nexus_lamp', nexus_lamp, { frameWidth: 107, frameHeight: 59 });
+        this.load.spritesheet('bios_terminal_calculator', bios_terminal_calculator, { frameWidth: 32, frameHeight: 60 });
+        this.load.spritesheet('neron_core', neron_core, { frameWidth: 87, frameHeight: 90 });
+        this.load.spritesheet('fuel_tank', fuel_tank, { frameWidth: 46, frameHeight: 45 });
+        this.load.spritesheet('shelf_rear_alpha_storage', shelf_rear_alpha_storage, { frameWidth: 50, frameHeight: 48 });
+        this.load.spritesheet('shelf_rear_bravo_storage', shelf_rear_bravo_storage, { frameWidth: 192, frameHeight: 134 });
+        this.load.spritesheet('workshop', workshop, { frameWidth: 87, frameHeight: 81 });
+        this.load.spritesheet('worktable', worktable, { frameWidth: 45, frameHeight: 54 });
+        this.load.spritesheet('board', board, { frameWidth: 34, frameHeight: 56 });
+        this.load.spritesheet('garden_engine_anim', garden_engine_anim, { frameWidth: 56, frameHeight: 27 });
+        this.load.spritesheet('patrol_ship', patrol_ship, { frameWidth: 103, frameHeight: 78 });
+        this.load.spritesheet('small_takeoff_platform', small_takeoff_platform, { frameWidth: 194, frameHeight: 106 });
+        this.load.spritesheet('bay_door', bay_door, { frameWidth: 334, frameHeight: 230 });
+        this.load.spritesheet('yellow_lamp', yellow_lamp, { frameWidth: 54, frameHeight: 69 });
+        this.load.spritesheet('jukebox', jukebox, { frameWidth: 20, frameHeight: 31 });
+        this.load.spritesheet('floor_lamp', floor_lamp, { frameWidth: 32, frameHeight: 24 });
+        this.load.spritesheet('magnetic_net', magnetic_net, { frameWidth: 48, frameHeight: 33 });
+        this.load.spritesheet('pasiphae', pasiphae, { frameWidth: 106, frameHeight: 93 });
+        this.load.spritesheet('dynarcade', dynarcade, { frameWidth: 77, frameHeight: 82 });
+        this.load.spritesheet('bay', bay, { frameWidth: 27, frameHeight: 27 });
+        this.load.spritesheet('icarus_wall', icarus_wall, { frameWidth: 83, frameHeight: 55 });
+        this.load.spritesheet('icarus_access', icarus_access, { frameWidth: 171, frameHeight: 140 });
+        this.load.spritesheet('takeoff_platform', takeoff_platform, { frameWidth: 328, frameHeight: 206 });
+        this.load.spritesheet('magnetic_return', magnetic_return, { frameWidth: 51, frameHeight: 35 });
+        this.load.spritesheet('turret_tags', turret_tags, { frameWidth: 18, frameHeight: 10 });
+        this.load.spritesheet('turret_back_bravo', turret_back_bravo, { frameWidth: 69, frameHeight: 26 });
+        this.load.spritesheet('turret_back_alpha', turret_back_alpha, { frameWidth: 71, frameHeight: 46 });
+        this.load.spritesheet('turret_ground', turret_ground, { frameWidth: 32, frameHeight: 11 });
+        this.load.spritesheet('alpha_turret_front', alpha_turret_front, { frameWidth: 123, frameHeight: 61 });
+        this.load.spritesheet('bravo_turret_front', bravo_turret_front, { frameWidth: 122, frameHeight: 48 });
+        this.load.spritesheet('structure', structure, { frameWidth: 175, frameHeight: 106 });
+
+        this.load.spritesheet('aeration_grid', aeration_grid, { frameWidth: 54, frameHeight: 29 });
+        this.load.spritesheet('astro_terminal', astro_terminal, { frameWidth: 77, frameHeight: 72 });
+        this.load.spritesheet('astro_terminal2', astro_terminal2, { frameWidth: 52, frameHeight: 46 });
+        this.load.spritesheet('cockpit_window', cockpit_window, { frameWidth: 205, frameHeight: 166 });
+        this.load.spritesheet('command_board', command_board, { frameWidth: 120, frameHeight: 106 });
+        this.load.spritesheet('command_terminal', command_terminal, { frameWidth: 94, frameHeight: 52 });
+        this.load.spritesheet('comms_center', comms_center, { frameWidth: 64, frameHeight: 48 });
+        this.load.spritesheet('comms_center2', comms_center2, { frameWidth: 86, frameHeight: 61 });
+        this.load.spritesheet('floor_lamp_bridge', floor_lamp_bridge, { frameWidth: 96, frameHeight: 79 });
+        this.load.spritesheet('scanner', scanner, { frameWidth: 60, frameHeight: 71 });
+        this.load.spritesheet('semi_circle_lamp', semi_circle_lamp, { frameWidth: 104, frameHeight: 51 });
+        this.load.spritesheet('semicircle_floor', semicircle_floor, { frameWidth: 72, frameHeight: 37 });
+        this.load.spritesheet('antenna', antenna, { frameWidth: 51, frameHeight: 68 });
+        this.load.spritesheet('combustion_chamber', combustion_chamber, { frameWidth: 73, frameHeight: 63 });
+        this.load.spritesheet('engine_room1', engine_room1, { frameWidth: 240, frameHeight: 186 });
+        this.load.spritesheet('engine_room2', engine_room2, { frameWidth: 350, frameHeight: 188 });
+        this.load.spritesheet('paraboles', paraboles, { frameWidth: 135, frameHeight: 133 });
+        this.load.spritesheet('pilgred', pilgred, { frameWidth: 128, frameHeight: 116 });
+        this.load.spritesheet('planet_scanner', planet_scanner, { frameWidth: 67, frameHeight: 60 });
+        this.load.spritesheet('quantum_sensors', quantum_sensors, { frameWidth: 31, frameHeight: 43 });
+        this.load.spritesheet('reactor', reactor, { frameWidth: 199, frameHeight: 181 });
+        this.load.spritesheet('terminal_pilgred', terminal_pilgred, { frameWidth: 83, frameHeight: 69 });
 
 
-        this.load.spritesheet('ground_object', ground_tileset, { frameHeight: 72, frameWidth: 32 });
+        this.load.spritesheet('ground_object', ground_tileset, { frameWidth: 32, frameHeight: 72 });
+
+
 
         this.load.image('smoke_particle', smoke_particle);
         this.load.atlas('fire_particles', fire_particles, fire_particles_frame);
@@ -305,6 +356,7 @@ export default class DaedalusScene extends Phaser.Scene
         const map = new MushTiledMap(this, this.room.key);
 
         map.createInitialSceneGrid(this.sceneGrid);
+        this.sceneIsoSize = map.getMapSize();
         this.equipments = map.createLayers(this.room, this.sceneGrid);
 
         // add target tile highlight
@@ -337,7 +389,7 @@ export default class DaedalusScene extends Phaser.Scene
         //else it is centered on the scene
         const cameraPosition = map.getCameraPosition();
         if (cameraPosition.width < 424 && cameraPosition.height < 460) {
-            this.cameras.main.setBounds(-212, -230, 424, 460);
+            this.cameras.main.setBounds(-212, -160, 424, 460);
         } else {
             this.cameras.main.setBounds(cameraPosition.x, cameraPosition.y, cameraPosition.width, cameraPosition.height);
             this.cameras.main.startFollow(this.playerSprite);
@@ -349,6 +401,7 @@ export default class DaedalusScene extends Phaser.Scene
         for (let i = this.isoTileSize/2; i < this.sceneIsoSize.x; i = i + this.isoTileSize) {
             for (let j = this.isoTileSize/2; j < this.sceneIsoSize.y; j = j + this.isoTileSize) {
                 const tileCoordinates = new IsometricCoordinates(i, 8 + j);
+
                 if (this.sceneGrid.getPolygonFromPoint(tileCoordinates) !== -1) {
                     //is the tile on fire
                     if (Math.random() < 0.2) {
@@ -530,7 +583,7 @@ export default class DaedalusScene extends Phaser.Scene
         const navMeshPolygons = this.sceneGrid.depthSortingArray;
 
         const debugGraphics = this.add.graphics().setAlpha(1);
-        debugGraphics.setDepth(1000000);
+        debugGraphics.setDepth(1000000000);
         for (let i = 0; i < navMeshPolygons.length; i++) {
         // for (let i = 4; i < 5; i++) {
             const polygon = navMeshPolygons[i].geom.getIsoArray();

@@ -306,8 +306,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":14,
-                 "x":-15.5,
-                 "y":39.5
+                 "x":-24,
+                 "y":33
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1552,6 +1552,7 @@
          "imagewidth":56,
          "margin":0,
          "name":"wall_box",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
          "tileheight":15,

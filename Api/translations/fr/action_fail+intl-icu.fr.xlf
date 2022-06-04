@@ -568,6 +568,12 @@
             </segment>
         </unit>
 
+        <unit id="mush_remove_spore">
+            <segment id="description">
+                <source>mush_remove_spore.description</source>
+                <target>Pax Fungi: Le Mush ne tolère pas les actions violentes directes envers lui même.</target>
+            </segment>
+        </unit>
 
     </file>
 </xliff>

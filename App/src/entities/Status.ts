@@ -4,12 +4,14 @@ export class Status {
     public name : string|null
     public charge : number|null
     public description : string|null
+    public target : { "key" : string, "id" : number } | null
 
     constructor() {
         this.id = null;
         this.name = null;
         this.charge = null;
         this.description = null;
+        this.target = null;
     }
 
     load(object: any): Status {
@@ -19,6 +21,7 @@ export class Status {
             this.name = object.name;
             this.charge = object.charge;
             this.description = object.description;
+            this.target = object.target;
         }
         return this;
     }

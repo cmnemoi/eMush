@@ -36,7 +36,7 @@ class ChannelSubscriberCest
         $privateChannel = new Channel();
         $privateChannel
             ->setDaedalus($daedalus)
-            ->setScope(ChannelScopeEnum::class)
+            ->setScope(ChannelScopeEnum::PRIVATE)
         ;
         $I->haveInRepository($privateChannel);
 

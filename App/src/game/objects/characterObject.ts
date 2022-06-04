@@ -1,112 +1,181 @@
 import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
-import { characterEnum } from "@/enums/character";
-import { CartesianCoordinates, IsometricDistance, toIsometricCoords } from "@/game/types";
+import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import { Player } from "@/entities/Player";
 import store from "@/store";
-import { PhaserNavMesh } from "phaser-navmesh/src";
+import InteractObject from "@/game/objects/interactObject";
+import Tileset = Phaser.Tilemaps.Tileset;
+import IsometricGeom from "@/game/scenes/isometricGeom";
+import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 
-export default class CharacterObject extends Phaser.GameObjects.Sprite {
-    protected sceneAspectRatio : IsometricDistance;
+export default class CharacterObject extends InteractObject {
     protected player : Player;
-    protected navMesh: PhaserNavMesh;
+    protected navMesh: NavMeshGrid;
 
-    constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, sceneAspectRatio: IsometricDistance, player: Player) {
-        super(scene, cart_coords.x, cart_coords.y, player.character.key);
+    constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, isoGeom: IsometricGeom, player: Player) {
+        super(
+            scene,
+            cart_coords,
+            isoGeom,
+            new Tileset('character', 0, 48, 32),
+            0,
+            player.character.key,
+            { x: false, y: false },
+            false,
+            false
+        );
+
+        this.player = player;
+        this.navMesh = scene.navMeshGrid;
+
+        this.setPositionFromFeet(cart_coords);
+
         scene.physics.world.enable(this);
 
-        this.scene = scene;
-        this.navMesh = scene.navMesh;
-        this.player = player;
+        this.createAnimations();
 
-        let characterFrames: any = characterEnum[player.character.key];
+        const targetBed = this.player.isLyingDown();
 
-        if (!characterFrames.moveLeftFirstFrame){
-            characterFrames = characterEnum["default"];
+        if (targetBed !== null) {
+            const bed = (<DaedalusScene>this.scene).findObjectByNameAndId(targetBed.key, targetBed.id);
+
+            if (bed !== null) {
+                this.applyEquipmentInteractionInformation(bed);
+            }
+        } else {
+            //Set the initial sprite randomly such as it faces the screen
+            if (Math.random() > 0.5) {
+                this.flipX = true;
+            }
+            this.anims.play('right');
         }
-
-        this.scene.add.existing(this);
-        this.setInteractive();
-        this.sceneAspectRatio = sceneAspectRatio;
-
-        const iso_coords = toIsometricCoords({ x: this.x, y: this.getFeetY() });
-        //the first sprite to be displayed are the ones on the last row of either x or y isometric coordinates
-        //a second order sorting is applied using the y axis of cartesian coordinates
-        //              4
-        //            3   3
-        //          2   3    2
-        //       1    2   2    1           / \
-        //          1   2   1             y   x
-        //              1
-        //
-        this.setDepth(Math.max(iso_coords.x + this.sceneAspectRatio.x, iso_coords.y + this.sceneAspectRatio.y) * 1000 + this.getFeetY());
-
-
-        this.createAnimations(characterFrames);
-
-
-        //Set the initial sprite randomly such as it faces the screen
-        if (Math.random() > 0.5) {
-            this.flipX = true;
-        }
-        this.anims.play('right');
 
 
         //If this is clicked then:
         this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
             store.dispatch('room/selectTarget', { target: player });
-            event.stopPropagation(); //Need that one to prevent other effects
         });
-        //if clicked outside
-        this.scene.input.on('pointerdown', function(){
-            store.dispatch('room/selectTarget', { target: null });
-        });
+
+        this.checkPositionDepth();
     }
 
 
+    applyTexture(tileset: Phaser.Tilemaps.Tileset, name: string) {
+        this.setTexture('character', this.tiledFrame);
+    }
 
-    createAnimations(characterFrames: any): void
+    applyEquipmentInteractionInformation(equipment: InteractObject)
+    {
+        const interactionInformation = equipment.getInteractionInformation();
+
+        if (interactionInformation !== null) {
+            this.flipX = interactionInformation.sitFlip;
+
+            const equiCartCoords = new CartesianCoordinates(equipment.x, equipment.y);
+            const charIsoCoords = new IsometricCoordinates(
+                equiCartCoords.toIsometricCoordinates().x  + interactionInformation.sitX,
+                equiCartCoords.toIsometricCoordinates().y + interactionInformation.sitY
+            );
+            this.setPositionFromIsometricCoordinates(charIsoCoords);
+
+            this.depth = equipment.depth + interactionInformation.sitDepth;
+            this.anims.play(interactionInformation.sitAnimation);
+        }
+    }
+
+
+    createAnimations(): void
     {
         this.anims.create({
-            key: 'move_left',
-            frames: this.anims.generateFrameNames('character', { start: characterFrames.moveLeftFirstFrame, end: characterFrames.moveLeftLastFrame }),
+            key: 'move_right',
+            frames: this.anims.generateFrameNames('character', {
+                prefix: this.player.character.key,
+                start: 5,
+                end: 10
+            }),
             frameRate: 10,
             repeat: -1
         });
         this.anims.create({
-            key: 'up',
-            frames: [{ key: 'character', frame: characterFrames.leftFrame }],
-            frameRate: 1
+            key: 'move_left',
+            frames: this.anims.generateFrameNames('character', {
+                prefix: this.player.character.key,
+                start: 11,
+                end: 16
+            }),
+            frameRate: 10,
+            repeat: -1
         });
+
         this.anims.create({
-            key: 'down',
-            frames: [{ key: 'character', frame: characterFrames.rightFrame }],
+            key: 'right',
+            frames: this.anims.generateFrameNames('character', {
+                prefix: this.player.character.key,
+                start: 1,
+                end: 1
+            }),
             frameRate: 1
         });
         this.anims.create({
             key: 'left',
-            frames: [{ key: 'character', frame: characterFrames.leftFrame }],
+            frames: this.anims.generateFrameNames('character', {
+                prefix: this.player.character.key,
+                start: 2,
+                end: 2
+            }),
+            frameRate: 1
+        });
+
+        this.anims.create({
+            key: 'sit_front',
+            frames: this.anims.generateFrameNames('character', {
+                prefix: this.player.character.key,
+                start: 3,
+                end: 3
+            }),
             frameRate: 1
         });
         this.anims.create({
-            key: 'right',
-            frames: [{ key: 'character', frame: characterFrames.rightFrame }],
+            key: 'sit_back',
+            frames: this.anims.generateFrameNames('character', {
+                prefix: this.player.character.key,
+                start: 4,
+                end: 4
+            }),
             frameRate: 1
         });
         this.anims.create({
-            key: 'move_right',
-            frames: this.anims.generateFrameNames('character', { start: characterFrames.moveRightFirstFrame, end: characterFrames.moveRightLastFrame }),
-            frameRate: 10,
-            repeat: -1
+            key: 'lie_down',
+            frames: this.anims.generateFrameNames('character', {
+                prefix: this.player.character.key,
+                start: 18,
+                end: 18
+            }),
+            frameRate: 1
         });
     }
 
-
-
-    getFeetY(): number
+    getFeetCartCoords(): CartesianCoordinates
     {
-        const tileHeight = 16;
+        const isoWidth = 16;
+        return new CartesianCoordinates(this.x, this.y + this.height / 2 - isoWidth/2);
+    }
 
-        return (this.y + this.height / 2 - tileHeight/2);
+    setPositionFromFeet(feetCoords: CartesianCoordinates): CartesianCoordinates
+    {
+        const isoWidth = 16;
+        this.x = feetCoords.x;
+        this.y = feetCoords.y - this.height / 2 + isoWidth/2;
+
+        return new CartesianCoordinates(this.x, this.y);
+    }
+
+    checkPositionDepth(): void
+    {
+        const polygonDepth = (<DaedalusScene>this.scene).sceneGrid.getDepthOfPoint(this.getFeetCartCoords().toIsometricCoordinates());
+
+        if (polygonDepth !== -1) {
+            this.setDepth(polygonDepth);// + this.getFeetCartCoords().x);
+        }
     }
 }

@@ -20,15 +20,15 @@ class PlayerCreateRequestConverter implements ParamConverterInterface
     public function apply(Request $request, ParamConverter $configuration)
     {
         $daedalus = null;
-        $character = $request->get('character');
+        $character = $request->request->get('character');
 
-        if (($daedalusId = $request->get('daedalus')) !== null) {
-            $daedalus = $this->daedalusService->findById($daedalusId);
+        if (($daedalusId = $request->request->get('daedalus')) !== null) {
+            $daedalus = $this->daedalusService->findById((int) $daedalusId);
         }
 
         $playerRequest = new PlayerCreateRequest();
         $playerRequest
-            ->setCharacter($character)
+            ->setCharacter((string) $character)
             ->setDaedalus($daedalus)
         ;
 

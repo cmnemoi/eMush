@@ -1,22 +1,14 @@
 import { Action } from "@/entities/Action";
 import { Status } from "@/entities/Status";
+import { Equipment } from "@/entities/Equipment";
 
-export class Door {
-    public id: number|null;
-    public key: string|null;
-    public name!: string;
-    public actions: Array<Action>;
+export class Door extends Equipment {
     public direction: string|null;
-    public statuses: Array<Status>;
-    public isBroken: boolean;
 
     constructor() {
-        this.id = null;
-        this.key = null;
-        this.actions = [];
+        super();
+
         this.direction = null;
-        this.statuses = [];
-        this.isBroken = false;
     }
     load(object : any) : Door {
         if (typeof object !== "undefined") {

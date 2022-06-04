@@ -15,6 +15,7 @@ use Mush\Player\Event\PlayerModifierEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -82,6 +83,10 @@ class PlayerModifierEventCest
         $this->eventDispatcherService->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(3, $player->getMoralPoint());
         $I->assertCount(1, $player->getStatuses());
+        $I->seeInRepository(
+            Status::class, [
+            'statusConfig' => $demoralizedStatusConfig->getId(),
+        ]);
 
         $playerEvent = new PlayerModifierEvent(
             $player,
@@ -93,11 +98,38 @@ class PlayerModifierEventCest
         $this->eventDispatcherService->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(1, $player->getMoralPoint());
         $I->assertCount(1, $player->getStatuses());
+        $I->dontSeeInRepository(
+            Status::class, [
+            'statusConfig' => $demoralizedStatusConfig->getId(),
+        ]);
+        $I->seeInRepository(
+            Status::class, [
+            'statusConfig' => $suicidalStatusConfig->getId(),
+        ]);
 
         $playerEvent = new PlayerModifierEvent(
             $player,
             PlayerVariableEnum::MORAL_POINT,
-            6,
+            -1,
+            EventEnum::NEW_CYCLE,
+            new \DateTime()
+        );
+        $this->eventDispatcherService->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $I->assertEquals(0, $player->getMoralPoint());
+        $I->assertCount(1, $player->getStatuses());
+        $I->dontSeeInRepository(
+            Status::class, [
+            'statusConfig' => $demoralizedStatusConfig->getId(),
+        ]);
+        $I->seeInRepository(
+            Status::class, [
+            'statusConfig' => $suicidalStatusConfig->getId(),
+        ]);
+
+        $playerEvent = new PlayerModifierEvent(
+            $player,
+            PlayerVariableEnum::MORAL_POINT,
+            7,
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );

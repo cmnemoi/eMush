@@ -53,6 +53,7 @@ class ActionLogEnum
     public const TAKE = 'take';
     public const TRANSPLANT_SUCCESS = 'transplant_success';
     public const TREAT_PLANT_SUCCESS = 'treat_plant_success';
+    public const TRY_KUBE = 'try_kube';
     public const ULTRAHEAL_SUCCESS = 'ultraheal_success';
     public const SELF_HEAL = 'self_heal';
     public const WATER_PLANT_SUCCESS = 'water_plant_success';
@@ -60,6 +61,9 @@ class ActionLogEnum
     public const OPEN_SUCCESS = 'open_success';
     public const INSTALL_CAMERA = 'install_camera';
     public const REMOVE_CAMERA = 'remove_camera';
+    public const CHECK_SPORE_LEVEL = 'check_spore_level';
+    public const REMOVE_SPORE_SUCCESS = 'remove_spore_success';
+    public const REMOVE_SPORE_FAIL = 'remove_spore_fail';
 
     public const SUCCESS = 'success';
     public const FAIL = 'fail';
@@ -180,6 +184,12 @@ class ActionLogEnum
             self::SUCCESS => [
                 self::VALUE => self::TREAT_PLANT_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+        ],
+        ActionEnum::TRY_KUBE => [
+            self::SUCCESS => [
+                self::VALUE => self::TRY_KUBE,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::HYBRIDIZE => [
@@ -368,6 +378,24 @@ class ActionLogEnum
             self::SUCCESS => [
                 self::VALUE => self::DO_THE_THING_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+
+        ActionEnum::CHECK_SPORE_LEVEL => [
+            self::SUCCESS => [
+                self::VALUE => self::CHECK_SPORE_LEVEL,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+        ],
+
+        ActionEnum::REMOVE_SPORE => [
+            self::SUCCESS => [
+                self::VALUE => self::REMOVE_SPORE_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+            self::FAIL => [
+                self::VALUE => self::REMOVE_SPORE_FAIL,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
     ];

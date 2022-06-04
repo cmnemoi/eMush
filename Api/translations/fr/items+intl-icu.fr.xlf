@@ -1953,12 +1953,12 @@ Le sérum retro-fongique est conçu pour anéantir le mécanisme de parthénogen
             <segment id="description">
                 <source>spore_sucker.description</source>
                 <target>L'extracteur de Spore vous débarrassera des spores qui auraient commencé à vous contaminer.
-Attention ! Cette action va vous coûter 3 hp !</target>
+Attention ! Cette action va vous coûter 3 :hp: !</target>
             </segment>
             <segment id="examine">
                 <source>spore_sucker.examine</source>
                 <target>L'extracteur de Spore vous débarrassera des spores qui auraient commencé à vous contaminer.
-Attention ! Cette action va vous coûter 3 hp !
+Attention ! Cette action va vous coûter 3 :hp: !
 Malgré son aspect, il ne fait presque aucun mal.</target>
             </segment>
         </unit>

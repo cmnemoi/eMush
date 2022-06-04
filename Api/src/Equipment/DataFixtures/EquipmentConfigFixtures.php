@@ -471,8 +471,10 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($cryoModule);
         $manager->persist($cryoModuleMechanic);
 
+        /** @var Action $checkSporeLevelAction */
+        $checkSporeLevelAction = $this->getReference(ActionsFixtures::CHECK_SPORE_LEVEL);
+
         $mycoscanMechanic = new Tool();
-//        $mycoscanMechanic->setActions([ActionEnum::CHECK_INFECTION]);
         $mycoscan = new EquipmentConfig();
         $mycoscan
             ->setGameConfig($gameConfig)
@@ -481,7 +483,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$mycoscanMechanic]))
-            ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
+            ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction, $checkSporeLevelAction]))
         ;
         $manager->persist($mycoscan);
         $manager->persist($mycoscanMechanic);

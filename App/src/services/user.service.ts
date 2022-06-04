@@ -40,7 +40,7 @@ const UserService = {
             ApiService.setHeader();
 
             return response.data.token;
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
             // eslint-disable-next-line no-console
             throw new AuthenticationError(error.response.status, error.response.data.detail);
@@ -89,7 +89,7 @@ const UserService = {
             TokenService.saveUserInfo(user.load(response.data));
 
             return user;
-        } catch (error) {
+        } catch (error: any) {
             // eslint-disable-next-line no-console
             throw new AuthenticationError(error.response.status, error.response.data.detail);
         }

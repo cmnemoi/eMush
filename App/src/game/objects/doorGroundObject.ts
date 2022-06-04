@@ -1,24 +1,30 @@
 import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
-import { CartesianCoordinates } from "@/game/types";
+import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import { Door as DoorEntity } from "@/entities/Door";
 import store from "@/store";
 import { Action } from "@/entities/Action";
+import InteractObject from "@/game/objects/interactObject";
+import IsometricGeom from "@/game/scenes/isometricGeom";
 
 
 /*eslint no-unused-vars: "off"*/
-export default class DoorGroundObject extends Phaser.GameObjects.Sprite {
-    private frames: Phaser.Types.Animations.AnimationFrame[];
+export default class DoorGroundObject extends InteractObject {
     protected door: DoorEntity;
 
-    constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, firstFrame: number, door: DoorEntity)
+    constructor(
+        scene: DaedalusScene,
+        cart_coords: CartesianCoordinates,
+        iso_geom: IsometricGeom,
+        tileset: Phaser.Tilemaps.Tileset,
+        firstFrame: number,
+        isFlipped: { x: boolean, y: boolean},
+        door: DoorEntity,
+    )
     {
-        super(scene, cart_coords.x, cart_coords.y, door.name);
+        super(scene, cart_coords, iso_geom, tileset, firstFrame, door.key, isFlipped, true, false);
 
-        this.scene = scene;
         this.door = door;
-
-        this.scene.add.existing(this);
 
         if (firstFrame === 5 || firstFrame === 15){
             this.setDepth(0);
@@ -26,19 +32,10 @@ export default class DoorGroundObject extends Phaser.GameObjects.Sprite {
             this.setDepth(this.y + this.width/2);
         }
 
-        this.frames = this.anims.generateFrameNames('door_ground_object', { start: firstFrame, end: firstFrame + 3 });
 
-        this.anims.create({
-            key: 'door_light',
-            frames: this.frames,
-            frameRate: 10,
-            repeat: -1
-        });
-        this.anims.play('door_light');
-
-        this.setInteractive();
         this.on('pointerdown', () => {this.onDoorClicked();}, this);
 
+        this.canMove();
     }
 
     getMoveAction(): Action
@@ -53,18 +50,52 @@ export default class DoorGroundObject extends Phaser.GameObjects.Sprite {
         throw new Error('door do not have the move action');
     }
 
-    onDoorClicked(): void {
-        if(!this.door.isBroken) {
+    onDoorClicked(): void
+    {
+        console.log('coucou');
+        console.log(this.door);
+        if(!this.door.isBroken && this.canMove()) {
             //if player click on the door
             const moveAction = this.getMoveAction();
             store.dispatch('action/executeAction', { target: this.door, action: moveAction });
         } else {
             //If the door is broken propose the repair action
-            const door = this.door;
-            this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
-                store.dispatch('room/selectTarget', { target: door });
-                event.stopPropagation(); //Need that one to prevent other effects
-            });
+            store.dispatch('room/selectTarget', { target: this.door });
         }
+    }
+
+    setHoveringOutline(): void
+    {
+        if (this.door.isBroken || (!this.canMove())) {
+            this.setPostPipeline('outline');
+            const pipeline = this.postPipelines[0];
+            //@ts-ignore
+            pipeline.resetFromJSON({ thickness: 1, outlineColor: 0xff0000 });
+        } else {
+            super.setHoveringOutline();
+        }
+    }
+
+    setSelectedOutline(): void
+    {
+        if (this.door.isBroken || (!this.canMove())) {
+            this.setPostPipeline('outline');
+            const pipeline = this.postPipelines[0];
+            //@ts-ignore
+            pipeline.resetFromJSON({ thickness: 1, outlineColor: 0xff0000 });
+        } else {
+            super.setSelectedOutline();
+        }
+    }
+
+    canMove(): boolean
+    {
+        const moveAction = this.door.actions.filter((action: Action) => {return action.key === 'move';});
+
+        if (moveAction.length !==1 ) {
+            return false;
+        }
+
+        return moveAction[0].canExecute;
     }
 }

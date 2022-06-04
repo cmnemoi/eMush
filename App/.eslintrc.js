@@ -12,6 +12,8 @@ module.exports = {
         'prettier'
     ],
 
+    "ignorePatterns": ["src/game/assets/tilemaps/tiledFiles/*.tsx"],
+
     "rules": {
         "@typescript-eslint/ban-ts-comment": ["warn"],
         "indent": ["error", 4],

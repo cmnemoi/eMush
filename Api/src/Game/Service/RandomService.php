@@ -14,7 +14,7 @@ class RandomService implements RandomServiceInterface
 {
     public function random(int $min, int $max): int
     {
-        return rand($min, $max);
+        return random_int($min, $max);
     }
 
     public function randomPercent(): int
@@ -59,7 +59,7 @@ class RandomService implements RandomServiceInterface
 
     public function getRandomElements(array $array, int $number = 1): array
     {
-        if (count($array) < $number || empty($array)) {
+        if (empty($array) || count($array) < $number) {
             return [];
         }
 

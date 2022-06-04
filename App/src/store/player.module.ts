@@ -26,7 +26,7 @@ const actions: ActionTree<any, any> = {
         try {
             const player = await PlayerService.loadPlayer(playerId);
             commit('updatePlayer', player);
-
+            this.dispatch("daedalus/loadAlerts", { player: player });
             return true;
         } catch (e) {
             commit('errorUpdatePlayer');

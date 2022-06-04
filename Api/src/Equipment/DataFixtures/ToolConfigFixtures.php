@@ -186,11 +186,11 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($ductTape);
         $manager->persist($ductTapeMechanic);
 
-        /** @var Action $tryTheKubeAction */
-        $tryTheKubeAction = $this->getReference(ActionsFixtures::TRY_KUBE);
+        /** @var Action $tryKubeAction */
+        $tryKubeAction = $this->getReference(ActionsFixtures::TRY_KUBE);
 
         $madKubeMechanic = new Tool();
-        $madKubeMechanic->addAction($tryTheKubeAction);
+        $madKubeMechanic->addAction($tryKubeAction);
 
         $madKube = new ItemConfig();
         $madKube
@@ -312,9 +312,11 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($medikit);
         $manager->persist($medikitMechanic);
 
-        //@TODO
+        /** @var Action $removeSporeAction */
+        $removeSporeAction = $this->getReference(ActionsFixtures::REMOVE_SPORE);
+
         $sporeSuckerMechanic = new Tool();
-//        $sporeSuckerMechanic->setActions([ActionEnum::EXTRACT_SPORE]);
+        $sporeSuckerMechanic->addAction($removeSporeAction);
 
         $sporeSucker = new ItemConfig();
         $sporeSucker->setGameConfig($gameConfig)

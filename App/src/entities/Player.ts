@@ -105,4 +105,16 @@ export class Player {
 
         return this;
     }
+
+    isLyingDown(): { "key" : string, "id" : number } | null
+    {
+        for (let i=0; i<this.statuses.length; i++) {
+            const status = this.statuses[i];
+            if (status.key === 'lying_down') {
+                return status.target;
+            }
+        }
+
+        return null;
+    }
 }

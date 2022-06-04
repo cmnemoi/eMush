@@ -9,7 +9,7 @@
     "dismantable": false,
     "is_heavy": false,
     "is_personal": false,
-    "is_stackable": false,
+    "is_stackable": true,
     "can_drop": true,
     "can_hide": true,
     "can_move": true,

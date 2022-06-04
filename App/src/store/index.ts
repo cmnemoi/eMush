@@ -5,6 +5,7 @@ import { error } from "@/store/error.module";
 import { player } from "@/store/player.module";
 import { room } from "@/store/room.module";
 import { communication } from "@/store/communication.module";
+import { daedalus } from "@/store/daedalus.module";
 
 export default createStore({
     modules: {
@@ -13,7 +14,8 @@ export default createStore({
         error,
         player,
         room,
-        communication
+        communication,
+        daedalus
     }
 })
 ;

@@ -130,7 +130,7 @@ export default defineComponent ({
     }
 
     .timestamp {
-        position: absolute;
+        text-align: end;
         z-index: 2;
         right: 5px;
         bottom: 5px;

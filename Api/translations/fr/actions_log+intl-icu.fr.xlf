@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
     <file id="actions_log.ext">
+        <unit id="check_spore_level">
+            <segment id="check_spore_level">
+                <source>check_spore_level</source>
+                <target>Vous entamez une détection des traces Mush... Niveau pré-fongique {quantity, select, 0 {nul} other {{quantity}}}</target>
+            </segment>
+        </unit>
         <unit id="coffee_success">
             <segment id="coffee_success">
                 <source>coffee_success</source>
@@ -667,6 +673,30 @@
             <segment id="remove_camera">
                 <source>remove_camera</source>
                 <target>**{character}** enlève la **Caméra**. Elle était sans doute devenue inutile...</target>
+            </segment>
+        </unit>
+        <unit id="try_kube">
+            <segment id="try_kube">
+                <source>try_kube</source>
+                <target>{character_gender, select,
+                    male {**{character}** essaie de résoudre cet affreux kube.}
+                    female {**{character}** a décidé de tenter cet insupportable petit kube.}
+                    other {invalid gender input}
+                }</target>
+            </segment>
+        </unit>
+        <unit id="remove_spore_success">
+            <segment id="remove_spore_fail">
+                <source>remove_spore_success</source>
+                <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Tiens qu'est ce que c'est que ça ?
+                </target>
+            </segment>
+        </unit>
+        <unit id="remove_spore_fail">
+            <segment id="remove_spore_fail">
+                <source>remove_spore_fail</source>
+                <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Heureusement vous n'aviez aucun spore à récupérer
+                </target>
             </segment>
         </unit>
     </file>

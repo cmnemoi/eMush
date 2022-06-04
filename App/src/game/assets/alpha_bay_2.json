@@ -349,8 +349,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":14,
-                 "x":-21.9703557312253,
-                 "y":20.0731225296443
+                 "x":-30.5,
+                 "y":9.5
                 }, 
                 {
                  "gid":339,
@@ -2688,6 +2688,7 @@
          "imagewidth":56,
          "margin":0,
          "name":"wall_box",
+         "objectalignment":"center",
          "spacing":0,
          "tilecount":4,
          "tileheight":15,

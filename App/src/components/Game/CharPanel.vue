@@ -10,44 +10,40 @@
 
             <div class="health-points">
                 <div class="life">
-                    <Tooltip>
-                        <template #tooltip-trigger>
-                            <ol>
-                                <li>
-                                    <p><img src="@/assets/images/lp.png" alt="lp">{{ player.healthPoint.quantity }}</p>
-                                </li>
-                                <li>
-                                    <ul>
-                                        <li v-for="n in 14" :key="n" :class="isFull(n, player.healthPoint.quantity)" />
-                                    </ul>
-                                </li>
-                            </ol>
-                        </template>
-                        <template #tooltip-content="{ formatContent }">
+                    <Tippy tag="div">
+                        <ol>
+                            <li class="quantityLife">
+                                <ul>
+                                    <li v-for="n in 14" :key="n" :class="isFull(n, player.healthPoint.quantity)" />
+                                </ul>
+                            </li>
+                            <li class="iconLife">
+                                <p><img src="@/assets/images/lp.png" alt="lp">{{ player.healthPoint.quantity }}</p>
+                            </li>
+                        </ol>
+                        <template #content>
                             <h1 v-html="formatContent(player.healthPoint.name)" />
                             <p v-html="formatContent(player.healthPoint.description)" />
                         </template>
-                    </Tooltip>
+                    </Tippy>
                 </div>
                 <div class="morale">
-                    <Tooltip>
-                        <template #tooltip-trigger>
-                            <ol>
-                                <li>
-                                    <p><img src="@/assets/images/moral.png" alt="mp">{{ player.moralPoint.quantity }}</p>
-                                </li>
-                                <li>
-                                    <ul>
-                                        <li v-for="n in 14" :key="n" :class="isFull(n, player.moralPoint.quantity)" />
-                                    </ul>
-                                </li>
-                            </ol>
-                        </template>
-                        <template #tooltip-content="{ formatContent }">
+                    <Tippy tag="div">
+                        <ol>
+                            <li class="quantityMorale">
+                                <ul>
+                                    <li v-for="n in 14" :key="n" :class="isFull(n, player.moralPoint.quantity)" />
+                                </ul>
+                            </li>
+                            <li class="iconMorale">
+                                <p><img src="@/assets/images/moral.png" alt="mp">{{ player.moralPoint.quantity }}</p>
+                            </li>
+                        </ol>
+                        <template #content>
                             <h1 v-html="formatContent(player.moralPoint.name)" />
                             <p v-html="formatContent(player.moralPoint.description)" />
                         </template>
-                    </Tooltip>
+                    </Tippy>
                 </div>
             </div>
             <div class="inventory">
@@ -85,29 +81,27 @@
 
             <div class="actions-sheet">
                 <img src="@/assets/images/pam.png" alt="pam">
-                <Tooltip>
-                    <template #tooltip-trigger>
-                        <div class="action-points">
-                            <div class="actions">
-                                <ul>
-                                    <li v-for="n in 12" :key="n" :class="isFull(n, player.actionPoint.quantity)" />
-                                </ul>
-                            </div>
-                            <div class="movements">
-                                <ul>
-                                    <li v-for="n in 12" :key="n" :class="isFull(n, player.movementPoint.quantity)" />
-                                </ul>
-                            </div>
+                <Tippy tag="div">
+                    <div class="action-points">
+                        <div class="actions">
+                            <ul>
+                                <li v-for="n in 12" :key="n" :class="isFull(n, player.actionPoint.quantity)" />
+                            </ul>
                         </div>
-                        <ul class="specials">
-                            <!--          <li><img src="@/assets/images/pa_cook.png">x6</li>-->
-                        </ul>
-                    </template>
-                    <template #tooltip-content="{ formatContent }">
+                        <div class="movements">
+                            <ul>
+                                <li v-for="n in 12" :key="n" :class="isFull(n, player.movementPoint.quantity)" />
+                            </ul>
+                        </div>
+                    </div>
+                    <ul class="specials">
+                        <!--          <li><img src="@/assets/images/pa_cook.png">x6</li>-->
+                    </ul>
+                    <template #content>
                         <h1 v-html="formatContent(player.actionPoint.name)" />
                         <p v-html="formatContent(player.actionPoint.description)" />
                     </template>
-                </Tooltip>
+                </Tippy>
             </div>
         </div>
     </div>
@@ -120,7 +114,6 @@ import Inventory from "@/components/Game/Inventory.vue";
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import Statuses from "@/components/Utils/Statuses.vue";
 import { mapActions, mapState } from "vuex";
-import Tooltip from "@/components/Utils/ToolTip.vue";
 import { Item } from "@/entities/Item";
 import { Equipment } from "@/entities/Equipment";
 import { Action } from "@/entities/Action";
@@ -136,8 +129,7 @@ export default defineComponent ({
     components: {
         ActionButton,
         Inventory,
-        Statuses,
-        Tooltip
+        Statuses
     },
     props: {
         player: {
@@ -189,6 +181,28 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
+@keyframes popUpSlide {
+    0% {top: 17px; opacity: 0%;}
+    100% {top: 0; opacity: 100%;}
+}
+.iconLife{
+    position: relative;
+    opacity: 0;
+    top: 17px;
+}
+.quantityLife {
+    z-index: 10;
+    &:hover + .iconLife { animation: popUpSlide 0.7s linear 1; opacity: 1; top: 0; }
+}
+.iconMorale{
+    position: relative;
+    opacity: 0;
+    top: 17px;
+}
+.quantityMorale {
+    z-index: 10;
+    &:hover + .iconMorale { animation: popUpSlide 0.7s linear 1; opacity: 1; top: 0; }
+}
 
 .char-panel {
     flex-direction: row;
@@ -229,11 +243,11 @@ export default defineComponent ({
         flex-direction: row;
         align-items: center;
         filter: drop-shadow(0 0 5px $deepBlue);
-        
+
 
         ol {
             align-items: center;
-            flex-direction: column;
+            flex-direction: column-reverse;
 
             li:first-child { z-index: 1; }
         }

@@ -41,6 +41,16 @@
                 <target>Permet de le faire.</target>
             </segment>
         </unit>
+        <unit id="check_spore_level">
+            <segment id="check_spore_level">
+                <source>check_spore_level.name</source>
+                <target>Vérifier</target>
+            </segment>
+            <segment id="description">
+                <source>check_spore_level.description</source>
+                <target>Permet de vérifier son propre niveau d'infection par des spores de Mush.</target>
+            </segment>
+        </unit>
         <unit id="consume">
             <segment id="consume">
                 <source>consume.name</source>
@@ -122,7 +132,7 @@
             </segment>
         </unit>
         <unit id="get_up">
-            <segment id="extract_spore">
+            <segment id="get_up">
                 <source>get_up.name</source>
                 <target>Se lever</target>
             </segment>
@@ -482,6 +492,16 @@
                 <target>Qu'est ce donc que cette petite chose ?</target>
             </segment>
         </unit>
+        <unit id="remove_spore">
+            <segment id="name">
+                <source>remove_spore.name</source>
+                <target>Extraire spore</target>
+            </segment>
+            <segment id="description">
+                <source>remove_spore.description</source>
+                <target>Permet d'ôter des vilains pustules suspectés de vous contaminer.</target>
+            </segment>
+        </unit>
         <unit id="report_equipment">
             <segment id="name">
                 <source>report_equipment.name</source>
@@ -500,6 +520,16 @@
             <segment id="description">
                 <source>report_fire.description</source>
                 <target>Oui, faire part à vos colègues de cet incendie est une bonne idée.</target>
+            </segment>
+        </unit>
+        <unit id="try_kube">
+            <segment id="name">
+                <source>try_kube.name</source>
+                <target>Tenter le kube</target>
+            </segment>
+            <segment id="description">
+                <source>try_kube.description</source>
+                <target>Tenter le Kube qui rend fou. Bien peu arrivent à le résoudre en moins de 26 mouvements.</target>
             </segment>
         </unit>
     </file>

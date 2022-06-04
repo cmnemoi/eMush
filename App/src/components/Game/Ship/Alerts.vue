@@ -1,35 +1,31 @@
 <template>
     <div class="daedalus-alarms">
-        <p v-if="!loading" class="calme">
-            <span v-if="isNoAlert">
-                <Tooltip>
-                    <template #tooltip-trigger>
-                        <img :src="alertIcon(alerts[0])">{{ alerts[0].name }}
-                    </template>
-                    <template #tooltip-content>
+        <p v-if="!loadingAlerts" class="calme">
+            <span v-if="isNoAlert && alerts.length > 0">
+                <Tippy>
+                    <img :src="alertIcon(alerts[0])">{{ alerts[0].name }}
+                    <template #content>
                         <h1>{{ alerts[0].name }}</h1>
                         <p>{{ alerts[0].description }}</p>
                     </template>
-                </Tooltip>
+                </Tippy>
             </span>
             <span v-else>{{ $t('alerts') }}</span>
-            <Tooltip v-for="(alert, key) in alertsDisplayed" :key="key">
-                <template #tooltip-trigger>
-                    <img
-                        :src="alertIcon(alert)"
-                        :alt="alert.name"
-                    >
-                </template>
-                <template #tooltip-content>
+            <Tippy tag="div" v-for="(alert, key) in alertsDisplayed" :key="key">
+                <img
+                    :src="alertIcon(alert)"
+                    :alt="alert.name"
+                >
+                <template #content>
                     <h1>{{ alert.name }}</h1>
                     <p>{{ alert.description }}</p>
-                    <ul v-if="alert.reports.length > 0">
+                    <ul v-if="alert.reports.length > 0" style="flex-direction:column">
                         <li v-for="(report, reportKey) in alert.reports" :key="reportKey">
                             {{ report }}
                         </li>
                     </ul>
                 </template>
-            </Tooltip>
+            </Tippy>
         </p>
     </div>
 </template>
@@ -38,7 +34,6 @@
 import { Daedalus } from "@/entities/Daedalus";
 import DaedalusService from "@/services/daedalus.service";
 import { AlertsIcons, NO_ALERT } from "@/enums/alerts.enum";
-import Tooltip from "../../Utils/ToolTip.vue";
 import { defineComponent } from "vue";
 import { Alert } from "@/entities/Alerts";
 
@@ -49,7 +44,6 @@ interface AlertsState {
 
 export default defineComponent ({
     name: "Alerts",
-    components: { Tooltip },
     props: {
         daedalus: {
             type: Daedalus,

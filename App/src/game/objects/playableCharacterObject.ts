@@ -1,25 +1,28 @@
 import DaedalusScene from "@/game/scenes/daedalusScene";
 
 import CharacterObject from "@/game/objects/characterObject";
-import { IsometricCoordinates, CartesianCoordinates, IsometricDistance, toIsometricCoords, toCartesianCoords } from "@/game/types";
+import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import { Player } from "@/entities/Player";
+import IsometricGeom from "@/game/scenes/isometricGeom";
+import { MushPath } from "@/game/scenes/navigationGrid";
+import InteractObject from "@/game/objects/interactObject";
+import GameObject = Phaser.GameObjects.GameObject;
 
 /*eslint no-unused-vars: "off"*/
 export default class PlayableCharacterObject extends CharacterObject {
-    private isoPath : Array<{ direction: string, cartX: number, cartY: number }>;
+    private isoPath : MushPath;
     private currentMove : number;
+    private indexDepthArray: number;
+    private lastMove: InteractObject | null;
 
-    constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, sceneAspectRatio: IsometricDistance, player: Player)
+    constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, isoGeom: IsometricGeom, player: Player)
     {
-        super(scene, cart_coords, sceneAspectRatio, player);
+        super(scene, cart_coords, isoGeom, player);
 
         this.isoPath = [];
         this.currentMove = -1;
-
-
-        this.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            this.getCartPath(pointer);
-        }, this);
+        this.indexDepthArray = 0;
+        this.lastMove = null;
     }
 
     update(): void
@@ -27,86 +30,40 @@ export default class PlayableCharacterObject extends CharacterObject {
         this.movement();
     }
 
-
-
     //this function return an array of direction to follow to get from character position to the pointed coordinates
-    getCartPath(pointer: Phaser.Input.Pointer): Array<{ direction: string, cartX: number, cartY: number }>
+    updateMovement(pointer: Phaser.Input.Pointer, object : GameObject | null ): MushPath
     {
-        const startingPoint = toIsometricCoords({ x: this.x, y: this.getFeetY() });
-        const finishPoint = toIsometricCoords({ x: pointer.worldX, y: pointer.worldY });
+        const startingPoint = this.getFeetCartCoords().toIsometricCoordinates();
+        let finishPoint = (new CartesianCoordinates(pointer.worldX, pointer.worldY)).toIsometricCoordinates();
 
+        let interactEquipment: InteractObject | null = null;
+        if (object !== null && object instanceof InteractObject && !(object instanceof CharacterObject)) {
+            interactEquipment = object.getInteractibleObject();
+
+            if (interactEquipment !== null) {
+                finishPoint = this.navMesh.getClosestPoint(interactEquipment.isoGeom.getIsoCoords());
+            } else {
+                finishPoint = this.navMesh.getClosestPoint(object.isoGeom.getIsoCoords());
+            }
+        }
 
         //find the path in isometric coordinates using navMeshPlugin
-        const path = this.navMesh.findPath({ x: startingPoint.x, y: startingPoint.y }, { x: finishPoint.x, y: finishPoint.y });
+        const newPath = this.navMesh.getCharacterPath(startingPoint, finishPoint);
 
-        // @ts-ignore
-        //this.navMesh.debugDrawPath(path, 0xffd900);;
+        if (newPath.length !== 0) {
+            this.isoPath = newPath;
+            this.currentMove = 1;
+            this.lastMove = null;
 
-        if (path !== null){
-            this.isoPath = [];
-            this.currentMove = 0;
+            this.setPositionFromFeet(new CartesianCoordinates(newPath[0].cartX, newPath[0].cartY));
 
-            //now convert the isometric path into a cartesian path
-            for (let i = 1; i < path.length; i++) {
-
-                const deltaEW = path[i].x - path[i-1].x;
-                const deltaNS = path[i].y - path[i-1].y;
-
-                let cartPoint = null;
-                let direction = 'none';
-
-                //if the character only move NS or EW in the current part of the path
-                if (deltaNS === 0 || deltaEW === 0){
-                    cartPoint = toCartesianCoords({ x: path[i].x, y: path[i].y });
-                    direction = this.getDirection( { x: path[i-1].x, y: path[i-1].y }, { x: path[i].x, y: path[i].y });
-
-                    this.isoPath.push({ "direction": direction, "cartX": cartPoint.x, "cartY": cartPoint.y });
-
-
-                } else{ //if there is a NS AND EW component to the current part of the path
-                    let intermediatePoint = null;
-                    //randomly choose if the character is going to complete first the EW of NS component
-                    if (Math.random() > 0.5){
-                        intermediatePoint = { x: path[i].x, y: path[i - 1].y };
-                    } else {
-                        intermediatePoint = { x: path[i - 1].x, y: path[i].y };
-                    }
-
-                    cartPoint = toCartesianCoords(intermediatePoint);
-                    direction = this.getDirection({ x: path[i-1].x, y: path[i-1].y }, intermediatePoint);
-                    this.isoPath.push({ direction: direction, "cartX": cartPoint.x, "cartY": cartPoint.y });
-
-                    cartPoint = toCartesianCoords({ x: path[i].x, y: path[i].y });
-                    direction = this.getDirection(intermediatePoint, { x: path[i].x, y: path[i].y });
-                    this.isoPath.push({ "direction": direction, "cartX": cartPoint.x, "cartY": cartPoint.y });
-                }
+            // Character is sitting after walking to the equipment
+            if (interactEquipment !== null && interactEquipment.getInteractionInformation()?.sitAutoTrigger) {
+                this.lastMove = interactEquipment;
             }
         }
 
         return this.isoPath;
-    }
-
-    //Get direction from two points in isometric format
-    // Iso directions    Iso coordinates     Cart coordinates
-    //  W   N                                     _x
-    //   \ /                  / \                |
-    //   / \                 y   x               y
-    //  S   E
-    getDirection(start: IsometricCoordinates, finish: IsometricCoordinates): string {
-        const deltaEW = finish.x - start.x;
-        const deltaNS = finish.y - start.y;
-
-        if (deltaNS > 0) {
-            return 'south';
-        } else if (deltaNS < 0) {
-            return 'north';
-        } else if (deltaEW > 0) {
-            return 'east';
-        } else if (deltaEW < 0) {
-            return 'west';
-        }
-
-        throw new Error('no direction found');
     }
 
 
@@ -114,30 +71,39 @@ export default class PlayableCharacterObject extends CharacterObject {
     // check if the character reached its destination (using a threshold)
     updateCurrentMove(): number
     {
+        if (this.isoPath.length === 0) {
+            return this.currentMove = -1;
+        }
+
         const displacementThreshold = 4;
 
         const distance = Math.sqrt(
             Math.pow(this.isoPath[this.currentMove].cartX - this.x, 2) +
-            Math.pow(this.isoPath[this.currentMove].cartY - this.getFeetY(), 2)
+            Math.pow(this.isoPath[this.currentMove].cartY - this.getFeetCartCoords().y, 2)
         );
 
 
         if (Math.abs(distance) > displacementThreshold){
             return this.currentMove;
         } else if (this.currentMove < this.isoPath.length - 1) {
+            this.setDepth(this.isoPath[this.currentMove+1].depth);
             return this.currentMove = this.currentMove +1;
         } else {
+            (<Phaser.Physics.Arcade.Body >this.body).stop();
 
-            if (Math.random() > 0.5) {
-                this.flipX = true;
+            if (this.lastMove !== null) {
+                this.applyEquipmentInteractionInformation(this.lastMove);
+                this.lastMove = null;
+            } else {
+                if (Math.random() > 0.5) {
+                    this.flipX = true;
+                }
+                this.anims.play('right');
+
+                this.checkPositionDepth();
             }
 
-            this.anims.play('right');
-
-            // @ts-ignore
-            this.body.stop();
             this.isoPath = [];
-
             return this.currentMove = -1;
         }
     }
@@ -205,8 +171,5 @@ export default class PlayableCharacterObject extends CharacterObject {
             }
 
         }
-
-        const iso_coords = toIsometricCoords({ x: this.x, y: this.getFeetY() });
-        this.setDepth(Math.max(iso_coords.x + this.sceneAspectRatio.x, iso_coords.y + this.sceneAspectRatio.y)*1000 + this.getFeetY());
     }
 }

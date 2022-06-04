@@ -17,6 +17,10 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
 
 class AlertServiceTest extends TestCase
@@ -506,5 +510,133 @@ class AlertServiceTest extends TestCase
         $alerts = $this->alertService->getAlerts($daedalus);
 
         $this->assertEquals(new ArrayCollection([$alert, $alert2]), $alerts);
+    }
+
+    public function testFireNorReported()
+    {
+        $daedalus = new Daedalus();
+        $room = new Place();
+        $player = new Player();
+
+        $player
+            ->setDaedalus($daedalus)
+            ->setPlace($room)
+        ;
+        $room->setDaedalus($daedalus);
+
+        $fireConfig = new StatusConfig();
+        $fireConfig->setName(StatusEnum::FIRE);
+        $fireStatus = new Status($room, $fireConfig);
+
+        $alertElement = new AlertElement();
+        $alertElement->setPlace($room);
+
+        $alert = new Alert();
+        $alert->setDaedalus($daedalus)->setName(AlertEnum::FIRES)->addAlertElement($alertElement);
+
+        $this->repository->shouldReceive('findOneBy')
+            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::FIRES])
+            ->andReturn($alert)
+            ->once()
+        ;
+
+        $this->assertFalse($this->alertService->isFireReported($room));
+    }
+
+    public function testNotValidFire()
+    {
+        $daedalus = new Daedalus();
+        $room = new Place();
+        $player = new Player();
+
+        $player
+            ->setDaedalus($daedalus)
+            ->setPlace($room)
+        ;
+        $room->setDaedalus($daedalus);
+
+        $fireConfig = new StatusConfig();
+        $fireConfig->setName(StatusEnum::FIRE);
+        $fireStatus = new Status($room, $fireConfig);
+
+        $alertElement = new AlertElement();
+        $alertElement->setPlace($room)->setPlayer($player);
+
+        $alert = new Alert();
+        $alert->setDaedalus($daedalus)->setName(AlertEnum::FIRES)->addAlertElement($alertElement);
+
+        $this->repository->shouldReceive('findOneBy')
+            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::FIRES])
+            ->andReturn($alert)
+            ->once()
+        ;
+
+        $this->assertTrue($this->alertService->isFireReported($room));
+    }
+
+    public function testValidEquipment()
+    {
+        $daedalus = new Daedalus();
+        $room = new Place();
+        $player = new Player();
+
+        $player
+            ->setDaedalus($daedalus)
+            ->setPlace($room)
+        ;
+        $room->setDaedalus($daedalus);
+
+        $gameEquipment = new GameEquipment();
+        $gameEquipment->setHolder($room);
+        $brokenConfig = new StatusConfig();
+        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, $brokenConfig);
+
+        $alertElement = new AlertElement();
+        $alertElement->setEquipment($gameEquipment);
+
+        $alert = new Alert();
+        $alert->setDaedalus($daedalus)->setName(AlertEnum::BROKEN_EQUIPMENTS)->addAlertElement($alertElement);
+
+        $this->repository->shouldReceive('findOneBy')
+            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS])
+            ->andReturn($alert)
+            ->once()
+        ;
+
+        $this->assertFalse($this->alertService->isEquipmentReported($gameEquipment));
+    }
+
+    public function testNotValidEquipment()
+    {
+        $daedalus = new Daedalus();
+        $room = new Place();
+        $player = new Player();
+
+        $player
+            ->setDaedalus($daedalus)
+            ->setPlace($room)
+        ;
+        $room->setDaedalus($daedalus);
+
+        $gameEquipment = new GameEquipment();
+        $gameEquipment->setHolder($room);
+        $brokenConfig = new StatusConfig();
+        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, $brokenConfig);
+
+        $alertElement = new AlertElement();
+        $alertElement->setEquipment($gameEquipment)->setPlace($room)->setPlayer($player);
+
+        $alert = new Alert();
+        $alert->setDaedalus($daedalus)->setName(AlertEnum::BROKEN_EQUIPMENTS)->addAlertElement($alertElement);
+
+        $this->repository->shouldReceive('findOneBy')
+            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS])
+            ->andReturn($alert)
+            ->once()
+        ;
+
+        $this->assertTrue($this->alertService->isEquipmentReported($gameEquipment));
     }
 }

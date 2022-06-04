@@ -7,6 +7,7 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
+use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationService;
@@ -16,14 +17,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class DaedalusNormalizerTest extends TestCase
 {
     private DaedalusNormalizer $normalizer;
+
     /** @var CycleServiceInterface|Mockery\Mock */
     private CycleServiceInterface $cycleService;
-
     /** @var TranslationService|Mockery\Mock */
     private TranslationService $translationService;
-
     /** @var TranslatorInterface|Mockery\Mock */
-    private TranslatorInterface $translator;
+    private DaedalusWidgetServiceInterface $daedalusWidgetService;
 
     /**
      * @before
@@ -32,9 +32,9 @@ class DaedalusNormalizerTest extends TestCase
     {
         $this->cycleService = Mockery::mock(CycleServiceInterface::class);
         $this->translationService = Mockery::mock(TranslationService::class);
-        $this->translator = Mockery::mock(TranslatorInterface::class);
+        $this->daedalusWidgetService = Mockery::mock(DaedalusWidgetServiceInterface::class);
 
-        $this->normalizer = new DaedalusNormalizer($this->cycleService, $this->translationService, $this->translator);
+        $this->normalizer = new DaedalusNormalizer($this->cycleService, $this->translationService, $this->daedalusWidgetService);
     }
 
     /**
@@ -151,6 +151,8 @@ class DaedalusNormalizerTest extends TestCase
             ->andReturn('translated two')
             ->once()
         ;
+
+        $this->daedalusWidgetService->shouldReceive('getMinimap')->with($daedalus)->andReturn([])->once();
         $data = $this->normalizer->normalize($daedalus);
 
         $expected = [
@@ -186,6 +188,7 @@ class DaedalusNormalizerTest extends TestCase
             'crewPlayer' => [
                 'name' => 'translated one',
                 'description' => 'translated two', ],
+            'minimap' => [],
         ];
 
         $this->assertIsArray($data);

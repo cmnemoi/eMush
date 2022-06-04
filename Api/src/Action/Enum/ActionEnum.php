@@ -50,7 +50,7 @@ class ActionEnum
     public const ULTRAHEAL = 'ultraheal';
     public const CURE = 'cure';
     public const USE_BANDAGE = 'use_bandage';
-    public const TRY_THE_KUBE = 'try_the_kube';
+    public const TRY_KUBE = 'try_kube';
     public const OPEN = 'open';
     public const SHOOT = 'shoot';
 
@@ -74,6 +74,8 @@ class ActionEnum
     public const ACCES_TERMINAL = 'acces_terminal';
     public const INSTALL_CAMERA = 'install_camera';
     public const REMOVE_CAMERA = 'remove_camera';
+    public const CHECK_SPORE_LEVEL = 'check_spore_level';
+    public const REMOVE_SPORE = 'remove_spore';
 
     // Permanent Player Actions
     public const UNGAG = 'ungag';

@@ -3,9 +3,10 @@ import daedalusScene from "@/game/scenes/daedalusScene";
 import { PhaserNavMeshPlugin } from "phaser-navmesh/src";
 import { Player } from "@/entities/Player";
 
+
 function launch(containerId: any, player: Player): Phaser.Game {
     return new Phaser.Game({
-        type: Phaser.AUTO,
+        type: Phaser.WEBGL,
         width: 424,
         height: 460,
         backgroundColor: '#2d2d2d',
@@ -25,7 +26,7 @@ function launch(containerId: any, player: Player): Phaser.Game {
         physics: {
             default: 'arcade',
             arcade: {
-                debug: true
+                debug: false
             }
         }
     });

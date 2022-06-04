@@ -23,7 +23,6 @@ class PlayerSubscriber implements EventSubscriberInterface
             PlayerEvent::NEW_PLAYER => 'onNewPlayer',
             PlayerEvent::DEATH_PLAYER => ['onDeathPlayer', 10],
             PlayerEvent::METAL_PLATE => 'onMetalPlate',
-            PlayerEvent::PANIC_CRISIS => 'onPanicCrisis',
         ];
     }
 

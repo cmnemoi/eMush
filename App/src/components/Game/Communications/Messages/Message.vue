@@ -11,7 +11,7 @@
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
         </p>
         <ActionButtons class="actions" :actions="['reply', 'favorite', 'report']" />
-        <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
+        <span class="timestamp" style="position: absolute">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
     </div>
     <div
         v-if="isRoot && isSystemMessage"
@@ -21,7 +21,7 @@
         <p class="text">
             <span v-html="formatMessage(message.message)" />
         </p>
-        <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
+        <span class="timestamp" style="position: absolute">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
     </div>
     <div v-else-if="!isRoot" class="message child-message" @click="$emit('click')">
         <p class="text">
@@ -29,7 +29,7 @@
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
         </p>
         <ActionButtons class="actions" :actions="['reply', 'report']" />
-        <span class="timestamp">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
+        <span class="timestamp" style="position: absolute">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
     </div>
 </template>
 

@@ -1,7 +1,7 @@
 export class Action {
     public id: number|null;
     public key: string|null;
-    public canExecute: boolean|null;
+    public canExecute: boolean;
     public name: string|null;
     public description: string|null;
     public actionPointCost: number|null;
@@ -11,7 +11,7 @@ export class Action {
     constructor() {
         this.id = null;
         this.key = null;
-        this.canExecute = null;
+        this.canExecute = false;
         this.name = null;
         this.description = null;
         this.actionPointCost = null;

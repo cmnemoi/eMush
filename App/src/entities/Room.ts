@@ -5,25 +5,56 @@ import { Equipment } from "@/entities/Equipment";
 import { Status } from "@/entities/Status";
 
 //@Hack: rooms that are handled by phaser and displayed with Phaser
-export const PhaserRooms = ['medlab', 'laboratory'];
+export const PhaserRooms = [
+    'medlab',
+    'laboratory',
+    'central_corridor',
+    'front_storage',
+    'front_corridor',
+    'bravo_dorm',
+    'alpha_dorm',
+    'hydroponic_garden',
+    'refectory',
+    'center_alpha_storage',
+    'center_bravo_storage',
+    'rear_corridor',
+    'nexus',
+    'rear_alpha_storage',
+    'rear_bravo_storage',
+    'alpha_bay_2',
+    'alpha_bay',
+    'bravo_bay',
+    'icarus_bay',
+    'front_bravo_turret',
+    'centre_bravo_turret',
+    'rear_bravo_turret',
+    'front_alpha_turret',
+    'centre_alpha_turret',
+    'rear_alpha_turret',
+    'bridge',
+    'engine_room'
+];
 
 export class Room {
     public id: number|null;
-    public key?: string;
+    public key: string;
     public name?: string;
     public items: Array<Item>;
     public doors: Array<Door>;
     public statuses: Array<Status>;
     public equipments: Array<Equipment>;
     public players: Array<Player>;
+    public isOnFire: boolean
 
     constructor() {
         this.id = null;
+        this.key = 'none';
         this.items = [];
         this.doors = [];
         this.equipments = [];
         this.players = [];
         this.statuses = [];
+        this.isOnFire = false;
     }
     load(object: any): Room {
         if (typeof object !== "undefined") {
@@ -50,6 +81,10 @@ export class Room {
             object.statuses.forEach((statusObject:any) => {
                 const status = (new Status()).load(statusObject);
                 this.statuses.push(status);
+
+                if (status.key === 'fire') {
+                    this.isOnFire = true;
+                }
             });
         }
         return this;

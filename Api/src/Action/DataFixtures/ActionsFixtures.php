@@ -62,7 +62,9 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const SPREAD_FIRE = 'spread.fire';
     public const INSTALL_CAMERA = 'install.camera';
     public const REMOVE_CAMERA = 'remove.camera';
+    public const CHECK_SPORE_LEVEL = 'check.spore.level';
     public const EXAMINE_EQUIPMENT = 'examine.equipment';
+    public const REMOVE_SPORE = 'remove.spore';
 
     public const EXTRACT_SPORE = 'extract.spore';
     public const INFECT_PLAYER = 'infect.player';
@@ -228,7 +230,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $tryKubeAction = new Action();
         $tryKubeAction
-            ->setName(ActionEnum::TRY_THE_KUBE)
+            ->setName(ActionEnum::TRY_KUBE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($oneActionPointCost)
         ;
@@ -556,6 +558,18 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($examineEquipmentAction);
 
+        $checkSporeLevelAction = new Action();
+
+        $checkSporeLevelAction
+            ->setName(ActionEnum::CHECK_SPORE_LEVEL)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setInjuryRate(0)
+            ->setDirtyRate(0)
+            ->setActionCost($freeCost)
+        ;
+
+        $manager->persist($checkSporeLevelAction);
+
         $flirtAction = new Action();
         $flirtAction
             ->setName(ActionEnum::FLIRT)
@@ -573,6 +587,15 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         ;
 
         $manager->persist($doTheThingAction);
+
+        $removeSporeAction = new Action();
+        $removeSporeAction
+            ->setName(ActionEnum::REMOVE_SPORE)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($oneActionPointCost)
+        ;
+
+        $manager->persist($removeSporeAction);
 
         $manager->flush();
 
@@ -625,8 +648,10 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::INSTALL_CAMERA, $installCameraAction);
         $this->addReference(self::REMOVE_CAMERA, $removeCameraAction);
         $this->addReference(self::EXAMINE_EQUIPMENT, $examineEquipmentAction);
+        $this->addReference(self::CHECK_SPORE_LEVEL, $checkSporeLevelAction);
         $this->addReference(self::FLIRT_DEFAULT, $flirtAction);
         $this->addReference(self::DO_THE_THING, $doTheThingAction);
+        $this->addReference(self::REMOVE_SPORE, $removeSporeAction);
     }
 
     public function getDependencies(): array

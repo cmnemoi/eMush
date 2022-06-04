@@ -7,14 +7,12 @@
             class="slot"
             @click="$emit('select', item)"
         >
-            <Tooltip>
-                <template #tooltip-trigger>
-                    <img :src="itemImage(item)" :alt="item.name">
-                    <span class="qty">{{ item.number }}</span>
-                </template>
-                <template #tooltip-content>
+            <Tippy tag="div">
+                <img :src="itemImage(item)" :alt="item.name">
+                <span class="qty">{{ item.number }}</span>
+                <template #content>
                     <h1>{{ item.name }}</h1>
-                    <p>{{ item.description }}</p>
+                    <p v-html="formatDescription(item.description)" />
                     <span v-if="item.effectTitle">
                         {{item.effectTitle}}
                         <ul class="effect_list">
@@ -22,7 +20,7 @@
                         </ul>
                     </span>
                 </template>
-            </Tooltip>
+            </Tippy>
         </li>
         <li v-for="n in emptySlots" :key="n" class="slot empty" />
     </ul>
@@ -30,14 +28,12 @@
 
 <script lang="ts">
 import { itemEnum } from "@/enums/item";
-import Tooltip from "@/components/Utils/ToolTip.vue";
 import { Item } from "@/entities/Item";
-import { defineComponent } from "vue";
 import { formatText } from "@/utils/formatText";
+import { defineComponent } from "vue";
 
 export default defineComponent ({
     name: "Inventory",
-    components: { Tooltip },
     props: {
         items: {
             type: Array,
@@ -61,8 +57,9 @@ export default defineComponent ({
         itemImage: function(item: Item): string {
             return itemEnum[item.key] ? itemEnum[item.key].image : require('@/assets/images/items/todo.jpg');
         },
-        formatContent(value: any) {
-            return !value ? '' : formatText(value.toString());
+        formatDescription(value: string): string {
+            if (! value) return '';
+            return formatText(value.toString());
         }
     }
 });

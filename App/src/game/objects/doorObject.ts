@@ -3,45 +3,49 @@ import Vector2 = Phaser.Math.Vector2;
 import DaedalusScene from "@/game/scenes/daedalusScene";
 import { CartesianCoordinates } from "@/game/types";
 import { Door as DoorEntity } from "@/entities/Door";
-import store from "@/store";
 import { Action } from "@/entities/Action";
+import store from "@/store";
+import InteractObject from "@/game/objects/interactObject";
+import IsometricGeom from "@/game/scenes/isometricGeom";
 
-export default class DoorObject extends Phaser.GameObjects.Sprite {
-    private firstFrame : number;
+
+export default class DoorObject extends InteractObject {
     private openFrames: Phaser.Types.Animations.AnimationFrame[];
     private closeFrames: Phaser.Types.Animations.AnimationFrame[];
-    private interactBox : Phaser.Geom.Polygon;
     private door : DoorEntity;
 
-    constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, firstFrame: number, door: DoorEntity)
+    constructor(
+        scene: DaedalusScene,
+        cart_coords: CartesianCoordinates,
+        iso_geom: IsometricGeom,
+        tileset: Phaser.Tilemaps.Tileset,
+        tiledFrame: number,
+        isFlipped: { x: boolean, y: boolean},
+        door: DoorEntity,
+    )
     {
-        super(scene, cart_coords.x, cart_coords.y, door.name);
+        super(scene, cart_coords, iso_geom, tileset, tiledFrame, door.key, isFlipped, false, false);
 
-        this.scene = scene;
         this.door = door;
-        this.firstFrame = firstFrame;
 
-        this.scene.add.existing(this);
+        this.openFrames = this.anims.generateFrameNames('door_object', { start: this.tiledFrame, end: this.tiledFrame + 10 });
 
-        this.openFrames = this.anims.generateFrameNames('door_object', { start: this.firstFrame, end: this.firstFrame + 10 });
-        this.closeFrames = this.anims.generateFrameNames('door_object', { start: this.firstFrame + 10, end: this.firstFrame + 23 });
-
+        this.closeFrames = this.anims.generateFrameNames('door_object', { start: this.tiledFrame + 10, end: this.tiledFrame + 23 });
         this.closeFrames[this.closeFrames.length + 1] = this.openFrames[0];
 
-        this.setTexture('door_object', this.firstFrame);
-
         // doors are always on the bottom (just in front of the back_wall layer)
-        this.setDepth(2);
+        this.setDepth(0);
 
-        this.interactBox = this.setInteractBox();
-        this.scene.input.on('pointerdown', (pointer: any) => {
-            this.onDoorClicked(pointer);
-        }, this);
-
+        //this.scene.input.enableDebug(this, 0xff00ff);
 
         this.createAnimations();
 
+        this.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+            this.onDoorClicked(pointer);
+            this.scene.input.stopPropagation();
+        }, this);
     }
+
 
     createAnimations(): void
     {
@@ -61,31 +65,46 @@ export default class DoorObject extends Phaser.GameObjects.Sprite {
 
     }
 
-    onDoorClicked(pointer: any): void
-    {
-        if (Phaser.Geom.Polygon.Contains(this.interactBox, pointer.worldX, pointer.worldY)){
+    applyTexture(
+        tileset: Phaser.Tilemaps.Tileset,
+        name: string,
+        isFlipped: { x: boolean, y: boolean },
+        isAnimationYoyo: boolean
+    ) {
+        this.setTexture('door_object', this.tiledFrame);
+        this.flipX = isFlipped.x;
+        this.flipY = isFlipped.y;
+    }
 
+    createInteractionArea():void
+    {
+        this.setInteractive(this.setInteractBox(), Phaser.Geom.Polygon.Contains);
+    }
+
+    onDoorClicked(pointer: Phaser.Input.Pointer): void
+    {
+        const objectX = pointer.worldX - (this.x - this.width/2);
+        const objectY = pointer.worldY - (this.y - this.height/2);
+
+        if (this.input.hitArea.contains(objectX, objectY)){
             if(
-                String(this.frame.name) === String(this.firstFrame)  &&
+                String(this.frame.name) === String(this.tiledFrame)  &&
                 !this.door.isBroken
             )
             {
                 //if player click on the door AND the door is closed
                 this.anims.play('door_open');
-            } else if (!this.door.isBroken) {
-                //if player click on the door AND the door is open
+                store.dispatch('room/selectTarget', { target: null });
+            } else if (!this.door.isBroken && this.getMoveAction().canExecute) {
+                //if player click on the door AND the door is open AND player can move
                 const moveAction = this.getMoveAction();
                 store.dispatch('action/executeAction', { target: this.door, action: moveAction });
             } else {
                 //If the door is broken propose the repair action
                 const door = this.door;
-                this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
-                    store.dispatch('room/selectTarget', { target: door });
-                    event.stopPropagation(); //Need that one to prevent other effects
-                });
+                store.dispatch('room/selectTarget', { target: this.door });
             }
-            // @ts-ignore
-        } else if (String(this.frame.name) ===  String(this.firstFrame + 10))
+        } else if (String(this.frame.name) ===  String(this.tiledFrame + 10))
         {
             //if player click outside the door AND the door is open
             this.anims.play('door_close');
@@ -94,42 +113,58 @@ export default class DoorObject extends Phaser.GameObjects.Sprite {
 
     getMoveAction(): Action
     {
-        for (let i = 0; i < this.door.actions.length; i++) {
-            const actionObject = this.door.actions[i];
-            if (actionObject.key === 'move') {
-                return actionObject;
-            }
-        };
+        const moveAction = this.door.actions.filter((action: Action) => {return action.key === 'move';});
 
-        throw new Error('door do not have the move action');
+        if (moveAction.length !==1 ) {
+            throw new Error("this door should have exactly one move action");
+        }
+
+        return moveAction[0];
     }
 
     setInteractBox() : Phaser.Geom.Polygon
     {
         const leftDoorsFrames = [0, 48, 96, 144];
 
-        if (leftDoorsFrames.includes(this.firstFrame))
+        if (leftDoorsFrames.includes(this.tiledFrame))
         {
-            const leftBottomX = this.x - this.width/2;
-            const leftBottomY = this.y + this.height/2;
-
             return new Phaser.Geom.Polygon([
-                new Vector2(leftBottomX, leftBottomY),
-                new Vector2(leftBottomX + 34, leftBottomY - 17),
-                new Vector2(leftBottomX + 34, leftBottomY - 57),
-                new Vector2(leftBottomX, leftBottomY - 40)
+                new Vector2(4, 35),
+                new Vector2(34, 20),
+                new Vector2( 34,  58),
+                new Vector2(4,  73)
             ]);
         } else {
-            const rightBottomX = this.x + this.width/2;
-            const rightBottomY = this.y + this.height/2;
-
             return new Phaser.Geom.Polygon([
-                new Vector2(rightBottomX, rightBottomY),
-                new Vector2(rightBottomX - 34, rightBottomY - 17),
-                new Vector2(rightBottomX - 34, rightBottomY - 57),
-                new Vector2(rightBottomX, rightBottomY - 40)
+                new Vector2(14, 20),
+                new Vector2(44,  35),
+                new Vector2( 44,  73),
+                new Vector2(14,   58)
             ]);
+        }
+    }
 
+    setHoveringOutline(): void
+    {
+        if (this.door.isBroken || (!this.getMoveAction().canExecute)) {
+            this.setPostPipeline('outline');
+            const pipeline = this.postPipelines[0];
+            //@ts-ignore
+            pipeline.resetFromJSON({ thickness: 1, outlineColor: 0xff0000 });
+        } else {
+            super.setHoveringOutline();
+        }
+    }
+
+    setSelectedOutline(): void
+    {
+        if (this.door.isBroken || (!this.getMoveAction().canExecute)) {
+            this.setPostPipeline('outline');
+            const pipeline = this.postPipelines[0];
+            //@ts-ignore
+            pipeline.resetFromJSON({ thickness: 1, outlineColor: 0xff0000 });
+        } else {
+            super.setSelectedOutline();
         }
     }
 }

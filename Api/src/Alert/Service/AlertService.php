@@ -12,6 +12,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
+use Mush\Status\Enum\StatusEnum;
 
 class AlertService implements AlertServiceInterface
 {
@@ -299,5 +300,39 @@ class AlertService implements AlertServiceInterface
         } elseif ($totalSatiety > $playersAlive->count() * self::FAMINE_ALERT && $alert !== null) {
             $this->delete($alert);
         }
+    }
+
+    public function isFireReported(Place $room): bool
+    {
+        if (!$room->hasStatus(StatusEnum::FIRE)) {
+            return false;
+        }
+
+        $alert = $this->findByNameAndDaedalus(AlertEnum::FIRES, $room->getDaedalus());
+        if ($alert === null) {
+            return false;
+        }
+
+        return $this->getAlertFireElement($alert, $room)->getPlayer() !== null;
+    }
+
+    public function isEquipmentReported(GameEquipment $equipment): bool
+    {
+        $daedalus = $equipment->getPlace()->getDaedalus();
+        if (!$equipment->isBroken()) {
+            return false;
+        }
+
+        if ($equipment instanceof Door) {
+            $alert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_DOORS, $daedalus);
+        } else {
+            $alert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_EQUIPMENTS, $daedalus);
+        }
+
+        if ($alert === null) {
+            return false;
+        }
+
+        return $this->getAlertEquipmentElement($alert, $equipment)->getPlayer() !== null;
     }
 }

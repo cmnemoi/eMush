@@ -37,7 +37,8 @@ class PlayerSubscriber implements EventSubscriberInterface
         }
         $this->neronMessageService->createPlayerDeathMessage($player, $reason, $time);
 
-        $channels = $this->channelService->getPlayerChannels($player);
+        $channels = $this->channelService->getPlayerChannels($player, true);
+
         foreach ($channels as $channel) {
             $this->channelService->exitChannel($player, $channel, $time, PlayerEvent::DEATH_PLAYER);
         }

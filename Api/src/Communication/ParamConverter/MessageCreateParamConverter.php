@@ -20,13 +20,13 @@ class MessageCreateParamConverter implements ParamConverterInterface
 
     public function apply(Request $request, ParamConverter $configuration)
     {
-        $message = $request->get('message');
-        $parent = $request->get('parent');
+        $message = $request->request->get('message');
+        $parent = $request->request->get('parent');
 
         $messageCreate = new CreateMessage();
         $parentMessage = null;
         if ($parent) {
-            $parentMessage = $this->messageService->getMessageById($parent);
+            $parentMessage = $this->messageService->getMessageById((int) $parent);
             if ($parentMessage === null) {
                 throw new NotFoundHttpException('Parent message not found');
             }
@@ -34,7 +34,7 @@ class MessageCreateParamConverter implements ParamConverterInterface
 
         $messageCreate
             ->setParent($parentMessage)
-            ->setMessage($message)
+            ->setMessage((string) $message)
         ;
 
         $request->attributes->set($configuration->getName(), $messageCreate);

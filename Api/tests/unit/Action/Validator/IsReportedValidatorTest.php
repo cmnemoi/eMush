@@ -80,16 +80,9 @@ class IsReportedValidatorTest extends TestCase
         ;
 
         $this->alertService
-            ->shouldReceive('findByNameAndDaedalus')
-            ->with(AlertEnum::FIRES, $daedalus)
-            ->andReturn($alert)
-            ->once()
-        ;
-
-        $this->alertService
-            ->shouldReceive('getAlertFireElement')
-            ->with($alert, $room)
-            ->andReturn($alertElement)
+            ->shouldReceive('isFireReported')
+            ->with($room)
+            ->andReturn(false)
             ->once()
         ;
 
@@ -128,16 +121,9 @@ class IsReportedValidatorTest extends TestCase
         ;
 
         $this->alertService
-            ->shouldReceive('findByNameAndDaedalus')
-            ->with(AlertEnum::FIRES, $daedalus)
-            ->andReturn($alert)
-            ->once()
-        ;
-
-        $this->alertService
-            ->shouldReceive('getAlertFireElement')
-            ->with($alert, $room)
-            ->andReturn($alertElement)
+            ->shouldReceive('isFireReported')
+            ->with($room)
+            ->andReturn(true)
             ->once()
         ;
 
@@ -179,16 +165,9 @@ class IsReportedValidatorTest extends TestCase
         ;
 
         $this->alertService
-            ->shouldReceive('findByNameAndDaedalus')
-            ->with(AlertEnum::BROKEN_EQUIPMENTS, $daedalus)
-            ->andReturn($alert)
-            ->once()
-        ;
-
-        $this->alertService
-            ->shouldReceive('getAlertEquipmentElement')
-            ->with($alert, $gameEquipment)
-            ->andReturn($alertElement)
+            ->shouldReceive('isEquipmentReported')
+            ->with($gameEquipment)
+            ->andReturn(false)
             ->once()
         ;
 
@@ -228,16 +207,9 @@ class IsReportedValidatorTest extends TestCase
         ;
 
         $this->alertService
-            ->shouldReceive('findByNameAndDaedalus')
-            ->with(AlertEnum::BROKEN_EQUIPMENTS, $daedalus)
-            ->andReturn($alert)
-            ->once()
-        ;
-
-        $this->alertService
-            ->shouldReceive('getAlertEquipmentElement')
-            ->with($alert, $gameEquipment)
-            ->andReturn($alertElement)
+            ->shouldReceive('isEquipmentReported')
+            ->with($gameEquipment)
+            ->andReturn(true)
             ->once()
         ;
 

@@ -115,8 +115,6 @@ class PlayerModifierSubscriberTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
-
         $this->playerModifierSubscriber->onChangeVariable($event);
     }
 

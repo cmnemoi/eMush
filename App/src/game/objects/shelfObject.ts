@@ -1,32 +1,31 @@
 import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
 import store from '@/store/index';
-import { IsometricCoordinates, CartesianCoordinates, CartesianDistance, IsometricDistance, toIsometricCoords } from "@/game/types";
+import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
 import DecorationObject from "@/game/objects/decorationObject";
+import InteractObject from "@/game/objects/interactObject";
+import IsometricGeom from "@/game/scenes/isometricGeom";
 
 /*eslint no-unused-vars: "off"*/
-export default class ShelfObject extends DecorationObject {
+export default class ShelfObject extends InteractObject {
     constructor(
         scene: DaedalusScene,
         cart_coords: CartesianCoordinates,
-        iso_coords: IsometricCoordinates,
+        iso_geom: IsometricGeom,
         tileset: Phaser.Tilemaps.Tileset,
         frame: number,
         name: string,
-        sceneAspectRatio: IsometricDistance)
-    {
-        super(scene, cart_coords, iso_coords, tileset, frame, 'shelf', sceneAspectRatio);
+        isFlipped: { x: boolean, y: boolean},
+        collides: boolean,
+        isAnimationYoyo: boolean,
+        group: Phaser.GameObjects.Group | null = null
+    ) {
+        super(scene, cart_coords, iso_geom, tileset, frame, 'shelf', isFlipped, collides, isAnimationYoyo, group);
 
-        this.setInteractive();
 
         //If this is clicked then:
         this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
             store.dispatch('room/openInventory');
-            event.stopPropagation(); //Need that one to prevent other effects
-        });
-        //if clicked outside
-        this.scene.input.on('pointerdown', function(){
-            store.dispatch('room/closeInventory');
         });
     }
 }

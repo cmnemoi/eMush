@@ -3,7 +3,6 @@
 namespace Mush\Player\Listener;
 
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerModifierEvent;
@@ -101,16 +100,6 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $delta = $playerEvent->getQuantity();
 
         $this->playerVariableService->handleMoralPointModifier($delta, $player);
-
-        if ($player->getMoralPoint() === 0) {
-            $depressionEvent = new PlayerEvent(
-                $player,
-                EndCauseEnum::DEPRESSION,
-                $playerEvent->getTime()
-            );
-
-            $this->eventDispatcher->dispatch($depressionEvent, PlayerEvent::DEATH_PLAYER);
-        }
     }
 
     private function handleSatietyPointModifier(PlayerModifierEvent $playerEvent): void

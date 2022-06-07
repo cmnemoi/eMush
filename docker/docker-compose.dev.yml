@@ -28,3 +28,7 @@ services:
   eternal_twin:
     ports:
       - "50320:50320"
+    build:
+      args:
+        - UID=1001
+        - GID=1001

@@ -1,4 +1,3 @@
-
 docker-start: docker-stop
 	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up -d --no-recreate
 

@@ -353,6 +353,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":20
                         }],
                  "rotation":0,
                  "type":"door_ground",
@@ -414,6 +419,12 @@
                  "y":25.5
                 }],
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":20
+                }],
          "type":"objectgroup",
          "visible":true,
          "x":0,

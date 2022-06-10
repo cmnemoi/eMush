@@ -290,6 +290,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":20
                         }],
                  "rotation":0,
                  "type":"door_ground",

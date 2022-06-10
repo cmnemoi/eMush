@@ -412,6 +412,12 @@
                  "y":58.75
                 }],
          "opacity":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":10
+                }],
          "type":"objectgroup",
          "visible":true,
          "x":0,

@@ -143,7 +143,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $dropItemAction
             ->setName(ActionEnum::DROP)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(1)
+            ->setInjuryRate(0)
             ->setActionCost($freeCost)
         ;
 

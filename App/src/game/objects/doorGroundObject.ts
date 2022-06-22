@@ -58,6 +58,8 @@ export default class DoorGroundObject extends InteractObject {
             //if player click on the door
             const moveAction = this.getMoveAction();
             store.dispatch('action/executeAction', { target: this.door, action: moveAction });
+            store.dispatch('room/selectTarget', { target: null });
+            store.dispatch('room/closeInventory');
         } else {
             //If the door is broken propose the repair action
             store.dispatch('room/selectTarget', { target: this.door });

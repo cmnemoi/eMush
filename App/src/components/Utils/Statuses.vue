@@ -6,7 +6,7 @@
     >
         <Tippy>
             <img :src="statusIcon(status)">
-            <span v-if="status.charge">{{ status.charge }}</span>
+            <span v-if="status.charge !== null">{{ status.charge }}</span>
             <template #content>
                 <h1 v-html="formatContent(status.name)" />
                 <p v-html="formatContent(status.description)" />

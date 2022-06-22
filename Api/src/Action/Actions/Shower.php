@@ -3,6 +3,7 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
+use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
@@ -21,8 +22,6 @@ class Shower extends AbstractAction
     protected string $name = ActionEnum::SHOWER;
 
     private PlayerServiceInterface $playerService;
-
-    public const MUSH_SHOWER_DAMAGES = -3;
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -44,6 +43,10 @@ class Shower extends AbstractAction
     {
         if ($dirty = $this->player->getStatusByName(PlayerStatusEnum::DIRTY)) {
             $this->player->removeStatus($dirty);
+        }
+
+        if ($this->player->getStatusByName(PlayerStatusEnum::MUSH)) {
+            return new Fail();
         }
 
         return new Success();

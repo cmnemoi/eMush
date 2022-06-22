@@ -354,14 +354,14 @@
         <unit id="issue_mission_already_issued">
             <segment id="description">
                 <source>issue_mission_already_issued.description</source>
-                <target>TODO.issue_mission_already_issued.description</target>
+                <target>Vous avez déjà ordonné une mission, vous pourrez le refaire demain ou si votre subalterne la refuse.</target>
             </segment>
         </unit>
 
         <unit id="issue_mission_no_target">
             <segment id="description">
                 <source>issue_mission_no_target.description</source>
-                <target>TODO.issue_mission_no_target.description</target>
+                <target>Personne n'est actuellement accessible pour recevoir vos ordres.</target>
             </segment>
         </unit>
 
@@ -557,7 +557,7 @@
         <unit id="renovate_lack_ressources">
             <segment id="description">
                 <source>renovate_lack_ressources.description</source>
-                <target>TODO.renovate_lack_ressources.description</target>
+                <target>Remettre à neuf un patrouilleur nécessite un *Débris Métallique*</target>
             </segment>
         </unit>
 

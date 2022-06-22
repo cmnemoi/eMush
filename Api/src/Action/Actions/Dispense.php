@@ -64,7 +64,7 @@ class Dispense extends AbstractAction
         $equipmentEvent = new EquipmentEvent(
             $drugName,
             $this->player,
-            VisibilityEnum::HIDDEN,
+            VisibilityEnum::PUBLIC,
             $this->getActionName(),
             new \DateTime()
         );

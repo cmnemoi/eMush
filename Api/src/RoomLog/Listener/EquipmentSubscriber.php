@@ -91,7 +91,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $holder instanceof Player &&
             $holder->getEquipments()->count() > $this->getGameConfig($newEquipment)->getMaxItemInInventory()
         ) {
-            $this->createEventLog(LogEnum::OBJECT_FELT, $event);
+            $this->createEventLog(LogEnum::OBJECT_FELL, $event);
         }
     }
 

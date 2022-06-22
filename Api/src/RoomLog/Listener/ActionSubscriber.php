@@ -75,13 +75,16 @@ class ActionSubscriber implements EventSubscriberInterface
         ) {
             $actionParameter->removeStatus($lyingDownStatus);
 
+            $logParameters = [];
+            $logParameters[$actionParameter->getLogKey()] = $actionParameter->getLogName();
+
             $this->roomLogService->createLog(
                 LogEnum::FORCE_GET_UP,
                 $actionParameter->getPlace(),
                 VisibilityEnum::PUBLIC,
                 'event_log',
                 $actionParameter,
-                [],
+                $logParameters,
                 new \DateTime()
             );
         }

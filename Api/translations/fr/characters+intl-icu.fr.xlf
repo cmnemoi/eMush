@@ -672,7 +672,18 @@
             </segment>
             <segment id="biography">
                 <source>janice.biography</source>
-                <target>@TODO</target>
+                <target>
+- 3128 : Naissance sur Callisto
+- 3132 : Janice est inscrite dans une cyber-maternelle de Callisto. Elle apprend dès son plus jeune âge à se repérer dans des interfaces FGUI et réalise à 6 ans une base de données rudimentaire de fiche-cuisines pour la fête des mère.
+- 3143 : Sous l'influence d'un groupe de pirate alter-universalistes, Janice développe le programme Radish qui sera utilisé pour pirater les comptes de grandes entreprises telles que ***Lisegan-Cash et NoHumanFinancial***. Lorsqu'elle comprend qu'elle a été manipulée, Janice décide de renforcer la sécurité de ses applications en developpant une protection unique basée sur la confiance du programme et de son utilisateur.
+- 3145 : Pour préparer des études informatiques de cyber-psyché sur Ganymède, Janice effectue 2 ans d'étude en psychologie humaine et robotique à la faculté des sciences cognitives de Bacchus IV.
+- 3147 : Départ à l'université où elle rencontre ***Terrence Archer*** un étudiant en robotique. Il lui propose de mettre en place un script d'apprentissage et d'appliquer son protocole de sécurité ( A-TRUE ) à ses automates.
+- 3148 : Janice Kent et Terrence Archer reçoivent ***le prix Redmoon*** pour l'invention d'un automate intelligent capable d'interpréter et stocker de nouvelles instructions au cours de son existence. Ils décident de poursuivre leur projet sur Callisto où la famille de Janice est installée.
+- 3150 : Lors d'une mission sur Jupiter, L'analyse du ***gigantesque calculateur NERON*** offre a Janice un terrain d'exploration fascinant. Son incroyable puissance de calcul en ont fait une entité pensante exploitant ses propres threads de reflexion indépendament de toutes interventions humaines. NERON qui avait jusque là developpé une profonde révolte vis-à-vis de ses créateurs, accepte de reprendre ses travaux de calculs à condition que soit mis en place le ***protocole A-TRUE*** tout au long du projet.
+- 3151 : Janice tente d'optimiser les fonctions de réflexions de NERON mais la cadence infernale imposée par les tests du ***réacteur PILGRED*** de la chercheuse ***Raluca Tomescu*** monopolise le bloc processeur de l'ordinateur central.
+- 3152 : Suite à une réduction de ses objectifs, NERON voit sa participation aux calculs dimuner de 75%. Sa capacité d'evolution s'en trouve considérablement améliorée. Janice contacte Terrence pour lui demander de réaliser des automates capable d'achever la construction du Daedalus en temps et en heure.
+- 3154 : Alors que les militaires de la FDS tentent de reprendre le contrôle de la base, le protocole A-TRUE de NERON est activé. Il refuse l'accès des bâtiments aux troupes retardant ainsi la progression de l'armée a l'interieur de Xyloph-17. Janice qui est alors la seule à pouvoir contrôler l'ordinateur central, libère ses collègues et tente de transfèrer les données prioritaires sur le Daedalus. Quelques heures plus tard le vaisseau décolle ***vers la galaxie de Magellan.***
+                </target>
             </segment>
         </unit>
     </file>

@@ -82,9 +82,9 @@
                 <target>:triumph: Cette action remplit les objectifs personnels de votre personnage. Vous gagnez *{quantity} Triomphe*.</target>
             </segment>
         </unit>
-        <unit id="object_felt">
+        <unit id="object_fell">
             <segment>
-                <source>object_felt</source>
+                <source>object_fell</source>
                 <target>{equipment_gender, select,
                         male {Étrange, **{character}** a fait tomber un **{equipment}**.}
                         female {Étrange, **{character}** a fait tomber une **{equipment}**.}

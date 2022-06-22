@@ -50,7 +50,6 @@ class PlayerModifierLogEnum
         ModifierNameEnum::ANTISOCIAL_MODIFIER => self::ANTISOCIAL_MORALE_LOSS,
         ModifierNameEnum::STARVING => self::HUNGER,
         PlayerEvent::PANIC_CRISIS => self::PANIC_CRISIS,
-        ModifierNameEnum::MUSH_SHOWER_MALUS => self::SHOWER_MUSH,
         EndCauseEnum::CLUMSINESS => self::CLUMSINESS,
         ];
 }

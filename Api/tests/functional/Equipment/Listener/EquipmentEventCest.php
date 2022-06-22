@@ -90,7 +90,7 @@ class EquipmentEventCest
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
             'player' => $player->getId(),
-            'log' => LogEnum::OBJECT_FELT,
+            'log' => LogEnum::OBJECT_FELL,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
     }

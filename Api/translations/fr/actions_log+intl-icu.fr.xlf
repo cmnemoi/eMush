@@ -192,12 +192,12 @@
             <segment id="infect_success">
                 <source>infect_success</source>
                 <target>{character_gender, select,
-                    male {{target_player_gender, select,
+                    male {{target_character_gender, select,
                         male {**{character}** s'est rapproché de **{target_character}** avec un regard de prédateur... et l'a poinçonné discrètement !}
                         female {**{character}** s'est rapproché de **{target_character}** avec un regard de prédateur... et l'a poinçonnée discrètement !}
                         other {invalid gender input}
                     }}
-                    female {{target_player_gender, select,
+                    female {{target_character_gender, select,
                          male {**{character}** s'est rapprochée de **{target_character}** avec un regard de prédateur... et l'a poinçonné discrètement !}
                          female {**{character}** s'est rapprochée de **{target_character}** avec un regard de prédateur... et l'a poinçonnée discrètement !}
                          other {invalid gender input}

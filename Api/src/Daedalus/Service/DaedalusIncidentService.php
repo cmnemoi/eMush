@@ -211,7 +211,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     //@TODO: to be improved
     private function getNumberOfIncident(Daedalus $daedalus): int
     {
-        $rate = intval($daedalus->getDay() / 4);
+        $rate = intval(sqrt($daedalus->getDay() - 0.9));
 
         return $this->randomService->random(0, $rate);
     }

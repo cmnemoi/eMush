@@ -117,7 +117,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             $takeAction,
             $this->getReference(TechnicianFixtures::DISMANTLE_3_25),
             $repair25,
-            $sabotage25,
             $reportAction,
             $examineAction,
         ]);

@@ -60,21 +60,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 267,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 267, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":15,
          "id":2,
          "name":"wall",
@@ -92,21 +78,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":15,
          "id":9,
          "name":"ground",
@@ -129,21 +101,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 237, 239, 237, 239, 237, 239, 237, 247, 246, 238,
-            0, 0, 0, 0, 0, 236, 238, 236, 238, 236, 238, 236, 247, 246, 238,
-            0, 0, 0, 0, 0, 238, 238, 239, 239, 241, 243, 237, 247, 246, 239,
-            0, 0, 0, 0, 0, 238, 238, 238, 238, 240, 242, 236, 247, 246, 238,
-            0, 0, 0, 0, 0, 256, 256, 256, 239, 237, 239, 237, 247, 246, 243,
-            0, 0, 0, 0, 0, 256, 256, 256, 238, 236, 238, 236, 247, 250, 245,
-            0, 0, 0, 0, 0, 256, 256, 256, 238, 237, 239, 237, 247, 249, 244,
-            0, 0, 0, 0, 0, 256, 256, 256, 238, 236, 238, 236, 247, 246, 238,
-            0, 0, 0, 0, 0, 237, 239, 241, 243, 237, 239, 237, 247, 246, 243,
-            0, 0, 0, 0, 0, 236, 238, 240, 242, 236, 238, 236, 247, 246, 242,
-            0, 0, 0, 0, 0, 237, 239, 237, 239, 237, 239, 237, 247, 246, 239,
-            0, 0, 0, 0, 0, 236, 238, 236, 238, 236, 238, 236, 247, 246, 238,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 237, 239, 237, 239, 237, 239, 237, 247, 246, 238, 0, 0, 0, 0, 0, 236, 238, 236, 238, 236, 238, 236, 247, 246, 238, 0, 0, 0, 0, 0, 238, 238, 239, 239, 241, 243, 237, 247, 246, 239, 0, 0, 0, 0, 0, 238, 238, 238, 238, 240, 242, 236, 247, 246, 238, 0, 0, 0, 0, 0, 256, 256, 256, 239, 237, 239, 237, 247, 246, 243, 0, 0, 0, 0, 0, 256, 256, 256, 238, 236, 238, 236, 247, 250, 245, 0, 0, 0, 0, 0, 256, 256, 256, 238, 237, 239, 237, 247, 249, 244, 0, 0, 0, 0, 0, 256, 256, 256, 238, 236, 238, 236, 247, 246, 238, 0, 0, 0, 0, 0, 237, 239, 241, 243, 237, 239, 237, 247, 246, 243, 0, 0, 0, 0, 0, 236, 238, 240, 242, 236, 238, 236, 247, 246, 242, 0, 0, 0, 0, 0, 237, 239, 237, 239, 237, 239, 237, 247, 246, 239, 0, 0, 0, 0, 0, 236, 238, 236, 238, 236, 238, 236, 247, 246, 238, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":15,
          "id":1,
          "name":"ground",
@@ -320,8 +278,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":205,
-                 "y":221
+                 "x":206,
+                 "y":220
                 }, 
                 {
                  "gid":306,
@@ -348,8 +306,8 @@
                  "type":"shelf",
                  "visible":true,
                  "width":33,
-                 "x":215.75,
-                 "y":48.25
+                 "x":216.25,
+                 "y":55.75
                 }, 
                 {
                  "gid":257,
@@ -394,8 +352,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":54,
-                 "x":160.5,
-                 "y":20.5
+                 "x":164,
+                 "y":19
                 }, 
                 {
                  "gid":307,
@@ -417,8 +375,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":54,
-                 "x":100.5,
-                 "y":20.5
+                 "x":100,
+                 "y":19
                 }, 
                 {
                  "gid":307,
@@ -440,8 +398,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":54,
-                 "x":100.5,
-                 "y":194.5
+                 "x":100,
+                 "y":195
                 }, 
                 {
                  "gid":307,
@@ -463,8 +421,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":54,
-                 "x":160.5,
-                 "y":194.5
+                 "x":164,
+                 "y":195
                 }, 
                 {
                  "gid":1,
@@ -501,8 +459,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":25,
-                 "x":141.5,
-                 "y":-22.1666666666667
+                 "x":144.75,
+                 "y":-23.7526041666667
                 }, 
                 {
                  "gid":335,
@@ -549,8 +507,7 @@
                  "width":72,
                  "x":57.5,
                  "y":103.5
-                },
-            
+                }, 
                 {
                  "gid":309,
                  "height":79,
@@ -571,8 +528,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":96,
-                 "x":83.5,
-                 "y":83.5
+                 "x":84.5,
+                 "y":84.5
                 }, 
                 {
                  "gid":311,
@@ -776,8 +733,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":34,
-                 "x":52,
-                 "y":88
+                 "x":42.5,
+                 "y":83.5
                 }, 
                 {
                  "gid":342,
@@ -839,8 +796,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":34,
-                 "x":92.5,
-                 "y":153.5
+                 "x":88,
+                 "y":152
                 }, 
                 {
                  "gid":341,
@@ -902,8 +859,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":34,
-                 "x":87.000946969697,
-                 "y":31
+                 "x":86.500946969697,
+                 "y":33.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -915,13 +872,13 @@
  "nextobjectid":42,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.5",
+ "tiledversion":"1.7.2",
  "tileheight":16,
  "tilesets":[
         {
          "columns":14,
          "firstgid":1,
-         "image":"tilemaps\/camera_object.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/camera_object.png",
          "imageheight":17,
          "imagewidth":350,
          "margin":0,
@@ -992,8 +949,7 @@
                         {
                          "duration":300,
                          "tileid":12
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":11
@@ -1055,7 +1011,7 @@
              "orientation":"isometric",
              "width":64
             },
-         "image":"tilemaps\/door_ground_tileset.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/door_ground_tileset.png",
          "imageheight":144,
          "imagewidth":320,
          "margin":0,
@@ -1172,7 +1128,7 @@
              "orientation":"isometric",
              "width":48
             },
-         "image":"tilemaps\/door_object.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/door_object.png",
          "imageheight":584,
          "imagewidth":1152,
          "margin":0,
@@ -1243,8 +1199,7 @@
                         {
                          "duration":100,
                          "tileid":14
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":15
@@ -1344,8 +1299,7 @@
                         {
                          "duration":100,
                          "tileid":38
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":39
@@ -1445,8 +1399,7 @@
                         {
                          "duration":100,
                          "tileid":62
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":63
@@ -1546,8 +1499,7 @@
                         {
                          "duration":100,
                          "tileid":86
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":87
@@ -1647,8 +1599,7 @@
                         {
                          "duration":100,
                          "tileid":110
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":111
@@ -1748,8 +1699,7 @@
                         {
                          "duration":100,
                          "tileid":134
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":135
@@ -1849,8 +1799,7 @@
                         {
                          "duration":100,
                          "tileid":158
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":159
@@ -1950,8 +1899,7 @@
                         {
                          "duration":100,
                          "tileid":182
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":183
@@ -2001,7 +1949,7 @@
              "orientation":"isometric",
              "width":32
             },
-         "image":"tilemaps\/ground_tileset.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/ground_tileset.png",
          "imageheight":72,
          "imagewidth":960,
          "margin":0,
@@ -2015,7 +1963,7 @@
         {
          "columns":4,
          "firstgid":257,
-         "image":"tilemaps\/wall_box.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
          "margin":0,
@@ -2060,7 +2008,7 @@
              "orientation":"isometric",
              "width":32
             },
-         "image":"tilemaps\/wall_tileset.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/wall_tileset.png",
          "imageheight":72,
          "imagewidth":448,
          "margin":0,
@@ -2074,7 +2022,7 @@
         {
          "columns":1,
          "firstgid":275,
-         "image":"tilemaps\/astro_terminal2.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/astro_terminal2.png",
          "imageheight":46,
          "imagewidth":52,
          "margin":0,
@@ -2088,7 +2036,7 @@
         {
          "columns":8,
          "firstgid":276,
-         "image":"tilemaps\/comms_center.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/comms_center.png",
          "imageheight":48,
          "imagewidth":512,
          "margin":0,
@@ -2139,7 +2087,7 @@
         {
          "columns":5,
          "firstgid":284,
-         "image":"tilemaps\/command_terminal.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/command_terminal.png",
          "imageheight":52,
          "imagewidth":470,
          "margin":0,
@@ -2178,7 +2126,7 @@
         {
          "columns":5,
          "firstgid":289,
-         "image":"tilemaps\/astro_terminal.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/astro_terminal.png",
          "imageheight":144,
          "imagewidth":385,
          "margin":0,
@@ -2237,7 +2185,7 @@
         {
          "columns":4,
          "firstgid":299,
-         "image":"tilemaps\/command_board.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/command_board.png",
          "imageheight":106,
          "imagewidth":480,
          "margin":0,
@@ -2272,7 +2220,7 @@
         {
          "columns":4,
          "firstgid":303,
-         "image":"tilemaps\/shelf_object.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/shelf_object.png",
          "imageheight":40,
          "imagewidth":132,
          "margin":0,
@@ -2286,7 +2234,7 @@
         {
          "columns":1,
          "firstgid":307,
-         "image":"tilemaps\/aeration_grid.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/aeration_grid.png",
          "imageheight":29,
          "imagewidth":54,
          "margin":0,
@@ -2301,7 +2249,7 @@
         {
          "columns":1,
          "firstgid":308,
-         "image":"tilemaps\/semicircle_floor.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/semicircle_floor.png",
          "imageheight":37,
          "imagewidth":72,
          "margin":0,
@@ -2315,7 +2263,7 @@
         {
          "columns":2,
          "firstgid":309,
-         "image":"tilemaps\/floor_lamp_bridge.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/floor_lamp_bridge.png",
          "imageheight":92,
          "imagewidth":192,
          "margin":0,
@@ -2338,12 +2286,11 @@
                  "id":0
                 }],
          "tilewidth":96
-        },
-    
+        }, 
         {
          "columns":7,
          "firstgid":311,
-         "image":"tilemaps\/comms_center2.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/comms_center2.png",
          "imageheight":61,
          "imagewidth":602,
          "margin":0,
@@ -2386,7 +2333,7 @@
         {
          "columns":1,
          "firstgid":318,
-         "image":"tilemaps\/cockpit_window.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/cockpit_window.png",
          "imageheight":166,
          "imagewidth":205,
          "margin":0,
@@ -2400,7 +2347,7 @@
         {
          "columns":8,
          "firstgid":319,
-         "image":"tilemaps\/scanner.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/scanner.png",
          "imageheight":142,
          "imagewidth":480,
          "margin":0,
@@ -2487,7 +2434,7 @@
         {
          "columns":2,
          "firstgid":335,
-         "image":"tilemaps\/semi_circle_lamp.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/semi_circle_lamp.png",
          "imageheight":51,
          "imagewidth":208,
          "margin":0,
@@ -2514,7 +2461,7 @@
         {
          "columns":7,
          "firstgid":337,
-         "image":"tilemaps\/chair_object.png",
+         "image":"..\/..\/..\/..\/..\/..\/mush-Tiled_Fixes\/App\/src\/game\/assets\/tilemaps\/chair_object.png",
          "imageheight":72,
          "imagewidth":238,
          "margin":0,
@@ -2527,6 +2474,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.8",
+ "version":"1.6",
  "width":15
 }

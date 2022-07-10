@@ -97,7 +97,7 @@ class TranslationServiceTest extends TestCase
         ;
         $this->translator
             ->shouldReceive('trans')
-            ->with(EquipmentEnum::ANTENNA . '.first_Letter', [], 'equipments')
+            ->with(EquipmentEnum::ANTENNA . '.first_letter', [], 'equipments')
             ->andReturn('vowel')
         ;
         $this->translator
@@ -128,7 +128,7 @@ class TranslationServiceTest extends TestCase
         ;
         $this->translator
             ->shouldReceive('trans')
-            ->with(EquipmentEnum::ANTENNA . '.first_Letter', [], 'items')
+            ->with(EquipmentEnum::ANTENNA . '.first_letter', [], 'items')
             ->andReturn('vowel')
         ;
         $this->translator

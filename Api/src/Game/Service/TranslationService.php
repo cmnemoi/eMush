@@ -71,7 +71,7 @@ class TranslationService implements TranslationServiceInterface
         $params = [];
         $params[$key] = $this->translator->trans($element . '.short_name', [], $domain);
         $params[$key . '_gender'] = $this->translator->trans($element . '.genre', [], $domain);
-        $params[$key . '_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
+        $params[$key . '_first_letter'] = $this->translator->trans($element . '.first_letter', [], $domain);
         $params[$key . '_plural'] = $this->translator->trans($element . '.plural_name', [], $domain);
 
         return $params;

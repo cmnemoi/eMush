@@ -8,6 +8,9 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Blueprint;
+use Mush\Equipment\Entity\Mechanics\Book;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -156,11 +159,23 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
             //Do not include items hidden to the player
             $hiddenStatus = $item->getStatusByName(EquipmentStatusEnum::HIDDEN);
             if (!$hiddenStatus || ($hiddenStatus->getTarget() === $currentPlayer)) {
-                if (!isset($itemsGroup[$item->getName()])) {
-                    $itemsGroup[$item->getName()] = new ArrayCollection();
+                $name = $item->getName();
+
+                // book and blueprint hae the same name event for similar blueprint This part split them
+                $book = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK);
+                if ($book instanceof Book) {
+                    $name = $name . $book->getSkill();
+                }
+                $blueprint = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
+                if ($blueprint instanceof Blueprint) {
+                    $name = $name . $blueprint->getEquipment()->getName();
+                }
+
+                if (!isset($itemsGroup[$name])) {
+                    $itemsGroup[$name] = new ArrayCollection();
                 }
                 /** @var Collection $currentCollection */
-                $currentCollection = $itemsGroup[$item->getName()];
+                $currentCollection = $itemsGroup[$name];
                 $currentCollection->add($item);
             }
         }
@@ -201,6 +216,7 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
         }
 
         $statusesName = $itemStatuses->filter(fn (Status $status) => (in_array($status->getName(), $statusesFilter)));
+
         if (!$statusesName->isEmpty()) {
             /** @var Status $status */
             $status = $statusesName->first();

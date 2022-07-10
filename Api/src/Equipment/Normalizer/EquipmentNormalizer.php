@@ -12,9 +12,12 @@ use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Blueprint;
+use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Equipment\Service\EquipmentEffectService;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
@@ -30,13 +33,13 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
     private TranslationServiceInterface $translationService;
     private GearToolServiceInterface $gearToolService;
     private ConsumableDiseaseServiceInterface $consumableDiseaseService;
-    private EquipmentEffectService $equipmentEffectService;
+    private EquipmentEffectServiceInterface $equipmentEffectService;
 
     public function __construct(
         TranslationServiceInterface $translationService,
         GearToolServiceInterface $gearToolService,
         ConsumableDiseaseServiceInterface $consumableDiseaseService,
-        EquipmentEffectService $equipmentEffectService
+        EquipmentEffectServiceInterface $equipmentEffectService
     ) {
         $this->translationService = $translationService;
         $this->gearToolService = $gearToolService;
@@ -58,6 +61,9 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
             throw new \LogicException('Current player is missing from context');
         }
 
+        $key = $object->getName();
+        $nameParameters = [];
+
         if ($object instanceof Door) {
             $context['door'] = $object;
             $type = 'door';
@@ -77,11 +83,24 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
             }
         }
 
+        if (($blueprint = $object->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) instanceof Blueprint) {
+            $key = ItemEnum::BLUEPRINT;
+            $resultEquipment = $blueprint->getEquipment();
+            $nameParameters[$resultEquipment->getLogKey()] = $blueprint->getEquipment()->getName();
+        }
+
+        if (($book = $object->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK)) instanceof Book) {
+            $key = ItemEnum::APPRENTON;
+            $nameParameters['skill'] = $book->getSkill();
+        }
+
+        $definition = $this->getDefinition($object, $key, $type);
+
         return [
             'id' => $object->getId(),
-            'key' => $object->getName(),
-            'name' => $this->translationService->translate($object->getName() . '.name', [], $type),
-            'description' => $this->translationService->translate("{$object->getName()}.description", [], $type),
+            'key' => $key,
+            'name' => $this->translationService->translate($key . '.name', $nameParameters, $type),
+            'description' => $definition,
             'statuses' => $statuses,
             'actions' => $this->getActions($object, $currentPlayer, $format, $context),
             'effects' => $this->getRationsEffect($object, $currentPlayer->getDaedalus()),
@@ -165,23 +184,23 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         $effects = [];
 
         $satiety = $consumableEffect->getSatiety();
-        if ($satiety !== null) {
+        if ($satiety) {
             $effects[] = $this->createEffectLine($satiety, 'satiety_point');
         }
         $actionPoint = $consumableEffect->getActionPoint();
-        if ($actionPoint !== null) {
+        if ($actionPoint) {
             $effects[] = $this->createEffectLine($actionPoint, 'action_point');
         }
         $movementPoint = $consumableEffect->getMovementPoint();
-        if ($movementPoint !== null) {
+        if ($movementPoint) {
             $effects[] = $this->createEffectLine($movementPoint, 'movement_point');
         }
         $healthPoint = $consumableEffect->getHealthPoint();
-        if ($healthPoint !== null) {
+        if ($healthPoint) {
             $effects[] = $this->createEffectLine($healthPoint, 'health_point');
         }
         $moralPoint = $consumableEffect->getMoralPoint();
-        if ($moralPoint !== null) {
+        if ($moralPoint) {
             $effects[] = $this->createEffectLine($moralPoint, 'moral_point');
         }
 
@@ -237,5 +256,23 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         $sign = $quantity > 0 ? '+' : '-';
 
         return "{$sign} {$quantity} {$this->translationService->translate($key, [], 'misc')}";
+    }
+
+    private function getDefinition(GameEquipment $equipment, string $key, string $type): string
+    {
+        $description = $this->translationService->translate("{$key}.description", [], $type);
+
+        if (($blueprint = $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) instanceof Blueprint) {
+            foreach ($blueprint->getIngredients() as $name => $number) {
+                $ingredientTranslation = $this->translationService->translate(
+                    'blueprint_ingredient.description',
+                    ['quantity' => $number, 'item' => $name],
+                    'items'
+                );
+                $description = "$description//$ingredientTranslation";
+            }
+        }
+
+        return $description;
     }
 }

@@ -8,8 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\ConfigInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 /**
  * Class EquipmentConfig.
@@ -87,7 +90,7 @@ class EquipmentConfig implements ConfigInterface
     {
         $gameEquipment = new GameEquipment();
         $gameEquipment
-            ->setName($this->getName())
+            ->setName($this->getShortName())
             ->setEquipment($this)
         ;
 
@@ -116,6 +119,17 @@ class EquipmentConfig implements ConfigInterface
 
     public function getName(): string
     {
+        return $this->name;
+    }
+
+    public function getShortName(): string
+    {
+        if ($this->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) {
+            return ItemEnum::BLUEPRINT;
+        } elseif ($this->getMechanicByName(EquipmentMechanicEnum::BOOK)) {
+            return ItemEnum::APPRENTON;
+        }
+
         return $this->name;
     }
 
@@ -251,5 +265,10 @@ class EquipmentConfig implements ConfigInterface
         $this->dismountedProducts = $dismountedProducts;
 
         return $this;
+    }
+
+    public function getLogKey(): string
+    {
+        return LogParameterKeyEnum::EQUIPMENT;
     }
 }

@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 /**
  * Class ItemConfig.
@@ -24,7 +25,7 @@ class ItemConfig extends EquipmentConfig
     {
         $gameItem = new GameItem();
         $gameItem
-            ->setName($this->getName())
+            ->setName($this->getShortName())
             ->setEquipment($this)
         ;
 
@@ -52,5 +53,10 @@ class ItemConfig extends EquipmentConfig
         $actions = array_merge(ActionEnum::getPermanentItemActions(), parent::getActions()->toArray());
 
         return new ArrayCollection($actions);
+    }
+
+    public function getLogKey(): string
+    {
+        return LogParameterKeyEnum::ITEM;
     }
 }

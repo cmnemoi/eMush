@@ -193,6 +193,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setItems([
                 ItemEnum::APPRENTON . '_' . SkillEnum::PILOT,
                 GearItemEnum::SNIPER_HELMET . '_' . ItemEnum::BLUEPRINT,
+                ItemEnum::ECHOLOCATOR . '_' . ItemEnum::BLUEPRINT,
                 GearItemEnum::ALIEN_BOTTLE_OPENER,
                 GearItemEnum::ROLLING_BOULDER,
                 ItemEnum::METAL_SCRAPS,

@@ -1,0 +1,77 @@
+<?php
+
+namespace Mush\Tests\Equipment\Event;
+
+use App\Tests\FunctionalTester;
+use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\Listener\CycleEventSubscriber;
+use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+
+class EquipmentEventCest
+{
+    private CycleEventSubscriber $cycleSubscriber;
+
+    public function _before(FunctionalTester $I)
+    {
+        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
+    }
+
+    public function testHeavyStatusOverflowingInventory(FunctionalTester $I)
+    {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 0]);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+
+        $time = new DateTime();
+
+        $heavyStatusConfig = new StatusConfig();
+        $heavyStatusConfig->setName(EquipmentStatusEnum::HEAVY)->setGameConfig($gameConfig);
+        $I->haveInRepository($heavyStatusConfig);
+
+        $burdenedStatusConfig = new StatusConfig();
+        $burdenedStatusConfig->setName(PlayerStatusEnum::BURDENED)->setGameConfig($gameConfig);
+        $I->haveInRepository($burdenedStatusConfig);
+
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->have(EquipmentConfig::class, [
+            'gameConfig' => $gameConfig,
+            'name' => 'equipment_name',
+            'initStatus' => new ArrayCollection([$heavyStatusConfig]),
+        ]);
+
+        $equipmentEvent = new EquipmentEvent(
+            'equipment_name',
+            $player,
+            VisibilityEnum::PUBLIC,
+            ActionEnum::COFFEE,
+            new \DateTime()
+        );
+        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+
+        $I->assertEmpty($player->getEquipments());
+        $I->assertEquals(1, $room->getEquipments()->count());
+        $I->assertEmpty($player->getStatuses());
+        $I->assertEquals(1, $room->getEquipments()->first()->getStatuses()->count());
+    }
+}

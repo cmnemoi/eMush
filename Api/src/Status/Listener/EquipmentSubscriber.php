@@ -27,7 +27,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
             EquipmentEvent::EQUIPMENT_TRANSFORM => ['onEquipmentTransform', 1000], // change the status before original equipment is destroyed
             EquipmentEvent::EQUIPMENT_DESTROYED => [['onEquipmentDestroyed'], ['onEquipmentRemovedFromInventory', -10]],
             EquipmentEvent::EQUIPMENT_CREATED => ['onNewEquipmentInInventory', -2000], //after the overflowing part has been solved
-            EquipmentEvent::CHANGE_HOLDER => [['onEquipmentRemovedFromInventory'], ['onNewEquipmentInInventory', 100]],
+            EquipmentEvent::CHANGE_HOLDER => [['onEquipmentRemovedFromInventory', 2000], ['onNewEquipmentInInventory', -2000]],
         ];
     }
 
@@ -68,7 +68,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
             throw new \LogicException('Equipment should be provided');
         }
 
-        $holder = $event->getHolder();
+        $holder = $equipment->getHolder();
         if ($holder instanceof Player) {
             if ($equipment->hasStatus(EquipmentStatusEnum::HIDDEN)) {
                 $this->statusService->removeStatus(EquipmentStatusEnum::HIDDEN, $equipment, $reason, $time);
@@ -92,14 +92,14 @@ class EquipmentSubscriber implements EventSubscriberInterface
             throw new \LogicException('Existing equipment should be provided');
         }
 
-        $holder = $equipment->getHolder();
-        if ($holder instanceof Player &&
-            $holder->hasStatus(PlayerStatusEnum::BURDENED) &&
-            $holder->getEquipments()->filter(function (GameItem $item) {
+        $player = $equipment->getHolder();
+        if ($player instanceof Player &&
+            $player->hasStatus(PlayerStatusEnum::BURDENED) &&
+            $player->getEquipments()->filter(function (GameItem $item) {
                 return $item->hasStatus(EquipmentStatusEnum::HEAVY);
             })->count() === 1
         ) {
-            $this->statusService->removeStatus(PlayerStatusEnum::BURDENED, $holder, $reason, $time);
+            $this->statusService->removeStatus(PlayerStatusEnum::BURDENED, $player, $reason, $time);
         }
     }
 }

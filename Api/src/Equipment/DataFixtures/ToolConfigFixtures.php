@@ -266,9 +266,11 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($superFreezer);
         $manager->persist($superFreezerMechanic);
 
-        //@TODO
+        /** @var Action $alienHolographicTVAction */
+        $alienHolographicTVAction = $this->getReference(ActionsFixtures::PUBLIC_BROADCAST);
+
         $alienHolographicTVMechanic = new Tool();
-//        $alienHolographicTVMechanic->setActions([ActionEnum::PUBLIC_BROADCAST]);
+        $alienHolographicTVMechanic->addAction($alienHolographicTVAction);
 
         $alienHolographicTV = new ItemConfig();
         $alienHolographicTV

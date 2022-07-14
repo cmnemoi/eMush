@@ -65,6 +65,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const CHECK_SPORE_LEVEL = 'check.spore.level';
     public const EXAMINE_EQUIPMENT = 'examine.equipment';
     public const REMOVE_SPORE = 'remove.spore';
+    public const PUBLIC_BROADCAST = 'public.broadcast';
 
     public const EXTRACT_SPORE = 'extract.spore';
     public const INFECT_PLAYER = 'infect.player';
@@ -597,6 +598,15 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($removeSporeAction);
 
+        $publicBroadcastAction = new Action();
+        $publicBroadcastAction
+            ->setName(ActionEnum::PUBLIC_BROADCAST)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($twoActionPointCost)
+        ;
+
+        $manager->persist($publicBroadcastAction);
+
         $manager->flush();
 
         $this->addReference(self::REJUVENATE_ALPHA, $rejuvenateAlpha);
@@ -652,6 +662,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::FLIRT_DEFAULT, $flirtAction);
         $this->addReference(self::DO_THE_THING, $doTheThingAction);
         $this->addReference(self::REMOVE_SPORE, $removeSporeAction);
+        $this->addReference(self::PUBLIC_BROADCAST, $publicBroadcastAction);
     }
 
     public function getDependencies(): array

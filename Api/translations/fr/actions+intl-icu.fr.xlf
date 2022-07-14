@@ -532,5 +532,15 @@
                 <target>Tenter le Kube qui rend fou. Bien peu arrivent à le résoudre en moins de 26 mouvements.</target>
             </segment>
         </unit>
+        <unit id="public_broadcast">
+            <segment id="name">
+                <source>public_broadcast.name</source>
+                <target>Projection publique</target>
+            </segment>
+            <segment id="description">
+                <source>public_broadcast.description</source>
+                <target>Rien de tel qu'un bon film Alien pour se remonter le moral. Par contre, personne ne parle le Twingon et on a pas les sous-titres.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

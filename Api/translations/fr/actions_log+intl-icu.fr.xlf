@@ -699,6 +699,17 @@
                 </target>
             </segment>
         </unit>
+        <unit id="public_broadcast">
+            <segment id="public_broadcast">
+                <source>public_broadcast</source>
+                <target>Tout le monde a l'air concentré sur le petit écran. 
+                Blouzorg apparaît sur l'écran, il est beau fier et vous ne comprenez rien de ce qu'il dit. 
+                Mais ce n'est pas grave ! [...] Vous applaudissez quand Blouzorg terrasse sa belle-mère [...] 
+                Qui eu cru que Blouzorg et son chien spatial savaient danser le jerk ! [...] 
+                Blouzorg épousera-t-il Blourka ? [...] Les lumières s'éteignent. Ces séries aliens sont vraiment incroyables...
+                </target>
+            </segment>
+        </unit>
     </file>
 </xliff>
 

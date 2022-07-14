@@ -65,6 +65,7 @@ class ActionLogEnum
     public const CHECK_SPORE_LEVEL = 'check_spore_level';
     public const REMOVE_SPORE_SUCCESS = 'remove_spore_success';
     public const REMOVE_SPORE_FAIL = 'remove_spore_fail';
+    public const PUBLIC_BROADCAST = 'public_broadcast';
 
     public const SUCCESS = 'success';
     public const FAIL = 'fail';
@@ -401,6 +402,13 @@ class ActionLogEnum
             self::FAIL => [
                 self::VALUE => self::REMOVE_SPORE_FAIL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+        ],
+
+        ActionEnum::PUBLIC_BROADCAST => [
+            self::SUCCESS => [
+                self::VALUE => self::PUBLIC_BROADCAST,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
     ];

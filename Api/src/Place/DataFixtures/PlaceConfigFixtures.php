@@ -203,6 +203,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 GameFruitEnum::BOTTINE,
                 GameFruitEnum::FRAGILANE,
                 GameFruitEnum::FILANDRA,
+                ToolItemEnum::ALIEN_HOLOGRAPHIC_TV,
             ])
             ->setDoors([
                 DoorEnum::FRONT_CORRIDOR_LABORATORY,

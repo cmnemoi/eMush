@@ -76,6 +76,12 @@
                 <target>Vous perdez {quantity} :pmo:</target>
             </segment>
         </unit>
+        <unit id="loss_action_point">
+            <segment>
+                <source>loss_action_point</source>
+                <target>Vous perdez {quantity} :pa:</target>
+            </segment>
+        </unit>
         <unit id="gain_triumph">
             <segment>
                 <source>gain_triumph</source>

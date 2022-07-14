@@ -4,6 +4,7 @@ namespace Mush\Tests\Place\Event;
 
 use App\Tests\FunctionalTester;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -117,21 +118,37 @@ class RoomEventCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
 
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        /** @var Place $roomWithPlayers */
+        $roomWithPlayers = $I->have(Place::class, ['daedalus' => $daedalus]);
+        /** @var Place $roomWithoutPlayers */
+        $roomWithoutPlayers = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        $rooms = new ArrayCollection([$roomWithPlayers, $roomWithoutPlayers]);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $roomWithPlayers, 'healthPoint' => 10, 'characterConfig' => $characterConfig]);
 
-        $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
+        //filter rooms with players
+        $rooms = $rooms->filter(function (Place $room) {
+            return $room->getNumberPlayers() > 0;
+        });
 
-        $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
+        //apply tremor on rooms with players
+        $rooms->map(function (Place $room) use ($time) {
+            $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
+        });
 
         $I->assertEquals(8, $player->getHealthPoint());
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $roomWithPlayers->getId(),
+            'log' => LogEnum::TREMOR_GRAVITY,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+        $I->dontSeeInRepository(RoomLog::class, [
+            'place' => $roomWithoutPlayers->getId(),
             'log' => LogEnum::TREMOR_GRAVITY,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);

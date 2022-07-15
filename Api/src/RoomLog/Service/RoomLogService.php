@@ -184,21 +184,27 @@ class RoomLogService implements RoomLogServiceInterface
         }
 
         $place = $player->getPlace();
+
+        $placeEquipements = $place->getEquipments();
+
+        $equipmentIsACamera = fn (GameEquipment $gameEquipment) => (
+            $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT);
+
+        $equipementIsNotBroken = fn (GameEquipment $gameEquipment) => (
+        $gameEquipment->isBroken() === false);
+
+        $placeHasAFunctionalCamera = $placeEquipements->filter($equipmentIsACamera)->filter($equipementIsNotBroken)->count() > 0;
+        $placeHasAWitness = $place->getNumberPlayers() > 1;
+
         if (
             $visibility === VisibilityEnum::COVERT &&
-            ($place->getPlayers()->count() > 1 ||
-            !$place->getEquipments()
-                ->filter(fn (GameEquipment $gameEquipment) => (
-                    $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT
-                ))->isEmpty())
+            ($placeHasAWitness ||
+             $placeHasAFunctionalCamera)
         ) {
             return VisibilityEnum::REVEALED;
         } elseif (
             $visibility === VisibilityEnum::SECRET &&
-            !$place->getEquipments()
-                ->filter(fn (GameEquipment $gameEquipment) => (
-                    $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT
-                ))->isEmpty()
+            $placeHasAFunctionalCamera
         ) {
             return VisibilityEnum::REVEALED;
         }

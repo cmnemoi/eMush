@@ -242,6 +242,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $door = new Door();
         $door->setRooms(new ArrayCollection([new Place(), new Place()]));
+        $door->setName('Door');
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByCriteria')

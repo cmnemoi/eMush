@@ -9,6 +9,7 @@ use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\DoorEnum;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Event\PlayerEvent;
@@ -138,11 +139,16 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         if ($numberOfDoorBroken > 0) {
             $criteria = new GameEquipmentCriteria($daedalus);
             $criteria->setInstanceOf([Door::class]);
-            $criteria->setBreakable(true);
 
-            $daedalusDoor = $this->gameEquipmentRepository->findByCriteria($criteria);
+            $daedalusDoors = $this->gameEquipmentRepository->findByCriteria($criteria);
 
-            $brokenDoors = $this->randomService->getRandomElements($daedalusDoor, $numberOfDoorBroken);
+            $daedalusDoorsNames = array_map(fn (Door $door) => $door->getName(), $daedalusDoors);
+
+            $breakableDoorsNames = array_filter($daedalusDoorsNames, fn (string $doorName) => (DoorEnum::isBreakable($doorName)));
+
+            $breakableDoors = array_filter($daedalusDoors, fn (Door $door) => (in_array($door->getName(), $breakableDoorsNames)));
+
+            $brokenDoors = $this->randomService->getRandomElements($breakableDoors, $numberOfDoorBroken);
 
             foreach ($brokenDoors as $door) {
                 $statusEvent = new StatusEvent(

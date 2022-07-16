@@ -51,6 +51,7 @@ class CharacterEnum
         return in_array($character, [
             self::TERRENCE,
             self::DEREK,
+            self::CHAO,
             self::GIOELE,
             self::IAN,
             self::KIM_JIN_SU,

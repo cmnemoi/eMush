@@ -312,10 +312,28 @@ class ActionLogEnum
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
-        ActionEnum::HEAL => [
+        ActionEnum::MEDIKIT_HEAL => [
             self::SUCCESS => [
                 self::VALUE => self::HEAL_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::MEDIKIT_SELF_HEAL => [
+            self::SUCCESS => [
+                self::VALUE => self::SELF_HEAL,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+        ],
+        ActionEnum::MEDLAB_HEAL => [
+            self::SUCCESS => [
+                self::VALUE => self::HEAL_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::MEDLAB_SELF_HEAL => [
+            self::SUCCESS => [
+                self::VALUE => self::SELF_HEAL,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::ULTRAHEAL => [
@@ -325,12 +343,6 @@ class ActionLogEnum
             ],
         ],
         ActionEnum::USE_BANDAGE => [
-            self::SUCCESS => [
-                self::VALUE => self::SELF_HEAL,
-                self::VISIBILITY => VisibilityEnum::PRIVATE,
-            ],
-        ],
-        ActionEnum::SELF_HEAL => [
             self::SUCCESS => [
                 self::VALUE => self::SELF_HEAL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,

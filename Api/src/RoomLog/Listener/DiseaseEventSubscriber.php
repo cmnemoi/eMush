@@ -34,7 +34,12 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayerDisease()->getPlayer();
 
-        if ($event->getReason() === ActionEnum::HEAL) {
+        $eventIsHealingAction = $event->getReason() === ActionEnum::MEDLAB_SELF_HEAL
+            || $event->getReason() === ActionEnum::MEDLAB_HEAL
+            || $event->getReason() === ActionEnum::MEDIKIT_HEAL
+            || $event->getReason() === ActionEnum::MEDIKIT_SELF_HEAL;
+
+        if ($eventIsHealingAction) {
             $key = LogEnum::DISEASE_CURED_PLAYER;
         } elseif ($event->getReason() === ActionEnum::CONSUME) {
             $key = LogEnum::DISEASE_CURED_DRUG;

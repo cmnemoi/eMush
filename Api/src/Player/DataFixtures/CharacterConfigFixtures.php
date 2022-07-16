@@ -31,6 +31,11 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $comfortAction */
         $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
 
+        /** @var Action medlabHealAction */
+        $medlabHealAction = $this->getReference(ActionsFixtures::MEDLAB_HEAL);
+        /** @var Action medlabSelfHealAction */
+        $medlabSelfHealAction = $this->getReference(ActionsFixtures::MEDLAB_SELF_HEAL);
+
         /** @var Action $hitAction */
         $hitAction = $this->getReference(ActionsFixtures::HIT_DEFAULT);
         /** @var Action $hideAction */
@@ -62,6 +67,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $extractSporeAction,
             $getUpAction,
             $comfortAction,
+            $medlabHealAction,
+            $medlabSelfHealAction,
             $rejuvenateAlphaAction,
             $spreadFireAction,
             $flirtAction,

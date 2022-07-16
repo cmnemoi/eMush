@@ -289,9 +289,9 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($alienHolographicTVMechanic);
 
         /** @var Action $healAction */
-        $healAction = $this->getReference(ActionsFixtures::HEAL_DEFAULT);
+        $healAction = $this->getReference(ActionsFixtures::MEDIKIT_HEAL);
         /** @var Action $selfHealAction */
-        $selfHealAction = $this->getReference(ActionsFixtures::HEAL_SELF);
+        $selfHealAction = $this->getReference(ActionsFixtures::MEDIKIT_SELF_HEAL);
 
         $medikitMechanic = new Tool();
         $medikitMechanic

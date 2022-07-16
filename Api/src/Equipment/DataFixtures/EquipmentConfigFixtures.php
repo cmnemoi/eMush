@@ -413,28 +413,16 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($bed);
         $manager->persist($bedMechanic);
 
-        /** @var Action $healAction */
-        $healAction = $this->getReference(ActionsFixtures::HEAL_DEFAULT);
-        /** @var Action $selfHealAction */
-        $selfHealAction = $this->getReference(ActionsFixtures::HEAL_SELF);
-
-        $medlabBedMechanic = new Tool();
-        $medlabBedMechanic
-            ->addAction($healAction)
-            ->addAction($selfHealAction)
-        ;
-
         $medlabBed = new EquipmentConfig();
         $medlabBed
             ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::MEDLAB_BED)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$bedMechanic, $medlabBedMechanic]))
+            ->setMechanics(new ArrayCollection([$bedMechanic]))
             ->setActions(new ArrayCollection([$examineAction]))
         ;
         $manager->persist($medlabBed);
-        $manager->persist($medlabBedMechanic);
 
         /** @var Action $coffeeAction */
         $coffeeAction = $this->getReference(ActionsFixtures::COFFEE_DEFAULT);

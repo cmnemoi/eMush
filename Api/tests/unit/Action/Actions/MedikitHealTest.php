@@ -4,14 +4,14 @@ namespace Mush\Test\Action\Actions;
 
 use Mockery;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\SelfHeal;
+use Mush\Action\Actions\MedikitHeal;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 
-class SelfHealActionTest extends AbstractActionTest
+class MedikitHealActionTest extends AbstractActionTest
 {
     /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
@@ -23,11 +23,11 @@ class SelfHealActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::SELF_HEAL);
+        $this->actionEntity = $this->createActionEntity(ActionEnum::MEDIKIT_HEAL);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
-        $this->action = new SelfHeal(
+        $this->action = new MedikitHeal(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
@@ -51,8 +51,9 @@ class SelfHealActionTest extends AbstractActionTest
         $this->eventDispatcher->shouldReceive('dispatch');
 
         $player = $this->createPlayer(new Daedalus(), $room);
+        $playerTarget = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player);
+        $this->action->loadParameters($this->actionEntity, $player, $playerTarget);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventDispatcher->shouldReceive('dispatch');

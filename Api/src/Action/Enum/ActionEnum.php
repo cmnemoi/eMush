@@ -45,14 +45,14 @@ class ActionEnum
     public const STRENGTHEN_HULL = 'strengthen_hull';
     public const WRITE = 'write';
     public const PUBLIC_BROADCAST = 'public_broadcast';
-    public const HEAL = 'heal';
-    public const SELF_HEAL = 'self_heal';
     public const ULTRAHEAL = 'ultraheal';
     public const CURE = 'cure';
     public const USE_BANDAGE = 'use_bandage';
     public const TRY_KUBE = 'try_kube';
     public const OPEN = 'open';
     public const SHOOT = 'shoot';
+    public const MEDIKIT_HEAL = 'medikit_heal';
+    public const MEDIKIT_SELF_HEAL = 'medikit_self_heal';
 
     // Item-enabled actions
     public const INSERT_FUEL = 'insert_fuel';
@@ -83,6 +83,8 @@ class ActionEnum
     public const GET_UP = 'get_up';
     public const GUARD = 'guard';
     public const HIT = 'hit';
+    public const MEDLAB_HEAL = 'medlab_heal';
+    public const MEDLAB_SELF_HEAL = 'medlab_self_heal';
     public const WHISPER = 'whisper';
     public const REPORT_FIRE = 'report_fire';
     public const DO_THE_THING = 'do_the_thing';
@@ -167,6 +169,8 @@ class ActionEnum
         return [
             self::HIT,
             self::WHISPER,
+            self::MEDLAB_HEAL,
+            self::MEDLAB_SELF_HEAL,
         ];
     }
 

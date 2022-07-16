@@ -4,58 +4,71 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Validator\FullHealth;
+use Mush\Action\Validator\Reach;
+use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerModifierEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-class SelfHeal extends AbstractAction
+/**
+ * Abstract class which defines a generic heal action.
+ * For 2 Action Points, the player gives back 3 health points to another player.
+ *  - +1 health point if the Ultra-healing pommade research is active (@TODO)
+ *  - +2 health point if the player has the Medic skill (@TODO).
+ *
+ * Also weakens / heals diseases (@TODO)
+ *
+ * More info : http://www.mushpedia.com/wiki/Medikit
+ *
+ * See `MedikitHeal` and `MedlabHeal` classes for implementations.
+ */
+abstract class AbstractHeal extends AbstractAction
 {
-    public const BASE_HEAL = 2;
+    public const BASE_HEAL = 3;
 
-    protected string $name = ActionEnum::SELF_HEAL;
+    protected string $name;
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter === null;
+        return $parameter instanceof Player;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new FullHealth(['target' => FullHealth::PLAYER, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new FullHealth(['target' => FullHealth::PARAMETER, 'groups' => ['visibility']]));
     }
 
     protected function applyEffects(): ActionResult
     {
-        //@TODO remove diseases
+        /** @var Player $parameter */
+        $parameter = $this->parameter;
 
-        $initialHealth = $this->player->getHealthPoint();
+        $healedQuantity = self::BASE_HEAL;
 
         $playerModifierEvent = new PlayerModifierEvent(
-            $this->player,
+            $parameter,
             PlayerVariableEnum::HEALTH_POINT,
-            self::BASE_HEAL,
+            $healedQuantity,
             $this->getActionName(),
             new \DateTime()
         );
-        $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $healEvent = new ApplyEffectEvent(
             $this->player,
-            $this->player,
-            VisibilityEnum::HIDDEN,
+            $parameter,
+            VisibilityEnum::PUBLIC,
             $this->getActionName(),
             new \DateTime()
         );
         $this->eventDispatcher->dispatch($healEvent, ApplyEffectEvent::HEAL);
-
-        $healedQuantity = $this->player->getHealthPoint() - $initialHealth;
 
         $success = new Success();
 

@@ -18,6 +18,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\VisibilityEnum;
@@ -124,6 +125,7 @@ class ActionEffectSubscriberCest
 
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
+            'name' => RoomEnum::MEDLAB,
         ]);
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -150,7 +152,7 @@ class ActionEffectSubscriberCest
             $player,
             $player,
             VisibilityEnum::HIDDEN,
-            ActionEnum::HEAL,
+            ActionEnum::MEDLAB_HEAL,
             new \DateTime()
         );
 
@@ -172,6 +174,7 @@ class ActionEffectSubscriberCest
 
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
+            'name' => RoomEnum::MEDLAB,
         ]);
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -199,7 +202,7 @@ class ActionEffectSubscriberCest
             $player,
             $player,
             VisibilityEnum::HIDDEN,
-            ActionEnum::HEAL,
+            ActionEnum::MEDLAB_HEAL,
             new \DateTime()
         );
 

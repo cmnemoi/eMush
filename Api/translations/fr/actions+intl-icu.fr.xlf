@@ -381,25 +381,44 @@
                 <target>Avec un peu d'adresse vous arriverez à vous débarasser du feu. Faites attention à ne pas vous brûler.</target>
             </segment>
         </unit>
-
-        <unit id="heal">
+        <unit id="medikit_heal">
             <segment id="name">
-                <source>heal.name</source>
+                <source>medikit_heal.name</source>
                 <target>Soigner</target>
             </segment>
             <segment id="description">
-                <source>heal.description</source>
-                <target>Rend des Points de Vie (:pv:) à la cible. Si celle ci est malade, enlève un point de maladie à l'une de ses maladies.</target>
+                <source>medikit_heal.description</source>
+                <target>Rend des Points de Vie ( :hp: ) à la cible. Si celle ci est malade, enlève un point de maladie à l'une de ses maladies.</target>
             </segment>
         </unit>
-        <unit id="self_heal">
+        <unit id="medikit_self_heal">
             <segment id="name">
-                <source>self_heal.name</source>
+                <source>medikit_self_heal.name</source>
                 <target>Se soigner</target>
             </segment>
             <segment id="description">
-                <source>self_heal.description</source>
-                <target>Vous rend des Points de Vie (:pv:). Si vous êtes malade, enlève un point de maladie à l'une de vos maladies.</target>
+                <source>medikit_self_heal.description</source>
+                <target>Vous rend des Points de Vie ( :hp: ) . Si vous êtes malade, enlève un point de maladie à l'une de vos maladies.</target>
+            </segment>
+        </unit>
+        <unit id="medlab_heal">
+            <segment id="name">
+                <source>medlab_heal.name</source>
+                <target>Soigner</target>
+            </segment>
+            <segment id="description">
+                <source>medlab_heal.description</source>
+                <target>Rend des Points de Vie ( :hp: ) à la cible. Si celle ci est malade, enlève un point de maladie à l'une de ses maladies.</target>
+            </segment>
+        </unit>
+        <unit id="medlab_self_heal">
+            <segment id="name">
+                <source>medlab_self_heal.name</source>
+                <target>Se soigner</target>
+            </segment>
+            <segment id="description">
+                <source>medlab_self_heal.description</source>
+                <target>Vous rend des Points de Vie ( :hp: ) . Si vous êtes malade, enlève un point de maladie à l'une de vos maladies.</target>
             </segment>
         </unit>
         <unit id="ultraheal">

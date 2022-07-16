@@ -154,11 +154,11 @@
         <unit id="hit">
             <segment id="hit">
                 <source>hit.name</source>
-                <target>Attaquer</target>
+                <target>Frapper</target>
             </segment>
             <segment id="description">
                 <source>hit.description</source>
-                <target>TODO</target>
+                <target>Engager la conversation de façon musclée. Cette action est **Agressive**. Elle peut subir des restrictions. </target>
             </segment>
         </unit>
         <unit id="hyperfreeze">

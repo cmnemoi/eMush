@@ -12,6 +12,7 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Event\PlayerEvent;
+use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -200,6 +201,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                         EventEnum::NEW_CYCLE,
                         $date
                     );
+                    $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
                     $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::METAL_PLATE);
                 }
             }

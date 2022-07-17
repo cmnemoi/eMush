@@ -53,7 +53,7 @@ class TranslationServiceTest extends TestCase
         //test character parameter
         $this->translator
             ->shouldReceive('trans')
-            ->with(CharacterEnum::ANDIE . '.name', [], 'characters')
+            ->with(CharacterEnum::PAOLA . '.name', [], 'characters')
             ->andReturn('Andie')
         ;
 
@@ -62,7 +62,7 @@ class TranslationServiceTest extends TestCase
             ->andReturn('translated message')
             ->once()
         ;
-        $this->translationService->translate('key', ['character' => CharacterEnum::ANDIE], 'domain');
+        $this->translationService->translate('key', ['character' => CharacterEnum::PAOLA], 'domain');
     }
 
     public function testGetTargetCharacterTranslationParameters()
@@ -70,7 +70,7 @@ class TranslationServiceTest extends TestCase
         //test targetPlayer parameter
         $this->translator
             ->shouldReceive('trans')
-            ->with(CharacterEnum::ANDIE . '.name', [], 'characters')
+            ->with(CharacterEnum::PAOLA . '.name', [], 'characters')
             ->andReturn('Andie')
         ;
 
@@ -79,7 +79,7 @@ class TranslationServiceTest extends TestCase
             ->andReturn('translated message')
             ->once()
         ;
-        $this->translationService->translate('key', ['target_character' => CharacterEnum::ANDIE], 'domain');
+        $this->translationService->translate('key', ['target_character' => CharacterEnum::PAOLA], 'domain');
     }
 
     public function testGetTargetEquipmentTranslationParameters()

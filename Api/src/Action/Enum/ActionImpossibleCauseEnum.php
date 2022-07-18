@@ -86,4 +86,5 @@ class ActionImpossibleCauseEnum
     public const RENOVATE_LACK_RESSOURCES = 'renovate_lack_ressources';
     public const SURGERY_NOT_LYING_DOWN = 'surgery_not_lying_down';
     public const MUSH_REMOVE_SPORE = 'mush_remove_spore';
+    public const ALREADY_DID_BORING_SPEECH = 'already_did_boring_speech';
 }

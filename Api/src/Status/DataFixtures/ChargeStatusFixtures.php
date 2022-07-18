@@ -41,6 +41,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const COMBUSTION_CHAMBER = 'combustion_chamber';
     public const DRUG_EATEN_STATUS = 'drug_eaten_status';
     public const DID_THE_THING_STATUS = 'did_the_thing_status';
+    public const DID_BORING_SPEECH_STATUS = 'did_boring_speech_status';
 
     public function load(ObjectManager $manager): void
     {
@@ -288,6 +289,18 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($did_the_thing);
 
+        $did_boring_speech = new ChargeStatusConfig();
+        $did_boring_speech
+            ->setName(PlayerStatusEnum::DID_BORING_SPEECH)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
+            ->setStartCharge(1)
+            ->setAutoRemove(true)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($did_boring_speech);
+
         $manager->flush();
 
         $this->addReference(self::SCOOTER_CHARGE, $scooterCharge);
@@ -309,6 +322,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::COMBUSTION_CHAMBER, $combustionChamber);
         $this->addReference(self::DRUG_EATEN_STATUS, $drug_eaten);
         $this->addReference(self::DID_THE_THING_STATUS, $did_the_thing);
+        $this->addReference(self::DID_BORING_SPEECH_STATUS, $did_boring_speech);
     }
 
     public function getDependencies(): array

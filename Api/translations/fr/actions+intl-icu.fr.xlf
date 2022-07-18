@@ -561,5 +561,25 @@
                 <target>Rien de tel qu'un bon film Alien pour se remonter le moral. Par contre, personne ne parle le Twingon et on a pas les sous-titres.</target>
             </segment>
         </unit>
+        <unit id="motivational_speech">
+            <segment id="name">
+                <source>motivational_speech.name</source>
+                <target>Discours enflammé</target>
+            </segment>
+            <segment id="description">
+                <source>motivational_speech.description</source>
+                <target>Chaque autre équipier présent dans la salle regagne 2 :pmo:</target>
+            </segment>
+        </unit>
+        <unit id="boring_speech">
+            <segment id="name">
+                <source>boring_speech.name</source>
+                <target>Discours barbant</target>
+            </segment>
+            <segment id="description">
+                <source>boring_speech.description</source>
+                <target>Chaque autre équipier présent dans la salle regagne 2 :pm:</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

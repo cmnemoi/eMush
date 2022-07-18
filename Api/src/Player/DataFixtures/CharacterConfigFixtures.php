@@ -29,6 +29,12 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         //@TODO: remove when the game is ready
         /** @var Action $rejuvenateAlphaAction */
         $rejuvenateAlphaAction = $this->getReference(ActionsFixtures::REJUVENATE_ALPHA);
+        /** @var Action $comfortAction */
+        $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
+        /** @var Action medlabHealAction */
+        $medlabHealAction = $this->getReference(ActionsFixtures::MEDLAB_HEAL);
+        /** @var Action medlabSelfHealAction */
+        $medlabSelfHealAction = $this->getReference(ActionsFixtures::MEDLAB_SELF_HEAL);
 
         /** @var Action $hitAction */
         $hitAction = $this->getReference(ActionsFixtures::HIT_DEFAULT);
@@ -64,6 +70,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $motivationalSpeechAction = $this->getReference(ActionsFixtures::MOTIVATIONAL_SPEECH);
         /** @var Action $boringSpeechAction */
         $boringSpeechAction = $this->getReference(ActionsFixtures::BORING_SPEECH);
+        /** @var Action $extinguishManuallyAction */
+        $extinguishManuallyAction = $this->getReference(ActionsFixtures::EXTINGUISH_MANUALLY);
 
         $defaultActions = new ArrayCollection([
             $hitAction,
@@ -74,6 +82,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $extractSporeAction,
             $getUpAction,
             $comfortAction,
+            $extinguishManuallyAction,
             $motivationalSpeechAction,
             $boringSpeechAction,
             $medlabHealAction,

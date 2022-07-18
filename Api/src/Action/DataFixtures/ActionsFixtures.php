@@ -68,6 +68,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const EXAMINE_EQUIPMENT = 'examine.equipment';
     public const REMOVE_SPORE = 'remove.spore';
     public const PUBLIC_BROADCAST = 'public.broadcast';
+    public const EXTINGUISH_MANUALLY = 'extinguish.manually';
     public const MOTIVATIONAL_SPEECH = 'motivational.speech';
     public const BORING_SPEECH = 'boring.speech';
 
@@ -633,6 +634,18 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($publicBroadcastAction);
 
+        $extinguishManuallyAction = new Action();
+        $extinguishManuallyAction
+            ->setName(ActionEnum::EXTINGUISH_MANUALLY)
+            ->setScope(ActionScopeEnum::SELF)
+            ->setActionCost($oneActionPointCost)
+            ->setInjuryRate(25)
+            ->setDirtyRate(50)
+            ->setSuccessRate(10)
+        ;
+
+        $manager->persist($extinguishManuallyAction);
+
         $motivationalSpeechAction = new Action();
         $motivationalSpeechAction
             ->setName(ActionEnum::MOTIVATIONAL_SPEECH)
@@ -709,6 +722,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::DO_THE_THING, $doTheThingAction);
         $this->addReference(self::REMOVE_SPORE, $removeSporeAction);
         $this->addReference(self::PUBLIC_BROADCAST, $publicBroadcastAction);
+        $this->addReference(self::EXTINGUISH_MANUALLY, $extinguishManuallyAction);
         $this->addReference(self::MOTIVATIONAL_SPEECH, $motivationalSpeechAction);
         $this->addReference(self::BORING_SPEECH, $boringSpeechAction);
     }

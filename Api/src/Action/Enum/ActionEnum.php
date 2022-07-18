@@ -101,7 +101,7 @@ class ActionEnum
     public const DISASSEMBLE = 'disassemble';
     public const REINFORCE_EQUIPMENT = 'reinforce_equipment'; // /!\ This is preventing disassembly, not reinforcing the hull!
     public const PREMONITION = 'premonition';
-    public const HAND_EXTINGUISH = 'hand_extinguish';
+    public const EXTINGUISH_MANUALLY = 'extinguish_manually';
     public const CEASEFIRE = 'ceasefire';
     public const TORTURE = 'torture';
     public const GENIUS = 'become_genius';

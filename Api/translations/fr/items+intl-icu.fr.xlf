@@ -1731,11 +1731,11 @@ Il est parfois surprenant de voir ce que certains savent faire avec quelques mor
         <unit id="thick_tube">
             <segment id="name">
                 <source>thick_tube.name</source>
-                <target>Interact épais</target>
+                <target>Tube épais</target>
             </segment>
             <segment id="short_name">
                 <source>thick_tube.short_name</source>
-                <target>Interact épais</target>
+                <target>Tube épais</target>
             </segment>
             <segment id="genre">
                 <source>thick_tube.genre</source>

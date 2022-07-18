@@ -43,7 +43,7 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
             }
 
             $minimap[$roomName] = [
-                'players_count' => $room->getPlayers()->count(),
+                'players_count' => $room->getPlayers()->getPlayerAlive()->count(),
                 'actopi' => [],
                 'fire' => $this->isFireDisplayed($room),
                 'broken_count' => count($brokenEquipmentsList) + count($brokenDoorsList),

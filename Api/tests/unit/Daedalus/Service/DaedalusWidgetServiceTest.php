@@ -10,6 +10,7 @@ use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusWidgetService;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
@@ -57,6 +58,8 @@ class DaedalusWidgetServiceTest extends TestCase
         ;
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT); //player is alive
+
         $room2->addPlayer($player);
 
         $this->alertService

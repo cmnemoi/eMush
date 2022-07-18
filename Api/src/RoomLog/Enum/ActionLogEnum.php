@@ -418,11 +418,20 @@ class ActionLogEnum
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
-
         ActionEnum::PUBLIC_BROADCAST => [
             self::SUCCESS => [
                 self::VALUE => self::PUBLIC_BROADCAST,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::EXTINGUISH_MANUALLY => [
+            self::SUCCESS => [
+                self::VALUE => self::EXTINGUISH_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+            self::FAIL => [
+                self::VALUE => self::EXTINGUISH_FAIL,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::MOTIVATIONAL_SPEECH => [

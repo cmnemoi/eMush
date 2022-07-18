@@ -561,6 +561,16 @@
                 <target>Rien de tel qu'un bon film Alien pour se remonter le moral. Par contre, personne ne parle le Twingon et on a pas les sous-titres.</target>
             </segment>
         </unit>
+        <unit id="extinguish_manually">
+            <segment id="name">
+                <source>extinguish_manually.name</source>
+                <target>Éteindre manuellement</target>
+            </segment>
+            <segment id="description">
+                <source>extinguish_manually.description</source>
+                <target>C'est fou ce qu'on peut faire avec de la poussière, des draps ou un chat crevé... Faites attention à ne pas vous brûler.</target>
+            </segment>
+        </unit>
         <unit id="motivational_speech">
             <segment id="name">
                 <source>motivational_speech.name</source>

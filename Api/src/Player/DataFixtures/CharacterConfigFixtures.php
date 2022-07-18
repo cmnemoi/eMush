@@ -26,15 +26,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        //@TODO: remove when the game is ready
         /** @var Action $rejuvenateAlphaAction */
         $rejuvenateAlphaAction = $this->getReference(ActionsFixtures::REJUVENATE_ALPHA);
-        /** @var Action $comfortAction */
-        $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
-
-        /** @var Action medlabHealAction */
-        $medlabHealAction = $this->getReference(ActionsFixtures::MEDLAB_HEAL);
-        /** @var Action medlabSelfHealAction */
-        $medlabSelfHealAction = $this->getReference(ActionsFixtures::MEDLAB_SELF_HEAL);
 
         /** @var Action $hitAction */
         $hitAction = $this->getReference(ActionsFixtures::HIT_DEFAULT);
@@ -50,6 +44,10 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $flirtAction = $this->getReference(ActionsFixtures::FLIRT_DEFAULT);
         /** @var Action $doTheThingAction */
         $doTheThingAction = $this->getReference(ActionsFixtures::DO_THE_THING);
+        /** @var Action medlabHealAction */
+        $medlabHealAction = $this->getReference(ActionsFixtures::MEDLAB_HEAL);
+        /** @var Action medlabSelfHealAction */
+        $medlabSelfHealAction = $this->getReference(ActionsFixtures::MEDLAB_SELF_HEAL);
 
         /** @var Action $extractSporeAction */
         $extractSporeAction = $this->getReference(ActionsFixtures::EXTRACT_SPORE);
@@ -57,6 +55,15 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $spreadFireAction = $this->getReference(ActionsFixtures::INFECT_PLAYER);
         /** @var Action $infectAction */
         $infectAction = $this->getReference(ActionsFixtures::SPREAD_FIRE);
+
+        //Skills actions
+        //@TODO: find another way to handle this ?
+        /** @var Action $comfortAction */
+        $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
+        /** @var Action $motivationalSpeechAction */
+        $motivationalSpeechAction = $this->getReference(ActionsFixtures::MOTIVATIONAL_SPEECH);
+        /** @var Action $boringSpeechAction */
+        $boringSpeechAction = $this->getReference(ActionsFixtures::BORING_SPEECH);
 
         $defaultActions = new ArrayCollection([
             $hitAction,
@@ -67,6 +74,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $extractSporeAction,
             $getUpAction,
             $comfortAction,
+            $motivationalSpeechAction,
+            $boringSpeechAction,
             $medlabHealAction,
             $medlabSelfHealAction,
             $rejuvenateAlphaAction,

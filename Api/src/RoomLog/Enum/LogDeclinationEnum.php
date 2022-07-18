@@ -15,6 +15,8 @@ class LogDeclinationEnum
             ActionLogEnum::REPAIR_FAIL => ['versionPart1' => 10, 'versionPart2' => 50],
             ActionLogEnum::HIT_SUCCESS => ['version' => 5],
             ActionLogEnum::HIT_FAIL => ['version' => 2],
+            ActionLogEnum::MOTIVATIONAL_SPEECH => ['version' => 19],
+            ActionLogEnum::BORING_SPEECH => ['version' => 3],
             ActionEnum::SHRED => ['version' => 4],
             ActionEnum::RETRIEVE_OXYGEN => ['version' => 10],
             NeronMessageEnum::ASPHYXIA_DEATH => ['versionPart1' => 3, 'versionPart2' => 9],

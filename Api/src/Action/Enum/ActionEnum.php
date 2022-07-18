@@ -111,6 +111,8 @@ class ActionEnum
     public const ANATHEM = 'anathem';
     public const METALWORKER = 'gen_metal';
     public const GEN_METAL = 'gen_metal';
+    public const MOTIVATIONAL_SPEECH = 'motivational_speech';
+    public const BORING_SPEECH = 'boring_speech';
 
     // Skill-related actions (Mush)
     public const PHAGOCYTE = 'eat_spore';

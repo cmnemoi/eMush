@@ -575,5 +575,12 @@
             </segment>
         </unit>
 
+        <unit id="already_did_boring_speech">
+            <segment id="description">
+                <source>already_did_boring_speech.description</source>
+                <target>Vous avez déjà donné un discours barbant aujourd'hui.</target>
+            </segment>
+        </unit>
+
     </file>
 </xliff>

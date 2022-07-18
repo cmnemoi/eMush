@@ -66,6 +66,8 @@ class ActionLogEnum
     public const REMOVE_SPORE_SUCCESS = 'remove_spore_success';
     public const REMOVE_SPORE_FAIL = 'remove_spore_fail';
     public const PUBLIC_BROADCAST = 'public_broadcast';
+    public const MOTIVATIONAL_SPEECH = 'motivational_speech';
+    public const BORING_SPEECH = 'boring_speech';
 
     public const SUCCESS = 'success';
     public const FAIL = 'fail';
@@ -420,6 +422,18 @@ class ActionLogEnum
         ActionEnum::PUBLIC_BROADCAST => [
             self::SUCCESS => [
                 self::VALUE => self::PUBLIC_BROADCAST,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::MOTIVATIONAL_SPEECH => [
+            self::SUCCESS => [
+                self::VALUE => self::MOTIVATIONAL_SPEECH,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::BORING_SPEECH => [
+            self::SUCCESS => [
+                self::VALUE => self::BORING_SPEECH,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],

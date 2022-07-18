@@ -211,6 +211,10 @@ export class SceneGrid {
     {
         const index = this.getPolygonFromPoint(isoCoords);
 
+        if (index === -1) {
+            return -1;
+        }
+
         return this.getDepthOfPolygon(index) + isoCoords.toCartesianCoordinates().y;
     }
 

@@ -70,7 +70,7 @@ class Disassemble extends AttemptAction
         // remove the dismantled equipment
         $equipmentEvent = new EquipmentEvent(
             $gameEquipment->getName(),
-            $this->player->getPlace(),
+            $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()

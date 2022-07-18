@@ -258,7 +258,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $fullStomach = new StatusConfig();
         $fullStomach
             ->setName(PlayerStatusEnum::FULL_STOMACH)
-            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setVisibility(VisibilityEnum::PRIVATE)
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($fullStomach);

@@ -175,7 +175,7 @@ export default class CharacterObject extends InteractObject {
         const polygonDepth = (<DaedalusScene>this.scene).sceneGrid.getDepthOfPoint(this.getFeetCartCoords().toIsometricCoordinates());
 
         if (polygonDepth !== -1) {
-            this.setDepth(polygonDepth);// + this.getFeetCartCoords().x);
+            this.setDepth(polygonDepth + this.getFeetCartCoords().y);
         }
     }
 }

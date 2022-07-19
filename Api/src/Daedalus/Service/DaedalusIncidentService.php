@@ -5,6 +5,7 @@ namespace Mush\Daedalus\Service;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -110,7 +111,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
         if ($numberOfEquipmentBroken > 0) {
             $criteria = new GameEquipmentCriteria($daedalus);
-            $criteria->setNotInstanceOf([Door::class]);
+            $criteria->setNotInstanceOf([Door::class, GameItem::class]);
             $criteria->setBreakable(true);
 
             $daedalusEquipments = $this->gameEquipmentRepository->findByCriteria($criteria);
@@ -222,7 +223,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     //@TODO: to be improved
     private function getNumberOfIncident(Daedalus $daedalus): int
     {
-        $rate = intval(sqrt($daedalus->getDay() - 0.9));
+        $rate = 27;
 
         return $this->randomService->random(0, $rate);
     }

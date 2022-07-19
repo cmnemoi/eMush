@@ -141,9 +141,9 @@ class NeronMessageService implements NeronMessageServiceInterface
             $parentMessage = $this->getMessageNeronCycleFailures($daedalus, $time);
 
             if ($equipment instanceof GameItem) {
-                $this->createNeronMessage($message, $daedalus, ['targetItem' => $equipmentName], $time, $parentMessage);
+                $this->createNeronMessage($message, $daedalus, ['target_item' => $equipmentName], $time, $parentMessage);
             } elseif (!($equipment instanceof Door)) {
-                $this->createNeronMessage($message, $daedalus, ['targetEquipment' => $equipmentName], $time, $parentMessage);
+                $this->createNeronMessage($message, $daedalus, ['target_equipment' => $equipmentName], $time, $parentMessage);
             }
         }
     }

@@ -29,7 +29,7 @@ export default class MushTiledObject {
             });
         case 'interact':
             return room.equipments.find((equipment: Equipment) => (equipment.key === this.tiledObj.name &&
-                (!(createdObjectId.includes(equipment.id))) || this.isCustomPropertyByName('grouped'))
+                (!(createdObjectId.includes(equipment.id)) || this.isCustomPropertyByName('grouped')))
             );
         }
         return undefined;

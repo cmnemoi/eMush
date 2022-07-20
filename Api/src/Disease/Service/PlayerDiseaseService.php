@@ -10,9 +10,9 @@ use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
 use Mush\Disease\Repository\DiseaseConfigRepository;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class PlayerDiseaseService implements PlayerDiseaseServiceInterface

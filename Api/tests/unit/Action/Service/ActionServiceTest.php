@@ -13,7 +13,7 @@ use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
@@ -87,7 +87,7 @@ class ActionServiceTest extends TestCase
         ;
 
         $eventDispatched = static function (int $delta, string $name) {
-            return fn (PlayerModifierEvent $event, string $eventName) => ($event->getQuantity() === $delta && $eventName === $name);
+            return fn (PlayerVariableEvent $event, string $eventName) => ($event->getQuantity() === $delta && $eventName === $name);
         };
 
         $this->eventDispatcher
@@ -186,7 +186,7 @@ class ActionServiceTest extends TestCase
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(
-                fn (PlayerModifierEvent $event, string $eventName) => (
+                fn (PlayerVariableEvent $event, string $eventName) => (
                     $event->getQuantity() === -1 &&
                     $eventName === AbstractQuantityEvent::CHANGE_VARIABLE)
             )

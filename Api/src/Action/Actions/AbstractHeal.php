@@ -8,12 +8,12 @@ use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Validator\FullHealth;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
@@ -52,7 +52,7 @@ abstract class AbstractHeal extends AbstractAction
 
         $healedQuantity = self::BASE_HEAL;
 
-        $playerModifierEvent = new PlayerModifierEvent(
+        $playerModifierEvent = new PlayerVariableEvent(
             $parameter,
             PlayerVariableEnum::HEALTH_POINT,
             $healedQuantity,

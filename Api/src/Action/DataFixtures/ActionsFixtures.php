@@ -130,7 +130,6 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $hideAction
             ->setName(ActionEnum::HIDE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setTarget(GameItem::class)
             ->setActionCost($oneActionPointCost)
         ;
         $manager->persist($hideAction);

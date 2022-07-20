@@ -2,6 +2,20 @@
 
 namespace Mush\Modifier\Enum;
 
+/**
+ * Class enumerating the conditions applied on modifiers
+ * Modifier is only applied if the condition is valid.
+ *
+ * REASON: check on the reason that triggered the event
+ * RANDOM: the application of the modifier is random
+ *
+ * PLAYER_IN_ROOM: the condition is applied on the number of player in the room
+ * ALONE: the player is alone in the room
+ * NOT_ALONE: the player is not alone in the room
+ *
+ * CYCLE: condition on the cycle (number, even)
+ * EVEN: in case of a CYCLE condition, check if the cycle is even
+ */
 class ModifierConditionEnum
 {
     public const REASON = 'reason';

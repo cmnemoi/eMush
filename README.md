@@ -15,7 +15,7 @@ See endpoints for information on the different endpoints available.
 
 ### Prerequisites
 
-To have a working devlopment environment you will need to install:
+To have a working development environment you will need to install:
 * [Docker](https://docs.docker.com/get-docker/)
   * _(Windows)_ during installation follow instruction to install WSL2
 * [Docker-compose](https://docs.docker.com/compose/install/)

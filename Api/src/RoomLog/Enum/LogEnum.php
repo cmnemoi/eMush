@@ -2,6 +2,7 @@
 
 namespace Mush\RoomLog\Enum;
 
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 
 class LogEnum

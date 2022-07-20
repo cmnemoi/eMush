@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\RoomLog\Enum;
+namespace Mush\Game\Enum;
 
 class VisibilityEnum
 {
@@ -14,6 +14,4 @@ class VisibilityEnum
     public const HIDDEN = 'hidden'; // internal status
 
     public const COOK_RESTRICTED = 'cook_restricted'; //perishable status only visible to cooks
-
-    //@TODO move this enum in a more general folder (game or Daedalus) as it is used for status
 }

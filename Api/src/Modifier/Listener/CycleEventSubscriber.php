@@ -16,7 +16,7 @@ use Mush\Modifier\Service\ModifierConditionService;
 use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerCycleEvent;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -119,7 +119,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
         switch (true) {
             case $holder instanceof Player:
-                return new PlayerModifierEvent(
+                return new PlayerVariableEvent(
                     $holder,
                     $target,
                     $value,

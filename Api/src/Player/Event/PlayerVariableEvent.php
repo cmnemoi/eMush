@@ -8,7 +8,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
 
-class PlayerModifierEvent extends PlayerEvent implements LoggableEventInterface, AbstractQuantityEvent
+class PlayerVariableEvent extends PlayerEvent implements LoggableEventInterface, AbstractQuantityEvent
 {
     private int $quantity;
     private string $modifiedVariable;

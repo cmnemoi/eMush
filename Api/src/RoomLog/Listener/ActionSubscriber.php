@@ -4,10 +4,10 @@ namespace Mush\RoomLog\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

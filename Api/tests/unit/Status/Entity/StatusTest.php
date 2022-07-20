@@ -3,9 +3,9 @@
 namespace Mush\Test\Status\Entity;
 
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;

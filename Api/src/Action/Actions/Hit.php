@@ -15,7 +15,7 @@ use Mush\Game\Enum\SkillMushEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
@@ -59,7 +59,7 @@ class Hit extends AttemptAction
             if ($damage <= 0) {
                 // TODO:
             } else {
-                $playerModifierEvent = new PlayerModifierEvent(
+                $playerModifierEvent = new PlayerVariableEvent(
                     $parameter,
                     PlayerVariableEnum::HEALTH_POINT,
                     -$damage,

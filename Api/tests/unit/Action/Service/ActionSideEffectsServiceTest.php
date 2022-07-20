@@ -14,7 +14,7 @@ use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -183,7 +183,7 @@ class ActionSideEffectsServiceTest extends TestCase
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(
-                fn (PlayerModifierEvent $playerEvent, string $eventName) => (
+                fn (PlayerVariableEvent $playerEvent, string $eventName) => (
                     $playerEvent->getQuantity() === -2 &&
                     $eventName === AbstractQuantityEvent::CHANGE_VARIABLE &&
                     $playerEvent->getModifiedVariable() === PlayerVariableEnum::HEALTH_POINT

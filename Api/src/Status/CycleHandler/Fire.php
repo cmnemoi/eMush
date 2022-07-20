@@ -13,7 +13,7 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEventEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -90,7 +90,7 @@ class Fire extends AbstractStatusCycleHandler
         foreach ($room->getPlayers()->getPlayerAlive() as $player) {
             $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getFirePlayerDamage());
 
-            $playerModifierEvent = new PlayerModifierEvent(
+            $playerModifierEvent = new PlayerVariableEvent(
                 $player,
                 PlayerVariableEnum::HEALTH_POINT,
                 -$damage,

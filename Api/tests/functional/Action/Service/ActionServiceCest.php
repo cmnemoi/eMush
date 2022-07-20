@@ -8,6 +8,7 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
@@ -19,7 +20,6 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Enum\VisibilityEnum;
 
 class ActionServiceCest
 {

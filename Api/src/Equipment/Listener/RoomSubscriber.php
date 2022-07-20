@@ -4,9 +4,9 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

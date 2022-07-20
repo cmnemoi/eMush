@@ -3,15 +3,15 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -169,7 +169,7 @@ class ActionService implements ActionServiceInterface
 
     private function triggerPlayerModifierEvent(Player $player, int $delta, string $variable): void
     {
-        $playerModifierEvent = new PlayerModifierEvent(
+        $playerModifierEvent = new PlayerVariableEvent(
             $player,
             $variable,
             $delta,

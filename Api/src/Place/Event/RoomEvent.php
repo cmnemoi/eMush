@@ -2,7 +2,7 @@
 
 namespace Mush\Place\Event;
 
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Event\LoggableEventInterface;
 
 class RoomEvent extends PlaceCycleEvent implements LoggableEventInterface

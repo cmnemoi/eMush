@@ -3,7 +3,7 @@
 namespace Mush\Status\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
 /**

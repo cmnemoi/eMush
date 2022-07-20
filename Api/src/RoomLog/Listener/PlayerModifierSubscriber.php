@@ -4,7 +4,7 @@ namespace Mush\RoomLog\Listener;
 
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -28,7 +28,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
 
     public function onChangeVariable(AbstractQuantityEvent $playerEvent): void
     {
-        if (!$playerEvent instanceof PlayerModifierEvent) {
+        if (!$playerEvent instanceof PlayerVariableEvent) {
             return;
         }
 

@@ -3,6 +3,7 @@
 namespace Mush\RoomLog\Enum;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Game\Enum\VisibilityEnum;
 
 class ActionLogEnum
 {

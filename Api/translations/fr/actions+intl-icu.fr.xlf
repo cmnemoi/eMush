@@ -588,7 +588,7 @@
             </segment>
             <segment id="description">
                 <source>boring_speech.description</source>
-                <target>Chaque autre équipier présent dans la salle regagne 2 :pm:</target>
+                <target>Chaque autre équipier présent dans la salle regagne 3 :pm:</target>
             </segment>
         </unit>
     </file>

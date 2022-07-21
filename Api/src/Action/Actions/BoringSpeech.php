@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  * Class implementing the "Boring Speech" action.
  * This action is granted by the Motivator skill. (@TODO).
  *
- * For 2 PA, "Boring Speech" gives 2 Movement Points
+ * For 2 PA, "Boring Speech" gives 3 Movement Points
  * to all the players in the room, minus the discourer.
  * Can be used only once per day.
  *
@@ -28,7 +28,7 @@ class BoringSpeech extends AbstractSpeech
 {
     protected string $name = ActionEnum::BORING_SPEECH;
     protected string $playerVariable = PlayerVariableEnum::MOVEMENT_POINT;
-    protected int $gain = 2;
+    protected int $gain = 3;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,

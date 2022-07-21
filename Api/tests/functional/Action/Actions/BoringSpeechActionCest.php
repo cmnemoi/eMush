@@ -107,7 +107,7 @@ class BoringSpeechActionCest
         $I->assertEquals(6, $speaker->getMovementPoint());
 
         $I->assertEquals(10, $listener->getActionPoint());
-        $I->assertEquals(8, $listener->getMovementPoint());
+        $I->assertEquals(9, $listener->getMovementPoint());
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),

@@ -153,13 +153,15 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             $brokenDoors = $this->randomService->getRandomElements($breakableDoors, $numberOfDoorBroken);
 
             foreach ($brokenDoors as $door) {
-                $statusEvent = new StatusEvent(
-                    EquipmentStatusEnum::BROKEN,
-                    $door,
-                    EventEnum::NEW_CYCLE,
-                    new \DateTime()
-                );
-                $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+                if (!$door->isBroken()) {
+                    $statusEvent = new StatusEvent(
+                        EquipmentStatusEnum::BROKEN,
+                        $door,
+                        EventEnum::NEW_CYCLE,
+                        new \DateTime()
+                    );
+                    $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+                }
             }
         }
 

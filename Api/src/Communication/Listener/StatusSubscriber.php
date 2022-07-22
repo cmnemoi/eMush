@@ -4,6 +4,7 @@ namespace Mush\Communication\Listener;
 
 use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Enum\EventEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -30,13 +31,18 @@ class StatusSubscriber implements EventSubscriberInterface
     public function onStatusApplied(StatusEvent $event): void
     {
         $holder = $event->getStatusHolder();
+        $equipmentBrokenByCycleChange = $event->getReason() === EventEnum::NEW_CYCLE && $holder instanceof GameEquipment;
+        //@TODO : $brokenByGreenJelly = $event->getReason() === EventEnum::GREEN_JELLY;
 
         switch ($event->getStatusName()) {
             case EquipmentStatusEnum::BROKEN:
                 if (!$holder instanceof GameEquipment) {
                     throw new UnexpectedTypeException($holder, GameEquipment::class);
                 }
-                $this->neronMessageService->createBrokenEquipmentMessage($holder, $event->getVisibility(), $event->getTime());
+                //@TODO : if ($brokenByGreenJelly || $equipmentBrokenByCycleChange)
+                if ($equipmentBrokenByCycleChange) {
+                    $this->neronMessageService->createBrokenEquipmentMessage($holder, $event->getVisibility(), $event->getTime());
+                }
 
                 return;
 

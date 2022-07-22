@@ -13,7 +13,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -121,12 +120,11 @@ class NeronMessageService implements NeronMessageServiceInterface
 
     public function createBrokenEquipmentMessage(GameEquipment $equipment, string $visibility, \DateTime $time): void
     {
-        if ($visibility === VisibilityEnum::PUBLIC) {
-            $equipmentName = $equipment->getName();
+        $equipmentName = $equipment->getName();
 
-            $daedalus = $equipment->getPlace()->getDaedalus();
+        $daedalus = $equipment->getPlace()->getDaedalus();
 
-            switch ($equipmentName) {
+        switch ($equipmentName) {
                 case EquipmentEnum::OXYGEN_TANK:
                     $message = NeronMessageEnum::BROKEN_OXYGEN;
                     break;
@@ -138,13 +136,12 @@ class NeronMessageService implements NeronMessageServiceInterface
                     break;
             }
 
-            $parentMessage = $this->getMessageNeronCycleFailures($daedalus, $time);
+        $parentMessage = $this->getMessageNeronCycleFailures($daedalus, $time);
 
-            if ($equipment instanceof GameItem) {
-                $this->createNeronMessage($message, $daedalus, ['target_item' => $equipmentName], $time, $parentMessage);
-            } elseif (!($equipment instanceof Door)) {
-                $this->createNeronMessage($message, $daedalus, ['target_equipment' => $equipmentName], $time, $parentMessage);
-            }
+        if ($equipment instanceof GameItem) {
+            $this->createNeronMessage($message, $daedalus, ['target_item' => $equipmentName], $time, $parentMessage);
+        } elseif (!($equipment instanceof Door)) {
+            $this->createNeronMessage($message, $daedalus, ['target_equipment' => $equipmentName], $time, $parentMessage);
         }
     }
 

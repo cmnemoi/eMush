@@ -3,16 +3,7 @@
  "infinite":false,
  "layers":[
         {
-         "data":[282, 280, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[282, 280, 0, 0, 0, 0, 0, 0, 0, 0, 0, 281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
          "id":3,
          "name":"wall",
@@ -54,8 +45,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":47.3406348453159,
-                 "y":-2.9617809239729
+                 "x":45.9968848453159,
+                 "y":2
                 }, 
                 {
                  "gid":115,
@@ -77,8 +68,8 @@
                  "type":"door",
                  "visible":true,
                  "width":48,
-                 "x":11.9363302431248,
-                 "y":-20.1807797327355
+                 "x":11.4988302431248,
+                 "y":-20.5
                 }],
          "opacity":1,
          "properties":[
@@ -98,16 +89,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 280, 280, 280, 280, 280, 280, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 280, 280, 280, 280, 280, 280, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
          "id":2,
          "name":"wall",
@@ -125,16 +107,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 235, 236, 236, 235, 235, 235, 235, 235, 235, 0,
-            0, 235, 236, 236, 236, 236, 236, 236, 236, 236, 0,
-            0, 235, 240, 236, 236, 236, 236, 236, 236, 236, 0,
-            0, 235, 235, 235, 235, 235, 235, 235, 235, 235, 0,
-            0, 235, 235, 235, 235, 235, 235, 235, 235, 235, 0,
-            0, 235, 235, 235, 235, 235, 235, 235, 235, 235, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 235, 236, 236, 235, 235, 235, 235, 235, 235, 0, 0, 235, 236, 236, 236, 236, 236, 236, 236, 236, 0, 0, 235, 240, 236, 236, 236, 236, 236, 236, 236, 0, 0, 235, 235, 235, 235, 235, 235, 235, 235, 235, 0, 0, 235, 235, 235, 235, 235, 235, 235, 235, 235, 0, 0, 235, 235, 235, 235, 235, 235, 235, 235, 235, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
          "id":6,
          "name":"ground",
@@ -157,16 +130,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 235, 235, 235, 235, 235, 235, 0,
-            0, 0, 0, 0, 235, 235, 235, 235, 235, 235, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 235, 235, 235, 235, 235, 235, 0, 0, 0, 0, 0, 235, 235, 235, 235, 235, 235, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
          "id":1,
          "name":"ground",
@@ -193,6 +157,146 @@
          "id":5,
          "name":"objects",
          "objects":[
+                {
+                 "gid":267,
+                 "height":40,
+                 "id":9,
+                 "name":"shelf",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"shelf",
+                 "visible":true,
+                 "width":33,
+                 "x":8.25,
+                 "y":7.75
+                }, 
+                {
+                 "gid":270,
+                 "height":60,
+                 "id":8,
+                 "name":"thalasso",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":18
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":32,
+                 "x":-4,
+                 "y":12
+                }, 
+                {
+                 "gid":269,
+                 "height":60,
+                 "id":7,
+                 "name":"shower",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":18
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":32,
+                 "x":-4,
+                 "y":12
+                }, 
+                {
+                 "gid":273,
+                 "height":26,
+                 "id":5,
+                 "name":"towelRack",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":14
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":16,
+                 "x":2.5,
+                 "y":43.5
+                }, 
+                {
+                 "gid":274,
+                 "height":90,
+                 "id":3,
+                 "name":"washRoom1",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":48
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":48
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":88,
+                 "x":12.03125,
+                 "y":64.03125
+                }, 
                 {
                  "gid":275,
                  "height":15,
@@ -223,8 +327,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":14,
-                 "x":63,
-                 "y":-24
+                 "x":48.5,
+                 "y":-23.5
                 }, 
                 {
                  "gid":272,
@@ -256,36 +360,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":13,
-                 "x":131.249295112782,
-                 "y":98.75
-                }, 
-                {
-                 "gid":267,
-                 "height":40,
-                 "id":9,
-                 "name":"shelf",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }],
-                 "rotation":0,
-                 "type":"shelf",
-                 "visible":true,
-                 "width":33,
-                 "x":10.25,
-                 "y":9.75
+                 "x":126.75,
+                 "y":94.25
                 }, 
                 {
                  "gid":9,
@@ -322,124 +398,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":25,
-                 "x":38.2987685418416,
-                 "y":-22.0944584382871
-                }, 
-                {
-                 "gid":1,
-                 "height":58,
-                 "id":11,
-                 "name":"bed",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":52
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"sitAnimation",
-                         "type":"string",
-                         "value":"lie_down"
-                        }, 
-                        {
-                         "name":"sitAutoTrigger",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"sitDepth",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"sitFlip",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"sitX",
-                         "type":"float",
-                         "value":8
-                        }, 
-                        {
-                         "name":"sitY",
-                         "type":"float",
-                         "value":4
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":66,
-                 "x":69.5,
-                 "y":110.75
-                }, 
-                {
-                 "gid":3,
-                 "height":58,
-                 "id":13,
-                 "name":"bed",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":52
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"sitAnimation",
-                         "type":"string",
-                         "value":"lie_down"
-                        }, 
-                        {
-                         "name":"sitAutoTrigger",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"sitDepth",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"sitFlip",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"sitX",
-                         "type":"float",
-                         "value":8
-                        }, 
-                        {
-                         "name":"sitY",
-                         "type":"float",
-                         "value":4
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":66,
-                 "x":71.25,
-                 "y":85
+                 "x":31.7518935418416,
+                 "y":-22.75
                 }, 
                 {
                  "gid":2,
@@ -496,8 +456,124 @@
                  "type":"interact",
                  "visible":true,
                  "width":66,
-                 "x":69.5,
-                 "y":58.75
+                 "x":67.4755434782609,
+                 "y":52.4755434782609
+                }, 
+                {
+                 "gid":3,
+                 "height":58,
+                 "id":13,
+                 "name":"bed",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":52
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":8
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":66,
+                 "x":69,
+                 "y":85
+                }, 
+                {
+                 "gid":1,
+                 "height":58,
+                 "id":11,
+                 "name":"bed",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":52
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":8
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":66,
+                 "x":67.5,
+                 "y":116.5
                 }, 
                 {
                  "gid":33,
@@ -519,121 +595,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":172,
-                 "y":46
-                }, 
-                {
-                 "gid":270,
-                 "height":60,
-                 "id":8,
-                 "name":"thalasso",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":18
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":32,
-                 "x":-2.5,
-                 "y":16.5
-                }, 
-                {
-                 "gid":269,
-                 "height":60,
-                 "id":7,
-                 "name":"shower",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":18
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":32,
-                 "x":-2.5,
-                 "y":16.5
-                }, 
-                {
-                 "gid":273,
-                 "height":26,
-                 "id":5,
-                 "name":"towelRack",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":4
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":14
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":16,
-                 "x":2.51800155220686,
-                 "y":43.4905929531061
-                },
-            
-                {
-                 "gid":274,
-                 "height":90,
-                 "id":3,
-                 "name":"washRoom1",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":48
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":48
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":88,
-                 "x":14,
-                 "y":64
+                 "x":173,
+                 "y":45
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -645,7 +608,7 @@
  "nextobjectid":15,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.5",
+ "tiledversion":"1.7.2",
  "tileheight":16,
  "tilesets":[
         {
@@ -726,8 +689,7 @@
                         {
                          "duration":300,
                          "tileid":10
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":11
@@ -771,8 +733,7 @@
                         {
                          "duration":300,
                          "tileid":5
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":4
@@ -978,8 +939,7 @@
                         {
                          "duration":100,
                          "tileid":10
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":11
@@ -1023,8 +983,7 @@
                         {
                          "duration":100,
                          "tileid":21
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":22
@@ -1080,8 +1039,7 @@
                         {
                          "duration":100,
                          "tileid":34
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":35
@@ -1125,8 +1083,7 @@
                         {
                          "duration":100,
                          "tileid":45
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":46
@@ -1182,8 +1139,7 @@
                         {
                          "duration":100,
                          "tileid":58
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":59
@@ -1227,8 +1183,7 @@
                         {
                          "duration":100,
                          "tileid":69
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":70
@@ -1284,8 +1239,7 @@
                         {
                          "duration":100,
                          "tileid":82
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":83
@@ -1329,8 +1283,7 @@
                         {
                          "duration":100,
                          "tileid":93
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":94
@@ -1386,8 +1339,7 @@
                         {
                          "duration":100,
                          "tileid":106
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":107
@@ -1431,8 +1383,7 @@
                         {
                          "duration":100,
                          "tileid":117
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":118
@@ -1488,8 +1439,7 @@
                         {
                          "duration":100,
                          "tileid":130
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":131
@@ -1533,8 +1483,7 @@
                         {
                          "duration":100,
                          "tileid":141
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":142
@@ -1590,8 +1539,7 @@
                         {
                          "duration":100,
                          "tileid":154
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":155
@@ -1635,8 +1583,7 @@
                         {
                          "duration":100,
                          "tileid":165
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":166
@@ -1692,8 +1639,7 @@
                         {
                          "duration":100,
                          "tileid":178
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":179
@@ -1737,8 +1683,7 @@
                         {
                          "duration":100,
                          "tileid":189
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":190
@@ -1854,8 +1799,7 @@
          "tilecount":4,
          "tileheight":15,
          "tilewidth":14
-        },
-    
+        }, 
         {
          "columns":14,
          "firstgid":279,
@@ -1878,6 +1822,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.8",
+ "version":"1.6",
  "width":11
 }

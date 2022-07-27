@@ -2,7 +2,6 @@
 
 namespace Mush\Player\Listener;
 
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -89,7 +88,6 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $this->playerVariableService->handleHealthPointModifier($delta, $player);
 
         if ($player->getHealthPoint() === 0) {
-            $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         }
     }

@@ -88,6 +88,16 @@
                 <target>:triumph: Cette action remplit les objectifs personnels de votre personnage. Vous gagnez *{quantity} Triomphe*.</target>
             </segment>
         </unit>
+        <unit id="death">
+            <segment>
+                <source>death</source>
+                <target>{character_gender, select,
+                        male {:dead: **{character}** est mort. Cause: {reason}.}
+                        female {:dead: **{character}** est morte. Cause: {reason}.}
+                        other {invalid gender input}
+                }</target>
+            </segment>
+        </unit>
         <unit id="object_fell">
             <segment>
                 <source>object_fell</source>

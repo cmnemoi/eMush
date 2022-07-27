@@ -8,7 +8,6 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\DoorEnum;
@@ -210,7 +209,6 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                         EventEnum::NEW_CYCLE,
                         $date
                     );
-                    $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
                     $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::METAL_PLATE);
                 }
             }

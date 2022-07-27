@@ -62,6 +62,10 @@ class RemoveSpore extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
+        // Check spore status before applying health modifier in case player dies
+        /** @var ?ChargeStatus $sporeStatus */
+        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
+
         $playerModifierEvent = new PlayerVariableEvent(
             $this->player,
             PlayerVariableEnum::HEALTH_POINT,
@@ -75,9 +79,6 @@ class RemoveSpore extends AbstractAction
         if ($this->player->getStatusByName(PlayerStatusEnum::IMMUNIZED)) {
             return new Fail();
         }
-
-        /** @var ?ChargeStatus $sporeStatus */
-        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
 
         if ($sporeStatus === null) {
             throw new Error('Player should have a spore status');

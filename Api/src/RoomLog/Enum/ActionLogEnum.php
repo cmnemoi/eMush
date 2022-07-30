@@ -98,7 +98,7 @@ class ActionLogEnum
         ActionEnum::HIDE => [
             self::SUCCESS => [
                 self::VALUE => self::HIDE_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::COVERT,
+                self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::DROP => [
@@ -130,13 +130,13 @@ class ActionLogEnum
         ActionEnum::EXTRACT_SPORE => [
             self::SUCCESS => [
                 self::VALUE => self::EXTRACT_SPORE_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::COVERT,
+                self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::INFECT => [
             self::SUCCESS => [
                 self::VALUE => self::INFECT_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::SECRET,
+                self::VISIBILITY => VisibilityEnum::COVERT,
             ],
         ],
         ActionEnum::SABOTAGE => [
@@ -170,13 +170,13 @@ class ActionLogEnum
         ActionEnum::CONSUME => [
             self::SUCCESS => [
                 self::VALUE => self::CONSUME_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::COVERT,
+                self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::CONSUME_DRUG => [
             self::SUCCESS => [
                 self::VALUE => self::CONSUME_DRUG,
-                self::VISIBILITY => VisibilityEnum::COVERT,
+                self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::WATER_PLANT => [
@@ -354,7 +354,7 @@ class ActionLogEnum
         ActionEnum::SPREAD_FIRE => [
             self::SUCCESS => [
                 self::VALUE => self::SPREAD_FIRE_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::COVERT,
+                self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::INSTALL_CAMERA => [

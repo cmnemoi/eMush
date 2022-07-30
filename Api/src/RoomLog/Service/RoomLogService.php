@@ -197,13 +197,13 @@ class RoomLogService implements RoomLogServiceInterface
         $placeHasAWitness = $place->getNumberPlayers() > 1;
 
         if (
-            $visibility === VisibilityEnum::COVERT &&
+            $visibility === VisibilityEnum::SECRET &&
             ($placeHasAWitness ||
              $placeHasAFunctionalCamera)
         ) {
             return VisibilityEnum::REVEALED;
         } elseif (
-            $visibility === VisibilityEnum::SECRET &&
+            $visibility === VisibilityEnum::COVERT &&
             $placeHasAFunctionalCamera
         ) {
             return VisibilityEnum::REVEALED;

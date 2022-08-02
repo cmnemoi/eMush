@@ -163,7 +163,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals(2, $test->getDay());
     }
 
-    public function testCreateCovertLog()
+    public function testCreateSecretLog()
     {
         $daedalus = new Daedalus();
         $daedalus->setCycle(4);
@@ -175,7 +175,7 @@ class RoomLogServiceTest extends TestCase
         $logKey = ActionLogEnum::OPEN_SUCCESS;
         $place = new Place();
         $place->setDaedalus($daedalus);
-        $visibility = VisibilityEnum::COVERT;
+        $visibility = VisibilityEnum::SECRET;
         $type = 'log';
         $player = new Player();
         $player->setCharacterConfig($characterConfig1)->setPlace($place);
@@ -205,7 +205,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals(2, $test->getDay());
     }
 
-    public function testCreateCovertRevealedLog()
+    public function testCreateSecretRevealedLog()
     {
         $daedalus = new Daedalus();
         $daedalus->setCycle(4);
@@ -217,7 +217,7 @@ class RoomLogServiceTest extends TestCase
         $logKey = ActionLogEnum::OPEN_SUCCESS;
         $place = new Place();
         $place->setDaedalus($daedalus);
-        $visibility = VisibilityEnum::COVERT;
+        $visibility = VisibilityEnum::SECRET;
         $type = 'log';
         $player = new Player();
         $player->setCharacterConfig($characterConfig1)->setPlace($place);
@@ -251,7 +251,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals(2, $test->getDay());
     }
 
-    public function testCreateSecretRevealedLog()
+    public function testCreateCovertRevealedLog()
     {
         $daedalus = new Daedalus();
         $daedalus->setCycle(4);
@@ -263,7 +263,7 @@ class RoomLogServiceTest extends TestCase
         $logKey = ActionLogEnum::OPEN_SUCCESS;
         $place = new Place();
         $place->setDaedalus($daedalus);
-        $visibility = VisibilityEnum::SECRET;
+        $visibility = VisibilityEnum::COVERT;
         $type = 'log';
         $player = new Player();
         $player->setCharacterConfig($characterConfig1)->setPlace($place);
@@ -297,7 +297,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals(2, $test->getDay());
     }
 
-    public function testCreateSecretItemCameraLog()
+    public function testCreateCovertItemCameraLog()
     {
         $daedalus = new Daedalus();
         $daedalus->setCycle(4);
@@ -309,7 +309,7 @@ class RoomLogServiceTest extends TestCase
         $logKey = ActionLogEnum::OPEN_SUCCESS;
         $place = new Place();
         $place->setDaedalus($daedalus);
-        $visibility = VisibilityEnum::SECRET;
+        $visibility = VisibilityEnum::COVERT;
         $type = 'log';
         $player = new Player();
         $player->setCharacterConfig($characterConfig1)->setPlace($place);

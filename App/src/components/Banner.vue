@@ -6,6 +6,8 @@
         <div class="mainmenu">
             <a href="/#">Daedalus</a>
             <Login />
+            <a href="/admin">Admin</a>
+
             <!--
         <a class="unavailable" href="/#">Mon Compte</a>
         <a class="unavailable" href="/#">Castings</a>

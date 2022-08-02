@@ -13,15 +13,24 @@ class GameConfigNormalizer implements NormalizerInterface
     public function normalize($object, string $format = null, array $context = []): array
     {
         return [
+            'id' => $object->getId(),
             'name' => $object->getName(),
-            'max_action_point' => $object->getMaxActionPoint(),
-            'max_movement_point' => $object->getMaxMovementPoint(),
-            'max_health_point' => $object->getMaxHealthPoint(),
-            'max_moral_point' => $object->getMaxMoralPoint(),
-            'max_player' => $object->getMaxPlayer(),
-            'max_item_inventory' => $object->getMaxItemInInventory(),
-            'max_number_private_channel' => $object->getMaxNumberPrivateChannel(),
+            'nbMush' => $object->getNbMush(),
+            'cyclePerGameDay' => $object->getCyclePerGameDay(),
+            'cycleLength' => $object->getCycleLength(),
+            'timeZone' => $object->getTimeZone(),
+            'maxNumberPrivateChannel' => $object->getMaxNumberPrivateChannel(),
             'language' => $object->getLanguage(),
+            'initHealthPoint' => $object->getInitHealthPoint(),
+            'maxHealthPoint' => $object->getMaxHealthPoint(),
+            'initMoralPoint' => $object->getInitMoralPoint(),
+            'maxMoralPoint' => $object->getMaxMoralPoint(),
+            'initSatiety' => $object->getInitSatiety(),
+            'initActionPoint' => $object->getInitActionPoint(),
+            'maxActionPoint' => $object->getMaxActionPoint(),
+            'initMovementPoint' => $object->getInitMovementPoint(),
+            'maxMovementPoint' => $object->getMaxMovementPoint(),
+            'maxItemInInventory' => $object->getMaxItemInInventory(),
         ];
     }
 

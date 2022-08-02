@@ -51,6 +51,11 @@ class User implements UserInterface
      */
     private ?DateTime $nonceExpiryDate = null;
 
+    /**
+     * @ORM\Column(type="array", nullable=false)
+     */
+    private array $roles = [RoleEnum::USER, RoleEnum::ADMIN];
+
     public function getId(): int
     {
         return $this->id;
@@ -82,7 +87,14 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        return [RoleEnum::USER];
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     public function getPassword()

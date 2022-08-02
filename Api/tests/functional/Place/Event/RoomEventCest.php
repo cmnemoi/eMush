@@ -132,7 +132,7 @@ class RoomEventCest
 
         //filter rooms with players
         $rooms = $rooms->filter(function (Place $room) {
-            return $room->getNumberPlayers() > 0;
+            return $room->getPlayers()->getPlayerAlive()->count() > 0;
         });
 
         //apply tremor on rooms with players

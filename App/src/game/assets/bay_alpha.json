@@ -3,18 +3,7 @@
  "infinite":false,
  "layers":[
         {
-         "data":[11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":12,
          "id":1,
          "name":"wall",
@@ -32,18 +21,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":12,
          "id":2,
          "name":"wall",
@@ -61,18 +39,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 25, 27, 26, 21, 21, 26, 25, 27, 26, 21, 21, 26, 25, 27, 27, 21, 21, 25, 25, 27, 0,
-            0, 24, 26, 26, 21, 21, 26, 24, 26, 26, 21, 21, 26, 24, 26, 26, 21, 21, 26, 24, 26, 0,
-            0, 25, 27, 26, 21, 21, 26, 25, 27, 26, 21, 21, 26, 29, 31, 26, 21, 21, 25, 25, 27, 0,
-            0, 24, 26, 26, 21, 21, 26, 24, 26, 26, 21, 21, 26, 28, 30, 26, 21, 21, 26, 24, 26, 0,
-            0, 29, 31, 25, 26, 25, 26, 25, 27, 29, 31, 25, 26, 25, 27, 25, 26, 25, 25, 25, 27, 0,
-            0, 28, 30, 24, 26, 24, 26, 24, 26, 28, 30, 24, 26, 24, 26, 24, 26, 24, 26, 24, 26, 0,
-            0, 24, 26, 25, 27, 25, 27, 25, 27, 25, 27, 25, 27, 29, 31, 25, 27, 25, 27, 25, 27, 0,
-            0, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 0,
-            0, 32, 36, 37, 32, 32, 36, 37, 32, 32, 32, 32, 32, 32, 36, 37, 32, 32, 32, 32, 32, 0,
-            0, 24, 35, 34, 26, 28, 35, 34, 26, 24, 26, 28, 30, 24, 35, 34, 26, 28, 30, 24, 26, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 25, 27, 26, 21, 21, 26, 25, 27, 26, 21, 21, 26, 25, 27, 27, 21, 21, 25, 25, 27, 0, 0, 24, 26, 26, 21, 21, 26, 24, 26, 26, 21, 21, 26, 24, 26, 26, 21, 21, 26, 24, 26, 0, 0, 25, 27, 26, 21, 21, 26, 25, 27, 26, 21, 21, 26, 29, 31, 26, 21, 21, 25, 25, 27, 0, 0, 24, 26, 26, 21, 21, 26, 24, 26, 26, 21, 21, 26, 28, 30, 26, 21, 21, 26, 24, 26, 0, 0, 29, 31, 25, 26, 25, 26, 25, 27, 29, 31, 25, 26, 25, 27, 25, 26, 25, 25, 25, 27, 0, 0, 28, 30, 24, 26, 24, 26, 24, 26, 28, 30, 24, 26, 24, 26, 24, 26, 24, 26, 24, 26, 0, 0, 24, 26, 25, 27, 25, 27, 25, 27, 25, 27, 25, 27, 29, 31, 25, 27, 25, 27, 25, 27, 0, 0, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 0, 0, 32, 36, 37, 32, 32, 36, 37, 32, 32, 32, 32, 32, 32, 36, 37, 32, 32, 32, 32, 32, 0, 0, 24, 35, 34, 26, 28, 35, 34, 26, 24, 26, 28, 30, 24, 35, 34, 26, 28, 30, 24, 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":12,
          "id":5,
          "name":"ground",
@@ -142,8 +109,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":237,
-                 "y":189
+                 "x":238,
+                 "y":188
                 }, 
                 {
                  "gid":237,
@@ -188,31 +155,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":45,
-                 "y":189
-                }, 
-                {
-                 "gid":257,
-                 "height":230,
-                 "id":39,
-                 "name":"bay_door",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":7
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":334,
-                 "x":144.5,
-                 "y":-18.5
+                 "x":46,
+                 "y":188
                 }, 
                 {
                  "gid":252,
@@ -234,7 +178,7 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":-4,
+                 "x":2,
                  "y":140
                 }, 
                 {
@@ -272,154 +216,9 @@
          "name":"objects",
          "objects":[
                 {
-                 "gid":301,
-                 "height":40,
-                 "id":15,
-                 "name":"shelf",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }],
-                 "rotation":0,
-                 "type":"shelf",
-                 "visible":true,
-                 "width":33,
-                 "x":10.75,
-                 "y":11.25
-                }, 
-                {
-                 "gid":325,
-                 "height":27,
-                 "id":38,
-                 "name":"A1",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":2
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":27,
-                 "x":-18.75,
-                 "y":50.75
-                }, 
-                {
-                 "gid":311,
-                 "height":17,
-                 "id":37,
-                 "name":"camera_equipment",
-                 "properties":[
-                        {
-                         "name":"animationYoyo",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":5
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":25,
-                 "x":-28.75,
-                 "y":71.7528409090909
-                }, 
-                {
-                 "gid":297,
-                 "height":15,
-                 "id":36,
-                 "name":"wall_box",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":2
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":4
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":10
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":14,
-                 "x":-30.5,
-                 "y":-6.5
-                }, 
-                {
-                 "gid":341,
-                 "height":33,
-                 "id":56,
-                 "name":"magnetic_net",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":1
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":48,
-                 "x":354.5,
-                 "y":24.5
-                }, 
-                {
                  "gid":303,
                  "height":106,
-                 "id":35,
+                 "id":33,
                  "name":"small_takeoff_platform",
                  "properties":[
                         {
@@ -446,7 +245,7 @@
                  "type":"decoration",
                  "visible":true,
                  "width":194,
-                 "x":277.5,
+                 "x":85.4971590909091,
                  "y":36.5
                 }, 
                 {
@@ -485,7 +284,7 @@
                 {
                  "gid":303,
                  "height":106,
-                 "id":33,
+                 "id":35,
                  "name":"small_takeoff_platform",
                  "properties":[
                         {
@@ -512,8 +311,125 @@
                  "type":"decoration",
                  "visible":true,
                  "width":194,
-                 "x":85.4971590909091,
+                 "x":277.5,
                  "y":36.5
+                }, 
+                {
+                 "gid":325,
+                 "height":27,
+                 "id":38,
+                 "name":"A1",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":27,
+                 "x":-18,
+                 "y":37.5
+                }, 
+                {
+                 "gid":311,
+                 "height":17,
+                 "id":37,
+                 "name":"camera_equipment",
+                 "properties":[
+                        {
+                         "name":"animationYoyo",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":25,
+                 "x":-23.75,
+                 "y":80.7528409090909
+                }, 
+                {
+                 "gid":297,
+                 "height":15,
+                 "id":36,
+                 "name":"wall_box",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":10
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":14,
+                 "x":-31,
+                 "y":-6
+                }, 
+                {
+                 "gid":341,
+                 "height":33,
+                 "id":56,
+                 "name":"magnetic_net",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":48,
+                 "x":354.5,
+                 "y":24.5
                 }, 
                 {
                  "gid":331,
@@ -545,8 +461,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":15.004981884058,
-                 "y":26.9995
+                 "x":25.004981884058,
+                 "y":24.9995
                 }, 
                 {
                  "gid":331,
@@ -578,8 +494,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":308.004981884058,
-                 "y":25.9995
+                 "x":318,
+                 "y":23.9995
                 }, 
                 {
                  "gid":331,
@@ -611,8 +527,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":308.004981884058,
-                 "y":57.9995000000004
+                 "x":318.004981884058,
+                 "y":55.9995000000004
                 }, 
                 {
                  "gid":331,
@@ -644,92 +560,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":308.004981884058,
-                 "y":89.9995000000004
-                }, 
-                {
-                 "gid":337,
-                 "height":78,
-                 "id":44,
-                 "name":"patrol_ship",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":64
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":70
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":103,
-                 "x":64.75,
-                 "y":33.25
-                }, 
-                {
-                 "gid":337,
-                 "height":78,
-                 "id":45,
-                 "name":"patrol_ship",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":64
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":70
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":103,
-                 "x":160.75,
-                 "y":33.25
-                }, 
-                {
-                 "gid":337,
-                 "height":78,
-                 "id":46,
-                 "name":"patrol_ship",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":64
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":70
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":103,
-                 "x":256.75,
-                 "y":33.25
+                 "x":318,
+                 "y":88
                 }, 
                 {
                  "gid":333,
@@ -761,8 +593,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":301.004981884058,
-                 "y":96.9995000000004
+                 "x":311,
+                 "y":95
                 }, 
                 {
                  "gid":332,
@@ -794,8 +626,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":290.004981884058,
-                 "y":105.9995
+                 "x":300,
+                 "y":103.9995
                 }, 
                 {
                  "gid":332,
@@ -827,8 +659,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":258.004981884058,
-                 "y":105.9995
+                 "x":268,
+                 "y":104
                 }, 
                 {
                  "gid":332,
@@ -860,8 +692,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":226.004981884058,
-                 "y":105.9995
+                 "x":236,
+                 "y":104
                 }, 
                 {
                  "gid":332,
@@ -893,8 +725,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":194.000981884058,
-                 "y":105.9985
+                 "x":204,
+                 "y":104
                 }, 
                 {
                  "gid":332,
@@ -926,8 +758,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":162.004981884058,
-                 "y":106.0005
+                 "x":172.004981884058,
+                 "y":104.0005
                 }, 
                 {
                  "gid":332,
@@ -959,10 +791,9 @@
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":130.004981884058,
-                 "y":105.9995
-                },
-            
+                 "x":140,
+                 "y":104
+                }, 
                 {
                  "gid":332,
                  "height":24,
@@ -993,8 +824,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":66.004981884058,
-                 "y":105.9995
+                 "x":76,
+                 "y":104
                 }, 
                 {
                  "gid":332,
@@ -1026,8 +857,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":34.0049818840579,
-                 "y":105.9995
+                 "x":44,
+                 "y":104
                 }, 
                 {
                  "gid":335,
@@ -1059,8 +890,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":21.004981884058,
-                 "y":104.9995
+                 "x":31,
+                 "y":103
                 }, 
                 {
                  "gid":331,
@@ -1092,8 +923,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":15.004981884058,
-                 "y":58.9995000000003
+                 "x":25,
+                 "y":57
                 }, 
                 {
                  "gid":331,
@@ -1125,8 +956,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":15.004981884058,
-                 "y":90.9995000000004
+                 "x":25.004981884058,
+                 "y":88.9995000000004
                 }, 
                 {
                  "gid":332,
@@ -1158,8 +989,31 @@
                  "type":"decoration",
                  "visible":true,
                  "width":32,
-                 "x":98.004981884058,
-                 "y":105.9995
+                 "x":108.004981884058,
+                 "y":103.9995
+                }, 
+                {
+                 "gid":257,
+                 "height":230,
+                 "id":39,
+                 "name":"bay_door",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":7
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":334,
+                 "x":144.478260869565,
+                 "y":-18.4782608695652
                 }, 
                 {
                  "gid":289,
@@ -1196,8 +1050,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":54,
-                 "x":14.5,
-                 "y":46.5
+                 "x":-1.5,
+                 "y":-1.5
                 }, 
                 {
                  "gid":289,
@@ -1234,8 +1088,120 @@
                  "type":"decoration",
                  "visible":true,
                  "width":54,
-                 "x":290,
-                 "y":50.9962121212121
+                 "x":206.5,
+                 "y":14.5
+                }, 
+                {
+                 "gid":301,
+                 "height":40,
+                 "id":15,
+                 "name":"shelf",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"shelf",
+                 "visible":true,
+                 "width":33,
+                 "x":8.25,
+                 "y":87.75
+                }, 
+                {
+                 "gid":337,
+                 "height":78,
+                 "id":46,
+                 "name":"patrol_ship",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":64
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":70
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":103,
+                 "x":256.75,
+                 "y":31.25
+                }, 
+                {
+                 "gid":337,
+                 "height":78,
+                 "id":45,
+                 "name":"patrol_ship",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":64
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":70
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":103,
+                 "x":160.75,
+                 "y":31.25
+                }, 
+                {
+                 "gid":337,
+                 "height":78,
+                 "id":44,
+                 "name":"patrol_ship",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":64
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":70
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":103,
+                 "x":64.75,
+                 "y":31.25
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1247,7 +1213,7 @@
  "nextobjectid":74,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.5",
+ "tiledversion":"1.7.2",
  "tileheight":16,
  "tilesets":[
         {
@@ -1398,8 +1364,7 @@
                         {
                          "duration":100,
                          "tileid":21
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":22
@@ -1499,8 +1464,7 @@
                         {
                          "duration":100,
                          "tileid":45
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":46
@@ -1600,8 +1564,7 @@
                         {
                          "duration":100,
                          "tileid":69
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":70
@@ -1701,8 +1664,7 @@
                         {
                          "duration":100,
                          "tileid":93
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":94
@@ -1802,8 +1764,7 @@
                         {
                          "duration":100,
                          "tileid":117
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":118
@@ -1903,8 +1864,7 @@
                         {
                          "duration":100,
                          "tileid":141
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":142
@@ -2004,8 +1964,7 @@
                         {
                          "duration":100,
                          "tileid":165
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":166
@@ -2105,8 +2064,7 @@
                         {
                          "duration":100,
                          "tileid":189
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":190
@@ -2648,8 +2606,7 @@
                         {
                          "duration":300,
                          "tileid":5
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":4
@@ -2732,6 +2689,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.8",
+ "version":"1.6",
  "width":22
 }

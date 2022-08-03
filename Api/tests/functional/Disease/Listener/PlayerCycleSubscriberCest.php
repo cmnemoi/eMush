@@ -4,7 +4,7 @@ namespace Mush\Tests\functional\Disease\Listener;
 
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Disease\Entity\DiseaseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Listener\PlayerCycleSubscriber;

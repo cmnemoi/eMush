@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Disease\Entity;
+namespace Mush\Disease\Entity\Config;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -47,11 +47,6 @@ class DiseaseConfig implements LogParameterInterface
      * @ORM\Column(type="integer", nullable=false)
      */
     private int $resistance = 0;
-
-    /**
-     * @ORM\Column (type="array")
-     */
-    private array $causes = [];
 
     /**
      * @ORM\Column (type="integer")
@@ -142,18 +137,6 @@ class DiseaseConfig implements LogParameterInterface
     public function setResistance(int $resistance): self
     {
         $this->resistance = $resistance;
-
-        return $this;
-    }
-
-    public function getCauses(): array
-    {
-        return $this->causes;
-    }
-
-    public function setCauses(array $causes): self
-    {
-        $this->causes = $causes;
 
         return $this;
     }

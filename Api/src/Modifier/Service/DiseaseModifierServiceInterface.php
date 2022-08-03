@@ -2,7 +2,7 @@
 
 namespace Mush\Modifier\Service;
 
-use Mush\Disease\Entity\DiseaseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Player\Entity\Player;
 
 interface DiseaseModifierServiceInterface

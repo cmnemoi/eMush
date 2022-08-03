@@ -5,7 +5,7 @@ namespace Mush\Disease\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mush\Disease\Entity\DiseaseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;

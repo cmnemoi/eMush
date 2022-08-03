@@ -4,6 +4,7 @@ namespace Mush\Disease\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Player\Entity\Player;
 
@@ -23,7 +24,7 @@ class PlayerDisease
     private ?int $id = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mush\Disease\Entity\DiseaseConfig")
+     * @ORM\ManyToOne(targetEntity="Mush\Disease\Entity\Config\DiseaseConfig")
      */
     private DiseaseConfig $diseaseConfig;
 

@@ -1,7 +1,7 @@
 <template>
     <div class="main-container">
         <Title :title="$t('title')" />
-        <Spinner :loading="userLoading || playerLoading" />
+        <Spinner :loading="userLoading || playerLoading || configLoading" />
         <Banner />
         <router-view />
         <ErrorPopup />
@@ -30,7 +30,8 @@ export default {
     computed: {
         ...mapGetters({
             userLoading: 'auth/isLoading',
-            playerLoading: 'player/isLoading'
+            playerLoading: 'player/isLoading',
+            configLoading: 'gameConfig/isLoading'
         }
         )
     }

@@ -26,7 +26,7 @@ const ApiService = {
         return axios.post(resource, data, options);
     },
 
-    put(resource: string, data?: Record<string, unknown>): Promise<AxiosResponse> {
+    put(resource: string, data?: any): Promise<AxiosResponse> {
         return axios.put(resource, data);
     },
 

@@ -4,9 +4,9 @@ namespace Mush\Disease\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
-use Mush\Disease\Entity\ConsumableDiseaseConfig;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Repository\ConsumableDiseaseConfigRepository;
 use Mush\Disease\Repository\ConsumableDiseaseRepository;

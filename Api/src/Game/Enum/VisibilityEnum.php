@@ -2,6 +2,19 @@
 
 namespace Mush\Game\Enum;
 
+/**
+ * Class enumerating the visibility of different game element
+ * This mainly apply to RoomLogs and Statuses.
+ *
+ * PUBLIC: everyone in the daedalus can see this element
+ * PRIVATE: only the current player can see this element
+ * COVERT: only current player can see this element unless a camera is in the room, in this case, the element become REVEALED
+ * SECRET: only current player can see this element unless a camera or someone else is in the room, in this case, the element become REVEALED
+ * REVEALED: secret or covert action that has been revealed
+ * MUSH: only player with mush status can see this element
+ * HUMAN: only human player can see this element
+ * HIDEN: this element is not visible to anyone but administrators and developers
+ */
 class VisibilityEnum
 {
     public const PUBLIC = 'public';

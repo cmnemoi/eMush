@@ -3,12 +3,13 @@
 namespace Mush\Disease\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Disease\Entity\DiseaseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
+use Mush\Disease\Repository\DiseaseCausesConfigRepository;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -18,17 +19,20 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 {
     private EntityManagerInterface $entityManager;
+    private DiseaseCausesConfigRepository $diseaseCauseConfigRepository;
     private DiseaseConfigRepository $diseaseConfigRepository;
     private RandomServiceInterface $randomService;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EntityManagerInterface $entityManager,
+        DiseaseCausesConfigRepository $diseaseCauseConfigRepository,
         DiseaseConfigRepository $diseaseConfigRepository,
         RandomServiceInterface $randomService,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->entityManager = $entityManager;
+        $this->diseaseCauseConfigRepository = $diseaseCauseConfigRepository;
         $this->diseaseConfigRepository = $diseaseConfigRepository;
         $this->randomService = $randomService;
         $this->eventDispatcher = $eventDispatcher;
@@ -73,7 +77,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         int $delayLength = null
     ): ?PlayerDisease {
         /** @var DiseaseConfig $diseaseConfig */
-        $diseaseConfig = $this->diseaseConfigRepository->findOneBy(['name' => $diseaseName, 'gameConfig' => $player->getDaedalus()->getGameConfig()]);
+        $diseaseConfig = $this->diseaseConfigRepository->findByNameAndDaedalus($diseaseName, $player->getDaedalus());
 
         if ($diseaseConfig === null) {
             throw new \LogicException("{$diseaseName} do not have any disease config for the daedalus {$player->getDaedalus()->getId()}");
@@ -124,17 +128,15 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
     public function handleDiseaseForCause(string $cause, Player $player): void
     {
-        $diseaseConfigs = $this->diseaseConfigRepository->findByCauses($cause, $player->getDaedalus());
+        $diseaseNames = $this->diseaseCauseConfigRepository->findCausesByDaedalus($player->getDaedalus())->getDiseasesByCause($cause);
 
-        if (count($diseaseConfigs) === 0) {
+        if (count($diseaseNames) === 0) {
             return;
         }
 
-        $diseaseConfig = current($this->randomService->getRandomElements($diseaseConfigs));
+        $diseaseName = $this->randomService->getSingleRandomElementFromProbaArray($diseaseNames);
 
-        if ($diseaseConfig !== false) {
-            $this->createDiseaseFromName($diseaseConfig->getName(), $player, $cause);
-        }
+        $this->createDiseaseFromName($diseaseName, $player, $cause);
     }
 
     public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void

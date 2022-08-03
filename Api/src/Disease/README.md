@@ -31,3 +31,12 @@ There is three types of medical conditions:
 
 ## Listener
 Listen to events that cause and heal medical conditions.
+
+## Entity
+- ConsumableDisease: 1 per daedalus, store ConsumableDiseaseAttributes
+- ConsumableDiseaseAttribute: consumables can cause diseases. For each disease that can be caused by a consumable, a ConsumableDiseaseAttribute store the chance to get the disease, the incubation delays and the name of the disease.
+- PlayerDisease: this entity stores every disease a player currently have (incubating and active).
+- Config
+  - DiseaseConfig: each disease have a unique DiseaseConfig that describe how the disease affect the player (modifiers, symptoms)
+  - ConsumableDiseaseConfig: some consumables give and cure random diseases. This entity stores the possible cure and disease consumable can have.
+  - DiseaseCauseConfig: 1 per daedalus, provides information on which disease can occur for different causes

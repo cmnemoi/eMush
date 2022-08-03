@@ -2,7 +2,7 @@
 
 namespace Mush\Modifier\Service;
 
-use Mush\Disease\Entity\DiseaseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierReachEnum;

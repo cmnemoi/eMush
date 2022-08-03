@@ -3,6 +3,7 @@
 namespace Mush\Disease\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Enum\TypeEnum;
 
 /**
@@ -49,7 +50,7 @@ class ConsumableDiseaseAttribute
     private ConsumableDisease $consumableDisease;
 
     /**
-     * @ORM\ManyToOne (targetEntity="Mush\Disease\Entity\ConsumableDiseaseConfig", inversedBy="consumableAttributes")
+     * @ORM\ManyToOne (targetEntity="Mush\Disease\Entity\Config\ConsumableDiseaseConfig", inversedBy="consumableAttributes")
      */
     private ConsumableDiseaseConfig $consumableDiseaseConfig;
 

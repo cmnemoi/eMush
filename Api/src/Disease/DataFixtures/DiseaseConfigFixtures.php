@@ -40,6 +40,8 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $cycle1MovementLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_MOVEMENT_LOST);
         /** @var ModifierConfig $cycle1SatietyLost */
         $cycle1SatietyLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_SATIETY_LOST);
+        /** @var ModifierConfig $cycle1SatietyIncrease */
+        $cycle1SatietyIncrease = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_SATIETY_INCREASE);
         /** @var ModifierConfig $cycle1ActionLostRand10 */
         $cycle1ActionLostRand10 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_10);
         /** @var ModifierConfig $cycle1HealthLostRand10 */
@@ -64,6 +66,12 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $consume2ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_2_ACTION_LOSS);
         /** @var ModifierConfig $moveIncreaseMovement */
         $moveIncreaseMovement = $this->getReference(DiseaseModifierConfigFixtures::MOVE_INCREASE_MOVEMENT);
+        /** @var ModifierConfig $infected4HealthLoss */
+        $infected4HealthLoss = $this->getReference(DiseaseModifierConfigFixtures::INFECTED_4_HEALTH_LOSS);
+        /** @var ModifierConfig $takeCat6HealthLoss */
+        $takeCat6HealthLoss = $this->getReference(DiseaseModifierConfigFixtures::TAKE_CAT_6_HEALTH_LOSS);
+        /** @var ModifierConfig $shootAction10PercentAccuracyLost */
+        $shootAction10PercentAccuracyLost = $this->getReference(DiseaseModifierConfigFixtures::SHOOT_ACTION_10_PERCENT_ACCURACY_LOST);
 
         $foodPoisoning = new DiseaseConfig();
         $foodPoisoning
@@ -87,7 +95,10 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $blackBite
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::BLACK_BITE)
-            ->setModifierConfigs(new ArrayCollection([$cycle1ActionLostRand10]))
+            ->setModifierConfigs(new ArrayCollection([
+                $cycle1ActionLostRand10,
+                $infected4HealthLoss,
+                ]))
         ;
 
         $manager->persist($blackBite);
@@ -96,6 +107,9 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $catAllergy
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::CAT_ALLERGY)
+            ->setModifierConfigs(new ArrayCollection([
+                $takeCat6HealthLoss,
+                ]))
         ;
 
         $manager->persist($catAllergy);
@@ -179,6 +193,9 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $mushAllergy
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::MUSH_ALLERGY)
+            ->setModifierConfigs(new ArrayCollection([
+                $infected4HealthLoss,
+            ]))
         ;
 
         $manager->persist($mushAllergy);
@@ -199,6 +216,9 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $rejuvenation
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::REJUVENATION)
+            ->setModifierConfigs(new ArrayCollection([
+                $cycle1ActionLostRand20,
+            ]))
         ;
 
         $manager->persist($rejuvenation);
@@ -246,6 +266,9 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $nausea
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::SLIGHT_NAUSEA)
+            ->setModifierConfigs(new ArrayCollection([
+                $cycle1SatietyIncrease,
+            ]))
         ;
 
         $manager->persist($nausea);
@@ -272,7 +295,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $cycle2HealthLost,
             ]))
         ;
-
         $manager->persist($spaceRabies);
 
         $syphilis = new DiseaseConfig();
@@ -281,6 +303,8 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(DiseaseEnum::SYPHILIS)
             ->setModifierConfigs(new ArrayCollection([
                 $reduceMax2MoralPoint,
+                $cycle2ActionLostRand40,
+                $shootAction10PercentAccuracyLost,
             ]))
         ;
 

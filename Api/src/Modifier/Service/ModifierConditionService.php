@@ -4,6 +4,7 @@ namespace Mush\Modifier\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
@@ -74,6 +75,9 @@ class ModifierConditionService implements ModifierConditionServiceInterface
             case ModifierConditionEnum::CYCLE:
                 return $this->handleCycleCondition($condition, $holder);
 
+            case ModifierConditionEnum::PLAYER_EQUIPMENT:
+                return $this->handlePlayerEquipmentCondition($condition, $holder);
+
             default:
                 throw new \LogicException('this condition is not implemented');
         }
@@ -118,6 +122,21 @@ class ModifierConditionService implements ModifierConditionServiceInterface
 
             default:
                 throw new \LogicException('This condition is invalid for cycle');
+        }
+    }
+
+    private function handlePlayerEquipmentCondition(ModifierCondition $condition, ModifierHolder $player): bool
+    {
+        if (!$player instanceof Player) {
+            throw new \LogicException('This modifierHolder type is not handled, should be Player');
+        }
+
+        switch ($condition->getCondition()) {
+            case ModifierConditionEnum::HOLD_SCHRODINGER:
+                return $player->hasItemByName(ItemEnum::SCHRODINGER);
+
+            default:
+                throw new \LogicException('This condition is invalid for player_equipment');
         }
     }
 }

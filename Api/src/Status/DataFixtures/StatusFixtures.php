@@ -63,6 +63,9 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        /** @var ModifierConfig $increaseCycleDiseaseChances30 */
+        $increaseCycleDiseaseChances30 = $this->getReference(StatusModifierConfigFixtures::INCREASE_CYCLE_DISEASE_CHANCES_30);
+
         $alienArtefact = new StatusConfig();
         $alienArtefact
             ->setName(EquipmentStatusEnum::ALIEN_ARTEFACT)
@@ -223,6 +226,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setName(PlayerStatusEnum::DEMORALIZED)
             ->setVisibility(VisibilityEnum::PRIVATE)
             ->setGameConfig($gameConfig)
+            ->setModifierConfigs(new ArrayCollection([$increaseCycleDiseaseChances30]))
         ;
         $manager->persist($demoralized);
 
@@ -401,6 +405,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setName(PlayerStatusEnum::SUICIDAL)
             ->setVisibility(VisibilityEnum::PRIVATE)
             ->setGameConfig($gameConfig)
+            ->setModifierConfigs(new ArrayCollection([$increaseCycleDiseaseChances30]))
         ;
         $manager->persist($suicidal);
 

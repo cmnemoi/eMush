@@ -3,7 +3,6 @@
 namespace Mush\Disease\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Game\Entity\GameConfig;
 
 /**
@@ -25,29 +24,14 @@ class DiseaseCauseConfig
     private GameConfig $gameConfig;
 
     /**
-     * @ORM\Column (type="array")
+     * @ORM\Column(type="string", nullable=false)
      */
-    private array $alienFruitDiseases = [];
+    private string $causeName;
 
     /**
      * @ORM\Column (type="array")
      */
-    private array $cycleDiseases = [];
-
-    /**
-     * @ORM\Column (type="array")
-     */
-    private array $perishedFoodDiseases = [];
-
-    /**
-     * @ORM\Column (type="array")
-     */
-    private array $bacteriophilicDiseases = [];
-
-    /**
-     * @ORM\Column (type="array")
-     */
-    private array $fakeDiseases = [];
+    private array $diseases = [];
 
     public function getGameConfig(): GameConfig
     {
@@ -61,79 +45,27 @@ class DiseaseCauseConfig
         return $this;
     }
 
-    public function getAlienFruitDiseases(): array
+    public function getName(): string
     {
-        return $this->alienFruitDiseases;
+        return $this->causeName;
     }
 
-    public function setAlienFruitDiseases(array $alienFruitDiseases): self
+    public function setName(string $causeName): self
     {
-        $this->alienFruitDiseases = $alienFruitDiseases;
+        $this->causeName = $causeName;
 
         return $this;
     }
 
-    public function getCycleDiseases(): array
+    public function getDiseases(): array
     {
-        return $this->cycleDiseases;
+        return $this->diseases;
     }
 
-    public function setCycleDiseases(array $cycleDiseases): self
+    public function setDiseases(array $diseases): self
     {
-        $this->cycleDiseases = $cycleDiseases;
+        $this->diseases = $diseases;
 
         return $this;
-    }
-
-    public function getPerishedFoodDiseases(): array
-    {
-        return $this->perishedFoodDiseases;
-    }
-
-    public function setPerishedFoodDiseases(array $perishedFoodDiseases): self
-    {
-        $this->perishedFoodDiseases = $perishedFoodDiseases;
-
-        return $this;
-    }
-
-    public function getBacteriophilicDiseases(): array
-    {
-        return $this->bacteriophilicDiseases;
-    }
-
-    public function setBacteriophilicDiseases(array $bacteriophilicDiseases): self
-    {
-        $this->bacteriophilicDiseases = $bacteriophilicDiseases;
-
-        return $this;
-    }
-
-    public function getFakeDiseases(): array
-    {
-        return $this->fakeDiseases;
-    }
-
-    public function setFakeDiseases(array $fakeDiseases): self
-    {
-        $this->fakeDiseases = $fakeDiseases;
-
-        return $this;
-    }
-
-    public function getDiseasesByCause(string $cause): array
-    {
-        switch ($cause) {
-            case DiseaseCauseEnum::PERISHED_FOOD:
-                return $this->perishedFoodDiseases;
-
-            case DiseaseCauseEnum::ALIEN_FRUIT:
-                return $this->alienFruitDiseases;
-
-            case DiseaseCauseEnum::CYCLE:
-                return $this->cycleDiseases;
-        }
-
-        return [];
     }
 }

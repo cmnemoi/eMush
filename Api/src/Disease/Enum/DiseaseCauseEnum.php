@@ -5,6 +5,7 @@ namespace Mush\Disease\Enum;
 class DiseaseCauseEnum
 {
     public const CYCLE = 'cycle';
+    public const CYCLE_LOW_MORALE = 'cycle_low_morale';
     public const CONTACT = 'contact';
     public const EXPLORATION = 'exploration';
     public const SEX = 'sex';

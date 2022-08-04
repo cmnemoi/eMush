@@ -49,6 +49,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
     public const MOVE_INCREASE_MOVEMENT = 'move_increase_movement';
     public const TAKE_CAT_6_HEALTH_LOSS = 'take_cat_6_health_loss';
     public const INFECTED_4_HEALTH_LOSS = 'infected_4_health_loss';
+    public const INCREASE_CYCLE_DISEASE_CHANCES_10 = 'increase_cycle_disease_chances_10';
 
     public function load(ObjectManager $manager): void
     {
@@ -385,6 +386,17 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($shootAction10PercentAccuracyLost);
 
+        $increaseCycleDiseaseChances10 = new ModifierConfig();
+        $increaseCycleDiseaseChances10
+            ->setScope(PlayerEvent::CYCLE_DISEASE)
+            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setDelta(10)
+            ->setReach(ModifierReachEnum::PLAYER)
+            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($increaseCycleDiseaseChances10);
+
         $manager->flush();
 
         $this->addReference(self::REDUCE_MAX_1_HEALTH_POINT, $reduceMax1HealthPoint);
@@ -413,6 +425,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $this->addReference(self::TAKE_CAT_6_HEALTH_LOSS, $takeCat6HealthLost);
         $this->addReference(self::CYCLE_1_SATIETY_INCREASE, $cycle1SatietyIncrease);
         $this->addReference(self::SHOOT_ACTION_10_PERCENT_ACCURACY_LOST, $shootAction10PercentAccuracyLost);
+        $this->addReference(self::INCREASE_CYCLE_DISEASE_CHANCES_10, $increaseCycleDiseaseChances10);
     }
 
     public function getDependencies(): array

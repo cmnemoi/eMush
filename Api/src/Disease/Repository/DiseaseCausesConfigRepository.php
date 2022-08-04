@@ -14,13 +14,15 @@ class DiseaseCausesConfigRepository extends ServiceEntityRepository
         parent::__construct($registry, DiseaseCauseConfig::class);
     }
 
-    public function findCausesByDaedalus(Daedalus $daedalus): DiseaseCauseConfig
+    public function findCausesByDaedalus(string $cause, Daedalus $daedalus): DiseaseCauseConfig
     {
         $queryBuilder = $this->createQueryBuilder('diseaseCauseConfig');
 
         $queryBuilder
             ->where($queryBuilder->expr()->eq('diseaseCauseConfig.gameConfig', ':gameConfig'))
+            ->andWhere($queryBuilder->expr()->eq('diseaseCauseConfig.causeName', ':name'))
             ->setParameter('gameConfig', $daedalus->getGameConfig())
+            ->setParameter('name', $cause)
         ;
 
         return $queryBuilder->getQuery()->getOneOrNullResult();

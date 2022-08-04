@@ -39,4 +39,4 @@ Listen to events that cause and heal medical conditions.
 - Config
   - DiseaseConfig: each disease have a unique DiseaseConfig that describe how the disease affect the player (modifiers, symptoms)
   - ConsumableDiseaseConfig: some consumables give and cure random diseases. This entity stores the possible cure and disease consumable can have.
-  - DiseaseCauseConfig: 1 per daedalus, provides information on which disease can occur for different causes
+  - DiseaseCauseConfig: provides information on which disease can occur for different causes. One per daedalus and disease cause.

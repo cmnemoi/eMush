@@ -18,7 +18,9 @@ use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerEvent;
 
 class StatusModifierConfigFixtures extends Fixture
 {
@@ -31,6 +33,7 @@ class StatusModifierConfigFixtures extends Fixture
     public const LOST_MODIFIER = 'lost_modifier';
     public const LYING_DOWN_MODIFIER = 'lying_down_modifier';
     public const STARVING_MODIFIER = 'starving_modifier';
+    public const INCREASE_CYCLE_DISEASE_CHANCES_30 = 'increase_cycle_disease_chances_30';
 
     public const MUSH_SHOWER_MODIFIER = 'mush_shower_modifier';
     public const MUSH_CONSUME_SATIETY_MODIFIER = 'mush_consume_satiety_modifier';
@@ -152,6 +155,17 @@ class StatusModifierConfigFixtures extends Fixture
         ;
         $manager->persist($starvingModifier);
 
+        $increaseCycleDiseaseChances30 = new ModifierConfig();
+        $increaseCycleDiseaseChances30
+            ->setScope(PlayerEvent::CYCLE_DISEASE)
+            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setDelta(30)
+            ->setReach(ModifierReachEnum::PLAYER)
+            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($increaseCycleDiseaseChances30);
+
         $showerActionCondition = new ModifierCondition(ModifierConditionEnum::REASON);
         $showerActionCondition->setCondition(ActionEnum::SHOWER);
         $manager->persist($showerActionCondition);
@@ -244,6 +258,7 @@ class StatusModifierConfigFixtures extends Fixture
         $this->addReference(self::LOST_MODIFIER, $lostModifier);
         $this->addReference(self::LYING_DOWN_MODIFIER, $lyingDownModifier);
         $this->addReference(self::STARVING_MODIFIER, $starvingModifier);
+        $this->addReference(self::INCREASE_CYCLE_DISEASE_CHANCES_30, $increaseCycleDiseaseChances30);
 
         $this->addReference(self::MUSH_SHOWER_MODIFIER, $mushShowerModifier);
         $this->addReference(self::MUSH_CONSUME_ACTION_MODIFIER, $mushConsumeActionModifier);

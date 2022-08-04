@@ -13,6 +13,7 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface
     public const DEATH_PLAYER = 'death.player';
     public const METAL_PLATE = 'metal.plate';
     public const PANIC_CRISIS = 'panic.crisis';
+    public const CYCLE_DISEASE = 'cycle_disease';
     public const INFECTION_PLAYER = 'infection.player';
     public const CONVERSION_PLAYER = 'conversion.player';
     public const END_PLAYER = 'end.player';

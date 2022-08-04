@@ -25,9 +25,9 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
         /** @var DiseaseCauseConfig $diseaseCausesConfig */
-        $diseaseCausesConfig = $this->getReference(DiseaseCausesConfigFixtures::DEFAULT_DISEASE_CONFIG);
+        $diseaseCausesConfig = $this->getReference(DiseaseCausesConfigFixtures::ALIEN_FRUIT_DISEASE_CAUSE_CONFIG);
 
-        $diseases = $diseaseCausesConfig->getAlienFruitDiseases();
+        $diseases = $diseaseCausesConfig->getDiseases();
 
         foreach (GameFruitEnum::getAlienFruits() as $fruitName) {
             $alienFruitDiseasesConfig = new ConsumableDiseaseConfig();

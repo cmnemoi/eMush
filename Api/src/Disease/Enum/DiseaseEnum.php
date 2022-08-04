@@ -28,4 +28,14 @@ class DiseaseEnum
     public const SYPHILIS = 'syphilis';
     public const TAPEWORM = 'tapeworm';
     public const VITAMIN_DEFICIENCY = 'vitamin_deficiency';
+
+    public static function getFakeDiseases(): array
+    {
+        return [
+            self::COLD,
+            self::EXTREME_TINNITUS,
+            self::CAT_ALLERGY,
+            self::SINUS_STORM,
+        ];
+    }
 }

@@ -128,10 +128,22 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
     public function handleDiseaseForCause(string $cause, Player $player, int $delayMin = null, int $delayLength = null): void
     {
-        $diseaseNames = $this->diseaseCauseConfigRepository->findCausesByDaedalus($cause, $player->getDaedalus())->getDiseases();
+        $diseasesProbaArray = $this->diseaseCauseConfigRepository->findCausesByDaedalus($cause, $player->getDaedalus())->getDiseases();
 
-        if (count($diseaseNames) === 0) {
+        if (count($diseasesProbaArray) === 0) {
             return;
+        }
+
+        $playerDiseases = $player->getMedicalConditions()->toArray();
+        $playerDiseasesNames = array_map(function (PlayerDisease $playerDisease) {
+            return $playerDisease->getDiseaseConfig()->getName();
+        }, $playerDiseases);
+
+        $diseasesProbaArray = array_diff(array_keys($diseasesProbaArray), $playerDiseasesNames);
+
+        $diseaseNames = [];
+        foreach ($diseasesProbaArray as $diseaseName) {
+            $diseaseNames[$diseaseName] = 1;
         }
 
         $diseaseName = $this->randomService->getSingleRandomElementFromProbaArray($diseaseNames);

@@ -5,9 +5,12 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Event\ApplyEffectEvent;
+use Mush\Action\Validator\HasAllFakeDiseases;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * Class implementing the "Fake disease" action.
@@ -22,6 +25,14 @@ class FakeDisease extends AbstractAction
     protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter === null;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addConstraint(new HasAllFakeDiseases([
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::HAVE_ALL_FAKE_DISEASES,
+        ]));
     }
 
     protected function applyEffects(): ActionResult

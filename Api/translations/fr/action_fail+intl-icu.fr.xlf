@@ -582,5 +582,12 @@
             </segment>
         </unit>
 
+        <unit id="have_all_fake_diseases">
+            <segment id="description">
+                <source>have_all_fake_diseases.description</source>
+                <target>Buurrp, vous ne vous sentez pas très bien... Vous ne pouvez plus imiter d'autre maladie.</target>
+            </segment>
+        </unit>
+
     </file>
 </xliff>

@@ -69,6 +69,8 @@ class ActionLogEnum
     public const PUBLIC_BROADCAST = 'public_broadcast';
     public const MOTIVATIONAL_SPEECH = 'motivational_speech';
     public const BORING_SPEECH = 'boring_speech';
+    public const MAKE_SICK = 'make_sick';
+    public const FAKE_DISEASE = 'fake_disease';
 
     public const SUCCESS = 'success';
     public const FAIL = 'fail';
@@ -445,6 +447,18 @@ class ActionLogEnum
             self::SUCCESS => [
                 self::VALUE => self::BORING_SPEECH,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::MAKE_SICK => [
+            self::SUCCESS => [
+                self::VALUE => self::MAKE_SICK,
+                self::VISIBILITY => VisibilityEnum::COVERT,
+            ],
+        ],
+        ActionEnum::FAKE_DISEASE => [
+            self::SUCCESS => [
+                self::VALUE => self::FAKE_DISEASE,
+                self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
     ];

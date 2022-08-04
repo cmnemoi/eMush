@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\DataFixtures\MushActionFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -35,6 +36,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $medlabHealAction = $this->getReference(ActionsFixtures::MEDLAB_HEAL);
         /** @var Action medlabSelfHealAction */
         $medlabSelfHealAction = $this->getReference(ActionsFixtures::MEDLAB_SELF_HEAL);
+        /** @var Action $fakeDiseaseAction */
+        $fakeDiseaseAction = $this->getReference(MushActionFixtures::FAKE_DISEASE);
 
         /** @var Action $hitAction */
         $hitAction = $this->getReference(ActionsFixtures::HIT_DEFAULT);
@@ -56,11 +59,13 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $medlabSelfHealAction = $this->getReference(ActionsFixtures::MEDLAB_SELF_HEAL);
 
         /** @var Action $extractSporeAction */
-        $extractSporeAction = $this->getReference(ActionsFixtures::EXTRACT_SPORE);
+        $extractSporeAction = $this->getReference(MushActionFixtures::EXTRACT_SPORE);
         /** @var Action $spreadFireAction */
-        $spreadFireAction = $this->getReference(ActionsFixtures::INFECT_PLAYER);
+        $spreadFireAction = $this->getReference(MushActionFixtures::INFECT_PLAYER);
         /** @var Action $infectAction */
-        $infectAction = $this->getReference(ActionsFixtures::SPREAD_FIRE);
+        $infectAction = $this->getReference(MushActionFixtures::SPREAD_FIRE);
+        /** @var Action $makeSickAction */
+        $makeSickAction = $this->getReference(MushActionFixtures::MAKE_SICK);
 
         //Skills actions
         //@TODO: find another way to handle this ?
@@ -91,6 +96,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $spreadFireAction,
             $flirtAction,
             $doTheThingAction,
+            $makeSickAction,
+            $fakeDiseaseAction,
         ]);
 
         /** @var StatusConfig $sporeStatus */
@@ -417,6 +424,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         return [
             DaedalusConfigFixtures::class,
             ActionsFixtures::class,
+            MushActionFixtures::class,
             StatusFixtures::class,
         ];
     }

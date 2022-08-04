@@ -9,13 +9,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Service\PlayerServiceInterface;
 
-class MedikitHealActionTest extends AbstractActionTest
+class MakeSickActionTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface|Mockery\Mock */
-    private PlayerServiceInterface $playerService;
-
     /**
      * @before
      */
@@ -25,7 +21,6 @@ class MedikitHealActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::MEDIKIT_HEAL);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new MedikitHeal(
             $this->eventDispatcher,
@@ -46,7 +41,6 @@ class MedikitHealActionTest extends AbstractActionTest
     {
         $room = new Place();
 
-        $this->playerService->shouldReceive('persist');
         $this->eventDispatcher->shouldReceive('dispatch');
 
         $player = $this->createPlayer(new Daedalus(), $room);

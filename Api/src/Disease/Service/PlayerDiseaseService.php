@@ -126,7 +126,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         return $disease;
     }
 
-    public function handleDiseaseForCause(string $cause, Player $player): void
+    public function handleDiseaseForCause(string $cause, Player $player, int $delayMin = null, int $delayLength = null): void
     {
         $diseaseNames = $this->diseaseCauseConfigRepository->findCausesByDaedalus($cause, $player->getDaedalus())->getDiseases();
 
@@ -136,7 +136,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
         $diseaseName = $this->randomService->getSingleRandomElementFromProbaArray($diseaseNames);
 
-        $this->createDiseaseFromName($diseaseName, $player, $cause);
+        $this->createDiseaseFromName($diseaseName, $player, $cause, $delayMin, $delayLength);
     }
 
     public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void

@@ -219,6 +219,32 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         }
     }
 
+    public function handleCrewDisease(Daedalus $daedalus, \DateTime $date): int
+    {
+        if (($playerCount = $daedalus->getPlayers()->getPlayerAlive()->count()) > 0) {
+            $crewDiseaseRate = intval($this->getNumberOfIncident($daedalus) / $playerCount);
+            $numberOfDiseasedPlayers = min($crewDiseaseRate, $playerCount);
+
+            if ($crewDiseaseRate > 0) {
+                $players = $daedalus->getPlayers()->getPlayerAlive();
+                $diseasedPlayer = $this->randomService->getRandomElements($players->toArray(), $numberOfDiseasedPlayers);
+
+                foreach ($diseasedPlayer as $player) {
+                    $playerEvent = new PlayerEvent(
+                        $player,
+                        EventEnum::NEW_CYCLE,
+                        $date
+                    );
+                    $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CYCLE_DISEASE);
+                }
+            }
+
+            return $numberOfDiseasedPlayers;
+        } else {
+            return 0;
+        }
+    }
+
     //Each cycle get 0 to day event
     //@TODO: to be improved
     private function getNumberOfIncident(Daedalus $daedalus): int

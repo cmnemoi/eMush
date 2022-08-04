@@ -4,6 +4,7 @@ namespace Mush\Player\Listener;
 
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -18,15 +19,18 @@ class PlayerSubscriber implements EventSubscriberInterface
 {
     private PlayerServiceInterface $playerService;
     private EventDispatcherInterface $eventDispatcher;
+    private ModifierServiceInterface $modifierService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
         PlayerServiceInterface $playerService,
         EventDispatcherInterface $eventDispatcher,
+        ModifierServiceInterface $modifierService,
         RandomServiceInterface $randomService
     ) {
         $this->playerService = $playerService;
         $this->eventDispatcher = $eventDispatcher;
+        $this->modifierService = $modifierService;
         $this->randomService = $randomService;
     }
 

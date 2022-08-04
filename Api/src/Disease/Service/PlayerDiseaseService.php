@@ -128,7 +128,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
     public function handleDiseaseForCause(string $cause, Player $player): void
     {
-        $diseaseNames = $this->diseaseCauseConfigRepository->findCausesByDaedalus($player->getDaedalus())->getDiseasesByCause($cause);
+        $diseaseNames = $this->diseaseCauseConfigRepository->findCausesByDaedalus($cause, $player->getDaedalus())->getDiseases();
 
         if (count($diseaseNames) === 0) {
             return;

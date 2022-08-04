@@ -34,6 +34,7 @@ class DaedalusFactory extends \Codeception\Module
             'metalPlatePlayerDamage' => [6 => 1],
             'panicCrisisPlayerDamage' => [3 => 1],
             'plantDiseaseRate' => 0,
+            'cycleDiseaseRate' => 0,
         ]);
         $factory->_define(DaedalusConfig::class, [
             'maxOxygen' => 32,

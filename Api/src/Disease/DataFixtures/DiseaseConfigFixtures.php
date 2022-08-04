@@ -72,6 +72,8 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $takeCat6HealthLoss = $this->getReference(DiseaseModifierConfigFixtures::TAKE_CAT_6_HEALTH_LOSS);
         /** @var ModifierConfig $shootAction10PercentAccuracyLost */
         $shootAction10PercentAccuracyLost = $this->getReference(DiseaseModifierConfigFixtures::SHOOT_ACTION_10_PERCENT_ACCURACY_LOST);
+        /** @var ModifierConfig $increaseCycleDiseaseChances10 */
+        $increaseCycleDiseaseChances10 = $this->getReference(DiseaseModifierConfigFixtures::INCREASE_CYCLE_DISEASE_CHANCES_10);
 
         $foodPoisoning = new DiseaseConfig();
         $foodPoisoning
@@ -218,6 +220,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(DiseaseEnum::REJUVENATION)
             ->setModifierConfigs(new ArrayCollection([
                 $cycle1ActionLostRand20,
+                $increaseCycleDiseaseChances10,
             ]))
         ;
 

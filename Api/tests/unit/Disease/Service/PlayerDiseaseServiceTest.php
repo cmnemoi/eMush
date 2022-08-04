@@ -184,7 +184,10 @@ class PlayerDiseaseServiceTest extends TestCase
         $diseaseName = 'name';
 
         $diseaseCauseConfig = new DiseaseCauseConfig();
-        $diseaseCauseConfig->setPerishedFoodDiseases([$diseaseName => 1]);
+        $diseaseCauseConfig
+            ->setDiseases([$diseaseName => 1])
+            ->setName(DiseaseCauseEnum::PERISHED_FOOD)
+        ;
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
@@ -195,7 +198,7 @@ class PlayerDiseaseServiceTest extends TestCase
 
         $this->diseaseCausesConfigRepository
             ->shouldReceive('findCausesByDaedalus')
-            ->with($daedalus)
+            ->with(DiseaseCauseEnum::PERISHED_FOOD, $daedalus)
             ->andReturn($diseaseCauseConfig)
             ->once()
         ;

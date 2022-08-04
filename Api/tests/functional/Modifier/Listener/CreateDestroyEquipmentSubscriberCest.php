@@ -68,7 +68,7 @@ class CreateDestroyEquipmentSubscriberCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $equipmentEvent = new EquipmentEvent(
             $equipmentConfig->getName(),
             $player,
@@ -232,7 +232,7 @@ class CreateDestroyEquipmentSubscriberCest
             'mechanics' => new ArrayCollection([$gear]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -311,7 +311,7 @@ class CreateDestroyEquipmentSubscriberCest
             'mechanics' => new ArrayCollection([$gear]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -416,7 +416,7 @@ class CreateDestroyEquipmentSubscriberCest
             'name' => ItemEnum::APPRENTON,
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)

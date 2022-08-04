@@ -61,7 +61,7 @@ class OpenCapsule extends AbstractAction
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
 
-        //remove the space capsule
+        // remove the space capsule
         $equipmentEvent = new EquipmentEvent(
             $parameter->getName(),
             $this->player,
@@ -72,7 +72,7 @@ class OpenCapsule extends AbstractAction
         $equipmentEvent->setExistingEquipment($parameter);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        //Get the content
+        // Get the content
         $contentName = $this->randomService->getSingleRandomElementFromProbaArray(self::$capsuleContent);
 
         $equipmentEvent = new EquipmentEvent(

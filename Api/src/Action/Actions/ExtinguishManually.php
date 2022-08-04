@@ -31,7 +31,7 @@ class ExtinguishManually extends AttemptAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new HasStatus(['status' => StatusEnum::FIRE, 'target' => HasStatus::PLAYER_ROOM, 'groups' => ['visibility']]));
-        //@TODO validator on Firefighter skill
+        // @TODO validator on Firefighter skill
     }
 
     protected function applyEffects(): ActionResult

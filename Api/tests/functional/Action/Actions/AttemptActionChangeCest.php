@@ -111,7 +111,7 @@ class AttemptActionChangeCest
 
         $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
 
-        //Execute repair
+        // Execute repair
         $this->repairAction->execute();
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(StatusEnum::ATTEMPT, $player->getStatuses()->first()->getName());
@@ -119,13 +119,13 @@ class AttemptActionChangeCest
         $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
 
         $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
-        //Execute repair a second time
+        // Execute repair a second time
         $this->repairAction->execute();
         $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
 
         $this->disassembleAction->loadParameters($actionDisassemble, $player, $gameEquipment);
 
-        //Now execute the other action
+        // Now execute the other action
         $this->disassembleAction->execute();
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(StatusEnum::ATTEMPT, $player->getStatuses()->first()->getName());
@@ -215,7 +215,7 @@ class AttemptActionChangeCest
 
         $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
 
-        //Execute repair
+        // Execute repair
         $this->repairAction->execute();
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(StatusEnum::ATTEMPT, $player->getStatuses()->first()->getName());
@@ -223,7 +223,7 @@ class AttemptActionChangeCest
         $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
 
         $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
-        //Execute repair a second time
+        // Execute repair a second time
         $this->repairAction->execute();
         $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
 

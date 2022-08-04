@@ -39,7 +39,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
             return;
         }
 
-        //add special logs
+        // add special logs
         $logMap = PlayerModifierLogEnum::PLAYER_VARIABLE_SPECIAL_LOGS;
         if (isset($logMap[$playerEvent->getReason()])) {
             $logKey = $logMap[$playerEvent->getReason()];

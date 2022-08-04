@@ -61,7 +61,7 @@ class ActionSubscriberCest
 
         $actionEvent = new ActionEvent($action, $player, null);
 
-        //Test injury
+        // Test injury
         $this->cycleSubscriber->onPostAction($actionEvent);
 
         $I->assertEquals(8, $player->getHealthPoint());
@@ -103,7 +103,7 @@ class ActionSubscriberCest
 
         $actionEvent = new ActionEvent($action, $player, null);
 
-        //Test dirty
+        // Test dirty
         $this->cycleSubscriber->onPostAction($actionEvent);
 
         $I->assertEquals(10, $player->getHealthPoint());
@@ -146,7 +146,7 @@ class ActionSubscriberCest
 
         $actionEvent = new ActionEvent($action, $player, null);
 
-        //Test already dirty
+        // Test already dirty
         $this->cycleSubscriber->onPostAction($actionEvent);
 
         $I->assertEquals(10, $player->getHealthPoint());
@@ -194,7 +194,7 @@ class ActionSubscriberCest
         $I->refreshEntities($player);
         $I->haveInRepository($modifier);
 
-        //Test dirty with apron
+        // Test dirty with apron
         $this->cycleSubscriber->onPostAction($actionEvent);
 
         $I->assertEquals(10, $player->getHealthPoint());

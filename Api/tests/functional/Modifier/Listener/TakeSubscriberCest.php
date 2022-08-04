@@ -86,7 +86,7 @@ class TakeSubscriberCest
             'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -154,7 +154,7 @@ class TakeSubscriberCest
             'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -237,7 +237,7 @@ class TakeSubscriberCest
             'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -320,7 +320,7 @@ class TakeSubscriberCest
             'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -400,7 +400,7 @@ class TakeSubscriberCest
             'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)

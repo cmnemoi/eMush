@@ -42,7 +42,7 @@ class InsertFuel extends AbstractAction
         /** @var GameItem $item */
         $item = $this->getParameter();
 
-        //delete the item
+        // delete the item
         $equipmentEvent = new EquipmentEvent(
             $item->getName(),
             $this->player,
@@ -53,7 +53,7 @@ class InsertFuel extends AbstractAction
         $equipmentEvent->setExistingEquipment($item);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        //add Fuel
+        // add Fuel
         $daedalusEvent = new DaedalusModifierEvent(
             $this->player->getDaedalus(),
             DaedalusVariableEnum::FUEL,

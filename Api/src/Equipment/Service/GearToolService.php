@@ -36,7 +36,7 @@ class GearToolService implements GearToolServiceInterface
 
     public function getEquipmentsOnReach(Player $player, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): Collection
     {
-        //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
+        // reach can be set to inventory, shelve, shelve only or any room of the Daedalus
         switch ($reach) {
             case ReachEnum::INVENTORY:
                 return $player->getEquipments();

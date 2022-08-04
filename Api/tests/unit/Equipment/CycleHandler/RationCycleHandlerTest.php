@@ -75,7 +75,7 @@ class RationCycleHandlerTest extends TestCase
         $decomposingConfig->setName(EquipmentStatusEnum::DECOMPOSING);
         $decomposing = new Status(new GameItem(), $decomposingConfig);
 
-        //frozen
+        // frozen
         $this->gameEquipmentService->shouldReceive('persist')->once();
 
         $this->rationCycleHandler->handleNewDay($gameFruit, $daedalus, new \DateTime());
@@ -83,7 +83,7 @@ class RationCycleHandlerTest extends TestCase
 
         $gameFruit->removeStatus($frozen);
 
-        //unfrozen day 1
+        // unfrozen day 1
         $this->gameEquipmentService->shouldReceive('persist')->once();
         $this->eventDispatcher
             ->shouldReceive('dispatch')
@@ -96,7 +96,7 @@ class RationCycleHandlerTest extends TestCase
 
         $gameFruit->addStatus($unstable);
 
-        //day 2
+        // day 2
         $this->gameEquipmentService->shouldReceive('persist')->once();
         $this->eventDispatcher
             ->shouldReceive('dispatch')
@@ -109,7 +109,7 @@ class RationCycleHandlerTest extends TestCase
 
         $gameFruit->addStatus($hazardous);
 
-        //day 3
+        // day 3
         $this->gameEquipmentService->shouldReceive('persist')->once();
 
         $this->eventDispatcher

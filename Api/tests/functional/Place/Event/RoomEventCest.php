@@ -130,12 +130,12 @@ class RoomEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $roomWithPlayers, 'healthPoint' => 10, 'characterConfig' => $characterConfig]);
 
-        //filter rooms with players
+        // filter rooms with players
         $rooms = $rooms->filter(function (Place $room) {
             return $room->getPlayers()->getPlayerAlive()->count() > 0;
         });
 
-        //apply tremor on rooms with players
+        // apply tremor on rooms with players
         $rooms->map(function (Place $room) use ($time) {
             $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
             $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);

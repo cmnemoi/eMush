@@ -13,12 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\SerializerInterface;
 
-/**
- * Class GameConfigController.
- *
- * @Route(path="/game-config")
- */
-#[Route('/game-config')]
 #[OA\Tag(name: 'GameConfig')]
 class GameConfigController extends AbstractFOSRestController
 {

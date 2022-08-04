@@ -87,7 +87,7 @@ class EquipmentModifierServiceTest extends TestCase
         ;
         $this->service->gearCreated($gameEquipment);
 
-        //with a player holding the gear
+        // with a player holding the gear
         $player = new Player();
         $player->setPlace($room);
         $gameEquipment->setHolder($player);
@@ -99,7 +99,7 @@ class EquipmentModifierServiceTest extends TestCase
         ;
         $this->service->gearCreated($gameEquipment);
 
-        //with a charge
+        // with a charge
         $chargeConfig = new ChargeStatusConfig();
         $chargeConfig->setDischargeStrategy('action');
         $charge = new ChargeStatus($gameEquipment, $chargeConfig);
@@ -182,7 +182,7 @@ class EquipmentModifierServiceTest extends TestCase
         ;
         $this->service->gearDestroyed($gameEquipment);
 
-        //with a player holding the gear
+        // with a player holding the gear
         $player = new Player();
         $player->setPlace($room);
         $gameEquipment->setHolder($player);
@@ -262,7 +262,7 @@ class EquipmentModifierServiceTest extends TestCase
         ;
         $this->service->takeEquipment($gameEquipment, $player);
 
-        //Modifier with a charge
+        // Modifier with a charge
         $chargeConfig = new ChargeStatusConfig();
         $chargeConfig
             ->setName(EquipmentStatusEnum::FUEL_CHARGE)

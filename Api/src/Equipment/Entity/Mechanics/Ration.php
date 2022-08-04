@@ -39,7 +39,7 @@ class Ration extends EquipmentMechanic
      */
     protected ?int $satiety = null;
 
-    //Store any extra effect the food has as key with the chance to get it as value
+    // Store any extra effect the food has as key with the chance to get it as value
     /**
      * @ORM\Column(type="array", nullable=false)
      */

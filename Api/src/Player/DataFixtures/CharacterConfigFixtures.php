@@ -27,7 +27,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        //@TODO: remove when the game is ready
+        // @TODO: remove when the game is ready
         /** @var Action $rejuvenateAlphaAction */
         $rejuvenateAlphaAction = $this->getReference(ActionsFixtures::REJUVENATE_ALPHA);
         /** @var Action $comfortAction */
@@ -67,8 +67,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $makeSickAction */
         $makeSickAction = $this->getReference(MushActionFixtures::MAKE_SICK);
 
-        //Skills actions
-        //@TODO: find another way to handle this ?
+        // Skills actions
+        // @TODO: find another way to handle this ?
         /** @var Action $comfortAction */
         $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
         /** @var Action $motivationalSpeechAction */

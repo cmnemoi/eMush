@@ -85,19 +85,19 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
             ->setGameConfig($gameConfig)
             ->setName(DiseaseCauseEnum::CYCLE)
             ->setDiseases(
-            [
-                DiseaseEnum::MUSH_ALLERGY => 1,
-                DiseaseEnum::CAT_ALLERGY => 1,
-                DiseaseEnum::FUNGIC_INFECTION => 2,
-                DiseaseEnum::SINUS_STORM => 2,
-                DiseaseEnum::VITAMIN_DEFICIENCY => 4,
-                DiseaseEnum::ACID_REFLUX => 4,
-                DiseaseEnum::MIGRAINE => 4,
-                DiseaseEnum::GASTROENTERIS => 8,
-                DiseaseEnum::COLD => 8,
-                DiseaseEnum::SLIGHT_NAUSEA => 8,
-            ]
-        );
+                [
+                    DiseaseEnum::MUSH_ALLERGY => 1,
+                    DiseaseEnum::CAT_ALLERGY => 1,
+                    DiseaseEnum::FUNGIC_INFECTION => 2,
+                    DiseaseEnum::SINUS_STORM => 2,
+                    DiseaseEnum::VITAMIN_DEFICIENCY => 4,
+                    DiseaseEnum::ACID_REFLUX => 4,
+                    DiseaseEnum::MIGRAINE => 4,
+                    DiseaseEnum::GASTROENTERIS => 8,
+                    DiseaseEnum::COLD => 8,
+                    DiseaseEnum::SLIGHT_NAUSEA => 8,
+                ]
+            );
 
         $diseaseCauseCycleDepressed = new DiseaseCauseConfig();
         $diseaseCauseCycleDepressed
@@ -126,26 +126,26 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
             ->setGameConfig($gameConfig)
             ->setName(ActionEnum::MAKE_SICK)
             ->setDiseases(
-            [
-                DiseaseEnum::COLD => 1,
-                DiseaseEnum::FUNGIC_INFECTION => 1,
-                DiseaseEnum::FLU => 1,
-                DiseaseEnum::EXTREME_TINNITUS => 1,
-            ]
-        );
+                [
+                    DiseaseEnum::COLD => 1,
+                    DiseaseEnum::FUNGIC_INFECTION => 1,
+                    DiseaseEnum::FLU => 1,
+                    DiseaseEnum::EXTREME_TINNITUS => 1,
+                ]
+            );
 
         $diseaseCausesFakeDisease = new DiseaseCauseConfig();
         $diseaseCausesFakeDisease
             ->setGameConfig($gameConfig)
             ->setName(ActionEnum::FAKE_DISEASE)
             ->setDiseases(
-            [
-                DiseaseEnum::COLD => 1,
-                DiseaseEnum::EXTREME_TINNITUS => 1,
-                DiseaseEnum::CAT_ALLERGY => 1,
-                DiseaseEnum::SINUS_STORM => 1,
-            ]
-        );
+                [
+                    DiseaseEnum::COLD => 1,
+                    DiseaseEnum::EXTREME_TINNITUS => 1,
+                    DiseaseEnum::CAT_ALLERGY => 1,
+                    DiseaseEnum::SINUS_STORM => 1,
+                ]
+            );
 
         $manager->persist($diseaseCausesFakeDisease);
 

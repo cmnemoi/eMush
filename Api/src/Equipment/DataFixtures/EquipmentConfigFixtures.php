@@ -53,7 +53,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
 
-        //@TODO terminals
+        // @TODO terminals
         $icarus = new EquipmentConfig();
         $icarus
             ->setGameConfig($gameConfig)
@@ -66,7 +66,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $moveAction = $this->getReference(ActionsFixtures::MOVE_DEFAULT);
 
-        //@TODO terminals
+        // @TODO terminals
         $door = new EquipmentConfig();
         $door
             ->setGameConfig($gameConfig)
@@ -165,7 +165,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($commandTerminal);
 
-        //@TODO gears
+        // @TODO gears
         $planetScanner = new EquipmentConfig();
         $planetScanner
             ->setGameConfig($gameConfig)
@@ -259,7 +259,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($thalasso);
         $manager->persist($showerMechanic);
 
-        //@TODO ships
+        // @TODO ships
         $patrolShip = new EquipmentConfig();
         $patrolShip
             ->setGameConfig($gameConfig)
@@ -305,7 +305,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $fuelRetrieveAction */
         $fuelRetrieveAction = $this->getReference(ActionsFixtures::FUEL_RETRIEVE);
 
-        //Tools
+        // Tools
         $combustionChamberMechanic = new Tool();
         $combustionChamberMechanic->addAction($fuelInjectAction);
         $combustionChamberMechanic->addAction($fuelRetrieveAction);

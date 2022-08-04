@@ -89,7 +89,7 @@ class DropSubscriberCest
             'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -242,7 +242,7 @@ class DropSubscriberCest
             'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -351,7 +351,7 @@ class DropSubscriberCest
             'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -360,7 +360,7 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment2 = new GameItem();
         $gameEquipment2
             ->setEquipment($equipmentConfig2)
@@ -436,7 +436,7 @@ class DropSubscriberCest
             'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -445,7 +445,7 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment2 = new GameItem();
         $gameEquipment2
             ->setEquipment($equipmentConfig)

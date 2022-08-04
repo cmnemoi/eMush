@@ -9,6 +9,6 @@ class IsMedlabRoom extends ClassConstraint
 {
     public string $message = 'room is not medlab';
 
-    //if true, expects room to be medlab
+    // if true, expects room to be medlab
     public bool $expectedValue = true;
 }

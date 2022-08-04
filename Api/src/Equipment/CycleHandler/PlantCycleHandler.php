@@ -111,7 +111,7 @@ class PlantCycleHandler extends AbstractCycleHandler
 
         $plantStatus = $gamePlant->getStatuses();
 
-        //If plant is young, dried or diseased, do not produce oxygen
+        // If plant is young, dried or diseased, do not produce oxygen
         if ($plantStatus->filter(
             fn (Status $status) => in_array(
                 $status->getName(),
@@ -187,7 +187,7 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     private function addFruit(GameItem $gamePlant, Plant $plantType, \DateTime $dateTime): void
     {
-        //If plant is young, thirsty, dried or diseased, do not produce fruit
+        // If plant is young, thirsty, dried or diseased, do not produce fruit
         if (!$gamePlant->getStatuses()
             ->filter(
                 fn (Status $status) => in_array(
@@ -220,8 +220,8 @@ class PlantCycleHandler extends AbstractCycleHandler
     private function addOxygen(GameItem $gamePlant, PlantEffect $plantEffect, \DateTime $date): void
     {
         $daedalus = $gamePlant->getPlace()->getDaedalus();
-        //Add Oxygen
-        if (($oxygen = $plantEffect->getOxygen())) {
+        // Add Oxygen
+        if ($oxygen = $plantEffect->getOxygen()) {
             $daedalusEvent = new DaedalusModifierEvent(
                 $daedalus,
                 DaedalusVariableEnum::OXYGEN,

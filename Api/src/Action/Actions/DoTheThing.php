@@ -133,15 +133,15 @@ class DoTheThing extends AbstractAction
         /** @var Player $player */
         $player = $this->player;
 
-        //@TODO add confirmation pop up
+        // @TODO add confirmation pop up
 
-        //give two moral points, or max morale if it is their first time
+        // give two moral points, or max morale if it is their first time
         $maxMoralePoint = $this->playerVariableService->getMaxPlayerVariable($player, PlayerVariableEnum::MORAL_POINT);
 
         $this->addMoralPoints($player, $maxMoralePoint);
         $this->addMoralPoints($parameter, $maxMoralePoint);
 
-        //if one is mush and has a spore, infect other player
+        // if one is mush and has a spore, infect other player
         if ($player->isMush() && !$parameter->isMush()) {
             $this->infect($player, $parameter);
         }
@@ -149,9 +149,9 @@ class DoTheThing extends AbstractAction
             $this->infect($parameter, $player);
         }
 
-        //@TODO if one is sick (GastroEntérite, Eruption cutanée ou Grippe ), give sickness
+        // @TODO if one is sick (GastroEntérite, Eruption cutanée ou Grippe ), give sickness
 
-        //may become pregnant
+        // may become pregnant
         $becomePregnant = $this->randomService->isSuccessful(self::PREGNANCY_RATE);
         if ($becomePregnant) {
             $femalePlayer = CharacterEnum::isMale($player->getCharacterConfig()->getName()) ? $parameter : $player;
@@ -166,7 +166,7 @@ class DoTheThing extends AbstractAction
             $this->eventDispatcher->dispatch($pregnantStatus, StatusEvent::STATUS_APPLIED);
         }
 
-        //add did_the_thing status until the end of the day
+        // add did_the_thing status until the end of the day
         $this->addDidTheThingStatus($player);
         $this->addDidTheThingStatus($parameter);
 

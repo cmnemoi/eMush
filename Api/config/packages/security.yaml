@@ -1,4 +1,5 @@
 security:
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         users:
@@ -8,14 +9,12 @@ security:
         token:
             pattern:  ^/oauth
             stateless: true
-            anonymous: true
 
         api:
             pattern:   ^/api
             stateless: true
-            guard:
-                authenticators:
-                    - lexik_jwt_authentication.jwt_token_authenticator
+            jwt: ~
+
     access_control:
-        - { path: ^/oauth, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/oauth, roles: PUBLIC_ACCESS }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }

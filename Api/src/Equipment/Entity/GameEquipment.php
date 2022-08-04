@@ -215,12 +215,12 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this
             ->getStatuses()
             ->exists(fn (int $key, Status $status) => ($status->getName() === EquipmentStatusEnum::BROKEN))
-            ;
+        ;
     }
 
     public function isOperational(): bool
     {
-        //@TODO handle other charges
+        // @TODO handle other charges
         $chargeStatus = $this->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
 
         if ($chargeStatus === null || !($chargeStatus instanceof ChargeStatus)) {

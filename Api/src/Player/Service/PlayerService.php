@@ -72,7 +72,9 @@ class PlayerService implements PlayerServiceInterface
 
     public function findById(int $id): ?Player
     {
-        return $this->repository->find($id);
+        $player = $this->repository->find($id);
+
+        return $player instanceof Player ? $player : null;
     }
 
     public function findOneByCharacter(string $character, Daedalus $daedalus): ?Player
@@ -82,7 +84,9 @@ class PlayerService implements PlayerServiceInterface
 
     public function findUserCurrentGame(User $user): ?Player
     {
-        return $this->repository->findOneBy(['user' => $user, 'gameStatus' => GameStatusEnum::CURRENT]);
+        $player = $this->repository->findOneBy(['user' => $user, 'gameStatus' => GameStatusEnum::CURRENT]);
+
+        return $player instanceof Player ? $player : null;
     }
 
     public function findDeadPlayerInfo(Player $player): ?DeadPlayerInfo
@@ -308,7 +312,7 @@ class PlayerService implements PlayerServiceInterface
             $this->gameEquipmentService->persist($item);
         }
 
-        //@TODO in case of assassination chance of disorder for roommates
+        // @TODO in case of assassination chance of disorder for roommates
 
         $player->setGameStatus(GameStatusEnum::FINISHED);
 

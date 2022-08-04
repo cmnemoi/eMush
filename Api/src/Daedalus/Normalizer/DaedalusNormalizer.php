@@ -79,12 +79,12 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
                 'crewPlayer' => [
                     'name' => $this->translationService->translate('crewPlayer.name', [], 'daedalus'),
                     'description' => $this->translationService->translate('crewPlayer.description',
-                    ['cryogenizedPlayers' => $cryoPlayer,
-                        'playerAlive' => $daedalus->getPlayers()->getPlayerAlive()->count(),
-                        'humanDead' => $humanDead,
-                        'mushAlive' => $mushAlive,
-                        'mushDead' => $mushDead,
-                    ], 'daedalus'), ],
+                        ['cryogenizedPlayers' => $cryoPlayer,
+                            'playerAlive' => $daedalus->getPlayers()->getPlayerAlive()->count(),
+                            'humanDead' => $humanDead,
+                            'mushAlive' => $mushAlive,
+                            'mushDead' => $mushDead,
+                        ], 'daedalus'), ],
                 'minimap' => $this->daedalusWidgetService->getMinimap($daedalus),
             ];
     }

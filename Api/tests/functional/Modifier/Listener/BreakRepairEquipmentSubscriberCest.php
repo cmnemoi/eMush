@@ -82,7 +82,7 @@ class BreakRepairEquipmentSubscriberCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)

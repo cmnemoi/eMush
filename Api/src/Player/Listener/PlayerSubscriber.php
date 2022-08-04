@@ -95,7 +95,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         /** @var ChargeStatus $playerSpores */
         $playerSpores = $player->getStatusByName(PlayerStatusEnum::SPORES);
 
-        //@TODO implement research modifiers
+        // @TODO implement research modifiers
         if ($playerSpores->getCharge() >= 3) {
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
         }

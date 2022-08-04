@@ -70,8 +70,8 @@ class PlayerSubscriber implements EventSubscriberInterface
                     $reason,
                     $time,
                 );
-                default:
-                    throw new \LogicException('Unexpected modifier holder type : should be Player');
-            }
+            default:
+                throw new \LogicException('Unexpected modifier holder type : should be Player');
+        }
     }
 }

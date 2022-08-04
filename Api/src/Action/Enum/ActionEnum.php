@@ -6,7 +6,7 @@ class ActionEnum
 {
     // Not yet an exhaustive list
 
-    //alpha actions
+    // alpha actions
     public const REJUVENATE_ALPHA = 'rejuvenate_alpha';
     public const FAKE_DISEASE = 'fake_disease';
 

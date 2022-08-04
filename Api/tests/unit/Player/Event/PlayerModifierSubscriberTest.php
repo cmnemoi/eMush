@@ -161,7 +161,7 @@ class PlayerModifierSubscriberTest extends TestCase
             $player,
             PlayerVariableEnum::SATIETY,
             1,
-    'reason',
+            'reason',
             new \DateTime()
         );
 

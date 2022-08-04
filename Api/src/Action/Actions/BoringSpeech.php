@@ -40,7 +40,7 @@ class BoringSpeech extends AbstractSpeech
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        //@TODO Validator on Motivator skill
+        // @TODO Validator on Motivator skill
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::DID_BORING_SPEECH,
             'contain' => false,

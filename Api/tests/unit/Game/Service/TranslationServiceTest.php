@@ -39,7 +39,7 @@ class TranslationServiceTest extends TestCase
 
     public function testGetSimpleTranslationParameters()
     {
-        //test simple parameter
+        // test simple parameter
         $this->translator->shouldReceive('trans')
             ->with('key', ['quantity' => 1], 'domain')
             ->andReturn('translated message')
@@ -50,7 +50,7 @@ class TranslationServiceTest extends TestCase
 
     public function testGetCharacterTranslationParameters()
     {
-        //test character parameter
+        // test character parameter
         $this->translator
             ->shouldReceive('trans')
             ->with(CharacterEnum::PAOLA . '.name', [], 'characters')
@@ -67,7 +67,7 @@ class TranslationServiceTest extends TestCase
 
     public function testGetTargetCharacterTranslationParameters()
     {
-        //test targetPlayer parameter
+        // test targetPlayer parameter
         $this->translator
             ->shouldReceive('trans')
             ->with(CharacterEnum::PAOLA . '.name', [], 'characters')
@@ -84,7 +84,7 @@ class TranslationServiceTest extends TestCase
 
     public function testGetTargetEquipmentTranslationParameters()
     {
-        //test targetEquipment parameter
+        // test targetEquipment parameter
         $this->translator
             ->shouldReceive('trans')
             ->with(EquipmentEnum::ANTENNA . '.short_name', [], 'equipments')

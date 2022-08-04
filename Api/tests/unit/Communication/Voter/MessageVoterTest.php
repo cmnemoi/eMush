@@ -11,7 +11,6 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -40,7 +39,6 @@ class MessageVoterTest extends TestCase
             Voter::ACCESS_DENIED,
         ];
 
-        $this->testVote(MessageVoter::VIEW, new Message(), null, Voter::ACCESS_DENIED);
         $this->testVote(MessageVoter::VIEW, new Message(), $user, Voter::ACCESS_GRANTED);
     }
 
@@ -50,8 +48,6 @@ class MessageVoterTest extends TestCase
         $channel = new Channel();
         $player = new Player();
         $user->setCurrentGame($player);
-
-        $this->testVote(MessageVoter::CREATE, new Message(), null, Voter::ACCESS_DENIED);
 
         $message = new Message();
         $message->setChannel($channel);
@@ -71,8 +67,6 @@ class MessageVoterTest extends TestCase
         $channel->setScope(ChannelScopeEnum::PRIVATE);
         $player = new Player();
         $user->setCurrentGame($player);
-
-        $this->testVote(MessageVoter::CREATE, new Message(), null, Voter::ACCESS_DENIED);
 
         $message = new Message();
         $message->setChannel($channel);
@@ -97,15 +91,12 @@ class MessageVoterTest extends TestCase
     private function testVote(
         string $attribute,
         Message $message,
-        ?User $user,
+        User $user,
         $expectedVote
     ) {
-        $token = new AnonymousToken('secret', 'anonymous');
-        if ($user) {
-            $token = new UsernamePasswordToken(
-                $user, 'credentials', 'memory'
-            );
-        }
+        $token = new UsernamePasswordToken(
+            $user, 'credentials', []
+        );
 
         $this->assertEquals(
             $expectedVote,

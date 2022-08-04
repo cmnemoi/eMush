@@ -26,7 +26,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         return [
             EquipmentEvent::EQUIPMENT_TRANSFORM => ['onEquipmentTransform', 1000], // change the status before original equipment is destroyed
             EquipmentEvent::EQUIPMENT_DESTROYED => [['onEquipmentDestroyed'], ['onEquipmentRemovedFromInventory', -10]],
-            EquipmentEvent::EQUIPMENT_CREATED => ['onNewEquipmentInInventory', -2000], //after the overflowing part has been solved
+            EquipmentEvent::EQUIPMENT_CREATED => ['onNewEquipmentInInventory', -2000], // after the overflowing part has been solved
             EquipmentEvent::CHANGE_HOLDER => [['onEquipmentRemovedFromInventory', 2000], ['onNewEquipmentInInventory', -2000]],
         ];
     }

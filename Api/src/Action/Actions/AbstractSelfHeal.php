@@ -43,7 +43,7 @@ abstract class AbstractSelfHeal extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        //@TODO remove diseases
+        // @TODO remove diseases
 
         $healedQuantity = self::BASE_HEAL;
 

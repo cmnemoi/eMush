@@ -37,5 +37,5 @@ class EndCauseEnum
     public const INFECTION = 'infection';
     public const MANKAROG = 'mankarog';
 
-    public const NO_INFIRMERY = 'no_infirmerie'; //cause of death lost in a bug
+    public const NO_INFIRMERY = 'no_infirmerie'; // cause of death lost in a bug
 }

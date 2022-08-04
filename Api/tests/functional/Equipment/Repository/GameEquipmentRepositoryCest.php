@@ -172,7 +172,7 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameEquipment();
         $gameEquipment
             ->setName('equipment 1')
@@ -254,7 +254,7 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $door = new Door();
         $door
             ->setName('door 1')

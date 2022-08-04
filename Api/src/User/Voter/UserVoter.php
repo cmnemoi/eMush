@@ -10,7 +10,7 @@ class UserVoter extends Voter
 {
     public const USER_IN_GAME = 'user_in_game';
 
-    protected function supports(string $attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         // if the attribute isn't one we support, return false
         if (!in_array($attribute, [self::USER_IN_GAME])) {
@@ -24,7 +24,7 @@ class UserVoter extends Voter
         return true;
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 

@@ -41,25 +41,25 @@ class ConsumableDiseaseConfig
      */
     private array $curesName = [];
 
-    //Store the chance (value) for the disease to appear (key)
+    // Store the chance (value) for the disease to appear (key)
     /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseasesChances = [];
 
-    //Store the chance (value) for the disease to appear (key)
+    // Store the chance (value) for the disease to appear (key)
     /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $curesChances = [];
 
-    //Store the min delay (value) for the disease to appear (key)
+    // Store the min delay (value) for the disease to appear (key)
     /**
      * @ORM\Column(type="array", nullable=false)
      */
     private array $diseasesDelayMin = [];
 
-    //Store the max delay (value) for the disease to appear (key)
+    // Store the max delay (value) for the disease to appear (key)
     /**
      * @ORM\Column(type="array", nullable=false)
      */

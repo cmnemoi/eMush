@@ -86,7 +86,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         /** @var ActionCost $oneMovementPointCost */
         $oneMovementPointCost = $this->getReference(ActionCostFixture::ACTION_COST_ONE_MOVEMENT);
 
-        //@TODO remove this after alpha
+        // @TODO remove this after alpha
         $rejuvenateAlpha = new Action();
         $rejuvenateAlpha
             ->setName(ActionEnum::REJUVENATE_ALPHA)
@@ -208,7 +208,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $attackAction = new Action();
         $attackAction
             ->setName(ActionEnum::ATTACK)
-            ->setTypes([]) //@TODO
+            ->setTypes([]) // @TODO
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(0)
             ->setDirtyRate(0)

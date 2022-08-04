@@ -61,7 +61,7 @@ class AddBrokenStatusEventCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameEquipment();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -71,10 +71,10 @@ class AddBrokenStatusEventCest
         $I->haveInRepository($gameEquipment);
 
         $statusEvent = new StatusEvent(
-          EquipmentStatusEnum::BROKEN,
-          $gameEquipment,
-          EventEnum::NEW_CYCLE,
-          new \DateTime()
+            EquipmentStatusEnum::BROKEN,
+            $gameEquipment,
+            EventEnum::NEW_CYCLE,
+            new \DateTime()
         );
         $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 

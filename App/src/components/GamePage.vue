@@ -7,22 +7,17 @@
             <CharSelection />
         </div>
     </div>
-    <div v-else>
-        <home-page />
-    </div>
 </template>
 
 <script lang="ts">
 import GameContent from "@/components/Game/GameContent.vue";
 import CharSelection from "@/components/CharSelection.vue";
 import { mapGetters } from "vuex";
-import HomePage from "@/components/HomePage.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent ({
     name: "GamePage",
     components: {
-        HomePage,
         GameContent,
         CharSelection
     },

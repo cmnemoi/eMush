@@ -52,8 +52,6 @@ export default class DoorGroundObject extends InteractObject {
 
     onDoorClicked(): void
     {
-        console.log('coucou');
-        console.log(this.door);
         if(!this.door.isBroken && this.canMove()) {
             //if player click on the door
             const moveAction = this.getMoveAction();

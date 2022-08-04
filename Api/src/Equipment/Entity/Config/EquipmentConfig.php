@@ -13,70 +13,47 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\ConfigInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 
-/**
- * Class EquipmentConfig.
- *
- * @ORM\Entity
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({
- *     "equipment_config" = "Mush\Equipment\Entity\Config\EquipmentConfig",
- *     "item_config" = "Mush\Equipment\Entity\Config\ItemConfig"
- * })
- */
+#[ORM\Entity]
+#[ORM\InheritanceType('SINGLE_TABLE')]
+#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
+#[ORM\DiscriminatorMap([
+    'equipment_config' => EquipmentConfig::class,
+    'item_config' => ItemConfig::class,
+])]
 class EquipmentConfig implements ConfigInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig", inversedBy="equipmentsConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: GameConfig::class, inversedBy: 'equipmentsConfig')]
     private GameConfig $gameConfig;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Mush\Equipment\Entity\EquipmentMechanic")
-     */
+    #[ORM\ManyToMany(targetEntity: EquipmentMechanic::class)]
     private Collection $mechanics;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
+    #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isBreakable = false;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
+    #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isFireDestroyable = false;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
+    #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isFireBreakable = false;
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $dismountedProducts = [];
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Mush\Action\Entity\Action")
-     */
+    #[ORM\ManyToMany(targetEntity: Action::class)]
     private Collection $actions;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Mush\Status\Entity\Config\StatusConfig")
-     */
+    #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
     private Collection $initStatus;
 
     public function __construct()
@@ -107,10 +84,7 @@ class EquipmentConfig implements ConfigInterface
         return $this->gameConfig;
     }
 
-    /**
-     * @return static
-     */
-    public function setGameConfig(GameConfig $gameConfig): self
+    public function setGameConfig(GameConfig $gameConfig): static
     {
         $this->gameConfig = $gameConfig;
 
@@ -133,10 +107,7 @@ class EquipmentConfig implements ConfigInterface
         return $this->name;
     }
 
-    /**
-     * @return static
-     */
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
 
@@ -148,10 +119,7 @@ class EquipmentConfig implements ConfigInterface
         return $this->mechanics;
     }
 
-    /**
-     * @return static
-     */
-    public function setMechanics(Collection $mechanics): self
+    public function setMechanics(Collection $mechanics): static
     {
         $this->mechanics = $mechanics;
 
@@ -170,10 +138,7 @@ class EquipmentConfig implements ConfigInterface
         return $this->isFireDestroyable;
     }
 
-    /**
-     * @return static
-     */
-    public function setIsFireDestroyable(bool $isFireDestroyable): self
+    public function setIsFireDestroyable(bool $isFireDestroyable): static
     {
         $this->isFireDestroyable = $isFireDestroyable;
 
@@ -185,10 +150,7 @@ class EquipmentConfig implements ConfigInterface
         return $this->isFireBreakable;
     }
 
-    /**
-     * @return static
-     */
-    public function setIsFireBreakable(bool $isFireBreakable): self
+    public function setIsFireBreakable(bool $isFireBreakable): static
     {
         $this->isFireBreakable = $isFireBreakable;
 
@@ -200,20 +162,14 @@ class EquipmentConfig implements ConfigInterface
         return $this->isBreakable;
     }
 
-    /**
-     * @return static
-     */
-    public function setIsBreakable(bool $isBreakable): self
+    public function setIsBreakable(bool $isBreakable): static
     {
         $this->isBreakable = $isBreakable;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setActions(Collection $actions): self
+    public function setActions(Collection $actions): static
     {
         $this->actions = $actions;
 
@@ -232,10 +188,7 @@ class EquipmentConfig implements ConfigInterface
         return new ArrayCollection($actions);
     }
 
-    /**
-     * @return static
-     */
-    public function setInitStatus(Collection $initStatus): self
+    public function setInitStatus(Collection $initStatus): static
     {
         $this->initStatus = $initStatus;
 
@@ -257,10 +210,7 @@ class EquipmentConfig implements ConfigInterface
         return $this->dismountedProducts;
     }
 
-    /**
-     * @return static
-     */
-    public function setDismountedProducts(array $dismountedProducts): self
+    public function setDismountedProducts(array $dismountedProducts): static
     {
         $this->dismountedProducts = $dismountedProducts;
 

@@ -6,23 +6,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
-/**
- * Class Equipment.
- *
- * @ORM\Entity
- */
+#[ORM\Entity]
 class Blueprint extends Tool
 {
-    /**
-     * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\Config\EquipmentConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: EquipmentConfig::class)]
     private EquipmentConfig $equipment;
 
     /**
-     * @ORM\Column(type="array", nullable=false)
-     *
      * @var array<string, int>
      */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $ingredients = [];
 
     public function getMechanics(): array
@@ -38,10 +31,7 @@ class Blueprint extends Tool
         return $this->equipment;
     }
 
-    /**
-     * @return static
-     */
-    public function setEquipment(EquipmentConfig $equipment): self
+    public function setEquipment(EquipmentConfig $equipment): static
     {
         $this->equipment = $equipment;
 
@@ -53,10 +43,7 @@ class Blueprint extends Tool
         return $this->ingredients;
     }
 
-    /**
-     * @return static
-     */
-    public function setIngredients(array $ingredients): self
+    public function setIngredients(array $ingredients): static
     {
         $this->ingredients = $ingredients;
 

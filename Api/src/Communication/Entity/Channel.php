@@ -10,39 +10,27 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Player;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="communication_channel")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'communication_channel')]
 class Channel
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $scope = ChannelScopeEnum::PUBLIC;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Daedalus\Entity\Daedalus")
-     */
+    #[ORM\ManyToOne(targetEntity: Daedalus::class)]
     private Daedalus $daedalus;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Mush\Communication\Entity\ChannelPlayer", mappedBy="channel")
-     */
+    #[ORM\OneToMany(mappedBy: 'channel', targetEntity: ChannelPlayer::class)]
     private Collection $participants;
 
-    /**
-     * @ORM\OneToMany  (targetEntity="Mush\Communication\Entity\Message", mappedBy="channel", cascade={"remove"})
-     */
+    #[ORM\OneToMany(mappedBy: 'channel', targetEntity: Message::class, cascade: ['remove'])]
     private Collection $messages;
 
     public function __construct()
@@ -61,10 +49,7 @@ class Channel
         return $this->daedalus;
     }
 
-    /**
-     * @return static
-     */
-    public function setDaedalus(Daedalus $daedalus): self
+    public function setDaedalus(Daedalus $daedalus): static
     {
         $this->daedalus = $daedalus;
 
@@ -76,10 +61,7 @@ class Channel
         return $this->scope;
     }
 
-    /**
-     * @return static
-     */
-    public function setScope(string $scope): self
+    public function setScope(string $scope): static
     {
         $this->scope = $scope;
 

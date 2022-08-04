@@ -4,44 +4,28 @@ namespace Mush\Game\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Class TriumphConfig.
- *
- * @ORM\Entity()
- * @ORM\Table(name="triumph_config")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'triumph_config')]
 class TriumphConfig implements ConfigInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig", inversedBy="triumphConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: GameConfig::class, inversedBy: 'triumphConfig')]
     private GameConfig $gameConfig;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $triumph = 0;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
+    #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isAllCrew = false;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $team;
 
     public function getId(): int

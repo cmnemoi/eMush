@@ -9,16 +9,10 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
-/**
- * Class Door.
- *
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class Door extends GameEquipment
 {
-    /**
-     * @ORM\ManyToMany(targetEntity="Mush\Place\Entity\Place")
-     */
+    #[ORM\ManyToMany(targetEntity: Place::class)]
     private Collection $rooms;
 
     public function __construct()
@@ -33,10 +27,7 @@ class Door extends GameEquipment
         return $this->rooms;
     }
 
-    /**
-     * @return static
-     */
-    public function setRooms(Collection $rooms): self
+    public function setRooms(Collection $rooms): static
     {
         $this->rooms = $rooms;
 
@@ -49,10 +40,7 @@ class Door extends GameEquipment
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function addRoom(Place $room): self
+    public function addRoom(Place $room): static
     {
         $this->rooms->add($room);
 

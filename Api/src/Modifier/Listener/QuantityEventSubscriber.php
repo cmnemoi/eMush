@@ -19,7 +19,7 @@ class QuantityEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            AbstractQuantityEvent::CHANGE_VARIABLE => ['onQuantityEvent', 100], //Applied before the modification is applied
+            AbstractQuantityEvent::CHANGE_VARIABLE => ['onQuantityEvent', 100], // Applied before the modification is applied
         ];
     }
 

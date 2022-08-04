@@ -74,7 +74,9 @@ class DaedalusService implements DaedalusServiceInterface
      */
     public function findById(int $id): ?Daedalus
     {
-        return $this->repository->find($id);
+        $daedalus = $this->repository->find($id);
+
+        return $daedalus instanceof Daedalus ? $daedalus : null;
     }
 
     /**
@@ -151,12 +153,12 @@ class DaedalusService implements DaedalusServiceInterface
     {
         $gameConfig = $daedalus->getGameConfig();
 
-        //Chose alpha Mushs
+        // Chose alpha Mushs
         $chancesArray = [];
 
         foreach ($gameConfig->getCharactersConfig() as $characterConfig) {
-            //@TODO lower $mushChance if user is a beginner
-            //@TODO (maybe add a "I want to be mush" setting to increase this proba)
+            // @TODO lower $mushChance if user is a beginner
+            // @TODO (maybe add a "I want to be mush" setting to increase this proba)
 
             $mushChance = 1;
             if (!$characterConfig->getInitStatuses()

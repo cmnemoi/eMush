@@ -69,11 +69,11 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
 
         // if no charges consume equipment
         $equipmentEvent = new EquipmentEvent(
-                $ration->getName(),
-                $ration->getHolder() ?: $ration->getPlace(),
-                VisibilityEnum::HIDDEN,
-                $consumeEvent->getReason(),
-                new \DateTime()
+            $ration->getName(),
+            $ration->getHolder() ?: $ration->getPlace(),
+            VisibilityEnum::HIDDEN,
+            $consumeEvent->getReason(),
+            new \DateTime()
         );
 
         $equipmentEvent->setExistingEquipment($ration);

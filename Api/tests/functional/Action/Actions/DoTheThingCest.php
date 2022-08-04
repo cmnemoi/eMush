@@ -156,13 +156,13 @@ class DoTheThingCest
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
-        //Check if pregnancy log works
+        // Check if pregnancy log works
         $pregnantStatusEvent = new StatusEvent(
             PlayerStatusEnum::PREGNANT,
             $player,
             $this->doTheThingAction->getActionName(),
             new \DateTime()
-          );
+        );
         $pregnantStatusEvent->setVisibility(VisibilityEnum::PRIVATE);
 
         $this->eventDispatcherService->dispatch($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);

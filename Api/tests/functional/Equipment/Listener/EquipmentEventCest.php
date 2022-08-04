@@ -58,7 +58,7 @@ class EquipmentEventCest
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(0, $player->getEquipments());
 
-        //Case of a game Item
+        // Case of a game Item
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'name' => 'item_name']);
 
@@ -74,7 +74,7 @@ class EquipmentEventCest
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(1, $player->getEquipments());
 
-        //Case of a game Item full inventory
+        // Case of a game Item full inventory
         $equipmentEvent = new EquipmentEvent(
             'item_name',
             $player,
@@ -108,7 +108,7 @@ class EquipmentEventCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameEquipment();
         $gameEquipment
             ->setEquipment($equipmentConfig)

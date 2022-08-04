@@ -26,8 +26,8 @@ class CycleEventSubscriber implements EventSubscriberInterface
     private ModifierConditionService $modifierConditionService;
 
     public function __construct(
-         EventDispatcherInterface $eventDispatcher,
-         ModifierConditionService $modifierConditionService,
+        EventDispatcherInterface $eventDispatcher,
+        ModifierConditionService $modifierConditionService,
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->modifierConditionService = $modifierConditionService;

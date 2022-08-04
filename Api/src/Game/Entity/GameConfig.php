@@ -70,7 +70,7 @@ class GameConfig
     /**
      * @ORM\Column(type="integer", length=255, nullable=false)
      */
-    private int $cycleLength = 0; //in m
+    private int $cycleLength = 0; // in m
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)

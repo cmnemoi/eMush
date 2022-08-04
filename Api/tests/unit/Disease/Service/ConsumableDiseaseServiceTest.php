@@ -134,7 +134,7 @@ class ConsumableDiseaseServiceTest extends TestCase
             ->once()
         ;
 
-        //first the service chose and design the cure
+        // first the service chose and design the cure
         $this->randomService
             ->shouldReceive('getRandomElementsFromProbaArray')
             ->with(['Disease 1' => 10], 1)

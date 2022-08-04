@@ -26,7 +26,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerEvent::INFECTION_PLAYER => ['onInfectionPlayer', 100], //do this before checking the number of spores
+            PlayerEvent::INFECTION_PLAYER => ['onInfectionPlayer', 100], // do this before checking the number of spores
             PlayerEvent::CONVERSION_PLAYER => 'onConversionPlayer',
             PlayerEvent::NEW_PLAYER => ['onNewPlayer', 100],
             PlayerEvent::DEATH_PLAYER => 'onPlayerDeath',
@@ -48,7 +48,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $this->statusService->persist($playerSpores);
 
-        //@TODO implement research modifiers
+        // @TODO implement research modifiers
         if ($playerSpores->getCharge() >= 3) {
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
         }

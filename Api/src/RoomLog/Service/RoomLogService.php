@@ -50,7 +50,9 @@ class RoomLogService implements RoomLogServiceInterface
 
     public function findById(int $id): ?RoomLog
     {
-        return $this->repository->find($id);
+        $roomLog = $this->repository->find($id);
+
+        return $roomLog instanceof RoomLog ? $roomLog : null;
     }
 
     public function createLogFromActionResult(
@@ -154,7 +156,7 @@ class RoomLogService implements RoomLogServiceInterface
         array $parameters = [],
         \DateTime $dateTime = null
     ): RoomLog {
-        //if there is several version of the log
+        // if there is several version of the log
         if (array_key_exists($logKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
             foreach ($declinations[$logKey] as $keyVersion => $versionNb) {
                 $parameters[$keyVersion] = $this->randomService->random(1, $versionNb);
@@ -187,11 +189,9 @@ class RoomLogService implements RoomLogServiceInterface
 
         $placeEquipements = $place->getEquipments();
 
-        $equipmentIsACamera = fn (GameEquipment $gameEquipment) => (
-            $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT);
+        $equipmentIsACamera = fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT;
 
-        $equipementIsNotBroken = fn (GameEquipment $gameEquipment) => (
-        $gameEquipment->isBroken() === false);
+        $equipementIsNotBroken = fn (GameEquipment $gameEquipment) => $gameEquipment->isBroken() === false;
 
         $placeHasAFunctionalCamera = $placeEquipements->filter($equipmentIsACamera)->filter($equipementIsNotBroken)->count() > 0;
         $placeHasAWitness = $place->getNumberPlayers() > 1;

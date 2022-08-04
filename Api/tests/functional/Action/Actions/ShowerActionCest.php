@@ -170,7 +170,7 @@ class ShowerActionCest
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
 
-        //@TODO test skill water resistance
+        // @TODO test skill water resistance
     }
 
     private function createSoapItem(FunctionalTester $I): GameItem

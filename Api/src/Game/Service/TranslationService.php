@@ -30,7 +30,7 @@ class TranslationService implements TranslationServiceInterface
 
     public function translate(string $key, array $parameters, string $domain): string
     {
-        //@TODO include methods getTranslateParameters for other languages than FR
+        // @TODO include methods getTranslateParameters for other languages than FR
         return $this->translator->trans($key, $this->getFrenchTranslateParameters($parameters), $domain);
     }
 

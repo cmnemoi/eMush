@@ -58,7 +58,7 @@ class DaedalusWidgetServiceTest extends TestCase
         ;
 
         $player = new Player();
-        $player->setGameStatus(GameStatusEnum::CURRENT); //player is alive
+        $player->setGameStatus(GameStatusEnum::CURRENT); // player is alive
 
         $room2->addPlayer($player);
 
@@ -126,13 +126,13 @@ class DaedalusWidgetServiceTest extends TestCase
         $minimap = $this->service->getMinimap($daedalus);
 
         $this->assertIsArray($minimap);
-        //fire reported
+        // fire reported
         $this->assertArrayHasKey(RoomEnum::LABORATORY, $minimap);
         $this->assertTrue($minimap[RoomEnum::LABORATORY]['fire']);
-        //fire but no reported
+        // fire but no reported
         $this->assertArrayHasKey(RoomEnum::BRIDGE, $minimap);
         $this->assertFalse($minimap[RoomEnum::BRIDGE]['fire']);
-        //no fire
+        // no fire
         $this->assertArrayHasKey(RoomEnum::CENTRAL_CORRIDOR, $minimap);
         $this->assertFalse($minimap[RoomEnum::CENTRAL_CORRIDOR]['fire']);
     }

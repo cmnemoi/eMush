@@ -10,7 +10,6 @@ use Mush\Communication\Services\ChannelPlayerServiceInterface;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Player\Event\PlayerEvent;
-use SebastianBergmann\Type\LogicException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ChannelSubscriber implements EventSubscriberInterface
@@ -95,7 +94,7 @@ class ChannelSubscriber implements EventSubscriberInterface
                 return NeronMessageEnum::PLAYER_LEAVE_CHAT_DEATH;
 
             default:
-                throw new LogicException('unknown leave chat reason');
+                throw new \LogicException('unknown leave chat reason');
         }
     }
 }

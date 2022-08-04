@@ -52,7 +52,7 @@ class UseBandage extends AbstractAction
         $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
         $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
-        //destroy the bandage
+        // destroy the bandage
         $equipmentEvent = new EquipmentEvent(
             $parameter->getName(),
             $this->player,

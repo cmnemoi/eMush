@@ -83,9 +83,8 @@ class CreatePlayerServiceCest
 
         $I->refreshEntities($daedalus);
 
-        $I->expectThrowable(\LogicException::class, fn () => (
-            $this->playerService->createPlayer($daedalus, $user, 'non_existent_player')
-        ));
+        $I->expectThrowable(\LogicException::class, fn () => $this->playerService->createPlayer($daedalus, $user, 'non_existent_player')
+        );
 
         $playerGioele = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::GIOELE);
 

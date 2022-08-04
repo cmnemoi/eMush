@@ -38,7 +38,7 @@ class CycleEventCest
     // tests
     public function testChargeStatusCycleSubscriber(FunctionalTester $I)
     {
-        //Cycle Increment
+        // Cycle Increment
         $daedalus = new Daedalus();
         $time = new DateTime();
         $player = $I->have(Player::class);

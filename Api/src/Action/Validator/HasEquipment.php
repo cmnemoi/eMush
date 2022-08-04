@@ -11,6 +11,6 @@ class HasEquipment extends ClassConstraint
 
     public bool $contains = true;
 
-    //if true, checks that the equipment is currently working
+    // if true, checks that the equipment is currently working
     public bool $checkIfOperational = false;
 }

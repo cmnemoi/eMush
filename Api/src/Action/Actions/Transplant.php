@@ -58,7 +58,7 @@ class Transplant extends AbstractAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
-        //@TODO fail transplant
+        // @TODO fail transplant
         /** @var Fruit $fruitType */
         $fruitType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::FRUIT);
 

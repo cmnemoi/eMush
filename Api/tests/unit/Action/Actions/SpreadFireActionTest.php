@@ -43,7 +43,7 @@ class SpreadFireActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player);
 
-        //No item in the room
+        // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 

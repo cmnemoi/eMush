@@ -52,7 +52,7 @@ class Fire extends AbstractStatusCycleHandler
             throw new \LogicException('Fire status does not have a room');
         }
 
-        //If fire is active
+        // If fire is active
         if ($status->getCharge() > 0) {
             $this->propagateFire($statusHolder, $dateTime);
             $this->fireDamage($statusHolder, $dateTime);

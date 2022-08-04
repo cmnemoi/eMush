@@ -46,7 +46,7 @@ class ReportEquipmentActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
 
-        //No item in the room
+        // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 

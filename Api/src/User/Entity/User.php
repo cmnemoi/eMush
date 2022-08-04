@@ -85,7 +85,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
         return $this->roles;
     }
@@ -146,5 +146,10 @@ class User implements UserInterface
         $this->nonceExpiryDate = $nonceExpiryDate;
 
         return $this;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->userId;
     }
 }

@@ -29,7 +29,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     private EntityManagerInterface $entityManager;
     private GameEquipmentRepository $repository;
     private EquipmentServiceInterface $equipmentService;
-    private EquipmentEffectServiceInterface $equipmentEffectService;
     private RandomServiceInterface $randomService;
     private EventDispatcherInterface $eventDispatcher;
 
@@ -37,14 +36,12 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         EntityManagerInterface $entityManager,
         GameEquipmentRepository $repository,
         EquipmentServiceInterface $equipmentService,
-        EquipmentEffectServiceInterface $equipmentEffectService,
         RandomServiceInterface $randomService,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->equipmentService = $equipmentService;
-        $this->equipmentEffectService = $equipmentEffectService;
         $this->randomService = $randomService;
         $this->eventDispatcher = $eventDispatcher;
     }
@@ -65,7 +62,9 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     public function findById(int $id): ?GameEquipment
     {
-        return $this->repository->find($id);
+        $equipment = $this->repository->find($id);
+
+        return $equipment instanceof GameEquipment ? $equipment : null;
     }
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ArrayCollection

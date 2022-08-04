@@ -145,7 +145,7 @@ class ChannelPlayerRepositoryCest
             $participant
                 ->setParticipant($user)
                 ->setChannel($privateChannel)
-                ;
+            ;
             $this->tester->haveInRepository($participant);
         }
 

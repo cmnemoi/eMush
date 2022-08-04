@@ -154,7 +154,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $sniperHelmetActions = clone $actions;
         $sniperHelmetActions->add($dismantle12);
-        $sniperHelmetActions->add($repair1); //@FIXME with the right %
+        $sniperHelmetActions->add($repair1); // @FIXME with the right %
         $sniperHelmetActions->add($sabotage1);
         $sniperHelmetActions->add($reportAction);
 

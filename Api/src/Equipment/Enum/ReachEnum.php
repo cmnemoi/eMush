@@ -9,7 +9,7 @@ class ReachEnum
     public const ROOM = 'room';
     public const SHELVE_NOT_HIDDEN = 'shelve_not_hidden';
 
-    //@TODO not implemented because no use as of now
-    //public const SHELVE_ONLY = 'shelve_only';
-    //public const SHELVE_ONLY_NOT_HIDDEN = 'shelve_only_only_not_hidden';
+    // @TODO not implemented because no use as of now
+    // public const SHELVE_ONLY = 'shelve_only';
+    // public const SHELVE_ONLY_NOT_HIDDEN = 'shelve_only_only_not_hidden';
 }

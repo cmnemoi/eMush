@@ -45,7 +45,7 @@ class ExpressCookActionTest extends AbstractActionTest
 
     public function testExecuteFruit()
     {
-        //frozen fruit
+        // frozen fruit
         $room = new Place();
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -88,7 +88,7 @@ class ExpressCookActionTest extends AbstractActionTest
 
     public function testExecuteRation()
     {
-        //Standard Ration
+        // Standard Ration
         $daedalus = new Daedalus();
         $room = new Place();
 
@@ -118,7 +118,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $cookedRation = new ItemConfig();
         $cookedRation
              ->setName(GameRationEnum::COOKED_RATION)
-         ;
+        ;
         $gameCookedRation
             ->setEquipment($cookedRation)
             ->setName(GameRationEnum::COOKED_RATION)

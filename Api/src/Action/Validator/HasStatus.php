@@ -14,9 +14,9 @@ class HasStatus extends ClassConstraint
 
     public bool $contain = true;
 
-    //If not target player, then it targets the parameter
+    // If not target player, then it targets the parameter
     public string $target = self::PARAMETER;
 
-    //check on the owner side, if false check target side of the status
+    // check on the owner side, if false check target side of the status
     public bool $ownerSide = true;
 }

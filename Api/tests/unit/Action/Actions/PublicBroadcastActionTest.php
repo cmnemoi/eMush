@@ -68,7 +68,7 @@ class PublicBroadcastActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        //@TODO : fix me
+        // @TODO : fix me
         // $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
         $result = $this->action->execute();

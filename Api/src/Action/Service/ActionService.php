@@ -140,10 +140,10 @@ class ActionService implements ActionServiceInterface
         Player $player,
         ?LogParameterInterface $parameter
     ): int {
-        //Get number of attempt
+        // Get number of attempt
         $numberOfAttempt = $this->getNumberOfAttempt($player, $action->getName());
 
-        //Get modifiers
+        // Get modifiers
         $modifiedValue = $this->modifierService->getActionModifiedValue(
             $action,
             $player,
@@ -173,7 +173,7 @@ class ActionService implements ActionServiceInterface
             $player,
             $variable,
             $delta,
-            'action_cost', //@TODO fix that
+            'action_cost', // @TODO fix that
             new \DateTime()
         );
 

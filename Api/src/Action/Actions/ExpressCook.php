@@ -58,7 +58,7 @@ class ExpressCook extends AbstractAction
             $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
         }
 
-        //@TODO add effect on the link with sol
+        // @TODO add effect on the link with sol
 
         return new Success();
     }

@@ -56,7 +56,7 @@ class StatusSubscriber implements EventSubscriberInterface
             $this->modifierService->createModifier($modifierConfig, $modifierHolder);
         }
 
-        //handle broken gears
+        // handle broken gears
         if ($event->getStatusName() === EquipmentStatusEnum::BROKEN) {
             if (!$statusHolder instanceof GameEquipment) {
                 throw new UnexpectedTypeException($statusHolder, GameEquipment::class);
@@ -74,7 +74,7 @@ class StatusSubscriber implements EventSubscriberInterface
             throw new \LogicException('statusConfig should be provided');
         }
 
-        //handle broken gears
+        // handle broken gears
         if ($event->getStatusName() === EquipmentStatusEnum::BROKEN) {
             if (!$statusHolder instanceof GameEquipment) {
                 throw new UnexpectedTypeException($statusHolder, GameEquipment::class);

@@ -63,7 +63,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var StatusConfig $heavyStatus */
         $heavyStatus = $this->getReference(StatusFixtures::HEAVY_STATUS);
 
-        //@TODO
+        // @TODO
         $hackerKitMechanic = new Tool();
 
         $hackerKit = new ItemConfig();
@@ -326,7 +326,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$sporeSuckerMechanic]))
-            ->setActions($actions) //@FIXME add repair and sabotage
+            ->setActions($actions) // @FIXME add repair and sabotage
         ;
 
         $manager->persist($sporeSucker);

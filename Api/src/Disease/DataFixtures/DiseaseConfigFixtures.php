@@ -80,7 +80,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::FOOD_POISONING)
             ->setModifierConfigs(new ArrayCollection([$reduceMax1HealthPoint]))
-            ;
+        ;
 
         $manager->persist($foodPoisoning);
 

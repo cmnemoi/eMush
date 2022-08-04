@@ -32,14 +32,14 @@ class StatusSubscriber implements EventSubscriberInterface
     {
         $holder = $event->getStatusHolder();
         $equipmentBrokenByCycleChange = $event->getReason() === EventEnum::NEW_CYCLE && $holder instanceof GameEquipment;
-        //@TODO : $brokenByGreenJelly = $event->getReason() === EventEnum::GREEN_JELLY;
+        // @TODO : $brokenByGreenJelly = $event->getReason() === EventEnum::GREEN_JELLY;
 
         switch ($event->getStatusName()) {
             case EquipmentStatusEnum::BROKEN:
                 if (!$holder instanceof GameEquipment) {
                     throw new UnexpectedTypeException($holder, GameEquipment::class);
                 }
-                //@TODO : if ($brokenByGreenJelly || $equipmentBrokenByCycleChange)
+                // @TODO : if ($brokenByGreenJelly || $equipmentBrokenByCycleChange)
                 if ($equipmentBrokenByCycleChange) {
                     $this->neronMessageService->createBrokenEquipmentMessage($holder, $event->getVisibility(), $event->getTime());
                 }

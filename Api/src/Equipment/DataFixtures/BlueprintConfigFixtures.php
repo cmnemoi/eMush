@@ -59,7 +59,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ItemConfig $sniperHelmet */
         $sniperHelmet = $this->getReference(GearItemEnum::SNIPER_HELMET);
 
-        //@TODO add support_drone and swedish_sofa
+        // @TODO add support_drone and swedish_sofa
 
         $blueprintEcholocatorMechanic = new Blueprint();
         $blueprintEcholocatorMechanic

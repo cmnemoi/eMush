@@ -26,5 +26,5 @@ class VisibilityEnum
     public const HUMAN = 'human'; // not visible by mush
     public const HIDDEN = 'hidden'; // internal status
 
-    public const COOK_RESTRICTED = 'cook_restricted'; //perishable status only visible to cooks
+    public const COOK_RESTRICTED = 'cook_restricted'; // perishable status only visible to cooks
 }

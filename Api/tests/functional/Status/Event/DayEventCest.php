@@ -28,7 +28,7 @@ class DayEventCest
     // tests
     public function testChargeStatusDaySubscriber(FunctionalTester $I)
     {
-        //Day Increment
+        // Day Increment
         $daedalus = new Daedalus();
         $time = new DateTime();
         $player = $I->have(Player::class);
@@ -64,7 +64,7 @@ class DayEventCest
 
         $I->assertEquals(1, $status->getCharge());
 
-        //Day decrement
+        // Day decrement
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
             ->setName(EquipmentStatusEnum::FROZEN)
@@ -87,7 +87,7 @@ class DayEventCest
 
         $I->assertEquals(0, $status->getCharge());
 
-        //Day reset
+        // Day reset
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
             ->setName(EquipmentStatusEnum::FROZEN)

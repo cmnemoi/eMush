@@ -34,6 +34,6 @@ class MotivationalSpeech extends AbstractSpeech
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        //@TODO Validator on Leader skill
+        // @TODO Validator on Leader skill
     }
 }

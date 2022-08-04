@@ -63,8 +63,8 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     {
         $numberOfNewTremor = $this->getNumberOfIncident($daedalus);
 
-        $isARoom = fn (Place $place) => ($place->getType() === PlaceTypeEnum::ROOM);
-        $hasPlayersInside = fn (Place $place) => ($place->getPlayers()->getPlayerAlive()->count() > 0);
+        $isARoom = fn (Place $place) => $place->getType() === PlaceTypeEnum::ROOM;
+        $hasPlayersInside = fn (Place $place) => $place->getPlayers()->getPlayerAlive()->count() > 0;
 
         $rooms = $daedalus->getRooms()->filter($isARoom)->filter($hasPlayersInside);
 
@@ -145,9 +145,9 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
             $daedalusDoorsNames = array_map(fn (Door $door) => $door->getName(), $daedalusDoors);
 
-            $breakableDoorsNames = array_filter($daedalusDoorsNames, fn (string $doorName) => (DoorEnum::isBreakable($doorName)));
+            $breakableDoorsNames = array_filter($daedalusDoorsNames, fn (string $doorName) => DoorEnum::isBreakable($doorName));
 
-            $breakableDoors = array_filter($daedalusDoors, fn (Door $door) => (in_array($door->getName(), $breakableDoorsNames)));
+            $breakableDoors = array_filter($daedalusDoors, fn (Door $door) => in_array($door->getName(), $breakableDoorsNames));
 
             $brokenDoors = $this->randomService->getRandomElements($breakableDoors, $numberOfDoorBroken);
 
@@ -245,8 +245,8 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         }
     }
 
-    //Each cycle get 0 to day event
-    //@TODO: to be improved
+    // Each cycle get 0 to day event
+    // @TODO: to be improved
     private function getNumberOfIncident(Daedalus $daedalus): int
     {
         $rate = intval(sqrt($daedalus->getDay() - 0.9));

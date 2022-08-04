@@ -17,7 +17,7 @@ class PlantStrategy extends AbstractChargeStrategy
 
     public function apply(ChargeStatus $status, string $reason): ?ChargeStatus
     {
-        //@TODO: Handle garden
+        // @TODO: Handle garden
 
         return $this->statusService->updateCharge($status, 1);
     }

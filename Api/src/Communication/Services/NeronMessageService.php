@@ -52,7 +52,7 @@ class NeronMessageService implements NeronMessageServiceInterface
         }
 
         $neron = $daedalus->getNeron();
-        //Get Neron personality
+        // Get Neron personality
         if (!$neron->isInhibited()) {
             $parameters['neronMood'] = NeronPersonalitiesEnum::UNINHIBITED;
         } elseif ($this->randomService->randomPercent() <= self::CRAZY_NERON_CHANCE) {
@@ -125,16 +125,16 @@ class NeronMessageService implements NeronMessageServiceInterface
         $daedalus = $equipment->getPlace()->getDaedalus();
 
         switch ($equipmentName) {
-                case EquipmentEnum::OXYGEN_TANK:
-                    $message = NeronMessageEnum::BROKEN_OXYGEN;
-                    break;
-                case EquipmentEnum::FUEL_TANK:
-                    $message = NeronMessageEnum::BROKEN_FUEL;
-                    break;
-                default:
-                    $message = NeronMessageEnum::BROKEN_EQUIPMENT;
-                    break;
-            }
+            case EquipmentEnum::OXYGEN_TANK:
+                $message = NeronMessageEnum::BROKEN_OXYGEN;
+                break;
+            case EquipmentEnum::FUEL_TANK:
+                $message = NeronMessageEnum::BROKEN_FUEL;
+                break;
+            default:
+                $message = NeronMessageEnum::BROKEN_EQUIPMENT;
+                break;
+        }
 
         $parentMessage = $this->getMessageNeronCycleFailures($daedalus, $time);
 

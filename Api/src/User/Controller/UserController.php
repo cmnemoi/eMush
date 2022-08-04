@@ -5,7 +5,6 @@ namespace Mush\User\Controller;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Route;
-use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Mush\User\Service\UserServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -19,15 +18,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class UserController extends AbstractFOSRestController
 {
-    private JWTTokenManagerInterface $jwtManager;
     private UserServiceInterface $userService;
 
-    /**
-     * LoginController constructor.
-     */
-    public function __construct(JWTTokenManagerInterface $jwtManager, UserServiceInterface $userService)
+    public function __construct(UserServiceInterface $userService)
     {
-        $this->jwtManager = $jwtManager;
         $this->userService = $userService;
     }
 

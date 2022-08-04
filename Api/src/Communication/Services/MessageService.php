@@ -73,7 +73,7 @@ class MessageService implements MessageServiceInterface
         return new ArrayCollection($this->entityManager
             ->getRepository(Message::class)
             ->findBy(['channel' => $channel, 'parent' => null], ['updatedAt' => 'desc']))
-            ;
+        ;
     }
 
     /**

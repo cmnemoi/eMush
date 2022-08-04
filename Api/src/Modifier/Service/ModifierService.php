@@ -138,7 +138,7 @@ class ModifierService implements ModifierServiceInterface
             if ($attemptNumber === null) {
                 throw new InvalidTypeException('number of attempt should be provided');
             }
-            $initialValue = $action->getSuccessRate() * (self::ATTEMPT_INCREASE) ** $attemptNumber;
+            $initialValue = $action->getSuccessRate() * self::ATTEMPT_INCREASE ** $attemptNumber;
 
             return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $initialValue);
         }

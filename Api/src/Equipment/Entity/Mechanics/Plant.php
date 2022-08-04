@@ -7,13 +7,18 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
-/**
- * Class Equipment.
- *
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class Plant extends EquipmentMechanic
 {
+    #[ORM\ManyToOne(targetEntity: EquipmentConfig::class)]
+    private EquipmentConfig $fruit;
+
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $maturationTime = [];
+
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $oxygen;
+
     public function getMechanics(): array
     {
         $mechanics = parent::getMechanics();
@@ -22,30 +27,12 @@ class Plant extends EquipmentMechanic
         return $mechanics;
     }
 
-    /**
-     * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\Config\EquipmentConfig", inversedBy=")
-     */
-    private EquipmentConfig $fruit;
-
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $maturationTime = [];
-
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
-    private array $oxygen;
-
     public function getFruit(): EquipmentConfig
     {
         return $this->fruit;
     }
 
-    /**
-     * @return static
-     */
-    public function setFruit(EquipmentConfig $fruit): self
+    public function setFruit(EquipmentConfig $fruit): static
     {
         $this->fruit = $fruit;
 
@@ -57,10 +44,7 @@ class Plant extends EquipmentMechanic
         return $this->maturationTime;
     }
 
-    /**
-     * @return static
-     */
-    public function setMaturationTime(array $maturationTime): self
+    public function setMaturationTime(array $maturationTime): static
     {
         $this->maturationTime = $maturationTime;
 
@@ -72,10 +56,7 @@ class Plant extends EquipmentMechanic
         return $this->oxygen;
     }
 
-    /**
-     * @return static
-     */
-    public function setOxygen(array $oxygen): self
+    public function setOxygen(array $oxygen): static
     {
         $this->oxygen = $oxygen;
 

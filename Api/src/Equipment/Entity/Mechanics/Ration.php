@@ -6,48 +6,30 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
-/**
- * Class Equipment.
- *
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class Ration extends EquipmentMechanic
 {
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $moralPoints = [0 => 1];
     //  possibilities are stored as key, array value represent the probability to get the key value
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $actionPoints = [0 => 1];
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $movementPoints = [0 => 1];
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $healthPoints = [0 => 1];
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     protected ?int $satiety = null;
 
     // Store any extra effect the food has as key with the chance to get it as value
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $extraEffects = [];
 
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
+    #[ORM\Column(type: 'boolean', nullable: false)]
     protected bool $isPerishable = true;
 
     public function getMechanics(): array
@@ -63,10 +45,7 @@ class Ration extends EquipmentMechanic
         return $this->actionPoints;
     }
 
-    /**
-     * @return static
-     */
-    public function setActionPoints(array $actionPoints): self
+    public function setActionPoints(array $actionPoints): static
     {
         $this->actionPoints = $actionPoints;
 
@@ -78,10 +57,7 @@ class Ration extends EquipmentMechanic
         return $this->movementPoints;
     }
 
-    /**
-     * @return static
-     */
-    public function setMovementPoints(array $movementPoints): self
+    public function setMovementPoints(array $movementPoints): static
     {
         $this->movementPoints = $movementPoints;
 
@@ -93,10 +69,7 @@ class Ration extends EquipmentMechanic
         return $this->healthPoints;
     }
 
-    /**
-     * @return static
-     */
-    public function setHealthPoints(array $healthPoints): self
+    public function setHealthPoints(array $healthPoints): static
     {
         $this->healthPoints = $healthPoints;
 
@@ -108,10 +81,7 @@ class Ration extends EquipmentMechanic
         return $this->moralPoints;
     }
 
-    /**
-     * @return static
-     */
-    public function setMoralPoints(array $moralPoints): self
+    public function setMoralPoints(array $moralPoints): static
     {
         $this->moralPoints = $moralPoints;
 
@@ -123,10 +93,7 @@ class Ration extends EquipmentMechanic
         return $this->satiety;
     }
 
-    /**
-     * @return static
-     */
-    public function setSatiety(?int $satiety): self
+    public function setSatiety(?int $satiety): static
     {
         $this->satiety = $satiety;
 
@@ -138,10 +105,7 @@ class Ration extends EquipmentMechanic
         return $this->extraEffects;
     }
 
-    /**
-     * @return static
-     */
-    public function setExtraEffects(array $extraEffects): self
+    public function setExtraEffects(array $extraEffects): static
     {
         $this->extraEffects = $extraEffects;
 
@@ -153,10 +117,7 @@ class Ration extends EquipmentMechanic
         return $this->isPerishable;
     }
 
-    /**
-     * @return static
-     */
-    public function setIsPerishable(bool $isPerishable): self
+    public function setIsPerishable(bool $isPerishable): static
     {
         $this->isPerishable = $isPerishable;
 

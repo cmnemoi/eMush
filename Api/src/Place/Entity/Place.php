@@ -14,6 +14,7 @@ use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Enum\PlaceTypeEnum;
+use Mush\Place\Repository\PlaceRepository;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
@@ -21,61 +22,40 @@ use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
 
-/**
- * Class Room.
- *
- * @ORM\Entity(repositoryClass="Mush\Place\Repository\PlaceRepository")
- */
+#[ORM\Entity(repositoryClass: PlaceRepository::class)]
+#[ORM\Table(name: 'room')]
 class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInterface
 {
     use TimestampableEntity;
     use TargetStatusTrait;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $type = PlaceTypeEnum::ROOM;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Daedalus\Entity\Daedalus", inversedBy="places")
-     */
+    #[ORM\ManyToOne(targetEntity: Daedalus::class, inversedBy: 'places')]
     private Daedalus $daedalus;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Mush\Player\Entity\Player", mappedBy="place")
-     */
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Player::class)]
     private Collection $players;
 
-    /**
-     * @ORM\ManyToMany (targetEntity="Mush\Equipment\Entity\Door", cascade={"persist"}, orphanRemoval=true)
-     */
+    #[ORM\ManyToMany(targetEntity: Door::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $doors;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Mush\Equipment\Entity\GameEquipment", mappedBy="place", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: GameEquipment::class, orphanRemoval: true)]
     private Collection $equipments;
 
-    /**
-     * @ORM\OneToMany (targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="place", cascade={"ALL"}, orphanRemoval=true)
-     */
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $statuses;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\Modifier", mappedBy="place")
-     */
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Modifier::class)]
     private Collection $modifiers;
 
     public function __construct()
@@ -97,10 +77,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return $this->name;
     }
 
-    /**
-     * @return static
-     */
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
 
@@ -124,10 +101,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return $this->daedalus;
     }
 
-    /**
-     * @return static
-     */
-    public function setDaedalus(Daedalus $daedalus): self
+    public function setDaedalus(Daedalus $daedalus): static
     {
         $this->daedalus = $daedalus;
 
@@ -154,10 +128,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return $this->players->count();
     }
 
-    /**
-     * @return static
-     */
-    public function setPlayers(ArrayCollection $players): self
+    public function setPlayers(ArrayCollection $players): static
     {
         $this->players = $players;
 
@@ -192,20 +163,14 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return $this->equipments;
     }
 
-    /**
-     * @return static
-     */
-    public function setEquipments(ArrayCollection $equipments): self
+    public function setEquipments(ArrayCollection $equipments): static
     {
         $this->equipments = $equipments;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function addEquipment(GameEquipment $gameEquipment): self
+    public function addEquipment(GameEquipment $gameEquipment): static
     {
         if (!$this->equipments->contains($gameEquipment)) {
             $this->equipments->add($gameEquipment);
@@ -215,10 +180,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function removeEquipment(GameEquipment $gameEquipment): self
+    public function removeEquipment(GameEquipment $gameEquipment): static
     {
         if ($this->equipments->contains($gameEquipment)) {
             $this->equipments->removeElement($gameEquipment);
@@ -233,10 +195,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return $this->doors;
     }
 
-    /**
-     * @return static
-     */
-    public function setDoors(ArrayCollection $doors): self
+    public function setDoors(ArrayCollection $doors): static
     {
         $this->doors = $doors;
         foreach ($doors as $door) {
@@ -248,10 +207,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function addDoor(Door $door): self
+    public function addDoor(Door $door): static
     {
         $this->doors->add($door);
         if (!$door->getRooms()->contains($this)) {
@@ -261,10 +217,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function addStatus(Status $status): self
+    public function addStatus(Status $status): static
     {
         if (!$this->getStatuses()->contains($status)) {
             if (!$statusTarget = $status->getStatusTargetTarget()) {
@@ -290,10 +243,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return $allModifiers->addModifiers($this->daedalus->getModifiers());
     }
 
-    /**
-     * @return static
-     */
-    public function addModifier(Modifier $modifier): self
+    public function addModifier(Modifier $modifier): static
     {
         $this->modifiers->add($modifier);
 

@@ -6,11 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
-/**
- * Class Equipment.
- *
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class Tool extends EquipmentMechanic
 {
     public function getMechanics(): array

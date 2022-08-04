@@ -22,58 +22,39 @@ use Mush\Status\Entity\TargetStatusTrait;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- * Class GameEquipment.
- *
- * @ORM\Entity
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({
- *     "game_equipment" = "Mush\Equipment\Entity\GameEquipment",
- *     "door" = "Mush\Equipment\Entity\Door",
- *     "game_item" = "Mush\Equipment\Entity\GameItem"
- * })
- */
+#[ORM\Entity]
+#[ORM\InheritanceType('SINGLE_TABLE')]
+#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
+#[ORM\DiscriminatorMap([
+    'game_equipment' => GameEquipment::class,
+    'door' => Door::class,
+    'game_item' => GameItem::class,
+])]
 class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolder
 {
     use TimestampableEntity;
     use TargetStatusTrait;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="gameEquipment", cascade={"ALL"})
-     */
+    #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: StatusTarget::class, cascade: ['ALL'])]
     private Collection $statuses;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Place\Entity\Place", inversedBy="equipments")
-     */
+    #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'equipments')]
     protected ?Place $place = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\Config\EquipmentConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: EquipmentConfig::class)]
     protected EquipmentConfig $equipment;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\Modifier", mappedBy="gameEquipment")
-     */
+    #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: Modifier::class)]
     private Collection $modifiers;
 
-    /**
-     * GameEquipment constructor.
-     */
     public function __construct()
     {
         $this->statuses = new ArrayCollection();
@@ -95,10 +76,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this->equipment->getActions();
     }
 
-    /**
-     * @return static
-     */
-    public function addStatus(Status $status): self
+    public function addStatus(Status $status): static
     {
         if (!$this->getStatuses()->contains($status)) {
             if (!$statusTarget = $status->getStatusTargetTarget()) {
@@ -126,10 +104,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this->place;
     }
 
-    /**
-     * @return static
-     */
-    public function setHolder(?EquipmentHolderInterface $holder): self
+    public function setHolder(?EquipmentHolderInterface $holder): static
     {
         if ($holder === null) {
             $this->place = null;
@@ -158,10 +133,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this->name;
     }
 
-    /**
-     * @return static
-     */
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
 
@@ -173,10 +145,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this->equipment;
     }
 
-    /**
-     * @return static
-     */
-    public function setEquipment(EquipmentConfig $equipment): self
+    public function setEquipment(EquipmentConfig $equipment): static
     {
         $this->equipment = $equipment;
 
@@ -200,10 +169,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $allModifiers->addModifiers($this->getPlace()->getDaedalus()->getModifiers());
     }
 
-    /**
-     * @return static
-     */
-    public function addModifier(Modifier $modifier): self
+    public function addModifier(Modifier $modifier): static
     {
         $this->modifiers->add($modifier);
 

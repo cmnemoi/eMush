@@ -41,4 +41,5 @@ class ItemEnum
     public const MUSH_RESEARCH_REVIEW = 'mush_research_review';
     public const POST_IT = 'post_it';
     public const HYDROPOT = 'hydropot';
+    public const SCHRODINGER = 'schrodinger';
 }

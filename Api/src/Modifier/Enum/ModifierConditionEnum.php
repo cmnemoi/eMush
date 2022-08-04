@@ -15,6 +15,9 @@ namespace Mush\Modifier\Enum;
  *
  * CYCLE: condition on the cycle (number, even)
  * EVEN: in case of a CYCLE condition, check if the cycle is even
+ *
+ * PLAYER_EQUIPMENT: the condition is applied on the player equipment
+ * HOLD_SCHRODINGER: the player is holding schrodinger
  */
 class ModifierConditionEnum
 {
@@ -27,4 +30,7 @@ class ModifierConditionEnum
 
     public const CYCLE = 'cycle';
     public const EVEN = 'even';
+
+    public const PLAYER_EQUIPMENT = 'player_equipment';
+    public const HOLD_SCHRODINGER = 'hold_schrodinger';
 }

@@ -6,6 +6,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -41,8 +42,10 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
 
         if ($eventIsHealingAction) {
             $key = LogEnum::DISEASE_CURED_PLAYER;
+            $event->setVisibility(VisibilityEnum::PUBLIC);
         } elseif ($event->getReason() === ActionEnum::CONSUME) {
             $key = LogEnum::DISEASE_CURED_DRUG;
+            $event->setVisibility(VisibilityEnum::PUBLIC);
         } else {
             $key = LogEnum::DISEASE_CURED;
         }
@@ -56,8 +59,10 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
 
         if ($event->getReason() === ActionTypeEnum::ACTION_HEAL) {
             $key = LogEnum::DISEASE_TREATED_PLAYER;
+            $event->setVisibility(VisibilityEnum::PUBLIC);
         } elseif ($event->getReason() === ActionEnum::CONSUME) {
             $key = LogEnum::DISEASE_TREATED_DRUG;
+            $event->setVisibility(VisibilityEnum::PUBLIC);
         } else {
             $key = LogEnum::DISEASE_TREATED;
         }

@@ -61,7 +61,6 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const WATER_PLANT = 'water.plant';
     public const REPORT_EQUIPMENT = 'report.equipment';
     public const REPORT_FIRE = 'report.fire';
-    public const SPREAD_FIRE = 'spread.fire';
     public const INSTALL_CAMERA = 'install.camera';
     public const REMOVE_CAMERA = 'remove.camera';
     public const CHECK_SPORE_LEVEL = 'check.spore.level';
@@ -71,9 +70,6 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const EXTINGUISH_MANUALLY = 'extinguish.manually';
     public const MOTIVATIONAL_SPEECH = 'motivational.speech';
     public const BORING_SPEECH = 'boring.speech';
-
-    public const EXTRACT_SPORE = 'extract.spore';
-    public const INFECT_PLAYER = 'infect.player';
 
     public function load(ObjectManager $manager): void
     {
@@ -505,26 +501,6 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($waterPlantAction);
 
-        $extractSporeAction = new Action();
-        $extractSporeAction
-            ->setName(ActionEnum::EXTRACT_SPORE)
-            ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($twoActionPointCost)
-            ->setDirtyRate(101)
-        ;
-
-        $manager->persist($extractSporeAction);
-
-        $infectAction = new Action();
-        $infectAction
-            ->setName(ActionEnum::INFECT)
-            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setActionCost($oneActionPointCost)
-        ;
-
-        $manager->persist($infectAction);
-
         $reportEquipmentAction = new Action();
         $reportEquipmentAction
             ->setName(ActionEnum::REPORT_EQUIPMENT)
@@ -542,15 +518,6 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         ;
 
         $manager->persist($reportFireAction);
-
-        $spreadFireAction = new Action();
-        $spreadFireAction
-            ->setName(ActionEnum::SPREAD_FIRE)
-            ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($fourActionPointCost)
-        ;
-
-        $manager->persist($spreadFireAction);
 
         $installCameraAction = new Action();
         $installCameraAction
@@ -586,7 +553,6 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($examineEquipmentAction);
 
         $checkSporeLevelAction = new Action();
-
         $checkSporeLevelAction
             ->setName(ActionEnum::CHECK_SPORE_LEVEL)
             ->setScope(ActionScopeEnum::CURRENT)
@@ -708,11 +674,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::TRANSPLANT_DEFAULT, $transplantAction);
         $this->addReference(self::TREAT_PLANT, $treatPlantAction);
         $this->addReference(self::WATER_PLANT, $waterPlantAction);
-        $this->addReference(self::EXTRACT_SPORE, $extractSporeAction);
-        $this->addReference(self::INFECT_PLAYER, $infectAction);
         $this->addReference(self::REPORT_FIRE, $reportFireAction);
         $this->addReference(self::REPORT_EQUIPMENT, $reportEquipmentAction);
-        $this->addReference(self::SPREAD_FIRE, $spreadFireAction);
         $this->addReference(self::INSTALL_CAMERA, $installCameraAction);
         $this->addReference(self::REMOVE_CAMERA, $removeCameraAction);
         $this->addReference(self::EXAMINE_EQUIPMENT, $examineEquipmentAction);

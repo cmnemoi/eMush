@@ -8,6 +8,7 @@ class ActionEnum
 
     //alpha actions
     public const REJUVENATE_ALPHA = 'rejuvenate_alpha';
+    public const FAKE_DISEASE = 'fake_disease';
 
     // Permanent Item actions
     public const MOVE = 'move';
@@ -128,7 +129,7 @@ class ActionEnum
     public const DOOR_SABOTAGE = 'door_sabotage';
     public const DEFACE = 'deface';
     public const DELOG = 'delog';
-    public const GIVE_DISEASE = 'give_disease';
+    public const MAKE_SICK = 'make_sick';
     public const SCREW_TALKY = 'screw_talky';
     public const SPREAD_FIRE = 'spread_fire';
     public const NERON_DEPRESS = 'neron_depress';

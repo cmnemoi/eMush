@@ -5,6 +5,7 @@ namespace Mush\Disease\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
@@ -18,6 +19,8 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
     public const PERISHED_FOOD_DISEASE_CAUSE_CONFIG = 'perished.food.disease.cause.config';
     public const CYCLE_DISEASE_CAUSE_CONFIG = 'cycle.disease.cause.config';
     public const LOW_MORALE_DISEASE_CAUSE_CONFIG = 'cycle.low.morale.disease.cause.config';
+    public const MAKE_SICK_DISEASE_CAUSE_CONFIG = 'make.sick.disease.cause.config';
+    public const FAKE_DISEASE_DISEASE_CAUSE_CONFIG = 'fake.disease.disease.cause.config';
 
     public function load(ObjectManager $manager): void
     {
@@ -95,7 +98,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                 DiseaseEnum::SLIGHT_NAUSEA => 8,
             ]
         );
-        $manager->persist($diseaseCauseCycle);
 
         $diseaseCauseCycleDepressed = new DiseaseCauseConfig();
         $diseaseCauseCycleDepressed
@@ -117,6 +119,35 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                 ]
             );
         $manager->persist($diseaseCauseCycleDepressed);
+        $manager->persist($diseaseCauseCycle);
+
+        $diseaseCausesBacterialContact = new DiseaseCauseConfig();
+        $diseaseCausesBacterialContact
+            ->setGameConfig($gameConfig)
+            ->setName(ActionEnum::MAKE_SICK)
+            ->setDiseases(
+            [
+                DiseaseEnum::COLD => 1,
+                DiseaseEnum::FUNGIC_INFECTION => 1,
+                DiseaseEnum::FLU => 1,
+                DiseaseEnum::EXTREME_TINNITUS => 1,
+            ]
+        );
+
+        $diseaseCausesFakeDisease = new DiseaseCauseConfig();
+        $diseaseCausesFakeDisease
+            ->setGameConfig($gameConfig)
+            ->setName(ActionEnum::FAKE_DISEASE)
+            ->setDiseases(
+            [
+                DiseaseEnum::COLD => 1,
+                DiseaseEnum::EXTREME_TINNITUS => 1,
+                DiseaseEnum::CAT_ALLERGY => 1,
+                DiseaseEnum::SINUS_STORM => 1,
+            ]
+        );
+
+        $manager->persist($diseaseCausesFakeDisease);
 
         $manager->flush();
 
@@ -124,6 +155,8 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
         $this->addReference(self::PERISHED_FOOD_DISEASE_CAUSE_CONFIG, $diseaseCausePerishedFood);
         $this->addReference(self::CYCLE_DISEASE_CAUSE_CONFIG, $diseaseCauseCycle);
         $this->addReference(self::LOW_MORALE_DISEASE_CAUSE_CONFIG, $diseaseCauseCycleDepressed);
+        $this->addReference(self::MAKE_SICK_DISEASE_CAUSE_CONFIG, $diseaseCausesBacterialContact);
+        $this->addReference(self::FAKE_DISEASE_DISEASE_CAUSE_CONFIG, $diseaseCausesFakeDisease);
     }
 
     public function getDependencies()

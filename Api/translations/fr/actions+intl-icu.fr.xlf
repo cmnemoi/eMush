@@ -591,5 +591,25 @@
                 <target>Chaque autre équipier présent dans la salle regagne 3 :pm:</target>
             </segment>
         </unit>
+        <unit id="make_sick">
+            <segment id="name">
+                <source>make_sick.name</source>
+                <target>Rendre malade</target>
+            </segment>
+            <segment id="description">
+                <source>make_sick.description</source>
+                <target>Permet de rendre malade un de vos camarades.</target>
+            </segment>
+        </unit>
+        <unit id="fake_disease">
+            <segment id="name">
+                <source>fake_disease.name</source>
+                <target>Hypocondrie</target>
+            </segment>
+            <segment id="description">
+                <source>fake_disease.description</source>
+                <target>Permet de simuler une maladie bégnine. Vos coéquipiers n'y verront que du feu... mais votre corps aussi risque de tomber dans le panneau.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

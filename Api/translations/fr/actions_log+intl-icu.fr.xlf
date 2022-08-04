@@ -636,7 +636,7 @@
         <unit id="self_heal">
             <segment id="self_heal">
                 <source>self_heal</source>
-                <target>Vous vous êtes soigné. Vous avez récuperé {quantity} :hp:.</target>
+                <target>Vous vous êtes soigné. Vous avez récupéré {quantity} :hp:.</target>
             </segment>
         </unit>
         <unit id="ultraheal_success">
@@ -753,6 +753,22 @@
                     other {invalid version input}
                 }
                 </target>
+            </segment>
+        </unit>
+        <unit id="make_sick">
+            <segment id="make_sick">
+                <source>make_sick</source>
+                <target>**{character}** souffle sur **{target_character}** un nuage étrange...</target>
+            </segment>
+        </unit>
+        <unit id="fake_disease">
+            <segment id="fake_disease">
+                <source>fake_disease</source>
+                <target>{character_gender, select,
+                    male {C'est étrange **{character}** sort un poudrier et se badigeonne de blanc et de noir. Il n'a vraiment pas l'air dans son assiette.}
+                    female {C'est étrange **{character}** sort un poudrier et se badigeonne de blanc et de noir. Elle n'a vraiment pas l'air dans son assiette.}
+                    other {invalid gender input}
+                }</target>
             </segment>
         </unit>
     </file>

@@ -3,6 +3,7 @@ import { TokenService } from '@/services/storage.service';
 import ApiService from "@/services/api.service";
 import { User } from "@/entities/User";
 import { ActionTree } from "vuex";
+import { UserRole } from "@/enums/user_role.enum";
 
 
 export interface AuthState {
@@ -30,6 +31,10 @@ const getters = {
 
     isLoading: (state: AuthState): boolean => {
         return state.loading;
+    },
+
+    isAdmin: (state: AuthState): boolean => {
+        return state.userInfo?.roles.includes(UserRole.ADMIN) ?? false;
     }
 };
 

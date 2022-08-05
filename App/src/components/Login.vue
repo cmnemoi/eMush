@@ -1,7 +1,7 @@
 <template>
     <div>
-        <a v-if="! loggedIn" class="login-button" @click="openPopup">{{ $t('login') }}</a>
-        <a v-if="loggedIn" class="logout-button" @click="logout">{{ $t('logout') }}</a>
+        <a v-if="!loggedIn" class="login-button" @click="openPopup">{{ $t('login') }}</a>
+        <a v-else class="logout-button" @click="logout">{{ $t('logout') }}</a>
         <PopUp :is-open="isPassphrasePopupOpen" @close="closePopup">
             <span>{{ $t('alpha.description') }}</span>
             <label for="passphrase" class="passphrase">{{ $t('alpha.passphrase') }}</label>

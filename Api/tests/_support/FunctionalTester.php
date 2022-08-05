@@ -2,6 +2,8 @@
 
 namespace App\Tests;
 
+use Mush\User\Entity\User;
+
 /**
  * Inherited Methods.
  *
@@ -22,7 +24,8 @@ class FunctionalTester extends \Codeception\Actor
 {
     use _generated\FunctionalTesterActions;
 
-    /*
-     * Define custom actions here
-     */
+    public function getUser(string $userName)
+    {
+        return $this->grabEntityFromRepository(User::class, ['userId' => $userName]);
+    }
 }

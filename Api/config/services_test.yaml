@@ -1,0 +1,3 @@
+services:
+    Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager:
+        public: true

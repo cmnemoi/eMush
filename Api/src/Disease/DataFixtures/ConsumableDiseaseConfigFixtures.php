@@ -121,7 +121,6 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
             DisorderEnum::DEPRESSION => 1,
             DisorderEnum::CHRONIC_MIGRAINE => 1,
         ];
-
         foreach (GameDrugEnum::getAll() as $drugName) {
             $drugDiseaseConfig = new ConsumableDiseaseConfig();
             $drugDiseaseConfig

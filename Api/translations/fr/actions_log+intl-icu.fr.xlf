@@ -10,65 +10,65 @@
         <unit id="coffee_success">
             <segment id="coffee_success">
                 <source>coffee_success</source>
-                <target>{character} amorce la machine. Et dans un grand fracas, la mécanique se lance, les rouages crissent et les arômes embaument la pièce. Ça sent les matins chaleureux sur une terrasse de Vénus. Café !</target>
+                <target>**{character}** amorce la machine. Et dans un grand fracas, la mécanique se lance, les rouages crissent et les arômes embaument la pièce. Ça sent les matins chaleureux sur une terrasse de Vénus. Café !</target>
             </segment>
         </unit>
         <unit id="dispense_success">
             <segment id="dispense_success">
                 <source>dispense_success</source>
-                <target>{character} enclenche le dispensaire avec une étrange lueur dans les yeux.</target>
+                <target>**{character}** enclenche le dispensaire avec une étrange lueur dans les yeux.</target>
             </segment>
         </unit>
         <unit id="consume_success">
             <segment id="consume_success">
                 <source>consume_success</source>
                 <target>{version, select,
-                        1 {{character} a dévoré sa ration.}
-                        2 {{character} s'est bien calé l'estomac.}
-                        3 {{character} s'est bien calé l'estomac, gurps.}
-                        4 {{character} s'est bien calé l'estomac, merci.}
-                        5 {{character} s'est bien calé la panse.}
-                        6 {{character} s'est bien calé la panse, gurps.}
-                        7 {{character} s'est bien calé la panse, merci.}
-                        8 {{character} s'est bien calé le ventre.}
-                        9 {{character} s'est bien calé le ventre, gurps.}
-                        10 {{character} s'est bien calé le ventre, merci.}
-                        11 {{character} s'est bien calé avec sa petite collation.}
-                        12 {{character} s'est bien calé avec sa petite collation, gurps.}
-                        13 {{character} s'est bien calé avec sa petite collation, merci.}
-                        14 {{character} s'est bien calé avec son bon petit repas.}
-                        15 {{character} s'est bien calé avec son bon petit repas, gurps.}
-                        16 {{character} s'est bien calé avec son bon petit repas, merci.}
-                        17 {{character} s'est bien calé avec son gros repas.}
-                        18 {{character} s'est bien calé avec son gros repas, gurps.}
-                        19 {{character} s'est bien calé avec son gros repas, merci.}
-                        20 {{character} s'est bien calé avec son petit repas.}
-                        21 {{character} s'est bien calé avec son petit repas, gurps.}
-                        22 {{character} s'est bien calé avec son petit repas, merci.}
-                        23 {{character} s'est calé avec sa petite collation.}
-                        24 {{character} s'est calé avec sa petite collation, gurps.}
-                        25 {{character} s'est calé avec sa petite collation, merci.}
-                        26 {{character} s'est calé avec son bon petit repas.}
-                        27 {{character} s'est calé avec son bon petit repas, gurps.}
-                        28 {{character} s'est calé avec son bon petit repas, merci.}
-                        29 {{character} s'est calé avec son gros repas.}
-                        30 {{character} s'est calé avec son gros repas, gurps.}
-                        31 {{character} s'est calé avec son gros repas, merci.}
-                        32 {{character} s'est calé avec son petit repas.}
-                        33 {{character} s'est calé avec son petit repas, gurps.}
-                        34 {{character} s'est calé avec son petit repas, merci.}
-                        35 {{character} s'est mangé sa petite collation.}
-                        36 {{character} s'est mangé sa petite collation, gurps.}
-                        37 {{character} s'est mangé sa petite collation, merci.}
-                        38 {{character} s'est mangé son bon petit repas.}
-                        39 {{character} s'est mangé son bon petit repas, gurps.}
-                        40 {{character} s'est mangé son bon petit repas, merci.}
-                        41 {{character} s'est mangé son gros repas.}
-                        42 {{character} s'est mangé son gros repas, gurps.}
-                        43 {{character} s'est mangé son gros repas, merci.}
-                        44 {{character} s'est mangé son petit repas.}
-                        45 {{character} s'est mangé son petit repas, gurps.}
-                        46 {{character} s'est mangé son petit repas, merci.}
+                        1 {**{character}** a dévoré sa ration.}
+                        2 {**{character}** s'est bien calé l'estomac.}
+                        3 {**{character}** s'est bien calé l'estomac, gurps.}
+                        4 {**{character}** s'est bien calé l'estomac, merci.}
+                        5 {**{character}** s'est bien calé la panse.}
+                        6 {**{character}** s'est bien calé la panse, gurps.}
+                        7 {**{character}** s'est bien calé la panse, merci.}
+                        8 {**{character}** s'est bien calé le ventre.}
+                        9 {**{character}** s'est bien calé le ventre, gurps.}
+                        10 {**{character}** s'est bien calé le ventre, merci.}
+                        11 {**{character}** s'est bien calé avec sa petite collation.}
+                        12 {**{character}** s'est bien calé avec sa petite collation, gurps.}
+                        13 {**{character}** s'est bien calé avec sa petite collation, merci.}
+                        14 {**{character}** s'est bien calé avec son bon petit repas.}
+                        15 {**{character}** s'est bien calé avec son bon petit repas, gurps.}
+                        16 {**{character}** s'est bien calé avec son bon petit repas, merci.}
+                        17 {**{character}** s'est bien calé avec son gros repas.}
+                        18 {**{character}** s'est bien calé avec son gros repas, gurps.}
+                        19 {**{character}** s'est bien calé avec son gros repas, merci.}
+                        20 {**{character}** s'est bien calé avec son petit repas.}
+                        21 {**{character}** s'est bien calé avec son petit repas, gurps.}
+                        22 {**{character}** s'est bien calé avec son petit repas, merci.}
+                        23 {**{character}** s'est calé avec sa petite collation.}
+                        24 {**{character}** s'est calé avec sa petite collation, gurps.}
+                        25 {**{character}** s'est calé avec sa petite collation, merci.}
+                        26 {**{character}** s'est calé avec son bon petit repas.}
+                        27 {**{character}** s'est calé avec son bon petit repas, gurps.}
+                        28 {**{character}** s'est calé avec son bon petit repas, merci.}
+                        29 {**{character}** s'est calé avec son gros repas.}
+                        30 {**{character}** s'est calé avec son gros repas, gurps.}
+                        31 {**{character}** s'est calé avec son gros repas, merci.}
+                        32 {**{character}** s'est calé avec son petit repas.}
+                        33 {**{character}** s'est calé avec son petit repas, gurps.}
+                        34 {**{character}** s'est calé avec son petit repas, merci.}
+                        35 {**{character}** s'est mangé sa petite collation.}
+                        36 {**{character}** s'est mangé sa petite collation, gurps.}
+                        37 {**{character}** s'est mangé sa petite collation, merci.}
+                        38 {**{character}** s'est mangé son bon petit repas.}
+                        39 {**{character}** s'est mangé son bon petit repas, gurps.}
+                        40 {**{character}** s'est mangé son bon petit repas, merci.}
+                        41 {**{character}** s'est mangé son gros repas.}
+                        42 {**{character}** s'est mangé son gros repas, gurps.}
+                        43 {**{character}** s'est mangé son gros repas, merci.}
+                        44 {**{character}** s'est mangé son petit repas.}
+                        45 {**{character}** s'est mangé son petit repas, gurps.}
+                        46 {**{character}** s'est mangé son petit repas, merci.}
                         other {"invalid version number"}
                     }
                 </target>
@@ -584,13 +584,13 @@
         <unit id="retrieve_fuel">
             <segment id="retrieve_fuel">
                 <source>retrieve_fuel</source>
-                <target>{character} a extrait une Capsule du Fuel du réservoir.</target>
+                <target>**{character}** a extrait une Capsule du Fuel du réservoir.</target>
             </segment>
         </unit>
         <unit id="insert_fuel">
             <segment id="insert_fuel">
                 <source>insert_fuel</source>
-                <target>{character} a inséré une *Capsule de Fuel* dans le *Réservoir*.</target>
+                <target>**{character}** a inséré une *Capsule de Fuel* dans le *Réservoir*.</target>
             </segment>
         </unit>
         <unit id="sabotage_success">

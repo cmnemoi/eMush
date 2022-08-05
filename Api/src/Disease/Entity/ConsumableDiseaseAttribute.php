@@ -6,52 +6,34 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Enum\TypeEnum;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="disease_consummable_attribute")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'disease_consummable_attribute')]
 class ConsumableDiseaseAttribute
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $disease;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $type = TypeEnum::DISEASE;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $rate = 100;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $delayMin = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $delayLength = 0;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Disease\Entity\Consumabledisease", inversedBy="diseaseAttributes")
-     */
+    #[ORM\ManyToOne(targetEntity: ConsumableDisease::class, inversedBy: 'diseaseAttributes')]
     private ConsumableDisease $consumableDisease;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Disease\Entity\Config\ConsumableDiseaseConfig", inversedBy="consumableAttributes")
-     */
+    #[ORM\ManyToOne(targetEntity: ConsumableDiseaseConfig::class, inversedBy: 'consumableAttributes')]
     private ConsumableDiseaseConfig $consumableDiseaseConfig;
 
     public function getId(): ?int

@@ -4,34 +4,22 @@ namespace Mush\Modifier\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Class Modifier.
- *
- * @ORM\Entity
- * @ORM\Table(name="modifier_condition")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'modifier_condition')]
 class ModifierCondition
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $condition = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $value = null;
 
     public function __construct(string $name)

@@ -6,41 +6,25 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
-/**
- * Class ChargeStatusConfig.
- *
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class ChargeStatusConfig extends StatusConfig
 {
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $chargeVisibility = VisibilityEnum::PUBLIC;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $chargeStrategy = ChargeStrategyTypeEnum::NONE;
 
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $maxCharge = 0;
 
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $startCharge = 0;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $dischargeStrategy = ChargeStrategyTypeEnum::NONE;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
+    #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $autoRemove = false;
 
     public function getChargeVisibility(): string

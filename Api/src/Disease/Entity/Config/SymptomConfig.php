@@ -8,37 +8,25 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Entity\SymptomCondition;
 use Mush\Game\Enum\VisibilityEnum;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="symptom_config")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'symptom_config')]
 class SymptomConfig
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
     private string $trigger;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $visibility = VisibilityEnum::PUBLIC;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Mush\Disease\Entity\SymptomCondition")
-     */
+    #[ORM\ManyToMany(targetEntity: SymptomCondition::class)]
     private Collection $symptomConditions;
 
     public function __construct(string $name)

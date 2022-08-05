@@ -5,32 +5,22 @@ namespace Mush\Disease\Entity\Config;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\GameConfig;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="disease_cause_config")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'disease_cause_config')]
 class DiseaseCauseConfig
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: GameConfig::class)]
     private GameConfig $gameConfig;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $causeName;
 
-    /**
-     * @ORM\Column (type="array")
-     */
+    #[ORM\Column(type: 'array')]
     private array $diseases = [];
 
     public function getGameConfig(): GameConfig

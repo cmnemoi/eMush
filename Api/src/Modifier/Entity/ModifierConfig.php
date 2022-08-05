@@ -12,53 +12,37 @@ use Mush\Modifier\Enum\ModifierModeEnum;
  * @ORM\Entity
  * @ORM\Table(name="modifier_config")
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'modifier_config')]
 class ModifierConfig
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: GameConfig::class)]
     private GameConfig $gameConfig;
 
-    /**
-     * @ORM\Column(type="float", nullable=false)
-     */
+    #[ORM\Column(type: 'float', nullable: false)]
     private float $delta = 0;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $target;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $scope;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private ?string $reach = null;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $mode = ModifierModeEnum::ADDITIVE;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Mush\Modifier\Entity\ModifierCondition")
-     */
+    #[ORM\ManyToMany(targetEntity: ModifierCondition::class)]
     private Collection $modifierConditions;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $name = null;
 
     public function __construct()

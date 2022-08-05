@@ -8,70 +8,47 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\Entity\ModifierConfig;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="disease_config")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'disease_config')]
 class DiseaseConfig implements LogParameterInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: GameConfig::class)]
     private GameConfig $gameConfig;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $type = TypeEnum::DISEASE;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Mush\Modifier\Entity\ModifierConfig")
-     */
+    #[ORM\ManyToMany(targetEntity: ModifierConfig::class)]
     private Collection $modifierConfigs;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $resistance = 0;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Mush\Disease\Entity\Config\SymptomConfig")
-     */
+    #[ORM\ManyToMany(targetEntity: SymptomConfig::class)]
     private Collection $symptomConfigs;
 
-    /**
-     * @ORM\Column (type="integer")
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $delayMin = 0;
 
-    /**
-     * @ORM\Column (type="integer")
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $delayLength = 0;
 
-    /**
-     * @ORM\Column (type="integer")
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $diseasePointMin = 4;
 
-    /**
-     * @ORM\Column (type="integer")
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $diseasePointLength = 4;
 
     public function __construct()

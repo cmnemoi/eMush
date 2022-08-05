@@ -12,7 +12,7 @@ export enum CharacterEnum {
     HUA = "hua",
     IAN = "ian",
     JANICE = "janice",
-    JIN_SU = "kim_jin_su",
+    JIN_SU = "jin_su",
     KUAN_TI = "kuan_ti",
     PAOLA = "paola",
     RALUCA = "raluca",

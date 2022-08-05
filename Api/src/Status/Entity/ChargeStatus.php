@@ -6,16 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- * Class ChargeStatus.
- *
- * @ORM\Entity
- */
+#[ORM\Entity]
 class ChargeStatus extends Status
 {
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $charge = 0;
 
     public function __construct(StatusHolderInterface $statusHolder, ChargeStatusConfig $statusConfig)
@@ -44,20 +38,14 @@ class ChargeStatus extends Status
         return $this->charge;
     }
 
-    /**
-     * @return static
-     */
-    public function addCharge(int $charge): self
+    public function addCharge(int $charge): static
     {
         $this->charge += $charge;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setCharge(int $charge): self
+    public function setCharge(int $charge): static
     {
         $this->charge = $charge;
 

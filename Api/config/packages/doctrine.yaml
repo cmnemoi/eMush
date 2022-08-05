@@ -54,7 +54,7 @@ doctrine:
                 alias: RoomLog
             Status:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Status/Entity'
                 prefix: 'Mush\Status\Entity'
                 alias: Status
@@ -72,7 +72,7 @@ doctrine:
                 alias: Communication
             Disease:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Disease/Entity'
                 prefix: 'Mush\Disease\Entity'
                 alias: Disease
@@ -84,7 +84,7 @@ doctrine:
                 alias: Alert
             Modifier:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Modifier/Entity'
                 prefix: 'Mush\Modifier\Entity'
                 alias: Modifier

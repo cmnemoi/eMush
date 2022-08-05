@@ -21,7 +21,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
 
     public function __construct(
         DiseaseCauseServiceInterface $diseaseCauseService,
-        PlayerDiseaseServiceInterface $playerDiseaseService
+        PlayerDiseaseServiceInterface $playerDiseaseService,
     ) {
         $this->diseaseCauseService = $diseaseCauseService;
         $this->playerDiseaseService = $playerDiseaseService;

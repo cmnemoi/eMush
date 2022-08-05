@@ -344,6 +344,51 @@
                 </target>
             </segment>
         </unit>
+        <unit id="vomiting">
+            <segment id="vomiting">
+                <source>vomiting</source>
+                <target>:ill: **{character}** vomit son repas. Pas très ragoutant…</target>
+            </segment>
+        </unit>
+        <unit id="sneezing">
+            <segment id="sneezing">
+                <source>sneezing</source>
+                <target>Atchoum !</target>
+            </segment>
+        </unit>
+        <unit id="biting">
+            <segment id="biting">
+                <source>biting</source>
+                <target>:pill: **{character}** se tourne soudainement vers **{target_character}** et se met à lui dévorer le bras…</target>
+            </segment>
+        </unit>
+        <unit id="breakouts">
+            <segment id="breakouts">
+                <source>breakouts</source>
+                <target>:ill: **{character}** gratte ses plaques immondes, c'est vraiment atroce…</target>
+            </segment>
+        </unit>
+        <unit id="foaming_mouth">
+            <segment id="foaming_mouth">
+                <source>foaming_mouth</source>
+                <target>:pill: **{character}** laisse échapper un petit filet de mousse du coin de sa bouche… C'est dégoûtant..</target>
+            </segment>
+        </unit>
+        <unit id="drooling">
+            <segment id="drooling">
+                <source>drooling</source>
+                <target>:pill: **{character}** bave vraiment beaucoup, ça commence à paraître suspect...</target>
+            </segment>
+        </unit>
+        <unit id="cat_allergy">
+            <segment id="cat_allergy">
+                <source>cat_allergy</source>
+                <target>{character_gender, select,
+                    male {:ill: **{character}** subit une éruption cutanée fulgurante, il étouffe, on lui avait pourtant dit de ne pas prendre ce #%$ de chat !}
+                    female {:ill: **{character}** subit une éruption cutanée fulgurante, elle étouffe, on lui avait pourtant dit de ne pas prendre ce #%$ de chat !}
+                    other {invalid gender input}}</target>
+            </segment>
+        </unit>
     </file>
 </xliff>
 

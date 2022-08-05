@@ -89,7 +89,11 @@ export default defineComponent ({
             this.setTarget(null);
         },
         async executeTargetAction(action: Action) {
-            await this.executeAction({ target: this.selectedTarget, action });
+            if (this.selectedTarget === this.player) {
+                await this.executeAction({ target: null, action });
+            } else {
+                await this.executeAction({ target: this.selectedTarget, action });
+            }
             this.setTarget(null);
         },
         setTarget(target: Player | Equipment | null): void {

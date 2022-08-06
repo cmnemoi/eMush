@@ -50,7 +50,9 @@ export default defineComponent ({
         ])
     },
     beforeMount(): void {
-        this.loadPlayer({ playerId: this.playerId });
+        if (this.playerId) {
+            this.loadPlayer({ playerId: this.playerId });
+        }
     },
     methods: {
         ...mapActions('player', [

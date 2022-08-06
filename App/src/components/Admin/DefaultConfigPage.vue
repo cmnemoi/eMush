@@ -252,7 +252,7 @@ export default defineComponent ({
         };
     },
     beforeMount() {
-        GameConfigService.loadDefaultGameConfig(1).then((res: GameConfig | null) => {
+        GameConfigService.loadDefaultGameConfig(2   ).then((res: GameConfig | null) => {
             this.gameConfig = res;
         });
     },

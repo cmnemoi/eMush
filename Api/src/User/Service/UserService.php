@@ -33,6 +33,11 @@ class UserService implements UserServiceInterface
         return $user instanceof User ? $user : null;
     }
 
+    public function findUsers(int $page, int $size, array $sort): array
+    {
+        return $this->repository->findBy([], $sort, $size, $page);
+    }
+
     public function findUserByUserId(string $userId): ?User
     {
         return $this->repository->loadUserByUsername($userId);

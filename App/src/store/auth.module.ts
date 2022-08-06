@@ -3,7 +3,6 @@ import { TokenService } from '@/services/storage.service';
 import ApiService from "@/services/api.service";
 import { User } from "@/entities/User";
 import { ActionTree } from "vuex";
-import { UserRole } from "@/enums/user_role.enum";
 
 
 export interface AuthState {
@@ -33,8 +32,20 @@ const getters = {
         return state.loading;
     },
 
+    userId: (state: AuthState): number | null => {
+        const token = state.accessToken;
+        if (token === null) {
+            return null;
+        }
+        try {
+            return JSON.parse(atob(token.split('.')[1])).userId;
+        } catch (e) {
+            return null;
+        }
+    },
+
     isAdmin: (state: AuthState): boolean => {
-        return state.userInfo?.roles.includes(UserRole.ADMIN) ?? false;
+        return state.userInfo ? state.userInfo.isAdmin() : false;
     }
 };
 

@@ -6,13 +6,14 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test": "./node_modules/mocha/bin/mocha -r ts-node/register 'src/**/*.test.ts'"
+    "test": "./node_modules/mocha/bin/_mocha -r ts-node/register 'src/**/*.test.ts'"
   },
   "dependencies": {
     "axios": "^0.25.0",
     "chai": "^4.3.4",
     "core-js": "^3.12.1",
     "date-fns": "^2.21.3",
+    "jl-datatable": "^1.1.1",
     "phaser": "3.55.2",
     "phaser-navmesh": "^2.3.1",
     "phaser3-rex-plugins": "^1.1.65",
@@ -44,7 +45,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier-vue": "^3.1.0",
     "eslint-plugin-vue": "^7.13.0",
-    "mocha": "^9.0.2",
+    "mocha": "^10.0.0",
     "prettier": "^2.3.2",
     "sass": "^1.32.12",
     "sass-loader": "^10.1.1",

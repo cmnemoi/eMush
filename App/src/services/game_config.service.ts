@@ -4,7 +4,7 @@ import { GameConfig } from "@/entities/Config/GameConfig";
 import store from "@/store";
 
 // @ts-ignore
-const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game-config");
+const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");
 
 const GameConfigService = {
     loadDefaultGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {

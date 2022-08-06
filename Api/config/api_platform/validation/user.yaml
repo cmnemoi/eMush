@@ -1,0 +1,4 @@
+Mush\User\Entity\User:
+  attributes:
+    roles:
+      - NotBlank: ~

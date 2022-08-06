@@ -7,7 +7,7 @@ use Mush\Game\Entity\GameConfig;
 
 class GameConfigControllerCest
 {
-    private string $url = 'game-config';
+    private string $url = 'game_configs';
 
     public function testGetNonExistingGameConfig(ApiTester $I)
     {

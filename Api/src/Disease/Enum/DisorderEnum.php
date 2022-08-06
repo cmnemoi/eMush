@@ -16,4 +16,22 @@ class DisorderEnum
     public const SPLEEN = 'spleen';
     public const VERTIGO = 'vertigo';
     public const WEAPON_PHOBIA = 'weapon_phobia';
+
+    public static function getAllDisorders(): array
+    {
+        return [
+            self::AGORAPHOBIA,
+            self::AILUROPHOBIA,
+            self::CHRONIC_MIGRAINE,
+            self::CHRONIC_VERTIGO,
+            self::COPROLALIA,
+            self::CRABISM,
+            self::DEPRESSION,
+            self::PARANOIA,
+            self::PSYCOTIC_EPISODE,
+            self::SPLEEN,
+            self::VERTIGO,
+            self::WEAPON_PHOBIA,
+        ];
+    }
 }

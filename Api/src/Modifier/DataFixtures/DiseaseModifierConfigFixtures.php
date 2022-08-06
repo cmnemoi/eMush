@@ -8,6 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
@@ -349,7 +350,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $manager->persist($infected4HealthLost);
 
         $takeCatCondition = new ModifierCondition(ModifierConditionEnum::PLAYER_EQUIPMENT);
-        $takeCatCondition->setCondition(ModifierConditionEnum::HOLD_SCHRODINGER);
+        $takeCatCondition->setCondition(ItemEnum::SCHRODINGER);
         $manager->persist($takeCatCondition);
 
         $takeCat6HealthLost = new ModifierConfig();

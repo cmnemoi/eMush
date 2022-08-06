@@ -82,6 +82,12 @@
                 <target>Vous perdez {quantity} :pa:</target>
             </segment>
         </unit>
+        <unit id="loss_movement_point">
+            <segment>
+                <source>loss_movement_point</source>
+                <target>Vous perdez {quantity} :pm:</target>
+            </segment>
+        </unit>
         <unit id="gain_triumph">
             <segment>
                 <source>gain_triumph</source>
@@ -344,6 +350,24 @@
                 </target>
             </segment>
         </unit>
+        <unit id="screaming">
+            <segment>
+                <source>screaming</source>
+                <target>:pill: **{character}** se jette par terre en hurlant et en appelant sa mère...</target>
+            </segment>
+        </unit>
+        <unit id="wall_head_bang">
+            <segment>
+                <source>wall_head_bang</source>
+                <target>:pill: **{character}** se met subitement à se taper la tête contre le mur... ça a l'air de faire mal...</target>
+            </segment>
+        </unit>
+        <unit id="run_in_circles">
+            <segment>
+                <source>run_in_circles</source>
+                <target>:pill: **{character}** se met à courir en rond, et rien de semble pouvoir l'arrêter... à part la fatigue...</target>
+            </segment>
+        </unit>
         <unit id="vomiting">
             <segment id="vomiting">
                 <source>vomiting</source>
@@ -386,7 +410,8 @@
                 <target>{character_gender, select,
                     male {:ill: **{character}** subit une éruption cutanée fulgurante, il étouffe, on lui avait pourtant dit de ne pas prendre ce #%$ de chat !}
                     female {:ill: **{character}** subit une éruption cutanée fulgurante, elle étouffe, on lui avait pourtant dit de ne pas prendre ce #%$ de chat !}
-                    other {invalid gender input}}</target>
+                    other {invalid gender input}}
+                </target>
             </segment>
         </unit>
     </file>

@@ -29,6 +29,78 @@ class DiseaseEnum
     public const TAPEWORM = 'tapeworm';
     public const VITAMIN_DEFICIENCY = 'vitamin_deficiency';
 
+    public static function getAllDiseases(): array
+    {
+        return [
+            self::ACID_REFLUX,
+            self::BLACK_BITE,
+            self::CAT_ALLERGY,
+            self::COLD,
+            self::EXTREME_TINNITUS,
+            self::FLU,
+            self::FOOD_POISONING,
+            self::FUNGIC_INFECTION,
+            self::GASTROENTERIS,
+            self::JUNKBUMPKINITIS,
+            self::MIGRAINE,
+            self::MUSH_ALLERGY,
+            self::QUINCKS_OEDEMA,
+            self::REJUVENATION,
+            self::RUBELLA,
+            self::SEPSIS,
+            self::SINUS_STORM,
+            self::SKIN_INFLAMMATION,
+            self::SLIGHT_NAUSEA,
+            self::SMALLPOX,
+            self::SPACE_RABIES,
+            self::SYPHILIS,
+            self::TAPEWORM,
+            self::VITAMIN_DEFICIENCY,
+        ];
+    }
+
+    public static function getBacterialContactDiseases(): array
+    {
+        return [
+            self::COLD,
+            self::FUNGIC_INFECTION,
+            self::FLU,
+            self::EXTREME_TINNITUS,
+        ];
+    }
+
+    public static function getCycleDiseases(): array
+    {
+        return [
+            self::MUSH_ALLERGY,
+            self::CAT_ALLERGY,
+            self::FUNGIC_INFECTION,
+            self::SINUS_STORM,
+            self::VITAMIN_DEFICIENCY,
+            self::ACID_REFLUX,
+            self::MIGRAINE,
+            self::GASTROENTERIS,
+            self::COLD,
+            self::SLIGHT_NAUSEA,
+        ];
+    }
+
+    public static function getCycleDepressedDiseases(): array
+    {
+        return [
+            self::MUSH_ALLERGY,
+            self::CAT_ALLERGY,
+            self::FUNGIC_INFECTION,
+            self::SINUS_STORM,
+            self::VITAMIN_DEFICIENCY,
+            self::ACID_REFLUX,
+            self::MIGRAINE,
+            self::GASTROENTERIS,
+            self::COLD,
+            self::SLIGHT_NAUSEA,
+        ];
+    }
+
     public static function getFakeDiseases(): array
     {
         return [
@@ -37,5 +109,10 @@ class DiseaseEnum
             self::CAT_ALLERGY,
             self::SINUS_STORM,
         ];
+    }
+
+    public static function getPerishedFoodDiseases(): array
+    {
+        return [self::FOOD_POISONING];
     }
 }

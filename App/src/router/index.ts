@@ -1,10 +1,13 @@
 import { createWebHistory, createRouter } from "vue-router";
 import GamePage from "@/components/GamePage.vue";
 import Token from "@/components/Token.vue";
-import DefaultConfigPage from "@/components/Admin/DefaultConfigPage.vue";
 import { UserRole } from "@/enums/user_role.enum";
 import store from "@/store";
 import HomePage from "@/components/HomePage.vue";
+import AdminPage from "@/components/Admin/AdminPage.vue";
+import DefaultConfigPage from "@/components/Admin/DefaultConfigPage.vue";
+import DaedalusPage from "@/components/Admin/DaedalusPage.vue";
+import UserPage from "@/components/Admin/UserPage.vue";
 
 const routes = [
     {
@@ -21,8 +24,25 @@ const routes = [
     {
         path: "/admin",
         name: "Admin",
-        component: DefaultConfigPage,
-        meta: { authorize: [UserRole.ADMIN] }
+        component: AdminPage,
+        meta: { authorize: [UserRole.ADMIN] },
+        children: [
+            {
+                name: "AdminGameConfig",
+                path: 'game-config',
+                component: DefaultConfigPage,
+            },
+            {
+                name: "AdminDaedalus",
+                path: 'daedalus',
+                component: DaedalusPage,
+            },
+            {
+                name: "AdminUser",
+                path: 'user',
+                component: UserPage,
+            },
+        ]
     },
     {
         path: "/token",

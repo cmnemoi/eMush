@@ -2,6 +2,7 @@
 
 namespace Mush\RoomLog\Enum;
 
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -26,8 +27,15 @@ class PlayerModifierLogEnum
     public const CLUMSINESS = 'clumsiness';
     public const HUNGER = 'hunger';
 
+    public const SCREAMING = 'screaming';
+    public const WALL_HEAD_BANG = 'wall_head_bang';
+    public const RUN_IN_CIRCLES = 'run_in_circles';
+
     public const GAIN = 'gain';
     public const LOSS = 'loss';
+
+    public const VISIBILITY = 'visibility';
+    public const VALUE = 'value';
 
     public const PLAYER_VARIABLE_LOGS = [
         self::GAIN => [
@@ -47,9 +55,33 @@ class PlayerModifierLogEnum
     ];
 
     public const PLAYER_VARIABLE_SPECIAL_LOGS = [
-        ModifierNameEnum::ANTISOCIAL_MODIFIER => self::ANTISOCIAL_MORALE_LOSS,
-        ModifierNameEnum::STARVING => self::HUNGER,
-        PlayerEvent::PANIC_CRISIS => self::PANIC_CRISIS,
-        EndCauseEnum::CLUMSINESS => self::CLUMSINESS,
+        ModifierNameEnum::ANTISOCIAL_MODIFIER => [
+            self::VISIBILITY => VisibilityEnum::PRIVATE,
+            self::VALUE => self::ANTISOCIAL_MORALE_LOSS,
+        ],
+        ModifierNameEnum::STARVING => [
+            self::VISIBILITY => VisibilityEnum::PRIVATE,
+            self::VALUE => self::HUNGER,
+        ],
+        ModifierNameEnum::SCREAMING => [
+            self::VISIBILITY => VisibilityEnum::PUBLIC,
+            self::VALUE => self::SCREAMING,
+        ],
+        ModifierNameEnum::WALL_HEAD_BANG => [
+            self::VISIBILITY => VisibilityEnum::PUBLIC,
+            self::VALUE => self::WALL_HEAD_BANG,
+        ],
+        ModifierNameEnum::RUN_IN_CIRCLES => [
+            self::VISIBILITY => VisibilityEnum::PUBLIC,
+            self::VALUE => self::RUN_IN_CIRCLES,
+        ],
+        PlayerEvent::PANIC_CRISIS => [
+            self::VISIBILITY => VisibilityEnum::PRIVATE,
+            self::VALUE => self::PANIC_CRISIS,
+        ],
+        EndCauseEnum::CLUMSINESS => [
+            self::VISIBILITY => VisibilityEnum::PRIVATE,
+            self::VALUE => self::CLUMSINESS,
+        ],
         ];
 }

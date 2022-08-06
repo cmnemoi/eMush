@@ -13,6 +13,7 @@ use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
+use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Event\ModifierEvent;
 use Mush\Player\Entity\Player;
@@ -117,7 +118,7 @@ class ModifierService implements ModifierServiceInterface
 
     private function getActionModifiers(Action $action, Player $player, ?LogParameterInterface $parameter): ModifierCollection
     {
-        $scopes = array_merge([$action->getName()], $action->getTypes());
+        $scopes = array_merge([$action->getName()], $action->getTypes(), [ModifierScopeEnum::ACTIONS]);
 
         $modifiers = $player->getAllModifiers()->getScopedModifiers($scopes);
 

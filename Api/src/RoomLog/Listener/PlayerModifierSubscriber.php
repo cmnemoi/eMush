@@ -41,27 +41,29 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
 
         // add special logs
         $logMap = PlayerModifierLogEnum::PLAYER_VARIABLE_SPECIAL_LOGS;
-        if (isset($logMap[$playerEvent->getReason()])) {
-            $logKey = $logMap[$playerEvent->getReason()];
-            $this->createEventLog($logKey, $playerEvent);
+        $reason = $playerEvent->getReason();
+        if (isset($logMap[$reason])) {
+            $logKey = $logMap[$reason][PlayerModifierLogEnum::VALUE];
+            $logVisibility = $logMap[$reason][PlayerModifierLogEnum::VISIBILITY];
+            $this->createEventLog($logKey, $playerEvent, $logVisibility);
         }
 
         $gainOrLoss = $delta > 0 ? PlayerModifierLogEnum::GAIN : PlayerModifierLogEnum::LOSS;
         $logMap = PlayerModifierLogEnum::PLAYER_VARIABLE_LOGS[$gainOrLoss];
         if (isset($logMap[$modifiedVariable])) {
             $logKey = $logMap[$modifiedVariable];
-            $this->createEventLog($logKey, $playerEvent);
+            $this->createEventLog($logKey, $playerEvent, $playerEvent->getVisibility());
         }
     }
 
-    private function createEventLog(string $logKey, PlayerEvent $event): void
+    private function createEventLog(string $logKey, PlayerEvent $event, string $logVisibility): void
     {
         $player = $event->getPlayer();
 
         $this->roomLogService->createLog(
             $logKey,
             $event->getPlace(),
-            $event->getVisibility(),
+            $logVisibility,
             'event_log',
             $player,
             $event->getLogParameters(),

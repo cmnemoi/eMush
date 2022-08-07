@@ -26,7 +26,9 @@ module.exports = {
         "no-trailing-spaces": "warn",
         "no-var": "error",
         "object-curly-spacing": ["error", "always"],
-        "semi": ["error", "always"]
+        "semi": ["error", "always"],
+        'vue/no-deprecated-slot-attribute': 'off',
+        'vue/no-deprecated-slot-attribute': 'off'
     },
 
     parserOptions: {

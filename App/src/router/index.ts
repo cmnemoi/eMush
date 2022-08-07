@@ -7,7 +7,8 @@ import HomePage from "@/components/HomePage.vue";
 import AdminPage from "@/components/Admin/AdminPage.vue";
 import DefaultConfigPage from "@/components/Admin/DefaultConfigPage.vue";
 import DaedalusPage from "@/components/Admin/DaedalusPage.vue";
-import UserPage from "@/components/Admin/UserPage.vue";
+import UserListPage from "@/components/Admin/User/UserListPage.vue";
+import UserDetailPage from "@/components/Admin/User/UserDetailPage.vue";
 
 const routes = [
     {
@@ -30,18 +31,23 @@ const routes = [
             {
                 name: "AdminGameConfig",
                 path: 'game-config',
-                component: DefaultConfigPage,
+                component: DefaultConfigPage
             },
             {
                 name: "AdminDaedalus",
                 path: 'daedalus',
-                component: DaedalusPage,
+                component: DaedalusPage
             },
             {
                 name: "AdminUser",
                 path: 'user',
-                component: UserPage,
+                component: UserListPage
             },
+            {
+                name: "AdminUserDetail",
+                path: 'user/:userId',
+                component: UserDetailPage
+            }
         ]
     },
     {

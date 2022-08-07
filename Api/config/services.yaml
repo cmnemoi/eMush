@@ -6,6 +6,7 @@
 parameters:
 
 imports:
+    - { resource: ./api_platform/api_filters.yaml }
     - { resource: ../src/Daedalus/config/services.yaml }
     - { resource: ../src/Game/config/services.yaml }
     - { resource: ../src/Equipment/config/services.yaml }

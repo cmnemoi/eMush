@@ -23,7 +23,7 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         isFlipped: { x: boolean, y: boolean},
         collides: boolean,
         isAnimationYoyo: boolean,
-        group: Phaser.GameObjects.Group | null = null,
+        group: Phaser.GameObjects.Group | null = null
     )
     {
         super(scene, cart_coords.x, cart_coords.y, name);

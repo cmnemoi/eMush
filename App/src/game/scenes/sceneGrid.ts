@@ -22,7 +22,7 @@ export class SceneGrid {
         this.depthSortingArray = [];
     }
 
-    addSceneGeom(size: IsometricCoordinates, groundTilesThickness: number, ): void
+    addSceneGeom(size: IsometricCoordinates, groundTilesThickness: number ): void
     {
         const sceneGeom = new IsometricGeom(
             new IsometricCoordinates(size.x/2 + groundTilesThickness, size.y/2 + groundTilesThickness),
@@ -91,7 +91,7 @@ export class SceneGrid {
                     currentPolygon.geom.getMaxIso().x,
                     currentPolygon.geom.getMinIso().y,
                     currentPolygon.geom.getMaxIso().y,
-                    this.getDepthOfPolygon(i),
+                    this.getDepthOfPolygon(i)
                 );
             }
         }

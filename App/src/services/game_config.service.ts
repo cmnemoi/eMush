@@ -30,6 +30,6 @@ const GameConfigService = {
         }
 
         return gameConfig;
-    },
+    }
 };
 export default GameConfigService;

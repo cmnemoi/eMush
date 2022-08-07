@@ -78,7 +78,7 @@ export default class MushTiledMap {
     createObjectsLayer(
         room: Room,
         objectLayer: Phaser.Tilemaps.ObjectLayer,
-        sceneGrid: SceneGrid,
+        sceneGrid: SceneGrid
     ) {
         const addedObjectId: Array<number> = [];
 

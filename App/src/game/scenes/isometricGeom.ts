@@ -17,14 +17,14 @@ export default class IsometricGeom extends Phaser.Geom.Polygon implements Phaser
 
     constructor(
         iso_coords: IsometricCoordinates,
-        iso_size: IsometricCoordinates,
+        iso_size: IsometricCoordinates
     )
     {
         const iso_array = [
             new IsometricCoordinates(iso_coords.x - iso_size.x/2, iso_coords.y - iso_size.y/2),
             new IsometricCoordinates(iso_coords.x - iso_size.x/2, iso_coords.y + iso_size.y/2),
             new IsometricCoordinates(iso_coords.x + iso_size.x/2, iso_coords.y + iso_size.y/2),
-            new IsometricCoordinates(iso_coords.x + iso_size.x/2, iso_coords.y - iso_size.y/2),
+            new IsometricCoordinates(iso_coords.x + iso_size.x/2, iso_coords.y - iso_size.y/2)
         ];
 
         super(iso_array);

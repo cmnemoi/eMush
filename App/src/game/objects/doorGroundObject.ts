@@ -19,7 +19,7 @@ export default class DoorGroundObject extends InteractObject {
         tileset: Phaser.Tilemaps.Tileset,
         firstFrame: number,
         isFlipped: { x: boolean, y: boolean},
-        door: DoorEntity,
+        door: DoorEntity
     )
     {
         super(scene, cart_coords, iso_geom, tileset, firstFrame, door.key, isFlipped, true, false);

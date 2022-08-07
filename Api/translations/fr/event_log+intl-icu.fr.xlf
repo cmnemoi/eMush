@@ -98,8 +98,8 @@
             <segment>
                 <source>death</source>
                 <target>{character_gender, select,
-                        male {:dead: **{character}** est mort. Cause: {reason}.}
-                        female {:dead: **{character}** est morte. Cause: {reason}.}
+                        male {:dead: **{character}** est mort. Cause : {reason}.}
+                        female {:dead: **{character}** est morte. Cause : {reason}.}
                         other {invalid gender input}
                 }</target>
             </segment>

@@ -148,12 +148,12 @@ class TranslationServiceTest extends TestCase
             'target_equipment_gender' => 'female',
             'target_equipment_first_letter' => 'vowel',
             'target_equipment_plural' => 'Antennes',
-            'cause' => 'Pas infirmerie',
+            'reason' => 'Pas infirmerie',
         ];
 
         $initialParameters = [
             'target_item' => EquipmentEnum::ANTENNA,
-            'cause' => EndCauseEnum::NO_INFIRMERY,
+            'reason' => EndCauseEnum::NO_INFIRMERY,
         ];
 
         $this->translator->shouldReceive('trans')

@@ -18,7 +18,7 @@ class TranslationService implements TranslationServiceInterface
     private static array $conversionArray = [
         'character' => 'character',
         'target_character' => 'character',
-        'cause' => 'end_cause',
+        'reason' => 'end_cause',
         'title' => 'status',
         'target_equipment' => 'equipments',
         'equipment' => 'equipments',
@@ -53,7 +53,7 @@ class TranslationService implements TranslationServiceInterface
                 'place' => $this->translator->trans($element . '.name', [], 'rooms'),
                 'loc_prep' => $this->translator->trans($element . '.loc_prep', [], 'rooms'),
             ],
-            'cause', 'title', 'disease' => [$key => $this->translator->trans($element . '.name', [], self::$conversionArray[$key])],
+            'reason', 'title', 'disease' => [$key => $this->translator->trans($element . '.name', [], self::$conversionArray[$key])],
             default => [$key => $element],
         };
     }

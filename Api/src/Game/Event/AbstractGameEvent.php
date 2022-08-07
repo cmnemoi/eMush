@@ -24,4 +24,11 @@ class AbstractGameEvent extends Event
     {
         return $this->reason;
     }
+
+    public function setReason(string $reason): self
+    {
+        $this->reason = $reason;
+
+        return $this;
+    }
 }

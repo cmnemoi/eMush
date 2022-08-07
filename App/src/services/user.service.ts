@@ -122,7 +122,6 @@ const UserService = {
             const users : User[] = [];
 
             if (response.data) {
-                console.log(response.data);
                 response.data['hydra:member'].forEach((userData: any) => {
                     const user = new User();
                     user.load(userData);
@@ -135,7 +134,7 @@ const UserService = {
             // eslint-disable-next-line no-console
             throw new AuthenticationError(error.response.status, error.response.data.detail);
         }
-    },
+    }
 };
 
 export default UserService;

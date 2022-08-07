@@ -10,6 +10,7 @@ Mush\User\Entity\User:
   collectionOperations:
     get:
       security: 'is_granted("ROLE_ADMIN")'
+      filters: ['user.search_filter', 'user.order_filter']
   itemOperations:
     get: ~
     patch:

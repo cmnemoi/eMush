@@ -243,7 +243,7 @@ interface GameConfigState {
 export default defineComponent ({
     name: "DefaultConfigPage",
     components: {
-        HomePage,
+        HomePage
     },
     data: function (): GameConfigState {
         return {
@@ -284,7 +284,7 @@ export default defineComponent ({
                     console.error('Error', error.message);
                 }
             });
-        },
+        }
     },
     computed: {
         ...mapGetters('auth', [

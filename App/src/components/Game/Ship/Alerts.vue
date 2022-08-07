@@ -48,7 +48,7 @@ export default defineComponent ({
     computed: {
         ...mapGetters('daedalus', [
             'alerts',
-            'loadingAlerts',
+            'loadingAlerts'
         ]),
         isNoAlert: function (): boolean {
             return this.alerts.length === 0 || (this.alerts.length === 1 && (this.alerts[0].key ?? '') === NO_ALERT);

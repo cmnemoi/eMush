@@ -19,7 +19,7 @@ export class User {
             this.id = object.id;
             this.userId = object.userId;
             this.username = object.username;
-            this.currentGame = object.currentGame;
+            this.currentGame = object.currentGame ? object.currentGame.id : null;
             this.roles = object.roles;
         }
         return this;

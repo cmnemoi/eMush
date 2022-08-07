@@ -10,8 +10,8 @@ import AdminBanner from "@/components/Admin/AdminBanner.vue";
 export default defineComponent ({
     name: "AdminPage",
     components: {
-        AdminBanner,
-    },
+        AdminBanner
+    }
 });
 
 </script>

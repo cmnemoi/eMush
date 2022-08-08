@@ -1,7 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import GamePage from "@/components/GamePage.vue";
 import Token from "@/components/Token.vue";
-import { UserRole } from "@/enums/user_role.enum";
+import { is_granted, UserRole } from "@/enums/user_role.enum";
 import store from "@/store";
 import HomePage from "@/components/HomePage.vue";
 import AdminPage from "@/components/Admin/AdminPage.vue";
@@ -73,7 +73,7 @@ router.beforeEach((to, from, next) => {
         }
 
         // check if route is restricted by role
-        if (authorize.length && !authorize.some((role: UserRole) => currentUser.roles.includes(role) )) {
+        if (authorize.length && is_granted(authorize, currentUser)) {
             // role not authorised so redirect to home page
             return next({ path: '/' });
         }

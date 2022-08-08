@@ -10,6 +10,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTDecodeFailureException;
 use Mush\User\Entity\User;
+use Mush\User\Enum\RoleEnum;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class LoginService
@@ -63,6 +64,11 @@ class LoginService
             ->setNonceCode(null)
             ->setNonceExpiryDate(null)
         ;
+
+        if ('dev' === getenv('APP_ENV')) {
+            $user->setRoles([RoleEnum::SUPER_ADMIN]);
+        }
+
         $this->userService->persist($user);
 
         return $user;

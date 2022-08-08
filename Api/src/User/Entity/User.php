@@ -37,7 +37,7 @@ class User implements UserInterface
     private ?DateTime $nonceExpiryDate = null;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $roles = [RoleEnum::USER, RoleEnum::ADMIN];
+    private array $roles = [RoleEnum::USER];
 
     public function getId(): int
     {

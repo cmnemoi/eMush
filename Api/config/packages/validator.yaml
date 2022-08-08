@@ -3,4 +3,5 @@ framework:
         email_validation_mode: html5
         mapping:
             paths:
-                - '%kernel.project_dir%/config/api_platform/validation/gameConfig.yaml' # yaml or xml directory configuration
+                - '%kernel.project_dir%/config/api_platform/validation/gameConfig.yaml'
+                - '%kernel.project_dir%/config/api_platform/validation/user.yaml'

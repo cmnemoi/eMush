@@ -4,6 +4,9 @@ import IsometricGeom from "@/game/scenes/isometricGeom";
 import { IsometricCoordinates } from "@/game/types";
 import Tile = Phaser.Tilemaps.Tile;
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
+import EquipmentObject from "@/game/objects/equipmentObject";
+import DoorObject from "@/game/objects/doorObject";
+import DoorGroundObject from "@/game/objects/doorGroundObject";
 
 export class SceneGrid {
     public depthSortingArray: Array<GridElement>;
@@ -189,6 +192,9 @@ export class SceneGrid {
 
             if (object !== undefined && object.depth === 0) {
                 object.setDepth(this.getDepthOfPolygon(i));
+                if (object instanceof EquipmentObject || object instanceof DoorObject || object instanceof DoorGroundObject) {
+                    object.handleBroken();
+                }
             }
         }
     }

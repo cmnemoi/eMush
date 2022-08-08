@@ -38,11 +38,6 @@ export default defineComponent ({
             this.gameInstance = game.launch(this.containerId, this.player);
         });
     },
-    unmounted() {
-        if (this.gameInstance !== null) {
-            this.gameInstance.destroy(false);
-        }
-    }
 });
 </script>
 

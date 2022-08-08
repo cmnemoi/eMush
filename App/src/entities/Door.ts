@@ -22,7 +22,7 @@ export class Door extends Equipment {
             object.statuses.forEach((statusObject : any) => {
                 const status = (new Status()).load(statusObject);
                 this.statuses.push(status);
-                if (status.name === 'broken') {
+                if (status.key === 'broken') {
                     this.isBroken = true;
                 }
             });

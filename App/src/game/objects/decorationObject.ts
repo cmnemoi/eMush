@@ -60,19 +60,21 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
     ): void
     {
         //@ts-ignore
-        if (tileset.tileData[this.tiledFrame])
+        const tiledData = tileset.tileData[this.tiledFrame];
+
+        if (tiledData)
         {
             this.animName = `${name}Animation`;
 
-            //@ts-ignore
-            const endFrame = this.tiledFrame + tileset.tileData[this.tiledFrame].animation.length -1;
+            const animationLength = tiledData.animation.length;
+            const endFrame = this.tiledFrame + animationLength - 1;
             const frames = this.anims.generateFrameNames(tileset.name, { start: this.tiledFrame, end: endFrame });
-
+            const duration = tiledData.animation[0].duration;
 
             this.anims.create({
                 key: this.animName,
                 frames: frames,
-                frameRate: 10,
+                duration: duration * animationLength,
                 repeat: -1
             });
 

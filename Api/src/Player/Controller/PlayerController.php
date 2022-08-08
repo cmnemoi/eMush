@@ -84,6 +84,11 @@ class PlayerController extends AbstractFOSRestController
      *             mediaType="application/json",
      *      @OA\Schema(
      *              type="object",
+     *                  @OA\Property(
+     *                     property="user",
+     *                     description="The user making the request",
+     *                     type="integer",
+     *                 ),
      *                 @OA\Property(
      *                     property="daedalus",
      *                     description="The daedalus to add the player",

@@ -1,4 +1,5 @@
 Mush\User\Entity\User:
-  attributes:
+  properties:
     roles:
       - NotBlank: ~
+      - Mush\User\Validator\CanGrantRole: ~

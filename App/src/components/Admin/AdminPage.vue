@@ -1,6 +1,12 @@
 <template>
-    <AdminBanner></AdminBanner>
-    <router-view></router-view>
+    <div class="admin-container">
+        <AdminBanner></AdminBanner>
+        <div class="admin-container">
+            <div class="admin-content-container">
+                <router-view></router-view>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script lang="ts">
@@ -18,19 +24,14 @@ export default defineComponent ({
 
 <style lang="scss" scoped>
 
-button {
-    cursor: pointer;
-    margin: 0 20px;
-    padding: 5px 10px;
-    color: white;
-    font-size: 1.1em;
-    letter-spacing: .06em;
+.admin-container {
+    padding: 20px;
+}
 
-    &:hover,
-    &:active {
-        color: #dffaff;
-        text-shadow: 0 0 1px rgb(255, 255, 255), 0 0 1px rgb(255, 255, 255);
-    }
+.admin-content-container {
+    padding: 20px;
+    border: solid goldenrod;
+    border-radius: 30px;
 }
 
 </style>

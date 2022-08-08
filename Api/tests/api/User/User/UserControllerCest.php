@@ -20,7 +20,7 @@ class UserControllerCest
     public function testGetExistingUser(ApiTester $I)
     {
         $user = $I->loginUser('default');
-        $I->sendGetRequest($this->url . '/' . $user->getUserId(), [], true);
+        $I->sendGetRequest($this->url . '/' . $user->getUserId());
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
@@ -39,7 +39,7 @@ class UserControllerCest
             $I->haveInRepository($user);
         }
 
-        $I->sendGetRequest($this->url, [], true);
+        $I->sendGetRequest($this->url);
         $I->seeResponseCodeIs(200);
     }
 

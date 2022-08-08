@@ -165,7 +165,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="scss" scoped>
 .user_filter_options {
     display: flex;
     flex-grow: 1;

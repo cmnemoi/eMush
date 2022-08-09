@@ -1,0 +1,207 @@
+<?php
+
+namespace Mush\Disease\Entity\Config;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Mush\Disease\Entity\Collection\SymptomConfigCollection;
+use Mush\Disease\Enum\TypeEnum;
+use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\Entity\ModifierConfig;
+use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
+
+#[ORM\Entity]
+#[ORM\Table(name: 'disease_config')]
+class DiseaseConfig implements LogParameterInterface
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    private ?int $id = null;
+
+    #[ORM\ManyToOne(targetEntity: GameConfig::class)]
+    private GameConfig $gameConfig;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $name;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $type = TypeEnum::DISEASE;
+
+    #[ORM\ManyToMany(targetEntity: ModifierConfig::class)]
+    private Collection $modifierConfigs;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $resistance = 0;
+
+    #[ORM\ManyToMany(targetEntity: SymptomConfig::class)]
+    private Collection $symptomConfigs;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $delayMin = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $delayLength = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $diseasePointMin = 4;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $diseasePointLength = 4;
+
+    public function __construct()
+    {
+        $this->modifierConfigs = new ArrayCollection();
+        $this->symptomConfigs = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getGameConfig(): GameConfig
+    {
+        return $this->gameConfig;
+    }
+
+    public function setGameConfig(GameConfig $gameConfig): self
+    {
+        $this->gameConfig = $gameConfig;
+
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getModifierConfigs(): Collection
+    {
+        return $this->modifierConfigs;
+    }
+
+    /**
+     * @return static
+     */
+    public function setModifierConfigs(Collection $modifierConfigs): self
+    {
+        $this->modifierConfigs = $modifierConfigs;
+
+        return $this;
+    }
+
+    public function getResistance(): int
+    {
+        return $this->resistance;
+    }
+
+    public function setResistance(int $resistance): self
+    {
+        $this->resistance = $resistance;
+
+        return $this;
+    }
+
+    public function getSymptomConfigs(): SymptomConfigCollection
+    {
+        $symptomConfigs = new SymptomConfigCollection();
+        foreach ($this->symptomConfigs as $symptomConfig) {
+            $symptomConfigs->add($symptomConfig);
+        }
+
+        return $symptomConfigs;
+    }
+
+    public function setSymptomConfigs(SymptomConfigCollection $symptomConfigs): self
+    {
+        $this->symptomConfigs = $symptomConfigs;
+
+        return $this;
+    }
+
+    public function getClassName(): string
+    {
+        return self::class;
+    }
+
+    public function getLogName(): string
+    {
+        return $this->getName();
+    }
+
+    public function getLogKey(): string
+    {
+        return LogParameterKeyEnum::DISEASE;
+    }
+
+    public function getDelayMin(): int
+    {
+        return $this->delayMin;
+    }
+
+    public function setDelayMin(int $delayMin): self
+    {
+        $this->delayMin = $delayMin;
+
+        return $this;
+    }
+
+    public function getDelayLength(): int
+    {
+        return $this->delayLength;
+    }
+
+    public function setDelayLength(int $delayLength): self
+    {
+        $this->delayLength = $delayLength;
+
+        return $this;
+    }
+
+    public function getDiseasePointMin(): int
+    {
+        return $this->diseasePointMin;
+    }
+
+    public function setDiseasePointMin(int $diseasePointMin): self
+    {
+        $this->diseasePointMin = $diseasePointMin;
+
+        return $this;
+    }
+
+    public function getDiseasePointLength(): int
+    {
+        return $this->diseasePointLength;
+    }
+
+    public function setDiseasePointLength(int $diseasePointLength): self
+    {
+        $this->diseasePointLength = $diseasePointLength;
+
+        return $this;
+    }
+}

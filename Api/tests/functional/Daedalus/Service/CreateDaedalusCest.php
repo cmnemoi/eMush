@@ -17,13 +17,13 @@ use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\DoorEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
@@ -38,14 +38,14 @@ class CreateDaedalusCest
 
     public function createDaedalusTest(FunctionalTester $I)
     {
-        //Lets create a Daedalus with 3 rooms, few random equipment.
+        // Lets create a Daedalus with 3 rooms, few random equipment.
         $gameConfig = $this->createGameConfig();
         $I->haveInRepository($gameConfig);
 
         $daedalusConfig = $this->createDaedalusConfig($gameConfig);
         $I->haveInRepository($daedalusConfig);
 
-        //roomConfigs
+        // roomConfigs
         $placeConfig1 = new PlaceConfig();
         $placeConfig1
             ->setDaedalusConfig($daedalusConfig)
@@ -70,12 +70,12 @@ class CreateDaedalusCest
         $I->haveInRepository($placeConfig2);
         $I->haveInRepository($placeConfig3);
 
-        //status config
+        // status config
         $alienArtifact = new StatusConfig();
         $alienArtifact->setName(EquipmentStatusEnum::ALIEN_ARTEFACT)->setVisibility(VisibilityEnum::PUBLIC)->setGameConfig($gameConfig);
         $I->haveInRepository($alienArtifact);
 
-        //Modifier configs
+        // Modifier configs
         $gravityModifier = new ModifierConfig();
         $gravityModifier
             ->setGameConfig($gameConfig)
@@ -88,7 +88,7 @@ class CreateDaedalusCest
         $gear->setModifierConfigs(new ArrayCollection([$gravityModifier]));
         $I->haveInRepository($gear);
 
-        //Equipment Congigs
+        // Equipment Congigs
         $waterStick = new ItemConfig();
         $waterStick
             ->setName(ItemEnum::WATER_STICK)
@@ -125,7 +125,7 @@ class CreateDaedalusCest
         $I->assertNotNull($room2 = $daedalus->getPlaceByName(RoomEnum::CENTRAL_CORRIDOR));
         $I->assertNotNull($room3 = $daedalus->getPlaceByName(RoomEnum::REFECTORY));
 
-        //Check doors
+        // Check doors
         $I->assertCount(1, $room1->getDoors());
         $I->assertCount(2, $room2->getDoors());
         $I->assertCount(1, $room3->getDoors());

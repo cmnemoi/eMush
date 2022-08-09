@@ -2,12 +2,13 @@ import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { Room } from "@/entities/Room";
 import { Player } from "@/entities/Player";
 import { Equipment } from "@/entities/Equipment";
+import { Item } from "@/entities/Item";
 
 const state =  {
     loading: false,
     room: null,
     inventoryOpen: false,
-    selectedTarget: null
+    selectedTarget: null,
 };
 
 const getters: GetterTree<any, any> = {
@@ -37,7 +38,10 @@ const actions: ActionTree<any, any> = {
     },
     selectTarget({ commit }, { target }) {
         commit('setSelectedTarget', target);
-    }
+    },
+    updateSelectedItemPile({ commit }) {
+        commit('updateSelectedItemPile');
+    },
 };
 
 const mutations : MutationTree<any> = {
@@ -51,12 +55,21 @@ const mutations : MutationTree<any> = {
     closeInventory(state) {
         state.inventoryOpen = false;
     },
-    setRoom(state, room: Room) {
+    setRoom(state, room: Room | null) {
         state.room = room;
     },
     setSelectedTarget(state, target: Player | Equipment | null) {
         state.selectedTarget = target;
-        state.inventoryOpen = false;
+
+        if (!(target instanceof Item)) {
+            state.inventoryOpen = false;
+        }
+    },
+    updateSelectedItemPile(state) {
+        const oldTarget = state.selectedTarget;
+        if (oldTarget instanceof Item) {
+            state.selectedTarget = null;
+        }
     }
 };
 

@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
-use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Listener\ActionEffectSubscriber;
@@ -17,10 +17,11 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
 
 class ActionEffectSubscriberCest
 {
@@ -124,6 +125,7 @@ class ActionEffectSubscriberCest
 
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
+            'name' => RoomEnum::MEDLAB,
         ]);
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -150,7 +152,7 @@ class ActionEffectSubscriberCest
             $player,
             $player,
             VisibilityEnum::HIDDEN,
-            ActionEnum::HEAL,
+            ActionEnum::MEDLAB_HEAL,
             new \DateTime()
         );
 
@@ -172,6 +174,7 @@ class ActionEffectSubscriberCest
 
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
+            'name' => RoomEnum::MEDLAB,
         ]);
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -199,7 +202,7 @@ class ActionEffectSubscriberCest
             $player,
             $player,
             VisibilityEnum::HIDDEN,
-            ActionEnum::HEAL,
+            ActionEnum::MEDLAB_HEAL,
             new \DateTime()
         );
 

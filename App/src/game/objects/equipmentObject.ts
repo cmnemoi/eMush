@@ -10,6 +10,7 @@ import IsometricGeom from "@/game/scenes/isometricGeom";
 /*eslint no-unused-vars: "off"*/
 export default class EquipmentObject extends InteractObject {
     public equipment: Equipment;
+    private particles: Phaser.GameObjects.Particles.ParticleEmitterManager | null = null;
 
     constructor(
         scene: DaedalusScene,
@@ -34,17 +35,27 @@ export default class EquipmentObject extends InteractObject {
             store.dispatch('room/selectTarget', { target: equipment });
         });
 
+        this.handleBroken();
+
 
         // const graphics = this.scene.add.graphics();
         // graphics.lineStyle(5, 0xFFFFFF, 1.0);
         // graphics.fillStyle(0x00ff08, 0.5);
         // graphics.fillPoints(iso_geom.getCartesianPolygon().points, true);
+    }
 
+    updateEquipment(equipment: Equipment | null = null) {
+        if (equipment !== null) {this.equipment = equipment;}
 
-        if (this.equipment.isBroken) {
-            const particles = this.scene.add.particles('smoke_particle');
+        this.handleBroken();
+    }
 
-            particles.createEmitter({
+    handleBroken(): void
+    {
+        if (this.equipment.isBroken && this.particles === null) {
+            this.particles = this.scene.add.particles('smoke_particle');
+
+            this.particles.createEmitter({
                 x: 0,
                 y: 0,
                 lifespan: { min: 1000, max: 1200 },
@@ -59,6 +70,13 @@ export default class EquipmentObject extends InteractObject {
                 //@ts-ignore
                 emitZone: { type: 'random', source: this }
             });
+        } else if (this.particles !== null && !this.equipment.isBroken) {
+            this.particles.destroy();
+            this.particles = null;
+        }
+
+        if (this.particles !== null) {
+            this.particles.setDepth(this.depth + 1);
         }
     }
 

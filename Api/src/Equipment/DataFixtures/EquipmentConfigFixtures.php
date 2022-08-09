@@ -53,7 +53,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
 
-        //@TODO terminals
+        // @TODO terminals
         $icarus = new EquipmentConfig();
         $icarus
             ->setGameConfig($gameConfig)
@@ -66,7 +66,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $moveAction = $this->getReference(ActionsFixtures::MOVE_DEFAULT);
 
-        //@TODO terminals
+        // @TODO terminals
         $door = new EquipmentConfig();
         $door
             ->setGameConfig($gameConfig)
@@ -165,7 +165,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($commandTerminal);
 
-        //@TODO gears
+        // @TODO gears
         $planetScanner = new EquipmentConfig();
         $planetScanner
             ->setGameConfig($gameConfig)
@@ -251,6 +251,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(EquipmentEnum::THALASSO)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
+            ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$showerMechanic]))
             ->setActions(new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_25), $examineAction]))
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
@@ -258,7 +259,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($thalasso);
         $manager->persist($showerMechanic);
 
-        //@TODO ships
+        // @TODO ships
         $patrolShip = new EquipmentConfig();
         $patrolShip
             ->setGameConfig($gameConfig)
@@ -304,7 +305,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $fuelRetrieveAction */
         $fuelRetrieveAction = $this->getReference(ActionsFixtures::FUEL_RETRIEVE);
 
-        //Tools
+        // Tools
         $combustionChamberMechanic = new Tool();
         $combustionChamberMechanic->addAction($fuelInjectAction);
         $combustionChamberMechanic->addAction($fuelRetrieveAction);
@@ -374,6 +375,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setName(EquipmentEnum::SHOWER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
+            ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$showerMechanic]))
             ->setActions(new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_25), $examineAction]))
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
@@ -411,28 +413,16 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($bed);
         $manager->persist($bedMechanic);
 
-        /** @var Action $healAction */
-        $healAction = $this->getReference(ActionsFixtures::HEAL_DEFAULT);
-        /** @var Action $selfHealAction */
-        $selfHealAction = $this->getReference(ActionsFixtures::HEAL_SELF);
-
-        $medlabBedMechanic = new Tool();
-        $medlabBedMechanic
-            ->addAction($healAction)
-            ->addAction($selfHealAction)
-        ;
-
         $medlabBed = new EquipmentConfig();
         $medlabBed
             ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::MEDLAB_BED)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$bedMechanic, $medlabBedMechanic]))
+            ->setMechanics(new ArrayCollection([$bedMechanic]))
             ->setActions(new ArrayCollection([$examineAction]))
         ;
         $manager->persist($medlabBed);
-        $manager->persist($medlabBedMechanic);
 
         /** @var Action $coffeeAction */
         $coffeeAction = $this->getReference(ActionsFixtures::COFFEE_DEFAULT);

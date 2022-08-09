@@ -4,7 +4,7 @@ namespace Mush\RoomLog\Listener;
 
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -28,7 +28,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
 
     public function onChangeVariable(AbstractQuantityEvent $playerEvent): void
     {
-        if (!$playerEvent instanceof PlayerModifierEvent) {
+        if (!$playerEvent instanceof PlayerVariableEvent) {
             return;
         }
 
@@ -39,29 +39,31 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
             return;
         }
 
-        //add special logs
+        // add special logs
         $logMap = PlayerModifierLogEnum::PLAYER_VARIABLE_SPECIAL_LOGS;
-        if (isset($logMap[$playerEvent->getReason()])) {
-            $logKey = $logMap[$playerEvent->getReason()];
-            $this->createEventLog($logKey, $playerEvent);
+        $reason = $playerEvent->getReason();
+        if (isset($logMap[$reason])) {
+            $logKey = $logMap[$reason][PlayerModifierLogEnum::VALUE];
+            $logVisibility = $logMap[$reason][PlayerModifierLogEnum::VISIBILITY];
+            $this->createEventLog($logKey, $playerEvent, $logVisibility);
         }
 
         $gainOrLoss = $delta > 0 ? PlayerModifierLogEnum::GAIN : PlayerModifierLogEnum::LOSS;
         $logMap = PlayerModifierLogEnum::PLAYER_VARIABLE_LOGS[$gainOrLoss];
         if (isset($logMap[$modifiedVariable])) {
             $logKey = $logMap[$modifiedVariable];
-            $this->createEventLog($logKey, $playerEvent);
+            $this->createEventLog($logKey, $playerEvent, $playerEvent->getVisibility());
         }
     }
 
-    private function createEventLog(string $logKey, PlayerEvent $event): void
+    private function createEventLog(string $logKey, PlayerEvent $event, string $logVisibility): void
     {
         $player = $event->getPlayer();
 
         $this->roomLogService->createLog(
             $logKey,
             $event->getPlace(),
-            $event->getVisibility(),
+            $logVisibility,
             'event_log',
             $player,
             $event->getLogParameters(),

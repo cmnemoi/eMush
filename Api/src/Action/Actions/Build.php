@@ -17,8 +17,8 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -57,14 +57,14 @@ class Build extends AbstractAction
 
     public function cannotExecuteReason(): ?string
     {
-        //@TODO use validator
+        // @TODO use validator
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
 
         /** @var Blueprint $blueprintMechanic */
         $blueprintMechanic = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
 
-        //Check the availability of the ingredients
+        // Check the availability of the ingredients
         foreach ($blueprintMechanic->getIngredients() as $name => $number) {
             if ($this->gearToolService->getEquipmentsOnReachByName($this->player, $name)->count() < $number) {
                 return ActionImpossibleCauseEnum::BUILD_LACK_RESSOURCES;
@@ -119,7 +119,7 @@ class Build extends AbstractAction
         $equipmentEvent->setExistingEquipment($parameter);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        //create the equipment
+        // create the equipment
         $equipmentEvent = new EquipmentEvent(
             $blueprintMechanic->getEquipment()->getName(),
             $this->player,

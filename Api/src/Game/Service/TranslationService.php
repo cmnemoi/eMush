@@ -18,7 +18,7 @@ class TranslationService implements TranslationServiceInterface
     private static array $conversionArray = [
         'character' => 'character',
         'target_character' => 'character',
-        'cause' => 'end_cause',
+        'reason' => 'end_cause',
         'title' => 'status',
         'target_equipment' => 'equipments',
         'equipment' => 'equipments',
@@ -30,7 +30,7 @@ class TranslationService implements TranslationServiceInterface
 
     public function translate(string $key, array $parameters, string $domain): string
     {
-        //@TODO include methods getTranslateParameters for other languages than FR
+        // @TODO include methods getTranslateParameters for other languages than FR
         return $this->translator->trans($key, $this->getFrenchTranslateParameters($parameters), $domain);
     }
 
@@ -53,7 +53,7 @@ class TranslationService implements TranslationServiceInterface
                 'place' => $this->translator->trans($element . '.name', [], 'rooms'),
                 'loc_prep' => $this->translator->trans($element . '.loc_prep', [], 'rooms'),
             ],
-            'cause', 'title', 'disease' => [$key => $this->translator->trans($element . '.name', [], self::$conversionArray[$key])],
+            'reason', 'title', 'disease' => [$key => $this->translator->trans($element . '.name', [], self::$conversionArray[$key])],
             default => [$key => $element],
         };
     }
@@ -71,7 +71,7 @@ class TranslationService implements TranslationServiceInterface
         $params = [];
         $params[$key] = $this->translator->trans($element . '.short_name', [], $domain);
         $params[$key . '_gender'] = $this->translator->trans($element . '.genre', [], $domain);
-        $params[$key . '_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
+        $params[$key . '_first_letter'] = $this->translator->trans($element . '.first_letter', [], $domain);
         $params[$key . '_plural'] = $this->translator->trans($element . '.plural_name', [], $domain);
 
         return $params;

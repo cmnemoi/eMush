@@ -10,65 +10,65 @@
         <unit id="coffee_success">
             <segment id="coffee_success">
                 <source>coffee_success</source>
-                <target>{character} amorce la machine. Et dans un grand fracas, la mécanique se lance, les rouages crissent et les arômes embaument la pièce. Ça sent les matins chaleureux sur une terrasse de Vénus. Café !</target>
+                <target>**{character}** amorce la machine. Et dans un grand fracas, la mécanique se lance, les rouages crissent et les arômes embaument la pièce. Ça sent les matins chaleureux sur une terrasse de Vénus. Café !</target>
             </segment>
         </unit>
         <unit id="dispense_success">
             <segment id="dispense_success">
                 <source>dispense_success</source>
-                <target>{character} enclenche le dispensaire avec une étrange lueur dans les yeux.</target>
+                <target>**{character}** enclenche le dispensaire avec une étrange lueur dans les yeux.</target>
             </segment>
         </unit>
         <unit id="consume_success">
             <segment id="consume_success">
                 <source>consume_success</source>
                 <target>{version, select,
-                        1 {{character} a dévoré sa ration.}
-                        2 {{character} s'est bien calé l'estomac.}
-                        3 {{character} s'est bien calé l'estomac, gurps.}
-                        4 {{character} s'est bien calé l'estomac, merci.}
-                        5 {{character} s'est bien calé la panse.}
-                        6 {{character} s'est bien calé la panse, gurps.}
-                        7 {{character} s'est bien calé la panse, merci.}
-                        8 {{character} s'est bien calé le ventre.}
-                        9 {{character} s'est bien calé le ventre, gurps.}
-                        10 {{character} s'est bien calé le ventre, merci.}
-                        11 {{character} s'est bien calé avec sa petite collation.}
-                        12 {{character} s'est bien calé avec sa petite collation, gurps.}
-                        13 {{character} s'est bien calé avec sa petite collation, merci.}
-                        14 {{character} s'est bien calé avec son bon petit repas.}
-                        15 {{character} s'est bien calé avec son bon petit repas, gurps.}
-                        16 {{character} s'est bien calé avec son bon petit repas, merci.}
-                        17 {{character} s'est bien calé avec son gros repas.}
-                        18 {{character} s'est bien calé avec son gros repas, gurps.}
-                        19 {{character} s'est bien calé avec son gros repas, merci.}
-                        20 {{character} s'est bien calé avec son petit repas.}
-                        21 {{character} s'est bien calé avec son petit repas, gurps.}
-                        22 {{character} s'est bien calé avec son petit repas, merci.}
-                        23 {{character} s'est calé avec sa petite collation.}
-                        24 {{character} s'est calé avec sa petite collation, gurps.}
-                        25 {{character} s'est calé avec sa petite collation, merci.}
-                        26 {{character} s'est calé avec son bon petit repas.}
-                        27 {{character} s'est calé avec son bon petit repas, gurps.}
-                        28 {{character} s'est calé avec son bon petit repas, merci.}
-                        29 {{character} s'est calé avec son gros repas.}
-                        30 {{character} s'est calé avec son gros repas, gurps.}
-                        31 {{character} s'est calé avec son gros repas, merci.}
-                        32 {{character} s'est calé avec son petit repas.}
-                        33 {{character} s'est calé avec son petit repas, gurps.}
-                        34 {{character} s'est calé avec son petit repas, merci.}
-                        35 {{character} s'est mangé sa petite collation.}
-                        36 {{character} s'est mangé sa petite collation, gurps.}
-                        37 {{character} s'est mangé sa petite collation, merci.}
-                        38 {{character} s'est mangé son bon petit repas.}
-                        39 {{character} s'est mangé son bon petit repas, gurps.}
-                        40 {{character} s'est mangé son bon petit repas, merci.}
-                        41 {{character} s'est mangé son gros repas.}
-                        42 {{character} s'est mangé son gros repas, gurps.}
-                        43 {{character} s'est mangé son gros repas, merci.}
-                        44 {{character} s'est mangé son petit repas.}
-                        45 {{character} s'est mangé son petit repas, gurps.}
-                        46 {{character} s'est mangé son petit repas, merci.}
+                        1 {**{character}** a dévoré sa ration.}
+                        2 {**{character}** s'est bien calé l'estomac.}
+                        3 {**{character}** s'est bien calé l'estomac, gurps.}
+                        4 {**{character}** s'est bien calé l'estomac, merci.}
+                        5 {**{character}** s'est bien calé la panse.}
+                        6 {**{character}** s'est bien calé la panse, gurps.}
+                        7 {**{character}** s'est bien calé la panse, merci.}
+                        8 {**{character}** s'est bien calé le ventre.}
+                        9 {**{character}** s'est bien calé le ventre, gurps.}
+                        10 {**{character}** s'est bien calé le ventre, merci.}
+                        11 {**{character}** s'est bien calé avec sa petite collation.}
+                        12 {**{character}** s'est bien calé avec sa petite collation, gurps.}
+                        13 {**{character}** s'est bien calé avec sa petite collation, merci.}
+                        14 {**{character}** s'est bien calé avec son bon petit repas.}
+                        15 {**{character}** s'est bien calé avec son bon petit repas, gurps.}
+                        16 {**{character}** s'est bien calé avec son bon petit repas, merci.}
+                        17 {**{character}** s'est bien calé avec son gros repas.}
+                        18 {**{character}** s'est bien calé avec son gros repas, gurps.}
+                        19 {**{character}** s'est bien calé avec son gros repas, merci.}
+                        20 {**{character}** s'est bien calé avec son petit repas.}
+                        21 {**{character}** s'est bien calé avec son petit repas, gurps.}
+                        22 {**{character}** s'est bien calé avec son petit repas, merci.}
+                        23 {**{character}** s'est calé avec sa petite collation.}
+                        24 {**{character}** s'est calé avec sa petite collation, gurps.}
+                        25 {**{character}** s'est calé avec sa petite collation, merci.}
+                        26 {**{character}** s'est calé avec son bon petit repas.}
+                        27 {**{character}** s'est calé avec son bon petit repas, gurps.}
+                        28 {**{character}** s'est calé avec son bon petit repas, merci.}
+                        29 {**{character}** s'est calé avec son gros repas.}
+                        30 {**{character}** s'est calé avec son gros repas, gurps.}
+                        31 {**{character}** s'est calé avec son gros repas, merci.}
+                        32 {**{character}** s'est calé avec son petit repas.}
+                        33 {**{character}** s'est calé avec son petit repas, gurps.}
+                        34 {**{character}** s'est calé avec son petit repas, merci.}
+                        35 {**{character}** s'est mangé sa petite collation.}
+                        36 {**{character}** s'est mangé sa petite collation, gurps.}
+                        37 {**{character}** s'est mangé sa petite collation, merci.}
+                        38 {**{character}** s'est mangé son bon petit repas.}
+                        39 {**{character}** s'est mangé son bon petit repas, gurps.}
+                        40 {**{character}** s'est mangé son bon petit repas, merci.}
+                        41 {**{character}** s'est mangé son gros repas.}
+                        42 {**{character}** s'est mangé son gros repas, gurps.}
+                        43 {**{character}** s'est mangé son gros repas, merci.}
+                        44 {**{character}** s'est mangé son petit repas.}
+                        45 {**{character}** s'est mangé son petit repas, gurps.}
+                        46 {**{character}** s'est mangé son petit repas, merci.}
                         other {"invalid version number"}
                     }
                 </target>
@@ -165,21 +165,26 @@
         <unit id="hit_success">
             <segment id="hit_success">
                 <source>hit_success</source>
-                <target>{character_gender, select,
-                     other {{target_character_gender, select,
-                        other {@TODO hit log}
-                     }}
-                }</target>
+                <target>{version, select,
+                        1 {**{character}** met un formidable crochet du droit à **{target_character}**... Qui repeint le mur avec son nez...}
+                        2 {**{character}** met un magistral uppercut du droit à **{target_character}**...}
+                        3 {**{character}** met un magistral uppercut à **{target_character}**...}
+                        4 {**{character}** met une droite à **{target_character}**}
+                        5 {**{character}** met une terrible baigne à **{target_character}**...}
+                        other {"invalid version number"}
+                    }
+                </target>
             </segment>
         </unit>
         <unit id="hit_fail">
             <segment id="hit_fail">
                 <source>hit_fail</source>
-                <target>{character_gender, select,
-                     other {{target_character_gender, select,
-                        other {@TODO hit fail log}
-                     }}
-                }</target>
+                <target>{version, select,
+                        1 {**{character}** tente de frapper **{target_character}**, hélas son coup faible trouve seulement le mur... Aïe...}
+                        2 {**{character}** rate son coup sur **{target_character}**.}
+                        other {"invalid version number"}
+                    }
+                </target>
             </segment>
         </unit>
         <unit id="hyperfreeze_success">
@@ -192,12 +197,12 @@
             <segment id="infect_success">
                 <source>infect_success</source>
                 <target>{character_gender, select,
-                    male {{target_player_gender, select,
+                    male {{target_character_gender, select,
                         male {**{character}** s'est rapproché de **{target_character}** avec un regard de prédateur... et l'a poinçonné discrètement !}
                         female {**{character}** s'est rapproché de **{target_character}** avec un regard de prédateur... et l'a poinçonnée discrètement !}
                         other {invalid gender input}
                     }}
-                    female {{target_player_gender, select,
+                    female {{target_character_gender, select,
                          male {**{character}** s'est rapprochée de **{target_character}** avec un regard de prédateur... et l'a poinçonné discrètement !}
                          female {**{character}** s'est rapprochée de **{target_character}** avec un regard de prédateur... et l'a poinçonnée discrètement !}
                          other {invalid gender input}
@@ -579,13 +584,13 @@
         <unit id="retrieve_fuel">
             <segment id="retrieve_fuel">
                 <source>retrieve_fuel</source>
-                <target>{character} a extrait une Capsule du Fuel du réservoir.</target>
+                <target>**{character}** a extrait une Capsule du Fuel du réservoir.</target>
             </segment>
         </unit>
         <unit id="insert_fuel">
             <segment id="insert_fuel">
                 <source>insert_fuel</source>
-                <target>{character} a inséré une *Capsule de Fuel* dans le *Réservoir*.</target>
+                <target>**{character}** a inséré une *Capsule de Fuel* dans le *Réservoir*.</target>
             </segment>
         </unit>
         <unit id="sabotage_success">
@@ -631,7 +636,7 @@
         <unit id="self_heal">
             <segment id="self_heal">
                 <source>self_heal</source>
-                <target>Vous vous êtes soigné. Vous avez récuperé {quantity} :hp:.</target>
+                <target>Vous vous êtes soigné. Vous avez récupéré {quantity} :hp:.</target>
             </segment>
         </unit>
         <unit id="ultraheal_success">
@@ -697,6 +702,73 @@
                 <source>remove_spore_fail</source>
                 <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Heureusement vous n'aviez aucun spore à récupérer
                 </target>
+            </segment>
+        </unit>
+        <unit id="public_broadcast">
+            <segment id="public_broadcast">
+                <source>public_broadcast</source>
+                <target>Tout le monde a l'air concentré sur le petit écran. 
+                Blouzorg apparaît sur l'écran, il est beau fier et vous ne comprenez rien de ce qu'il dit. 
+                Mais ce n'est pas grave ! [...] Vous applaudissez quand Blouzorg terrasse sa belle-mère [...] 
+                Qui eu cru que Blouzorg et son chien spatial savaient danser le jerk ! [...] 
+                Blouzorg épousera-t-il Blourka ? [...] Les lumières s'éteignent. Ces séries aliens sont vraiment incroyables...
+                </target>
+            </segment>
+        </unit>
+        <unit id="motivational_speech">
+            <segment id="motivational_speech">
+                <source>motivational_speech</source>
+                <target>{version, select,
+                    1 {Bon les cocos ça va pas du tout là. Vous assurez tellement bien que le Mush va se suicider de désespoir. Je vous rappelle qu'on doit l'étudier avant, alors simulez un peu de pessimisme, ok ?}
+                    2 {Bonjour - Excusez ma tenue, je sors de la douche. Je suis convaincu que la solution à nos problèmes se trouve dans la bonne utilisation du Sofa Suédois qui se trouve à bord. Il nous faut pénétrer les défenses du Mush et le baillonner !}
+                    3 {Chers équipiers, nous sommes chargés d'une mission comme il n'en existe pas de plus grande, et nous avons les moyens de l'accomplir ! La FDS ne le sait que trop bien, pour quelle autre raison est-ce qu'elle nous attaquerait ?}
+                    4 {Compagnons, ayez confiance. Le Mush essaie de nous diviser et de nous démoraliser mais ses tentatives seront vaines si nous restons unis. Je le sens tout au fond de moi, nous sortirons vainqueurs de ce conflit. Un brillant avenir nous attend.}
+                    5 {Compagnons ! Notre Destin est de sauver l'Humanité… Nous sommes l'espoir qu'attendaient les martyrs de Sol et nous nous montrerons dignes de leurs mémoires ! Nous sommes le futur et nous irons de l’avant jusqu’à la fin des temps !}
+                    6 {Compagnons ! Redressez la tête, gardez espoir ! La victoire est proche. Nous allons triompher. En effet, nous sommes sur le point de… euh… de… Ah zut, quelqu'un peut m'aider à déchiffrer la suite de cette copie de discours ?}
+                    7 {Grandiose est notre destinée, je vous lis ! Reprenons en main ce formidable vaisseau. A son bord, son équipage est des plus valeureux. Nous réussirons à nous débarrasser de tous ces Hunters. Festoyons à la future victoire de l'humanité sur le Mush !}
+                    8 {J'ai fait un rêve. Dans ce rêve, une nouvelle humanité saluait l'épave du Daedalus avant de lancer une énorme flotte à la reconquête de Sol, forte de son immunité au Mush. J'ai vu l'avenir, j'en suis sûr. Nous réussirons. NOUS RÉUSSIRONS !}
+                    9 {Je lis dans vos yeux, la même peur qui pourrait saisir mon coeur. Un jour peut venir, où le courage des Hommes faillira, où nous serons tous infectés. Ce jour n'est pas arrivé. Aujourd'hui nous combattrons ! Je vous ordonne de tenir, Hommes de Sol !}
+                    10 {Même si les attaques ne cessent pas et que tout le monde ne survivra pas à cette épopée, nous pouvons être fières d'être l'équipage qui mènera le dernier espoir aux confins de l'espace, en terre promise. Ne l'oubliez jamais: Nous sommes l'AVENIR !}
+                    11 {Mes amis, l'heure est grave je ne vous le cache pas. Mais là où d'autres baisseraient les bras, NOUS saurons faire la différence car NOUS sommes la fine fleur de l'élite et que tel est notre devoir !}
+                    12 {N'oubliez pas que nous avons été choisis d'entre tous pour sauver l'humanité. Personne d'autre que nous ne saurait mieux y arriver. Pensez à tous ceux qui sont restés à la merci du mush pour rendre ce voyage possible, ne les décevez pas !}
+                    13 {Nous avons été et sommes submergés par la force des champignons ! Mais le dernier mot est-il dit ? L'espérance doit-elle disparaître ? La défaite est-elle définitive ? Non ! La flamme de la résistance ne doit pas s'éteindre et ne s'éteindra pas.}
+                    14 {Nous sommes peut-être dans une situation qui semble déséspérée. Peut-être que certains d'entre-vous ont perdus leurs familles et leurs amis mais sachez que vous êtes les plus chanceux ! Pourquoi me direz-vous ? Car vous m'avez pour supérieur !}
+                    15 {Secouez-vous un peu, bande de moules ! L'ennemi est à nos portes mais nous allons l'atomiser ! Le Mush ne nous aura pas. Nous l’écraserons comme un vulgaire champignon. Nous sommes les meilleurs, nous vaincrons !}
+                    16 {tap tap 1, 2, 1, 2, y m'entendent c'est bon? Je vais vous la faire simple et brève mes pépères! Avec Stephen on vous a préparé un maxi gâteau au chocolat, et je compte sur vous tous pour bien le dégommer! Garanti sans laxatif ce coup-ci! A TABLE!!!}
+                    17 {TOUS AVEC MOI! Hunter, si j't'attrape, TU MEURS! BoUYAAA Mush, si j'te trouve, j'TE COUCHE! BoUYAAA Spores tremblez sous le cris de notre Stentor! BoUYAAA Car avec le Deadalus, bientôt nous retrouverons cirrus crocus et autres prunus! BoUYAAA}
+                    18 {Vous pourrez commencer à vous inquiéter quand le Mush m'aura infecté, mais pour l'instant vous n'avez pas à vous en faire car avec moi RIEN ne peut vous arriver ! Mais si un jour ils m'ont, et seulement à ce moment là, vous n'aurez plus aucun espoir.}
+                    19 {Vous qui êtes ici bien plus que des subordonnés, je vous le dis : malgré le poids écrasant de notre responsabilité, je suis fier comme jamais de mener un équipage à nul autre pareil dans une si noble destinée !}
+                    other {invalid version input}
+                }
+                </target>
+            </segment>
+        </unit>
+        <unit id="boring_speech">
+            <segment id="boring_speech">
+                <source>boring_speech</source>
+                <target>{version, select,
+                    1 {Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. PITIE FAITES LE TAIRE.}
+                    2 {Moi Commandant du Daedalus, je promets la fin de la crise Mush. Moi Commandant du Daedalus, je prônerais l'égalité homme/femme.Moi Commandant du Daedalus, il faudra Le Faire une fois par jour.Moi Commandant du Daedalus, les femmes enceintes seront exemptées de travail.Moi Commandant du Daedalus, je ne vendrais aucun d'entre vous à des esclavagistes.Moi Commandant du Daedalus, nous mangerons 5 fruits et légumes par jour.Moi Commandant du Daedalus, NERON sera de bonne humeur.Moi Commandant du Daedalus, les douches seront publiques.Moi Commandant du Daedalus, nous irons sur Eden.Moi Commandant du Daedalus, …}
+                    3 {Comme le dit le grand Président Maubrick, il faut toujours croire en la FDS, ne pas frapper ses voisins, et traiter les femmes avec respect.Comme le dit le grand Président Maubrick, le Mush ne peut rien face à nous.Moi d'mon temps, le Président Maubrick il...}
+                    other {invalid version input}
+                }
+                </target>
+            </segment>
+        </unit>
+        <unit id="make_sick">
+            <segment id="make_sick">
+                <source>make_sick</source>
+                <target>**{character}** souffle sur **{target_character}** un nuage étrange...</target>
+            </segment>
+        </unit>
+        <unit id="fake_disease">
+            <segment id="fake_disease">
+                <source>fake_disease</source>
+                <target>{character_gender, select,
+                    male {C'est étrange **{character}** sort un poudrier et se badigeonne de blanc et de noir. Il n'a vraiment pas l'air dans son assiette.}
+                    female {C'est étrange **{character}** sort un poudrier et se badigeonne de blanc et de noir. Elle n'a vraiment pas l'air dans son assiette.}
+                    other {invalid gender input}
+                }</target>
             </segment>
         </unit>
     </file>

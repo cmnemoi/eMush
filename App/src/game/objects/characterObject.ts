@@ -9,7 +9,7 @@ import IsometricGeom from "@/game/scenes/isometricGeom";
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 
 export default class CharacterObject extends InteractObject {
-    protected player : Player;
+    public player : Player;
     protected navMesh: NavMeshGrid;
 
     constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, isoGeom: IsometricGeom, player: Player) {
@@ -34,6 +34,25 @@ export default class CharacterObject extends InteractObject {
 
         this.createAnimations();
 
+        this.applyEquipmentInteraction();
+
+        //If this is clicked then:
+        this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
+            store.dispatch('room/selectTarget', { target: player });
+        });
+
+        this.checkPositionDepth();
+    }
+
+    updatePlayer(player: Player | null = null)
+    {
+        if (player !== null) {this.player = player;}
+
+        this.applyEquipmentInteraction();
+    }
+
+    applyEquipmentInteraction(): void
+    {
         const targetBed = this.player.isLyingDown();
 
         if (targetBed !== null) {
@@ -49,14 +68,11 @@ export default class CharacterObject extends InteractObject {
             }
             this.anims.play('right');
         }
+    }
 
-
-        //If this is clicked then:
-        this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
-            store.dispatch('room/selectTarget', { target: player });
-        });
-
-        this.checkPositionDepth();
+    updateNavMesh(): void
+    {
+        this.navMesh = (<DaedalusScene>this.scene).navMeshGrid;
     }
 
 
@@ -79,6 +95,7 @@ export default class CharacterObject extends InteractObject {
             this.setPositionFromIsometricCoordinates(charIsoCoords);
 
             this.depth = equipment.depth + interactionInformation.sitDepth;
+
             this.anims.play(interactionInformation.sitAnimation);
         }
     }
@@ -175,7 +192,7 @@ export default class CharacterObject extends InteractObject {
         const polygonDepth = (<DaedalusScene>this.scene).sceneGrid.getDepthOfPoint(this.getFeetCartCoords().toIsometricCoordinates());
 
         if (polygonDepth !== -1) {
-            this.setDepth(polygonDepth);// + this.getFeetCartCoords().x);
+            this.setDepth(polygonDepth + this.getFeetCartCoords().y);
         }
     }
 }

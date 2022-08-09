@@ -50,9 +50,9 @@ const MYCOPIA = 'mycopia';
 const ASPERAGUNK = 'asperagunk';
 const BUMPJUNKIN = 'bumpjunkin';
 
-const SNIPER_HELMET_BLUEPRINT = "sniper_helmet_blueprint";
+const BLUEPRINT = "blueprint";
 const SNIPER_HELMET = "sniper_helmet";
-const APPRENTON_PILOTE = "apprenton_pilot";
+const APPRENTON = "apprenton";
 const STANDARD_RATION = "standard_ration";
 const COOKED_RATION = "cooked_ration";
 const MAD_KUBE = "mad_kube";
@@ -83,6 +83,7 @@ const SPACE_CAPSULE = "space_capsule";
 const JAR_OF_ALIEN_OIL = "jar_of_alien_oil";
 const BANDAGE = "bandage";
 const SPORE_SUCKER = "spore_sucker";
+const ALIEN_HOLOGRAPHIC_TV = "alien_holographic_tv";
 
 
 export const itemEnum: {[index: string]: any} = {
@@ -116,10 +117,10 @@ export const itemEnum: {[index: string]: any} = {
     [PLASTIC_SCRAP]: {
         'image': require('@/assets/images/items/plastic_scraps.jpg')
     },
-    [APPRENTON_PILOTE]: {
+    [APPRENTON]: {
         'image': require('@/assets/images/items/book.jpg')
     },
-    [SNIPER_HELMET_BLUEPRINT]: {
+    [BLUEPRINT]: {
         'image': require('@/assets/images/items/blueprint.jpg')
     },
     [SNIPER_HELMET]: {
@@ -331,6 +332,9 @@ export const itemEnum: {[index: string]: any} = {
     },
     [SPORE_SUCKER]: {
         'image': require('@/assets/images/items/spore_sucker.jpg')
+    },
+    [ALIEN_HOLOGRAPHIC_TV]: {
+        'image': require('@/assets/images/items/alien_holographic_tv.jpg')
     }
 }
 ;

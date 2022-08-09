@@ -50,7 +50,7 @@ class PlayerStatusServiceTest extends TestCase
 
         $this->playerStatusService->handleMoralStatus($player, new \DateTime());
 
-        //Player demoralized, improvement of mental
+        // Player demoralized, improvement of mental
         $player = new Player();
         $player->setMoralPoint(10);
 
@@ -61,7 +61,7 @@ class PlayerStatusServiceTest extends TestCase
         $this->statusService->shouldReceive('delete')->with($demoralizedStatus)->once();
         $this->playerStatusService->handleMoralStatus($player, new \DateTime());
 
-        //Player suicidal, improvement of mental
+        // Player suicidal, improvement of mental
         $player = new Player();
         $player->setMoralPoint(10);
 
@@ -86,7 +86,7 @@ class PlayerStatusServiceTest extends TestCase
 
         $this->playerStatusService->handleMoralStatus($player, new \DateTime());
 
-        //Player Already demoralized
+        // Player Already demoralized
         $demoralizedConfig = new StatusConfig();
         $demoralizedConfig->setName(PlayerStatusEnum::DEMORALIZED);
         $demoralizedStatus = new Status($player, $demoralizedConfig);
@@ -99,7 +99,7 @@ class PlayerStatusServiceTest extends TestCase
         $this->playerStatusService->handleMoralStatus($player, new \DateTime());
         $this->assertNotEmpty($player->getStatuses());
 
-        //Player Already suicidal, improvement of mental
+        // Player Already suicidal, improvement of mental
         $player = new Player();
         $player->setMoralPoint(3);
 
@@ -130,7 +130,7 @@ class PlayerStatusServiceTest extends TestCase
 
         $this->playerStatusService->handleMoralStatus($player, new \DateTime());
 
-        //Player Already suicidal
+        // Player Already suicidal
         $suicidalConfig = new StatusConfig();
         $suicidalConfig->setName(PlayerStatusEnum::SUICIDAL);
         $suicidalStatus = new Status($player, $suicidalConfig);
@@ -143,7 +143,7 @@ class PlayerStatusServiceTest extends TestCase
         $this->playerStatusService->handleMoralStatus($player, new \DateTime());
         $this->assertCount(1, $player->getStatuses());
 
-        //Player was demoralized
+        // Player was demoralized
         $player = new Player();
         $player->setMoralPoint(1);
         $demoralizedConfig = new StatusConfig();

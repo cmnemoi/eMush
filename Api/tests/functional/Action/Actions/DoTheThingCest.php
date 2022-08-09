@@ -17,13 +17,13 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -156,13 +156,13 @@ class DoTheThingCest
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
-        //Check if pregnancy log works
+        // Check if pregnancy log works
         $pregnantStatusEvent = new StatusEvent(
             PlayerStatusEnum::PREGNANT,
             $player,
             $this->doTheThingAction->getActionName(),
             new \DateTime()
-          );
+        );
         $pregnantStatusEvent->setVisibility(VisibilityEnum::PRIVATE);
 
         $this->eventDispatcherService->dispatch($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);

@@ -12,8 +12,8 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -36,7 +36,7 @@ class GearToolService implements GearToolServiceInterface
 
     public function getEquipmentsOnReach(Player $player, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): Collection
     {
-        //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
+        // reach can be set to inventory, shelve, shelve only or any room of the Daedalus
         switch ($reach) {
             case ReachEnum::INVENTORY:
                 return $player->getEquipments();

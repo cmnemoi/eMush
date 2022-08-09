@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
@@ -21,7 +22,6 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -86,7 +86,7 @@ class TakeSubscriberCest
             'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -154,7 +154,7 @@ class TakeSubscriberCest
             'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -237,7 +237,7 @@ class TakeSubscriberCest
             'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -320,7 +320,7 @@ class TakeSubscriberCest
             'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -400,7 +400,7 @@ class TakeSubscriberCest
             'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)

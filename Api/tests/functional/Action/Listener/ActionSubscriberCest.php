@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -25,7 +26,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -61,7 +61,7 @@ class ActionSubscriberCest
 
         $actionEvent = new ActionEvent($action, $player, null);
 
-        //Test injury
+        // Test injury
         $this->cycleSubscriber->onPostAction($actionEvent);
 
         $I->assertEquals(8, $player->getHealthPoint());
@@ -103,7 +103,7 @@ class ActionSubscriberCest
 
         $actionEvent = new ActionEvent($action, $player, null);
 
-        //Test dirty
+        // Test dirty
         $this->cycleSubscriber->onPostAction($actionEvent);
 
         $I->assertEquals(10, $player->getHealthPoint());
@@ -146,7 +146,7 @@ class ActionSubscriberCest
 
         $actionEvent = new ActionEvent($action, $player, null);
 
-        //Test already dirty
+        // Test already dirty
         $this->cycleSubscriber->onPostAction($actionEvent);
 
         $I->assertEquals(10, $player->getHealthPoint());
@@ -194,7 +194,7 @@ class ActionSubscriberCest
         $I->refreshEntities($player);
         $I->haveInRepository($modifier);
 
-        //Test dirty with apron
+        // Test dirty with apron
         $this->cycleSubscriber->onPostAction($actionEvent);
 
         $I->assertEquals(10, $player->getHealthPoint());

@@ -11,9 +11,9 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -61,7 +61,7 @@ class OpenCapsule extends AbstractAction
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
 
-        //remove the space capsule
+        // remove the space capsule
         $equipmentEvent = new EquipmentEvent(
             $parameter->getName(),
             $this->player,
@@ -72,7 +72,7 @@ class OpenCapsule extends AbstractAction
         $equipmentEvent->setExistingEquipment($parameter);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        //Get the content
+        // Get the content
         $contentName = $this->randomService->getSingleRandomElementFromProbaArray(self::$capsuleContent);
 
         $equipmentEvent = new EquipmentEvent(

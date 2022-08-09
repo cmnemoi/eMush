@@ -10,6 +10,7 @@ use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusWidgetService;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
@@ -57,6 +58,8 @@ class DaedalusWidgetServiceTest extends TestCase
         ;
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT); // player is alive
+
         $room2->addPlayer($player);
 
         $this->alertService
@@ -123,13 +126,13 @@ class DaedalusWidgetServiceTest extends TestCase
         $minimap = $this->service->getMinimap($daedalus);
 
         $this->assertIsArray($minimap);
-        //fire reported
+        // fire reported
         $this->assertArrayHasKey(RoomEnum::LABORATORY, $minimap);
         $this->assertTrue($minimap[RoomEnum::LABORATORY]['fire']);
-        //fire but no reported
+        // fire but no reported
         $this->assertArrayHasKey(RoomEnum::BRIDGE, $minimap);
         $this->assertFalse($minimap[RoomEnum::BRIDGE]['fire']);
-        //no fire
+        // no fire
         $this->assertArrayHasKey(RoomEnum::CENTRAL_CORRIDOR, $minimap);
         $this->assertFalse($minimap[RoomEnum::CENTRAL_CORRIDOR]['fire']);
     }

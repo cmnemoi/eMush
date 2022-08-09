@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
@@ -24,7 +25,6 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class CreateDestroyEquipmentSubscriberCest
@@ -68,7 +68,7 @@ class CreateDestroyEquipmentSubscriberCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $equipmentEvent = new EquipmentEvent(
             $equipmentConfig->getName(),
             $player,
@@ -232,7 +232,7 @@ class CreateDestroyEquipmentSubscriberCest
             'mechanics' => new ArrayCollection([$gear]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -311,7 +311,7 @@ class CreateDestroyEquipmentSubscriberCest
             'mechanics' => new ArrayCollection([$gear]),
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -416,7 +416,7 @@ class CreateDestroyEquipmentSubscriberCest
             'name' => ItemEnum::APPRENTON,
         ]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipmentConfig)

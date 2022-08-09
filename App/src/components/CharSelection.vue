@@ -55,6 +55,7 @@ import { characterEnum } from "@/enums/character";
 import PlayerService from "@/services/player.service";
 import { Character } from "@/entities/Character";
 import { defineComponent } from "vue";
+import { mapGetters } from "vuex";
 
 export default defineComponent ({
     name: 'CharSelection',
@@ -76,6 +77,11 @@ export default defineComponent ({
                 this.loading = false;
             });
     },
+    computed: {
+        ...mapGetters('auth', [
+            'getUserInfo'
+        ])
+    },
     methods: {
         characterPortrait: function(character: Character) {
             return characterEnum[character.key] ? characterEnum[character.key].portrait : require('@/assets/images/items/todo.jpg');
@@ -84,7 +90,7 @@ export default defineComponent ({
             return characterEnum[character.key] ? characterEnum[character.key].body : require('@/assets/images/items/todo.jpg');
         },
         selectCharacter: function(character: Character) {
-            PlayerService.selectCharacter(this.daedalusId, character.key)
+            PlayerService.selectCharacter(this.getUserInfo.userId, this.daedalusId, character.key)
                 .then(() => {
                     this.loading = false;
                 })
@@ -292,8 +298,6 @@ h1 {
         }
     }
 }
-
-
 
 </style>
 

@@ -13,6 +13,7 @@ use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
+use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Event\ModifierEvent;
 use Mush\Player\Entity\Player;
@@ -117,7 +118,7 @@ class ModifierService implements ModifierServiceInterface
 
     private function getActionModifiers(Action $action, Player $player, ?LogParameterInterface $parameter): ModifierCollection
     {
-        $scopes = array_merge([$action->getName()], $action->getTypes());
+        $scopes = array_merge([$action->getName()], $action->getTypes(), [ModifierScopeEnum::ACTIONS]);
 
         $modifiers = $player->getAllModifiers()->getScopedModifiers($scopes);
 
@@ -138,7 +139,7 @@ class ModifierService implements ModifierServiceInterface
             if ($attemptNumber === null) {
                 throw new InvalidTypeException('number of attempt should be provided');
             }
-            $initialValue = $action->getSuccessRate() * (self::ATTEMPT_INCREASE) ** $attemptNumber;
+            $initialValue = $action->getSuccessRate() * self::ATTEMPT_INCREASE ** $attemptNumber;
 
             return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $initialValue);
         }

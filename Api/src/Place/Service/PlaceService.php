@@ -36,7 +36,9 @@ class PlaceService implements PlaceServiceInterface
 
     public function findById(int $id): ?Place
     {
-        return $this->repository->find($id);
+        $place = $this->repository->find($id);
+
+        return $place instanceof Place ? $place : null;
     }
 
     public function createPlace(

@@ -43,7 +43,7 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
             }
 
             $minimap[$roomName] = [
-                'players_count' => $room->getPlayers()->count(),
+                'players_count' => $room->getPlayers()->getPlayerAlive()->count(),
                 'actopi' => [],
                 'fire' => $this->isFireDisplayed($room),
                 'broken_count' => count($brokenEquipmentsList) + count($brokenDoorsList),
@@ -63,15 +63,15 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
         if ($room->getStatusByName(StatusEnum::FIRE) === null) {
             return false;
         }
-        //add fire detector project
+        // add fire detector project
 
-        //reported fires are now displayed
+        // reported fires are now displayed
         return $this->alertService->isFireReported($room);
     }
 
     private function getDisplayedBrokenEquipments(Daedalus $daedalus, string $alertName, bool $isProject): array
     {
-        //get all equipment broken on the ship
+        // get all equipment broken on the ship
         $brokenAlert = $this->alertService->findByNameAndDaedalus($alertName, $daedalus);
 
         if ($brokenAlert === null) {
@@ -82,7 +82,7 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
 
         /** @var AlertElement $alertElement */
         foreach ($brokenAlert->getAlertElements() as $alertElement) {
-            //if there is no project only gather reported elements
+            // if there is no project only gather reported elements
             if (($isProject || $alertElement->getPlayer() !== null) && ($equipment = $alertElement->getEquipment()) !== null) {
                 $roomName = $equipment->getPlace()->getName();
                 $equipmentName = $equipment->getName();

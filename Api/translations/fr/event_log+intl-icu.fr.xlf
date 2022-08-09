@@ -76,15 +76,37 @@
                 <target>Vous perdez {quantity} :pmo:</target>
             </segment>
         </unit>
+        <unit id="loss_action_point">
+            <segment>
+                <source>loss_action_point</source>
+                <target>Vous perdez {quantity} :pa:</target>
+            </segment>
+        </unit>
+        <unit id="loss_movement_point">
+            <segment>
+                <source>loss_movement_point</source>
+                <target>Vous perdez {quantity} :pm:</target>
+            </segment>
+        </unit>
         <unit id="gain_triumph">
             <segment>
                 <source>gain_triumph</source>
                 <target>:triumph: Cette action remplit les objectifs personnels de votre personnage. Vous gagnez *{quantity} Triomphe*.</target>
             </segment>
         </unit>
-        <unit id="object_felt">
+        <unit id="death">
             <segment>
-                <source>object_felt</source>
+                <source>death</source>
+                <target>{character_gender, select,
+                        male {:dead: **{character}** est mort. Cause : {reason}.}
+                        female {:dead: **{character}** est morte. Cause : {reason}.}
+                        other {invalid gender input}
+                }</target>
+            </segment>
+        </unit>
+        <unit id="object_fell">
+            <segment>
+                <source>object_fell</source>
                 <target>{equipment_gender, select,
                         male {Étrange, **{character}** a fait tomber un **{equipment}**.}
                         female {Étrange, **{character}** a fait tomber une **{equipment}**.}
@@ -325,6 +347,70 @@
                      female {*{character}* est très satisfaite.}
                      other {invalid gender input}
                  }
+                </target>
+            </segment>
+        </unit>
+        <unit id="screaming">
+            <segment>
+                <source>screaming</source>
+                <target>:pill: **{character}** se jette par terre en hurlant et en appelant sa mère...</target>
+            </segment>
+        </unit>
+        <unit id="wall_head_bang">
+            <segment>
+                <source>wall_head_bang</source>
+                <target>:pill: **{character}** se met subitement à se taper la tête contre le mur... ça a l'air de faire mal...</target>
+            </segment>
+        </unit>
+        <unit id="run_in_circles">
+            <segment>
+                <source>run_in_circles</source>
+                <target>:pill: **{character}** se met à courir en rond, et rien de semble pouvoir l'arrêter... à part la fatigue...</target>
+            </segment>
+        </unit>
+        <unit id="vomiting">
+            <segment id="vomiting">
+                <source>vomiting</source>
+                <target>:ill: **{character}** vomit son repas. Pas très ragoutant…</target>
+            </segment>
+        </unit>
+        <unit id="sneezing">
+            <segment id="sneezing">
+                <source>sneezing</source>
+                <target>Atchoum !</target>
+            </segment>
+        </unit>
+        <unit id="biting">
+            <segment id="biting">
+                <source>biting</source>
+                <target>:pill: **{character}** se tourne soudainement vers **{target_character}** et se met à lui dévorer le bras…</target>
+            </segment>
+        </unit>
+        <unit id="breakouts">
+            <segment id="breakouts">
+                <source>breakouts</source>
+                <target>:ill: **{character}** gratte ses plaques immondes, c'est vraiment atroce…</target>
+            </segment>
+        </unit>
+        <unit id="foaming_mouth">
+            <segment id="foaming_mouth">
+                <source>foaming_mouth</source>
+                <target>:pill: **{character}** laisse échapper un petit filet de mousse du coin de sa bouche… C'est dégoûtant..</target>
+            </segment>
+        </unit>
+        <unit id="drooling">
+            <segment id="drooling">
+                <source>drooling</source>
+                <target>:pill: **{character}** bave vraiment beaucoup, ça commence à paraître suspect...</target>
+            </segment>
+        </unit>
+        <unit id="cat_allergy">
+            <segment id="cat_allergy">
+                <source>cat_allergy</source>
+                <target>{character_gender, select,
+                    male {:ill: **{character}** subit une éruption cutanée fulgurante, il étouffe, on lui avait pourtant dit de ne pas prendre ce #%$ de chat !}
+                    female {:ill: **{character}** subit une éruption cutanée fulgurante, elle étouffe, on lui avait pourtant dit de ne pas prendre ce #%$ de chat !}
+                    other {invalid gender input}}
                 </target>
             </segment>
         </unit>

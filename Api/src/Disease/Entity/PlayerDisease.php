@@ -4,47 +4,34 @@ namespace Mush\Disease\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Player\Entity\Player;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="disease_player")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'disease_player')]
 class PlayerDisease
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Disease\Entity\DiseaseConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: DiseaseConfig::class)]
     private DiseaseConfig $diseaseConfig;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player", inversedBy="diseases")
-     */
+    #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'diseases')]
     private Player $player;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $status = DiseaseStatusEnum::ACTIVE;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $diseasePoint = 0;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $resistancePoint = 0;
 
     public function getId(): ?int

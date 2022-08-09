@@ -6,46 +6,33 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\GameConfig;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Modifier\Entity\ModifierConfig;
 
-/**
- * Class StatusConfig.
- *
- * @ORM\Entity()
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({
- *     "status_config" = "Mush\Status\Entity\Config\StatusConfig",
- *     "charge_status_config" = "Mush\Status\Entity\Config\ChargeStatusConfig",
- * })
- */
+#[ORM\Entity]
+#[ORM\InheritanceType('SINGLE_TABLE')]
+#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
+#[ORM\DiscriminatorMap([
+    'status_config' => StatusConfig::class,
+    'charge_status_config' => ChargeStatusConfig::class,
+])]
 class StatusConfig
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     protected int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: GameConfig::class)]
     private GameConfig $gameConfig;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     protected string $name;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     protected string $visibility = VisibilityEnum::PUBLIC;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Mush\Modifier\Entity\ModifierConfig")
-     */
+    #[ORM\ManyToMany(targetEntity: ModifierConfig::class)]
     private Collection $modifierConfigs;
 
     public function __construct()
@@ -75,10 +62,7 @@ class StatusConfig
         return $this->name;
     }
 
-    /**
-     * @return static
-     */
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
 
@@ -90,10 +74,7 @@ class StatusConfig
         return $this->visibility;
     }
 
-    /**
-     * @return static
-     */
-    public function setVisibility(string $visibility): self
+    public function setVisibility(string $visibility): static
     {
         $this->visibility = $visibility;
 
@@ -105,10 +86,7 @@ class StatusConfig
         return $this->modifierConfigs;
     }
 
-    /**
-     * @return static
-     */
-    public function setModifierConfigs(Collection $modifierConfigs): self
+    public function setModifierConfigs(Collection $modifierConfigs): static
     {
         $this->modifierConfigs = $modifierConfigs;
 

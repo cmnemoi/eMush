@@ -10,49 +10,31 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Symfony\Component\Validator\Exception\LogicException;
 
-/**
- * Class Modifier.
- *
- * @ORM\Entity
- * @ORM\Table(name="modifier")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'modifier')]
 class Modifier
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Modifier\Entity\ModifierConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: ModifierConfig::class)]
     private ModifierConfig $modifierConfig;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Player\Entity\Player")
-     */
+    #[ORM\ManyToOne(targetEntity: Player::class)]
     private ?Player $player = null;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Place\Entity\Place")
-     */
+    #[ORM\ManyToOne(targetEntity: Place::class)]
     private ?Place $place = null;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Equipment\Entity\GameEquipment")
-     */
+    #[ORM\ManyToOne(targetEntity: GameEquipment::class)]
     private ?GameEquipment $gameEquipment = null;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Daedalus\Entity\Daedalus")
-     */
+    #[ORM\ManyToOne(targetEntity: Daedalus::class)]
     private ?Daedalus $daedalus = null;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Status\Entity\ChargeStatus")
-     */
+    #[ORM\ManyToOne(targetEntity: ChargeStatus::class)]
     private ?ChargeStatus $charge = null;
 
     public function __construct(ModifierHolder $holder, ModifierConfig $modifierConfig)

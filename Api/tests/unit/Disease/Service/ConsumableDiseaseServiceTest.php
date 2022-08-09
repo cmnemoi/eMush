@@ -6,9 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
-use Mush\Disease\Entity\ConsumableDiseaseConfig;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Repository\ConsumableDiseaseConfigRepository;
 use Mush\Disease\Repository\ConsumableDiseaseRepository;
@@ -134,7 +134,7 @@ class ConsumableDiseaseServiceTest extends TestCase
             ->once()
         ;
 
-        //first the service chose and design the cure
+        // first the service chose and design the cure
         $this->randomService
             ->shouldReceive('getRandomElementsFromProbaArray')
             ->with(['Disease 1' => 10], 1)

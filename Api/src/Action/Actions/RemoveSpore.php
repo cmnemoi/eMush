@@ -13,7 +13,7 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -62,7 +62,11 @@ class RemoveSpore extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $playerModifierEvent = new PlayerModifierEvent(
+        // Check spore status before applying health modifier in case player dies
+        /** @var ?ChargeStatus $sporeStatus */
+        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
+
+        $playerModifierEvent = new PlayerVariableEvent(
             $this->player,
             PlayerVariableEnum::HEALTH_POINT,
             -3,
@@ -75,9 +79,6 @@ class RemoveSpore extends AbstractAction
         if ($this->player->getStatusByName(PlayerStatusEnum::IMMUNIZED)) {
             return new Fail();
         }
-
-        /** @var ?ChargeStatus $sporeStatus */
-        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
 
         if ($sporeStatus === null) {
             throw new Error('Player should have a spore status');

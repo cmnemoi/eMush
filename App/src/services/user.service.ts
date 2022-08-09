@@ -2,6 +2,8 @@ import ApiService from './api.service';
 import { TokenService } from './storage.service';
 import { User } from "@/entities/User";
 import urlJoin from "url-join";
+import store from "@/store";
+import axios from "axios";
 
 // @ts-ignore
 const authorizationUrl = urlJoin(process.env.VUE_APP_OAUTH_URL, "authorize");
@@ -9,6 +11,8 @@ const authorizationUrl = urlJoin(process.env.VUE_APP_OAUTH_URL, "authorize");
 const tokenUrl = urlJoin(process.env.VUE_APP_OAUTH_URL, "token");
 // @ts-ignore
 const callBackUrl = urlJoin(process.env.VUE_APP_URL, "token");
+// @ts-ignore
+const userEndPoint = urlJoin(process.env.VUE_APP_API_URL+'users');
 
 class AuthenticationError extends Error {
     public errorCode: number
@@ -79,12 +83,8 @@ const UserService = {
 
     userInfo: async function(): Promise<User> {
         try {
-            const params = {
-                header: {
-                    'accept' : 'application/json'
-                }
-            };
-            const response = await ApiService.get(process.env.VUE_APP_API_URL+'users', params);
+            const currentUserId = store.getters["auth/userId"];
+            const response = await ApiService.get(urlJoin(userEndPoint,currentUserId));
             const user = new User();
             TokenService.saveUserInfo(user.load(response.data));
 
@@ -106,6 +106,41 @@ const UserService = {
         TokenService.removeRefreshToken();
         TokenService.removeUserInfo();
         ApiService.removeHeader();
+    },
+
+
+    loadUser: async function(userId: string): Promise<User> {
+        try {
+            const response = await ApiService.get(urlJoin(userEndPoint,userId));
+            const user : User = new User();
+
+            if (response.data) {
+                user.load(response.data);
+            }
+
+            return user;
+        } catch (error: any) {
+            // eslint-disable-next-line no-console
+            throw new AuthenticationError(error.response.status, error.response.data.detail);
+        }
+    },
+
+    updateUser: async function(user: any): Promise<User> {
+        try {
+            if (user.userId != null) {
+                const uri = urlJoin(userEndPoint, user.userId + '?XDEBUG_SESSION_START=PHPSTORM');
+
+                const response = await ApiService.patch(uri, { roles: user.roles } );
+                if (response.data) {
+                    user.load(response.data);
+                }
+            }
+
+            return user;
+        } catch (error: any) {
+            // eslint-disable-next-line no-console
+            throw new AuthenticationError(error.response.status, error.response.data.detail);
+        }
     }
 };
 

@@ -82,7 +82,7 @@ class RandomService implements RandomServiceInterface
             throw new Error('getSingleRandomElement: array is not large enough');
         }
 
-        //first create a cumulative form of the array
+        // first create a cumulative form of the array
         $cumuProba = 0;
         foreach ($array as $event => $proba) {
             if (!is_int($proba)) {

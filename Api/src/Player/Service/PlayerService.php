@@ -8,6 +8,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TriumphEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -16,11 +17,10 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Repository\DeadPlayerInfoRepository;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
@@ -72,7 +72,9 @@ class PlayerService implements PlayerServiceInterface
 
     public function findById(int $id): ?Player
     {
-        return $this->repository->find($id);
+        $player = $this->repository->find($id);
+
+        return $player instanceof Player ? $player : null;
     }
 
     public function findOneByCharacter(string $character, Daedalus $daedalus): ?Player
@@ -82,7 +84,9 @@ class PlayerService implements PlayerServiceInterface
 
     public function findUserCurrentGame(User $user): ?Player
     {
-        return $this->repository->findOneBy(['user' => $user, 'gameStatus' => GameStatusEnum::CURRENT]);
+        $player = $this->repository->findOneBy(['user' => $user, 'gameStatus' => GameStatusEnum::CURRENT]);
+
+        return $player instanceof Player ? $player : null;
     }
 
     public function findDeadPlayerInfo(Player $player): ?DeadPlayerInfo
@@ -179,7 +183,7 @@ class PlayerService implements PlayerServiceInterface
             return $player;
         }
 
-        $playerModifierEvent = new PlayerModifierEvent(
+        $playerModifierEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::ACTION_POINT,
             self::CYCLE_ACTION_CHANGE,
@@ -187,7 +191,7 @@ class PlayerService implements PlayerServiceInterface
             $date);
         $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
-        $playerModifierEvent = new PlayerModifierEvent(
+        $playerModifierEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::MOVEMENT_POINT,
             self::CYCLE_MOVEMENT_CHANGE,
@@ -196,7 +200,7 @@ class PlayerService implements PlayerServiceInterface
         );
         $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
-        $playerModifierEvent = new PlayerModifierEvent(
+        $playerModifierEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::SATIETY,
             self::CYCLE_SATIETY_CHANGE,
@@ -242,7 +246,7 @@ class PlayerService implements PlayerServiceInterface
             return $player;
         }
 
-        $playerModifierEvent = new PlayerModifierEvent(
+        $playerModifierEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::HEALTH_POINT,
             self::DAY_HEALTH_CHANGE,
@@ -252,7 +256,7 @@ class PlayerService implements PlayerServiceInterface
         $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         if (!$player->isMush()) {
-            $playerModifierEvent = new PlayerModifierEvent(
+            $playerModifierEvent = new PlayerVariableEvent(
                 $player,
                 PlayerVariableEnum::MORAL_POINT,
                 self::DAY_MORAL_CHANGE,
@@ -290,7 +294,7 @@ class PlayerService implements PlayerServiceInterface
             /** @var Player $daedalusPlayer */
             foreach ($player->getDaedalus()->getPlayers()->getPlayerAlive() as $daedalusPlayer) {
                 if ($daedalusPlayer !== $player) {
-                    $playerModifierEvent = new PlayerModifierEvent(
+                    $playerModifierEvent = new PlayerVariableEvent(
                         $daedalusPlayer,
                         PlayerVariableEnum::MORAL_POINT,
                         $moraleLoss,
@@ -308,7 +312,7 @@ class PlayerService implements PlayerServiceInterface
             $this->gameEquipmentService->persist($item);
         }
 
-        //@TODO in case of assassination chance of disorder for roommates
+        // @TODO in case of assassination chance of disorder for roommates
 
         $player->setGameStatus(GameStatusEnum::FINISHED);
 

@@ -63,7 +63,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var StatusConfig $heavyStatus */
         $heavyStatus = $this->getReference(StatusFixtures::HEAVY_STATUS);
 
-        //@TODO
+        // @TODO
         $hackerKitMechanic = new Tool();
 
         $hackerKit = new ItemConfig();
@@ -117,7 +117,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             $takeAction,
             $this->getReference(TechnicianFixtures::DISMANTLE_3_25),
             $repair25,
-            $sabotage25,
             $reportAction,
             $examineAction,
         ]);
@@ -267,9 +266,11 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($superFreezer);
         $manager->persist($superFreezerMechanic);
 
-        //@TODO
+        /** @var Action $alienHolographicTVAction */
+        $alienHolographicTVAction = $this->getReference(ActionsFixtures::PUBLIC_BROADCAST);
+
         $alienHolographicTVMechanic = new Tool();
-//        $alienHolographicTVMechanic->setActions([ActionEnum::PUBLIC_BROADCAST]);
+        $alienHolographicTVMechanic->addAction($alienHolographicTVAction);
 
         $alienHolographicTV = new ItemConfig();
         $alienHolographicTV
@@ -288,9 +289,9 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($alienHolographicTVMechanic);
 
         /** @var Action $healAction */
-        $healAction = $this->getReference(ActionsFixtures::HEAL_DEFAULT);
+        $healAction = $this->getReference(ActionsFixtures::MEDIKIT_HEAL);
         /** @var Action $selfHealAction */
-        $selfHealAction = $this->getReference(ActionsFixtures::HEAL_SELF);
+        $selfHealAction = $this->getReference(ActionsFixtures::MEDIKIT_SELF_HEAL);
 
         $medikitMechanic = new Tool();
         $medikitMechanic
@@ -325,7 +326,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$sporeSuckerMechanic]))
-            ->setActions($actions) //@FIXME add repair and sabotage
+            ->setActions($actions) // @FIXME add repair and sabotage
         ;
 
         $manager->persist($sporeSucker);
@@ -342,7 +343,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ToolItemEnum::JAR_OF_ALIEN_OIL)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(true)
+            ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$jarOfAlienOilMechanic]))
             ->setActions($actions)
             ->setInitStatus(new ArrayCollection([$alienArtifactStatus]))
@@ -361,8 +362,8 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $bandage->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::BANDAGE)
             ->setIsStackable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(true)
+            ->setIsFireDestroyable(true)
+            ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$bandageMechanic]))
             ->setActions($actions)
         ;

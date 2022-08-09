@@ -11,4 +11,7 @@ class ModifierNameEnum
     public const APRON_MODIFIER = 'apron_modifier';
     public const GLOVES_MODIFIER = 'gloves_modifier';
     public const STARVING = 'starving';
+    public const SCREAMING = 'screaming';
+    public const WALL_HEAD_BANG = 'wall_head_bang';
+    public const RUN_IN_CIRCLES = 'run_in_circles';
 }

@@ -2,12 +2,13 @@
 
 namespace Mush\Player\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerVariableServiceInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -33,7 +34,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
 
     public function onChangeVariable(AbstractQuantityEvent $playerEvent): void
     {
-        if (!$playerEvent instanceof PlayerModifierEvent) {
+        if (!$playerEvent instanceof PlayerVariableEvent) {
             return;
         }
 
@@ -65,7 +66,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function handleActionPointModifier(PlayerModifierEvent $playerEvent): void
+    private function handleActionPointModifier(PlayerVariableEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getQuantity();
@@ -73,7 +74,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $this->playerVariableService->handleActionPointModifier($delta, $player);
     }
 
-    private function handleMovementPointModifier(PlayerModifierEvent $playerEvent): void
+    private function handleMovementPointModifier(PlayerVariableEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getQuantity();
@@ -81,7 +82,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $this->playerVariableService->handleMovementPointModifier($delta, $player);
     }
 
-    private function handleHealthPointModifier(PlayerModifierEvent $playerEvent): void
+    private function handleHealthPointModifier(PlayerVariableEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getQuantity();
@@ -89,12 +90,15 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $this->playerVariableService->handleHealthPointModifier($delta, $player);
 
         if ($player->getHealthPoint() === 0) {
-            $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
+            if (in_array($playerEvent->getReason(), [ActionEnum::HIT, ActionEnum::SHOOT])) {
+                $playerEvent->setReason(EndCauseEnum::ASSASSINATED);
+            }
+
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         }
     }
 
-    private function handleMoralPointModifier(PlayerModifierEvent $playerEvent): void
+    private function handleMoralPointModifier(PlayerVariableEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getQuantity();
@@ -102,7 +106,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         $this->playerVariableService->handleMoralPointModifier($delta, $player);
     }
 
-    private function handleSatietyPointModifier(PlayerModifierEvent $playerEvent): void
+    private function handleSatietyPointModifier(PlayerVariableEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getQuantity();

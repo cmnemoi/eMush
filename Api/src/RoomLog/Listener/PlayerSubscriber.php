@@ -2,6 +2,7 @@
 
 namespace Mush\RoomLog\Listener;
 
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -44,14 +45,23 @@ class PlayerSubscriber implements EventSubscriberInterface
     private function createEventLog(string $logKey, PlayerEvent $event): void
     {
         $player = $event->getPlayer();
+        $logParameters = $event->getLogParameters();
+
+        if ($logKey == LogEnum::DEATH) {
+            if (!($reason = $event->getReason())) {
+                throw new \LogicException('Player should die with a reason');
+            }
+
+            $logParameters['reason'] = $reason;
+        }
 
         $this->roomLogService->createLog(
             $logKey,
             $event->getPlace(),
-            $event->getVisibility(),
+            VisibilityEnum::PUBLIC,
             'event_log',
             $player,
-            $event->getLogParameters(),
+            $logParameters,
             $event->getTime()
         );
     }

@@ -46,7 +46,7 @@ class HyperfreezeActionTest extends AbstractActionTest
 
     public function testExecuteFruit()
     {
-        //fruit
+        // fruit
         $room = new Place();
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -59,7 +59,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $ration
              ->setMechanics(new ArrayCollection([$rationType]))
              ->setName('fruit')
-         ;
+        ;
         $gameRation
             ->setEquipment($ration)
             ->setHolder($room)
@@ -97,7 +97,7 @@ class HyperfreezeActionTest extends AbstractActionTest
 
     public function testExecuteSteak()
     {
-        //Alien Steak
+        // Alien Steak
         $room = new Place();
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -110,7 +110,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $ration
              ->setMechanics(new ArrayCollection([$rationType]))
              ->setName(GameRationEnum::ALIEN_STEAK)
-         ;
+        ;
         $gameRation
             ->setEquipment($ration)
             ->setHolder($room)
@@ -132,7 +132,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $standardRation = new ItemConfig();
         $standardRation
              ->setName(GameRationEnum::STANDARD_RATION)
-         ;
+        ;
         $gameStandardRation
             ->setEquipment($standardRation)
             ->setName(GameRationEnum::STANDARD_RATION)

@@ -8,6 +8,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
@@ -29,7 +30,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         return [
             EquipmentEvent::EQUIPMENT_CREATED => [['onEquipmentCreated', -1], ['onInventoryOverflow']],
             EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
-            EquipmentEvent::EQUIPMENT_TRANSFORM => 'onInventoryOverflow',
+            EquipmentEvent::EQUIPMENT_TRANSFORM => ['onInventoryOverflow', -5],
         ];
     }
 
@@ -61,18 +62,18 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 return;
         }
 
-        $this->createEventLog($logKey, $event);
+        $this->createEventLog($logKey, $event, $event->getVisibility());
     }
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
         switch ($event->getReason()) {
             case EventEnum::FIRE:
-                $this->createEventLog(LogEnum::EQUIPMENT_DESTROYED, $event);
+                $this->createEventLog(LogEnum::EQUIPMENT_DESTROYED, $event, VisibilityEnum::PUBLIC);
 
                 return;
             case PlantLogEnum::PLANT_DEATH:
-                $this->createEventLog(PlantLogEnum::PLANT_DEATH, $event);
+                $this->createEventLog(PlantLogEnum::PLANT_DEATH, $event, VisibilityEnum::PUBLIC);
 
                 return;
         }
@@ -91,7 +92,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $holder instanceof Player &&
             $holder->getEquipments()->count() > $this->getGameConfig($newEquipment)->getMaxItemInInventory()
         ) {
-            $this->createEventLog(LogEnum::OBJECT_FELT, $event);
+            $this->createEventLog(LogEnum::OBJECT_FELL, $event, VisibilityEnum::PUBLIC);
         }
     }
 
@@ -100,7 +101,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         return $gameEquipment->getEquipment()->getGameConfig();
     }
 
-    private function createEventLog(string $logKey, EquipmentEvent $event): void
+    private function createEventLog(string $logKey, EquipmentEvent $event, string $visibility): void
     {
         $player = $event->getHolder();
         if (!$player instanceof Player) {
@@ -110,7 +111,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $this->roomLogService->createLog(
             $logKey,
             $event->getPlace(),
-            $event->getVisibility(),
+            $visibility,
             'event_log',
             $player,
             $event->getLogParameters(),

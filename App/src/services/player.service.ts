@@ -44,8 +44,8 @@ const PlayerService = {
             });
     },
 
-    selectCharacter: (daedalusId: number, character: string): Promise<void> => {
-        return ApiService.post('player', { 'daedalus' : daedalusId, 'character': character })
+    selectCharacter: (userId: number, daedalusId: number, character: string): Promise<void> => {
+        return ApiService.post('player', { 'user' : userId, 'daedalus' : daedalusId, 'character': character })
             .then((response) => {
                 const player = (new Player()).load(response.data);
                 store.dispatch('player/storePlayer', { player: player });

@@ -1616,7 +1616,7 @@
                 {
                  "animation":[
                         {
-                         "duration":1000,
+                         "duration":100,
                          "tileid":0
                         }, 
                         {

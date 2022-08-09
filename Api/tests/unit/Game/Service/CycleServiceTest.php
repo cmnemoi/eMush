@@ -49,7 +49,7 @@ class CycleServiceTest extends TestCase
 
         $gameConfig = new GameConfig();
 
-        //shorter cycles
+        // shorter cycles
         $timeZone = 'Europe/Paris';
         $gameConfig = new GameConfig();
         $gameConfig
@@ -103,7 +103,7 @@ class CycleServiceTest extends TestCase
 
         $this->assertEquals(8, $this->service->handleCycleChange(new DateTime("2020-10-10 00:30:00.0 {$timeZone}"), $daedalus));
 
-        //1 hours cycles => 24 cycle elapsed
+        // 1 hours cycles => 24 cycle elapsed
         $gameConfig
             ->setCyclePerGameDay(24)
             ->setCycleLength(1 * 60)
@@ -112,7 +112,7 @@ class CycleServiceTest extends TestCase
 
         $this->assertEquals(24, $this->service->handleCycleChange(new DateTime("2020-10-10 00:30:00.0 {$timeZone}"), $daedalus));
 
-        //12 hours cycles => 2 cycle elapsed
+        // 12 hours cycles => 2 cycle elapsed
         $gameConfig
             ->setCyclePerGameDay(2)
             ->setCycleLength(12 * 60)
@@ -121,14 +121,14 @@ class CycleServiceTest extends TestCase
 
         $this->assertEquals(2, $this->service->handleCycleChange(new DateTime("2020-10-10 00:30:00.0 {$timeZone}"), $daedalus));
 
-        //24 hours cycles
+        // 24 hours cycles
         $gameConfig
             ->setCyclePerGameDay(2)
             ->setCycleLength(24 * 60)
         ;
         $daedalus->setCycleStartedAt(new DateTime("2020-10-09 00:00:00.0 {$timeZone}"));
 
-        //31 days in October
+        // 31 days in October
         $this->assertEquals(31, $this->service->handleCycleChange(new DateTime("2020-11-09 00:30:00.0 {$timeZone}"), $daedalus));
     }
 
@@ -177,7 +177,7 @@ class CycleServiceTest extends TestCase
         $this->assertEquals(0, $this->service->handleCycleChange(new DateTime("2020-10-09 02:31:00.0 {$timeZone}"), $daedalus));
         $this->assertEquals(0, $this->service->handleCycleChange(new DateTime("2020-10-09 03:31:00.0 {$timeZone}"), $daedalus));
 
-        //in case entering DST in between
+        // in case entering DST in between
         $daedalus = new Daedalus();
         $daedalus
             ->setGameConfig($gameConfig)
@@ -192,7 +192,7 @@ class CycleServiceTest extends TestCase
         $daedalus->setCycleStartedAt(new DateTime("2021-03-28 00:00:00.0 {$timeZone}"));
         $this->assertEquals(1, $this->service->handleCycleChange(new DateTime("2021-03-28 04:31:00.0 {$timeZone}"), $daedalus));
 
-        //in case exiting DST in between
+        // in case exiting DST in between
         $daedalus = new Daedalus();
         $daedalus
             ->setGameConfig($gameConfig)
@@ -239,7 +239,7 @@ class CycleServiceTest extends TestCase
     public function testGetDaedalusStartingCycleDate()
     {
         $timeZone = 'Europe/Paris';
-        //Simple ship
+        // Simple ship
         $gameConfig = new GameConfig();
         $gameConfig
             ->setCyclePerGameDay(8)
@@ -263,7 +263,7 @@ class CycleServiceTest extends TestCase
         ;
         $this->assertEquals($this->service->getDaedalusStartingCycleDate($daedalus), new DateTime("2020-08-09 21:00:00.0 {$timeZone}"));
 
-        //Change cycle length
+        // Change cycle length
         $gameConfig = new GameConfig();
         $gameConfig
             ->setCyclePerGameDay(8)

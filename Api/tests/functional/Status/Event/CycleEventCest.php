@@ -14,10 +14,10 @@ use Mush\Equipment\Entity\Door;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -38,7 +38,7 @@ class CycleEventCest
     // tests
     public function testChargeStatusCycleSubscriber(FunctionalTester $I)
     {
-        //Cycle Increment
+        // Cycle Increment
         $daedalus = new Daedalus();
         $time = new DateTime();
         $player = $I->have(Player::class);

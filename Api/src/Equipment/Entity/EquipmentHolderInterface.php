@@ -8,13 +8,13 @@ use Mush\Place\Entity\Place;
 
 interface EquipmentHolderInterface
 {
-    public function addEquipment(GameEquipment $gameEquipment): self;
+    public function addEquipment(GameEquipment $gameEquipment): static;
 
-    public function removeEquipment(GameEquipment $gameEquipment): self;
+    public function removeEquipment(GameEquipment $gameEquipment): static;
 
     public function getEquipments(): Collection;
 
-    public function setEquipments(ArrayCollection $equipments): self;
+    public function setEquipments(ArrayCollection $equipments): static;
 
     public function getPlace(): Place;
 }

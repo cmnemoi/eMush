@@ -8,7 +8,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Voter\PlayerVoter;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -37,7 +36,6 @@ class PlayerVoterTest extends TestCase
             Voter::ACCESS_DENIED,
         ];
 
-        $this->testVote(PlayerVoter::PLAYER_VIEW, new Player(), null, Voter::ACCESS_DENIED);
         $this->testVote(PlayerVoter::PLAYER_VIEW, new Player(), $user, Voter::ACCESS_GRANTED);
     }
 
@@ -46,7 +44,6 @@ class PlayerVoterTest extends TestCase
         $user = new User();
         $player = new Player();
 
-        $this->testVote(PlayerVoter::PLAYER_CREATE, new Player(), null, Voter::ACCESS_DENIED);
         $this->testVote(PlayerVoter::PLAYER_CREATE, null, $user, Voter::ACCESS_GRANTED);
 
         $user->setCurrentGame($player);
@@ -58,7 +55,6 @@ class PlayerVoterTest extends TestCase
         $user = new User();
         $player = new Player();
 
-        $this->testVote(PlayerVoter::PLAYER_END, new Player(), null, Voter::ACCESS_DENIED);
         $this->testVote(PlayerVoter::PLAYER_END, $player, $user, Voter::ACCESS_DENIED);
 
         $user->setCurrentGame($player);
@@ -68,15 +64,12 @@ class PlayerVoterTest extends TestCase
     private function testVote(
         string $attribute,
         ?Player $player,
-        ?User $user,
+        User $user,
         $expectedVote
     ) {
-        $token = new AnonymousToken('secret', 'anonymous');
-        if ($user) {
-            $token = new UsernamePasswordToken(
-                $user, 'credentials', 'memory'
-            );
-        }
+        $token = new UsernamePasswordToken(
+            $user, 'credentials', []
+        );
 
         $this->assertEquals(
             $expectedVote,

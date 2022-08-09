@@ -2,13 +2,14 @@
 
 namespace Mush\RoomLog\Enum;
 
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 
 class LogEnum
 {
     public const AWAKEN = 'awaken';
     public const DEATH = 'death';
-    public const OBJECT_FELT = 'object_felt';
+    public const OBJECT_FELL = 'object_fell';
     public const SOIL_PREVENTED_OCD = 'soil_prevented_ocd';
     public const OXY_LOW_USE_CAPSULE = 'oxy_low_use_capsule';
     public const TREMOR_NO_GRAVITY = 'tremor_no_gravity';

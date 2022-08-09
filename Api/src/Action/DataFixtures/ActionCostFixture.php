@@ -33,10 +33,10 @@ class ActionCostFixture extends Fixture
         $fourActionPointCost = $this->buildActionCost(4);
         $manager->persist($fourActionPointCost);
 
-        $oneMovementPoint = $this->buildActionCost(null, 1);
+        $oneMovementPoint = $this->buildActionCost(0, 1);
         $manager->persist($oneMovementPoint);
 
-        $twoMovementPoint = $this->buildActionCost(null, 2);
+        $twoMovementPoint = $this->buildActionCost(0, 2);
         $manager->persist($twoMovementPoint);
 
         $manager->flush();
@@ -50,7 +50,7 @@ class ActionCostFixture extends Fixture
         $this->addReference(self::ACTION_COST_TWO_MOVEMENT, $twoMovementPoint);
     }
 
-    private function buildActionCost(?int $actionPoint, ?int $movementPoint = null, ?int $moralPoint = null): ActionCost
+    private function buildActionCost(?int $actionPoint, ?int $movementPoint = 0, ?int $moralPoint = 0): ActionCost
     {
         $actionCost = new ActionCost();
         $actionCost

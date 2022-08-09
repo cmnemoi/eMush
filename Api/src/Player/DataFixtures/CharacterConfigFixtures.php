@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\DataFixtures\MushActionFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -26,10 +27,17 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        // @TODO: remove when the game is ready
         /** @var Action $rejuvenateAlphaAction */
         $rejuvenateAlphaAction = $this->getReference(ActionsFixtures::REJUVENATE_ALPHA);
         /** @var Action $comfortAction */
         $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
+        /** @var Action medlabHealAction */
+        $medlabHealAction = $this->getReference(ActionsFixtures::MEDLAB_HEAL);
+        /** @var Action medlabSelfHealAction */
+        $medlabSelfHealAction = $this->getReference(ActionsFixtures::MEDLAB_SELF_HEAL);
+        /** @var Action $fakeDiseaseAction */
+        $fakeDiseaseAction = $this->getReference(MushActionFixtures::FAKE_DISEASE);
 
         /** @var Action $hitAction */
         $hitAction = $this->getReference(ActionsFixtures::HIT_DEFAULT);
@@ -45,13 +53,30 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $flirtAction = $this->getReference(ActionsFixtures::FLIRT_DEFAULT);
         /** @var Action $doTheThingAction */
         $doTheThingAction = $this->getReference(ActionsFixtures::DO_THE_THING);
+        /** @var Action medlabHealAction */
+        $medlabHealAction = $this->getReference(ActionsFixtures::MEDLAB_HEAL);
+        /** @var Action medlabSelfHealAction */
+        $medlabSelfHealAction = $this->getReference(ActionsFixtures::MEDLAB_SELF_HEAL);
 
         /** @var Action $extractSporeAction */
-        $extractSporeAction = $this->getReference(ActionsFixtures::EXTRACT_SPORE);
+        $extractSporeAction = $this->getReference(MushActionFixtures::EXTRACT_SPORE);
         /** @var Action $spreadFireAction */
-        $spreadFireAction = $this->getReference(ActionsFixtures::INFECT_PLAYER);
+        $spreadFireAction = $this->getReference(MushActionFixtures::INFECT_PLAYER);
         /** @var Action $infectAction */
-        $infectAction = $this->getReference(ActionsFixtures::SPREAD_FIRE);
+        $infectAction = $this->getReference(MushActionFixtures::SPREAD_FIRE);
+        /** @var Action $makeSickAction */
+        $makeSickAction = $this->getReference(MushActionFixtures::MAKE_SICK);
+
+        // Skills actions
+        // @TODO: find another way to handle this ?
+        /** @var Action $comfortAction */
+        $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
+        /** @var Action $motivationalSpeechAction */
+        $motivationalSpeechAction = $this->getReference(ActionsFixtures::MOTIVATIONAL_SPEECH);
+        /** @var Action $boringSpeechAction */
+        $boringSpeechAction = $this->getReference(ActionsFixtures::BORING_SPEECH);
+        /** @var Action $extinguishManuallyAction */
+        $extinguishManuallyAction = $this->getReference(ActionsFixtures::EXTINGUISH_MANUALLY);
 
         $defaultActions = new ArrayCollection([
             $hitAction,
@@ -62,10 +87,17 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $extractSporeAction,
             $getUpAction,
             $comfortAction,
+            $extinguishManuallyAction,
+            $motivationalSpeechAction,
+            $boringSpeechAction,
+            $medlabHealAction,
+            $medlabSelfHealAction,
             $rejuvenateAlphaAction,
             $spreadFireAction,
             $flirtAction,
             $doTheThingAction,
+            $makeSickAction,
+            $fakeDiseaseAction,
         ]);
 
         /** @var StatusConfig $sporeStatus */
@@ -264,7 +296,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $jinSu = new CharacterConfig();
         $jinSu
             ->setGameConfig($gameConfig)
-            ->setName(CharacterEnum::KIM_JIN_SU)
+            ->setName(CharacterEnum::JIN_SU)
             ->setActions($defaultActions)
             ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
@@ -392,6 +424,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         return [
             DaedalusConfigFixtures::class,
             ActionsFixtures::class,
+            MushActionFixtures::class,
             StatusFixtures::class,
         ];
     }

@@ -33,6 +33,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
         $consumableEffect = $this->consumableEffectRepository
             ->findOneBy(['ration' => $ration, 'daedalus' => $daedalus])
         ;
+        $consumableEffect = $consumableEffect instanceof ConsumableEffect ? $consumableEffect : null;
 
         if ($consumableEffect === null) {
             $consumableEffect = $this->createConsumableEffect($daedalus, $ration);
@@ -47,6 +48,8 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
         $plantEffect = $this->plantEffectRepository
             ->findOneBy(['plant' => $plant, 'daedalus' => $daedalus])
         ;
+
+        $plantEffect = $plantEffect instanceof PlantEffect ? $plantEffect : null;
 
         if (null === $plantEffect) {
             $plantEffect = new PlantEffect();

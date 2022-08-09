@@ -55,7 +55,7 @@ class DeadPlayerInfoNormalizer implements ContextAwareNormalizerInterface, Norma
             if ($otherPlayer !== $player) {
                 $character = $otherPlayer->getCharacterConfig()->getName();
 
-                //TODO add likes
+                // TODO add likes
                 $normalizedOtherPlayer = [
                     'id' => $player->getId(),
                     'character' => [

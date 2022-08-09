@@ -6,8 +6,9 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mush\Disease\Entity\DiseaseConfig;
-use Mush\Disease\Enum\DiseaseCauseEnum;
+use Mush\Disease\Entity\Collection\SymptomConfigCollection;
+use Mush\Disease\Entity\Config\DiseaseConfig;
+use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
@@ -41,6 +42,8 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $cycle1MovementLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_MOVEMENT_LOST);
         /** @var ModifierConfig $cycle1SatietyLost */
         $cycle1SatietyLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_SATIETY_LOST);
+        /** @var ModifierConfig $cycle1SatietyIncrease */
+        $cycle1SatietyIncrease = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_SATIETY_INCREASE);
         /** @var ModifierConfig $cycle1ActionLostRand10 */
         $cycle1ActionLostRand10 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_10);
         /** @var ModifierConfig $cycle1HealthLostRand10 */
@@ -65,15 +68,51 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $consume2ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_2_ACTION_LOSS);
         /** @var ModifierConfig $moveIncreaseMovement */
         $moveIncreaseMovement = $this->getReference(DiseaseModifierConfigFixtures::MOVE_INCREASE_MOVEMENT);
+        /** @var ModifierConfig $infected4HealthLoss */
+        $infected4HealthLoss = $this->getReference(DiseaseModifierConfigFixtures::INFECTED_4_HEALTH_LOSS);
+        /** @var ModifierConfig $takeCat6HealthLoss */
+        $takeCat6HealthLoss = $this->getReference(DiseaseModifierConfigFixtures::TAKE_CAT_6_HEALTH_LOSS);
+        /** @var ModifierConfig $shootAction10PercentAccuracyLost */
+        $shootAction10PercentAccuracyLost = $this->getReference(DiseaseModifierConfigFixtures::SHOOT_ACTION_10_PERCENT_ACCURACY_LOST);
+        /** @var ModifierConfig $increaseCycleDiseaseChances10 */
+        $increaseCycleDiseaseChances10 = $this->getReference(DiseaseModifierConfigFixtures::INCREASE_CYCLE_DISEASE_CHANCES_10);
+
+        /** @var SymptomConfig $biting */
+        $biting = $this->getReference(DiseaseSymptomConfigFixtures::BITING);
+        /** @var SymptomConfig $breakouts */
+        $breakouts = $this->getReference(DiseaseSymptomConfigFixtures::BREAKOUTS);
+        /** @var SymptomConfig $catAllergySymptom */
+        $catAllergySymptom = $this->getReference(DiseaseSymptomConfigFixtures::CAT_ALLERGY_SYMPTOM);
+        /** @var SymptomConfig $catSneezing */
+        $catSneezing = $this->getReference(DiseaseSymptomConfigFixtures::CAT_SNEEZING);
+        /** @var SymptomConfig $consumeDrugVomiting */
+        $consumeDrugVomiting = $this->getReference(DiseaseSymptomConfigFixtures::CONSUME_DRUG_VOMITING);
+        /** @var SymptomConfig $consumeVomiting */
+        $consumeVomiting = $this->getReference(DiseaseSymptomConfigFixtures::CONSUME_VOMITING);
+        /** @var SymptomConfig $cycleDirtiness */
+        $cycleDirtiness = $this->getReference(DiseaseSymptomConfigFixtures::CYCLE_DIRTINESS);
+        /** @var SymptomConfig $cycleDirtinessRand40 */
+        $cycleDirtinessRand40 = $this->getReference(DiseaseSymptomConfigFixtures::CYCLE_DIRTINESS_RAND_40);
+        /** @var SymptomConfig $drooling */
+        $drooling = $this->getReference(DiseaseSymptomConfigFixtures::DROOLING);
+        /** @var SymptomConfig $foamingMouth */
+        $foamingMouth = $this->getReference(DiseaseSymptomConfigFixtures::FOAMING_MOUTH);
+        /** @var SymptomConfig $moveVomiting */
+        $moveVomiting = $this->getReference(DiseaseSymptomConfigFixtures::MOVE_VOMITING);
+        /** @var SymptomConfig $mushSneezing */
+        $mushSneezing = $this->getReference(DiseaseSymptomConfigFixtures::MUSH_SNEEZING);
 
         $foodPoisoning = new DiseaseConfig();
         $foodPoisoning
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::FOOD_POISONING)
             ->setModifierConfigs(new ArrayCollection([$reduceMax1HealthPoint]))
-            ->setCauses([
-            DiseaseCauseEnum::PERISHED_FOOD,
-        ]);
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $consumeDrugVomiting,
+                $consumeVomiting,
+                $moveVomiting,
+            ]))
+        ;
 
         $manager->persist($foodPoisoning);
 
@@ -82,7 +121,11 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::ACID_REFLUX)
             ->setModifierConfigs(new ArrayCollection([$consume2ActionLoss]))
-            ->setCauses([])
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $consumeDrugVomiting,
+                $consumeVomiting,
+                $moveVomiting,
+            ]))
         ;
 
         $manager->persist($acidReflux);
@@ -91,8 +134,10 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $blackBite
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::BLACK_BITE)
-            ->setModifierConfigs(new ArrayCollection([$cycle1ActionLostRand10]))
-            ->setCauses([])
+            ->setModifierConfigs(new ArrayCollection([
+                $cycle1ActionLostRand10,
+                $infected4HealthLoss,
+                ]))
         ;
 
         $manager->persist($blackBite);
@@ -101,7 +146,13 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $catAllergy
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::CAT_ALLERGY)
-            ->setCauses([])
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $catAllergySymptom,
+                $catSneezing,
+            ]))
+            ->setModifierConfigs(new ArrayCollection([
+                $takeCat6HealthLoss,
+                ]))
         ;
 
         $manager->persist($catAllergy);
@@ -111,7 +162,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::COLD)
             ->setModifierConfigs(new ArrayCollection([$cycle1ActionLostRand20]))
-            ->setCauses([])
         ;
 
         $manager->persist($cold);
@@ -121,7 +171,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::EXTREME_TINNITUS)
             ->setModifierConfigs(new ArrayCollection([$cycle1ActionLostRand16, $reduceMax2MoralPoint]))
-            ->setCauses([])
         ;
 
         $manager->persist($extremeTinnitus);
@@ -136,7 +185,12 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $reduceMax2MoralPoint,
                 $reduceMax2HealthPoint,
                 ]))
-            ->setCauses([])
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                    $consumeDrugVomiting,
+                    $consumeVomiting,
+                    $cycleDirtinessRand40,
+                    $moveVomiting,
+                ]))
         ;
 
         $manager->persist($flu);
@@ -149,7 +203,9 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $reduceMax2MoralPoint,
                 $reduceMax2HealthPoint,
             ]))
-            ->setCauses([])
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $cycleDirtiness,
+            ]))
         ;
 
         $manager->persist($fungicInfection);
@@ -164,7 +220,12 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $cycle1MovementLost,
                 $reduceMax1HealthPoint,
             ]))
-            ->setCauses([])
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $consumeDrugVomiting,
+                $consumeVomiting,
+                $cycleDirtiness,
+                $moveVomiting,
+            ]))
         ;
 
         $manager->persist($gastroenteritis);
@@ -173,7 +234,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $junkbumpkinitis
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::JUNKBUMPKINITIS)
-            ->setCauses([])
         ;
 
         $manager->persist($junkbumpkinitis);
@@ -183,7 +243,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::MIGRAINE)
             ->setModifierConfigs(new ArrayCollection([$cycle1ActionLostRand20]))
-            ->setCauses([])
         ;
 
         $manager->persist($migraine);
@@ -192,7 +251,12 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $mushAllergy
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::MUSH_ALLERGY)
-            ->setCauses([])
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $mushSneezing,
+            ]))
+            ->setModifierConfigs(new ArrayCollection([
+                $infected4HealthLoss,
+            ]))
         ;
 
         $manager->persist($mushAllergy);
@@ -201,7 +265,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $quincksOedema
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::QUINCKS_OEDEMA)
-            ->setCauses([])
             ->setModifierConfigs(new ArrayCollection([
                 $moveIncreaseMovement,
                 $reduceMax4HealthPoint,
@@ -214,7 +277,10 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $rejuvenation
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::REJUVENATION)
-            ->setCauses([])
+            ->setModifierConfigs(new ArrayCollection([
+                $cycle1ActionLostRand20,
+                $increaseCycleDiseaseChances10,
+            ]))
         ;
 
         $manager->persist($rejuvenation);
@@ -223,7 +289,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $rubella
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::RUBELLA)
-            ->setCauses([])
             ->setModifierConfigs(new ArrayCollection([
                 $cycle1MovementLostRand50,
                 $reduceMax1HealthPoint,
@@ -237,7 +302,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $sepsis
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::SEPSIS)
-            ->setCauses([])
             ->setModifierConfigs(new ArrayCollection([$cycle4HealthLost]))
         ;
 
@@ -247,7 +311,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $sinusStorm
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::SINUS_STORM)
-            ->setCauses([])
             ->setModifierConfigs(new ArrayCollection([$cycle1ActionLostRand30]))
         ;
 
@@ -257,7 +320,9 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $skinInflammation
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::SKIN_INFLAMMATION)
-            ->setCauses([])
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $breakouts,
+            ]))
         ;
 
         $manager->persist($skinInflammation);
@@ -266,7 +331,12 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $nausea
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::SLIGHT_NAUSEA)
-            ->setCauses([])
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $moveVomiting,
+            ]))
+            ->setModifierConfigs(new ArrayCollection([
+                $cycle1SatietyIncrease,
+            ]))
         ;
 
         $manager->persist($nausea);
@@ -275,7 +345,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $smallPox
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::SMALLPOX)
-            ->setCauses([])
             ->setModifierConfigs(new ArrayCollection([
                 $cycle2ActionLostRand40,
                 $cycle1HealthLostRand50,
@@ -290,21 +359,25 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $spaceRabies
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::SPACE_RABIES)
-            ->setCauses([])
             ->setModifierConfigs(new ArrayCollection([
                 $cycle2HealthLost,
             ]))
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $biting,
+                $drooling,
+                $foamingMouth,
+            ]))
         ;
-
         $manager->persist($spaceRabies);
 
         $syphilis = new DiseaseConfig();
         $syphilis
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::SYPHILIS)
-            ->setCauses([])
             ->setModifierConfigs(new ArrayCollection([
                 $reduceMax2MoralPoint,
+                $cycle2ActionLostRand40,
+                $shootAction10PercentAccuracyLost,
             ]))
         ;
 
@@ -314,7 +387,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $tapeworm
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::TAPEWORM)
-            ->setCauses([])
             ->setModifierConfigs(new ArrayCollection([
                 $cycle1SatietyLost,
             ]))
@@ -326,7 +398,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $vitaminDeficiency
             ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::VITAMIN_DEFICIENCY)
-            ->setCauses([])
             ->setModifierConfigs(new ArrayCollection([
                 $cycle1ActionLostRand10,
             ]))
@@ -367,6 +438,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         return [
             GameConfigFixtures::class,
             DiseaseModifierConfigFixtures::class,
+            DiseaseSymptomConfigFixtures::class,
         ];
     }
 }

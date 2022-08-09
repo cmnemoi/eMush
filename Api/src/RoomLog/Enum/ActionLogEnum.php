@@ -3,6 +3,7 @@
 namespace Mush\RoomLog\Enum;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Game\Enum\VisibilityEnum;
 
 class ActionLogEnum
 {
@@ -48,6 +49,7 @@ class ActionLogEnum
     public const SEARCH_FAIL = 'search_fail';
     public const SHRED_SUCCESS = 'shred_success';
     public const SHOWER_HUMAN = 'shower_human';
+    public const SHOWER_MUSH = 'shower_mush';
     public const STRENGTHEN_SUCCESS = 'strengthen_success';
     public const SPREAD_FIRE_SUCCESS = 'spread_fire_success';
     public const TAKE = 'take';
@@ -64,6 +66,11 @@ class ActionLogEnum
     public const CHECK_SPORE_LEVEL = 'check_spore_level';
     public const REMOVE_SPORE_SUCCESS = 'remove_spore_success';
     public const REMOVE_SPORE_FAIL = 'remove_spore_fail';
+    public const PUBLIC_BROADCAST = 'public_broadcast';
+    public const MOTIVATIONAL_SPEECH = 'motivational_speech';
+    public const BORING_SPEECH = 'boring_speech';
+    public const MAKE_SICK = 'make_sick';
+    public const FAKE_DISEASE = 'fake_disease';
 
     public const SUCCESS = 'success';
     public const FAIL = 'fail';
@@ -93,7 +100,7 @@ class ActionLogEnum
         ActionEnum::HIDE => [
             self::SUCCESS => [
                 self::VALUE => self::HIDE_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::COVERT,
+                self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::DROP => [
@@ -125,13 +132,13 @@ class ActionLogEnum
         ActionEnum::EXTRACT_SPORE => [
             self::SUCCESS => [
                 self::VALUE => self::EXTRACT_SPORE_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::COVERT,
+                self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::INFECT => [
             self::SUCCESS => [
                 self::VALUE => self::INFECT_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::SECRET,
+                self::VISIBILITY => VisibilityEnum::COVERT,
             ],
         ],
         ActionEnum::SABOTAGE => [
@@ -165,13 +172,13 @@ class ActionLogEnum
         ActionEnum::CONSUME => [
             self::SUCCESS => [
                 self::VALUE => self::CONSUME_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::COVERT,
+                self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::CONSUME_DRUG => [
             self::SUCCESS => [
                 self::VALUE => self::CONSUME_DRUG,
-                self::VISIBILITY => VisibilityEnum::COVERT,
+                self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::WATER_PLANT => [
@@ -277,6 +284,10 @@ class ActionLogEnum
                 self::VALUE => self::SHOWER_HUMAN,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
+            self::FAIL => [
+                self::VALUE => self::SHOWER_MUSH,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
         ],
         ActionEnum::LIE_DOWN => [
             self::SUCCESS => [
@@ -306,10 +317,28 @@ class ActionLogEnum
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
-        ActionEnum::HEAL => [
+        ActionEnum::MEDIKIT_HEAL => [
             self::SUCCESS => [
                 self::VALUE => self::HEAL_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::MEDIKIT_SELF_HEAL => [
+            self::SUCCESS => [
+                self::VALUE => self::SELF_HEAL,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+        ],
+        ActionEnum::MEDLAB_HEAL => [
+            self::SUCCESS => [
+                self::VALUE => self::HEAL_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::MEDLAB_SELF_HEAL => [
+            self::SUCCESS => [
+                self::VALUE => self::SELF_HEAL,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::ULTRAHEAL => [
@@ -324,16 +353,10 @@ class ActionLogEnum
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
-        ActionEnum::SELF_HEAL => [
-            self::SUCCESS => [
-                self::VALUE => self::SELF_HEAL,
-                self::VISIBILITY => VisibilityEnum::PRIVATE,
-            ],
-        ],
         ActionEnum::SPREAD_FIRE => [
             self::SUCCESS => [
                 self::VALUE => self::SPREAD_FIRE_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::COVERT,
+                self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::INSTALL_CAMERA => [
@@ -396,6 +419,46 @@ class ActionLogEnum
             self::FAIL => [
                 self::VALUE => self::REMOVE_SPORE_FAIL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+        ],
+        ActionEnum::PUBLIC_BROADCAST => [
+            self::SUCCESS => [
+                self::VALUE => self::PUBLIC_BROADCAST,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::EXTINGUISH_MANUALLY => [
+            self::SUCCESS => [
+                self::VALUE => self::EXTINGUISH_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+            self::FAIL => [
+                self::VALUE => self::EXTINGUISH_FAIL,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+        ],
+        ActionEnum::MOTIVATIONAL_SPEECH => [
+            self::SUCCESS => [
+                self::VALUE => self::MOTIVATIONAL_SPEECH,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::BORING_SPEECH => [
+            self::SUCCESS => [
+                self::VALUE => self::BORING_SPEECH,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::MAKE_SICK => [
+            self::SUCCESS => [
+                self::VALUE => self::MAKE_SICK,
+                self::VISIBILITY => VisibilityEnum::COVERT,
+            ],
+        ],
+        ActionEnum::FAKE_DISEASE => [
+            self::SUCCESS => [
+                self::VALUE => self::FAKE_DISEASE,
+                self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
     ];

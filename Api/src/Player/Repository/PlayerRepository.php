@@ -28,6 +28,8 @@ class PlayerRepository extends ServiceEntityRepository
             ->setParameter('daedalus', $daedalus)
         ;
 
-        return $qb->getQuery()->getOneOrNullResult();
+        $player = $qb->getQuery()->getOneOrNullResult();
+
+        return $player instanceof Player ? $player : null;
     }
 }

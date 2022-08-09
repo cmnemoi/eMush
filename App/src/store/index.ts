@@ -1,3 +1,4 @@
+import { gameConfig } from "@/store/game_config.module";
 import { action } from "@/store/action.module";
 import { auth } from "@/store/auth.module";
 import { createStore } from 'vuex';
@@ -9,6 +10,7 @@ import { daedalus } from "@/store/daedalus.module";
 
 export default createStore({
     modules: {
+        gameConfig,
         action,
         auth,
         error,

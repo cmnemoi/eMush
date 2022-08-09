@@ -12,7 +12,8 @@ import IsometricGeom from "@/game/scenes/isometricGeom";
 export default class DoorObject extends InteractObject {
     private openFrames: Phaser.Types.Animations.AnimationFrame[];
     private closeFrames: Phaser.Types.Animations.AnimationFrame[];
-    private door : DoorEntity;
+    public door : DoorEntity;
+    private particles: Phaser.GameObjects.Particles.ParticleEmitterManager | null = null;
 
     constructor(
         scene: DaedalusScene,
@@ -21,12 +22,13 @@ export default class DoorObject extends InteractObject {
         tileset: Phaser.Tilemaps.Tileset,
         tiledFrame: number,
         isFlipped: { x: boolean, y: boolean},
-        door: DoorEntity,
+        door: DoorEntity
     )
     {
         super(scene, cart_coords, iso_geom, tileset, tiledFrame, door.key, isFlipped, false, false);
 
         this.door = door;
+        this.handleBroken();
 
         this.openFrames = this.anims.generateFrameNames('door_object', { start: this.tiledFrame, end: this.tiledFrame + 10 });
 
@@ -36,14 +38,14 @@ export default class DoorObject extends InteractObject {
         // doors are always on the bottom (just in front of the back_wall layer)
         this.setDepth(0);
 
-        //this.scene.input.enableDebug(this, 0xff00ff);
-
         this.createAnimations();
+    }
 
-        this.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            this.onDoorClicked(pointer);
-            this.scene.input.stopPropagation();
-        }, this);
+    updateDoor(door: DoorEntity | null = null) {
+        if (door !== null) {
+            this.door = door;
+        }
+        this.handleBroken();
     }
 
 
@@ -99,6 +101,8 @@ export default class DoorObject extends InteractObject {
                 //if player click on the door AND the door is open AND player can move
                 const moveAction = this.getMoveAction();
                 store.dispatch('action/executeAction', { target: this.door, action: moveAction });
+                store.dispatch('room/selectTarget', { target: null });
+                store.dispatch('room/closeInventory');
             } else {
                 //If the door is broken propose the repair action
                 const door = this.door;
@@ -108,6 +112,36 @@ export default class DoorObject extends InteractObject {
         {
             //if player click outside the door AND the door is open
             this.anims.play('door_close');
+        }
+    }
+
+    handleBroken(): void
+    {
+        if (this.door.isBroken && this.particles === null) {
+            this.particles = this.scene.add.particles('smoke_particle');
+
+            this.particles.createEmitter({
+                x: 0,
+                y: 0,
+                lifespan: { min: 1000, max: 1200 },
+                speed: { min: 10, max: 30 },
+                angle: { min: 260, max: 280 },
+                gravityY: 10,
+                scale: { start: 0.5, end: 2, ease: 'Quad.easeIn' },
+                alpha: { start: 0.5, end: 0, ease: 'Quad.easeIn' },
+                tint: [ 0x666666, 0xFFFFFF, 0x10EEEEEE ],
+                quantity: 1,
+                frequency: 100000/(this.width * this.height ),
+                //@ts-ignore
+                emitZone: { type: 'random', source: this }
+            });
+        } else if (this.particles !== null  && !this.door.isBroken) {
+            this.particles.destroy();
+            this.particles = null;
+        }
+
+        if (this.particles !== null) {
+            this.particles.setDepth(this.depth + 1);
         }
     }
 
@@ -166,5 +200,10 @@ export default class DoorObject extends InteractObject {
         } else {
             super.setSelectedOutline();
         }
+    }
+
+    destroy()
+    {
+        super.destroy();
     }
 }

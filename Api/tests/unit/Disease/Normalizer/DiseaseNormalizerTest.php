@@ -3,7 +3,7 @@
 namespace Mush\Tests\unit\Disease\Normalizer;
 
 use Mockery;
-use Mush\Disease\Entity\DiseaseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Normalizer\DiseaseNormalizer;
 use Mush\Game\Service\TranslationService;

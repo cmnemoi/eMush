@@ -9,14 +9,11 @@
         <div class="item-details">
             <div class="name-container">
                 <p v-if="selectedItem" class="item-name">
-                    {{ selectedItem.name }}
-                    <Statuses :statuses="selectedItem.statuses" type="item" />
+                    {{ getSelectedItem.name }}
+                    <Statuses :statuses="getSelectedItem.statuses" type="item" />
                 </p>
             </div>
-            <ActionPanel
-                :actions="selectedItem?.actions || []"
-                @clickOnAction="executeItemAction"
-            />
+            <ActionPanel v-if="getSelectedItem !== null"/>
         </div>
     </div>
 </template>
@@ -25,14 +22,11 @@
 import Inventory from "@/components/Game/Inventory.vue";
 import ActionPanel from "@/components/Game/Ship/ActionPanel.vue";
 import Statuses from "@/components/Utils/Statuses.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { defineComponent } from "vue";
 import { Action } from "@/entities/Action";
 import { Item } from "@/entities/Item";
 
-interface RoomInventoryPanelState {
-    selectedItem: null | Item
-}
 
 export default defineComponent ({
     name: "RoomInventoryPanel",
@@ -41,24 +35,30 @@ export default defineComponent ({
         Inventory,
         Statuses
     },
+    computed: {
+        ...mapGetters('room', [
+            'selectedTarget',
+        ]),
+        getSelectedItem(): Item | null
+        {
+            if (this.selectedTarget instanceof Item) { return this.selectedTarget;}
+            return null;
+        },
+    },
     props: {
         items: Array
     },
-    data: () : RoomInventoryPanelState => {
-        return {
-            selectedItem: null
-        };
-    },
     methods: {
-        selectItem: function(item: Item) {
-            this.selectedItem = item;
-        },
+        ...mapActions({
+            'executeAction': 'action/executeAction',
+            'selectTarget': 'room/selectTarget',
+        }),
         async executeItemAction(action: Action) {
-            this.executeAction({ target: this.selectedItem, action });
+            this.executeAction({ target: this.getSelectedItem, action });
         },
-        ...mapActions('action', [
-            'executeAction'
-        ])
+        selectItem(target: Item | null): void {
+            this.selectTarget({ target: target });
+        },
     }
 });
 </script>

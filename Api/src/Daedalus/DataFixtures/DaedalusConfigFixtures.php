@@ -33,7 +33,7 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
         $daedalusConfig
             ->setGameConfig($gameConfig)
             ->setInitOxygen(32)
-            ->setInitFuel(32)
+            ->setInitFuel(20)
             ->setInitHull(70)
             ->setInitShield(-2)
             ->setDailySporeNb(4)

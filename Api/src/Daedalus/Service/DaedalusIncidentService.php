@@ -5,10 +5,12 @@ namespace Mush\Daedalus\Service;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\DoorEnum;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Event\PlayerEvent;
@@ -61,7 +63,10 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     {
         $numberOfNewTremor = $this->getNumberOfIncident($daedalus);
 
-        $rooms = $daedalus->getRooms()->filter(fn (Place $place) => ($place->getType() === PlaceTypeEnum::ROOM));
+        $isARoom = fn (Place $place) => $place->getType() === PlaceTypeEnum::ROOM;
+        $hasPlayersInside = fn (Place $place) => $place->getPlayers()->getPlayerAlive()->count() > 0;
+
+        $rooms = $daedalus->getRooms()->filter($isARoom)->filter($hasPlayersInside);
 
         $newTremorRooms = $this->randomService->getRandomElements($rooms->toArray(), $numberOfNewTremor);
 
@@ -105,7 +110,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
         if ($numberOfEquipmentBroken > 0) {
             $criteria = new GameEquipmentCriteria($daedalus);
-            $criteria->setNotInstanceOf([Door::class]);
+            $criteria->setNotInstanceOf([Door::class, GameItem::class]);
             $criteria->setBreakable(true);
 
             $daedalusEquipments = $this->gameEquipmentRepository->findByCriteria($criteria);
@@ -135,20 +140,27 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         if ($numberOfDoorBroken > 0) {
             $criteria = new GameEquipmentCriteria($daedalus);
             $criteria->setInstanceOf([Door::class]);
-            $criteria->setBreakable(true);
 
-            $daedalusDoor = $this->gameEquipmentRepository->findByCriteria($criteria);
+            $daedalusDoors = $this->gameEquipmentRepository->findByCriteria($criteria);
 
-            $brokenDoors = $this->randomService->getRandomElements($daedalusDoor, $numberOfDoorBroken);
+            $daedalusDoorsNames = array_map(fn (Door $door) => $door->getName(), $daedalusDoors);
+
+            $breakableDoorsNames = array_filter($daedalusDoorsNames, fn (string $doorName) => DoorEnum::isBreakable($doorName));
+
+            $breakableDoors = array_filter($daedalusDoors, fn (Door $door) => in_array($door->getName(), $breakableDoorsNames));
+
+            $brokenDoors = $this->randomService->getRandomElements($breakableDoors, $numberOfDoorBroken);
 
             foreach ($brokenDoors as $door) {
-                $statusEvent = new StatusEvent(
-                    EquipmentStatusEnum::BROKEN,
-                    $door,
-                    EventEnum::NEW_CYCLE,
-                    new \DateTime()
-                );
-                $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+                if (!$door->isBroken()) {
+                    $statusEvent = new StatusEvent(
+                        EquipmentStatusEnum::BROKEN,
+                        $door,
+                        EventEnum::NEW_CYCLE,
+                        new \DateTime()
+                    );
+                    $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+                }
             }
         }
 
@@ -207,11 +219,37 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         }
     }
 
-    //Each cycle get 0 to day event
-    //@TODO: to be improved
+    public function handleCrewDisease(Daedalus $daedalus, \DateTime $date): int
+    {
+        if (($playerCount = $daedalus->getPlayers()->getPlayerAlive()->count()) > 0) {
+            $crewDiseaseRate = intval($this->getNumberOfIncident($daedalus) / $playerCount);
+            $numberOfDiseasedPlayers = min($crewDiseaseRate, $playerCount);
+
+            if ($crewDiseaseRate > 0) {
+                $players = $daedalus->getPlayers()->getPlayerAlive();
+                $diseasedPlayer = $this->randomService->getRandomElements($players->toArray(), $numberOfDiseasedPlayers);
+
+                foreach ($diseasedPlayer as $player) {
+                    $playerEvent = new PlayerEvent(
+                        $player,
+                        EventEnum::NEW_CYCLE,
+                        $date
+                    );
+                    $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CYCLE_DISEASE);
+                }
+            }
+
+            return $numberOfDiseasedPlayers;
+        } else {
+            return 0;
+        }
+    }
+
+    // Each cycle get 0 to day event
+    // @TODO: to be improved
     private function getNumberOfIncident(Daedalus $daedalus): int
     {
-        $rate = intval($daedalus->getDay() / 4);
+        $rate = intval(sqrt($daedalus->getDay() - 0.9));
 
         return $this->randomService->random(0, $rate);
     }

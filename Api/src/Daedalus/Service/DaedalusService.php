@@ -17,6 +17,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -24,7 +25,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -74,7 +74,9 @@ class DaedalusService implements DaedalusServiceInterface
      */
     public function findById(int $id): ?Daedalus
     {
-        return $this->repository->find($id);
+        $daedalus = $this->repository->find($id);
+
+        return $daedalus instanceof Daedalus ? $daedalus : null;
     }
 
     /**
@@ -151,12 +153,12 @@ class DaedalusService implements DaedalusServiceInterface
     {
         $gameConfig = $daedalus->getGameConfig();
 
-        //Chose alpha Mushs
+        // Chose alpha Mushs
         $chancesArray = [];
 
         foreach ($gameConfig->getCharactersConfig() as $characterConfig) {
-            //@TODO lower $mushChance if user is a beginner
-            //@TODO (maybe add a "I want to be mush" setting to increase this proba)
+            // @TODO lower $mushChance if user is a beginner
+            // @TODO (maybe add a "I want to be mush" setting to increase this proba)
 
             $mushChance = 1;
             if (!$characterConfig->getInitStatuses()

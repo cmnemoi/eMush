@@ -6,17 +6,7 @@
                 <Statuses :statuses="room.statuses" type="room" />
             </p>
             <PhaserShip
-                v-if="isPhaserDisplayed(room.key)"
                 :player="player"
-            />
-            <TextualInterface
-                v-else
-                class="ship-view"
-                :room="room"
-                @clickOnDoor="executeDoorAction"
-                @clickOnInventory="openInventory"
-                @clickOnTarget="setTarget"
-                @clickOnNothing="setTarget(null)"
             />
             <MiniMap
                 :my-position="room"
@@ -27,7 +17,6 @@
                 :is="targetPanel"
                 v-else-if="selectedTarget"
                 :target="selectedTarget"
-                @executeAction="executeTargetAction"
             />
         </div>
         <p v-else class="loading">
@@ -67,9 +56,6 @@ export default defineComponent ({
         player: Player
     },
     computed: {
-        ...mapState('player', [
-            'loading'
-        ]),
         ...mapGetters('room', [
             'isInventoryOpen',
             'selectedTarget'
@@ -78,27 +64,6 @@ export default defineComponent ({
             return this.selectedTarget instanceof Player ? CrewmatePanel : EquipmentPanel;
         }
     },
-    methods: {
-        ...mapActions({
-            'executeAction': 'action/executeAction',
-            'selectTarget': 'room/selectTarget',
-            'openInventory': 'room/openInventory'
-        }),
-        async executeDoorAction({ door, action }: Record<any, any>): Promise<void> {
-            await this.executeAction({ target: door, action });
-            this.setTarget(null);
-        },
-        async executeTargetAction(action: Action) {
-            await this.executeAction({ target: this.selectedTarget, action });
-            this.setTarget(null);
-        },
-        setTarget(target: Player | Equipment | null): void {
-            this.selectTarget({ target: target });
-        },
-        isPhaserDisplayed(roomKey: string): boolean {
-            return PhaserRooms.includes(roomKey);
-        }
-    }
 });
 </script>
 

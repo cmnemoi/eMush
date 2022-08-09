@@ -67,7 +67,7 @@ class Flirt extends AbstractAction
         /** @var Player $parameter */
         $parameter = $this->parameter;
 
-        //@TODO add pop up to confirm flirt
+        // @TODO add pop up to confirm flirt
 
         $this->player->addFlirt($parameter);
 

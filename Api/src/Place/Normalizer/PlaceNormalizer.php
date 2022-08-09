@@ -8,10 +8,13 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Blueprint;
+use Mush\Equipment\Entity\Mechanics\Book;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -81,7 +84,7 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
             }
         }
 
-        //Split equipments between items and equipments
+        // Split equipments between items and equipments
         $partition = $room->getEquipments()->partition(fn (int $key, GameEquipment $gameEquipment) => $gameEquipment->getClassName() === GameEquipment::class);
 
         $equipments = $partition[0];
@@ -111,7 +114,7 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
     {
         $piles = [];
 
-        //For each group of item
+        // For each group of item
         foreach ($this->groupItemCollectionByName($items, $currentPlayer) as $itemGroup) {
             /** @var GameItem $patron */
             $patron = $itemGroup->first();
@@ -119,7 +122,7 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
             $patronConfig = $patron->getEquipment();
 
             if ($patronConfig instanceof ItemConfig) {
-                //If not stackable, normalize each occurrence of the item
+                // If not stackable, normalize each occurrence of the item
                 if (!$patronConfig->isStackable()) {
                     foreach ($itemGroup as $item) {
                         $piles[] = $this->normalizer->normalize($item, $format, $context);
@@ -146,21 +149,33 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
         return $piles;
     }
 
-    //Group item by name
+    // Group item by name
     private function groupItemCollectionByName(Collection $items, Player $currentPlayer): array
     {
         $itemsGroup = [];
 
         /** @var GameItem $item */
         foreach ($items as $item) {
-            //Do not include items hidden to the player
+            // Do not include items hidden to the player
             $hiddenStatus = $item->getStatusByName(EquipmentStatusEnum::HIDDEN);
             if (!$hiddenStatus || ($hiddenStatus->getTarget() === $currentPlayer)) {
-                if (!isset($itemsGroup[$item->getName()])) {
-                    $itemsGroup[$item->getName()] = new ArrayCollection();
+                $name = $item->getName();
+
+                // book and blueprint hae the same name event for similar blueprint This part split them
+                $book = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK);
+                if ($book instanceof Book) {
+                    $name = $name . $book->getSkill();
+                }
+                $blueprint = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
+                if ($blueprint instanceof Blueprint) {
+                    $name = $name . $blueprint->getEquipment()->getName();
+                }
+
+                if (!isset($itemsGroup[$name])) {
+                    $itemsGroup[$name] = new ArrayCollection();
                 }
                 /** @var Collection $currentCollection */
-                $currentCollection = $itemsGroup[$item->getName()];
+                $currentCollection = $itemsGroup[$name];
                 $currentCollection->add($item);
             }
         }
@@ -200,7 +215,8 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
             $statusesFilter[] = EquipmentStatusEnum::CONTAMINATED;
         }
 
-        $statusesName = $itemStatuses->filter(fn (Status $status) => (in_array($status->getName(), $statusesFilter)));
+        $statusesName = $itemStatuses->filter(fn (Status $status) => in_array($status->getName(), $statusesFilter));
+
         if (!$statusesName->isEmpty()) {
             /** @var Status $status */
             $status = $statusesName->first();

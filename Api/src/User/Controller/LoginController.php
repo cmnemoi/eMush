@@ -9,7 +9,6 @@ use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\View\View;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Mush\User\Service\LoginService;
-use Mush\User\Service\UserServiceInterface;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,18 +23,15 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 class LoginController extends AbstractFOSRestController
 {
     private JWTTokenManagerInterface $jwtManager;
-    private UserServiceInterface $userService;
     private LoginService $loginService;
     private string $alphaPassphrase;
 
     public function __construct(
         string $alphaPassphrase,
         JWTTokenManagerInterface $jwtManager,
-        UserServiceInterface $userService,
         LoginService $loginService
     ) {
         $this->jwtManager = $jwtManager;
-        $this->userService = $userService;
         $this->loginService = $loginService;
         $this->alphaPassphrase = $alphaPassphrase;
     }

@@ -28,15 +28,17 @@ export default defineComponent ({
         ActionButton
     },
     computed: {
-        ...mapGetters([
-            'room/selectedTarget',
-            'player/player'
+        ...mapGetters('room', [
+            'selectedTarget',
         ]),
         getActions(): Action[]
         {
             if (this.selectedTarget === null) { return [];}
             return this.selectedTarget.actions;
         },
+        ...mapGetters('player', [
+            'player'
+        ]),
     },
     props: {
         actions: Array

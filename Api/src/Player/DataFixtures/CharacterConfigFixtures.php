@@ -296,7 +296,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $jinSu = new CharacterConfig();
         $jinSu
             ->setGameConfig($gameConfig)
-            ->setName(CharacterEnum::KIM_JIN_SU)
+            ->setName(CharacterEnum::JIN_SU)
             ->setActions($defaultActions)
             ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([

@@ -54,7 +54,7 @@ class MotivationalSpeechActionCest
 
         /** @var CharacterConfig $characterConfig */
         $speakerConfig = $I->have(CharacterConfig::class, [
-            'name' => CharacterEnum::KIM_JIN_SU,
+            'name' => CharacterEnum::JIN_SU,
             'actions' => new ArrayCollection([$action]),
         ]);
 

@@ -385,29 +385,29 @@
                 </target>
             </segment>
         </unit>
-		<unit id="kim_jin_su">
+		<unit id="jin_su">
             <segment id="name">
-                <source>kim_jin_su.name</source>
+                <source>jin_su.name</source>
                 <target>Jin Su</target>
             </segment>
             <segment id="fullname">
-                <source>kim_jin_su.fullname</source>
+                <source>jin_su.fullname</source>
                 <target>Kim Jin-Su</target>
             </segment>
             <segment id="age">
-                <source>kim_jin_su.age</source>
+                <source>jin_su.age</source>
                 <target>40 ans</target>
             </segment>
             <segment id="employment">
-                <source>kim_jin_su.employment</source>
+                <source>jin_su.employment</source>
                 <target>Explorateur de l'inconnu</target>
             </segment>
             <segment id="abstract">
-                <source>kim_jin_su.abstract</source>
+                <source>jin_su.abstract</source>
                 <target>Il a débuté très jeune dans des missions d'analyse sur Barnard Star. Il est rapidement promu au rang de Commandant et se voit confier des expéditions importantes sur Ross 154 et Epsilon Indi. Sur Tau-Ceti, la découverte de plusieurs gisements de Boxylium font de Jin-Su une célébrité interplanétaire. En 3146, il est nommé par la Fédération pour commander l'exécution du projet Magellan. Suite à l'invasion du Mush sur Sol, il conçoit les plans du Daedalus avec Lai Kuan-Ti, et rassemble un équipage d'élite pour assurer la survie de l'espèce humaine dans une autre galaxie.</target>
             </segment>
             <segment id="biography">
-                <source>kim_jin_su.biography</source>
+                <source>jin_su.biography</source>
                 <target>
 - 3070 : Naissance sur Terre.
 - 3095 : Jin-Su commence des études de pilotage à la ***Faculté de Sciences Economiques et Spatiales de Ganymède***. Il est très vite considéré comme le meilleur pilote de sa promotion et décroche un stage d'analyste sur la base spatiale de ***Barnard Star***.

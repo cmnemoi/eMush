@@ -375,8 +375,6 @@ export default class DaedalusScene extends Phaser.Scene
         this.targetHighlightObject.setDepth(500);
 
 
-        //this.enableDebugView();
-
         this.input.setTopOnly(true);
         this.input.setGlobalTopOnly(true);
 
@@ -601,6 +599,8 @@ export default class DaedalusScene extends Phaser.Scene
         this.navMeshGrid = this.sceneGrid.buildNavMeshGrid();
 
         this.updateStatuses();
+
+        this.enableDebugView();
     }
 
     deleteEquipmentsAndDecoration(): void

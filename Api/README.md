@@ -168,3 +168,19 @@ Check what the folowing command returns:
 
 On the host machine (not the docker container) run :
 `sudo ufw allow from any to any port 9003 proto tcp`
+
+
+## Accessing Data Base
+From terminal type:
+```
+docker exec -it mush_database bash
+psql --username mysql mush
+```
+List the tables with:
+```
+\dt
+```
+Get a table with:
+```
+select * from table;
+```

@@ -4,9 +4,9 @@
         <unit id="build_success">
             <segment id="build_success">
                 <source>build_success</source>
-                <target>{equipment_gender, select,
-                        male {Vous avez assemblé un {equipment}.}
-                        female {Vous avez assemblé une {equipment}.}
+                <target>{target_equipment_gender, select,
+                        male {Vous avez assemblé un {target_equipment}.}
+                        female {Vous avez assemblé une {target_equipment}.}
                         other {invalid gender input}
                 }</target>
             </segment>
@@ -14,9 +14,9 @@
         <unit id="open_success">
             <segment id="open_success">
                 <source>open_success</source>
-                <target>{equipment_gender, select,
-                    male {**{character}** a trouvé un **{equipment}** dans une Capsule Spatiale.}
-                    female {**{character}** a trouvé une **{equipment}** dans une Capsule Spatiale.}
+                <target>{target_equipment_gender, select,
+                    male {**{character}** a trouvé un **{target_equipment}** dans une Capsule Spatiale.}
+                    female {**{character}** a trouvé une **{target_equipment}** dans une Capsule Spatiale.}
                     other {invalid gender input}
                 }</target>
             </segment>
@@ -24,9 +24,9 @@
         <unit id="transplant_success">
             <segment id="transplant_success">
                 <source>transplant_success</source>
-                <target>{equipment_first_letter, select,
-                    vowel {**{character}** entreprend de reproduire un plant d'**{equipment}**. Félicitation ! Le jeune plant est en parfaite santé.}
-                    other {**{character}** entreprend de reproduire un plant de **{equipment}**. Félicitation ! Le jeune plant est en parfaite santé.}
+                <target>{target_equipment_first_letter, select,
+                    vowel {**{character}** entreprend de reproduire un plant d'**{target_equipment}**. Félicitation ! Le jeune plant est en parfaite santé.}
+                    other {**{character}** entreprend de reproduire un plant de **{target_equipment}**. Félicitation ! Le jeune plant est en parfaite santé.}
                 }</target>
             </segment>
         </unit>
@@ -107,9 +107,9 @@
         <unit id="object_fell">
             <segment>
                 <source>object_fell</source>
-                <target>{equipment_gender, select,
-                        male {Étrange, **{character}** a fait tomber un **{equipment}**.}
-                        female {Étrange, **{character}** a fait tomber une **{equipment}**.}
+                <target>{target_equipment_gender, select,
+                        male {Étrange, **{character}** a fait tomber un **{target_equipment}**.}
+                        female {Étrange, **{character}** a fait tomber une **{target_equipment}**.}
                         other {invalid gender input}
                 }</target>
             </segment>
@@ -206,9 +206,9 @@
         <unit id="plant_new_fruit">
             <segment>
                 <source>plant_new_fruit</source>
-                <target>{equipment_gender, select,
-                    male {Oh ! Une des plantes a donné : un **{equipment}**.}
-                    female {Oh ! Une des plantes a donné : une **{equipment}**.}
+                <target>{target_equipment_gender, select,
+                    male {Oh ! Une des plantes a donné : un **{target_equipment}**.}
+                    female {Oh ! Une des plantes a donné : une **{target_equipment}**.}
                     other {invalid gender input}
                 }</target>
             </segment>

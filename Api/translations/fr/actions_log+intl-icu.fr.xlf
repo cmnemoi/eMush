@@ -768,7 +768,61 @@
                     male {C'est étrange **{character}** sort un poudrier et se badigeonne de blanc et de noir. Il n'a vraiment pas l'air dans son assiette.}
                     female {C'est étrange **{character}** sort un poudrier et se badigeonne de blanc et de noir. Elle n'a vraiment pas l'air dans son assiette.}
                     other {invalid gender input}
-                }</target>
+                    }</target>
+            </segment>
+        </unit>
+        <unit id="success_surgery">
+            <segment id="success_surgery">
+                <source>success_surgery</source>
+                <target>L'opération semble durer une éternité, **{character}** rend enfin son verdict la mine souriante... {version, select,
+                    1 {l'opération s'est déroulé avec succès. **{target_character}** va bien et sera bientôt sur pied.}
+                    2 {**{target_character}** s'en sort admirablement.}
+                    other {invalid gender input}
+                    } La blessure ({disease}) de **{target_character}** est guérie.
+                </target>
+            </segment>
+        </unit>
+        <unit id="fail_surgery">
+            <segment id="fail_surgery">
+                <source>fail_surgery</source>
+                <target>
+                    L'opération semble durer une éternité, **{character}** rend enfin son verdict la mine défaite... **{target_character}** fait un choc septique...
+                </target>
+            </segment>
+        </unit>
+        <unit id="critical_success_surgery">
+            <segment id="critical_success_surgery">
+                <source>critical_success_surgery</source>
+                <target>
+                    L'opération semble durer une éternité, **{character}** rend enfin son verdict la mine souriante... une telle opération menée avec un tel brio peut faire avancer la science ! La blessure ({disease}) de **{target_character}** est guérie.
+                </target>
+            </segment>
+        </unit>
+        <unit id="success_self_surgery">
+            <segment id="success_self_surgery">
+                <source>success_self_surgery</source>
+                <target>L'opération semble durer une éternité... {version, select,
+                    1 {**{character}** s'en sort admirablement.}
+                    2 {l'opération s'est déroulé avec succès. **{character}** va bien et sera bientôt sur pied.}
+                    other {invalid gender input}
+                    } La blessure ({disease}) de **{character}** est guérie.
+                </target>
+            </segment>
+        </unit>
+        <unit id="fail_self_surgery">
+            <segment id="fail_self_surgery">
+                <source>fail_self_surgery</source>
+                <target>
+                    L'opération semble durer une éternité... **{character}** fait un choc septique...
+                </target>
+            </segment>
+        </unit>
+        <unit id="critical_success_self_surgery">
+            <segment id="critical_success_self_surgery">
+                <source>critical_success_self_surgery</source>
+                <target>
+                    L'opération semble durer une éternité... une telle opération menée avec un tel brio peut faire avancer la science ! La blessure ({disease}) de **{character}** est guérie.
+                </target>
             </segment>
         </unit>
     </file>

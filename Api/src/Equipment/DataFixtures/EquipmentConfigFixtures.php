@@ -497,12 +497,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($turretCommand);
         $manager->persist($turretCommandMechanic);
 
+        /** @var Action $selfSurgeryAction */
+        $selfSurgeryAction = $this->getReference(ActionsFixtures::SELF_SURGERY);
+
         $surgicalPlotMechanic = new Tool();
-//        $surgicalPlotMechanic->setGrantActions([ActionEnum::SELF_SURGERY, ActionEnum::SURGERY]);
-//        $surgicalPlotMechanic->setActionsTarget([
-//            ActionEnum::SELF_SURGERY => ActionTargetEnum::SELF_PLAYER,
-//            ActionEnum::SURGERY => ActionTargetEnum::TARGET_PLAYER,
-//        ]);
+        $surgicalPlotMechanic->addAction($selfSurgeryAction);
+
         $surgicalPlot = new EquipmentConfig();
         $surgicalPlot
             ->setGameConfig($gameConfig)

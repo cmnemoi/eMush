@@ -27,14 +27,13 @@ class ConsumeActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::MEDLAB_HEAL);
+        $this->actionEntity = $this->createActionEntity(ActionEnum::CONSUME);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Consume(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->playerService,
         );
     }
 

@@ -4,7 +4,9 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
+use Mush\Action\Validator\AreMedicalSuppliesOnReach;
 use Mush\Action\Validator\FullHealth;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
@@ -17,22 +19,20 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
- * Abstract class which defines a generic heal action.
+ * Implement heal action using medikit or the ship medlab
  * For 2 Action Points, the player gives back 3 health points to another player.
  *  - +1 health point if the Ultra-healing pommade research is active (@TODO)
  *  - +2 health point if the player has the Medic skill (@TODO).
  *
- * Also weakens / heals diseases (@TODO)
+ * Also weakens / heals diseases
  *
  * More info : http://www.mushpedia.com/wiki/Medikit
- *
- * See `MedikitHeal` and `MedlabHeal` classes for implementations.
  */
-abstract class AbstractHeal extends AbstractAction
+class Heal extends AbstractAction
 {
     public const BASE_HEAL = 3;
 
-    protected string $name;
+    protected string $name = ActionEnum::HEAL;
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -41,6 +41,9 @@ abstract class AbstractHeal extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
+        $metadata->addConstraint(new AreMedicalSuppliesOnReach([
+            'groups' => ['visibility'],
+        ]));
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new FullHealth(['target' => FullHealth::PARAMETER, 'groups' => ['visibility']]));
     }

@@ -4,7 +4,7 @@ namespace Mush\Test\Action\Actions;
 
 use Mockery;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Actions\MedikitHeal;
+use Mush\Action\Actions\Heal;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -19,10 +19,10 @@ class MakeSickActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::MEDIKIT_HEAL);
+        $this->actionEntity = $this->createActionEntity(ActionEnum::MAKE_SICK);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
-        $this->action = new MedikitHeal(
+        $this->action = new Heal(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,

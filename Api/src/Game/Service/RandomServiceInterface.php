@@ -3,6 +3,8 @@
 namespace Mush\Game\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
+use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -16,7 +18,11 @@ interface RandomServiceInterface
 
     public function isSuccessful(int $successRate): bool;
 
+    public function outputCriticalChances(int $successRate, int $criticalFailRate = 0, int $criticalSuccessRate = 0): string;
+
     public function getRandomPlayer(PlayerCollection $players): Player;
+
+    public function getRandomDisease(PlayerDiseaseCollection $collection): PlayerDisease;
 
     public function getPlayerInRoom(Place $place): Player;
 

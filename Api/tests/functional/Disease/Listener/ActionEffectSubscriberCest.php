@@ -152,7 +152,7 @@ class ActionEffectSubscriberCest
             $player,
             $player,
             VisibilityEnum::HIDDEN,
-            ActionEnum::MEDLAB_HEAL,
+            ActionEnum::HEAL,
             new \DateTime()
         );
 
@@ -202,7 +202,7 @@ class ActionEffectSubscriberCest
             $player,
             $player,
             VisibilityEnum::HIDDEN,
-            ActionEnum::MEDLAB_HEAL,
+            ActionEnum::HEAL,
             new \DateTime()
         );
 

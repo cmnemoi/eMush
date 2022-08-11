@@ -3,6 +3,7 @@
 namespace Mush\RoomLog\Enum;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 
 class ActionLogEnum
@@ -71,9 +72,12 @@ class ActionLogEnum
     public const BORING_SPEECH = 'boring_speech';
     public const MAKE_SICK = 'make_sick';
     public const FAKE_DISEASE = 'fake_disease';
-
-    public const SUCCESS = 'success';
-    public const FAIL = 'fail';
+    public const SUCCESS_SURGERY = 'success_surgery';
+    public const CRITICAL_SUCCESS_SURGERY = 'critical_success_surgery';
+    public const FAIL_SURGERY = 'fail_surgery';
+    public const SUCCESS_SELF_SURGERY = 'success_self_surgery';
+    public const CRITICAL_SUCCESS_SELF_SURGERY = 'critical_success_self_surgery';
+    public const FAIL_SELF_SURGERY = 'fail_self_surgery';
 
     public const DEFAULT_FAIL = 'default_fail';
 
@@ -82,383 +86,399 @@ class ActionLogEnum
 
     public const ACTION_LOGS = [
         ActionEnum::DISASSEMBLE => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::DISASSEMBLE_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
-            self::FAIL => [
+            ActionOutputEnum::FAIL => [
                 self::VALUE => self::DISASSEMBLE_FAIL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::TAKE => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::TAKE,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::HIDE => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::HIDE_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::DROP => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::DROP,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::REPAIR => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::REPAIR_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
-            self::FAIL => [
+            ActionOutputEnum::FAIL => [
                 self::VALUE => self::REPAIR_FAIL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::SEARCH => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::SEARCH_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
-            self::FAIL => [
+            ActionOutputEnum::FAIL => [
                 self::VALUE => self::SEARCH_FAIL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::EXTRACT_SPORE => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::EXTRACT_SPORE_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::INFECT => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::INFECT_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::COVERT,
             ],
         ],
         ActionEnum::SABOTAGE => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::SABOTAGE_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::SECRET,
             ],
-            self::FAIL => [
+            ActionOutputEnum::FAIL => [
                 self::VALUE => self::SABOTAGE_FAIL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::READ_DOCUMENT => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::READ_DOCUMENT,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::READ_BOOK => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::READ_BOOK,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::SHRED => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::SHRED_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::CONSUME => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::CONSUME_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::CONSUME_DRUG => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::CONSUME_DRUG,
                 self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::WATER_PLANT => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::WATER_PLANT_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::TREAT_PLANT => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::TREAT_PLANT_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::TRY_KUBE => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::TRY_KUBE,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::HYBRIDIZE => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::HYBRIDIZE_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
-            self::FAIL => [
+            ActionOutputEnum::FAIL => [
                 self::VALUE => self::HYBRIDIZE_FAIL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::EXTINGUISH => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::EXTINGUISH_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
-            self::FAIL => [
+            ActionOutputEnum::FAIL => [
                 self::VALUE => self::EXTINGUISH_FAIL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::HYPERFREEZE => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::HYPERFREEZE_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::EXPRESS_COOK => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::COOK_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::WRITE => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::WRITE_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::INSERT_OXYGEN => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::INSERT_OXYGEN,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::RETRIEVE_OXYGEN => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::RETRIEVE_OXYGEN,
                 self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::INSERT_FUEL => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::INSERT_FUEL,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::RETRIEVE_FUEL => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::RETRIEVE_FUEL,
                 self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::COOK => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::COOK_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::COFFEE => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::COFFEE_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::DISPENSE => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::DISPENSE_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::SHOWER => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::SHOWER_HUMAN,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
-            self::FAIL => [
+            ActionOutputEnum::FAIL => [
                 self::VALUE => self::SHOWER_MUSH,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::LIE_DOWN => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::LIE_DOWN,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::GET_UP => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::GET_UP,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::HIT => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::HIT_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
-            self::FAIL => [
+            ActionOutputEnum::FAIL => [
                 self::VALUE => self::HIT_FAIL,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::COMFORT => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::COMFORT_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
-        ActionEnum::MEDIKIT_HEAL => [
-            self::SUCCESS => [
+        ActionEnum::HEAL => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::HEAL_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
-        ActionEnum::MEDIKIT_SELF_HEAL => [
-            self::SUCCESS => [
-                self::VALUE => self::SELF_HEAL,
-                self::VISIBILITY => VisibilityEnum::PRIVATE,
-            ],
-        ],
-        ActionEnum::MEDLAB_HEAL => [
-            self::SUCCESS => [
-                self::VALUE => self::HEAL_SUCCESS,
-                self::VISIBILITY => VisibilityEnum::PUBLIC,
-            ],
-        ],
-        ActionEnum::MEDLAB_SELF_HEAL => [
-            self::SUCCESS => [
+        ActionEnum::SELF_HEAL => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::SELF_HEAL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::ULTRAHEAL => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::ULTRAHEAL_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::USE_BANDAGE => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::SELF_HEAL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::SPREAD_FIRE => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::SPREAD_FIRE_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::SECRET,
             ],
         ],
         ActionEnum::INSTALL_CAMERA => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::INSTALL_CAMERA,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::REMOVE_CAMERA => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::REMOVE_CAMERA,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
 
         ActionEnum::STRENGTHEN_HULL => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::STRENGTHEN_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
-            self::FAIL => [
+            ActionOutputEnum::FAIL => [
                 self::VALUE => self::DEFAULT_FAIL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
 
         ActionEnum::FLIRT => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::FLIRT_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
 
         ActionEnum::MOVE => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::ENTER_ROOM,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
 
         ActionEnum::DO_THE_THING => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::DO_THE_THING_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
 
         ActionEnum::CHECK_SPORE_LEVEL => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::CHECK_SPORE_LEVEL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
 
         ActionEnum::REMOVE_SPORE => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::REMOVE_SPORE_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
-            self::FAIL => [
+            ActionOutputEnum::FAIL => [
                 self::VALUE => self::REMOVE_SPORE_FAIL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::PUBLIC_BROADCAST => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::PUBLIC_BROADCAST,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::EXTINGUISH_MANUALLY => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::EXTINGUISH_SUCCESS,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
-            self::FAIL => [
+            ActionOutputEnum::FAIL => [
                 self::VALUE => self::EXTINGUISH_FAIL,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::MOTIVATIONAL_SPEECH => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::MOTIVATIONAL_SPEECH,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::BORING_SPEECH => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::BORING_SPEECH,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::MAKE_SICK => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::MAKE_SICK,
                 self::VISIBILITY => VisibilityEnum::COVERT,
             ],
         ],
         ActionEnum::FAKE_DISEASE => [
-            self::SUCCESS => [
+            ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::FAKE_DISEASE,
                 self::VISIBILITY => VisibilityEnum::SECRET,
+            ],
+        ],
+        ActionEnum::SURGERY => [
+            ActionOutputEnum::SUCCESS => [
+                self::VALUE => self::SUCCESS_SURGERY,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+            ActionOutputEnum::CRITICAL_SUCCESS => [
+                self::VALUE => self::CRITICAL_SUCCESS_SURGERY,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+            ActionOutputEnum::FAIL => [
+                self::VALUE => self::FAIL_SURGERY,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::SELF_SURGERY => [
+            ActionOutputEnum::SUCCESS => [
+                self::VALUE => self::SUCCESS_SELF_SURGERY,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+            ActionOutputEnum::CRITICAL_SUCCESS => [
+                self::VALUE => self::CRITICAL_SUCCESS_SELF_SURGERY,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+            ActionOutputEnum::FAIL => [
+                self::VALUE => self::FAIL_SELF_SURGERY,
+                self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
     ];

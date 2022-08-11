@@ -36,10 +36,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const BANDAGE_DEFAULT = 'bandage.default';
     public const COOK_EXPRESS = 'cook.express';
     public const COOK_DEFAULT = 'cook.default';
-    public const MEDIKIT_HEAL = 'medikit.heal';
-    public const MEDIKIT_SELF_HEAL = 'medikit.self.heal';
-    public const MEDLAB_HEAL = 'medlab.heal';
-    public const MEDLAB_SELF_HEAL = 'medlab.self.heal';
+    public const HEAL = 'heal';
+    public const SELF_HEAL = 'self.heal';
     public const HEAL_ULTRA = 'heal.ultra';
     public const COMFORT_DEFAULT = 'confort.default';
     public const WRITE_DEFAULT = 'write.default';
@@ -70,6 +68,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const EXTINGUISH_MANUALLY = 'extinguish.manually';
     public const MOTIVATIONAL_SPEECH = 'motivational.speech';
     public const BORING_SPEECH = 'boring.speech';
+    public const SURGERY = 'surgery';
+    public const SELF_SURGERY = 'self.surgery';
 
     public function load(ObjectManager $manager): void
     {
@@ -287,45 +287,25 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($cookAction);
 
-        $medikitSelfHealAction = new Action();
-        $medikitSelfHealAction
-            ->setName(ActionEnum::MEDIKIT_SELF_HEAL)
+        $selfHealAction = new Action();
+        $selfHealAction
+            ->setName(ActionEnum::SELF_HEAL)
             // ->setTypes([ActionTypeEnum::ACTION_HEAL])
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($threeActionPointCost)
         ;
 
-        $manager->persist($medikitSelfHealAction);
+        $manager->persist($selfHealAction);
 
-        $medikitHealAction = new Action();
-        $medikitHealAction
-            ->setName(ActionEnum::MEDIKIT_HEAL)
+        $healAction = new Action();
+        $healAction
+            ->setName(ActionEnum::HEAL)
             // ->setTypes([ActionTypeEnum::ACTION_HEAL])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost($twoActionPointCost)
         ;
 
-        $manager->persist($medikitHealAction);
-
-        $medlabSelfHealAction = new Action();
-        $medlabSelfHealAction
-            ->setName(ActionEnum::MEDLAB_SELF_HEAL)
-            // ->setTypes([ActionTypeEnum::ACTION_HEAL])
-            ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($threeActionPointCost)
-        ;
-
-        $manager->persist($medlabSelfHealAction);
-
-        $medlabHealAction = new Action();
-        $medlabHealAction
-            ->setName(ActionEnum::MEDLAB_HEAL)
-            // ->setTypes([ActionTypeEnum::ACTION_HEAL])
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setActionCost($twoActionPointCost)
-        ;
-
-        $manager->persist($medlabHealAction);
+        $manager->persist($healAction);
 
         $comfortAction = new Action();
         $comfortAction
@@ -629,6 +609,26 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($boringSpeechAction);
 
+        $surgeryAction = new Action();
+        $surgeryAction
+            ->setName(ActionEnum::SURGERY)
+            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setActionCost($threeActionPointCost)
+            ->setDirtyRate(100)
+        ;
+
+        $manager->persist($surgeryAction);
+
+        $selfSurgeryAction = new Action();
+        $selfSurgeryAction
+            ->setName(ActionEnum::SELF_SURGERY)
+            ->setScope(ActionScopeEnum::SELF)
+            ->setActionCost($fourActionPointCost)
+            ->setDirtyRate(100)
+        ;
+
+        $manager->persist($selfSurgeryAction);
+
         $manager->flush();
 
         $this->addReference(self::REJUVENATE_ALPHA, $rejuvenateAlpha);
@@ -652,10 +652,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::BANDAGE_DEFAULT, $bandageAction);
         $this->addReference(self::COOK_EXPRESS, $expressCookAction);
         $this->addReference(self::COOK_DEFAULT, $cookAction);
-        $this->addReference(self::MEDIKIT_HEAL, $medikitHealAction);
-        $this->addReference(self::MEDIKIT_SELF_HEAL, $medikitSelfHealAction);
-        $this->addReference(self::MEDLAB_HEAL, $medlabHealAction);
-        $this->addReference(self::MEDLAB_SELF_HEAL, $medlabSelfHealAction);
+        $this->addReference(self::HEAL, $healAction);
+        $this->addReference(self::SELF_HEAL, $selfHealAction);
         $this->addReference(self::HEAL_ULTRA, $ultraHealAction);
         $this->addReference(self::COMFORT_DEFAULT, $comfortAction);
         $this->addReference(self::WRITE_DEFAULT, $writeAction);
@@ -687,6 +685,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::EXTINGUISH_MANUALLY, $extinguishManuallyAction);
         $this->addReference(self::MOTIVATIONAL_SPEECH, $motivationalSpeechAction);
         $this->addReference(self::BORING_SPEECH, $boringSpeechAction);
+        $this->addReference(self::SURGERY, $surgeryAction);
+        $this->addReference(self::SELF_SURGERY, $selfSurgeryAction);
     }
 
     public function getDependencies(): array

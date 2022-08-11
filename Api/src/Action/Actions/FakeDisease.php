@@ -7,7 +7,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Event\ApplyEffectEvent;
-use Mush\Action\Validator\HasAllFakeDiseases;
+use Mush\Action\Validator\HasDiseases;
+use Mush\Disease\Enum\TypeEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -29,8 +30,11 @@ class FakeDisease extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new HasAllFakeDiseases([
+        $metadata->addConstraint(new HasDiseases([
             'groups' => ['execute'],
+            'type' => TypeEnum::DISEASE,
+            'target' => HasDiseases::PLAYER,
+            'isEmpty' => true,
             'message' => ActionImpossibleCauseEnum::HAVE_ALL_FAKE_DISEASES,
         ]));
     }

@@ -3,15 +3,16 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Place\Enum\RoomEnum;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
- * This class implements a validator for the `IsMedlabRoom` constraint.
+ * This class implements a validator for the `areMedicalSuppliesOnReach` constraint.
  */
-class IsMedlabRoomValidator extends ConstraintValidator
+class AreMedicalSuppliesOnReachValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint): void
     {
@@ -19,14 +20,14 @@ class IsMedlabRoomValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, AbstractAction::class);
         }
 
-        if (!$constraint instanceof IsMedlabRoom) {
-            throw new UnexpectedTypeException($constraint, IsMedlabRoom::class);
+        if (!$constraint instanceof AreMedicalSuppliesOnReach) {
+            throw new UnexpectedTypeException($constraint, AreMedicalSuppliesOnReach::class);
         }
 
         $roomName = $value->getPlayer()->getPlace()->getName();
         $IsMedlabRoom = $roomName === RoomEnum::MEDLAB;
 
-        if ($IsMedlabRoom !== $constraint->expectedValue) {
+        if (!$IsMedlabRoom && !$value->getPlayer()->hasItemByName(ToolItemEnum::MEDIKIT)) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

@@ -4,8 +4,6 @@ namespace Mush\RoomLog\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\Fail;
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -72,10 +70,9 @@ class RoomLogService implements RoomLogServiceInterface
             return null;
         }
 
-        if ($actionResult instanceof Success && isset($logMapping[ActionLogEnum::SUCCESS])) {
-            $logData = $logMapping[ActionLogEnum::SUCCESS];
-        } elseif ($actionResult instanceof Fail && isset($logMapping[ActionLogEnum::FAIL])) {
-            $logData = $logMapping[ActionLogEnum::FAIL];
+        $actionResultString = $actionResult->getName();
+        if (isset($logMapping[$actionResultString])) {
+            $logData = $logMapping[$actionResultString];
         } else {
             return $this->createLog(
                 'no_log_yet_' . $actionName,

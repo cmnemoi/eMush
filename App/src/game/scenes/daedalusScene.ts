@@ -175,12 +175,15 @@ export default class DaedalusScene extends Phaser.Scene
     public room : Room;
     private equipments : Array<EquipmentObject>;
     private map: MushTiledMap | null;
-    private cameraTarget : { x : number, y : number};
     private targetHighlightObject?: Phaser.GameObjects.Sprite;
 
     public sceneGrid: SceneGrid;
     public navMeshGrid: NavMeshGrid;
     private roomBasicSceneGrid: SceneGrid;
+
+    private isScreenSliding = false;
+    private cameraTarget: CartesianCoordinates = new CartesianCoordinates(0,0);
+    private cameraDirection: CartesianCoordinates = new CartesianCoordinates(0,0);
 
     public selectedGameObject : Phaser.GameObjects.GameObject | null;
     private fireParticles: Array<Phaser.GameObjects.Particles.ParticleEmitterManager> = []
@@ -207,8 +210,6 @@ export default class DaedalusScene extends Phaser.Scene
         this.navMeshGrid = new NavMeshGrid(this);
 
         this.selectedGameObject = null;
-
-        this.cameraTarget = { x: 0 , y: 0 };
     }
 
     preload(): void
@@ -368,6 +369,7 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.map = this.createRoom();
         this.createEquipments(this.map);
+
 
         // add target tile highlight
         this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
@@ -566,6 +568,7 @@ export default class DaedalusScene extends Phaser.Scene
         const map = new MushTiledMap(this, this.room.key);
         this.roomBasicSceneGrid = map.createInitialSceneGrid(this.sceneGrid);
         this.sceneIsoSize = map.getMapSize();
+        this.cameraDirection = new CartesianCoordinates(0,0);
         map.createLayers(this.room, this.sceneGrid);
 
 
@@ -579,12 +582,14 @@ export default class DaedalusScene extends Phaser.Scene
         //place the starting camera.
         //If the scene size is larger than the camera, the camera is centered on the player
         //else it is centered on the scene
-        const cameraPosition = map.getCameraPosition();
-        if (cameraPosition.width < 424 && cameraPosition.height < 460) {
-            this.cameras.main.setBounds(-212, -160, 424, 460);
+        const sceneCartesianSize = new CartesianCoordinates(this.sceneIsoSize.x + this.sceneIsoSize.y, (this.sceneIsoSize.x + this.sceneIsoSize.y)/2);
+        //this.cameras.main.setBounds(-this.sceneIsoSize.y, 0, sceneCartesianSize.x, sceneCartesianSize.y);
+
+        if (sceneCartesianSize.x -32 < this.game.scale.gameSize.width && sceneCartesianSize.y - 32 < this.game.scale.gameSize.height) {
+            this.cameras.main.setBounds(-this.game.scale.gameSize.width/2, -this.game.scale.gameSize.height/2 +72, sceneCartesianSize.x, sceneCartesianSize.y);
         } else {
-            this.cameras.main.setBounds(cameraPosition.x, cameraPosition.y, cameraPosition.width, cameraPosition.height);
-            this.cameras.main.startFollow(this.playerSprite);
+            this.isScreenSliding = true;
+            this.cameras.main.setBounds(-this.sceneIsoSize.y, -72, sceneCartesianSize.x, sceneCartesianSize.y + 72);
         }
 
         const background = this.add.tileSprite(0, 0, 848, 920, 'background');
@@ -749,6 +754,21 @@ export default class DaedalusScene extends Phaser.Scene
                 this.targetHighlightObject.setDepth(0);
             }
         }
+
+        // camera
+        //this.cameras.main.centerOn(this.cameraTarget.x, this.cameraTarget.y);
+        if (this.cameraDirection.x !== 0 || this.cameraDirection.y !== 0) {
+            this.cameras.main.scrollX += this.cameraDirection.x;
+            this.cameras.main.scrollY += this.cameraDirection.y;
+
+            if (((this.cameraDirection.x >= 0 && this.cameras.main.scrollX >= this.cameraTarget.x) ||
+                (this.cameraDirection.x <= 0 && this.cameras.main.scrollX <= this.cameraTarget.x)) &&
+                ((this.cameraDirection.y >= 0 && this.cameras.main.scrollY >= this.cameraTarget.y) ||
+                (this.cameraDirection.y <= 0 && this.cameras.main.scrollY <= this.cameraTarget.y))
+            ) {
+                this.cameraDirection.setTo(0,0);
+            }
+        }
     }
 
     // return the center of the currently pointed tile
@@ -763,6 +783,7 @@ export default class DaedalusScene extends Phaser.Scene
     createPlayers(): void
     {
         const playerCoordinates = this.navMeshGrid.getRandomPoint();
+        this.cameras.main.centerOn(playerCoordinates.x, playerCoordinates.y);
 
         this.playerSprite.setPositionFromFeet(playerCoordinates);
         this.playerSprite.updateNavMesh();
@@ -812,6 +833,27 @@ export default class DaedalusScene extends Phaser.Scene
             }
             if (gameObject instanceof DoorObject) {
                 gameObject.onDoorClicked(pointer);
+            }
+
+
+            // screen sliding
+            const requiredScroll = this.cameras.main.getScroll(pointer.worldX, pointer.worldY);
+
+            if (this.isScreenSliding &&
+                (requiredScroll.x !== this.cameras.main.scrollX ||
+                    requiredScroll.y !== this.cameras.main.scrollY)
+            ) {
+                this.cameraTarget.setTo(requiredScroll.x, requiredScroll.y);
+
+                const norm = Math.pow(
+                    Math.pow((requiredScroll.x - this.cameras.main.scrollX), 2)+
+                    Math.pow((requiredScroll.y - this.cameras.main.scrollY), 2),
+                    1/2
+                );
+                this.cameraDirection.setTo(
+                    (requiredScroll.x  - this.cameras.main.scrollX)/norm,
+                    (requiredScroll.y  - this.cameras.main.scrollY)/norm,
+                );
             }
         });
 

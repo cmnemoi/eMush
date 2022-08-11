@@ -42,7 +42,7 @@ export default class MushTiledMap {
 
     getMapSize(): IsometricCoordinates
     {
-        return new IsometricCoordinates(this.tilemap.width* this.isoTileSize, this.tilemap.height * this.isoTileSize);
+        return new IsometricCoordinates(this.tilemap.width * this.isoTileSize, this.tilemap.height * this.isoTileSize);
     }
 
     createLayers(room: Room, sceneGrid: SceneGrid, ): void

@@ -66,11 +66,11 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
             if (is_array($normedDoor)) {
                 $doors[] = array_merge(
                     $normedDoor,
-                    ['direction' => $this->translationService->translate($door
+                    ['direction' => $door
                         ->getRooms()
                         ->filter(fn (Place $doorRoom) => $doorRoom !== $room)
                         ->first()
-                        ->getName() . '.name', [], 'rooms'),
+                        ->getName(),
                     ]
                 );
             }

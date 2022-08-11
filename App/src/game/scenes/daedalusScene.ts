@@ -184,6 +184,7 @@ export default class DaedalusScene extends Phaser.Scene
     private isScreenSliding = false;
     private cameraTarget: CartesianCoordinates = new CartesianCoordinates(0,0);
     private cameraDirection: CartesianCoordinates = new CartesianCoordinates(0,0);
+    private previousRoom: string | undefined = undefined;
 
     public selectedGameObject : Phaser.GameObjects.GameObject | null;
     private fireParticles: Array<Phaser.GameObjects.Particles.ParticleEmitterManager> = []
@@ -369,7 +370,6 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.map = this.createRoom();
         this.createEquipments(this.map);
-
 
         // add target tile highlight
         this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
@@ -782,7 +782,12 @@ export default class DaedalusScene extends Phaser.Scene
 
     createPlayers(): void
     {
-        const playerCoordinates = this.navMeshGrid.getRandomPoint();
+        let playerCoordinates = this.navMeshGrid.getRandomPoint();
+        if (this.previousRoom !== undefined && this.previousRoom !== this.room.key) {
+            playerCoordinates = this.findRoomEntryPoint();
+        }
+
+        this.previousRoom = this.room.key;
         this.cameras.main.centerOn(playerCoordinates.x, playerCoordinates.y);
 
         this.playerSprite.setPositionFromFeet(playerCoordinates);
@@ -802,6 +807,22 @@ export default class DaedalusScene extends Phaser.Scene
                 );
             }
         });
+    }
+
+    findRoomEntryPoint(): CartesianCoordinates
+    {
+        const sceneGameObjects = this.children.list;
+
+        for (let i=0; i < sceneGameObjects.length; i++) {
+            const gameObject = sceneGameObjects[i];
+
+            if (gameObject instanceof DoorGroundObject &&
+                gameObject.door.direction === this.previousRoom)
+            {
+                return this.navMeshGrid.getClosestPoint(gameObject.isoGeom.getIsoCoords()).toCartesianCoordinates();
+            }
+        }
+        return this.navMeshGrid.getRandomPoint();
     }
 
     enableEventListeners(): void

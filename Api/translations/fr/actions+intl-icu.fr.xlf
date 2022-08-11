@@ -611,5 +611,25 @@
                 <target>Permet de simuler une maladie bégnine. Vos coéquipiers n'y verront que du feu... mais votre corps aussi risque de tomber dans le panneau.</target>
             </segment>
         </unit>
+        <unit id="surgery">
+            <segment id="name">
+                <source>surgery.name</source>
+                <target>Chirurgie</target>
+            </segment>
+            <segment id="description">
+                <source>surgery.description</source>
+                <target>Effectuer un acte chirurgical n'est jamais anodin, mais parfois nécessaire.</target>
+            </segment>
+        </unit>
+        <unit id="self_surgery">
+            <segment id="name">
+                <source>self_surgery.name</source>
+                <target>Chirurgie-Auto</target>
+            </segment>
+            <segment id="description">
+                <source>self_surgery.description</source>
+                <target>Permet d'effectuer une chirurgie sur vous-même.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

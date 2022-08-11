@@ -4,8 +4,10 @@ namespace Mush\Test\Action\Validator;
 
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Validator\IsMedlabRoom;
-use Mush\Action\Validator\IsMedlabRoomValidator;
+use Mush\Action\Validator\AreMedicalSuppliesOnReach;
+use Mush\Action\Validator\AreMedicalSuppliesOnReachValidator;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -14,18 +16,18 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class IsMedlabRoomValidatorTest extends TestCase
+class AreMedicalSuppliesOnReachValidatorTest extends TestCase
 {
-    private IsMedlabRoomValidator $validator;
-    private IsMedlabRoom $constraint;
+    private AreMedicalSuppliesOnReachValidator $validator;
+    private AreMedicalSuppliesOnReach $constraint;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new IsMedlabRoomValidator();
-        $this->constraint = new IsMedlabRoom();
+        $this->validator = new AreMedicalSuppliesOnReachValidator();
+        $this->constraint = new AreMedicalSuppliesOnReach();
     }
 
     /**
@@ -36,7 +38,7 @@ class IsMedlabRoomValidatorTest extends TestCase
         Mockery::close();
     }
 
-    public function testValid()
+    public function testValidInMedlab()
     {
         $medlab = new Place();
         $medlab->setName(RoomEnum::MEDLAB);
@@ -50,6 +52,68 @@ class IsMedlabRoomValidatorTest extends TestCase
         $target = new Player();
         $target->setCharacterConfig($targetPlayerConfig);
         $target->setPlace($medlab);
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getParameter' => $target,
+                'getPlayer' => $player,
+            ])
+        ;
+
+        $this->initValidator();
+        $this->validator->validate($action, $this->constraint);
+    }
+
+    public function testValidWithMedikit()
+    {
+        $room = new Place();
+        $room->setName(RoomEnum::BRAVO_BAY);
+
+        $characterConfig = new CharacterConfig();
+        $player = new Player();
+        $player->setCharacterConfig($characterConfig);
+        $player->setPlace($room);
+
+        $equipment = new GameItem();
+        $equipment->setName(ToolItemEnum::MEDIKIT);
+        $player->addEquipment($equipment);
+
+        $targetPlayerConfig = new CharacterConfig();
+        $target = new Player();
+        $target->setCharacterConfig($targetPlayerConfig);
+        $target->setPlace($room);
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getParameter' => $target,
+                'getPlayer' => $player,
+            ])
+        ;
+
+        $this->initValidator();
+        $this->validator->validate($action, $this->constraint);
+    }
+
+    public function notValidWithMedikitInRoom()
+    {
+        $room = new Place();
+        $room->setName(RoomEnum::BRAVO_BAY);
+
+        $characterConfig = new CharacterConfig();
+        $player = new Player();
+        $player->setCharacterConfig($characterConfig);
+        $player->setPlace($room);
+
+        $equipment = new GameItem();
+        $equipment->setName(ToolItemEnum::MEDIKIT);
+        $room->addEquipment($equipment);
+
+        $targetPlayerConfig = new CharacterConfig();
+        $target = new Player();
+        $target->setCharacterConfig($targetPlayerConfig);
+        $target->setPlace($room);
 
         $action = Mockery::mock(AbstractAction::class);
         $action

@@ -4,7 +4,7 @@ namespace functional\Action\Actions;
 
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\Actions\MedlabHeal;
+use Mush\Action\Actions\Heal;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
@@ -23,17 +23,17 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-class MedlabHealCest
+class HealCest
 {
-    private MedlabHeal $MedlabHealAction;
+    private Heal $healAction;
 
     public function _before(FunctionalTester $I)
     {
-        $this->MedlabHealAction = $I->grabService(MedlabHeal::class);
+        $this->healAction = $I->grabService(Heal::class);
         $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
     }
 
-    public function testMedlabHeal(FunctionalTester $I)
+    public function testHeal(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -50,7 +50,7 @@ class MedlabHealCest
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::MEDLAB_HEAL)
+            ->setName(ActionEnum::HEAL)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost($actionCost);
         $I->haveInRepository($action);
@@ -87,12 +87,12 @@ class MedlabHealCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $this->MedlabHealAction->loadParameters($action, $healerPlayer, $healedPlayer);
+        $this->healAction->loadParameters($action, $healerPlayer, $healedPlayer);
 
-        $I->assertTrue($this->MedlabHealAction->isVisible());
-        $I->assertNull($this->MedlabHealAction->cannotExecuteReason());
+        $I->assertTrue($this->healAction->isVisible());
+        $I->assertNull($this->healAction->cannotExecuteReason());
 
-        $this->MedlabHealAction->execute();
+        $this->healAction->execute();
 
         $I->assertEquals(0, $healerPlayer->getActionPoint());
         $I->assertEquals(9, $healedPlayer->getHealthPoint());
@@ -122,7 +122,7 @@ class MedlabHealCest
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::MEDLAB_HEAL)
+            ->setName(ActionEnum::HEAL)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost($actionCost);
         $I->haveInRepository($action);
@@ -159,8 +159,8 @@ class MedlabHealCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $this->MedlabHealAction->loadParameters($action, $healerPlayer, $healedPlayer);
+        $this->healAction->loadParameters($action, $healerPlayer, $healedPlayer);
 
-        $I->assertFalse($this->MedlabHealAction->isVisible());
+        $I->assertFalse($this->healAction->isVisible());
     }
 }

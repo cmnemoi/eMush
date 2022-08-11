@@ -4,43 +4,41 @@ namespace functional\Action\Actions;
 
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\Actions\MedikitSelfHeal;
+use Mush\Action\Actions\SelfHeal;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-class MedikitSelfHealCest
+class SelfHealCest
 {
-    private MedikitSelfHeal $MedikitSelfHealAction;
+    private SelfHeal $selfHealAction;
 
     public function _before(FunctionalTester $I)
     {
-        $this->MedikitSelfHealAction = $I->grabService(MedikitSelfHeal::class);
+        $this->selfHealAction = $I->grabService(SelfHeal::class);
         $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
     }
 
-    public function testMedikitSelfHeal(FunctionalTester $I)
+    public function testSelfHeal(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'gameStatus' => GameStatusEnum::CURRENT]);
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        /** @var Place $medlab */
+        $medlab = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::MEDLAB]);
 
         $actionCost = new ActionCost();
         $actionCost
@@ -50,7 +48,7 @@ class MedikitSelfHealCest
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::MEDIKIT_SELF_HEAL)
+            ->setName(ActionEnum::SELF_HEAL)
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($actionCost);
         $I->haveInRepository($action);
@@ -62,41 +60,24 @@ class MedikitSelfHealCest
 
         /** @var Player $healerPlayer */
         $healerPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
-            'place' => $room,
+            'place' => $medlab,
             'actionPoint' => 3,
             'healthPoint' => 6,
             'characterConfig' => $characterConfig,
         ]);
 
-        /** @var ItemConfig $itemConfig */
-        $itemConfig = $I->have(ItemConfig::class);
-        $itemConfig
-            ->setGameConfig($gameConfig)
-            ->setName(ToolItemEnum::MEDIKIT)
-            ->setActions(new ArrayCollection([$action]));
+        $this->selfHealAction->loadParameters($action, $healerPlayer);
 
-        $I->haveInRepository($itemConfig);
+        $I->assertTrue($this->selfHealAction->isVisible());
+        $I->assertNull($this->selfHealAction->cannotExecuteReason());
 
-        $gameItem = new GameItem();
-        $gameItem
-            ->setName(ToolItemEnum::MEDIKIT)
-            ->setEquipment($itemConfig)
-            ->setHolder($healerPlayer)
-        ;
-        $I->haveInRepository($gameItem);
-
-        $this->MedikitSelfHealAction->loadParameters($action, $healerPlayer);
-
-        $I->assertTrue($this->MedikitSelfHealAction->isVisible());
-        $I->assertNull($this->MedikitSelfHealAction->cannotExecuteReason());
-
-        $this->MedikitSelfHealAction->execute();
+        $this->selfHealAction->execute();
 
         $I->assertEquals(0, $healerPlayer->getActionPoint());
         $I->assertEquals(9, $healerPlayer->getHealthPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $medlab->getId(),
             'player' => $healerPlayer->getId(),
             'log' => ActionLogEnum::SELF_HEAL,
             'visibility' => VisibilityEnum::PRIVATE,

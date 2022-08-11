@@ -93,7 +93,7 @@
         <unit id="heal_no_injury">
             <segment id="description">
                 <source>heal_no_injury.description</source>
-                <target>Vous n'êtes pas blessé mais ça peut s'arranger...</target>
+                <target>Vous n'êtes pas blessé, mais ça peut s'arranger...</target>
             </segment>
         </unit>
 

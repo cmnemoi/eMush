@@ -288,17 +288,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($alienHolographicTV);
         $manager->persist($alienHolographicTVMechanic);
 
-        /** @var Action $healAction */
-        $healAction = $this->getReference(ActionsFixtures::MEDIKIT_HEAL);
-        /** @var Action $selfHealAction */
-        $selfHealAction = $this->getReference(ActionsFixtures::MEDIKIT_SELF_HEAL);
-
-        $medikitMechanic = new Tool();
-        $medikitMechanic
-            ->addAction($healAction)
-            ->addAction($selfHealAction)
-        ;
-
         $medikit = new ItemConfig();
         $medikit
             ->setGameConfig($gameConfig)
@@ -307,11 +296,9 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(false)
-            ->setMechanics(new ArrayCollection([$medikitMechanic]))
             ->setActions($actions)
         ;
         $manager->persist($medikit);
-        $manager->persist($medikitMechanic);
 
         /** @var Action $removeSporeAction */
         $removeSporeAction = $this->getReference(ActionsFixtures::REMOVE_SPORE);

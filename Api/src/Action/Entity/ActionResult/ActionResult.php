@@ -6,6 +6,8 @@ use Mush\Equipment\Entity\GameEquipment;
 
 abstract class ActionResult
 {
+    protected const DEFAULT = 'default';
+
     private ?GameEquipment $equipment = null;
     private ?int $quantity = null;
 
@@ -31,5 +33,10 @@ abstract class ActionResult
     public function getQuantity(): ?int
     {
         return $this->quantity;
+    }
+
+    public function getName(): string
+    {
+        return self::DEFAULT;
     }
 }

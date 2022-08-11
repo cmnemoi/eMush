@@ -32,10 +32,10 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $rejuvenateAlphaAction = $this->getReference(ActionsFixtures::REJUVENATE_ALPHA);
         /** @var Action $comfortAction */
         $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
-        /** @var Action medlabHealAction */
-        $medlabHealAction = $this->getReference(ActionsFixtures::MEDLAB_HEAL);
-        /** @var Action medlabSelfHealAction */
-        $medlabSelfHealAction = $this->getReference(ActionsFixtures::MEDLAB_SELF_HEAL);
+        /** @var Action $healAction */
+        $healAction = $this->getReference(ActionsFixtures::HEAL);
+        /** @var Action $selfHealAction */
+        $selfHealAction = $this->getReference(ActionsFixtures::SELF_HEAL);
         /** @var Action $fakeDiseaseAction */
         $fakeDiseaseAction = $this->getReference(MushActionFixtures::FAKE_DISEASE);
 
@@ -53,10 +53,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $flirtAction = $this->getReference(ActionsFixtures::FLIRT_DEFAULT);
         /** @var Action $doTheThingAction */
         $doTheThingAction = $this->getReference(ActionsFixtures::DO_THE_THING);
-        /** @var Action medlabHealAction */
-        $medlabHealAction = $this->getReference(ActionsFixtures::MEDLAB_HEAL);
-        /** @var Action medlabSelfHealAction */
-        $medlabSelfHealAction = $this->getReference(ActionsFixtures::MEDLAB_SELF_HEAL);
 
         /** @var Action $extractSporeAction */
         $extractSporeAction = $this->getReference(MushActionFixtures::EXTRACT_SPORE);
@@ -90,8 +86,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $extinguishManuallyAction,
             $motivationalSpeechAction,
             $boringSpeechAction,
-            $medlabHealAction,
-            $medlabSelfHealAction,
+            $healAction,
+            $selfHealAction,
             $rejuvenateAlphaAction,
             $spreadFireAction,
             $flirtAction,

@@ -21,6 +21,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
     public const LOW_MORALE_DISEASE_CAUSE_CONFIG = 'cycle.low.morale.disease.cause.config';
     public const MAKE_SICK_DISEASE_CAUSE_CONFIG = 'make.sick.disease.cause.config';
     public const FAKE_DISEASE_DISEASE_CAUSE_CONFIG = 'fake.disease.disease.cause.config';
+    public const FAILED_SURGERY_DISEASE_CAUSE_CONFIG = 'failed.surgery.disease.cause.config';
 
     public function load(ObjectManager $manager): void
     {
@@ -149,6 +150,14 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $manager->persist($diseaseCausesFakeDisease);
 
+        $diseaseCauseFailedSurgery = new DiseaseCauseConfig();
+        $diseaseCauseFailedSurgery
+            ->setGameConfig($gameConfig)
+            ->setName(ActionEnum::SURGERY)
+            ->setDiseases([DiseaseEnum::SEPSIS])
+        ;
+        $manager->persist($diseaseCauseFailedSurgery);
+
         $manager->flush();
 
         $this->addReference(self::ALIEN_FRUIT_DISEASE_CAUSE_CONFIG, $diseaseCauseAlienFruit);
@@ -157,6 +166,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
         $this->addReference(self::LOW_MORALE_DISEASE_CAUSE_CONFIG, $diseaseCauseCycleDepressed);
         $this->addReference(self::MAKE_SICK_DISEASE_CAUSE_CONFIG, $diseaseCausesBacterialContact);
         $this->addReference(self::FAKE_DISEASE_DISEASE_CAUSE_CONFIG, $diseaseCausesFakeDisease);
+        $this->addReference(self::FAILED_SURGERY_DISEASE_CAUSE_CONFIG, $diseaseCausesFakeDisease);
     }
 
     public function getDependencies()

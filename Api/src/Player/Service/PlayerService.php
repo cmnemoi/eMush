@@ -4,6 +4,7 @@ namespace Mush\Player\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
@@ -138,6 +139,18 @@ class PlayerService implements PlayerServiceInterface
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
+
+        foreach ($characterConfig->getStartingItem() as $itemConfig) {
+            // create the equipment
+            $equipmentEvent = new EquipmentEvent(
+                $itemConfig->getName(),
+                $player,
+                VisibilityEnum::PRIVATE,
+                PlayerEvent::NEW_PLAYER,
+                new \DateTime()
+            );
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        }
 
         return $player;
     }

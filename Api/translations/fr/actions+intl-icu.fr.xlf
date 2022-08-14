@@ -268,7 +268,7 @@
             </segment>
             <segment id="description">
                 <source>take.description</source>
-                <target>Prends un objet dans la pièce courante et le place dans votre inventaire</target>
+                <target>Prends un objet dans la pièce courante et le place dans votre inventaire.</target>
             </segment>
         </unit>
         <unit id="transplant">

@@ -8,6 +8,7 @@ use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -418,8 +419,9 @@ class RoomLogServiceTest extends TestCase
         $player = new Player();
         $player->setCharacterConfig($characterConfig1)->setPlace($place);
 
+        $equipmentConfig = new EquipmentConfig();
         $gameEquipment = new GameEquipment();
-        $gameEquipment->setName('equipment');
+        $gameEquipment->setName('equipment')->setEquipment($equipmentConfig);
 
         $actionResult = new Fail($gameEquipment);
 

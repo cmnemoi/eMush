@@ -207,6 +207,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         ) {
             return true;
         }
+
+        if ($gameEquipment->getEquipment()->isPersonal() && $gameEquipment->getOwner() !== $this) {
+            return false;
+        }
+
         if ($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) {
             return $hiddenStatus->getTarget() === $this;
         } else {

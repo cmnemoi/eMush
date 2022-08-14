@@ -56,6 +56,9 @@ class EquipmentConfig implements ConfigInterface
     #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
     private Collection $initStatus;
 
+    #[ORM\Column(type: 'boolean', nullable: false)]
+    private bool $isPersonal = false;
+
     public function __construct()
     {
         $this->mechanics = new ArrayCollection();
@@ -220,5 +223,17 @@ class EquipmentConfig implements ConfigInterface
     public function getLogKey(): string
     {
         return LogParameterKeyEnum::EQUIPMENT;
+    }
+
+    public function isPersonal(): bool
+    {
+        return $this->isPersonal;
+    }
+
+    public function setIsPersonal(bool $isPersonal): static
+    {
+        $this->isPersonal = $isPersonal;
+
+        return $this;
     }
 }

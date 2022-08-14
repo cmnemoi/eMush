@@ -2,9 +2,11 @@
 
 namespace Mush\Player\Entity\Config;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\Action;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Game\Entity\ConfigInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -32,6 +34,17 @@ class CharacterConfig implements ConfigInterface
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $skills;
+
+    #[ORM\ManyToMany(targetEntity: ItemConfig::class)]
+    private Collection $startingItems;
+
+    public function __construct()
+    {
+        $this->initStatuses = new ArrayCollection();
+        $this->actions = new ArrayCollection();
+        $this->startingItems = new ArrayCollection();
+        $this->skills = [];
+    }
 
     public function getId(): int
     {
@@ -101,6 +114,18 @@ class CharacterConfig implements ConfigInterface
     public function setSkills(array $skills): static
     {
         $this->skills = $skills;
+
+        return $this;
+    }
+
+    public function getStartingItem(): Collection
+    {
+        return $this->startingItems;
+    }
+
+    public function setStartingItem(Collection $items): static
+    {
+        $this->startingItems = $items;
 
         return $this;
     }

@@ -4,6 +4,7 @@ namespace Mush\Equipment\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Error;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -20,6 +21,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -87,7 +89,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         EquipmentConfig $equipmentConfig,
         EquipmentHolderInterface $holder,
         string $reason,
-        \DateTime $time
+        \DateTime $time,
     ): GameEquipment {
         if ($equipmentConfig instanceof ItemConfig) {
             $gameEquipment = $equipmentConfig->createGameItem();
@@ -100,6 +102,14 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         $this->persist($gameEquipment);
 
         $gameEquipment = $this->initMechanics($gameEquipment, $holder->getPlace()->getDaedalus(), $reason);
+
+        if ($equipmentConfig->isPersonal()) {
+            if (!($holder instanceof Player)) {
+                throw new Error('holder should be a player');
+            }
+            $gameEquipment->setOwner($holder);
+            $this->persist($gameEquipment);
+        }
 
         $equipmentEvent = new EquipmentInitEvent($gameEquipment, $equipmentConfig, $reason, $time);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentInitEvent::NEW_EQUIPMENT);

@@ -55,6 +55,9 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: Modifier::class)]
     private Collection $modifiers;
 
+    #[ORM\ManyToOne(targetEntity: Player::class)]
+    private ?Player $owner = null;
+
     public function __construct()
     {
         $this->statuses = new ArrayCollection();
@@ -172,6 +175,18 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     public function addModifier(Modifier $modifier): static
     {
         $this->modifiers->add($modifier);
+
+        return $this;
+    }
+
+    public function getOwner(): ?Player
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(Player $owner): static
+    {
+        $this->owner = $owner;
 
         return $this;
     }

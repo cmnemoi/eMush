@@ -85,6 +85,10 @@ const BANDAGE = "bandage";
 const SPORE_SUCKER = "spore_sucker";
 const ALIEN_HOLOGRAPHIC_TV = "alien_holographic_tv";
 
+const ITRACKIE = "itrackie";
+const TRACKER = "tracker";
+const TALKIE_WALKIE = "talkie_walkie";
+
 
 export const itemEnum: {[index: string]: any} = {
     [ALIEN_BOTTLE_OPENER]: {
@@ -335,6 +339,15 @@ export const itemEnum: {[index: string]: any} = {
     },
     [ALIEN_HOLOGRAPHIC_TV]: {
         'image': require('@/assets/images/items/alien_holographic_tv.jpg')
+    },
+    [TALKIE_WALKIE]: {
+        'image': require('@/assets/images/items/talky_walky.jpg')
+    },
+    [TRACKER]: {
+        'image': require('@/assets/images/items/tracker.jpg')
+    },
+    [ITRACKIE]: {
+        'image': require('@/assets/images/items/super_talky.jpg')
     }
 }
 ;

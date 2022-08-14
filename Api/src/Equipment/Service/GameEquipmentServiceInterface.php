@@ -29,7 +29,7 @@ interface GameEquipmentServiceInterface
         EquipmentConfig $equipmentConfig,
         EquipmentHolderInterface $holder,
         string $reason,
-        \DateTime $time
+        \DateTime $time,
     ): GameEquipment;
 
     public function handleBreakFire(GameEquipment $gameEquipment, \DateTime $date): void;

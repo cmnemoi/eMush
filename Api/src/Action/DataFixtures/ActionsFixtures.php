@@ -622,7 +622,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $selfSurgeryAction = new Action();
         $selfSurgeryAction
             ->setName(ActionEnum::SELF_SURGERY)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($fourActionPointCost)
             ->setDirtyRate(100)
         ;

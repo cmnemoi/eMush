@@ -15,12 +15,14 @@ use Mush\Action\Validator\HasDiseases;
 use Mush\Action\Validator\HasStatus;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -63,7 +65,7 @@ class SelfSurgery extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter === null;
+        return $parameter instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -80,6 +82,12 @@ class SelfSurgery extends AbstractAction
             'isEmpty' => false,
             'type' => TypeEnum::INJURY,
             'message' => ActionImpossibleCauseEnum::HEAL_NO_INJURY,
+        ]));
+        $metadata->addConstraint(new HasStatus([
+            'status' => EquipmentStatusEnum::BROKEN,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));
     }
 

@@ -2,6 +2,7 @@
 
 namespace Mush\Test\Action\Actions;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\CriticalSuccess;
 use Mush\Action\ActionResult\Fail;
@@ -13,7 +14,10 @@ use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\TypeEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\Tool;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierTargetEnum;
@@ -35,8 +39,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::SELF_HEAL);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->actionEntity = $this->createActionEntity(ActionEnum::SELF_SURGERY);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
 
@@ -61,6 +64,21 @@ class SelfSurgeryActionTest extends AbstractActionTest
     {
         $room = new Place();
         $player = $this->createPlayer(new Daedalus(), $room);
+
+        $gameEquipment = new GameEquipment();
+        $tool = new Tool();
+        $tool->setActions(new ArrayCollection([$this->actionEntity]));
+        $item = new EquipmentConfig();
+        $item
+            ->setName(EquipmentEnum::SURGERY_PLOT)
+            ->setMechanics(new ArrayCollection([$tool]))
+        ;
+
+        $gameEquipment
+            ->setEquipment($item)
+            ->setHolder($room)
+            ->setName(EquipmentEnum::SURGERY_PLOT)
+        ;
 
         $diseaseConfig1 = new DiseaseConfig();
         $diseaseConfig1->setType(TypeEnum::DISEASE);
@@ -96,7 +114,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
 
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player);
+        $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventDispatcher->shouldReceive('dispatch');
@@ -109,6 +127,21 @@ class SelfSurgeryActionTest extends AbstractActionTest
     {
         $room = new Place();
         $player = $this->createPlayer(new Daedalus(), $room);
+
+        $gameEquipment = new GameEquipment();
+        $tool = new Tool();
+        $tool->setActions(new ArrayCollection([$this->actionEntity]));
+        $item = new EquipmentConfig();
+        $item
+            ->setName(EquipmentEnum::SURGERY_PLOT)
+            ->setMechanics(new ArrayCollection([$tool]))
+        ;
+
+        $gameEquipment
+            ->setEquipment($item)
+            ->setHolder($room)
+            ->setName(EquipmentEnum::SURGERY_PLOT)
+        ;
 
         $diseaseConfig1 = new DiseaseConfig();
         $diseaseConfig1->setType(TypeEnum::DISEASE);
@@ -151,7 +184,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
 
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player);
+        $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventDispatcher->shouldReceive('dispatch');
@@ -165,6 +198,21 @@ class SelfSurgeryActionTest extends AbstractActionTest
     {
         $room = new Place();
         $player = $this->createPlayer(new Daedalus(), $room);
+
+        $gameEquipment = new GameEquipment();
+        $tool = new Tool();
+        $tool->setActions(new ArrayCollection([$this->actionEntity]));
+        $item = new EquipmentConfig();
+        $item
+            ->setName(EquipmentEnum::SURGERY_PLOT)
+            ->setMechanics(new ArrayCollection([$tool]))
+        ;
+
+        $gameEquipment
+            ->setEquipment($item)
+            ->setHolder($room)
+            ->setName(EquipmentEnum::SURGERY_PLOT)
+        ;
 
         $diseaseConfig1 = new DiseaseConfig();
         $diseaseConfig1->setType(TypeEnum::DISEASE);
@@ -207,7 +255,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
 
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player);
+        $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventDispatcher->shouldReceive('dispatch');

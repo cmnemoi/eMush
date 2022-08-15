@@ -95,7 +95,7 @@ class SymptomConditionService implements SymptomConditionServiceInterface
                     throw new \LogicException('Provide an item name for PLAYER_EQUIPMENT symptom condition');
                 }
 
-                return $player->hasItemByName($expectedEquipment);
+                return $player->hasEquipmentByName($expectedEquipment);
 
             case SymptomConditionEnum::PLAYER_IN_ROOM:
                 return $this->checkPlayerInRoomCondition($condition->getCondition(), $player);

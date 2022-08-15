@@ -13,20 +13,25 @@ use Mush\Player\Entity\Player;
 class MessageService implements MessageServiceInterface
 {
     private EntityManagerInterface $entityManager;
+    private DiseaseMessageServiceInterface $diseaseMessageService;
 
     public function __construct(
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        DiseaseMessageServiceInterface $diseaseMessageService
     ) {
         $this->entityManager = $entityManager;
+        $this->diseaseMessageService = $diseaseMessageService;
     }
 
     public function createPlayerMessage(Player $player, CreateMessage $createMessage): Message
     {
+        $messageContent = $this->diseaseMessageService->applyDiseaseEffects($createMessage->getMessage(), $player);
+
         $message = new Message();
         $message
             ->setAuthor($player)
             ->setChannel($createMessage->getChannel())
-            ->setMessage($createMessage->getMessage())
+            ->setMessage($messageContent)
             ->setParent($createMessage->getParent())
         ;
 

@@ -254,9 +254,16 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    public function hasItemByName(string $name): bool
+    public function hasEquipmentByName(string $name): bool
     {
         return !$this->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
+    }
+
+    public function hasOperationalEquipmentByName(string $name): bool
+    {
+        return !$this->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name &&
+            (!$gameItem->isOperational())
+        )->isEmpty();
     }
 
     public function addStatus(Status $status): static

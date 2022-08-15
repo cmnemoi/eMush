@@ -27,7 +27,7 @@ class AreMedicalSuppliesOnReachValidator extends ConstraintValidator
         $roomName = $value->getPlayer()->getPlace()->getName();
         $IsMedlabRoom = $roomName === RoomEnum::MEDLAB;
 
-        if (!$IsMedlabRoom && !$value->getPlayer()->hasItemByName(ToolItemEnum::MEDIKIT)) {
+        if (!$IsMedlabRoom && !$value->getPlayer()->hasEquipmentByName(ToolItemEnum::MEDIKIT)) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

@@ -17,4 +17,8 @@ interface EquipmentHolderInterface
     public function setEquipments(ArrayCollection $equipments): static;
 
     public function getPlace(): Place;
+
+    public function hasEquipmentByName(string $name): bool;
+
+    public function hasOperationalEquipmentByName(string $name): bool;
 }

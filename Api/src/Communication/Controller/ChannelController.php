@@ -2,6 +2,7 @@
 
 namespace Mush\Communication\Controller;
 
+use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
@@ -114,7 +115,13 @@ class ChannelController extends AbstractFOSRestController
 
         $channels = $this->channelService->getPlayerChannels($player);
 
-        return $this->view($channels, 200);
+        $context = new Context();
+        $context->setAttribute('currentPlayer', $player);
+
+        $view = $this->view($channels, 200);
+        $view->setContext($context);
+
+        return $view;
     }
 
     /**
@@ -284,7 +291,13 @@ class ChannelController extends AbstractFOSRestController
         $this->messageService->createPlayerMessage($player, $messageCreate);
         $messages = $this->messageService->getChannelMessages($player, $channel);
 
-        return $this->view($messages, 200);
+        $context = new Context();
+        $context->setAttribute('currentPlayer', $player);
+
+        $view = $this->view($messages, 200);
+        $view->setContext($context);
+
+        return $view;
     }
 
     /**
@@ -314,6 +327,12 @@ class ChannelController extends AbstractFOSRestController
 
         $messages = $this->messageService->getChannelMessages($player, $channel);
 
-        return $this->view($messages, 200);
+        $context = new Context();
+        $context->setAttribute('currentPlayer', $player);
+
+        $view = $this->view($messages, 200);
+        $view->setContext($context);
+
+        return $view;
     }
 }

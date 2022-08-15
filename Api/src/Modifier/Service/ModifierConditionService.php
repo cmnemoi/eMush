@@ -147,7 +147,7 @@ class ModifierConditionService implements ModifierConditionServiceInterface
             throw new \LogicException('provide an item for player_equipment condition');
         }
 
-        return $player->hasItemByName($expectedItem);
+        return $player->hasEquipmentByName($expectedItem);
     }
 
     private function handleItemInRoomCondition(ModifierCondition $condition, ModifierHolder $holder): bool

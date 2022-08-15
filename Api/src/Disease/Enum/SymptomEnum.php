@@ -13,4 +13,7 @@ class SymptomEnum
     public const FOAMING_MOUTH = 'foaming_mouth';
     public const DROOLING = 'drooling';
     public const NAUSEA = 'nausea';
+
+    public const DEAF = 'deaf';
+    public const MUTE = 'mute';
 }

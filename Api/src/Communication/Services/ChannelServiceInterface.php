@@ -11,6 +11,8 @@ use Mush\Player\Entity\Player;
 
 interface ChannelServiceInterface
 {
+    public function canPlayerCommunicate(Player $player): bool;
+
     public function getPlayerChannels(Player $player, bool $privateOnly = false): Collection;
 
     public function getPublicChannel(Daedalus $daedalus): ?Channel;

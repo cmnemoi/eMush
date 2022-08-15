@@ -7,6 +7,7 @@ use Mockery;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
+use Mush\Communication\Services\DiseaseMessageServiceInterface;
 use Mush\Communication\Services\MessageService;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
@@ -17,6 +18,8 @@ class MessageServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\mock */
     private EntityManagerInterface $entityManager;
+    /** @var DiseaseMessageServiceInterface|Mockery\mock */
+    private DiseaseMessageServiceInterface $diseaseMessageService;
 
     private MessageServiceInterface $service;
 
@@ -26,6 +29,7 @@ class MessageServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
+        $this->diseaseMessageService = Mockery::mock(DiseaseMessageServiceInterface::class);
 
         $this->entityManager->shouldReceive([
             'persist' => null,
@@ -33,7 +37,8 @@ class MessageServiceTest extends TestCase
         ]);
 
         $this->service = new MessageService(
-            $this->entityManager
+            $this->entityManager,
+            $this->diseaseMessageService
         );
     }
 
@@ -58,6 +63,12 @@ class MessageServiceTest extends TestCase
             ->setMessage('some message')
         ;
 
+        $this->diseaseMessageService
+            ->shouldReceive('applyDiseaseEffects')
+            ->with('some message', $player)
+            ->andReturn('some message')
+            ->once()
+        ;
         $message = $this->service->createPlayerMessage($player, $playerMessageDto);
 
         $this->assertInstanceOf(Message::class, $message);
@@ -68,6 +79,12 @@ class MessageServiceTest extends TestCase
 
         $playerMessageDto->setParent($message);
 
+        $this->diseaseMessageService
+            ->shouldReceive('applyDiseaseEffects')
+            ->with('some message', $player)
+            ->andReturn('some message')
+            ->once()
+        ;
         $messageWithParent = $this->service->createPlayerMessage($player, $playerMessageDto);
 
         $this->assertInstanceOf(Message::class, $messageWithParent);

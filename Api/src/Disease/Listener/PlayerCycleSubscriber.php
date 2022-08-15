@@ -3,7 +3,6 @@
 namespace Mush\Disease\Listener;
 
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
-use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Disease\Service\SymptomConditionServiceInterface;
 use Mush\Disease\Service\SymptomServiceInterface;
@@ -53,14 +52,12 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
 
     private function getPlayerSymptomConfigs(Player $player): SymptomConfigCollection
     {
-        $playerDiseases = $player->getMedicalConditions()->getActiveDiseases()->getByDiseaseType(TypeEnum::DISEASE);
+        $symptomConfigs = $player->getMedicalConditions()->getActiveDiseases()->getAllSymptoms();
 
-        $symptomConfigs = new SymptomConfigCollection();
-        foreach ($playerDiseases as $disease) {
-            foreach ($disease->getDiseaseConfig()->getSymptomConfigs() as $symptomConfig) {
-                if (!$symptomConfigs->contains($symptomConfig)) {
-                    $symptomConfigs->add($symptomConfig);
-                }
+        $uniqueSymptomConfigs = new SymptomConfigCollection();
+        foreach ($symptomConfigs as $symptomConfig) {
+            if (!$uniqueSymptomConfigs->contains($symptomConfig)) {
+                $uniqueSymptomConfigs->add($symptomConfig);
             }
         }
 

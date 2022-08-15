@@ -648,5 +648,11 @@
                 }</target>
             </segment>
         </unit>
+        <unit id="deaf">
+            <segment id="deaf">
+                <source>deaf</source>
+                <target>...</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

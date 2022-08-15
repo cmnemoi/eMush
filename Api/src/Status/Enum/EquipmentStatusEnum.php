@@ -34,4 +34,11 @@ class EquipmentStatusEnum
             self::FROZEN,
         ];
     }
+
+    public static function getOutOfOrderStatuses(): array
+    {
+        return [
+            self::BROKEN,
+        ];
+    }
 }

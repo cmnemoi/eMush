@@ -11,8 +11,11 @@ use Mush\Communication\Event\ChannelEvent;
 use Mush\Communication\Repository\ChannelPlayerRepository;
 use Mush\Communication\Repository\ChannelRepository;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ChannelService implements ChannelServiceInterface
@@ -36,7 +39,27 @@ class ChannelService implements ChannelServiceInterface
 
     public function getPlayerChannels(Player $player, bool $privateOnly = false): Collection
     {
-        return $this->channelRepository->findByPlayer($player, $privateOnly);
+        $channels = $this->channelRepository->findByPlayer($player, $privateOnly);
+
+        if (!$this->canPlayerCommunicate($player)) {
+            $publicChannel = $channels->filter(fn (Channel $channel) => $channel->isPublic())->first();
+            $channels->removeElement($publicChannel);
+        }
+
+        return $channels;
+    }
+
+    public function canPlayerCommunicate(Player $player): bool
+    {
+        if ($player->hasOperationalEquipmentByName(ItemEnum::ITRACKIE) ||
+            $player->hasOperationalEquipmentByName(ItemEnum::WALKIE_TALKIE) ||
+            $player->hasStatus(PlayerStatusEnum::BRAINSYNC) ||
+            $player->getPlace()->hasOperationalEquipmentByName(EquipmentEnum::COMMUNICATION_CENTER)
+        ) {
+            return true;
+        }
+
+        return false;
     }
 
     public function getPublicChannel(Daedalus $daedalus): ?Channel

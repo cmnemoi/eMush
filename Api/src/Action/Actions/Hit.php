@@ -53,7 +53,7 @@ class Hit extends AttemptAction
             if (in_array(SkillMushEnum::HARD_BOILED, $parameter->getSkills())) {
                 --$damage;
             }
-            if ($parameter->hasItemByName(GearItemEnum::PLASTENITE_ARMOR)) {
+            if ($parameter->hasEquipmentByName(GearItemEnum::PLASTENITE_ARMOR)) {
                 --$damage;
             }
             if ($damage <= 0) {

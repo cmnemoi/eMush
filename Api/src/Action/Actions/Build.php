@@ -87,7 +87,7 @@ class Build extends AbstractAction
         // remove the used ingredients starting from the player inventory
         foreach ($blueprintMechanic->getIngredients() as $name => $number) {
             for ($i = 0; $i < $number; ++$i) {
-                if ($this->player->hasItemByName($name)) {
+                if ($this->player->hasEquipmentByName($name)) {
                     // @FIXME change to a random choice of the item
                     $ingredient = $this->player->getEquipments()
                         ->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name)->first();

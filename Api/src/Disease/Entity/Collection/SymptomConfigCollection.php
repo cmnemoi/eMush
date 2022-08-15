@@ -16,4 +16,9 @@ class SymptomConfigCollection extends ArrayCollection
     {
         return $this->filter(fn (SymptomConfig $symptomConfig) => $symptomConfig->getName())->first();
     }
+
+    public function hasSymptomByName(string $name): bool
+    {
+        return !$this->filter(fn (SymptomConfig $symptomConfig) => $symptomConfig->getName() === $name)->isEmpty();
+    }
 }

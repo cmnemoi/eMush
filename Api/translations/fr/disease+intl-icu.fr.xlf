@@ -251,7 +251,7 @@
                 <target>Vous êtes effrayé par la foule et les grands espaces, vous avez, en plus, des vertiges incontrôlables... Dans l'espace, ça va pas le faire.</target>
             </segment>
         </unit>
-        <unit id="syphilis">
+        <unit id="ailurophobia">
             <segment id="name">
                 <source>ailurophobia.name</source>
                 <target>Ailurophobie</target>
@@ -261,7 +261,7 @@
                 <target>Vous avez une terrible phobie des chats. Leur simple vue vous met hors d'état d'agir.</target>
             </segment>
         </unit>
-        <unit id="syphilis">
+        <unit id="chronic_migraine">
             <segment id="name">
                 <source>chronic_migraine.name</source>
                 <target>Migraine chronique</target>
@@ -311,7 +311,7 @@
                 <target>Vous souffrez tout le temps. La vie est devenue longue trop longue et chaque nouvelle épreuve vous fait perdre le goût des choses.</target>
             </segment>
         </unit>
-        <unit id="syphilis">
+        <unit id="paranoia">
             <segment id="name">
                 <source>paranoia.name</source>
                 <target>Crise Paranoïaque</target>
@@ -351,7 +351,7 @@
                 <target>Vous avez des vertiges chroniques ce qui vous incapacite grandement.</target>
             </segment>
         </unit>
-        <unit id="syphilis">
+        <unit id="weapon_phobia">
             <segment id="name">
                 <source>weapon_phobia.name</source>
                 <target>Phobie des armes</target>

@@ -73,16 +73,5 @@
 La valeur sera finalisée après la fin du voyage. Elle déterminera votre classement dans le palmarès du vaisseau.</target>
             </segment>
         </unit>
-        <unit id="triumph">
-            <segment id="name">
-                <source>triumph.name</source>
-                <target>Triomphe personnel</target>
-            </segment>
-            <segment id="description">
-                <source>triumph.description</source>
-                <target>Triomphe accumulé par ce héros pendant ce voyage.
-La valeur sera finalisée après la fin du voyage. Elle déterminera votre classement dans le palmarès du vaisseau.</target>
-            </segment>
-        </unit>
     </file>
 </xliff>

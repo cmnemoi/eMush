@@ -1,12 +1,6 @@
-"project_id": "CROWDIN_PROJECT_ID"
-"api_token_env": "CROWDIN_API_TOKEN"
-"base_path": "/"
-"preserve_hierarchy": true
-"base_url": "https://api.crowdin.com"         # https://{organization-name}.crowdin.com for Crowdin Enterprise
-
-"files": [
-  {
-    "source": "/api/translations/fr/*+intl-icu.fr.xlf",                                       #source files filter
-    "translation": "/api/translations/%language%/%original_file_name%"        #where translations are stored
-  },
-]
+base_path: /
+preserve_hierarchy: true
+base_url: 'https://api.crowdin.com'
+files:
+  - source: /Api/translations/fr/*+intl-icu.fr.xlf
+    translation: /Api/translations/%language%/%original_file_name%

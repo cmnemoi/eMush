@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="es">
+  <file id="daedalus.ext">
+    <unit id="oxygen">
+      <segment id="name" state="initial">
+        <source>oxygen.name</source>
+        <target>Oxygène du vaisseau [ {quantity}/{maximum} ]</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>oxygen.description</source>
+        <target>Quantité d'**Oxygène (o²)** disponible dans le vaisseau. Pour refaire le plein, pensez à organiser des **Explorations** ou à vous occuper du **Jardin**, par exemple.</target>
+      </segment>
+    </unit>
+    <unit id="fuel">
+      <segment id="name" state="initial">
+        <source>fuel.name</source>
+        <target>Fuel en reserve [ {quantity}/{maximum} ]</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>fuel.description</source>
+        <target>Le **Fuel** est indispensable pour ne pas dériver dans l'espace jusqu'à la fin des temps. Cette ressource peut être trouvée lors de vos **explorations** sur les planètes. Cet indicateur n'affiche pas le fuel dans la **Chambre de Combustion**.</target>
+      </segment>
+    </unit>
+    <unit id="shield">
+      <segment id="name" state="initial">
+        <source>shield.name</source>
+        <target>Armure : {quantity}</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>shield.description</source>
+        <target>Le bouclier plasma a été désactivé par l'Administrateur NERON.
+                L'état de l'armure vous indique l'état global de la coque du vaisseau. À **0 le vaisseau sera détruit** car la coque ne sera plus qu'un maigre paravent troué...</target>
+      </segment>
+    </unit>
+    <unit id="hull">
+      <segment id="name" state="initial">
+        <source>hull.name</source>
+        <target>Armure : {quantity}</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>hull.description</source>
+        <target>L'état de l'armure vous indique l'état global de la coque du vaisseau. À **0 le vaisseau sera détruit** car la coque ne sera plus qu'un maigre paravent troué...</target>
+      </segment>
+    </unit>
+    <unit id="crewPlayer">
+      <segment id="name" state="initial">
+        <source>crewPlayer.name</source>
+        <target>Camarades</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>crewPlayer.description</source>
+        <target>{playerAlive, plural, one {# membre d'équipage actif} other {# membres d'équipage actifs}}, dont {mushAlive, plural, one {# Mush} other {# Mushs}}. {humanDead, plural, one {# membre défunt} other {# membres défunts}}, dont {mushDead, plural, one {# Mush} other {# Mushs}}. {cryogenizedPlayers, plural, one {# cryogénisé} other {# cryogénisés}}.</target>
+      </segment>
+    </unit>
+    <unit id="currentCycle">
+      <segment id="name" state="initial">
+        <source>currentCycle.name</source>
+        <target>Le temps du jeu</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>currentCycle.description</source>
+        <target>Les jours du jeu correspondent aux jours de la vie réelle. Un **cycle dure 3 heures**. À chaque cycle vous cumulez plus de :pa::pm:, indispensables pour pouvoir réaliser des actions !</target>
+      </segment>
+    </unit>
+    <unit id="triumph">
+      <segment id="name" state="initial">
+        <source>triumph.name</source>
+        <target>Triomphe personnel</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>triumph.description</source>
+        <target>Triomphe accumulé par ce héros pendant ce voyage.
+La valeur sera finalisée après la fin du voyage. Elle déterminera votre classement dans le palmarès du vaisseau.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

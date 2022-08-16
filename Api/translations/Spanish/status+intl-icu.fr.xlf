@@ -1,0 +1,1531 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="es">
+  <ns0:file id="status.ext">
+    <ns0:unit id="alien_artefact">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>alien_artefact.name</ns0:source>
+        <ns0:target>Artefact alien</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>alien_artefact.description</ns0:source>
+        <ns0:target>Cet objet est... étrange...</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>alien_artefact.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="electric_charges">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>electric_charges.name</ns0:source>
+        <ns0:target>Charge</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>electric_charges.description</ns0:source>
+        <ns0:target>Les charges sont le nombre d'utilisation que vous pouvez faire de cet objet. Les objets chargés regagnent une charge par cycle.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>electric_charges.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="heavy">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>heavy.name</ns0:source>
+        <ns0:target>Lourd</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>heavy.description</ns0:source>
+        <ns0:target>Cet objet est particulièrement lourd.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>heavy.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="module_access">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>module_access.name</ns0:source>
+        <ns0:target>Accès au Module</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>module_access.description</ns0:source>
+        <ns0:target>Cet objet charge un module.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>module_access.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="hidden">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>hidden.name</ns0:source>
+        <ns0:target>Caché</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>hidden.description</ns0:source>
+        <ns0:target>Cet objet est *caché* ! Vous seul êtes au courant... avec ceux qui fouilleront la pièce.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>hidden.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="broken">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>broken.name</ns0:source>
+        <ns0:target>Cassé</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>broken.description</ns0:source>
+        <ns0:target>Cet objet est *cassé*. Il faudrait penser à le réparer...</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>broken.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="unstable">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>unstable.name</ns0:source>
+        <ns0:target>Instable</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>unstable.description</ns0:source>
+        <ns0:target>Cette nourriture est franchement douteuse.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>unstable.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="hazardous">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>hazardous.name</ns0:source>
+        <ns0:target>Avariée</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>hazardous.description</ns0:source>
+        <ns0:target>Cette nourriture ne devrait être donnée à aucune personne fragile, toute ingestion peut être dangereuse.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>hazardous.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="decomposing">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>decomposing.name</ns0:source>
+        <ns0:target>Décomposition</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>decomposing.description</ns0:source>
+        <ns0:target>Cette nourriture devrait être exterminée sans sommation, toute ingestion peut être dangereuse voir fatale.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>decomposing.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="frozen">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>frozen.name</ns0:source>
+        <ns0:target>Congelé</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>frozen.description</ns0:source>
+        <ns0:target>Cette nourriture est hyper-gelée. Sa consommation tel quel peut s'avérer difficile.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>frozen.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="contaminated">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>contaminated.name</ns0:source>
+        <ns0:target>Contaminée</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>contaminated.description</ns0:source>
+        <ns0:target>Cet objet est contaminé, le premier équipier (Mush ou non) qui le manipulera sera contaminé par un spore. Vous voyez ce message car vous faites parti du Mush.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>contaminated.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="plant_young">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>plant_young.name</ns0:source>
+        <ns0:target>Jeune Plant</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>plant_young.description</ns0:source>
+        <ns0:target>Cette plante est jeune. Elle ne produira ni oxygène ni fruits jusqu'à maturation.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>plant_young.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="plant_thirsty">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>plant_thirsty.name</ns0:source>
+        <ns0:target>Soif</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>plant_thirsty.description</ns0:source>
+        <ns0:target>Cette plante a **Soif**, elle ne produira plus que de l'oxygène. Si elle n'est pas arrosée, demain elle deviendra **Desséchée**.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>plant_thirsty.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="plant_dry">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>plant_dry.name</ns0:source>
+        <ns0:target>Désséché</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>plant_dry.description</ns0:source>
+        <ns0:target>Cette plante est **Desséchée**, elle ne produira ni fruits ni oxygène. Si elle n'est pas arrosée, demain elle sera morte.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>plant_dry.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="plant_diseased">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>plant_diseased.name</ns0:source>
+        <ns0:target>Malade</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>plant_diseased.description</ns0:source>
+        <ns0:target>Cette plante est **Malade**, elle ne produira ni fruits ni oxygène.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>plant_diseased.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="black_bite">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>black_bite.name</ns0:source>
+        <ns0:target>Morsure Noire</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>black_bite.description</ns0:source>
+        <ns0:target>Relativement bénin mais persistant, la Morsure Noire est un syndrome récent que personne ne connaît.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>black_bite.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="cat_allergy">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>cat_allergy.name</ns0:source>
+        <ns0:target>Allergie au chat</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>cat_allergy.description</ns0:source>
+        <ns0:target>La simple vue d'un chat provoque des éternuements insupportables et des pustules. Son contact pourrait s'avérer mortel...</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>cat_allergy.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="cold">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>cold.name</ns0:source>
+        <ns0:target>Rhume</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>cold.description</ns0:source>
+        <ns0:target>Ne sortez jamais sans vos mouchoirs !</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>cold.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="extreme_tinnitus">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>extreme_tinnitus.name</ns0:source>
+        <ns0:target>Acouphènes Extrême</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>extreme_tinnitus.description</ns0:source>
+        <ns0:target>Vos oreilles sifflent fort en permanence, ce qui peut devenir très fatiguant à la longue.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>extreme_tinnitus.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="flu">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>flu.name</ns0:source>
+        <ns0:target>Grippe</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>flu.description</ns0:source>
+        <ns0:target>Variante sévère de la grippe du poney... Irritable, autoritaire, mal de crâne, rhume, courbatures, rien ne vous est épargné. Attention à ne pas trop laisser traîner, on ne sait jamais.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>flu.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="fungic_infection">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>fungic_infection.name</ns0:source>
+        <ns0:target>Infection fongique</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>fungic_infection.description</ns0:source>
+        <ns0:target>Qu'est ce que c'est que ce truc horrible... Vous devriez faire soigner ça rapidement... Ça gratte, ça purule, ça pue...</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>fungic_infection.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="junkbumpkinitis">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>junkbumpkinitis.name</ns0:source>
+        <ns0:target>Citrouillite</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>junkbumpkinitis.description</ns0:source>
+        <ns0:target>C'est pas que c'était pas frais...</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>junkbumpkinitis.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="migraine">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>migraine.name</ns0:source>
+        <ns0:target>Migraine</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>migraine.description</ns0:source>
+        <ns0:target>Une grosse migraine bien carabinée harcèle le patient en ce moment, ça va passer...</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>migraine.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="mush_allergy">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>mush_allergy.name</ns0:source>
+        <ns0:target>Allergie au mush</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>mush_allergy.description</ns0:source>
+        <ns0:target>Le contact au Mush vous donne des pustules horribles et douloureuses.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>mush_allergy.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="quincks_oedema">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>quincks_oedema.name</ns0:source>
+        <ns0:target>Oedeme de Quincke</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>quincks_oedema.description</ns0:source>
+        <ns0:target />
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>quincks_oedema.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="rejuvenation">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>rejuvenation.name</ns0:source>
+        <ns0:target>Verdoiement</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>rejuvenation.description</ns0:source>
+        <ns0:target>Votre corps émet des lueurs pulsatiles vertes.ça ne favorise pas vraiment un sommeil reposant...</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>rejuvenation.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="rubella">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>rubella.name</ns0:source>
+        <ns0:target>Rubéole</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>rubella.description</ns0:source>
+        <ns0:target>Mal au crâne, puis pustules sèches, très très fatiguant. Vous devriez vous en remettre.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>rubella.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="sepsis">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>sepsis.name</ns0:source>
+        <ns0:target>Infection aïgue</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>sepsis.description</ns0:source>
+        <ns0:target>Vous êtes très infecté. Pas facile de se remettre sur pied. Vous ne survivrez sans doute pas...</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>sepsis.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="sinus_storm">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>sinus_storm.name</ns0:source>
+        <ns0:target>Tempête sinusale</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>sinus_storm.description</ns0:source>
+        <ns0:target>Vos sinus sont en feu, de glace, puis lui déchirent la tête... C'est lourd et ça ne passe pas...</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>sinus_storm.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="skin_inflammation">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>skin_inflammation.name</ns0:source>
+        <ns0:target>Éruption cutanée</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>skin_inflammation.description</ns0:source>
+        <ns0:target>Quelqu'en soit la source, vous n'en avez cure, ça démange là et c'est très pénible</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>skin_inflammation.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="slight_nausea">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>slight_nausea.name</ns0:source>
+        <ns0:target>Nausée légère</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>slight_nausea.description</ns0:source>
+        <ns0:target>Vous vous sentez un peu barbouillé... Ça va passer mais vous n'avez plus faim et vous ne devriez pas vous approchez de bluuuuuurrrpppp...</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>slight_nausea.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="smallpox">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>smallpox.name</ns0:source>
+        <ns0:target>Variole</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>smallpox.description</ns0:source>
+        <ns0:target>Maladie disparue de Sol mais apparemment bien présente ailleurs. Son aspect appétissant devrait vous convaincre de vous soigner...</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>smallpox.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="space_rabies">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>space_rabies.name</ns0:source>
+        <ns0:target>Rage spatiale</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>space_rabies.description</ns0:source>
+        <ns0:target>Vous avez la rage. Vous pouvez devenir violent et cela va sans doute finir par vous tuer.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>space_rabies.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="syphilis">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>syphilis.name</ns0:source>
+        <ns0:target>Syphilis</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>syphilis.description</ns0:source>
+        <ns0:target>Maladie vénérienne par excellence, votre aspect effroyable et les rumeurs qui vous entoureront vous lasserons vite. Quel Dom Juan quand même...</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>syphilis.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="vitamin_deficiency">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>vitamin_deficiency.name</ns0:source>
+        <ns0:target>Carence en vitamines</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>vitamin_deficiency.description</ns0:source>
+        <ns0:target>Des carences en vitamines, minéraux, oligo-éléments et autres, vous n'avez pas trop la pêche...</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>vitamin_deficiency.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="agoraphobia">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>agoraphobia.name</ns0:source>
+        <ns0:target>Agoraphobie</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>agoraphobia.description</ns0:source>
+        <ns0:target>Vous êtes effrayé par la foule et les grands espaces, vous avez, en plus, des vertiges incontrôlables... Dans l'espace, ça va pas le faire.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>agoraphobia.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="ailurophobia">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>ailurophobia.name</ns0:source>
+        <ns0:target>Ailurophobie</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>ailurophobia.description</ns0:source>
+        <ns0:target>Vous avez une terrible phobie des chats. Leur simple vue vous met hors d'état d'agir.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>ailurophobia.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="chronic_migraine">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>chronic_migraine.name</ns0:source>
+        <ns0:target>Migraine chronique</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>chronic_migraine.description</ns0:source>
+        <ns0:target>Une grosse migraine bien carabinée vous prend de temps à autres... et puis quand elle vous prend c'est le grand déménagement... pas de chance.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>chronic_migraine.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="chronic_vertigo">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>chronic_vertigo.name</ns0:source>
+        <ns0:target>Vertige chronique</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>chronic_vertigo.description</ns0:source>
+        <ns0:target>Vous avez des vertiges chroniques ce qui vous incapacite grandement.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>chronic_vertigo.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="coprolalia">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>coprolalia.name</ns0:source>
+        <ns0:target>Coprolalie</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>coprolalia.description</ns0:source>
+        <ns0:target>Vous lancez des chapelets d'insultes de façon impromptu. Au début ça choque un peu.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>coprolalia.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="crabism">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>crabism.name</ns0:source>
+        <ns0:target>Crabisme</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>crabism.description</ns0:source>
+        <ns0:target>De temps à autre, vous vous mettez à marcher de côté ou à vous jetez par terre pour ensuite rentrer dans une courte période régressive.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>crabism.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="depression">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>depression.name</ns0:source>
+        <ns0:target>Dépression</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>depression.description</ns0:source>
+        <ns0:target>Vous souffrez tout le temps. La vie est devenue longue trop longue et chaque nouvelle épreuve vous fait perdre le goût des choses.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>depression.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="paranoia">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>paranoia.name</ns0:source>
+        <ns0:target>Crise Paranoïaque</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>paranoia.description</ns0:source>
+        <ns0:target>Vous avez peur pour votre vie et éventuellement le faites savoir.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>paranoia.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="psychotic_episodes">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>psychotic_episodes.name</ns0:source>
+        <ns0:target>Episodes Psychotiques</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>psychotic_episodes.description</ns0:source>
+        <ns0:target>Vous ne vous maîtrisez plus et rentrez souvent dans des colères noires. Il est fortement avisé de s'éloigner de toute forme d'armement.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>psychotic_episodes.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="spleen">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>spleen.name</ns0:source>
+        <ns0:target>Spleen</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>spleen.description</ns0:source>
+        <ns0:target>Vous êtes atteint d'une forme très aiguë de dépression qui vous entraîne dans la mort très vite.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>spleen.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="vertigo">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>vertigo.name</ns0:source>
+        <ns0:target>Vertige</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>vertigo.description</ns0:source>
+        <ns0:target>Vous avez des vertiges chroniques ce qui vous incapacite grandement.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>vertigo.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="weapon_phobia">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>weapon_phobia.name</ns0:source>
+        <ns0:target>Phobie des armes</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>weapon_phobia.description</ns0:source>
+        <ns0:target>Vous ne pouvez plus tirer avec une arme, et leur simple vue vous incommode...</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>weapon_phobia.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="burns_50_of_body">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>burns_50_of_body.name</ns0:source>
+        <ns0:target>Brûlure au 3ème degré sur 50% </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>burns_50_of_body.description</ns0:source>
+        <ns0:target>La partie avant de votre corps est brûlée, pas trop non plus mais tout de même. </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>burns_50_of_body.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="burns_90_of_body">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>burns_90_of_body.name</ns0:source>
+        <ns0:target>Brulure au 3ème degré sur 90% </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>burns_90_of_body.description</ns0:source>
+        <ns0:target>Votre corps est très gravement brulé et risque une septicémie. </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>burns_90_of_body.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="broken_finger">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>broken_finger.name</ns0:source>
+        <ns0:target>Doigt cassé</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>broken_finger.description</ns0:source>
+        <ns0:target>Un des doigts de votre bonne main est cassé. </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>broken_finger.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="broken_foot">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>broken_foot.name</ns0:source>
+        <ns0:target>Pied cassé </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>broken_foot.description</ns0:source>
+        <ns0:target>Votre pied est cassé. </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>broken_foot.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="broken_leg">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>broken_leg.name</ns0:source>
+        <ns0:target>Jambe cassée </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>broken_leg.description</ns0:source>
+        <ns0:target>Votre jambe a subi de multiples fractures qui l'handicapent... </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>broken_leg.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="broken_ribs">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>broken_ribs.name</ns0:source>
+        <ns0:target>Côtes pétées </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>broken_ribs.description</ns0:source>
+        <ns0:target>Vos côtes sont cassées, occasionnant une douleur en posture debout. </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>broken_ribs.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="broken_shoulder">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>broken_shoulder.name</ns0:source>
+        <ns0:target>Epaule brisée</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>broken_shoulder.description</ns0:source>
+        <ns0:target>Votre épaule a été brisée et démise. Impossible de porter des objets lourds...</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>broken_shoulder.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="bruised_shoulder">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>bruised_shoulder.name</ns0:source>
+        <ns0:target>Épaule froissée </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>bruised_shoulder.description</ns0:source>
+        <ns0:target>Votre épaule a subi des contusions majeures réversibles.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>bruised_shoulder.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="burnt_arms">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>burnt_arms.name</ns0:source>
+        <ns0:target>Bras brûlés </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>burnt_arms.description</ns0:source>
+        <ns0:target>Vos bras sont fortement brûlés. Saisir le moindre objet est une torture. </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>burnt_arms.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="burnt_hand">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>burnt_hand.name</ns0:source>
+        <ns0:target>Main brûlée </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>burnt_hand.description</ns0:source>
+        <ns0:target>Votre main est brûlée. </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>burnt_hand.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="burst_nose">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>burst_nose.name</ns0:source>
+        <ns0:target>Nez explosé </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>burst_nose.description</ns0:source>
+        <ns0:target>Votre nez n'est plus, plus du tout, vous faites un peu peur aussi... </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>burst_nose.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="busted_arm_joint">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>busted_arm_joint.name</ns0:source>
+        <ns0:target>Articulation du bras fort morte</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>busted_arm_joint.description</ns0:source>
+        <ns0:target>Le bras pendouillant peut faire rire mais reste tout de même très handicapant. </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>busted_arm_joint.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="busted_shoulder">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>busted_shoulder.name</ns0:source>
+        <ns0:target>Épaule pulvérisée</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>busted_shoulder.description</ns0:source>
+        <ns0:target>L'épaule a subi des contusions majeures irréversibles, le bras est considéré comme mort. </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>busted_shoulder.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="haemorrhage_critical">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>haemorrhage_critical.name</ns0:source>
+        <ns0:target>Hémorragie critique</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>haemorrhage_critical.description</ns0:source>
+        <ns0:target>Vous avez une hémorragie sur une artère majeure qui nécessite une chirurgie lourde. Bonne chance.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>haemorrhage_critical.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="damaged_ears">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>damaged_ears.name</ns0:source>
+        <ns0:target>Oreilles incapacités</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>damaged_ears.description</ns0:source>
+        <ns0:target>Vos oreilles ne vous sont plus d'aucune utilité et de toute façon vous ne pouvez plus les utiliser. </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>damaged_ears.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="destroyed_ears">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>destroyed_ears.name</ns0:source>
+        <ns0:target>Oreille pulvérisée </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>destroyed_ears.description</ns0:source>
+        <ns0:target>Vos oreilles ont disparues. Peut-être qu'en cherchant bien... </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>destroyed_ears.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="disfunctional_liver">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>disfunctional_liver.name</ns0:source>
+        <ns0:target>Foie hors d'état </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>disfunctional_liver.description</ns0:source>
+        <ns0:target>Vous pouvez encore vivre avec votre foie détruit mais combien de temps et dans quelles conditions ? </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>disfunctional_liver.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="haemorrhage">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>haemorrhage.name</ns0:source>
+        <ns0:target>Hémorragie</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>haemorrhage.description</ns0:source>
+        <ns0:target>Vous avez une hémorragie il vous faut une chirurgie. </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>haemorrhage.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="haemorrhage_minor">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>haemorrhage_minor.name</ns0:source>
+        <ns0:target>Hémorragie légère </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>haemorrhage_minor.description</ns0:source>
+        <ns0:target>Vous avez une hémorragie sur une artère mineure qu'un médecin peut contenir. Attention à ne pas laisser traîner. </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>haemorrhage_minor.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="head_trauma">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>head_trauma.name</ns0:source>
+        <ns0:target>Trauma crânien </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>head_trauma.description</ns0:source>
+        <ns0:target>Vous avez subi un traumatisme crânien récent, à moins d'arriver à trouver un médecin amateur de puzzle rapidement, vous risquez gros.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>head_trauma.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="implanted_bullet">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>implanted_bullet.name</ns0:source>
+        <ns0:target>Balle en ballade </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>implanted_bullet.description</ns0:source>
+        <ns0:target>Un éclat de balle se ballade désormais dans votre corps, ce n'est pas douloureux mais on sait pas ce que sera sa prochaine destination. </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>implanted_bullet.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="inner_ear_damaged">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>inner_ear_damaged.name</ns0:source>
+        <ns0:target>Oreille interne déréglée</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>inner_ear_damaged.description</ns0:source>
+        <ns0:target>L'oreille interne ne semble plus fonctionner correctement. Vous pouvez être pris de vertiges, de surdité partielle ou de vomissements intempestifs quand vous voyagez.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>inner_ear_damaged.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="mashed_foot">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>mashed_foot.name</ns0:source>
+        <ns0:target>Pied en bouillie </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>mashed_foot.description</ns0:source>
+        <ns0:target>Vous n'avez plus de pied digne de ce nom... </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>mashed_foot.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="mashed_hand">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>mashed_hand.name</ns0:source>
+        <ns0:target>Main en charpie </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>mashed_hand.description</ns0:source>
+        <ns0:target>Votre main ne vous sera plus d'aucun secours. </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>mashed_hand.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="missing_finger">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>missing_finger.name</ns0:source>
+        <ns0:target>Doigt manquant </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>missing_finger.description</ns0:source>
+        <ns0:target>Vous ne pouvez plus compter que jusqu'à 4 sur votre bonne main.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>missing_finger.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="open_air_brain">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>open_air_brain.name</ns0:source>
+        <ns0:target>Cerveau à l'air libre </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>open_air_brain.description</ns0:source>
+        <ns0:target>Il manque un morceau de votre crâne. Dans beaucoup de circonstances, il ne serait pas faux de dire que cela peut poser problème.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>open_air_brain.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="punctured_lung">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>punctured_lung.name</ns0:source>
+        <ns0:target>Poumon à trou </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>punctured_lung.description</ns0:source>
+        <ns0:target>Souffle court, du sang dans les poumons, sans soins, Vous n'en avez plus pour longtemps a vivre. </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>punctured_lung.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="smashed_arms">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>smashed_arms.name</ns0:source>
+        <ns0:target>Absence de bras </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>smashed_arms.description</ns0:source>
+        <ns0:target>Vos bras sont complètement inutiles. </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>smashed_arms.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="smashed_legs">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>smashed_legs.name</ns0:source>
+        <ns0:target>Jambes inutilisables</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>smashed_legs.description</ns0:source>
+        <ns0:target>Vous n'avez plus l'usage de vos jambes, dommage, ça peut servir.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>smashed_legs.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="torn_tongue">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>torn_tongue.name</ns0:source>
+        <ns0:target>Langue cisaillée </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>torn_tongue.description</ns0:source>
+        <ns0:target>Votre langue est réduite à un amas flasque sans vie. </ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>torn_tongue.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="commander">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>commander.name</ns0:source>
+        <ns0:target>Commandant</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>commander.description</ns0:source>
+        <ns0:target>Décide de l'orientation du Daedalus. Il est aussi le seul à pouvoir enclencher la séquence de voyage.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>commander.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="communications_officer">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>communications_officer.name</ns0:source>
+        <ns0:target>Resp. Communications</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>communications_officer.description</ns0:source>
+        <ns0:target>Le Responsable de Communication peut engager des opérations de prises de contact une fois que le contact avec Sol est rétabli.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>communications_officer.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="neron_administrator">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>neron_administrator.name</ns0:source>
+        <ns0:target>Admin. NERON</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>neron_administrator.description</ns0:source>
+        <ns0:target>L'Administrateur de NERON peut accéder au BIOS de NERON. Il a également des accès privilégiés aux programmes de gestion du quotidien.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>neron_administrator.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="antisocial">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>antisocial.name</ns0:source>
+        <ns0:target>Associal</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>antisocial.description</ns0:source>
+        <ns0:target>Au début de chaque cycle, si l'asocial est dans une pièce contenant au moins un autre membre d'équipage, il perd un point de moral.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>antisocial.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="berzerk">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>berzerk.name</ns0:source>
+        <ns0:target>Muté</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>berzerk.description</ns0:source>
+        <ns0:target>Vous avez muté. Vous avez un bonus à vos dommages. Vous accorde également le statut gardien permanent.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>berzerk.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="brainsync">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>brainsync.name</ns0:source>
+        <ns0:target>Penselien</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>brainsync.description</ns0:source>
+        <ns0:target>Vous êtes doté d'un penselien ce qui permet de se passer de talky-walky.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>brainsync.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="burdened">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>burdened.name</ns0:source>
+        <ns0:target>Encombré</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>burdened.description</ns0:source>
+        <ns0:target>Vous portez des objets particulièrement lourds. Vos mouvements vous coûtent plus cher.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>burdened.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="demoralized">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>demoralized.name</ns0:source>
+        <ns0:target>Démoralisé</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>demoralized.description</ns0:source>
+        <ns0:target>Vous devriez rapidement vous ressaisir, le moral n'est pas bon et peut vous jouer des tours.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>demoralized.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="dirty">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>dirty.name</ns0:source>
+        <ns0:target>Sale</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>dirty.description</ns0:source>
+        <ns0:target>Vous êtes sale et vous puez. Un petit tour sous la douche ne fera pas de mal. Profitez-en pour mettre du déodorant.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>dirty.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="disabled">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>disabled.name</ns0:source>
+        <ns0:target>Handicapé moteur</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>disabled.description</ns0:source>
+        <ns0:target>L'Handicapé gagne 2 :pm: de moins lors des conversions :pa:-:pm:. En revanche, il peut se déplacer gratuitement tant qu'il est dans une salle contenant au moins un membre d 'équipage.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>disabled.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="eureka_moment">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>eureka_moment.name</ns0:source>
+        <ns0:target>Coup de Génie</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>eureka_moment.description</ns0:source>
+        <ns0:target>Votre prochaine réparation ou Recherche est réussie.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>eureka_moment.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="first_time">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>first_time.name</ns0:source>
+        <ns0:target>Première Fois</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>first_time.description</ns0:source>
+        <ns0:target>Vous ne l'avez jamais fait. Votre première fois remontera votre moral à fond.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>first_time.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="focused">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>focused.name</ns0:source>
+        <ns0:target>Concentré</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>focused.description</ns0:source>
+        <ns0:target>Vous êtes en train d’accéder à un terminal avec un air concentré.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>focused.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="full_stomach">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>full_stomach.name</ns0:source>
+        <ns0:target>Ventre plein</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>full_stomach.description</ns0:source>
+        <ns0:target>Vous avez fait bombance, impossible d'ingérer quoi que ce soit pour le moment.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>full_stomach.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="gagged">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>gagged.name</ns0:source>
+        <ns0:target>Bâillonner</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>gagged.description</ns0:source>
+        <ns0:target>Quelqu'un en aura eu assez d'entendre vos jérémiades.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>gagged.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="germaphobe">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>germaphobe.name</ns0:source>
+        <ns0:target>Germaphobe</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>germaphobe.description</ns0:source>
+        <ns0:target>Vous perdez un point de moral pour chaque cycle où vous êtes sale. Vous ne pouvez pas non plus caresser le chat.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>germaphobe.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="guardian">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>guardian.name</ns0:source>
+        <ns0:target>Gardien</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>guardian.description</ns0:source>
+        <ns0:target>Quand un Gardien est présent dans la pièce, le visiteur peut **seulement** repartir d'où il vient.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>guardian.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="highly_inactive">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>highly_inactive.name</ns0:source>
+        <ns0:target>Grand Inactif</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>highly_inactive.description</ns0:source>
+        <ns0:target>Vous êtes un grand inactif, vous ne vous êtes pas connecté depuis 48h, vous pénalisez donc votre équipage qui est en droit de disposer de vous.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>highly_inactive.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="hyperactive">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>hyperactive.name</ns0:source>
+        <ns0:target>Hyperactif</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>hyperactive.description</ns0:source>
+        <ns0:target>Vous gagnez un point de mouvement supplémentaire à chaque cycle. Vous ne gagnez aucun PA supplémentaire en vous allongeant.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>hyperactive.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="immunized">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>immunized.name</ns0:source>
+        <ns0:target>Immunisée</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>immunized.description</ns0:source>
+        <ns0:target>L'immunisée ne peut pas être contaminée par le Mush. Pratique quand on ne sais plus à qui faire confiance.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>immunized.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="inactive">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>inactive.name</ns0:source>
+        <ns0:target>Inactif</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>inactive.description</ns0:source>
+        <ns0:target>Vous ne vous êtes pas connecté depuis 24h. Bonne chance pour la suite...</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>inactive.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="lost">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>lost.name</ns0:source>
+        <ns0:target>Perdu</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>lost.description</ns0:source>
+        <ns0:target>Vous avez raté le dernier départ de ce trou et vous le regrettez.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>lost.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="lying_down">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>lying_down.name</ns0:source>
+        <ns0:target>Allongé</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>lying_down.description</ns0:source>
+        <ns0:target>Vous êtes allongé.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>lying_down.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="multi_teamster">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>multi_teamster.name</ns0:source>
+        <ns0:target>Pluri-équipier</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>multi_teamster.description</ns0:source>
+        <ns0:target>Mes senseurs ont détecté que cet équipier avait plusieurs existences parallèles. Merci de l'inciter à normaliser sa situation.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>multi_teamster.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="mush">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>mush.name</ns0:source>
+        <ns0:target>Mush</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>mush.description</ns0:source>
+        <ns0:target>Vous faites partie du Mush.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>mush.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="outcast">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>outcast.name</ns0:source>
+        <ns0:target>Paria</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>outcast.description</ns0:source>
+        <ns0:target>On vous a jeté l'anathème. Un poids pèse sur vos épaules. On vous montre du doigt, on vous épie, on vous regarde attentivement. Vous êtes le bouc-émissaire. La victime. Vos actions sont plus dures.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>outcast.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="pacifist">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>pacifist.name</ns0:source>
+        <ns0:target>Pacifiste</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>pacifist.description</ns0:source>
+        <ns0:target>Dans votre pièce, toutes les actions agressives coûtent 2 :pa: supplémentaires</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>pacifist.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="pregnant">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>pregnant.name</ns0:source>
+        <ns0:target>Enceinte</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>pregnant.description</ns0:source>
+        <ns0:target>Vous attendez un heureux évènement ! Ceci vous donne un bonus de triomphe et si vous venez à mourir, le moral de l'équipage en sera lourdement affecté.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>pregnant.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="spores">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>spores.name</ns0:source>
+        <ns0:target>Spore</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>spores.description</ns0:source>
+        <ns0:target>Un spore sert à contaminer les autres membres de l'équipage.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>spores.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="starving">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>starving.name</ns0:source>
+        <ns0:target>Affamé</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>starving.description</ns0:source>
+        <ns0:target>Cela fait longtemps que vous n'avez pas mangé quelque chose. Chaque cycle sans manger vous coûte 1 :hp:.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>starving.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="stuck_in_the_ship">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>stuck_in_the_ship.name</ns0:source>
+        <ns0:target>Bloqué dans le vaisseau</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>stuck_in_the_ship.description</ns0:source>
+        <ns0:target>Vous n'avez pas l'équipement nécessaire pour explorer cette planète. Vous êtes resté à l'intérieur de l'appareil...</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>stuck_in_the_ship.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+    <ns0:unit id="suicidal">
+      <ns0:segment id="name" state="initial">
+        <ns0:source>suicidal.name</ns0:source>
+        <ns0:target>Suicidaire</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="description" state="initial">
+        <ns0:source>suicidal.description</ns0:source>
+        <ns0:target>La simple vue d'une cuillère en plastique vous donne des envies... trouvez un moyen de vous ressaisir... et VITE.</ns0:target>
+      </ns0:segment>
+      <ns0:segment id="effect" state="initial">
+        <ns0:source>suicidal.examine</ns0:source>
+        <ns0:target>TODO</ns0:target>
+      </ns0:segment>
+    </ns0:unit>
+  </ns0:file>
+</ns0:xliff>

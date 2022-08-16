@@ -1,534 +1,534 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="en">
   <file id="actions.ext">
     <unit id="build">
       <segment id="build" state="initial">
-        <source>build.name</source>
-        <target>build.name</target>
+        <source>Assembler</source>
+        <target>Assembler</target>
       </segment>
       <segment id="description" state="initial">
-        <source>build.description</source>
-        <target>build.description</target>
+        <source>Assemble un objet à partir d'autres objets.</source>
+        <target>Assemble un objet à partir d'autres objets.</target>
       </segment>
     </unit>
     <unit id="coffee">
       <segment id="coffee" state="initial">
-        <source>coffee.name</source>
-        <target>coffee.name</target>
+        <source>Café !</source>
+        <target>Café !</target>
       </segment>
       <segment id="description" state="initial">
-        <source>coffee.description</source>
-        <target>coffee.description</target>
+        <source>Un bon café et ça repart !</source>
+        <target>Un bon café et ça repart !</target>
       </segment>
     </unit>
     <unit id="dispense">
       <segment id="dispense" state="initial">
-        <source>dispense.name</source>
-        <target>dispense.name</target>
+        <source>Distiller</source>
+        <target>Distiller</target>
       </segment>
       <segment id="description" state="initial">
-        <source>dispense.description</source>
-        <target>dispense.description</target>
+        <source>Permet de distiller une nouvelle petite gourmandise.</source>
+        <target>Permet de distiller une nouvelle petite gourmandise.</target>
       </segment>
     </unit>
     <unit id="do_the_thing">
       <segment id="name" state="initial">
-        <source>do_the_thing.name</source>
-        <target>do_the_thing.name</target>
+        <source>Le faire</source>
+        <target>Le faire</target>
       </segment>
       <segment id="description" state="initial">
-        <source>do_the_thing.description</source>
-        <target>do_the_thing.description</target>
+        <source>Permet de le faire.</source>
+        <target>Permet de le faire.</target>
       </segment>
     </unit>
     <unit id="check_spore_level">
       <segment id="check_spore_level" state="initial">
-        <source>check_spore_level.name</source>
-        <target>check_spore_level.name</target>
+        <source>Vérifier</source>
+        <target>Vérifier</target>
       </segment>
       <segment id="description" state="initial">
-        <source>check_spore_level.description</source>
-        <target>check_spore_level.description</target>
+        <source>Permet de vérifier son propre niveau d'infection par des spores de Mush.</source>
+        <target>Permet de vérifier son propre niveau d'infection par des spores de Mush.</target>
       </segment>
     </unit>
     <unit id="consume">
       <segment id="consume" state="initial">
-        <source>consume.name</source>
-        <target>consume.name</target>
+        <source>Consommer</source>
+        <target>Consommer</target>
       </segment>
       <segment id="description" state="initial">
-        <source>consume.description</source>
-        <target>consume.description</target>
+        <source>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les *rations cuisinées* n'entamerons pas votre moral. Les autres nouritures peuvent réserver des surprises.</source>
+        <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les *rations cuisinées* n'entamerons pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
       </segment>
     </unit>
     <unit id="consume_drug">
       <segment id="consume_drug" state="initial">
-        <source>consume_drug.name</source>
-        <target>consume_drug.name</target>
+        <source>Consommer</source>
+        <target>Consommer</target>
       </segment>
       <segment id="description" state="initial">
-        <source>consume_drug.description</source>
-        <target>consume_drug.description</target>
+        <source>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les *rations cuisinées* n'entameront pas votre moral. Les autres nouritures peuvent réserver des surprises.</source>
+        <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les *rations cuisinées* n'entameront pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
       </segment>
     </unit>
     <unit id="cook">
       <segment id="cook" state="initial">
-        <source>cook.name</source>
-        <target>cook.name</target>
+        <source>Cuisiner</source>
+        <target>Cuisiner</target>
       </segment>
       <segment id="description" state="initial">
-        <source>cook.description</source>
-        <target>cook.description</target>
+        <source>Assaisonner la chose pour en faire quelque chose qui ne provoque pas un renvoi instantané.</source>
+        <target>Assaisonner la chose pour en faire quelque chose qui ne provoque pas un renvoi instantané.</target>
       </segment>
     </unit>
     <unit id="disassemble">
       <segment id="disassemble" state="initial">
-        <source>disassemble.name</source>
-        <target>disassemble.name</target>
+        <source>Démonter</source>
+        <target>Démonter</target>
       </segment>
       <segment id="description" state="initial">
-        <source>disassemble.description</source>
-        <target>disassemble.description</target>
+        <source>Permet de désassembler un objet pour récupérer tout ou partie des composants.</source>
+        <target>Permet de désassembler un objet pour récupérer tout ou partie des composants.</target>
       </segment>
     </unit>
     <unit id="drop">
       <segment id="name" state="initial">
-        <source>drop.name</source>
-        <target>drop.name</target>
+        <source>Lâcher</source>
+        <target>Lâcher</target>
       </segment>
       <segment id="description" state="initial">
-        <source>drop.description</source>
-        <target>drop.description</target>
+        <source>Pose un objet dans la pièce ou vous vous trouvez</source>
+        <target>Pose un objet dans la pièce ou vous vous trouvez</target>
       </segment>
     </unit>
     <unit id="express_cook">
       <segment id="express_cook" state="initial">
-        <source>express_cook.name</source>
-        <target>express_cook.name</target>
+        <source>Cuisine Express</source>
+        <target>Cuisine Express</target>
       </segment>
       <segment id="description" state="initial">
-        <source>express_cook.description</source>
-        <target>express_cook.description</target>
+        <source>Dégrader suffisament la nouriture tout en la réchauffant pour rendre cela mangeable.</source>
+        <target>Dégrader suffisament la nouriture tout en la réchauffant pour rendre cela mangeable.</target>
       </segment>
     </unit>
     <unit id="extract_spore">
       <segment id="extract_spore" state="initial">
-        <source>extract_spore.name</source>
-        <target>extract_spore.name</target>
+        <source>Extirper un spore</source>
+        <target>Extirper un spore</target>
       </segment>
       <segment id="description" state="initial">
-        <source>extract_spore.description</source>
-        <target>extract_spore.description</target>
+        <source>Extirpez-vous un spore pour ensuite contaminer un coéquipier (avant de contaminer repérez les caméras).</source>
+        <target>Extirpez-vous un spore pour ensuite contaminer un coéquipier (avant de contaminer repérez les caméras).</target>
       </segment>
     </unit>
     <unit id="flirt">
       <segment id="name" state="initial">
-        <source>flirt.name</source>
-        <target>flirt.name</target>
+        <source>Fleureter</source>
+        <target>Fleureter</target>
       </segment>
       <segment id="description" state="initial">
-        <source>flirt.description</source>
-        <target>flirt.description</target>
+        <source>Permet de fleureter avec quelqu'un, cela lui permettra de le faire avec vous. Cette action est **irrémédiable**.</source>
+        <target>Permet de fleureter avec quelqu'un, cela lui permettra de le faire avec vous. Cette action est **irrémédiable**.</target>
       </segment>
     </unit>
     <unit id="get_up">
       <segment id="get_up" state="initial">
-        <source>get_up.name</source>
-        <target>get_up.name</target>
+        <source>Se lever</source>
+        <target>Se lever</target>
       </segment>
       <segment id="description" state="initial">
-        <source>get_up.description</source>
-        <target>get_up.description</target>
+        <source>Quitter ce petit nid douillet pour affronter le monde cruel.</source>
+        <target>Quitter ce petit nid douillet pour affronter le monde cruel.</target>
       </segment>
     </unit>
     <unit id="hide">
       <segment id="hide" state="initial">
-        <source>hide.name</source>
-        <target>hide.name</target>
+        <source>Cacher</source>
+        <target>Cacher</target>
       </segment>
       <segment id="description" state="initial">
-        <source>hide.description</source>
-        <target>hide.description</target>
+        <source>Cache un objet du regard de vos équipier dans la salle.</source>
+        <target>Cache un objet du regard de vos équipier dans la salle.</target>
       </segment>
     </unit>
     <unit id="hit">
       <segment id="hit" state="initial">
-        <source>hit.name</source>
-        <target>hit.name</target>
+        <source>Attaquer</source>
+        <target>Attaquer</target>
       </segment>
       <segment id="description" state="initial">
-        <source>hit.description</source>
-        <target>hit.description</target>
+        <source>TODO</source>
+        <target>TODO</target>
       </segment>
     </unit>
     <unit id="hyperfreeze">
       <segment id="hyperfreeze" state="initial">
-        <source>hyperfreeze.name</source>
-        <target>hyperfreeze.name</target>
+        <source>Hypergeler</source>
+        <target>Hypergeler</target>
       </segment>
       <segment id="description" state="initial">
-        <source>hyperfreeze.description</source>
-        <target>hyperfreeze.description</target>
+        <source>Transforme une denrée perissable en une non-perissable.</source>
+        <target>Transforme une denrée perissable en une non-perissable.</target>
       </segment>
     </unit>
     <unit id="infect">
       <segment id="infect" state="initial">
-        <source>infect.name</source>
-        <target>infect.name</target>
+        <source>Poinçonner</source>
+        <target>Poinçonner</target>
       </segment>
       <segment id="description" state="initial">
-        <source>infect.description</source>
-        <target>infect.description</target>
+        <source>Poinçonner une personne avec un spore permets de l'Infecter. Pour cela, vous devez avoir des spores sur vous. Au bout de trois infections, le personnage aura achevé son voyage vers le Mush.</source>
+        <target>Poinçonner une personne avec un spore permets de l'Infecter. Pour cela, vous devez avoir des spores sur vous. Au bout de trois infections, le personnage aura achevé son voyage vers le Mush.</target>
       </segment>
     </unit>
     <unit id="lie_down">
       <segment id="lie_down" state="initial">
-        <source>lie_down.name</source>
-        <target>lie_down.name</target>
+        <source>S'allonger</source>
+        <target>S'allonger</target>
       </segment>
       <segment id="description" state="initial">
-        <source>lie_down.description</source>
-        <target>lie_down.description</target>
+        <source>Pour vous détendre ou parler, rien de tel que de s'allonger un peu. S'allonger permet à chaque cycle passé de gagner 1 :pa: et 1 :pmo: si un psy est présent.</source>
+        <target>Pour vous détendre ou parler, rien de tel que de s'allonger un peu. S'allonger permet à chaque cycle passé de gagner 1 :pa: et 1 :pmo: si un psy est présent.</target>
       </segment>
     </unit>
     <unit id="move">
       <segment id="name" state="initial">
-        <source>move.name</source>
-        <target>move.name</target>
+        <source>Se déplacer</source>
+        <target>Se déplacer</target>
       </segment>
       <segment id="description" state="initial">
-        <source>move.description</source>
-        <target>move.description</target>
+        <source>Changez de pièce</source>
+        <target>Changez de pièce</target>
       </segment>
     </unit>
     <unit id="read_book">
       <segment id="read_book" state="initial">
-        <source>read_book.name</source>
-        <target>read_book.name</target>
+        <source>Consulter</source>
+        <target>Consulter</target>
       </segment>
       <segment id="description" state="initial">
-        <source>read_book.description</source>
-        <target>read_book.description</target>
+        <source>La curiosité est certes un vilain défault mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</source>
+        <target>La curiosité est certes un vilain défault mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
       </segment>
     </unit>
     <unit id="read_document">
       <segment id="read_document" state="initial">
-        <source>read_document.name</source>
-        <target>read_document.name</target>
+        <source>Consulter</source>
+        <target>Consulter</target>
       </segment>
       <segment id="description" state="initial">
-        <source>read_document.description</source>
-        <target>read_document.description</target>
+        <source>La curiosité est certes un vilain défault mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</source>
+        <target>La curiosité est certes un vilain défault mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
       </segment>
     </unit>
     <unit id="repair">
       <segment id="repair" state="initial">
-        <source>repair.name</source>
-        <target>repair.name</target>
+        <source>Réparer</source>
+        <target>Réparer</target>
       </segment>
       <segment id="description" state="initial">
-        <source>repair.description</source>
-        <target>repair.description</target>
+        <source>Un objet non équipement endommagé est remis en état.</source>
+        <target>Un objet non équipement endommagé est remis en état.</target>
       </segment>
     </unit>
     <unit id="search">
       <segment id="search" state="initial">
-        <source>search.name</source>
-        <target>search.name</target>
+        <source>Fouiller</source>
+        <target>Fouiller</target>
       </segment>
       <segment id="description" state="initial">
-        <source>search.description</source>
-        <target>search.description</target>
+        <source>Permet de retrouver un objet caché à l'endroit où vous vous trouvez.</source>
+        <target>Permet de retrouver un objet caché à l'endroit où vous vous trouvez.</target>
       </segment>
     </unit>
     <unit id="rejuvenate_alpha">
       <segment id="rejuvenate_alpha" state="initial">
-        <source>rejuvenate_alpha.name</source>
-        <target>rejuvenate_alpha.name</target>
+        <source>Restaurer</source>
+        <target>Restaurer</target>
       </segment>
       <segment id="description" state="initial">
-        <source>rejuvenate_alpha.description</source>
-        <target>rejuvenate_alpha.description</target>
+        <source>Permet de retrouver tout ses :pa:, :pm:, :hp: et :pmo:. Uniquement valable pendant l'alpha. Merci de nous aider !</source>
+        <target>Permet de retrouver tout ses :pa:, :pm:, :hp: et :pmo:. Uniquement valable pendant l'alpha. Merci de nous aider !</target>
       </segment>
     </unit>
     <unit id="shred">
       <segment id="shred" state="initial">
-        <source>shred.name</source>
-        <target>shred.name</target>
+        <source>Déchirer</source>
+        <target>Déchirer</target>
       </segment>
       <segment id="description" state="initial">
-        <source>shred.description</source>
-        <target>shred.description</target>
+        <source>Ces maudits papiers pullulent partout. Sus à l'envahisseur !</source>
+        <target>Ces maudits papiers pullulent partout. Sus à l'envahisseur !</target>
       </segment>
     </unit>
     <unit id="take">
       <segment id="name" state="initial">
-        <source>take.name</source>
-        <target>take.name</target>
+        <source>Prendre</source>
+        <target>Prendre</target>
       </segment>
       <segment id="description" state="initial">
-        <source>take.description</source>
-        <target>take.description</target>
+        <source>Prends un objet dans la pièce courante et le place dans votre inventaire</source>
+        <target>Prends un objet dans la pièce courante et le place dans votre inventaire</target>
       </segment>
     </unit>
     <unit id="transplant">
       <segment id="name" state="initial">
-        <source>transplant.name</source>
-        <target>transplant.name</target>
+        <source>Semer</source>
+        <target>Semer</target>
       </segment>
       <segment id="description" state="initial">
-        <source>transplant.description</source>
-        <target>transplant.description</target>
+        <source>Sacrifie un fruit pour créer un nouveau plant.</source>
+        <target>Sacrifie un fruit pour créer un nouveau plant.</target>
       </segment>
     </unit>
     <unit id="treat_plant">
       <segment id="name" state="initial">
-        <source>treat_plant.name</source>
-        <target>treat_plant.name</target>
+        <source>Traiter</source>
+        <target>Traiter</target>
       </segment>
       <segment id="description" state="initial">
-        <source>treat_plant.description</source>
-        <target>treat_plant.description</target>
+        <source>Permet de soigner les maladies des plantes.</source>
+        <target>Permet de soigner les maladies des plantes.</target>
       </segment>
     </unit>
     <unit id="water_plant">
       <segment id="name" state="initial">
-        <source>water_plant.name</source>
-        <target>water_plant.name</target>
+        <source>Arroser</source>
+        <target>Arroser</target>
       </segment>
       <segment id="description" state="initial">
-        <source>water_plant.description</source>
-        <target>water_plant.description</target>
+        <source>Permet d'étancher la soif de vos plantations.</source>
+        <target>Permet d'étancher la soif de vos plantations.</target>
       </segment>
     </unit>
     <unit id="write">
       <segment id="name" state="initial">
-        <source>write.name</source>
-        <target>write.name</target>
+        <source>Écrire</source>
+        <target>Écrire</target>
       </segment>
       <segment id="description" state="initial">
-        <source>write.description</source>
-        <target>write.description</target>
+        <source>Vous pouvez écrire un message que peut-être quelqu'un lira...</source>
+        <target>Vous pouvez écrire un message que peut-être quelqu'un lira...</target>
       </segment>
     </unit>
     <unit id="insert_oxygen">
       <segment id="name" state="initial">
-        <source>insert_oxygen.name</source>
-        <target>insert_oxygen.name</target>
+        <source>Insérer</source>
+        <target>Insérer</target>
       </segment>
       <segment id="description" state="initial">
-        <source>insert_oxygen.description</source>
-        <target>insert_oxygen.description</target>
+        <source>Injecte l'Oxygène dans un Réservoir.</source>
+        <target>Injecte l'Oxygène dans un Réservoir.</target>
       </segment>
     </unit>
     <unit id="retrieve_oxygen">
       <segment id="name" state="initial">
-        <source>retrieve_oxygen.name</source>
-        <target>retrieve_oxygen.name</target>
+        <source>Récupérer Capsule d'Oxygène</source>
+        <target>Récupérer Capsule d'Oxygène</target>
       </segment>
       <segment id="description" state="initial">
-        <source>retrieve_oxygen.description</source>
-        <target>retrieve_oxygen.description</target>
+        <source>Fantastique, le système d'Oxy Rev vous permet d'enlever de l'Oxygène des Réservoirs. Attention à bien fermer la vanne et à vous laver les mains.</source>
+        <target>Fantastique, le système d'Oxy Rev vous permet d'enlever de l'Oxygène des Réservoirs. Attention à bien fermer la vanne et à vous laver les mains.</target>
       </segment>
     </unit>
     <unit id="insert_fuel">
       <segment id="name" state="initial">
-        <source>insert_fuel.name</source>
-        <target>insert_fuel.name</target>
+        <source>Insérer</source>
+        <target>Insérer</target>
       </segment>
       <segment id="description" state="initial">
-        <source>insert_fuel.description</source>
-        <target>insert_fuel.description</target>
+        <source>Injecte le Fuel dans un Réservoir.</source>
+        <target>Injecte le Fuel dans un Réservoir.</target>
       </segment>
     </unit>
     <unit id="retrieve_fuel">
       <segment id="name" state="initial">
-        <source>retrieve_fuel.name</source>
-        <target>retrieve_fuel.name</target>
+        <source>Récupérer capsule de fuel</source>
+        <target>Récupérer capsule de fuel</target>
       </segment>
       <segment id="description" state="initial">
-        <source>retrieve_fuel.description</source>
-        <target>retrieve_fuel.description</target>
+        <source>Permet de récupérer une Capsule du moteur.</source>
+        <target>Permet de récupérer une Capsule du moteur.</target>
       </segment>
     </unit>
     <unit id="sabotage">
       <segment id="name" state="initial">
-        <source>sabotage.name</source>
-        <target>sabotage.name</target>
+        <source>Saboter</source>
+        <target>Saboter</target>
       </segment>
       <segment id="description" state="initial">
-        <source>sabotage.description</source>
-        <target>sabotage.description</target>
+        <source>Casse l'équipement ciblé.</source>
+        <target>Casse l'équipement ciblé.</target>
       </segment>
     </unit>
     <unit id="shower">
       <segment id="name" state="initial">
-        <source>shower.name</source>
-        <target>shower.name</target>
+        <source>Se Laver</source>
+        <target>Se Laver</target>
       </segment>
       <segment id="description" state="initial">
-        <source>shower.description</source>
-        <target>shower.description</target>
+        <source>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent. Une solution. La douche.</source>
+        <target>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent. Une solution. La douche.</target>
       </segment>
     </unit>
     <unit id="extinguish">
       <segment id="name" state="initial">
-        <source>extinguish.name</source>
-        <target>extinguish.name</target>
+        <source>Éteindre</source>
+        <target>Éteindre</target>
       </segment>
       <segment id="description" state="initial">
-        <source>extinguish.description</source>
-        <target>extinguish.description</target>
+        <source>Avec un peu d'adresse vous arriverez à vous débarasser du feu. Faites attention à ne pas vous brûler.</source>
+        <target>Avec un peu d'adresse vous arriverez à vous débarasser du feu. Faites attention à ne pas vous brûler.</target>
       </segment>
     </unit>
     <unit id="heal">
       <segment id="name" state="initial">
-        <source>heal.name</source>
-        <target>heal.name</target>
+        <source>Soigner</source>
+        <target>Soigner</target>
       </segment>
       <segment id="description" state="initial">
-        <source>heal.description</source>
-        <target>heal.description</target>
+        <source>Rend des Points de Vie (:pv:) à la cible. Si celle ci est malade, enlève un point de maladie à l'une de ses maladies.</source>
+        <target>Rend des Points de Vie (:pv:) à la cible. Si celle ci est malade, enlève un point de maladie à l'une de ses maladies.</target>
       </segment>
     </unit>
     <unit id="self_heal">
       <segment id="name" state="initial">
-        <source>self_heal.name</source>
-        <target>self_heal.name</target>
+        <source>Se soigner</source>
+        <target>Se soigner</target>
       </segment>
       <segment id="description" state="initial">
-        <source>self_heal.description</source>
-        <target>self_heal.description</target>
+        <source>Vous rend des Points de Vie (:pv:). Si vous êtes malade, enlève un point de maladie à l'une de vos maladies.</source>
+        <target>Vous rend des Points de Vie (:pv:). Si vous êtes malade, enlève un point de maladie à l'une de vos maladies.</target>
       </segment>
     </unit>
     <unit id="ultraheal">
       <segment id="name" state="initial">
-        <source>ultraheal.name</source>
-        <target>ultraheal.name</target>
+        <source>Appliquer</source>
+        <target>Appliquer</target>
       </segment>
       <segment id="description" state="initial">
-        <source>ultraheal.description</source>
-        <target>ultraheal.description</target>
+        <source>Permet de guérir de se toutes ses blessures.</source>
+        <target>Permet de guérir de se toutes ses blessures.</target>
       </segment>
     </unit>
     <unit id="use_bandage">
       <segment id="name" state="initial">
-        <source>use_bandage.name</source>
-        <target>use_bandage.name</target>
+        <source>Se soigner</source>
+        <target>Se soigner</target>
       </segment>
       <segment id="description" state="initial">
-        <source>use_bandage.description</source>
-        <target>use_bandage.description</target>
+        <source>Permet de soigner vos petits bobos.</source>
+        <target>Permet de soigner vos petits bobos.</target>
       </segment>
     </unit>
     <unit id="comfort">
       <segment id="name" state="initial">
-        <source>comfort.name</source>
-        <target>comfort.name</target>
+        <source>Réconforter</source>
+        <target>Réconforter</target>
       </segment>
       <segment id="description" state="initial">
-        <source>comfort.description</source>
-        <target>comfort.description</target>
+        <source>Vous savez écouter votre prochain, ce qui lui remonte le moral.</source>
+        <target>Vous savez écouter votre prochain, ce qui lui remonte le moral.</target>
       </segment>
     </unit>
     <unit id="open">
       <segment id="name" state="initial">
-        <source>open.name</source>
-        <target>open.name</target>
+        <source>Ouvrir</source>
+        <target>Ouvrir</target>
       </segment>
       <segment id="description" state="initial">
-        <source>open.description</source>
-        <target>open.description</target>
+        <source>L'ouverture de capsule spatiale est un art délicat et plein de surprise. Pire, dans certains systèmes, l'ouverture délicate de ces précieux oeufs est considéré comme une drogue dure et peu vous faire rejeter au ban de la société.</source>
+        <target>L'ouverture de capsule spatiale est un art délicat et plein de surprise. Pire, dans certains systèmes, l'ouverture délicate de ces précieux oeufs est considéré comme une drogue dure et peu vous faire rejeter au ban de la société.</target>
       </segment>
     </unit>
     <unit id="strengthen_hull">
       <segment id="name" state="initial">
-        <source>strengthen_hull.name</source>
-        <target>strengthen_hull.name</target>
+        <source>Renforcer</source>
+        <target>Renforcer</target>
       </segment>
       <segment id="description" state="initial">
-        <source>strengthen_hull.description</source>
-        <target>strengthen_hull.description</target>
+        <source>Permet de faire des réparation sur la coque du Daedalus.</source>
+        <target>Permet de faire des réparation sur la coque du Daedalus.</target>
       </segment>
     </unit>
     <unit id="spread_fire">
       <segment id="name" state="initial">
-        <source>spread_fire.name</source>
-        <target>spread_fire.name</target>
+        <source>Mettre le feu</source>
+        <target>Mettre le feu</target>
       </segment>
       <segment id="description" state="initial">
-        <source>spread_fire.description</source>
-        <target>spread_fire.description</target>
+        <source>Permet de satisfaire un des besoins de NERON... et vos intérêts.</source>
+        <target>Permet de satisfaire un des besoins de NERON... et vos intérêts.</target>
       </segment>
     </unit>
     <unit id="install_camera">
       <segment id="name" state="initial">
-        <source>install_camera.name</source>
-        <target>install_camera.name</target>
+        <source>Installer</source>
+        <target>Installer</target>
       </segment>
       <segment id="description" state="initial">
-        <source>install_camera.description</source>
-        <target>install_camera.description</target>
+        <source>Cette action permet d'installer un matériel pour le rendre fonctionnel.</source>
+        <target>Cette action permet d'installer un matériel pour le rendre fonctionnel.</target>
       </segment>
     </unit>
     <unit id="remove_camera">
       <segment id="name" state="initial">
-        <source>remove_camera.name</source>
-        <target>remove_camera.name</target>
+        <source>Enlever</source>
+        <target>Enlever</target>
       </segment>
       <segment id="description" state="initial">
-        <source>remove_camera.description</source>
-        <target>remove_camera.description</target>
+        <source>Cette action permet d'enlever un matériel pour le rendre inopérant ou le déplacer.</source>
+        <target>Cette action permet d'enlever un matériel pour le rendre inopérant ou le déplacer.</target>
       </segment>
     </unit>
     <unit id="examine">
       <segment id="name" state="initial">
-        <source>examine.name</source>
-        <target>examine.name</target>
+        <source>Examiner</source>
+        <target>Examiner</target>
       </segment>
       <segment id="description" state="initial">
-        <source>examine.description</source>
-        <target>examine.description</target>
+        <source>Qu'est ce donc que cette petite chose ?</source>
+        <target>Qu'est ce donc que cette petite chose ?</target>
       </segment>
     </unit>
     <unit id="remove_spore">
       <segment id="name" state="initial">
-        <source>remove_spore.name</source>
-        <target>remove_spore.name</target>
+        <source>Extraire spore</source>
+        <target>Extraire spore</target>
       </segment>
       <segment id="description" state="initial">
-        <source>remove_spore.description</source>
-        <target>remove_spore.description</target>
+        <source>Permet d'ôter des vilains pustules suspectés de vous contaminer.</source>
+        <target>Permet d'ôter des vilains pustules suspectés de vous contaminer.</target>
       </segment>
     </unit>
     <unit id="report_equipment">
       <segment id="name" state="initial">
-        <source>report_equipment.name</source>
-        <target>report_equipment.name</target>
+        <source>Signaler</source>
+        <target>Signaler</target>
       </segment>
       <segment id="description" state="initial">
-        <source>report_equipment.description</source>
-        <target>report_equipment.description</target>
+        <source>Permet de faire remonter l'information et ainsi vous faire remarquer au passage.</source>
+        <target>Permet de faire remonter l'information et ainsi vous faire remarquer au passage.</target>
       </segment>
     </unit>
     <unit id="report_fire">
       <segment id="name" state="initial">
-        <source>report_fire.name</source>
-        <target>report_fire.name</target>
+        <source>Signaler : Incendie</source>
+        <target>Signaler : Incendie</target>
       </segment>
       <segment id="description" state="initial">
-        <source>report_fire.description</source>
-        <target>report_fire.description</target>
+        <source>Oui, faire part à vos colègues de cet incendie est une bonne idée.</source>
+        <target>Oui, faire part à vos colègues de cet incendie est une bonne idée.</target>
       </segment>
     </unit>
     <unit id="try_kube">
       <segment id="name" state="initial">
-        <source>try_kube.name</source>
-        <target>try_kube.name</target>
+        <source>Tenter le kube</source>
+        <target>Tenter le kube</target>
       </segment>
       <segment id="description" state="initial">
-        <source>try_kube.description</source>
-        <target>try_kube.description</target>
+        <source>Tenter le Kube qui rend fou. Bien peu arrivent à le résoudre en moins de 26 mouvements.</source>
+        <target>Tenter le Kube qui rend fou. Bien peu arrivent à le résoudre en moins de 26 mouvements.</target>
       </segment>
     </unit>
   </file>

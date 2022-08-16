@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="fr">
+  <file id="actions_log.ext">
+    <unit id="check_spore_level">
+      <segment id="check_spore_level" state="initial">
+        <source>check_spore_level</source>
+        <target>check_spore_level</target>
+      </segment>
+    </unit>
+    <unit id="coffee_success">
+      <segment id="coffee_success" state="initial">
+        <source>coffee_success</source>
+        <target>coffee_success</target>
+      </segment>
+    </unit>
+    <unit id="dispense_success">
+      <segment id="dispense_success" state="initial">
+        <source>dispense_success</source>
+        <target>dispense_success</target>
+      </segment>
+    </unit>
+    <unit id="consume_success">
+      <segment id="consume_success" state="initial">
+        <source>consume_success</source>
+        <target>consume_success</target>
+      </segment>
+    </unit>
+    <unit id="consume_drug">
+      <segment id="consume_drug" state="initial">
+        <source>consume_drug</source>
+        <target>consume_drug</target>
+      </segment>
+    </unit>
+    <unit id="consume_mush">
+      <segment id="consume_mush" state="initial">
+        <source>consume_mush</source>
+        <target>consume_mush</target>
+      </segment>
+    </unit>
+    <unit id="cook_success">
+      <segment id="cook_success" state="initial">
+        <source>cook_success</source>
+        <target>cook_success</target>
+      </segment>
+    </unit>
+    <unit id="disassemble_fail">
+      <segment id="disassemble_fail" state="initial">
+        <source>disassemble_fail</source>
+        <target>disassemble_fail</target>
+      </segment>
+    </unit>
+    <unit id="disassemble_success">
+      <segment id="disassemble_success" state="initial">
+        <source>disassemble_success</source>
+        <target>disassemble_success</target>
+      </segment>
+    </unit>
+    <unit id="do_the_thing_success">
+      <segment id="do_the_thing_success" state="initial">
+        <source>do_the_thing_success</source>
+        <target>do_the_thing_success</target>
+      </segment>
+    </unit>
+    <unit id="drop">
+      <segment id="drop" state="initial">
+        <source>drop</source>
+        <target>drop</target>
+      </segment>
+    </unit>
+    <unit id="express_cook_success">
+      <segment id="express_cook_success" state="initial">
+        <source>express_cook_success</source>
+        <target>express_cook_success</target>
+      </segment>
+    </unit>
+    <unit id="extract_spore_success">
+      <segment id="extract_spore_success" state="initial">
+        <source>extract_spore_success</source>
+        <target>extract_spore_success</target>
+      </segment>
+    </unit>
+    <unit id="flirt_success">
+      <segment id="flirt_success" state="initial">
+        <source>flirt_success</source>
+        <target>flirt_success</target>
+      </segment>
+    </unit>
+    <unit id="get_up">
+      <segment id="get_up" state="initial">
+        <source>get_up</source>
+        <target>get_up</target>
+      </segment>
+    </unit>
+    <unit id="hide_success">
+      <segment id="hide_success" state="initial">
+        <source>hide_success</source>
+        <target>hide_success</target>
+      </segment>
+    </unit>
+    <unit id="hit_success">
+      <segment id="hit_success" state="initial">
+        <source>hit_success</source>
+        <target>hit_success</target>
+      </segment>
+    </unit>
+    <unit id="hit_fail">
+      <segment id="hit_fail" state="initial">
+        <source>hit_fail</source>
+        <target>hit_fail</target>
+      </segment>
+    </unit>
+    <unit id="hyperfreeze_success">
+      <segment id="hyperfreeze_success" state="initial">
+        <source>hyperfreeze_success</source>
+        <target>hyperfreeze_success</target>
+      </segment>
+    </unit>
+    <unit id="infect_success">
+      <segment id="infect_success" state="initial">
+        <source>infect_success</source>
+        <target>infect_success</target>
+      </segment>
+    </unit>
+    <unit id="lie_down">
+      <segment id="lie_down" state="initial">
+        <source>lie_down</source>
+        <target>lie_down</target>
+      </segment>
+    </unit>
+    <unit id="enter_room">
+      <segment id="enter_room" state="initial">
+        <source>enter_room</source>
+        <target>enter_room</target>
+      </segment>
+    </unit>
+    <unit id="exit_room">
+      <segment id="exit_room" state="initial">
+        <source>exit_room</source>
+        <target>exit_room</target>
+      </segment>
+    </unit>
+    <unit id="read_book">
+      <segment id="read_book" state="initial">
+        <source>read_book</source>
+        <target>read_book</target>
+      </segment>
+    </unit>
+    <unit id="read_document">
+      <segment id="read_document" state="initial">
+        <source>read_document</source>
+        <target>read_document</target>
+      </segment>
+    </unit>
+    <unit id="repair_fail">
+      <segment id="repair_fail" state="initial">
+        <source>repair_fail</source>
+        <target>repair_fail</target>
+      </segment>
+    </unit>
+    <unit id="repair_success">
+      <segment id="repair_success" state="initial">
+        <source>repair_success</source>
+        <target>repair_success</target>
+      </segment>
+    </unit>
+    <unit id="search_success">
+      <segment id="search_success" state="initial">
+        <source>search_success</source>
+        <target>search_success</target>
+      </segment>
+    </unit>
+    <unit id="search_fail">
+      <segment id="search_fail" state="initial">
+        <source>search_fail</source>
+        <target>search_fail</target>
+      </segment>
+    </unit>
+    <unit id="shower_human">
+      <segment id="shower_human" state="initial">
+        <source>shower_human</source>
+        <target>shower_human</target>
+      </segment>
+    </unit>
+    <unit id="shower_mush">
+      <segment id="shower_mush" state="initial">
+        <source>shower_mush</source>
+        <target>shower_mush</target>
+      </segment>
+    </unit>
+    <unit id="shred_success">
+      <segment id="shred_success" state="initial">
+        <source>shred_success</source>
+        <target>shred_success</target>
+      </segment>
+    </unit>
+    <unit id="take">
+      <segment id="take" state="initial">
+        <source>take</source>
+        <target>take</target>
+      </segment>
+    </unit>
+    <unit id="hybridize_success">
+      <segment id="hybridize_success" state="initial">
+        <source>hybridize_success</source>
+        <target>hybridize_success</target>
+      </segment>
+    </unit>
+    <unit id="hybridize_fail">
+      <segment id="hybridize_fail" state="initial">
+        <source>hybridize_fail</source>
+        <target>hybridize_fail</target>
+      </segment>
+    </unit>
+    <unit id="treat_plant_success">
+      <segment id="treat_plant_success" state="initial">
+        <source>treat_plant_success</source>
+        <target>treat_plant_success</target>
+      </segment>
+    </unit>
+    <unit id="water_plant_success">
+      <segment id="water_plant_success" state="initial">
+        <source>water_plant_success</source>
+        <target>water_plant_success</target>
+      </segment>
+    </unit>
+    <unit id="write_success">
+      <segment id="write_success" state="initial">
+        <source>write_success</source>
+        <target>write_success</target>
+      </segment>
+    </unit>
+    <unit id="insert_oxygen">
+      <segment id="insert_oxygen" state="initial">
+        <source>insert_oxygen</source>
+        <target>insert_oxygen</target>
+      </segment>
+    </unit>
+    <unit id="retrieve_oxygen">
+      <segment id="retrieve_oxygen" state="initial">
+        <source>retrieve_oxygen</source>
+        <target>retrieve_oxygen</target>
+      </segment>
+    </unit>
+    <unit id="retrieve_fuel">
+      <segment id="retrieve_fuel" state="initial">
+        <source>retrieve_fuel</source>
+        <target>retrieve_fuel</target>
+      </segment>
+    </unit>
+    <unit id="insert_fuel">
+      <segment id="insert_fuel" state="initial">
+        <source>insert_fuel</source>
+        <target>insert_fuel</target>
+      </segment>
+    </unit>
+    <unit id="sabotage_success">
+      <segment id="sabotage_success" state="initial">
+        <source>sabotage_success</source>
+        <target>sabotage_success</target>
+      </segment>
+    </unit>
+    <unit id="sabotage_fail">
+      <segment id="sabotage_fail" state="initial">
+        <source>sabotage_fail</source>
+        <target>sabotage_fail</target>
+      </segment>
+    </unit>
+    <unit id="extinguish_success">
+      <segment id="extinguish_success" state="initial">
+        <source>extinguish_success</source>
+        <target>extinguish_success</target>
+      </segment>
+    </unit>
+    <unit id="extinguish_fail">
+      <segment id="extinguish_fail" state="initial">
+        <source>extinguish_fail</source>
+        <target>extinguish_fail</target>
+      </segment>
+    </unit>
+    <unit id="comfort_success">
+      <segment id="comfort_success" state="initial">
+        <source>comfort_success</source>
+        <target>comfort_success</target>
+      </segment>
+    </unit>
+    <unit id="heal_success">
+      <segment id="heal_success" state="initial">
+        <source>heal_success</source>
+        <target>heal_success</target>
+      </segment>
+    </unit>
+    <unit id="self_heal">
+      <segment id="self_heal" state="initial">
+        <source>self_heal</source>
+        <target>self_heal</target>
+      </segment>
+    </unit>
+    <unit id="ultraheal_success">
+      <segment id="ultraheal_success" state="initial">
+        <source>ultraheal_success</source>
+        <target>ultraheal_success</target>
+      </segment>
+    </unit>
+    <unit id="strengthen_success">
+      <segment id="strengthen_success" state="initial">
+        <source>strengthen_success</source>
+        <target>strengthen_success</target>
+      </segment>
+    </unit>
+    <unit id="default_fail">
+      <segment id="default_fail" state="initial">
+        <source>default_fail</source>
+        <target>default_fail</target>
+      </segment>
+    </unit>
+    <unit id="spread_fire_success">
+      <segment id="spread_fire_success" state="initial">
+        <source>spread_fire_success</source>
+        <target>spread_fire_success</target>
+      </segment>
+    </unit>
+    <unit id="install_camera">
+      <segment id="install_camera" state="initial">
+        <source>install_camera</source>
+        <target>install_camera</target>
+      </segment>
+    </unit>
+    <unit id="remove_camera">
+      <segment id="remove_camera" state="initial">
+        <source>remove_camera</source>
+        <target>remove_camera</target>
+      </segment>
+    </unit>
+    <unit id="try_kube">
+      <segment id="try_kube" state="initial">
+        <source>try_kube</source>
+        <target>try_kube</target>
+      </segment>
+    </unit>
+    <unit id="remove_spore_success">
+      <segment id="remove_spore_fail" state="initial">
+        <source>remove_spore_success</source>
+        <target>remove_spore_success</target>
+      </segment>
+    </unit>
+    <unit id="remove_spore_fail">
+      <segment id="remove_spore_fail" state="initial">
+        <source>remove_spore_fail</source>
+        <target>remove_spore_fail</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

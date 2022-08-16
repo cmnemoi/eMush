@@ -81,11 +81,15 @@ Adding the class ".crossed" to the element will strike-through it. */
                 lighten(desaturate($hover-color, 18.1), 13.14) 96%
             );
     }
+
     img {
         position: relative;
         top: -.1em;
         padding: 0 0.3em;
     }
+
+    s { text-decoration: inherit; }
+    
     &.crossed { opacity: 0.5; text-decoration: line-through; }
 }
 

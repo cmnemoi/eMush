@@ -948,150 +948,150 @@
       </segment>
       <segment id="plural_name" state="initial">
         <source>surgery_plot.plural_name</source>
-        <target>Plots Chirurgicaux</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="genre" state="initial">
-        <ns0:source>surgery_plot.genre</ns0:source>
-        <ns0:target>male</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="first_letter" state="initial">
-        <ns0:source>surgery_plot.first_letter</ns0:source>
-        <ns0:target>consonant</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="examine" state="initial">
-        <ns0:source>surgery_plot.examine</ns0:source>
-        <ns0:target>Ce plot comprend tous les instruments. Automate nécessaire à des soins efficaces. En cas de coups durs vous devriez toujours savoir où il se trouve.</ns0:target>
-      </ns0:segment>
-    </ns0:unit>
-    <ns0:unit id="thalasso">
-      <ns0:segment id="name" state="initial">
-        <ns0:source>thalasso.name</ns0:source>
-        <ns0:target>Thalasso</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="short_name" state="initial">
-        <ns0:source>thalasso.short_name</ns0:source>
-        <ns0:target>Thalasso</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="plural_name" state="initial">
-        <ns0:source>thalasso.plural_name</ns0:source>
-        <ns0:target>Thalasso</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="genre" state="initial">
-        <ns0:source>thalasso.genre</ns0:source>
-        <ns0:target>female</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="first_letter" state="initial">
-        <ns0:source>thalasso.first_letter</ns0:source>
-        <ns0:target>consonant</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="examine" state="initial">
-        <ns0:source>thalasso.examine</ns0:source>
-        <ns0:target>L’hygiène aide à rester sain. Dans l'espace tout peut arriver, parfois pour se laver de toutes les péripéties, une bonne douche et c'est reparti.</ns0:target>
-      </ns0:segment>
-    </ns0:unit>
-    <ns0:unit id="turret_command">
-      <ns0:segment id="name" state="initial">
-        <ns0:source>turret_command.name</ns0:source>
-        <ns0:target>Poste de Tir</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="short_name" state="initial">
-        <ns0:source>turret_command.short_name</ns0:source>
-        <ns0:target>Poste de Tir</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="plural_name" state="initial">
-        <ns0:source>turret_command.plural_name</ns0:source>
-        <ns0:target>Postes de Tir</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="genre" state="initial">
-        <ns0:source>turret_command.genre</ns0:source>
-        <ns0:target>male</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="first_letter" state="initial">
-        <ns0:source>turret_command.first_letter</ns0:source>
-        <ns0:target>consonant</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="examine" state="initial">
-        <ns0:source>turret_command.examine</ns0:source>
-        <ns0:target>La défense contre les Hunters est une priorité Camarade. Poste de tir de la tourelle Bidulotron 3000. En pointe de la technologie, ses boucliers de verres et son teslatron en font une arme redoutable contre les Hunters.</ns0:target>
-      </ns0:segment>
-    </ns0:unit>
-    <ns0:unit id="icarus">
-      <ns0:segment id="name" state="initial">
-        <ns0:source>icarus.name</ns0:source>
-        <ns0:target>Icarus</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="short_name" state="initial">
-        <ns0:source>icarus.short_name</ns0:source>
-        <ns0:target>Icarus</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="plural_name" state="initial">
-        <ns0:source>icarus.plural_name</ns0:source>
-        <ns0:target>Icari</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="genre" state="initial">
-        <ns0:source>icarus.genre</ns0:source>
-        <ns0:target>male</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="first_letter" state="initial">
-        <ns0:source>icarus.first_letter</ns0:source>
-        <ns0:target>vowel</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="examine" state="initial">
-        <ns0:source>icarus.examine</ns0:source>
-        <ns0:target>Permet de mener l'Icarus vers de nouvelles aventures. L'Icarus était un vaisseau d'exploration d'élite... il y a quelques centaines d'années.</ns0:target>
-      </ns0:segment>
-    </ns0:unit>
-    <ns0:unit id="jukebox">
-      <ns0:segment id="name" state="initial">
-        <ns0:source>jukebox.name</ns0:source>
-        <ns0:target>Jukebox</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="short_name" state="initial">
-        <ns0:source>jukebox.short_name</ns0:source>
-        <ns0:target>Jukebox</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="plural_name" state="initial">
-        <ns0:source>jukebox.plural_name</ns0:source>
-        <ns0:target>Jukeboxes</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="genre" state="initial">
-        <ns0:source>jukebox.genre</ns0:source>
-        <ns0:target>male</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="first_letter" state="initial">
-        <ns0:source>jukebox.first_letter</ns0:source>
-        <ns0:target>consonant</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="examine" state="initial">
-        <ns0:source>jukebox.examine</ns0:source>
-        <ns0:target>Le jukebox permet de se faire une bonne petite séance de regression de temps à autre. Le jukebox des années folles par excellence. Et en plus chargé avec les tubes préféré de l'équipage !</ns0:target>
-      </ns0:segment>
-    </ns0:unit>
-    <ns0:unit id="camera_equipment">
-      <ns0:segment id="name" state="initial">
-        <ns0:source>camera_equipment.name</ns0:source>
-        <ns0:target>Caméra</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="short_name" state="initial">
-        <ns0:source>camera_equipment.short_name</ns0:source>
-        <ns0:target>Caméra</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="plural_name" state="initial">
-        <ns0:source>camera_equipment.plural_name</ns0:source>
-        <ns0:target>Caméras</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="genre" state="initial">
-        <ns0:source>camera_equipment.genre</ns0:source>
-        <ns0:target>female</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="first_letter" state="initial">
-        <ns0:source>camera_equipment.first_letter</ns0:source>
-        <ns0:target>consonant</ns0:target>
-      </ns0:segment>
-      <ns0:segment id="examine" state="initial">
-        <ns0:source>camera_equipment.examine</ns0:source>
-        <ns0:target>La caméra est un outils de surveillance bien pratique pour --espionner-- surveiller votre prochain. En sa présence, les actions **discrètes** et **furtives** effectuées sont révélées. Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. La caméra repère également les actions discrètes et furtives effectuées. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</ns0:target>
-      </ns0:segment>
-    </ns0:unit>
-  </ns0:file>
-</ns0:xliff>
+        <target>Plots Chirurgicaux</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>surgery_plot.genre</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>surgery_plot.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>surgery_plot.examine</source>
+        <target>Ce plot comprend tous les instruments. Automate nécessaire à des soins efficaces. En cas de coups durs vous devriez toujours savoir où il se trouve.</target>
+      </segment>
+    </unit>
+    <unit id="thalasso">
+      <segment id="name" state="initial">
+        <source>thalasso.name</source>
+        <target>Thalasso</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>thalasso.short_name</source>
+        <target>Thalasso</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>thalasso.plural_name</source>
+        <target>Thalasso</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>thalasso.genre</source>
+        <target>female</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>thalasso.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>thalasso.examine</source>
+        <target>L’hygiène aide à rester sain. Dans l'espace tout peut arriver, parfois pour se laver de toutes les péripéties, une bonne douche et c'est reparti.</target>
+      </segment>
+    </unit>
+    <unit id="turret_command">
+      <segment id="name" state="initial">
+        <source>turret_command.name</source>
+        <target>Poste de Tir</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>turret_command.short_name</source>
+        <target>Poste de Tir</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>turret_command.plural_name</source>
+        <target>Postes de Tir</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>turret_command.genre</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>turret_command.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>turret_command.examine</source>
+        <target>La défense contre les Hunters est une priorité Camarade. Poste de tir de la tourelle Bidulotron 3000. En pointe de la technologie, ses boucliers de verres et son teslatron en font une arme redoutable contre les Hunters.</target>
+      </segment>
+    </unit>
+    <unit id="icarus">
+      <segment id="name" state="initial">
+        <source>icarus.name</source>
+        <target>Icarus</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>icarus.short_name</source>
+        <target>Icarus</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>icarus.plural_name</source>
+        <target>Icari</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>icarus.genre</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>icarus.first_letter</source>
+        <target>vowel</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>icarus.examine</source>
+        <target>Permet de mener l'Icarus vers de nouvelles aventures. L'Icarus était un vaisseau d'exploration d'élite... il y a quelques centaines d'années.</target>
+      </segment>
+    </unit>
+    <unit id="jukebox">
+      <segment id="name" state="initial">
+        <source>jukebox.name</source>
+        <target>Jukebox</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>jukebox.short_name</source>
+        <target>Jukebox</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>jukebox.plural_name</source>
+        <target>Jukeboxes</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>jukebox.genre</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>jukebox.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>jukebox.examine</source>
+        <target>Le jukebox permet de se faire une bonne petite séance de regression de temps à autre. Le jukebox des années folles par excellence. Et en plus chargé avec les tubes préféré de l'équipage !</target>
+      </segment>
+    </unit>
+    <unit id="camera_equipment">
+      <segment id="name" state="initial">
+        <source>camera_equipment.name</source>
+        <target>Caméra</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>camera_equipment.short_name</source>
+        <target>Caméra</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>camera_equipment.plural_name</source>
+        <target>Caméras</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>camera_equipment.genre</source>
+        <target>female</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>camera_equipment.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>camera_equipment.examine</source>
+        <target>La caméra est un outils de surveillance bien pratique pour --espionner-- surveiller votre prochain. En sa présence, les actions **discrètes** et **furtives** effectuées sont révélées. Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. La caméra repère également les actions discrètes et furtives effectuées. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

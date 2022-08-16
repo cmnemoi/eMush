@@ -999,6 +999,7 @@ interface Doors {
     width: 184px;
     height: 96px;
     margin: auto;
+    filter: drop-shadow(0 0 8px rgba(18,215,255,.6));
     transform: translate(-0.4em, -0.4em) rotate(30deg);
 }
 

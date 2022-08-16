@@ -1,0 +1,1531 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="status.ext">
+        <unit id="alien_artefact">
+            <segment id="name">
+                <source>Artefact alien</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cet objet est... étrange...</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="electric_charges">
+            <segment id="name">
+                <source>Charge</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Les charges sont le nombre d'utilisation que vous pouvez faire de cet objet. Les objets chargés regagnent une charge par cycle.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="heavy">
+            <segment id="name">
+                <source>Lourd</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cet objet est particulièrement lourd.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="module_access">
+            <segment id="name">
+                <source>Accès au Module</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cet objet charge un module.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="hidden">
+            <segment id="name">
+                <source>Caché</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cet objet est *caché* ! Vous seul êtes au courant... avec ceux qui fouilleront la pièce.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="broken">
+            <segment id="name">
+                <source>Cassé</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cet objet est *cassé*. Il faudrait penser à le réparer...</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="unstable">
+            <segment id="name">
+                <source>Instable</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cette nourriture est franchement douteuse.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="hazardous">
+            <segment id="name">
+                <source>Avariée</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cette nourriture ne devrait être donnée à aucune personne fragile, toute ingestion peut être dangereuse.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="decomposing">
+            <segment id="name">
+                <source>Décomposition</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cette nourriture devrait être exterminée sans sommation, toute ingestion peut être dangereuse voir fatale.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="frozen">
+            <segment id="name">
+                <source>Congelé</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cette nourriture est hyper-gelée. Sa consommation tel quel peut s'avérer difficile.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="contaminated">
+            <segment id="name">
+                <source>Contaminée</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cet objet est contaminé, le premier équipier (Mush ou non) qui le manipulera sera contaminé par un spore. Vous voyez ce message car vous faites parti du Mush.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="plant_young">
+            <segment id="name">
+                <source>Jeune Plant</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cette plante est jeune. Elle ne produira ni oxygène ni fruits jusqu'à maturation.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="plant_thirsty">
+            <segment id="name">
+                <source>Soif</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cette plante a **Soif**, elle ne produira plus que de l'oxygène. Si elle n'est pas arrosée, demain elle deviendra **Desséchée**.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="plant_dry">
+            <segment id="name">
+                <source>Désséché</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cette plante est **Desséchée**, elle ne produira ni fruits ni oxygène. Si elle n'est pas arrosée, demain elle sera morte.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="plant_diseased">
+            <segment id="name">
+                <source>Malade</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cette plante est **Malade**, elle ne produira ni fruits ni oxygène.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="black_bite">
+            <segment id="name">
+                <source>Morsure Noire</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Relativement bénin mais persistant, la Morsure Noire est un syndrome récent que personne ne connaît.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="cat_allergy">
+            <segment id="name">
+                <source>Allergie au chat</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>La simple vue d'un chat provoque des éternuements insupportables et des pustules. Son contact pourrait s'avérer mortel...</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="cold">
+            <segment id="name">
+                <source>Rhume</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Ne sortez jamais sans vos mouchoirs !</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="extreme_tinnitus">
+            <segment id="name">
+                <source>Acouphènes Extrême</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vos oreilles sifflent fort en permanence, ce qui peut devenir très fatiguant à la longue.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="flu">
+            <segment id="name">
+                <source>Grippe</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Variante sévère de la grippe du poney... Irritable, autoritaire, mal de crâne, rhume, courbatures, rien ne vous est épargné. Attention à ne pas trop laisser traîner, on ne sait jamais.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="fungic_infection">
+            <segment id="name">
+                <source>Infection fongique</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Qu'est ce que c'est que ce truc horrible... Vous devriez faire soigner ça rapidement... Ça gratte, ça purule, ça pue...</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="junkbumpkinitis">
+            <segment id="name">
+                <source>Citrouillite</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>C'est pas que c'était pas frais...</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="migraine">
+            <segment id="name">
+                <source>Migraine</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Une grosse migraine bien carabinée harcèle le patient en ce moment, ça va passer...</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="mush_allergy">
+            <segment id="name">
+                <source>Allergie au mush</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Le contact au Mush vous donne des pustules horribles et douloureuses.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="quincks_oedema">
+            <segment id="name">
+                <source>Oedeme de Quincke</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source />
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="rejuvenation">
+            <segment id="name">
+                <source>Verdoiement</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Votre corps émet des lueurs pulsatiles vertes.ça ne favorise pas vraiment un sommeil reposant...</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="rubella">
+            <segment id="name">
+                <source>Rubéole</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Mal au crâne, puis pustules sèches, très très fatiguant. Vous devriez vous en remettre.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="sepsis">
+            <segment id="name">
+                <source>Infection aïgue</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous êtes très infecté. Pas facile de se remettre sur pied. Vous ne survivrez sans doute pas...</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="sinus_storm">
+            <segment id="name">
+                <source>Tempête sinusale</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vos sinus sont en feu, de glace, puis lui déchirent la tête... C'est lourd et ça ne passe pas...</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="skin_inflammation">
+            <segment id="name">
+                <source>Éruption cutanée</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Quelqu'en soit la source, vous n'en avez cure, ça démange là et c'est très pénible</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="slight_nausea">
+            <segment id="name">
+                <source>Nausée légère</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous vous sentez un peu barbouillé... Ça va passer mais vous n'avez plus faim et vous ne devriez pas vous approchez de bluuuuuurrrpppp...</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="smallpox">
+            <segment id="name">
+                <source>Variole</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Maladie disparue de Sol mais apparemment bien présente ailleurs. Son aspect appétissant devrait vous convaincre de vous soigner...</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="space_rabies">
+            <segment id="name">
+                <source>Rage spatiale</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez la rage. Vous pouvez devenir violent et cela va sans doute finir par vous tuer.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="syphilis">
+            <segment id="name">
+                <source>Syphilis</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Maladie vénérienne par excellence, votre aspect effroyable et les rumeurs qui vous entoureront vous lasserons vite. Quel Dom Juan quand même...</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="vitamin_deficiency">
+            <segment id="name">
+                <source>Carence en vitamines</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Des carences en vitamines, minéraux, oligo-éléments et autres, vous n'avez pas trop la pêche...</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="agoraphobia">
+            <segment id="name">
+                <source>Agoraphobie</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous êtes effrayé par la foule et les grands espaces, vous avez, en plus, des vertiges incontrôlables... Dans l'espace, ça va pas le faire.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="ailurophobia">
+            <segment id="name">
+                <source>Ailurophobie</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez une terrible phobie des chats. Leur simple vue vous met hors d'état d'agir.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="chronic_migraine">
+            <segment id="name">
+                <source>Migraine chronique</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Une grosse migraine bien carabinée vous prend de temps à autres... et puis quand elle vous prend c'est le grand déménagement... pas de chance.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="chronic_vertigo">
+            <segment id="name">
+                <source>Vertige chronique</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez des vertiges chroniques ce qui vous incapacite grandement.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="coprolalia">
+            <segment id="name">
+                <source>Coprolalie</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous lancez des chapelets d'insultes de façon impromptu. Au début ça choque un peu.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="crabism">
+            <segment id="name">
+                <source>Crabisme</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>De temps à autre, vous vous mettez à marcher de côté ou à vous jetez par terre pour ensuite rentrer dans une courte période régressive.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="depression">
+            <segment id="name">
+                <source>Dépression</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous souffrez tout le temps. La vie est devenue longue trop longue et chaque nouvelle épreuve vous fait perdre le goût des choses.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="paranoia">
+            <segment id="name">
+                <source>Crise Paranoïaque</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez peur pour votre vie et éventuellement le faites savoir.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="psychotic_episodes">
+            <segment id="name">
+                <source>Episodes Psychotiques</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous ne vous maîtrisez plus et rentrez souvent dans des colères noires. Il est fortement avisé de s'éloigner de toute forme d'armement.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="spleen">
+            <segment id="name">
+                <source>Spleen</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous êtes atteint d'une forme très aiguë de dépression qui vous entraîne dans la mort très vite.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="vertigo">
+            <segment id="name">
+                <source>Vertige</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez des vertiges chroniques ce qui vous incapacite grandement.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="weapon_phobia">
+            <segment id="name">
+                <source>Phobie des armes</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous ne pouvez plus tirer avec une arme, et leur simple vue vous incommode...</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="burns_50_of_body">
+            <segment id="name">
+                <source>Brûlure au 3ème degré sur 50% </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>La partie avant de votre corps est brûlée, pas trop non plus mais tout de même. </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="burns_90_of_body">
+            <segment id="name">
+                <source>Brulure au 3ème degré sur 90% </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Votre corps est très gravement brulé et risque une septicémie. </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="broken_finger">
+            <segment id="name">
+                <source>Doigt cassé</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Un des doigts de votre bonne main est cassé. </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="broken_foot">
+            <segment id="name">
+                <source>Pied cassé </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Votre pied est cassé. </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="broken_leg">
+            <segment id="name">
+                <source>Jambe cassée </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Votre jambe a subi de multiples fractures qui l'handicapent... </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="broken_ribs">
+            <segment id="name">
+                <source>Côtes pétées </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vos côtes sont cassées, occasionnant une douleur en posture debout. </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="broken_shoulder">
+            <segment id="name">
+                <source>Epaule brisée</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Votre épaule a été brisée et démise. Impossible de porter des objets lourds...</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="bruised_shoulder">
+            <segment id="name">
+                <source>Épaule froissée </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Votre épaule a subi des contusions majeures réversibles.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="burnt_arms">
+            <segment id="name">
+                <source>Bras brûlés </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vos bras sont fortement brûlés. Saisir le moindre objet est une torture. </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="burnt_hand">
+            <segment id="name">
+                <source>Main brûlée </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Votre main est brûlée. </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="burst_nose">
+            <segment id="name">
+                <source>Nez explosé </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Votre nez n'est plus, plus du tout, vous faites un peu peur aussi... </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="busted_arm_joint">
+            <segment id="name">
+                <source>Articulation du bras fort morte</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Le bras pendouillant peut faire rire mais reste tout de même très handicapant. </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="busted_shoulder">
+            <segment id="name">
+                <source>Épaule pulvérisée</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>L'épaule a subi des contusions majeures irréversibles, le bras est considéré comme mort. </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="haemorrhage_critical">
+            <segment id="name">
+                <source>Hémorragie critique</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez une hémorragie sur une artère majeure qui nécessite une chirurgie lourde. Bonne chance.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="damaged_ears">
+            <segment id="name">
+                <source>Oreilles incapacités</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vos oreilles ne vous sont plus d'aucune utilité et de toute façon vous ne pouvez plus les utiliser. </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="destroyed_ears">
+            <segment id="name">
+                <source>Oreille pulvérisée </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vos oreilles ont disparues. Peut-être qu'en cherchant bien... </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="disfunctional_liver">
+            <segment id="name">
+                <source>Foie hors d'état </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous pouvez encore vivre avec votre foie détruit mais combien de temps et dans quelles conditions ? </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="haemorrhage">
+            <segment id="name">
+                <source>Hémorragie</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez une hémorragie il vous faut une chirurgie. </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="haemorrhage_minor">
+            <segment id="name">
+                <source>Hémorragie légère </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez une hémorragie sur une artère mineure qu'un médecin peut contenir. Attention à ne pas laisser traîner. </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="head_trauma">
+            <segment id="name">
+                <source>Trauma crânien </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez subi un traumatisme crânien récent, à moins d'arriver à trouver un médecin amateur de puzzle rapidement, vous risquez gros.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="implanted_bullet">
+            <segment id="name">
+                <source>Balle en ballade </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Un éclat de balle se ballade désormais dans votre corps, ce n'est pas douloureux mais on sait pas ce que sera sa prochaine destination. </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="inner_ear_damaged">
+            <segment id="name">
+                <source>Oreille interne déréglée</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>L'oreille interne ne semble plus fonctionner correctement. Vous pouvez être pris de vertiges, de surdité partielle ou de vomissements intempestifs quand vous voyagez.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="mashed_foot">
+            <segment id="name">
+                <source>Pied en bouillie </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous n'avez plus de pied digne de ce nom... </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="mashed_hand">
+            <segment id="name">
+                <source>Main en charpie </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Votre main ne vous sera plus d'aucun secours. </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="missing_finger">
+            <segment id="name">
+                <source>Doigt manquant </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous ne pouvez plus compter que jusqu'à 4 sur votre bonne main.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="open_air_brain">
+            <segment id="name">
+                <source>Cerveau à l'air libre </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Il manque un morceau de votre crâne. Dans beaucoup de circonstances, il ne serait pas faux de dire que cela peut poser problème.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="punctured_lung">
+            <segment id="name">
+                <source>Poumon à trou </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Souffle court, du sang dans les poumons, sans soins, Vous n'en avez plus pour longtemps a vivre. </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="smashed_arms">
+            <segment id="name">
+                <source>Absence de bras </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vos bras sont complètement inutiles. </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="smashed_legs">
+            <segment id="name">
+                <source>Jambes inutilisables</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous n'avez plus l'usage de vos jambes, dommage, ça peut servir.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="torn_tongue">
+            <segment id="name">
+                <source>Langue cisaillée </source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Votre langue est réduite à un amas flasque sans vie. </source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="commander">
+            <segment id="name">
+                <source>Commandant</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Décide de l'orientation du Daedalus. Il est aussi le seul à pouvoir enclencher la séquence de voyage.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="communications_officer">
+            <segment id="name">
+                <source>Resp. Communications</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Le Responsable de Communication peut engager des opérations de prises de contact une fois que le contact avec Sol est rétabli.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="neron_administrator">
+            <segment id="name">
+                <source>Admin. NERON</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>L'Administrateur de NERON peut accéder au BIOS de NERON. Il a également des accès privilégiés aux programmes de gestion du quotidien.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="antisocial">
+            <segment id="name">
+                <source>Associal</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Au début de chaque cycle, si l'asocial est dans une pièce contenant au moins un autre membre d'équipage, il perd un point de moral.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="berzerk">
+            <segment id="name">
+                <source>Muté</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez muté. Vous avez un bonus à vos dommages. Vous accorde également le statut gardien permanent.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="brainsync">
+            <segment id="name">
+                <source>Penselien</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous êtes doté d'un penselien ce qui permet de se passer de talky-walky.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="burdened">
+            <segment id="name">
+                <source>Encombré</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous portez des objets particulièrement lourds. Vos mouvements vous coûtent plus cher.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="demoralized">
+            <segment id="name">
+                <source>Démoralisé</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous devriez rapidement vous ressaisir, le moral n'est pas bon et peut vous jouer des tours.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="dirty">
+            <segment id="name">
+                <source>Sale</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous êtes sale et vous puez. Un petit tour sous la douche ne fera pas de mal. Profitez-en pour mettre du déodorant.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="disabled">
+            <segment id="name">
+                <source>Handicapé moteur</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>L'Handicapé gagne 2 :pm: de moins lors des conversions :pa:-:pm:. En revanche, il peut se déplacer gratuitement tant qu'il est dans une salle contenant au moins un membre d 'équipage.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="eureka_moment">
+            <segment id="name">
+                <source>Coup de Génie</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Votre prochaine réparation ou Recherche est réussie.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="first_time">
+            <segment id="name">
+                <source>Première Fois</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous ne l'avez jamais fait. Votre première fois remontera votre moral à fond.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="focused">
+            <segment id="name">
+                <source>Concentré</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous êtes en train d’accéder à un terminal avec un air concentré.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="full_stomach">
+            <segment id="name">
+                <source>Ventre plein</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez fait bombance, impossible d'ingérer quoi que ce soit pour le moment.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="gagged">
+            <segment id="name">
+                <source>Bâillonner</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Quelqu'un en aura eu assez d'entendre vos jérémiades.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="germaphobe">
+            <segment id="name">
+                <source>Germaphobe</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous perdez un point de moral pour chaque cycle où vous êtes sale. Vous ne pouvez pas non plus caresser le chat.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="guardian">
+            <segment id="name">
+                <source>Gardien</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Quand un Gardien est présent dans la pièce, le visiteur peut **seulement** repartir d'où il vient.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="highly_inactive">
+            <segment id="name">
+                <source>Grand Inactif</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous êtes un grand inactif, vous ne vous êtes pas connecté depuis 48h, vous pénalisez donc votre équipage qui est en droit de disposer de vous.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="hyperactive">
+            <segment id="name">
+                <source>Hyperactif</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous gagnez un point de mouvement supplémentaire à chaque cycle. Vous ne gagnez aucun PA supplémentaire en vous allongeant.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="immunized">
+            <segment id="name">
+                <source>Immunisée</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>L'immunisée ne peut pas être contaminée par le Mush. Pratique quand on ne sais plus à qui faire confiance.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="inactive">
+            <segment id="name">
+                <source>Inactif</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous ne vous êtes pas connecté depuis 24h. Bonne chance pour la suite...</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="lost">
+            <segment id="name">
+                <source>Perdu</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez raté le dernier départ de ce trou et vous le regrettez.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="lying_down">
+            <segment id="name">
+                <source>Allongé</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous êtes allongé.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="multi_teamster">
+            <segment id="name">
+                <source>Pluri-équipier</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Mes senseurs ont détecté que cet équipier avait plusieurs existences parallèles. Merci de l'inciter à normaliser sa situation.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="mush">
+            <segment id="name">
+                <source>Mush</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous faites partie du Mush.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="outcast">
+            <segment id="name">
+                <source>Paria</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>On vous a jeté l'anathème. Un poids pèse sur vos épaules. On vous montre du doigt, on vous épie, on vous regarde attentivement. Vous êtes le bouc-émissaire. La victime. Vos actions sont plus dures.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="pacifist">
+            <segment id="name">
+                <source>Pacifiste</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Dans votre pièce, toutes les actions agressives coûtent 2 :pa: supplémentaires</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="pregnant">
+            <segment id="name">
+                <source>Enceinte</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous attendez un heureux évènement ! Ceci vous donne un bonus de triomphe et si vous venez à mourir, le moral de l'équipage en sera lourdement affecté.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="spores">
+            <segment id="name">
+                <source>Spore</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Un spore sert à contaminer les autres membres de l'équipage.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="starving">
+            <segment id="name">
+                <source>Affamé</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cela fait longtemps que vous n'avez pas mangé quelque chose. Chaque cycle sans manger vous coûte 1 :hp:.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="stuck_in_the_ship">
+            <segment id="name">
+                <source>Bloqué dans le vaisseau</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous n'avez pas l'équipement nécessaire pour explorer cette planète. Vous êtes resté à l'intérieur de l'appareil...</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="suicidal">
+            <segment id="name">
+                <source>Suicidaire</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>La simple vue d'une cuillère en plastique vous donne des envies... trouvez un moyen de vous ressaisir... et VITE.</source>
+                <target></target>
+            </segment>
+            <segment id="effect">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="misc.ext">
+        <unit id="delayed_disease_info">
+            <segment id="satiety_point">
+                <source>satieté</source>
+                <target></target>
+            </segment>
+            <segment id="action_point">
+                <source>:pa:</source>
+                <target></target>
+            </segment>
+            <segment id="movement_point">
+                <source>:pm:</source>
+                <target></target>
+            </segment>
+            <segment id="health_point">
+                <source>:hp:</source>
+                <target></target>
+            </segment>
+            <segment id="moral_point">
+                <source>:pmo:</source>
+                <target></target>
+            </segment>
+            <segment id="ration_data">
+                <source>Données sur les effets: </source>
+                <target></target>
+            </segment>
+            <segment id="delayed_disease_info">
+                <source>{ quantity } % de chances de provoquer la maladie { diseaseName } dans un délai de {start} à {end} cycles</source>
+                <target></target>
+            </segment>
+            <segment id="disease_info">
+                <source>{ quantity } %  de chances de provoquer la maladie {diseaseName}</source>
+                <target></target>
+            </segment>
+            <segment id="delayed_cure_info">
+                <source>Guérie la maladie {diseaseName} dans un délai de {start} à {end} cycles</source>
+                <target></target>
+            </segment>
+            <segment id="cure_info">
+                <source>Guérie la maladie {diseaseName}</source>
+                <target></target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

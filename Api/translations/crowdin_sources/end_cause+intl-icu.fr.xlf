@@ -1,0 +1,563 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="end_cause.ext">
+        <unit id="sol_return">
+            <segment id="name">
+                <source>Daedalus rentré sur Sol</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Le Daedalus est rentré sur Sol !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes rentré sur Sol… mais la suite est une autre histoire !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez décidez d'essayer de rentrer sur Sol. La folle course du Daedalus s'arrête ici. Mais votre destin est-il maintenant une légende ?</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="eden">
+            <segment id="name">
+                <source>Daedalus s'est installé sur Eden</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Le Daedalus s'est rentré sur Eden !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Après toutes ces errances, vous avez mis le cap vers EDEN… mais la suite est une autre histoire !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>L'espoir renaît des scories de l'Humanité. Sur une nouvelle planète, un nouveau départ et la suite des aventures de nos héros. Mais c'est une autre histoire.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="daedalus_destroyed">
+            <segment id="name">
+                <source>Daedalus détruit</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Votre cadavre flotte parmi les débris du Daedalus pulvérisé !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Le Daedalus a été détruit et vous avec.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="killed_by_neron">
+            <segment id="name">
+                <source>Assassinés par NERON</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>En route vers le vide infini !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>L'équipage a été totalement converti par le Mush. Le protocol A-TRUE étant ainsi caduque, NERON a décidé de se débarrasser de vous. Bon voyage vers l'infini !</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="super_nova">
+            <segment id="name">
+                <source>Super Nova</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Mort à cause d'un Administrateur Taquin</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="alien_obducted">
+            <segment id="name">
+                <source>Enlevé par des races supérieures</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Vous avez été enlevé.</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Fin de l'aventure !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous allez contribuer aux progrès de la science d'une autre civililisation. Bravo !</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="assassinated">
+            <segment id="name">
+                <source>Assassiné</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Assassiné par un équipier !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Apparemment vous aviez des ennemis à bord et pas des tendres…</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="depression">
+            <segment id="name">
+                <source>Dépression fatale</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Vous avez mis fin à vos jours...</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous n'aviez plus la force morale de continuer et avez embrassé avec fougue votre mort pour votre propre salut.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="asphyxia">
+            <segment id="name">
+                <source>Plus d'oxygène</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Mort sur le Daedalus par manque d'oxygène !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Il n'y a plus d'oxygène. Vous étouffez par manque d'oxygène. C'est long et douleureux et puis c'est frustrant aussi.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="abandoned">
+            <segment id="name">
+                <source>Abandonné</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Abandonné à votre pauvre sort par le Daedalus !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Le Daedalus est parti sans vous, mais que leur avez vous donc fait ?</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="alergy">
+            <segment id="name">
+                <source>Allergie</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Calin avec un allergène</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="self_extracted">
+            <segment id="name">
+                <source>Auto-Extrait</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Vos tripes avaient besoin de prendre l'air !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez un tantinet abusé de l'auto-extracteur et vous en êtes mort…</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="exploration">
+            <segment id="name">
+                <source>Aventurier malchanceux</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Tué par un accident dans un monde alien !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Parfois l'histoire est sordide, parfois elle est cruelle, parfois elle est triste. Et parfois glorieuse. Le récit de vos aventures fera peut être date ou pas… Quoiqu'il en soit vous avez trépassé, c'est officiel !</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="exploration_combat">
+            <segment id="name">
+                <source>Aventurier pas assez combatif</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Pulvérisé par un alien mal réveillé !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Il était vraiment trop gros pour vous celui-là !</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="exploration_lost">
+            <segment id="name">
+                <source>Aventurier perdu</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Vos co-équipiers avaient la flemme de venir vous chercher !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>On ne va pas se mentir. Vous êtes perdu. Et malheureusement, vos coéquipier ne dispose d'aucun moyen pour vous retrouver. Donc en fait vous êtes mort, oublié de tous.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="electrocuted">
+            <segment id="name">
+                <source>Electrocuté</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Electrocuté par ce vieux tas de féraille !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Une des salles du Daedalus a été ravagée par une gigantesque décharge et vous en êtes mort.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="injury">
+            <segment id="name">
+                <source>Blessures...</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Blessé à mort !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous succombez à vos blessures. Une vraie délivrance…</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="burnt">
+            <segment id="name">
+                <source>Brûlé</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Calciné par un incendie inopportun !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous êtes mort calciné, brûlé. Les incendies sont monnaies courante sur le Daedalus même si NERON fait de son mieux pour les contenir.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="clumsiness">
+            <segment id="name">
+                <source>Circonstances funestes</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Tellement mal en point qu'un rien vous a achevé</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Quoi que vous ayez fait, vous l'avez mal fait. Très mal. Tellement mal que vous vous êtes fait mal. Et pas qu'un peu. Dommage.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="space_battle">
+            <segment id="name">
+                <source>Combat spatial</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Mort présent dans un appareil annihilé.</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous êtes tombé au champs d'honneur, il s'en est fallu de peu mais ce dernier Hunter était vraiment trop habile.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="space_asphyxied">
+            <segment id="name">
+                <source>Dans l'espace sans pouvoir respirer</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Mort abandonné dans l'espace inter sidéral !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Par on ne sait quel hasard, vous vous êtes retrouvé dans l'espace sans moyen de respirer. La prochaine fois, sortez couvert. C'est ballot.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="beheaded">
+            <segment id="name">
+                <source>Décapité</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Décapité par un facheux !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Contrairement au cavalier sans tête, vous ne reviendrez pas d'entre les morts. Votre assassin ne vous a pas raté.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="starvation">
+            <segment id="name">
+                <source>Famine</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Mort de faim !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Il n'y a vraiment plus rien à manger… ou peut-être avez-vous oublié ce besoin élémentaire.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="quarantine">
+            <segment id="name">
+                <source>Mis en quarantaine par NERON</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Mis en quarantaine par NERON</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez commis un délit majeur dans le jeu et NERON a dû vous mettre en quarantaine, ne recommencez pas.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="black_bite">
+            <segment id="name">
+                <source>Morsure Noire</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Succombé à une maladie extra-terrestre !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous succombez foudroyé par la Morsure Noire.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="metal_plate">
+            <segment id="name">
+                <source>Plaque de métal</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Victime de cette vieille bicoque !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Le Daedalus est une poubelle volante…Vous saviez que vous n'auriez pas dû trainer sous cette plaque branlante…</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="rocketed">
+            <segment id="name">
+                <source>Roquetté</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Eparpillé par un missile inquisiteur !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Non vous n'êtes pas mort étouffé par de la salade. Vous avez été heurté par un projectile à haut rapport énergie/ vélocité. Rempli d'explosif qui plus est. Et plein de technologie. En clair, vos restes sont éparpillés un peu partout.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="bled">
+            <segment id="name">
+                <source>Saigné</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Vidé de votre sang !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez perdu tout votre sang. Exténué de fatigue, vous vous éteignez…</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="infection">
+            <segment id="name">
+                <source>Septicémie</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Succombé à une infection massive !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Votre état a beaucoup empiré… voire trop. C'est ainsi que vous mourrez d'un choc septique grave.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="mankarog">
+            <segment id="name">
+                <source>Aventurier malchanceux</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Tué par un accident dans un monde alien !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="no_infirmerie">
+            <segment id="name">
+                <source>Aucune infirmerie disponible</source>
+                <target></target>
+            </segment>
+            <segment id="short_name">
+                <source>Mort perdu dans l'espace infini !</source>
+                <target></target>
+            </segment>
+            <segment id="category">
+                <source>Vous êtes mort !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

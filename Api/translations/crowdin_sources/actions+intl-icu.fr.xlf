@@ -1,0 +1,536 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="actions.ext">
+        <unit id="build">
+            <segment id="build">
+                <source>Assembler</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Assemble un objet à partir d'autres objets.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="coffee">
+            <segment id="coffee">
+                <source>Café !</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Un bon café et ça repart !</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="dispense">
+            <segment id="dispense">
+                <source>Distiller</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Permet de distiller une nouvelle petite gourmandise.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="do_the_thing">
+            <segment id="name">
+                <source>Le faire</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Permet de le faire.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="check_spore_level">
+            <segment id="check_spore_level">
+                <source>Vérifier</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Permet de vérifier son propre niveau d'infection par des spores de Mush.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="consume">
+            <segment id="consume">
+                <source>Consommer</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les *rations cuisinées* n'entamerons pas votre moral. Les autres nouritures peuvent réserver des surprises.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="consume_drug">
+            <segment id="consume_drug">
+                <source>Consommer</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les *rations cuisinées* n'entameront pas votre moral. Les autres nouritures peuvent réserver des surprises.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="cook">
+            <segment id="cook">
+                <source>Cuisiner</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Assaisonner la chose pour en faire quelque chose qui ne provoque pas un renvoi instantané.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="disassemble">
+            <segment id="disassemble">
+                <source>Démonter</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Permet de désassembler un objet pour récupérer tout ou partie des composants.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="drop">
+            <segment id="name">
+                <source>Lâcher</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Pose un objet dans la pièce ou vous vous trouvez</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="express_cook">
+            <segment id="express_cook">
+                <source>Cuisine Express</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Dégrader suffisament la nouriture tout en la réchauffant pour rendre cela mangeable.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="extract_spore">
+            <segment id="extract_spore">
+                <source>Extirper un spore</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Extirpez-vous un spore pour ensuite contaminer un coéquipier (avant de contaminer repérez les caméras).</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="flirt">
+            <segment id="name">
+                <source>Fleureter</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Permet de fleureter avec quelqu'un, cela lui permettra de le faire avec vous. Cette action est **irrémédiable**.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="get_up">
+            <segment id="get_up">
+                <source>Se lever</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Quitter ce petit nid douillet pour affronter le monde cruel.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="hide">
+            <segment id="hide">
+                <source>Cacher</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cache un objet du regard de vos équipier dans la salle.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="hit">
+            <segment id="hit">
+                <source>Attaquer</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="hyperfreeze">
+            <segment id="hyperfreeze">
+                <source>Hypergeler</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Transforme une denrée perissable en une non-perissable.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="infect">
+            <segment id="infect">
+                <source>Poinçonner</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Poinçonner une personne avec un spore permets de l'Infecter. Pour cela, vous devez avoir des spores sur vous. Au bout de trois infections, le personnage aura achevé son voyage vers le Mush.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="lie_down">
+            <segment id="lie_down">
+                <source>S'allonger</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Pour vous détendre ou parler, rien de tel que de s'allonger un peu. S'allonger permet à chaque cycle passé de gagner 1 :pa: et 1 :pmo: si un psy est présent.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="move">
+            <segment id="name">
+                <source>Se déplacer</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Changez de pièce</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="read_book">
+            <segment id="read_book">
+                <source>Consulter</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>La curiosité est certes un vilain défault mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="read_document">
+            <segment id="read_document">
+                <source>Consulter</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>La curiosité est certes un vilain défault mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="repair">
+            <segment id="repair">
+                <source>Réparer</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Un objet non équipement endommagé est remis en état.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="search">
+            <segment id="search">
+                <source>Fouiller</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Permet de retrouver un objet caché à l'endroit où vous vous trouvez.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="rejuvenate_alpha">
+            <segment id="rejuvenate_alpha">
+                <source>Restaurer</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Permet de retrouver tout ses :pa:, :pm:, :hp: et :pmo:. Uniquement valable pendant l'alpha. Merci de nous aider !</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="shred">
+            <segment id="shred">
+                <source>Déchirer</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Ces maudits papiers pullulent partout. Sus à l'envahisseur !</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="take">
+            <segment id="name">
+                <source>Prendre</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Prends un objet dans la pièce courante et le place dans votre inventaire</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="transplant">
+            <segment id="name">
+                <source>Semer</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Sacrifie un fruit pour créer un nouveau plant.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="treat_plant">
+            <segment id="name">
+                <source>Traiter</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Permet de soigner les maladies des plantes.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="water_plant">
+            <segment id="name">
+                <source>Arroser</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Permet d'étancher la soif de vos plantations.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="write">
+            <segment id="name">
+                <source>Écrire</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous pouvez écrire un message que peut-être quelqu'un lira...</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="insert_oxygen">
+            <segment id="name">
+                <source>Insérer</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Injecte l'Oxygène dans un Réservoir.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="retrieve_oxygen">
+            <segment id="name">
+                <source>Récupérer Capsule d'Oxygène</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Fantastique, le système d'Oxy Rev vous permet d'enlever de l'Oxygène des Réservoirs. Attention à bien fermer la vanne et à vous laver les mains.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="insert_fuel">
+            <segment id="name">
+                <source>Insérer</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Injecte le Fuel dans un Réservoir.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="retrieve_fuel">
+            <segment id="name">
+                <source>Récupérer capsule de fuel</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Permet de récupérer une Capsule du moteur.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="sabotage">
+            <segment id="name">
+                <source>Saboter</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Casse l'équipement ciblé.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="shower">
+            <segment id="name">
+                <source>Se Laver</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent. Une solution. La douche.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="extinguish">
+            <segment id="name">
+                <source>Éteindre</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Avec un peu d'adresse vous arriverez à vous débarasser du feu. Faites attention à ne pas vous brûler.</source>
+                <target></target>
+            </segment>
+        </unit>
+
+        <unit id="heal">
+            <segment id="name">
+                <source>Soigner</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Rend des Points de Vie (:pv:) à la cible. Si celle ci est malade, enlève un point de maladie à l'une de ses maladies.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="self_heal">
+            <segment id="name">
+                <source>Se soigner</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous rend des Points de Vie (:pv:). Si vous êtes malade, enlève un point de maladie à l'une de vos maladies.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="ultraheal">
+            <segment id="name">
+                <source>Appliquer</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Permet de guérir de se toutes ses blessures.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="use_bandage">
+            <segment id="name">
+                <source>Se soigner</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Permet de soigner vos petits bobos.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="comfort">
+            <segment id="name">
+                <source>Réconforter</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous savez écouter votre prochain, ce qui lui remonte le moral.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="open">
+            <segment id="name">
+                <source>Ouvrir</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>L'ouverture de capsule spatiale est un art délicat et plein de surprise. Pire, dans certains systèmes, l'ouverture délicate de ces précieux oeufs est considéré comme une drogue dure et peu vous faire rejeter au ban de la société.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="strengthen_hull">
+            <segment id="name">
+                <source>Renforcer</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Permet de faire des réparation sur la coque du Daedalus.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="spread_fire">
+            <segment id="name">
+                <source>Mettre le feu</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Permet de satisfaire un des besoins de NERON... et vos intérêts.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="install_camera">
+            <segment id="name">
+                <source>Installer</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cette action permet d'installer un matériel pour le rendre fonctionnel.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="remove_camera">
+            <segment id="name">
+                <source>Enlever</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Cette action permet d'enlever un matériel pour le rendre inopérant ou le déplacer.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="examine">
+            <segment id="name">
+                <source>Examiner</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Qu'est ce donc que cette petite chose ?</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="remove_spore">
+            <segment id="name">
+                <source>Extraire spore</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Permet d'ôter des vilains pustules suspectés de vous contaminer.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="report_equipment">
+            <segment id="name">
+                <source>Signaler</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Permet de faire remonter l'information et ainsi vous faire remarquer au passage.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="report_fire">
+            <segment id="name">
+                <source>Signaler : Incendie</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Oui, faire part à vos colègues de cet incendie est une bonne idée.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="try_kube">
+            <segment id="name">
+                <source>Tenter le kube</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Tenter le Kube qui rend fou. Bien peu arrivent à le résoudre en moins de 26 mouvements.</source>
+                <target></target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

@@ -2,5 +2,5 @@ base_path: /
 preserve_hierarchy: true
 base_url: 'https://api.crowdin.com'
 files:
-  - source: /Api/translations/crowdin_sources/*+intl-icu.fr.xlf
+  - source: /Api/translations/fr/*+intl-icu.fr.xlf
     translation: /Api/translations/%language%/%original_file_name%

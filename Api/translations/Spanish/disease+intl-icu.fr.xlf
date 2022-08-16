@@ -1,364 +1,364 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="es">
   <file id="disease.ext">
     <unit id="acid_reflux">
       <segment id="name" state="initial">
-        <source>Reflux Gastriques</source>
-        <target>Reflux Gastriques</target>
+        <source>acid_reflux.name</source>
+        <target>acid_reflux.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vous rendez votre nourriture, c'est irritant et pénible...</source>
-        <target>Vous rendez votre nourriture, c'est irritant et pénible...</target>
+        <source>acid_reflux.description</source>
+        <target>acid_reflux.description</target>
       </segment>
     </unit>
     <unit id="food_poisoning">
       <segment id="name" state="initial">
-        <source>Intoxication Alimentaire</source>
-        <target>Intoxication Alimentaire</target>
+        <source>food_poisoning.name</source>
+        <target>food_poisoning.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vous êtes très atteint, vous vomissez, y en a partout. quelle idée de manger ça aussi. Ah bravo...</source>
-        <target>Vous êtes très atteint, vous vomissez, y en a partout. quelle idée de manger ça aussi. Ah bravo...</target>
+        <source>food_poisoning.description</source>
+        <target>food_poisoning.description</target>
       </segment>
     </unit>
     <unit id="gastroenteritis">
       <segment id="name" state="initial">
-        <source>GastroEntérite</source>
-        <target>GastroEntérite</target>
+        <source>gastroenteritis.name</source>
+        <target>gastroenteritis.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Y a-t-il vraiment besoin de faire un dessin, de parler de l'odeur ou des spasmes de l'estomac ?</source>
-        <target>Y a-t-il vraiment besoin de faire un dessin, de parler de l'odeur ou des spasmes de l'estomac ?</target>
+        <source>gastroenteritis.description</source>
+        <target>gastroenteritis.description</target>
       </segment>
     </unit>
     <unit id="tapeworm">
       <segment id="name" state="initial">
-        <source>Vers Solitaire</source>
-        <target>Vers Solitaire</target>
+        <source>tapeworm.name</source>
+        <target>tapeworm.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vous avez faim, très faim, tout le temps faim... À manger bon sang !</source>
-        <target>Vous avez faim, très faim, tout le temps faim... À manger bon sang !</target>
+        <source>tapeworm.description</source>
+        <target>tapeworm.description</target>
       </segment>
     </unit>
     <unit id="black_bite">
       <segment id="name" state="initial">
-        <source>Morsure Noire</source>
-        <target>Morsure Noire</target>
+        <source>black_bite.name</source>
+        <target>black_bite.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Relativement bénin mais persistant, la Morsure Noire est un syndrome récent que personne ne connaît.</source>
-        <target>Relativement bénin mais persistant, la Morsure Noire est un syndrome récent que personne ne connaît.</target>
+        <source>black_bite.description</source>
+        <target>black_bite.description</target>
       </segment>
     </unit>
     <unit id="cat_allergy">
       <segment id="name" state="initial">
-        <source>Allergie au chat</source>
-        <target>Allergie au chat</target>
+        <source>cat_allergy.name</source>
+        <target>cat_allergy.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>La simple vue d'un chat provoque des éternuements insupportables et des pustules. Son contact pourrait s'avérer mortel...</source>
-        <target>La simple vue d'un chat provoque des éternuements insupportables et des pustules. Son contact pourrait s'avérer mortel...</target>
+        <source>cat_allergy.description</source>
+        <target>cat_allergy.description</target>
       </segment>
     </unit>
     <unit id="cold">
       <segment id="name" state="initial">
-        <source>Rhume</source>
-        <target>Rhume</target>
+        <source>cold.name</source>
+        <target>cold.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Ne sortez jamais sans vos mouchoirs !</source>
-        <target>Ne sortez jamais sans vos mouchoirs !</target>
+        <source>cold.description</source>
+        <target>cold.description</target>
       </segment>
     </unit>
     <unit id="extreme_tinnitus">
       <segment id="name" state="initial">
-        <source>Acouphènes Extrême</source>
-        <target>Acouphènes Extrême</target>
+        <source>extreme_tinnitus.name</source>
+        <target>extreme_tinnitus.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vos oreilles sifflent fort en permanence, ce qui peut devenir très fatiguant à la longue.</source>
-        <target>Vos oreilles sifflent fort en permanence, ce qui peut devenir très fatiguant à la longue.</target>
+        <source>extreme_tinnitus.description</source>
+        <target>extreme_tinnitus.description</target>
       </segment>
     </unit>
     <unit id="flu">
       <segment id="name" state="initial">
-        <source>Grippe</source>
-        <target>Grippe</target>
+        <source>flu.name</source>
+        <target>flu.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Variante sévère de la grippe du poney... Irritable, autoritaire, mal de crâne, rhume, courbatures, rien ne vous est épargné. Attention à ne pas trop laisser traîner, on ne sait jamais.</source>
-        <target>Variante sévère de la grippe du poney... Irritable, autoritaire, mal de crâne, rhume, courbatures, rien ne vous est épargné. Attention à ne pas trop laisser traîner, on ne sait jamais.</target>
+        <source>flu.description</source>
+        <target>flu.description</target>
       </segment>
     </unit>
     <unit id="fungic_infection">
       <segment id="name" state="initial">
-        <source>Infection fongique</source>
-        <target>Infection fongique</target>
+        <source>fungic_infection.name</source>
+        <target>fungic_infection.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Qu'est ce que c'est que ce truc horrible... Vous devriez faire soigner ça rapidement... Ça gratte, ça purule, ça pue...</source>
-        <target>Qu'est ce que c'est que ce truc horrible... Vous devriez faire soigner ça rapidement... Ça gratte, ça purule, ça pue...</target>
+        <source>fungic_infection.description</source>
+        <target>fungic_infection.description</target>
       </segment>
     </unit>
     <unit id="junkbumpkinitis">
       <segment id="name" state="initial">
-        <source>Citrouillite</source>
-        <target>Citrouillite</target>
+        <source>junkbumpkinitis.name</source>
+        <target>junkbumpkinitis.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>C'est pas que c'était pas frais...</source>
-        <target>C'est pas que c'était pas frais...</target>
+        <source>junkbumpkinitis.description</source>
+        <target>junkbumpkinitis.description</target>
       </segment>
     </unit>
     <unit id="migraine">
       <segment id="name" state="initial">
-        <source>Migraine</source>
-        <target>Migraine</target>
+        <source>migraine.name</source>
+        <target>migraine.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Une grosse migraine bien carabinée harcèle le patient en ce moment, ça va passer...</source>
-        <target>Une grosse migraine bien carabinée harcèle le patient en ce moment, ça va passer...</target>
+        <source>migraine.description</source>
+        <target>migraine.description</target>
       </segment>
     </unit>
     <unit id="mush_allergy">
       <segment id="name" state="initial">
-        <source>Allergie au mush</source>
-        <target>Allergie au mush</target>
+        <source>mush_allergy.name</source>
+        <target>mush_allergy.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Le contact au Mush vous donne des pustules horribles et douloureuses.</source>
-        <target>Le contact au Mush vous donne des pustules horribles et douloureuses.</target>
+        <source>mush_allergy.description</source>
+        <target>mush_allergy.description</target>
       </segment>
     </unit>
     <unit id="quincks_oedema">
       <segment id="name" state="initial">
-        <source>Oedeme de Quincke</source>
-        <target>Oedeme de Quincke</target>
+        <source>quincks_oedema.name</source>
+        <target>quincks_oedema.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>TODO</source>
-        <target>TODO</target>
+        <source>quincks_oedema.description</source>
+        <target>quincks_oedema.description</target>
       </segment>
     </unit>
     <unit id="rejuvenation">
       <segment id="name" state="initial">
-        <source>Verdoiement</source>
-        <target>Verdoiement</target>
+        <source>rejuvenation.name</source>
+        <target>rejuvenation.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Votre corps émet des lueurs pulsatiles vertes.ça ne favorise pas vraiment un sommeil reposant...</source>
-        <target>Votre corps émet des lueurs pulsatiles vertes.ça ne favorise pas vraiment un sommeil reposant...</target>
+        <source>rejuvenation.description</source>
+        <target>rejuvenation.description</target>
       </segment>
     </unit>
     <unit id="rubella">
       <segment id="name" state="initial">
-        <source>Rubéole</source>
-        <target>Rubéole</target>
+        <source>rubella.name</source>
+        <target>rubella.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Mal au crâne, puis pustules sèches, très très fatiguant. Vous devriez vous en remettre.</source>
-        <target>Mal au crâne, puis pustules sèches, très très fatiguant. Vous devriez vous en remettre.</target>
+        <source>rubella.description</source>
+        <target>rubella.description</target>
       </segment>
     </unit>
     <unit id="sepsis">
       <segment id="name" state="initial">
-        <source>Infection aïgue</source>
-        <target>Infection aïgue</target>
+        <source>sepsis.name</source>
+        <target>sepsis.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vous êtes très infecté. Pas facile de se remettre sur pied. Vous ne survivrez sans doute pas...</source>
-        <target>Vous êtes très infecté. Pas facile de se remettre sur pied. Vous ne survivrez sans doute pas...</target>
+        <source>sepsis.description</source>
+        <target>sepsis.description</target>
       </segment>
     </unit>
     <unit id="sinus_storm">
       <segment id="name" state="initial">
-        <source>Tempête sinusale</source>
-        <target>Tempête sinusale</target>
+        <source>sinus_storm.name</source>
+        <target>sinus_storm.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vos sinus sont en feu, de glace, puis lui déchirent la tête... C'est lourd et ça ne passe pas...</source>
-        <target>Vos sinus sont en feu, de glace, puis lui déchirent la tête... C'est lourd et ça ne passe pas...</target>
+        <source>sinus_storm.description</source>
+        <target>sinus_storm.description</target>
       </segment>
     </unit>
     <unit id="skin_inflammation">
       <segment id="name" state="initial">
-        <source>Éruption cutanée</source>
-        <target>Éruption cutanée</target>
+        <source>skin_inflammation.name</source>
+        <target>skin_inflammation.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Quelqu'en soit la source, vous n'en avez cure, ça démange là et c'est très pénible</source>
-        <target>Quelqu'en soit la source, vous n'en avez cure, ça démange là et c'est très pénible</target>
+        <source>skin_inflammation.description</source>
+        <target>skin_inflammation.description</target>
       </segment>
     </unit>
     <unit id="slight_nausea">
       <segment id="name" state="initial">
-        <source>Nausée légère</source>
-        <target>Nausée légère</target>
+        <source>slight_nausea.name</source>
+        <target>slight_nausea.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vous vous sentez un peu barbouillé... Ça va passer mais vous n'avez plus faim et vous ne devriez pas vous approchez de bluuuuuurrrpppp...</source>
-        <target>Vous vous sentez un peu barbouillé... Ça va passer mais vous n'avez plus faim et vous ne devriez pas vous approchez de bluuuuuurrrpppp...</target>
+        <source>slight_nausea.description</source>
+        <target>slight_nausea.description</target>
       </segment>
     </unit>
     <unit id="smallpox">
       <segment id="name" state="initial">
-        <source>Variole</source>
-        <target>Variole</target>
+        <source>smallpox.name</source>
+        <target>smallpox.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Maladie disparue de Sol mais apparemment bien présente ailleurs. Son aspect appétissant devrait vous convaincre de vous soigner...</source>
-        <target>Maladie disparue de Sol mais apparemment bien présente ailleurs. Son aspect appétissant devrait vous convaincre de vous soigner...</target>
+        <source>smallpox.description</source>
+        <target>smallpox.description</target>
       </segment>
     </unit>
     <unit id="space_rabies">
       <segment id="name" state="initial">
-        <source>Rage spatiale</source>
-        <target>Rage spatiale</target>
+        <source>space_rabies.name</source>
+        <target>space_rabies.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vous avez la rage. Vous pouvez devenir violent et cela va sans doute finir par vous tuer.</source>
-        <target>Vous avez la rage. Vous pouvez devenir violent et cela va sans doute finir par vous tuer.</target>
+        <source>space_rabies.description</source>
+        <target>space_rabies.description</target>
       </segment>
     </unit>
     <unit id="syphilis">
       <segment id="name" state="initial">
-        <source>Syphilis</source>
-        <target>Syphilis</target>
+        <source>syphilis.name</source>
+        <target>syphilis.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Maladie vénérienne par excellence, votre aspect effroyable et les rumeurs qui vous entoureront vous lasserons vite. Quel Dom Juan quand même...</source>
-        <target>Maladie vénérienne par excellence, votre aspect effroyable et les rumeurs qui vous entoureront vous lasserons vite. Quel Dom Juan quand même...</target>
+        <source>syphilis.description</source>
+        <target>syphilis.description</target>
       </segment>
     </unit>
     <unit id="vitamin_deficiency">
       <segment id="name" state="initial">
-        <source>Carence en vitamines</source>
-        <target>Carence en vitamines</target>
+        <source>vitamin_deficiency.name</source>
+        <target>vitamin_deficiency.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Des carences en vitamines, minéraux, oligo-éléments et autres, vous n'avez pas trop la pêche...</source>
-        <target>Des carences en vitamines, minéraux, oligo-éléments et autres, vous n'avez pas trop la pêche...</target>
+        <source>vitamin_deficiency.description</source>
+        <target>vitamin_deficiency.description</target>
       </segment>
     </unit>
     <unit id="agoraphobia">
       <segment id="name" state="initial">
-        <source>Agoraphobie</source>
-        <target>Agoraphobie</target>
+        <source>agoraphobia.name</source>
+        <target>agoraphobia.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vous êtes effrayé par la foule et les grands espaces, vous avez, en plus, des vertiges incontrôlables... Dans l'espace, ça va pas le faire.</source>
-        <target>Vous êtes effrayé par la foule et les grands espaces, vous avez, en plus, des vertiges incontrôlables... Dans l'espace, ça va pas le faire.</target>
+        <source>agoraphobia.description</source>
+        <target>agoraphobia.description</target>
       </segment>
     </unit>
     <unit id="ailurophobia">
       <segment id="name" state="initial">
-        <source>Ailurophobie</source>
-        <target>Ailurophobie</target>
+        <source>ailurophobia.name</source>
+        <target>ailurophobia.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vous avez une terrible phobie des chats. Leur simple vue vous met hors d'état d'agir.</source>
-        <target>Vous avez une terrible phobie des chats. Leur simple vue vous met hors d'état d'agir.</target>
+        <source>ailurophobia.description</source>
+        <target>ailurophobia.description</target>
       </segment>
     </unit>
     <unit id="chronic_migraine">
       <segment id="name" state="initial">
-        <source>Migraine chronique</source>
-        <target>Migraine chronique</target>
+        <source>chronic_migraine.name</source>
+        <target>chronic_migraine.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Une grosse migraine bien carabinée vous prend de temps à autres... et puis quand elle vous prend c'est le grand déménagement... pas de chance.</source>
-        <target>Une grosse migraine bien carabinée vous prend de temps à autres... et puis quand elle vous prend c'est le grand déménagement... pas de chance.</target>
+        <source>chronic_migraine.description</source>
+        <target>chronic_migraine.description</target>
       </segment>
     </unit>
     <unit id="chronic_vertigo">
       <segment id="name" state="initial">
-        <source>Vertige chronique</source>
-        <target>Vertige chronique</target>
+        <source>chronic_vertigo.name</source>
+        <target>chronic_vertigo.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vous avez des vertiges chroniques ce qui vous incapacite grandement.</source>
-        <target>Vous avez des vertiges chroniques ce qui vous incapacite grandement.</target>
+        <source>chronic_vertigo.description</source>
+        <target>chronic_vertigo.description</target>
       </segment>
     </unit>
     <unit id="coprolalia">
       <segment id="name" state="initial">
-        <source>Coprolalie</source>
-        <target>Coprolalie</target>
+        <source>coprolalia.name</source>
+        <target>coprolalia.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vous lancez des chapelets d'insultes de façon impromptu. Au début ça choque un peu.</source>
-        <target>Vous lancez des chapelets d'insultes de façon impromptu. Au début ça choque un peu.</target>
+        <source>coprolalia.description</source>
+        <target>coprolalia.description</target>
       </segment>
     </unit>
     <unit id="crabism">
       <segment id="name" state="initial">
-        <source>Crabisme</source>
-        <target>Crabisme</target>
+        <source>crabism.name</source>
+        <target>crabism.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>De temps à autre, vous vous mettez à marcher de côté ou à vous jetez par terre pour ensuite rentrer dans une courte période régressive.</source>
-        <target>De temps à autre, vous vous mettez à marcher de côté ou à vous jetez par terre pour ensuite rentrer dans une courte période régressive.</target>
+        <source>crabism.description</source>
+        <target>crabism.description</target>
       </segment>
     </unit>
     <unit id="depression">
       <segment id="name" state="initial">
-        <source>Dépression</source>
-        <target>Dépression</target>
+        <source>depression.name</source>
+        <target>depression.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vous souffrez tout le temps. La vie est devenue longue trop longue et chaque nouvelle épreuve vous fait perdre le goût des choses.</source>
-        <target>Vous souffrez tout le temps. La vie est devenue longue trop longue et chaque nouvelle épreuve vous fait perdre le goût des choses.</target>
+        <source>depression.description</source>
+        <target>depression.description</target>
       </segment>
     </unit>
     <unit id="paranoia">
       <segment id="name" state="initial">
-        <source>Crise Paranoïaque</source>
-        <target>Crise Paranoïaque</target>
+        <source>paranoia.name</source>
+        <target>paranoia.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vous avez peur pour votre vie et éventuellement le faites savoir.</source>
-        <target>Vous avez peur pour votre vie et éventuellement le faites savoir.</target>
+        <source>paranoia.description</source>
+        <target>paranoia.description</target>
       </segment>
     </unit>
     <unit id="psychotic_episodes">
       <segment id="name" state="initial">
-        <source>Episodes Psychotiques</source>
-        <target>Episodes Psychotiques</target>
+        <source>psychotic_episodes.name</source>
+        <target>psychotic_episodes.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vous ne vous maitrisez plus et rentrez souvent dans des colères noires. Il est fortement avisé de s'éloigner de toute forme d'armement.</source>
-        <target>Vous ne vous maitrisez plus et rentrez souvent dans des colères noires. Il est fortement avisé de s'éloigner de toute forme d'armement.</target>
+        <source>psychotic_episodes.description</source>
+        <target>psychotic_episodes.description</target>
       </segment>
     </unit>
     <unit id="spleen">
       <segment id="name" state="initial">
-        <source>Spleen</source>
-        <target>Spleen</target>
+        <source>spleen.name</source>
+        <target>spleen.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vous êtes atteint d'une forme très aiguë de dépression qui vous entraîne dans la mort très vite.</source>
-        <target>Vous êtes atteint d'une forme très aiguë de dépression qui vous entraîne dans la mort très vite.</target>
+        <source>spleen.description</source>
+        <target>spleen.description</target>
       </segment>
     </unit>
     <unit id="vertigo">
       <segment id="name" state="initial">
-        <source>Vertige</source>
-        <target>Vertige</target>
+        <source>vertigo.name</source>
+        <target>vertigo.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vous avez des vertiges chroniques ce qui vous incapacite grandement.</source>
-        <target>Vous avez des vertiges chroniques ce qui vous incapacite grandement.</target>
+        <source>vertigo.description</source>
+        <target>vertigo.description</target>
       </segment>
     </unit>
     <unit id="weapon_phobia">
       <segment id="name" state="initial">
-        <source>Phobie des armes</source>
-        <target>Phobie des armes</target>
+        <source>weapon_phobia.name</source>
+        <target>weapon_phobia.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>Vous ne pouvez plus tirer avec une arme, et leur simple vue vous incommode...</source>
-        <target>Vous ne pouvez plus tirer avec une arme, et leur simple vue vous incommode...</target>
+        <source>weapon_phobia.description</source>
+        <target>weapon_phobia.description</target>
       </segment>
     </unit>
   </file>

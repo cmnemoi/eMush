@@ -1,0 +1,703 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="en">
+  <file id="actions_log.ext">
+    <unit id="check_spore_level">
+      <segment id="check_spore_level" state="initial">
+        <source>check_spore_level</source>
+        <target>Vous entamez une détection des traces Mush... Niveau pré-fongique {quantity, select, 0 {nul} other {{quantity}}}</target>
+      </segment>
+    </unit>
+    <unit id="coffee_success">
+      <segment id="coffee_success" state="initial">
+        <source>coffee_success</source>
+        <target>{character} amorce la machine. Et dans un grand fracas, la mécanique se lance, les rouages crissent et les arômes embaument la pièce. Ça sent les matins chaleureux sur une terrasse de Vénus. Café !</target>
+      </segment>
+    </unit>
+    <unit id="dispense_success">
+      <segment id="dispense_success" state="initial">
+        <source>dispense_success</source>
+        <target>{character} enclenche le dispensaire avec une étrange lueur dans les yeux.</target>
+      </segment>
+    </unit>
+    <unit id="consume_success">
+      <segment id="consume_success" state="initial">
+        <source>consume_success</source>
+        <target>{version, select,
+                        1 {{character} a dévoré sa ration.}
+                        2 {{character} s'est bien calé l'estomac.}
+                        3 {{character} s'est bien calé l'estomac, gurps.}
+                        4 {{character} s'est bien calé l'estomac, merci.}
+                        5 {{character} s'est bien calé la panse.}
+                        6 {{character} s'est bien calé la panse, gurps.}
+                        7 {{character} s'est bien calé la panse, merci.}
+                        8 {{character} s'est bien calé le ventre.}
+                        9 {{character} s'est bien calé le ventre, gurps.}
+                        10 {{character} s'est bien calé le ventre, merci.}
+                        11 {{character} s'est bien calé avec sa petite collation.}
+                        12 {{character} s'est bien calé avec sa petite collation, gurps.}
+                        13 {{character} s'est bien calé avec sa petite collation, merci.}
+                        14 {{character} s'est bien calé avec son bon petit repas.}
+                        15 {{character} s'est bien calé avec son bon petit repas, gurps.}
+                        16 {{character} s'est bien calé avec son bon petit repas, merci.}
+                        17 {{character} s'est bien calé avec son gros repas.}
+                        18 {{character} s'est bien calé avec son gros repas, gurps.}
+                        19 {{character} s'est bien calé avec son gros repas, merci.}
+                        20 {{character} s'est bien calé avec son petit repas.}
+                        21 {{character} s'est bien calé avec son petit repas, gurps.}
+                        22 {{character} s'est bien calé avec son petit repas, merci.}
+                        23 {{character} s'est calé avec sa petite collation.}
+                        24 {{character} s'est calé avec sa petite collation, gurps.}
+                        25 {{character} s'est calé avec sa petite collation, merci.}
+                        26 {{character} s'est calé avec son bon petit repas.}
+                        27 {{character} s'est calé avec son bon petit repas, gurps.}
+                        28 {{character} s'est calé avec son bon petit repas, merci.}
+                        29 {{character} s'est calé avec son gros repas.}
+                        30 {{character} s'est calé avec son gros repas, gurps.}
+                        31 {{character} s'est calé avec son gros repas, merci.}
+                        32 {{character} s'est calé avec son petit repas.}
+                        33 {{character} s'est calé avec son petit repas, gurps.}
+                        34 {{character} s'est calé avec son petit repas, merci.}
+                        35 {{character} s'est mangé sa petite collation.}
+                        36 {{character} s'est mangé sa petite collation, gurps.}
+                        37 {{character} s'est mangé sa petite collation, merci.}
+                        38 {{character} s'est mangé son bon petit repas.}
+                        39 {{character} s'est mangé son bon petit repas, gurps.}
+                        40 {{character} s'est mangé son bon petit repas, merci.}
+                        41 {{character} s'est mangé son gros repas.}
+                        42 {{character} s'est mangé son gros repas, gurps.}
+                        43 {{character} s'est mangé son gros repas, merci.}
+                        44 {{character} s'est mangé son petit repas.}
+                        45 {{character} s'est mangé son petit repas, gurps.}
+                        46 {{character} s'est mangé son petit repas, merci.}
+                        other {"invalid version number"}
+                    }
+                </target>
+      </segment>
+    </unit>
+    <unit id="consume_drug">
+      <segment id="consume_drug" state="initial">
+        <source>consume_drug</source>
+        <target>**{character}**  s'envoie un cachet.</target>
+      </segment>
+    </unit>
+    <unit id="consume_mush">
+      <segment id="consume_mush" state="initial">
+        <source>consume_mush</source>
+        <target>Vous mangez cette pitoyable nourriture pour donner le change mais elle ne vous fait rien...</target>
+      </segment>
+    </unit>
+    <unit id="cook_success">
+      <segment id="cook_success" state="initial">
+        <source>cook_success</source>
+        <target>**{character}** s'est cuisiné un petit quelque chose pour plus tard.</target>
+      </segment>
+    </unit>
+    <unit id="disassemble_fail">
+      <segment id="disassemble_fail" state="initial">
+        <source>disassemble_fail</source>
+        <target>Ce machin n'est pas si mal foutu que ça... vous n'arrivez pas à le démonter...</target>
+      </segment>
+    </unit>
+    <unit id="disassemble_success">
+      <segment id="disassemble_success" state="initial">
+        <source>disassemble_success</source>
+        <target>{target_equipment_gender, select,
+                        male {**{character}** a désassemblé un **{target_equipment}**.}
+                        female {**{character}** a désassemblé une **{target_equipment}**.}
+                        other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="do_the_thing_success">
+      <segment id="do_the_thing_success" state="initial">
+        <source>do_the_thing_success</source>
+        <target>**{character}** et **{target_character}** éteignent la lumière et des bruits étranges se produisent...Quelques minutes plus tard, ils rallument. Ils ont un air satisfait.</target>
+      </segment>
+    </unit>
+    <unit id="drop">
+      <segment id="drop" state="initial">
+        <source>drop</source>
+        <target>{target_equipment_gender, select,
+                        male {**{character}** a lâché un **{target_equipment}**.}
+                        female {**{character}** a lâché une **{target_equipment}**.}
+                        other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="express_cook_success">
+      <segment id="express_cook_success" state="initial">
+        <source>express_cook_success</source>
+        <target>**{character}** s'est passé quelque chose au micro-onde.</target>
+      </segment>
+    </unit>
+    <unit id="extract_spore_success">
+      <segment id="extract_spore_success" state="initial">
+        <source>extract_spore_success</source>
+        <target>**{character}** s'extirpe un spore. C'est vraiment répugnant. Et l'odeur...</target>
+      </segment>
+    </unit>
+    <unit id="flirt_success">
+      <segment id="flirt_success" state="initial">
+        <source>flirt_success</source>
+        <target>{character_gender, select,
+                    male {**{character}** semble intéressé par **{target_character}**. Ce regard qu'il lui lance ne trompera personne sur ses intentions.}
+                    female {**{character}** a l'air intéressée par **{target_character}**, ce papillonnement de sourcil est tout à fait révélateur de ses pensées secrètes.}
+                    other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="get_up">
+      <segment id="get_up" state="initial">
+        <source>get_up</source>
+        <target>**{character}**  se lève doucement...</target>
+      </segment>
+    </unit>
+    <unit id="hide_success">
+      <segment id="hide_success" state="initial">
+        <source>hide_success</source>
+        <target>{target_equipment_gender, select,
+                        male {**{character}** a dissimulé un **{target_equipment}**.}
+                        female {**{character}** a dissimulé une **{target_equipment}**.}
+                        other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="hit_success">
+      <segment id="hit_success" state="initial">
+        <source>hit_success</source>
+        <target>{character_gender, select,
+                     other {{target_character_gender, select,
+                        other {@TODO hit log}
+                     }}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="hit_fail">
+      <segment id="hit_fail" state="initial">
+        <source>hit_fail</source>
+        <target>{character_gender, select,
+                     other {{target_character_gender, select,
+                        other {@TODO hit fail log}
+                     }}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="hyperfreeze_success">
+      <segment id="hyperfreeze_success" state="initial">
+        <source>hyperfreeze_success</source>
+        <target>Vous avez hypercongelé et reconditionné de la nourriture.</target>
+      </segment>
+    </unit>
+    <unit id="infect_success">
+      <segment id="infect_success" state="initial">
+        <source>infect_success</source>
+        <target>{character_gender, select,
+                    male {{target_player_gender, select,
+                        male {**{character}** s'est rapproché de **{target_character}** avec un regard de prédateur... et l'a poinçonné discrètement !}
+                        female {**{character}** s'est rapproché de **{target_character}** avec un regard de prédateur... et l'a poinçonnée discrètement !}
+                        other {invalid gender input}
+                    }}
+                    female {{target_player_gender, select,
+                         male {**{character}** s'est rapprochée de **{target_character}** avec un regard de prédateur... et l'a poinçonné discrètement !}
+                         female {**{character}** s'est rapprochée de **{target_character}** avec un regard de prédateur... et l'a poinçonnée discrètement !}
+                         other {invalid gender input}
+                    }}
+                    other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="lie_down">
+      <segment id="lie_down" state="initial">
+        <source>lie_down</source>
+        <target>**{character}** s'allonge... Ça fait du bien de s'arrêter. Allez direction le pays des rêves !</target>
+      </segment>
+    </unit>
+    <unit id="enter_room">
+      <segment id="enter_room" state="initial">
+        <source>enter_room</source>
+        <target>{character_gender, select,
+                    male {**{character}** est entré.}
+                    female {**{character}** est entrée.}
+                    other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="exit_room">
+      <segment id="exit_room" state="initial">
+        <source>exit_room</source>
+        <target>{character_gender, select,
+                    male {**{character}** est sorti.}
+                    female {**{character}** est sortie.}
+                    other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="read_book">
+      <segment id="read_book" state="initial">
+        <source>read_book</source>
+        <target>**{character}** se plonge dans un document avec un air intrigué...</target>
+      </segment>
+    </unit>
+    <unit id="read_document">
+      <segment id="read_document" state="initial">
+        <source>read_document</source>
+        <target>**{character}** se plonge dans un document avec un air intrigué...</target>
+      </segment>
+    </unit>
+    <unit id="repair_fail">
+      <segment id="repair_fail" state="initial">
+        <source>repair_fail</source>
+        <target>{versionPart1, select,
+                    1 {**{target_equipment}** ou pas **{target_equipment}**… Telle est la question...}
+                    2 {{target_equipment_gender, select,
+                        male {{target_equipment_first_letter, select,
+                            vowel {Cet **{target_equipment}** n'est toujours pas réparé.}
+                            other {Ce **{target_equipment}** n'est toujours pas réparé.}
+                        }}
+                        female {Cette **{target_equipment}** n'est toujours pas réparée.}
+                        other {invalid gender input}
+                    }}
+                    3 {{target_equipment_gender, select,
+                        male {Encore un essai pathétique pour réparer ce maudit **{target_equipment}**.}
+                        female {Encore un essai pathétique pour réparer cette maudite **{target_equipment}**.}
+                        other {invalid gender input}
+                    }}
+                    4 {{target_equipment_gender, select,
+                        male {{target_equipment_first_letter, select,
+                            vowel {L'état de cet **{target_equipment}** demeure...}
+                            other {L'état de ce **{target_equipment}** demeure...}
+                        }}
+                        female {L'état de cette **{target_equipment}** demeure...}
+                        other {invalid gender input}
+                    }}
+                    5 {{target_equipment_first_letter, select,
+                        vowel {{target_equipment_gender, select,
+                            male {L'**{target_equipment}** est toujours cassé.}
+                            female {L'**{target_equipment}** est toujours cassée.}
+                            other {invalid gender input}
+                        }}
+                        other {{target_equipment_gender, select,
+                            male {Le **{target_equipment}** est toujours cassé.}
+                            female {La **{target_equipment}** est toujours cassée.}
+                            other {invalid gender input}
+                        }}
+                    }}
+                    6 {{target_equipment_first_letter, select,
+                        vowel {L'**{target_equipment}** sent le cramé.}
+                        other {{target_equipment_gender, select,
+                            male {Le **{target_equipment}** sent le cramé.}
+                            female {La **{target_equipment}** sent le cramé.}
+                            other {invalid gender input}
+                        }}
+                    }}
+
+                    7 {{target_equipment_first_letter, select,
+                        vowel {L'**{target_equipment}** n'a pas l'air de mieux se porter et dégage une odeur de cramé.}
+                        other {{target_equipment_gender, select,
+                            male {Le **{target_equipment}** n'a pas l'air de mieux se porter et dégage une odeur de cramé.}
+                            female {La **{target_equipment}** n'a pas l'air de mieux se porter et dégage une odeur de cramé.}
+                            other {invalid gender input}
+                        }}
+                    }}
+                    8 {{target_equipment_first_letter, select,
+                        vowel {Malgré votre ténacité, vos tentatives de réparation de l'**{target_equipment}** restent infructueuses.}
+                        other {{target_equipment_gender, select,
+                            male {Malgré votre ténacité, vos tentatives de réparation du **{target_equipment}** restent infructueuses.}
+                            female {Malgré votre ténacité, vos tentatives de réparation de la **{target_equipment}** restent infructueuses.}
+                            other {invalid gender input}
+                        }}
+                    }}
+                    9 {{target_equipment_gender, select,
+                        male {{target_equipment_first_letter, select,
+                            vowel {Qui aurait cru que cet **{target_equipment}** soit en fait une telle énigme.}
+                            other {Qui aurait cru que ce **{target_equipment}** soit en fait une telle énigme.}
+                        }}
+                        female {Qui aurait cru que cette **{target_equipment}** soit en fait une telle énigme.}
+                        other {invalid gender input}
+                    }}
+                    10 {{target_equipment_first_letter, select,
+                        vowel {Vous avez échoué les réparations de l'**{target_equipment}**.}
+                        other {{target_equipment_gender, select,
+                            male {Vous avez échoué les réparations du **{target_equipment}**.}
+                            female {Vous avez échoué les réparations de la **{target_equipment}**.}
+                            other {invalid gender input}
+                        }}
+                    }}
+                    other {invalid version number}
+                } {versionPart2, select,
+                    1 {Avec la fatigue, vous avez l'impression que l'objet vous a parlé et vous a dit "Autant embrasser un wookie"...}
+                    2 {Avec un petit peu de chance la prochaine sera la bonne.}
+                    3 {Ça ne peut-être que la faute du mush !}
+                    4 {Ce vieux matos alien vous a encore lâché.}
+                    5 {Cette pièce a vraiment une sale trogne...}
+                    6 {Encore du matos alien moisi !}
+                    7 {Essayez de prendre le problème sous un autre angle...}
+                    8 {Faites-le ou ne le faites pas, mais n'essayez pas.}
+                    9 {Finalement, les bâtons de la mort, c'était pas si mal...}
+                    10 {Inspirez donc un peu.}
+                    11 {La chance n'a rien à voir là dedans... ou presque.}
+                    12 {La solution n'arrivera pas toute seule.}
+                    13 {Les réparations échouent.}
+                    14 {Oubliez le reste et concentrez-vous.}
+                    15 {Peut-être devriez vous renoncer.}
+                    16 {Peut-être devriez vous vous concentrer.}
+                    17 {Peut-être pourriez vous tenter avec un outil plus approprié.}
+                    18 {Peut-être que ce maudit papillon n'a pas battu des ailes.}
+                    19 {Peut-être que le destin ne vous a pas souri aujourd'hui.}
+                    20 {Peut-être que les {target_equipment_plural} sont des mensonges...}
+                    21 {Peut-être que vous n'êtes pas fait pour cela.}
+                    22 {Prenez de la distance...}
+                    23 {Prenez du recul...}
+                    24 {Prenez votre pelle et votre seau, ça ira mieux.}
+                    25 {Qu'est ce qui a bien pu foirer…}
+                    26 {Qu'est ce qui a bien pu rater…}
+                    27 {Qu'est ce qui n'a pas fonctionné...}
+                    28 {Qu'est ce qui n'a pas marché...}
+                    29 {Regardez les choses en face et changez de métier.}
+                    30 {Tentez autre chose...}
+                    31 {Un petit tour dans l'espace infini vous fera peut-être du bien.}
+                    32 {Tu quoque mi fili...}
+                    33 {Un second avis peut être nécessaire.}
+                    34 {Veuillez vous référer à la dernière page du manuel du parfait mécanicien.}
+                    35 {Veuillez vous référer à la page 1 du manuel du parfait mécanicien.}
+                    36 {Veuillez vous référer à la page 666 du manuel du parfait mécanicien.}
+                    37 {Veuillez vous référer à la page 42 du manuel du parfait mécanicien.}
+                    38 {Veuillez vous référer à la page 16 du manuel du parfait mécanicien.}
+                    39 {Votre génie a peut-être des limites, finalement...}
+                    40 {Vous auriez mieux fait de rester sur Xyloph-17...}
+                    41 {Vous aviez la bonne idée...}
+                    42 {Vous devriez essayer avec un zygocompresseur.}
+                    43 {Vous devriez passez à autre chose.}
+                    44 {Vous devriez vous asseoir et prendre une petite ration.}
+                    45 {Vous devriez vous asseoir...}
+                    46 {Vous n'étiez pas si loin pourtant...}
+                    47 {Vous saviez que vous n'auriez pas du rater le cours de couture...}
+                    48 {Vous y étiez presque...}
+                    49 {L'inspiration arrive.}
+                    50 {...et les réparations échouent.}
+                    other {invalid version number}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="repair_success">
+      <segment id="repair_success" state="initial">
+        <source>repair_success</source>
+        <target>{version, select,
+                    1 {{target_equipment_first_letter, select,
+                        vowel {La dernière tentative de **{character}** pour réparer l'**{target_equipment}** s'est avérée fructueuse.}
+                        other {{target_equipment_gender, select,
+                            male {La dernière tentative de **{character}** pour réparer le **{target_equipment}** s'est avérée fructueuse.}
+                            female {La dernière tentative de **{character}** pour réparer la **{target_equipment}** s'est avérée fructueuse.}
+                            other {invalid gender input}
+                        }}
+                    }}
+                    2 {{target_equipment_first_letter, select,
+                        vowel {Félicitation **{character}**. L'**{target_equipment}** fonctionne à nouveau.}
+                        other {{target_equipment_gender, select,
+                            male {Félicitation **{character}**. Le **{target_equipment}** fonctionne à nouveau.}
+                            female {Félicitation **{character}**. La **{target_equipment}** fonctionne à nouveau.}
+                            other {invalid gender input}
+                        }}
+                    }}
+                    3 {{target_equipment_first_letter, select,
+                        vowel {{target_equipment_gender, select,
+                            male {L'**{target_equipment}** est à nouveau fonctionnel, merci **{character}**.}
+                            female {L'**{target_equipment}** est à nouveau fonctionnelle, merci **{character}**.}
+                            other {invalid gender input}
+                        }}
+                        other {{target_equipment_gender, select,
+                            male {Le **{target_equipment}** est à nouveau fonctionnel, merci **{character}**.}
+                            female {La **{target_equipment}** est à nouveau fonctionnelle, merci **{character}**.}
+                            other {invalid gender input}
+                        }}
+                    }}
+                    4 {{target_equipment_gender, select,
+                        male {**{character}** a enfin réussi les réparations sur ce maudit **{target_equipment}**.}
+                        female {**{character}** a enfin réussi les réparations sur cette maudite **{target_equipment}**.}
+                        other {invalid gender input}
+                    }}
+                    5 {{target_equipment_first_letter, select,
+                        vowel {**{character}** a enfin remis l'**{target_equipment}** à neuf.}
+                        other {{target_equipment_gender, select,
+                            male {**{character}** a enfin remis le **{target_equipment}** à neuf.}
+                            female {**{character}** a enfin remis la **{target_equipment}** à neuf.}
+                            other {invalid gender input}
+                        }}
+                    }}
+                    6 {{target_equipment_first_letter, select,
+                        vowel {{target_equipment_gender, select,
+                            male {**{character}** peut se féliciter. L'**{target_equipment}** est réparé.}
+                            female {**{character}** peut se féliciter. L'**{target_equipment}** est réparée.}
+                            other {invalid gender input}
+                        }}
+                        other {{target_equipment_gender, select,
+                            male {**{character}** peut se féliciter. Le **{target_equipment}** est réparé.}
+                            female {**{character}** peut se féliciter. La **{target_equipment}** est réparée.}
+                            other {invalid gender input}
+                        }}
+                    }}
+                    7 {{target_equipment_first_letter, select,
+                        vowel {**{character}** s'est finalement motivé et a réparé l'**{target_equipment}**. Bravo.}
+                        other {{target_equipment_gender, select,
+                            male {**{character}** s'est finalement motivé et a réparé le **{target_equipment}**. Bravo.}
+                            female {**{character}** s'est finalement motivée et a réparé la **{target_equipment}**. Bravo.}
+                            other {invalid gender input}
+                        }}
+                    }}
+                    other {invalid version input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="search_success">
+      <segment id="search_success" state="initial">
+        <source>search_success</source>
+        <target>{equipment_gender, select,
+                        male {**{character}** a découvert un **{equipment}** caché.}
+                        female {**{character}** a découvert une **{equipment}** cachée.}
+                        other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="search_fail">
+      <segment id="search_fail" state="initial">
+        <source>search_fail</source>
+        <target>Vous n'avez rien découvert.</target>
+      </segment>
+    </unit>
+    <unit id="shower_human">
+      <segment id="shower_human" state="initial">
+        <source>shower_human</source>
+        <target>Vous vous lavez longuement sous la douche, savourant ce moment rare et paisible...</target>
+      </segment>
+    </unit>
+    <unit id="shower_mush">
+      <segment id="shower_mush" state="initial">
+        <source>shower_mush</source>
+        <target>{character_gender, select,
+                    male {Vous vous lavez et vous vous sentez brûlé, meurtri par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...}
+                    female {Vous vous lavez et vous vous sentez brûlée, meurtrie par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...}
+                    other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="shred_success">
+      <segment id="shred_success" state="initial">
+        <source>shred_success</source>
+        <target>{version, select,
+                        1 {**{character}** déchire un petit bout de papier avec un air résolu.}
+                        2 {**{character}** déchire un petit bout de papier avec un air satisfait.}
+                        3 {**{character}** déchire un petit bout de papier avec un air soucieux.}
+                        4 {**{character}** déchire un petit bout de papier avec un air soulagé.}
+                        other {"invalid version number"}
+                    }
+                </target>
+      </segment>
+    </unit>
+    <unit id="take">
+      <segment id="take" state="initial">
+        <source>take</source>
+        <target>{target_equipment_gender, select,
+                        male {**{character}** a pris un **{target_equipment}**.}
+                        female {**{character}** a pris une **{target_equipment}**.}
+                        other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="hybridize_success">
+      <segment id="hybridize_success" state="initial">
+        <source>hybridize_success</source>
+        <target>{target_equipment_first_letter, select,
+                    vowel {Quel soulagement, **{character}** a réussi sa grèffe d'**{target_equipment}**. Le petite plante se porte bien !}
+                    other {Quel soulagement, **{character}** a réussi sa grèffe de **{target_equipment}**. Le petite plante se porte bien !}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="hybridize_fail">
+      <segment id="hybridize_fail" state="initial">
+        <source>hybridize_fail</source>
+        <target>{target_equipment_first_letter, select,
+                    vowel {Quel soulagement... oh mais... **{character}** n'a pas réussi sa greffe d'**{target_equipment}**. La petite plante reste chétive et meurt... Quelque chose a du contaminer l'opération.}
+                    other {Quel soulagement... oh mais... **{character}** n'a pas réussi sa greffe de **{target_equipment}**. La petite plante reste chétive et meurt... Quelque chose a du contaminer l'opération.}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="treat_plant_success">
+      <segment id="treat_plant_success" state="initial">
+        <source>treat_plant_success</source>
+        <target>Vous répandez la bouillie rose sur vos chères plantes. Cet insecticide est tout à fait atroce mais bon, la survie de l'Humanité est en jeu.</target>
+      </segment>
+    </unit>
+    <unit id="water_plant_success">
+      <segment id="water_plant_success" state="initial">
+        <source>water_plant_success</source>
+        <target>Vous arrosez les plantes avec amour.</target>
+      </segment>
+    </unit>
+    <unit id="write_success">
+      <segment id="write_success" state="initial">
+        <source>write_success</source>
+        <target>TODO: write success.</target>
+      </segment>
+    </unit>
+    <unit id="insert_oxygen">
+      <segment id="insert_oxygen" state="initial">
+        <source>insert_oxygen</source>
+        <target>Pscchhhh... Et hop, un peu d'oxygène en plus !</target>
+      </segment>
+    </unit>
+    <unit id="retrieve_oxygen">
+      <segment id="retrieve_oxygen" state="initial">
+        <source>retrieve_oxygen</source>
+        <target>{version, select,
+                    1 {{character_gender, select,
+                        male {**{character}** enlève délicatement un peu d'oxygène du réservoir. Il a l'air louche.}
+                        female {**{character}** enlève délicatement un peu d'oxygène du réservoir. Elle a l'air louche.}
+                        other {invalid gender input}
+                    }}
+                    2 {{character_gender, select,
+                        male {**{character}** enlève délicatement un peu d'oxygène du réservoir. Il a l'air tout à fait serein.}
+                        female {**{character}** enlève délicatement un peu d'oxygène du réservoir. Elle a l'air tout à fait sereine.}
+                        other {invalid gender input}
+                    }}
+                    3 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Ce rictus est inquiétant.}
+                    4 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Etait-ce vraiment nécessaire ?}
+                    5 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Mais pourquoi ?}
+                    6 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Sans doute pour faire une BA.}
+                    7 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Son but est sans doute louable.}
+                    8 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Son sourire vous rapelle quelque chose.}
+                    9 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Vous connaissez ce rire...}
+                    10 {{character_gender, select,
+                        male {**{character}** enlève délicatement un peu d'oxygène du réservoir. Vous devriez peut-être le surveiller de plus près.}
+                        female {**{character}** enlève délicatement un peu d'oxygène du réservoir. Vous devriez peut-être la surveiller de plus près.}
+                        other {invalid gender input}
+                    }}
+                    other {"invalid version number"}
+                }
+                </target>
+      </segment>
+    </unit>
+    <unit id="retrieve_fuel">
+      <segment id="retrieve_fuel" state="initial">
+        <source>retrieve_fuel</source>
+        <target>{character} a extrait une Capsule du Fuel du réservoir.</target>
+      </segment>
+    </unit>
+    <unit id="insert_fuel">
+      <segment id="insert_fuel" state="initial">
+        <source>insert_fuel</source>
+        <target>{character} a inséré une *Capsule de Fuel* dans le *Réservoir*.</target>
+      </segment>
+    </unit>
+    <unit id="sabotage_success">
+      <segment id="sabotage_success" state="initial">
+        <source>sabotage_success</source>
+        <target>{target_equipment_gender, select,
+                        male {Étrange, **{character}** s'affaire sur un **{target_equipment}** qui émet une petite fumée...}
+                        female {Étrange, **{character}** s'affaire sur une **{target_equipment}** qui émet une petite fumée...}
+                        other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="sabotage_fail">
+      <segment id="sabotage_fail" state="initial">
+        <source>sabotage_fail</source>
+        <target>Votre sabotage échoue... c'est plus dur qu'il n'y parait.</target>
+      </segment>
+    </unit>
+    <unit id="extinguish_success">
+      <segment id="extinguish_success" state="initial">
+        <source>extinguish_success</source>
+        <target>**{character}** a éteint l'incendie !</target>
+      </segment>
+    </unit>
+    <unit id="extinguish_fail">
+      <segment id="extinguish_fail" state="initial">
+        <source>extinguish_fail</source>
+        <target>Vous n'avez pas réussi à éteindre l'incendie...</target>
+      </segment>
+    </unit>
+    <unit id="comfort_success">
+      <segment id="comfort_success" state="initial">
+        <source>comfort_success</source>
+        <target>**{character}** réconforte **{target_character}**, ça ira mieux demain tu verras...</target>
+      </segment>
+    </unit>
+    <unit id="heal_success">
+      <segment id="heal_success" state="initial">
+        <source>heal_success</source>
+        <target>**{character}** a soigné {quantity} :hp: à **{target_character}**.</target>
+      </segment>
+    </unit>
+    <unit id="self_heal">
+      <segment id="self_heal" state="initial">
+        <source>self_heal</source>
+        <target>Vous vous êtes soigné. Vous avez récuperé {quantity} :hp:.</target>
+      </segment>
+    </unit>
+    <unit id="ultraheal_success">
+      <segment id="ultraheal_success" state="initial">
+        <source>ultraheal_success</source>
+        <target>{character_gender, select,
+                    male {**{character}** est entouré d'un halo lumineux. D'horribles tentacules bleus iridescents parcourent son corps. La lumière qu'il émet est aveuglante. Ses blessures sont parfaitement guéries !}
+                    female {**{character}** est entourée d'un halo lumineux. D'horribles tentacules bleus iridescents lui courent sur le corps... ses blessures semblent guérir d'elles-même !}
+                    other {invalid gender input}
+                }
+                </target>
+      </segment>
+    </unit>
+    <unit id="strengthen_success">
+      <segment id="strengthen_success" state="initial">
+        <source>strengthen_success</source>
+        <target>La tentative de **{character}** de réparation de la coque a réussi. Il était temps que quelqu'un s'occupe de ça...</target>
+      </segment>
+    </unit>
+    <unit id="default_fail">
+      <segment id="default_fail" state="initial">
+        <source>default_fail</source>
+        <target>Votre tentative a échouée.</target>
+      </segment>
+    </unit>
+    <unit id="spread_fire_success">
+      <segment id="spread_fire_success" state="initial">
+        <source>spread_fire_success</source>
+        <target>Tiens... ça se réchauffe par ici... **{character}** a mis le feu...</target>
+      </segment>
+    </unit>
+    <unit id="install_camera">
+      <segment id="install_camera" state="initial">
+        <source>install_camera</source>
+        <target>**{character}** installe sa petite **Camera** avec application.</target>
+      </segment>
+    </unit>
+    <unit id="remove_camera">
+      <segment id="remove_camera" state="initial">
+        <source>remove_camera</source>
+        <target>**{character}** enlève la **Caméra**. Elle était sans doute devenue inutile...</target>
+      </segment>
+    </unit>
+    <unit id="try_kube">
+      <segment id="try_kube" state="initial">
+        <source>try_kube</source>
+        <target>{character_gender, select,
+                    male {**{character}** essaie de résoudre cet affreux kube.}
+                    female {**{character}** a décidé de tenter cet insupportable petit kube.}
+                    other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="remove_spore_success">
+      <segment id="remove_spore_fail" state="initial">
+        <source>remove_spore_success</source>
+        <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Tiens qu'est ce que c'est que ça ?
+                </target>
+      </segment>
+    </unit>
+    <unit id="remove_spore_fail">
+      <segment id="remove_spore_fail" state="initial">
+        <source>remove_spore_fail</source>
+        <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Heureusement vous n'aviez aucun spore à récupérer
+                </target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

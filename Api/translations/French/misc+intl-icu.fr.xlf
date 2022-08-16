@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="fr">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en-UD" trgLang="fr">
   <file id="misc.ext">
     <unit id="delayed_disease_info">
-      <segment id="satiety_point" state="initial">
+      <segment id="satiety_point" state="final">
         <source>satiety_point</source>
-        <target>satiety_point</target>
+        <target>satieté</target>
       </segment>
-      <segment id="action_point" state="initial">
+      <segment id="action_point" state="final">
         <source>action_point</source>
-        <target>action_point</target>
+        <target>:pa:</target>
       </segment>
-      <segment id="movement_point" state="initial">
+      <segment id="movement_point" state="final">
         <source>movement_point</source>
-        <target>movement_point</target>
+        <target>:pm:</target>
       </segment>
-      <segment id="health_point" state="initial">
+      <segment id="health_point" state="final">
         <source>health_point</source>
-        <target>health_point</target>
+        <target>:hp:</target>
       </segment>
-      <segment id="moral_point" state="initial">
+      <segment id="moral_point" state="final">
         <source>moral_point</source>
-        <target>moral_point</target>
+        <target>:pmo:</target>
       </segment>
-      <segment id="ration_data" state="initial">
+      <segment id="ration_data" state="final">
         <source>ration_data</source>
-        <target>ration_data</target>
+        <target>Données sur les effets:</target>
       </segment>
-      <segment id="delayed_disease_info" state="initial">
+      <segment id="delayed_disease_info" state="final">
         <source>delayed_disease_info</source>
-        <target>delayed_disease_info</target>
+        <target>{ quantity } % de chances de provoquer la maladie { diseaseName } dans un délai de {start} à {end} cycles</target>
       </segment>
-      <segment id="disease_info" state="initial">
+      <segment id="disease_info" state="final">
         <source>disease_info</source>
-        <target>disease_info</target>
+        <target>{ quantity } %  de chances de provoquer la maladie {diseaseName}</target>
       </segment>
-      <segment id="delayed_cure_info" state="initial">
+      <segment id="delayed_cure_info" state="final">
         <source>delayed_cure_info</source>
-        <target>delayed_cure_info</target>
+        <target>Guérie la maladie {diseaseName} dans un délai de {start} à {end} cycles</target>
       </segment>
-      <segment id="cure_info" state="initial">
+      <segment id="cure_info" state="final">
         <source>cure_info</source>
-        <target>cure_info</target>
+        <target>Guérie la maladie {diseaseName}</target>
       </segment>
     </unit>
   </file>

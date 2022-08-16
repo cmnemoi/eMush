@@ -1,496 +1,502 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="en">
   <file id="actions_fail.ext">
     <unit id="build_lack_ressources">
       <segment id="description" state="initial">
-        <source>build_lack_ressources.description</source>
-        <target>build_lack_ressources.description</target>
+        <source>Il vous manque des objets pour réaliser ce plan.</source>
+        <target>Il vous manque des objets pour réaliser ce plan.</target>
       </segment>
     </unit>
     <unit id="insufficient_action_point">
       <segment id="description" state="initial">
-        <source>insufficient_action_point.description</source>
-        <target>insufficient_action_point.description</target>
+        <source>Vous n'avez pas assez de :pa: (Point d'Action) pour réaliser cette action.
+                        **Mangez** ou **attendez quelques cycles**.</source>
+        <target>Vous n'avez pas assez de :pa: (Point d'Action) pour réaliser cette action.
+                        **Mangez** ou **attendez quelques cycles**.</target>
       </segment>
     </unit>
     <unit id="no_shelving_unit">
       <segment id="description" state="initial">
-        <source>no_shelving_unit.description</source>
-        <target>no_shelving_unit.description</target>
+        <source>Cette pièce ne dispose pas d'étagère...</source>
+        <target>Cette pièce ne dispose pas d'étagère...</target>
       </segment>
     </unit>
     <unit id="full_inventory">
       <segment id="description" state="initial">
-        <source>full_inventory.description</source>
-        <target>full_inventory.description</target>
+        <source>Votre inventaire est plein, faites de la place !</source>
+        <target>Votre inventaire est plein, faites de la place !</target>
       </segment>
     </unit>
     <unit id="not_a_room">
       <segment id="description" state="initial">
-        <source>not_a_room.description</source>
-        <target>not_a_room.description</target>
+        <source>TODO.not_a_room.description</source>
+        <target>TODO.not_a_room.description</target>
       </segment>
     </unit>
     <unit id="on_planet">
       <segment id="description" state="initial">
-        <source>on_planet.description</source>
-        <target>on_planet.description</target>
+        <source>Sur les planètes les actions ne sont pas disponibles.</source>
+        <target>Sur les planètes les actions ne sont pas disponibles.</target>
       </segment>
     </unit>
     <unit id="daily_limit">
       <segment id="description" state="initial">
-        <source>daily_limit.description</source>
-        <target>daily_limit.description</target>
+        <source>Cette action ne peut être effectuée qu'une fois par jour. Elle sera de nouveau disponible après le cycle 8.</source>
+        <target>Cette action ne peut être effectuée qu'une fois par jour. Elle sera de nouveau disponible après le cycle 8.</target>
       </segment>
     </unit>
     <unit id="ceasefire">
       <segment id="description" state="initial">
-        <source>ceasefire.description</source>
-        <target>ceasefire.description</target>
+        <source>Impossible, un cessez-le-feu a été imposé dans cette pièce.</source>
+        <target>Impossible, un cessez-le-feu a été imposé dans cette pièce.</target>
       </segment>
     </unit>
     <unit id="unique_action">
       <segment id="description" state="initial">
-        <source>unique_action.description</source>
-        <target>unique_action.description</target>
+        <source>Cette action ne peut plus être utilisée. Jamais... Plus du tout...</source>
+        <target>Cette action ne peut plus être utilisée. Jamais... Plus du tout...</target>
       </segment>
     </unit>
     <unit id="in_space_capsule">
       <segment id="description" state="initial">
-        <source>in_space_capsule.description</source>
-        <target>in_space_capsule.description</target>
+        <source>Vous ne pouvez pas agir car vous êtes enfermé dans une capsule spatiale.</source>
+        <target>Vous ne pouvez pas agir car vous êtes enfermé dans une capsule spatiale.</target>
       </segment>
     </unit>
     <unit id="in_patroller">
       <segment id="description" state="initial">
-        <source>in_patroller.description</source>
-        <target>in_patroller.description</target>
+        <source>Vous ne pouvez pas effectuer cette action ici... A quoi bon ?</source>
+        <target>Vous ne pouvez pas effectuer cette action ici... A quoi bon ?</target>
       </segment>
     </unit>
     <unit id="pre_mush_restricted">
       <segment id="description" state="initial">
-        <source>pre_mush_restricted.description</source>
-        <target>pre_mush_restricted.description</target>
+        <source>Pas de menace détectée, pourquoi faire ça ? *Cette action est indisponible tant que le vaisseau n'est pas au complet*.</source>
+        <target>Pas de menace détectée, pourquoi faire ça ? *Cette action est indisponible tant que le vaisseau n'est pas au complet*.</target>
       </segment>
     </unit>
     <unit id="pre_mush_aggressive">
       <segment id="description" state="initial">
-        <source>pre_mush_aggressive.description</source>
-        <target>pre_mush_aggressive.description</target>
+        <source>La violence est inutile pour le moment.</source>
+        <target>La violence est inutile pour le moment.</target>
       </segment>
     </unit>
     <unit id="heal_no_injury">
       <segment id="description" state="initial">
-        <source>heal_no_injury.description</source>
-        <target>heal_no_injury.description</target>
+        <source>Vous n'êtes pas blessé mais ça peut s'arranger...</source>
+        <target>Vous n'êtes pas blessé mais ça peut s'arranger...</target>
       </segment>
     </unit>
     <unit id="dmz_core_peace">
       <segment id="description" state="initial">
-        <source>dmz_core_peace.description</source>
-        <target>dmz_core_peace.description</target>
+        <source>:neron: [ Entrave DMZ-corepeace ]...Check. Quelles sont vos motivations pour faire cela ? Je ne vois aucun intérêt à cette abomination. Déclencheur désactivé !</source>
+        <target>:neron: [ Entrave DMZ-corepeace ]...Check. Quelles sont vos motivations pour faire cela ? Je ne vois aucun intérêt à cette abomination. Déclencheur désactivé !</target>
       </segment>
     </unit>
     <unit id="daedalus_traveling">
       <segment id="description" state="initial">
-        <source>daedalus_traveling.description</source>
-        <target>daedalus_traveling.description</target>
+        <source>Pour votre sécurité, cette action est impossible durant les voyages.</source>
+        <target>Pour votre sécurité, cette action est impossible durant les voyages.</target>
       </segment>
     </unit>
     <unit id="broken_equipment">
       <segment id="description" state="initial">
-        <source>broken_equipment.description</source>
-        <target>broken_equipment.description</target>
+        <source>Vous ne pouvez effectuer cette action car ceci est hors d'usage.</source>
+        <target>Vous ne pouvez effectuer cette action car ceci est hors d'usage.</target>
       </segment>
     </unit>
     <unit id="dirty_restriction">
       <segment id="description" state="initial">
-        <source>dirty_restriction.description</source>
-        <target>dirty_restriction.description</target>
+        <source>Alerte, ne pas approcher ! Accès aux terminaux strictement interdit !
+                        Note : "Muffle, comment osez vous !? *Revenez quand vous serez propre*."
+                        </source>
+        <target>Alerte, ne pas approcher ! Accès aux terminaux strictement interdit !
+                        Note : "Muffle, comment osez vous !? *Revenez quand vous serez propre*."
+                        </target>
       </segment>
     </unit>
     <unit id="dirty_restriction_female">
       <segment id="description" state="initial">
-        <source>dirty_restriction_female.description</source>
-        <target>dirty_restriction_female.description</target>
+        <source>TODO.broken_equipment.description</source>
+        <target>TODO.broken_equipment.description</target>
       </segment>
     </unit>
     <unit id="terminal_role_restricted">
       <segment id="description" state="initial">
-        <source>terminal_role_restricted.description</source>
-        <target>terminal_role_restricted.description</target>
+        <source>Vous n'avez pas accès à ce terminal. Les droits d'accès à certains terminaux sont assujesttis à la possession de **Titres** spécifiques.</source>
+        <target>Vous n'avez pas accès à ce terminal. Les droits d'accès à certains terminaux sont assujesttis à la possession de **Titres** spécifiques.</target>
       </segment>
     </unit>
     <unit id="terminal_neron_lock">
       <segment id="description" state="initial">
-        <source>terminal_neron_lock.description</source>
-        <target>terminal_neron_lock.description</target>
+        <source>NERON vous a interdit cette action. Veuillez en référer à l'Administrateur.</source>
+        <target>NERON vous a interdit cette action. Veuillez en référer à l'Administrateur.</target>
       </segment>
     </unit>
     <unit id="explore_nothing_left">
       <segment id="description" state="initial">
-        <source>explore_nothing_left.description</source>
-        <target>explore_nothing_left.description</target>
+        <source>Cette planète a été entièrement visitée, une exploration suplémentaire ne vous apporterait plus rien.</source>
+        <target>Cette planète a été entièrement visitée, une exploration suplémentaire ne vous apporterait plus rien.</target>
       </segment>
     </unit>
     <unit id="explore_not_in_orbit">
       <segment id="description" state="initial">
-        <source>explore_not_in_orbit.description</source>
-        <target>explore_not_in_orbit.description</target>
+        <source>Nous ne sommes pas en orbite. Veuillez en référer aux *Astrophysiciens*.</source>
+        <target>Nous ne sommes pas en orbite. Veuillez en référer aux *Astrophysiciens*.</target>
       </segment>
     </unit>
     <unit id="fire_out_ammunition">
       <segment id="description" state="initial">
-        <source>fire_out_ammunition.description</source>
-        <target>fire_out_ammunition.description</target>
+        <source>TODO.fire_out_ammunition.description</source>
+        <target>TODO.fire_out_ammunition.description</target>
       </segment>
     </unit>
     <unit id="unloaded_weapon">
       <segment id="description" state="initial">
-        <source>unloaded_weapon.description</source>
-        <target>unloaded_weapon.description</target>
+        <source>Cette arme n'est pas chargée. Elle regagnera une charge au prochain cycle.</source>
+        <target>Cette arme n'est pas chargée. Elle regagnera une charge au prochain cycle.</target>
       </segment>
     </unit>
     <unit id="do_the_thing_already_done">
       <segment id="description" state="initial">
-        <source>do_the_thing_already_done.description</source>
-        <target>do_the_thing_already_done.description</target>
+        <source>Vous l'avez déjà fait aujourd'hui.</source>
+        <target>Vous l'avez déjà fait aujourd'hui.</target>
       </segment>
     </unit>
     <unit id="do_the_thing_camera">
       <segment id="description" state="initial">
-        <source>do_the_thing_camera.description</source>
-        <target>do_the_thing_camera.description</target>
+        <source>Pas besoin d'enregistrer cela non plus...</source>
+        <target>Pas besoin d'enregistrer cela non plus...</target>
       </segment>
     </unit>
     <unit id="do_the_thing_witness">
       <segment id="description" state="initial">
-        <source>do_the_thing_witness.description</source>
-        <target>do_the_thing_witness.description</target>
+        <source>TODO.do_the_thing_witness.description</source>
+        <target>TODO.do_the_thing_witness.description</target>
       </segment>
     </unit>
     <unit id="do_the_thing_asleep">
       <segment id="description" state="initial">
-        <source>do_the_thing_asleep.description</source>
-        <target>do_the_thing_asleep.description</target>
+        <source>Cette personne est endormie, elle n'a pas l'air d'avoir envie de le faire...</source>
+        <target>Cette personne est endormie, elle n'a pas l'air d'avoir envie de le faire...</target>
       </segment>
     </unit>
     <unit id="do_the_thing_not_interested">
       <segment id="description" state="initial">
-        <source>do_the_thing_not_interested.description</source>
-        <target>do_the_thing_not_interested.description</target>
+        <source>Cette personne n'a jamais montré la moindre attention à votre égard...</source>
+        <target>Cette personne n'a jamais montré la moindre attention à votre égard...</target>
       </segment>
     </unit>
     <unit id="flirt_already_flirted">
       <segment id="description" state="initial">
-        <source>flirt_already_flirted.description</source>
-        <target>flirt_already_flirted.description</target>
+        <source>Vous êtes déjà très lié(e) à cette personne.</source>
+        <target>Vous êtes déjà très lié(e) à cette personne.</target>
       </segment>
     </unit>
     <unit id="flirt_antisocial">
       <segment id="description" state="initial">
-        <source>flirt_antisocial.description</source>
-        <target>flirt_antisocial.description</target>
+        <source>Vous n'êtes pas intéressé(e) par ce genre d'interaction sociale...</source>
+        <target>Vous n'êtes pas intéressé(e) par ce genre d'interaction sociale...</target>
       </segment>
     </unit>
     <unit id="flirt_same_family">
       <segment id="description" state="initial">
-        <source>flirt_same_family.description</source>
-        <target>flirt_same_family.description</target>
+        <source>Ce flirt est impossible.</source>
+        <target>Ce flirt est impossible.</target>
       </segment>
     </unit>
     <unit id="daily_spore_limit">
       <segment id="description" state="initial">
-        <source>daily_spore_limit.description</source>
-        <target>daily_spore_limit.description</target>
+        <source>L'ensemble des **Mush** ne peuvent produire plus de **TODO spores** par jour.</source>
+        <target>L'ensemble des **Mush** ne peuvent produire plus de **TODO spores** par jour.</target>
       </segment>
     </unit>
     <unit id="personal_spore_limit">
       <segment id="description" state="initial">
-        <source>personal_spore_limit.description</source>
-        <target>personal_spore_limit.description</target>
+        <source>Vous ne pouvez pas transporter plus de deux spores.</source>
+        <target>Vous ne pouvez pas transporter plus de deux spores.</target>
       </segment>
     </unit>
     <unit id="boobytrap_already_done">
       <segment id="description" state="initial">
-        <source>boobytrap_already_done.description</source>
-        <target>boobytrap_already_done.description</target>
+        <source>TODO.boobytrap_already_done.description</source>
+        <target>TODO.boobytrap_already_done.description</target>
       </segment>
     </unit>
     <unit id="slime_already_done">
       <segment id="description" state="initial">
-        <source>slime_already_done.description</source>
-        <target>slime_already_done.description</target>
+        <source>TODO.slime_already_done.description</source>
+        <target>TODO.slime_already_done.description</target>
       </segment>
     </unit>
     <unit id="infect_immune">
       <segment id="description" state="initial">
-        <source>infect_immune.description</source>
-        <target>infect_immune.description</target>
+        <source>Cette cible est immunisée au mush.</source>
+        <target>Cette cible est immunisée au mush.</target>
       </segment>
     </unit>
     <unit id="infect_no_spore">
       <segment id="description" state="initial">
-        <source>infect_no_spore.description</source>
-        <target>infect_no_spore.description</target>
+        <source>Vous devez extirper des spores avant de pouvoir Poinçonner quelqu'un.</source>
+        <target>Vous devez extirper des spores avant de pouvoir Poinçonner quelqu'un.</target>
       </segment>
     </unit>
     <unit id="infect_mush">
       <segment id="description" state="initial">
-        <source>infect_mush.description</source>
-        <target>infect_mush.description</target>
+        <source>Cette cible est déjà agent du mush.</source>
+        <target>Cette cible est déjà agent du mush.</target>
       </segment>
     </unit>
     <unit id="infect_daily_limit">
       <segment id="description" state="initial">
-        <source>infect_daily_limit.description</source>
-        <target>infect_daily_limit.description</target>
+        <source>Vous ne pouvez plus effectuer cette action aujourd'hui.</source>
+        <target>Vous ne pouvez plus effectuer cette action aujourd'hui.</target>
       </segment>
     </unit>
     <unit id="transfer_no_spore">
       <segment id="description" state="initial">
-        <source>transfer_no_spore.description</source>
-        <target>transfer_no_spore.description</target>
+        <source>TODO.transfer_no_spore.description</source>
+        <target>TODO.transfer_no_spore.description</target>
       </segment>
     </unit>
     <unit id="mutated">
       <segment id="description" state="initial">
-        <source>mutated.description</source>
-        <target>mutated.description</target>
+        <source>TODO.mutated.description</source>
+        <target>TODO.mutated.description</target>
       </segment>
     </unit>
     <unit id="wisper_mute">
       <segment id="description" state="initial">
-        <source>wisper_mute.description</source>
-        <target>wisper_mute.description</target>
+        <source>Vous ne pouvez plus communiquer.</source>
+        <target>Vous ne pouvez plus communiquer.</target>
       </segment>
     </unit>
     <unit id="wisper_no_available_chanel">
       <segment id="description" state="initial">
-        <source>wisper_no_available_chanel.description</source>
-        <target>wisper_no_available_chanel.description</target>
+        <source>Cet équipier est déjà trop pris par d'autres conversations.</source>
+        <target>Cet équipier est déjà trop pris par d'autres conversations.</target>
       </segment>
     </unit>
     <unit id="target_already_outcast">
       <segment id="description" state="initial">
-        <source>target_already_outcast.description</source>
-        <target>target_already_outcast.description</target>
+        <source>TODO.target_already_outcast.description</source>
+        <target>TODO.target_already_outcast.description</target>
       </segment>
     </unit>
     <unit id="already_outcast_onboard">
       <segment id="description" state="initial">
-        <source>already_outcast_onboard.description</source>
-        <target>already_outcast_onboard.description</target>
+        <source>TODO.already_outcast_onboard.description</source>
+        <target>TODO.already_outcast_onboard.description</target>
       </segment>
     </unit>
     <unit id="lonely_aprenticeship">
       <segment id="description" state="initial">
-        <source>lonely_aprenticeship.description</source>
-        <target>lonely_aprenticeship.description</target>
+        <source>Pour réaliser cette action, vous avez besoin d'autres équipiers.</source>
+        <target>Pour réaliser cette action, vous avez besoin d'autres équipiers.</target>
       </segment>
     </unit>
     <unit id="list_alredy_printed">
       <segment id="description" state="initial">
-        <source>list_alredy_printed.description</source>
-        <target>list_alredy_printed.description</target>
+        <source>TODO.list_alredy_printed.description</source>
+        <target>TODO.list_alredy_printed.description</target>
       </segment>
     </unit>
     <unit id="list_no_mush">
       <segment id="description" state="initial">
-        <source>list_no_mush.description</source>
-        <target>list_no_mush.description</target>
+        <source>Quel est l'intérêt d'imprimer la liste s'il n'y a pas de mush à bord ?</source>
+        <target>Quel est l'intérêt d'imprimer la liste s'il n'y a pas de mush à bord ?</target>
       </segment>
     </unit>
     <unit id="issue_mission_already_issued">
       <segment id="description" state="initial">
-        <source>issue_mission_already_issued.description</source>
-        <target>issue_mission_already_issued.description</target>
+        <source>TODO.issue_mission_already_issued.description</source>
+        <target>TODO.issue_mission_already_issued.description</target>
       </segment>
     </unit>
     <unit id="issue_mission_no_target">
       <segment id="description" state="initial">
-        <source>issue_mission_no_target.description</source>
-        <target>issue_mission_no_target.description</target>
+        <source>TODO.issue_mission_no_target.description</source>
+        <target>TODO.issue_mission_no_target.description</target>
       </segment>
     </unit>
     <unit id="drone_upgrade_lack_ressources">
       <segment id="description" state="initial">
-        <source>drone_upgrade_lack_ressources.description</source>
-        <target>drone_upgrade_lack_ressources.description</target>
+        <source>TODO.drone_upgrade_lack_ressources.description</source>
+        <target>TODO.drone_upgrade_lack_ressources.description</target>
       </segment>
     </unit>
     <unit id="mage_book_already_have_skill">
       <segment id="description" state="initial">
-        <source>mage_book_already_have_skill.description</source>
-        <target>mage_book_already_have_skill.description</target>
+        <source>Votre soif de connaissance est trop grande... Vous possédez déjà cette ||Compétence||.</source>
+        <target>Votre soif de connaissance est trop grande... Vous possédez déjà cette ||Compétence||.</target>
       </segment>
     </unit>
     <unit id="mage_book_already_have_read">
       <segment id="description" state="initial">
-        <source>mage_book_already_have_read.description</source>
-        <target>mage_book_already_have_read.description</target>
+        <source>TODO.mage_book_already_have_read.description</source>
+        <target>TODO.mage_book_already_have_read.description</target>
       </segment>
     </unit>
     <unit id="consume_drug_twice">
       <segment id="description" state="initial">
-        <source>consume_drug_twice.description</source>
-        <target>consume_drug_twice.description</target>
+        <source>TODO.consume_drug_twice.description</source>
+        <target>TODO.consume_drug_twice.description</target>
       </segment>
     </unit>
     <unit id="consume_full_belly">
       <segment id="description" state="initial">
-        <source>consume_full_belly.description</source>
-        <target>consume_full_belly.description</target>
+        <source>Vous êtes rassasié.</source>
+        <target>Vous êtes rassasié.</target>
       </segment>
     </unit>
     <unit id="reinforce_full_hull">
       <segment id="description" state="initial">
-        <source>reinforce_full_hull.description</source>
-        <target>reinforce_full_hull.description</target>
+        <source>La coque n'a pas besoin de réparations.</source>
+        <target>La coque n'a pas besoin de réparations.</target>
       </segment>
     </unit>
     <unit id="already_installed_camera">
       <segment id="description" state="initial">
-        <source>already_installed_camera.description</source>
-        <target>already_installed_camera.description</target>
+        <source>Cette salle dispose déjà d'une **Caméra**.</source>
+        <target>Cette salle dispose déjà d'une **Caméra**.</target>
       </segment>
     </unit>
     <unit id="water_plant_no_thirsty">
       <segment id="description" state="initial">
-        <source>water_plant_no_thirsty.description</source>
-        <target>water_plant_no_thirsty.description</target>
+        <source>Cette plante n'a pas l'air de manquer d'eau.</source>
+        <target>Cette plante n'a pas l'air de manquer d'eau.</target>
       </segment>
     </unit>
     <unit id="treat_plant_no_disease">
       <segment id="description" state="initial">
-        <source>treat_plant_no_disease.description</source>
-        <target>treat_plant_no_disease.description</target>
+        <source>Cette plante n'a pas l'air d'avoir besoin d'être traitée.</source>
+        <target>Cette plante n'a pas l'air d'avoir besoin d'être traitée.</target>
       </segment>
     </unit>
     <unit id="launch_grenade_alone">
       <segment id="description" state="initial">
-        <source>launch_grenade_alone.description</source>
-        <target>launch_grenade_alone.description</target>
+        <source>Faire cela seul serait inutile... Drôle mais inutile.</source>
+        <target>Faire cela seul serait inutile... Drôle mais inutile.</target>
       </segment>
     </unit>
     <unit id="sabotage_no_door">
       <segment id="description" state="initial">
-        <source>sabotage_no_door.description</source>
-        <target>sabotage_no_door.description</target>
+        <source>Pas de **Porte** à saboter.</source>
+        <target>Pas de **Porte** à saboter.</target>
       </segment>
     </unit>
     <unit id="analyse_nothing_undiscovered">
       <segment id="description" state="initial">
-        <source>analyse_nothing_undiscovered.description</source>
-        <target>analyse_nothing_undiscovered.description</target>
+        <source>TODO.analyse_nothing_undiscovered.description</source>
+        <target>TODO.analyse_nothing_undiscovered.description</target>
       </segment>
     </unit>
     <unit id="no_pilgred">
       <segment id="description" state="initial">
-        <source>no_pilgred.description</source>
-        <target>no_pilgred.description</target>
+        <source>Pilgred n'est pas opérationnel.</source>
+        <target>Pilgred n'est pas opérationnel.</target>
       </segment>
     </unit>
     <unit id="not_enought_map_fragments">
       <segment id="description" state="initial">
-        <source>not_enought_map_fragments.description</source>
-        <target>not_enought_map_fragments.description</target>
+        <source>Ce morceau de carte stellaire est intéressant, peut-être qu'avec un peu plus d'exemplaires, vous pourriez en apprendre plus sur leur origine.</source>
+        <target>Ce morceau de carte stellaire est intéressant, peut-être qu'avec un peu plus d'exemplaires, vous pourriez en apprendre plus sur leur origine.</target>
       </segment>
     </unit>
     <unit id="no_direction_picked">
       <segment id="description" state="initial">
-        <source>no_direction_picked.description</source>
-        <target>no_direction_picked.description</target>
+        <source>Il faut choisir une direction pour pouvoir orienter le vaisseau.</source>
+        <target>Il faut choisir une direction pour pouvoir orienter le vaisseau.</target>
       </segment>
     </unit>
     <unit id="coms_already_attempted">
       <segment id="description" state="initial">
-        <source>coms_already_attempted.description</source>
-        <target>coms_already_attempted.description</target>
+        <source>La tranche CPU de NERON qui vous est assignée est épuisée car vous avez déjà fait cette action aujourd'hui. Revenez demain !</source>
+        <target>La tranche CPU de NERON qui vous est assignée est épuisée car vous avez déjà fait cette action aujourd'hui. Revenez demain !</target>
       </segment>
     </unit>
     <unit id="no_active_rebel">
       <segment id="description" state="initial">
-        <source>no_active_rebel.description</source>
-        <target>no_active_rebel.description</target>
+        <source>Aucune base rebelle n'a émis de signal.</source>
+        <target>Aucune base rebelle n'a émis de signal.</target>
       </segment>
     </unit>
     <unit id="no_selected_rebel">
       <segment id="description" state="initial">
-        <source>no_selected_rebel.description</source>
-        <target>no_selected_rebel.description</target>
+        <source>Choisissez une base rebelle pour pouvoir décoder son signal.</source>
+        <target>Choisissez une base rebelle pour pouvoir décoder son signal.</target>
       </segment>
     </unit>
     <unit id="no_xyloph_left">
       <segment id="description" state="initial">
-        <source>no_xyloph_left.description</source>
-        <target>no_xyloph_left.description</target>
+        <source>TODO.no_xyloph_left.description</source>
+        <target>TODO.no_xyloph_left.description</target>
       </segment>
     </unit>
     <unit id="no_project_left">
       <segment id="description" state="initial">
-        <source>no_project_left.description</source>
-        <target>no_project_left.description</target>
+        <source>NERON a atteint son numéro de version maximal.</source>
+        <target>NERON a atteint son numéro de version maximal.</target>
       </segment>
     </unit>
     <unit id="coms_not_officer">
       <segment id="description" state="initial">
-        <source>coms_not_officer.description</source>
-        <target>coms_not_officer.description</target>
+        <source>Vous devez avoir le titre de Responsable Comm. pour effectuer cette action.</source>
+        <target>Vous devez avoir le titre de Responsable Comm. pour effectuer cette action.</target>
       </segment>
     </unit>
     <unit id="deal_lack_ressources">
       <segment id="description" state="initial">
-        <source>deal_lack_ressources.description</source>
-        <target>deal_lack_ressources.description</target>
+        <source>Vous ne disposez pas des prérequis pour cet échange.</source>
+        <target>Vous ne disposez pas des prérequis pour cet échange.</target>
       </segment>
     </unit>
     <unit id="deal_not_coms_officer">
       <segment id="description" state="initial">
-        <source>deal_not_coms_officer.description</source>
-        <target>deal_not_coms_officer.description</target>
+        <source>Seul le **Responsable Comm.** peut effectuer cette action !</source>
+        <target>Seul le **Responsable Comm.** peut effectuer cette action !</target>
       </segment>
     </unit>
     <unit id="dismantle_reinforced">
       <segment id="description" state="initial">
-        <source>dismantle_reinforced.description</source>
-        <target>dismantle_reinforced.description</target>
+        <source>TODO.dismantle_reinforced.description</source>
+        <target>TODO.dismantle_reinforced.description</target>
       </segment>
     </unit>
     <unit id="bed_occupied">
       <segment id="description" state="initial">
-        <source>bed_occupied.description</source>
-        <target>bed_occupied.description</target>
+        <source>Ce couchage est déjà occupé.</source>
+        <target>Ce couchage est déjà occupé.</target>
       </segment>
     </unit>
     <unit id="already_in_bed">
       <segment id="description" state="initial">
-        <source>already_in_bed.description</source>
-        <target>already_in_bed.description</target>
+        <source>Vous êtes déjà couché.</source>
+        <target>Vous êtes déjà couché.</target>
       </segment>
     </unit>
     <unit id="reinforce_lack_ressources">
       <segment id="description" state="initial">
-        <source>reinforce_lack_ressources.description</source>
-        <target>reinforce_lack_ressources.description</target>
+        <source>Cette action nécessite un **Débris Métallique**.</source>
+        <target>Cette action nécessite un **Débris Métallique**.</target>
       </segment>
     </unit>
     <unit id="renovate_lack_ressources">
       <segment id="description" state="initial">
-        <source>renovate_lack_ressources.description</source>
-        <target>renovate_lack_ressources.description</target>
+        <source>TODO.renovate_lack_ressources.description</source>
+        <target>TODO.renovate_lack_ressources.description</target>
       </segment>
     </unit>
     <unit id="surgery_not_lying_down">
       <segment id="description" state="initial">
-        <source>surgery_not_lying_down.description</source>
-        <target>surgery_not_lying_down.description</target>
+        <source>Cette action nécessite que vous soyez allongé.</source>
+        <target>Cette action nécessite que vous soyez allongé.</target>
       </segment>
     </unit>
     <unit id="mush_remove_spore">
       <segment id="description" state="initial">
-        <source>mush_remove_spore.description</source>
-        <target>mush_remove_spore.description</target>
+        <source>Pax Fungi: Le Mush ne tolère pas les actions violentes directes envers lui même.</source>
+        <target>Pax Fungi: Le Mush ne tolère pas les actions violentes directes envers lui même.</target>
       </segment>
     </unit>
   </file>

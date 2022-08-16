@@ -1,0 +1,365 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="disease.ext">
+        <unit id="acid_reflux">
+            <segment id="name">
+                <source>Reflux Gastriques</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous rendez votre nourriture, c'est irritant et pénible...</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="food_poisoning">
+            <segment id="name">
+                <source>Intoxication Alimentaire</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous êtes très atteint, vous vomissez, y en a partout. quelle idée de manger ça aussi. Ah bravo...</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="gastroenteritis">
+            <segment id="name">
+                <source>GastroEntérite</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Y a-t-il vraiment besoin de faire un dessin, de parler de l'odeur ou des spasmes de l'estomac ?</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="tapeworm">
+            <segment id="name">
+                <source>Vers Solitaire</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez faim, très faim, tout le temps faim... À manger bon sang !</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="black_bite">
+            <segment id="name">
+                <source>Morsure Noire</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Relativement bénin mais persistant, la Morsure Noire est un syndrome récent que personne ne connaît.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="cat_allergy">
+            <segment id="name">
+                <source>Allergie au chat</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>La simple vue d'un chat provoque des éternuements insupportables et des pustules. Son contact pourrait s'avérer mortel...</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="cold">
+            <segment id="name">
+                <source>Rhume</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Ne sortez jamais sans vos mouchoirs !</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="extreme_tinnitus">
+            <segment id="name">
+                <source>Acouphènes Extrême</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vos oreilles sifflent fort en permanence, ce qui peut devenir très fatiguant à la longue.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="flu">
+            <segment id="name">
+                <source>Grippe</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Variante sévère de la grippe du poney... Irritable, autoritaire, mal de crâne, rhume, courbatures, rien ne vous est épargné. Attention à ne pas trop laisser traîner, on ne sait jamais.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="fungic_infection">
+            <segment id="name">
+                <source>Infection fongique</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Qu'est ce que c'est que ce truc horrible... Vous devriez faire soigner ça rapidement... Ça gratte, ça purule, ça pue...</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="junkbumpkinitis">
+            <segment id="name">
+                <source>Citrouillite</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>C'est pas que c'était pas frais...</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="migraine">
+            <segment id="name">
+                <source>Migraine</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Une grosse migraine bien carabinée harcèle le patient en ce moment, ça va passer...</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="mush_allergy">
+            <segment id="name">
+                <source>Allergie au mush</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Le contact au Mush vous donne des pustules horribles et douloureuses.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="quincks_oedema">
+            <segment id="name">
+                <source>Oedeme de Quincke</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>TODO</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="rejuvenation">
+            <segment id="name">
+                <source>Verdoiement</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Votre corps émet des lueurs pulsatiles vertes.ça ne favorise pas vraiment un sommeil reposant...</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="rubella">
+            <segment id="name">
+                <source>Rubéole</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Mal au crâne, puis pustules sèches, très très fatiguant. Vous devriez vous en remettre.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="sepsis">
+            <segment id="name">
+                <source>Infection aïgue</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous êtes très infecté. Pas facile de se remettre sur pied. Vous ne survivrez sans doute pas...</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="sinus_storm">
+            <segment id="name">
+                <source>Tempête sinusale</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vos sinus sont en feu, de glace, puis lui déchirent la tête... C'est lourd et ça ne passe pas...</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="skin_inflammation">
+            <segment id="name">
+                <source>Éruption cutanée</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Quelqu'en soit la source, vous n'en avez cure, ça démange là et c'est très pénible</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="slight_nausea">
+            <segment id="name">
+                <source>Nausée légère</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous vous sentez un peu barbouillé... Ça va passer mais vous n'avez plus faim et vous ne devriez pas vous approchez de bluuuuuurrrpppp...</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="smallpox">
+            <segment id="name">
+                <source>Variole</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Maladie disparue de Sol mais apparemment bien présente ailleurs. Son aspect appétissant devrait vous convaincre de vous soigner...</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="space_rabies">
+            <segment id="name">
+                <source>Rage spatiale</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez la rage. Vous pouvez devenir violent et cela va sans doute finir par vous tuer.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="syphilis">
+            <segment id="name">
+                <source>Syphilis</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Maladie vénérienne par excellence, votre aspect effroyable et les rumeurs qui vous entoureront vous lasserons vite. Quel Dom Juan quand même...</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="vitamin_deficiency">
+            <segment id="name">
+                <source>Carence en vitamines</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Des carences en vitamines, minéraux, oligo-éléments et autres, vous n'avez pas trop la pêche...</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="agoraphobia">
+            <segment id="name">
+                <source>Agoraphobie</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous êtes effrayé par la foule et les grands espaces, vous avez, en plus, des vertiges incontrôlables... Dans l'espace, ça va pas le faire.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="ailurophobia">
+            <segment id="name">
+                <source>Ailurophobie</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez une terrible phobie des chats. Leur simple vue vous met hors d'état d'agir.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="chronic_migraine">
+            <segment id="name">
+                <source>Migraine chronique</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Une grosse migraine bien carabinée vous prend de temps à autres... et puis quand elle vous prend c'est le grand déménagement... pas de chance.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="chronic_vertigo">
+            <segment id="name">
+                <source>Vertige chronique</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez des vertiges chroniques ce qui vous incapacite grandement.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="coprolalia">
+            <segment id="name">
+                <source>Coprolalie</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous lancez des chapelets d'insultes de façon impromptu. Au début ça choque un peu.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="crabism">
+            <segment id="name">
+                <source>Crabisme</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>De temps à autre, vous vous mettez à marcher de côté ou à vous jetez par terre pour ensuite rentrer dans une courte période régressive.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="depression">
+            <segment id="name">
+                <source>Dépression</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous souffrez tout le temps. La vie est devenue longue trop longue et chaque nouvelle épreuve vous fait perdre le goût des choses.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="paranoia">
+            <segment id="name">
+                <source>Crise Paranoïaque</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez peur pour votre vie et éventuellement le faites savoir.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="psychotic_episodes">
+            <segment id="name">
+                <source>Episodes Psychotiques</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous ne vous maitrisez plus et rentrez souvent dans des colères noires. Il est fortement avisé de s'éloigner de toute forme d'armement.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="spleen">
+            <segment id="name">
+                <source>Spleen</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous êtes atteint d'une forme très aiguë de dépression qui vous entraîne dans la mort très vite.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="vertigo">
+            <segment id="name">
+                <source>Vertige</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous avez des vertiges chroniques ce qui vous incapacite grandement.</source>
+                <target></target>
+            </segment>
+        </unit>
+        <unit id="weapon_phobia">
+            <segment id="name">
+                <source>Phobie des armes</source>
+                <target></target>
+            </segment>
+            <segment id="description">
+                <source>Vous ne pouvez plus tirer avec une arme, et leur simple vue vous incommode...</source>
+                <target></target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

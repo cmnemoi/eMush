@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="fr">
+  <file id="actions.ext">
+    <unit id="build">
+      <segment id="build" state="initial">
+        <source>build.name</source>
+        <target>build.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>build.description</source>
+        <target>build.description</target>
+      </segment>
+    </unit>
+    <unit id="coffee">
+      <segment id="coffee" state="initial">
+        <source>coffee.name</source>
+        <target>coffee.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>coffee.description</source>
+        <target>coffee.description</target>
+      </segment>
+    </unit>
+    <unit id="dispense">
+      <segment id="dispense" state="initial">
+        <source>dispense.name</source>
+        <target>dispense.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>dispense.description</source>
+        <target>dispense.description</target>
+      </segment>
+    </unit>
+    <unit id="do_the_thing">
+      <segment id="name" state="initial">
+        <source>do_the_thing.name</source>
+        <target>do_the_thing.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>do_the_thing.description</source>
+        <target>do_the_thing.description</target>
+      </segment>
+    </unit>
+    <unit id="check_spore_level">
+      <segment id="check_spore_level" state="initial">
+        <source>check_spore_level.name</source>
+        <target>check_spore_level.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>check_spore_level.description</source>
+        <target>check_spore_level.description</target>
+      </segment>
+    </unit>
+    <unit id="consume">
+      <segment id="consume" state="initial">
+        <source>consume.name</source>
+        <target>consume.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>consume.description</source>
+        <target>consume.description</target>
+      </segment>
+    </unit>
+    <unit id="consume_drug">
+      <segment id="consume_drug" state="initial">
+        <source>consume_drug.name</source>
+        <target>consume_drug.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>consume_drug.description</source>
+        <target>consume_drug.description</target>
+      </segment>
+    </unit>
+    <unit id="cook">
+      <segment id="cook" state="initial">
+        <source>cook.name</source>
+        <target>cook.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>cook.description</source>
+        <target>cook.description</target>
+      </segment>
+    </unit>
+    <unit id="disassemble">
+      <segment id="disassemble" state="initial">
+        <source>disassemble.name</source>
+        <target>disassemble.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>disassemble.description</source>
+        <target>disassemble.description</target>
+      </segment>
+    </unit>
+    <unit id="drop">
+      <segment id="name" state="initial">
+        <source>drop.name</source>
+        <target>drop.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>drop.description</source>
+        <target>drop.description</target>
+      </segment>
+    </unit>
+    <unit id="express_cook">
+      <segment id="express_cook" state="initial">
+        <source>express_cook.name</source>
+        <target>express_cook.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>express_cook.description</source>
+        <target>express_cook.description</target>
+      </segment>
+    </unit>
+    <unit id="extract_spore">
+      <segment id="extract_spore" state="initial">
+        <source>extract_spore.name</source>
+        <target>extract_spore.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>extract_spore.description</source>
+        <target>extract_spore.description</target>
+      </segment>
+    </unit>
+    <unit id="flirt">
+      <segment id="name" state="initial">
+        <source>flirt.name</source>
+        <target>flirt.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>flirt.description</source>
+        <target>flirt.description</target>
+      </segment>
+    </unit>
+    <unit id="get_up">
+      <segment id="get_up" state="initial">
+        <source>get_up.name</source>
+        <target>get_up.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>get_up.description</source>
+        <target>get_up.description</target>
+      </segment>
+    </unit>
+    <unit id="hide">
+      <segment id="hide" state="initial">
+        <source>hide.name</source>
+        <target>hide.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>hide.description</source>
+        <target>hide.description</target>
+      </segment>
+    </unit>
+    <unit id="hit">
+      <segment id="hit" state="initial">
+        <source>hit.name</source>
+        <target>hit.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>hit.description</source>
+        <target>hit.description</target>
+      </segment>
+    </unit>
+    <unit id="hyperfreeze">
+      <segment id="hyperfreeze" state="initial">
+        <source>hyperfreeze.name</source>
+        <target>hyperfreeze.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>hyperfreeze.description</source>
+        <target>hyperfreeze.description</target>
+      </segment>
+    </unit>
+    <unit id="infect">
+      <segment id="infect" state="initial">
+        <source>infect.name</source>
+        <target>infect.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>infect.description</source>
+        <target>infect.description</target>
+      </segment>
+    </unit>
+    <unit id="lie_down">
+      <segment id="lie_down" state="initial">
+        <source>lie_down.name</source>
+        <target>lie_down.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>lie_down.description</source>
+        <target>lie_down.description</target>
+      </segment>
+    </unit>
+    <unit id="move">
+      <segment id="name" state="initial">
+        <source>move.name</source>
+        <target>move.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>move.description</source>
+        <target>move.description</target>
+      </segment>
+    </unit>
+    <unit id="read_book">
+      <segment id="read_book" state="initial">
+        <source>read_book.name</source>
+        <target>read_book.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>read_book.description</source>
+        <target>read_book.description</target>
+      </segment>
+    </unit>
+    <unit id="read_document">
+      <segment id="read_document" state="initial">
+        <source>read_document.name</source>
+        <target>read_document.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>read_document.description</source>
+        <target>read_document.description</target>
+      </segment>
+    </unit>
+    <unit id="repair">
+      <segment id="repair" state="initial">
+        <source>repair.name</source>
+        <target>repair.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>repair.description</source>
+        <target>repair.description</target>
+      </segment>
+    </unit>
+    <unit id="search">
+      <segment id="search" state="initial">
+        <source>search.name</source>
+        <target>search.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>search.description</source>
+        <target>search.description</target>
+      </segment>
+    </unit>
+    <unit id="rejuvenate_alpha">
+      <segment id="rejuvenate_alpha" state="initial">
+        <source>rejuvenate_alpha.name</source>
+        <target>rejuvenate_alpha.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>rejuvenate_alpha.description</source>
+        <target>rejuvenate_alpha.description</target>
+      </segment>
+    </unit>
+    <unit id="shred">
+      <segment id="shred" state="initial">
+        <source>shred.name</source>
+        <target>shred.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>shred.description</source>
+        <target>shred.description</target>
+      </segment>
+    </unit>
+    <unit id="take">
+      <segment id="name" state="initial">
+        <source>take.name</source>
+        <target>take.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>take.description</source>
+        <target>take.description</target>
+      </segment>
+    </unit>
+    <unit id="transplant">
+      <segment id="name" state="initial">
+        <source>transplant.name</source>
+        <target>transplant.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>transplant.description</source>
+        <target>transplant.description</target>
+      </segment>
+    </unit>
+    <unit id="treat_plant">
+      <segment id="name" state="initial">
+        <source>treat_plant.name</source>
+        <target>treat_plant.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>treat_plant.description</source>
+        <target>treat_plant.description</target>
+      </segment>
+    </unit>
+    <unit id="water_plant">
+      <segment id="name" state="initial">
+        <source>water_plant.name</source>
+        <target>water_plant.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>water_plant.description</source>
+        <target>water_plant.description</target>
+      </segment>
+    </unit>
+    <unit id="write">
+      <segment id="name" state="initial">
+        <source>write.name</source>
+        <target>write.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>write.description</source>
+        <target>write.description</target>
+      </segment>
+    </unit>
+    <unit id="insert_oxygen">
+      <segment id="name" state="initial">
+        <source>insert_oxygen.name</source>
+        <target>insert_oxygen.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>insert_oxygen.description</source>
+        <target>insert_oxygen.description</target>
+      </segment>
+    </unit>
+    <unit id="retrieve_oxygen">
+      <segment id="name" state="initial">
+        <source>retrieve_oxygen.name</source>
+        <target>retrieve_oxygen.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>retrieve_oxygen.description</source>
+        <target>retrieve_oxygen.description</target>
+      </segment>
+    </unit>
+    <unit id="insert_fuel">
+      <segment id="name" state="initial">
+        <source>insert_fuel.name</source>
+        <target>insert_fuel.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>insert_fuel.description</source>
+        <target>insert_fuel.description</target>
+      </segment>
+    </unit>
+    <unit id="retrieve_fuel">
+      <segment id="name" state="initial">
+        <source>retrieve_fuel.name</source>
+        <target>retrieve_fuel.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>retrieve_fuel.description</source>
+        <target>retrieve_fuel.description</target>
+      </segment>
+    </unit>
+    <unit id="sabotage">
+      <segment id="name" state="initial">
+        <source>sabotage.name</source>
+        <target>sabotage.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>sabotage.description</source>
+        <target>sabotage.description</target>
+      </segment>
+    </unit>
+    <unit id="shower">
+      <segment id="name" state="initial">
+        <source>shower.name</source>
+        <target>shower.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>shower.description</source>
+        <target>shower.description</target>
+      </segment>
+    </unit>
+    <unit id="extinguish">
+      <segment id="name" state="initial">
+        <source>extinguish.name</source>
+        <target>extinguish.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>extinguish.description</source>
+        <target>extinguish.description</target>
+      </segment>
+    </unit>
+    <unit id="heal">
+      <segment id="name" state="initial">
+        <source>heal.name</source>
+        <target>heal.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>heal.description</source>
+        <target>heal.description</target>
+      </segment>
+    </unit>
+    <unit id="self_heal">
+      <segment id="name" state="initial">
+        <source>self_heal.name</source>
+        <target>self_heal.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>self_heal.description</source>
+        <target>self_heal.description</target>
+      </segment>
+    </unit>
+    <unit id="ultraheal">
+      <segment id="name" state="initial">
+        <source>ultraheal.name</source>
+        <target>ultraheal.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>ultraheal.description</source>
+        <target>ultraheal.description</target>
+      </segment>
+    </unit>
+    <unit id="use_bandage">
+      <segment id="name" state="initial">
+        <source>use_bandage.name</source>
+        <target>use_bandage.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>use_bandage.description</source>
+        <target>use_bandage.description</target>
+      </segment>
+    </unit>
+    <unit id="comfort">
+      <segment id="name" state="initial">
+        <source>comfort.name</source>
+        <target>comfort.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>comfort.description</source>
+        <target>comfort.description</target>
+      </segment>
+    </unit>
+    <unit id="open">
+      <segment id="name" state="initial">
+        <source>open.name</source>
+        <target>open.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>open.description</source>
+        <target>open.description</target>
+      </segment>
+    </unit>
+    <unit id="strengthen_hull">
+      <segment id="name" state="initial">
+        <source>strengthen_hull.name</source>
+        <target>strengthen_hull.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>strengthen_hull.description</source>
+        <target>strengthen_hull.description</target>
+      </segment>
+    </unit>
+    <unit id="spread_fire">
+      <segment id="name" state="initial">
+        <source>spread_fire.name</source>
+        <target>spread_fire.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>spread_fire.description</source>
+        <target>spread_fire.description</target>
+      </segment>
+    </unit>
+    <unit id="install_camera">
+      <segment id="name" state="initial">
+        <source>install_camera.name</source>
+        <target>install_camera.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>install_camera.description</source>
+        <target>install_camera.description</target>
+      </segment>
+    </unit>
+    <unit id="remove_camera">
+      <segment id="name" state="initial">
+        <source>remove_camera.name</source>
+        <target>remove_camera.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>remove_camera.description</source>
+        <target>remove_camera.description</target>
+      </segment>
+    </unit>
+    <unit id="examine">
+      <segment id="name" state="initial">
+        <source>examine.name</source>
+        <target>examine.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>examine.description</source>
+        <target>examine.description</target>
+      </segment>
+    </unit>
+    <unit id="remove_spore">
+      <segment id="name" state="initial">
+        <source>remove_spore.name</source>
+        <target>remove_spore.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>remove_spore.description</source>
+        <target>remove_spore.description</target>
+      </segment>
+    </unit>
+    <unit id="report_equipment">
+      <segment id="name" state="initial">
+        <source>report_equipment.name</source>
+        <target>report_equipment.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>report_equipment.description</source>
+        <target>report_equipment.description</target>
+      </segment>
+    </unit>
+    <unit id="report_fire">
+      <segment id="name" state="initial">
+        <source>report_fire.name</source>
+        <target>report_fire.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>report_fire.description</source>
+        <target>report_fire.description</target>
+      </segment>
+    </unit>
+    <unit id="try_kube">
+      <segment id="name" state="initial">
+        <source>try_kube.name</source>
+        <target>try_kube.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>try_kube.description</source>
+        <target>try_kube.description</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

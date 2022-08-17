@@ -26,8 +26,8 @@ class ChannelPlayerRepositoryCest
 
     public function testFindAvailablePlayerForPrivateChannelDifferentDaedalus(FunctionalTester $I)
     {
-        $daedalus = $I->have(Daedalus::class);
-        $daedalus2 = $I->have(Daedalus::class);
+        $daedalus = $I->have(Daedalus::class, ['name' => 'daedalus_1']);
+        $daedalus2 = $I->have(Daedalus::class, ['name' => 'daedalus_']);
 
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,

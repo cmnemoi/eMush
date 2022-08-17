@@ -19,6 +19,7 @@ class LoginService
     private RfcOauthClient $oauthClient;
     private JWTEncoderInterface $jwtEncoder;
     private string $etwinUri;
+    private string $appEnv;
 
     public function __construct(
         string $etwinUri,
@@ -27,12 +28,14 @@ class LoginService
         string $oauthCallback,
         string $clientId,
         string $clientSecret,
+        string $appEnv,
         UserServiceInterface $userService,
         JWTEncoderInterface $jwtEncoder
     ) {
         $this->userService = $userService;
         $this->etwinUri = $etwinUri;
         $this->jwtEncoder = $jwtEncoder;
+        $this->appEnv = $appEnv;
         $this->oauthClient = new RfcOauthClient(
             $authorizeUri,
             $tokenUri,
@@ -64,8 +67,7 @@ class LoginService
             ->setNonceCode(null)
             ->setNonceExpiryDate(null)
         ;
-
-        if ('dev' === getenv('APP_ENV')) {
+        if ('dev' === $this->appEnv) {
             $user->setRoles([RoleEnum::SUPER_ADMIN]);
         }
 

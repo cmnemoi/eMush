@@ -4,11 +4,13 @@ import Token from "@/components/Token.vue";
 import { is_granted, UserRole } from "@/enums/user_role.enum";
 import store from "@/store";
 import HomePage from "@/components/HomePage.vue";
-import AdminPage from "@/components/Admin/AdminPage.vue";
 import DefaultConfigPage from "@/components/Admin/DefaultConfigPage.vue";
-import DaedalusPage from "@/components/Admin/DaedalusPage.vue";
 import UserListPage from "@/components/Admin/User/UserListPage.vue";
 import UserDetailPage from "@/components/Admin/User/UserDetailPage.vue";
+import DaedalusListPage from "@/components/Admin/Daedalus/DaedalusListPage.vue";
+import DaedalusDetailPage from "@/components/Admin/Daedalus/DaedalusDetailPage.vue";
+import AdminHomePage from "@/components/Admin/AdminHomePage.vue";
+import AdminPage from "@/components/Admin/AdminPage.vue";
 
 const routes = [
     {
@@ -29,14 +31,24 @@ const routes = [
         meta: { authorize: [UserRole.ADMIN] },
         children: [
             {
+                name: "AdminHomePage",
+                path: '',
+                component: AdminHomePage
+            },
+            {
                 name: "AdminGameConfig",
                 path: 'game-config',
                 component: DefaultConfigPage
             },
             {
-                name: "AdminDaedalus",
-                path: 'daedalus',
-                component: DaedalusPage
+                name: "AdminDaedalusList",
+                path: 'daedalus-list',
+                component: DaedalusListPage
+            },
+            {
+                name: "AdminDaedalusCreate",
+                path: 'daedalus-create',
+                component: DaedalusDetailPage
             },
             {
                 name: "AdminUser",

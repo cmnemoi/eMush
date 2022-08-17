@@ -1,5 +1,17 @@
 <template>
     <div class="main">
+        <div class="daedalus-selection">
+            <label>Search:
+                <input
+                    v-model="daedalusName"
+                    type="search"
+                    class=""
+                    placeholder=""
+                    aria-controls="example"
+                >
+            </label>
+            <button @click=loadAvailableCharacters>Search</button>
+        </div>
         <div class="char-selection">
             <section
                 v-for="(character, key) in characters"
@@ -65,17 +77,9 @@ export default defineComponent ({
         return {
             loading: false,
             daedalusId: -1,
-            characters: []
+            characters: [],
+            daedalusName: ''
         };
-    },
-    beforeMount(): void {
-        this.loading = true;
-        ApiService.get('daedalus/available-characters')
-            .then((response) => {
-                this.daedalusId = response.data.daedalus;
-                this.characters = response.data.characters;
-                this.loading = false;
-            });
     },
     computed: {
         ...mapGetters('auth', [
@@ -83,6 +87,17 @@ export default defineComponent ({
         ])
     },
     methods: {
+        loadAvailableCharacters() {
+            if (this.daedalusName.length > 0) {
+                this.loading = true;
+                ApiService.get('daedalus/available-characters', { params: { name: this.daedalusName } })
+                    .then((response) => {
+                        this.daedalusId = response.data.daedalus;
+                        this.characters = response.data.characters;
+                        this.loading = false;
+                    });
+            }
+        },
         characterPortrait: function(character: Character) {
             return characterEnum[character.key] ? characterEnum[character.key].portrait : require('@/assets/images/items/todo.jpg');
         },
@@ -299,6 +314,11 @@ h1 {
     }
 }
 
+.daedalus-selection {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
 </style>
 
 

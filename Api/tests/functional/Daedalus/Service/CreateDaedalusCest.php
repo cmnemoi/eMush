@@ -116,8 +116,9 @@ class CreateDaedalusCest
         ;
         $I->haveInRepository($door);
 
-        $daedalus = $this->daedalusService->createDaedalus($gameConfig);
+        $daedalus = $this->daedalusService->createDaedalus($gameConfig, 'name');
 
+        $I->assertEquals('name', $daedalus->getName());
         $I->assertCount(3, $daedalus->getPlaces());
         $I->assertCount(1, $daedalus->getModifiers());
         $I->assertCount(0, $daedalus->getPlayers());

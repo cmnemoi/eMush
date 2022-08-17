@@ -59,9 +59,9 @@ const actions: ActionTree<any, any> = {
         commit('setToken', token);
     },
 
-    redirect({ commit }, { passphrase }): void {
+    redirectToLogin({ commit }): Promise<void> {
         commit('resetUserInfo');
-        UserService.redirect(passphrase);
+        return UserService.redirectToLogin();
     },
 
     async login({ commit }, { code }): Promise<boolean> {

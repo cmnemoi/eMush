@@ -24,16 +24,13 @@ class LoginController extends AbstractFOSRestController
 {
     private JWTTokenManagerInterface $jwtManager;
     private LoginService $loginService;
-    private string $alphaPassphrase;
 
     public function __construct(
-        string $alphaPassphrase,
         JWTTokenManagerInterface $jwtManager,
         LoginService $loginService
     ) {
         $this->jwtManager = $jwtManager;
         $this->loginService = $loginService;
-        $this->alphaPassphrase = $alphaPassphrase;
     }
 
     /**
@@ -96,14 +93,9 @@ class LoginController extends AbstractFOSRestController
     public function redirectAction(Request $request): Response
     {
         $redirectUri = $request->get('redirect_uri');
-        $passphrase = $request->get('passphrase');
 
-        if (!$redirectUri || !$passphrase) {
+        if (!$redirectUri) {
             throw new UnauthorizedHttpException('Bad credentials: missing redirect uri');
-        }
-
-        if ($passphrase !== $this->alphaPassphrase) {
-            return $this->redirect($redirectUri . '?error=invalid passphrase');
         }
 
         $uri = $this->loginService->getAuthorizationUri('base', $redirectUri);

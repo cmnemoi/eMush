@@ -9,7 +9,8 @@ const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");
 const GameConfigService = {
     loadDefaultGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const gameConfigData = await ApiService.get(ACTION_ENDPOINT + '/' + gameConfigId + '?XDEBUG_SESSION_START=PHPSTORM');
+        const gameConfigData = await ApiService.get(ACTION_ENDPOINT + '/' + gameConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         let gameConfig = null;

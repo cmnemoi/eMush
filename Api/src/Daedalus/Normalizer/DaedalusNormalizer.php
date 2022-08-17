@@ -6,9 +6,9 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class DaedalusNormalizer implements ContextAwareNormalizerInterface
+class DaedalusNormalizer implements NormalizerInterface
 {
     private CycleServiceInterface $cycleService;
     private TranslationServiceInterface $translationService;
@@ -26,7 +26,9 @@ class DaedalusNormalizer implements ContextAwareNormalizerInterface
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        return $data instanceof Daedalus;
+        $group = current($context['groups'] ?? []);
+
+        return $data instanceof Daedalus && $group === false;
     }
 
     /**

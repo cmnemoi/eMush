@@ -10,7 +10,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -198,8 +197,8 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
 
     public function hasOperationalEquipmentByName(string $name): bool
     {
-        return !$this->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name &&
-            (!$gameItem->isOperational())
+        return !$this->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name &&
+            (!$gameEquipment->isOperational())
         )->isEmpty();
     }
 

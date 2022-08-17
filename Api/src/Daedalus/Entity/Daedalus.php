@@ -47,6 +47,9 @@ class Daedalus implements ModifierHolder
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Modifier::class)]
     private Collection $modifiers;
 
+    #[ORM\Column(type: 'string', nullable: false, unique: true)]
+    private string $name = 'default';
+
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $oxygen = 0;
 
@@ -145,6 +148,18 @@ class Daedalus implements ModifierHolder
     public function setNeron(Neron $neron): static
     {
         $this->neron = $neron;
+
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }

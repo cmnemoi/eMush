@@ -1,6 +1,6 @@
 <template>
-    <div class="user_list_container">
-        <div class="user_filter_options">
+    <div class="daedalus_list_container">
+        <div class="daedalus_filter_options">
             <label>Show
                 <select v-model="pagination.pageSize" @change="updateFilter">
                     <option
@@ -22,6 +22,7 @@
                     @change="updateFilter"
                 >
             </label>
+            <router-link :to="{ name: 'AdminDaedalusCreate' }">Create</router-link>
         </div>
         <Datatable
             :headers='fields'
@@ -33,11 +34,11 @@
             @paginationClick="paginationClick"
             @sortTable="sortTable"
         >
-            <template #header-actions>
-                Actions
+            <template #header-cycle>
+                Cycle/Day
             </template>
-            <template #row-actions="slotProps">
-                <router-link :to="{ name: 'AdminUserDetail', params: { userId : slotProps.userId } }">Edit</router-link>
+            <template #row-cycle="slotProps">
+                {{ slotProps.cycle }} / {{ slotProps.day }} (updated at: {{formatDate(slotProps.updatedAt)}})
             </template>
         </Datatable>
     </div>
@@ -49,9 +50,11 @@ import urlJoin from "url-join";
 import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 import qs from "qs";
 import ApiService from "@/services/api.service";
+import { fr } from "date-fns/locale";
+import { format } from "date-fns";
 
 export default defineComponent({
-    name: "UserListPage",
+    name: "DeadalusListPage",
     components: {
         Datatable
     },
@@ -59,23 +62,23 @@ export default defineComponent({
         return {
             fields: [
                 {
-                    key: 'username',
-                    name: 'username',
+                    key: 'id',
+                    name: 'id',
                     sortable: true
                 },
                 {
-                    key: 'userId',
-                    name: 'userId',
+                    key: 'name',
+                    name: 'Name',
                     sortable: true
                 },
                 {
-                    key: 'roles',
-                    name: 'roles',
-                    sortable: false
+                    key: 'gameStatus',
+                    name: 'gameStatus',
+                    sortable: true
                 },
                 {
-                    key: 'actions',
-                    name: 'Action',
+                    key: 'cycle',
+                    name: 'Cycle/Day',
                     sortable: false,
                     slot: true
                 }
@@ -87,10 +90,10 @@ export default defineComponent({
                 totalPage: 1
             },
             rowData: [],
-            filter: '',
             sortField: '',
             sortDirection: 'DESC',
             loading: false,
+            filter: '',
             pageSizeOptions: [
                 { text: 5, value: 5 },
                 { text: 10, value: 10 },
@@ -99,12 +102,13 @@ export default defineComponent({
         };
     },
     methods: {
+        formatDate: (date: string): string => {
+            const dateObject = new Date(date);
+            return format(dateObject, 'PPPPpp', { locale : fr });
+        },
         loadData() {
             this.loading = true;
             const params: any = {
-                header: {
-                    'accept': 'application/ld+json'
-                },
                 params: {},
                 paramsSerializer: qs.stringify
             };
@@ -114,13 +118,13 @@ export default defineComponent({
             if (this.pagination.pageSize) {
                 params.params['itemsPerPage'] = this.pagination.pageSize;
             }
-            if (this.filter) {
-                params.params['username'] = this.filter;
-            }
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'users'), params)
+            if (this.filter) {
+                params.params['name'] = this.filter;
+            }
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'daedaluses?XDEBUG_SESSION_START=PHPSTORM'), params)
                 .then((result) => {
                     return result.data;
                 })
@@ -166,7 +170,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.user_filter_options {
+.daedalus_filter_options {
     display: flex;
     flex-grow: 1;
     flex-direction: row;

@@ -87,9 +87,9 @@ class DaedalusService implements DaedalusServiceInterface
         return new DaedalusCollection();
     }
 
-    public function findAvailableDaedalus(): ?Daedalus
+    public function findAvailableDaedalus(string $name): ?Daedalus
     {
-        return $this->repository->findAvailableDaedalus();
+        return $this->repository->findAvailableDaedalus($name);
     }
 
     public function findAvailableCharacterForDaedalus(Daedalus $daedalus): Collection
@@ -101,13 +101,14 @@ class DaedalusService implements DaedalusServiceInterface
         );
     }
 
-    public function createDaedalus(GameConfig $gameConfig): Daedalus
+    public function createDaedalus(GameConfig $gameConfig, string $name): Daedalus
     {
         $daedalus = new Daedalus();
 
         $daedalusConfig = $gameConfig->getDaedalusConfig();
 
         $daedalus
+            ->setName($name)
             ->setGameConfig($gameConfig)
             ->setCycle(0)
             ->setOxygen($daedalusConfig->getInitOxygen())

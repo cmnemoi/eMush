@@ -8,13 +8,11 @@ use FOS\RestBundle\View\View;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -26,59 +24,16 @@ class DaedalusController extends AbstractFOSRestController
 {
     private DaedalusServiceInterface $daedalusService;
     private DaedalusWidgetServiceInterface $daedalusWidgetService;
-    private GameConfigServiceInterface $gameConfigService;
     private TranslationServiceInterface $translationService;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         DaedalusWidgetServiceInterface $daedalusWidgetService,
-        GameConfigServiceInterface $gameConfigService,
         TranslationServiceInterface $translationService
     ) {
         $this->daedalusService = $daedalusService;
         $this->daedalusWidgetService = $daedalusWidgetService;
-        $this->gameConfigService = $gameConfigService;
         $this->translationService = $translationService;
-    }
-
-    /**
-     * Display Daedalus informations.
-     *
-     * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The daedalus id",
-     *     @OA\Schema(type="integer")
-     * )
-     * @OA\Tag(name="Daedalus")
-     * @Security(name="Bearer")
-     * @Rest\Get(path="/{id}", requirements={"id"="\d+"})
-     */
-    public function getDaedalusAction(?Daedalus $daedalus): Response
-    {
-        if ($daedalus === null) {
-            throw new NotFoundHttpException();
-        }
-
-        $view = $this->view($daedalus, 200);
-
-        return $this->handleView($view);
-    }
-
-    /**
-     * Create a Daedalus.
-     *
-     * @OA\Tag(name="Daedalus")
-     * @Security(name="Bearer")
-     * @Rest\Post(path="")
-     */
-    public function createDaedalusAction(): Response
-    {
-        $daedalus = $this->daedalusService->createDaedalus($this->gameConfigService->getConfig());
-
-        $view = $this->view($daedalus, 201);
-
-        return $this->handleView($view);
     }
 
     /**
@@ -90,12 +45,14 @@ class DaedalusController extends AbstractFOSRestController
      *
      * @Rest\Get (path="/available-characters")
      */
-    public function getAvailableCharacter(): View
+    public function getAvailableCharacter(Request $request): View
     {
-        $daedalus = $this->daedalusService->findAvailableDaedalus();
+        $name = $request->get('name', '');
+
+        $daedalus = $this->daedalusService->findAvailableDaedalus($name);
 
         if ($daedalus === null) {
-            $daedalus = $this->daedalusService->createDaedalus($this->gameConfigService->getConfig());
+            return $this->view(['error' => 'Daedalus not found'], 404);
         }
 
         $availableCharacters = $this->daedalusService->findAvailableCharacterForDaedalus($daedalus);

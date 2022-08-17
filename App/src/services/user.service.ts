@@ -26,10 +26,9 @@ class AuthenticationError extends Error {
 }
 
 const UserService = {
-    redirect: async function(passphrase: string): Promise<void> {
+    redirectToLogin: async function(): Promise<void> {
         const redirectUri = new URLSearchParams();
         redirectUri.set('redirect_uri', callBackUrl);
-        redirectUri.set('passphrase', passphrase);
         global.window.location.replace(decodeURIComponent(authorizationUrl + '?'+ redirectUri.toString()));
     },
 

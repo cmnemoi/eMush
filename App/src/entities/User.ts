@@ -1,4 +1,4 @@
-import { UserRole } from "@/enums/user_role.enum";
+import { is_granted, UserRole } from "@/enums/user_role.enum";
 
 export class User {
     public id : number|null
@@ -40,6 +40,6 @@ export class User {
         return this;
     }
     isAdmin(): boolean {
-        return this.roles ? this.roles.includes(UserRole.ADMIN) : false;
+        return is_granted(UserRole.ADMIN, this);
     }
 }

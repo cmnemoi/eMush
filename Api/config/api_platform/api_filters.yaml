@@ -10,9 +10,29 @@ services:
         autowire: false
         autoconfigure: false
         public: false
+    daedalus.order_filter:
+        parent: 'api_platform.doctrine.orm.order_filter'
+        arguments:
+            $properties: { id: ~, name: ~, gameStatus: ~ }
+            $orderParameterName: order
+        tags:  [ 'api_platform.filter' ]
+        # The following are mandatory only if a _defaults section is defined with inverted values.
+        # You may want to isolate filters in a dedicated file to avoid adding the following lines (by adding them in the defaults section)
+        autowire: false
+        autoconfigure: false
+        public: false
     user.search_filter:
         parent: 'api_platform.doctrine.orm.search_filter'
         arguments: [ { username: 'ipartial' } ]
+        tags:  [ 'api_platform.filter' ]
+        # The following are mandatory only if a _defaults section is defined with inverted values.
+        # You may want to isolate filters in a dedicated file to avoid adding the following lines (by adding them in the defaults section)
+        autowire: false
+        autoconfigure: false
+        public: false
+    daedalus.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { name: 'ipartial' } ]
         tags:  [ 'api_platform.filter' ]
         # The following are mandatory only if a _defaults section is defined with inverted values.
         # You may want to isolate filters in a dedicated file to avoid adding the following lines (by adding them in the defaults section)

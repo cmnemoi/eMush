@@ -36,15 +36,15 @@
         <div style="display:none;" class="banner">
             <div class="skills">
                 <div class="Expert radio">
-                    <img src="@/assets/images/skills/cook.png" alt="cook">
+                    <img src="@/assets/images/skills/human/cook.png" alt="cook">
                     <p>Expert radio</p>
                 </div>
                 <div class="Expert logistique">
-                    <img src="@/assets/images/skills/cook.png" alt="cook">
+                    <img src="@/assets/images/skills/human/cook.png" alt="cook">
                     <p>Expert logistique</p>
                 </div>
                 <div class="Tireur">
-                    <img src="@/assets/images/skills/cook.png" alt="cook">
+                    <img src="@/assets/images/skills/human/cook.png" alt="cook">
                     <p>Tireur</p>
                 </div>
             </div>

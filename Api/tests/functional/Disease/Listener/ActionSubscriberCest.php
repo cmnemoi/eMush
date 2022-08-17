@@ -720,4 +720,128 @@ class ActionSubscriberCest
         //     'log' => SymptomEnum::VOMITING
         // ]);
     }
+
+    public function testOnPostActionFearOfCatsSymptom(FunctionalTester $I)
+    {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+
+        $daedalus = $I->have(Daedalus::class);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        /** @var Place $room2 */
+        $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
+
+        /** @var EquipmentConfig $itemConfig */
+        $itemConfig = $I->have(ItemConfig::class);
+
+        $cat = new GameItem();
+        $cat
+            ->setName(ItemEnum::SCHRODINGER)
+            ->setEquipment($itemConfig)
+            ->setHolder($room)
+        ;
+
+        $I->haveInRepository($cat);
+
+        $actionCost = new ActionCost();
+
+        $I->haveInRepository($actionCost);
+
+        $moveActionEntity = new Action();
+        $moveActionEntity
+            ->setName(ActionEnum::MOVE)
+            ->setDirtyRate(0)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setInjuryRate(0)
+            ->setActionCost($actionCost)
+        ;
+        $I->haveInRepository($moveActionEntity);
+
+        /** @var EquipmentConfig $doorConfig */
+        $doorConfig = new EquipmentConfig();
+        $doorConfig
+            ->setName('door')
+            ->setActions(new ArrayCollection([$moveActionEntity]))
+        ;
+        $I->haveInRepository($doorConfig);
+
+        $door = new Door();
+        $door
+            ->setName('door name')
+            ->setEquipment($doorConfig)
+            ->setHolder($room2)
+        ;
+
+        $I->haveInRepository($door);
+
+        $room->addDoor($door);
+        $room2->addDoor($door);
+
+        $I->refreshEntities($room, $room2, $door);
+
+        $characterConfig = $I->have(CharacterConfig::class);
+
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'characterConfig' => $characterConfig,
+            'place' => $room2,
+        ]);
+
+        $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
+        $moveActionSymptomCondition
+            ->setCondition(ActionEnum::MOVE)
+        ;
+
+        $I->haveInRepository($moveActionSymptomCondition);
+
+        $catInRoomSymptomCondition = new SymptomCondition(SymptomConditionEnum::ITEM_IN_ROOM);
+        $catInRoomSymptomCondition
+            ->setCondition(ItemEnum::SCHRODINGER);
+
+        $I->haveInRepository($catInRoomSymptomCondition);
+
+        $symptomConfig = new SymptomConfig(SymptomEnum::FEAR_OF_CATS);
+        $symptomConfig
+            ->setTrigger(ActionEvent::POST_ACTION)
+            ->addSymptomCondition($moveActionSymptomCondition)
+            ->addSymptomCondition($catInRoomSymptomCondition)
+        ;
+
+        $I->haveInRepository($symptomConfig);
+
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setName('Name')
+            ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+        ;
+
+        $I->haveInRepository($diseaseConfig);
+
+        $playerDisease = new PlayerDisease();
+        $playerDisease
+            ->setPlayer($player)
+            ->setDiseaseConfig($diseaseConfig)
+            ->setStatus(DiseaseStatusEnum::ACTIVE)
+            ->setDiseasePoint(10)
+        ;
+
+        $I->haveInRepository($playerDisease);
+
+        $I->refreshEntities($player);
+
+        // @TO DO : fix Call to a member function getActions() on bool error
+
+        // $moveAction = $I->grabService(Move::class);
+
+        // $moveAction->loadParameters($moveActionEntity, $player, $door);
+        // $moveAction->execute();
+
+        // $I->seeInRepository(RoomLog::class, [
+        //     'player' => $player,
+        //     'place' => $room,
+        //     'log' => SymptomEnum::FEAR_OF_CATS,
+        // ]);
+    }
 }

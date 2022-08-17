@@ -4,7 +4,6 @@ namespace Mush\Disease\Listener;
 
 use Mush\Action\Event\ActionEvent;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
-use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Service\SymptomConditionServiceInterface;
 use Mush\Disease\Service\SymptomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -43,7 +42,7 @@ class ActionSubscriber implements EventSubscriberInterface
 
     private function getPlayerSymptomConfigs(Player $player): SymptomConfigCollection
     {
-        $playerDiseases = $player->getMedicalConditions()->getActiveDiseases()->getByDiseaseType(TypeEnum::DISEASE);
+        $playerDiseases = $player->getMedicalConditions()->getActiveDiseases();
 
         $symptomConfigs = new SymptomConfigCollection([]);
         foreach ($playerDiseases as $disease) {

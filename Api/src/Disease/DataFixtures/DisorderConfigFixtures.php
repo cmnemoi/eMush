@@ -6,7 +6,9 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
+use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -49,6 +51,9 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         /** @var ModifierConfig $reduceMax4MoralPoint */
         $reduceMax4MoralPoint = $this->getReference(DisorderModifierConfigFixtures::REDUCE_MAX_4_MORAL_POINT);
 
+        /** @var SymptomConfig $fearOfCats */
+        $fearOfCats = $this->getReference(DisorderSymptomConfigFixtures::FEAR_OF_CATS);
+
         $agoraphobia = new DiseaseConfig();
         $agoraphobia
             ->setGameConfig($gameConfig)
@@ -69,6 +74,9 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setModifierConfigs(new ArrayCollection([
                 $catInRoomMove2MovementIncrease,
                 $catInRoomNotMove2ActionIncrease,
+            ]))
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $fearOfCats,
             ]));
 
         $manager->persist($ailurophobia);
@@ -201,6 +209,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         return [
             GameConfigFixtures::class,
             DisorderModifierConfigFixtures::class,
+            DisorderSymptomConfigFixtures::class,
         ];
     }
 }

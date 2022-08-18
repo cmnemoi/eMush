@@ -6,6 +6,8 @@ class SymptomEnum
 {
     public const BITING = 'biting';
     public const BREAKOUTS = 'breakouts';
+    public const CANT_MOVE = 'cant_move';
+    public const CANT_PICK_UP_HEAVY_ITEMS = 'cant_pick_up_heavy_items';
     public const CAT_ALLERGY = 'cat_allergy';
     public const DIRTINESS = 'dirtiness';
     public const DEAF = 'deaf';

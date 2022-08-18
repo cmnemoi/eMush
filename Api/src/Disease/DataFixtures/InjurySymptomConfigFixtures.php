@@ -26,7 +26,6 @@ class InjurySymptomConfigFixtures extends Fixture implements DependentFixtureInt
         $manager->persist($cantPickUpHeavyItems);
 
         $deaf = new SymptomConfig(SymptomEnum::DEAF);
-        $deaf->setTrigger(EventEnum::ON_NEW_MESSAGE);
         $manager->persist($deaf);
 
         $mute = new SymptomConfig(SymptomEnum::MUTE);

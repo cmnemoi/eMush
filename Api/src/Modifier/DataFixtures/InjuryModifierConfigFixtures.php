@@ -5,15 +5,20 @@ namespace Mush\Modifier\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Modifier\Entity\ModifierCondition;
 use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Enum\ModifierConditionEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
 
 class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -33,13 +38,22 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        $dirtyStatusCondition = new ModifierCondition(ModifierConditionEnum::PLAYER_STATUS);
+        $dirtyStatusCondition->setCondition(PlayerStatusEnum::DIRTY);
+        $manager->persist($dirtyStatusCondition);
+
+        $notMoveActionCondition = new ModifierCondition(ModifierConditionEnum::NOT_REASON);
+        $notMoveActionCondition->setCondition(ActionEnum::MOVE);
+        $manager->persist($notMoveActionCondition);
+
         $dirtyAllHealthLoss = new ModifierConfig();
         $dirtyAllHealthLoss
-            ->setScope(ModifierScopeEnum::EVENT_DIRTY)
+            ->setScope(StatusEvent::STATUS_APPLIED)
             ->setTarget(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(-$gameConfig->getMaxHealthPoint())
+            ->setDelta(-999)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
+            ->addModifierCondition($dirtyStatusCondition)
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($dirtyAllHealthLoss);
@@ -51,6 +65,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->addModifierCondition($notMoveActionCondition)
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($notMoveAction1Increase);
@@ -62,6 +77,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->addModifierCondition($notMoveActionCondition)
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($notMoveAction2Increase);
@@ -73,6 +89,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(3)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->addModifierCondition($notMoveActionCondition)
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($notMoveAction3Increase);

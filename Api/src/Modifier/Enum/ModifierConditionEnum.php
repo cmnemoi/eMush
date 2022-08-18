@@ -25,6 +25,8 @@ namespace Mush\Modifier\Enum;
  * EVEN: in case of a CYCLE condition, check if the cycle is even
  *
  * PLAYER_EQUIPMENT: the condition is applied on the player equipment
+ *
+ * PLAYER_STATUS: the condition is applied on the player status
  */
 class ModifierConditionEnum
 {
@@ -45,4 +47,6 @@ class ModifierConditionEnum
     public const EVEN = 'even';
 
     public const PLAYER_EQUIPMENT = 'player_equipment';
+
+    public const PLAYER_STATUS = 'player_status';
 }

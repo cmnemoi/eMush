@@ -3,7 +3,6 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
-use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Enum\ModifierScopeEnum;
@@ -62,7 +61,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             }
         }
 
-        $statusEvent = new StatusEvent(PlayerStatusEnum::DIRTY, $player, EventEnum::NEW_DAY, new \DateTime());
+        $statusEvent = new StatusEvent(PlayerStatusEnum::DIRTY, $player, $action->getName(), new \DateTime());
         $statusEvent->setVisibility(VisibilityEnum::PRIVATE);
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
     }

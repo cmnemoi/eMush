@@ -361,5 +361,25 @@
                 <target>Vous ne pouvez plus tirer avec une arme, et leur simple vue vous incommode...</target>
             </segment>
         </unit>
+        <unit id="burns_50_of_body">
+            <segment id="name">
+                <source>burns_50_of_body.name</source>
+                <target>Brûlure au 3ème degré sur 50%</target>
+            </segment>
+            <segment id="description">
+                <source>burns_50_of_body.description</source>
+                <target>La partie avant de votre corps est brûlée, pas trop non plus mais tout de même.</target>
+            </segment>
+        </unit>
+        <unit id="burns_90_of_body">
+            <segment id="name">
+                <source>burns_90_of_body.name</source>
+                <target>Brûlure au 3ème degré sur 90%</target>
+            </segment>
+            <segment id="description">
+                <source>burns_90_of_body.description</source>
+                <target>Votre corps est très gravement brulé et risque une septicémie.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

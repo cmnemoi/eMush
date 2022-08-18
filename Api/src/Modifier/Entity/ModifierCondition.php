@@ -19,8 +19,8 @@ class ModifierCondition
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $condition = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $value = null;
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $value = 100;
 
     public function __construct(string $name)
     {

@@ -65,11 +65,7 @@ class ModifierConditionService implements ModifierConditionServiceInterface
                 return $reason !== $condition->getCondition();
 
             case ModifierConditionEnum::RANDOM:
-                if (($percentage = $condition->getValue()) === null) {
-                    throw new \LogicException('provide a numeric value for random modifier condition');
-                }
-
-                return $this->randomService->isSuccessful(intval($percentage));
+                return $this->randomService->isSuccessful(intval($condition->getValue()));
 
             case ModifierConditionEnum::PLAYER_IN_ROOM:
                 return $this->handlePlayerInRoomCondition($condition, $holder);
@@ -82,6 +78,9 @@ class ModifierConditionService implements ModifierConditionServiceInterface
 
             case ModifierConditionEnum::ITEM_IN_ROOM:
                 return $this->handleItemInRoomCondition($condition, $holder);
+
+            case ModifierConditionEnum::PLAYER_STATUS:
+                return $this->handlePlayerStatusCondition($condition, $holder);
 
             default:
                 throw new \LogicException('this condition is not implemented');
@@ -163,5 +162,20 @@ class ModifierConditionService implements ModifierConditionServiceInterface
         return $room->getEquipments()->filter(function (GameEquipment $equipment) use ($condition) {
             return $equipment->getName() === $condition->getCondition();
         })->count() > 0;
+    }
+
+    private function handlePlayerStatusCondition(ModifierCondition $condition, ModifierHolder $holder): bool
+    {
+        if (!$holder instanceof Player) {
+            throw new \LogicException('PLAYER_STATUS condition can only be applied on a player');
+        }
+        /** @var Player $player */
+        $player = $holder;
+        $expectedStatus = $condition->getCondition();
+        if ($expectedStatus === null) {
+            throw new \LogicException('provide a status for player_status condition');
+        }
+
+        return $player->hasStatus($expectedStatus);
     }
 }

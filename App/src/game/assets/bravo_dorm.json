@@ -3,16 +3,7 @@
  "infinite":false,
  "layers":[
         {
-         "data":[0, 0, 0, 253, 251, 251, 251, 251, 251, 251, 0,
-            0, 0, 0, 252, 0, 0, 0, 0, 0, 0, 0,
-            253, 251, 251, 250, 0, 0, 0, 0, 0, 0, 0,
-            252, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            252, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            252, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            252, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            252, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            252, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 253, 251, 251, 251, 251, 251, 251, 0, 0, 0, 0, 252, 0, 0, 0, 0, 0, 0, 0, 253, 251, 251, 250, 0, 0, 0, 0, 0, 0, 0, 252, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 252, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 252, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 252, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 252, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 252, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
          "id":1,
          "name":"wall",
@@ -30,16 +21,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 266, 266, 266, 266, 266, 266, 0,
-            0, 0, 0, 0, 266, 266, 266, 266, 266, 266, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 266, 266, 266, 266, 266, 266, 0, 0, 0, 0, 0, 266, 266, 266, 266, 266, 266, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
          "id":2,
          "name":"ground",
@@ -62,16 +44,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 266, 266, 266, 266, 266, 266, 266, 266, 266, 0,
-            0, 266, 266, 266, 266, 266, 266, 266, 266, 266, 0,
-            0, 266, 266, 266, 266, 266, 266, 266, 266, 266, 0,
-            0, 266, 268, 267, 267, 267, 267, 267, 267, 267, 0,
-            0, 266, 267, 267, 267, 267, 267, 267, 267, 267, 0,
-            0, 266, 267, 267, 266, 266, 266, 266, 266, 266, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 266, 266, 266, 266, 266, 266, 266, 266, 266, 0, 0, 266, 266, 266, 266, 266, 266, 266, 266, 266, 0, 0, 266, 266, 266, 266, 266, 266, 266, 266, 266, 0, 0, 266, 268, 267, 267, 267, 267, 267, 267, 267, 0, 0, 266, 267, 267, 267, 267, 267, 267, 267, 267, 0, 0, 266, 267, 267, 266, 266, 266, 266, 266, 266, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":10,
          "id":5,
          "name":"ground",
@@ -139,8 +112,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":14,
-                 "x":95,
-                 "y":-24
+                 "x":96.5,
+                 "y":-23.5
                 }, 
                 {
                  "gid":245,
@@ -151,7 +124,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"isoSizeX",
@@ -195,8 +168,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":95,
-                 "x":15.25,
-                 "y":46.75
+                 "x":14.25,
+                 "y":45.75
                 }, 
                 {
                  "gid":243,
@@ -228,66 +201,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":13,
-                 "x":99.25,
-                 "y":66.75
-                }, 
-                {
-                 "gid":6,
-                 "height":58,
-                 "id":14,
-                 "name":"bed",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":52
-                        }, 
-                        {
-                         "name":"sitAnimation",
-                         "type":"string",
-                         "value":"lie_down"
-                        }, 
-                        {
-                         "name":"sitAutoTrigger",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"sitDepth",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"sitFlip",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"sitX",
-                         "type":"float",
-                         "value":4
-                        }, 
-                        {
-                         "name":"sitY",
-                         "type":"float",
-                         "value":7
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":66,
-                 "x":93.5,
-                 "y":22.5
+                 "x":94.75,
+                 "y":62.25
                 }, 
                 {
                  "gid":241,
@@ -314,8 +229,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":32,
-                 "x":-3.5,
-                 "y":77.5
+                 "x":-4,
+                 "y":76
                 }, 
                 {
                  "gid":242,
@@ -343,7 +258,7 @@
                  "visible":true,
                  "width":32,
                  "x":-3.5,
-                 "y":77.5
+                 "y":75.5
                 }, 
                 {
                  "gid":238,
@@ -370,8 +285,8 @@
                  "type":"shelf",
                  "visible":true,
                  "width":33,
-                 "x":119.75,
-                 "y":118.25
+                 "x":120.25,
+                 "y":119.75
                 }, 
                 {
                  "gid":235,
@@ -403,8 +318,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":12,
-                 "x":19.5,
-                 "y":116.5
+                 "x":18.5,
+                 "y":117.5
                 }, 
                 {
                  "gid":236,
@@ -436,8 +351,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":18,
-                 "x":68.9831171995149,
-                 "y":-13.0673305458621
+                 "x":72,
+                 "y":-17
                 }, 
                 {
                  "gid":23,
@@ -459,10 +374,9 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":45,
-                 "y":157
-                },
-            
+                 "x":46,
+                 "y":156
+                }, 
                 {
                  "gid":33,
                  "height":36,
@@ -483,8 +397,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":171.876233065895,
-                 "y":108.638563724845
+                 "x":173,
+                 "y":109
                 }, 
                 {
                  "gid":9,
@@ -521,66 +435,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":25,
-                 "x":-18.75,
-                 "y":98
-                }, 
-                {
-                 "gid":5,
-                 "height":58,
-                 "id":13,
-                 "name":"bed",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":52
-                        }, 
-                        {
-                         "name":"sitAnimation",
-                         "type":"string",
-                         "value":"lie_down"
-                        }, 
-                        {
-                         "name":"sitAutoTrigger",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"sitDepth",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"sitFlip",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"sitX",
-                         "type":"float",
-                         "value":4
-                        }, 
-                        {
-                         "name":"sitY",
-                         "type":"float",
-                         "value":7
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":66,
-                 "x":61.5014204545455,
-                 "y":22.4985795454545
+                 "x":-23.75,
+                 "y":96.75
                 }, 
                 {
                  "gid":7,
@@ -637,8 +493,124 @@
                  "type":"interact",
                  "visible":true,
                  "width":66,
-                 "x":124.5,
-                 "y":22
+                 "x":132.5,
+                 "y":17.5
+                }, 
+                {
+                 "gid":6,
+                 "height":58,
+                 "id":14,
+                 "name":"bed",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":52
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":4
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":7
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":66,
+                 "x":100,
+                 "y":18
+                }, 
+                {
+                 "gid":5,
+                 "height":58,
+                 "id":13,
+                 "name":"bed",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":52
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":4
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":7
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":66,
+                 "x":68,
+                 "y":18
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -650,7 +622,7 @@
  "nextobjectid":19,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.5",
+ "tiledversion":"1.7.2",
  "tileheight":16,
  "tilesets":[
         {
@@ -731,8 +703,7 @@
                         {
                          "duration":300,
                          "tileid":10
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":11
@@ -776,8 +747,7 @@
                         {
                          "duration":300,
                          "tileid":5
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":4
@@ -983,8 +953,7 @@
                         {
                          "duration":100,
                          "tileid":10
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":11
@@ -1028,8 +997,7 @@
                         {
                          "duration":100,
                          "tileid":21
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":22
@@ -1085,8 +1053,7 @@
                         {
                          "duration":100,
                          "tileid":34
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":35
@@ -1130,8 +1097,7 @@
                         {
                          "duration":100,
                          "tileid":45
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":46
@@ -1187,8 +1153,7 @@
                         {
                          "duration":100,
                          "tileid":58
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":59
@@ -1232,8 +1197,7 @@
                         {
                          "duration":100,
                          "tileid":69
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":70
@@ -1289,8 +1253,7 @@
                         {
                          "duration":100,
                          "tileid":82
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":83
@@ -1334,8 +1297,7 @@
                         {
                          "duration":100,
                          "tileid":93
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":94
@@ -1391,8 +1353,7 @@
                         {
                          "duration":100,
                          "tileid":106
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":107
@@ -1436,8 +1397,7 @@
                         {
                          "duration":100,
                          "tileid":117
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":118
@@ -1493,8 +1453,7 @@
                         {
                          "duration":100,
                          "tileid":130
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":131
@@ -1538,8 +1497,7 @@
                         {
                          "duration":100,
                          "tileid":141
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":142
@@ -1595,8 +1553,7 @@
                         {
                          "duration":100,
                          "tileid":154
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":155
@@ -1640,8 +1597,7 @@
                         {
                          "duration":100,
                          "tileid":165
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":166
@@ -1697,8 +1653,7 @@
                         {
                          "duration":100,
                          "tileid":178
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":179
@@ -1742,8 +1697,7 @@
                         {
                          "duration":100,
                          "tileid":189
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":190
@@ -1878,8 +1832,7 @@
                  "id":2
                 }],
          "tilewidth":14
-        },
-    
+        }, 
         {
          "columns":14,
          "firstgid":250,
@@ -1950,6 +1903,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.8",
+ "version":"1.6",
  "width":11
 }

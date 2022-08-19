@@ -4,6 +4,7 @@
             <router-link :to="{ name: 'AdminDaedalusList' }">Daedalus</router-link>
             <router-link :to="{ name: 'AdminGameConfigList' }">Game Config</router-link>
             <router-link :to="{ name: 'AdminModifierConfigList' }">Modifier Config</router-link>
+            <router-link :to="{ name: 'AdminModifierConditionList' }">Modifier Condition</router-link>
             <router-link :to="{ name: 'AdminUser' }">Users</router-link>
         </div>
     </div>

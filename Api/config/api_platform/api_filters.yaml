@@ -1,4 +1,20 @@
 services:
+    default.order_filter:
+        parent: 'api_platform.doctrine.orm.order_filter'
+        arguments:
+            $properties: { id: ~, name: ~ }
+            $orderParameterName: order
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+    default.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { name: 'ipartial' } ]
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: fals
     user.order_filter:
         parent: 'api_platform.doctrine.orm.order_filter'
         arguments:
@@ -25,57 +41,6 @@ services:
             $properties: { id: ~, name: ~, gameStatus: ~ }
             $orderParameterName: order
         tags:  [ 'api_platform.filter' ]
-        # The following are mandatory only if a _defaults section is defined with inverted values.
-        # You may want to isolate filters in a dedicated file to avoid adding the following lines (by adding them in the defaults section)
-        autowire: false
-        autoconfigure: false
-        public: false
-    daedalus.search_filter:
-        parent: 'api_platform.doctrine.orm.search_filter'
-        arguments: [ { name: 'ipartial' } ]
-        tags:  [ 'api_platform.filter' ]
-        # The following are mandatory only if a _defaults section is defined with inverted values.
-        # You may want to isolate filters in a dedicated file to avoid adding the following lines (by adding them in the defaults section)
-        autowire: false
-        autoconfigure: false
-        public: false
-    game_config.order_filter:
-        parent: 'api_platform.doctrine.orm.order_filter'
-        arguments:
-            $properties: { id: ~, name: ~ }
-            $orderParameterName: order
-        tags: [ 'api_platform.filter' ]
-        # The following are mandatory only if a _defaults section is defined with inverted values.
-        # You may want to isolate filters in a dedicated file to avoid adding the following lines (by adding them in the defaults section)
-        autowire: false
-        autoconfigure: false
-        public: false
-    game_config.search_filter:
-        parent: 'api_platform.doctrine.orm.search_filter'
-        arguments: [ { name: 'ipartial' } ]
-        tags: [ 'api_platform.filter' ]
-        # The following are mandatory only if a _defaults section is defined with inverted values.
-        # You may want to isolate filters in a dedicated file to avoid adding the following lines (by adding them in the defaults section)
-        autowire: false
-        autoconfigure: false
-        public: false
-    modifier_config.order_filter:
-        parent: 'api_platform.doctrine.orm.order_filter'
-        arguments:
-            $properties: { id: ~, name: ~ }
-            $orderParameterName: order
-        tags: [ 'api_platform.filter' ]
-        # The following are mandatory only if a _defaults section is defined with inverted values.
-        # You may want to isolate filters in a dedicated file to avoid adding the following lines (by adding them in the defaults section)
-        autowire: false
-        autoconfigure: false
-        public: false
-    modifier_config.search_filter:
-        parent: 'api_platform.doctrine.orm.search_filter'
-        arguments: [ { name: 'ipartial' } ]
-        tags: [ 'api_platform.filter' ]
-        # The following are mandatory only if a _defaults section is defined with inverted values.
-        # You may want to isolate filters in a dedicated file to avoid adding the following lines (by adding them in the defaults section)
         autowire: false
         autoconfigure: false
         public: false

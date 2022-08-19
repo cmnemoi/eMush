@@ -66,6 +66,10 @@
                 <ErrorList v-if="errors.mode" :errors="errors.mode"></ErrorList>
             </div>
         </div>
+        <h3>Modifier Condition</h3>
+        <div class="flex-grow-1">
+            <ChildRelation v-model:children="modifierConfig.modifierConditions"></ChildRelation>
+        </div>
         <button class="button" type="submit" @click="update">
             {{ $t('save') }}
         </button>
@@ -74,11 +78,14 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters } from "vuex";
 import GameConfigService from "@/services/game_config.service";
 import ErrorList from "@/components/Utils/ErrorList.vue";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
+import ApiService from "@/services/api.service";
+import urlJoin from "url-join";
+import ChildRelation from "@/components/Admin/ModifierConfig/ChildRelation.vue";
+import { ModifierCondition } from "@/entities/Config/ModifierCondition";
 
 interface ModifierConfigState {
     modifierConfig: null|ModifierConfig
@@ -88,6 +95,7 @@ interface ModifierConfigState {
 export default defineComponent({
     name: "ModifierConfigState",
     components: {
+        ChildRelation,
         ErrorList
     },
     data: function (): ModifierConfigState {
@@ -105,6 +113,19 @@ export default defineComponent({
             GameConfigService.updateModifierConfig(this.modifierConfig)
                 .then((res: ModifierConfig | null) => {
                     this.modifierConfig = res;
+                    if (this.modifierConfig !== null) {
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'modifier_configs', String(this.modifierConfig.id), 'modifier_conditions'))
+                            .then((result) => {
+                                const modifierConditions : ModifierCondition[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    const currentCondition = (new ModifierCondition()).load(datum);
+                                    modifierConditions.push(currentCondition);
+                                });
+                                if (this.modifierConfig instanceof ModifierConfig) {
+                                    this.modifierConfig.modifierConditions = modifierConditions;
+                                }
+                            });
+                    }
                 })
                 .catch((error) => {
                     if (error.response) {
@@ -121,17 +142,25 @@ export default defineComponent({
                 });
         }
     },
-    computed: {
-        ...mapGetters('auth', [
-            'loggedIn',
-            'getUserInfo'
-        ])
-    },
     beforeMount() {
-        const modifierConfigId = Number(this.$route.params.modifierConfigId);
-        GameConfigService.loadModifierConfig(modifierConfigId).then((res: ModifierConfig | null) => {
-            this.modifierConfig = res;
+        const modifierConfigId = String(this.$route.params.modifierConfigId);
+        GameConfigService.loadModifierConfig(Number(modifierConfigId)).then((res: ModifierConfig | null) => {
+            if (res instanceof ModifierConfig) {
+                this.modifierConfig = res;
+                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'modifier_configs', modifierConfigId, 'modifier_conditions'))
+                    .then((result) => {
+                        const modifierConditions : ModifierCondition[] = [];
+                        result.data['hydra:member'].forEach((datum: any) => {
+                            const currentCondition = (new ModifierCondition()).load(datum);
+                            modifierConditions.push(currentCondition);
+                        });
+                        if (this.modifierConfig instanceof ModifierConfig) {
+                            this.modifierConfig.modifierConditions = modifierConditions;
+                        }
+                    });
+            }
         });
+
     }
 });
 </script>

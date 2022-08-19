@@ -14,6 +14,8 @@ import GameConfigListPage from "@/components/Admin/GameConfig/GameConfigListPage
 import GameConfigDetailPage from "@/components/Admin/GameConfig/GameConfigDetailPage.vue";
 import ModifierConfigListPage from "@/components/Admin/ModifierConfig/ModifierConfigListPage.vue";
 import ModifierConfigDetailPage from "@/components/Admin/ModifierConfig/ModifierConfigDetailPage.vue";
+import ModifierConditionListPage from "@/components/Admin/ModifierCondition/ModifierConditionListPage.vue";
+import ModifierConditionDetailPage from "@/components/Admin/ModifierCondition/ModifierConditionDetailPage.vue";
 
 const routes = [
     {
@@ -58,6 +60,16 @@ const routes = [
                 name: "AdminModifierConfigDetail",
                 path: 'modifier-config/:modifierConfigId',
                 component: ModifierConfigDetailPage
+            },
+            {
+                name: "AdminModifierConditionList",
+                path: 'modifier-condition-list',
+                component: ModifierConditionListPage
+            },
+            {
+                name: "AdminModifierConditionDetail",
+                path: 'modifier-condition/:modifierConditionId',
+                component: ModifierConditionDetailPage
             },
             {
                 name: "AdminDaedalusList",

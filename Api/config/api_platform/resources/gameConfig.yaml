@@ -10,7 +10,7 @@ Mush\Game\Entity\GameConfig:
       groups: [ 'game_config_write' ]
   collectionOperations:
     get:
-      filters: [ 'game_config.search_filter', 'game_config.order_filter' ]
+      filters: [ 'default.search_filter', 'default.order_filter' ]
   itemOperations:
     get: ~
     put:

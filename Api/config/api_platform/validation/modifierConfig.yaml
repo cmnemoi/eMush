@@ -1,7 +1,6 @@
 Mush\Modifier\Entity\ModifierConfig:
   properties:
     name:
-      - NotBlank: ~
       - Length:
           max: 48
       - Type: string

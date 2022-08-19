@@ -27,6 +27,11 @@ class ModifierCondition
         $this->name = $name;
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     public function setValue(int $value): self
     {
         $this->value = $value;

@@ -1,4 +1,7 @@
+import { ModifierCondition } from "@/entities/Config/ModifierCondition";
+
 export class ModifierConfig {
+    public iri: string|null;
     public id: number|null;
     public name: string|null;
     public delta: number|null;
@@ -6,9 +9,11 @@ export class ModifierConfig {
     public scope: string|null;
     public reach: string|null;
     public mode: string|null;
+    public modifierConditions:ModifierCondition[]|null;
 
 
     constructor() {
+        this.iri = null;
         this.id = null;
         this.name = null;
         this.delta = null;
@@ -16,9 +21,11 @@ export class ModifierConfig {
         this.scope = null;
         this.reach = null;
         this.mode = null;
+        this.modifierConditions = null;
     }
     load(object:any) : ModifierConfig {
         if (typeof object !== "undefined") {
+            this.iri = object['@id'];
             this.id = object.id;
             this.name = object.name;
             this.delta = object.delta;
@@ -29,8 +36,19 @@ export class ModifierConfig {
         }
         return this;
     }
-    jsonEncode() : string {
-        return JSON.stringify(this);
+    jsonEncode() : any {
+        const modifierConditions : string[] = [];
+        this.modifierConditions?.forEach(modifierCondition => (typeof modifierCondition.iri === 'string' ? modifierConditions.push(modifierCondition.iri) : null));
+        return {
+            'id': this.id,
+            'name': this.name,
+            'delta': this.delta,
+            'target': this.target,
+            'scope': this.scope,
+            'reach': this.reach,
+            'mode': this.mode,
+            'modifierConditions': modifierConditions,
+        };
     }
     decode(jsonString : string): ModifierConfig {
         if (jsonString) {

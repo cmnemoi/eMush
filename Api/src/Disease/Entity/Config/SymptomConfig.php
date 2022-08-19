@@ -21,7 +21,7 @@ class SymptomConfig
     private string $name;
 
     #[ORM\Column(type: 'string', nullable: true)]
-    private string $trigger;
+    private string $trigger = 'None';
 
     #[ORM\Column(type: 'string', nullable: false)]
     private string $visibility = VisibilityEnum::PUBLIC;

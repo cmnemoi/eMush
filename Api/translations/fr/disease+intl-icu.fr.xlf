@@ -424,7 +424,7 @@
         <unit id="broken_shoulder">
             <segment id="name">
                 <source>broken_shoulder.name</source>
-                <target>Epaule brisée</target>
+                <target>Épaule brisée</target>
             </segment>
             <segment id="description">
                 <source>broken_shoulder.description</source>
@@ -504,7 +504,7 @@
         <unit id="damaged_ears">
             <segment id="name">
                 <source>damaged_ears.name</source>
-                <target>Oreilles incapacités</target>
+                <target>Oreilles incapacitées</target>
             </segment>
             <segment id="description">
                 <source>damaged_ears.description</source>
@@ -514,7 +514,7 @@
         <unit id="destroyed_ears">
             <segment id="name">
                 <source>destroyed_ears.name</source>
-                <target>Oreille pulvérisée</target>
+                <target>Oreilles pulvérisées</target>
             </segment>
             <segment id="description">
                 <source>destroyed_ears.description</source>
@@ -554,11 +554,11 @@
         <unit id="implanted_bullet">
             <segment id="name">
                 <source>implanted_bullet.name</source>
-                <target>Balle en ballade</target>
+                <target>Balle en balade</target>
             </segment>
             <segment id="description">
                 <source>implanted_bullet.description</source>
-                <target>Un éclat de balle se ballade désormais dans votre corps, ce n'est pas douloureux mais on sait pas ce que sera sa prochaine destination.</target>
+                <target>Un éclat de balle se balade désormais dans votre corps, ce n'est pas douloureux mais on ne sait pas quelle sera sa prochaine destination.</target>
             </segment>
         </unit>
         <unit id="inner_ear_damaged">

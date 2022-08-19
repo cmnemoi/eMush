@@ -589,5 +589,12 @@
             </segment>
         </unit>
 
+        <unit id="symptoms_are_preventing_action">
+            <segment id="description">
+                <source>symptoms_are_preventing_action.description</source>
+                <target>Votre état de santé vous empêche de faire cette action. Dommage.</target>
+            </segment>
+        </unit>
+        
     </file>
 </xliff>

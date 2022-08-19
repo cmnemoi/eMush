@@ -75,6 +75,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         $key = match ($diseaseConfig->getType()) {
             TypeEnum::DISEASE => LogEnum::DISEASE_APPEAR,
             TypeEnum::DISORDER => LogEnum::DISORDER_APPEAR,
+            TypeEnum::INJURY => LogEnum::INJURY_APPEAR,
             default => $diseaseConfig->getType()
         };
 

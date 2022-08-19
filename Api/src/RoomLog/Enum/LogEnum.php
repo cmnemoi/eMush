@@ -35,6 +35,7 @@ class LogEnum
     public const DISEASE_TREATED_PLAYER = 'disease_treated_player';
     public const DISORDER_CURED = 'disorder_cured';
     public const DISORDER_TREATED = 'disorder_treated';
+    public const INJURY_APPEAR = 'injury_appear';
 
     public const VISIBILITY = 'visibility';
     public const VALUE = 'value';

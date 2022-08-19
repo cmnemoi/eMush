@@ -18,6 +18,8 @@ namespace Mush\Disease\Enum;
  * ITEM_IN_ROOM: the condition is applied if the item is in the room
  *
  * PLAYER_EQUIPMENT: the condition is checked on player's equipment
+ *
+ * ITEM_STATUS : the condition is checked on item status
  */
 class SymptomConditionEnum
 {
@@ -33,4 +35,6 @@ class SymptomConditionEnum
     public const ITEM_IN_ROOM = 'item_in_room';
 
     public const PLAYER_EQUIPMENT = 'player_equipment';
+
+    public const ITEM_STATUS = 'item_status';
 }

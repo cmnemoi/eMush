@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class UsersController.
  *
- * @Route(path="/daedalus")
+ * @Route(path="/daedaluses")
  */
 class DaedalusController extends AbstractFOSRestController
 {

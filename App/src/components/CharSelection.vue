@@ -90,7 +90,7 @@ export default defineComponent ({
         loadAvailableCharacters() {
             if (this.daedalusName.length > 0) {
                 this.loading = true;
-                ApiService.get('daedalus/available-characters', { params: { name: this.daedalusName } })
+                ApiService.get('daedaluses/available-characters', { params: { name: this.daedalusName } })
                     .then((response) => {
                         this.daedalusId = response.data.daedalus;
                         this.characters = response.data.characters;

@@ -12,7 +12,6 @@ const GameConfigService = {
         const gameConfigData = await ApiService.get(ACTION_ENDPOINT + '/' + gameConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
         store.dispatch('gameConfig/setLoading', { loading: false });
-
         let gameConfig = null;
         if (gameConfigData.data) {
             gameConfig = (new GameConfig()).load(gameConfigData.data);

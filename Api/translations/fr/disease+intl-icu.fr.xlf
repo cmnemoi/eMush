@@ -381,5 +381,155 @@
                 <target>Votre corps est très gravement brulé et risque une septicémie.</target>
             </segment>
         </unit>
+        <unit id="broken_finger">
+            <segment id="name">
+                <source>broken_finger.name</source>
+                <target>Doigt cassé</target>
+            </segment>
+            <segment id="description">
+                <source>broken_finger.description</source>
+                <target>Un des doigts de votre bonne main est cassé.</target>
+            </segment>
+        </unit>
+        <unit id="broken_foot">
+            <segment id="name">
+                <source>broken_foot.name</source>
+                <target>Pied cassé</target>
+            </segment>
+            <segment id="description">
+                <source>broken_foot.description</source>
+                <target>Votre pied est cassé.</target>
+            </segment>
+        </unit>
+        <unit id="broken_leg">
+            <segment id="name">
+                <source>broken_leg.name</source>
+                <target>Jambe cassée</target>
+            </segment>
+            <segment id="description">
+                <source>broken_leg.description</source>
+                <target>Votre jambe a subi de multiples fractures qui l'handicapent...</target>
+            </segment>
+        </unit>
+        <unit id="broken_ribs">
+            <segment id="name">
+                <source>broken_ribs.name</source>
+                <target>Côtes pétées</target>
+            </segment>
+            <segment id="description">
+                <source>broken_ribs.description</source>
+                <target>Vos côtes sont cassées, occasionnant une douleur en posture debout.</target>
+            </segment>
+        </unit>
+        <unit id="broken_shoulder">
+            <segment id="name">
+                <source>broken_shoulder.name</source>
+                <target>Epaule brisée</target>
+            </segment>
+            <segment id="description">
+                <source>broken_shoulder.description</source>
+                <target>Votre épaule a été brisée et démise. Impossible de porter des objets lourds...</target>
+            </segment>
+        </unit>
+        <unit id="bruised_shoulder">
+            <segment id="name">
+                <source>bruised_shoulder.name</source>
+                <target>Épaule froissée</target>
+            </segment>
+            <segment id="description">
+                <source>bruised_shoulder.description</source>
+                <target>Votre épaule a subi des contusions majeures réversibles.</target>
+            </segment>
+        </unit>
+        <unit id="burnt_arms">
+            <segment id="name">
+                <source>burnt_arms.name</source>
+                <target>Bras brûlés</target>
+            </segment>
+            <segment id="description">
+                <source>burnt_arms.description</source>
+                <target>Vos bras sont fortement brûlés. Saisir le moindre objet est une torture.</target>
+            </segment>
+        </unit>
+        <unit id="burnt_hand">
+            <segment id="name">
+                <source>burnt_hand.name</source>
+                <target>Main brûlée</target>
+            </segment>
+            <segment id="description">
+                <source>burnt_hand.description</source>
+                <target>Votre main est brûlée.</target>
+            </segment>
+        </unit>
+        <unit id="burst_nose">
+            <segment id="name">
+                <source>burst_nose.name</source>
+                <target>Nez explosé</target>
+            </segment>
+            <segment id="description">
+                <source>burst_nose.description</source>
+                <target>Votre nez n'est plus, plus du tout, vous faites un peu peur aussi...</target>
+            </segment>
+        </unit>
+        <unit id="busted_arm_joint">
+            <segment id="name">
+                <source>busted_arm_joint.name</source>
+                <target>Articulation du bras fort morte</target>
+            </segment>
+            <segment id="description">
+                <source>busted_arm_joint.description</source>
+                <target>Le bras pendouillant peut faire rire mais reste tout de même très handicapant.</target>
+            </segment>
+        </unit>
+        <unit id="busted_shoulder">
+            <segment id="name">
+                <source>busted_shoulder.name</source>
+                <target>Épaule pulvérisée</target>
+            </segment>
+            <segment id="description">
+                <source>busted_shoulder.description</source>
+                <target>L'épaule a subi des contusions majeures irréversibles, le bras est considéré comme mort.</target>
+            </segment>
+        </unit>
+        <unit id="critical_haemorrhage">
+            <segment id="name">
+                <source>critical_haemorrhage.name</source>
+                <target>Hémorragie critique</target>
+            </segment>
+            <segment id="description">
+                <source>critical_haemorrhage.description</source>
+                <target>Vous avez une hémorragie sur une artère majeure qui nécessite une chirurgie lourde. Bonne chance.</target>
+            </segment>
+        </unit>
+        <unit id="damaged_ears">
+            <segment id="name">
+                <source>damaged_ears.name</source>
+                <target>Oreilles incapacités</target>
+            </segment>
+            <segment id="description">
+                <source>damaged_ears.description</source>
+                <target>Vos oreilles ne vous sont plus d'aucune utilité et de toute façon vous ne pouvez plus les utiliser.</target>
+            </segment>
+        </unit>
+        <unit id="destroyed_ears">
+            <segment id="name">
+                <source>destroyed_ears.name</source>
+                <target>Oreille pulvérisée</target>
+            </segment>
+            <segment id="description">
+                <source>destroyed_ears.description</source>
+                <target>Vos oreilles ont disparues. Peut-être qu'en cherchant bien...</target>
+            </segment>
+        </unit>
+        <unit id="disfunctional_liver">
+            <segment id="name">
+                <source>disfunctional_liver.name</source>
+                <target>Foie hors d'état</target>
+            </segment>
+            <segment id="description">
+                <source>disfunctional_liver.description</source>
+                <target>Vous pouvez encore vivre avec votre foie détruit mais combien de temps et dans quelles conditions ?</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

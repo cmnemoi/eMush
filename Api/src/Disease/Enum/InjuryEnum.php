@@ -17,7 +17,7 @@ class InjuryEnum
     public const BURST_NOSE = 'burst_nose';
     public const BUSTED_ARM_JOINT = 'busted_arm_joint';
     public const BUSTED_SHOULDER = 'busted_shoulder';
-    public const HAEMORRHAGE_CRITICAL = 'haemorrhage_critical';
+    public const CRITICAL_HAEMORRHAGE = 'critical_haemorrhage';
     public const DAMAGED_EARS = 'damaged_ears';
     public const DESTROYED_EARS = 'destroyed_ears';
     public const DISFUNCTIONAL_LIVER = 'disfunctional_liver';

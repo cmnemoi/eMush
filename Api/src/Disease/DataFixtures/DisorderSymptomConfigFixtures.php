@@ -17,6 +17,7 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 class DisorderSymptomConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public const FEAR_OF_CATS = 'fear_of_cats';
+    public const NO_PILOTING_ACTIONS = 'no_piloting_actions';
 
     public function load(ObjectManager $manager): void
     {
@@ -41,9 +42,13 @@ class DisorderSymptomConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($fearOfCats);
 
+        $noPilotingActions = new SymptomConfig(SymptomEnum::NO_PILOTING_ACTIONS);
+        $manager->persist($noPilotingActions);
+
         $manager->flush();
 
         $this->addReference(self::FEAR_OF_CATS, $fearOfCats);
+        $this->addReference(self::NO_PILOTING_ACTIONS, $noPilotingActions);
     }
 
     public function getDependencies(): array

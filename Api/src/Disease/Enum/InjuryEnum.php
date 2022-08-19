@@ -22,12 +22,12 @@ class InjuryEnum
     public const DESTROYED_EARS = 'destroyed_ears';
     public const DISFUNCTIONAL_LIVER = 'disfunctional_liver';
     public const HAEMORRHAGE = 'haemorrhage';
-    public const HAEMORRHAGE_MINOR = 'haemorrhage_minor';
     public const HEAD_TRAUMA = 'head_trauma';
     public const IMPLANTED_BULLET = 'implanted_bullet';
     public const INNER_EAR_DAMAGED = 'inner_ear_damaged';
     public const MASHED_FOOT = 'mashed_foot';
     public const MASHED_HAND = 'mashed_hand';
+    public const MINOR_HAEMORRHAGE = 'minor_haemorrhage';
     public const MISSING_FINGER = 'missing_finger';
     public const OPEN_AIR_BRAIN = 'open_air_brain';
     public const PUNCTURED_LUNG = 'punctured_lung';

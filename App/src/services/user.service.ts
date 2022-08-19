@@ -125,21 +125,22 @@ const UserService = {
     },
 
     updateUser: async function(user: any): Promise<User> {
-        try {
-            if (user.userId != null) {
-                const uri = urlJoin(userEndPoint, user.userId + '?XDEBUG_SESSION_START=PHPSTORM');
+        if (user.userId != null) {
+            const uri = urlJoin(userEndPoint, user.userId + '?XDEBUG_SESSION_START=PHPSTORM');
 
-                const response = await ApiService.patch(uri, { roles: user.roles } );
-                if (response.data) {
-                    user.load(response.data);
-                }
+            store.dispatch('gameConfig/setLoading', { loading: true });
+            const response = await ApiService.patch(uri, { roles: user.roles } )
+                .catch((e) => {
+                    store.dispatch('gameConfig/setLoading', { loading: false });
+                    throw e;
+                });
+
+            if (response.data) {
+                user.load(response.data);
             }
-
-            return user;
-        } catch (error: any) {
-            // eslint-disable-next-line no-console
-            throw new AuthenticationError(error.response.status, error.response.data.detail);
         }
+
+        return user;
     }
 };
 

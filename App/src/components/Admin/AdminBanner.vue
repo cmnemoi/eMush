@@ -2,7 +2,7 @@
     <div class="banner">
         <div class="admin-menu">
             <router-link :to="{ name: 'AdminDaedalusList' }">Daedalus</router-link>
-            <router-link :to="{ name: 'AdminGameConfig' }">Game Config</router-link>
+            <router-link :to="{ name: 'AdminGameConfigList' }">Game Config</router-link>
             <router-link :to="{ name: 'AdminUser' }">Users</router-link>
         </div>
     </div>

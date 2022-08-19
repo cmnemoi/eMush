@@ -183,6 +183,10 @@ class ChannelController extends AbstractFOSRestController
      */
     public function getInvitablePlayerAction(Request $request, Channel $channel): View
     {
+        /** @var User $user */
+        $user = $this->getUser();
+        $player = $user->getCurrentGame();
+
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
         $daedalus = $channel->getDaedalus();
@@ -192,7 +196,7 @@ class ChannelController extends AbstractFOSRestController
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         return $this->view(
-            $this->channelService->getInvitablePlayersToPrivateChannel($channel),
+            $this->channelService->getInvitablePlayersToPrivateChannel($channel, $player),
             200
         );
     }

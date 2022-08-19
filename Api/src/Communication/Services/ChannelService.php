@@ -5,6 +5,7 @@ namespace Mush\Communication\Services;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Channel;
+use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Enum\CommunicationActionEnum;
 use Mush\Communication\Event\ChannelEvent;
@@ -35,31 +36,6 @@ class ChannelService implements ChannelServiceInterface
         $this->channelRepository = $channelRepository;
         $this->channelPlayerRepository = $channelPlayerRepository;
         $this->eventDispatcher = $eventDispatcher;
-    }
-
-    public function getPlayerChannels(Player $player, bool $privateOnly = false): Collection
-    {
-        $channels = $this->channelRepository->findByPlayer($player, $privateOnly);
-
-        if (!$this->canPlayerCommunicate($player)) {
-            $publicChannel = $channels->filter(fn (Channel $channel) => $channel->isPublic())->first();
-            $channels->removeElement($publicChannel);
-        }
-
-        return $channels;
-    }
-
-    public function canPlayerCommunicate(Player $player): bool
-    {
-        if ($player->hasOperationalEquipmentByName(ItemEnum::ITRACKIE) ||
-            $player->hasOperationalEquipmentByName(ItemEnum::WALKIE_TALKIE) ||
-            $player->hasStatus(PlayerStatusEnum::BRAINSYNC) ||
-            $player->getPlace()->hasOperationalEquipmentByName(EquipmentEnum::COMMUNICATION_CENTER)
-        ) {
-            return true;
-        }
-
-        return false;
     }
 
     public function getPublicChannel(Daedalus $daedalus): ?Channel
@@ -103,11 +79,26 @@ class ChannelService implements ChannelServiceInterface
         return $channel;
     }
 
-    public function getInvitablePlayersToPrivateChannel(Channel $channel): PlayerCollection
+    public function getInvitablePlayersToPrivateChannel(Channel $channel, Player $player): PlayerCollection
     {
         $maxPrivateChannel = $channel->getDaedalus()->getGameConfig()->getMaxNumberPrivateChannel();
 
-        return new PlayerCollection($this->channelPlayerRepository->findAvailablePlayerForPrivateChannel($channel, $maxPrivateChannel));
+        $playersWithChannelsSlots = $this->channelPlayerRepository->findAvailablePlayerForPrivateChannel($channel, $maxPrivateChannel);
+
+        $availablePlayers = new PlayerCollection();
+
+        foreach ($playersWithChannelsSlots as $invitablePlayer) {
+            if ($this->canPlayerCommunicate($player)) {
+                if ($this->canPlayerCommunicate($invitablePlayer) ||
+                $this->canPlayerWhisperInChannel($channel, $invitablePlayer)) {
+                    $availablePlayers->add($invitablePlayer);
+                }
+            } elseif ($this->canPlayerWhisper($player, $invitablePlayer)) {
+                $availablePlayers->add($invitablePlayer);
+            }
+        }
+
+        return $availablePlayers;
     }
 
     public function invitePlayer(Player $player, Channel $channel): Channel
@@ -130,6 +121,10 @@ class ChannelService implements ChannelServiceInterface
         $event = new ChannelEvent($channel, $reason, $time, $player);
         $this->eventDispatcher->dispatch($event, ChannelEvent::EXIT_CHANNEL);
 
+        if ($reason === CommunicationActionEnum::EXIT) {
+            $this->updatePrivateChannel($channel, CommunicationActionEnum::EXIT, $time);
+        }
+
         return true;
     }
 
@@ -139,5 +134,84 @@ class ChannelService implements ChannelServiceInterface
         $this->entityManager->flush();
 
         return true;
+    }
+
+    public function canPlayerCommunicate(Player $player): bool
+    {
+        if ($player->hasOperationalEquipmentByName(ItemEnum::ITRACKIE) ||
+            $player->hasOperationalEquipmentByName(ItemEnum::WALKIE_TALKIE) ||
+            $player->hasStatus(PlayerStatusEnum::BRAINSYNC) ||
+            $player->getPlace()->hasOperationalEquipmentByName(EquipmentEnum::COMMUNICATION_CENTER)
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function canPlayerWhisper(Player $player, Player $otherPlayer): bool
+    {
+        return $player->getPlace() === $otherPlayer->getPlace();
+    }
+
+    public function canPlayerWhisperInChannel(Channel $channel, Player $player): bool
+    {
+        // either all participant are in the same room
+        if ($channel->getParticipants()->filter(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlace() === $player->getPlace()
+        )->count() === $channel->getParticipants()->count()) {
+            return true;
+        }
+
+        // or at least one member of the conversation in each room can communicate
+        /** @var ChannelPlayer $channelParticipant */
+        foreach ($channel->getParticipants() as $channelParticipant) {
+            $participant = $channelParticipant->getParticipant();
+
+            if (!($participant instanceof Player)) {
+                return false;
+            } elseif ($participant !== $player &&
+                $this->canPlayerCommunicate($participant) &&
+                $this->canPlayerWhisper($player, $participant)
+            ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function updatePlayerPrivateChannels(Player $player, string $reason, \DateTime $time): void
+    {
+        $channels = $this->getPlayerChannels($player, true);
+
+        foreach ($channels as $channel) {
+            $this->updatePrivateChannel($channel, $reason, $time);
+        }
+    }
+
+    private function updatePrivateChannel(Channel $channel, string $reason, \DateTime $time): void
+    {
+        /** @var ChannelPlayer $channelParticipant */
+        foreach ($channel->getParticipants() as $channelParticipant) {
+            $participant = $channelParticipant->getParticipant();
+            if (
+                !$this->canPlayerCommunicate($participant) &&
+                !$this->canPlayerWhisperInChannel($channel, $participant)
+            ) {
+                $this->exitChannel($participant, $channel, $time, $reason);
+            }
+        }
+    }
+
+    public function getPlayerChannels(Player $player, bool $privateOnly = false): Collection
+    {
+        $channels = $this->channelRepository->findByPlayer($player, $privateOnly);
+
+        if (!$this->canPlayerCommunicate($player) && !$privateOnly) {
+            $publicChannel = $channels->filter(fn (Channel $channel) => $channel->isPublic())->first();
+            $channels->removeElement($publicChannel);
+        }
+
+        return $channels;
     }
 }

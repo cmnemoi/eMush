@@ -2,6 +2,7 @@
 
 namespace Mush\Communication\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Enum\CommunicationActionEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
@@ -10,6 +11,7 @@ use Mush\Communication\Services\ChannelPlayerServiceInterface;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ChannelSubscriber implements EventSubscriberInterface
@@ -92,6 +94,11 @@ class ChannelSubscriber implements EventSubscriberInterface
 
             case PlayerEvent::DEATH_PLAYER:
                 return NeronMessageEnum::PLAYER_LEAVE_CHAT_DEATH;
+
+            case ActionEnum::DROP:
+            case ActionEnum::MOVE:
+            case EquipmentStatusEnum::BROKEN:
+                return NeronMessageEnum::PLAYER_LEAVE_CHAT_TALKY;
 
             default:
                 throw new \LogicException('unknown leave chat reason');

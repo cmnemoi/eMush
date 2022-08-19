@@ -44,9 +44,9 @@
             <segment id="cycle_failures">
                 <source>cycle_failures</source>
                 <target>{neronMood, select,
-                    neutral {Alerte : Défaillances detectées}
-                    crazy {Alerte : Défaillances detectées}
-                    uninhibited {Alerte : Défaillances detectées}
+                    neutral {Alerte : Défaillances détectées}
+                    crazy {Alerte : Défaillances détectées}
+                    uninhibited {Alerte : Défaillances détectées}
                     other {invalid mood input}
                 }</target>
             </segment>

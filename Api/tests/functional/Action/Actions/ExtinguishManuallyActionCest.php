@@ -57,6 +57,14 @@ class ExtinguishManuallyActionCest
             ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setName(StatusEnum::ATTEMPT)
+            ->setGameConfig($gameConfig)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+        ;
+        $I->haveInRepository($attemptConfig);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 

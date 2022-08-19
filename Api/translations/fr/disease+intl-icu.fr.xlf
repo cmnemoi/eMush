@@ -611,5 +611,55 @@
                 <target>Vous ne pouvez plus compter que jusqu'à 4 sur votre bonne main.</target>
             </segment>
         </unit>
+        <unit id="open_air_brain">
+            <segment id="name">
+                <source>open_air_brain.name</source>
+                <target>Cerveau à l'air libre</target>
+            </segment>
+            <segment id="description">
+                <source>open_air_brain.description</source>
+                <target>Il manque un morceau de votre crâne. Dans beaucoup de circonstances, il ne serait pas faux de dire que cela peut poser problème.</target>
+            </segment>
+        </unit>
+        <unit id="punctured_lung">
+            <segment id="name">
+                <source>punctured_lung.name</source>
+                <target>Poumon à trou</target>
+            </segment>
+            <segment id="description">
+                <source>punctured_lung.description</source>
+                <target>Souffle court, du sang dans les poumons... Sans soins, vous n'en avez plus pour longtemps à vivre.</target>
+            </segment>
+        </unit>
+        <unit id="smashed_arms">
+            <segment id="name">
+                <source>smashed_arms.name</source>
+                <target>Absence de bras</target>
+            </segment>
+            <segment id="description">
+                <source>smashed_arms.description</source>
+                <target>Vos bras sont complètement inutiles.</target>
+            </segment>
+        </unit>
+        <unit id="smashed_legs">
+            <segment id="name">
+                <source>smashed_legs.name</source>
+                <target>Jambes inutilisables</target>
+            </segment>
+            <segment id="description">
+                <source>smashed_legs.description</source>
+                <target>Vous n'avez plus l'usage de vos jambes, dommage, ça peut servir.</target>
+            </segment>
+        </unit>
+        <unit id="torn_tongue">
+            <segment id="name">
+                <source>torn_tongue.name</source>
+                <target>Langue cisaillée</target>
+            </segment>
+            <segment id="description">
+                <source>torn_tongue.description</source>
+                <target>Votre langue est réduite à un amas flasque sans vie.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

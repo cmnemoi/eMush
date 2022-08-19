@@ -354,8 +354,8 @@
             <segment>
                 <source>injury_appear</source>
                 <target>{target_character_gender, select,
-                    male {Vous avez été blessé : {disease}. Vous subissez des malus.}
-                    female {Vous avez été blessée : {disease}. Vous subissez des malus.}
+                    male {:hurt: Vous avez été blessé : {disease}. Vous subissez des malus.}
+                    female {:hurt: Vous avez été blessée : {disease}. Vous subissez des malus.}
                     other {invalid gender input}
                 }
                 </target>

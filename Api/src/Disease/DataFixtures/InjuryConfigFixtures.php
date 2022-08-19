@@ -44,6 +44,11 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
     public const MASHED_HAND = 'mashed_hand';
     public const MINOR_HAEMORRHAGE = 'minor_haemorrhage';
     public const MISSING_FINGER = 'missing_finger';
+    public const OPEN_AIR_BRAIN = 'open_air_brain';
+    public const PUNCTURED_LUNG = 'punctured_lung';
+    public const SMASHED_ARMS = 'smashed_arms';
+    public const SMASHED_LEGS = 'smashed_legs';
+    public const TORN_TONGUE = 'torn_tongue';
 
     public function load(ObjectManager $manager): void
     {
@@ -66,6 +71,8 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $notMoveAction1Increase = $this->getReference(InjuryModifierConfigFixtures::NOT_MOVE_ACTION_1_INCREASE);
         /** @var ModifierConfig $notMoveAction2Increase */
         $notMoveAction2Increase = $this->getReference(InjuryModifierConfigFixtures::NOT_MOVE_ACTION_2_INCREASE);
+        /** @var ModifierConfig $notMoveAction3Increase */
+        $notMoveAction3Increase = $this->getReference(InjuryModifierConfigFixtures::NOT_MOVE_ACTION_3_INCREASE);
         /** @var ModifierConfig $reduceMax1HealthPoint */
         $reduceMax1HealthPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_1_HEALTH_POINT);
         /** @var ModifierConfig $reduceMax1MoralPoint */
@@ -78,6 +85,8 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $reduceMax3MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_3_MOVEMENT_POINT);
         /** @var ModifierConfig $reduce5MaxMovementPoint */
         $reduceMax5MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_5_MOVEMENT_POINT);
+        /** @var ModifierConfig $reduce12MaxMovementPoint */
+        $reduceMax12MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_12_MOVEMENT_POINT);
         /** @var ModifierConfig $shootAction10PercentAccuracyLost */
         $shootAction10PercentAccuracyLost = $this->getReference(DiseaseModifierConfigFixtures::SHOOT_ACTION_10_PERCENT_ACCURACY_LOST);
         /** @var ModifierConfig $shootAction20PercentAccuracyLost */
@@ -85,6 +94,8 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var ModifierConfig $shootAction40PercentAccuracyLost */
         $shootAction40PercentAccuracyLost = $this->getReference(InjuryModifierConfigFixtures::SHOOT_ACTION_40_PERCENT_ACCURACY_LOST);
 
+        /** @var SymptomConfig $cantMove */
+        $cantMove = $this->getReference(InjurySymptomConfigFixtures::CANT_MOVE);
         /** @var SymptomConfig $cantPickUpHeavyItems */
         $cantPickUpHeavyItems = $this->getReference(InjurySymptomConfigFixtures::CANT_PICK_UP_HEAVY_ITEMS);
         /** @var SymptomConfig $consumeVomiting */
@@ -95,6 +106,8 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $drooling = $this->getReference(DiseaseSymptomConfigFixtures::DROOLING);
         /** @var SymptomConfig $moveVomiting */
         $moveVomiting = $this->getReference(DiseaseSymptomConfigFixtures::MOVE_VOMITING);
+        /** @var SymptomConfig $mute */
+        $mute = $this->getReference(InjurySymptomConfigFixtures::MUTE);
         /** @var SymptomConfig $noPilotingActions */
         $noPilotingActions = $this->getReference(DisorderSymptomConfigFixtures::NO_PILOTING_ACTIONS);
 
@@ -390,6 +403,70 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($missingFinger);
 
+        $openAirBrain = new DiseaseConfig();
+        $openAirBrain
+            ->setGameConfig($gameConfig)
+            ->setName(InjuryEnum::OPEN_AIR_BRAIN)
+            ->setType(TypeEnum::INJURY)
+            ->setModifierConfigs(new ArrayCollection([
+                $dirtyAllHealthLoss,
+                $reduceMax2MoralPoint,
+            ]))
+        ;
+        $manager->persist($openAirBrain);
+
+        $puncturedLung = new DiseaseConfig();
+        $puncturedLung
+            ->setGameConfig($gameConfig)
+            ->setName(InjuryEnum::PUNCTURED_LUNG)
+            ->setType(TypeEnum::INJURY)
+            ->setModifierConfigs(new ArrayCollection([
+                $cycle2HealthLost,
+                $notMoveAction2Increase,
+            ]))
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $mute,
+            ]))
+        ;
+        $manager->persist($puncturedLung);
+
+        $smashedArms = new DiseaseConfig();
+        $smashedArms
+            ->setGameConfig($gameConfig)
+            ->setName(InjuryEnum::SMASHED_ARMS)
+            ->setType(TypeEnum::INJURY)
+            ->setModifierConfigs(new ArrayCollection([
+                $notMoveAction3Increase,
+                $shootAction40PercentAccuracyLost,
+            ]))
+        ;
+        $manager->persist($smashedArms);
+
+        $smashedLegs = new DiseaseConfig();
+        $smashedLegs
+            ->setGameConfig($gameConfig)
+            ->setName(InjuryEnum::SMASHED_LEGS)
+            ->setType(TypeEnum::INJURY)
+            ->setModifierConfigs(new ArrayCollection([
+                $reduceMax12MovementPoint,
+            ]))
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $cantMove,
+            ]))
+        ;
+        $manager->persist($smashedLegs);
+
+        $tornTongue = new DiseaseConfig();
+        $tornTongue
+            ->setGameConfig($gameConfig)
+            ->setName(InjuryEnum::TORN_TONGUE)
+            ->setType(TypeEnum::INJURY)
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $mute,
+            ]))
+        ;
+        $manager->persist($tornTongue);
+
         $manager->flush();
 
         $this->addReference(self::BROKEN_FINGER, $brokenFinger);
@@ -416,6 +493,11 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::MASHED_HAND, $mashedHand);
         $this->addReference(self::MINOR_HAEMORRHAGE, $minorHaemorrhage);
         $this->addReference(self::MISSING_FINGER, $missingFinger);
+        $this->addReference(self::OPEN_AIR_BRAIN, $openAirBrain);
+        $this->addReference(self::PUNCTURED_LUNG, $puncturedLung);
+        $this->addReference(self::SMASHED_ARMS, $smashedArms);
+        $this->addReference(self::SMASHED_LEGS, $smashedLegs);
+        $this->addReference(self::TORN_TONGUE, $tornTongue);
     }
 
     public function getDependencies()

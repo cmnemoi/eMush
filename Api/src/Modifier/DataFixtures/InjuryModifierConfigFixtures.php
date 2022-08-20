@@ -54,7 +54,6 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($dirtyStatusCondition)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($dirtyAllHealthLoss);
 
@@ -66,7 +65,6 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($notMoveActionCondition)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($notMoveAction1Increase);
 
@@ -78,7 +76,6 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($notMoveActionCondition)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($notMoveAction2Increase);
 
@@ -90,7 +87,6 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($notMoveActionCondition)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($notMoveAction3Increase);
 
@@ -101,7 +97,6 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(-3)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($reduceMax3MovementPoint);
 
@@ -112,7 +107,6 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(-5)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($reduceMax5MovementPoint);
 
@@ -123,7 +117,6 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(-12)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($reduceMax12MovementPoint);
 
@@ -134,7 +127,6 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(0.85)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($shootAction15PercentAccuracyLost);
 
@@ -145,7 +137,6 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(0.80)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($shootAction20PercentAccuracyLost);
 
@@ -156,7 +147,6 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(0.60)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($shootAction40PercentAccuracyLost);
 

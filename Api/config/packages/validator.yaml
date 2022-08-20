@@ -5,4 +5,5 @@ framework:
             paths:
                 - '%kernel.project_dir%/config/api_platform/validation/daedalus.yaml'
                 - '%kernel.project_dir%/config/api_platform/validation/gameConfig.yaml'
+                - '%kernel.project_dir%/config/api_platform/validation/modifierConfig.yaml'
                 - '%kernel.project_dir%/config/api_platform/validation/user.yaml'

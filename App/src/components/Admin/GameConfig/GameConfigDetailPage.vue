@@ -219,7 +219,7 @@ export default defineComponent({
                 return;
             }
             this.errors = {};
-            GameConfigService.updateDefaultGameConfig(this.gameConfig)
+            GameConfigService.updateGameConfig(this.gameConfig)
                 .then((res: GameConfig | null) => {
                     this.gameConfig = res;
                 })
@@ -246,7 +246,7 @@ export default defineComponent({
     },
     beforeMount() {
         const gameConfigId = Number(this.$route.params.gameConfigId);
-        GameConfigService.loadDefaultGameConfig(gameConfigId).then((res: GameConfig | null) => {
+        GameConfigService.loadGameConfig(gameConfigId).then((res: GameConfig | null) => {
             this.gameConfig = res;
         });
     }

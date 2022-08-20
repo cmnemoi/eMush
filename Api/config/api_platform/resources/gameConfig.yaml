@@ -9,7 +9,8 @@ Mush\Game\Entity\GameConfig:
     denormalization_context:
       groups: [ 'game_config_write' ]
   collectionOperations:
-    get: ~
+    get:
+      filters: [ 'game_config.search_filter', 'game_config.order_filter' ]
   itemOperations:
     get: ~
     put:

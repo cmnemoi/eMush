@@ -71,7 +71,6 @@ class DropSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($modifierConfig);
 
@@ -144,7 +143,6 @@ class DropSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($modifierConfig);
 
@@ -224,7 +222,6 @@ class DropSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLACE)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($modifierConfig);
 
@@ -308,7 +305,6 @@ class DropSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($modifierConfig);
 
@@ -319,7 +315,6 @@ class DropSubscriberCest
             ->setDelta(1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($modifierConfig2);
 
@@ -416,7 +411,6 @@ class DropSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($modifierConfig);
 

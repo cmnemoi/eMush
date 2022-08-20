@@ -215,7 +215,6 @@ class CreateDestroyEquipmentSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($modifierConfig);
 
@@ -292,7 +291,6 @@ class CreateDestroyEquipmentSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($modifierConfig);
 
@@ -379,7 +377,6 @@ class CreateDestroyEquipmentSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($modifierConfig);
 
@@ -390,7 +387,6 @@ class CreateDestroyEquipmentSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($modifierConfig2);
 

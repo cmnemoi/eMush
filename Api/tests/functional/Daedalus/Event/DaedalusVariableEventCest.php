@@ -57,7 +57,6 @@ class DaedalusVariableEventCest
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setGameConfig($gameConfig)
             ->setTarget(DaedalusVariableEnum::OXYGEN)
             ->setDelta(1)
             ->setReach(ModifierReachEnum::DAEDALUS)

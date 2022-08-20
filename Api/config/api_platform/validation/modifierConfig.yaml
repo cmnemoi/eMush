@@ -1,0 +1,22 @@
+Mush\Modifier\Entity\ModifierConfig:
+  properties:
+    name:
+      - NotBlank: ~
+      - Length:
+          max: 48
+      - Type: string
+    delta:
+      - NotBlank: ~
+      - Type: float
+    target:
+      - NotBlank: ~
+      - Type: string
+    scope:
+      - NotBlank: ~
+      - Type: string
+    reach:
+      - NotBlank: ~
+      - Type: string
+    mode:
+      - NotBlank: ~
+      - Type: string

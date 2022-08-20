@@ -5,7 +5,6 @@ namespace Mush\Modifier\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 
 /**
@@ -21,8 +20,8 @@ class ModifierConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: GameConfig::class)]
-    private GameConfig $gameConfig;
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $name = null;
 
     #[ORM\Column(type: 'float', nullable: false)]
     private float $delta = 0;
@@ -42,9 +41,6 @@ class ModifierConfig
     #[ORM\ManyToMany(targetEntity: ModifierCondition::class)]
     private Collection $modifierConditions;
 
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $name = null;
-
     public function __construct()
     {
         $this->modifierConditions = new ArrayCollection([]);
@@ -53,18 +49,6 @@ class ModifierConfig
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function getGameConfig(): GameConfig
-    {
-        return $this->gameConfig;
-    }
-
-    public function setGameConfig(GameConfig $gameConfig): self
-    {
-        $this->gameConfig = $gameConfig;
-
-        return $this;
     }
 
     public function getDelta(): float

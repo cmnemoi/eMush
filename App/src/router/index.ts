@@ -12,6 +12,8 @@ import AdminHomePage from "@/components/Admin/AdminHomePage.vue";
 import AdminPage from "@/components/Admin/AdminPage.vue";
 import GameConfigListPage from "@/components/Admin/GameConfig/GameConfigListPage.vue";
 import GameConfigDetailPage from "@/components/Admin/GameConfig/GameConfigDetailPage.vue";
+import ModifierConfigListPage from "@/components/Admin/ModifierConfig/ModifierConfigListPage.vue";
+import ModifierConfigDetailPage from "@/components/Admin/ModifierConfig/ModifierConfigDetailPage.vue";
 
 const routes = [
     {
@@ -46,6 +48,16 @@ const routes = [
                 name: "AdminGameConfigDetail",
                 path: 'game-config/:gameConfigId',
                 component: GameConfigDetailPage
+            },
+            {
+                name: "AdminModifierConfigList",
+                path: 'modifier-config-list',
+                component: ModifierConfigListPage
+            },
+            {
+                name: "AdminModifierConfigDetail",
+                path: 'modifier-config/:modifierConfigId',
+                component: ModifierConfigDetailPage
             },
             {
                 name: "AdminDaedalusList",

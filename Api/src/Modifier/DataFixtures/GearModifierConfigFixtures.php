@@ -53,7 +53,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->setName(ModifierNameEnum::APRON_MODIFIER)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($apronModifier);
 
@@ -64,7 +63,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::TARGET_PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($armorModifier);
 
@@ -75,7 +73,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1.5)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($wrenchModifier);
 
@@ -87,7 +84,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->setName(ModifierNameEnum::GLOVES_MODIFIER)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($glovesModifier);
 
@@ -98,7 +94,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($soapModifier);
 
@@ -109,7 +104,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1.1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($aimModifier);
 
@@ -120,7 +114,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($antiGravScooterModifier);
 
@@ -135,7 +128,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
             ->addModifierCondition($evenCyclesCondition)
         ;
         $manager->persist($rollingBoulderModifier);
@@ -147,7 +139,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1.5)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($oscilloscopeSuccessModifier);
 
@@ -162,7 +153,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-            ->setGameConfig($gameConfig)
             ->addModifierCondition($strengthenCondition)
         ;
         $manager->persist($oscilloscopeRepairModifier);
@@ -174,7 +164,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($antennaModifier);
 
@@ -185,7 +174,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($gravityConversionModifier);
 
@@ -201,7 +189,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($cycleEventCondition)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($gravityCycleModifier);
 
@@ -212,7 +199,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
             ->addModifierCondition($cycleEventCondition)
         ;
         $manager->persist($oxygenTankModifier);

@@ -90,7 +90,6 @@ class ShowerActionCest
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($showerActionCondition)
             ->setName(ModifierNameEnum::MUSH_SHOWER_MALUS)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($mushShowerModifier);
 

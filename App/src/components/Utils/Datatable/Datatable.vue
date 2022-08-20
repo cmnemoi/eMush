@@ -26,7 +26,7 @@
         </table>
         <div class="datable-pagination-container">
             <Pagination
-                :page-count="pagination.totalPage"
+                :page-count="Math.ceil(pagination.totalPage)"
                 :click-handler="paginationClick"
                 :prev-text="'Prev'"
                 :next-text="'Next'"

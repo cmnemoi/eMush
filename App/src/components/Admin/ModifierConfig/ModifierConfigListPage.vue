@@ -37,7 +37,7 @@
                 Actions
             </template>
             <template #row-actions="slotProps">
-                <router-link :to="{ name: 'AdminGameConfigDetail', params: { gameConfigId : slotProps.id } }">Edit</router-link>
+                <router-link :to="{ name: 'AdminModifierConfigDetail', params: { modifierConfigId : slotProps.id } }">Edit</router-link>
             </template>
         </Datatable>
     </div>
@@ -51,7 +51,7 @@ import qs from "qs";
 import ApiService from "@/services/api.service";
 
 export default defineComponent({
-    name: "GameConfigListPage",
+    name: "ModifierConfigListPage",
     components: {
         Datatable
     },
@@ -115,7 +115,7 @@ export default defineComponent({
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'game_configs'), params)
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'modifier_configs'), params)
                 .then((result) => {
                     return result.data;
                 })

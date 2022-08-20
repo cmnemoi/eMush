@@ -66,7 +66,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($catInRoomCondition)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($catInRoomMove2MovementIncrease);
 
@@ -79,7 +78,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($catInRoomCondition)
             ->addModifierCondition($notMoveActionCondition)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($catInRoomNotMove2ActionIncrease);
 
@@ -92,7 +90,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($randCondition16)
             ->setName(ModifierNameEnum::SCREAMING)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($cycle1ActionLostRand16WithScreaming);
 
@@ -105,7 +102,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($randCondition16)
             ->setName(ModifierNameEnum::WALL_HEAD_BANG)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($cycle1HealthLostRand16WithWallHeadBang);
 
@@ -117,7 +113,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($randCondition70)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($cycle1MoralLostRand70);
 
@@ -130,7 +125,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($randCondition16)
             ->setName(ModifierNameEnum::RUN_IN_CIRCLES)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($cycle2MovementLostRand16WithRunInCircles);
 
@@ -142,7 +136,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($fourPeopleInRoomCondition)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($fourPeopleOneActionIncrease);
 
@@ -154,7 +147,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($fourPeopleInRoomCondition)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($fourPeopleOneMovementIncrease);
 
@@ -165,7 +157,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setDelta(-2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($reduceMax2ActionPoint);
 
@@ -176,7 +167,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setDelta(-2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($reduceMax2MoralPoint);
 
@@ -187,7 +177,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setDelta(-3)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($reduceMax3MoralPoint);
 
@@ -198,7 +187,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setDelta(-4)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($reduceMax4MoralPoint);
 

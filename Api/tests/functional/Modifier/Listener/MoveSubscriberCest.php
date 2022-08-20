@@ -91,7 +91,6 @@ class MoveSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($modifierConfig1);
         $I->refreshEntities($player);
@@ -126,7 +125,6 @@ class MoveSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLACE)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($modifierConfig2);
         $modifier2 = new Modifier($room, $modifierConfig2);

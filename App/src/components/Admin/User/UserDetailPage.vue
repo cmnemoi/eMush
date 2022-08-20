@@ -22,6 +22,7 @@
                             {{ option.text }}
                         </option>
                     </select>
+                    <ErrorList v-if="errors.roles" :errors="errors.roles"></ErrorList>
                 </div>
             </div>
         </div>
@@ -36,17 +37,24 @@ import { defineComponent } from "vue";
 import UserService from "@/services/user.service";
 import { User } from "@/entities/User";
 import { UserRole } from "@/enums/user_role.enum";
+import { handleErrors } from "@/utils/apiValidationErrors";
+import ErrorList from "@/components/Utils/ErrorList.vue";
 
 interface UserDetailData {
     user: User | null,
+    errors: any,
     rolesOption: object[],
 }
 
 export default defineComponent({
     name: "UserDetailPage",
+    components: {
+        ErrorList
+    },
     data() : UserDetailData {
         return {
             user: null,
+            errors: {},
             rolesOption: [
                 {
                     key: UserRole.USER,
@@ -64,6 +72,10 @@ export default defineComponent({
                     key: UserRole.SUPER_ADMIN,
                     text: 'Super Admin',
                 },
+                {
+                    key: 'error',
+                    text: 'Super Admin error',
+                },
             ],
         };
     },
@@ -71,6 +83,19 @@ export default defineComponent({
         update(): void {
             UserService.updateUser(this.user)
                 .then((result: User) => (this.user = result))
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.data.violations) {
+                            this.errors = handleErrors(error.response.data.violations);
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.error(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.error('Error', error.message);
+                    }
+                });
             ;
         },
     },

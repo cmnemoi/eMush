@@ -12,9 +12,7 @@
                     type="text"
                     readonly
                 >
-                <ul v-if="errors.name">
-                    <li v-for="(value, key) in errors.name" :key="key">{{ value }}</li>
-                </ul>
+                <ErrorList v-if="errors.name" :errors="errors.name"></ErrorList>
             </div>
             <div class="flex-grow-1">
                 <label for="config_language">{{ $t('config.language') }}</label>
@@ -24,9 +22,7 @@
                     v-model="gameConfig.language"
                     type="text"
                 >
-                <ul v-if="errors.language">
-                    <li v-for="(value, key) in errors.language" :key="key">{{ value }}</li>
-                </ul>
+                <ErrorList v-if="errors.language" :errors="errors.language"></ErrorList>
             </div>
             <div class="flex-grow-1">
                 <label for="config_timeZone">{{ $t('config.timeZone') }}</label>
@@ -36,9 +32,7 @@
                     v-model="gameConfig.timeZone"
                     type="text"
                 >
-                <ul v-if="errors.timeZone">
-                    <li v-for="(value, key) in errors.timeZone" :key="key">{{ value }}</li>
-                </ul>
+                <ErrorList v-if="errors.timeZone" :errors="errors.timeZone"></ErrorList>
             </div>
         </div>
         <div class="flex-row">
@@ -50,9 +44,7 @@
                     v-model="gameConfig.nbMush"
                     type="number"
                 >
-                <ul v-if="errors.nbMush">
-                    <li v-for="(value, key) in errors.nbMush" :key="key">{{ value }}</li>
-                </ul>
+                <ErrorList v-if="errors.nbMush" :errors="errors.nbMush"></ErrorList>
             </div>
             <div class="flex-grow-1">
                 <label for="config_cyclePerGameDay">{{ $t('config.cyclePerGameDay') }}</label>
@@ -62,9 +54,7 @@
                     v-model="gameConfig.cyclePerGameDay"
                     type="text"
                 >
-                <ul v-if="errors.cyclePerGameDay">
-                    <li v-for="(value, key) in errors.cyclePerGameDay" :key="key">{{ value }}</li>
-                </ul>
+                <ErrorList v-if="errors.cyclePerGameDay" :errors="errors.cyclePerGameDay"></ErrorList>
             </div>
             <div class="flex-grow-1">
                 <label for="config_cycleLength">{{ $t('config.cycleLength') }}</label>
@@ -74,9 +64,7 @@
                     v-model="gameConfig.cycleLength"
                     type="text"
                 >
-                <ul v-if="errors.cycleLength">
-                    <li v-for="(value, key) in errors.cycleLength" :key="key">{{ value }}</li>
-                </ul>
+                <ErrorList v-if="errors.cycleLength" :errors="errors.cycleLength"></ErrorList>
             </div>
         </div>
         <div class="flex-row">
@@ -88,9 +76,7 @@
                     v-model="gameConfig.maxNumberPrivateChannel"
                     type="number"
                 >
-                <ul v-if="errors.maxNumberPrivateChannel">
-                    <li v-for="(value, key) in errors.maxNumberPrivateChannel" :key="key">{{ value }}</li>
-                </ul>
+                <ErrorList v-if="errors.maxNumberPrivateChannel" :errors="errors.maxNumberPrivateChannel"></ErrorList>
             </div>
             <div class="flex-grow-1">
                 <label for="config_maxItemInInventory">{{ $t('config.maxItemInInventory') }}</label>
@@ -100,9 +86,7 @@
                     v-model="gameConfig.maxItemInInventory"
                     type="number"
                 >
-                <ul v-if="errors.maxItemInInventory">
-                    <li v-for="(value, key) in errors.maxItemInInventory" :key="key">{{ value }}</li>
-                </ul>
+                <ErrorList v-if="errors.maxItemInInventory" :errors="errors.maxItemInInventory"></ErrorList>
             </div>
             <div class="flex-grow-1">
                 <label for="config_initSatiety">{{ $t('config.initSatiety') }}</label>
@@ -112,9 +96,7 @@
                     v-model="gameConfig.initSatiety"
                     type="number"
                 >
-                <ul v-if="errors.initSatiety">
-                    <li v-for="(value, key) in errors.initSatiety" :key="key">{{ value }}</li>
-                </ul>
+                <ErrorList v-if="errors.initSatiety" :errors="errors.initSatiety"></ErrorList>
             </div>
         </div>
         <div class="flex-row">
@@ -126,9 +108,7 @@
                     v-model="gameConfig.initHealthPoint"
                     type="number"
                 >
-                <ul v-if="errors.initHealthPoint">
-                    <li v-for="(value, key) in errors.initHealthPoint" :key="key">{{ value }}</li>
-                </ul>
+                <ErrorList v-if="errors.initHealthPoint" :errors="errors.initHealthPoint"></ErrorList>
             </div>
             <div class="flex-grow-1">
                 <label for="config_maxHealthPoint">{{ $t('config.maxHealthPoint') }}</label>
@@ -138,9 +118,7 @@
                     v-model="gameConfig.maxHealthPoint"
                     type="number"
                 >
-                <ul v-if="errors.maxHealthPoint">
-                    <li v-for="(value, key) in errors.maxHealthPoint" :key="key">{{ value }}</li>
-                </ul>
+                <ErrorList v-if="errors.maxHealthPoint" :errors="errors.maxHealthPoint"></ErrorList>
             </div>
             <div class="flex-grow-1">
                 <label for="config_initMoralPoint">{{ $t('config.initMoralPoint') }}</label>
@@ -150,9 +128,7 @@
                     v-model="gameConfig.initMoralPoint"
                     type="number"
                 >
-                <ul v-if="errors.initMoralPoint">
-                    <li v-for="(value, key) in errors.initMoralPoint" :key="key">{{ value }}</li>
-                </ul>
+                <ErrorList v-if="errors.initMoralPoint" :errors="errors.initMoralPoint"></ErrorList>
             </div>
             <div class="flex-grow-1">
                 <label for="config_maxMoralPoint">{{ $t('config.maxMoralPoint') }}</label>
@@ -162,9 +138,7 @@
                     v-model="gameConfig.maxMoralPoint"
                     type="number"
                 >
-                <ul v-if="errors.maxMoralPoint">
-                    <li v-for="(value, key) in errors.maxMoralPoint" :key="key">{{ value }}</li>
-                </ul>
+                <ErrorList v-if="errors.maxMoralPoint" :errors="errors.maxMoralPoint"></ErrorList>
             </div>
         </div>
         <div class="flex-row">
@@ -176,9 +150,7 @@
                     v-model="gameConfig.initActionPoint"
                     type="number"
                 >
-                <ul v-if="errors.initActionPoint">
-                    <li v-for="(value, key) in errors.initActionPoint" :key="key">{{ value }}</li>
-                </ul>
+                <ErrorList v-if="errors.initActionPoint" :errors="errors.initActionPoint"></ErrorList>
             </div>
             <div class="flex-grow-1">
                 <label for="config_maxActionPoint">{{ $t('config.maxActionPoint') }}</label>
@@ -188,9 +160,7 @@
                     v-model="gameConfig.maxActionPoint"
                     type="number"
                 >
-                <ul v-if="errors.maxActionPoint">
-                    <li v-for="(value, key) in errors.maxActionPoint" :key="key">{{ value }}</li>
-                </ul>
+                <ErrorList v-if="errors.maxActionPoint" :errors="errors.maxActionPoint"></ErrorList>
             </div>
             <div class="flex-grow-1">
                 <label for="config_initMovementPoint">{{ $t('config.initMovementPoint') }}</label>
@@ -200,9 +170,7 @@
                     v-model="gameConfig.initMovementPoint"
                     type="number"
                 >
-                <ul v-if="errors.initMovementPoint">
-                    <li v-for="(value, key) in errors.initMovementPoint" :key="key">{{ value }}</li>
-                </ul>
+                <ErrorList v-if="errors.initMovementPoint" :errors="errors.initMovementPoint"></ErrorList>
             </div>
             <div class="flex-grow-1">
                 <label for="config_maxMovementPoint">{{ $t('config.maxMovementPoint') }}</label>
@@ -212,9 +180,7 @@
                     v-model="gameConfig.maxMovementPoint"
                     type="number"
                 >
-                <ul v-if="errors.maxMovementPoint">
-                    <li v-for="(value, key) in errors.maxMovementPoint" :key="key">{{ value }}</li>
-                </ul>
+                <ErrorList v-if="errors.maxMovementPoint" :errors="errors.maxMovementPoint"></ErrorList>
             </div>
         </div>
         <button class="button" type="submit" @click="update">
@@ -228,6 +194,8 @@ import { defineComponent } from "vue";
 import GameConfigService from "@/services/game_config.service";
 import { GameConfig } from "@/entities/Config/GameConfig";
 import { mapGetters } from "vuex";
+import ErrorList from "@/components/Utils/ErrorList.vue";
+import { handleErrors } from "@/utils/apiValidationErrors";
 
 interface GameConfigState {
     gameConfig: null|GameConfig
@@ -236,6 +204,9 @@ interface GameConfigState {
 
 export default defineComponent({
     name: "GameConfigDetailPage",
+    components: {
+        ErrorList
+    },
     data: function (): GameConfigState {
         return {
             gameConfig: null,
@@ -248,28 +219,23 @@ export default defineComponent({
                 return;
             }
             this.errors = {};
-            GameConfigService.updateDefaultGameConfig(this.gameConfig).then((res: GameConfig | null) => {
-                this.gameConfig = res;
-            }).catch((error) => {
-                if (error.response) {
-                    if (error.response.data.violations) {
-                        error.response.data.violations.forEach((datum : { propertyPath: string, title: string }) => {
-                            if (datum.propertyPath !== undefined) {
-                                if (this.errors[datum.propertyPath] === undefined) {
-                                    this.errors[datum.propertyPath] = [];
-                                }
-                                this.errors[datum.propertyPath].push(datum.title);
-                            }
-                        });
+            GameConfigService.updateDefaultGameConfig(this.gameConfig)
+                .then((res: GameConfig | null) => {
+                    this.gameConfig = res;
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.data.violations) {
+                            this.errors = handleErrors(error.response.data.violations);
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.error(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.error('Error', error.message);
                     }
-                } else if (error.request) {
-                    // The request was made but no response was received
-                    console.error(error.request);
-                } else {
-                    // Something happened in setting up the request that triggered an Error
-                    console.error('Error', error.message);
-                }
-            });
+                });
         }
     },
     computed: {

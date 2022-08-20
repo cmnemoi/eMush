@@ -21,13 +21,21 @@ const GameConfigService = {
     },
 
     updateDefaultGameConfig: async(gameConfig: GameConfig): Promise<GameConfig | null> => {
+        console.log('err');
+
         store.dispatch('gameConfig/setLoading', { loading: true });
         const gameConfigData = await ApiService.put(ACTION_ENDPOINT + '/' + gameConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', gameConfig)
-            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+            .catch((e) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw e;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (gameConfigData.data) {
             gameConfig = (new GameConfig()).load(gameConfigData.data);
         }
+        console.log('PLEASE : ' + gameConfigData);
 
         return gameConfig;
     }

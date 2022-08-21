@@ -1,13 +1,13 @@
-Mush\Modifier\Entity\ModifierConfig:
-  shortName: 'ModifierConfig'
-  description: 'eMush ModifierConfig'
+Mush\Modifier\Entity\ModifierCondition:
+  shortName: 'ModifierCondition'
+  description: 'eMush modifierCondition'
   attributes:
     pagination_items_per_page: 25
-    security: 'is_granted("ROLE_USER")'
+    security: 'is_granted("ROLE_MODERATOR")'
     normalization_context:
-      groups: [ 'modifier_config_read' ]
+      groups: [ 'modifier_condition_read' ]
     denormalization_context:
-      groups: [ 'modifier_config_write' ]
+      groups: [ 'modifier_condition_write' ]
   collectionOperations:
     get:
       security: 'is_granted("ROLE_MODERATOR")'
@@ -17,8 +17,3 @@ Mush\Modifier\Entity\ModifierConfig:
       security: 'is_granted("ROLE_MODERATOR")'
     put:
       security: 'is_granted("ROLE_ADMIN")'
-  properties:
-    modifierConditions:
-      subresource:
-        resourceClass: 'Mush\Modifier\Entity\ModifierCondition'
-        collection: true

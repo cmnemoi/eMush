@@ -1,6 +1,7 @@
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
 import { GameConfig } from "@/entities/Config/GameConfig";
+import { ModifierCondition } from "@/entities/Config/ModifierCondition";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import store from "@/store";
 
@@ -8,6 +9,8 @@ import store from "@/store";
 const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");
 // @ts-ignore
 const MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_configs");
+// @ts-ignore
+const MODIFIER_CONDITION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_conditions");
 
 const GameConfigService = {
     loadGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {
@@ -57,7 +60,7 @@ const GameConfigService = {
         console.log('err');
 
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const modifierConfigData = await ApiService.put(MODIFIER_CONFIG_ENDPOINT + '/' + modifierConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', modifierConfig)
+        const modifierConfigData = await ApiService.put(MODIFIER_CONFIG_ENDPOINT + '/' + modifierConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', modifierConfig.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
@@ -70,6 +73,38 @@ const GameConfigService = {
         }
 
         return modifierConfig;
+    },
+
+    loadModifierCondition: async(modifierConditionId: number): Promise<ModifierCondition | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const modifierConditionData = await ApiService.get(MODIFIER_CONDITION_ENDPOINT + '/' + modifierConditionId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        let modifierCondition = null;
+        if (modifierConditionData.data) {
+            modifierCondition = (new ModifierCondition()).load(modifierConditionData.data);
+        }
+
+        return modifierCondition;
+    },
+
+    updateModifierCondition: async(modifierCondition: ModifierCondition): Promise<ModifierCondition | null> => {
+        console.log('err');
+
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const modifierConditionData = await ApiService.put(MODIFIER_CONDITION_ENDPOINT + '/' + modifierCondition.id + '?XDEBUG_SESSION_START=PHPSTORM', modifierCondition)
+            .catch((e) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw e;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        if (modifierConditionData.data) {
+            modifierCondition = (new ModifierCondition()).load(modifierConditionData.data);
+        }
+
+        return modifierCondition;
     }
 };
 export default GameConfigService;

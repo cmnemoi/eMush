@@ -123,7 +123,18 @@ class ModifierConfig
         return $this;
     }
 
-    public function setName(string $name): self
+    public function setModifierConditions(array|Collection $modifierConditions): self
+    {
+        if (is_array($modifierConditions)) {
+            $modifierConditions = new ArrayCollection($modifierConditions);
+        }
+
+        $this->modifierConditions = $modifierConditions;
+
+        return $this;
+    }
+
+    public function setName(?string $name): self
     {
         $this->name = $name;
 

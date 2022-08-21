@@ -9,7 +9,7 @@ Mush\Daedalus\Entity\Daedalus:
       groups: [ 'daedalus_write' ]
   collectionOperations:
     get:
-      filters: [ 'daedalus.search_filter', 'daedalus.order_filter' ]
+      filters: [ 'daedalus.search_filter', 'default.order_filter' ]
     post:
       security: 'is_granted("ROLE_MODERATOR")'
   itemOperations:

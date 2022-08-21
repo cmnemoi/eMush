@@ -193,7 +193,6 @@
 import { defineComponent } from "vue";
 import GameConfigService from "@/services/game_config.service";
 import { GameConfig } from "@/entities/Config/GameConfig";
-import { mapGetters } from "vuex";
 import ErrorList from "@/components/Utils/ErrorList.vue";
 import { handleErrors } from "@/utils/apiValidationErrors";
 
@@ -237,12 +236,6 @@ export default defineComponent({
                     }
                 });
         }
-    },
-    computed: {
-        ...mapGetters('auth', [
-            'loggedIn',
-            'getUserInfo'
-        ])
     },
     beforeMount() {
         const gameConfigId = Number(this.$route.params.gameConfigId);

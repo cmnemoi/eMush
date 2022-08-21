@@ -11,7 +11,11 @@ use Mush\Communication\Services\DiseaseMessageServiceInterface;
 use Mush\Communication\Services\MessageService;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
 
 class MessageServiceTest extends TestCase
@@ -92,5 +96,42 @@ class MessageServiceTest extends TestCase
         $this->assertEquals($message, $messageWithParent->getParent());
         $this->assertEquals($player, $messageWithParent->getAuthor());
         $this->assertEquals($channel, $messageWithParent->getChannel());
+    }
+
+    public function testCanPlayerPostMessage()
+    {
+        $player = new Player();
+        $channel = new Channel();
+
+        $player->setGameStatus(GameStatusEnum::FINISHED);
+        $this->assertFalse($this->service->canPlayerPostMessage($player, $channel));
+
+        $player->setGameStatus(GameStatusEnum::CURRENT);
+        $this->assertTrue($this->service->canPlayerPostMessage($player, $channel));
+
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(PlayerStatusEnum::GAGGED);
+        $status = new Status($player, $statusConfig);
+        $this->assertFalse($this->service->canPlayerPostMessage($player, $channel));
+    }
+
+    public function testCreateSystemMessage()
+    {
+        $channel = new Channel();
+        $time = new \DateTime();
+
+        $message = $this->service->createSystemMessage(
+            'key',
+            $channel,
+            [],
+            $time
+        );
+
+        $this->assertInstanceOf(Message::class, $message);
+        $this->assertEquals('key', $message->getMessage());
+        $this->assertEquals(null, $message->getAuthor());
+        $this->assertEquals($time, $message->getCreatedAt());
+        $this->assertEquals($time, $message->getUpdatedAt());
+        $this->assertEquals($channel, $message->getChannel());
     }
 }

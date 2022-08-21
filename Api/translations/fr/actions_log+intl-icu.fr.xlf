@@ -825,6 +825,23 @@
                 </target>
             </segment>
         </unit>
+        <unit id="gag_success">
+            <segment id="gag_success">
+                <source>gag_success</source>
+                <target>**{character}** a bâillonné **{target_character}**.</target>
+            </segment>
+        </unit>
+        <unit id="ungag_success">
+            <segment id="ungag_success">
+                <source>ungag_success</source>
+                <target>{character_gender, select,
+                    male {**{character}** s'est débâillonné.}
+                    female {**{character}** s'est débâillonnée.}
+                    other {invalid gender input}
+                    }
+                </target>
+            </segment>
+        </unit>
     </file>
 </xliff>
 

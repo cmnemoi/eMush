@@ -3,8 +3,11 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\HasStatus;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -35,5 +38,12 @@ class MotivationalSpeech extends AbstractSpeech
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         // @TODO Validator on Leader skill
+        $metadata->addConstraint(new HasStatus([
+            'status' => PlayerStatusEnum::GAGGED,
+            'contain' => false,
+            'target' => HasStatus::PLAYER,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::GAGGED_PREVENT_SPOKEN_ACTION,
+        ]));
     }
 }

@@ -23,10 +23,10 @@
         </div>
         <div class="interactions">
             <ActionButton
-                v-for="(action, key) in target.actions"
+                v-for="(action, key) in getActions"
                 :key="key"
                 :action="action"
-                @click="() => $emit('executeAction', action)"
+                @click="executeTargetAction(action)"
             />
         </div>
     </div>
@@ -38,6 +38,8 @@ import Statuses from "@/components/Utils/Statuses.vue";
 import { Player } from "@/entities/Player";
 import { characterEnum } from '@/enums/character';
 import { defineComponent } from "vue";
+import { mapActions, mapGetters } from "vuex";
+import { Action } from "@/entities/Action";
 
 
 export default defineComponent ({
@@ -56,8 +58,31 @@ export default defineComponent ({
         'executeAction'
     ],
     computed: {
+        ...mapGetters('room', [
+            'selectedTarget',
+        ]),
+        getActions(): Action[]
+        {
+            if (!(this.selectedTarget instanceof Player)) { return [];}
+            return this.selectedTarget.actions;
+        },
+        ...mapGetters('player', [
+            'player'
+        ]),
         portrait(): string {
             return characterEnum[this.target.character.key].portrait ?? '';
+        }
+    },
+    methods: {
+        ...mapActions({
+            'executeAction': 'action/executeAction',
+        }),
+        async executeTargetAction(action: Action) {
+            if (this.target === this.player) {
+                await this.executeAction({ target: null, action });
+            } else {
+                await this.executeAction({ target: this.selectedTarget, action });
+            }
         }
     }
 });

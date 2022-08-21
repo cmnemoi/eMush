@@ -595,6 +595,13 @@
                 <target>Votre état de santé vous empêche de faire cette action. Dommage.</target>
             </segment>
         </unit>
+
+        <unit id="gagged_prevent_spoken_action">
+            <segment id="description">
+                <source>gagged_prevent_spoken_action.description</source>
+                <target>Impossible de prononcer le moindre mot tant que vous ne vous serez pas débarrassés de ce fichu bout de scotch.</target>
+            </segment>
+        </unit>
         
     </file>
 </xliff>

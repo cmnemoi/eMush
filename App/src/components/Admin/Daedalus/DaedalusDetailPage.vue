@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <button class="button" type="submit" @click="save">
+        <button class="action-button" type="submit" @click="save">
             {{ $t('save') }}
         </button>
     </div>
@@ -67,7 +67,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.user_detail_content {
-    padding-top: 20px;
-}
+
 </style>

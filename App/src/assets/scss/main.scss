@@ -155,3 +155,9 @@ button {
     display: flex;
     flex-direction: column;
 }
+
+button.action-button {
+    @include button-style();
+    display: block;
+    margin: 0.2rem;
+}

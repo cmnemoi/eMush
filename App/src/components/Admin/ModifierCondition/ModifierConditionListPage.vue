@@ -37,7 +37,7 @@
                 Actions
             </template>
             <template #row-actions="slotProps">
-                <router-link :to="{ name: 'AdminModifierConfigDetail', params: { modifierConfigId : slotProps.id } }">Edit</router-link>
+                <router-link :to="{ name: 'AdminModifierConditionDetail', params: { modifierConditionId : slotProps.id } }">Edit</router-link>
             </template>
         </Datatable>
     </div>

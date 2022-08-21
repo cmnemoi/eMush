@@ -1,189 +1,135 @@
 <template>
     <div v-if="gameConfig" class="center">
         <div class="flex-row">
+            <Input
+                :label="$t('admin.gameConfig.name')"
+                id="gameConfig_name"
+                v-model="gameConfig.name"
+                type="text"
+                :errors="errors.name"
+            />
+            <Input
+                :label="$t('admin.gameConfig.language')"
+                id="gameConfig_language"
+                v-model="gameConfig.language"
+                type="text"
+                :errors="errors.language"
+            />
+            <Input
+                :label="$t('admin.gameConfig.timeZone')"
+                id="gameConfig_timeZone"
+                v-model="gameConfig.timeZone"
+                type="text"
+                :errors="errors.timeZone"
+            />
         </div>
         <div class="flex-row">
-            <div class="flex-grow-1">
-                <label for="config_name">{{ $t('config.name') }}</label>
-                <input
-                    id="config_name"
-                    ref="config_name"
-                    v-model="gameConfig.name"
-                    type="text"
-                    readonly
-                >
-                <ErrorList v-if="errors.name" :errors="errors.name"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="config_language">{{ $t('config.language') }}</label>
-                <input
-                    id="config_language"
-                    ref="config_language"
-                    v-model="gameConfig.language"
-                    type="text"
-                >
-                <ErrorList v-if="errors.language" :errors="errors.language"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="config_timeZone">{{ $t('config.timeZone') }}</label>
-                <input
-                    id="config_timeZone"
-                    ref="config_timeZone"
-                    v-model="gameConfig.timeZone"
-                    type="text"
-                >
-                <ErrorList v-if="errors.timeZone" :errors="errors.timeZone"></ErrorList>
-            </div>
+            <Input
+                :label="$t('admin.gameConfig.nbMush')"
+                id="gameConfig_nbMush"
+                v-model="gameConfig.nbMush"
+                type="number"
+                :errors="errors.nbMush"
+            />
+            <Input
+                :label="$t('admin.gameConfig.cyclePerGameDay')"
+                id="gameConfig_cyclePerGameDay"
+                v-model="gameConfig.cyclePerGameDay"
+                type="number"
+                :errors="errors.cyclePerGameDay"
+            />
+            <Input
+                :label="$t('admin.gameConfig.cycleLength')"
+                id="gameConfig_cycleLength"
+                v-model="gameConfig.cycleLength"
+                type="number"
+                :errors="errors.cycleLength"
+            />
         </div>
         <div class="flex-row">
-            <div class="flex-grow-1">
-                <label for="config_nbMush">{{ $t('config.nbMush') }}</label>
-                <input
-                    id="config_nbMush"
-                    ref="config_nbMush"
-                    v-model="gameConfig.nbMush"
-                    type="number"
-                >
-                <ErrorList v-if="errors.nbMush" :errors="errors.nbMush"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="config_cyclePerGameDay">{{ $t('config.cyclePerGameDay') }}</label>
-                <input
-                    id="config_cyclePerGameDay"
-                    ref="config_cyclePerGameDay"
-                    v-model="gameConfig.cyclePerGameDay"
-                    type="text"
-                >
-                <ErrorList v-if="errors.cyclePerGameDay" :errors="errors.cyclePerGameDay"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="config_cycleLength">{{ $t('config.cycleLength') }}</label>
-                <input
-                    id="config_cycleLength"
-                    ref="config_cycleLength"
-                    v-model="gameConfig.cycleLength"
-                    type="text"
-                >
-                <ErrorList v-if="errors.cycleLength" :errors="errors.cycleLength"></ErrorList>
-            </div>
+            <Input
+                :label="$t('admin.gameConfig.maxNumberPrivateChannel')"
+                id="gameConfig_maxNumberPrivateChannel"
+                v-model="gameConfig.maxNumberPrivateChannel"
+                type="number"
+                :errors="errors.maxNumberPrivateChannel"
+            />
+            <Input
+                :label="$t('admin.gameConfig.maxItemInInventory')"
+                id="gameConfig_maxItemInInventory"
+                v-model="gameConfig.maxItemInInventory"
+                type="number"
+                :errors="errors.maxItemInInventory"
+            />
+            <Input
+                :label="$t('admin.gameConfig.initSatiety')"
+                id="gameConfig_initSatiety"
+                v-model="gameConfig.initSatiety"
+                type="number"
+                :errors="errors.initSatiety"
+            />
         </div>
         <div class="flex-row">
-            <div class="flex-">
-                <label for="config_maxNumberPrivateChannel">{{ $t('config.maxNumberPrivateChannel') }}</label>
-                <input
-                    id="config_maxNumberPrivateChannel"
-                    ref="config_maxNumberPrivateChannel"
-                    v-model="gameConfig.maxNumberPrivateChannel"
-                    type="number"
-                >
-                <ErrorList v-if="errors.maxNumberPrivateChannel" :errors="errors.maxNumberPrivateChannel"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="config_maxItemInInventory">{{ $t('config.maxItemInInventory') }}</label>
-                <input
-                    id="config_maxItemInInventory"
-                    ref="config_maxItemInInventory"
-                    v-model="gameConfig.maxItemInInventory"
-                    type="number"
-                >
-                <ErrorList v-if="errors.maxItemInInventory" :errors="errors.maxItemInInventory"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="config_initSatiety">{{ $t('config.initSatiety') }}</label>
-                <input
-                    id="config_initSatiety"
-                    ref="config_initSatiety"
-                    v-model="gameConfig.initSatiety"
-                    type="number"
-                >
-                <ErrorList v-if="errors.initSatiety" :errors="errors.initSatiety"></ErrorList>
-            </div>
+            <Input
+                :label="$t('admin.gameConfig.initHealthPoint')"
+                id="gameConfig_initHealthPoint"
+                v-model="gameConfig.initHealthPoint"
+                type="number"
+                :errors="errors.initHealthPoint"
+            />
+            <Input
+                :label="$t('admin.gameConfig.maxHealthPoint')"
+                id="gameConfig_maxHealthPoint"
+                v-model="gameConfig.maxHealthPoint"
+                type="number"
+                :errors="errors.maxHealthPoint"
+            />
+            <Input
+                :label="$t('admin.gameConfig.initMoralPoint')"
+                id="gameConfig_initMoralPoint"
+                v-model="gameConfig.initMoralPoint"
+                type="number"
+                :errors="errors.initMoralPoint"
+            />
+            <Input
+                :label="$t('admin.gameConfig.maxMoralPoint')"
+                id="gameConfig_maxMoralPoint"
+                v-model="gameConfig.maxMoralPoint"
+                type="number"
+                :errors="errors.maxMoralPoint"
+            />
         </div>
         <div class="flex-row">
-            <div class="flex-grow-1">
-                <label for="config_initHealthPoint">{{ $t('config.initHealthPoint') }}</label>
-                <input
-                    id="config_initHealthPoint"
-                    ref="config_initHealthPoint"
-                    v-model="gameConfig.initHealthPoint"
-                    type="number"
-                >
-                <ErrorList v-if="errors.initHealthPoint" :errors="errors.initHealthPoint"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="config_maxHealthPoint">{{ $t('config.maxHealthPoint') }}</label>
-                <input
-                    id="config_maxHealthPoint"
-                    ref="config_maxHealthPoint"
-                    v-model="gameConfig.maxHealthPoint"
-                    type="number"
-                >
-                <ErrorList v-if="errors.maxHealthPoint" :errors="errors.maxHealthPoint"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="config_initMoralPoint">{{ $t('config.initMoralPoint') }}</label>
-                <input
-                    id="config_initMoralPoint"
-                    ref="config_initMoralPoint"
-                    v-model="gameConfig.initMoralPoint"
-                    type="number"
-                >
-                <ErrorList v-if="errors.initMoralPoint" :errors="errors.initMoralPoint"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="config_maxMoralPoint">{{ $t('config.maxMoralPoint') }}</label>
-                <input
-                    id="config_maxMoralPoint"
-                    ref="config_maxMoralPoint"
-                    v-model="gameConfig.maxMoralPoint"
-                    type="number"
-                >
-                <ErrorList v-if="errors.maxMoralPoint" :errors="errors.maxMoralPoint"></ErrorList>
-            </div>
+            <Input
+                :label="$t('admin.gameConfig.initActionPoint')"
+                id="gameConfig_initActionPoint"
+                v-model="gameConfig.initActionPoint"
+                type="number"
+                :errors="errors.initActionPoint"
+            />
+            <Input
+                :label="$t('admin.gameConfig.maxActionPoint')"
+                id="gameConfig_maxActionPoint"
+                v-model="gameConfig.maxActionPoint"
+                type="number"
+                :errors="errors.maxActionPoint"
+            />
+            <Input
+                :label="$t('admin.gameConfig.initMovementPoint')"
+                id="gameConfig_initMovementPoint"
+                v-model="gameConfig.initMovementPoint"
+                type="number"
+                :errors="errors.initMovementPoint"
+            />
+            <Input
+                :label="$t('admin.gameConfig.maxMovementPoint')"
+                id="gameConfig_maxMovementPoint"
+                v-model="gameConfig.maxMovementPoint"
+                type="number"
+                :errors="errors.maxMovementPoint"
+            />
         </div>
-        <div class="flex-row">
-            <div class="flex-grow-1">
-                <label for="config_initActionPoint">{{ $t('config.initActionPoint') }}</label>
-                <input
-                    id="config_initActionPoint"
-                    ref="config_initActionPoint"
-                    v-model="gameConfig.initActionPoint"
-                    type="number"
-                >
-                <ErrorList v-if="errors.initActionPoint" :errors="errors.initActionPoint"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="config_maxActionPoint">{{ $t('config.maxActionPoint') }}</label>
-                <input
-                    id="config_maxActionPoint"
-                    ref="config_maxActionPoint"
-                    v-model="gameConfig.maxActionPoint"
-                    type="number"
-                >
-                <ErrorList v-if="errors.maxActionPoint" :errors="errors.maxActionPoint"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="config_initMovementPoint">{{ $t('config.initMovementPoint') }}</label>
-                <input
-                    id="config_initMovementPoint"
-                    ref="config_initMovementPoint"
-                    v-model="gameConfig.initMovementPoint"
-                    type="number"
-                >
-                <ErrorList v-if="errors.initMovementPoint" :errors="errors.initMovementPoint"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="config_maxMovementPoint">{{ $t('config.maxMovementPoint') }}</label>
-                <input
-                    id="config_maxMovementPoint"
-                    ref="config_maxMovementPoint"
-                    v-model="gameConfig.maxMovementPoint"
-                    type="number"
-                >
-                <ErrorList v-if="errors.maxMovementPoint" :errors="errors.maxMovementPoint"></ErrorList>
-            </div>
-        </div>
-        <button class="button" type="submit" @click="update">
+        <button class="action-button" type="submit" @click="update">
             {{ $t('save') }}
         </button>
     </div>
@@ -193,8 +139,8 @@
 import { defineComponent } from "vue";
 import GameConfigService from "@/services/game_config.service";
 import { GameConfig } from "@/entities/Config/GameConfig";
-import ErrorList from "@/components/Utils/ErrorList.vue";
 import { handleErrors } from "@/utils/apiValidationErrors";
+import Input from "@/components/Utils/Input.vue";
 
 interface GameConfigState {
     gameConfig: null|GameConfig
@@ -204,7 +150,7 @@ interface GameConfigState {
 export default defineComponent({
     name: "GameConfigDetailPage",
     components: {
-        ErrorList
+        Input,
     },
     data: function (): GameConfigState {
         return {
@@ -247,18 +193,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-button {
-    cursor: pointer;
-    margin: 0 20px;
-    padding: 5px 10px;
-    color: white;
-    font-size: 1.1em;
-    letter-spacing: .06em;
 
-    &:hover,
-    &:active {
-        color: #dffaff;
-        text-shadow: 0 0 1px rgb(255, 255, 255), 0 0 1px rgb(255, 255, 255);
-    }
-}
 </style>

@@ -1,76 +1,56 @@
 <template>
     <div v-if="modifierConfig" class="center">
         <div class="flex-row">
+            <Input
+                :label="$t('admin.modifierConfig.name')"
+                id="modifierConfig_name"
+                v-model="modifierConfig.name"
+                type="text"
+                :errors="errors.name"
+            />
+            <Input
+                :label="$t('admin.modifierConfig.delta')"
+                id="modifierConfig_delta"
+                v-model="modifierConfig.delta"
+                type="text"
+                :errors="errors.delta"
+            />
+            <Input
+                :label="$t('admin.modifierConfig.target')"
+                id="modifierConfig_target"
+                v-model="modifierConfig.target"
+                type="text"
+                :errors="errors.target"
+            />
         </div>
         <div class="flex-row">
-            <div class="flex-grow-1">
-                <label for="modifierConfig_name">{{ $t('modifierConfig.name') }}</label>
-                <input
-                    id="modifierConfig_name"
-                    ref="modifierConfig_name"
-                    v-model="modifierConfig.name"
-                    type="text"
-                >
-                <ErrorList v-if="errors.name" :errors="errors.name"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="modifierConfig_delta">{{ $t('modifierConfig.delta') }}</label>
-                <input
-                    id="modifierConfig_delta"
-                    ref="modifierConfig_delta"
-                    v-model="modifierConfig.delta"
-                    type="text"
-                >
-                <ErrorList v-if="errors.delta" :errors="errors.delta"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="modifierConfig_target">{{ $t('modifierConfig.target') }}</label>
-                <input
-                    id="modifierConfig_target"
-                    ref="modifierConfig_target"
-                    v-model="modifierConfig.target"
-                    type="text"
-                >
-                <ErrorList v-if="errors.target" :errors="errors.target"></ErrorList>
-            </div>
-        </div>
-        <div class="flex-row">
-            <div class="flex-grow-1">
-                <label for="modifierConfig_scope">{{ $t('modifierConfig.scope') }}</label>
-                <input
-                    id="modifierConfig_scope"
-                    ref="modifierConfig_scope"
-                    v-model="modifierConfig.scope"
-                    type="text"
-                >
-                <ErrorList v-if="errors.scope" :errors="errors.scope"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="modifierConfig_reach">{{ $t('modifierConfig.reach') }}</label>
-                <input
-                    id="modifierConfig_reach"
-                    ref="modifierConfig_reach"
-                    v-model="modifierConfig.reach"
-                    type="text"
-                >
-                <ErrorList v-if="errors.reach" :errors="errors.reach"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="modifierConfig_mode">{{ $t('modifierConfig.mode') }}</label>
-                <input
-                    id="modifierConfig_mode"
-                    ref="modifierConfig_mode"
-                    v-model="modifierConfig.mode"
-                    type="text"
-                >
-                <ErrorList v-if="errors.mode" :errors="errors.mode"></ErrorList>
-            </div>
+            <Input
+                :label="$t('admin.modifierConfig.scope')"
+                id="modifierConfig_scope"
+                v-model="modifierConfig.scope"
+                type="text"
+                :errors="errors.scope"
+            />
+            <Input
+                :label="$t('admin.modifierConfig.reach')"
+                id="modifierConfig_reach"
+                v-model="modifierConfig.reach"
+                type="text"
+                :errors="errors.reach"
+            />
+            <Input
+                :label="$t('admin.modifierConfig.mode')"
+                id="modifierConfig_mode"
+                v-model="modifierConfig.mode"
+                type="text"
+                :errors="errors.mode"
+            />
         </div>
         <h3>Modifier Condition</h3>
         <div class="flex-grow-1">
             <ChildRelation v-model:children="modifierConfig.modifierConditions"></ChildRelation>
         </div>
-        <button class="button" type="submit" @click="update">
+        <button class="action-button" type="submit" @click="update">
             {{ $t('save') }}
         </button>
     </div>
@@ -79,13 +59,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import GameConfigService from "@/services/game_config.service";
-import ErrorList from "@/components/Utils/ErrorList.vue";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
 import ChildRelation from "@/components/Admin/ModifierConfig/ChildRelation.vue";
 import { ModifierCondition } from "@/entities/Config/ModifierCondition";
+import Input from "@/components/Utils/Input.vue";
 
 interface ModifierConfigState {
     modifierConfig: null|ModifierConfig
@@ -95,8 +75,8 @@ interface ModifierConfigState {
 export default defineComponent({
     name: "ModifierConfigState",
     components: {
+        Input,
         ChildRelation,
-        ErrorList
     },
     data: function (): ModifierConfigState {
         return {
@@ -165,19 +145,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-button {
-    cursor: pointer;
-    margin: 0 20px;
-    padding: 5px 10px;
-    color: white;
-    font-size: 1.1em;
-    letter-spacing: .06em;
 
-    &:hover,
-    &:active {
-        color: #dffaff;
-        text-shadow: 0 0 1px rgb(255, 255, 255), 0 0 1px rgb(255, 255, 255);
-    }
-}
+<style lang="scss" scoped>
+
 </style>

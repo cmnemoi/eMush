@@ -16,6 +16,7 @@ import ModifierConfigListPage from "@/components/Admin/ModifierConfig/ModifierCo
 import ModifierConfigDetailPage from "@/components/Admin/ModifierConfig/ModifierConfigDetailPage.vue";
 import ModifierConditionListPage from "@/components/Admin/ModifierCondition/ModifierConditionListPage.vue";
 import ModifierConditionDetailPage from "@/components/Admin/ModifierCondition/ModifierConditionDetailPage.vue";
+import AdminConfigPage from "@/components/Admin/AdminConfigPage.vue";
 
 const routes = [
     {
@@ -42,34 +43,42 @@ const routes = [
                 component: AdminHomePage
             },
             {
-                name: "AdminGameConfigList",
-                path: 'game-config-list',
-                component: GameConfigListPage
-            },
-            {
-                name: "AdminGameConfigDetail",
-                path: 'game-config/:gameConfigId',
-                component: GameConfigDetailPage
-            },
-            {
-                name: "AdminModifierConfigList",
-                path: 'modifier-config-list',
-                component: ModifierConfigListPage
-            },
-            {
-                name: "AdminModifierConfigDetail",
-                path: 'modifier-config/:modifierConfigId',
-                component: ModifierConfigDetailPage
-            },
-            {
-                name: "AdminModifierConditionList",
-                path: 'modifier-condition-list',
-                component: ModifierConditionListPage
-            },
-            {
-                name: "AdminModifierConditionDetail",
-                path: 'modifier-condition/:modifierConditionId',
-                component: ModifierConditionDetailPage
+                path: "/config",
+                name: "AdminConfigHomepage",
+                component: AdminConfigPage,
+                redirect: { name: 'AdminGameConfigList' },
+                children: [
+                    {
+                        name: "AdminGameConfigList",
+                        path: 'game-config-list',
+                        component: GameConfigListPage
+                    },
+                    {
+                        name: "AdminGameConfigDetail",
+                        path: 'game-config/:gameConfigId',
+                        component: GameConfigDetailPage
+                    },
+                    {
+                        name: "AdminModifierConfigList",
+                        path: 'modifier-config-list',
+                        component: ModifierConfigListPage
+                    },
+                    {
+                        name: "AdminModifierConfigDetail",
+                        path: 'modifier-config/:modifierConfigId',
+                        component: ModifierConfigDetailPage
+                    },
+                    {
+                        name: "AdminModifierConditionList",
+                        path: 'modifier-condition-list',
+                        component: ModifierConditionListPage
+                    },
+                    {
+                        name: "AdminModifierConditionDetail",
+                        path: 'modifier-condition/:modifierConditionId',
+                        component: ModifierConditionDetailPage
+                    },
+                ]
             },
             {
                 name: "AdminDaedalusList",

@@ -1,40 +1,29 @@
 <template>
-    <div v-if="modifierConfig" class="center">
+    <div v-if="modifierCondition" class="center">
         <div class="flex-row">
+            <Input
+                :label="$t('admin.modifierCondition.name')"
+                id="modifierConfig_name"
+                v-model="modifierCondition.name"
+                type="text"
+                :errors="errors.name"
+            ></Input>
+            <Input
+                :label="$t('admin.modifierCondition.condition')"
+                id="modifierCondition_condition"
+                v-model="modifierCondition.condition"
+                type="text"
+                :errors="errors.condition"
+            ></Input>
+            <Input
+                :label="$t('admin.modifierCondition.value')"
+                id="modifierCondition_value"
+                v-model="modifierCondition.value"
+                type="text"
+                :errors="errors.value"
+            ></Input>
         </div>
-        <div class="flex-row">
-            <div class="flex-grow-1">
-                <label for="modifierCondition_name">{{ $t('modifierCondition.name') }}</label>
-                <input
-                    id="modifierConfig_name"
-                    ref="modifierConfig_name"
-                    v-model="modifierCondition.name"
-                    type="text"
-                >
-                <ErrorList v-if="errors.name" :errors="errors.name"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="modifierCondition_condition">{{ $t('modifierCondition.condition') }}</label>
-                <input
-                    id="modifierCondition_condition"
-                    ref="modifierCondition_condition"
-                    v-model="modifierCondition.condition"
-                    type="text"
-                >
-                <ErrorList v-if="errors.condition" :errors="errors.condition"></ErrorList>
-            </div>
-            <div class="flex-grow-1">
-                <label for="modifierCondition_value">{{ $t('modifierCondition.value') }}</label>
-                <input
-                    id="modifierCondition_value"
-                    ref="modifierCondition_value"
-                    v-model="modifierCondition.value"
-                    type="text"
-                >
-                <ErrorList v-if="errors.value" :errors="errors.value"></ErrorList>
-            </div>
-        </div>
-        <button class="button" type="submit" @click="update">
+        <button class="action-button" type="submit" @click="update">
             {{ $t('save') }}
         </button>
     </div>
@@ -43,9 +32,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import GameConfigService from "@/services/game_config.service";
-import ErrorList from "@/components/Utils/ErrorList.vue";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import { ModifierCondition } from "@/entities/Config/ModifierCondition";
+import Input from "@/components/Utils/Input.vue";
 
 interface ModifierConditionState {
     modifierCondition: null|ModifierCondition
@@ -55,7 +44,7 @@ interface ModifierConditionState {
 export default defineComponent({
     name: "ModifierCondition",
     components: {
-        ErrorList
+        Input
     },
     data: function (): ModifierConditionState {
         return {
@@ -89,7 +78,7 @@ export default defineComponent({
         }
     },
     beforeMount() {
-        const modifierConditionId = Number(this.$route.params.modifierConfigId);
+        const modifierConditionId = Number(this.$route.params.modifierConditionId);
         GameConfigService.loadModifierCondition(modifierConditionId).then((res: ModifierCondition | null) => {
             this.modifierCondition = res;
         });
@@ -97,19 +86,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-button {
-    cursor: pointer;
-    margin: 0 20px;
-    padding: 5px 10px;
-    color: white;
-    font-size: 1.1em;
-    letter-spacing: .06em;
 
-    &:hover,
-    &:active {
-        color: #dffaff;
-        text-shadow: 0 0 1px rgb(255, 255, 255), 0 0 1px rgb(255, 255, 255);
-    }
-}
+<style lang="scss" scoped>
+
 </style>

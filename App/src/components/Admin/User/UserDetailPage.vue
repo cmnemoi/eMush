@@ -5,18 +5,14 @@
         </div>
         <div class="user_detail_content">
             <div class="flex-row">
-                <div class="grow">
-                    <label for="user_username">{{ $t('user.username') }}</label>
-                    <input
-                        id="user_username"
-                        ref="user_username"
-                        v-model="user.username"
-                        type="text"
-                        readonly
-                    >
-                </div>
+                <Input
+                    :label="$t('admin.user.username')"
+                    id="user_username"
+                    v-model="user.username"
+                    type="text"
+                />
                 <div class="flex-grow-1">
-                    <label for="user_roles">{{ $t('user.roles') }}</label>
+                    <label for="user_roles">{{ $t('admin.user.roles') }}</label>
                     <select v-model="user.roles" multiple>
                         <option v-for="option in rolesOption" v-bind:value="option.key" :key="option.key">
                             {{ option.text }}
@@ -26,7 +22,7 @@
                 </div>
             </div>
         </div>
-        <button class="button" type="submit" @click="update">
+        <button class="action-button" type="submit" @click="update">
             {{ $t('save') }}
         </button>
     </div>
@@ -39,6 +35,7 @@ import { User } from "@/entities/User";
 import { UserRole } from "@/enums/user_role.enum";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import ErrorList from "@/components/Utils/ErrorList.vue";
+import Input from "@/components/Utils/Input.vue";
 
 interface UserDetailData {
     user: User | null,
@@ -49,6 +46,7 @@ interface UserDetailData {
 export default defineComponent({
     name: "UserDetailPage",
     components: {
+        Input,
         ErrorList
     },
     data() : UserDetailData {
@@ -111,7 +109,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.user_detail_content {
-    padding-top: 20px;
-}
+
 </style>

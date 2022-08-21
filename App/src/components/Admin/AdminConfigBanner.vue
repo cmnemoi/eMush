@@ -1,9 +1,9 @@
 <template>
     <div class="banner">
         <div class="admin-menu">
-            <router-link :to="{ name: 'AdminDaedalusList' }">Daedalus</router-link>
-            <router-link :to="{ name: 'AdminConfigHomepage' }">Configs</router-link>
-            <router-link :to="{ name: 'AdminUser' }">Users</router-link>
+            <router-link :to="{ name: 'AdminGameConfigList' }">Game Config</router-link>
+            <router-link :to="{ name: 'AdminModifierConfigList' }">Modifier Config</router-link>
+            <router-link :to="{ name: 'AdminModifierConditionList' }">Modifier Condition</router-link>
         </div>
     </div>
 </template>
@@ -13,7 +13,7 @@ import { defineComponent } from "vue";
 
 
 export default defineComponent ({
-    name: 'AdminBanner'
+    name: 'AdminConfigBanner'
 });
 </script>
 

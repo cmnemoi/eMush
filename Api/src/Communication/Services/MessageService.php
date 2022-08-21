@@ -8,7 +8,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
+use Mush\Disease\Enum\SymptomEnum;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 class MessageService implements MessageServiceInterface
 {
@@ -79,6 +82,18 @@ class MessageService implements MessageServiceInterface
             ->getRepository(Message::class)
             ->findBy(['channel' => $channel, 'parent' => null], ['updatedAt' => 'desc']))
         ;
+    }
+
+    public function canPlayerPostMessage(Player $player, Channel $channel): bool
+    {
+        if ($player->hasStatus(PlayerStatusEnum::GAGGED) ||
+            $player->getMedicalConditions()->getActiveDiseases()->getAllSymptoms()->hasSymptomByName(SymptomEnum::MUTE) ||
+            $player->getGameStatus() !== GameStatusEnum::CURRENT
+        ) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

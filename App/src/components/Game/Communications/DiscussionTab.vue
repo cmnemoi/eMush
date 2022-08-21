@@ -1,5 +1,5 @@
 <template>
-    <TabContainer id="discussion-tab" :channel="channel" new-message-allowed>
+    <TabContainer id="discussion-tab" :channel="channel" :new-message-allowed = "newMessagesAllowed">
         <section v-for="(message, id) in messages" :key="id" class="unit">
             <Message :message="message" :is-root="true" @click="replyTo(message)" />
             <Message
@@ -44,7 +44,11 @@ export default defineComponent ({
     computed: {
         ...mapGetters('communication', [
             'messages'
-        ])
+        ]),
+        newMessagesAllowed(): boolean | undefined
+        {
+            return this.channel?.newMessageAllowed;
+        }
     },
     methods: {
         replyTo: function (message: MessageEntity): void {

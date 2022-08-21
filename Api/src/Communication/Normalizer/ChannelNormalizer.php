@@ -4,16 +4,22 @@ namespace Mush\Communication\Normalizer;
 
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
+use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
 class ChannelNormalizer implements ContextAwareNormalizerInterface
 {
     private TranslationServiceInterface $translationService;
+    private MessageServiceInterface $messageService;
 
-    public function __construct(TranslationServiceInterface $translationService)
-    {
+    public function __construct(
+        TranslationServiceInterface $translationService,
+        MessageServiceInterface $messageService
+    ) {
         $this->translationService = $translationService;
+        $this->messageService = $messageService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -26,6 +32,9 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
      */
     public function normalize($object, string $format = null, array $context = []): array
     {
+        /** @var Player $currentPlayer */
+        $currentPlayer = $context['currentPlayer'];
+
         $participants = [];
         /** @var ChannelPlayer $participant */
         foreach ($object->getParticipants() as $participant) {
@@ -46,6 +55,7 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
             'scope' => $object->getScope(),
             'participants' => $participants,
             'createdAt' => $object->getCreatedAt()->format(\DateTime::ATOM),
+            'newMessageAllowed' => $this->messageService->canPlayerPostMessage($currentPlayer, $object),
         ];
     }
 }

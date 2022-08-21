@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Entity\SymptomCondition;
 use Mush\Disease\Enum\SymptomConditionEnum;
@@ -37,10 +38,11 @@ class InjurySymptomConfigFixtures extends Fixture implements DependentFixtureInt
         $manager->persist($cantPickUpHeavyItems);
 
         $deaf = new SymptomConfig(SymptomEnum::DEAF);
+        $deaf->setTrigger(EventEnum::ON_NEW_MESSAGE);
         $manager->persist($deaf);
 
         $mute = new SymptomConfig(SymptomEnum::MUTE);
-        $mute->setTrigger(EventEnum::ON_NEW_MESSAGE);
+        $mute->setTrigger(ActionTypeEnum::ACTION_SPOKEN);
         $manager->persist($mute);
 
         $manager->flush();

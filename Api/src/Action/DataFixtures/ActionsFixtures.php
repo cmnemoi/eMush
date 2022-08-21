@@ -39,9 +39,10 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const HEAL = 'heal';
     public const SELF_HEAL = 'self.heal';
     public const HEAL_ULTRA = 'heal.ultra';
-    public const COMFORT_DEFAULT = 'confort.default';
+    public const COMFORT_DEFAULT = 'comfort.default';
     public const WRITE_DEFAULT = 'write.default';
     public const GAG_DEFAULT = 'gag.default';
+    public const UNGAG_DEFAULT = 'ungag.default';
     public const HYPERFREEZE_DEFAULT = 'hyperfreeze.default';
     public const SHOWER_DEFAULT = 'shower.default';
     public const FLIRT_DEFAULT = 'flirt.default';
@@ -311,6 +312,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $comfortAction
             ->setName(ActionEnum::COMFORT)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setTypes([ActionTypeEnum::ACTION_SPOKEN])
             ->setActionCost($oneActionPointCost)
         ;
 
@@ -352,6 +354,15 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         ;
 
         $manager->persist($gagAction);
+
+        $ungagAction = new Action();
+        $ungagAction
+            ->setName(ActionEnum::UNGAG)
+            ->setScope(ActionScopeEnum::SELF)
+            ->setActionCost($oneActionPointCost)
+        ;
+
+        $manager->persist($ungagAction);
 
         $showerAction = new Action();
         $showerAction
@@ -595,6 +606,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $motivationalSpeechAction
             ->setName(ActionEnum::MOTIVATIONAL_SPEECH)
             ->setScope(ActionScopeEnum::SELF)
+            ->setTypes([ActionTypeEnum::ACTION_SPOKEN])
             ->setActionCost($twoActionPointCost)
         ;
 
@@ -604,6 +616,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $boringSpeechAction
             ->setName(ActionEnum::BORING_SPEECH)
             ->setScope(ActionScopeEnum::SELF)
+            ->setTypes([ActionTypeEnum::ACTION_SPOKEN])
             ->setActionCost($twoActionPointCost)
         ;
 
@@ -659,6 +672,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::WRITE_DEFAULT, $writeAction);
         $this->addReference(self::HYPERFREEZE_DEFAULT, $hyperfreezeAction);
         $this->addReference(self::GAG_DEFAULT, $gagAction);
+        $this->addReference(self::UNGAG_DEFAULT, $ungagAction);
         $this->addReference(self::SHOWER_DEFAULT, $showerAction);
         $this->addReference(self::FUEL_INJECT, $fuelInjectAction);
         $this->addReference(self::FUEL_RETRIEVE, $retrieveFuelAction);

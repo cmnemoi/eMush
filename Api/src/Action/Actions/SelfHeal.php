@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  *
  * Also weakens / heals diseases
  *
- * More info : http://www.mushpedia.com/wiki/Medikit
+ * More info: http://www.mushpedia.com/wiki/Medikit
  */
 class SelfHeal extends AbstractAction
 {

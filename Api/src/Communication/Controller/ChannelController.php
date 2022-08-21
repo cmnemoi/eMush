@@ -288,8 +288,8 @@ class ChannelController extends AbstractFOSRestController
             throw new AccessDeniedException('User should be in game');
         }
 
-        if ($player->getGameStatus() !== GameStatusEnum::CURRENT) {
-            throw new AccessDeniedException('Player is dead');
+        if (!$this->messageService->canPlayerPostMessage($player, $channel)) {
+            throw new AccessDeniedException('Player cannot speak');
         }
 
         $this->messageService->createPlayerMessage($player, $messageCreate);

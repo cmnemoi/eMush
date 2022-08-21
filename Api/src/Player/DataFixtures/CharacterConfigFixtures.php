@@ -55,6 +55,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $flirtAction = $this->getReference(ActionsFixtures::FLIRT_DEFAULT);
         /** @var Action $doTheThingAction */
         $doTheThingAction = $this->getReference(ActionsFixtures::DO_THE_THING);
+        /** @var Action $ungag */
+        $ungag = $this->getReference(ActionsFixtures::UNGAG_DEFAULT);
 
         /** @var Action $extractSporeAction */
         $extractSporeAction = $this->getReference(MushActionFixtures::EXTRACT_SPORE);
@@ -99,6 +101,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $doTheThingAction,
             $makeSickAction,
             $fakeDiseaseAction,
+            $ungag,
         ]);
 
         /** @var StatusConfig $sporeStatus */

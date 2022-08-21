@@ -48,6 +48,13 @@ class BoringSpeech extends AbstractSpeech
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::ALREADY_DID_BORING_SPEECH,
         ]));
+        $metadata->addConstraint(new HasStatus([
+            'status' => PlayerStatusEnum::GAGGED,
+            'contain' => false,
+            'target' => HasStatus::PLAYER,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::GAGGED_PREVENT_SPOKEN_ACTION,
+        ]));
     }
 
     protected function applyEffects(): ActionResult

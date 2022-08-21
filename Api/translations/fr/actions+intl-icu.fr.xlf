@@ -631,5 +631,25 @@
                 <target>Permet d'effectuer une chirurgie sur vous-même.</target>
             </segment>
         </unit>
+        <unit id="gag">
+            <segment id="name">
+                <source>gag.name</source>
+                <target>Bâillonner</target>
+            </segment>
+            <segment id="description">
+                <source>gag.description</source>
+                <target>Bâillonner un membre d'équipage pour le bien de tous.</target>
+            </segment>
+        </unit>
+        <unit id="ungag">
+            <segment id="name">
+                <source>ungag.name</source>
+                <target>Debâillonner</target>
+            </segment>
+            <segment id="description">
+                <source>ungag.description</source>
+                <target>Vous vous débâillonnez vous-même si vous en avez la possibilité. Vengeance !</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

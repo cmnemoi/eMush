@@ -89,4 +89,5 @@ class ActionImpossibleCauseEnum
     public const ALREADY_DID_BORING_SPEECH = 'already_did_boring_speech';
     public const HAVE_ALL_FAKE_DISEASES = 'have_all_fake_diseases';
     public const SYMPTOMS_ARE_PREVENTING_ACTION = 'symptoms_are_preventing_action';
+    public const GAGGED_PREVENT_SPOKEN_ACTION = 'gagged_prevent_spoken_action';
 }

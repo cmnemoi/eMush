@@ -5,23 +5,26 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\HasStatus as StatusValidator;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-class Comfort extends AbstractAction
+/**
+ * implement gag action.
+ * For 1 Action Points, a player holding duct tape can gag another player
+ *  - target player get the gagged status
+ *  - target player can ungag for 1 pa.
+ *
+ * More info: http://mushpedia.com/wiki/Duct_Tape
+ */
+class Gag extends AbstractAction
 {
-    public const BASE_CONFORT = 2;
-
-    protected string $name = ActionEnum::COMFORT;
+    protected string $name = ActionEnum::GAG;
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -30,14 +33,12 @@ class Comfort extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        // @TODO add validator on shrink skill ?
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new HasStatus([
+        $metadata->addConstraint(new StatusValidator([
             'status' => PlayerStatusEnum::GAGGED,
+            'target' => StatusValidator::PARAMETER,
             'contain' => false,
-            'target' => HasStatus::PLAYER,
-            'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::GAGGED_PREVENT_SPOKEN_ACTION,
+            'groups' => ['visibility'],
         ]));
     }
 
@@ -46,14 +47,14 @@ class Comfort extends AbstractAction
         /** @var Player $parameter */
         $parameter = $this->parameter;
 
-        $playerModifierEvent = new PlayerVariableEvent(
+        $statusEvent = new StatusEvent(
+            PlayerStatusEnum::GAGGED,
             $parameter,
-            PlayerVariableEnum::MORAL_POINT,
-            self::BASE_CONFORT,
             $this->getActionName(),
-            new \DateTime(),
+            new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return new Success();
     }

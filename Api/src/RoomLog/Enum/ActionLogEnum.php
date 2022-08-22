@@ -72,11 +72,7 @@ class ActionLogEnum
     public const BORING_SPEECH = 'boring_speech';
     public const MAKE_SICK = 'make_sick';
     public const FAKE_DISEASE = 'fake_disease';
-    public const SUCCESS_SURGERY = 'success_surgery';
-    public const CRITICAL_SUCCESS_SURGERY = 'critical_success_surgery';
     public const FAIL_SURGERY = 'fail_surgery';
-    public const SUCCESS_SELF_SURGERY = 'success_self_surgery';
-    public const CRITICAL_SUCCESS_SELF_SURGERY = 'critical_success_self_surgery';
     public const FAIL_SELF_SURGERY = 'fail_self_surgery';
 
     public const DEFAULT_FAIL = 'default_fail';
@@ -454,28 +450,12 @@ class ActionLogEnum
             ],
         ],
         ActionEnum::SURGERY => [
-            ActionOutputEnum::SUCCESS => [
-                self::VALUE => self::SUCCESS_SURGERY,
-                self::VISIBILITY => VisibilityEnum::PUBLIC,
-            ],
-            ActionOutputEnum::CRITICAL_SUCCESS => [
-                self::VALUE => self::CRITICAL_SUCCESS_SURGERY,
-                self::VISIBILITY => VisibilityEnum::PUBLIC,
-            ],
             ActionOutputEnum::FAIL => [
                 self::VALUE => self::FAIL_SURGERY,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
             ],
         ],
         ActionEnum::SELF_SURGERY => [
-            ActionOutputEnum::SUCCESS => [
-                self::VALUE => self::SUCCESS_SELF_SURGERY,
-                self::VISIBILITY => VisibilityEnum::PUBLIC,
-            ],
-            ActionOutputEnum::CRITICAL_SUCCESS => [
-                self::VALUE => self::CRITICAL_SUCCESS_SELF_SURGERY,
-                self::VISIBILITY => VisibilityEnum::PUBLIC,
-            ],
             ActionOutputEnum::FAIL => [
                 self::VALUE => self::FAIL_SELF_SURGERY,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,

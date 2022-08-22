@@ -74,13 +74,7 @@ class RoomLogService implements RoomLogServiceInterface
         if (isset($logMapping[$actionResultString])) {
             $logData = $logMapping[$actionResultString];
         } else {
-            return $this->createLog(
-                'no_log_yet_' . $actionName,
-                $player->getPlace(),
-                VisibilityEnum::PUBLIC,
-                'actions_log',
-                $player,
-            );
+            return null;
         }
 
         $parameters = $this->getActionLogParameters($actionResult, $player, $actionParameter);

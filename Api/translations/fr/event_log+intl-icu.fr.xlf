@@ -437,6 +437,44 @@
                 <target>:cat: Le chat était dans la pièce, vous n'avez pas pu vous empêcher de fuir...</target>
             </segment>
         </unit>
+        <unit id="surgery_success">
+            <segment id="surgery_success">
+                <source>surgery_success</source>
+                <target>L'opération semble durer une éternité, **{character}** rend enfin son verdict la mine souriante... {version, select,
+                    1 {l'opération s'est déroulé avec succès. **{target_character}** va bien et sera bientôt sur pied.}
+                    2 {**{target_character}** s'en sort admirablement.}
+                    other {invalid gender input}
+                    } La blessure ({disease}) de **{target_character}** est guérie.
+                </target>
+            </segment>
+        </unit>
+        <unit id="surgery_critical_success">
+            <segment id="surgery_critical_success">
+                <source>surgery_critical_success</source>
+                <target>
+                    L'opération semble durer une éternité, **{character}** rend enfin son verdict la mine souriante... une telle opération menée avec un tel brio peut faire avancer la science ! La blessure ({disease}) de **{target_character}** est guérie.
+                </target>
+            </segment>
+        </unit>
+        <unit id="self_surgery_success">
+            <segment id="self_surgery_success">
+                <source>self_surgery_success</source>
+                <target>L'opération semble durer une éternité... {version, select,
+                    1 {**{character}** s'en sort admirablement.}
+                    2 {l'opération s'est déroulé avec succès. **{character}** va bien et sera bientôt sur pied.}
+                    other {invalid gender input}
+                    } La blessure ({disease}) de **{character}** est guérie.
+                </target>
+            </segment>
+        </unit>
+        <unit id="self_surgery_critical_success">
+            <segment id="self_surgery_critical_success">
+                <source>self_surgery_critical_success</source>
+                <target>
+                    L'opération semble durer une éternité... une telle opération menée avec un tel brio peut faire avancer la science ! La blessure ({disease}) de **{character}** est guérie.
+                </target>
+            </segment>
+        </unit>
     </file>
 </xliff>
 

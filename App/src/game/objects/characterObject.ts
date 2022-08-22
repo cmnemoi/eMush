@@ -37,8 +37,8 @@ export default class CharacterObject extends InteractObject {
         this.applyEquipmentInteraction();
 
         //If this is clicked then:
-        this.on('pointerdown', function (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) {
-            store.dispatch('room/selectTarget', { target: player });
+        this.on('pointerdown', (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) => {
+            store.dispatch('room/selectTarget', { target: this.player });
         });
 
         this.checkPositionDepth();

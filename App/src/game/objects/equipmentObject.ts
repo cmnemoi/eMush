@@ -32,7 +32,7 @@ export default class EquipmentObject extends InteractObject {
 
         //If this is clicked then:
         this.on('pointerdown', (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) => {
-            store.dispatch('room/selectTarget', { target: equipment });
+            store.dispatch('room/selectTarget', { target: this.equipment });
         });
 
         this.handleBroken();
@@ -45,7 +45,9 @@ export default class EquipmentObject extends InteractObject {
     }
 
     updateEquipment(equipment: Equipment | null = null) {
-        if (equipment !== null) {this.equipment = equipment;}
+        if (equipment !== null) {
+            this.equipment = equipment;
+        }
 
         this.handleBroken();
     }

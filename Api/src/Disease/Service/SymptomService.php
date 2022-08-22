@@ -2,6 +2,7 @@
 
 namespace Mush\Disease\Service;
 
+use Mush\Action\Actions\Hit;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
@@ -60,6 +61,9 @@ class SymptomService implements SymptomServiceInterface
                 break;
             case SymptomEnum::DIRTINESS:
                 $this->handleDirtiness($symptomConfig, $player, $time);
+                break;
+            case SymptomEnum::PSYCHOTIC_ATTACKS:
+                $this->handlePsychoticAttacks($symptomConfig, $player, $time);
                 break;
             default:
                 throw new \Exception('Unknown cycle change symptom');
@@ -214,6 +218,11 @@ class SymptomService implements SymptomServiceInterface
         $this->createSymptomLog($symptomConfig->getName(), $player, $time, $symptomConfig->getVisibility(), $logParameters);
     }
 
+    private function handlePsychoticAttacks(SymptomConfig $symptomConfig, Player $player, \DateTime $time): void
+    {
+        $this->makePlayerRandomlyHitting($player);
+    }
+
     private function handleSneezing(SymptomConfig $symptomConfig, Player $player, \DateTime $time): void
     {
         $logParameters = [];
@@ -229,6 +238,43 @@ class SymptomService implements SymptomServiceInterface
 
         $this->handleDirty($player, $symptomConfig->getName(), $time);
         $this->createSymptomLog($symptomConfig->getName(), $player, $time, $symptomConfig->getVisibility(), $logParameters);
+    }
+
+    /**
+     * This function takes a Player, draws a random player in its room and makes them attack the selected player.
+     * If the room is empty, does nothing.
+     */
+    private function makePlayerRandomlyHitting(Player $player): void
+    {
+        $otherPlayersInRoom = $player->getPlace()->getPlayers()->getPlayerAlive()->filter(function (Player $p) use ($player) {
+            return $p !== $player;
+        })->toArray();
+
+        if (count($otherPlayersInRoom) === 0) {
+            return;
+        }
+
+        $draw = $this->randomService->getRandomElements($otherPlayersInRoom, 1);
+        $victim = reset($draw);
+
+        /** @var Action $hitActionEntity */
+        $hitActionEntity = $player->getTargetActions()->filter(function (Action $action) {
+            return $action->getName() === ActionEnum::HIT;
+        })->first();
+
+        if ($hitActionEntity === null) {
+            throw new \Exception('Player should have a Hit action');
+        }
+
+        $hitAction = new Hit(
+            $this->eventDispatcher,
+            $this->actionService,
+            $this->validator,
+            $this->randomService
+        );
+
+        $hitAction->loadParameters($hitActionEntity, $player, $victim);
+        $hitAction->execute();
     }
 
     /**

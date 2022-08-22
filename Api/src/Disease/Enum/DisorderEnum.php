@@ -12,7 +12,7 @@ class DisorderEnum
     public const CRABISM = 'crabism';
     public const DEPRESSION = 'depression';
     public const PARANOIA = 'paranoia';
-    public const PSYCOTIC_EPISODE = 'psychotic_episodes';
+    public const PSYCHOTIC_EPISODE = 'psychotic_episodes';
     public const SPLEEN = 'spleen';
     public const VERTIGO = 'vertigo';
     public const WEAPON_PHOBIA = 'weapon_phobia';
@@ -28,7 +28,7 @@ class DisorderEnum
             self::CRABISM,
             self::DEPRESSION,
             self::PARANOIA,
-            self::PSYCOTIC_EPISODE,
+            self::PSYCHOTIC_EPISODE,
             self::SPLEEN,
             self::VERTIGO,
             self::WEAPON_PHOBIA,

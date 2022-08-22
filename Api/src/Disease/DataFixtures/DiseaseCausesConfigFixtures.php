@@ -53,7 +53,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                     DisorderEnum::CHRONIC_MIGRAINE => 2,
                     DisorderEnum::VERTIGO => 2,
                     DisorderEnum::DEPRESSION => 2,
-                    DisorderEnum::PSYCOTIC_EPISODE => 2,
+                    DisorderEnum::PSYCHOTIC_EPISODE => 2,
                     DisorderEnum::CRABISM => 4,
                     DiseaseEnum::BLACK_BITE => 4,
                     DiseaseEnum::COLD => 4,

@@ -51,8 +51,18 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         /** @var ModifierConfig $reduceMax4MoralPoint */
         $reduceMax4MoralPoint = $this->getReference(DisorderModifierConfigFixtures::REDUCE_MAX_4_MORAL_POINT);
 
+        /** @var SymptomConfig $biting */
+        $biting = $this->getReference(DiseaseSymptomConfigFixtures::BITING);
         /** @var SymptomConfig $fearOfCats */
         $fearOfCats = $this->getReference(DisorderSymptomConfigFixtures::FEAR_OF_CATS);
+        /** @var SymptomConfig $noAttackActions */
+        $noAttackActions = $this->getReference(DisorderSymptomConfigFixtures::NO_ATTACK_ACTIONS);
+        /** @var SymptomConfig $noPilotingActions */
+        $noPilotingActions = $this->getReference(DisorderSymptomConfigFixtures::NO_PILOTING_ACTIONS);
+        /** @var SymptomConfig $noShootActions */
+        $noShootActions = $this->getReference(DisorderSymptomConfigFixtures::NO_SHOOT_ACTIONS);
+        /** @var SymptomConfig $psychoticAttacks */
+        $psychoticAttacks = $this->getReference(DisorderSymptomConfigFixtures::PSYCHOTIC_ATTACKS);
 
         $agoraphobia = new DiseaseConfig();
         $agoraphobia
@@ -62,8 +72,11 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setModifierConfigs(new ArrayCollection([
                 $fourPeopleOneActionIncrease,
                 $fourPeopleOneMovementIncrease,
-            ]));
-
+            ]))
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $noPilotingActions,
+            ]))
+        ;
         $manager->persist($agoraphobia);
 
         $ailurophobia = new DiseaseConfig();
@@ -98,6 +111,9 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setGameConfig($gameConfig)
             ->setName(DisorderEnum::CHRONIC_VERTIGO)
             ->setType(TypeEnum::DISORDER)
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $noPilotingActions,
+            ]))
         ;
 
         $manager->persist($chronicVertigo);
@@ -153,9 +169,12 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $psychoticEpisode = new DiseaseConfig();
         $psychoticEpisode
             ->setGameConfig($gameConfig)
-            ->setName(DisorderEnum::PSYCOTIC_EPISODE)
+            ->setName(DisorderEnum::PSYCHOTIC_EPISODE)
             ->setType(TypeEnum::DISORDER)
-        ;
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $biting,
+                $psychoticAttacks,
+            ]));
 
         $manager->persist($psychoticEpisode);
 
@@ -175,7 +194,9 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setGameConfig($gameConfig)
             ->setName(DisorderEnum::VERTIGO)
             ->setType(TypeEnum::DISORDER)
-        ;
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $noPilotingActions,
+            ]));
 
         $manager->persist($vertigo);
 
@@ -184,7 +205,10 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setGameConfig($gameConfig)
             ->setName(DisorderEnum::WEAPON_PHOBIA)
             ->setType(TypeEnum::DISORDER)
-        ;
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $noAttackActions,
+                $noShootActions,
+            ]));
 
         $manager->persist($weaponPhobia);
 
@@ -198,7 +222,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $this->addReference(DisorderEnum::CRABISM, $crabism);
         $this->addReference(DisorderEnum::DEPRESSION, $depression);
         $this->addReference(DisorderEnum::PARANOIA, $paranoia);
-        $this->addReference(DisorderEnum::PSYCOTIC_EPISODE, $psychoticEpisode);
+        $this->addReference(DisorderEnum::PSYCHOTIC_EPISODE, $psychoticEpisode);
         $this->addReference(DisorderEnum::SPLEEN, $spleen);
         $this->addReference(DisorderEnum::VERTIGO, $vertigo);
         $this->addReference(DisorderEnum::WEAPON_PHOBIA, $weaponPhobia);

@@ -16,7 +16,10 @@ class SymptomEnum
     public const FOAMING_MOUTH = 'foaming_mouth';
     public const MUTE = 'mute';
     public const NAUSEA = 'nausea';
+    public const NO_ATTACK_ACTIONS = 'no_attack_actions';
     public const NO_PILOTING_ACTIONS = 'no_piloting_actions';
+    public const NO_SHOOT_ACTIONS = 'no_shoot_actions';
+    public const PSYCHOTIC_ATTACKS = 'psychotic_attacks';
     public const SNEEZING = 'sneezing';
     public const VOMITING = 'vomiting';
 }

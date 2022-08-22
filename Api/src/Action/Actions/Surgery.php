@@ -16,7 +16,6 @@ use Mush\Action\Validator\HasDiseases;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasStatus;
 use Mush\Disease\Enum\TypeEnum;
-use Mush\Disease\Event\DiseaseEvent;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\Enum\ActionOutputEnum;
@@ -121,47 +120,44 @@ class Surgery extends AbstractAction
             $date,
         );
 
-        switch ($this->randomService->outputCriticalChances($failChances, 0, $criticalSuccessChances)) {
-            case ActionOutputEnum::FAIL:
-                return $this->failedSurgery($targetPlayer, $date);
-            case ActionOutputEnum::SUCCESS:
-                $this->successSurgery($targetPlayer, $date);
+        $result = $this->randomService->outputCriticalChances($failChances, 0, $criticalSuccessChances);
 
-                return new success();
-            case ActionOutputEnum::CRITICAL_SUCCESS:
-                $this->successSurgery($targetPlayer, $date);
+        if ($result === ActionOutputEnum::FAIL) {
+            return $this->failedSurgery($targetPlayer, $date);
+        }
 
-                return new CriticalSuccess();
+        $this->successSurgery($targetPlayer, $result, $date);
+
+        if ($result === ActionOutputEnum::CRITICAL_SUCCESS) {
+            return new CriticalSuccess();
+        } elseif ($result === ActionOutputEnum::SUCCESS) {
+            return new Success();
         }
 
         return new Error('this output should not exist');
     }
 
-    private function successSurgery(Player $targetPlayer, \DateTime $date): void
+    private function successSurgery(Player $targetPlayer, string $reason, \DateTime $time): void
     {
-        $healedInjury = $this->randomService->getRandomDisease($targetPlayer->getMedicalConditions()->getByDiseaseType(TypeEnum::INJURY));
-
-        $diseaseEvent = new DiseaseEvent(
-            $healedInjury,
-            $this->name,
-            $date
+        $diseaseEvent = new ApplyEffectEvent(
+            $this->player,
+            $targetPlayer,
+            VisibilityEnum::PUBLIC,
+            $this->getActionName() . '_' . $reason,
+            $time
         );
 
-        $diseaseEvent
-            ->setAuthor($this->player)
-        ;
-
-        $this->eventDispatcher->dispatch($diseaseEvent);
+        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_CURE_INJURY);
     }
 
-    private function failedSurgery(Player $targetPlayer, \DateTime $date): ActionResult
+    private function failedSurgery(Player $targetPlayer, \DateTime $time): ActionResult
     {
         $diseaseEvent = new ApplyEffectEvent(
             $this->player,
             $targetPlayer,
             VisibilityEnum::PUBLIC,
             $this->getActionName(),
-            $date
+            $time
         );
         $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
 

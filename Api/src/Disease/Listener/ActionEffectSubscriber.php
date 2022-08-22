@@ -8,6 +8,7 @@ use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -18,13 +19,16 @@ class ActionEffectSubscriber implements EventSubscriberInterface
 
     private DiseaseCauseServiceInterface $diseaseCauseService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
+    private RandomServiceInterface $randomService;
 
     public function __construct(
         DiseaseCauseServiceInterface $diseaseCauseService,
         PlayerDiseaseServiceInterface $playerDiseaseService,
+        RandomServiceInterface $randomService,
     ) {
         $this->diseaseCauseService = $diseaseCauseService;
         $this->playerDiseaseService = $playerDiseaseService;
+        $this->randomService = $randomService;
     }
 
     public static function getSubscribedEvents(): array
@@ -33,6 +37,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             ApplyEffectEvent::CONSUME => 'onConsume',
             ApplyEffectEvent::HEAL => 'onHeal',
             ApplyEffectEvent::PLAYER_GET_SICK => 'onPlayerGetSick',
+            ApplyEffectEvent::PLAYER_CURE_INJURY => 'onPlayerCureInjury',
         ];
     }
 
@@ -86,5 +91,25 @@ class ActionEffectSubscriber implements EventSubscriberInterface
         }
 
         $this->playerDiseaseService->handleDiseaseForCause($event->getReason(), $player);
+    }
+
+    public function onPlayerCureInjury(ApplyEffectEvent $event)
+    {
+        // Get a random injury on target player
+        $targetPlayer = $event->getParameter();
+
+        if (!$targetPlayer instanceof Player) {
+            return;
+        }
+
+        $injuryToHeal = $this->randomService->getRandomDisease($targetPlayer->getMedicalConditions()->getByDiseaseType(TypeEnum::INJURY));
+
+        $this->playerDiseaseService->removePlayerDisease(
+            $injuryToHeal,
+            $event->getReason(),
+            $event->getTime(),
+            $event->getVisibility(),
+            $event->getPlayer(),
+        );
     }
 }

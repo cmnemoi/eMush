@@ -14,7 +14,6 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasDiseases;
 use Mush\Action\Validator\HasStatus;
 use Mush\Disease\Enum\TypeEnum;
-use Mush\Disease\Event\DiseaseEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -109,37 +108,35 @@ class SelfSurgery extends AbstractAction
             $this->getActionName(),
             new \DateTime(),
         );
-        switch ($this->randomService->outputCriticalChances($failChances, 0, $criticalSuccessChances)) {
-            case ActionOutputEnum::FAIL:
-                return $this->failedSurgery();
-            case ActionOutputEnum::SUCCESS:
-                $this->successSurgery();
 
-                return new success();
-            case ActionOutputEnum::CRITICAL_SUCCESS:
-                $this->successSurgery();
+        $result = $this->randomService->outputCriticalChances($failChances, 0, $criticalSuccessChances);
 
-                return new CriticalSuccess();
+        if ($result === ActionOutputEnum::FAIL) {
+            return $this->failedSurgery();
+        }
+
+        $this->successSurgery($result);
+
+        if ($result === ActionOutputEnum::CRITICAL_SUCCESS) {
+            return new CriticalSuccess();
+        } elseif ($result === ActionOutputEnum::SUCCESS) {
+            return new Success();
         }
 
         return new Error('this output should not exist');
     }
 
-    private function successSurgery(): void
+    private function successSurgery(string $reason): void
     {
-        $healedInjury = $this->randomService->getRandomDisease($this->player->getMedicalConditions()->getByDiseaseType(TypeEnum::INJURY));
-
-        $diseaseEvent = new DiseaseEvent(
-            $healedInjury,
-            $this->name,
+        $diseaseEvent = new ApplyEffectEvent(
+            $this->player,
+            $this->player,
+            VisibilityEnum::PUBLIC,
+            $this->getActionName() . '_' . $reason,
             new \DateTime()
         );
 
-        $diseaseEvent
-            ->setAuthor($this->player)
-        ;
-
-        $this->eventDispatcher->dispatch($diseaseEvent);
+        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_CURE_INJURY);
     }
 
     private function failedSurgery(): ActionResult

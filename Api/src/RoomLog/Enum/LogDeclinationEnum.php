@@ -31,6 +31,8 @@ class LogDeclinationEnum
             NeronMessageEnum::TRAVEL_ARRIVAL => ['version' => 11],
             NeronMessageEnum::SHIELD_BREACH => ['version' => 4],
             NeronMessageEnum::PATCHING_UP => ['versionPart1' => 10, 'versionPart2' => 4],
+            LogEnum::SELF_SURGERY_SUCCESS => ['version' => 2],
+            LogEnum::SURGERY_SUCCESS => ['version' => 2],
         ];
     }
 }

@@ -36,6 +36,10 @@ class LogEnum
     public const DISORDER_CURED = 'disorder_cured';
     public const DISORDER_TREATED = 'disorder_treated';
     public const INJURY_APPEAR = 'injury_appear';
+    public const SURGERY_SUCCESS = 'surgery_success';
+    public const SURGERY_CRITICAL_SUCCESS = 'surgery_critical_success';
+    public const SELF_SURGERY_SUCCESS = 'self_surgery_success';
+    public const SELF_SURGERY_CRITICAL_SUCCESS = 'self_surgery_critical_success';
 
     public const VISIBILITY = 'visibility';
     public const VALUE = 'value';
@@ -58,4 +62,14 @@ class LogEnum
             self::VALUE => self::CLUMSINESS_PREVENTED,
         ],
     ];
+
+    public static function getSurgeryLogs(): array
+    {
+        return [
+            self::SURGERY_CRITICAL_SUCCESS,
+            self::SURGERY_SUCCESS,
+            self::SELF_SURGERY_CRITICAL_SUCCESS,
+            self::SELF_SURGERY_SUCCESS,
+        ];
+    }
 }

@@ -10,6 +10,7 @@ use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DisorderEnum;
+use Mush\Disease\Enum\InjuryEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 
@@ -141,10 +142,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
             ->setName(ActionEnum::FAKE_DISEASE)
             ->setDiseases(
                 [
-                    DiseaseEnum::COLD => 1,
-                    DiseaseEnum::EXTREME_TINNITUS => 1,
-                    DiseaseEnum::CAT_ALLERGY => 1,
-                    DiseaseEnum::SINUS_STORM => 1,
+                    InjuryEnum::BURNS_50_OF_BODY => 1,
                 ]
             );
 

@@ -15,6 +15,7 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
     public const REPORT_FIRE = 'report.fire';
     public const REPORT_EQUIPMENT = 'report.equipment';
     public const PLAYER_GET_SICK = 'player.get.sick';
+    public const PLAYER_CURE_INJURY = 'player.cure.injury';
 
     private Player $player;
     private string $visibility;

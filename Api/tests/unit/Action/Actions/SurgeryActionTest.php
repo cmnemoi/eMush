@@ -9,7 +9,6 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Surgery;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\TypeEnum;
@@ -146,13 +145,6 @@ class SurgeryActionTest extends AbstractActionTest
             ->once()
         ;
 
-        $this->randomService
-            ->shouldReceive('getRandomDisease')
-            ->withArgs(fn (PlayerDiseaseCollection $injuries) => $injuries->count() === 1)
-            ->andReturn($playerDisease2)
-            ->once()
-        ;
-
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $playerToHeal);
@@ -201,13 +193,6 @@ class SurgeryActionTest extends AbstractActionTest
         $this->randomService->shouldReceive('outputCriticalChances')
             ->with(10, 0, 15)
             ->andReturn(ActionOutputEnum::CRITICAL_SUCCESS)
-            ->once()
-        ;
-
-        $this->randomService
-            ->shouldReceive('getRandomDisease')
-            ->withArgs(fn (PlayerDiseaseCollection $injuries) => $injuries->count() === 1)
-            ->andReturn($playerDisease2)
             ->once()
         ;
 

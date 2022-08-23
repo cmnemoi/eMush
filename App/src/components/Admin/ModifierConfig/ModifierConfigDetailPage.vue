@@ -47,9 +47,16 @@
             />
         </div>
         <h3>Modifier Condition</h3>
-        <div class="flex-grow-1">
-            <ChildRelation v-model:children="modifierConfig.modifierConditions"></ChildRelation>
-        </div>
+        <ChildCollectionManager :children="modifierConfig.modifierConditions" @addId="selectNewChild" @remove="removeChild">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+            <template #body="child">
+                <span>name: {{ child.name }}</span>
+                <span>condition: {{ child.condition }}</span>
+                <span>value: {{ child.value }}</span>
+            </template>
+        </ChildCollectionManager>
         <button class="action-button" type="submit" @click="update">
             {{ $t('save') }}
         </button>
@@ -63,9 +70,10 @@ import { handleErrors } from "@/utils/apiValidationErrors";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
-import ChildRelation from "@/components/Admin/ModifierConfig/ChildRelation.vue";
 import { ModifierCondition } from "@/entities/Config/ModifierCondition";
 import Input from "@/components/Utils/Input.vue";
+import { removeItem } from "@/utils/misc";
+import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 
 interface ModifierConfigState {
     modifierConfig: null|ModifierConfig
@@ -75,8 +83,8 @@ interface ModifierConfigState {
 export default defineComponent({
     name: "ModifierConfigState",
     components: {
+        ChildCollectionManager,
         Input,
-        ChildRelation,
     },
     data: function (): ModifierConfigState {
         return {
@@ -120,6 +128,18 @@ export default defineComponent({
                         console.error('Error', error.message);
                     }
                 });
+        },
+        selectNewChild(selectedId: any) {
+            GameConfigService.loadModifierCondition(selectedId).then((res) => {
+                if (res && this.modifierConfig && this.modifierConfig.modifierConditions) {
+                    this.modifierConfig.modifierConditions.push(res);
+                }
+            });
+        },
+        removeChild(child: any) {
+            if (this.modifierConfig && this.modifierConfig.modifierConditions) {
+                this.modifierConfig.modifierConditions = removeItem(this.modifierConfig.modifierConditions, child);
+            }
         }
     },
     beforeMount() {

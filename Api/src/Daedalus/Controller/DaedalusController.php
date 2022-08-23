@@ -10,10 +10,12 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class UsersController.
@@ -79,6 +81,13 @@ class DaedalusController extends AbstractFOSRestController
      */
     public function getDaedalusMinimapsAction(Daedalus $daedalus): View
     {
-        return $this->view($this->daedalusWidgetService->getMinimap($daedalus), 200);
+        /** @var User $user */
+        $user = $this->getUser();
+        $player = $user->getCurrentGame();
+        if (!$player) {
+            throw new AccessDeniedException('User should be in game');
+        }
+
+        return $this->view($this->daedalusWidgetService->getMinimap($daedalus, $player), 200);
     }
 }

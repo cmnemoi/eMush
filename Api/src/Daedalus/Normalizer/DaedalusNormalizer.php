@@ -3,7 +3,6 @@
 namespace Mush\Daedalus\Normalizer;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -12,16 +11,13 @@ class DaedalusNormalizer implements NormalizerInterface
 {
     private CycleServiceInterface $cycleService;
     private TranslationServiceInterface $translationService;
-    private DaedalusWidgetServiceInterface $daedalusWidgetService;
 
     public function __construct(
         CycleServiceInterface $cycleService,
         TranslationServiceInterface $translationService,
-        DaedalusWidgetServiceInterface $daedalusWidgetService
     ) {
         $this->cycleService = $cycleService;
         $this->translationService = $translationService;
-        $this->daedalusWidgetService = $daedalusWidgetService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -87,7 +83,6 @@ class DaedalusNormalizer implements NormalizerInterface
                             'mushAlive' => $mushAlive,
                             'mushDead' => $mushDead,
                         ], 'daedalus'), ],
-                'minimap' => $this->daedalusWidgetService->getMinimap($daedalus),
             ];
     }
 }

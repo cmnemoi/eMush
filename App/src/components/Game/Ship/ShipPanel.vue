@@ -9,6 +9,7 @@
                 :player="player"
             />
             <MiniMap
+                v-if="isMinimapAvailable"
                 :my-position="room"
                 :minimap="player.daedalus.minimap"
             />
@@ -62,7 +63,10 @@ export default defineComponent ({
         ]),
         targetPanel() {
             return this.selectedTarget instanceof Player ? CrewmatePanel : EquipmentPanel;
-        }
+        },
+        ...mapState('daedalus', [
+            'isMinimapAvailable'
+        ]),
     },
 });
 </script>

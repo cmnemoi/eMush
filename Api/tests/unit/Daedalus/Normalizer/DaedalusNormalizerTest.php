@@ -151,7 +151,6 @@ class DaedalusNormalizerTest extends TestCase
             ->once()
         ;
 
-        $this->daedalusWidgetService->shouldReceive('getMinimap')->with($daedalus)->andReturn([])->once();
         $data = $this->normalizer->normalize($daedalus);
 
         $expected = [
@@ -187,7 +186,6 @@ class DaedalusNormalizerTest extends TestCase
             'crewPlayer' => [
                 'name' => 'translated one',
                 'description' => 'translated two', ],
-            'minimap' => [],
         ];
 
         $this->assertIsArray($data);

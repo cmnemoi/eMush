@@ -131,6 +131,7 @@ class StatusModifierConfigFixtures extends Fixture
             ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setReach(ModifierReachEnum::PLAYER)
+            ->setName(ModifierNameEnum::LYING_DOWN_MODIFIER)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $manager->persist($lyingDownModifier);

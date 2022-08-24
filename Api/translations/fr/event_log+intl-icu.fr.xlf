@@ -437,6 +437,12 @@
                 <target>:cat: Le chat était dans la pièce, vous n'avez pas pu vous empêcher de fuir...</target>
             </segment>
         </unit>
+        <unit id="fitfull_sleep">
+            <segment id="fitfull_sleep">
+                <source>fitfull_sleep</source>
+                <target>Votre sommeil est agité, impossible de vous reposer...</target>
+            </segment>
+        </unit>
         <unit id="surgery_success">
             <segment id="surgery_success">
                 <source>surgery_success</source>

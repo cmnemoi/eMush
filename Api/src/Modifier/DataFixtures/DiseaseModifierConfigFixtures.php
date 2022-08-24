@@ -16,11 +16,13 @@ use Mush\Modifier\Entity\ModifierCondition;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierConditionEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -39,6 +41,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
     public const CYCLE_1_HEALTH_LOST_RAND_10 = 'cycle_1_health_lost_rand_10';
     public const CYCLE_1_ACTION_LOST_RAND_16 = 'cycle_1_action_lost_rand_16';
     public const CYCLE_1_HEALTH_LOST_RAND_16 = 'cycle_1_health_lost_rand_16';
+    public const CYCLE_1_ACTION_LOST_RAND_16_FITFULL_SLEEP = 'cycle_1_action_lost_rand_16_fitfull_sleep';
     public const CYCLE_1_ACTION_LOST_RAND_20 = 'cycle_1_action_lost_rand_20';
     public const CYCLE_1_ACTION_LOST_RAND_30 = 'cycle_1_action_lost_rand_30';
     public const CYCLE_2_ACTION_LOST_RAND_40 = 'cycle_2_action_lost_rand_40';
@@ -80,6 +83,10 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $randCondition50 = new ModifierCondition(ModifierConditionEnum::RANDOM);
         $randCondition50->setValue(50);
         $manager->persist($randCondition50);
+
+        $lyingDownCondition = new ModifierCondition(ModifierConditionEnum::PLAYER_STATUS);
+        $lyingDownCondition->setCondition(PlayerStatusEnum::LYING_DOWN);
+        $manager->persist($lyingDownCondition);
 
         $moveIncreaseMovement = new ModifierConfig();
         $moveIncreaseMovement
@@ -371,6 +378,19 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($increaseCycleDiseaseChances10);
 
+        $cycle1ActionLostRand16FitfullSleep = new ModifierConfig();
+        $cycle1ActionLostRand16FitfullSleep
+            ->setScope(EventEnum::NEW_CYCLE)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(-1)
+            ->setReach(ModifierReachEnum::PLAYER)
+            ->setMode(ModifierModeEnum::SET_VALUE)
+            ->setName(ModifierNameEnum::FITFULL_SLEEP)
+            ->addModifierCondition($randCondition16)
+            ->addModifierCondition($lyingDownCondition)
+        ;
+        $manager->persist($cycle1ActionLostRand16FitfullSleep);
+
         $manager->flush();
 
         $this->addReference(self::REDUCE_MAX_1_HEALTH_POINT, $reduceMax1HealthPoint);
@@ -387,6 +407,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $this->addReference(self::CYCLE_1_HEALTH_LOST_RAND_10, $cycle1HealthLostRand10);
         $this->addReference(self::CYCLE_1_ACTION_LOST_RAND_16, $cycle1ActionLostRand16);
         $this->addReference(self::CYCLE_1_HEALTH_LOST_RAND_16, $cycle1HealthLostRand16);
+        $this->addReference(self::CYCLE_1_ACTION_LOST_RAND_16_FITFULL_SLEEP, $cycle1ActionLostRand16FitfullSleep);
         $this->addReference(self::CYCLE_1_ACTION_LOST_RAND_20, $cycle1ActionLostRand20);
         $this->addReference(self::CYCLE_1_ACTION_LOST_RAND_30, $cycle1ActionLostRand30);
         $this->addReference(self::CYCLE_2_ACTION_LOST_RAND_40, $cycle2ActionLostRand40);

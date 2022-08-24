@@ -30,6 +30,8 @@ class PlayerModifierLogEnum
     public const SCREAMING = 'screaming';
     public const WALL_HEAD_BANG = 'wall_head_bang';
     public const RUN_IN_CIRCLES = 'run_in_circles';
+    public const FITFULL_SLEEP = 'fitfull_sleep';
+    public const LYING_DOWN = 'lying_down';
 
     public const GAIN = 'gain';
     public const LOSS = 'loss';
@@ -75,6 +77,14 @@ class PlayerModifierLogEnum
             self::VISIBILITY => VisibilityEnum::PUBLIC,
             self::VALUE => self::RUN_IN_CIRCLES,
         ],
+        ModifierNameEnum::LYING_DOWN_MODIFIER => [
+            self::VISIBILITY => VisibilityEnum::HIDDEN,
+            self::VALUE => self::LYING_DOWN,
+        ],
+        ModifierNameEnum::FITFULL_SLEEP => [
+            self::VISIBILITY => VisibilityEnum::PRIVATE,
+            self::VALUE => self::FITFULL_SLEEP,
+        ],
         PlayerEvent::PANIC_CRISIS => [
             self::VISIBILITY => VisibilityEnum::PRIVATE,
             self::VALUE => self::PANIC_CRISIS,
@@ -83,5 +93,5 @@ class PlayerModifierLogEnum
             self::VISIBILITY => VisibilityEnum::PRIVATE,
             self::VALUE => self::CLUMSINESS,
         ],
-        ];
+    ];
 }

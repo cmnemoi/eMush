@@ -54,6 +54,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
         $cycleModifiers = $holder->getModifiers()->getScopedModifiers([EventEnum::NEW_CYCLE]);
         $cycleModifiers = $this->modifierConditionService->getActiveModifiers($cycleModifiers, EventEnum::NEW_CYCLE, $holder);
+        $cycleModifiers = $cycleModifiers->sortModifiersByDelta(false);
 
         /** @var Modifier $modifier */
         foreach ($cycleModifiers as $modifier) {
@@ -69,6 +70,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
         $cycleModifiers = $holder->getModifiers()->getScopedModifiers([EventEnum::NEW_DAY]);
         $cycleModifiers = $this->modifierConditionService->getActiveModifiers($cycleModifiers, EventEnum::NEW_CYCLE, $holder);
+        $cycleModifiers = $cycleModifiers->sortModifiersByDelta(false);
 
         /** @var Modifier $modifier */
         foreach ($cycleModifiers as $modifier) {
@@ -84,6 +86,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
         $modifiers = $holder->getModifiers()->getScopedModifiers([ActionEvent::POST_ACTION]);
         $modifiers = $this->modifierConditionService->getActiveModifiers($modifiers, $event->getReason(), $holder);
+        $modifiers = $modifiers->sortModifiersByDelta(false);
 
         /** @var Modifier $modifier */
         foreach ($modifiers as $modifier) {

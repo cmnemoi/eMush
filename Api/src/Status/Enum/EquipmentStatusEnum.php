@@ -23,6 +23,8 @@ class EquipmentStatusEnum
     public const REINFORCED = 'reinforced';
     public const FUEL_CHARGE = 'fuel_charge';
 
+    public const UPDATING = 'updating';
+
     public static function splitItemPileStatus(): array
     {
         return [
@@ -39,6 +41,7 @@ class EquipmentStatusEnum
     {
         return [
             self::BROKEN,
+            self::UPDATING,
         ];
     }
 }

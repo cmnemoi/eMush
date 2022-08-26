@@ -1527,5 +1527,15 @@
                 <target>TODO</target>
             </segment>
         </unit>
+        <unit id="updating">
+            <segment id="name">
+                <source>updating.name</source>
+                <target>Mise à jour en cours</target>
+            </segment>
+            <segment id="description">
+                <source>updating.description</source>
+                <target>NERON installe des mises à jour. NE PAS ÉTEINDRE L'APPAREIL !!! 30%</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

@@ -602,6 +602,20 @@
                 <target>Impossible de prononcer le moindre mot tant que vous ne vous serez pas débarrassés de ce fichu bout de scotch.</target>
             </segment>
         </unit>
+
+        <unit id="update_talkie_require_neron">
+            <segment id="description">
+                <source>update_talkie_require_neron.description</source>
+                <target>Vous avez besoin de vous brancher au cœur de NERON pour effectuer cette mise à jour.</target>
+            </segment>
+        </unit>
+
+        <unit id="update_talkie_require_tracker">
+            <segment id="description">
+                <source>update_talkie_require_tracker.description</source>
+                <target>Pour une raison obscure, vous avez besoin de votre tracker pour mettre à jour votre talkie.</target>
+            </segment>
+        </unit>
         
     </file>
 </xliff>

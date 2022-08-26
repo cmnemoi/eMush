@@ -71,6 +71,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const BORING_SPEECH = 'boring.speech';
     public const SURGERY = 'surgery';
     public const SELF_SURGERY = 'self.surgery';
+    public const UPDATING_TALKIE = 'updating.talkie';
 
     public function load(ObjectManager $manager): void
     {
@@ -642,6 +643,17 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($selfSurgeryAction);
 
+        $updatingTalkie = new Action();
+        $updatingTalkie
+            ->setName(ActionEnum::UPDATE_TALKIE)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($oneActionPointCost)
+            ->setDirtyRate(0)
+            ->setInjuryRate(10)
+        ;
+
+        $manager->persist($updatingTalkie);
+
         $manager->flush();
 
         $this->addReference(self::REJUVENATE_ALPHA, $rejuvenateAlpha);
@@ -701,6 +713,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::BORING_SPEECH, $boringSpeechAction);
         $this->addReference(self::SURGERY, $surgeryAction);
         $this->addReference(self::SELF_SURGERY, $selfSurgeryAction);
+        $this->addReference(self::UPDATING_TALKIE, $updatingTalkie);
     }
 
     public function getDependencies(): array

@@ -87,7 +87,7 @@ const ALIEN_HOLOGRAPHIC_TV = "alien_holographic_tv";
 
 const ITRACKIE = "itrackie";
 const TRACKER = "tracker";
-const TALKIE_WALKIE = "talkie_walkie";
+const WALKIE_TALKIE = "talkie_walkie";
 
 
 export const itemEnum: {[index: string]: any} = {
@@ -340,14 +340,14 @@ export const itemEnum: {[index: string]: any} = {
     [ALIEN_HOLOGRAPHIC_TV]: {
         'image': require('@/assets/images/items/alien_holographic_tv.jpg')
     },
-    [TALKIE_WALKIE]: {
-        'image': require('@/assets/images/items/talky_walky.jpg')
+    [WALKIE_TALKIE]: {
+        'image': require('@/assets/images/items/walkie_talkie.jpg')
     },
     [TRACKER]: {
         'image': require('@/assets/images/items/tracker.jpg')
     },
     [ITRACKIE]: {
-        'image': require('@/assets/images/items/super_talky.jpg')
+        'image': require('@/assets/images/items/super_talkie.jpg')
     }
 }
 ;

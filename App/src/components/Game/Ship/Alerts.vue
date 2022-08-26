@@ -1,15 +1,13 @@
 <template>
     <div class="daedalus-alarms">
-        <p v-if="!loadingAlerts" class="calme">
-            <span v-if="isNoAlert && alerts.length > 0">
-                <Tippy>
-                    <img :src="alertIcon(alerts[0])">{{ alerts[0].name }}
-                    <template #content>
-                        <h1>{{ alerts[0].name }}</h1>
-                        <p>{{ alerts[0].description }}</p>
-                    </template>
-                </Tippy>
-            </span>
+        <p v-if="!loadingAlerts" :class="{ alarm: !isNoAlert }">
+            <Tippy v-if="isNoAlert && alerts.length > 0">
+                <img :src="alertIcon(alerts[0])">{{ alerts[0].name }}
+                <template #content>
+                    <h1>{{ alerts[0].name }}</h1>
+                    <p>{{ alerts[0].description }}</p>
+                </template>
+            </Tippy>
             <span v-else>{{ $t('alerts') }}</span>
             <Tippy tag="div" v-for="(alert, key) in alertsDisplayed" :key="key">
                 <img

@@ -78,6 +78,10 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $extinguishManuallyAction */
         $extinguishManuallyAction = $this->getReference(ActionsFixtures::EXTINGUISH_MANUALLY);
 
+        /** @var ItemConfig $talkieConfig */
+        $talkieConfig = $this->getReference(PersonalEquipmentConfigFixtures::WALKIE_TALKIE);
+        /** @var ItemConfig $trackerConfig */
+        $trackerConfig = $this->getReference(PersonalEquipmentConfigFixtures::TRACKER);
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $this->getReference(PersonalEquipmentConfigFixtures::ITRACKIE);
 
@@ -120,7 +124,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::PILOT,
                 SkillEnum::POLYVALENT,
             ])
-            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($andie);
 
@@ -156,7 +160,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::PREMONITION,
                 SkillEnum::SNEAK,
             ])
-            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($chun);
 
@@ -176,7 +180,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::WRESTLER,
                 SkillEnum::HYGIENIST,
             ])
-            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($derek);
 
@@ -227,7 +231,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::RADIO_EXPERT,
                 SkillEnum::SURVIVALIST,
             ])
-            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($frieda);
 
@@ -263,7 +267,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::TECHNICIAN,
                 SkillEnum::U_TURN,
             ])
-            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($hua);
 
@@ -284,7 +288,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::GREEN_THUMB,
                 SkillEnum::MYCOLOGIST,
             ])
-            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($ian);
 
@@ -375,7 +379,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::PHYSICIST,
                 SkillEnum::TECHNICIAN,
             ])
-            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($raluca);
 
@@ -393,7 +397,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::SPRINTER,
                 SkillEnum::OPTIMIST,
             ])
-            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($roland);
 
@@ -411,7 +415,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::SHOOTER,
                 SkillEnum::SOLID,
             ])
-            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($stephen);
 

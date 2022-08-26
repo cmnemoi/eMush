@@ -631,5 +631,15 @@
                 <target>Vous vous débâillonnez vous-même si vous en avez la possibilité. Vengeance !</target>
             </segment>
         </unit>
+        <unit id="update_talkie">
+            <segment id="name">
+                <source>update_talkie.name</source>
+                <target>Mettre à jour</target>
+            </segment>
+            <segment id="description">
+                <source>update_talkie.description</source>
+                <target>Génial, une nouvelle version du logiciel est disponible. Attention, l'installation peut durer quelques cycles et vous empêcher de communiquer avec le reste de l'équipage.</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

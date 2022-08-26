@@ -43,6 +43,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const DID_THE_THING_STATUS = 'did_the_thing_status';
     public const DID_BORING_SPEECH_STATUS = 'did_boring_speech_status';
 
+    public const UPDATING_TRACKIE_STATUS = 'updating_trackie_status';
+
     public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
@@ -301,6 +303,18 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($did_boring_speech);
 
+        $updatingTrackie = new ChargeStatusConfig();
+        $updatingTrackie
+            ->setName(EquipmentStatusEnum::UPDATING)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PUBLIC)
+            ->setStartCharge(4)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
+            ->setAutoRemove(true)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($updatingTrackie);
+
         $manager->flush();
 
         $this->addReference(self::SCOOTER_CHARGE, $scooterCharge);
@@ -323,6 +337,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::DRUG_EATEN_STATUS, $drug_eaten);
         $this->addReference(self::DID_THE_THING_STATUS, $did_the_thing);
         $this->addReference(self::DID_BORING_SPEECH_STATUS, $did_boring_speech);
+        $this->addReference(self::UPDATING_TRACKIE_STATUS, $updatingTrackie);
     }
 
     public function getDependencies(): array

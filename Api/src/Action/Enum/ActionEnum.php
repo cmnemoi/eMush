@@ -9,6 +9,7 @@ class ActionEnum
     // alpha actions
     public const REJUVENATE_ALPHA = 'rejuvenate_alpha';
     public const FAKE_DISEASE = 'fake_disease';
+    public const UPDATE_TALKIE = 'update_talkie';
 
     // Permanent Item actions
     public const MOVE = 'move';

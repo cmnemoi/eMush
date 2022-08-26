@@ -13,11 +13,13 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Status\DataFixtures\ChargeStatusFixtures;
+use Mush\Status\Entity\Config\StatusConfig;
 
 class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public const ITRACKIE = 'i_trackie';
-    public const TALKIE_WALKIE = 'talkie_walkie';
+    public const WALKIE_TALKIE = 'walkie_talkie';
     public const TRACKER = 'tracker';
 
     public function load(ObjectManager $manager): void
@@ -30,23 +32,30 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
         /** @var Action $takeAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
 
+        /** @var Action $updateTalkieAction */
+        $updateTalkieAction = $this->getReference(ActionsFixtures::UPDATING_TALKIE);
+
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
         /** @var Action $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
 
-        $talkieWalkie = new ItemConfig();
-        $talkieWalkie
+        /** @var StatusConfig $updatingStatus */
+        $updatingStatus = $this->getReference(ChargeStatusFixtures::UPDATING_TRACKIE_STATUS);
+
+        $walkieTalkie = new ItemConfig();
+        $walkieTalkie
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::WALKIE_TALKIE)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
+            // ->setActions(new ArrayCollection([$takeAction, $examineAction, $repair25, $dropAction, $updateTalkieAction]))
             ->setActions(new ArrayCollection([$takeAction, $examineAction, $repair25, $dropAction]))
             ->setIsPersonal(true)
         ;
-        $manager->persist($talkieWalkie);
+        $manager->persist($walkieTalkie);
 
         $iTrackie = new ItemConfig();
         $iTrackie
@@ -56,6 +65,7 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setActions(new ArrayCollection([$takeAction, $examineAction, $repair25, $dropAction]))
+            // ->setInitStatus(new ArrayCollection([$updatingStatus]))
             ->setIsPersonal(true)
         ;
         $manager->persist($iTrackie);
@@ -75,7 +85,7 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
         $manager->flush();
 
         $this->addReference(self::ITRACKIE, $iTrackie);
-        $this->addReference(self::TALKIE_WALKIE, $talkieWalkie);
+        $this->addReference(self::WALKIE_TALKIE, $walkieTalkie);
         $this->addReference(self::TRACKER, $tracker);
     }
 
@@ -85,6 +95,7 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
             ActionsFixtures::class,
             TechnicianFixtures::class,
             GameConfigFixtures::class,
+            ChargeStatusFixtures::class,
         ];
     }
 }

@@ -7,6 +7,7 @@ const PLANT_DISEASED = "plant_diseased";
 const ELECTRIC_CHARGE = "electric_charges";
 const BROKEN = "broken";
 const FROZEN = "frozen";
+const UPDATING = "updating";
 
 
 export const statusItemEnum: {[index: string]: any} = {
@@ -36,5 +37,8 @@ export const statusItemEnum: {[index: string]: any} = {
     },
     [FROZEN]: {
         'icon': require('@/assets/images/status/food_frozen.png')
+    },
+    [UPDATING]: {
+        'icon': require('@/assets/images/status/update.png')
     }
 };

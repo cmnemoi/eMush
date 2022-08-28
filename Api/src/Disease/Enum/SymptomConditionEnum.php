@@ -20,6 +20,10 @@ namespace Mush\Disease\Enum;
  * PLAYER_EQUIPMENT: the condition is checked on player's equipment
  *
  * ITEM_STATUS : the condition is checked on item status
+ *
+ * PLAYER_STATUS : the condition is checked on player status
+ *
+ * ACTION_DIRTY_RATE : the condition is checked on action dirty rate
  */
 class SymptomConditionEnum
 {
@@ -37,4 +41,8 @@ class SymptomConditionEnum
     public const PLAYER_EQUIPMENT = 'player_equipment';
 
     public const ITEM_STATUS = 'item_status';
+
+    public const PLAYER_STATUS = 'player_status';
+
+    public const ACTION_DIRTY_RATE = 'action_dirty_rate';
 }

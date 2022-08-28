@@ -2,6 +2,7 @@
 
 namespace Mush\Disease\Service;
 
+use DateTime;
 use Mush\Action\Actions\Hit;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\Action;
@@ -16,7 +17,9 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -53,7 +56,7 @@ class SymptomService implements SymptomServiceInterface
         $this->validator = $validator;
     }
 
-    public function handleCycleSymptom(SymptomConfig $symptomConfig, Player $player, \DateTime $time): void
+    public function handleCycleSymptom(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
     {
         switch ($symptomConfig->getName()) {
             case SymptomEnum::BITING:
@@ -65,12 +68,15 @@ class SymptomService implements SymptomServiceInterface
             case SymptomEnum::PSYCHOTIC_ATTACKS:
                 $this->handlePsychoticAttacks($symptomConfig, $player, $time);
                 break;
+            case SymptomEnum::SEPTICEMIA:
+                $this->handleSepticemia($player, $time);
+                break;
             default:
                 throw new \Exception('Unknown cycle change symptom');
         }
     }
 
-    public function handlePostActionSymptom(SymptomConfig $symptomConfig, Player $player, \DateTime $time): void
+    public function handlePostActionSymptom(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
     {
         switch ($symptomConfig->getName()) {
             case SymptomEnum::BREAKOUTS:
@@ -88,6 +94,9 @@ class SymptomService implements SymptomServiceInterface
             case SymptomEnum::FOAMING_MOUTH:
                 $this->handleFoamingMouth($symptomConfig, $player, $time);
                 break;
+            case SymptomEnum::SEPTICEMIA:
+                $this->handleSepticemia($player, $time);
+                break;
             case SymptomEnum::SNEEZING:
                 $this->handleSneezing($symptomConfig, $player, $time);
                 break;
@@ -99,9 +108,20 @@ class SymptomService implements SymptomServiceInterface
         }
     }
 
+    public function handleStatusAppliedSymptom(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
+    {
+        switch ($symptomConfig->getName()) {
+            case SymptomEnum::SEPTICEMIA:
+                $this->handleSepticemia($player, $time);
+                break;
+            default:
+                throw new \Exception('Unknown status applied symptom');
+        }
+    }
+
     private function createSymptomLog(string $symptomLogKey,
         Player $player,
-        \DateTime $date,
+        DateTime $date,
         string $visibility = VisibilityEnum::PUBLIC,
         array $logParameters = []): void
     {
@@ -116,7 +136,7 @@ class SymptomService implements SymptomServiceInterface
         );
     }
 
-    private function handleBiting(SymptomConfig $symptomConfig, Player $player, \DateTime $time): void
+    private function handleBiting(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
     {
         $victims = $player->getPlace()->getPlayers()->getPlayerAlive();
         $victims->removeElement($player);
@@ -140,7 +160,7 @@ class SymptomService implements SymptomServiceInterface
         $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
-    private function handleBreakouts(SymptomConfig $symptomConfig, Player $player, \DateTime $time): void
+    private function handleBreakouts(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
     {
         $logParameters = [];
         $logParameters[$player->getLogKey()] = $player->getLogName();
@@ -148,7 +168,7 @@ class SymptomService implements SymptomServiceInterface
         $this->createSymptomLog($symptomConfig->getName(), $player, $time, $symptomConfig->getVisibility(), $logParameters);
     }
 
-    private function handleCatAllergy(SymptomConfig $symptomConfig, Player $player, \DateTime $time): void
+    private function handleCatAllergy(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
     {
         $logParameters = [];
         $logParameters[$player->getLogKey()] = $player->getLogName();
@@ -165,7 +185,7 @@ class SymptomService implements SymptomServiceInterface
         // $this->playerDiseaseService->createDiseaseFromName($selectedInjury, $player, $symptomConfig->getName());
     }
 
-    private function handleDirtiness(SymptomConfig $symptomConfig, Player $player, \DateTime $time): void
+    private function handleDirtiness(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
     {
         $logParameters = [];
         $logParameters[$player->getLogKey()] = $player->getLogName();
@@ -174,7 +194,7 @@ class SymptomService implements SymptomServiceInterface
         $this->createSymptomLog($symptomConfig->getName(), $player, $time, $symptomConfig->getVisibility(), $logParameters);
     }
 
-    private function handleDirty(Player $player, string $reason, \DateTime $time): void
+    private function handleDirty(Player $player, string $reason, DateTime $time): void
     {
         if ($player->hasStatus(PlayerStatusEnum::DIRTY)) {
             return;
@@ -190,7 +210,7 @@ class SymptomService implements SymptomServiceInterface
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
-    private function handleDrooling(SymptomConfig $symptomConfig, Player $player, \DateTime $time): void
+    private function handleDrooling(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
     {
         $logParameters = [];
         $logParameters[$player->getLogKey()] = $player->getLogName();
@@ -198,7 +218,7 @@ class SymptomService implements SymptomServiceInterface
         $this->createSymptomLog($symptomConfig->getName(), $player, $time, $symptomConfig->getVisibility(), $logParameters);
     }
 
-    private function handleFearOfCats(SymptomConfig $symptomConfig, Player $player, \DateTime $time): void
+    private function handleFearOfCats(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
     {
         $logParameters = [];
         $logParameters[$player->getLogKey()] = $player->getLogName();
@@ -210,7 +230,7 @@ class SymptomService implements SymptomServiceInterface
         $this->createSymptomLog($symptomConfig->getName() . '_notif', $player, $time, VisibilityEnum::PRIVATE, $logParameters);
     }
 
-    private function handleFoamingMouth(SymptomConfig $symptomConfig, Player $player, \DateTime $time): void
+    private function handleFoamingMouth(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
     {
         $logParameters = [];
         $logParameters[$player->getLogKey()] = $player->getLogName();
@@ -218,12 +238,12 @@ class SymptomService implements SymptomServiceInterface
         $this->createSymptomLog($symptomConfig->getName(), $player, $time, $symptomConfig->getVisibility(), $logParameters);
     }
 
-    private function handlePsychoticAttacks(SymptomConfig $symptomConfig, Player $player, \DateTime $time): void
+    private function handlePsychoticAttacks(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
     {
         $this->makePlayerRandomlyHitting($player);
     }
 
-    private function handleSneezing(SymptomConfig $symptomConfig, Player $player, \DateTime $time): void
+    private function handleSneezing(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
     {
         $logParameters = [];
         $logParameters[$player->getLogKey()] = $player->getLogName();
@@ -231,7 +251,22 @@ class SymptomService implements SymptomServiceInterface
         $this->createSymptomLog($symptomConfig->getName(), $player, $time, $symptomConfig->getVisibility(), $logParameters);
     }
 
-    private function handleVomiting(SymptomConfig $symptomConfig, Player $player, \DateTime $time): void
+    private function handleSepticemia(Player $player, DateTime $time): void
+    {
+        if (!$player->isAlive()) {
+            return;
+        }
+
+        $playerEvent = new PlayerEvent(
+            $player,
+            EndCauseEnum::INFECTION,
+            $time
+        );
+
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+    }
+
+    private function handleVomiting(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
     {
         $logParameters = [];
         $logParameters[$player->getLogKey()] = $player->getLogName();

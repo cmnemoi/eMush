@@ -61,8 +61,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $cycle1HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_HEALTH_LOST);
         /** @var ModifierConfig $cycle2HealthLoss */
         $cycle2HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_2_HEALTH_LOST);
-        /** @var ModifierConfig $dirtyAllHealthLoss */
-        $dirtyAllHealthLoss = $this->getReference(InjuryModifierConfigFixtures::DIRTY_ALL_HEALTH_LOSS);
         /** @var ModifierConfig $increaseCycleDiseaseChances10 */
         $increaseCycleDiseaseChances10 = $this->getReference(DiseaseModifierConfigFixtures::INCREASE_CYCLE_DISEASE_CHANCES_10);
         /** @var ModifierConfig $moveIncreaseMovement */
@@ -110,6 +108,12 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $mute = $this->getReference(InjurySymptomConfigFixtures::MUTE);
         /** @var SymptomConfig $noPilotingActions */
         $noPilotingActions = $this->getReference(DisorderSymptomConfigFixtures::NO_PILOTING_ACTIONS);
+        /** @var SymptomConfig $septicemiaOnCycleChange */
+        $septicemiaOnCycleChange = $this->getReference(InjurySymptomConfigFixtures::SEPTICEMIA_ON_CYCLE_CHANGE);
+        /** @var SymptomConfig $septicemiaOnDirtyEvent */
+        $septicemiaOnDirtyEvent = $this->getReference(InjurySymptomConfigFixtures::SEPTICEMIA_ON_DIRTY_EVENT);
+        /** @var SymptomConfig $septicemiaOnPostAction */
+        $septicemiaOnPostAction = $this->getReference(InjurySymptomConfigFixtures::SEPTICEMIA_ON_POST_ACTION);
 
         $brokenFinger = new DiseaseConfig();
         $brokenFinger
@@ -187,8 +191,12 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
                 $increaseCycleDiseaseChances10,
-                $dirtyAllHealthLoss,
                 ]))
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $septicemiaOnCycleChange,
+                $septicemiaOnDirtyEvent,
+                $septicemiaOnPostAction,
+            ]))
         ;
         $manager->persist($burns90OfBody);
 
@@ -325,8 +333,12 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(InjuryEnum::HEAD_TRAUMA)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
-                $dirtyAllHealthLoss,
                 $reduceMax3MoralPoint,
+            ]))
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $septicemiaOnCycleChange,
+                $septicemiaOnDirtyEvent,
+                $septicemiaOnPostAction,
             ]))
         ;
         $manager->persist($headTrauma);
@@ -409,8 +421,12 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName(InjuryEnum::OPEN_AIR_BRAIN)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
-                $dirtyAllHealthLoss,
                 $reduceMax2MoralPoint,
+            ]))
+            ->setSymptomConfigs(new SymptomConfigCollection([
+                $septicemiaOnCycleChange,
+                $septicemiaOnDirtyEvent,
+                $septicemiaOnPostAction,
             ]))
         ;
         $manager->persist($openAirBrain);
@@ -506,6 +522,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             GameConfigFixtures::class,
             DiseaseModifierConfigFixtures::class,
             DiseaseSymptomConfigFixtures::class,
+            DisorderSymptomConfigFixtures::class,
             InjuryModifierConfigFixtures::class,
             InjurySymptomConfigFixtures::class,
         ];

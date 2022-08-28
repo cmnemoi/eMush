@@ -138,7 +138,7 @@
             </segment>
             <segment id="description">
                 <source>quincks_oedema.description</source>
-                <target>TODO</target>
+                <target>Vous avez dû frôler de trop près un de vos alergènes...</target>
             </segment>
         </unit>
         <unit id="rejuvenation">

@@ -20,6 +20,7 @@ class SymptomEnum
     public const NO_PILOTING_ACTIONS = 'no_piloting_actions';
     public const NO_SHOOT_ACTIONS = 'no_shoot_actions';
     public const PSYCHOTIC_ATTACKS = 'psychotic_attacks';
+    public const SEPTICEMIA = 'septicemia';
     public const SNEEZING = 'sneezing';
     public const VOMITING = 'vomiting';
 }

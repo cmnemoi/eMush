@@ -17,12 +17,9 @@ use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Event\StatusEvent;
 
 class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const DIRTY_ALL_HEALTH_LOSS = 'dirty_all_health_loss';
     public const NOT_MOVE_ACTION_1_INCREASE = 'not_move_action_1_increase';
     public const NOT_MOVE_ACTION_2_INCREASE = 'not_move_action_2_increase';
     public const NOT_MOVE_ACTION_3_INCREASE = 'not_move_action_3_increase';
@@ -38,24 +35,9 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        $dirtyStatusCondition = new ModifierCondition(ModifierConditionEnum::PLAYER_STATUS);
-        $dirtyStatusCondition->setCondition(PlayerStatusEnum::DIRTY);
-        $manager->persist($dirtyStatusCondition);
-
         $notMoveActionCondition = new ModifierCondition(ModifierConditionEnum::NOT_REASON);
         $notMoveActionCondition->setCondition(ActionEnum::MOVE);
         $manager->persist($notMoveActionCondition);
-
-        $dirtyAllHealthLoss = new ModifierConfig();
-        $dirtyAllHealthLoss
-            ->setScope(StatusEvent::STATUS_APPLIED)
-            ->setTarget(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(-999)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::SET_VALUE)
-            ->addModifierCondition($dirtyStatusCondition)
-        ;
-        $manager->persist($dirtyAllHealthLoss);
 
         $notMoveAction1Increase = new ModifierConfig();
         $notMoveAction1Increase
@@ -152,7 +134,6 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $manager->flush();
 
-        $this->addReference(self::DIRTY_ALL_HEALTH_LOSS, $dirtyAllHealthLoss);
         $this->addReference(self::NOT_MOVE_ACTION_1_INCREASE, $notMoveAction1Increase);
         $this->addReference(self::NOT_MOVE_ACTION_2_INCREASE, $notMoveAction2Increase);
         $this->addReference(self::NOT_MOVE_ACTION_3_INCREASE, $notMoveAction3Increase);

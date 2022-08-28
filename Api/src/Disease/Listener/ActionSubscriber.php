@@ -33,7 +33,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $action = $event->getAction();
 
         $postActionSymptomConfigs = $this->getPlayerSymptomConfigs($player)->getTriggeredSymptoms([ActionEvent::POST_ACTION]);
-        $postActionSymptomConfigs = $this->symptomConditionService->getActiveSymptoms($postActionSymptomConfigs, $player, $action->getName());
+        $postActionSymptomConfigs = $this->symptomConditionService->getActiveSymptoms($postActionSymptomConfigs, $player, $action->getName(), $action);
 
         foreach ($postActionSymptomConfigs as $symptomConfig) {
             $this->symptomService->handlePostActionSymptom($symptomConfig, $player, $event->getTime());

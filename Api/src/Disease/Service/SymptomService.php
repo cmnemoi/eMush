@@ -7,6 +7,7 @@ use Mush\Action\Actions\Hit;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\DiseaseEnum;
@@ -178,11 +179,14 @@ class SymptomService implements SymptomServiceInterface
 
         $this->playerDiseaseService->createDiseaseFromName(DiseaseEnum::QUINCKS_OEDEMA, $player, $symptomConfig->getName());
 
-        // @TO DO: apply injury to player
-        // $injuries = [InjuryEnum::BURNT_ARMS, InjuryEnum::BURNT_HAND];
-        // $selectedInjury = array_values($this->randomService->getRandomElements($injuries))[0];
-
-        // $this->playerDiseaseService->createDiseaseFromName($selectedInjury, $player, $symptomConfig->getName());
+        $diseaseEvent = new ApplyEffectEvent(
+            $player,
+            $player,
+            VisibilityEnum::PRIVATE,
+            $symptomConfig->getName(),
+            $time
+        );
+        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
     }
 
     private function handleDirtiness(SymptomConfig $symptomConfig, Player $player, DateTime $time): void

@@ -9,8 +9,17 @@
 		"inventory": "Inventaire",
 		"inventoryDescription": "Cliquez ici pour ouvrir l'inventaire de la pièce.",
 		"equipement": "Equipement",
-		"player": "Joueurs"
+		"player": "Joueurs",
+		"issue": "Merci de signaler les bugs rencontrés sur "
 	},
+	"footer": {
+		"developpers": "Développement",
+		"thanks": "Remerciements",
+		"emush": "EMush",
+		"text1": "Ce jeu est un fan-project pour {mush} de MotionTwin. Sauf indication contraire, tous les éléments graphiques sont tirés de ces jeux et sont donc la propriété de MotionTwin.",
+		"text2": "EMush est Open Source et tout le monde est le bienvenu pour y participer. Vous pouvez consulter le code source sur {Gitlab}.",
+		"text3": "EMush fait partie du projet {EternalTwin}, si vous le souhaitez, vous pouvez faire une donation sur {OpenCollective}."
+	  },
 	"login": "Connexion",
 	"logout": "Deconnexion",
 	"deathpage": {

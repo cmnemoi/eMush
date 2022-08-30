@@ -6,6 +6,8 @@
         <router-view />
         <ErrorPopup />
         <LocaleChange />
+        <Thanks />
+        <Version />
     </div>
 </template>
 
@@ -17,6 +19,8 @@ import Spinner from "@/components/Utils/Spinner";
 import { mapGetters } from "vuex";
 import LocaleChange from "@/components/Utils/LocaleChange.vue";
 import Title from "@/components/Utils/Title.vue";
+import Thanks from "@/components/Thanks.vue";
+import Version from "@/components/Version.vue";
 
 export default {
     name: 'App',
@@ -25,7 +29,9 @@ export default {
         Banner,
         ErrorPopup,
         LocaleChange,
-        Title
+        Title,
+        Thanks,
+        Version
     },
     computed: {
         ...mapGetters({

@@ -1,6 +1,6 @@
 <template>
     <div class="homepage-container">
-        <div class="box">
+        <div class="box-container">
             <p v-html="$t('alpha.homepage')" />
         </div>
     </div>
@@ -23,16 +23,8 @@ export default defineComponent ({
     max-width: 1280px;
     margin: 1em 3vw;
 
-    .box {
-        position: relative;
+    .box-container {
         max-width: calc(640px - 2em);
-        margin: 3em 1em;
-        padding: 1em 1.5em;
-
-        @include corner-bezel(18.5px);
-
-        box-shadow: inset 0 0 35px 25px rgba(15, 89, 171, 0.5);
-        background-color: rgba(34, 38, 102, 0.5);
     }
 
     p {

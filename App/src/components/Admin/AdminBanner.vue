@@ -1,10 +1,8 @@
 <template>
-    <div class="banner">
-        <div class="admin-menu">
-            <router-link :to="{ name: 'AdminDaedalusList' }">Daedalus</router-link>
-            <router-link :to="{ name: 'AdminConfigHomepage' }">Configs</router-link>
-            <router-link :to="{ name: 'AdminUser' }">Users</router-link>
-        </div>
+    <div class="sub-menu">
+        <router-link :to="{ name: 'AdminDaedalusList' }">Daedalus</router-link>
+        <router-link :to="{ name: 'AdminConfigHomepage' }">Configs</router-link>
+        <router-link :to="{ name: 'AdminUser' }">Users</router-link>
     </div>
 </template>
 
@@ -19,51 +17,35 @@ export default defineComponent ({
 
 <style lang="scss" scoped>
 
-.admin-menu {
+.sub-menu {
     display: flex;
     flex-direction: row;
-
-    span {
-        margin: 0 1.4em;
-        padding: .3em .6em;
-        color: white;
-        font-size: 1.1rem;
-        font-weight: normal;
-        letter-spacing: .06em;
-        text-decoration: none;
-    }
+    margin: 1.8em auto -1px auto;
+    padding: 0 20px;
+    max-width: 1080px;
+    width: 100%;
 
     a {
-        margin: 0 1.4em;
-        padding: .3em .6em;
+        background-color: rgba(15, 89, 171, 0.55);
+        min-width: 130px;
+        padding: 12px 16px;
+        margin-right: 10px;
         color: white;
-        font-size: 1.1rem;
+        text-align: center;
         font-weight: normal;
         letter-spacing: .06em;
+        text-transform: uppercase;
         text-decoration: none;
+
+        @include corner-bezel(14px, 14px, 0);
+
+        opacity: .8;
 
         &:hover,
         &:active {
-            color: #dffaff;
-            text-shadow: 0 0 1px white, 0 0 1px white;
-        }
-
-        .unavailable {
-            text-decoration: line-through;
-            opacity: 0.6;
+            opacity: 1;
         }
     }
-}
-
-.banner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.logo {
-    height: 100%;
-    margin: -0.05em 5em 0.1em 5em;
 }
 
 </style>

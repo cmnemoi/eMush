@@ -126,51 +126,61 @@ export default defineComponent ({
 
 <style lang="scss" scoped>
 
-.datatable-container {
-    position: relative;
-}
+.datatable-container { position: relative; }
 
 table {
+    background: #222b6b;
+    border-radius: 5px;
     border-collapse: collapse;
-    border-spacing: 0;
 
-    td {
-        padding: 8px 10px;
+    tbody tr {
+        border-top: 1px solid rgba(0,0,0,0.2);
+
+        &:hover,
+        &:active { background: rgba(255, 255, 255, .03); }
+    }
+
+    th, td {
+        padding: 1em 0.5em 1em 1.2em;
+        vertical-align: middle;
+
+        &::v-deep a, &::v-deep button {
+            @include button-style();
+            width: fit-content;
+            padding: 2px 15px 4px;
+        }
     }
 
     th {
         position: relative;
-        padding: 10px;
-        padding-right: 26px;
-        border-bottom: 1px solid white;
+        opacity: .75;
+        letter-spacing: .05em;
         text-align: left;
         font-weight: bold;
+        border-bottom: 1px solid rgba(255, 255, 255, .75);
     }
 
-    .sorting_asc:after {
+    .sorting_asc:after, .sorting_desc:before {
         opacity: .6;
     }
 
-    .sorting_desc:before {
-        opacity: .6;
+    .sorting:before, .sorting:after {
+        position: absolute;
+        display: block;
+        right: 10px;
+        line-height: 9px;
+        font-size: .9em;
+        cursor: pointer;
     }
+
     .sorting:before {
         bottom: 50%;
         content: "▴";
-        position: absolute;
-        display: block;
-        right: 10px;
-        line-height: 9px;
-        font-size: .9em;
     }
+
     .sorting:after {
         top: 50%;
         content: "▾";
-        position: absolute;
-        display: block;
-        right: 10px;
-        line-height: 9px;
-        font-size: .9em;
     }
 }
 

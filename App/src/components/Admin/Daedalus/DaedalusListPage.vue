@@ -170,11 +170,19 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+
 .daedalus_filter_options {
     display: flex;
     flex-grow: 1;
     flex-direction: row;
     justify-content: space-between;
     padding: 10px;
+
+    a {
+        @include button-style();
+        padding: 2px 15px 4px;
+
+    }
 }
+
 </style>

@@ -1,21 +1,17 @@
 <template>
     <div class="daedalus_detail">
-        <div class="daedalus_detail_title">
+        <h1 class="daedalus_detail_title">
             Daedalus:
-        </div>
+        </h1>
         <div class="daedalus_detail_content">
-            <div class="flex-row">
-                <div class="grow">
-                    <label for="daedalus_name">{{ $t('daedalus.name') }}</label>
-                    <input
-                        id="daedalus_name"
-                        ref="daedalus_name"
-                        v-model="name"
-                        type="text"
-                    >
-                    <ErrorList v-if="errors.name" :errors="errors.name"></ErrorList>
-                </div>
-            </div>
+            <label for="daedalus_name">{{ $t('daedalus.name') }}</label>
+            <input
+                id="daedalus_name"
+                ref="daedalus_name"
+                v-model="name"
+                type="text"
+            >
+            <ErrorList v-if="errors.name" :errors="errors.name"></ErrorList>
         </div>
         <button class="action-button" type="submit" @click="save">
             {{ $t('save') }}
@@ -67,5 +63,19 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+
+.daedalus_detail {
+    width: 35%;
+    min-width: 338px;
+}
+
+.daedalus_detail_content {
+    margin-bottom: 1.6em;
+}
+
+button {
+    @include button-style();
+    padding: 2px 15px 4px;
+}
 
 </style>

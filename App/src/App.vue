@@ -41,7 +41,6 @@ export default {
 <style lang="scss" scoped>
 
 .main-container {
-    z-index: -2;
     color: #fff;
     flex-grow: 1;
     min-width: 100%;

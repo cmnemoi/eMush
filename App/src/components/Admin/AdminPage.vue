@@ -1,10 +1,8 @@
 <template>
+    <AdminBanner></AdminBanner>
     <div class="admin-container">
-        <AdminBanner></AdminBanner>
-        <div class="admin-container">
-            <div class="admin-content-container">
-                <router-view></router-view>
-            </div>
+        <div class="box-container">
+            <router-view></router-view>
         </div>
     </div>
 </template>
@@ -24,14 +22,8 @@ export default defineComponent ({
 
 <style lang="scss" scoped>
 
-.admin-container {
-    padding: 20px;
-}
-
-.admin-content-container {
-    padding: 20px;
-    border: solid goldenrod;
-    border-radius: 30px;
+.box-container {
+    margin-top: 0;
 }
 
 </style>

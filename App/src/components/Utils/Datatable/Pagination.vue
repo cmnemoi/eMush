@@ -351,44 +351,48 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
-.page-link:hover {
-    z-index: 2;
-    color: #0a58ca;
-    background-color: #e9ecef;
-    border-color: #dee2e6;
-}
-.page-item:not(:first-child) .page-link {
-    margin-left: -1px;
-}
+
+$color: #222b6b;
+$border-color: #3d4dbf;
+$border-radius: .3rem;
+
 .page-link {
-    padding: .375rem .75rem;
-    position: relative;
-    display: block;
-    color: #0d6efd;
-    text-decoration: none;
-    background-color: #fff;
-    border: 1px solid #dee2e6;
-    border-top-color: rgb(222, 226, 230);
-    border-right-color: rgb(222, 226, 230);
-    border-bottom-color: rgb(222, 226, 230);
-    border-left-color: rgb(222, 226, 230);
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    display: flex;
+    padding: 4px 14px 6px;
+    cursor: pointer;
+    background-color: $color;
+    border-top: 1px solid $border-color;
+    outline: 1px solid #1D2028;
 }
-.page-item:not(:first-child) .page-link[data-v-4bb127b3] {
-    margin-left: -1px;
+
+.page-item:not(.disabled):not(.active) .page-link {
+    &:active,
+    &:hover {
+        background-color: lighten($color, 15%);
+        border-top-color: lighten($border-color, 15%);
+        z-index: 2;
+    }
 }
-.page-item:first-child .page-link {
-    border-top-left-radius: .25rem;
-    border-bottom-left-radius: .25rem;
+
+.page-item.disabled .page-link {
+    opacity: .6;
+    cursor: default;
 }
-.page-item:last-child .page-link {
-    border-top-right-radius: .25rem;
-    border-bottom-right-radius: .25rem;
-}
+
 .page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+    background-color: lighten($color, 30%);
+    border-top-color: lighten($border-color, 20%);
+    font-weight: bold;
 }
+
+.page-item:first-child .page-link {
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+}
+
+.page-item:last-child .page-link {
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+}
+
 </style>

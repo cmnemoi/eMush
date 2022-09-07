@@ -4,6 +4,9 @@
             <router-link :to="{ name: 'AdminGameConfigList' }">Game Config</router-link>
             <router-link :to="{ name: 'AdminModifierConfigList' }">Modifier Config</router-link>
             <router-link :to="{ name: 'AdminModifierConditionList' }">Modifier Condition</router-link>
+            <router-link :to="{ name: 'AdminStatusConfigList' }">Status Config</router-link>
+            <router-link :to="{ name: 'AdminActionConfigList' }">Action Config</router-link>
+            <router-link :to="{ name: 'AdminActionCostList' }">Action Cost</router-link>
         </div>
     </div>
 </template>

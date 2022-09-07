@@ -28,7 +28,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        return $data instanceof Action;
+        return $data instanceof Action && empty($context['groups']);
     }
 
     /**

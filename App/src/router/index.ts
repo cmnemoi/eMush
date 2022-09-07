@@ -17,6 +17,12 @@ import ModifierConfigDetailPage from "@/components/Admin/ModifierConfig/Modifier
 import ModifierConditionListPage from "@/components/Admin/ModifierCondition/ModifierConditionListPage.vue";
 import ModifierConditionDetailPage from "@/components/Admin/ModifierCondition/ModifierConditionDetailPage.vue";
 import AdminConfigPage from "@/components/Admin/AdminConfigPage.vue";
+import StatusConfigListPage from "@/components/Admin/StatusConfig/StatusConfigListPage.vue";
+import StatusConfigDetailPage from "@/components/Admin/StatusConfig/StatusConfigDetailPage.vue";
+import ActionCostListPage from "@/components/Admin/ActionCost/ActionCostListPage.vue";
+import ActionCostDetailPage from "@/components/Admin/ActionCost/ActionCostDetailPage.vue";
+import ActionConfigListPage from "@/components/Admin/ActionConfig/ActionConfigListPage.vue";
+import ActionConfigDetailPage from "@/components/Admin/ActionConfig/ActionConfigDetailPage.vue";
 
 const routes = [
     {
@@ -77,6 +83,36 @@ const routes = [
                         name: "AdminModifierConditionDetail",
                         path: 'modifier-condition/:modifierConditionId',
                         component: ModifierConditionDetailPage
+                    },
+                    {
+                        name: "AdminStatusConfigList",
+                        path: 'status-config-list',
+                        component: StatusConfigListPage
+                    },
+                    {
+                        name: "AdminStatusConfigDetail",
+                        path: 'status-config/:statusConfigId',
+                        component: StatusConfigDetailPage
+                    },
+                    {
+                        name: "AdminActionCostList",
+                        path: 'action-cost-list',
+                        component: ActionCostListPage
+                    },
+                    {
+                        name: "AdminActionCostDetail",
+                        path: 'action-cost/:actionCostId',
+                        component: ActionCostDetailPage
+                    },
+                    {
+                        name: "AdminActionConfigList",
+                        path: 'action-config-list',
+                        component: ActionConfigListPage
+                    },
+                    {
+                        name: "AdminActionConfigDetail",
+                        path: 'action-config/:actionConfigId',
+                        component: ActionConfigDetailPage
                     },
                 ]
             },

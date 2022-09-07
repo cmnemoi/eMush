@@ -1,4 +1,5 @@
 export class GameConfig {
+    public iri: string|null;
     public id: number|null;
     public name: string|null;
     public nbMush: number|null;
@@ -19,6 +20,7 @@ export class GameConfig {
     public maxItemInInventory: number|null;
 
     constructor() {
+        this.iri = null;
         this.id = null;
         this.name = null;
         this.nbMush = null;
@@ -40,6 +42,7 @@ export class GameConfig {
     }
     load(object:any) : GameConfig {
         if (typeof object !== "undefined") {
+            this.iri = object.iri;
             this.id = object.id;
             this.name = object.name;
             this.nbMush = object.nbMush;
@@ -67,6 +70,7 @@ export class GameConfig {
     decode(jsonString : string): GameConfig {
         if (jsonString) {
             const object = JSON.parse(jsonString);
+            this.iri = object.iri;
             this.id = object.id;
             this.name = object.name;
             this.nbMush = object.nbMush;

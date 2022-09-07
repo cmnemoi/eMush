@@ -24,6 +24,7 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -41,6 +42,9 @@ class ChannelServiceTest extends TestCase
     /** @var EventDispatcherInterface|Mockery\mock */
     private EventDispatcherInterface $eventDispatcher;
 
+    /** @var StatusServiceInterface|Mockery\mock */
+    private StatusServiceInterface $statusService;
+
     private ChannelServiceInterface $service;
 
     /**
@@ -52,12 +56,14 @@ class ChannelServiceTest extends TestCase
         $this->channelRepository = Mockery::mock(ChannelRepository::class);
         $this->channelPlayerRepository = Mockery::mock(ChannelPlayerRepository::class);
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->service = new ChannelService(
             $this->entityManager,
             $this->channelRepository,
             $this->channelPlayerRepository,
-            $this->eventDispatcher
+            $this->eventDispatcher,
+            $this->statusService
         );
     }
 
@@ -338,6 +344,17 @@ class ChannelServiceTest extends TestCase
             ->andReturn(new ArrayCollection([$channel]))
         ;
 
+        $this->statusService->shouldReceive('getByTargetAndName')
+            ->with($player, PlayerStatusEnum::TALKIE_SCREWED)
+            ->andReturn(null)
+            ->once()
+        ;
+        $this->statusService->shouldReceive('getByTargetAndName')
+            ->with($player2, PlayerStatusEnum::TALKIE_SCREWED)
+            ->andReturn(null)
+            ->once()
+        ;
+
         $this->eventDispatcher->shouldReceive('dispatch')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
@@ -372,6 +389,17 @@ class ChannelServiceTest extends TestCase
             ->shouldReceive('findByPlayer')
             ->with($player, true)
             ->andReturn(new ArrayCollection([$channel]))
+        ;
+
+        $this->statusService->shouldReceive('getByTargetAndName')
+            ->with($player, PlayerStatusEnum::TALKIE_SCREWED)
+            ->andReturn(null)
+            ->once()
+        ;
+        $this->statusService->shouldReceive('getByTargetAndName')
+            ->with($player2, PlayerStatusEnum::TALKIE_SCREWED)
+            ->andReturn(null)
+            ->once()
         ;
 
         $this->eventDispatcher->shouldReceive('dispatch')->never();
@@ -410,7 +438,75 @@ class ChannelServiceTest extends TestCase
             ->andReturn(new ArrayCollection([$channel]))
         ;
 
+        $this->statusService->shouldReceive('getByTargetAndName')
+            ->with($player, PlayerStatusEnum::TALKIE_SCREWED)
+            ->andReturn(null)
+            ->once()
+        ;
+        $this->statusService->shouldReceive('getByTargetAndName')
+            ->with($player2, PlayerStatusEnum::TALKIE_SCREWED)
+            ->andReturn(null)
+            ->once()
+        ;
+
         $this->eventDispatcher->shouldReceive('dispatch')->once();
+
+        $this->service->updatePlayerPrivateChannels($player, $reason, $time);
+    }
+
+    public function testUpdatePlayerPrivateChannelPlayerDoNotLeaveChannelBecausePirated()
+    {
+        $channel = new Channel();
+        $channel->setScope(ChannelScopeEnum::PRIVATE);
+        $place = new Place();
+        $place2 = new Place();
+
+        $time = new \DateTime();
+        $reason = ActionEnum::CONSUME;
+
+        $item2 = new GameItem();
+        $item2->setName(ItemEnum::ITRACKIE);
+
+        $item3 = new GameItem();
+        $item3->setName(ItemEnum::ITRACKIE);
+
+        $player = new Player();
+        $player->setPlace($place);
+        $channelPlayer = new ChannelPlayer();
+        $channelPlayer->setChannel($channel)->setParticipant($player);
+
+        $player2 = new Player();
+        $player2->setPlace($place2)->addEquipment($item2);
+        $channelPlayer2 = new ChannelPlayer();
+        $channelPlayer2->setChannel($channel)->setParticipant($player2);
+
+        $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);
+
+        $player3 = new Player();
+        $player3->setPlace($place)->addEquipment($item3);
+        $piratedStatusConfig = new StatusConfig();
+        $piratedStatusConfig->setName(PlayerStatusEnum::TALKIE_SCREWED);
+        $piratedStatus = new Status($player3, $piratedStatusConfig);
+        $piratedStatus->setTarget($player);
+
+        $this->channelRepository
+            ->shouldReceive('findByPlayer')
+            ->with($player, true)
+            ->andReturn(new ArrayCollection([$channel]))
+        ;
+
+        $this->statusService->shouldReceive('getByTargetAndName')
+            ->with($player, PlayerStatusEnum::TALKIE_SCREWED)
+            ->andReturn($piratedStatus)
+            ->once()
+        ;
+        $this->statusService->shouldReceive('getByTargetAndName')
+            ->with($player2, PlayerStatusEnum::TALKIE_SCREWED)
+            ->andReturn(null)
+            ->once()
+        ;
+
+        $this->eventDispatcher->shouldReceive('dispatch')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -504,5 +600,101 @@ class ChannelServiceTest extends TestCase
         $result = $this->service->getPlayerChannels($player);
 
         $this->assertCount(2, $result);
+    }
+
+    public function testGetPiratePlayer()
+    {
+        $player = new Player();
+
+        $player2 = new Player();
+        $piratedStatusConfig = new StatusConfig();
+        $piratedStatusConfig->setName(PlayerStatusEnum::TALKIE_SCREWED);
+        $piratedStatus = new Status($player2, $piratedStatusConfig);
+        $piratedStatus->setTarget($player);
+
+        $this->statusService->shouldReceive('getByTargetAndName')
+            ->with($player, PlayerStatusEnum::TALKIE_SCREWED)
+            ->andReturn($piratedStatus)
+            ->once()
+        ;
+
+        $test = $this->service->getPiratePlayer($player);
+        $this->assertEquals($player2, $test);
+
+        $this->statusService->shouldReceive('getByTargetAndName')
+            ->with($player2, PlayerStatusEnum::TALKIE_SCREWED)
+            ->andReturn(null)
+            ->once()
+        ;
+        $test2 = $this->service->getPiratePlayer($player2);
+        $this->assertEquals(null, $test2);
+    }
+
+    public function testGetPiratedPlayer()
+    {
+        $player = new Player();
+
+        $player2 = new Player();
+
+        $piratedStatusConfig = new StatusConfig();
+        $piratedStatusConfig->setName(PlayerStatusEnum::TALKIE_SCREWED);
+        $piratedStatus = new Status($player2, $piratedStatusConfig);
+        $piratedStatus->setTarget($player);
+
+        $test = $this->service->getPiratedPlayer($player2);
+        $this->assertEquals($player, $test);
+
+        $test = $this->service->getPiratedPlayer($player);
+        $this->assertEquals(null, $test);
+    }
+
+    public function testGetPiratedChannels()
+    {
+        $channel = new Channel();
+        $channel->setScope(ChannelScopeEnum::PUBLIC);
+
+        $place = new Place();
+
+        $player = new Player();
+        $player->setPlace($place);
+
+        $playerParticipant = new ChannelPlayer();
+        $playerParticipant->setChannel($channel)->setParticipant($player);
+        $channel->addParticipant($playerParticipant);
+
+        $this->channelRepository
+            ->shouldReceive('findByPlayer')
+            ->with($player)
+            ->andReturn(new ArrayCollection([$channel]))
+        ;
+
+        $result = $this->service->getPiratedChannels($player);
+
+        $this->assertCount(1, $result);
+    }
+
+    public function testGetPiratedChannelsWithWhisperOnly()
+    {
+        $channel = new Channel();
+        $channel->setScope(ChannelScopeEnum::PRIVATE);
+
+        $place = new Place();
+
+        $player = new Player();
+        $player->setPlace($place);
+
+        $playerParticipant = new ChannelPlayer();
+        $playerParticipant->setChannel($channel)->setParticipant($player);
+        $channel->addParticipant($playerParticipant);
+
+        $this->channelRepository
+            ->shouldReceive('findByPlayer')
+            ->with($player)
+            ->andReturn(new ArrayCollection([$channel]))
+        ;
+
+        $result = $this->service->getPiratedChannels($player);
+
+        $this->assertCount(0, $result);
     }
 }

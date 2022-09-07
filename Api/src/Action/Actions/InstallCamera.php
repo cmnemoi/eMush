@@ -28,7 +28,7 @@ class InstallCamera extends AbstractAction
             new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]),
             new HasEquipment([
                 'reach' => ReachEnum::ROOM,
-                'equipment' => EquipmentEnum::CAMERA_EQUIPMENT,
+                'equipments' => [EquipmentEnum::CAMERA_EQUIPMENT],
                 'contains' => false,
                 'groups' => ['execute'],
                 'message' => ActionImpossibleCauseEnum::ALREADY_INSTALLED_CAMERA,

@@ -129,7 +129,7 @@ class ActionEnum
     public const DEFACE = 'deface';
     public const DELOG = 'delog';
     public const MAKE_SICK = 'make_sick';
-    public const SCREW_TALKY = 'screw_talky';
+    public const SCREW_TALKIE = 'screw_talkie';
     public const SPREAD_FIRE = 'spread_fire';
     public const NERON_DEPRESS = 'neron_depress';
     public const MASS_MUSHIFICATION = 'mass_ggeddon';

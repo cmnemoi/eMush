@@ -90,7 +90,7 @@ class Surgery extends AbstractAction
         ]));
         $metadata->addConstraint(new HasEquipment([
             'groups' => ['visibility'],
-            'equipment' => ToolItemEnum::MEDIKIT,
+            'equipments' => [ToolItemEnum::MEDIKIT],
             'reach' => ReachEnum::INVENTORY,
             'contains' => true,
         ]));

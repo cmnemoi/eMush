@@ -6,16 +6,20 @@ export class Channel {
     public scope!: ChannelType;
     public participants: Array<ChannelParticipant>;
     public newMessageAllowed = false;
+    public piratedPlayer: number | null = null;
 
     constructor() {
         this.participants = [];
     }
 
     load(object : any) : Channel {
+        console.log('yoyoyo');
+        console.log(object);
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.scope = object.scope;
-            this.newMessageAllowed =object.newMessageAllowed;
+            this.newMessageAllowed = object.newMessageAllowed;
+            this.piratedPlayer = object.piratedPlayer;
             if (typeof object.participants !== 'undefined') {
                 object.participants.forEach((itemObject: any) => {
                     const participant = (new ChannelParticipant()).load(itemObject);

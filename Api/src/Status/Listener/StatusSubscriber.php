@@ -2,18 +2,27 @@
 
 namespace Mush\Status\Listener;
 
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Player\Entity\Player;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class StatusSubscriber implements EventSubscriberInterface
 {
     private StatusServiceInterface $statusService;
+    protected EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        EventDispatcherInterface $eventDispatcher,
     ) {
         $this->statusService = $statusService;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -45,6 +54,27 @@ class StatusSubscriber implements EventSubscriberInterface
 
         if ($status === null) {
             return;
+        }
+
+        // If a talkie or itrackie is repaired, check if it was screwed.
+        // If so, remove the screwed talkie status from the owner of the talkie and the pirate
+        if ($holder instanceof GameItem &&
+            in_array($holder->getName(), [ItemEnum::ITRACKIE, ItemEnum::WALKIE_TALKIE]) &&
+            $event->getStatusName() === EquipmentStatusEnum::BROKEN
+        ) {
+            /** @var Player $piratedPlayer */
+            $piratedPlayer = $holder->getOwner();
+
+            $screwedTalkieStatus = $this->statusService->getByTargetAndName($piratedPlayer, PlayerStatusEnum::TALKIE_SCREWED);
+            if ($screwedTalkieStatus !== null) {
+                $removeEvent = new StatusEvent(
+                    $screwedTalkieStatus->getName(),
+                    $screwedTalkieStatus->getOwner(),
+                    $event->getReason(),
+                    $event->getTime()
+                );
+                $this->eventDispatcher->dispatch($removeEvent, StatusEvent::STATUS_REMOVED);
+            }
         }
 
         $this->statusService->delete($status);

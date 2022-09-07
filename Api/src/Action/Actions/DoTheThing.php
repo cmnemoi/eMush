@@ -112,7 +112,7 @@ class DoTheThing extends AbstractAction
 
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::SHELVE,
-            'equipment' => EquipmentEnum::CAMERA_EQUIPMENT,
+            'equipments' => [EquipmentEnum::CAMERA_EQUIPMENT],
             'contains' => false,
             'checkIfOperational' => true,
             'groups' => ['execute'],

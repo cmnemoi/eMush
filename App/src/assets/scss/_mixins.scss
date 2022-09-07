@@ -30,8 +30,8 @@ Corners values stand clockwise starting from top left. Missing values in @includ
 }
 
 
-/* Style an element to make it a button, inlcuding hover effect.
-Editabe values stand for font-size, font-weight, and font-variant. Keep empty for default styles.
+/* Style an element to make it a button, including hover effect.
+Editable values stand for font-size, font-weight, and font-variant. Keep empty for default styles.
 Adding the class ".crossed" to the element will strike-through it.
 Adding the class ".flashing" to the element will will animate its border to increase visibility. */
 @mixin button-style ($font-size: 1rem, $font-weight: 700, $font-variant: small-caps) {

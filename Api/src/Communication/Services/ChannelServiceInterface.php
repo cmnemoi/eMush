@@ -39,4 +39,10 @@ interface ChannelServiceInterface
     public function canPlayerWhisperInChannel(Channel $channel, Player $player): bool;
 
     public function updatePlayerPrivateChannels(Player $player, string $reason, \DateTime $time): void;
+
+    public function getPiratedPlayer(Player $player): ?Player;
+
+    public function getPiratedChannels(Player $piratedPlayer): Collection;
+
+    public function getPiratePlayer(Player $player): ?Player;
 }

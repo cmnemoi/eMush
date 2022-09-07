@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\GameItem;
 class ActionsFixtures extends Fixture implements DependentFixtureInterface
 {
     public const REJUVENATE_ALPHA = 'rejuvenate.alpha';
+    public const UPDATING_TALKIE = 'updating.talkie';
 
     public const MOVE_DEFAULT = 'move.default';
     public const SEARCH_DEFAULT = 'search.default';
@@ -71,7 +72,6 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const BORING_SPEECH = 'boring.speech';
     public const SURGERY = 'surgery';
     public const SELF_SURGERY = 'self.surgery';
-    public const UPDATING_TALKIE = 'updating.talkie';
 
     public function load(ObjectManager $manager): void
     {
@@ -96,6 +96,17 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setActionCost($freeCost)
         ;
         $manager->persist($rejuvenateAlpha);
+
+        $updatingTalkie = new Action();
+        $updatingTalkie
+            ->setName(ActionEnum::UPDATE_TALKIE)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($oneActionPointCost)
+            ->setDirtyRate(0)
+            ->setInjuryRate(10)
+        ;
+
+        $manager->persist($updatingTalkie);
 
         $moveAction = new Action();
         $moveAction
@@ -643,20 +654,10 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($selfSurgeryAction);
 
-        $updatingTalkie = new Action();
-        $updatingTalkie
-            ->setName(ActionEnum::UPDATE_TALKIE)
-            ->setScope(ActionScopeEnum::CURRENT)
-            ->setActionCost($oneActionPointCost)
-            ->setDirtyRate(0)
-            ->setInjuryRate(10)
-        ;
-
-        $manager->persist($updatingTalkie);
-
         $manager->flush();
 
         $this->addReference(self::REJUVENATE_ALPHA, $rejuvenateAlpha);
+        $this->addReference(self::UPDATING_TALKIE, $updatingTalkie);
 
         $this->addReference(self::MOVE_DEFAULT, $moveAction);
         $this->addReference(self::SEARCH_DEFAULT, $searchAction);
@@ -713,7 +714,6 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::BORING_SPEECH, $boringSpeechAction);
         $this->addReference(self::SURGERY, $surgeryAction);
         $this->addReference(self::SELF_SURGERY, $selfSurgeryAction);
-        $this->addReference(self::UPDATING_TALKIE, $updatingTalkie);
     }
 
     public function getDependencies(): array

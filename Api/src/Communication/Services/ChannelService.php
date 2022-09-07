@@ -16,7 +16,9 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ChannelService implements ChannelServiceInterface
@@ -25,17 +27,20 @@ class ChannelService implements ChannelServiceInterface
     private ChannelRepository $channelRepository;
     private ChannelPlayerRepository $channelPlayerRepository;
     private EventDispatcherInterface $eventDispatcher;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ChannelRepository $channelRepository,
         ChannelPlayerRepository $channelPlayerRepository,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        StatusServiceInterface $statusService
     ) {
         $this->entityManager = $entityManager;
         $this->channelRepository = $channelRepository;
         $this->channelPlayerRepository = $channelPlayerRepository;
         $this->eventDispatcher = $eventDispatcher;
+        $this->statusService = $statusService;
     }
 
     public function getPublicChannel(Daedalus $daedalus): ?Channel
@@ -194,9 +199,18 @@ class ChannelService implements ChannelServiceInterface
         /** @var ChannelPlayer $channelParticipant */
         foreach ($channel->getParticipants() as $channelParticipant) {
             $participant = $channelParticipant->getParticipant();
+
+            $piratePlayer = $this->getPiratePlayer($participant);
+            if ($piratePlayer === null) {
+                $pirateAccess = false;
+            } else {
+                $pirateAccess = $this->canPlayerCommunicate($piratePlayer);
+            }
+
             if (
                 !$this->canPlayerCommunicate($participant) &&
-                !$this->canPlayerWhisperInChannel($channel, $participant)
+                !$this->canPlayerWhisperInChannel($channel, $participant) &&
+                !$pirateAccess
             ) {
                 $this->exitChannel($participant, $channel, $time, $reason);
             }
@@ -213,5 +227,60 @@ class ChannelService implements ChannelServiceInterface
         }
 
         return $channels;
+    }
+
+    public function getPiratedPlayer(Player $player): ?Player
+    {
+        if (!$player->hasStatus(PlayerStatusEnum::TALKIE_SCREWED)) {
+            return null;
+        }
+
+        /** @var Status $talkieScrewedStatus */
+        $talkieScrewedStatus = $player->getStatusByName(PlayerStatusEnum::TALKIE_SCREWED);
+        /** @var Player $piratedPlayer */
+        $piratedPlayer = $talkieScrewedStatus->getTarget();
+
+        return $piratedPlayer;
+    }
+
+    public function getPiratedChannels(Player $piratedPlayer): Collection
+    {
+        $channels = $this->channelRepository->findByPlayer($piratedPlayer);
+
+        return $channels->filter(fn (Channel $channel) => !$this->isChannelWhisperOnly($channel));
+    }
+
+    public function getPiratePlayer(Player $player): ?Player
+    {
+        $screwedTalkieStatus = $this->statusService->getByTargetAndName($player, PlayerStatusEnum::TALKIE_SCREWED);
+
+        if ($screwedTalkieStatus) {
+            /** @var Player $player */
+            $player = $screwedTalkieStatus->getOwner();
+
+            return $player;
+        }
+
+        return null;
+    }
+
+    private function isChannelWhisperOnly(Channel $channel): bool
+    {
+        if ($channel->isPublic()) {
+            return false;
+        }
+
+        $firstParticipant = $channel->getParticipants()->first()->getParticipant();
+
+        /** @var ChannelPlayer $channelParticipant */
+        foreach ($channel->getParticipants() as $channelParticipant) {
+            $participant = $channelParticipant->getParticipant();
+
+            if (!$this->canPlayerWhisper($participant, $firstParticipant)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

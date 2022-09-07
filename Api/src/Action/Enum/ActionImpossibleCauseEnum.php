@@ -90,6 +90,8 @@ class ActionImpossibleCauseEnum
     public const HAVE_ALL_FAKE_DISEASES = 'have_all_fake_diseases';
     public const SYMPTOMS_ARE_PREVENTING_ACTION = 'symptoms_are_preventing_action';
     public const GAGGED_PREVENT_SPOKEN_ACTION = 'gagged_prevent_spoken_action';
+    public const SCREWED_TALKIE_ALREADY_PIRATED = 'screwed_talkie_already_pirated';
+    public const SCREWED_TALKIE_NO_TALKIE = 'screwed_talkie_no_talkie';
 
     public const UPDATE_TALKIE_REQUIRE_NERON = 'update_talkie_require_neron';
     public const UPDATE_TALKIE_REQUIRE_TRACKER = 'update_talkie_require_tracker';

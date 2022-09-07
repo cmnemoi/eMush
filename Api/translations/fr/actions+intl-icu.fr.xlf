@@ -631,6 +631,16 @@
                 <target>Vous vous débâillonnez vous-même si vous en avez la possibilité. Vengeance !</target>
             </segment>
         </unit>
+        <unit id="screw_talkie">
+            <segment id="name">
+                <source>screw_talkie.name</source>
+                <target>Pirater</target>
+            </segment>
+            <segment id="description">
+                <source>screw_talkie.description</source>
+                <target>Permet de casser le Talkie-Walkie d'un membre d'équipage, puis de se faire passer pour lui jusqu'à ce qu'il le répare.</target>
+            </segment>
+        </unit>
         <unit id="update_talkie">
             <segment id="name">
                 <source>update_talkie.name</source>

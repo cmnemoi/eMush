@@ -804,6 +804,12 @@
                 </target>
             </segment>
         </unit>
+        <unit id="screw_talkie_success">
+            <segment id="screw_talkie_success">
+                <source>screw_talkie_success</source>
+                <target>**{character}** s'approche de **{target_character}** et semble glisser un truc visqueux dans son **Talkie**...</target>
+            </segment>
+        </unit>
         <unit id="update_talkie_success">
             <segment id="update_talkie_success">
                 <source>update_talkie_success</source>

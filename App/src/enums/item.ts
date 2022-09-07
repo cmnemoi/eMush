@@ -87,7 +87,7 @@ const ALIEN_HOLOGRAPHIC_TV = "alien_holographic_tv";
 
 const ITRACKIE = "itrackie";
 const TRACKER = "tracker";
-const WALKIE_TALKIE = "talkie_walkie";
+const WALKIE_TALKIE = "walkie_talkie";
 
 
 export const itemEnum: {[index: string]: any} = {

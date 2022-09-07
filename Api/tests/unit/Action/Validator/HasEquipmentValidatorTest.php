@@ -41,7 +41,7 @@ class HasEquipmentValidatorTest extends TestCase
     public function testValidForEquipment()
     {
         $this->constraint->reach = ReachEnum::ROOM;
-        $this->constraint->equipment = EquipmentEnum::CAMERA_EQUIPMENT;
+        $this->constraint->equipments = [EquipmentEnum::CAMERA_EQUIPMENT];
         $this->constraint->contains = true;
 
         $this->initValidator();
@@ -75,7 +75,7 @@ class HasEquipmentValidatorTest extends TestCase
     public function testNotValidForEquipment()
     {
         $this->constraint->reach = ReachEnum::ROOM;
-        $this->constraint->equipment = EquipmentEnum::CAMERA_EQUIPMENT;
+        $this->constraint->equipments = [EquipmentEnum::CAMERA_EQUIPMENT];
         $this->constraint->contains = true;
 
         $this->initValidator();
@@ -94,6 +94,137 @@ class HasEquipmentValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
+            ])
+        ;
+
+        $this->initValidator($this->constraint->message);
+        $this->validator->validate($action, $this->constraint);
+    }
+
+    public function testValidForAnyEquipment()
+    {
+        $this->constraint->reach = ReachEnum::ROOM;
+        $this->constraint->equipments = [EquipmentEnum::CAMERA_EQUIPMENT, EquipmentEnum::ANTENNA];
+        $this->constraint->contains = true;
+        $this->constraint->all = false;
+
+        $this->initValidator();
+
+        $room = new Place();
+
+        $player = new Player();
+        $player->setPlace($room);
+        $target = new GameItem();
+        $target->setHolder($room)->setName('target');
+
+        $gameEquipment = new GameItem();
+        $gameEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT)->setHolder($room);
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getPlayer' => $player,
+            ])
+        ;
+
+        $this->validator->validate($action, $this->constraint);
+
+        $gameEquipment->setHolder(null);
+
+        $this->validator->validate($action, $this->constraint);
+
+        $this->assertTrue(true);
+    }
+
+    public function testValidForAllEquipment()
+    {
+        $this->constraint->reach = ReachEnum::ROOM;
+        $this->constraint->equipments = [EquipmentEnum::CAMERA_EQUIPMENT, EquipmentEnum::ANTENNA];
+        $this->constraint->contains = true;
+
+        $this->initValidator();
+
+        $room = new Place();
+
+        $player = new Player();
+        $player->setPlace($room);
+        $target = new GameItem();
+        $target->setHolder($room)->setName('target');
+
+        $gameEquipment = new GameItem();
+        $gameEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT)->setHolder($room);
+        $gameEquipment2 = new GameItem();
+        $gameEquipment2->setName(EquipmentEnum::ANTENNA)->setHolder($room);
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getPlayer' => $player,
+            ])
+        ;
+
+        $this->validator->validate($action, $this->constraint);
+
+        $gameEquipment->setHolder(null);
+
+        $this->validator->validate($action, $this->constraint);
+
+        $this->assertTrue(true);
+    }
+
+    public function testNotValidForAllEquipment()
+    {
+        $this->constraint->reach = ReachEnum::ROOM;
+        $this->constraint->equipments = [EquipmentEnum::CAMERA_EQUIPMENT, EquipmentEnum::ANTENNA];
+        $this->constraint->contains = true;
+
+        $this->initValidator();
+
+        $room = new Place();
+
+        $player = new Player();
+        $player->setPlace($room);
+        $target = new GameItem();
+        $target->setHolder($room)->setName('target');
+
+        $gameEquipment = new GameItem();
+        $gameEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT)->setHolder($room);
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getPlayer' => $player,
+            ])
+        ;
+
+        $this->initValidator($this->constraint->message);
+        $this->validator->validate($action, $this->constraint);
+    }
+
+    public function testNotValidForTargetParameter()
+    {
+        $this->constraint->reach = ReachEnum::INVENTORY;
+        $this->constraint->equipments = [ItemEnum::ITRACKIE];
+        $this->constraint->contains = false;
+        $this->constraint->target = HasEquipment::PARAMETER;
+
+        $this->initValidator();
+
+        $room = new Place();
+
+        $player = new Player();
+        $player->setPlace($room);
+        $player2 = new Player();
+        $player2->setPlace($room);
+
+        $gameEquipment = new GameItem();
+        $gameEquipment->setName(ItemEnum::ITRACKIE)->setHolder($player2);
+
+        $action = Mockery::mock(AbstractAction::class);
+        $action
+            ->shouldReceive([
+                'getPlayer' => $player,
+                'getParameter' => $player2,
             ])
         ;
 

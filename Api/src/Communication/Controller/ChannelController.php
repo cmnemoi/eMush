@@ -86,9 +86,17 @@ class ChannelController extends AbstractFOSRestController
             return $this->view(['error' => 'cannot create new channels'], 422);
         }
 
+        $context = new Context();
+        $context
+            ->setAttribute('currentPlayer', $player)
+        ;
+
         $channel = $this->channelService->createPrivateChannel($player);
 
-        return $this->view($channel, 201);
+        $view = $this->view($channel, 201);
+        $view->setContext($context);
+
+        return $view;
     }
 
     /**
@@ -125,6 +133,48 @@ class ChannelController extends AbstractFOSRestController
     }
 
     /**
+     * Get the pirated channels.
+     *
+     * @OA\Tag(name="channel")
+     * @Security(name="Bearer")
+     * @Rest\GET (path="/pirated")")
+     */
+    public function getPiratedChannelsActions(): View
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $player = $user->getCurrentGame();
+        if (!$player) {
+            throw new AccessDeniedException('User should be in game');
+        }
+
+        $daedalus = $player->getDaedalus();
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
+        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
+
+        $piratedPlayer = $this->channelService->getPiratedPlayer($player);
+
+        if ($piratedPlayer !== null) {
+            $channels = $this->channelService->getPiratedChannels($piratedPlayer);
+
+            $context = new Context();
+            $context
+                ->setAttribute('currentPlayer', $player)
+                ->setAttribute('piratedPlayer', $piratedPlayer)
+            ;
+
+            $view = $this->view($channels, 200);
+            $view->setContext($context);
+
+            return $view;
+        }
+
+        return $this->view([]);
+    }
+
+    /**
      * Invite player to a channel.
      *
      *    @OA\RequestBody (
@@ -147,6 +197,10 @@ class ChannelController extends AbstractFOSRestController
      */
     public function inviteAction(Request $request, Channel $channel): View
     {
+        /** @var User $user */
+        $user = $this->getUser();
+        $currentPlayer = $user->getCurrentGame();
+
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
         $invited = $request->get('player');
@@ -171,7 +225,13 @@ class ChannelController extends AbstractFOSRestController
 
         $channel = $this->channelService->invitePlayer($invitedPlayer, $channel);
 
-        return $this->view($channel, 200);
+        $context = new Context();
+        $context->setAttribute('currentPlayer', $currentPlayer);
+
+        $view = $this->view($channel, 200);
+        $view->setContext($context);
+
+        return $view;
     }
 
     /**
@@ -250,6 +310,11 @@ class ChannelController extends AbstractFOSRestController
      *                  type="string",
      *                  property="message",
      *                  description="The message"
+     *              ),
+     *              @OA\Property(
+     *                  type="integer",
+     *                  property="player",
+     *                  description="id of the player sending message"
      *              )
      *          )
      *      )
@@ -282,21 +347,28 @@ class ChannelController extends AbstractFOSRestController
 
         /** @var User $user */
         $user = $this->getUser();
-        $player = $user->getCurrentGame();
+        $currentPlayer = $user->getCurrentGame();
 
-        if (!$player) {
+        // in case of a pirated talkie, the message can be sent under the name of another player
+        $playerMessage = $messageCreate->getPlayer();
+
+        if ($playerMessage === null) {
+            $playerMessage = $currentPlayer;
+        }
+
+        if (!$currentPlayer) {
             throw new AccessDeniedException('User should be in game');
         }
 
-        if (!$this->messageService->canPlayerPostMessage($player, $channel)) {
+        if (!$this->messageService->canPlayerPostMessage($currentPlayer, $channel)) {
             throw new AccessDeniedException('Player cannot speak');
         }
 
-        $this->messageService->createPlayerMessage($player, $messageCreate);
-        $messages = $this->messageService->getChannelMessages($player, $channel);
+        $this->messageService->createPlayerMessage($playerMessage, $messageCreate);
+        $messages = $this->messageService->getChannelMessages($currentPlayer, $channel);
 
         $context = new Context();
-        $context->setAttribute('currentPlayer', $player);
+        $context->setAttribute('currentPlayer', $currentPlayer);
 
         $view = $this->view($messages, 200);
         $view->setContext($context);

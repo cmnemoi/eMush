@@ -37,4 +37,5 @@ class PlayerStatusEnum
     public const STUCK_IN_THE_SHIP = 'stuck_in_the_ship';
     public const SUICIDAL = 'suicidal';
     public const WATCHED_PUBLIC_BROADCAST = 'WATCHED_PUBLIC_BROADCAST';
+    public const TALKIE_SCREWED = 'talkie_screwed';
 }

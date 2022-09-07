@@ -90,6 +90,15 @@
 			"name": "Nom",
 			"condition": "Condition",
 			"value": "Valeur"
+		},
+		"statusConfig": {
+			"name": "Nom",
+			"visibility": "Visibilite",
+			"chargeVisibility": "Charge Visibilite",
+			"chargeStrategy": "Charge Strategie",
+			"dischargeStrategy": "Decharge Strategie",
+			"maxCharge": "Max Charge",
+			"startCharge": "Init Charge"
 		}
 	}
 }

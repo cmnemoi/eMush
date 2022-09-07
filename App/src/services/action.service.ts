@@ -6,13 +6,15 @@ import { Equipment } from "@/entities/Equipment";
 import { Action } from "@/entities/Action";
 import { AxiosResponse } from "axios";
 import urlJoin from "url-join";
+import store from "@/store";
 
 // @ts-ignore
-const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "action");
+const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player");
 
 const ActionService = {
     executeTargetAction(target: Item | Equipment | Player | null, action: Action): Promise<AxiosResponse> {
-        return ApiService.post(ACTION_ENDPOINT, {
+        const currentPlayer = store.getters["player/player"];
+        return ApiService.post(urlJoin(ACTION_ENDPOINT, String(currentPlayer.id),'action'), {
             action: action.id,
             params: buildParams()
         });

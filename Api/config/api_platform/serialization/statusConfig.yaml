@@ -1,0 +1,12 @@
+Mush\Status\Entity\Config\StatusConfig:
+  attributes:                          # optional
+    id:
+      groups: [ 'status_config_read' ]
+    gameConfig:
+      groups: [ 'status_config_read', 'status_config_write' ]
+    name:
+      groups: [ 'status_config_read', 'status_config_write' ]
+    visibility:
+      groups: [ 'status_config_read', 'status_config_write' ]
+    modifierConfigs:
+      groups: [ 'status_config_read', 'status_config_write' ]

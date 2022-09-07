@@ -3,7 +3,10 @@ import urlJoin from "url-join";
 import { GameConfig } from "@/entities/Config/GameConfig";
 import { ModifierCondition } from "@/entities/Config/ModifierCondition";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
+import { StatusConfig } from "@/entities/Config/StatusConfig";
 import store from "@/store";
+import { ActionCost } from "@/entities/Config/ActionCost";
+import { ActionConfig } from "@/entities/Config/ActionConfig";
 
 // @ts-ignore
 const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");
@@ -11,6 +14,12 @@ const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs"
 const MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_configs");
 // @ts-ignore
 const MODIFIER_CONDITION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_conditions");
+// @ts-ignore
+const CONFIG_STATUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "status_configs");
+// @ts-ignore
+const CONFIG_ACTION_COST_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "action_costs");
+// @ts-ignore
+const CONFIG_ACTION_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "actions");
 
 const GameConfigService = {
     loadGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {
@@ -57,8 +66,6 @@ const GameConfigService = {
     },
 
     updateModifierConfig: async(modifierConfig: ModifierConfig): Promise<ModifierConfig | null> => {
-        console.log('err');
-
         store.dispatch('gameConfig/setLoading', { loading: true });
         const modifierConfigData = await ApiService.put(MODIFIER_CONFIG_ENDPOINT + '/' + modifierConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', modifierConfig.jsonEncode())
             .catch((e) => {
@@ -89,8 +96,6 @@ const GameConfigService = {
     },
 
     updateModifierCondition: async(modifierCondition: ModifierCondition): Promise<ModifierCondition | null> => {
-        console.log('err');
-
         store.dispatch('gameConfig/setLoading', { loading: true });
         const modifierConditionData = await ApiService.put(MODIFIER_CONDITION_ENDPOINT + '/' + modifierCondition.id + '?XDEBUG_SESSION_START=PHPSTORM', modifierCondition)
             .catch((e) => {
@@ -105,6 +110,96 @@ const GameConfigService = {
         }
 
         return modifierCondition;
+    },
+
+    loadStatusConfig: async(statusConfigId: number): Promise<StatusConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const statusConfigData = await ApiService.get(CONFIG_STATUS_ENDPOINT + '/' + statusConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        let statusConfig = null;
+        if (statusConfigData.data) {
+            statusConfig = (new StatusConfig()).load(statusConfigData.data);
+        }
+
+        return statusConfig;
+    },
+
+    updateStatusConfig: async(statusConfig: StatusConfig): Promise<StatusConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const statusConfigData = await ApiService.put(CONFIG_STATUS_ENDPOINT + '/' + statusConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', statusConfig.jsonEncode())
+            .catch((e) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw e;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        if (statusConfigData.data) {
+            statusConfig = (new StatusConfig()).load(statusConfigData.data);
+        }
+
+        return statusConfig;
+    },
+
+    loadActionConfig: async(actionConfigId: number): Promise<ActionConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const actionConfigData = await ApiService.get(CONFIG_ACTION_CONFIG_ENDPOINT + '/' + actionConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        let actionConfig = null;
+        if (actionConfigData.data) {
+            actionConfig = (new ActionConfig()).load(actionConfigData.data);
+        }
+
+        return actionConfig;
+    },
+
+    updateActionConfig: async(actionConfig: ActionConfig): Promise<ActionConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const actionConfigData = await ApiService.put(CONFIG_ACTION_CONFIG_ENDPOINT + '/' + actionConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', actionConfig.jsonEncode())
+            .catch((e) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw e;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        if (actionConfigData.data) {
+            actionConfig = (new ActionConfig()).load(actionConfigData.data);
+        }
+
+        return actionConfig;
+    },
+
+    loadActionCost: async(actionCostId: number): Promise<ActionCost | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const actionCostData = await ApiService.get(CONFIG_ACTION_COST_ENDPOINT + '/' + actionCostId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        let actionCost = null;
+        if (actionCostData.data) {
+            actionCost = (new ActionCost()).load(actionCostData.data);
+        }
+
+        return actionCost;
+    },
+
+    updateActionCost: async(actionCost: ActionCost): Promise<ActionCost | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const actionCostData = await ApiService.put(CONFIG_ACTION_COST_ENDPOINT + '/' + actionCost.id + '?XDEBUG_SESSION_START=PHPSTORM', actionCost.jsonEncode())
+            .catch((e) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw e;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        if (actionCostData.data) {
+            actionCost = (new ActionCost()).load(actionCostData.data);
+        }
+
+        return actionCost;
     }
 };
 export default GameConfigService;

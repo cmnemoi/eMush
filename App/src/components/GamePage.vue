@@ -27,11 +27,5 @@ export default defineComponent ({
             'getUserInfo'
         ])
     },
-    beforeMount() {
-        if (this.getUserInfo) {
-            console.log(this.getUserInfo);
-            console.log(this.getUserInfo.currentGame);
-        }
-    }
 });
 </script>

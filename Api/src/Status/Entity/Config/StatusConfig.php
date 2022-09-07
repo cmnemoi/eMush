@@ -86,8 +86,12 @@ class StatusConfig
         return $this->modifierConfigs;
     }
 
-    public function setModifierConfigs(Collection $modifierConfigs): static
+    public function setModifierConfigs(array|Collection $modifierConfigs): static
     {
+        if (is_array($modifierConfigs)) {
+            $modifierConfigs = new ArrayCollection($modifierConfigs);
+        }
+
         $this->modifierConfigs = $modifierConfigs;
 
         return $this;

@@ -221,6 +221,11 @@ class StatusService implements StatusServiceInterface
         return new ArrayCollection($this->statusRepository->findByCriteria($criteria));
     }
 
+    public function getByTargetAndName(StatusHolderInterface $target, string $name): ?Status
+    {
+        return $this->statusRepository->findByTargetAndName($target, $name);
+    }
+
     public function updateCharge(ChargeStatus $chargeStatus, int $delta): ?ChargeStatus
     {
         $newCharge = $chargeStatus->getCharge() + $delta;

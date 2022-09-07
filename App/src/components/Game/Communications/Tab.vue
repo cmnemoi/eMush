@@ -1,5 +1,5 @@
 <template>
-    <div class="tab" :class="selected ? 'checked' : ''" @click="$emit('select')">
+    <div class="tab" :class="[selected ? 'checked' : '', isPirated ? 'pirated' : '']" @click="$emit('select')">
         <img :src="icon">
         <span v-if="numberOfNewMessages" class="new-messages-number">{{ numberOfNewMessagesDisplayed }}</span>
     </div>
@@ -14,6 +14,7 @@ export default defineComponent ({
     props: {
         type: String,
         selected: Boolean,
+        isPirated: Boolean,
         numberOfNewMessages: {
             type: Number,
             required: false,
@@ -75,6 +76,7 @@ export default defineComponent ({
 
         @include corner-bezel(4.5px, 4.5px, 0);
     }
+    
 
     &.checked,
     &.active,
@@ -83,6 +85,9 @@ export default defineComponent ({
         &::after {
             background: rgba(194, 243, 252, 1);
         }
+    }
+    &.pirated::after{ // Background of the tab icons
+        background: red;
     }
 
     .new-messages-number {

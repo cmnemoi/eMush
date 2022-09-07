@@ -57,6 +57,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
     public const STUCK_IN_THE_SHIP_STATUS = 'stuck_in_the_ship_status';
     public const SUICIDAL_STATUS = 'suicidal_status';
     public const WATCHED_PUBLIC_BROADCAST_STATUS = 'watched_public_broadcast_status';
+    public const TALKIE_SCREWED_STATUS = 'talkie_screwed_status';
 
     public function load(ObjectManager $manager): void
     {
@@ -416,6 +417,14 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($watched_public_broadcast);
+
+        $screwedTalkie = new StatusConfig();
+        $screwedTalkie
+            ->setName(PlayerStatusEnum::TALKIE_SCREWED)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($screwedTalkie);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
         $this->addReference(self::HEAVY_STATUS, $heavy);

@@ -75,6 +75,7 @@ class ActionLogEnum
     public const FAIL_SURGERY = 'fail_surgery';
     public const FAIL_SELF_SURGERY = 'fail_self_surgery';
     public const UPDATE_TALKIE_SUCCESS = 'update_talkie_success';
+    public const SCREW_TALKIE_SUCCESS = 'screw_talkie_success';
 
     public const DEFAULT_FAIL = 'default_fail';
 
@@ -460,6 +461,12 @@ class ActionLogEnum
             ActionOutputEnum::FAIL => [
                 self::VALUE => self::FAIL_SELF_SURGERY,
                 self::VISIBILITY => VisibilityEnum::PUBLIC,
+            ],
+        ],
+        ActionEnum::SCREW_TALKIE => [
+            ActionOutputEnum::SUCCESS => [
+                self::VALUE => self::SCREW_TALKIE_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::COVERT,
             ],
         ],
         ActionEnum::UPDATE_TALKIE => [

@@ -60,7 +60,6 @@ class Build extends AbstractAction
         // @TODO use validator
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
-
         /** @var Blueprint $blueprintMechanic */
         $blueprintMechanic = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
 

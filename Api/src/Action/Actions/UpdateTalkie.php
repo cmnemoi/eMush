@@ -36,7 +36,7 @@ class UpdateTalkie extends AbstractAction
         $metadata->addConstraint(new PreMush(['groups' => ['visibility']]));
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::INVENTORY,
-            'equipment' => ItemEnum::TRACKER,
+            'equipments' => [ItemEnum::TRACKER],
             'contains' => true,
             'checkIfOperational' => true,
             'groups' => ['execute'],

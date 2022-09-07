@@ -60,15 +60,11 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var Action $extractSporeAction */
         $extractSporeAction = $this->getReference(MushActionFixtures::EXTRACT_SPORE);
-        /** @var Action $spreadFireAction */
-        $spreadFireAction = $this->getReference(MushActionFixtures::INFECT_PLAYER);
         /** @var Action $infectAction */
         $infectAction = $this->getReference(MushActionFixtures::SPREAD_FIRE);
-        /** @var Action $makeSickAction */
-        $makeSickAction = $this->getReference(MushActionFixtures::MAKE_SICK);
 
         // Skills actions
-        // @TODO: find another way to handle this ?
+        // @TODO: after skill implementation, action will be given by skills
         /** @var Action $comfortAction */
         $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
         /** @var Action $motivationalSpeechAction */
@@ -77,6 +73,13 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $boringSpeechAction = $this->getReference(ActionsFixtures::BORING_SPEECH);
         /** @var Action $extinguishManuallyAction */
         $extinguishManuallyAction = $this->getReference(ActionsFixtures::EXTINGUISH_MANUALLY);
+
+        /** @var Action $makeSickAction */
+        $makeSickAction = $this->getReference(MushActionFixtures::MAKE_SICK);
+        /** @var Action $spreadFireAction */
+        $spreadFireAction = $this->getReference(MushActionFixtures::INFECT_PLAYER);
+        /** @var Action $screwTalkieAction */
+        $screwTalkieAction = $this->getReference(MushActionFixtures::SCREW_TALKIE);
 
         /** @var ItemConfig $talkieConfig */
         $talkieConfig = $this->getReference(PersonalEquipmentConfigFixtures::WALKIE_TALKIE);
@@ -105,6 +108,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $doTheThingAction,
             $makeSickAction,
             $fakeDiseaseAction,
+            $screwTalkieAction,
             $ungag,
         ]);
 

@@ -35,6 +35,14 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
 
+        if (key_exists('piratedPlayer', $context)) {
+            /** @var Player $piratedPlayer */
+            $piratedPlayer = $context['piratedPlayer'];
+            $piratedPlayerId = $piratedPlayer->getId();
+        } else {
+            $piratedPlayerId = null;
+        }
+
         $participants = [];
         /** @var ChannelPlayer $participant */
         foreach ($object->getParticipants() as $participant) {
@@ -56,6 +64,7 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
             'participants' => $participants,
             'createdAt' => $object->getCreatedAt()->format(\DateTime::ATOM),
             'newMessageAllowed' => $this->messageService->canPlayerPostMessage($currentPlayer, $object),
+            'piratedPlayer' => $piratedPlayerId,
         ];
     }
 }

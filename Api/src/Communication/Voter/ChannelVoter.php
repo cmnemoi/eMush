@@ -3,6 +3,7 @@
 namespace Mush\Communication\Voter;
 
 use Mush\Communication\Entity\Channel;
+use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -11,6 +12,13 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 class ChannelVoter extends Voter
 {
     public const VIEW = 'view';
+
+    private ChannelServiceInterface $channelService;
+
+    public function __construct(ChannelServiceInterface $channelService)
+    {
+        $this->channelService = $channelService;
+    }
 
     protected function supports(string $attribute, $subject): bool
     {
@@ -49,6 +57,10 @@ class ChannelVoter extends Voter
 
     private function canView(Channel $channel, Player $player): bool
     {
-        return $channel->isPublic() || $channel->isPlayerParticipant($player);
+        // check for pirated channels
+        $piratedPlayer = $this->channelService->getPiratedPlayer($player);
+
+        return $channel->isPublic() || $channel->isPlayerParticipant($player) ||
+            ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer));
     }
 }

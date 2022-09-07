@@ -5,6 +5,7 @@
                 v-for="(channel, id) in channels"
                 :key="id"
                 :type="channel.scope"
+                :is-pirated="isChannelPirated(channel)"
                 :selected="currentChannel === channel"
                 @select="changeChannel({ channel })"
             />
@@ -91,7 +92,11 @@ export default defineComponent ({
             'loadChannels',
             'changeChannel',
             'createPrivateChannel'
-        ])
+        ]),
+        isChannelPirated(channel: Channel): boolean
+        {
+            return channel.piratedPlayer != null;
+        }
     }
 });
 </script>
@@ -140,7 +145,6 @@ export default defineComponent ({
         float: right;
     }
 }
-
 </style>
 
 <style lang="scss" scoped>

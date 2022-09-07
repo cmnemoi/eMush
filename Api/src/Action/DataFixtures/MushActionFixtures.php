@@ -18,6 +18,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
     public const INFECT_PLAYER = 'infect.player';
     public const MAKE_SICK = 'make.sick';
     public const FAKE_DISEASE = 'fake.disease';
+    public const SCREW_TALKIE = 'screw.talkie';
 
     public function load(ObjectManager $manager): void
     {
@@ -25,6 +26,8 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
         $oneActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_ONE_ACTION);
         /** @var ActionCost $twoActionPointCost */
         $twoActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_TWO_ACTION);
+        /** @var ActionCost $threeActionPointCost */
+        $threeActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_THREE_ACTION);
         /** @var ActionCost $fourActionPointCost */
         $fourActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_FOUR_ACTION);
 
@@ -77,6 +80,16 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($fakeDiseaseAction);
 
+        $screwTalkieAction = new Action();
+        $screwTalkieAction
+            ->setName(ActionEnum::SCREW_TALKIE)
+            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
+            ->setActionCost($threeActionPointCost)
+        ;
+
+        $manager->persist($screwTalkieAction);
+
         $manager->flush();
 
         $this->addReference(self::EXTRACT_SPORE, $extractSporeAction);
@@ -84,6 +97,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::SPREAD_FIRE, $spreadFireAction);
         $this->addReference(self::MAKE_SICK, $makeSickAction);
         $this->addReference(self::FAKE_DISEASE, $fakeDiseaseAction);
+        $this->addReference(self::SCREW_TALKIE, $screwTalkieAction);
     }
 
     public function getDependencies(): array

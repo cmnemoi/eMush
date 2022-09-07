@@ -603,6 +603,20 @@
             </segment>
         </unit>
 
+        <unit id="screwed_talkie_already_pirated">
+            <segment id="description">
+                <source>gagged_prevent_spoken_action.description</source>
+                <target>Impossible de pirater plus d'un talkie à la fois.</target>
+            </segment>
+        </unit>
+
+        <unit id="screwed_talkie_no_talkie">
+            <segment id="description">
+                <source>gagged_prevent_spoken_action.description</source>
+                <target>C'est dommage, votre coéquipier n'a pas son talkie sur lui.</target>
+            </segment>
+        </unit>
+
         <unit id="update_talkie_require_neron">
             <segment id="description">
                 <source>update_talkie_require_neron.description</source>

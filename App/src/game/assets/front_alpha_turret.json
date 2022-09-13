@@ -3,13 +3,7 @@
  "infinite":false,
  "layers":[
         {
-         "data":[0, 0, 5, 2, 2, 2, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            6, 0, 0, 0, 0, 0, 0,
-            3, 0, 0, 0, 0, 0, 0,
-            3, 0, 0, 0, 0, 0, 0,
-            3, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 5, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":1,
          "name":"wall",
@@ -38,13 +32,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0,
-            0, 0, 15, 15, 15, 15, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 15, 15, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":9,
          "name":"ground",
@@ -67,13 +55,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 15, 0, 0, 0, 0, 0,
-            0, 15, 0, 0, 0, 0, 0,
-            0, 15, 0, 0, 0, 0, 0,
-            0, 15, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":10,
          "name":"ground",
@@ -96,13 +78,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 15, 15, 15, 15, 0,
-            0, 0, 15, 17, 16, 16, 0,
-            0, 0, 15, 16, 16, 16, 0,
-            0, 0, 15, 16, 16, 15, 0,
-            0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 15, 15, 15, 0, 0, 0, 15, 17, 16, 16, 0, 0, 0, 15, 16, 16, 16, 0, 0, 0, 15, 16, 16, 15, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":2,
          "name":"ground",
@@ -130,6 +106,29 @@
          "name":"objects",
          "objects":[
                 {
+                 "gid":300,
+                 "height":11,
+                 "id":31,
+                 "name":"ground",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":7
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":32,
+                 "x":25.5,
+                 "y":25.5
+                }, 
+                {
                  "gid":260,
                  "height":40,
                  "id":5,
@@ -154,46 +153,8 @@
                  "type":"shelf",
                  "visible":true,
                  "width":33,
-                 "x":8.25,
-                 "y":69.75
-                }, 
-                {
-                 "gid":262,
-                 "height":17,
-                 "id":9,
-                 "name":"camera_equipment",
-                 "properties":[
-                        {
-                         "name":"animationYoyo",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":6
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":25,
-                 "x":31.25,
-                 "y":-20.25
+                 "x":6.25,
+                 "y":53.75
                 }, 
                 {
                  "gid":55,
@@ -210,8 +171,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":108,
-                 "y":62
+                 "x":109,
+                 "y":61
                 }, 
                 {
                  "gid":276,
@@ -233,46 +194,59 @@
                  "type":"decoration",
                  "visible":true,
                  "width":14,
-                 "x":48,
-                 "y":-23
+                 "x":48.5,
+                 "y":-23.5
                 }, 
                 {
-                 "gid":280,
-                 "height":61,
-                 "id":26,
+                 "gid":45,
+                 "height":36,
+                 "id":29,
+                 "name":"bridge_front_alpha_turret",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":20
+                        }],
+                 "rotation":0,
+                 "type":"door_ground",
+                 "visible":true,
+                 "width":64,
+                 "x":62,
+                 "y":108
+                }, 
+                {
+                 "gid":299,
+                 "height":46,
+                 "id":30,
                  "name":"turret_command",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":3
+                         "value":1
                         }, 
                         {
                          "name":"grouped",
                          "type":"bool",
                          "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":48
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":48
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
-                 "width":123,
-                 "x":-17.2475023674242,
-                 "y":-3.74752604166667
+                 "width":71,
+                 "x":-11.7446614583333,
+                 "y":-12.2475260416667
                 }, 
                 {
                  "gid":285,
@@ -314,8 +288,7 @@
                          "name":"sitAutoTrigger",
                          "type":"bool",
                          "value":true
-                        },
-                    
+                        }, 
                         {
                          "name":"sitDepth",
                          "type":"int",
@@ -340,67 +313,58 @@
                  "type":"interact",
                  "visible":true,
                  "width":34,
-                 "x":-13.9946614583333,
-                 "y":-13.9975260416667
+                 "x":-6,
+                 "y":-8
                 }, 
                 {
-                 "gid":45,
-                 "height":36,
-                 "id":29,
-                 "name":"bridge_front_alpha_turret",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":20
-                        }],
-                 "rotation":0,
-                 "type":"door_ground",
-                 "visible":true,
-                 "width":64,
-                 "x":61,
-                 "y":109
-                },
-            
-                {
-                 "gid":299,
-                 "height":46,
-                 "id":30,
+                 "gid":280,
+                 "height":61,
+                 "id":26,
                  "name":"turret_command",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }, 
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":1
+                         "value":3
                         }, 
                         {
                          "name":"grouped",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":48
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":48
                         }],
                  "rotation":0,
                  "type":"interact",
                  "visible":true,
-                 "width":71,
-                 "x":-11.7446614583333,
-                 "y":-12.2475260416667
+                 "width":123,
+                 "x":-17.2475023674242,
+                 "y":-3.74752604166667
                 }, 
                 {
-                 "gid":300,
-                 "height":11,
-                 "id":31,
-                 "name":"ground",
+                 "gid":262,
+                 "height":17,
+                 "id":9,
+                 "name":"camera_equipment",
                  "properties":[
+                        {
+                         "name":"animationYoyo",
+                         "type":"bool",
+                         "value":true
+                        }, 
                         {
                          "name":"collides",
                          "type":"bool",
@@ -409,14 +373,24 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":7
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
                         }],
                  "rotation":0,
-                 "type":"decoration",
+                 "type":"interact",
                  "visible":true,
-                 "width":32,
-                 "x":25.5,
-                 "y":25.5
+                 "width":25,
+                 "x":33.25,
+                 "y":-24.25
                 }],
          "opacity":1,
          "properties":[
@@ -434,7 +408,7 @@
  "nextobjectid":32,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.5",
+ "tiledversion":"1.7.2",
  "tileheight":16,
  "tilesets":[
         {
@@ -642,8 +616,7 @@
                         {
                          "duration":100,
                          "tileid":6
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":7
@@ -671,8 +644,7 @@
                         {
                          "duration":100,
                          "tileid":13
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":14
@@ -700,8 +672,7 @@
                         {
                          "duration":100,
                          "tileid":20
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":21
@@ -745,8 +716,7 @@
                         {
                          "duration":100,
                          "tileid":30
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":31
@@ -774,8 +744,7 @@
                         {
                          "duration":100,
                          "tileid":37
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":38
@@ -803,8 +772,7 @@
                         {
                          "duration":100,
                          "tileid":44
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":45
@@ -848,8 +816,7 @@
                         {
                          "duration":100,
                          "tileid":54
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":55
@@ -877,8 +844,7 @@
                         {
                          "duration":100,
                          "tileid":61
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":62
@@ -906,8 +872,7 @@
                         {
                          "duration":100,
                          "tileid":68
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":69
@@ -951,8 +916,7 @@
                         {
                          "duration":100,
                          "tileid":78
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":79
@@ -980,8 +944,7 @@
                         {
                          "duration":100,
                          "tileid":85
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":86
@@ -1009,8 +972,7 @@
                         {
                          "duration":100,
                          "tileid":92
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":93
@@ -1054,8 +1016,7 @@
                         {
                          "duration":100,
                          "tileid":102
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":103
@@ -1083,8 +1044,7 @@
                         {
                          "duration":100,
                          "tileid":109
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":110
@@ -1112,8 +1072,7 @@
                         {
                          "duration":100,
                          "tileid":116
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":117
@@ -1157,8 +1116,7 @@
                         {
                          "duration":100,
                          "tileid":126
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":127
@@ -1186,8 +1144,7 @@
                         {
                          "duration":100,
                          "tileid":133
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":134
@@ -1215,8 +1172,7 @@
                         {
                          "duration":100,
                          "tileid":140
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":141
@@ -1260,8 +1216,7 @@
                         {
                          "duration":100,
                          "tileid":150
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":151
@@ -1289,8 +1244,7 @@
                         {
                          "duration":100,
                          "tileid":157
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":158
@@ -1318,8 +1272,7 @@
                         {
                          "duration":100,
                          "tileid":164
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":165
@@ -1333,8 +1286,7 @@
                          "tileid":167
                         }],
                  "id":144
-                },
-            
+                }, 
                 {
                  "animation":[
                         {
@@ -1364,8 +1316,7 @@
                         {
                          "duration":100,
                          "tileid":174
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":175
@@ -1393,8 +1344,7 @@
                         {
                          "duration":100,
                          "tileid":181
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":182
@@ -1422,8 +1372,7 @@
                         {
                          "duration":100,
                          "tileid":188
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":189
@@ -1510,8 +1459,7 @@
                         {
                          "duration":300,
                          "tileid":6
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":7
@@ -1539,8 +1487,7 @@
                         {
                          "duration":300,
                          "tileid":13
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":12
@@ -1568,8 +1515,7 @@
                         {
                          "duration":300,
                          "tileid":6
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":5
@@ -1597,8 +1543,7 @@
                  "id":0
                 }],
          "tilewidth":25
-        },
-    
+        }, 
         {
          "columns":4,
          "firstgid":276,
@@ -1724,6 +1669,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.8",
+ "version":"1.6",
  "width":7
 }

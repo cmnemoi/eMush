@@ -10,6 +10,8 @@ use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\MushActionFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
+use Mush\Disease\DataFixtures\DisorderConfigFixtures;
+use Mush\Disease\Enum\DisorderEnum;
 use Mush\Equipment\DataFixtures\PersonalEquipmentConfigFixtures;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -203,6 +205,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::TRACKER,
             ])
             ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
+            ->setInitDiseases([DisorderEnum::CHRONIC_VERTIGO])
         ;
         $manager->persist($eleesha);
 
@@ -455,6 +458,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             MushActionFixtures::class,
             StatusFixtures::class,
             PersonalEquipmentConfigFixtures::class,
+            DisorderConfigFixtures::class,
         ];
     }
 }

@@ -32,6 +32,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         return [
             PlayerEvent::CYCLE_DISEASE => 'onCycleDisease',
+            PlayerEvent::NEW_PLAYER => 'onNewPlayer',
         ];
     }
 
@@ -57,6 +58,27 @@ class PlayerSubscriber implements EventSubscriberInterface
                 $cause = DiseaseCauseEnum::CYCLE;
             }
             $this->playerDiseaseService->handleDiseaseForCause($cause, $player);
+        }
+    }
+
+    public function onNewPlayer(PlayerEvent $event): void
+    {
+        $player = $event->getPlayer();
+        $characterConfig = $player->getCharacterConfig();
+        $reason = $event->getReason();
+
+        $initDiseases = $characterConfig->getInitDiseases();
+        foreach ($initDiseases as $diseaseName) {
+            $this->playerDiseaseService->createDiseaseFromName(
+                $diseaseName,
+                $player,
+                $reason,
+            );
+        }
+
+        $playerDiseases = $player->getMedicalConditions();
+        foreach ($playerDiseases as $playerDisease) {
+            $this->playerDiseaseService->handleNewCycle($playerDisease, new \DateTime());
         }
     }
 }

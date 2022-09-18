@@ -162,7 +162,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $newDiseasePoint = $playerDisease->getDiseasePoint() - 1;
         $playerDisease->setDiseasePoint($newDiseasePoint);
 
-        if ($newDiseasePoint === 0) {
+        if ($newDiseasePoint <= 0) {
             if ($playerDisease->getStatus() === DiseaseStatusEnum::INCUBATING) {
                 $diseaseConfig = $playerDisease->getDiseaseConfig();
                 $diseaseDurationMin = $diseaseConfig->getDiseasePointMin();

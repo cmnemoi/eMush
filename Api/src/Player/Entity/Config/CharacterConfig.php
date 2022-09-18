@@ -38,11 +38,15 @@ class CharacterConfig implements ConfigInterface
     #[ORM\ManyToMany(targetEntity: ItemConfig::class)]
     private Collection $startingItems;
 
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $initDiseases;
+
     public function __construct()
     {
         $this->initStatuses = new ArrayCollection();
         $this->actions = new ArrayCollection();
         $this->startingItems = new ArrayCollection();
+        $this->initDiseases = [];
         $this->skills = [];
     }
 
@@ -126,6 +130,18 @@ class CharacterConfig implements ConfigInterface
     public function setStartingItem(Collection $items): static
     {
         $this->startingItems = $items;
+
+        return $this;
+    }
+
+    public function getInitDiseases(): array
+    {
+        return $this->initDiseases;
+    }
+
+    public function setInitDiseases(array $initDiseases): static
+    {
+        $this->initDiseases = $initDiseases;
 
         return $this;
     }

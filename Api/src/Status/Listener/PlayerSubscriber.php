@@ -3,6 +3,7 @@
 namespace Mush\Status\Listener;
 
 use Error;
+use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -14,13 +15,16 @@ class PlayerSubscriber implements EventSubscriberInterface
 {
     private EventDispatcherInterface $eventDispatcher;
     private StatusServiceInterface $statusService;
+    private PlayerDiseaseServiceInterface $playerDiseaseService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         StatusServiceInterface $statusService,
+        PlayerDiseaseServiceInterface $playerDiseaseService,
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->statusService = $statusService;
+        $this->playerDiseaseService = $playerDiseaseService;
     }
 
     public static function getSubscribedEvents()

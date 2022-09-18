@@ -53,7 +53,7 @@ class PlayerService implements PlayerServiceInterface
         PlayerRepository $repository,
         DeadPlayerInfoRepository $deadPlayerRepository,
         RoomLogServiceInterface $roomLogService,
-        GameEquipmentServiceInterface $gameEquipmentService
+        GameEquipmentServiceInterface $gameEquipmentService,
     ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;

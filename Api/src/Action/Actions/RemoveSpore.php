@@ -76,7 +76,8 @@ class RemoveSpore extends AbstractAction
 
         $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
-        if ($this->player->getStatusByName(PlayerStatusEnum::IMMUNIZED)) {
+        // handle weird edge cases for Chun
+        if ($this->player->getStatusByName(PlayerStatusEnum::IMMUNIZED) or !$this->player->isAlive()) {
             return new Fail();
         }
 

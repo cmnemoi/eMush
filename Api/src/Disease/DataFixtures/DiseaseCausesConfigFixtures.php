@@ -24,6 +24,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
     public const FAKE_DISEASE_DISEASE_CAUSE_CONFIG = 'fake.disease.disease.cause.config';
     public const FAILED_SURGERY_DISEASE_CAUSE_CONFIG = 'failed.surgery.disease.cause.config';
     public const CAT_ALLERGY_DISEASE_CAUSE_CONFIG = 'cat.allergy.disease.cause.config';
+    public const SEX_DISEASE_CAUSE_CONFIG = 'sex.disease.cause.config';
     public const TRAUMA_DISEASE_CAUSE_CONFIG = 'trauma.disease.cause.config';
 
     public function load(ObjectManager $manager): void
@@ -172,6 +173,18 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
         ;
         $manager->persist($diseaseCauseCatAllergy);
 
+        $diseaseCauseSex = new DiseaseCauseConfig();
+        $diseaseCauseSex
+            ->setGameConfig($gameConfig)
+            ->setName(DiseaseCauseEnum::SEX)
+            ->setDiseases([
+                DiseaseEnum::FLU => 1,
+                DiseaseEnum::GASTROENTERIS => 1,
+                DiseaseEnum::SKIN_INFLAMMATION => 1,
+            ])
+        ;
+        $manager->persist($diseaseCauseSex);
+
         $diseaseCauseTrauma = new DiseaseCauseConfig();
         $diseaseCauseTrauma
             ->setGameConfig($gameConfig)
@@ -193,7 +206,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                 ]
             );
         $manager->persist($diseaseCauseTrauma);
-
         $manager->flush();
 
         $this->addReference(self::ALIEN_FRUIT_DISEASE_CAUSE_CONFIG, $diseaseCauseAlienFruit);
@@ -204,6 +216,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
         $this->addReference(self::FAKE_DISEASE_DISEASE_CAUSE_CONFIG, $diseaseCausesFakeDisease);
         $this->addReference(self::FAILED_SURGERY_DISEASE_CAUSE_CONFIG, $diseaseCausesFakeDisease);
         $this->addReference(self::CAT_ALLERGY_DISEASE_CAUSE_CONFIG, $diseaseCauseCatAllergy);
+        $this->addReference(self::SEX_DISEASE_CAUSE_CONFIG, $diseaseCauseSex);
         $this->addReference(self::TRAUMA_DISEASE_CAUSE_CONFIG, $diseaseCauseTrauma);
     }
 

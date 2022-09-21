@@ -481,6 +481,19 @@
                 </target>
             </segment>
         </unit>
+        <unit id="trauma_disease">
+            <segment id="trauma_disease">
+                <source>trauma_disease</source>
+                <target>
+                    {character_gender, select,
+                     male {Ce que vous venez de voir vous a choqué.}
+                     female {Ce que vous venez de voir vous a choquée.}
+                     other {invalid gender input}
+                    }
+                    Vous ne serez plus jamais la même personne.
+                </target>
+            </segment>
+        </unit>
     </file>
 </xliff>
 

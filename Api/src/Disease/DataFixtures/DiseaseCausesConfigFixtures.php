@@ -24,6 +24,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
     public const FAKE_DISEASE_DISEASE_CAUSE_CONFIG = 'fake.disease.disease.cause.config';
     public const FAILED_SURGERY_DISEASE_CAUSE_CONFIG = 'failed.surgery.disease.cause.config';
     public const CAT_ALLERGY_DISEASE_CAUSE_CONFIG = 'cat.allergy.disease.cause.config';
+    public const INFECTION_DISEASE_CAUSE_CONFIG = 'infection.disease.cause.config';
     public const SEX_DISEASE_CAUSE_CONFIG = 'sex.disease.cause.config';
     public const TRAUMA_DISEASE_CAUSE_CONFIG = 'trauma.disease.cause.config';
 
@@ -173,6 +174,20 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
         ;
         $manager->persist($diseaseCauseCatAllergy);
 
+        $diseaseCauseInfection = new DiseaseCauseConfig();
+        $diseaseCauseInfection
+            ->setGameConfig($gameConfig)
+            ->setName(DiseaseCauseEnum::INFECTION)
+            ->setDiseases([
+                DiseaseEnum::FLU => 50,
+                DiseaseEnum::GASTROENTERIS => 20,
+                DiseaseEnum::FUNGIC_INFECTION => 15,
+                DiseaseEnum::MIGRAINE => 10,
+                DiseaseEnum::MUSH_ALLERGY => 5,
+                ])
+        ;
+        $manager->persist($diseaseCauseInfection);
+
         $diseaseCauseSex = new DiseaseCauseConfig();
         $diseaseCauseSex
             ->setGameConfig($gameConfig)
@@ -216,6 +231,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
         $this->addReference(self::FAKE_DISEASE_DISEASE_CAUSE_CONFIG, $diseaseCausesFakeDisease);
         $this->addReference(self::FAILED_SURGERY_DISEASE_CAUSE_CONFIG, $diseaseCausesFakeDisease);
         $this->addReference(self::CAT_ALLERGY_DISEASE_CAUSE_CONFIG, $diseaseCauseCatAllergy);
+        $this->addReference(self::INFECTION_DISEASE_CAUSE_CONFIG, $diseaseCauseInfection);
         $this->addReference(self::SEX_DISEASE_CAUSE_CONFIG, $diseaseCauseSex);
         $this->addReference(self::TRAUMA_DISEASE_CAUSE_CONFIG, $diseaseCauseTrauma);
     }

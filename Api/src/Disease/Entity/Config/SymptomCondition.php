@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Disease\Entity;
+namespace Mush\Disease\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,7 +10,9 @@ class SymptomCondition
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer', length: 255, nullable: false)] private int $id;
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    private int $id;
+
     #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
@@ -25,16 +27,14 @@ class SymptomCondition
         $this->name = $name;
     }
 
-    public function setValue(int $value): self
+    public function getId(): ?int
     {
-        $this->value = $value;
-
-        return $this;
+        return $this->id;
     }
 
-    public function setCondition(string $condition): self
+    public function setName(string $name): self
     {
-        $this->condition = $condition;
+        $this->name = $name;
 
         return $this;
     }
@@ -44,9 +44,23 @@ class SymptomCondition
         return $this->name;
     }
 
+    public function setCondition(string $condition): self
+    {
+        $this->condition = $condition;
+
+        return $this;
+    }
+
     public function getCondition(): ?string
     {
         return $this->condition;
+    }
+
+    public function setValue(int $value): self
+    {
+        $this->value = $value;
+
+        return $this;
     }
 
     public function getValue(): ?int

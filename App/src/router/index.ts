@@ -10,19 +10,8 @@ import DaedalusListPage from "@/components/Admin/Daedalus/DaedalusListPage.vue";
 import DaedalusDetailPage from "@/components/Admin/Daedalus/DaedalusDetailPage.vue";
 import AdminHomePage from "@/components/Admin/AdminHomePage.vue";
 import AdminPage from "@/components/Admin/AdminPage.vue";
-import GameConfigListPage from "@/components/Admin/GameConfig/GameConfigListPage.vue";
-import GameConfigDetailPage from "@/components/Admin/GameConfig/GameConfigDetailPage.vue";
-import ModifierConfigListPage from "@/components/Admin/ModifierConfig/ModifierConfigListPage.vue";
-import ModifierConfigDetailPage from "@/components/Admin/ModifierConfig/ModifierConfigDetailPage.vue";
-import ModifierConditionListPage from "@/components/Admin/ModifierCondition/ModifierConditionListPage.vue";
-import ModifierConditionDetailPage from "@/components/Admin/ModifierCondition/ModifierConditionDetailPage.vue";
 import AdminConfigPage from "@/components/Admin/AdminConfigPage.vue";
-import StatusConfigListPage from "@/components/Admin/StatusConfig/StatusConfigListPage.vue";
-import StatusConfigDetailPage from "@/components/Admin/StatusConfig/StatusConfigDetailPage.vue";
-import ActionCostListPage from "@/components/Admin/ActionCost/ActionCostListPage.vue";
-import ActionCostDetailPage from "@/components/Admin/ActionCost/ActionCostDetailPage.vue";
-import ActionConfigListPage from "@/components/Admin/ActionConfig/ActionConfigListPage.vue";
-import ActionConfigDetailPage from "@/components/Admin/ActionConfig/ActionConfigDetailPage.vue";
+import { adminConfigRoutes } from "@/router/adminConfigPages";
 
 const routes = [
     {
@@ -53,68 +42,7 @@ const routes = [
                 name: "AdminConfigHomepage",
                 component: AdminConfigPage,
                 redirect: { name: 'AdminGameConfigList' },
-                children: [
-                    {
-                        name: "AdminGameConfigList",
-                        path: 'game-config-list',
-                        component: GameConfigListPage
-                    },
-                    {
-                        name: "AdminGameConfigDetail",
-                        path: 'game-config/:gameConfigId',
-                        component: GameConfigDetailPage
-                    },
-                    {
-                        name: "AdminModifierConfigList",
-                        path: 'modifier-config-list',
-                        component: ModifierConfigListPage
-                    },
-                    {
-                        name: "AdminModifierConfigDetail",
-                        path: 'modifier-config/:modifierConfigId',
-                        component: ModifierConfigDetailPage
-                    },
-                    {
-                        name: "AdminModifierConditionList",
-                        path: 'modifier-condition-list',
-                        component: ModifierConditionListPage
-                    },
-                    {
-                        name: "AdminModifierConditionDetail",
-                        path: 'modifier-condition/:modifierConditionId',
-                        component: ModifierConditionDetailPage
-                    },
-                    {
-                        name: "AdminStatusConfigList",
-                        path: 'status-config-list',
-                        component: StatusConfigListPage
-                    },
-                    {
-                        name: "AdminStatusConfigDetail",
-                        path: 'status-config/:statusConfigId',
-                        component: StatusConfigDetailPage
-                    },
-                    {
-                        name: "AdminActionCostList",
-                        path: 'action-cost-list',
-                        component: ActionCostListPage
-                    },
-                    {
-                        name: "AdminActionCostDetail",
-                        path: 'action-cost/:actionCostId',
-                        component: ActionCostDetailPage
-                    },
-                    {
-                        name: "AdminActionConfigList",
-                        path: 'action-config-list',
-                        component: ActionConfigListPage
-                    },
-                    {
-                        name: "AdminActionConfigDetail",
-                        path: 'action-config/:actionConfigId',
-                        component: ActionConfigDetailPage
-                    },
-                ]
+                children: adminConfigRoutes
             },
             {
                 name: "AdminDaedalusList",

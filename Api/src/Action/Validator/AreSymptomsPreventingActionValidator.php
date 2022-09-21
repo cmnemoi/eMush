@@ -4,7 +4,7 @@ namespace Mush\Action\Validator;
 
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Disease\Entity\SymptomCondition;
+use Mush\Disease\Entity\Config\SymptomCondition;
 use Mush\Disease\Enum\SymptomConditionEnum;
 use Mush\Equipment\Entity\GameItem;
 use Symfony\Component\Validator\Constraint;

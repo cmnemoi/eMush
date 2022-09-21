@@ -1,0 +1,11 @@
+Mush\Disease\Entity\Config\SymptomCondition:
+  attributes:                          # optional
+    id:
+      groups: [ 'symptom_condition_read' ]
+    name:
+      groups: [ 'symptom_condition_read', 'symptom_condition_write' ]
+    condition:
+      groups: [ 'symptom_condition_read', 'symptom_condition_write' ]
+    value:
+      groups: [ 'symptom_condition_read', 'symptom_condition_write' ]
+

@@ -16,4 +16,5 @@ class DiseaseCauseEnum
     public const INCUBATING_END = 'incubating_end';
     public const ALIEN_STEACK = 'alien_steack';
     public const ALIEN_FRUIT = 'alien_fruit';
+    public const INFECTION = 'infection';
 }

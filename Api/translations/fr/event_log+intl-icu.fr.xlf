@@ -481,6 +481,14 @@
                 </target>
             </segment>
         </unit>
+        <unit id="disease_by_sex">
+            <segment id="disease_by_sex">
+                <source>disease_by_sex</source>
+                <target>
+                    Vous vous sentez bizarre... l'émotion... ou bien... Votre partenaire vous a transmis une maladie ({disease}).
+                </target>
+            </segment>
+        </unit>
         <unit id="trauma_disease">
             <segment id="trauma_disease">
                 <source>trauma_disease</source>

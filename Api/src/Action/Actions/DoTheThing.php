@@ -15,6 +15,11 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\IsSameGender;
 use Mush\Action\Validator\NumberPlayersInRoom;
 use Mush\Action\Validator\Reach;
+use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
+use Mush\Disease\Entity\Config\DiseaseCauseConfig;
+use Mush\Disease\Enum\DiseaseCauseEnum;
+use Mush\Disease\Repository\DiseaseCausesConfigRepository;
+use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\CharacterEnum;
@@ -27,8 +32,9 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
@@ -40,19 +46,26 @@ class DoTheThing extends AbstractAction
 {
     public const BASE_CONFORT = 2;
     public const PREGNANCY_RATE = 8;
+    public const STD_TRANSMISSION_RATE = 5;
 
     protected string $name = ActionEnum::DO_THE_THING;
 
+    private DiseaseCausesConfigRepository $diseaseCausesConfigRepository;
     private StatusServiceInterface $statusService;
+    private PlayerDiseaseServiceInterface $playerDiseaseService;
     private PlayerVariableServiceInterface $playerVariableService;
     private RandomServiceInterface $randomService;
+    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
+        DiseaseCausesConfigRepository $diseaseCausesConfigRepository,
+        PlayerDiseaseServiceInterface $playerDiseaseService,
         PlayerVariableServiceInterface $playerVariableService,
         RandomServiceInterface $randomService,
+        RoomLogServiceInterface $roomLogService,
         StatusServiceInterface $statusService
     ) {
         parent::__construct(
@@ -60,10 +73,12 @@ class DoTheThing extends AbstractAction
             $actionService,
             $validator
         );
-
+        $this->diseaseCausesConfigRepository = $diseaseCausesConfigRepository;
+        $this->playerDiseaseService = $playerDiseaseService;
         $this->playerVariableService = $playerVariableService;
-        $this->statusService = $statusService;
         $this->randomService = $randomService;
+        $this->roomLogService = $roomLogService;
+        $this->statusService = $statusService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -149,21 +164,23 @@ class DoTheThing extends AbstractAction
             $this->infect($parameter, $player);
         }
 
-        // @TODO if one is sick (GastroEntérite, Eruption cutanée ou Grippe ), give sickness
-
         // may become pregnant
         $becomePregnant = $this->randomService->isSuccessful(self::PREGNANCY_RATE);
         if ($becomePregnant) {
-            $femalePlayer = CharacterEnum::isMale($player->getCharacterConfig()->getName()) ? $parameter : $player;
-            $pregnantStatus = new StatusEvent(
-                PlayerStatusEnum::PREGNANT,
-                $femalePlayer,
-                $this->getActionName(),
-                new \DateTime()
-            );
-            $pregnantStatus->setVisibility(VisibilityEnum::PRIVATE);
+            $this->addPregnantStatus($player, $parameter);
+        }
 
-            $this->eventDispatcher->dispatch($pregnantStatus, StatusEvent::STATUS_APPLIED);
+        // may transmit an STD
+        $transmitStd = $this->randomService->isSuccessful(self::STD_TRANSMISSION_RATE);
+        if ($transmitStd) {
+            $playerStds = $this->getPlayerStds($player);
+            $parameterStds = $this->getPlayerStds($parameter);
+
+            if ($playerStds->count() > 0) {
+                $this->transmitStd($playerStds, $parameter);
+            } elseif ($parameterStds->count() > 0) {
+                $this->transmitStd($parameterStds, $player);
+            }
         }
 
         // add did_the_thing status until the end of the day
@@ -204,6 +221,37 @@ class DoTheThing extends AbstractAction
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
+    private function addPregnantStatus(Player $player, Player $parameter): void
+    {
+        /** @var StatusHolderInterface * */
+        $femalePlayer = CharacterEnum::isMale($player->getCharacterConfig()->getName()) ? $parameter : $player;
+        $pregnantStatus = new StatusEvent(
+            PlayerStatusEnum::PREGNANT,
+            $femalePlayer,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $pregnantStatus->setVisibility(VisibilityEnum::PRIVATE);
+
+        $this->eventDispatcher->dispatch($pregnantStatus, StatusEvent::STATUS_APPLIED);
+    }
+
+    private function getPlayerStds(Player $player): PlayerDiseaseCollection
+    {
+        /** @var DiseaseCauseConfig $sexDiseaseCauseConfig */
+        $sexDiseaseCauseConfig = $this->diseaseCausesConfigRepository->findBy([
+            'causeName' => DiseaseCauseEnum::SEX,
+        ])[0];
+
+        $stds = array_keys($sexDiseaseCauseConfig->getDiseases());
+
+        $playerStds = $player->getMedicalConditions()->getActiveDiseases()->filter(
+            function ($disease) use ($stds) { return in_array($disease->getDiseaseConfig()->getName(), $stds); }
+        );
+
+        return $playerStds;
+    }
+
     private function infect(Player $mush, Player $target)
     {
         /** @var ?ChargeStatus $sporeStatus */
@@ -220,5 +268,28 @@ class DoTheThing extends AbstractAction
             $sporeStatus->addCharge(-1);
             $this->statusService->persist($sporeStatus);
         }
+    }
+
+    private function transmitStd(PlayerDiseaseCollection $stds, Player $target): void
+    {
+        $draw = $this->randomService->getRandomElements($stds->toArray(), 1);
+        $std = reset($draw)->getDiseaseConfig();
+
+        $this->createDiseaseBySexLog($target, $std->getName());
+
+        $this->playerDiseaseService->createDiseaseFromName($std->getName(), $target, $this->getActionName());
+    }
+
+    private function createDiseaseBySexLog(PLayer $player, string $disease): void
+    {
+        $this->roomLogService->createLog(
+            'disease_by_sex',
+            $player->getPlace(),
+            VisibilityEnum::PRIVATE,
+            'event_log',
+            $player,
+            ['disease' => $disease],
+            new \DateTime()
+        );
     }
 }

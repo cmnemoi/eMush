@@ -139,14 +139,14 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             return $playerDisease->getDiseaseConfig()->getName();
         }, $playerDiseases);
 
-        $diseasesProbaArray = array_diff(array_keys($diseasesProbaArray), $playerDiseasesNames);
+        $diseasesNames = array_diff(array_keys($diseasesProbaArray), $playerDiseasesNames);
 
-        $diseaseNames = [];
-        foreach ($diseasesProbaArray as $diseaseName) {
-            $diseaseNames[$diseaseName] = 1;
+        $newDiseaseProbaArray = [];
+        foreach ($diseasesNames as $diseaseName) {
+            $newDiseaseProbaArray[$diseaseName] = $diseasesProbaArray[$diseaseName];
         }
 
-        $diseaseName = $this->randomService->getSingleRandomElementFromProbaArray($diseaseNames);
+        $diseaseName = $this->randomService->getSingleRandomElementFromProbaArray($newDiseaseProbaArray);
 
         $this->createDiseaseFromName($diseaseName, $player, $cause, $delayMin, $delayLength);
     }

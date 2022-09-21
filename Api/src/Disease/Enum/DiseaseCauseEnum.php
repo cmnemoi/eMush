@@ -9,7 +9,7 @@ class DiseaseCauseEnum
     public const CONTACT = 'contact';
     public const EXPLORATION = 'exploration';
     public const SEX = 'sex';
-    public const PSY_TRAUMA = 'psy_trauma';
+    public const TRAUMA = 'trauma';
     public const ALIEN_FIGHT = 'alien_fight';
     public const PERISHED_FOOD = 'perished_food';
     public const CONSUMABLE_EFFECT = 'consumable_effect';

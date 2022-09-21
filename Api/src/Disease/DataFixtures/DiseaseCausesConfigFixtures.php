@@ -24,6 +24,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
     public const FAKE_DISEASE_DISEASE_CAUSE_CONFIG = 'fake.disease.disease.cause.config';
     public const FAILED_SURGERY_DISEASE_CAUSE_CONFIG = 'failed.surgery.disease.cause.config';
     public const CAT_ALLERGY_DISEASE_CAUSE_CONFIG = 'cat.allergy.disease.cause.config';
+    public const TRAUMA_DISEASE_CAUSE_CONFIG = 'trauma.disease.cause.config';
 
     public function load(ObjectManager $manager): void
     {
@@ -171,6 +172,28 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
         ;
         $manager->persist($diseaseCauseCatAllergy);
 
+        $diseaseCauseTrauma = new DiseaseCauseConfig();
+        $diseaseCauseTrauma
+            ->setGameConfig($gameConfig)
+            ->setName(DiseaseCauseEnum::TRAUMA)
+            ->setDiseases(
+                [
+                    DiseaseEnum::MIGRAINE => 30,
+                    DiseaseEnum::GASTROENTERIS => 30,
+                    DisorderEnum::CHRONIC_MIGRAINE => 6,
+                    DisorderEnum::PSYCHOTIC_EPISODE => 6,
+                    DisorderEnum::WEAPON_PHOBIA => 6,
+                    DisorderEnum::PARANOIA => 6,
+                    DisorderEnum::CRABISM => 6,
+                    DisorderEnum::COPROLALIA => 6,
+                    DisorderEnum::DEPRESSION => 6,
+                    DisorderEnum::AGORAPHOBIA => 3,
+                    DisorderEnum::CHRONIC_VERTIGO => 3,
+                    DisorderEnum::SPLEEN => 1,
+                ]
+            );
+        $manager->persist($diseaseCauseTrauma);
+
         $manager->flush();
 
         $this->addReference(self::ALIEN_FRUIT_DISEASE_CAUSE_CONFIG, $diseaseCauseAlienFruit);
@@ -181,6 +204,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
         $this->addReference(self::FAKE_DISEASE_DISEASE_CAUSE_CONFIG, $diseaseCausesFakeDisease);
         $this->addReference(self::FAILED_SURGERY_DISEASE_CAUSE_CONFIG, $diseaseCausesFakeDisease);
         $this->addReference(self::CAT_ALLERGY_DISEASE_CAUSE_CONFIG, $diseaseCauseCatAllergy);
+        $this->addReference(self::TRAUMA_DISEASE_CAUSE_CONFIG, $diseaseCauseTrauma);
     }
 
     public function getDependencies()

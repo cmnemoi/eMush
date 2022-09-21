@@ -23,6 +23,11 @@ class DiseaseCauseConfig
     #[ORM\Column(type: 'array')]
     private array $diseases = [];
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     public function getGameConfig(): GameConfig
     {
         return $this->gameConfig;

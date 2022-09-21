@@ -1,0 +1,25 @@
+Mush\Disease\Entity\Config\DiseaseConfig:
+  shortName: 'DiseaseConfig'
+  description: 'eMush SymptomConfig'
+  attributes:
+    pagination_items_per_page: 25
+    normalization_context:
+      groups: [ 'disease_config_read' ]
+    denormalization_context:
+      groups: [ 'disease_config_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+  itemOperations:
+    get: ~
+    put:
+      security: 'is_granted("ROLE_ADMIN")'
+  properties:
+    modifierConfigs:
+      subresource:
+        resourceClass: 'Mush\Modifier\Entity\ModifierConfig'
+        collection: true
+    symptomConfigs:
+      subresource:
+        resourceClass: 'Mush\Disease\Entity\SymptomConfig'
+        collection: true

@@ -2,6 +2,7 @@
 
 namespace Mush\RoomLog\Enum;
 
+use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 
@@ -41,6 +42,7 @@ class LogEnum
     public const SELF_SURGERY_SUCCESS = 'self_surgery_success';
     public const SELF_SURGERY_CRITICAL_SUCCESS = 'self_surgery_critical_success';
     public const TRAUMA_DISEASE = 'trauma_disease';
+    public const DISEASE_BY_SEX = 'disease_by_sex';
 
     public const VISIBILITY = 'visibility';
     public const VALUE = 'value';
@@ -62,6 +64,10 @@ class LogEnum
             self::VISIBILITY => VisibilityEnum::PRIVATE,
             self::VALUE => self::CLUMSINESS_PREVENTED,
         ],
+    ];
+
+    public const DISEASE_CAUSE_LOG_ENUM = [
+        DiseaseCauseEnum::TRAUMA => self::TRAUMA_DISEASE,
     ];
 
     public static function getSurgeryLogs(): array

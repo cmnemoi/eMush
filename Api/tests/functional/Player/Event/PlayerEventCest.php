@@ -8,6 +8,8 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Disease\Entity\Config\DiseaseCauseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -97,8 +99,26 @@ class PlayerEventCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
+        $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'user' => $user]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'user' => $user, 'characterConfig' => $characterConfig]);
+
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setGameConfig($gameConfig)
+            ->setName('disease')
+        ;
+        $I->haveInRepository($diseaseConfig);
+
+        $diseaseCauseConfig = new DiseaseCauseConfig();
+        $diseaseCauseConfig
+            ->setGameConfig($gameConfig)
+            ->setName('infection')
+            ->setDiseases(['disease' => 1])
+            ->setDiseasesRate(0)
+        ;
+        $I->haveInRepository($diseaseCauseConfig);
 
         $mushStatusConfig = new ChargeStatusConfig();
         $mushStatusConfig

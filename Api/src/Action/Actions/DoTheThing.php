@@ -32,6 +32,7 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -171,10 +172,15 @@ class DoTheThing extends AbstractAction
         }
 
         // may transmit an STD
-        $transmitStd = $this->randomService->isSuccessful(self::STD_TRANSMISSION_RATE);
+        /** @var DiseaseCauseConfig $sexDiseaseCauseConfig */
+        $sexDiseaseCauseConfig = $this->diseaseCausesConfigRepository->findBy([
+            'causeName' => DiseaseCauseEnum::SEX,
+        ])[0];
+
+        $transmitStd = $this->randomService->isSuccessful($sexDiseaseCauseConfig->getDiseasesRate());
         if ($transmitStd) {
-            $playerStds = $this->getPlayerStds($player);
-            $parameterStds = $this->getPlayerStds($parameter);
+            $playerStds = $this->getPlayerStds($player, $sexDiseaseCauseConfig);
+            $parameterStds = $this->getPlayerStds($parameter, $sexDiseaseCauseConfig);
 
             if ($playerStds->count() > 0) {
                 $this->transmitStd($playerStds, $parameter);
@@ -236,13 +242,8 @@ class DoTheThing extends AbstractAction
         $this->eventDispatcher->dispatch($pregnantStatus, StatusEvent::STATUS_APPLIED);
     }
 
-    private function getPlayerStds(Player $player): PlayerDiseaseCollection
+    private function getPlayerStds(Player $player, DiseaseCauseConfig $sexDiseaseCauseConfig): PlayerDiseaseCollection
     {
-        /** @var DiseaseCauseConfig $sexDiseaseCauseConfig */
-        $sexDiseaseCauseConfig = $this->diseaseCausesConfigRepository->findBy([
-            'causeName' => DiseaseCauseEnum::SEX,
-        ])[0];
-
         $stds = array_keys($sexDiseaseCauseConfig->getDiseases());
 
         $playerStds = $player->getMedicalConditions()->getActiveDiseases()->filter(
@@ -283,7 +284,7 @@ class DoTheThing extends AbstractAction
     private function createDiseaseBySexLog(PLayer $player, string $disease): void
     {
         $this->roomLogService->createLog(
-            'disease_by_sex',
+            LogEnum::DISEASE_BY_SEX,
             $player->getPlace(),
             VisibilityEnum::PRIVATE,
             'event_log',

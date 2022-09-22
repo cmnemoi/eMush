@@ -1,0 +1,16 @@
+Mush\Disease\Entity\Config\ConsumableDiseaseConfig:
+  shortName: 'ConsumableDiseaseConfig'
+  description: 'eMush Consumable Disease Config'
+  attributes:
+    pagination_items_per_page: 25
+    normalization_context:
+      groups: [ 'consumable_disease_config_read' ]
+    denormalization_context:
+      groups: [ 'consumable_disease_config_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+  itemOperations:
+    get: ~
+    put:
+      security: 'is_granted("ROLE_ADMIN")'

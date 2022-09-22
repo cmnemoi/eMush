@@ -32,6 +32,11 @@ class DiseaseCauseConfig
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $diseasesDelayLength;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     public function getGameConfig(): GameConfig
     {
         return $this->gameConfig;

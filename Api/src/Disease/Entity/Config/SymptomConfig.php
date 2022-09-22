@@ -5,7 +5,6 @@ namespace Mush\Disease\Entity\Config;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Disease\Entity\SymptomCondition;
 use Mush\Game\Enum\VisibilityEnum;
 
 #[ORM\Entity]
@@ -33,6 +32,18 @@ class SymptomConfig
     {
         $this->name = $name;
         $this->symptomConditions = new ArrayCollection([]);
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     public function getName(): string

@@ -127,6 +127,21 @@ class DoTheThingCest
             'name' => EquipmentEnum::BED,
         ]);
 
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setName('disease')
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($diseaseConfig);
+
+        $diseaseCauseConfig = new DiseaseCauseConfig();
+        $diseaseCauseConfig
+            ->setGameConfig($gameConfig)
+            ->setName('sex')
+            ->setDiseases(['disease'])
+        ;
+        $I->haveInRepository($diseaseCauseConfig);
+
         $gameEquipment = new GameEquipment();
         $gameEquipment
             ->setName(EquipmentEnum::BED)

@@ -11,6 +11,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Entity\Config\DiseaseCauseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
+use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -23,6 +26,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -74,6 +78,22 @@ class DoTheThingCest
             ->setInjuryRate(0)
             ->setActionCost($actionCost);
         $I->haveInRepository($action);
+
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setGameConfig($gameConfig)
+            ->setName('disease')
+        ;
+        $I->haveInRepository($diseaseConfig);
+
+        $diseaseCauseConfig = new DiseaseCauseConfig();
+        $diseaseCauseConfig
+            ->setDiseases(['disease' => 1])
+            ->setName('sex')
+            ->setGameConfig($gameConfig)
+            ->setDiseasesRate(0)
+        ;
+        $I->haveInRepository($diseaseCauseConfig);
 
         /** @var CharacterConfig $characterConfig */
         $femaleCharacterConfig = $I->have(CharacterConfig::class, [
@@ -384,5 +404,144 @@ class DoTheThingCest
         $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
 
         $I->assertFalse($this->doTheThingAction->isVisible());
+    }
+
+    public function testSTDTransmission(FunctionalTester $I)
+    {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'gameStatus' => GameStatusEnum::CURRENT]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        $pregnantStatus = new StatusConfig();
+        $pregnantStatus
+            ->setName(PlayerStatusEnum::PREGNANT)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($pregnantStatus);
+
+        $actionCost = new ActionCost();
+        $actionCost
+            ->setActionPointCost(1)
+        ;
+        $I->haveInRepository($actionCost);
+
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setName(StatusEnum::ATTEMPT)
+            ->setGameConfig($gameConfig)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+        ;
+        $I->haveInRepository($attemptConfig);
+
+        $action = new Action();
+        $action
+            ->setName(ActionEnum::DO_THE_THING)
+            ->setDirtyRate(0)
+            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setInjuryRate(0)
+            ->setActionCost($actionCost);
+        $I->haveInRepository($action);
+
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setGameConfig($gameConfig)
+            ->setName('disease')
+        ;
+        $I->haveInRepository($diseaseConfig);
+
+        $diseaseCauseConfig = new DiseaseCauseConfig();
+        $diseaseCauseConfig
+            ->setDiseases(['disease' => 1])
+            ->setName('sex')
+            ->setGameConfig($gameConfig)
+            ->setDiseasesRate(100)
+        ;
+        $I->haveInRepository($diseaseCauseConfig);
+
+        /** @var CharacterConfig $characterConfig */
+        $femaleCharacterConfig = $I->have(CharacterConfig::class, [
+            'name' => CharacterEnum::CHUN,
+            'actions' => new ArrayCollection([$action]),
+        ]);
+
+        $maleCharacterConfig = $I->have(CharacterConfig::class, [
+            'name' => CharacterEnum::DEREK,
+            'actions' => new ArrayCollection([$action]),
+        ]);
+
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus,
+            'place' => $room,
+            'actionPoint' => 10,
+            'moralPoint' => 6,
+            'characterConfig' => $femaleCharacterConfig,
+        ]);
+
+        /** @var PlayerDisease $playerDisease */
+        $playerDisease = new PlayerDisease();
+        $playerDisease
+            ->setDiseaseConfig($diseaseConfig)
+            ->setPlayer($player)
+        ;
+        $I->haveInRepository($playerDisease);
+
+        $I->refreshEntities([$player]);
+
+        /** @var Player $targetPlayer */
+        $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
+            'place' => $room,
+            'actionPoint' => 10,
+            'moralPoint' => 6,
+            'characterConfig' => $maleCharacterConfig,
+        ]);
+
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->have(EquipmentConfig::class, [
+            'name' => EquipmentEnum::BED,
+        ]);
+
+        $gameEquipment = new GameEquipment();
+        $gameEquipment
+            ->setName(EquipmentEnum::BED)
+            ->setEquipment($equipmentConfig)
+            ->setHolder($room)
+        ;
+        $I->haveInRepository($gameEquipment);
+
+        $didTheThingStatus = new ChargeStatusConfig();
+        $didTheThingStatus
+            ->setName(PlayerStatusEnum::DID_THE_THING)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
+            ->setStartCharge(1)
+            ->setAutoRemove(true)
+            ->setGameConfig($gameConfig)
+        ;
+
+        $I->haveInRepository($didTheThingStatus);
+
+        $targetPlayer->setFlirts(new ArrayCollection([$player]));
+
+        $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
+
+        $this->doTheThingAction->execute();
+
+        $I->seeInRepository(PlayerDisease::class, [
+            'player' => $targetPlayer->getId(),
+            'diseaseConfig' => $diseaseConfig->getId(),
+            'status' => 'active',
+        ]);
+
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $room->getId(),
+            'player' => $targetPlayer->getId(),
+            'log' => LogEnum::DISEASE_BY_SEX,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
     }
 }

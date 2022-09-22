@@ -631,5 +631,11 @@
             </segment>
         </unit>
         
+        <unit id="immunized_remove_spore">
+            <segment id="description">
+                <source>immunized_remove_spore.description</source>
+                <target>Vous êtes immuisée contre le Mush, pourquoi vouloir vous faire du mal ?</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

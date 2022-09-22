@@ -86,6 +86,7 @@ class ActionImpossibleCauseEnum
     public const RENOVATE_LACK_RESSOURCES = 'renovate_lack_ressources';
     public const SURGERY_NOT_LYING_DOWN = 'surgery_not_lying_down';
     public const MUSH_REMOVE_SPORE = 'mush_remove_spore';
+    public const IMMUNIZED_REMOVE_SPORE = 'immunized_remove_spore';
     public const ALREADY_DID_BORING_SPEECH = 'already_did_boring_speech';
     public const HAVE_ALL_FAKE_DISEASES = 'have_all_fake_diseases';
     public const SYMPTOMS_ARE_PREVENTING_ACTION = 'symptoms_are_preventing_action';

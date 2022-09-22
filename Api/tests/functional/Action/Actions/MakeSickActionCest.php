@@ -103,6 +103,8 @@ class MakeSickActionCest
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
             ->setGameConfig($gameConfig)
+            ->setDiseasesDelayMin(1)
+            ->setDiseasesDelayLength(4)
         ;
         $I->haveInRepository($diseaseCause);
 

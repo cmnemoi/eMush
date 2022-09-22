@@ -2,6 +2,7 @@
 
 namespace Mush\Disease\Service;
 
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
@@ -11,9 +12,13 @@ use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
 use Mush\Disease\Repository\DiseaseCausesConfigRepository;
 use Mush\Disease\Repository\DiseaseConfigRepository;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class PlayerDiseaseService implements PlayerDiseaseServiceInterface
@@ -23,19 +28,25 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
     private DiseaseConfigRepository $diseaseConfigRepository;
     private RandomServiceInterface $randomService;
     private EventDispatcherInterface $eventDispatcher;
+    private ModifierServiceInterface $modifierService;
+    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         DiseaseCausesConfigRepository $diseaseCauseConfigRepository,
         DiseaseConfigRepository $diseaseConfigRepository,
         RandomServiceInterface $randomService,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        ModifierServiceInterface $modifierService,
+        RoomLogServiceInterface $roomLogService
     ) {
         $this->entityManager = $entityManager;
         $this->diseaseCauseConfigRepository = $diseaseCauseConfigRepository;
         $this->diseaseConfigRepository = $diseaseConfigRepository;
         $this->randomService = $randomService;
         $this->eventDispatcher = $eventDispatcher;
+        $this->modifierService = $modifierService;
+        $this->roomLogService = $roomLogService;
     }
 
     public function persist(PlayerDisease $playerDisease): PlayerDisease
@@ -49,7 +60,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
     public function removePlayerDisease(
         PlayerDisease $playerDisease,
         string $cause,
-        \DateTime $time,
+        DateTime $time,
         string $visibility,
         Player $author = null): bool
     {
@@ -126,13 +137,19 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         return $disease;
     }
 
-    public function handleDiseaseForCause(string $cause, Player $player, int $delayMin = null, int $delayLength = null): void
+    public function handleDiseaseForCause(string $cause, Player $player): void
     {
-        $diseasesProbaArray = $this->diseaseCauseConfigRepository->findCausesByDaedalus($cause, $player->getDaedalus())->getDiseases();
+        $diseaseCauseConfig = $this->diseaseCauseConfigRepository->findCausesByDaedalus($cause, $player->getDaedalus());
 
-        if (count($diseasesProbaArray) === 0) {
+        $diseaseRate = $diseaseCauseConfig->getDiseasesRate();
+
+        // @TODO : handle modifiers on diseaseRate
+
+        if (!$this->randomService->isSuccessful($diseaseRate)) {
             return;
         }
+
+        $diseasesProbaArray = $diseaseCauseConfig->getDiseases();
 
         $playerDiseases = $player->getMedicalConditions()->toArray();
         $playerDiseasesNames = array_map(function (PlayerDisease $playerDisease) {
@@ -146,12 +163,23 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             $newDiseaseProbaArray[$diseaseName] = $diseasesProbaArray[$diseaseName];
         }
 
+        if (count($newDiseaseProbaArray) === 0) {
+            return;
+        }
+
         $diseaseName = $this->randomService->getSingleRandomElementFromProbaArray($newDiseaseProbaArray);
 
-        $this->createDiseaseFromName($diseaseName, $player, $cause, $delayMin, $delayLength);
+        $this->createCauseDiseaseLog($cause, $player);
+
+        $this->createDiseaseFromName($diseaseName,
+            $player,
+            $cause,
+            $diseaseCauseConfig->getDiseasesDelayMin(),
+            $diseaseCauseConfig->getDiseasesDelayLength()
+        );
     }
 
-    public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void
+    public function handleNewCycle(PlayerDisease $playerDisease, DateTime $time): void
     {
         if ($playerDisease->getPlayer()->isMush() && $playerDisease->getDiseaseConfig()->getType() === TypeEnum::DISEASE) {
             $visibility = ($playerDisease->getStatus() === DiseaseStatusEnum::INCUBATING) ? VisibilityEnum::HIDDEN : VisibilityEnum::PRIVATE;
@@ -194,7 +222,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         }
     }
 
-    public function healDisease(Player $author, PlayerDisease $playerDisease, string $reason, \DateTime $time): void
+    public function healDisease(Player $author, PlayerDisease $playerDisease, string $reason, DateTime $time): void
     {
         if ($playerDisease->getResistancePoint() === 0) {
             $this->removePlayerDisease($playerDisease, $reason, $time, VisibilityEnum::PRIVATE, $author);
@@ -209,6 +237,26 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
             $playerDisease->setResistancePoint($playerDisease->getResistancePoint() - 1);
             $this->persist($playerDisease);
+        }
+    }
+
+    private function createCauseDiseaseLog(string $cause, Player $player): void
+    {
+        $logMap = LogEnum::DISEASE_CAUSE_LOG_ENUM;
+        $logParameters = [
+            'characterGender' => CharacterEnum::isMale($player->getName()) ? 'male' : 'female',
+        ];
+
+        if (isset($logMap[$cause])) {
+            $this->roomLogService->createLog(
+                $logMap[$cause],
+                $player->getPlace(),
+                VisibilityEnum::PRIVATE,
+                'event_log',
+                $player,
+                $logParameters,
+                new DateTime()
+            );
         }
     }
 }

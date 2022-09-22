@@ -157,7 +157,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                     DiseaseEnum::EXTREME_TINNITUS => 1,
                     DiseaseEnum::CAT_ALLERGY => 1,
                     DiseaseEnum::SINUS_STORM => 1,
-
                 ]
             )
         ;

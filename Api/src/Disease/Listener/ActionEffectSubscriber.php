@@ -14,9 +14,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ActionEffectSubscriber implements EventSubscriberInterface
 {
-    public const MAKE_SICK_DELAY_MIN = 1;
-    public const MAKE_SICK_DELAY_LENGTH = 4;
-
     private DiseaseCauseServiceInterface $diseaseCauseService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private RandomServiceInterface $randomService;
@@ -83,8 +80,6 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             $this->playerDiseaseService->handleDiseaseForCause(
                 $event->getReason(),
                 $player,
-                self::MAKE_SICK_DELAY_MIN,
-                self::MAKE_SICK_DELAY_LENGTH
             );
 
             return;

@@ -103,7 +103,9 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                     DiseaseEnum::COLD => 8,
                     DiseaseEnum::SLIGHT_NAUSEA => 8,
                 ]
-            );
+            )
+            ->setDiseasesRate(20)
+        ;
 
         $diseaseCauseCycleDepressed = new DiseaseCauseConfig();
         $diseaseCauseCycleDepressed
@@ -123,7 +125,9 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                     DiseaseEnum::SLIGHT_NAUSEA => 8,
                     DisorderEnum::DEPRESSION => 32,
                 ]
-            );
+            )
+            ->setDiseasesRate(20)
+        ;
         $manager->persist($diseaseCauseCycleDepressed);
         $manager->persist($diseaseCauseCycle);
 
@@ -138,7 +142,10 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                     DiseaseEnum::FLU => 1,
                     DiseaseEnum::EXTREME_TINNITUS => 1,
                 ]
-            );
+            )
+            ->setDiseasesDelayMin(1)
+            ->setDiseasesDelayLength(4)
+        ;
 
         $diseaseCausesFakeDisease = new DiseaseCauseConfig();
         $diseaseCausesFakeDisease
@@ -146,12 +153,12 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
             ->setName(ActionEnum::FAKE_DISEASE)
             ->setDiseases(
                 [
-                    DiseaseEnum::COLD => 1,
-                    DiseaseEnum::EXTREME_TINNITUS => 1,
-                    DiseaseEnum::CAT_ALLERGY => 1,
-                    DiseaseEnum::SINUS_STORM => 1,
+                    DiseaseEnum::FLU => 1,
+                    DiseaseEnum::GASTROENTERIS => 1,
+                    DiseaseEnum::SKIN_INFLAMMATION => 1,
                 ]
-            );
+            )
+        ;
 
         $manager->persist($diseaseCausesFakeDisease);
 
@@ -185,6 +192,9 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                 DiseaseEnum::MIGRAINE => 10,
                 DiseaseEnum::MUSH_ALLERGY => 5,
                 ])
+            ->setDiseasesRate(2)
+            ->setDiseasesDelayMin(2)
+            ->setDiseasesDelayLength(4)
         ;
         $manager->persist($diseaseCauseInfection);
 
@@ -197,6 +207,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                 DiseaseEnum::GASTROENTERIS => 1,
                 DiseaseEnum::SKIN_INFLAMMATION => 1,
             ])
+            ->setDiseasesRate(5)
         ;
         $manager->persist($diseaseCauseSex);
 
@@ -219,7 +230,9 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                     DisorderEnum::CHRONIC_VERTIGO => 3,
                     DisorderEnum::SPLEEN => 1,
                 ]
-            );
+            )
+            ->setDiseasesRate(33)
+        ;
         $manager->persist($diseaseCauseTrauma);
         $manager->flush();
 

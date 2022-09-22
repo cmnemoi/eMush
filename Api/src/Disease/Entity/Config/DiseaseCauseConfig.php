@@ -23,6 +23,15 @@ class DiseaseCauseConfig
     #[ORM\Column(type: 'array')]
     private array $diseases = [];
 
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $diseasesRate = 100;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $diseasesDelayMin;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $diseasesDelayLength;
+
     public function getGameConfig(): GameConfig
     {
         return $this->gameConfig;
@@ -55,6 +64,42 @@ class DiseaseCauseConfig
     public function setDiseases(array $diseases): self
     {
         $this->diseases = $diseases;
+
+        return $this;
+    }
+
+    public function getDiseasesRate(): int
+    {
+        return $this->diseasesRate;
+    }
+
+    public function setDiseasesRate(int $diseasesRate): self
+    {
+        $this->diseasesRate = $diseasesRate;
+
+        return $this;
+    }
+
+    public function getDiseasesDelayMin(): ?int
+    {
+        return $this->diseasesDelayMin;
+    }
+
+    public function setDiseasesDelayMin(?int $diseasesDelayMin): self
+    {
+        $this->diseasesDelayMin = $diseasesDelayMin;
+
+        return $this;
+    }
+
+    public function getDiseasesDelayLength(): ?int
+    {
+        return $this->diseasesDelayLength;
+    }
+
+    public function setDiseasesDelayLength(?int $diseasesDelayLength): self
+    {
+        $this->diseasesDelayLength = $diseasesDelayLength;
 
         return $this;
     }

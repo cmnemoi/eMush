@@ -70,9 +70,6 @@ class DifficultyConfig implements ConfigInterface
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $plantDiseaseRate = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $cycleDiseaseRate = 0;
-
     public function getId(): int
     {
         return $this->id;
@@ -290,18 +287,6 @@ class DifficultyConfig implements ConfigInterface
     public function setPlantDiseaseRate(int $plantDiseaseRate): static
     {
         $this->plantDiseaseRate = $plantDiseaseRate;
-
-        return $this;
-    }
-
-    public function getCycleDiseaseRate(): int
-    {
-        return $this->cycleDiseaseRate;
-    }
-
-    public function setCycleDiseaseRate(int $cycleDiseaseRate): static
-    {
-        $this->cycleDiseaseRate = $cycleDiseaseRate;
 
         return $this;
     }

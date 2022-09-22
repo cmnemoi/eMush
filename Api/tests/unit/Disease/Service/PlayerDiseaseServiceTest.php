@@ -15,7 +15,10 @@ use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Disease\Service\PlayerDiseaseService;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -38,6 +41,12 @@ class PlayerDiseaseServiceTest extends TestCase
     /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
 
+    /** @var ModifierServiceInterface|Mockery\Mock */
+    private ModifierServiceInterface $modifierService;
+
+    /** @var RoomLogServiceInterface|Mockery\Mock */
+    private RoomLogServiceInterface $roomLogService;
+
     /**
      * @before
      */
@@ -48,6 +57,8 @@ class PlayerDiseaseServiceTest extends TestCase
         $this->diseaseConfigRepository = Mockery::mock(DiseaseConfigRepository::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
+        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
 
         $this->playerDiseaseService = new PlayerDiseaseService(
             $this->entityManager,
@@ -55,6 +66,8 @@ class PlayerDiseaseServiceTest extends TestCase
             $this->diseaseConfigRepository,
             $this->randomService,
             $this->eventDispatcher,
+            $this->modifierService,
+            $this->roomLogService,
         );
     }
 
@@ -176,10 +189,17 @@ class PlayerDiseaseServiceTest extends TestCase
 
     public function testHandleDiseaseForCause()
     {
+        $time = new \DateTime();
+
         $daedalus = new Daedalus();
         $daedalus->setGameConfig(new GameConfig());
+
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setName('chun');
+
         $player = new Player();
         $player->setDaedalus($daedalus);
+        $player->setCharacterConfig($characterConfig);
 
         $diseaseName = 'name';
 
@@ -187,6 +207,9 @@ class PlayerDiseaseServiceTest extends TestCase
         $diseaseCauseConfig
             ->setDiseases([$diseaseName => 1])
             ->setName(DiseaseCauseEnum::PERISHED_FOOD)
+            ->setDiseasesRate(90)
+            ->setDiseasesDelayMin(0)
+            ->setDiseasesDelayLength(0)
         ;
 
         $diseaseConfig = new DiseaseConfig();
@@ -200,6 +223,13 @@ class PlayerDiseaseServiceTest extends TestCase
             ->shouldReceive('findCausesByDaedalus')
             ->with(DiseaseCauseEnum::PERISHED_FOOD, $daedalus)
             ->andReturn($diseaseCauseConfig)
+            ->once()
+        ;
+
+        $this->randomService
+            ->shouldReceive('isSuccessful')
+            ->with(90)
+            ->andReturn(true)
             ->once()
         ;
 
@@ -228,7 +258,7 @@ class PlayerDiseaseServiceTest extends TestCase
             'flush' => null,
         ])->once();
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
         $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::PERISHED_FOOD, $player);
     }

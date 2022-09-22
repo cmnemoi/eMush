@@ -546,6 +546,8 @@ class DoTheThingCest
 
         $this->doTheThingAction->execute();
 
+        $I->refreshEntities([$player, $targetPlayer]);
+
         $I->seeInRepository(PlayerDisease::class, [
             'player' => $targetPlayer->getId(),
             'diseaseConfig' => $diseaseConfig->getId(),

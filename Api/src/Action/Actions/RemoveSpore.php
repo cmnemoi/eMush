@@ -47,6 +47,7 @@ class RemoveSpore extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new HasStatus(['status' => PlayerStatusEnum::MUSH, 'target' => HasStatus::PLAYER, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::MUSH_REMOVE_SPORE]));
+        $metadata->addConstraint(new HasStatus(['status' => PlayerStatusEnum::IMMUNIZED, 'target' => HasStatus::PLAYER, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::IMMUNIZED_REMOVE_SPORE]));
         $metadata->addConstraint(new HasStatus([
             'status' => EquipmentStatusEnum::BROKEN,
             'contain' => false,
@@ -75,10 +76,6 @@ class RemoveSpore extends AbstractAction
         );
 
         $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
-
-        if ($this->player->getStatusByName(PlayerStatusEnum::IMMUNIZED)) {
-            return new Fail();
-        }
 
         if ($sporeStatus === null) {
             throw new Error('Player should have a spore status');

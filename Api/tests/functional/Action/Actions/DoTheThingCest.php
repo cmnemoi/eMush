@@ -11,6 +11,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Entity\Config\DiseaseCauseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -106,6 +108,21 @@ class DoTheThingCest
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'name' => EquipmentEnum::BED,
         ]);
+
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setName('disease')
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($diseaseConfig);
+
+        $diseaseCauseConfig = new DiseaseCauseConfig();
+        $diseaseCauseConfig
+            ->setGameConfig($gameConfig)
+            ->setName('sex')
+            ->setDiseases(['disease'])
+        ;
+        $I->haveInRepository($diseaseCauseConfig);
 
         $gameEquipment = new GameEquipment();
         $gameEquipment

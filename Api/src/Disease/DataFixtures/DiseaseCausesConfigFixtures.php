@@ -153,9 +153,11 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
             ->setName(ActionEnum::FAKE_DISEASE)
             ->setDiseases(
                 [
-                    DiseaseEnum::FLU => 1,
-                    DiseaseEnum::GASTROENTERIS => 1,
-                    DiseaseEnum::SKIN_INFLAMMATION => 1,
+                    DiseaseEnum::COLD => 1,
+                    DiseaseEnum::EXTREME_TINNITUS => 1,
+                    DiseaseEnum::CAT_ALLERGY => 1,
+                    DiseaseEnum::SINUS_STORM => 1,
+
                 ]
             )
         ;

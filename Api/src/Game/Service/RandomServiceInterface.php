@@ -35,4 +35,10 @@ interface RandomServiceInterface
     public function getSingleRandomElementFromProbaArray(array $array): string;
 
     public function getRandomElementsFromProbaArray(array $array, int $number): array;
+
+    /** Generate a random number from a Poisson process (Knuth algorithm).
+     *
+     * P(k) = exp(-lambda) * lambda^k / k!
+     */
+    public function poissonRandom(float $lambda): int;
 }

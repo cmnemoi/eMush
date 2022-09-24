@@ -245,12 +245,13 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         }
     }
 
-    // Each cycle get 0 to day event
-    // @TODO: to be improved
+    // Incident number follows approximatively a Poisson distribution P(lambda)
+    // where lambda = 3.3*10^(-3) * day^1.7 is the average number of incidents per cycle
+    // @TODO : handle accumulated incidents
     private function getNumberOfIncident(Daedalus $daedalus): int
     {
-        $rate = intval(sqrt($daedalus->getDay() - 0.9));
+        $averageIncidentsPerCycle = 3.3 * pow(10, -3) * $daedalus->getDay() ** 1.7;
 
-        return $this->randomService->random(0, $rate);
+        return $this->randomService->poissonRandom($averageIncidentsPerCycle);
     }
 }

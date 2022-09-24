@@ -155,4 +155,26 @@ class RandomService implements RandomServiceInterface
 
         return $randomElements;
     }
+
+    /** Generate a random number from a Poisson process (Knuth algorithm).
+     *
+     * P(k) = exp(-lambda) * lambda^k / k!
+     */
+    public function poissonRandom(float $lambda): int
+    {
+        if ($lambda < 0) {
+            throw new Error('poissonRandom: lambda must be positive');
+        }
+
+        $L = exp(-$lambda);
+        $k = 0;
+        $p = 1;
+
+        do {
+            ++$k;
+            $p *= $this->randomPercent() / 100;
+        } while ($p > $L);
+
+        return $k - 1;
+    }
 }

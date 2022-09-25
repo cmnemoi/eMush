@@ -130,10 +130,6 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
     {
         $diseasesProbaArray = $this->diseaseCauseConfigRepository->findCausesByDaedalus($cause, $player->getDaedalus())->getDiseases();
 
-        if (count($diseasesProbaArray) === 0) {
-            return;
-        }
-
         $playerDiseases = $player->getMedicalConditions()->toArray();
         $playerDiseasesNames = array_map(function (PlayerDisease $playerDisease) {
             return $playerDisease->getDiseaseConfig()->getName();
@@ -144,6 +140,10 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $newDiseaseProbaArray = [];
         foreach ($diseasesNames as $diseaseName) {
             $newDiseaseProbaArray[$diseaseName] = $diseasesProbaArray[$diseaseName];
+        }
+
+        if (count($newDiseaseProbaArray) === 0) {
+            return;
         }
 
         $diseaseName = $this->randomService->getSingleRandomElementFromProbaArray($newDiseaseProbaArray);

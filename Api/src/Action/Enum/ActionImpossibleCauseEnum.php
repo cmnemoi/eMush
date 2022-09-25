@@ -44,6 +44,7 @@ class ActionImpossibleCauseEnum
     public const INFECT_NO_SPORE = 'infect_no_spore';
     public const INFECT_MUSH = 'infect_mush';
     public const INFECT_DAILY_LIMIT = 'infect_daily_limit';
+    public const PHAGOCYTE_NO_SPORE = 'phagocyte_no_spore';
     public const TRANSFER_NO_SPORE = 'transfer_no_spore';
     public const MUTATED = 'mutated';
     public const WISPER_MUTE = 'wisper_mute';

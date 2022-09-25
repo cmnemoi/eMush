@@ -49,6 +49,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
         /** @var Action $searchAction */
         $searchAction = $this->getReference(ActionsFixtures::SEARCH_DEFAULT);
+        /** @var Action $phagocyteAction */
+        $phagocyteAction = $this->getReference(ActionsFixtures::PHAGOCYTE);
         /** @var Action $reportFireAction */
         $reportFireAction = $this->getReference(ActionsFixtures::REPORT_FIRE);
         /** @var Action $getUpAction */
@@ -94,6 +96,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $hitAction,
             $hideAction,
             $searchAction,
+            $phagocyteAction,
             $reportFireAction,
             $infectAction,
             $extractSporeAction,
@@ -190,12 +193,14 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($derek);
 
+        $mushStatus = $this->getReference(ChargeStatusFixtures::MUSH_STATUS);
+
         $eleesha = new CharacterConfig();
         $eleesha
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::ELEESHA)
             ->setActions($defaultActions)
-            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
+            ->setInitStatuses(new ArrayCollection([$sporeStatus, $mushStatus]))
             ->setSkills([
                 SkillEnum::DETERMINED,
                 SkillEnum::IT_EXPERT,

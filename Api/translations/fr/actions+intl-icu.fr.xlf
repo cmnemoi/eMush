@@ -71,6 +71,16 @@
                 <target>Dévorer une délicieuse denrée. En général, manger vous apportera des :pa::pm:. Les *rations cuisinées* n'entameront pas votre moral. Les autres nouritures peuvent réserver des surprises.</target>
             </segment>
         </unit>
+        <unit id="eat_spore">
+            <segment id="eat_spore">
+                <source>eat_spore.name</source>
+                <target>Phagocytose</target>
+            </segment>
+            <segment id="description">
+                <source>eat_spore.description</source>
+                <target>Consommer un spore pour vous apporter 4 :pa: et 4 :hp:.</target>
+            </segment>
+        </unit>
         <unit id="cook">
             <segment id="cook">
                 <source>cook.name</source>

@@ -19,6 +19,12 @@
                 <target>**{character}** enclenche le dispensaire avec une étrange lueur dans les yeux.</target>
             </segment>
         </unit>
+        <unit id="phagocyte_success">
+            <segment id="phagocyte_success">
+                <source>phagocyte_success</source>
+                <target>**{character}** a absorbé un spore pour se revigorer.</target>
+            </segment>
+        </unit>
         <unit id="consume_success">
             <segment id="consume_success">
                 <source>consume_success</source>

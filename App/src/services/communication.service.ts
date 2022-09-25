@@ -24,20 +24,17 @@ const CommunicationService = {
             (new Channel()).load({ scope: ChannelType.TIPS, id: ChannelType.TIPS }),
             (new Channel()).load({ scope: ChannelType.ROOM_LOG, id: ChannelType.ROOM_LOG })
         ];
-        console.log(channelsData);
         if (channelsData.data) {
             channelsData.data.forEach((data: any) => {
                 channels.push((new Channel()).load(data));
             });
         }
-        console.log(piratedChannelsData.data);
         if (piratedChannelsData.data) {
             Object.values(piratedChannelsData.data).forEach((data: any) => {
                 channels.push((new Channel()).load(data));
             });
         }
 
-        console.log(channels);
         return channels;
     },
 

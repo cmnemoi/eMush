@@ -430,6 +430,8 @@ export default class DaedalusScene extends Phaser.Scene
             store.dispatch('room/closeInventory');
 
             if (this.map === null) { throw new Error("player room should be defined");}
+
+            this.map = this.createRoom();
             this.createEquipments(this.map);
         } else{
             this.room = newRoom;

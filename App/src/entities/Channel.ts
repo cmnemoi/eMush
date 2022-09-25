@@ -13,8 +13,6 @@ export class Channel {
     }
 
     load(object : any) : Channel {
-        console.log('yoyoyo');
-        console.log(object);
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.scope = object.scope;

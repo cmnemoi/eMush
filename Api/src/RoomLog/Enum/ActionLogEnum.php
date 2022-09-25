@@ -32,6 +32,7 @@ class ActionLogEnum
     public const HYBRIDIZE_SUCCESS = 'hybridize_success';
     public const HYBRIDIZE_FAIL = 'transplant_fail';
     public const HYPERFREEZE_SUCCESS = 'hyperfreeze_success';
+    public const PHAGOCYTE_SUCCESS = 'phagocyte_success';
     public const INFECT_SUCCESS = 'infect_success';
     public const INSERT_FUEL = 'insert_fuel';
     public const INSERT_OXYGEN = 'insert_oxygen';
@@ -181,6 +182,12 @@ class ActionLogEnum
             ActionOutputEnum::SUCCESS => [
                 self::VALUE => self::CONSUME_DRUG,
                 self::VISIBILITY => VisibilityEnum::SECRET,
+            ],
+        ],
+        ActionEnum::PHAGOCYTE => [
+            ActionOutputEnum::SUCCESS => [
+                self::VALUE => self::PHAGOCYTE_SUCCESS,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],
         ActionEnum::WATER_PLANT => [

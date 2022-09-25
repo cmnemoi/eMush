@@ -295,6 +295,13 @@
             </segment>
         </unit>
 
+        <unit id="phagocyte_no_spore">
+            <segment id="description">
+                <source>phagocyte_no_spore.description</source>
+                <target>Vous n'avez pas de spore à absorber.</target>
+            </segment>
+        </unit>
+
         <unit id="mutated">
             <segment id="description">
                 <source>mutated.description</source>

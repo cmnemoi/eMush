@@ -26,6 +26,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const DO_THE_THING = 'do.the.thing';
     public const DRUG_CONSUME = 'drug.consume';
     public const RATION_CONSUME = 'ration.consume';
+    public const PHAGOCYTE = 'phagocyte';
     public const BUILD_DEFAULT = 'build.default';
     public const READ_DOCUMENT = 'read.document';
     public const READ_BOOK = 'read.book';
@@ -173,6 +174,17 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         ;
 
         $manager->persist($rationConsumeAction);
+
+        $phagocyteAction = new Action();
+        $phagocyteAction
+            ->setName(ActionEnum::PHAGOCYTE)
+            ->setScope(ActionScopeEnum::SELF)
+            ->setInjuryRate(0)
+            ->setDirtyRate(0)
+            ->setActionCost($freeCost)
+        ;
+
+        $manager->persist($phagocyteAction);
 
         $drugConsumeAction = new Action();
         $drugConsumeAction
@@ -666,6 +678,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::DEFAULT_TAKE, $takeItemAction);
         $this->addReference(self::DEFAULT_DROP, $dropItemAction);
         $this->addReference(self::RATION_CONSUME, $rationConsumeAction);
+        $this->addReference(self::PHAGOCYTE, $phagocyteAction);
         $this->addReference(self::DRUG_CONSUME, $drugConsumeAction);
         $this->addReference(self::BUILD_DEFAULT, $buildAction);
         $this->addReference(self::READ_DOCUMENT, $readDocument);

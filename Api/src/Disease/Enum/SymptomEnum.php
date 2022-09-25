@@ -23,4 +23,6 @@ class SymptomEnum
     public const SEPTICEMIA = 'septicemia';
     public const SNEEZING = 'sneezing';
     public const VOMITING = 'vomiting';
+    public const COPROLALIA_MESSAGES = 'coprolalia_messages';
+    public const PARANOIA_MESSAGES = 'paranoia_messages';
 }

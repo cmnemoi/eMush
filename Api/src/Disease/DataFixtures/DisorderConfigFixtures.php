@@ -63,6 +63,10 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $noShootActions = $this->getReference(DisorderSymptomConfigFixtures::NO_SHOOT_ACTIONS);
         /** @var SymptomConfig $psychoticAttacks */
         $psychoticAttacks = $this->getReference(DisorderSymptomConfigFixtures::PSYCHOTIC_ATTACKS);
+        /** @var SymptomConfig $coprolaliaSymptom */
+        $coprolaliaSymptom = $this->getReference(DisorderSymptomConfigFixtures::COPROLALIA_MESSAGES);
+        /** @var SymptomConfig $paranoiaSymptom */
+        $paranoiaSymptom = $this->getReference(DisorderSymptomConfigFixtures::PARANOIA_MESSAGES);
 
         $agoraphobia = new DiseaseConfig();
         $agoraphobia
@@ -125,7 +129,9 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setType(TypeEnum::DISORDER)
             ->setModifierConfigs(new ArrayCollection([
                 $reduceMax4MoralPoint,
-            ]));
+            ]))
+            ->setSymptomConfigs(new SymptomConfigCollection([$coprolaliaSymptom]))
+        ;
 
         $manager->persist($coprolalia);
 
@@ -162,7 +168,9 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setType(TypeEnum::DISORDER)
             ->setModifierConfigs(new ArrayCollection([
                 $reduceMax3MoralPoint,
-            ]));
+            ]))
+            ->setSymptomConfigs(new SymptomConfigCollection([$paranoiaSymptom]))
+        ;
 
         $manager->persist($paranoia);
 

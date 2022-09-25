@@ -2,9 +2,9 @@
 
 namespace Mush\Communication\Services;
 
-use Mush\Player\Entity\Player;
+use Mush\Communication\Entity\Message;
 
 interface DiseaseMessageServiceInterface
 {
-    public function applyDiseaseEffects(string $message, Player $player): string;
+    public function applyDiseaseEffects(Message $message): Message;
 }

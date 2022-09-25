@@ -3,6 +3,7 @@
 namespace Mush\RoomLog\Enum;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Communication\Enum\DiseaseMessagesEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 
 class LogDeclinationEnum
@@ -33,6 +34,32 @@ class LogDeclinationEnum
             NeronMessageEnum::PATCHING_UP => ['versionPart1' => 10, 'versionPart2' => 4],
             LogEnum::SELF_SURGERY_SUCCESS => ['version' => 2],
             LogEnum::SURGERY_SUCCESS => ['version' => 2],
+            DiseaseMessagesEnum::REPLACE_COPROLALIA => [
+                'version' => 13,
+                'word' => 20,
+                'animal' => 14,
+                'prefix' => 4,
+                'adjective' => 6,
+                'balls' => 9,
+            ],
+            DiseaseMessagesEnum::PRE_COPROLALIA => [
+                'version' => 3,
+                'word' => 20,
+                'animal' => 14,
+                'prefix' => 4,
+                'adjective' => 6,
+                'balls' => 9,
+            ],
+            DiseaseMessagesEnum::POST_COPROLALIA => [
+                'version' => 3,
+                'word' => 20,
+                'animal' => 14,
+                'prefix' => 4,
+                'adjective' => 6,
+                'balls' => 9,
+            ],
+            DiseaseMessagesEnum::REPLACE_PARANOIA => ['version' => 12, 'paranoia_version4' => 4, 'paranoia_version6' => 6],
+            DiseaseMessagesEnum::ACCUSE_PARANOIA => ['version' => 10, 'paranoia_version4' => 4, 'paranoia_version6' => 6],
         ];
     }
 }

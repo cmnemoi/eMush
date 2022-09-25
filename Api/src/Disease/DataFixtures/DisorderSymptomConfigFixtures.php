@@ -23,6 +23,8 @@ class DisorderSymptomConfigFixtures extends Fixture implements DependentFixtureI
     public const NO_PILOTING_ACTIONS = 'no_piloting_actions';
     public const NO_SHOOT_ACTIONS = 'no_shoot_actions';
     public const PSYCHOTIC_ATTACKS = 'psychotic_attacks';
+    public const COPROLALIA_MESSAGES = 'coprolalia_messages';
+    public const PARANOIA_MESSAGES = 'paranoia_messages';
 
     public function load(ObjectManager $manager): void
     {
@@ -76,6 +78,18 @@ class DisorderSymptomConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($psychoticAttacks);
 
+        $coprolalia = new SymptomConfig(SymptomEnum::COPROLALIA_MESSAGES);
+        $coprolalia
+            ->setTrigger(EventEnum::ON_NEW_MESSAGE)
+        ;
+        $manager->persist($coprolalia);
+
+        $paranoia = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
+        $paranoia
+            ->setTrigger(EventEnum::ON_NEW_MESSAGE)
+        ;
+        $manager->persist($paranoia);
+
         $manager->flush();
 
         $this->addReference(self::FEAR_OF_CATS, $fearOfCats);
@@ -83,6 +97,8 @@ class DisorderSymptomConfigFixtures extends Fixture implements DependentFixtureI
         $this->addReference(self::NO_PILOTING_ACTIONS, $noPilotingActions);
         $this->addReference(self::NO_SHOOT_ACTIONS, $noShootActions);
         $this->addReference(self::PSYCHOTIC_ATTACKS, $psychoticAttacks);
+        $this->addReference(self::COPROLALIA_MESSAGES, $coprolalia);
+        $this->addReference(self::PARANOIA_MESSAGES, $paranoia);
     }
 
     public function getDependencies(): array

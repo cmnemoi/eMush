@@ -27,6 +27,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
     public const INFECTION_DISEASE_CAUSE_CONFIG = 'infection.disease.cause.config';
     public const SEX_DISEASE_CAUSE_CONFIG = 'sex.disease.cause.config';
     public const TRAUMA_DISEASE_CAUSE_CONFIG = 'trauma.disease.cause.config';
+    public const CONTACT_DISEASE_CAUSE_CONFIG = 'contact.disease.cause.config';
 
     public function load(ObjectManager $manager): void
     {
@@ -221,6 +222,20 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                 ]
             );
         $manager->persist($diseaseCauseTrauma);
+
+        $diseaseCauseContact = new DiseaseCauseConfig();
+        $diseaseCauseContact
+            ->setGameConfig($gameConfig)
+            ->setName(DiseaseCauseEnum::CONTACT)
+            ->setDiseases(
+                [
+                    DiseaseEnum::FLU => 1,
+                    DiseaseEnum::GASTROENTERIS => 1,
+                    DiseaseEnum::SKIN_INFLAMMATION => 1,
+                ]
+            );
+        $manager->persist($diseaseCauseContact);
+
         $manager->flush();
 
         $this->addReference(self::ALIEN_FRUIT_DISEASE_CAUSE_CONFIG, $diseaseCauseAlienFruit);
@@ -234,6 +249,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
         $this->addReference(self::INFECTION_DISEASE_CAUSE_CONFIG, $diseaseCauseInfection);
         $this->addReference(self::SEX_DISEASE_CAUSE_CONFIG, $diseaseCauseSex);
         $this->addReference(self::TRAUMA_DISEASE_CAUSE_CONFIG, $diseaseCauseTrauma);
+        $this->addReference(self::CONTACT_DISEASE_CAUSE_CONFIG, $diseaseCauseContact);
     }
 
     public function getDependencies()

@@ -56,6 +56,40 @@ class MessageServiceTest extends TestCase
 
     public function testCreatePlayerMessage()
     {
+        $messageClass = Mockery::mock(Message::class);
+
+        $channel = new Channel();
+        $player = new Player();
+        $daedalus = new Daedalus();
+        $player->setDaedalus($daedalus);
+
+        $playerMessageDto = new CreateMessage();
+        $playerMessageDto
+            ->setChannel($channel)
+            ->setMessage('some message');
+
+        $this->diseaseMessageService
+            ->shouldReceive('applyDiseaseEffects')
+            ->with(Message::class)
+            ->once();
+
+        $messageClass->shouldReceive('setAuthor')->with($player);
+        $messageClass->shouldReceive('setChannel')->with($channel);
+        $messageClass->shouldReceive('setMessage')->with('some message');
+        $messageClass->shouldReceive('setParent')->with(null);
+        $messageClass->shouldReceive('getParent')->andReturn(null);
+
+        $message = $this->service->createPlayerMessage($player, $playerMessageDto);
+
+        $this->assertInstanceOf(Message::class, $message);
+    }
+
+    public function testCreatePlayerMessageWithParent()
+    {
+        $messageClass = Mockery::mock(Message::class);
+
+        $message = new Message();
+
         $channel = new Channel();
         $player = new Player();
         $daedalus = new Daedalus();
@@ -66,36 +100,25 @@ class MessageServiceTest extends TestCase
             ->setChannel($channel)
             ->setMessage('some message')
         ;
-
-        $this->diseaseMessageService
-            ->shouldReceive('applyDiseaseEffects')
-            ->with('some message', $player)
-            ->andReturn('some message')
-            ->once()
-        ;
-        $message = $this->service->createPlayerMessage($player, $playerMessageDto);
-
-        $this->assertInstanceOf(Message::class, $message);
-        $this->assertEquals('some message', $message->getMessage());
-        $this->assertEquals($player, $message->getAuthor());
-        $this->assertNull($message->getParent());
-        $this->assertEquals($channel, $message->getChannel());
-
         $playerMessageDto->setParent($message);
 
         $this->diseaseMessageService
             ->shouldReceive('applyDiseaseEffects')
-            ->with('some message', $player)
-            ->andReturn('some message')
+            ->with(Message::class)
             ->once()
         ;
+
+        $messageClass->shouldReceive('setAuthor')->with($player);
+        $messageClass->shouldReceive('setChannel')->with($channel);
+        $messageClass->shouldReceive('setMessage')->with('some message');
+        $messageClass->shouldReceive('setParent')->with($message);
+
+        $messageClass->shouldReceive('getParent')->andReturn($message);
+        $messageClass->shouldReceive('getParent')->with($message)->andReturn(null);
+
         $messageWithParent = $this->service->createPlayerMessage($player, $playerMessageDto);
 
         $this->assertInstanceOf(Message::class, $messageWithParent);
-        $this->assertEquals('some message', $messageWithParent->getMessage());
-        $this->assertEquals($message, $messageWithParent->getParent());
-        $this->assertEquals($player, $messageWithParent->getAuthor());
-        $this->assertEquals($channel, $messageWithParent->getChannel());
     }
 
     public function testCanPlayerPostMessage()

@@ -48,14 +48,21 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
             }
         }
 
-        if ($this->isPlayerDeaf($currentPlayer)) {
-            $message = $this->translationService->translate(DiseaseMessagesEnum::DEAF, [], 'neron');
+        $translationParameters = $object->getTranslationParameters();
+        if ($this->hasPlayerSymptom($currentPlayer, SymptomEnum::DEAF)) {
+            $message = $this->translationService->translate(DiseaseMessagesEnum::DEAF, [], 'disease_message');
+        } elseif (
+            $object->getAuthor() === $currentPlayer &&
+            array_key_exists(DiseaseMessagesEnum::ORIGINAL_MESSAGE, $translationParameters) &&
+            $this->hasPlayerSymptom($currentPlayer, $translationParameters[DiseaseMessagesEnum::MODIFICATION_CAUSE])
+        ) {
+            $message = $translationParameters[DiseaseMessagesEnum::ORIGINAL_MESSAGE];
         } elseif ($object->getAuthor()) {
             $message = $object->getMessage();
         } else {
             $message = $this->translationService->translate(
                 $object->getMessage(),
-                $object->getTranslationParameters(),
+                $translationParameters,
                 'neron'
             );
         }
@@ -72,8 +79,8 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
         ];
     }
 
-    private function isPlayerDeaf(Player $player): bool
+    private function hasPlayerSymptom(Player $player, string $symptom): bool
     {
-        return $player->getMedicalConditions()->getActiveDiseases()->getAllSymptoms()->hasSymptomByName(SymptomEnum::DEAF);
+        return $player->getMedicalConditions()->getActiveDiseases()->getAllSymptoms()->hasSymptomByName($symptom);
     }
 }

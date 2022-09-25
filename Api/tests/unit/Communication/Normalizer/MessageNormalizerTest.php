@@ -227,7 +227,7 @@ class MessageNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with(DiseaseMessagesEnum::DEAF, [], 'neron')
+            ->with(DiseaseMessagesEnum::DEAF, [], 'disease_message')
             ->andReturn('...')
         ;
 
@@ -238,6 +238,109 @@ class MessageNormalizerTest extends TestCase
             'id' => null,
             'character' => ['key' => 'name', 'value' => 'translatedName'],
             'message' => '...',
+            'createdAt' => $createdAt->format(\DateTime::ATOM),
+            'child' => [],
+        ], $normalizedData);
+    }
+
+    public function testNormalizeParanoiacPlayerMessage()
+    {
+        $playerConfig = new CharacterConfig();
+        $playerConfig->setName('name');
+
+        $player = new Player();
+        $player->setCharacterConfig($playerConfig);
+
+        $otherPlayer = new Player();
+        $otherPlayer->setCharacterConfig($playerConfig);
+
+        $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
+        $playerDisease = new PlayerDisease();
+        $playerDisease
+            ->setDiseaseConfig($diseaseConfig)
+            ->setStatus(DiseaseStatusEnum::ACTIVE)
+        ;
+
+        $player->addMedicalCondition($playerDisease);
+
+        $createdAt = new \DateTime();
+
+        $message = new Message();
+        $message
+            ->setAuthor($otherPlayer)
+            ->setMessage('modified message')
+            ->setCreatedAt($createdAt)
+            ->setTranslationParameters([
+                DiseaseMessagesEnum::MODIFICATION_CAUSE => SymptomEnum::PARANOIA_MESSAGES,
+                DiseaseMessagesEnum::ORIGINAL_MESSAGE => 'original message',
+            ])
+        ;
+
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('name.name', [], 'characters')
+            ->andReturn('translatedName')
+        ;
+
+        $context = ['currentPlayer' => $player];
+        $normalizedData = $this->normalizer->normalize($message, null, $context);
+
+        $this->assertEquals([
+            'id' => null,
+            'character' => ['key' => 'name', 'value' => 'translatedName'],
+            'message' => 'modified message',
+            'createdAt' => $createdAt->format(\DateTime::ATOM),
+            'child' => [],
+        ], $normalizedData);
+    }
+
+    public function testNormalizeParanoiacPlayerMessageSelf()
+    {
+        $playerConfig = new CharacterConfig();
+        $playerConfig->setName('name');
+
+        $player = new Player();
+        $player->setCharacterConfig($playerConfig);
+
+        $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
+        $playerDisease = new PlayerDisease();
+        $playerDisease
+            ->setDiseaseConfig($diseaseConfig)
+            ->setStatus(DiseaseStatusEnum::ACTIVE)
+        ;
+
+        $player->addMedicalCondition($playerDisease);
+
+        $createdAt = new \DateTime();
+
+        $message = new Message();
+        $message
+            ->setAuthor($player)
+            ->setMessage('modified message')
+            ->setCreatedAt($createdAt)
+            ->setTranslationParameters([
+                DiseaseMessagesEnum::MODIFICATION_CAUSE => SymptomEnum::PARANOIA_MESSAGES,
+                DiseaseMessagesEnum::ORIGINAL_MESSAGE => 'original message',
+            ])
+        ;
+
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('name.name', [], 'characters')
+            ->andReturn('translatedName')
+        ;
+
+        $context = ['currentPlayer' => $player];
+        $normalizedData = $this->normalizer->normalize($message, null, $context);
+
+        $this->assertEquals([
+            'id' => null,
+            'character' => ['key' => 'name', 'value' => 'translatedName'],
+            'message' => 'original message',
             'createdAt' => $createdAt->format(\DateTime::ATOM),
             'child' => [],
         ], $normalizedData);

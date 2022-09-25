@@ -28,7 +28,7 @@ class MessageService implements MessageServiceInterface
 
     public function createPlayerMessage(Player $player, CreateMessage $createMessage): Message
     {
-        $messageContent = $this->diseaseMessageService->applyDiseaseEffects($createMessage->getMessage(), $player);
+        $messageContent = trim($createMessage->getMessage());
 
         $message = new Message();
         $message
@@ -37,6 +37,8 @@ class MessageService implements MessageServiceInterface
             ->setMessage($messageContent)
             ->setParent($createMessage->getParent())
         ;
+
+        $message = $this->diseaseMessageService->applyDiseaseEffects($message);
 
         $rootMessage = $createMessage->getParent();
         if ($rootMessage) {

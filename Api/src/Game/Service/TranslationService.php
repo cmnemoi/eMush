@@ -2,6 +2,7 @@
 
 namespace Mush\Game\Service;
 
+use Mush\Communication\Enum\DiseaseMessagesEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -31,14 +32,18 @@ class TranslationService implements TranslationServiceInterface
     public function translate(string $key, array $parameters, string $domain): string
     {
         // @TODO include methods getTranslateParameters for other languages than FR
-        return $this->translator->trans($key, $this->getFrenchTranslateParameters($parameters), $domain);
+        return $this->translator->trans($key, $this->getFrenchTranslateParameters($parameters, $key), $domain);
     }
 
-    private function getFrenchTranslateParameters(array $parameters): array
+    private function getFrenchTranslateParameters(array $parameters, string $key): array
     {
         $params = [];
-        foreach ($parameters as $key => $element) {
-            $params = array_merge($params, $this->getFrenchTranslateParameter($key, $element));
+        foreach ($parameters as $paramKey => $element) {
+            $params = array_merge($params, $this->getFrenchTranslateParameter($paramKey, $element));
+        }
+
+        if (in_array($key, DiseaseMessagesEnum::getCoprolaliaMessages())) {
+            $params = $this->getFrenchCoprolaliaTranslateParameter($params);
         }
 
         return $params;
@@ -83,5 +88,27 @@ class TranslationService implements TranslationServiceInterface
             $key => $this->translator->trans($element . '.name', [], 'characters'),
             $key . '_gender' => (CharacterEnum::isMale($element) ? 'male' : 'female'),
         ];
+    }
+
+    private function getFrenchCoprolaliaTranslateParameter(array $params): array
+    {
+        // order matters here
+        $params['balls_coprolalia'] = $this->translator->trans('balls_coprolalia', $params, 'disease_message');
+        $params['prefix_coprolalia'] = $this->translator->trans('prefix_coprolalia', $params, 'disease_message');
+
+        $params['adjective_male_single_coprolalia'] = $this->translator->trans('adjective_male_single_coprolalia', $params, 'disease_message');
+        $params['adjective_male_plural_coprolalia'] = $this->translator->trans('adjective_male_plural_coprolalia', $params, 'disease_message');
+        $params['adjective_female_single_coprolalia'] = $this->translator->trans('adjective_female_single_coprolalia', $params, 'disease_message');
+        $params['adjective_female_plural_coprolalia'] = $this->translator->trans('adjective_female_plural_coprolalia', $params, 'disease_message');
+
+        $params['animal_coprolalia'] = $this->translator->trans('animal_coprolalia', $params, 'disease_message');
+        $params['animal_plural_coprolalia'] = $this->translator->trans('animal_plural_coprolalia', $params, 'disease_message');
+
+        $params['preposition_coprolalia'] = $this->translator->trans('preposition_coprolalia', $params, 'disease_message');
+
+        $params['word_coprolalia'] = $this->translator->trans('word_coprolalia', $params, 'disease_message');
+        $params['word_plural_coprolalia'] = $this->translator->trans('word_plural_coprolalia', $params, 'disease_message');
+
+        return $params;
     }
 }

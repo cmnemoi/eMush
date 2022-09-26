@@ -11,7 +11,7 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
@@ -23,12 +23,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class ApplyEffectSubscriber implements EventSubscriberInterface
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     private EquipmentEffectServiceInterface $equipmentServiceEffect;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
-        EventService $eventService,
+        EventServiceInterface $eventService,
         EquipmentEffectServiceInterface $equipmentServiceEffect
     ) {
         $this->gameEquipmentService = $gameEquipmentService;

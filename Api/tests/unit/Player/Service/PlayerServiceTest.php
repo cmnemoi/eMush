@@ -8,7 +8,7 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -30,7 +30,7 @@ use PHPUnit\Framework\TestCase;
 class PlayerServiceTest extends TestCase
 {
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
     /** @var PlayerRepository|Mockery\Mock */

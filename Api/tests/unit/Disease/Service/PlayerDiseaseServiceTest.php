@@ -13,7 +13,7 @@ use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Repository\DiseaseCausesConfigRepository;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Disease\Service\PlayerDiseaseService;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -36,7 +36,7 @@ class PlayerDiseaseServiceTest extends TestCase
     private RandomServiceInterface $randomService;
 
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     /**
      * @before

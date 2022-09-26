@@ -12,7 +12,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
@@ -26,7 +26,7 @@ use Mush\Status\Event\StatusCycleEvent;
 
 class NeronMessageCycleCest
 {
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {

@@ -14,7 +14,7 @@ use Mush\Communication\Repository\ChannelRepository;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
@@ -26,14 +26,14 @@ class ChannelService implements ChannelServiceInterface
     private EntityManagerInterface $entityManager;
     private ChannelRepository $channelRepository;
     private ChannelPlayerRepository $channelPlayerRepository;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ChannelRepository $channelRepository,
         ChannelPlayerRepository $channelPlayerRepository,
-        EventService $eventService,
+        EventServiceInterface $eventService,
         StatusServiceInterface $statusService
     ) {
         $this->entityManager = $entityManager;

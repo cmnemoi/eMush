@@ -11,7 +11,7 @@ use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
 use Mush\Disease\Repository\DiseaseCausesConfigRepository;
 use Mush\Disease\Repository\DiseaseConfigRepository;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -22,14 +22,14 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
     private DiseaseCausesConfigRepository $diseaseCauseConfigRepository;
     private DiseaseConfigRepository $diseaseConfigRepository;
     private RandomServiceInterface $randomService;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         DiseaseCausesConfigRepository $diseaseCauseConfigRepository,
         DiseaseConfigRepository $diseaseConfigRepository,
         RandomServiceInterface $randomService,
-        EventService $eventService
+        EventServiceInterface $eventService
     ) {
         $this->entityManager = $entityManager;
         $this->diseaseCauseConfigRepository = $diseaseCauseConfigRepository;

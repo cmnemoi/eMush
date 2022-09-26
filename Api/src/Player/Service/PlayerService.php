@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TriumphEnum;
@@ -37,7 +37,7 @@ class PlayerService implements PlayerServiceInterface
 
     private EntityManagerInterface $entityManager;
 
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     private PlayerRepository $repository;
 
@@ -49,7 +49,7 @@ class PlayerService implements PlayerServiceInterface
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventService $eventService,
+        EventServiceInterface $eventService,
         PlayerRepository $repository,
         DeadPlayerInfoRepository $deadPlayerRepository,
         RoomLogServiceInterface $roomLogService,

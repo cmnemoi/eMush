@@ -11,7 +11,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -35,7 +35,7 @@ class StatusServiceTest extends TestCase
     private EntityManagerInterface $entityManager;
 
     /** @var EventDispatcherInterface|Mockery\Mock */
-    protected EventService $eventService;
+    protected EventServiceInterface $eventService;
 
     /** @var StatusRepository|Mockery\Mock */
     private StatusRepository $repository;

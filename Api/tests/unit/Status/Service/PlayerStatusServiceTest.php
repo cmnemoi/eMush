@@ -4,7 +4,7 @@ namespace unit\Status\Service;
 
 use Codeception\PHPUnit\TestCase;
 use Mockery;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -20,7 +20,7 @@ class PlayerStatusServiceTest extends TestCase
     /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     private PlayerStatusServiceInterface $playerStatusService;
 

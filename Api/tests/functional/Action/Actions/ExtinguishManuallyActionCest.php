@@ -14,7 +14,7 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
@@ -31,7 +31,7 @@ use Mush\Status\Event\StatusEvent;
 class ExtinguishManuallyActionCest
 {
     private ExtinguishManually $ExtinguishManually;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {

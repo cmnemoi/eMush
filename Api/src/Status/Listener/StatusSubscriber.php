@@ -4,7 +4,7 @@ namespace Mush\Status\Listener;
 
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -15,11 +15,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class StatusSubscriber implements EventSubscriberInterface
 {
     private StatusServiceInterface $statusService;
-    protected EventService $eventService;
+    protected EventServiceInterface $eventService;
 
     public function __construct(
         StatusServiceInterface $statusService,
-        EventService $eventService,
+        EventServiceInterface $eventService,
     ) {
         $this->statusService = $statusService;
           $this->eventService = $eventService;

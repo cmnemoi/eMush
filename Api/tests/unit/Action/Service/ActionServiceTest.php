@@ -8,7 +8,7 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ActionServiceTest extends TestCase
 {
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     /** @var ModifierServiceInterface|Mockery\Mock */
     private ModifierServiceInterface $modifierService;
 

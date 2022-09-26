@@ -17,7 +17,7 @@ use Mush\Equipment\Event\EquipmentInitEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentService;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -28,7 +28,7 @@ use PHPUnit\Framework\TestCase;
 class GameEquipmentServiceTest extends TestCase
 {
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
     /** @var GameEquipmentRepository|Mockery\Mock */

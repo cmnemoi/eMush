@@ -11,7 +11,7 @@ use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
@@ -23,11 +23,11 @@ use Symfony\Component\Validator\Exception\LogicException;
 
 class GearToolService implements GearToolServiceInterface
 {
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
-        EventService $eventService,
+        EventServiceInterface $eventService,
         StatusServiceInterface $statusService
     ) {
           $this->eventService = $eventService;

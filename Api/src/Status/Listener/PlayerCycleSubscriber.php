@@ -2,16 +2,16 @@
 
 namespace Mush\Status\Listener;
 
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Status\Event\StatusCycleEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerCycleSubscriber implements EventSubscriberInterface
 {
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
-    public function __construct(EventService $eventService)
+    public function __construct(EventServiceInterface $eventService)
     {
           $this->eventService = $eventService;
     }

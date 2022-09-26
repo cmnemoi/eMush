@@ -9,7 +9,7 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractGameEvent;
@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 abstract class AbstractActionTest extends TestCase
 {
     /** @var EventDispatcherInterface|Mockery\Mock */
-    protected EventService $eventService;
+    protected EventServiceInterface $eventService;
 
     /** @var ActionServiceInterface|Mockery\Mock */
     protected ActionServiceInterface $actionService;

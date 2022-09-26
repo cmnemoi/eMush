@@ -18,7 +18,7 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -50,7 +50,7 @@ class Surgery extends AbstractAction
     private ModifierServiceInterface $modifierService;
 
     public function __construct(
-        EventService $eventService,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,

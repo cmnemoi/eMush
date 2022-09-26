@@ -10,7 +10,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
@@ -30,11 +30,11 @@ class StatusService implements StatusServiceInterface
     private EntityManagerInterface $entityManager;
     private StatusRepository $statusRepository;
     private StatusConfigRepository $statusConfigRepository;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventService $eventService,
+        EventServiceInterface $eventService,
         StatusRepository $statusRepository,
         StatusConfigRepository $statusConfigRepository,
     ) {

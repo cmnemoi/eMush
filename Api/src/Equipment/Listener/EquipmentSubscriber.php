@@ -5,18 +5,23 @@ namespace Mush\Equipment\Listener;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
+        EventServiceInterface $eventService
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -78,14 +83,26 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $holder = $event->getHolder();
         $existingEquipment = $event->getExistingEquipment();
+        $lastHolder = $event->getHolder();
 
         if ($existingEquipment === null) {
             throw new \LogicException('ExistingEquipment should be provided for this event');
         }
 
         $existingEquipment->setHolder($holder);
-
         $this->gameEquipmentService->persist($existingEquipment);
+
+        if ($holder instanceof Player && $holder->getEquipments()->count() > 3) {
+            /*
+            $fallEvent = new EquipmentEvent(
+              $event->getEquipmentName(),
+              $holder->getPlace(),
+              VisibilityEnum::PUBLIC,
+
+            );
+            $this->eventService->callEvent($todo,EquipmentEvent::CHANGE_HOLDER);
+            */
+        }
     }
 
     private function getGameConfig(GameEquipment $gameEquipment): GameConfig

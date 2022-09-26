@@ -11,7 +11,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -32,7 +32,7 @@ class OpenCapsule extends AbstractAction
     private RandomServiceInterface $randomService;
 
     public function __construct(
-        EventService $eventService,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,

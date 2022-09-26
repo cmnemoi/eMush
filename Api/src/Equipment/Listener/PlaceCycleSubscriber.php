@@ -3,15 +3,15 @@
 namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Event\EquipmentCycleEvent;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Place\Event\PlaceCycleEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlaceCycleSubscriber implements EventSubscriberInterface
 {
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
-    public function __construct(EventService $eventService)
+    public function __construct(EventServiceInterface $eventService)
     {
           $this->eventService = $eventService;
     }

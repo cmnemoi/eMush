@@ -7,7 +7,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Game\Enum\EventEnum;
 use Mush\Status\Entity\Status;
@@ -19,11 +19,11 @@ class RationCycleHandler extends AbstractCycleHandler
     protected string $name = EquipmentMechanicEnum::RATION;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
-        EventService $eventService,
+        EventServiceInterface $eventService,
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
         $this->$eventService = $eventService;

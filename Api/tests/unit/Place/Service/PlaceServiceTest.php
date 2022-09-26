@@ -10,7 +10,7 @@ use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
@@ -28,7 +28,7 @@ class PlaceServiceTest extends TestCase
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     /** @var PlaceRepository|Mockery\Mock */
     private PlaceRepository $repository;
 

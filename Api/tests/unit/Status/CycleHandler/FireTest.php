@@ -9,7 +9,7 @@ use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
@@ -30,7 +30,7 @@ class FireTest extends TestCase
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
     /** @var DaedalusServiceInterface|Mockery\Mock */

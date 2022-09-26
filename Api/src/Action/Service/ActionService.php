@@ -3,7 +3,7 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Enum\ModifierScopeEnum;
@@ -22,11 +22,11 @@ class ActionService implements ActionServiceInterface
     public const BASE_MOVEMENT_POINT_CONVERSION_GAIN = 2;
     public const BASE_MOVEMENT_POINT_CONVERSION_COST = 1;
 
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     private ModifierServiceInterface $modifierService;
 
     public function __construct(
-        EventService $eventService,
+        EventServiceInterface $eventService,
         ModifierServiceInterface $modifierService,
     ) {
           $this->eventService = $eventService;

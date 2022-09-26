@@ -7,7 +7,7 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
@@ -15,11 +15,11 @@ use Mush\Game\Enum\GameStatusEnum;
 class CycleService implements CycleServiceInterface
 {
     private EntityManagerInterface $entityManager;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventService $eventService
+        EventServiceInterface $eventService
     ) {
         $this->entityManager = $entityManager;
           $this->eventService = $eventService;

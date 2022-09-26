@@ -8,7 +8,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
@@ -21,7 +21,7 @@ use Mush\Place\Entity\Place;
 
 class DaedalusVariableEventCest
 {
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {

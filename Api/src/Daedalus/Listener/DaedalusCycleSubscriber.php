@@ -9,7 +9,7 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
@@ -23,12 +23,12 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
     private DaedalusServiceInterface $daedalusService;
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         DaedalusIncidentServiceInterface $daedalusIncidentService,
-        EventService $eventService
+        EventServiceInterface $eventService
     ) {
         $this->daedalusService = $daedalusService;
         $this->daedalusIncidentService = $daedalusIncidentService;

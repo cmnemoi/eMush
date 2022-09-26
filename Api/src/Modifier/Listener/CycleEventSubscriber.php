@@ -7,7 +7,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Event\EquipmentCycleEvent;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\AbstractQuantityEvent;
@@ -22,11 +22,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CycleEventSubscriber implements EventSubscriberInterface
 {
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     private ModifierConditionService $modifierConditionService;
 
     public function __construct(
-        EventService $eventService,
+        EventServiceInterface $eventService,
         ModifierConditionService $modifierConditionService,
     ) {
           $this->eventService = $eventService;

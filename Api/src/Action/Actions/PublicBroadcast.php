@@ -11,7 +11,7 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
@@ -40,7 +40,7 @@ class PublicBroadcast extends AbstractAction
     protected const BASE_CONFORT = 3;
 
     public function __construct(
-        EventService $eventService,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator
     ) {

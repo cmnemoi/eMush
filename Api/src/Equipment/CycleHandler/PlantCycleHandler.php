@@ -13,7 +13,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -30,13 +30,13 @@ class PlantCycleHandler extends AbstractCycleHandler
 {
     protected string $name = EquipmentMechanicEnum::PLANT;
 
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
     private EquipmentEffectServiceInterface $equipmentEffectService;
 
     public function __construct(
-        EventService $eventService,
+        EventServiceInterface $eventService,
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
         EquipmentEffectServiceInterface $equipmentEffectService

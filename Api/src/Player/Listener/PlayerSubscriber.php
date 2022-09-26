@@ -2,7 +2,7 @@
 
 namespace Mush\Player\Listener;
 
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Service\ModifierServiceInterface;
@@ -18,13 +18,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class PlayerSubscriber implements EventSubscriberInterface
 {
     private PlayerServiceInterface $playerService;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     private ModifierServiceInterface $modifierService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
         PlayerServiceInterface $playerService,
-        EventService $eventService,
+        EventServiceInterface $eventService,
         ModifierServiceInterface $modifierService,
         RandomServiceInterface $randomService
     ) {

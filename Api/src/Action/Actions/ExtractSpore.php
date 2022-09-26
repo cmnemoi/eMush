@@ -11,7 +11,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\DailySporesLimit;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\MushSpore;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -26,7 +26,7 @@ class ExtractSpore extends AbstractAction
     private StatusServiceInterface $statusService;
 
     public function __construct(
-        EventService $eventService,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         StatusServiceInterface $statusService

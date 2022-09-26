@@ -7,7 +7,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionSideEffectsService;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
@@ -24,7 +24,7 @@ use PHPUnit\Framework\TestCase;
 class ActionSideEffectsServiceTest extends TestCase
 {
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     /** @var RoomLogServiceInterface|Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
     /** @var RandomServiceInterface|Mockery\Mock */

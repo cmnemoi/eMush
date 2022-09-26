@@ -3,7 +3,7 @@
 namespace Mush\Daedalus\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -11,10 +11,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
 {
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
-        EventService $eventService
+        EventServiceInterface $eventService
     ) {
           $this->eventService = $eventService;
     }

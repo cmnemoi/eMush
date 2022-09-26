@@ -13,7 +13,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentCycleEvent;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
@@ -30,7 +30,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 class PlantCycleEventCest
 {
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {

@@ -13,7 +13,7 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\IsSameGender;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -28,7 +28,7 @@ class Flirt extends AbstractAction
     private PlayerServiceInterface $playerService;
 
     public function __construct(
-        EventService $eventService,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlayerServiceInterface $playerService

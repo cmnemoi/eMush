@@ -2,7 +2,7 @@
 
 namespace Mush\Player\Listener;
 
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
@@ -15,11 +15,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class RoomSubscriber implements EventSubscriberInterface
 {
     private RandomServiceInterface $randomService;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         RandomServiceInterface $randomService,
-        EventService $eventService
+        EventServiceInterface $eventService
     ) {
         $this->randomService = $randomService;
           $this->eventService = $eventService;

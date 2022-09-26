@@ -16,7 +16,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -26,7 +26,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 class EquipmentSubscriberCest
 {
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {

@@ -15,7 +15,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Event\AbstractGameEvent;
@@ -37,7 +37,7 @@ class PlantCycleHandlerTest extends TestCase
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     /** @var EquipmentEffectServiceInterface|Mockery\Mock */
     private EquipmentEffectServiceInterface $equipmentEffectService;
 

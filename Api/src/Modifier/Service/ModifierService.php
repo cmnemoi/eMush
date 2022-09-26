@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
@@ -26,13 +26,13 @@ class ModifierService implements ModifierServiceInterface
 {
     private const ATTEMPT_INCREASE = 1.25;
     private EntityManagerInterface $entityManager;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     private ModifierConditionServiceInterface $conditionService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventService $eventService,
+        EventServiceInterface $eventService,
         ModifierConditionServiceInterface $conditionService,
         RandomServiceInterface $randomService
     ) {

@@ -7,7 +7,7 @@ use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -22,12 +22,12 @@ use Mush\Status\Event\StatusEvent;
 class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 {
     private RandomServiceInterface $randomService;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     private GameEquipmentRepository $gameEquipmentRepository;
 
     public function __construct(
         RandomServiceInterface $randomService,
-        EventService $eventService,
+        EventServiceInterface $eventService,
         GameEquipmentRepository $gameEquipmentRepository
     ) {
         $this->randomService = $randomService;

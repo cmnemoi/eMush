@@ -4,7 +4,7 @@ namespace Mush\Place\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Event\PlaceInitEvent;
@@ -13,12 +13,12 @@ use Mush\Place\Repository\PlaceRepository;
 class PlaceService implements PlaceServiceInterface
 {
     private EntityManagerInterface $entityManager;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     private PlaceRepository $repository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventService $eventService,
+        EventServiceInterface $eventService,
         PlaceRepository $repository,
     ) {
         $this->entityManager = $entityManager;

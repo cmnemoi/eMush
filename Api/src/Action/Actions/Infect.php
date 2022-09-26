@@ -12,7 +12,7 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\MushSpore;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -29,7 +29,7 @@ class Infect extends AbstractAction
     private StatusServiceInterface $statusService;
 
     public function __construct(
-        EventService $eventService,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         StatusServiceInterface $statusService

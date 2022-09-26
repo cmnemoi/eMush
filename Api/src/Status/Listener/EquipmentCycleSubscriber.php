@@ -3,17 +3,17 @@
 namespace Mush\Status\Listener;
 
 use Mush\Equipment\Event\EquipmentCycleEvent;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Event\StatusCycleEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentCycleSubscriber implements EventSubscriberInterface
 {
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
-        EventService $eventService
+        EventServiceInterface $eventService
     ) {
           $this->eventService = $eventService;
     }

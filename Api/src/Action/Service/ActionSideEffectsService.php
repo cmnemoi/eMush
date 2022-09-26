@@ -3,7 +3,7 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Enum\ModifierScopeEnum;
@@ -19,11 +19,11 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 {
     public const ACTION_INJURY_MODIFIER = -2;
 
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     private ModifierServiceInterface $modifierService;
 
     public function __construct(
-        EventService $eventService,
+        EventServiceInterface $eventService,
         ModifierServiceInterface $modifierService
     ) {
           $this->eventService = $eventService;

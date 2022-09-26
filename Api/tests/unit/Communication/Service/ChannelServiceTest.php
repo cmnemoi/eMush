@@ -19,7 +19,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -40,7 +40,7 @@ class ChannelServiceTest extends TestCase
     private ChannelPlayerRepository $channelPlayerRepository;
 
     /** @var EventDispatcherInterface|Mockery\mock */
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     /** @var StatusServiceInterface|Mockery\mock */
     private StatusServiceInterface $statusService;

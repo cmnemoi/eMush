@@ -13,7 +13,7 @@ use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
@@ -32,7 +32,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class SymptomService implements SymptomServiceInterface
 {
     private ActionServiceInterface $actionService;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private PlayerServiceInterface $playerService;
     private RandomServiceInterface $randomService;
@@ -41,7 +41,7 @@ class SymptomService implements SymptomServiceInterface
 
     public function __construct(
         ActionServiceInterface $actionService,
-        EventService $eventService,
+        EventServiceInterface $eventService,
         PlayerDiseaseServiceInterface $playerDiseaseService,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,

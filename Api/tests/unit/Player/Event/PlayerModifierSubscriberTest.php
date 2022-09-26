@@ -3,7 +3,7 @@
 namespace Mush\Test\Player\Event;
 
 use Mockery;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -16,7 +16,7 @@ class PlayerModifierSubscriberTest extends TestCase
     /** @var PlayerVariableServiceInterface|Mockery\Mock */
     private PlayerVariableServiceInterface $playerVariableService;
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     private PlayerModifierSubscriber $playerModifierSubscriber;
 

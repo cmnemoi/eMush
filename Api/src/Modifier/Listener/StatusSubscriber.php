@@ -4,7 +4,7 @@ namespace Mush\Modifier\Listener;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Entity\Modifier;
@@ -28,13 +28,13 @@ class StatusSubscriber implements EventSubscriberInterface
     private EquipmentModifierService $gearModifierService;
     private ModifierServiceInterface $modifierService;
     private ModifierConditionService $modifierConditionService;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         EquipmentModifierService $gearModifierService,
         ModifierServiceInterface $modifierService,
         ModifierConditionService $modifierConditionService,
-        EventService $eventService
+        EventServiceInterface $eventService
     ) {
         $this->gearModifierService = $gearModifierService;
         $this->modifierService = $modifierService;

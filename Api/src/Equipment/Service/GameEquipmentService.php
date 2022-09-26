@@ -17,7 +17,7 @@ use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\EquipmentInitEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -32,14 +32,14 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     private GameEquipmentRepository $repository;
     private EquipmentServiceInterface $equipmentService;
     private RandomServiceInterface $randomService;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         GameEquipmentRepository $repository,
         EquipmentServiceInterface $equipmentService,
         RandomServiceInterface $randomService,
-        EventService $eventService
+        EventServiceInterface $eventService
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;

@@ -2,7 +2,7 @@
 
 namespace Mush\Status\Service;
 
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
@@ -17,11 +17,11 @@ class PlayerStatusService implements PlayerStatusServiceInterface
     public const DEMORALIZED_THRESHOLD = 3;
 
     private StatusServiceInterface $statusService;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         StatusServiceInterface $statusService,
-        EventService $eventService,
+        EventServiceInterface $eventService,
     ) {
         $this->statusService = $statusService;
           $this->eventService = $eventService;

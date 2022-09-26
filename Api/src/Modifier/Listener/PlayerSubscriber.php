@@ -2,7 +2,7 @@
 
 namespace Mush\Modifier\Listener;
 
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Service\ModifierService;
@@ -14,11 +14,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class PlayerSubscriber implements EventSubscriberInterface
 {
     private ModifierService $modifierService;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         ModifierService $modifierService,
-        EventService $eventService
+        EventServiceInterface $eventService
     ) {
         $this->modifierService = $modifierService;
           $this->eventService = $eventService;

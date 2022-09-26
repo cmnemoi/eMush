@@ -12,7 +12,7 @@ use Mush\Action\Validator\ActionPoint;
 use Mush\Action\Validator\AreSymptomsPreventingAction;
 use Mush\Action\Validator\HasAction;
 use Mush\Action\Validator\PlayerAlive;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
@@ -28,12 +28,12 @@ abstract class AbstractAction
 
     protected string $name;
 
-    protected EventService $eventService;
+    protected EventServiceInterface $eventService;
     protected ActionServiceInterface $actionService;
     private ValidatorInterface $validator;
 
     public function __construct(
-        EventService $eventService,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator
     ) {

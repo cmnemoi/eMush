@@ -4,7 +4,7 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
@@ -14,10 +14,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RoomSubscriber implements EventSubscriberInterface
 {
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
-        EventService $eventService
+        EventServiceInterface $eventService
     ) {
           $this->eventService = $eventService;
     }

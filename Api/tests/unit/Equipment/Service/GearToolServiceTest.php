@@ -14,7 +14,7 @@ use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GearToolService;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
@@ -31,7 +31,7 @@ use PHPUnit\Framework\TestCase;
 class GearToolServiceTest extends TestCase
 {
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 

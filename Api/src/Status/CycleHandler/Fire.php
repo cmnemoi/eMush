@@ -7,7 +7,7 @@ use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -26,13 +26,13 @@ class Fire extends AbstractStatusCycleHandler
     protected string $name = StatusEnum::FIRE;
 
     private RandomServiceInterface $randomService;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private DaedalusServiceInterface $daedalusService;
 
     public function __construct(
         RandomServiceInterface $randomService,
-        EventService $eventService,
+        EventServiceInterface $eventService,
         GameEquipmentServiceInterface $gameEquipmentService,
         DaedalusServiceInterface $daedalusService
     ) {

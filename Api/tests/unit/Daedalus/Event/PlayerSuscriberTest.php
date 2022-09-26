@@ -6,7 +6,7 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Listener\PlayerSubscriber;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 class PlayerSuscriberTest extends TestCase
 {
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     private PlayerSubscriber $playerSubscriber;
 

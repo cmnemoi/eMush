@@ -3,7 +3,7 @@
 namespace Mush\Player\Listener;
 
 use Mush\Action\Enum\ActionEnum;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -15,11 +15,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class PlayerModifierSubscriber implements EventSubscriberInterface
 {
     private PlayerVariableServiceInterface $playerVariableService;
-    private EventService $eventService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         PlayerVariableServiceInterface $playerVariableService,
-        EventService $eventService
+        EventServiceInterface $eventService
     ) {
         $this->playerVariableService = $playerVariableService;
           $this->eventService = $eventService;

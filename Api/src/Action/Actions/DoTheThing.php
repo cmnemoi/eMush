@@ -22,7 +22,7 @@ use Mush\Disease\Repository\DiseaseCausesConfigRepository;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Event\Service\EventService;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
@@ -58,7 +58,7 @@ class DoTheThing extends AbstractAction
     private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
-        EventService $eventService,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         DiseaseCausesConfigRepository $diseaseCausesConfigRepository,

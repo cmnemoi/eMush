@@ -2,7 +2,6 @@
 
 namespace Mush\Player\Listener;
 
-use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -89,12 +88,24 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
 
         $this->playerVariableService->handleHealthPointModifier($delta, $player);
 
-        if ($player->getHealthPoint() === 0) {
-            if (in_array($playerEvent->getReason(), [ActionEnum::HIT, ActionEnum::SHOOT])) {
-                $playerEvent->setReason(EndCauseEnum::ASSASSINATED);
+        $reason = $playerEvent->getReason();
+        $deathCause = EndCauseEnum::DEATH_CAUSE_MAP;
+
+        if ($player->getHealthPoint() <= 0) {
+            $deathReason = EndCauseEnum::INJURY;
+
+            if (isset($deathCause[$reason])) {
+                $deathReason = $deathCause[$reason];
             }
 
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+            // To be more clear of what's happening
+            $deathEvent = new PlayerEvent(
+                $playerEvent->getPlayer(),
+                $deathReason,
+                $playerEvent->getTime()
+            );
+
+            $this->eventDispatcher->dispatch($deathEvent, PlayerEvent::DEATH_PLAYER);
         }
     }
 

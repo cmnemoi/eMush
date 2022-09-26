@@ -193,14 +193,12 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($derek);
 
-        $mushStatus = $this->getReference(ChargeStatusFixtures::MUSH_STATUS);
-
         $eleesha = new CharacterConfig();
         $eleesha
             ->setGameConfig($gameConfig)
             ->setName(CharacterEnum::ELEESHA)
             ->setActions($defaultActions)
-            ->setInitStatuses(new ArrayCollection([$sporeStatus, $mushStatus]))
+            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::DETERMINED,
                 SkillEnum::IT_EXPERT,

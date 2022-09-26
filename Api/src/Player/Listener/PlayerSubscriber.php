@@ -5,7 +5,6 @@ namespace Mush\Player\Listener;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Service\ModifierServiceInterface;
-use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -58,13 +57,14 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $difficultyConfig = $player->getDaedalus()->getGameConfig()->getDifficultyConfig();
 
-        $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getMetalPlatePlayerDamage());
+        $damage = (int) $this->randomService
+            ->getSingleRandomElementFromProbaArray($difficultyConfig->getMetalPlatePlayerDamage());
 
         $playerModifierEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::HEALTH_POINT,
             -$damage,
-            EndCauseEnum::METAL_PLATE,
+            $event->getReason(),
             $event->getTime()
         );
         $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
@@ -76,7 +76,8 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $difficultyConfig = $player->getDaedalus()->getGameConfig()->getDifficultyConfig();
 
-        $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getPanicCrisisPlayerDamage());
+        $damage = (int) $this->randomService
+            ->getSingleRandomElementFromProbaArray($difficultyConfig->getPanicCrisisPlayerDamage());
 
         $playerModifierEvent = new PlayerVariableEvent(
             $player,

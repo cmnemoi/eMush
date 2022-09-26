@@ -4,6 +4,7 @@ namespace Mush\Status\Listener;
 
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -31,14 +32,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onEquipmentTransform(EquipmentEvent $event): void
+    public function onEquipmentTransform(TransformEquipmentEvent $event): void
     {
-        $newEquipment = $event->getNewEquipment();
-        $oldEquipment = $event->getExistingEquipment();
-
-        if ($oldEquipment === null || $newEquipment === null) {
-            throw new \LogicException('2 equipments should be provided');
-        }
+        $newEquipment = $event->getEquipment();
+        $oldEquipment = $event->getEquipmentFrom();
 
         /** @var Status $status */
         foreach ($oldEquipment->getStatuses() as $status) {

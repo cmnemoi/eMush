@@ -13,6 +13,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -52,14 +53,15 @@ class InstallCamera extends AbstractAction
         /** @var GameItem $itemCamera */
         $itemCamera = $this->getParameter();
 
-        $equipmentEvent = new EquipmentEvent(
-            EquipmentEnum::CAMERA_EQUIPMENT,
-            $this->player,
+        EquipmentEnum::CAMERA_EQUIPMENT
+
+        $equipmentEvent = new TransformEquipmentEvent(
+            ,
+            $itemCamera,
             VisibilityEnum::PUBLIC,
             $this->getActionName(),
             new \DateTime()
         );
-        $equipmentEvent->setExistingEquipment($itemCamera);
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
 
         return new Success();

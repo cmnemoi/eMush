@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\Event;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\AbstractGameEvent;
@@ -14,26 +15,34 @@ class EquipmentEvent extends AbstractGameEvent implements LoggableEventInterface
     public const EQUIPMENT_CREATED = 'equipment.created';
     public const EQUIPMENT_DESTROYED = 'equipment.destroyed';
     public const EQUIPMENT_TRANSFORM = 'equipment.transform';
+    public const INVENTORY_OVERFLOW = 'inventory.overflow';
     public const CHANGE_HOLDER = 'change.holder';
 
-    private ?GameEquipment $newEquipment = null;
-    private ?GameEquipment $existingEquipment = null;
-    private string $equipmentName;
+    private GameEquipment $equipment;
     private string $visibility;
-    private EquipmentHolderInterface $holder;
+    private bool $created;
 
     public function __construct(
-        string $equipmentName,
-        EquipmentHolderInterface $holder,
+        GameEquipment $equipment,
+        bool $created,
         string $visibility,
         string $reason,
         \DateTime $time
     ) {
-        $this->equipmentName = $equipmentName;
+        $this->equipment = $equipment;
         $this->visibility = $visibility;
-        $this->holder = $holder;
+        $this->created = $created;
 
         parent::__construct($reason, $time);
+    }
+
+    public function getEquipment() : GameEquipment {
+        return $this->equipment;
+    }
+
+    public function isCreated(): bool
+    {
+        return $this->created;
     }
 
     public function getEquipmentName(): string
@@ -84,16 +93,15 @@ class EquipmentEvent extends AbstractGameEvent implements LoggableEventInterface
     {
         $logParameters = [];
 
-        if ($this->newEquipment !== null) {
-            $logParameters['target_' . $this->newEquipment->getLogKey()] = $this->newEquipment->getLogName();
+        if ($this->created) {
+            $logParameters['target_' . $this->equipment->getLogKey()] = $this->equipment->getLogName();
+        } else {
+            $logParameters[$this->equipment->getLogKey()] = $this->equipment->getLogName();
         }
 
-        if ($this->existingEquipment !== null) {
-            $logParameters[$this->existingEquipment->getLogKey()] = $this->existingEquipment->getLogName();
-        }
-
-        if ($this->holder instanceof Player) {
-            $logParameters[$this->holder->getLogKey()] = $this->holder->getLogName();
+        $holder = $this->equipment->getHolder();
+        if ($holder instanceof Player) {
+            $logParameters[$holder->getLogKey()] = $holder->getLogName();
         }
 
         return $logParameters;

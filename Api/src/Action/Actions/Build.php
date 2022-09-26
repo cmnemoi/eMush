@@ -16,6 +16,8 @@ use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
@@ -27,13 +29,15 @@ class Build extends AbstractAction
 {
     protected string $name = ActionEnum::BUILD;
 
-    private GearToolServiceInterface $gearToolService;
+    protected GearToolServiceInterface $gearToolService;
+    protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        GearToolServiceInterface $gearToolService
+        GearToolServiceInterface $gearToolService,
+        GameEquipmentServiceInterface $gameEquipmentService
     ) {
         parent::__construct(
             $eventService,
@@ -42,7 +46,9 @@ class Build extends AbstractAction
         );
 
         $this->gearToolService = $gearToolService;
+        $this->gameEquipmentService = $gameEquipmentService;
     }
+
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -77,11 +83,10 @@ class Build extends AbstractAction
     {
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
+        $time = new \DateTime();
 
         /** @var Blueprint $blueprintMechanic */
         $blueprintMechanic = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
-
-        $place = $this->player->getPlace();
 
         // remove the used ingredients starting from the player inventory
         foreach ($blueprintMechanic->getIngredients() as $name => $number) {
@@ -96,35 +101,41 @@ class Build extends AbstractAction
                         ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first();
                 }
 
-                $equipmentEvent = new EquipmentEvent(
-                    $ingredient->getName(),
+                $interactEvent = new InteractWithEquipmentEvent(
+                    $ingredient,
                     $this->player,
                     VisibilityEnum::HIDDEN,
                     $this->getActionName(),
-                    new \DateTime()
+                    $time
                 );
-                $equipmentEvent->setExistingEquipment($ingredient);
-                $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+
+                $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
         }
 
-        $equipmentEvent = new EquipmentEvent(
-            $parameter->getName(),
-            $place,
+        $interactEvent = new InteractWithEquipmentEvent(
+            $parameter,
+            $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
-            new \DateTime()
+            $time
         );
-        $equipmentEvent->setExistingEquipment($parameter);
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        // create the equipment
-        $equipmentEvent = new EquipmentEvent(
-            $blueprintMechanic->getEquipment()->getName(),
+        // Create the equipment
+        $blueprintResult = $this->gameEquipmentService->createGameEquipment(
+            $blueprintMechanic->getEquipment(),
             $this->player,
+            $this->getActionName(),
+            $time
+        );
+
+        $equipmentEvent = new EquipmentEvent(
+            $blueprintResult,
+            true,
             VisibilityEnum::PRIVATE,
             $this->getActionName(),
-            new \DateTime()
+            $time
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 

@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -39,18 +40,18 @@ class InsertFuel extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        /** @var GameItem $item */
-        $item = $this->getParameter();
+        /** @var GameItem $fuel */
+        $fuel = $this->getParameter();
+        $time = new \DateTime();
 
-        // delete the item
-        $equipmentEvent = new EquipmentEvent(
-            $item->getName(),
+        // Delete the fuel
+        $equipmentEvent = new InteractWithEquipmentEvent(
+            $fuel,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
-            new \DateTime()
+            $time
         );
-        $equipmentEvent->setExistingEquipment($item);
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         // add Fuel
@@ -59,7 +60,7 @@ class InsertFuel extends AbstractAction
             DaedalusVariableEnum::FUEL,
             1,
             $this->getActionName(),
-            new \DateTime()
+            $time
         );
         $this->eventService->callEvent($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 

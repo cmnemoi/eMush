@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -26,13 +27,15 @@ class Dispense extends AbstractAction
 {
     protected string $name = ActionEnum::DISPENSE;
 
-    private RandomServiceInterface $randomService;
+    protected RandomServiceInterface $randomService;
+    protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        RandomServiceInterface $randomService
+        RandomServiceInterface $randomService,
+        GameEquipmentServiceInterface $gameEquipmentService,
     ) {
         parent::__construct(
             $eventService,
@@ -41,6 +44,7 @@ class Dispense extends AbstractAction
         );
 
         $this->randomService = $randomService;
+        $this->gameEquipmentService = $gameEquipmentService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -59,14 +63,25 @@ class Dispense extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
+        /* @var string $drugName */
         $drugName = current($this->randomService->getRandomElements(GameDrugEnum::getAll()));
+        $time = new \DateTime();
 
-        $equipmentEvent = new EquipmentEvent(
+        // Create the drug equipment
+        $drug = $this->gameEquipmentService->createGameEquipmentFromName(
             $drugName,
             $this->player,
+            $this->getActionName(),
+            $time
+        );
+
+        // Call the creation event
+        $equipmentEvent = new EquipmentEvent(
+            $drug,
+            true,
             VisibilityEnum::PUBLIC,
             $this->getActionName(),
-            new \DateTime()
+            $time
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 

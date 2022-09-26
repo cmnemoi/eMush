@@ -41,6 +41,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         ];
     }
 
+    // @TO-REMOVE
     public function onEquipmentCreated(EquipmentEvent $event): void
     {
         $holder = $event->getHolder();
@@ -65,6 +66,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public function onOverflowingInventory(EquipmentEvent $event): void
     {
         $holder = $event->getHolder();
+        $gameConfig = $holder->getPlace()->getDaedalus()->getGameConfig();
         $newEquipment = $event->getNewEquipment();
 
         if ($newEquipment === null) {
@@ -72,7 +74,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
 
         if ($holder instanceof Player &&
-            $holder->getEquipments()->count() > $this->getGameConfig($newEquipment)->getMaxItemInInventory()
+            $holder->getEquipments()->count() > $gameConfig->getMaxItemInInventory()
         ) {
             $newEquipment->setHolder($holder->getPlace());
             $this->gameEquipmentService->persist($newEquipment);

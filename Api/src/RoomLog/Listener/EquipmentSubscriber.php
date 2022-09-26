@@ -28,9 +28,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_CREATED => [['onEquipmentCreated', -1], ['onInventoryOverflow']],
+            EquipmentEvent::EQUIPMENT_CREATED => [['onEquipmentCreated', -1] /* ['onInventoryOverflow']*/],
             EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
-            EquipmentEvent::EQUIPMENT_TRANSFORM => ['onInventoryOverflow', -5],
+            //EquipmentEvent::EQUIPMENT_TRANSFORM => ['onInventoryOverflow', -5],
+            EquipmentEvent::INVENTORY_OVERFLOW => ['onInventoryOverflow']
         ];
     }
 

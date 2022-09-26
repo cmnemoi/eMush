@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -39,25 +40,25 @@ class InsertOxygen extends AbstractAction
     {
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
+        $time = new \DateTime();
 
-        // delete the item
-        $equipmentEvent = new EquipmentEvent(
-            $parameter->getName(),
+        // Delete the oxygen
+        $equipmentEvent = new InteractWithEquipmentEvent(
+            $parameter,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
-            new \DateTime()
+            $time
         );
-        $equipmentEvent->setExistingEquipment($parameter);
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        // add Oxygen
+        // Add Oxygen
         $daedalusEvent = new DaedalusModifierEvent(
             $this->player->getDaedalus(),
             DaedalusVariableEnum::OXYGEN,
             1,
             $this->getActionName(),
-            new \DateTime()
+            $time
         );
         $this->eventService->callEvent($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 

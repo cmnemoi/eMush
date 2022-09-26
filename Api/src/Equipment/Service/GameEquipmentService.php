@@ -139,7 +139,12 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a plant');
         }
 
-        $statusEvent = new StatusEvent(EquipmentStatusEnum::PLANT_YOUNG, $gameEquipment, EquipmentEvent::EQUIPMENT_CREATED, new \DateTime());
+        $statusEvent = new StatusEvent(
+            EquipmentStatusEnum::PLANT_YOUNG,
+            $gameEquipment,
+            EquipmentEvent::EQUIPMENT_CREATED,
+            new \DateTime()
+        );
 
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
@@ -152,7 +157,13 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a document');
         }
 
-        $statusEvent = new StatusEvent(EquipmentStatusEnum::DOCUMENT_CONTENT, $gameEquipment, EquipmentEvent::EQUIPMENT_CREATED, new \DateTime());
+        $statusEvent = new StatusEvent(
+            EquipmentStatusEnum::DOCUMENT_CONTENT,
+            $gameEquipment,
+            EquipmentEvent::EQUIPMENT_CREATED,
+            new \DateTime()
+        );
+
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $gameEquipment;

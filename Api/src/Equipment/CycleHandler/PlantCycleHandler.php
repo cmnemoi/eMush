@@ -11,6 +11,7 @@ use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Event\Service\EventServiceInterface;
@@ -41,7 +42,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         RandomServiceInterface $randomService,
         EquipmentEffectServiceInterface $equipmentEffectService
     ) {
-         $this->eventService = $eventService;;
+        $this->eventService = $eventService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
         $this->equipmentEffectService = $equipmentEffectService;
@@ -164,22 +165,28 @@ class PlantCycleHandler extends AbstractCycleHandler
         }
 
         // Create a new hydropot
-        $equipmentEvent = new EquipmentEvent(
-            $gamePlant->getName(),
+        $equipmentEvent = new InteractWithEquipmentEvent(
+            $gamePlant,
             $place,
             VisibilityEnum::PUBLIC,
             PlantLogEnum::PLANT_DEATH,
-            new \DateTime()
+            $dateTime
         );
-        $equipmentEvent->setExistingEquipment($gamePlant);
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        $equipmentEvent = new EquipmentEvent(
+        $hydropot = $this->gameEquipmentService->createGameEquipmentFromName(
             ItemEnum::HYDROPOT,
             $holder,
+            PlantLogEnum::PLANT_DEATH,
+            $dateTime
+        );
+
+        $equipmentEvent = new EquipmentEvent(
+            $hydropot,
+            true,
             VisibilityEnum::HIDDEN,
             PlantLogEnum::PLANT_DEATH,
-            new \DateTime()
+            $dateTime
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
     }
@@ -203,12 +210,20 @@ class PlantCycleHandler extends AbstractCycleHandler
         ) {
             return;
         }
+
         // If plant is not in a room, it is in player inventory
         $place = $gamePlant->getPlace();
 
-        $equipmentEvent = new EquipmentEvent(
-            $plantType->getFruit()->getName(),
+        $fruit = $this->gameEquipmentService->createGameEquipment(
+            $plantType->getFruit(),
             $place,
+            EventEnum::PLANT_PRODUCTION,
+            $dateTime
+        );
+
+        $equipmentEvent = new EquipmentEvent(
+            $fruit,
+            true,
             VisibilityEnum::PUBLIC,
             EventEnum::PLANT_PRODUCTION,
             $dateTime

@@ -179,13 +179,12 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
             $equipmentEvent = new EquipmentEvent(
-                $gameEquipment->getName(),
-                $gameEquipment->getPlace(),
+                $gameEquipment,
+                false,
                 VisibilityEnum::PUBLIC,
                 EventEnum::FIRE,
                 $date
             );
-            $equipmentEvent->setExistingEquipment($gameEquipment);
             $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
 

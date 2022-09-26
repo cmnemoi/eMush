@@ -6,6 +6,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\Reach;
@@ -13,14 +14,30 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\TransformEquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RemoveCamera extends AbstractAction
 {
     protected string $name = ActionEnum::REMOVE_CAMERA;
+    protected GameEquipmentServiceInterface $gameEquipmentService;
+
+    public function __construct(
+        EventServiceInterface $eventService,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
+        GameEquipmentServiceInterface $gameEquipmentService
+    ) {
+        parent::__construct($eventService, $actionService, $validator);
+
+        $this->gameEquipmentService = $gameEquipmentService;
+    }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -45,15 +62,22 @@ class RemoveCamera extends AbstractAction
     {
         /** @var GameEquipment $equipmentCamera */
         $equipmentCamera = $this->getParameter();
+        $time = new \DateTime();
 
-        $equipmentEvent = new EquipmentEvent(
+        $cameraItem = $this->gameEquipmentService->createGameEquipmentFromName(
             ItemEnum::CAMERA_ITEM,
             $this->player,
+            $this->getActionName(),
+            $time
+        );
+
+        $equipmentEvent = new TransformEquipmentEvent(
+            $cameraItem,
+            $equipmentCamera,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
-            new \DateTime()
+            $time
         );
-        $equipmentEvent->setExistingEquipment($equipmentCamera);
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
 
         return new Success();

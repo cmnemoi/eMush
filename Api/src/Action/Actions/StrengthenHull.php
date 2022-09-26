@@ -12,6 +12,7 @@ use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -38,6 +39,7 @@ class StrengthenHull extends AttemptAction
     {
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
+        $time = new \DateTime();
 
         $response = $this->makeAttempt();
 
@@ -49,19 +51,18 @@ class StrengthenHull extends AttemptAction
                 DaedalusVariableEnum::HULL,
                 $quantity,
                 $this->getActionName(),
-                new \DateTime()
+                $time
             );
             $daedalusEvent->setPlayer($this->player);
             $this->eventService->callEvent($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
-            $equipmentEvent = new EquipmentEvent(
-                $parameter->getName(),
+            $equipmentEvent = new InteractWithEquipmentEvent(
+                $parameter,
                 $this->player,
                 VisibilityEnum::HIDDEN,
                 $this->getActionName(),
-                new \DateTime()
+                $time
             );
-            $equipmentEvent->setExistingEquipment($parameter);
             $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
 

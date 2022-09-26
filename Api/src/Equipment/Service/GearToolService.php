@@ -151,8 +151,8 @@ class GearToolService implements GearToolServiceInterface
 
             if ($chargeStatus === null) {
                 $equipmentEvent = new EquipmentEvent(
-                    $equipment->getName(),
-                    $equipment->getPlace(),
+                    $equipment,
+                    false,
                     VisibilityEnum::HIDDEN,
                     EventEnum::OUT_OF_CHARGE,
                     new \DateTime()

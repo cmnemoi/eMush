@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -37,13 +38,13 @@ class Shred extends AbstractAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
-        $equipmentEvent = new EquipmentEvent(
-            $parameter->getName(),
-            $this->player->getPlace(),
+        $equipmentEvent = new InteractWithEquipmentEvent(
+            $parameter,
+            $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
-            new \DateTime());
-        $equipmentEvent->setExistingEquipment($parameter);
+            new \DateTime()
+        );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         return new Success();

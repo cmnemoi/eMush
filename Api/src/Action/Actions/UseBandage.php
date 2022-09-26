@@ -11,6 +11,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -39,6 +40,7 @@ class UseBandage extends AbstractAction
     {
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
+        $time = new \DateTime();
 
         $initialHealth = $this->player->getHealthPoint();
 
@@ -47,26 +49,23 @@ class UseBandage extends AbstractAction
             PlayerVariableEnum::HEALTH_POINT,
             self::BANDAGE_HEAL,
             $this->getActionName(),
-            new \DateTime()
+            $time
         );
         $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
         $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         // destroy the bandage
-        $equipmentEvent = new EquipmentEvent(
-            $parameter->getName(),
+        $equipmentEvent = new InteractWithEquipmentEvent(
+            $parameter,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
-            new \DateTime()
+            $time
         );
-        $equipmentEvent->setExistingEquipment($parameter);
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $healedQuantity = $this->player->getHealthPoint() - $initialHealth;
-
         $success = new Success();
-
         return $success->setQuantity($healedQuantity);
     }
 }

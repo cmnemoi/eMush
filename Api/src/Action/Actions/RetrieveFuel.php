@@ -6,6 +6,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Fuel;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\InventoryFull;
@@ -19,15 +20,30 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RetrieveFuel extends AbstractAction
 {
     protected string $name = ActionEnum::RETRIEVE_FUEL;
+    protected GameEquipmentServiceInterface $gameEquipmentService;
+
+    public function __construct(
+        EventServiceInterface $eventService,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
+        GameEquipmentServiceInterface $gameEquipmentService
+    ) {
+        parent::__construct($eventService, $actionService, $validator);
+
+        $this->gameEquipmentService = $gameEquipmentService;
+    }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -52,12 +68,21 @@ class RetrieveFuel extends AbstractAction
 
     protected function applyEffects(): ActionResult
     {
-        $equipmentEvent = new EquipmentEvent(
+        $time = new \DateTime();
+
+        $fuel = $this->gameEquipmentService->createGameEquipmentFromName(
             ItemEnum::FUEL_CAPSULE,
             $this->player,
+            $this->getActionName(),
+            $time
+        );
+
+        $equipmentEvent = new EquipmentEvent(
+            $fuel,
+            true,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
-            new \DateTime()
+            $time
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
@@ -66,7 +91,7 @@ class RetrieveFuel extends AbstractAction
             DaedalusVariableEnum::FUEL,
             -1,
             $this->getActionName(),
-            new \DateTime()
+            $time
         );
         $this->eventService->callEvent($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 

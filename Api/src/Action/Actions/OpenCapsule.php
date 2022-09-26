@@ -11,6 +11,8 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -29,13 +31,15 @@ class OpenCapsule extends AbstractAction
 
     protected string $name = ActionEnum::OPEN;
 
-    private RandomServiceInterface $randomService;
+    protected RandomServiceInterface $randomService;
+    protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
+        GameEquipmentServiceInterface $gameEquipmentService
     ) {
         parent::__construct(
             $eventService,
@@ -44,6 +48,7 @@ class OpenCapsule extends AbstractAction
         );
 
         $this->randomService = $randomService;
+        $this->gameEquipmentService = $gameEquipmentService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -60,27 +65,33 @@ class OpenCapsule extends AbstractAction
     {
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
+        $time = new \DateTime();
 
         // remove the space capsule
-        $equipmentEvent = new EquipmentEvent(
-            $parameter->getName(),
+        $equipmentEvent = new InteractWithEquipmentEvent(
+            $parameter,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
-            new \DateTime()
+            $time
         );
-        $equipmentEvent->setExistingEquipment($parameter);
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         // Get the content
         $contentName = $this->randomService->getSingleRandomElementFromProbaArray(self::$capsuleContent);
-
-        $equipmentEvent = new EquipmentEvent(
+        $content = $this->gameEquipmentService->createGameEquipmentFromName(
             $contentName,
             $this->player,
+            $this->getActionName(),
+            $time
+        );
+
+        $equipmentEvent = new EquipmentEvent(
+            $content,
+            true,
             VisibilityEnum::PUBLIC,
             $this->getActionName(),
-            new \DateTime()
+            $time
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 

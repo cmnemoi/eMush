@@ -30,7 +30,7 @@ class EquipmentSubscriberCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testDestroyBrokenEquipment(FunctionalTester $I)
@@ -91,13 +91,12 @@ class EquipmentSubscriberCest
         $I->haveInRepository($alertBroken);
 
         $equipmentEvent = new EquipmentEvent(
-            $gravitySimulator->getClassName(),
-            $room,
+            $gravitySimulator,
+            false,
             VisibilityEnum::HIDDEN,
             ActionEnum::DISASSEMBLE,
             new DateTime()
         );
-        $equipmentEvent->setExistingEquipment($gravitySimulator);
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);

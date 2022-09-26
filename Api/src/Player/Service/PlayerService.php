@@ -98,6 +98,7 @@ class PlayerService implements PlayerServiceInterface
     public function createPlayer(Daedalus $daedalus, User $user, string $character): Player
     {
         $player = new Player();
+        $time = new \DateTime();
 
         $gameConfig = $daedalus->getGameConfig();
 
@@ -132,7 +133,7 @@ class PlayerService implements PlayerServiceInterface
         $playerEvent = new PlayerEvent(
             $player,
             EventEnum::CREATE_DAEDALUS,
-            new \DateTime()
+            $time
         );
         $playerEvent
             ->setCharacterConfig($characterConfig)
@@ -141,13 +142,21 @@ class PlayerService implements PlayerServiceInterface
         $this->eventService->callEvent($playerEvent, PlayerEvent::NEW_PLAYER);
 
         foreach ($characterConfig->getStartingItem() as $itemConfig) {
-            // create the equipment
-            $equipmentEvent = new EquipmentEvent(
-                $itemConfig->getName(),
+
+            // Create the equipment
+            $item = $this->gameEquipmentService->createGameEquipment(
+                $itemConfig,
                 $player,
+                PlayerEvent::NEW_PLAYER,
+                $time
+            );
+
+            $equipmentEvent = new EquipmentEvent(
+                $item,
+                true,
                 VisibilityEnum::PRIVATE,
                 PlayerEvent::NEW_PLAYER,
-                new \DateTime()
+                $time
             );
             $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
         }

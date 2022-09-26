@@ -381,6 +381,16 @@
                 <target>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent. Une solution. La douche.</target>
             </segment>
         </unit>
+        <unit id="wash_in_sink">
+            <segment id="name">
+                <source>wash_in_sink.name</source>
+                <target>Se Laver</target>
+            </segment>
+            <segment id="description">
+                <source>wash_in_sink.description</source>
+                <target>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent. Une solution. La douche... Ça sera plutôt l'évier finalement</target>
+            </segment>
+        </unit>
         <unit id="extinguish">
             <segment id="name">
                 <source>extinguish.name</source>

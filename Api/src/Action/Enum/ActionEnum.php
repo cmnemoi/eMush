@@ -68,6 +68,7 @@ class ActionEnum
     public const SELF_SURGERY = 'self_surgery';
     public const CHECK_INFECTION = 'check_infection';
     public const SHOWER = 'shower';
+    public const WASH_IN_SINK = 'wash_in_sink';
     public const CHECK_ROSTER = 'check_roster';
     public const PLAY_ARCADE = 'play_arcade';
     public const LIE_DOWN = 'lie_down';

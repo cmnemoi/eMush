@@ -38,4 +38,5 @@ class PlayerStatusEnum
     public const SUICIDAL = 'suicidal';
     public const WATCHED_PUBLIC_BROADCAST = 'WATCHED_PUBLIC_BROADCAST';
     public const TALKIE_SCREWED = 'talkie_screwed';
+    public const ALREADY_WASHED_IN_THE_SINK = 'already_washed_in_the_sink';
 }

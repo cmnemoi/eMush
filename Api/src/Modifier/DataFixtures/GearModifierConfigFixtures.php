@@ -29,6 +29,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
     public const WRENCH_MODIFIER = 'wrench_modifier';
     public const GLOVES_MODIFIER = 'gloves_modifier';
     public const SOAP_MODIFIER = 'soap_modifier';
+    public const SOAP_SINK_MODIFIER = 'soap_sink_modifier';
     public const AIM_MODIFIER = 'aim_modifier';
     public const SCOOTER_MODIFIER = 'scooter_modifier';
     public const ROLLING_BOULDER = 'rolling_boulder';
@@ -96,6 +97,16 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
         $manager->persist($soapModifier);
+
+        $soapSinkModifier = new ModifierConfig();
+        $soapSinkModifier
+            ->setScope(ActionEnum::WASH_IN_SINK)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(-1)
+            ->setReach(ModifierReachEnum::PLAYER)
+            ->setMode(ModifierModeEnum::ADDITIVE)
+        ;
+        $manager->persist($soapSinkModifier);
 
         $aimModifier = new ModifierConfig();
         $aimModifier
@@ -210,6 +221,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $this->addReference(self::WRENCH_MODIFIER, $wrenchModifier);
         $this->addReference(self::GLOVES_MODIFIER, $glovesModifier);
         $this->addReference(self::SOAP_MODIFIER, $soapModifier);
+        $this->addReference(self::SOAP_SINK_MODIFIER, $soapSinkModifier);
         $this->addReference(self::AIM_MODIFIER, $aimModifier);
         $this->addReference(self::SCOOTER_MODIFIER, $antiGravScooterModifier);
         $this->addReference(self::ROLLING_BOULDER, $rollingBoulderModifier);

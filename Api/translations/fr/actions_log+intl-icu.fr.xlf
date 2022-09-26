@@ -491,6 +491,22 @@
                 }</target>
             </segment>
         </unit>
+        <unit id="wash_in_sink_human">
+            <segment id="wash_in_sink_human">
+                <source>wash_in_sink_human</source>
+                <target>Vous vous lavez péniblement, vous demandant si démonter les douches était une bonne idée...</target>
+            </segment>
+        </unit>
+        <unit id="wash_in_sink_mush">
+            <segment id="wash_in_sink_mush">
+                <source>wash_in_sink_mush</source>
+                <target>{character_gender, select,
+                        male {Vous vous lavez et vous vous sentez brûlé, meurtri par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...}
+                        female {Vous vous lavez et vous vous sentez brûlée, meurtrie par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...}
+                        other {invalid gender input}
+                }</target>
+            </segment>
+        </unit>
         <unit id="shred_success">
             <segment id="shred_success">
                 <source>shred_success</source>

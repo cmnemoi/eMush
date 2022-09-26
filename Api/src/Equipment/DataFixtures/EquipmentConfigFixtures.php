@@ -329,9 +329,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var Action $cookAction */
         $cookAction = $this->getReference(ActionsFixtures::COOK_DEFAULT);
+        /** @var Action $washAction */
+        $washAction = $this->getReference(ActionsFixtures::WASH_IN_SINK);
 
         $kitchenMechanic = new Tool();
         $kitchenMechanic->addAction($cookAction);
+        $kitchenMechanic->addAction($washAction);
 
         $kitchen = new EquipmentConfig();
         $kitchen

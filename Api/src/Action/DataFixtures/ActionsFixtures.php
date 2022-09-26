@@ -47,6 +47,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const UNGAG_DEFAULT = 'ungag.default';
     public const HYPERFREEZE_DEFAULT = 'hyperfreeze.default';
     public const SHOWER_DEFAULT = 'shower.default';
+    public const WASH_IN_SINK = 'wash.in.sink';
     public const FLIRT_DEFAULT = 'flirt.default';
     public const FUEL_INJECT = 'fuel.inject';
     public const FUEL_RETRIEVE = 'fuel.retrieve';
@@ -397,6 +398,15 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($showerAction);
 
+        $sinkAction = new Action();
+        $sinkAction
+            ->setName(ActionEnum::WASH_IN_SINK)
+            ->setScope(ActionScopeEnum::CURRENT)
+            ->setActionCost($threeActionPointCost)
+        ;
+
+        $manager->persist($sinkAction);
+
         $fuelInjectAction = new Action();
         $fuelInjectAction
             ->setName(ActionEnum::INSERT_FUEL)
@@ -700,6 +710,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::GAG_DEFAULT, $gagAction);
         $this->addReference(self::UNGAG_DEFAULT, $ungagAction);
         $this->addReference(self::SHOWER_DEFAULT, $showerAction);
+        $this->addReference(self::WASH_IN_SINK, $sinkAction);
         $this->addReference(self::FUEL_INJECT, $fuelInjectAction);
         $this->addReference(self::FUEL_RETRIEVE, $retrieveFuelAction);
         $this->addReference(self::OXYGEN_INJECT, $oxygenInjectAction);

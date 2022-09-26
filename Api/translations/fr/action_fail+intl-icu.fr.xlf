@@ -547,6 +547,13 @@
             </segment>
         </unit>
 
+        <unit id="already_washed_in_sink_today">
+            <segment id="description">
+                <source>already_washed_in_sink_today.description</source>
+                <target>Cette galère pour se nettoyer vous a assez suffi pour aujourd'hui.</target>
+            </segment>
+        </unit>
+
         <unit id="already_in_bed">
             <segment id="description">
                 <source>already_in_bed.description</source>

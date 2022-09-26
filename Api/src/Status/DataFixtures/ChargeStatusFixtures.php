@@ -42,6 +42,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const DRUG_EATEN_STATUS = 'drug_eaten_status';
     public const DID_THE_THING_STATUS = 'did_the_thing_status';
     public const DID_BORING_SPEECH_STATUS = 'did_boring_speech_status';
+    public const ALREADY_WASHED_IN_THE_SINK = 'already_washed_in_the_sink';
 
     public const UPDATING_TRACKIE_STATUS = 'updating_trackie_status';
 
@@ -303,6 +304,18 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($did_boring_speech);
 
+        $already_washed_in_the_sink = new ChargeStatusConfig();
+        $already_washed_in_the_sink
+            ->setName(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
+            ->setStartCharge(1)
+            ->setAutoRemove(true)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($did_boring_speech);
+
         $updatingTrackie = new ChargeStatusConfig();
         $updatingTrackie
             ->setName(EquipmentStatusEnum::UPDATING)
@@ -338,6 +351,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::DID_THE_THING_STATUS, $did_the_thing);
         $this->addReference(self::DID_BORING_SPEECH_STATUS, $did_boring_speech);
         $this->addReference(self::UPDATING_TRACKIE_STATUS, $updatingTrackie);
+        $this->addReference(self::ALREADY_WASHED_IN_THE_SINK, $already_washed_in_the_sink);
     }
 
     public function getDependencies(): array

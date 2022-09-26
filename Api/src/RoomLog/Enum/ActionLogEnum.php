@@ -52,6 +52,8 @@ class ActionLogEnum
     public const SHRED_SUCCESS = 'shred_success';
     public const SHOWER_HUMAN = 'shower_human';
     public const SHOWER_MUSH = 'shower_mush';
+    public const WASH_IN_SINK_HUMAN = 'wash_in_sink_human';
+    public const WASH_IN_SINK_MUSH = 'wash_in_sink_mush';
     public const STRENGTHEN_SUCCESS = 'strengthen_success';
     public const SPREAD_FIRE_SUCCESS = 'spread_fire_success';
     public const TAKE = 'take';
@@ -295,6 +297,16 @@ class ActionLogEnum
             ],
             ActionOutputEnum::FAIL => [
                 self::VALUE => self::SHOWER_MUSH,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+        ],
+        ActionEnum::WASH_IN_SINK => [
+            ActionOutputEnum::SUCCESS => [
+                self::VALUE => self::WASH_IN_SINK_HUMAN,
+                self::VISIBILITY => VisibilityEnum::PRIVATE,
+            ],
+            ActionOutputEnum::FAIL => [
+                self::VALUE => self::WASH_IN_SINK_MUSH,
                 self::VISIBILITY => VisibilityEnum::PRIVATE,
             ],
         ],

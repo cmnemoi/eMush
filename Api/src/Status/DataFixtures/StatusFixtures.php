@@ -418,6 +418,14 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($watched_public_broadcast);
 
+        $washed_in_the_sink = new StatusConfig();
+        $washed_in_the_sink
+            ->setName(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK)
+            ->setVisibility(VisibilityEnum::PRIVATE)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($washed_in_the_sink);
+
         $screwedTalkie = new StatusConfig();
         $screwedTalkie
             ->setName(PlayerStatusEnum::TALKIE_SCREWED)

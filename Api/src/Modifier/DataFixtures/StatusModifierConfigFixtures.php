@@ -173,6 +173,22 @@ class StatusModifierConfigFixtures extends Fixture
         ;
         $manager->persist($mushShowerModifier);
 
+        $sinkActionCondition = new ModifierCondition(ModifierConditionEnum::REASON);
+        $sinkActionCondition->setCondition(ActionEnum::WASH_IN_SINK);
+        $manager->persist($sinkActionCondition);
+
+        $mushSinkModifier = new ModifierConfig();
+        $mushSinkModifier
+            ->setScope(ActionEvent::POST_ACTION)
+            ->setTarget(PlayerVariableEnum::HEALTH_POINT)
+            ->setDelta(-3)
+            ->setReach(ModifierReachEnum::PLAYER)
+            ->setMode(ModifierModeEnum::SET_VALUE)
+            ->addModifierCondition($sinkActionCondition)
+            ->setName(ModifierNameEnum::MUSH_SHOWER_MALUS)
+        ;
+        $manager->persist($mushSinkModifier);
+
         $consumeActionCondition = new ModifierCondition(ModifierConditionEnum::REASON);
         $consumeActionCondition->setCondition(ActionEnum::CONSUME);
         $manager->persist($consumeActionCondition);

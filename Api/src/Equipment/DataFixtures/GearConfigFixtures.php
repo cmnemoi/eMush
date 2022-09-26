@@ -139,7 +139,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($gloves);
 
-        $soapGear = $this->createGear([GearModifierConfigFixtures::SOAP_MODIFIER]);
+        $soapGear = $this->createGear([GearModifierConfigFixtures::SOAP_MODIFIER, GearModifierConfigFixtures::SOAP_SINK_MODIFIER]);
         $soap = new ItemConfig();
         $soap
             ->setGameConfig($gameConfig)

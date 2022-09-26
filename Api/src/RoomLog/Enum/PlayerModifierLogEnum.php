@@ -4,7 +4,7 @@ namespace Mush\RoomLog\Enum;
 
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
-use Mush\Player\Enum\EndCauseEnum;
+use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 
@@ -89,7 +89,7 @@ class PlayerModifierLogEnum
             self::VISIBILITY => VisibilityEnum::PRIVATE,
             self::VALUE => self::PANIC_CRISIS,
         ],
-        EndCauseEnum::CLUMSINESS => [
+        ModifierScopeEnum::EVENT_CLUMSINESS => [
             self::VISIBILITY => VisibilityEnum::PRIVATE,
             self::VALUE => self::CLUMSINESS,
         ],

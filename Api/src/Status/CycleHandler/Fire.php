@@ -11,7 +11,6 @@ use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEventEnum;
-use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\ChargeStatus;
@@ -94,7 +93,7 @@ class Fire extends AbstractStatusCycleHandler
                 $player,
                 PlayerVariableEnum::HEALTH_POINT,
                 -$damage,
-                EndCauseEnum::BURNT,
+                StatusEnum::FIRE,
                 $date
             );
             $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);

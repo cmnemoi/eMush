@@ -8,7 +8,6 @@ use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -89,7 +88,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             $player,
             PlayerVariableEnum::HEALTH_POINT,
             self::ACTION_INJURY_MODIFIER,
-            EndCauseEnum::CLUMSINESS,
+            ModifierScopeEnum::EVENT_CLUMSINESS,
             $dateTime
         );
         $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);

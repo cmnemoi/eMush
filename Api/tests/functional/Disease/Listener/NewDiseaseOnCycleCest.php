@@ -21,7 +21,6 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class NewDiseaseOnCycleCest
 {

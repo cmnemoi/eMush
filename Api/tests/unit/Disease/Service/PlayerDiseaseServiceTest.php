@@ -13,11 +13,11 @@ use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Repository\DiseaseCausesConfigRepository;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Disease\Service\PlayerDiseaseService;
+use Mush\Event\Service\EventService;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerDiseaseServiceTest extends TestCase
 {
@@ -36,7 +36,7 @@ class PlayerDiseaseServiceTest extends TestCase
     private RandomServiceInterface $randomService;
 
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
+    private EventService $eventService;
 
     /**
      * @before

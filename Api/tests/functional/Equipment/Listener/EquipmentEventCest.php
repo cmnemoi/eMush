@@ -17,7 +17,6 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\StatusEnum;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EquipmentEventCest
 {

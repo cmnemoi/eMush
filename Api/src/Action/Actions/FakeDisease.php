@@ -48,7 +48,7 @@ class FakeDisease extends AbstractAction
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
+        $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
 
         return new Success();
     }

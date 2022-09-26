@@ -9,6 +9,7 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Listener\DaedalusCycleSubscriber;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Event\Service\EventService;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
@@ -16,7 +17,6 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DaedalusCycleEventTest extends TestCase
 {
@@ -25,7 +25,7 @@ class DaedalusCycleEventTest extends TestCase
     /** @var DaedalusIncidentServiceInterface|Mockery\Mock */
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
+    private EventService $eventService;
 
     private DaedalusCycleSubscriber $daedalusCycleSubscriber;
 

@@ -47,7 +47,7 @@ class Cook extends AbstractAction
                 new \DateTime()
             );
             $equipmentEvent->setExistingEquipment($parameter);
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
+            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
         } elseif ($parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) {
             $statusEvent = new StatusEvent(
                 EquipmentStatusEnum::FROZEN,
@@ -56,7 +56,7 @@ class Cook extends AbstractAction
                 new \DateTime()
             );
 
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
         }
 
         return new Success();

@@ -54,7 +54,7 @@ class RemoveCamera extends AbstractAction
             new \DateTime()
         );
         $equipmentEvent->setExistingEquipment($equipmentCamera);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
 
         return new Success();
     }

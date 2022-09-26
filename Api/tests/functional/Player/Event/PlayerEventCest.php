@@ -26,7 +26,6 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class PlayerEventCest
 {

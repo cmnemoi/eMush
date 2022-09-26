@@ -67,7 +67,7 @@ class Hit extends AttemptAction
                     new \DateTime()
                 );
 
-                $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+                $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
             }
         }
 

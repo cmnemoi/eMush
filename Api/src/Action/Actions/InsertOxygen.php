@@ -49,7 +49,7 @@ class InsertOxygen extends AbstractAction
             new \DateTime()
         );
         $equipmentEvent->setExistingEquipment($parameter);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         // add Oxygen
         $daedalusEvent = new DaedalusModifierEvent(
@@ -59,7 +59,7 @@ class InsertOxygen extends AbstractAction
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         return new Success();
     }

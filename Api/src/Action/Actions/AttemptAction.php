@@ -6,8 +6,8 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Event\Service\EventService;
 use Mush\Game\Service\RandomServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AttemptAction extends AbstractAction
@@ -15,14 +15,14 @@ abstract class AttemptAction extends AbstractAction
     protected RandomServiceInterface $randomService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventService $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService
     ) {
         $this->randomService = $randomService;
         parent::__construct(
-            $eventDispatcher,
+            $eventService,
             $actionService,
             $validator
         );

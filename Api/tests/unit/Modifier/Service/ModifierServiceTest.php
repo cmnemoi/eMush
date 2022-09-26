@@ -8,6 +8,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Event\Service\EventService;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
@@ -24,7 +25,6 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ModifierServiceTest extends TestCase
 {
@@ -35,7 +35,7 @@ class ModifierServiceTest extends TestCase
     /** @var ModifierConditionServiceInterface|Mockery\Mock */
     private ModifierConditionServiceInterface $conditionService;
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
+    private EventService $eventService;
 
     private ModifierService $service;
 

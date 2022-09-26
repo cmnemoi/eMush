@@ -3,26 +3,26 @@
 namespace Mush\Player\Listener;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Event\Service\EventService;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerVariableServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerModifierSubscriber implements EventSubscriberInterface
 {
     private PlayerVariableServiceInterface $playerVariableService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventService $eventService;
 
     public function __construct(
         PlayerVariableServiceInterface $playerVariableService,
-        EventDispatcherInterface $eventDispatcher
+        EventService $eventService
     ) {
         $this->playerVariableService = $playerVariableService;
-        $this->eventDispatcher = $eventDispatcher;
+          $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents()
@@ -94,7 +94,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
                 $playerEvent->setReason(EndCauseEnum::ASSASSINATED);
             }
 
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+            $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
         }
     }
 

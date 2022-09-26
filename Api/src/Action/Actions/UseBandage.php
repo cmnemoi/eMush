@@ -50,7 +50,7 @@ class UseBandage extends AbstractAction
             new \DateTime()
         );
         $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         // destroy the bandage
         $equipmentEvent = new EquipmentEvent(
@@ -61,7 +61,7 @@ class UseBandage extends AbstractAction
             new \DateTime()
         );
         $equipmentEvent->setExistingEquipment($parameter);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $healedQuantity = $this->player->getHealthPoint() - $initialHealth;
 

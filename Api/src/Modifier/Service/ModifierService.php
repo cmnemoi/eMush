@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Event\Service\EventService;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
@@ -20,24 +21,23 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ModifierService implements ModifierServiceInterface
 {
     private const ATTEMPT_INCREASE = 1.25;
     private EntityManagerInterface $entityManager;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventService $eventService;
     private ModifierConditionServiceInterface $conditionService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventDispatcherInterface $eventDispatcher,
+        EventService $eventService,
         ModifierConditionServiceInterface $conditionService,
         RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
-        $this->eventDispatcher = $eventDispatcher;
+          $this->eventService = $eventService;
         $this->conditionService = $conditionService;
         $this->randomService = $randomService;
     }
@@ -211,7 +211,7 @@ class ModifierService implements ModifierServiceInterface
             $reason = $modifier->getModifierConfig()->getName() ?: $reason;
             $modifierEvent = new ModifierEvent($modifier, $reason, $time, $isSuccessful);
 
-            $this->eventDispatcher->dispatch($modifierEvent, ModifierEvent::APPLY_MODIFIER);
+            $this->eventService->callEvent($modifierEvent, ModifierEvent::APPLY_MODIFIER);
         }
     }
 

@@ -12,9 +12,9 @@ use Mush\Action\Validator\ActionPoint;
 use Mush\Action\Validator\AreSymptomsPreventingAction;
 use Mush\Action\Validator\HasAction;
 use Mush\Action\Validator\PlayerAlive;
+use Mush\Event\Service\EventService;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -28,16 +28,16 @@ abstract class AbstractAction
 
     protected string $name;
 
-    protected EventDispatcherInterface $eventDispatcher;
+    protected EventService $eventService;
     protected ActionServiceInterface $actionService;
     private ValidatorInterface $validator;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventService $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator
     ) {
-        $this->eventDispatcher = $eventDispatcher;
+          $this->eventService = $eventService;
         $this->actionService = $actionService;
         $this->validator = $validator;
     }
@@ -97,7 +97,7 @@ abstract class AbstractAction
         $parameter = $this->getParameter();
 
         $preActionEvent = new ActionEvent($this->action, $this->player, $parameter);
-        $this->eventDispatcher->dispatch($preActionEvent, ActionEvent::PRE_ACTION);
+        $this->eventService->callEvent($preActionEvent, ActionEvent::PRE_ACTION);
 
         $this->actionService->applyCostToPlayer($this->player, $this->action, $this->parameter);
 
@@ -105,11 +105,11 @@ abstract class AbstractAction
 
         $resultActionEvent = new ActionEvent($this->action, $this->player, $parameter);
         $resultActionEvent->setActionResult($result);
-        $this->eventDispatcher->dispatch($resultActionEvent, ActionEvent::RESULT_ACTION);
+        $this->eventService->callEvent($resultActionEvent, ActionEvent::RESULT_ACTION);
 
         $postActionEvent = new ActionEvent($this->action, $this->player, $parameter);
         $postActionEvent->setActionResult($result);
-        $this->eventDispatcher->dispatch($postActionEvent, ActionEvent::POST_ACTION);
+        $this->eventService->callEvent($postActionEvent, ActionEvent::POST_ACTION);
 
         return $result;
     }

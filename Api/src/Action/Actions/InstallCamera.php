@@ -60,7 +60,7 @@ class InstallCamera extends AbstractAction
             new \DateTime()
         );
         $equipmentEvent->setExistingEquipment($itemCamera);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
 
         return new Success();
     }

@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\MushSpore;
+use Mush\Event\Service\EventService;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -18,7 +19,6 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -36,12 +36,12 @@ class Phagocyte extends AbstractAction
     private StatusServiceInterface $statusService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventService $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         StatusServiceInterface $statusService
     ) {
-        parent::__construct($eventDispatcher, $actionService, $validator);
+        parent::__construct($eventService, $actionService, $validator);
 
         $this->statusService = $statusService;
     }
@@ -77,7 +77,7 @@ class Phagocyte extends AbstractAction
             new \DateTime()
         );
         $healthPointGainEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventDispatcher->dispatch($healthPointGainEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($healthPointGainEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         // The Player gains 4 :pa:
         $actionPointGainEvent = new PlayerVariableEvent(
@@ -88,7 +88,7 @@ class Phagocyte extends AbstractAction
             new \DateTime()
         );
         $actionPointGainEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventDispatcher->dispatch($actionPointGainEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($actionPointGainEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         return new Success();
     }

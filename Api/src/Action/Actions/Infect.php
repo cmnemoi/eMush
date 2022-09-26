@@ -12,13 +12,13 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\MushSpore;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Event\Service\EventService;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -29,13 +29,13 @@ class Infect extends AbstractAction
     private StatusServiceInterface $statusService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventService $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         StatusServiceInterface $statusService
     ) {
         parent::__construct(
-            $eventDispatcher,
+            $eventService,
             $actionService,
             $validator
         );
@@ -74,7 +74,7 @@ class Infect extends AbstractAction
         $parameter = $this->parameter;
 
         $playerEvent = new PlayerEvent($parameter, $this->getActionName(), new \DateTime());
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         /** @var ChargeStatus $sporeStatus */
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);

@@ -68,7 +68,7 @@ class UpdateTalkie extends AbstractAction
             new \DateTime()
         );
         $equipmentEvent->setExistingEquipment($tracker);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
@@ -81,7 +81,7 @@ class UpdateTalkie extends AbstractAction
             new \DateTime()
         );
         $equipmentEvent->setExistingEquipment($parameter);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
 
         return new Success();
     }

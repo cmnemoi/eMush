@@ -22,7 +22,6 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class BoringSpeechActionCest
 {

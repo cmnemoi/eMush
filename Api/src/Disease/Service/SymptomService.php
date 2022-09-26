@@ -13,6 +13,7 @@ use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Event\Service\EventService;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
@@ -26,13 +27,12 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SymptomService implements SymptomServiceInterface
 {
     private ActionServiceInterface $actionService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventService $eventService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private PlayerServiceInterface $playerService;
     private RandomServiceInterface $randomService;
@@ -41,7 +41,7 @@ class SymptomService implements SymptomServiceInterface
 
     public function __construct(
         ActionServiceInterface $actionService,
-        EventDispatcherInterface $eventDispatcher,
+        EventService $eventService,
         PlayerDiseaseServiceInterface $playerDiseaseService,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
@@ -49,7 +49,7 @@ class SymptomService implements SymptomServiceInterface
         ValidatorInterface $validator,
     ) {
         $this->actionService = $actionService;
-        $this->eventDispatcher = $eventDispatcher;
+          $this->eventService = $eventService;
         $this->playerDiseaseService = $playerDiseaseService;
         $this->playerService = $playerService;
         $this->randomService = $randomService;
@@ -158,7 +158,7 @@ class SymptomService implements SymptomServiceInterface
             $time
         );
 
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
     private function handleBreakouts(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
@@ -186,7 +186,7 @@ class SymptomService implements SymptomServiceInterface
             $symptomConfig->getName(),
             $time
         );
-        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
+        $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
     }
 
     private function handleDirtiness(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
@@ -211,7 +211,7 @@ class SymptomService implements SymptomServiceInterface
             $time
         );
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
     private function handleDrooling(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
@@ -267,7 +267,7 @@ class SymptomService implements SymptomServiceInterface
             $time
         );
 
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
     }
 
     private function handleVomiting(SymptomConfig $symptomConfig, Player $player, DateTime $time): void

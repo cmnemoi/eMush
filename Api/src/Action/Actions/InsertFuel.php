@@ -51,7 +51,7 @@ class InsertFuel extends AbstractAction
             new \DateTime()
         );
         $equipmentEvent->setExistingEquipment($item);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         // add Fuel
         $daedalusEvent = new DaedalusModifierEvent(
@@ -61,7 +61,7 @@ class InsertFuel extends AbstractAction
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         return new Success();
     }

@@ -18,7 +18,6 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class PlayerModifierEventCest
 {

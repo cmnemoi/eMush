@@ -11,6 +11,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Event\Service\EventService;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -27,7 +28,6 @@ use Mush\Status\Repository\StatusConfigRepository;
 use Mush\Status\Repository\StatusRepository;
 use Mush\Status\Service\StatusService;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class StatusServiceTest extends TestCase
 {
@@ -35,7 +35,7 @@ class StatusServiceTest extends TestCase
     private EntityManagerInterface $entityManager;
 
     /** @var EventDispatcherInterface|Mockery\Mock */
-    protected EventDispatcherInterface $eventDispatcher;
+    protected EventService $eventService;
 
     /** @var StatusRepository|Mockery\Mock */
     private StatusRepository $repository;

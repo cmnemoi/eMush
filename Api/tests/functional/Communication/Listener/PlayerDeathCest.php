@@ -14,7 +14,6 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class PlayerDeathCest
 {

@@ -28,14 +28,6 @@ class ReachValidator extends ConstraintValidator
         $parameter = $value->getParameter();
         $player = $value->getPlayer();
 
-        try {
-            if ($parameter == null)
-                throw new \Exception('a');
-        } catch (Exception $e) {
-            var_dump(json_encode($e->getTrace()));
-            die(500);
-        }
-
         if ($parameter instanceof GameEquipment) {
             $canReach = $this->canReachGameEquipment($player, $parameter, $constraint->reach);
         } elseif ($parameter instanceof Player) {

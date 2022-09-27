@@ -41,6 +41,7 @@ class LogEnum
     public const SELF_SURGERY_SUCCESS = 'self_surgery_success';
     public const SELF_SURGERY_CRITICAL_SUCCESS = 'self_surgery_critical_success';
     public const TRAUMA_DISEASE = 'trauma_disease';
+    public const DISEASE_OVERRIDDEN = 'disease_overridden';
 
     public const VISIBILITY = 'visibility';
     public const VALUE = 'value';

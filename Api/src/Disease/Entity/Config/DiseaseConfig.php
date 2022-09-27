@@ -51,6 +51,9 @@ class DiseaseConfig implements LogParameterInterface
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $diseasePointLength = 4;
 
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $override = [];
+
     public function __construct()
     {
         $this->modifierConfigs = new ArrayCollection();
@@ -201,6 +204,18 @@ class DiseaseConfig implements LogParameterInterface
     public function setDiseasePointLength(int $diseasePointLength): self
     {
         $this->diseasePointLength = $diseasePointLength;
+
+        return $this;
+    }
+
+    public function getOverride(): array
+    {
+        return $this->override;
+    }
+
+    public function setOverride(array $override): self
+    {
+        $this->override = $override;
 
         return $this;
     }

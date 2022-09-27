@@ -91,6 +91,8 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             return null;
         }
 
+        $time = new \DateTime();
+
         $disease = new PlayerDisease();
         $disease
             ->setPlayer($player)
@@ -114,16 +116,47 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $event = new DiseaseEvent(
             $disease,
             $cause,
-            new \DateTime()
+            $time
         );
         $this->eventDispatcher->dispatch($event, DiseaseEvent::NEW_DISEASE);
 
         if ($disease->getStatus() === DiseaseStatusEnum::ACTIVE) {
-            $event->setVisibility(VisibilityEnum::PRIVATE);
-            $this->eventDispatcher->dispatch($event, DiseaseEvent::APPEAR_DISEASE);
+            $this->activateDisease($disease, $cause, $time);
         }
 
         return $disease;
+    }
+
+    private function activateDisease(PlayerDisease $disease, string $cause, \DateTime $time): void
+    {
+        $event = new DiseaseEvent(
+            $disease,
+            $cause,
+            $time
+        );
+
+        $event->setVisibility(VisibilityEnum::PRIVATE);
+        $this->eventDispatcher->dispatch($event, DiseaseEvent::APPEAR_DISEASE);
+
+        $this->removeOverrodeDiseases($disease, $time);
+    }
+
+    private function removeOverrodeDiseases(PlayerDisease $disease, \DateTime $time): void
+    {
+        $player = $disease->getPlayer();
+        $diseaseConfig = $disease->getDiseaseConfig();
+
+        foreach ($diseaseConfig->getOverride() as $diseaseName) {
+            $overrodeDisease = $player->getMedicalConditionByName($diseaseName);
+            if ($overrodeDisease !== null) {
+                $this->removePlayerDisease(
+                    $overrodeDisease,
+                    DiseaseCauseEnum::OVERRODE,
+                    $time,
+                    VisibilityEnum::PRIVATE
+                );
+            }
+        }
     }
 
     public function handleDiseaseForCause(string $cause, Player $player, int $delayMin = null, int $delayLength = null): void
@@ -179,13 +212,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
                 $this->persist($playerDisease);
 
-                $event = new DiseaseEvent(
-                    $playerDisease,
-                    DiseaseCauseEnum::INCUBATING_END,
-                    $time
-                );
-                $event->setVisibility(VisibilityEnum::PRIVATE);
-                $this->eventDispatcher->dispatch($event, DiseaseEvent::APPEAR_DISEASE);
+                $this->activateDisease($playerDisease, DiseaseCauseEnum::INCUBATING_END, $time);
             } else {
                 $this->removePlayerDisease($playerDisease, DiseaseStatusEnum::SPONTANEOUS_CURE, $time, VisibilityEnum::PRIVATE);
             }

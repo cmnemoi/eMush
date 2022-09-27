@@ -631,19 +631,19 @@
                 <target>Souffle court, du sang dans les poumons... Sans soins, vous n'en avez plus pour longtemps à vivre.</target>
             </segment>
         </unit>
-        <unit id="smashed_arms">
+        <unit id="mashed_arms">
             <segment id="name">
-                <source>smashed_arms.name</source>
+                <source>mashed_arms.name</source>
                 <target>Absence de bras</target>
             </segment>
             <segment id="description">
-                <source>smashed_arms.description</source>
+                <source>mashed_arms.description</source>
                 <target>Vos bras sont complètement inutiles.</target>
             </segment>
         </unit>
-        <unit id="smashed_legs">
+        <unit id="mashed_legs">
             <segment id="name">
-                <source>smashed_legs.name</source>
+                <source>mashed_legs.name</source>
                 <target>Jambes inutilisables</target>
             </segment>
             <segment id="description">

@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\Config\SymptomConfig;
+use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -106,7 +107,9 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setModifierConfigs(new ArrayCollection([
                 $reduceMax2MoralPoint,
                 $cycle1ActionLostRand16,
-            ]));
+            ]))
+            ->setOverride([DiseaseEnum::MIGRAINE])
+        ;
 
         $manager->persist($chronicMigraine);
 

@@ -386,6 +386,7 @@ class PlantCycleHandlerTest extends TestCase
         ;
 
         // Dried out plant
+        // @TODO $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName');
         $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, $time);
 
         $this->assertCount(1, $room->getEquipments());

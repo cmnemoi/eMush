@@ -14,10 +14,14 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 
 class InstallCameraActionTest extends AbstractActionTest
 {
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+
     /**
      * @before
      */
@@ -26,11 +30,13 @@ class InstallCameraActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::INSTALL_CAMERA);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->action = new InstallCamera(
             $this->eventService,
             $this->actionService,
             $this->validator,
+            $this->gameEquipmentService
         );
     }
 

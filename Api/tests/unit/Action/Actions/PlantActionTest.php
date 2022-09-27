@@ -12,13 +12,17 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Place\Entity\Place;
 
 class PlantActionTest extends AbstractActionTest
 {
     /** @var GearToolServiceInterface|Mockery\Mock */
-    private GearToolServiceInterface $gearToolService;
+    private GearToolServiceInterface|Mockery\Mock $gearToolService;
+
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -28,7 +32,7 @@ class PlantActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::TRANSPLANT, 1);
-
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
 
         $this->action = new Transplant(
@@ -36,6 +40,7 @@ class PlantActionTest extends AbstractActionTest
             $this->actionService,
             $this->validator,
             $this->gearToolService,
+            $this->gameEquipmentService
         );
     }
 

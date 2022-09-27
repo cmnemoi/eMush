@@ -14,10 +14,15 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 
 class RemoveCameraActionTest extends AbstractActionTest
 {
+
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+
     /**
      * @before
      */
@@ -27,10 +32,13 @@ class RemoveCameraActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::REMOVE_CAMERA);
 
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+
         $this->action = new RemoveCamera(
             $this->eventService,
             $this->actionService,
             $this->validator,
+            $this->gameEquipmentService
         );
     }
 

@@ -14,13 +14,17 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 
 class OpenCapsuleActionTest extends AbstractActionTest
 {
     /** @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface $randomService;
+    private RandomServiceInterface|Mockery\Mock $randomService;
+
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -30,6 +34,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
         parent::before();
 
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
@@ -38,6 +43,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
             $this->actionService,
             $this->validator,
             $this->randomService,
+            $this->gameEquipmentService
         );
     }
 

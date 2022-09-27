@@ -56,11 +56,14 @@ class EquipmentSubscriberCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $gravitySimulatorConfig */
-        $gravitySimulatorConfig = $I->have(EquipmentConfig::class, ['name' => EquipmentEnum::BED, 'gameConfig' => $gameConfig]);
+        $gravitySimulatorConfig = $I->have(EquipmentConfig::class, [
+            'name' => EquipmentEnum::GRAVITY_SIMULATOR,
+            'gameConfig' => $gameConfig
+        ]);
 
         $gravitySimulator = new GameEquipment();
         $gravitySimulator
-            ->setName(EquipmentEnum::BED)
+            ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
             ->setEquipment($gravitySimulatorConfig)
             ->setHolder($room)
         ;
@@ -74,6 +77,7 @@ class EquipmentSubscriberCest
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
         $I->haveInRepository($statusConfig);
+
         $broken = new Status($gravitySimulator, $statusConfig);
         $I->haveInRepository($broken);
 

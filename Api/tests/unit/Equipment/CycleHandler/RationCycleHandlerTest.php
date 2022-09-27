@@ -31,8 +31,8 @@ class RationCycleHandlerTest extends TestCase
      */
     public function before()
     {
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->rationCycleHandler = new RationCycleHandler(
             $this->gameEquipmentService,

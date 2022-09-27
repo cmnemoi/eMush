@@ -376,7 +376,7 @@
         <unit id="run_in_circles">
             <segment>
                 <source>run_in_circles</source>
-                <target>:pill: **{character}** se met à courir en rond, et rien de semble pouvoir l'arrêter... à part la fatigue...</target>
+                <target>:pill: **{character}** se met à courir en rond, et rien ne semble pouvoir l'arrêter... à part la fatigue...</target>
             </segment>
         </unit>
         <unit id="vomiting">

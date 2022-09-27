@@ -112,6 +112,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         }
 
         $equipmentEvent = new EquipmentInitEvent($gameEquipment, $equipmentConfig, $reason, $time);
+
         $this->eventService->callEvent($equipmentEvent, EquipmentInitEvent::NEW_EQUIPMENT);
 
         return $gameEquipment;

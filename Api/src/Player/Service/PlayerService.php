@@ -158,6 +158,7 @@ class PlayerService implements PlayerServiceInterface
                 PlayerEvent::NEW_PLAYER,
                 $time
             );
+
             $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
         }
 

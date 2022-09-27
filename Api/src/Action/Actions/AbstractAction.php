@@ -30,7 +30,7 @@ abstract class AbstractAction
 
     protected EventServiceInterface $eventService;
     protected ActionServiceInterface $actionService;
-    private ValidatorInterface $validator;
+    protected ValidatorInterface $validator;
 
     public function __construct(
         EventServiceInterface $eventService,
@@ -67,7 +67,6 @@ abstract class AbstractAction
     public function isVisible(): bool
     {
         $validator = $this->validator;
-        dump($this);
         return $validator->validate($this, null, 'visibility')->count() === 0;
     }
 

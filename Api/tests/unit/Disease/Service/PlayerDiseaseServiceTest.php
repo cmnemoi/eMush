@@ -190,7 +190,6 @@ class PlayerDiseaseServiceTest extends TestCase
 
     public function testHandleDiseaseForCause()
     {
-        
         $daedalus = new Daedalus();
         $daedalus->setGameConfig(new GameConfig());
 

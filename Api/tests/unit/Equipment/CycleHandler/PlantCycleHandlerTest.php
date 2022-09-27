@@ -155,12 +155,12 @@ class PlantCycleHandlerTest extends TestCase
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->eventService
-                ->shouldReceive('dispatch')
+                ->shouldReceive('callEvent')
                 ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::PLANT_DISEASED && $event->getStatusHolder() === $gamePlant)
                 ->once();
 
         $this->eventService
-                ->shouldReceive('dispatch')
+                ->shouldReceive('callEvent')
                 ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                     $event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG &&
                     $event->getStatusHolder() === $gamePlant)

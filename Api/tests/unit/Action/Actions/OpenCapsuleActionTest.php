@@ -90,8 +90,9 @@ class OpenCapsuleActionTest extends AbstractActionTest
             ->andReturn(ItemEnum::METAL_SCRAPS)
             ->once()
         ;
-        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
         $this->eventService->shouldReceive('callEvent')->twice();
 
         $result = $this->action->execute();

@@ -78,7 +78,7 @@ class RemoveCameraActionTest extends AbstractActionTest
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->action->loadParameters($this->actionEntity, $player, $cameraEquipment);
-
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent')->once();
 

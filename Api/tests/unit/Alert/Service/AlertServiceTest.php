@@ -28,9 +28,9 @@ class AlertServiceTest extends TestCase
     private AlertServiceInterface $alertService;
 
     /** @var EntityManagerInterface|Mockery\Mock */
-    private EntityManagerInterface $entityManager;
+    private EntityManagerInterface|Mockery\Mock $entityManager;
     /** @var AlertRepository|Mockery\Mock */
-    private AlertRepository $repository;
+    private AlertRepository|Mockery\Mock $repository;
 
     /**
      * @before

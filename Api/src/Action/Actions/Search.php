@@ -85,37 +85,21 @@ class Search extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $hiddenItems = $this->player
-            ->getPlace()
-            ->getEquipments()
-            ->filter(
-                fn (GameEquipment $gameEquipment) => ($gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN) !== null)
-            )
-        ;
+        $hiddenItem = $result->getEquipment();
 
-        if (!$hiddenItems->isEmpty()) {
-            /** @var GameItem $mostRecentHiddenItem */
-            $mostRecentHiddenItem = $this->statusService
-                ->getMostRecent(EquipmentStatusEnum::HIDDEN, $hiddenItems)
-            ;
-
-            if (!($hiddenStatus = $mostRecentHiddenItem->getStatusByName(EquipmentStatusEnum::HIDDEN)) ||
-                !($hiddenBy = $hiddenStatus->getTarget()) ||
-                !$hiddenBy instanceof Player
-            ) {
-                throw new \LogicException('invalid hidden status');
-            }
-
-            $itemFound = $mostRecentHiddenItem;
-
-            $statusEvent = new StatusEvent(
-                $hiddenStatus->getName(),
-                $itemFound,
-                $this->getActionName(),
-                new \DateTime()
-            );
-            $statusEvent->setStatusTarget($hiddenBy);
-            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
+        if ($hiddenItem === null) {
+            throw new \LogicException('invalid search item');
         }
+
+        $hiddenBy = $hiddenItem->getStatusByName(EquipmentStatusEnum::HIDDEN)->getTarget();
+
+        $statusEvent = new StatusEvent(
+            $hiddenItem->getName(),
+            $hiddenItem,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $statusEvent->setStatusTarget($hiddenBy);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
     }
 }

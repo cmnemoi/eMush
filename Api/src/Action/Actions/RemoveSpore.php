@@ -73,14 +73,6 @@ class RemoveSpore extends AbstractAction
         $nbSpores = $sporeStatus->getCharge();
 
         if ($nbSpores > 0) {
-            $sporeStatus = $this->statusService->updateCharge($sporeStatus, -1);
-
-            if ($sporeStatus === null) {
-                throw new Error('Player should have a spore status');
-            }
-
-            $this->statusService->persist($sporeStatus);
-
             return new Success();
         } else {
             return new Fail();

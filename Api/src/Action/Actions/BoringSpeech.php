@@ -67,5 +67,7 @@ class BoringSpeech extends AbstractSpeech
         );
 
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+
+        parent::applyEffect($result);
     }
 }

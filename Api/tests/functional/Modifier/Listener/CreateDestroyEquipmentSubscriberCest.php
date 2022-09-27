@@ -70,7 +70,7 @@ class CreateDestroyEquipmentSubscriberCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
 
-        $equipment = new GameEquipment();
+        $equipment = new GameItem();
         $equipment
             ->setName($equipmentConfig->getName())
             ->setEquipment($equipmentConfig)
@@ -126,7 +126,7 @@ class CreateDestroyEquipmentSubscriberCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
 
-        $equipment = new GameEquipment();
+        $equipment = new GameItem();
         $equipment
             ->setName($equipmentConfig->getName())
             ->setEquipment($equipmentConfig)
@@ -180,7 +180,7 @@ class CreateDestroyEquipmentSubscriberCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
 
-        $equipment = new GameEquipment();
+        $equipment = new GameItem();
         $equipment
             ->setName($equipmentConfig->getName())
             ->setEquipment($equipmentConfig)

@@ -17,7 +17,7 @@ use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 
-class DisasembleActionTest extends AbstractActionTest
+class DisassembleActionTest extends AbstractActionTest
 {
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
@@ -78,6 +78,7 @@ class DisasembleActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->never();
 
         // Fail try
         $result = $this->action->execute();
@@ -109,6 +110,8 @@ class DisasembleActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
+
         $scrap = new GameItem();
 
         $this->eventService->shouldReceive('callEvent')->twice();

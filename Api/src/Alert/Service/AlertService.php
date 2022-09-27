@@ -61,6 +61,8 @@ class AlertService implements AlertServiceInterface
         $alert = $alertElement->getAlert();
         if ($alert->getAlertElements()->count() <= 0) {
             $this->delete($alert);
+        } else {
+            $this->persist($alert);
         }
     }
 
@@ -181,14 +183,6 @@ class AlertService implements AlertServiceInterface
         $brokenAlert->getAlertElements()->removeElement($reportedEquipment);
 
         $this->deleteAlertElement($reportedEquipment);
-
-        if ($brokenAlert->getAlertElements()->count() === 0) {
-            $this->delete($brokenAlert);
-
-            return;
-        }
-
-        $this->persist($brokenAlert);
     }
 
     public function getAlertEquipmentElement(Alert $alert, GameEquipment $equipment): AlertElement
@@ -232,14 +226,6 @@ class AlertService implements AlertServiceInterface
         $fireAlert->getAlertElements()->removeElement($reportedFire);
 
         $this->deleteAlertElement($reportedFire);
-
-        if ($fireAlert->getAlertElements()->count() === 0) {
-            $this->delete($fireAlert);
-
-            return;
-        }
-
-        $this->persist($fireAlert);
     }
 
     public function getAlertFireElement(Alert $alert, Place $place): AlertElement

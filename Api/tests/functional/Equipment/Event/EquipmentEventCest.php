@@ -9,6 +9,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
@@ -61,7 +62,7 @@ class EquipmentEventCest
             'initStatus' => new ArrayCollection([$heavyStatusConfig]),
         ]);
 
-        $equipment = new GameEquipment();
+        $equipment = new GameItem();
         $equipment
             ->setHolder($player)
             ->setEquipment($equipmentConfig)

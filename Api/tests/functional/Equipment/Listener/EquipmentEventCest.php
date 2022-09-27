@@ -8,6 +8,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
@@ -46,11 +47,11 @@ class EquipmentEventCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'name' => 'equipment_name']);
 
-        $equipment = new GameEquipment();
+        $equipment = new GameItem();
         $equipment
             ->setHolder($player)
             ->setEquipment($equipmentConfig)
-            ->setName('equipment_name');
+            ->setName($equipmentConfig->getName());
 
         $equipmentEvent = new EquipmentEvent(
             $equipment,

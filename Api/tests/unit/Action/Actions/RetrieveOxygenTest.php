@@ -103,6 +103,7 @@ class RetrieveOxygenTest extends AbstractActionTest
                 $event->getQuantity() === -1)
             )
             ->once();
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameTank);
 

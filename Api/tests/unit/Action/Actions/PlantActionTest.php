@@ -88,13 +88,12 @@ class PlantActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameHydropot]));
-
-        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-
-        $this->eventService->shouldReceive('callEvent')->times(3);
-
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+
+        $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameHydropot]));
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->eventService->shouldReceive('callEvent')->times(3);
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $result = $this->action->execute();
 

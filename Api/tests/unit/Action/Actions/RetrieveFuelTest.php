@@ -90,6 +90,7 @@ class RetrieveFuelTest extends AbstractActionTest
             )
             ->once();
         $this->eventService->shouldReceive('callEvent')->once();
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameTank);
 

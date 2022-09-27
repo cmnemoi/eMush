@@ -45,7 +45,7 @@ class DaedalusIncidentServiceTest extends TestCase
     public function before()
     {
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventServiceInterface::class);
         $this->gameEquipmentRepository = Mockery::mock(GameEquipmentRepository::class);
 
         $this->service = new DaedalusIncidentService(

@@ -29,7 +29,7 @@ class HealCest
     public function _before(FunctionalTester $I)
     {
         $this->healAction = $I->grabService(Heal::class);
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testHeal(FunctionalTester $I)

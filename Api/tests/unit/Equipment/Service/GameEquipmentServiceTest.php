@@ -46,7 +46,7 @@ class GameEquipmentServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventServiceInterface::class);
         $this->repository = Mockery::mock(GameEquipmentRepository::class);
         $this->equipmentService = Mockery::mock(EquipmentServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);

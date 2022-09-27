@@ -6,6 +6,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -28,21 +29,20 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_CREATED => [['onEquipmentCreated', -1] /* ['onInventoryOverflow']*/],
-            EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
-            //EquipmentEvent::EQUIPMENT_TRANSFORM => ['onInventoryOverflow', -5],
-            EquipmentEvent::INVENTORY_OVERFLOW => ['onInventoryOverflow']
+            EquipmentEvent::EQUIPMENT_CREATED => [
+                ['onEquipmentCreated', -1]
+            ],
+            EquipmentEvent::EQUIPMENT_DESTROYED => [
+                ['onEquipmentDestroyed'],
+            ],
+            EquipmentEvent::INVENTORY_OVERFLOW => [
+                ['onInventoryOverflow']
+            ]
         ];
     }
 
     public function onEquipmentCreated(EquipmentEvent $event): void
     {
-        $newEquipment = $event->getNewEquipment();
-
-        if ($newEquipment === null) {
-            throw new \LogicException('Replacement equipment should be provided');
-        }
-
         switch ($event->getReason()) {
             case EventEnum::PLANT_PRODUCTION:
                 $logKey = PlantLogEnum::PLANT_NEW_FRUIT;
@@ -82,30 +82,24 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onInventoryOverflow(EquipmentEvent $event): void
     {
-        $holder = $event->getHolder();
-
-        if (($newEquipment = $event->getNewEquipment()) === null) {
-            throw new \LogicException('Replacement equipment should be provided');
-        }
+        $holder = $event->getEquipment()->getHolder();
+        $gameConfig = $holder->getPlace()->getDaedalus()->getGameConfig();
+        $equipment = $event->getEquipment();
 
         if (
-            $newEquipment instanceof GameItem &&
+            $equipment instanceof GameItem &&
             $holder instanceof Player &&
-            $holder->getEquipments()->count() > $this->getGameConfig($newEquipment)->getMaxItemInInventory()
+            $holder->getEquipments()->count() > $gameConfig->getMaxItemInInventory()
         ) {
             $this->createEventLog(LogEnum::OBJECT_FELL, $event, VisibilityEnum::PUBLIC);
         }
     }
 
-    private function getGameConfig(GameEquipment $gameEquipment): GameConfig
-    {
-        return $gameEquipment->getEquipment()->getGameConfig();
-    }
-
     private function createEventLog(string $logKey, EquipmentEvent $event, string $visibility): void
     {
-        $player = $event->getHolder();
-        if (!$player instanceof Player) {
+        if ($event instanceof InteractWithEquipmentEvent && $event->getActor() instanceof Player) {
+            $player = $event->getActor();
+        } else {
             $player = null;
         }
 

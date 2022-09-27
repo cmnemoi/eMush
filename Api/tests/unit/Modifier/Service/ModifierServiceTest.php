@@ -45,7 +45,7 @@ class ModifierServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventServiceInterface::class);
         $this->conditionService = Mockery::mock(ModifierConditionServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
@@ -604,7 +604,7 @@ class ModifierServiceTest extends TestCase
             ->andReturn(new ModifierCollection([$modifier1]))
             ->once()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->service->applyActionModifiers($action, $player, null);
     }
@@ -618,7 +618,7 @@ class ModifierServiceTest extends TestCase
         $player->setDaedalus($daedalus)->setPlace($room);
 
         $this->conditionService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection())->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $modifiedValue = $this->service->getEventModifiedValue(
             $player,
@@ -641,7 +641,7 @@ class ModifierServiceTest extends TestCase
         $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
         $this->conditionService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1]))->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $modifiedValue = $this->service->getEventModifiedValue(
             $player,
@@ -668,7 +668,7 @@ class ModifierServiceTest extends TestCase
         $modifier2 = new Modifier($player, $modifierConfig2);
         $modifier2->setCharge($status);
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->conditionService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1, $modifier2]))->once();
 
         $modifiedValue = $this->service->getEventModifiedValue(
@@ -701,7 +701,7 @@ class ModifierServiceTest extends TestCase
         $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
         $this->conditionService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1]))->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $modifiedValue = $this->service->getEventModifiedValue(
             $player,

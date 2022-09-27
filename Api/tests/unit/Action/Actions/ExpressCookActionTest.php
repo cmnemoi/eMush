@@ -74,7 +74,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->action->execute();
 
@@ -124,7 +124,7 @@ class ExpressCookActionTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

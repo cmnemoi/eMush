@@ -43,7 +43,7 @@ class FireTest extends TestCase
     public function before()
     {
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
 

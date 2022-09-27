@@ -51,7 +51,7 @@ class PlayerServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventServiceInterface::class);
         $this->repository = Mockery::mock(PlayerRepository::class);
         $this->deadPlayerInfoRepository = Mockery::mock(DeadPlayerInfoRepository::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
@@ -198,7 +198,7 @@ class PlayerServiceTest extends TestCase
             'flush' => null,
         ]);
 
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
 
         $player = $this->service->endPlayer($player, $message);
 

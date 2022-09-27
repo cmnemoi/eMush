@@ -41,7 +41,7 @@ class ActionServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventServiceInterface::class);
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
 
         $this->actionService = Mockery::mock(ActionServiceInterface::class);

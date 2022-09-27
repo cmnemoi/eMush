@@ -21,11 +21,11 @@ use Mush\Status\Event\StatusEvent;
 
 class AddBrokenStatusEventCest
 {
-    private EventDispatcherInterface $eventDispatcherService;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testDispatchEquipmentBroken(FunctionalTester $I)
@@ -77,7 +77,7 @@ class AddBrokenStatusEventCest
         );
         $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventDispatcherService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(1, $room->getEquipments()->first()->getStatuses());

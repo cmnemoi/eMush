@@ -38,7 +38,7 @@ class PlaceServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventServiceInterface::class);
         $this->repository = Mockery::mock(PlaceRepository::class);
 
         $this->placeService = new PlaceService(

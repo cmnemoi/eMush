@@ -36,12 +36,12 @@ use Mush\Status\Event\StatusEvent;
 class DoTheThingCest
 {
     private DoTheThing $doTheThingAction;
-    private EventDispatcherInterface $eventDispatcherService;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
         $this->doTheThingAction = $I->grabService(DoTheThing::class);
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testDoTheThing(FunctionalTester $I)
@@ -181,7 +181,7 @@ class DoTheThingCest
         );
         $pregnantStatusEvent->setVisibility(VisibilityEnum::PRIVATE);
 
-        $this->eventDispatcherService->dispatch($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->dispatch($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),

@@ -27,11 +27,11 @@ use Mush\Status\Event\StatusEvent;
 
 class StatusSubscriberCest
 {
-    private EventDispatcherInterface $eventDispatcherService;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testCommunicationCenterBreak(FunctionalTester $I)
@@ -125,7 +125,7 @@ class StatusSubscriberCest
             $time
         );
 
-        $this->eventDispatcherService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertCount(1, $privateChannel->getMessages());
         $I->assertCount(1, $privateChannel->getParticipants());

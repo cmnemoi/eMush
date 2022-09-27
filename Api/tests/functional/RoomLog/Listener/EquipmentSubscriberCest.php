@@ -17,11 +17,11 @@ use Mush\RoomLog\Enum\PlantLogEnum;
 
 class EquipmentSubscriberCest
 {
-    private EventDispatcherInterface $eventDispatcherService;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testCreateNewFruit(FunctionalTester $I)
@@ -49,7 +49,7 @@ class EquipmentSubscriberCest
             EventEnum::PLANT_PRODUCTION,
             new \DateTime()
         );
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(0, $player->getEquipments());

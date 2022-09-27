@@ -75,7 +75,7 @@ class DoTheThingActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->times(4);
+        $this->eventService->shouldReceive('callEvent')->times(4);
         $this->playerVariableService->shouldReceive('getMaxPlayerVariable')->andReturn(14)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false);
 

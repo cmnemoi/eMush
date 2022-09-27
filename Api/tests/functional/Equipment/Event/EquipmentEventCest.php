@@ -25,7 +25,7 @@ class EquipmentEventCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testHeavyStatusOverflowingInventory(FunctionalTester $I)
@@ -66,7 +66,7 @@ class EquipmentEventCest
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertEmpty($player->getEquipments());
         $I->assertEquals(1, $room->getEquipments()->count());

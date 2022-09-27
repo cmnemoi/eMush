@@ -55,7 +55,7 @@ class ChannelServiceTest extends TestCase
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
         $this->channelRepository = Mockery::mock(ChannelRepository::class);
         $this->channelPlayerRepository = Mockery::mock(ChannelPlayerRepository::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->service = new ChannelService(
@@ -355,7 +355,7 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -402,7 +402,7 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -449,7 +449,7 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -506,7 +506,7 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -527,7 +527,7 @@ class ChannelServiceTest extends TestCase
             ->andReturn(new ArrayCollection([]))
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }

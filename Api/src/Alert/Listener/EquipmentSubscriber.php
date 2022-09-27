@@ -5,6 +5,7 @@ namespace Mush\Alert\Listener;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\TransformEquipmentEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
@@ -24,14 +25,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onEquipmentTransform(EquipmentEvent $event): void
+    public function onEquipmentTransform(TransformEquipmentEvent $event): void
     {
-        $newEquipment = $event->getNewEquipment();
-        $oldEquipment = $event->getExistingEquipment();
-
-        if ($newEquipment === null || $oldEquipment === null) {
-            throw new \LogicException('2 equipments should be provided');
-        }
+        $newEquipment = $event->getEquipment();
+        $oldEquipment = $event->getEquipmentFrom();
 
         if ($oldEquipment->isBroken()) {
             $alert = $this->alertService->findByNameAndDaedalus(AlertEnum::BROKEN_EQUIPMENTS, $event->getPlace()->getDaedalus());
@@ -41,7 +38,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
             }
 
             $alertElement = $this->alertService->getAlertEquipmentElement($alert, $oldEquipment);
-
             $alertElement->setEquipment($newEquipment);
         }
     }

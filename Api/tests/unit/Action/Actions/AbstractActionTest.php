@@ -39,7 +39,7 @@ abstract class AbstractActionTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventServiceInterface::class);
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof ActionEvent &&

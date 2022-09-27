@@ -87,7 +87,7 @@ class PlantActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventDispatcher->shouldReceive('dispatch')->times(3);
+        $this->eventService->shouldReceive('callEvent')->times(3);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

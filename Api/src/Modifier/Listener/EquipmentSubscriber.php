@@ -23,43 +23,37 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_DESTROYED => ['onEquipmentDestroyed', 10], // change in modifier must be applied before the item is totally removed
-            EquipmentEvent::EQUIPMENT_TRANSFORM => [['onEquipmentDestroyed'], ['onInventoryOverflow']],
-            EquipmentEvent::EQUIPMENT_CREATED => 'onInventoryOverflow',
+            EquipmentEvent::EQUIPMENT_DESTROYED => [
+                ['onEquipmentDestroyed', 10], // change in modifier must be applied before the item is totally removed
+            ],
+            EquipmentEvent::EQUIPMENT_TRANSFORM => [
+                ['onEquipmentDestroyed'],
+            ],
+            EquipmentEvent::INVENTORY_OVERFLOW => [
+                ['onInventoryOverflow']
+            ],
         ];
     }
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        $equipment = $event->getExistingEquipment();
-        if ($equipment === null) {
-            throw new \LogicException('Equipment should be provided');
-        }
-
+        $equipment = $event->getEquipment();
         $this->gearModifierService->gearDestroyed($equipment);
     }
 
     public function onInventoryOverflow(EquipmentEvent $event): void
     {
-        $holder = $event->getHolder();
-
-        $newEquipment = $event->getNewEquipment();
-
-        if ($newEquipment === null) {
-            throw new \LogicException('New equipments should be provided');
-        }
+        $equipment = $event->getEquipment();
+        $holder = $equipment->getHolder();
+        $gameConfig = $holder->getPlace()->getDaedalus()->getGameConfig();
 
         if (
-            $newEquipment instanceof GameItem &&
+            $equipment instanceof GameItem &&
             $holder instanceof Player &&
-            $holder->getEquipments()->count() > $this->getGameConfig($newEquipment)->getMaxItemInInventory()
+            $holder->getEquipments()->count() > $gameConfig->getMaxItemInInventory()
         ) {
-            $this->gearModifierService->dropEquipment($newEquipment, $holder);
+            $this->gearModifierService->dropEquipment($equipment, $holder);
         }
     }
 
-    private function getGameConfig(GameEquipment $gameEquipment): GameConfig
-    {
-        return $gameEquipment->getEquipment()->getGameConfig();
-    }
 }

@@ -27,7 +27,7 @@ class SelfHealCest
     public function _before(FunctionalTester $I)
     {
         $this->selfHealAction = $I->grabService(SelfHeal::class);
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testSelfHeal(FunctionalTester $I)

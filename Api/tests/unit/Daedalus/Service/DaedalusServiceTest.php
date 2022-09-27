@@ -55,7 +55,7 @@ class DaedalusServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventServiceInterface::class);
         $this->repository = Mockery::mock(DaedalusRepository::class);
         $this->cycleService = Mockery::mock(CycleServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
@@ -259,7 +259,7 @@ class DaedalusServiceTest extends TestCase
             ->andReturn($noCapsulePlayer)
             ->once()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->service->getRandomAsphyxia($daedalus, new \DateTime());
 
@@ -319,7 +319,7 @@ class DaedalusServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->twice();
+        $this->eventService->shouldReceive('callEvent')->twice();
 
         $result = $this->service->selectAlphaMush($daedalus, new \DateTime());
     }
@@ -336,7 +336,7 @@ class DaedalusServiceTest extends TestCase
 
         $time = new \DateTime('yesterday');
 
-        $this->eventDispatcher->shouldReceive('dispatch')
+        $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (DaedalusEvent $daedalusEvent, $eventName) => ($daedalusEvent->getTime() === $time && $eventName === DaedalusEvent::END_DAEDALUS))
             ->once()
         ;

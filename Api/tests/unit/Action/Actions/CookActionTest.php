@@ -128,7 +128,7 @@ class CookActionTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

@@ -25,7 +25,7 @@ class DaedalusVariableEventCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventDispatcher = $I->grabService(EventServiceInterface::class);
     }
 
     public function testChangeOxygenWithTanks(FunctionalTester $I)

@@ -75,7 +75,7 @@ class RemoveSporeActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->statusService->shouldReceive('updateCharge')->with($sporeStatus, -1)->andReturn($sporeStatus)->once();
         $this->statusService->shouldReceive('persist')->once();
 

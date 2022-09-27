@@ -77,14 +77,14 @@ class RetrieveFuelTest extends AbstractActionTest
         $gameTank->setEquipment($tank)->setName(EquipmentEnum::FUEL_TANK)->setHolder($room);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')
+        $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (Event $event) => (
                 $event instanceof EquipmentEvent &&
-                $event->getEquipmentName() === ItemEnum::FUEL_CAPSULE &&
-                $event->getHolder() === $player)
+                $event->getEquipment()->getName() === ItemEnum::FUEL_CAPSULE &&
+                $event->getEquipment()->getHolder() === $player)
             )
             ->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameTank);
 

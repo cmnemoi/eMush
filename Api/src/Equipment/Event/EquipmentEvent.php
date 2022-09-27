@@ -45,43 +45,9 @@ class EquipmentEvent extends AbstractGameEvent implements LoggableEventInterface
         return $this->created;
     }
 
-    public function getEquipmentName(): string
-    {
-        return $this->equipmentName;
-    }
-
-    public function getNewEquipment(): ?GameEquipment
-    {
-        return $this->newEquipment;
-    }
-
-    public function setNewEquipment(GameEquipment $newEquipment): self
-    {
-        $this->newEquipment = $newEquipment;
-
-        return $this;
-    }
-
-    public function getExistingEquipment(): ?GameEquipment
-    {
-        return $this->existingEquipment;
-    }
-
-    public function setExistingEquipment(GameEquipment $existingEquipment): self
-    {
-        $this->existingEquipment = $existingEquipment;
-
-        return $this;
-    }
-
     public function getPlace(): Place
     {
-        return $this->holder->getPlace();
-    }
-
-    public function getHolder(): EquipmentHolderInterface
-    {
-        return $this->holder;
+        return $this->equipment->getPlace();
     }
 
     public function getVisibility(): string

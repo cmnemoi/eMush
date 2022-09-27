@@ -29,11 +29,11 @@ use Mush\User\Entity\User;
 
 class PlayerEventCest
 {
-    private EventDispatcherInterface $eventDispatcherService;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testDispatchPlayerDeath(FunctionalTester $I)
@@ -75,7 +75,7 @@ class PlayerEventCest
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        $this->eventService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         $I->assertEquals(GameStatusEnum::FINISHED, $player->getGameStatus());
 
@@ -138,19 +138,19 @@ class PlayerEventCest
 
         $playerEvent = new PlayerEvent($player, ActionEnum::INFECT, new \DateTime());
 
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
         $I->assertEquals($room, $player->getPlace());
 
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
         $I->assertEquals($room, $player->getPlace());
 
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(2, $player->getStatuses());
         $I->assertEquals($room, $player->getPlace());

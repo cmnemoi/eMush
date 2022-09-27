@@ -20,8 +20,6 @@ use Mush\Status\Event\StatusEvent;
 
 class HideActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
 
     /**
      * @before
@@ -32,13 +30,10 @@ class HideActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::HIDE, 1);
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-
         $this->action = new Hide(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService,
         );
     }
 
@@ -74,10 +69,9 @@ class HideActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->gameEquipmentService->shouldReceive('persist');
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::HIDDEN &&
                 $event->getStatusHolder() === $gameItem &&
@@ -85,12 +79,12 @@ class HideActionTest extends AbstractActionTest
             )
             ->once()
         ;
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
-                $event->getEquipmentName() === 'itemName' &&
-                $event->getHolder() === $room &&
-                $event->getExistingEquipment() === $gameItem &&
+                $event->getEquipment()->getName() === 'itemName' &&
+                $event->getEquipment()->getHolder() === $room &&
+                $event->getEquipment() === $gameItem &&
                 $event->getReason() === ActionEnum::HIDE
             )
             ->once()

@@ -39,7 +39,7 @@ class ActionSideEffectsServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventServiceInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
@@ -85,7 +85,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(false)
             ->twice()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
@@ -135,7 +135,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(false)
             ->once()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
@@ -168,7 +168,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(false)
             ->twice()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 

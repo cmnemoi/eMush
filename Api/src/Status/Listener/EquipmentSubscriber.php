@@ -25,10 +25,20 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_TRANSFORM => ['onEquipmentTransform', 1000], // change the status before original equipment is destroyed
-            EquipmentEvent::EQUIPMENT_DESTROYED => [['onEquipmentDestroyed'], ['onEquipmentRemovedFromInventory', -10]],
-            EquipmentEvent::EQUIPMENT_CREATED => ['onNewEquipmentInInventory', -2000], // after the overflowing part has been solved
-            EquipmentEvent::CHANGE_HOLDER => [['onEquipmentRemovedFromInventory', 2000], ['onNewEquipmentInInventory', -2000]],
+            EquipmentEvent::EQUIPMENT_TRANSFORM => [
+                ['onEquipmentTransform', 1000], // change the status before original equipment is destroyed
+            ],
+            EquipmentEvent::EQUIPMENT_DESTROYED => [
+                ['onEquipmentDestroyed'],
+                ['onEquipmentRemovedFromInventory', -10]
+            ],
+            EquipmentEvent::EQUIPMENT_CREATED => [
+                ['onNewEquipmentInInventory', -2000] // after the overflowing part has been solved
+            ],
+            EquipmentEvent::CHANGE_HOLDER => [
+                ['onEquipmentRemovedFromInventory', 2000],
+                ['onNewEquipmentInInventory', -2000]
+            ],
         ];
     }
 
@@ -46,30 +56,21 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        $equipment = $event->getExistingEquipment();
-
-        if ($equipment === null) {
-            throw new \LogicException('Replaced equipment should be provided');
-        }
-
+        $equipment = $event->getEquipment();
         $this->statusService->removeAllStatuses($equipment, $event->getReason(), $event->getTime());
     }
 
     public function onNewEquipmentInInventory(EquipmentEvent $event): void
     {
-        $equipment = $event->getExistingEquipment() ?: $event->getNewEquipment();
+        $equipment = $event->getEquipment();
         $reason = $event->getReason();
         $time = $event->getTime();
-
-        if ($equipment === null) {
-            throw new \LogicException('Equipment should be provided');
-        }
 
         $holder = $equipment->getHolder();
         if ($holder instanceof Player) {
             if ($equipment->hasStatus(EquipmentStatusEnum::HIDDEN)) {
                 $this->statusService->removeStatus(EquipmentStatusEnum::HIDDEN, $equipment, $reason, $time);
-            } elseif (
+            } else if (
                 $equipment->hasStatus(EquipmentStatusEnum::HEAVY) &&
                 !$holder->hasStatus(PlayerStatusEnum::BURDENED)
             ) {
@@ -81,13 +82,9 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentRemovedFromInventory(EquipmentEvent $event): void
     {
-        $equipment = $event->getExistingEquipment();
+        $equipment = $event->getEquipment();
         $reason = $event->getReason();
         $time = $event->getTime();
-
-        if ($equipment === null) {
-            throw new \LogicException('Existing equipment should be provided');
-        }
 
         $player = $equipment->getHolder();
         if ($player instanceof Player &&

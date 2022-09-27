@@ -17,11 +17,11 @@ use Mush\Player\Event\PlayerEvent;
 
 class PlayerDeathCest
 {
-    private EventDispatcherInterface $eventDispatcherService;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testDispatchPlayerDeath(FunctionalTester $I)
@@ -71,7 +71,7 @@ class PlayerDeathCest
             VisibilityEnum::PUBLIC,
             new \DateTime()
         );
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        $this->eventService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         $I->assertCount(1, $publicChannel->getMessages());
         $I->assertCount(1, $privateChannel->getMessages());

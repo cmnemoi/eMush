@@ -85,14 +85,14 @@ class RetrieveOxygenTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')
+        $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (Event $event) => (
                 $event instanceof EquipmentEvent &&
-                $event->getEquipmentName() === ItemEnum::OXYGEN_CAPSULE &&
-                $event->getHolder() === $player)
+                $event->getEquipment()->getName() === ItemEnum::OXYGEN_CAPSULE &&
+                $event->getEquipment()->getHolder() === $player)
             )
             ->once();
-        $this->eventDispatcher->shouldReceive('dispatch')
+        $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (Event $event) => (
                 $event instanceof DaedalusModifierEvent &&
                 $event->getQuantity() === -1)

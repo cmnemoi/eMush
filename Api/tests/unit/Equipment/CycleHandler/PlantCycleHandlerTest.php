@@ -48,7 +48,7 @@ class PlantCycleHandlerTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->equipmentEffectService = Mockery::mock(EquipmentEffectServiceInterface::class);
@@ -254,14 +254,14 @@ class PlantCycleHandlerTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')
+        $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusModifierEvent &&
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10
             )->once();
-        $this->eventDispatcher->shouldReceive('dispatch')
+        $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
-                $event->getEquipmentName() === $newFruit->getName()
+                $event->getEquipment()->getName() === $newFruit->getName()
             )->once()
         ;
 
@@ -317,7 +317,7 @@ class PlantCycleHandlerTest extends TestCase
                 $event->getStatusHolder() === $gamePlant)
             ->once();
 
-        $this->eventDispatcher->shouldReceive('dispatch')
+        $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusModifierEvent &&
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10)
@@ -374,14 +374,14 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
 
-        $this->eventDispatcher->shouldReceive('dispatch')
+        $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
-                $event->getExistingEquipment() === $gamePlant
+                $event->getEquipment() === $gamePlant
             )->once()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')
+        $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
-                $event->getEquipmentName() === ItemEnum::HYDROPOT
+                $event->getEquipment()->getName() === ItemEnum::HYDROPOT
             )->once()
         ;
 

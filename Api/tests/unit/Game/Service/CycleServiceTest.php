@@ -26,7 +26,7 @@ class CycleServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventServiceInterface::class);
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
 
         $this->entityManager->shouldReceive('persist');

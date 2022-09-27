@@ -15,6 +15,8 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\TransformEquipmentEvent;
+use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Modifier;
@@ -28,11 +30,11 @@ use Mush\Player\Enum\PlayerVariableEnum;
 
 class CreateDestroyEquipmentSubscriberCest
 {
-    private EventDispatcherInterface $eventDispatcherService;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testCreateGearPlayerScope(FunctionalTester $I)
@@ -75,7 +77,7 @@ class CreateDestroyEquipmentSubscriberCest
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);
@@ -123,7 +125,7 @@ class CreateDestroyEquipmentSubscriberCest
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertEquals($room->getEquipments()->count(), 1);
         $I->assertEquals($player->getEquipments()->count(), 0);
@@ -170,7 +172,7 @@ class CreateDestroyEquipmentSubscriberCest
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);
@@ -240,14 +242,13 @@ class CreateDestroyEquipmentSubscriberCest
         $I->haveInRepository($gameEquipment);
 
         $equipmentEvent = new EquipmentEvent(
-            $gameEquipment->getName(),
-            $player,
+            $gameEquipment,
+            false,
             VisibilityEnum::PUBLIC,
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $equipmentEvent->setExistingEquipment($gameEquipment);
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 0);
@@ -326,14 +327,13 @@ class CreateDestroyEquipmentSubscriberCest
         $I->haveInRepository($gameEquipment2);
 
         $equipmentEvent = new EquipmentEvent(
-            $gameEquipment->getName(),
-            $player,
+            $gameEquipment,
+            false,
             VisibilityEnum::PUBLIC,
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $equipmentEvent->setExistingEquipment($gameEquipment);
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);
@@ -420,15 +420,22 @@ class CreateDestroyEquipmentSubscriberCest
         ;
         $I->haveInRepository($gameEquipment);
 
-        $equipmentEvent = new EquipmentEvent(
-            $equipmentConfig2->getName(),
-            $player,
+        $gameEquipment2 = new GameItem();
+        $gameEquipment2
+            ->setEquipment($equipmentConfig2)
+            ->setName('some name')
+            ->setHolder($player)
+        ;
+        $I->haveInRepository($gameEquipment2);
+
+        $equipmentEvent = new TransformEquipmentEvent(
+            $gameEquipment2,
+            $gameEquipment,
             VisibilityEnum::PUBLIC,
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $equipmentEvent->setExistingEquipment($gameEquipment);
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
+        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
 
         $I->assertCount(0, $room->getEquipments());
         $I->assertCount(1, $player->getEquipments());

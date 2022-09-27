@@ -86,7 +86,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
         ;
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventDispatcher->shouldReceive('dispatch')->twice();
+        $this->eventService->shouldReceive('callEvent')->twice();
 
         $result = $this->action->execute();
 

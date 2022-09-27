@@ -36,7 +36,7 @@ class RoomEventCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventDispatcher = $I->grabService(EventServiceInterface::class);
     }
 
     public function testRoomEventOnNonRoomPlace(FunctionalTester $I)

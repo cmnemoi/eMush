@@ -105,7 +105,7 @@ class DisasembleActionTest extends AbstractActionTest
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $scrap = new GameItem();
 
-        $this->eventDispatcher->shouldReceive('dispatch')->twice();
+        $this->eventService->shouldReceive('callEvent')->twice();
 
         // Success
         $result = $this->action->execute();

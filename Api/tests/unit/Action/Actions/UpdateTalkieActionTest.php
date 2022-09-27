@@ -68,8 +68,8 @@ class UpdateTalkieTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $talkie);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

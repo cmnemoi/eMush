@@ -33,7 +33,7 @@ class PublicBroadcastCest
     public function _before(FunctionalTester $I)
     {
         $this->PublicBroadcastAction = $I->grabService(PublicBroadcast::class);
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testPublicBroadcast(FunctionalTester $I)

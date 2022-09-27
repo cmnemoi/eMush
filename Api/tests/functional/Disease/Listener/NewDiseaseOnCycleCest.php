@@ -13,6 +13,7 @@ use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -82,7 +83,7 @@ class NewDiseaseOnCycleCest
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventService->dispatch($playerEvent, PlayerEvent::CYCLE_DISEASE);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::CYCLE_DISEASE);
 
         $I->seeInRepository(PlayerDisease::class, [
             'player' => $player->getId(),
@@ -148,7 +149,7 @@ class NewDiseaseOnCycleCest
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventService->dispatch($playerEvent, PlayerEvent::CYCLE_DISEASE);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::CYCLE_DISEASE);
 
         $I->seeInRepository(PlayerDisease::class, [
             'player' => $player->getId(),

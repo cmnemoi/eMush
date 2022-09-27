@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
@@ -102,7 +103,7 @@ class BreakRepairEquipmentSubscriberCest
         );
         $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);
@@ -119,7 +120,7 @@ class BreakRepairEquipmentSubscriberCest
         );
         $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);

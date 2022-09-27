@@ -10,6 +10,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -71,7 +72,7 @@ class PlayerDeathCest
             VisibilityEnum::PUBLIC,
             new \DateTime()
         );
-        $this->eventService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         $I->assertCount(1, $publicChannel->getMessages());
         $I->assertCount(1, $privateChannel->getMessages());

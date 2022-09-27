@@ -15,6 +15,7 @@ use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -29,6 +30,7 @@ use Mush\User\Entity\User;
 
 class PlayerEventCest
 {
+
     private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
@@ -75,7 +77,7 @@ class PlayerEventCest
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         $I->assertEquals(GameStatusEnum::FINISHED, $player->getGameStatus());
 
@@ -138,19 +140,19 @@ class PlayerEventCest
 
         $playerEvent = new PlayerEvent($player, ActionEnum::INFECT, new \DateTime());
 
-        $this->eventService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
         $I->assertEquals($room, $player->getPlace());
 
-        $this->eventService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
         $I->assertEquals($room, $player->getPlace());
 
-        $this->eventService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(2, $player->getStatuses());
         $I->assertEquals($room, $player->getPlace());

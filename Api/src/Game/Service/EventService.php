@@ -2,8 +2,10 @@
 
 namespace Mush\Game\Service;
 
+
+
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\EventDispatcher\Event;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EventService implements EventServiceInterface
 {

@@ -10,7 +10,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Event\Service\EventServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;

@@ -4,7 +4,7 @@ namespace unit\Status\Service;
 
 use Codeception\PHPUnit\TestCase;
 use Mockery;
-use Mush\Event\Service\EventServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;

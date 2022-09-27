@@ -9,10 +9,10 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

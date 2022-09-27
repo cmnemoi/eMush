@@ -11,7 +11,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\IsRoom;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Event\Service\EventServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;

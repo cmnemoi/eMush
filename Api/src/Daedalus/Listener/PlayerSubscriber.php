@@ -3,8 +3,8 @@
 namespace Mush\Daedalus\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
-use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

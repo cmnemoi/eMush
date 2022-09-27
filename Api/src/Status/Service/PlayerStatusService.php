@@ -2,9 +2,9 @@
 
 namespace Mush\Status\Service;
 
-use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;

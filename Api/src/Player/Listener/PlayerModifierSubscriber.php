@@ -3,8 +3,8 @@
 namespace Mush\Player\Listener;
 
 use Mush\Action\Enum\ActionEnum;
-use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;

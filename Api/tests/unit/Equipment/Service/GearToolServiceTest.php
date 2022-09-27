@@ -14,7 +14,7 @@ use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GearToolService;
-use Mush\Event\Service\EventServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;

@@ -3,9 +3,9 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
-use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;

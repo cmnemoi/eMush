@@ -14,7 +14,7 @@ use Mush\Communication\Repository\ChannelRepository;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Event\Service\EventServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;

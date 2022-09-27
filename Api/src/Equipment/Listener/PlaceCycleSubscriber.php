@@ -3,7 +3,7 @@
 namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Event\EquipmentCycleEvent;
-use Mush\Event\Service\EventServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Event\PlaceCycleEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

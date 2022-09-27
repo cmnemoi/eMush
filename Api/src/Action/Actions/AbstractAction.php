@@ -12,7 +12,7 @@ use Mush\Action\Validator\ActionPoint;
 use Mush\Action\Validator\AreSymptomsPreventingAction;
 use Mush\Action\Validator\HasAction;
 use Mush\Action\Validator\PlayerAlive;
-use Mush\Event\Service\EventServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;

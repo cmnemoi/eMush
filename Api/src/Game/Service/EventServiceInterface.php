@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Event\Service;
+namespace Mush\Game\Service;
 
 use Symfony\Contracts\EventDispatcher\Event;
 

@@ -2,7 +2,7 @@
 
 namespace Mush\Status\Listener;
 
-use Mush\Event\Service\EventServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Status\Event\StatusCycleEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

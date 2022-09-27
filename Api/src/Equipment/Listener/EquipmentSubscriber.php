@@ -2,14 +2,12 @@
 
 namespace Mush\Equipment\Listener;
 
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Event\Service\EventServiceInterface;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

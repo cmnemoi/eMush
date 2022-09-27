@@ -4,9 +4,9 @@ namespace Mush\Modifier\Listener;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;

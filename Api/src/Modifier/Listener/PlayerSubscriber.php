@@ -2,8 +2,8 @@
 
 namespace Mush\Modifier\Listener;
 
-use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Service\ModifierService;
 use Mush\Player\Entity\Player;

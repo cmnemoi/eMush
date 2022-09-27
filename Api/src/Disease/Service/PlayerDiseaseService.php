@@ -11,8 +11,8 @@ use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
 use Mush\Disease\Repository\DiseaseCausesConfigRepository;
 use Mush\Disease\Repository\DiseaseConfigRepository;
-use Mush\Event\Service\EventServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 

@@ -4,7 +4,7 @@ namespace Mush\Status\Listener;
 
 use Error;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
-use Mush\Event\Service\EventServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;

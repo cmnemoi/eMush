@@ -3,7 +3,7 @@
 namespace Mush\Place\Listener;
 
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Event\Service\EventServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Event\PlaceCycleEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

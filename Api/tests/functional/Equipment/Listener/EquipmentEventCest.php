@@ -46,9 +46,15 @@ class EquipmentEventCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'name' => 'equipment_name']);
 
+        $equipment = new GameEquipment();
+        $equipment
+            ->setHolder($player)
+            ->setEquipment($equipmentConfig)
+            ->setName('equipment_name');
+
         $equipmentEvent = new EquipmentEvent(
-            'equipment_name',
-            $player,
+            $equipment,
+            true,
             VisibilityEnum::PUBLIC,
             ActionEnum::COFFEE,
             new \DateTime()
@@ -62,9 +68,15 @@ class EquipmentEventCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'name' => 'item_name']);
 
+        $equipment = new GameEquipment();
+        $equipment
+            ->setHolder($player)
+            ->setEquipment($equipmentConfig)
+            ->setName('equipment_name');
+
         $equipmentEvent = new EquipmentEvent(
-            'item_name',
-            $player,
+            $equipment,
+            true,
             VisibilityEnum::PUBLIC,
             ActionEnum::COFFEE,
             new \DateTime()

@@ -23,6 +23,7 @@ use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use function PHPUnit\Framework\assertNotNull;
 
 class EquipmentSubscriberCest
 {
@@ -54,6 +55,7 @@ class EquipmentSubscriberCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        assertNotNull($room);
 
         /** @var EquipmentConfig $gravitySimulatorConfig */
         $gravitySimulatorConfig = $I->have(EquipmentConfig::class, [
@@ -99,7 +101,7 @@ class EquipmentSubscriberCest
             false,
             VisibilityEnum::HIDDEN,
             ActionEnum::DISASSEMBLE,
-            new DateTime()
+            new \DateTime()
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 

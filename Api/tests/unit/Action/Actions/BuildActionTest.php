@@ -96,6 +96,7 @@ class BuildActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameIngredient]))->once();
 
+        $this->gameEquipmentService->shouldReceive('createGameEquipment')->once();
         $this->eventService->shouldReceive('callEvent')->times(3);
 
         $result = $this->action->execute();

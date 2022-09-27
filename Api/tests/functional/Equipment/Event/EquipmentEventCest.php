@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
@@ -60,9 +61,15 @@ class EquipmentEventCest
             'initStatus' => new ArrayCollection([$heavyStatusConfig]),
         ]);
 
+        $equipment = new GameEquipment();
+        $equipment
+            ->setHolder($player)
+            ->setEquipment($equipmentConfig)
+            ->setName('equipment_name');
+
         $equipmentEvent = new EquipmentEvent(
-            'equipment_name',
-            $player,
+            $equipment,
+            true,
             VisibilityEnum::PUBLIC,
             ActionEnum::COFFEE,
             new \DateTime()

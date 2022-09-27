@@ -5,6 +5,7 @@ namespace functional\RoomLog\Listener;
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
@@ -43,14 +44,21 @@ class EquipmentSubscriberCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'name' => 'equipment_name']);
 
+        $equipment = new GameEquipment();
+        $equipment
+            ->setName($equipmentConfig->getName())
+            ->setEquipment($equipmentConfig)
+            ->setHolder($player);
+        $I->haveInRepository($equipment);
+
         $equipmentEvent = new EquipmentEvent(
-            'equipment_name',
-            $player,
+            $equipment,
+            true,
             VisibilityEnum::PUBLIC,
             EventEnum::PLANT_PRODUCTION,
             new \DateTime()
         );
-        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(0, $player->getEquipments());

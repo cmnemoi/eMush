@@ -33,8 +33,6 @@ class EventService implements EventServiceInterface
                 } else {
                     $this->tree = array_merge($this->tree[0]['next'], array_slice($this->tree, 1));
                 }
-
-                dump($this->tree);
             }
         } else {
             $this->tree[0]['next'] = array_merge($this->tree[0]['next'], [[

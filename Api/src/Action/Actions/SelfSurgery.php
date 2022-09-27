@@ -90,7 +90,7 @@ class SelfSurgery extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
     {
         $failChances = $this->modifierService->getEventModifiedValue(
             $this->player,
@@ -112,18 +112,25 @@ class SelfSurgery extends AbstractAction
         $result = $this->randomService->outputCriticalChances($failChances, 0, $criticalSuccessChances);
 
         if ($result === ActionOutputEnum::FAIL) {
-            return $this->failedSurgery();
-        }
-
-        $this->successSurgery($result);
-
-        if ($result === ActionOutputEnum::CRITICAL_SUCCESS) {
+            return new Fail();
+        } else if ($result === ActionOutputEnum::CRITICAL_SUCCESS) {
             return new CriticalSuccess();
-        } elseif ($result === ActionOutputEnum::SUCCESS) {
+        } else if ($result === ActionOutputEnum::SUCCESS) {
             return new Success();
         }
 
         return new Error('this output should not exist');
+    }
+
+    protected function applyEffect(ActionResult $result): void
+    {
+        if ($result instanceof Fail) {
+            $this->failedSurgery();
+        } else if ($result instanceof CriticalSuccess) {
+            $this->successSurgery(ActionOutputEnum::CRITICAL_SUCCESS);
+        } else if ($result instanceof Success) {
+            $this->successSurgery(ActionOutputEnum::SUCCESS);
+        }
     }
 
     private function successSurgery(string $reason): void
@@ -139,7 +146,7 @@ class SelfSurgery extends AbstractAction
         $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_CURE_INJURY);
     }
 
-    private function failedSurgery(): ActionResult
+    private function failedSurgery(): void
     {
         $diseaseEvent = new ApplyEffectEvent(
             $this->player,
@@ -149,7 +156,5 @@ class SelfSurgery extends AbstractAction
             new \DateTime()
         );
         $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
-
-        return new Fail();
     }
 }

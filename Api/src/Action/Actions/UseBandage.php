@@ -36,13 +36,18 @@ class UseBandage extends AbstractAction
         $metadata->addConstraint(new FullHealth(['target' => FullHealth::PLAYER, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::HEAL_NO_INJURY]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        $healedQuantity = self::BANDAGE_HEAL;
+        $success = new Success();
+        return $success->setQuantity($healedQuantity);
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
         $time = new \DateTime();
-
-        $initialHealth = $this->player->getHealthPoint();
 
         $playerModifierEvent = new PlayerVariableEvent(
             $this->player,
@@ -63,9 +68,5 @@ class UseBandage extends AbstractAction
             $time
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
-
-        $healedQuantity = $this->player->getHealthPoint() - $initialHealth;
-        $success = new Success();
-        return $success->setQuantity($healedQuantity);
     }
 }

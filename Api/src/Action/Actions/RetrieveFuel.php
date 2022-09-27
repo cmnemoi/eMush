@@ -29,21 +29,9 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class RetrieveFuel extends AbstractAction
+class RetrieveFuel extends RetrieveAction
 {
     protected string $name = ActionEnum::RETRIEVE_FUEL;
-    protected GameEquipmentServiceInterface $gameEquipmentService;
-
-    public function __construct(
-        EventServiceInterface $eventService,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService
-    ) {
-        parent::__construct($eventService, $actionService, $validator);
-
-        $this->gameEquipmentService = $gameEquipmentService;
-    }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -61,40 +49,14 @@ class RetrieveFuel extends AbstractAction
         ]);
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function getDaedalusVariable(): string
     {
-        return $parameter instanceof GameEquipment && !$parameter instanceof Door;
+        return DaedalusVariableEnum::FUEL;
     }
 
-    protected function applyEffects(): ActionResult
+    protected function getItemName(): string
     {
-        $time = new \DateTime();
-
-        $fuel = $this->gameEquipmentService->createGameEquipmentFromName(
-            ItemEnum::FUEL_CAPSULE,
-            $this->player,
-            $this->getActionName(),
-            $time
-        );
-
-        $equipmentEvent = new EquipmentEvent(
-            $fuel,
-            true,
-            VisibilityEnum::HIDDEN,
-            $this->getActionName(),
-            $time
-        );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
-
-        $daedalusEvent = new DaedalusModifierEvent(
-            $this->player->getDaedalus(),
-            DaedalusVariableEnum::FUEL,
-            -1,
-            $this->getActionName(),
-            $time
-        );
-        $this->eventService->callEvent($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
-
-        return new Success();
+        return ItemEnum::FUEL_CAPSULE;
     }
+
 }

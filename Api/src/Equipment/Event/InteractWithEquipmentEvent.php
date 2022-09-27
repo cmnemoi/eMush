@@ -34,7 +34,7 @@ class InteractWithEquipmentEvent extends EquipmentEvent
     {
         $logParameters = [];
 
-        $logParameters[$this->getEquipment()->getLogKey()] = $this->getEquipment()->getLogName();
+        $logParameters['target_' . $this->getEquipment()->getLogKey()] = $this->getEquipment()->getLogName();
 
         if ($this->actor instanceof Player) {
             $logParameters[$this->actor->getLogKey()] = $this->actor->getLogName();

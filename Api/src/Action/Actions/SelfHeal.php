@@ -44,14 +44,19 @@ class SelfHeal extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
     {
         $healedQuantity = self::BASE_HEAL;
+        $success = new Success();
+        return $success->setQuantity($healedQuantity);
+    }
 
+    protected function applyEffect(ActionResult $result): void
+    {
         $playerModifierEvent = new PlayerVariableEvent(
             $this->player,
             PlayerVariableEnum::HEALTH_POINT,
-            $healedQuantity,
+            $result->getQuantity(),
             $this->getActionName(),
             new \DateTime()
         );
@@ -66,9 +71,5 @@ class SelfHeal extends AbstractAction
             new \DateTime()
         );
         $this->eventService->callEvent($healEvent, ApplyEffectEvent::HEAL);
-
-        $success = new Success();
-
-        return $success->setQuantity($healedQuantity);
     }
 }

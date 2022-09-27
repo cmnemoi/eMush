@@ -61,21 +61,10 @@ class RemoveSpore extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
     {
-        // Check spore status before applying health modifier in case player dies
         /** @var ?ChargeStatus $sporeStatus */
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
-
-        $playerModifierEvent = new PlayerVariableEvent(
-            $this->player,
-            PlayerVariableEnum::HEALTH_POINT,
-            -3,
-            $this->getActionName(),
-            new \DateTime()
-        );
-
-        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         if ($sporeStatus === null) {
             throw new Error('Player should have a spore status');
@@ -95,6 +84,37 @@ class RemoveSpore extends AbstractAction
             return new Success();
         } else {
             return new Fail();
+        }
+    }
+
+    protected function applyEffect(ActionResult $result): void
+    {
+        // Check spore status before applying health modifier in case player dies
+        /** @var ?ChargeStatus $sporeStatus */
+        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
+
+        $playerModifierEvent = new PlayerVariableEvent(
+            $this->player,
+            PlayerVariableEnum::HEALTH_POINT,
+            -3,
+            $this->getActionName(),
+            new \DateTime()
+        );
+
+        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+
+        if ($sporeStatus === null) {
+            throw new Error('Player should have a spore status');
+        }
+
+        if ($sporeStatus->getCharge() > 0) {
+            $sporeStatus = $this->statusService->updateCharge($sporeStatus, -1);
+
+            if ($sporeStatus === null) {
+                throw new Error('Player should have a spore status');
+            }
+
+            $this->statusService->persist($sporeStatus);
         }
     }
 }

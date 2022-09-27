@@ -38,7 +38,12 @@ class Hide extends AbstractAction
         $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
@@ -63,7 +68,5 @@ class Hide extends AbstractAction
             );
             $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
         }
-
-        return new Success();
     }
 }

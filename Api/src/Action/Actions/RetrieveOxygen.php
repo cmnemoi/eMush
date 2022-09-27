@@ -26,21 +26,9 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class RetrieveOxygen extends AbstractAction
+class RetrieveOxygen extends RetrieveAction
 {
     protected string $name = ActionEnum::RETRIEVE_OXYGEN;
-    protected GameEquipmentServiceInterface $gameEquipmentService;
-
-    public function __construct(
-        EventServiceInterface $eventService,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService
-    ) {
-        parent::__construct($eventService, $actionService, $validator);
-
-        $this->gameEquipmentService = $gameEquipmentService;
-    }
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -60,35 +48,14 @@ class RetrieveOxygen extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function getDaedalusVariable(): string
     {
-        $time = new \DateTime();
-
-        $oxygen = $this->gameEquipmentService->createGameEquipmentFromName(
-            ItemEnum::OXYGEN_CAPSULE,
-            $this->player,
-            $this->getActionName(),
-            $time
-        );
-
-        $equipmentEvent = new EquipmentEvent(
-            $oxygen,
-            true,
-            VisibilityEnum::HIDDEN,
-            $this->getActionName(),
-            $time
-        );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
-
-        $daedalusEvent = new DaedalusModifierEvent(
-            $this->player->getDaedalus(),
-            DaedalusVariableEnum::OXYGEN,
-            -1,
-            $this->getActionName(),
-            $time
-        );
-        $this->eventService->callEvent($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
-
-        return new Success();
+        return DaedalusVariableEnum::OXYGEN;
     }
+
+    protected function getItemName(): string
+    {
+        return ItemEnum::OXYGEN_CAPSULE;
+    }
+
 }

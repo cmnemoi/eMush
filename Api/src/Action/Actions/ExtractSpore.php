@@ -52,7 +52,19 @@ class ExtractSpore extends AbstractAction
         return $parameter === null;
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        /** @var ?ChargeStatus $sporeStatus */
+        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
+
+        if ($sporeStatus === null) {
+            throw new Error('Player should have a spore status');
+        }
+
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var ?ChargeStatus $sporeStatus */
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
@@ -65,7 +77,5 @@ class ExtractSpore extends AbstractAction
         $this->statusService->persist($sporeStatus);
 
         $this->player->getDaedalus()->setSpores($this->player->getDaedalus()->getSpores() - 1);
-
-        return new Success();
     }
 }

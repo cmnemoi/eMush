@@ -20,7 +20,7 @@ use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-class InsertFuel extends AbstractAction
+class InsertFuel extends InsertAction
 {
     protected string $name = ActionEnum::INSERT_FUEL;
 
@@ -33,37 +33,9 @@ class InsertFuel extends AbstractAction
         ]);
     }
 
-    protected function support(?LogParameterInterface $parameter): bool
+    protected function getDaedalusVariable(): string
     {
-        return $parameter instanceof GameItem;
+        return DaedalusVariableEnum::FUEL;
     }
 
-    protected function applyEffects(): ActionResult
-    {
-        /** @var GameItem $fuel */
-        $fuel = $this->getParameter();
-        $time = new \DateTime();
-
-        // Delete the fuel
-        $equipmentEvent = new InteractWithEquipmentEvent(
-            $fuel,
-            $this->player,
-            VisibilityEnum::HIDDEN,
-            $this->getActionName(),
-            $time
-        );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
-
-        // add Fuel
-        $daedalusEvent = new DaedalusModifierEvent(
-            $this->player->getDaedalus(),
-            DaedalusVariableEnum::FUEL,
-            1,
-            $this->getActionName(),
-            $time
-        );
-        $this->eventService->callEvent($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
-
-        return new Success();
-    }
 }

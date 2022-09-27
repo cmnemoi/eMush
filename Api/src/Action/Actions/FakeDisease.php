@@ -39,7 +39,12 @@ class FakeDisease extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         $diseaseEvent = new ApplyEffectEvent(
             $this->player,
@@ -49,7 +54,5 @@ class FakeDisease extends AbstractAction
             new \DateTime()
         );
         $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
-
-        return new Success();
     }
 }

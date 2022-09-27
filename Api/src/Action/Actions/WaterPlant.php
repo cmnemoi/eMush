@@ -31,7 +31,12 @@ class WaterPlant extends AbstractAction
         $metadata->addConstraint(new PlantWaterable(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::WATER_PLANT_NO_THIRSTY]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
@@ -47,7 +52,5 @@ class WaterPlant extends AbstractAction
             new \DateTime()
         );
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
-
-        return new Success();
     }
 }

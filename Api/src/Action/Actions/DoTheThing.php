@@ -141,11 +141,15 @@ class DoTheThing extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var Player $parameter */
         $parameter = $this->parameter;
-        /** @var Player $player */
         $player = $this->player;
 
         // @TODO add confirmation pop up
@@ -186,8 +190,6 @@ class DoTheThing extends AbstractAction
         // add did_the_thing status until the end of the day
         $this->addDidTheThingStatus($player);
         $this->addDidTheThingStatus($parameter);
-
-        return new Success();
     }
 
     private function addMoralPoints(Player $player, int $maxMoralePoint): void
@@ -223,7 +225,7 @@ class DoTheThing extends AbstractAction
 
     private function addPregnantStatus(Player $player, Player $parameter): void
     {
-        /** @var StatusHolderInterface * */
+        /** @var StatusHolderInterface $femalePlayer */
         $femalePlayer = CharacterEnum::isMale($player->getCharacterConfig()->getName()) ? $parameter : $player;
         $pregnantStatus = new StatusEvent(
             PlayerStatusEnum::PREGNANT,
@@ -245,11 +247,9 @@ class DoTheThing extends AbstractAction
 
         $stds = array_keys($sexDiseaseCauseConfig->getDiseases());
 
-        $playerStds = $player->getMedicalConditions()->getActiveDiseases()->filter(
+        return $player->getMedicalConditions()->getActiveDiseases()->filter(
             function ($disease) use ($stds) { return in_array($disease->getDiseaseConfig()->getName(), $stds); }
         );
-
-        return $playerStds;
     }
 
     private function infect(Player $mush, Player $target)

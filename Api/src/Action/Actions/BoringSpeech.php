@@ -57,7 +57,7 @@ class BoringSpeech extends AbstractSpeech
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function applyEffect(ActionResult $result): void
     {
         $statusEvent = new StatusEvent(
             PlayerStatusEnum::DID_BORING_SPEECH,
@@ -67,7 +67,5 @@ class BoringSpeech extends AbstractSpeech
         );
 
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
-
-        return parent::applyEffects();
     }
 }

@@ -51,7 +51,16 @@ class WashInSink extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        if ($this->player->getStatusByName(PlayerStatusEnum::MUSH)) {
+            return new Fail();
+        }
+
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         if ($dirty = $this->player->getStatusByName(PlayerStatusEnum::DIRTY)) {
             $this->player->removeStatus($dirty);
@@ -64,11 +73,5 @@ class WashInSink extends AbstractAction
             new \DateTime()
         );
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
-
-        if ($this->player->getStatusByName(PlayerStatusEnum::MUSH)) {
-            return new Fail();
-        }
-
-        return new Success();
     }
 }

@@ -88,7 +88,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
         if (
             $equipment instanceof GameItem &&
-            $holder instanceof Player &&
             $holder->getEquipments()->count() > $gameConfig->getMaxItemInInventory()
         ) {
             $this->createEventLog(LogEnum::OBJECT_FELL, $event, VisibilityEnum::PUBLIC);

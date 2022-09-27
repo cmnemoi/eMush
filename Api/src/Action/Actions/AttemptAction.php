@@ -28,17 +28,15 @@ abstract class AttemptAction extends AbstractAction
         );
     }
 
-    protected function makeAttempt(): ActionResult
+    protected function checkResult(): ActionResult
     {
         $successChance = $this->getSuccessRate();
 
         if ($this->randomService->isSuccessful($successChance)) {
-            $response = new Success();
+            return new Success();
         } else {
-            $response = new Fail();
+            return new Fail();
         }
-
-        return $response;
     }
 
     public function getSuccessRate(): int

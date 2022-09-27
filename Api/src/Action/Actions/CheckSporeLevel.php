@@ -38,9 +38,8 @@ class CheckSporeLevel extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
     {
-        /** @var Player $player */
         $player = $this->player;
 
         if ($player->getStatusByName(PlayerStatusEnum::IMMUNIZED)) {
@@ -66,4 +65,7 @@ class CheckSporeLevel extends AbstractAction
 
         return $success->setQuantity($nbSpores);
     }
+
+    protected function applyEffect(ActionResult $result): void { }
+
 }

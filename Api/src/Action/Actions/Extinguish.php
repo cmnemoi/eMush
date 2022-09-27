@@ -37,11 +37,9 @@ class Extinguish extends AttemptAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function applyEffect(ActionResult $result): void
     {
-        $response = $this->makeAttempt();
-
-        if ($response instanceof Success) {
+        if ($result instanceof Success) {
             $statusEvent = new StatusEvent(
                 StatusEnum::FIRE,
                 $this->player->getPlace(),
@@ -50,7 +48,5 @@ class Extinguish extends AttemptAction
             );
             $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
         }
-
-        return $response;
     }
 }

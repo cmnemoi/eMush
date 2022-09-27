@@ -30,8 +30,4 @@ class ConsumeDrug extends Consume
         ]));
     }
 
-    public function getActionName(): string
-    {
-        return ActionEnum::CONSUME;
-    }
 }

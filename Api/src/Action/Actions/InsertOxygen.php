@@ -20,14 +20,9 @@ use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-class InsertOxygen extends AbstractAction
+class InsertOxygen extends InsertAction
 {
     protected string $name = ActionEnum::INSERT_OXYGEN;
-
-    protected function support(?LogParameterInterface $parameter): bool
-    {
-        return $parameter instanceof GameItem;
-    }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -36,32 +31,10 @@ class InsertOxygen extends AbstractAction
         $metadata->addConstraint(new Oxygen(['retrieve' => false, 'groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+
+    protected function getDaedalusVariable(): string
     {
-        /** @var GameItem $parameter */
-        $parameter = $this->parameter;
-        $time = new \DateTime();
-
-        // Delete the oxygen
-        $equipmentEvent = new InteractWithEquipmentEvent(
-            $parameter,
-            $this->player,
-            VisibilityEnum::HIDDEN,
-            $this->getActionName(),
-            $time
-        );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
-
-        // Add Oxygen
-        $daedalusEvent = new DaedalusModifierEvent(
-            $this->player->getDaedalus(),
-            DaedalusVariableEnum::OXYGEN,
-            1,
-            $this->getActionName(),
-            $time
-        );
-        $this->eventService->callEvent($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
-
-        return new Success();
+        return DaedalusVariableEnum::OXYGEN;
     }
+
 }

@@ -33,7 +33,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 ['checkInventoryOverflow']
             ],
             EquipmentEvent::INVENTORY_OVERFLOW => [
-                ['onInventoryOverflow']
+                ['onInventoryOverflow', -1000]
             ],
             EquipmentEvent::EQUIPMENT_DESTROYED => [
                 ['onEquipmentDestroyed', -1000] // the equipment is deleted after every other effect has been applied
@@ -78,7 +78,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 $holder,
                 VisibilityEnum::HIDDEN,
                 EquipmentEvent::INVENTORY_OVERFLOW,
-                $event->getTime()
+                new \DateTime()
             );
 
             $this->eventService->callEvent($equipmentEvent, EquipmentEvent::INVENTORY_OVERFLOW);

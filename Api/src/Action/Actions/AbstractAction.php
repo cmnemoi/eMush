@@ -67,7 +67,7 @@ abstract class AbstractAction
     public function isVisible(): bool
     {
         $validator = $this->validator;
-
+        dump($this);
         return $validator->validate($this, null, 'visibility')->count() === 0;
     }
 
@@ -84,7 +84,8 @@ abstract class AbstractAction
         return null;
     }
 
-    abstract protected function applyEffects(): ActionResult;
+    abstract protected function checkResult() : ActionResult;
+    abstract protected function applyEffect(ActionResult $result) : void;
 
     public function execute(): ActionResult
     {
@@ -101,11 +102,13 @@ abstract class AbstractAction
 
         $this->actionService->applyCostToPlayer($this->player, $this->action, $this->parameter);
 
-        $result = $this->applyEffects();
+        $result = $this->checkResult();
 
         $resultActionEvent = new ActionEvent($this->action, $this->player, $parameter);
         $resultActionEvent->setActionResult($result);
         $this->eventService->callEvent($resultActionEvent, ActionEvent::RESULT_ACTION);
+
+        $this->applyEffect($result);
 
         $postActionEvent = new ActionEvent($this->action, $this->player, $parameter);
         $postActionEvent->setActionResult($result);

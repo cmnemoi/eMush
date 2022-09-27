@@ -56,18 +56,14 @@ class Disassemble extends AttemptAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
 
-        $response = $this->makeAttempt();
-
-        if ($response instanceof Success) {
+        if ($result instanceof Success) {
             $this->disassemble($parameter);
         }
-
-        return $response;
     }
 
     private function disassemble(GameEquipment $gameEquipment): void

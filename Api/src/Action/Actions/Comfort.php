@@ -41,7 +41,12 @@ class Comfort extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var Player $parameter */
         $parameter = $this->parameter;
@@ -54,7 +59,5 @@ class Comfort extends AbstractAction
             new \DateTime(),
         );
         $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
-
-        return new Success();
     }
 }

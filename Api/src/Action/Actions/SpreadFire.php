@@ -30,7 +30,12 @@ class SpreadFire extends AbstractAction
         $metadata->addConstraint(new HasStatus(['status' => StatusEnum::FIRE, 'target' => HasStatus::PLAYER_ROOM, 'contain' => false, 'groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         $statusEvent = new StatusEvent(
             StatusEnum::FIRE,
@@ -39,7 +44,5 @@ class SpreadFire extends AbstractAction
             new \DateTime()
         );
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
-
-        return new Success();
     }
 }

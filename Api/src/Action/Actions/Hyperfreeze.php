@@ -51,7 +51,12 @@ class Hyperfreeze extends AbstractAction
         $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::FROZEN, 'contain' => false, 'groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
@@ -83,7 +88,5 @@ class Hyperfreeze extends AbstractAction
             );
             $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
         }
-
-        return new Success();
     }
 }

@@ -28,7 +28,12 @@ class ReportFire extends AbstractAction
         $metadata->addConstraint(new IsReported(['groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         $reportEvent = new ApplyEffectEvent(
             $this->player,
@@ -39,7 +44,5 @@ class ReportFire extends AbstractAction
         );
 
         $this->eventService->callEvent($reportEvent, ApplyEffectEvent::REPORT_FIRE);
-
-        return new Success();
     }
 }

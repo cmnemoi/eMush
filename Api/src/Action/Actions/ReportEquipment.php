@@ -32,7 +32,12 @@ class ReportEquipment extends AbstractAction
         $metadata->addConstraint(new IsReported(['groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
@@ -46,7 +51,5 @@ class ReportEquipment extends AbstractAction
         );
 
         $this->eventService->callEvent($reportEvent, ApplyEffectEvent::REPORT_EQUIPMENT);
-
-        return new Success();
     }
 }

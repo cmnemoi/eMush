@@ -74,7 +74,12 @@ class UpdateTalkie extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         // destroy tracker
         /** @var GameItem $tracker */
@@ -108,7 +113,5 @@ class UpdateTalkie extends AbstractAction
             $time
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
-
-        return new Success();
     }
 }

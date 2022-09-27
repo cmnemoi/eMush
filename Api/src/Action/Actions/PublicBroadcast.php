@@ -89,7 +89,12 @@ class PublicBroadcast extends AbstractAction
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         $playersInTheRoom = $this->player
                                     ->getPlace()
@@ -105,7 +110,5 @@ class PublicBroadcast extends AbstractAction
             $this->addMoralPoints($player, self::BASE_CONFORT);
             $this->addWatchedPublicBroadcastStatus($player);
         }
-
-        return new Success();
     }
 }

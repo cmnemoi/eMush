@@ -50,7 +50,12 @@ class LieDown extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
@@ -59,7 +64,5 @@ class LieDown extends AbstractAction
         $statusEvent->setStatusTarget($parameter);
 
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
-
-        return new Success();
     }
 }

@@ -48,11 +48,14 @@ class TryKube extends AbstractAction
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         // @TODO add triumph when successful
         $solveKube = $this->randomService->isSuccessful(self::KUBE_SUCCESS_RATE);
-
-        return new Success();
     }
 }

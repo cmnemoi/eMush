@@ -37,12 +37,15 @@ class Ungag extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         $statusEvent = new StatusEvent(PlayerStatusEnum::GAGGED, $this->player, $this->getActionName(), new \DateTime());
 
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
-
-        return new Success();
     }
 }

@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  *
  * More info : https://mushpedia.com/wiki/Firefighter
  */
-class ExtinguishManually extends AttemptAction
+class ExtinguishManually extends Extinguish
 {
     protected string $name = ActionEnum::EXTINGUISH_MANUALLY;
 
@@ -34,20 +34,4 @@ class ExtinguishManually extends AttemptAction
         // @TODO validator on Firefighter skill
     }
 
-    protected function applyEffects(): ActionResult
-    {
-        $response = $this->makeAttempt();
-
-        if ($response instanceof Success) {
-            $statusEvent = new StatusEvent(
-                StatusEnum::FIRE,
-                $this->player->getPlace(),
-                $this->getActionName(),
-                new \DateTime()
-            );
-            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
-        }
-
-        return $response;
-    }
 }

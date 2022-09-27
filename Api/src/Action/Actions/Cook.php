@@ -10,6 +10,8 @@ use Mush\Action\Validator\Cookable;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -50,7 +52,12 @@ class Cook extends AbstractAction
         $metadata->addConstraint(new Cookable(['groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
@@ -84,7 +91,5 @@ class Cook extends AbstractAction
 
             $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
         }
-
-        return new Success();
     }
 }

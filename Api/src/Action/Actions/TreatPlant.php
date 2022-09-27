@@ -54,7 +54,12 @@ class TreatPlant extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
@@ -63,7 +68,5 @@ class TreatPlant extends AbstractAction
             $parameter->removeStatus($diseasedStatus);
             $this->gameEquipmentService->persist($parameter);
         }
-
-        return new Success();
     }
 }

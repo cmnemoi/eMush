@@ -61,7 +61,12 @@ class Dispense extends AbstractAction
         $metadata->addConstraint(new Charged(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DAILY_LIMIT]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /* @var string $drugName */
         $drugName = current($this->randomService->getRandomElements(GameDrugEnum::getAll()));
@@ -85,6 +90,5 @@ class Dispense extends AbstractAction
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
-        return new Success();
     }
 }

@@ -58,7 +58,12 @@ class RemoveCamera extends AbstractAction
         return $parameter instanceof GameEquipment;
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameEquipment $equipmentCamera */
         $equipmentCamera = $this->getParameter();
@@ -79,7 +84,5 @@ class RemoveCamera extends AbstractAction
             $time
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
-
-        return new Success();
     }
 }

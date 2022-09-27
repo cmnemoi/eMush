@@ -42,7 +42,12 @@ class RejuvenateAlpha extends AbstractAction
         return $parameter === null;
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         $maxActionPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, PlayerVariableEnum::ACTION_POINT);
         $maxMovementPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, PlayerVariableEnum::MOVEMENT_POINT);
@@ -57,7 +62,5 @@ class RejuvenateAlpha extends AbstractAction
         ;
 
         $this->playerService->persist($this->player);
-
-        return new Success();
     }
 }

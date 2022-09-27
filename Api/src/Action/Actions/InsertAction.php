@@ -5,31 +5,27 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Validator\Mechanic;
+use Mush\Action\Validator\Fuel;
+use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Book;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-class ReadBook extends AbstractAction
+abstract class InsertAction extends AbstractAction
 {
-    protected string $name = ActionEnum::READ_BOOK;
 
     protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameItem;
-    }
-
-    public static function loadValidatorMetadata(ClassMetadata $metadata): void
-    {
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::BOOK, 'groups' => ['visibility']]));
     }
 
     protected function checkResult(): ActionResult
@@ -39,20 +35,30 @@ class ReadBook extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $parameter */
-        $parameter = $this->parameter;
+        /** @var GameItem $toInsert */
+        $toInsert = $this->getParameter();
+        $time = new \DateTime();
 
-        /** @var Book $bookType */
-        $bookType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK);
-        $this->player->addSkill($bookType->getSkill());
-
+        // Delete the fuel
         $equipmentEvent = new InteractWithEquipmentEvent(
-            $parameter,
+            $toInsert,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
-            new \DateTime()
+            $time
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+
+        // Add to container
+        $daedalusEvent = new DaedalusModifierEvent(
+            $this->player->getDaedalus(),
+            $this->getDaedalusVariable(),
+            1,
+            $this->getActionName(),
+            $time
+        );
+        $this->eventService->callEvent($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
+
+    protected abstract function getDaedalusVariable() : string;
 }

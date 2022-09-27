@@ -35,15 +35,13 @@ class StrengthenHull extends AttemptAction
         $metadata->addConstraint(new FullHull(['groups' => ['execute']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
         $time = new \DateTime();
 
-        $response = $this->makeAttempt();
-
-        if ($response instanceof Success) {
+        if ($result instanceof Success) {
             $quantity = self::BASE_REPAIR;
 
             $daedalusEvent = new DaedalusModifierEvent(
@@ -53,6 +51,7 @@ class StrengthenHull extends AttemptAction
                 $this->getActionName(),
                 $time
             );
+
             $daedalusEvent->setPlayer($this->player);
             $this->eventService->callEvent($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
@@ -65,7 +64,5 @@ class StrengthenHull extends AttemptAction
             );
             $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
-
-        return $response;
     }
 }

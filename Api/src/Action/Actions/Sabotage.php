@@ -40,14 +40,12 @@ class Sabotage extends AttemptAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
 
-        $response = $this->makeAttempt();
-
-        if ($response instanceof Success) {
+        if ($result instanceof Success) {
             $statusEvent = new StatusEvent(
                 EquipmentStatusEnum::BROKEN,
                 $parameter,
@@ -56,7 +54,5 @@ class Sabotage extends AttemptAction
             );
             $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
         }
-
-        return $response;
     }
 }

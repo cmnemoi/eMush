@@ -43,7 +43,12 @@ class MakeSick extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var Player $parameter */
         $parameter = $this->parameter;
@@ -56,7 +61,5 @@ class MakeSick extends AbstractAction
             new \DateTime()
         );
         $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
-
-        return new Success();
     }
 }

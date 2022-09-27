@@ -30,12 +30,12 @@ use Mush\Status\Event\StatusEvent;
 
 class ExtinguishManuallyActionCest
 {
-    private ExtinguishManually $ExtinguishManually;
+    private ExtinguishManually $extinguishManually;
     private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->ExtinguishManually = $I->grabService(ExtinguishManually::class);
+        $this->extinguishManually = $I->grabService(ExtinguishManually::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
@@ -106,12 +106,12 @@ class ExtinguishManuallyActionCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $this->ExtinguishManually->loadParameters($action, $player);
+        $this->extinguishManually->loadParameters($action, $player);
 
-        $I->assertTrue($this->ExtinguishManually->isVisible());
-        $I->assertNull($this->ExtinguishManually->cannotExecuteReason());
+        $I->assertTrue($this->extinguishManually->isVisible());
+        $I->assertNull($this->extinguishManually->cannotExecuteReason());
 
-        $this->ExtinguishManually->execute();
+        $this->extinguishManually->execute();
 
         $I->assertEquals(9, $player->getActionPoint());
 
@@ -122,6 +122,6 @@ class ExtinguishManuallyActionCest
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
-        $I->assertFalse($this->ExtinguishManually->isVisible());
+        $I->assertFalse($this->extinguishManually->isVisible());
     }
 }

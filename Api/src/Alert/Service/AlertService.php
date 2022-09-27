@@ -59,7 +59,7 @@ class AlertService implements AlertServiceInterface
         $this->entityManager->flush();
 
         $alert = $alertElement->getAlert();
-        if ($alert->getAlertElements().count() <= 0) {
+        if ($alert->getAlertElements()->count() <= 0) {
             $this->delete($alert);
         }
     }

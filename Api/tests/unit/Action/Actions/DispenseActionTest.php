@@ -85,8 +85,9 @@ class DispenseActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('getRandomElements')->andReturn([GameDrugEnum::PHUXX])->once();
-
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
         $this->eventService->shouldReceive('callEvent')->once();
+
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

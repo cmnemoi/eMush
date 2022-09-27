@@ -26,7 +26,7 @@ class RationCycleHandler extends AbstractCycleHandler
         EventServiceInterface $eventService,
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->$eventService = $eventService;
+        $this->eventService = $eventService;
     }
 
     public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime): void

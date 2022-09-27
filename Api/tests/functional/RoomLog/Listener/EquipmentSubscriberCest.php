@@ -49,7 +49,7 @@ class EquipmentSubscriberCest
         $equipment
             ->setName($equipmentConfig->getName())
             ->setEquipment($equipmentConfig)
-            ->setHolder($player);
+            ->setHolder($room);
         $I->haveInRepository($equipment);
 
         $equipmentEvent = new EquipmentEvent(

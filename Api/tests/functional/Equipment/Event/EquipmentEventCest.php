@@ -45,8 +45,6 @@ class EquipmentEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
 
-        $time = new DateTime();
-
         $heavyStatusConfig = new StatusConfig();
         $heavyStatusConfig->setName(EquipmentStatusEnum::HEAVY)->setGameConfig($gameConfig);
         $I->haveInRepository($heavyStatusConfig);
@@ -67,6 +65,7 @@ class EquipmentEventCest
             ->setHolder($player)
             ->setEquipment($equipmentConfig)
             ->setName('equipment_name');
+        $I->haveInRepository($equipment);
 
         $equipmentEvent = new EquipmentEvent(
             $equipment,

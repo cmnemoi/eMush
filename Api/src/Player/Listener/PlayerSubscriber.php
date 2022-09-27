@@ -39,8 +39,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         return [
             PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
             PlayerEvent::METAL_PLATE => 'onMetalPlate',
-            PlayerEvent::PANIC_CRISIS => 'onPanicCrisis',
-            PlayerEvent::INFECTION_PLAYER => 'onInfectionPlayer',
+            PlayerEvent::PANIC_CRISIS => 'onPanicCrisis'
         ];
     }
 
@@ -88,16 +87,4 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
-    public function onInfectionPlayer(PlayerEvent $playerEvent): void
-    {
-        $player = $playerEvent->getPlayer();
-
-        /** @var ChargeStatus $playerSpores */
-        $playerSpores = $player->getStatusByName(PlayerStatusEnum::SPORES);
-
-        // @TODO implement research modifiers
-        if ($playerSpores->getCharge() >= 3) {
-            $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
-        }
-    }
 }

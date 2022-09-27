@@ -3,13 +3,7 @@
  "infinite":false,
  "layers":[
         {
-         "data":[4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":1,
          "name":"wall",
@@ -51,8 +45,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":-3,
-                 "y":61
+                 "x":2,
+                 "y":62
                 }, 
                 {
                  "gid":113,
@@ -84,13 +78,7 @@
          "y":0
         }, 
         {
-         "data":[0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":3,
          "name":"wall",
@@ -108,13 +96,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 0,
-            0, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 0,
-            0, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 0,
-            0, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 0,
-            0, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 0, 0, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 0, 0, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 0, 0, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 0, 0, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":4,
          "name":"ground",
@@ -142,6 +124,34 @@
          "name":"objects",
          "objects":[
                 {
+                 "gid":269,
+                 "height":134,
+                 "id":4,
+                 "name":"shelf",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":176
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"shelf",
+                 "visible":true,
+                 "width":192,
+                 "x":79.5,
+                 "y":-1.5
+                }, 
+                {
                  "gid":55,
                  "height":36,
                  "id":9,
@@ -161,8 +171,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":204,
-                 "y":62
+                 "x":205,
+                 "y":61
                 }, 
                 {
                  "gid":257,
@@ -189,39 +199,11 @@
                  "type":"interact",
                  "visible":true,
                  "width":46,
-                 "x":136.5,
-                 "y":70.5
+                 "x":135,
+                 "y":68
                 }, 
                 {
-                 "gid":269,
-                 "height":134,
-                 "id":4,
-                 "name":"shelf",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":176
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }],
-                 "rotation":0,
-                 "type":"shelf",
-                 "visible":true,
-                 "width":192,
-                 "x":81,
-                 "y":-1
-                }, 
-                {
-                 "gid":270,
+                 "gid":272,
                  "height":15,
                  "id":7,
                  "name":"wall_box",
@@ -250,8 +232,74 @@
                  "type":"decoration",
                  "visible":true,
                  "width":14,
-                 "x":-24,
-                 "y":47
+                 "x":-22,
+                 "y":49
+                }, 
+                {
+                 "gid":291,
+                 "height":12,
+                 "id":10,
+                 "name":"paper",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":16,
+                 "x":90,
+                 "y":62
+                }, 
+                {
+                 "gid":292,
+                 "height":12,
+                 "id":11,
+                 "name":"paper",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":8
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":16,
+                 "x":69.5,
+                 "y":74.5
                 }, 
                 {
                  "gid":274,
@@ -288,74 +336,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":25,
-                 "x":-18.75,
-                 "y":3.75
-                }, 
-                {
-                 "gid":291,
-                 "height":12,
-                 "id":10,
-                 "name":"paper",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":6
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":8
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":8
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":16,
-                 "x":88,
-                 "y":58
-                }, 
-                {
-                 "gid":292,
-                 "height":12,
-                 "id":11,
-                 "name":"paper",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":6
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":8
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":8
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":16,
-                 "x":67.5,
-                 "y":74.5
+                 "x":-23.75,
+                 "y":0.75
                 }],
          "opacity":1,
          "properties":[
@@ -373,7 +355,7 @@
  "nextobjectid":12,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.5",
+ "tiledversion":"1.7.2",
  "tileheight":16,
  "tilesets":[
         {
@@ -605,8 +587,7 @@
                         {
                          "duration":100,
                          "tileid":12
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":13
@@ -706,8 +687,7 @@
                         {
                          "duration":100,
                          "tileid":36
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":37
@@ -807,8 +787,7 @@
                         {
                          "duration":100,
                          "tileid":60
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":61
@@ -908,8 +887,7 @@
                         {
                          "duration":100,
                          "tileid":84
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":85
@@ -1009,8 +987,7 @@
                         {
                          "duration":100,
                          "tileid":108
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":109
@@ -1110,8 +1087,7 @@
                         {
                          "duration":100,
                          "tileid":132
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":133
@@ -1211,8 +1187,7 @@
                         {
                          "duration":100,
                          "tileid":156
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":157
@@ -1312,8 +1287,7 @@
                         {
                          "duration":100,
                          "tileid":180
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":181
@@ -1550,8 +1524,7 @@
                         {
                          "duration":300,
                          "tileid":12
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":13
@@ -1603,8 +1576,7 @@
                         {
                          "duration":300,
                          "tileid":1
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":0
@@ -1628,6 +1600,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.8",
+ "version":"1.6",
  "width":13
 }

@@ -18,7 +18,7 @@ class EventService implements EventServiceInterface
     }
 
     public function callEvent(Event $eventParameters, string $name) : void {
-        if (!$this->tree) {
+        if (empty($this->tree)) {
             $this->tree = [[
                 'parameters' => $eventParameters,
                 'name' => $name,
@@ -33,6 +33,8 @@ class EventService implements EventServiceInterface
                 } else {
                     $this->tree = array_merge($this->tree[0]['next'], array_slice($this->tree, 1));
                 }
+
+                dump($this->tree);
             }
         } else {
             $this->tree[0]['next'] = array_merge($this->tree[0]['next'], [[

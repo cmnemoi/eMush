@@ -25,11 +25,13 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_DESTROYED => 'onDestroyedEquipment',
+            EquipmentEvent::EQUIPMENT_DESTROYED => [
+                ['onEquipmentDestroyed'],
+            ],
         ];
     }
 
-    public function onDestroyedEquipment(EquipmentEvent $event): void
+    public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
         $equipmentName = $event->getEquipment()->getName();
 

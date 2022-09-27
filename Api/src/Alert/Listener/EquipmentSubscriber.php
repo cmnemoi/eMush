@@ -21,7 +21,9 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_TRANSFORM => 'onEquipmentTransform',
+            EquipmentEvent::EQUIPMENT_TRANSFORM => [
+                ['onEquipmentTransform'],
+            ]
         ];
     }
 

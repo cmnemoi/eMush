@@ -5,6 +5,7 @@ namespace Mush\Modifier\Listener;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Service\EquipmentModifierServiceInterface;
 use Mush\Player\Entity\Player;
@@ -37,7 +38,12 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        $equipment = $event->getEquipment();
+        if ($event instanceof TransformEquipmentEvent) {
+            $equipment = $event->getEquipmentFrom();
+        } else {
+            $equipment = $event->getEquipment();
+        }
+
         $this->gearModifierService->gearDestroyed($equipment);
     }
 

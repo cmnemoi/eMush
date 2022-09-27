@@ -17,4 +17,6 @@ class DiseaseCauseEnum
     public const ALIEN_STEACK = 'alien_steack';
     public const ALIEN_FRUIT = 'alien_fruit';
     public const INFECTION = 'infection';
+
+    public const OVERRODE = 'overrode';
 }

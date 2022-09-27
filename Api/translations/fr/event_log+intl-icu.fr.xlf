@@ -361,6 +361,12 @@
                 </target>
             </segment>
         </unit>
+        <unit id="disease_overridden">
+            <segment>
+                <source>disease_overridden</source>
+                <target>:ill: Avec ce qui vient de vous arriver, votre maladie {disease} a disparu. Mais c'est maintenant le cadet de vos soucis.</target>
+            </segment>
+        </unit>
         <unit id="screaming">
             <segment>
                 <source>screaming</source>

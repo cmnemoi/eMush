@@ -4,9 +4,9 @@ namespace Mush\RoomLog\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -15,6 +15,25 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class DiseaseEventSubscriber implements EventSubscriberInterface
 {
     private RoomLogServiceInterface $roomLogService;
+
+    private const CURE_LOG_MAP = [
+        ActionEnum::HEAL => LogEnum::DISEASE_CURED_PLAYER,
+        ActionEnum::SELF_HEAL => LogEnum::DISEASE_CURED_PLAYER,
+        ActionTypeEnum::ACTION_HEAL => LogEnum::DISEASE_CURED_PLAYER,
+        ActionEnum::CONSUME => LogEnum::DISEASE_CURED_DRUG,
+        LogEnum::SURGERY_CRITICAL_SUCCESS => LogEnum::SURGERY_CRITICAL_SUCCESS,
+        LogEnum::SURGERY_SUCCESS => LogEnum::SURGERY_SUCCESS,
+        LogEnum::SELF_SURGERY_CRITICAL_SUCCESS => LogEnum::SELF_SURGERY_CRITICAL_SUCCESS,
+        LogEnum::SELF_SURGERY_SUCCESS => LogEnum::SELF_SURGERY_SUCCESS,
+        DiseaseCauseEnum::OVERRODE => LogEnum::DISEASE_OVERRIDDEN,
+    ];
+
+    private const TREAT_LOG_MAP = [
+        ActionEnum::HEAL => LogEnum::DISEASE_TREATED_PLAYER,
+        ActionEnum::SELF_HEAL => LogEnum::DISEASE_TREATED_PLAYER,
+        ActionTypeEnum::ACTION_HEAL => LogEnum::DISEASE_TREATED_PLAYER,
+        ActionEnum::CONSUME => LogEnum::DISEASE_TREATED_DRUG,
+    ];
 
     public function __construct(
         RoomLogServiceInterface $roomLogService,
@@ -35,19 +54,10 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayerDisease()->getPlayer();
 
-        $eventIsHealingAction = $event->getReason() === ActionEnum::SELF_HEAL
-            || $event->getReason() === ActionEnum::HEAL;
-
         $reason = $event->getReason();
 
-        if ($eventIsHealingAction) {
-            $key = LogEnum::DISEASE_CURED_PLAYER;
-            $event->setVisibility(VisibilityEnum::PUBLIC);
-        } elseif ($reason === ActionEnum::CONSUME) {
-            $key = LogEnum::DISEASE_CURED_DRUG;
-            $event->setVisibility(VisibilityEnum::PUBLIC);
-        } elseif (in_array($reason, LogEnum::getSurgeryLogs())) {
-            $key = $reason;
+        if (key_exists($reason, self::CURE_LOG_MAP)) {
+            $key = self::CURE_LOG_MAP[$reason];
         } else {
             $key = LogEnum::DISEASE_CURED;
         }
@@ -59,12 +69,10 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayerDisease()->getPlayer();
 
-        if ($event->getReason() === ActionTypeEnum::ACTION_HEAL) {
-            $key = LogEnum::DISEASE_TREATED_PLAYER;
-            $event->setVisibility(VisibilityEnum::PUBLIC);
-        } elseif ($event->getReason() === ActionEnum::CONSUME) {
-            $key = LogEnum::DISEASE_TREATED_DRUG;
-            $event->setVisibility(VisibilityEnum::PUBLIC);
+        $reason = $event->getReason();
+
+        if (key_exists($reason, self::TREAT_LOG_MAP)) {
+            $key = self::TREAT_LOG_MAP[$reason];
         } else {
             $key = LogEnum::DISEASE_TREATED;
         }

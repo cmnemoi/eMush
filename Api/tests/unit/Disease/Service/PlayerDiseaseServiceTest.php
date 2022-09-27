@@ -10,6 +10,8 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
+use Mush\Disease\Enum\InjuryEnum;
+use Mush\Disease\Event\DiseaseEvent;
 use Mush\Disease\Repository\DiseaseCausesConfigRepository;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Disease\Service\PlayerDiseaseService;
@@ -300,6 +302,63 @@ class PlayerDiseaseServiceTest extends TestCase
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $this->randomService->shouldReceive('random')->andReturn(10);
+
+        $this->playerDiseaseService->handleNewCycle($diseasePlayer, new \DateTime());
+
+        $this->assertEquals(10, $diseasePlayer->getDiseasePoint());
+        $this->assertEquals(DiseaseStatusEnum::ACTIVE, $diseasePlayer->getStatus());
+    }
+
+    public function testHandleNewCycleIncubatedDiseaseAppearAndOverrodeDisease()
+    {
+        $daedalus = new Daedalus();
+        $player = new Player();
+        $player->setDaedalus($daedalus);
+
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig->setOverride([InjuryEnum::BROKEN_SHOULDER]);
+        $diseasePlayer = new PlayerDisease();
+        $diseasePlayer
+            ->setPlayer($player)
+            ->setStatus(DiseaseStatusEnum::INCUBATING)
+            ->setDiseaseConfig($diseaseConfig)
+            ->setDiseasePoint(1)
+        ;
+
+        $diseaseConfig2 = new DiseaseConfig();
+        $diseaseConfig2->setName(InjuryEnum::BROKEN_SHOULDER);
+        $diseasePlayer2 = new PlayerDisease();
+        $diseasePlayer2
+            ->setPlayer($player)
+            ->setStatus(DiseaseStatusEnum::ACTIVE)
+            ->setDiseaseConfig($diseaseConfig2)
+            ->setDiseasePoint(1)
+        ;
+        $player->addMedicalCondition($diseasePlayer2);
+
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (DiseaseEvent $event) => (
+                $event->getPlayerDisease() === $diseasePlayer) &&
+                $event->getReason() === DiseaseCauseEnum::INCUBATING_END
+            )
+            ->once()
+        ;
+
+        $this->randomService->shouldReceive('random')->andReturn(10);
+
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (DiseaseEvent $event) => (
+                $event->getPlayerDisease() === $diseasePlayer2) &&
+                $event->getReason() === DiseaseCauseEnum::OVERRODE
+            )
+            ->once()
+        ;
+        $this->entityManager->shouldReceive('remove')->once();
+        $this->entityManager->shouldReceive('flush')->once();
 
         $this->playerDiseaseService->handleNewCycle($diseasePlayer, new \DateTime());
 

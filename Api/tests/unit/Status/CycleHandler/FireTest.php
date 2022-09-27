@@ -28,13 +28,13 @@ use PHPUnit\Framework\TestCase;
 class FireTest extends TestCase
 {
     /** @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface $randomService;
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
+    private RandomServiceInterface|Mockery\Mock $randomService;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private Mockery\Mock|EventServiceInterface $eventService;
     /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
     /** @var DaedalusServiceInterface|Mockery\Mock */
-    private DaedalusServiceInterface $daedalusService;
+    private DaedalusServiceInterface|Mockery\Mock $daedalusService;
     private Fire $cycleHandler;
 
     /**
@@ -99,7 +99,7 @@ class FireTest extends TestCase
         $this->daedalusService->shouldReceive('persist')->once();
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(fn (PlayerVariableEvent $playerEvent, string $eventName) => (
                 intval($playerEvent->getQuantity()) === -2 &&
                 $eventName === AbstractQuantityEvent::CHANGE_VARIABLE &&
@@ -109,7 +109,7 @@ class FireTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(fn (DaedalusModifierEvent $daedalusEvent, string $eventName) => (
                 $eventName === AbstractQuantityEvent::CHANGE_VARIABLE &&
                 $daedalusEvent->getModifiedVariable() === DaedalusVariableEnum::HULL

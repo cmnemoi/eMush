@@ -119,7 +119,7 @@ class PlayerServiceTest extends TestCase
             ->once()
         ;
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->once()
         ;
 

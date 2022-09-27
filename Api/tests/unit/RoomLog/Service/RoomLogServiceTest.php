@@ -28,13 +28,13 @@ use PHPUnit\Framework\TestCase;
 class RoomLogServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\Mock */
-    private EntityManagerInterface $entityManager;
+    private EntityManagerInterface|Mockery\Mock $entityManager;
     /** @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface $randomService;
+    private RandomServiceInterface|Mockery\Mock $randomService;
     /** @var RoomLogRepository|Mockery\Mock */
-    private RoomLogRepository $repository;
+    private RoomLogRepository|Mockery\Mock $repository;
     /** @var TranslationServiceInterface|Mockery\Mock */
-    private TranslationServiceInterface $translationService;
+    private TranslationServiceInterface|Mockery\Mock $translationService;
 
     private RoomLogService $service;
 
@@ -393,7 +393,7 @@ class RoomLogServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $test = $this->service->createLogFromActionResult(ActionEnum::STRENGTHEN_HULL, $actionResult, $player, null);
+        $test = $this->service->createLogFromActionResult(ActionEnum::STRENGTHEN_HULL, $actionResult, $player, null, new \DateTime());
 
         $this->assertEquals(ActionLogEnum::DEFAULT_FAIL, $test->getLog());
         $this->assertEquals(['character' => 'andie'], $test->getParameters());

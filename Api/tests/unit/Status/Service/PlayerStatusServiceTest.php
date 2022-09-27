@@ -19,8 +19,8 @@ class PlayerStatusServiceTest extends TestCase
 {
     /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
-    /** @var StatusServiceInterface|Mockery\Mock */
-    private Mockery\Mock|StatusServiceInterface $eventService;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private Mockery\Mock|EventServiceInterface $eventService;
 
     private PlayerStatusServiceInterface $playerStatusService;
 

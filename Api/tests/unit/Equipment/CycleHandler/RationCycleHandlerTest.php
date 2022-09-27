@@ -86,7 +86,7 @@ class RationCycleHandlerTest extends TestCase
         // unfrozen day 1
         $this->gameEquipmentService->shouldReceive('persist')->once();
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::UNSTABLE && $event->getStatusHolder() === $gameFruit)
             ->once()
         ;
@@ -99,7 +99,7 @@ class RationCycleHandlerTest extends TestCase
         // day 2
         $this->gameEquipmentService->shouldReceive('persist')->once();
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::HAZARDOUS && $event->getStatusHolder() === $gameFruit)
             ->once()
         ;
@@ -113,7 +113,7 @@ class RationCycleHandlerTest extends TestCase
         $this->gameEquipmentService->shouldReceive('persist')->once();
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::DECOMPOSING && $event->getStatusHolder() === $gameFruit)
             ->once()
         ;

@@ -91,7 +91,7 @@ class ActionServiceTest extends TestCase
         };
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
             ->once()
         ;
@@ -122,7 +122,7 @@ class ActionServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
             ->once()
         ;
@@ -153,7 +153,7 @@ class ActionServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
             ->once()
         ;
@@ -184,7 +184,7 @@ class ActionServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(
                 fn (PlayerVariableEvent $event, string $eventName) => (
                     $event->getQuantity() === -1 &&
@@ -219,7 +219,7 @@ class ActionServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs($eventDispatched(-3, AbstractQuantityEvent::CHANGE_VARIABLE))
             ->once()
         ;

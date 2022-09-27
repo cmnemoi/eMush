@@ -93,6 +93,7 @@ class RetrieveOxygenTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (Event $event) => (
                 $event instanceof EquipmentEvent &&
+                $event->isCreated() === true &&
                 $event->getEquipment()->getName() === ItemEnum::OXYGEN_CAPSULE &&
                 $event->getEquipment()->getHolder() === $player)
             )

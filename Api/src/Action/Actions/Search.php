@@ -88,7 +88,7 @@ class Search extends AbstractAction
         $hiddenItem = $result->getEquipment();
 
         if ($hiddenItem === null) {
-            throw new \LogicException('invalid search item');
+            return;
         }
 
         $hiddenBy = $hiddenItem->getStatusByName(EquipmentStatusEnum::HIDDEN)->getTarget();

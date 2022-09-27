@@ -43,22 +43,6 @@ abstract class RetrieveAction extends AbstractAction
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    public static function loadValidatorMetadata(ClassMetadata $metadata): void
-    {
-        $metadata->addConstraints([
-            new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]),
-            new ParameterName(['name' => EquipmentEnum::FUEL_TANK, 'groups' => ['visibility']]),
-            new Fuel(['groups' => ['visibility']]),
-            new InventoryFull(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FULL_INVENTORY]),
-            new HasStatus([
-                'status' => EquipmentStatusEnum::BROKEN,
-                'contain' => false,
-                'groups' => ['execute'],
-                'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
-            ]),
-        ]);
-    }
-
     protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameEquipment && !$parameter instanceof Door;

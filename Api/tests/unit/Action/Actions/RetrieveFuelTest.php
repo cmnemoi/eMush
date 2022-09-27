@@ -85,6 +85,7 @@ class RetrieveFuelTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (Event $event) => (
                 $event instanceof EquipmentEvent &&
+                $event->isCreated() === true &&
                 $event->getEquipment()->getName() === ItemEnum::FUEL_CAPSULE &&
                 $event->getEquipment()->getHolder() === $player)
             )

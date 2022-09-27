@@ -15,6 +15,7 @@ use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Disease\Service\PlayerDiseaseService;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -189,8 +190,7 @@ class PlayerDiseaseServiceTest extends TestCase
 
     public function testHandleDiseaseForCause()
     {
-        $time = new \DateTime();
-
+        
         $daedalus = new Daedalus();
         $daedalus->setGameConfig(new GameConfig());
 
@@ -223,6 +223,19 @@ class PlayerDiseaseServiceTest extends TestCase
             ->shouldReceive('findCausesByDaedalus')
             ->with(DiseaseCauseEnum::PERISHED_FOOD, $daedalus)
             ->andReturn($diseaseCauseConfig)
+            ->once()
+        ;
+
+        $this->modifierService
+            ->shouldReceive('getEventModifiedValue')
+            ->with(
+                $player,
+                DiseaseCauseEnum::PERISHED_FOOD,
+                ModifierTargetEnum::PERCENTAGE,
+                $diseaseCauseConfig->getDiseasesRate(90),
+                DiseaseCauseEnum::PERISHED_FOOD,
+                new \DateTime()
+            )
             ->once()
         ;
 

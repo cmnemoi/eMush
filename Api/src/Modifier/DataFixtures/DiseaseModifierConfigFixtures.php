@@ -8,6 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
@@ -370,7 +371,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
 
         $increaseCycleDiseaseChances10 = new ModifierConfig();
         $increaseCycleDiseaseChances10
-            ->setScope(PlayerEvent::CYCLE_DISEASE)
+            ->setScope(DiseaseCauseEnum::CYCLE)
             ->setTarget(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(10)
             ->setReach(ModifierReachEnum::PLAYER)

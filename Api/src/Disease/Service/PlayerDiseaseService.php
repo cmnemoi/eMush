@@ -15,6 +15,7 @@ use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogEnum;
@@ -144,6 +145,14 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $diseaseRate = $diseaseCauseConfig->getDiseasesRate();
 
         // @TODO : handle modifiers on diseaseRate
+        $diseaseRate = $this->modifierService->getEventModifiedValue(
+            $player,
+            [$cause],
+            ModifierTargetEnum::PERCENTAGE,
+            $diseaseRate,
+            $cause,
+            new \DateTime(),
+        );
 
         if (!$this->randomService->isSuccessful($diseaseRate)) {
             return;

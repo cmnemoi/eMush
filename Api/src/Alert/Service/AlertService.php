@@ -57,6 +57,11 @@ class AlertService implements AlertServiceInterface
     {
         $this->entityManager->remove($alertElement);
         $this->entityManager->flush();
+
+        $alert = $alertElement->getAlert();
+        if ($alert->getAlertElements().count() <= 0) {
+            $this->delete($alert);
+        }
     }
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?Alert

@@ -21,10 +21,31 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            EquipmentEvent::EQUIPMENT_DESTROYED => [
+                ['onEquipmentDestroyed'],
+            ],
             EquipmentEvent::EQUIPMENT_TRANSFORM => [
                 ['onEquipmentTransform'],
             ]
         ];
+    }
+
+    public function onEquipmentDestroyed(EquipmentEvent $event) : void {
+        $equipment = $event->getEquipment();
+
+        if ($equipment->isBroken()) {
+            $alert = $this->alertService->findByNameAndDaedalus(
+                AlertEnum::BROKEN_EQUIPMENTS,
+                $event->getPlace()->getDaedalus()
+            );
+
+            if ($alert === null) {
+                throw new \LogicException('there should be a broken alert on this Daedalus');
+            }
+
+            $alertElement = $this->alertService->getAlertEquipmentElement($alert, $equipment);
+            $this->alertService->deleteAlertElement($alertElement);
+        }
     }
 
     public function onEquipmentTransform(TransformEquipmentEvent $event): void

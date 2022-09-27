@@ -2,8 +2,6 @@
 
 namespace Mush\Game\Service;
 
-
-
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -16,7 +14,7 @@ class EventService implements EventServiceInterface
     public function __construct(
         EventDispatcherInterface $eventDispatcher
     ) {
-         $this->$eventDispatcher = $eventDispatcher;
+         $this->eventDispatcher = $eventDispatcher;
     }
 
     public function callEvent(Event $eventParameters, string $name) : void {

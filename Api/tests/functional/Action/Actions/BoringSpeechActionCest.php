@@ -31,7 +31,6 @@ class BoringSpeechActionCest
     public function _before(FunctionalTester $I)
     {
         $this->BoringSpeechAction = $I->grabService(BoringSpeech::class);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testBoringSpeech(FunctionalTester $I)

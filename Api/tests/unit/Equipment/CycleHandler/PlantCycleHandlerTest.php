@@ -33,13 +33,13 @@ use PHPUnit\Framework\TestCase;
 class PlantCycleHandlerTest extends TestCase
 {
     /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
     /** @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface $randomService;
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
+    private RandomServiceInterface|Mockery\Mock $randomService;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface|Mockery\Mock $eventService;
     /** @var EquipmentEffectServiceInterface|Mockery\Mock */
-    private EquipmentEffectServiceInterface $equipmentEffectService;
+    private EquipmentEffectServiceInterface|Mockery\Mock $equipmentEffectService;
 
     private PlantCycleHandler $plantCycleHandler;
 

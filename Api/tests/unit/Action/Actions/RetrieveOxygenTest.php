@@ -17,25 +17,30 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class RetrieveOxygenTest extends AbstractActionTest
 {
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+
     /**
      * @before
      */
     public function before()
     {
         parent::before();
-
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_OXYGEN);
 
         $this->action = new RetrieveOxygen(
             $this->eventService,
             $this->actionService,
             $this->validator,
+            $this->gameEquipmentService
         );
     }
 

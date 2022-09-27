@@ -20,9 +20,9 @@ use Mush\Status\Service\StatusServiceInterface;
 class SearchActionTest extends AbstractActionTest
 {
     /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
     /** @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface $statusService;
+    private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
      * @before

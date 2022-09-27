@@ -21,7 +21,7 @@ class MotivationalSpeechActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::MOTIVATIONAL_SPEECH);
 
         $this->action = new MotivationalSpeech(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

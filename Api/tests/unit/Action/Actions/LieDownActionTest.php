@@ -29,7 +29,7 @@ class LieDownActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::LIE_DOWN);
 
         $this->action = new LieDown(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -66,7 +66,7 @@ class LieDownActionTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === PlayerStatusEnum::LYING_DOWN &&

@@ -30,7 +30,7 @@ class CookActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::COOK, 1);
 
         $this->action = new Cook(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -76,7 +76,7 @@ class CookActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
             ->once()
         ;

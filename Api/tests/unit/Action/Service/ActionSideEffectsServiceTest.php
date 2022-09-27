@@ -39,13 +39,13 @@ class ActionSideEffectsServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(EventServiceInterface::class);
+        $this->eventService = Mockery::mock(EventServiceInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
 
         $this->actionService = new ActionSideEffectsService(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->modifierService
         );
     }
@@ -99,7 +99,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(true)
             ->once()
         ;
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::DIRTY && $event->getStatusHolder() === $player)
             ->once()
@@ -180,7 +180,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(true)
             ->once()
         ;
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
             ->withArgs(
                 fn (PlayerVariableEvent $playerEvent, string $eventName) => (

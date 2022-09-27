@@ -22,7 +22,7 @@ class ExamineActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::EXAMINE, 0);
 
         $this->action = new ReportEquipment(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

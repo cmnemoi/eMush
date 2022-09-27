@@ -16,7 +16,7 @@ use Mush\Status\Service\StatusServiceInterface;
 class ExtractSporeActionTest extends AbstractActionTest
 {
     /** @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface $statusService;
+    private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
      * @before
@@ -30,7 +30,7 @@ class ExtractSporeActionTest extends AbstractActionTest
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new ExtractSpore(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->statusService,

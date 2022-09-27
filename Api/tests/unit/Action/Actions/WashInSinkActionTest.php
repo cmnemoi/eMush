@@ -28,7 +28,7 @@ class WashInSinkActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::WASH_IN_SINK, 3);
 
         $this->action = new WashInSink(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator
         );

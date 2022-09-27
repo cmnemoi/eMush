@@ -34,7 +34,7 @@ class UltraHealActionTest extends AbstractActionTest
         $this->playerVariableService = Mockery::mock(PlayerVariableServiceInterface::class);
 
         $this->action = new UltraHeal(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->playerService,

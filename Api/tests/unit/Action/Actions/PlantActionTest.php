@@ -32,7 +32,7 @@ class PlantActionTest extends AbstractActionTest
         $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
 
         $this->action = new Transplant(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->gearToolService,

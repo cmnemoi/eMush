@@ -28,7 +28,7 @@ class WaterPlantActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::WATER_PLANT, 1);
 
         $this->action = new WaterPlant(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

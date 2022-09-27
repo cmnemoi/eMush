@@ -11,6 +11,8 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
@@ -18,6 +20,10 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 class ExpressCookActionTest extends AbstractActionTest
 {
+
+    /* @var GameEquipmentServiceInterface|Mockery\Mock */
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+
     /**
      * @before
      */
@@ -25,12 +31,15 @@ class ExpressCookActionTest extends AbstractActionTest
     {
         parent::before();
 
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+
         $this->actionEntity = $this->createActionEntity(ActionEnum::EXPRESS_COOK);
 
         $this->action = new ExpressCook(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
+            $this->gameEquipmentService
         );
     }
 

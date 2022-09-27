@@ -25,7 +25,7 @@ class UpdateTalkieTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::UPDATE_TALKIE);
 
         $this->action = new UpdateTalkie(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

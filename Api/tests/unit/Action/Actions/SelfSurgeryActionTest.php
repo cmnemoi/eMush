@@ -43,7 +43,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
 
         $this->action = new SelfSurgery(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,

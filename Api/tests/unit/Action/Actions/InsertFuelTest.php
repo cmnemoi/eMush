@@ -29,7 +29,7 @@ class InsertFuelTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::INSERT_FUEL);
 
         $this->action = new InsertFuel(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

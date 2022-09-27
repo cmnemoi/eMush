@@ -25,7 +25,7 @@ class ShredActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::SHRED);
 
         $this->action = new Shred(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

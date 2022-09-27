@@ -29,7 +29,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::SCREW_TALKIE, 2);
 
         $this->action = new ScrewTalkie(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

@@ -21,7 +21,7 @@ class BoringSpeechActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::BORING_SPEECH);
 
         $this->action = new BoringSpeech(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

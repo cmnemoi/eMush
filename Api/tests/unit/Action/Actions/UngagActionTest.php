@@ -21,7 +21,7 @@ class UngagActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::UNGAG, 1);
 
         $this->action = new Ungag(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

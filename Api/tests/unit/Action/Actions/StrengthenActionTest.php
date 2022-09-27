@@ -34,7 +34,7 @@ class StrengthenActionTest extends AbstractActionTest
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->action = new StrengthenHull(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,

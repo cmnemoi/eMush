@@ -17,12 +17,18 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class DoTheThingActionTest extends AbstractActionTest
 {
-    private DiseaseCausesConfigRepository $diseaseCausesConfigRepository;
-    private StatusServiceInterface $statusService;
-    private PlayerDiseaseServiceInterface $playerDiseaseService;
-    private PlayerVariableServiceInterface $playerVariableService;
-    private RandomServiceInterface $randomService;
-    private RoomLogServiceInterface $roomLogService;
+    /* @var DiseaseCausesConfigRepository|Mockery\Mock */
+    private DiseaseCausesConfigRepository|Mockery\Mock $diseaseCausesConfigRepository;
+    /* @var StatusServiceInterface|Mockery\Mock */
+    private StatusServiceInterface|Mockery\Mock $statusService;
+    /* @var PlayerDiseaseServiceInterface|Mockery\Mock */
+    private PlayerDiseaseServiceInterface|Mockery\Mock $playerDiseaseService;
+    /* @var PlayerVariableServiceInterface|Mockery\Mock */
+    private PlayerVariableServiceInterface|Mockery\Mock $playerVariableService;
+    /* @var RandomServiceInterface|Mockery\Mock */
+    private RandomServiceInterface|Mockery\Mock $randomService;
+    /* @var RoomLogServiceInterface|Mockery\Mock */
+    private RoomLogServiceInterface|Mockery\Mock $roomLogService;
 
     /**
      * @before
@@ -41,7 +47,7 @@ class DoTheThingActionTest extends AbstractActionTest
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
 
         $this->action = new DoTheThing(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->diseaseCausesConfigRepository,

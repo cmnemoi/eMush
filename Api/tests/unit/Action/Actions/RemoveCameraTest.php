@@ -28,7 +28,7 @@ class RemoveCameraActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::REMOVE_CAMERA);
 
         $this->action = new RemoveCamera(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

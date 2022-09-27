@@ -28,7 +28,7 @@ class InstallCameraActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::INSTALL_CAMERA);
 
         $this->action = new InstallCamera(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

@@ -31,7 +31,7 @@ class RepairActionTest extends AbstractActionTest
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->action = new Repair(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,

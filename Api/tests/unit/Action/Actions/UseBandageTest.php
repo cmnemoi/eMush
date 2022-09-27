@@ -23,7 +23,7 @@ class UseBandageActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::USE_BANDAGE);
 
         $this->action = new UseBandage(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

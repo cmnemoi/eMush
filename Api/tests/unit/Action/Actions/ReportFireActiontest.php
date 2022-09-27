@@ -21,7 +21,7 @@ class ReportFireActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::REPORT_FIRE, 1);
 
         $this->action = new ReportFire(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

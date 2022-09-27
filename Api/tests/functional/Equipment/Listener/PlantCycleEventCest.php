@@ -34,7 +34,7 @@ class PlantCycleEventCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventServiceInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testPlantGrowing(FunctionalTester $I)

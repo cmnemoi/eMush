@@ -14,7 +14,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 class ComfortActionTest extends AbstractActionTest
 {
     /** @var PlayerServiceInterface|Mockery\Mock */
-    private PlayerServiceInterface $playerService;
+    private PlayerServiceInterface|Mockery\Mock $playerService;
 
     /**
      * @before
@@ -24,14 +24,12 @@ class ComfortActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::COMFORT);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Comfort(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
-            $this->validator,
-            $this->playerService,
+            $this->validator
         );
     }
 

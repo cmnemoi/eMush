@@ -18,7 +18,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 class ConsumeActionTest extends AbstractActionTest
 {
     /** @var PlayerServiceInterface|Mockery\Mock */
-    private PlayerServiceInterface $playerService;
+    private PlayerServiceInterface|Mockery\Mock $playerService;
 
     /**
      * @before
@@ -31,7 +31,7 @@ class ConsumeActionTest extends AbstractActionTest
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Consume(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

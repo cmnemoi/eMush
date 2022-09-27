@@ -34,7 +34,7 @@ class SabotageActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::SABOTAGE, 2);
 
         $this->action = new Sabotage(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,

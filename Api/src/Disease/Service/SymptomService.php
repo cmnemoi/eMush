@@ -306,7 +306,7 @@ class SymptomService implements SymptomServiceInterface
         }
 
         $hitAction = new Hit(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService
@@ -336,7 +336,7 @@ class SymptomService implements SymptomServiceInterface
         })->first();
 
         $moveAction = new Move(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->playerService

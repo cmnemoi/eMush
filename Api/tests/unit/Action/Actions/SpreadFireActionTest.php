@@ -21,7 +21,7 @@ class SpreadFireActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::SPREAD_FIRE, 1);
 
         $this->action = new SpreadFire(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

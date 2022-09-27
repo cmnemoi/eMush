@@ -27,7 +27,7 @@ class GetUpActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::GET_UP);
 
         $this->action = new GetUp(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

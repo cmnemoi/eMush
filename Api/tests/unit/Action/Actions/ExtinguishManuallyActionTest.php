@@ -16,7 +16,7 @@ use Mush\Status\Entity\Status;
 class ExtinguishManuallyActionTest extends AbstractActionTest
 {
     /** @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface $randomService;
+    private RandomServiceInterface|Mockery\Mock $randomService;
 
     /**
      * @before
@@ -30,7 +30,7 @@ class ExtinguishManuallyActionTest extends AbstractActionTest
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->action = new ExtinguishManually(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,

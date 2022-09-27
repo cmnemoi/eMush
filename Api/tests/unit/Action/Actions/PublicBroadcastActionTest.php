@@ -27,7 +27,7 @@ class PublicBroadcastActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::PUBLIC_BROADCAST);
 
         $this->action = new PublicBroadcast(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

@@ -13,7 +13,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 class FlirtActionTest extends AbstractActionTest
 {
     /** @var PlayerServiceInterface|Mockery\Mock */
-    private PlayerServiceInterface $playerService;
+    private PlayerServiceInterface|Mockery\Mock $playerService;
 
     /**
      * @before
@@ -27,7 +27,7 @@ class FlirtActionTest extends AbstractActionTest
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Flirt(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->playerService,

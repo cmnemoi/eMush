@@ -25,7 +25,7 @@ class TakeActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::TRANSPLANT);
 
         $this->action = new Take(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

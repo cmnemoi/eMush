@@ -14,7 +14,7 @@ class EventService implements EventServiceInterface
     public function __construct(
         EventDispatcherInterface $eventDispatcher
     ) {
-         $this->eventDispatcher = $eventDispatcher;
+         $this->eventService = $eventDispatcher;
     }
 
     public function callEvent(Event $eventParameters, string $name) : void {
@@ -26,7 +26,7 @@ class EventService implements EventServiceInterface
             ]];
 
             while (!empty($this->tree)) {
-                $this->eventDispatcher->dispatch($this->tree[0]['parameters'], $this->tree[0]['name']);
+                $this->eventService->dispatch($this->tree[0]['parameters'], $this->tree[0]['name']);
 
                 if (empty($this->tree[0]['next'])) {
                     $this->tree = array_slice($this->tree, 1);

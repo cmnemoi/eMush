@@ -29,7 +29,7 @@ class InsertOxygenTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::INSERT_OXYGEN);
 
         $this->action = new InsertOxygen(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

@@ -25,10 +25,10 @@ class PlayerSuscriberTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(EventServiceInterface::class);
+        $this->eventService = Mockery::mock(EventServiceInterface::class);
 
         $this->playerSubscriber = new PlayerSubscriber(
-            $this->eventDispatcher
+            $this->eventService
         );
     }
 

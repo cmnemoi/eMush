@@ -32,11 +32,11 @@ class RationCycleHandlerTest extends TestCase
     public function before()
     {
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventServiceInterface::class);
+        $this->eventService = Mockery::mock(EventServiceInterface::class);
 
         $this->rationCycleHandler = new RationCycleHandler(
             $this->gameEquipmentService,
-            $this->eventDispatcher
+            $this->eventService
         );
     }
 
@@ -85,7 +85,7 @@ class RationCycleHandlerTest extends TestCase
 
         // unfrozen day 1
         $this->gameEquipmentService->shouldReceive('persist')->once();
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::UNSTABLE && $event->getStatusHolder() === $gameFruit)
             ->once()
@@ -98,7 +98,7 @@ class RationCycleHandlerTest extends TestCase
 
         // day 2
         $this->gameEquipmentService->shouldReceive('persist')->once();
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::HAZARDOUS && $event->getStatusHolder() === $gameFruit)
             ->once()
@@ -112,7 +112,7 @@ class RationCycleHandlerTest extends TestCase
         // day 3
         $this->gameEquipmentService->shouldReceive('persist')->once();
 
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::DECOMPOSING && $event->getStatusHolder() === $gameFruit)
             ->once()

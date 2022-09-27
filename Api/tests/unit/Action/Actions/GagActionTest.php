@@ -21,7 +21,7 @@ class GagActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::GAG, 1);
 
         $this->action = new Gag(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );

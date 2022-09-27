@@ -12,13 +12,17 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Place\Entity\Place;
 
 class BuildActionTest extends AbstractActionTest
 {
     /** @var GearToolServiceInterface|Mockery\Mock */
-    private GearToolServiceInterface $gearToolService;
+    private GearToolServiceInterface|Mockery\Mock $gearToolService;
+
+    /* @var GameEquipmentServiceInterface|Mockery\Mock */
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     protected AbstractAction $action;
 
@@ -30,14 +34,16 @@ class BuildActionTest extends AbstractActionTest
         parent::before();
 
         $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
         $this->action = new Build(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
-            $this->gearToolService
+            $this->gearToolService,
+            $this->gameEquipmentService
         );
     }
 

@@ -117,7 +117,7 @@ class MoveSubscriberCest
         $player->addEquipment($gameEquipment);
         $I->refreshEntities($player);
 
-        // lets create a gear with room reach in player inventory
+        // let's create a gear with room reach in player inventory
         $modifierConfig2 = new ModifierConfig();
         $modifierConfig2
             ->setScope(ActionEnum::SHOWER)

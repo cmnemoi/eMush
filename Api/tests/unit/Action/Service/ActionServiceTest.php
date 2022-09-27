@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ActionServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface|Mockery\Mock */
+    /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
     /** @var ModifierServiceInterface|Mockery\Mock */
     private ModifierServiceInterface $modifierService;

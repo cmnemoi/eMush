@@ -34,20 +34,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
             EquipmentEvent::INVENTORY_OVERFLOW => [
                 ['onInventoryOverflow', 100],
             ],
-            EquipmentEvent::EQUIPMENT_CREATED => [
-                ['onEquipmentCreated', 100],
-            ],
         ];
-    }
-
-    public function onEquipmentCreated(EquipmentEvent $event): void
-    {
-        $equipment = $event->getEquipment();
-        $holder = $event->getEquipment()->getHolder();
-
-        if ($holder instanceof Player) {
-            $this->equipmentModifierService->takeEquipment($equipment, $holder);
-        }
     }
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void

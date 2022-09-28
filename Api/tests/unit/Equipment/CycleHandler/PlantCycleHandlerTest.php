@@ -101,7 +101,7 @@ class PlantCycleHandlerTest extends TestCase
             ->setOxygen(10);
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect)->once();
 
-        $this->plantCycleHandler->handleNewCycle($gamePlant, $daedalus, new \DateTime());
+        $this->plantCycleHandler->handleNewCycle($gamePlant, new \DateTime());
 
         $this->assertFalse(
             $gamePlant

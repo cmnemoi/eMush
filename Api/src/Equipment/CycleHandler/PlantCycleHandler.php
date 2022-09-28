@@ -48,51 +48,50 @@ class PlantCycleHandler extends AbstractCycleHandler
         $this->equipmentEffectService = $equipmentEffectService;
     }
 
-    public function handleNewCycle($object, $daedalus, \DateTime $dateTime, array $context = []): void
+    public function handleNewCycle($object, \DateTime $dateTime): void
     {
-        /** @var GameItem $gamePlant */
-        $gamePlant = $object;
-
-        if (!$gamePlant instanceof GameEquipment) {
+        /** @var GameItem $plant */
+        $plant = $object;
+        if (!$plant instanceof GameEquipment) return;
+        try {
+            $daedalus = $plant->getPlace()->getDaedalus();
+        } catch (\LogicException) {
             return;
         }
 
-        $plantType = $gamePlant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
-
-        if (!$plantType instanceof Plant) {
-            return;
-        }
+        $plantType = $plant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
+        if (!$plantType instanceof Plant) return;
 
         $plantEffect = $this->equipmentEffectService->getPlantEffect($plantType, $daedalus);
 
         /** @var ChargeStatus $youngStatus */
-        $youngStatus = $gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_YOUNG);
+        $youngStatus = $plant->getStatusByName(EquipmentStatusEnum::PLANT_YOUNG);
         if ($youngStatus &&
             $youngStatus->getCharge() >= $plantEffect->getMaturationTime()
         ) {
             $statusEvent = new StatusEvent(
                 EquipmentStatusEnum::PLANT_YOUNG,
-                $gamePlant,
+                $plant,
                 EventEnum::NEW_CYCLE,
                 $dateTime
             );
             $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED, true);
+            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
         }
 
         $diseaseRate = $daedalus->getGameConfig()->getDifficultyConfig()->getPlantDiseaseRate();
 
         if ($this->randomService->isSuccessful($diseaseRate) &&
-            !$gamePlant->hasStatus(EquipmentStatusEnum::PLANT_DISEASED)
+            !$plant->hasStatus(EquipmentStatusEnum::PLANT_DISEASED)
         ) {
-            $statusEvent = new StatusEvent(EquipmentStatusEnum::PLANT_DISEASED, $gamePlant, EventEnum::NEW_CYCLE, new \DateTime());
+            $statusEvent = new StatusEvent(EquipmentStatusEnum::PLANT_DISEASED, $plant, EventEnum::NEW_CYCLE, new \DateTime());
 
             $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
         }
     }
 
-    public function handleNewDay($object, $daedalus, \DateTime $dateTime, array $context = []): void
+    public function handleNewDay($object, $daedalus, \DateTime $dateTime): void
     {
         /** @var GameItem $gamePlant */
         $gamePlant = $object;

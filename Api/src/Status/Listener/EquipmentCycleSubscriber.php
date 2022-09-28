@@ -54,7 +54,7 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
                 $event->getReason(),
                 $event->getTime()
             );
-            $this->eventService->callEvent($statusNewDay, StatusCycleEvent::STATUS_NEW_DAY, true);
+            $this->eventService->callEvent($statusNewDay, StatusCycleEvent::STATUS_NEW_DAY);
         }
     }
 }

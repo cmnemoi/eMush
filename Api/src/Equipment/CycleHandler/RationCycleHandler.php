@@ -29,11 +29,11 @@ class RationCycleHandler extends AbstractCycleHandler
         $this->eventService = $eventService;
     }
 
-    public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime): void
+    public function handleNewCycle($object, \DateTime $dateTime): void
     {
     }
 
-    public function handleNewDay($object, $daedalus, \DateTime $dateTime): void
+    public function handleNewDay($object, \DateTime $dateTime): void
     {
         $gameRation = $object;
 

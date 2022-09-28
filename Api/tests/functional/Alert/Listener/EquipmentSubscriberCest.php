@@ -63,6 +63,8 @@ class EquipmentSubscriberCest
             'gameConfig' => $gameConfig
         ]);
 
+        codecept_debug($room);
+
         $gravitySimulator = new GameEquipment();
         $gravitySimulator
             ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
@@ -95,6 +97,8 @@ class EquipmentSubscriberCest
         ;
 
         $I->haveInRepository($alertBroken);
+
+        codecept_debug($gravitySimulator);
 
         $equipmentEvent = new EquipmentEvent(
             $gravitySimulator,

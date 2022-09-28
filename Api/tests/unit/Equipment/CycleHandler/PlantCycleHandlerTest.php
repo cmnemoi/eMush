@@ -264,6 +264,7 @@ class PlantCycleHandlerTest extends TestCase
                 $event->getEquipment()->getName() === $newFruit->getName()
             )->once()
         ;
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         // Mature Plant, no problem
         $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, $time);
@@ -384,6 +385,7 @@ class PlantCycleHandlerTest extends TestCase
                 $event->getEquipment()->getName() === ItemEnum::HYDROPOT
             )->once()
         ;
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         // Dried out plant
         // @TODO $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName');

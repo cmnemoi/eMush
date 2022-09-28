@@ -252,8 +252,9 @@ class PlantCycleEventCest
         ]);
 
         // Plant is dried
-        /** @var Place $room */
+        /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'corridor']);
+        codecept_debug($room2);
 
         $gameEquipment2 = new GameItem();
         $gameEquipment2
@@ -261,6 +262,7 @@ class PlantCycleEventCest
             ->setName('plant name')
             ->setHolder($room2)
         ;
+        codecept_debug($gameEquipment2);
 
         $I->haveInRepository($gameEquipment2);
 

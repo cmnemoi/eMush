@@ -93,7 +93,6 @@ class PlantCycleHandler extends AbstractCycleHandler
         /** @var GameItem $plant */
         $plant = $object;
         if (!$plant instanceof GameEquipment) return;
-        if ($plant->isDestroyed()) return;
 
         $daedalus = $plant->getPlace()->getDaedalus();
 

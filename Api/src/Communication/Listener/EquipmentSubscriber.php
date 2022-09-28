@@ -42,7 +42,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 throw new \LogicException('no Daedalus found for the destroyed item');
             }
 
-            $daedalus = $holder->getDaedalus();
+            $daedalus = $holder->getPlace()->getDaedalus();
 
             $numberShowersLeft = ($this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::THALASSO, $daedalus)->count() +
                 $this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::SHOWER, $daedalus)->count());

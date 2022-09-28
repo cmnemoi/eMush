@@ -54,10 +54,16 @@ class SelfHeal extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
+        $quantity = $result->getQuantity();
+
+        if ($quantity === null) {
+            throw new \LogicException('no healing quantity');
+        }
+
         $playerModifierEvent = new PlayerVariableEvent(
             $this->player,
             PlayerVariableEnum::HEALTH_POINT,
-            $result->getQuantity(),
+            $quantity,
             $this->getActionName(),
             new \DateTime()
         );

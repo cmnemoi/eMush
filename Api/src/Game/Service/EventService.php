@@ -9,6 +9,7 @@ class EventService implements EventServiceInterface
 {
 
     private array $tree = [];
+    private bool $cascade = false;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
@@ -18,6 +19,10 @@ class EventService implements EventServiceInterface
     }
 
     public function callEvent(Event $eventParameters, string $name, bool $executeNow = false) : void {
+        if ($this->cascade) {
+            $this->eventDispatcher->dispatch($eventParameters, $name);
+        }
+
         if (empty($this->tree)) {
             $this->tree = [[
                 'parameters' => $eventParameters,
@@ -36,14 +41,10 @@ class EventService implements EventServiceInterface
                 }
             }
         } else if ($executeNow) {
-            $this->tree = array_merge([
-                'parameters' => $eventParameters,
-                'name' => $name,
-                'next' => [],
-            ], $this->tree);
-
             codecept_debug($this->tree[0]['name']);
+            $this->cascade = true;
             $this->eventDispatcher->dispatch($eventParameters, $name);
+            $this->cascade = false;
         } else {
             $this->tree[0]['next'] = array_merge($this->tree[0]['next'], [[
                 'parameters' => $eventParameters,

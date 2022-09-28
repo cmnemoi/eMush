@@ -10,6 +10,7 @@ use Mush\Disease\Enum\SymptomConditionEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Modifier\Entity\ModifierCondition;
 use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
@@ -76,13 +77,33 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         /** @var ModifierConfig $modifierConfig */
         foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
             $delta = $modifierConfig->getDelta();
+            $mode = $modifierConfig->getMode();
+            $scope = $modifierConfig->getScope();
+            $target = $modifierConfig->getTarget();
 
-            if ($delta < 0) {
-                $key = $modifierConfig->getScope() . '_decrease';
+            if ($mode == ModifierModeEnum::MULTIPLICATIVE) {
+                if ($delta < 1) {
+                    $key = $modifierConfig->getScope() . '_decrease';
+                } else {
+                    $key = $modifierConfig->getScope() . '_increase';
+                }
+                $delta = (1 - $delta) * 100;
             } else {
-                $key = $modifierConfig->getScope() . '_increase';
+                if ($delta < 0) {
+                    $key = $modifierConfig->getScope() . '_decrease';
+                } else {
+                    $key = $modifierConfig->getScope() . '_increase';
+                }
             }
-            $emote = PlayerVariableEnum::getEmoteMap()[$modifierConfig->getTarget()];
+
+            $emoteMap = PlayerVariableEnum::getEmoteMap();
+            if (isset($emoteMap[$scope])) {
+                $emote = $emoteMap[$scope];
+            } elseif (isset($emoteMap[$target])) {
+                $emote = $emoteMap[$target];
+            } else {
+                $emote = '';
+            }
 
             $randomCondition = $modifierConfig->getModifierConditions()
                 ->filter(fn (ModifierCondition $condition) => $condition->getName() === SymptomConditionEnum::RANDOM);

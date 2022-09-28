@@ -36,13 +36,13 @@
         </unit>
         <unit id="actions_increase">
             <segment id="description">
-                <source>actions_description</source>
+                <source>actions_increase.description</source>
                 <target>Chaque action, coûte {quantity} :pa: de plus.</target>
             </segment>
         </unit>
         <unit id="action_shoot_decrease">
             <segment id="description">
-                <source>.description</source>
+                <source>action_shoot_decrease.description</source>
                 <target>Précision **-{quantity}%**.</target>
             </segment>
         </unit>
@@ -75,7 +75,7 @@
         </unit>
         <unit id="cant_pick_up_heavy_item">
             <segment id="description">
-                <source>cant_pick_up_heavy_item.description</source>
+                <source>cant_pick_up_heavy_items.description</source>
                 <target>Impossible de porter des objets lourds.</target>
             </segment>
         </unit>

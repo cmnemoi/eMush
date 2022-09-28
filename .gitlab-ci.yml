@@ -43,7 +43,7 @@
 api-test:
   <<: *php_with_db_template
   script:
-    - php vendor/bin/codecept run
+    - php vendor/bin/codecept run --debug
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 

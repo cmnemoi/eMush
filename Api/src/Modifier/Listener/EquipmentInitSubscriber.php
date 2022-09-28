@@ -25,8 +25,8 @@ class EquipmentInitSubscriber implements EventSubscriberInterface
 
     public function onNewEquipment(EquipmentInitEvent $event): void
     {
+        codecept_debug("oui");
         $equipment = $event->getGameEquipment();
-
         $this->gearModifierService->gearCreated($equipment);
     }
 }

@@ -131,8 +131,6 @@ class DaedalusService implements DaedalusServiceInterface
         );
         $this->eventDispatcher->dispatch($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
 
-        $this->persist($daedalus);
-
         return $daedalus;
     }
 

@@ -122,7 +122,7 @@ class DaedalusServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->times(3)
+            ->twice();
         ;
         $this->entityManager
             ->shouldReceive('flush')

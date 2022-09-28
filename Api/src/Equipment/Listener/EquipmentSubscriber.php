@@ -28,7 +28,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         return [
             EquipmentEvent::EQUIPMENT_CREATED => [
-                ['checkInventoryOverflow', -10]
+                ['checkInventoryOverflow']
             ],
             EquipmentEvent::INVENTORY_OVERFLOW => [
                 ['onInventoryOverflow', -1000]
@@ -69,7 +69,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getEquipment();
         $equipment->setHolder($equipment->getPlace());
-        $this->gameEquipmentService->persist($equipment);
     }
 
     public function checkInventoryOverflow(EquipmentEvent $event) {

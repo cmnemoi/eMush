@@ -80,13 +80,6 @@ class GameEquipmentServiceTest extends TestCase
             ->setName('some Name')
             ->setMechanics(new ArrayCollection([]));
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
-            ->withArgs(fn (EquipmentInitEvent $event) => (
-                $event->getEquipmentConfig() === $itemConfig)
-            )
-            ->once()
-        ;
         $this->entityManager
             ->shouldReceive('persist')
             ->once();
@@ -113,13 +106,6 @@ class GameEquipmentServiceTest extends TestCase
             ->setMechanics(new ArrayCollection([]))
         ;
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
-            ->withArgs(fn (EquipmentInitEvent $event) => (
-                $event->getEquipmentConfig() === $equipmentConfig)
-            )
-            ->once()
-        ;
         $this->entityManager
             ->shouldReceive('persist')
             ->once()
@@ -152,14 +138,6 @@ class GameEquipmentServiceTest extends TestCase
         $plantEffect = new PlantEffect();
         $plantEffect->setMaturationTime(8);
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => (
-                $event instanceof EquipmentInitEvent &&
-                $event->getEquipmentConfig() === $itemConfig)
-            )
-            ->once()
-        ;
         $this->entityManager
             ->shouldReceive('persist')
             ->once()
@@ -198,14 +176,6 @@ class GameEquipmentServiceTest extends TestCase
             ->setMechanics(new ArrayCollection([$documentMechanic]))
         ;
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => (
-                $event instanceof EquipmentInitEvent &&
-                $event->getEquipmentConfig() === $itemConfig)
-            )
-            ->once()
-        ;
         $this->entityManager
             ->shouldReceive('persist')
             ->once()

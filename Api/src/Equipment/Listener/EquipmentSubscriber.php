@@ -28,7 +28,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         return [
             EquipmentEvent::EQUIPMENT_CREATED => [
-                ['checkInventoryOverflow']
+                ['checkInventoryOverflow', -10]
             ],
             EquipmentEvent::INVENTORY_OVERFLOW => [
                 ['onInventoryOverflow', -1000]
@@ -78,9 +78,9 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $gameConfig = $holder->getPlace()->getDaedalus()->getGameConfig();
 
         if ($holder instanceof Player && $holder->getEquipments()->count() > $gameConfig->getMaxItemInInventory()) {
-            $equipmentEvent = new InteractWithEquipmentEvent(
+            $equipmentEvent = new EquipmentEvent(
                 $equipment,
-                $holder,
+                false,
                 VisibilityEnum::HIDDEN,
                 EquipmentEvent::INVENTORY_OVERFLOW,
                 new \DateTime()

@@ -87,14 +87,11 @@ class EquipmentEventCest
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(1, $player->getEquipments());
 
-        /** @var EquipmentConfig $equipmentConfig */
+        /** @var ItemConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'name' => 'item_name']);
 
-        $equipment = new GameItem();
-        $equipment
-            ->setHolder($player)
-            ->setEquipment($equipmentConfig)
-            ->setName('equipment_name');
+        $equipment = $equipmentConfig->createGameItem()
+            ->setHolder($player);
         $I->haveInRepository($equipment);
 
         // Case of a game Item full inventory

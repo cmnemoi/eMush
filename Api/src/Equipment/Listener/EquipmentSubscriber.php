@@ -100,9 +100,9 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $gameConfig = $holder->getPlace()->getDaedalus()->getGameConfig();
 
         if ($holder instanceof Player && $holder->getEquipments()->count() > $gameConfig->getMaxItemInInventory()) {
-            $equipmentEvent = new EquipmentEvent(
+            $equipmentEvent = new InteractWithEquipmentEvent(
                 $equipment,
-                false,
+                $holder,
                 VisibilityEnum::HIDDEN,
                 EquipmentEvent::INVENTORY_OVERFLOW,
                 new \DateTime()

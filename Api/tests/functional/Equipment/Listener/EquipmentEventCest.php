@@ -52,6 +52,7 @@ class EquipmentEventCest
             ->setHolder($room)
             ->setEquipment($equipmentConfig)
             ->setName($equipmentConfig->getName());
+        $I->haveInRepository($equipment);
 
         $equipmentEvent = new EquipmentEvent(
             $equipment,
@@ -94,6 +95,7 @@ class EquipmentEventCest
             ->setHolder($player)
             ->setEquipment($equipmentConfig)
             ->setName('equipment_name');
+        $I->haveInRepository($equipment);
 
         // Case of a game Item full inventory
         $equipmentEvent = new EquipmentEvent(

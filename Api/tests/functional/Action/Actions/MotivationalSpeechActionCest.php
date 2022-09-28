@@ -27,7 +27,7 @@ class MotivationalSpeechActionCest
     public function _before(FunctionalTester $I)
     {
         $this->MotivationalSpeechAction = $I->grabService(MotivationalSpeech::class);
-        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testMotivationalSpeech(FunctionalTester $I)

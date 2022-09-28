@@ -42,7 +42,7 @@ class DoTheThingCest
     public function _before(FunctionalTester $I)
     {
         $this->doTheThingAction = $I->grabService(DoTheThing::class);
-        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testDoTheThing(FunctionalTester $I)

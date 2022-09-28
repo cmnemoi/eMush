@@ -45,7 +45,7 @@ class ModifierServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->conditionService = Mockery::mock(ModifierConditionServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 

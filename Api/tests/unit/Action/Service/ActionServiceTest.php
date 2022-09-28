@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ActionServiceTest extends TestCase
 {
-    /** @var eventDispatcherInterface|Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
     /** @var ModifierServiceInterface|Mockery\Mock */
     private ModifierServiceInterface $modifierService;
@@ -41,7 +41,7 @@ class ActionServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
 
         $this->actionService = Mockery::mock(ActionServiceInterface::class);

@@ -51,7 +51,7 @@ class PlayerServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->repository = Mockery::mock(PlayerRepository::class);
         $this->deadPlayerInfoRepository = Mockery::mock(DeadPlayerInfoRepository::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);

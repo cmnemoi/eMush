@@ -47,7 +47,7 @@ class PlayerDiseaseServiceTest extends TestCase
         $this->diseaseCausesConfigRepository = Mockery::mock(DiseaseCausesConfigRepository::class);
         $this->diseaseConfigRepository = Mockery::mock(DiseaseConfigRepository::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
 
         $this->playerDiseaseService = new PlayerDiseaseService(
             $this->entityManager,

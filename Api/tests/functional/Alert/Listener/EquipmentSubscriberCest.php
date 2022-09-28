@@ -23,7 +23,6 @@ use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use function PHPUnit\Framework\assertNotNull;
 
 class EquipmentSubscriberCest
 {
@@ -31,7 +30,7 @@ class EquipmentSubscriberCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testDestroyBrokenEquipment(FunctionalTester $I)
@@ -55,7 +54,6 @@ class EquipmentSubscriberCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-        assertNotNull($room);
 
         /** @var EquipmentConfig $gravitySimulatorConfig */
         $gravitySimulatorConfig = $I->have(EquipmentConfig::class, [

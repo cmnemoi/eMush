@@ -36,7 +36,7 @@ class ExtinguishManuallyActionCest
     public function _before(FunctionalTester $I)
     {
         $this->extinguishManually = $I->grabService(ExtinguishManually::class);
-        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testExtinguishManually(FunctionalTester $I)

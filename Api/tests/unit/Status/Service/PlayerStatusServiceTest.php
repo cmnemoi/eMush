@@ -19,7 +19,7 @@ class PlayerStatusServiceTest extends TestCase
 {
     /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
-    /** @var eventDispatcherInterface|Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
 
     private PlayerStatusServiceInterface $playerStatusService;
@@ -30,7 +30,7 @@ class PlayerStatusServiceTest extends TestCase
     public function before()
     {
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
 
         $this->playerStatusService = new PlayerStatusService($this->statusService, $this->eventDispatcher);
     }

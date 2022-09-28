@@ -36,8 +36,8 @@ class PlantCycleHandlerTest extends TestCase
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
-    /** @var eventDispatcherInterface|Mockery\Mock */
-    private eventDispatcherInterface|Mockery\Mock $eventDispatcher;
+    /** @var EventDispatcherInterface|Mockery\Mock */
+    private EventDispatcherInterface|Mockery\Mock $eventDispatcher;
     /** @var EquipmentEffectServiceInterface|Mockery\Mock */
     private EquipmentEffectServiceInterface|Mockery\Mock $equipmentEffectService;
 
@@ -48,7 +48,7 @@ class PlantCycleHandlerTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->equipmentEffectService = Mockery::mock(EquipmentEffectServiceInterface::class);

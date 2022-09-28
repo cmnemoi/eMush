@@ -21,8 +21,8 @@ class RationCycleHandlerTest extends TestCase
 {
     /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
-    /** @var eventDispatcherInterface|Mockery\Mock */
-    private eventDispatcherInterface|Mockery\Mock $eventDispatcher;
+    /** @var EventDispatcherInterface|Mockery\Mock */
+    private EventDispatcherInterface|Mockery\Mock $eventDispatcher;
 
     private RationCycleHandler $rationCycleHandler;
 
@@ -33,7 +33,7 @@ class RationCycleHandlerTest extends TestCase
     {
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
 
         $this->rationCycleHandler = new RationCycleHandler(
             $this->gameEquipmentService,

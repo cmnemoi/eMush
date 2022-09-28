@@ -26,7 +26,7 @@ class EquipmentEventCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testDispatchEquipmentCreated(FunctionalTester $I)

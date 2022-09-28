@@ -29,7 +29,7 @@ class FireTest extends TestCase
 {
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
-    /** @var eventDispatcherInterface|Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
     /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
@@ -43,7 +43,7 @@ class FireTest extends TestCase
     public function before()
     {
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
 

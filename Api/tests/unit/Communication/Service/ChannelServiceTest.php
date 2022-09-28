@@ -55,7 +55,7 @@ class ChannelServiceTest extends TestCase
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
         $this->channelRepository = Mockery::mock(ChannelRepository::class);
         $this->channelPlayerRepository = Mockery::mock(ChannelPlayerRepository::class);
-        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->service = new ChannelService(

@@ -39,7 +39,7 @@ class ActionSideEffectsServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);

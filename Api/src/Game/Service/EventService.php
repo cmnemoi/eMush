@@ -26,6 +26,7 @@ class EventService implements EventServiceInterface
             ]];
 
             while (!empty($this->tree)) {
+                codecept_debug($this->tree[0]['name']);
                 $this->eventDispatcher->dispatch($this->tree[0]['parameters'], $this->tree[0]['name']);
 
                 if (empty($this->tree[0]['next'])) {

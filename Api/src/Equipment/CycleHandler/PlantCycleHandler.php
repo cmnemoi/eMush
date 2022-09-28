@@ -54,6 +54,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         $plant = $object;
         if (!$plant instanceof GameEquipment) return;
         try {
+            codecept_debug("handle new cycle item destroyed before");
             $daedalus = $plant->getPlace()->getDaedalus();
         } catch (\LogicException) {
             return;
@@ -97,6 +98,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         $plant = $object;
         if (!$plant instanceof GameEquipment) return;
         try {
+            codecept_debug("handle new day cycle item destroyed before");
             $daedalus = $plant->getPlace()->getDaedalus();
         } catch (\LogicException) {
             return;

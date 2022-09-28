@@ -143,9 +143,12 @@ class PlantCycleHandlerTest extends TestCase
         // Plant get disease and grow
         $chargeStatus->setCharge(10);
 
+        $place = new Place();
+        $place->setDaedalus($daedalus);
+
         $gamePlant
                 ->setEquipment($plant)
-                ->setHolder(new Place());
+                ->setHolder($place);
 
         $plantEffect = new PlantEffect();
         $plantEffect
@@ -267,7 +270,7 @@ class PlantCycleHandlerTest extends TestCase
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         // Mature Plant, no problem
-        $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, $time);
+        $this->plantCycleHandler->handleNewDay($gamePlant, $time);
 
         $this->assertCount(1, $room->getEquipments());
     }
@@ -325,7 +328,7 @@ class PlantCycleHandlerTest extends TestCase
             ->once();
 
         // Thirsty plant
-        $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, new \DateTime());
+        $this->plantCycleHandler->handleNewDay($gamePlant, new \DateTime());
 
         $this->assertCount(1, $room->getEquipments());
 
@@ -389,7 +392,7 @@ class PlantCycleHandlerTest extends TestCase
 
         // Dried out plant
         // @TODO $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName');
-        $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, $time);
+        $this->plantCycleHandler->handleNewDay($gamePlant, $time);
 
         $this->assertCount(1, $room->getEquipments());
         $this->assertNotContains($plant, $room->getEquipments());

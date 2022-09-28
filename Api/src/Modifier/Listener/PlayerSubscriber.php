@@ -3,12 +3,12 @@
 namespace Mush\Modifier\Listener;
 
 use Mush\Game\Event\AbstractQuantityEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Service\ModifierService;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
@@ -21,7 +21,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->modifierService = $modifierService;
-          $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array

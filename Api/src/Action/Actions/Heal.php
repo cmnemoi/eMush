@@ -52,6 +52,7 @@ class Heal extends AbstractAction
     {
         $healedQuantity = self::BASE_HEAL;
         $success = new Success();
+
         return $success->setQuantity($healedQuantity);
     }
 

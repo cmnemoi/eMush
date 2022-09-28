@@ -4,12 +4,12 @@ namespace Mush\Player\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerVariableServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerModifierSubscriber implements EventSubscriberInterface
@@ -22,7 +22,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->playerVariableService = $playerVariableService;
-          $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents()

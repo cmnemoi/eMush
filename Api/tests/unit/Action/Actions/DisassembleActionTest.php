@@ -19,7 +19,6 @@ use Mush\Place\Entity\Place;
 
 class DisassembleActionTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
 
     /* @var GameEquipmentServiceInterface|Mockery\Mock */

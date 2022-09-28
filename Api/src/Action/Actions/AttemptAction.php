@@ -6,8 +6,8 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Service\ActionServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AttemptAction extends AbstractAction

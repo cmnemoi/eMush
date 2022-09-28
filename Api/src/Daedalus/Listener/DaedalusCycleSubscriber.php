@@ -12,8 +12,8 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusCycleSubscriber implements EventSubscriberInterface
@@ -32,7 +32,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     ) {
         $this->daedalusService = $daedalusService;
         $this->daedalusIncidentService = $daedalusIncidentService;
-          $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array

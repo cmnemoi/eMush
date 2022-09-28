@@ -8,7 +8,6 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEventEnum;
@@ -20,6 +19,7 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Fire extends AbstractStatusCycleHandler
 {
@@ -37,7 +37,7 @@ class Fire extends AbstractStatusCycleHandler
         DaedalusServiceInterface $daedalusService
     ) {
         $this->randomService = $randomService;
-          $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->daedalusService = $daedalusService;
     }

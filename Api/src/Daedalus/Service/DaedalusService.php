@@ -19,7 +19,6 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\CycleServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -29,6 +28,7 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DaedalusService implements DaedalusServiceInterface
 {
@@ -50,7 +50,7 @@ class DaedalusService implements DaedalusServiceInterface
         RoomLogServiceInterface $roomLogService
     ) {
         $this->entityManager = $entityManager;
-          $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;
         $this->cycleService = $cycleService;
         $this->gameEquipmentService = $gameEquipmentService;

@@ -13,7 +13,6 @@ use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -24,16 +23,16 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class FireTest extends TestCase
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
-    /** @var EventDispatcherInterface|Mockery\Mock */
+
     private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
+
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
-    /** @var DaedalusServiceInterface|Mockery\Mock */
+
     private DaedalusServiceInterface|Mockery\Mock $daedalusService;
     private Fire $cycleHandler;
 

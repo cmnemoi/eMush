@@ -8,10 +8,10 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Listener\PlayerSubscriber;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerSuscriberTest extends TestCase
 {

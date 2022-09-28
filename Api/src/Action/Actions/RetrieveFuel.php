@@ -45,5 +45,4 @@ class RetrieveFuel extends RetrieveAction
     {
         return ItemEnum::FUEL_CAPSULE;
     }
-
 }

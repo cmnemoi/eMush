@@ -30,14 +30,14 @@ class EquipmentSubscriber implements EventSubscriberInterface
             ],
             EquipmentEvent::EQUIPMENT_DESTROYED => [
                 ['onEquipmentDestroyed'],
-                ['onEquipmentRemovedFromInventory', -10]
+                ['onEquipmentRemovedFromInventory', -10],
             ],
             EquipmentEvent::EQUIPMENT_CREATED => [
-                ['onNewEquipmentInInventory', -2000] // after the overflowing part has been solved
+                ['onNewEquipmentInInventory', -2000], // after the overflowing part has been solved
             ],
             EquipmentEvent::CHANGE_HOLDER => [
                 ['onEquipmentRemovedFromInventory', 2000],
-                ['onNewEquipmentInInventory', -2000]
+                ['onNewEquipmentInInventory', -2000],
             ],
         ];
     }
@@ -70,7 +70,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         if ($holder instanceof Player) {
             if ($equipment->hasStatus(EquipmentStatusEnum::HIDDEN)) {
                 $this->statusService->removeStatus(EquipmentStatusEnum::HIDDEN, $equipment, $reason, $time);
-            } else if (
+            } elseif (
                 $equipment->hasStatus(EquipmentStatusEnum::HEAVY) &&
                 !$holder->hasStatus(PlayerStatusEnum::BURDENED)
             ) {

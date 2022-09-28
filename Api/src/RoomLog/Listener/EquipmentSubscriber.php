@@ -3,11 +3,9 @@
 namespace Mush\RoomLog\Listener;
 
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
@@ -30,14 +28,14 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         return [
             EquipmentEvent::EQUIPMENT_CREATED => [
-                ['onEquipmentCreated', -1]
+                ['onEquipmentCreated', -1],
             ],
             EquipmentEvent::EQUIPMENT_DESTROYED => [
                 ['onEquipmentDestroyed'],
             ],
             EquipmentEvent::INVENTORY_OVERFLOW => [
-                ['onInventoryOverflow']
-            ]
+                ['onInventoryOverflow'],
+            ],
         ];
     }
 
@@ -98,7 +96,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         if ($event instanceof InteractWithEquipmentEvent && $event->getActor() instanceof Player) {
             $player = $event->getActor();
-        } else if ($event->isCreated() && $event->getEquipment()->getHolder() instanceof Player) {
+        } elseif ($event->isCreated() && $event->getEquipment()->getHolder() instanceof Player) {
             $player = $event->getEquipment()->getHolder();
         } else {
             $player = null;

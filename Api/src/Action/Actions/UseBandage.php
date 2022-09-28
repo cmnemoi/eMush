@@ -40,6 +40,7 @@ class UseBandage extends AbstractAction
     {
         $healedQuantity = self::BANDAGE_HEAL;
         $success = new Success();
+
         return $success->setQuantity($healedQuantity);
     }
 

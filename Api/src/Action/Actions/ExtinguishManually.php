@@ -6,8 +6,6 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Validator\HasStatus;
-use Mush\Action\Validator\Reach;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -35,7 +33,7 @@ class ExtinguishManually extends AttemptAction
         $metadata->addConstraint(new HasStatus([
             'status' => StatusEnum::FIRE,
             'target' => HasStatus::PLAYER_ROOM,
-            'groups' => ['visibility']
+            'groups' => ['visibility'],
         ]));
         // @TODO validator on Firefighter skill
     }
@@ -52,5 +50,4 @@ class ExtinguishManually extends AttemptAction
             $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
         }
     }
-
 }

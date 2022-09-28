@@ -11,7 +11,6 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TriumphEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\DeadPlayerInfo;
@@ -26,6 +25,7 @@ use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerService implements PlayerServiceInterface
 {
@@ -56,7 +56,7 @@ class PlayerService implements PlayerServiceInterface
         GameEquipmentServiceInterface $gameEquipmentService,
     ) {
         $this->entityManager = $entityManager;
-          $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;
         $this->deadPlayerRepository = $deadPlayerRepository;
         $this->roomLogService = $roomLogService;
@@ -142,7 +142,6 @@ class PlayerService implements PlayerServiceInterface
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
 
         foreach ($characterConfig->getStartingItem() as $itemConfig) {
-
             // Create the equipment
             $item = $this->gameEquipmentService->createGameEquipment(
                 $itemConfig,

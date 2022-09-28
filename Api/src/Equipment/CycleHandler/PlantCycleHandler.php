@@ -18,13 +18,13 @@ use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Exception\LogicException;
 
 class PlantCycleHandler extends AbstractCycleHandler
@@ -52,12 +52,16 @@ class PlantCycleHandler extends AbstractCycleHandler
     {
         /** @var GameItem $plant */
         $plant = $object;
-        if (!$plant instanceof GameEquipment) return;
+        if (!$plant instanceof GameEquipment) {
+            return;
+        }
 
         $daedalus = $plant->getPlace()->getDaedalus();
 
         $plantType = $plant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
-        if (!$plantType instanceof Plant) return;
+        if (!$plantType instanceof Plant) {
+            return;
+        }
 
         $plantEffect = $this->equipmentEffectService->getPlantEffect($plantType, $daedalus);
 
@@ -92,12 +96,16 @@ class PlantCycleHandler extends AbstractCycleHandler
     {
         /** @var GameItem $plant */
         $plant = $object;
-        if (!$plant instanceof GameEquipment) return;
+        if (!$plant instanceof GameEquipment) {
+            return;
+        }
 
         $daedalus = $plant->getPlace()->getDaedalus();
 
         $plantType = $plant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
-        if (!$plantType instanceof Plant) return;
+        if (!$plantType instanceof Plant) {
+            return;
+        }
 
         $plantEffect = $this->equipmentEffectService->getPlantEffect($plantType, $daedalus);
 
@@ -137,7 +145,7 @@ class PlantCycleHandler extends AbstractCycleHandler
 
             $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         // If plant was dried, become hydropot
-        } else if ($gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_DRY) !== null) {
+        } elseif ($gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_DRY) !== null) {
             $this->handleDriedPlant($gamePlant, $dateTime);
         // If plant was not thirsty or dried become thirsty
         } else {

@@ -4,7 +4,6 @@ namespace unit\Status\Service;
 
 use Codeception\PHPUnit\TestCase;
 use Mockery;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -14,12 +13,12 @@ use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\PlayerStatusService;
 use Mush\Status\Service\PlayerStatusServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerStatusServiceTest extends TestCase
 {
-    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
-    /** @var EventDispatcherInterface|Mockery\Mock */
+
     private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
 
     private PlayerStatusServiceInterface $playerStatusService;

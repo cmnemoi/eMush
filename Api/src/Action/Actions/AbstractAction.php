@@ -12,9 +12,9 @@ use Mush\Action\Validator\ActionPoint;
 use Mush\Action\Validator\AreSymptomsPreventingAction;
 use Mush\Action\Validator\HasAction;
 use Mush\Action\Validator\PlayerAlive;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -37,7 +37,7 @@ abstract class AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator
     ) {
-          $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
         $this->actionService = $actionService;
         $this->validator = $validator;
     }
@@ -67,6 +67,7 @@ abstract class AbstractAction
     public function isVisible(): bool
     {
         $validator = $this->validator;
+
         return $validator->validate($this, null, 'visibility')->count() === 0;
     }
 
@@ -83,8 +84,9 @@ abstract class AbstractAction
         return null;
     }
 
-    abstract protected function checkResult() : ActionResult;
-    abstract protected function applyEffect(ActionResult $result) : void;
+    abstract protected function checkResult(): ActionResult;
+
+    abstract protected function applyEffect(ActionResult $result): void;
 
     public function execute(): ActionResult
     {

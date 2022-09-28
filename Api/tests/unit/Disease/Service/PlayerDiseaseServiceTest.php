@@ -14,10 +14,10 @@ use Mush\Disease\Repository\DiseaseCausesConfigRepository;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Disease\Service\PlayerDiseaseService;
 use Mush\Game\Entity\GameConfig;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerDiseaseServiceTest extends TestCase
 {

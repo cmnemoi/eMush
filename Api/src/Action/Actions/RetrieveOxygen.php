@@ -47,5 +47,4 @@ class RetrieveOxygen extends RetrieveAction
     {
         return ItemEnum::OXYGEN_CAPSULE;
     }
-
 }

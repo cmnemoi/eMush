@@ -2,8 +2,6 @@
 
 namespace Mush\Equipment\Event;
 
-use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
@@ -37,7 +35,8 @@ class EquipmentEvent extends AbstractGameEvent implements LoggableEventInterface
         parent::__construct($reason, $time);
     }
 
-    public function getEquipment() : GameEquipment {
+    public function getEquipment(): GameEquipment
+    {
         return $this->equipment;
     }
 

@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\GameEquipment;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
@@ -21,6 +20,7 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ModifierService implements ModifierServiceInterface
 {
@@ -37,7 +37,7 @@ class ModifierService implements ModifierServiceInterface
         RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
-          $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
         $this->conditionService = $conditionService;
         $this->randomService = $randomService;
     }

@@ -10,7 +10,6 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
@@ -24,6 +23,7 @@ use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Repository\StatusConfigRepository;
 use Mush\Status\Repository\StatusRepository;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class StatusService implements StatusServiceInterface
 {
@@ -39,7 +39,7 @@ class StatusService implements StatusServiceInterface
         StatusConfigRepository $statusConfigRepository,
     ) {
         $this->entityManager = $entityManager;
-          $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
         $this->statusRepository = $statusRepository;
         $this->statusConfigRepository = $statusConfigRepository;
     }

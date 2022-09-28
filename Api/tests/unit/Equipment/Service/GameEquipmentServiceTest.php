@@ -13,29 +13,27 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
-use Mush\Equipment\Event\EquipmentInitEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Game\Event\AbstractGameEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class GameEquipmentServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface|Mockery\Mock */
     private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
-    /** @var EntityManagerInterface|Mockery\Mock */
+
     private EntityManagerInterface|Mockery\Mock $entityManager;
-    /** @var GameEquipmentRepository|Mockery\Mock */
+
     private GameEquipmentRepository|Mockery\Mock $repository;
-    /** @var RandomServiceInterface|Mockery\Mock */
+
     private RandomServiceInterface|Mockery\Mock $randomService;
-    /** @var EquipmentServiceInterface|Mockery\Mock */
+
     private EquipmentServiceInterface|Mockery\Mock $equipmentService;
 
     private GameEquipmentService $service;

@@ -2,9 +2,9 @@
 
 namespace Mush\Status\Listener;
 
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Status\Event\StatusCycleEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerCycleSubscriber implements EventSubscriberInterface
@@ -13,7 +13,7 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
 
     public function __construct(EventDispatcherInterface $eventDispatcher)
     {
-          $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array

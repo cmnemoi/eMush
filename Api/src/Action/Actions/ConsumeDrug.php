@@ -29,5 +29,4 @@ class ConsumeDrug extends Consume
             'message' => ActionImpossibleCauseEnum::CONSUME_DRUG_TWICE,
         ]));
     }
-
 }

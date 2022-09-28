@@ -20,8 +20,6 @@ class GameItem extends GameEquipment
 
     public function setHolder(?EquipmentHolderInterface $holder): static
     {
-
-
         if ($holder === null) {
             $this->place = null;
             $this->player = null;

@@ -10,7 +10,6 @@ use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Service\ModifierConditionService;
@@ -18,6 +17,7 @@ use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerVariableEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CycleEventSubscriber implements EventSubscriberInterface
@@ -29,7 +29,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
         EventDispatcherInterface $eventDispatcher,
         ModifierConditionService $modifierConditionService,
     ) {
-          $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
         $this->modifierConditionService = $modifierConditionService;
     }
 

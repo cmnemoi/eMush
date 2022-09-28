@@ -14,12 +14,12 @@ use Mush\Communication\Repository\ChannelRepository;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ChannelService implements ChannelServiceInterface
 {
@@ -39,7 +39,7 @@ class ChannelService implements ChannelServiceInterface
         $this->entityManager = $entityManager;
         $this->channelRepository = $channelRepository;
         $this->channelPlayerRepository = $channelPlayerRepository;
-         $this->eventDispatcher = $eventDispatcher;;
+        $this->eventDispatcher = $eventDispatcher;
         $this->statusService = $statusService;
     }
 

@@ -12,23 +12,20 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractGameEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractActionTest extends TestCase
 {
-    /** @var EventDispatcherInterface|Mockery\Mock */
     protected Mockery\Mock|EventDispatcherInterface $eventDispatcher;
 
-    /** @var ActionServiceInterface|Mockery\Mock */
     protected ActionServiceInterface|Mockery\Mock $actionService;
 
-    /** @var ValidatorInterface|Mockery\Mock */
     protected ValidatorInterface|Mockery\Mock $validator;
 
     protected AbstractAction $action;

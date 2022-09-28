@@ -21,5 +21,4 @@ class ExpressCook extends Cook
         parent::applyEffect($result);
         // @TODO add effect on the link with sol
     }
-
 }

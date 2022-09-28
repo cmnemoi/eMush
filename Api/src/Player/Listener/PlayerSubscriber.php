@@ -3,7 +3,6 @@
 namespace Mush\Player\Listener;
 
 use Mush\Game\Event\AbstractQuantityEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
@@ -11,8 +10,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\PlayerStatusEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
@@ -29,7 +27,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         RandomServiceInterface $randomService
     ) {
         $this->playerService = $playerService;
-          $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
         $this->modifierService = $modifierService;
         $this->randomService = $randomService;
     }
@@ -39,7 +37,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         return [
             PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
             PlayerEvent::METAL_PLATE => 'onMetalPlate',
-            PlayerEvent::PANIC_CRISIS => 'onPanicCrisis'
+            PlayerEvent::PANIC_CRISIS => 'onPanicCrisis',
         ];
     }
 
@@ -86,5 +84,4 @@ class PlayerSubscriber implements EventSubscriberInterface
         );
         $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
-
 }

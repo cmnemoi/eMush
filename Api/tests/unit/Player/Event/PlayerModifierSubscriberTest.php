@@ -3,13 +3,13 @@
 namespace Mush\Test\Player\Event;
 
 use Mockery;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Listener\PlayerModifierSubscriber;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerModifierSubscriberTest extends TestCase
 {

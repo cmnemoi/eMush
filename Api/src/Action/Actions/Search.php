@@ -11,12 +11,12 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\IsRoom;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -77,6 +77,7 @@ class Search extends AbstractAction
             $itemFound = $mostRecentHiddenItem;
 
             $success = new Success();
+
             return $success->setEquipment($itemFound);
         } else {
             return new Fail();

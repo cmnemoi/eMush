@@ -19,8 +19,6 @@ use Mush\Place\Entity\Place;
 
 class RemoveCameraActionTest extends AbstractActionTest
 {
-
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**

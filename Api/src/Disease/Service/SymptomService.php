@@ -16,7 +16,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -27,6 +26,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SymptomService implements SymptomServiceInterface
@@ -49,7 +49,7 @@ class SymptomService implements SymptomServiceInterface
         ValidatorInterface $validator,
     ) {
         $this->actionService = $actionService;
-          $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
         $this->playerDiseaseService = $playerDiseaseService;
         $this->playerService = $playerService;
         $this->randomService = $randomService;

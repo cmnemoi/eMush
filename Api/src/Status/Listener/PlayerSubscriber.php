@@ -4,11 +4,11 @@ namespace Mush\Status\Listener;
 
 use Error;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
@@ -22,7 +22,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         StatusServiceInterface $statusService,
         PlayerDiseaseServiceInterface $playerDiseaseService,
     ) {
-          $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
         $this->statusService = $statusService;
         $this->playerDiseaseService = $playerDiseaseService;
     }

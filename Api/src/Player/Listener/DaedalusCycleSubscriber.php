@@ -3,8 +3,8 @@
 namespace Mush\Player\Listener;
 
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Event\PlayerCycleEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusCycleSubscriber implements EventSubscriberInterface
@@ -14,7 +14,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     public function __construct(
         EventDispatcherInterface $eventDispatcher
     ) {
-          $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array

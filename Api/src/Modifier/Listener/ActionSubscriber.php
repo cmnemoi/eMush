@@ -6,7 +6,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Service\EquipmentModifierServiceInterface;
-use Mush\Modifier\Service\ModifierService;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

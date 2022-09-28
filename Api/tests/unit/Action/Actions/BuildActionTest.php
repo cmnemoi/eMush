@@ -18,7 +18,6 @@ use Mush\Place\Entity\Place;
 
 class BuildActionTest extends AbstractActionTest
 {
-    /** @var GearToolServiceInterface|Mockery\Mock */
     private GearToolServiceInterface|Mockery\Mock $gearToolService;
 
     /* @var GameEquipmentServiceInterface|Mockery\Mock */

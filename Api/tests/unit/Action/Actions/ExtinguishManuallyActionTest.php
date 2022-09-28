@@ -15,7 +15,6 @@ use Mush\Status\Entity\Status;
 
 class ExtinguishManuallyActionTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
 
     /**

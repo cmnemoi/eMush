@@ -4,10 +4,10 @@ namespace Mush\Status\Service;
 
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerStatusService implements PlayerStatusServiceInterface
 {
@@ -24,7 +24,7 @@ class PlayerStatusService implements PlayerStatusServiceInterface
         EventDispatcherInterface $eventDispatcher,
     ) {
         $this->statusService = $statusService;
-          $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function handleSatietyStatus(Player $player, \DateTime $dateTime): void

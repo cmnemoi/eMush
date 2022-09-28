@@ -24,7 +24,7 @@ class DaedalusInitEventSubscriber implements EventSubscriberInterface
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->randomService = $randomService,
+        $this->randomService = $randomService;
         $this->eventDispatcher = $eventDispatcher;
     }
 

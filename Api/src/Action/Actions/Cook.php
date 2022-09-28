@@ -16,10 +16,10 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -62,7 +62,6 @@ class Cook extends AbstractAction
         $time = new \DateTime();
 
         if ($parameter->getEquipment()->getName() === GameRationEnum::STANDARD_RATION) {
-
             $cookedRation = $this->gameEquipmentService->createGameEquipmentFromName(
                 GameRationEnum::COOKED_RATION,
                 $this->player,
@@ -79,7 +78,7 @@ class Cook extends AbstractAction
             );
 
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
-        } else if ($parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) {
+        } elseif ($parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) {
             $statusEvent = new StatusEvent(
                 EquipmentStatusEnum::FROZEN,
                 $parameter,

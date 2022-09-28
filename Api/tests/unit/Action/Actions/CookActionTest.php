@@ -21,7 +21,6 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 class CookActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**

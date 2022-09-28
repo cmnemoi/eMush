@@ -35,6 +35,5 @@ class ReadDocument extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-
     }
 }

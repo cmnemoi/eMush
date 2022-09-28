@@ -18,10 +18,8 @@ use Mush\Place\Entity\Place;
 
 class PlantActionTest extends AbstractActionTest
 {
-    /** @var GearToolServiceInterface|Mockery\Mock */
     private GearToolServiceInterface|Mockery\Mock $gearToolService;
 
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**

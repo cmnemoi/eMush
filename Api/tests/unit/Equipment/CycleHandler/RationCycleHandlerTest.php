@@ -10,18 +10,17 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RationCycleHandlerTest extends TestCase
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
-    /** @var EventDispatcherInterface|Mockery\Mock */
+
     private EventDispatcherInterface|Mockery\Mock $eventDispatcher;
 
     private RationCycleHandler $rationCycleHandler;
@@ -31,7 +30,6 @@ class RationCycleHandlerTest extends TestCase
      */
     public function before()
     {
-
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
 

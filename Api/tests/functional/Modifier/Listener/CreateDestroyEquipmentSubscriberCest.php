@@ -11,7 +11,6 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\ItemEnum;
@@ -19,7 +18,6 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
@@ -28,6 +26,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CreateDestroyEquipmentSubscriberCest
 {
@@ -127,7 +126,7 @@ class CreateDestroyEquipmentSubscriberCest
         $equipmentConfig = $I->have(ItemConfig::class, [
             'name' => 'test',
             'gameConfig' => $gameConfig,
-            'mechanics' => new ArrayCollection([$gear])
+            'mechanics' => new ArrayCollection([$gear]),
         ]);
 
         $equipment = new GameItem();

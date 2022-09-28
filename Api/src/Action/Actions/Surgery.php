@@ -20,13 +20,13 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -121,9 +121,9 @@ class Surgery extends AbstractAction
 
         if ($result === ActionOutputEnum::FAIL) {
             return new Fail();
-        } else if ($result === ActionOutputEnum::CRITICAL_SUCCESS) {
+        } elseif ($result === ActionOutputEnum::CRITICAL_SUCCESS) {
             return new CriticalSuccess();
-        } else if ($result === ActionOutputEnum::SUCCESS) {
+        } elseif ($result === ActionOutputEnum::SUCCESS) {
             return new Success();
         }
 
@@ -138,10 +138,10 @@ class Surgery extends AbstractAction
 
         if ($result instanceof Fail) {
             $this->failedSurgery($targetPlayer, $date);
-        } else if ($result instanceof CriticalSuccess) {
-            $this->successSurgery($targetPlayer,ActionOutputEnum::CRITICAL_SUCCESS, $date);
-        } else if ($result instanceof Success) {
-            $this->successSurgery($targetPlayer,ActionOutputEnum::SUCCESS, $date);
+        } elseif ($result instanceof CriticalSuccess) {
+            $this->successSurgery($targetPlayer, ActionOutputEnum::CRITICAL_SUCCESS, $date);
+        } elseif ($result instanceof Success) {
+            $this->successSurgery($targetPlayer, ActionOutputEnum::SUCCESS, $date);
         }
     }
 

@@ -2,11 +2,9 @@
 
 namespace Mush\Modifier\Listener;
 
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
-use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Service\EquipmentModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -34,7 +32,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 ['onEquipmentDestroyed'],
             ],
             EquipmentEvent::INVENTORY_OVERFLOW => [
-                ['onInventoryOverflow']
+                ['onInventoryOverflow'],
             ],
             EquipmentEvent::EQUIPMENT_CREATED => [
                 ['onEquipmentCreated', 1000],
@@ -42,12 +40,14 @@ class EquipmentSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onEquipmentCreated(EquipmentEvent $event) : void {
+    public function onEquipmentCreated(EquipmentEvent $event): void
+    {
         $equipment = $event->getEquipment();
         $holder = $event->getEquipment()->getHolder();
 
-        if ($holder instanceof Player)
+        if ($holder instanceof Player) {
             $this->equipmentModifierService->takeEquipment($equipment, $holder);
+        }
     }
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
@@ -75,5 +75,4 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $this->gearModifierService->dropEquipment($equipment, $holder);
         }
     }
-
 }

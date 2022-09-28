@@ -20,9 +20,8 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class CoffeeActionTest extends AbstractActionTest
 {
-    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
+
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**

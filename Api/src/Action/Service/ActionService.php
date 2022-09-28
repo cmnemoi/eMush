@@ -5,7 +5,6 @@ namespace Mush\Action\Service;
 use Mush\Action\Entity\Action;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
@@ -15,6 +14,7 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ActionService implements ActionServiceInterface
 {
@@ -29,7 +29,7 @@ class ActionService implements ActionServiceInterface
         EventDispatcherInterface $eventDispatcher,
         ModifierServiceInterface $modifierService,
     ) {
-          $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
         $this->modifierService = $modifierService;
     }
 

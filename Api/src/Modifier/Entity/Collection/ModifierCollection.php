@@ -18,6 +18,11 @@ class ModifierCollection extends ArrayCollection
         return $this->filter(fn (Modifier $modifier) => $modifier->getModifierConfig()->getTarget() === $target);
     }
 
+    public function getReachedModifiers(string $reach): self
+    {
+        return $this->filter(fn (Modifier $modifier) => $modifier->getModifierConfig()->getReach() === $reach);
+    }
+
     public function getScopedModifiers(array $scopes): self
     {
         return $this->filter(fn (Modifier $modifier) => in_array($modifier->getModifierConfig()->getScope(), $scopes));

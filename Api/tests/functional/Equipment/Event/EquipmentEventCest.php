@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -53,18 +54,16 @@ class EquipmentEventCest
         $burdenedStatusConfig->setName(PlayerStatusEnum::BURDENED)->setGameConfig($gameConfig);
         $I->haveInRepository($burdenedStatusConfig);
 
-        /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, [
+        /** @var ItemConfig $itemConfig */
+        $itemConfig = $I->have(ItemConfig::class, [
             'gameConfig' => $gameConfig,
             'name' => 'equipment_name',
             'initStatus' => new ArrayCollection([$heavyStatusConfig]),
         ]);
 
-        $equipment = new GameItem();
+        $equipment = $itemConfig->createGameItem();
         $equipment
-            ->setHolder($player)
-            ->setEquipment($equipmentConfig)
-            ->setName('equipment_name');
+            ->setHolder($player);
         $I->haveInRepository($equipment);
 
         $equipmentEvent = new EquipmentEvent(

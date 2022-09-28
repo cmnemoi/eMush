@@ -3,7 +3,6 @@
 namespace Mush\Tests\Alert\Listener;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
@@ -18,19 +17,19 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class EquipmentSubscriberCest
 {
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testDestroyBrokenEquipment(FunctionalTester $I)
@@ -58,7 +57,7 @@ class EquipmentSubscriberCest
         /** @var EquipmentConfig $gravitySimulatorConfig */
         $gravitySimulatorConfig = $I->have(EquipmentConfig::class, [
             'name' => EquipmentEnum::GRAVITY_SIMULATOR,
-            'gameConfig' => $gameConfig
+            'gameConfig' => $gameConfig,
         ]);
 
         $gravitySimulator = new GameEquipment();
@@ -74,8 +73,8 @@ class EquipmentSubscriberCest
         $statusConfig
             ->setGameConfig($gameConfig)
             ->setName(EquipmentStatusEnum::BROKEN)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-        ;
+            ->setVisibility(VisibilityEnum::PUBLIC);
+
         $I->haveInRepository($statusConfig);
 
         $broken = new Status($gravitySimulator, $statusConfig);
@@ -94,6 +93,15 @@ class EquipmentSubscriberCest
 
         $I->haveInRepository($alertBroken);
 
+        $alertGravity = new Alert();
+        $alertGravity
+            ->setDaedalus($daedalus)
+            ->setName(AlertEnum::NO_GRAVITY)
+        ;
+
+        $I->haveInRepository($alertGravity);
+
+        $I->seeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
         $I->seeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS]);
 
         $equipmentEvent = new EquipmentEvent(
@@ -103,8 +111,9 @@ class EquipmentSubscriberCest
             ActionEnum::DISASSEMBLE,
             new \DateTime()
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
+        $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
         $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS]);
     }
 }

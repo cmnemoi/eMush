@@ -19,7 +19,6 @@ use Mush\Status\Entity\Status;
 
 class ExtinguishActionTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
 
     /**
@@ -34,7 +33,7 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->action = new Extinguish(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -106,7 +105,7 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         // Success
         $result = $this->action->execute();

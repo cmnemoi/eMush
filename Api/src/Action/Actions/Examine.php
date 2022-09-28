@@ -32,6 +32,5 @@ class Examine extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-
     }
 }

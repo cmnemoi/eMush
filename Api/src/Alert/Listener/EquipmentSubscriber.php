@@ -26,11 +26,12 @@ class EquipmentSubscriber implements EventSubscriberInterface
             ],
             EquipmentEvent::EQUIPMENT_TRANSFORM => [
                 ['onEquipmentTransform'],
-            ]
+            ],
         ];
     }
 
-    public function onEquipmentDestroyed(EquipmentEvent $event) : void {
+    public function onEquipmentDestroyed(EquipmentEvent $event): void
+    {
         $equipment = $event->getEquipment();
 
         if ($equipment->isBroken()) {

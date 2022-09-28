@@ -15,15 +15,12 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
-use Symfony\Contracts\EventDispatcher\Event;
 
 class RetrieveFuelTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
@@ -36,7 +33,7 @@ class RetrieveFuelTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_FUEL, -1);
 
         $this->action = new RetrieveFuel(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService
@@ -82,7 +79,7 @@ class RetrieveFuelTest extends AbstractActionTest
         $gameTank->setEquipment($tank)->setName(EquipmentEnum::FUEL_TANK)->setHolder($room);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->twice();
+        $this->eventDispatcher->shouldReceive('dispatch')->twice();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameTank);

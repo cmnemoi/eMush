@@ -11,7 +11,6 @@ use Mush\Action\Validator\HasStatus as StatusValidator;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -66,6 +65,7 @@ class CheckSporeLevel extends AbstractAction
         return $success->setQuantity($nbSpores);
     }
 
-    protected function applyEffect(ActionResult $result): void { }
-
+    protected function applyEffect(ActionResult $result): void
+    {
+    }
 }

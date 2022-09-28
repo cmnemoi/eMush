@@ -29,7 +29,7 @@ class InsertOxygenTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::INSERT_OXYGEN);
 
         $this->action = new InsertOxygen(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
         );
@@ -80,8 +80,8 @@ class InsertOxygenTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->once();
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

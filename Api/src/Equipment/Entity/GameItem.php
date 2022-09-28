@@ -15,18 +15,12 @@ class GameItem extends GameEquipment
 
     public function getHolder(): ?EquipmentHolderInterface
     {
-        if ($this->place === null && $this->player === null) {
-            codecept_debug("non");
-        }
         return $this->player ?: $this->place;
     }
 
     public function setHolder(?EquipmentHolderInterface $holder): static
     {
-
-
         if ($holder === null) {
-            codecept_debug("non non");
             $this->place = null;
             $this->player = null;
 

@@ -12,7 +12,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Attempt;
@@ -28,6 +27,7 @@ use Mush\Status\Repository\StatusConfigRepository;
 use Mush\Status\Repository\StatusRepository;
 use Mush\Status\Service\StatusService;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class StatusServiceTest extends TestCase
 {
@@ -35,7 +35,7 @@ class StatusServiceTest extends TestCase
     private EntityManagerInterface $entityManager;
 
     /** @var EventDispatcherInterface|Mockery\Mock */
-    protected EventServiceInterface $eventService;
+    protected EventDispatcherInterface $eventDispatcher;
 
     /** @var StatusRepository|Mockery\Mock */
     private StatusRepository $repository;
@@ -51,13 +51,13 @@ class StatusServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->repository = Mockery::mock(StatusRepository::class);
         $this->configRepository = Mockery::mock(StatusConfigRepository::class);
 
         $this->service = new StatusService(
             $this->entityManager,
-            $this->eventService,
+            $this->eventDispatcher,
             $this->repository,
             $this->configRepository
         );
@@ -174,7 +174,7 @@ class StatusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, 'reason', new \DateTime());
 
@@ -199,7 +199,7 @@ class StatusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, 'reason', new \DateTime());
 

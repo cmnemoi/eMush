@@ -16,8 +16,6 @@ use Mush\Place\Entity\Place;
 
 class UpdateTalkieTest extends AbstractActionTest
 {
-
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
@@ -31,7 +29,7 @@ class UpdateTalkieTest extends AbstractActionTest
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->action = new UpdateTalkie(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService
@@ -75,8 +73,8 @@ class UpdateTalkieTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $talkie);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->once();
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $result = $this->action->execute();

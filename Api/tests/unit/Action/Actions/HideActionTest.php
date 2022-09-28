@@ -10,9 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
@@ -21,7 +19,6 @@ use Mush\Status\Event\StatusEvent;
 
 class HideActionTest extends AbstractActionTest
 {
-
     /**
      * @before
      */
@@ -32,7 +29,7 @@ class HideActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::HIDE, 1);
 
         $this->action = new Hide(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
         );
@@ -71,20 +68,18 @@ class HideActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) =>
-                $event instanceof StatusEvent &&
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::HIDDEN &&
                 $event->getStatusHolder() === $gameItem &&
                 $event->getStatusTarget() === $player
             )
             ->once()
         ;
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) =>
-                $event instanceof InteractWithEquipmentEvent &&
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof InteractWithEquipmentEvent &&
                 $event->getEquipment() === $gameItem &&
                 $event->getActor() === $player &&
                 $event->getReason() === ActionEnum::HIDE

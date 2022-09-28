@@ -47,7 +47,7 @@ class DoTheThingActionTest extends AbstractActionTest
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
 
         $this->action = new DoTheThing(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->diseaseCausesConfigRepository,
@@ -81,7 +81,7 @@ class DoTheThingActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->times(4);
+        $this->eventDispatcher->shouldReceive('dispatch')->times(4);
         $this->playerVariableService->shouldReceive('getMaxPlayerVariable')->andReturn(14)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false);
 

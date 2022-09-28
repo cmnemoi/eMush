@@ -29,7 +29,7 @@ class ReadBookActionTest extends AbstractActionTest
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new ReadBook(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
         );
@@ -57,7 +57,7 @@ class ReadBookActionTest extends AbstractActionTest
             ->setName('name')
         ;
 
-        $this->eventService->shouldReceive('callEvent');
+        $this->eventDispatcher->shouldReceive('dispatch');
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

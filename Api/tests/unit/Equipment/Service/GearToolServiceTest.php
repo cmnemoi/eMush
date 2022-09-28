@@ -14,7 +14,6 @@ use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GearToolService;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
@@ -27,11 +26,12 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class GearToolServiceTest extends TestCase
 {
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
     /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
@@ -42,11 +42,11 @@ class GearToolServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->service = new GearToolService(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->statusService
         );
     }

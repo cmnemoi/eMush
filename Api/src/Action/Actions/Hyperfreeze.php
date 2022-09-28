@@ -16,10 +16,10 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -29,12 +29,12 @@ class Hyperfreeze extends AbstractAction
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService
     ) {
-        parent::__construct($eventService, $actionService, $validator);
+        parent::__construct($eventDispatcher, $actionService, $validator);
 
         $this->gameEquipmentService = $gameEquipmentService;
     }
@@ -77,8 +77,7 @@ class Hyperfreeze extends AbstractAction
                 $this->getActionName(),
                 $time
             );
-            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
-
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
         } else {
             $statusEvent = new StatusEvent(
                 EquipmentStatusEnum::FROZEN,
@@ -86,7 +85,7 @@ class Hyperfreeze extends AbstractAction
                 $this->getActionName(),
                 $time
             );
-            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         }
     }
 }

@@ -19,8 +19,6 @@ use Mush\Place\Entity\Place;
 
 class RemoveCameraActionTest extends AbstractActionTest
 {
-
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
@@ -35,7 +33,7 @@ class RemoveCameraActionTest extends AbstractActionTest
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->action = new RemoveCamera(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService
@@ -80,7 +78,7 @@ class RemoveCameraActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $cameraEquipment);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $result = $this->action->execute();
 

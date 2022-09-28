@@ -4,13 +4,10 @@ namespace Mush\Equipment\Event;
 
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Event\AbstractGameEvent;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Event\LoggableEventInterface;
 
 class InteractWithEquipmentEvent extends EquipmentEvent
 {
-
     protected EquipmentHolderInterface $actor;
 
     public function __construct(
@@ -42,5 +39,4 @@ class InteractWithEquipmentEvent extends EquipmentEvent
 
         return $logParameters;
     }
-
 }

@@ -21,7 +21,7 @@ class BoringSpeechActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::BORING_SPEECH);
 
         $this->action = new BoringSpeech(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
         );
@@ -47,7 +47,7 @@ class BoringSpeechActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $speaker);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($listener);
-        $this->eventService->shouldReceive('callEvent')->twice();
+        $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
         $result = $this->action->execute();
 

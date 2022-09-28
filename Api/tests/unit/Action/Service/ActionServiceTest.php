@@ -9,7 +9,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
@@ -19,12 +18,13 @@ use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ActionServiceTest extends TestCase
 {
-    /** @var EventServiceInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
+    /** @var EventDispatcherInterface|Mockery\Mock */
+    private EventDispatcherInterface $eventDispatcher;
     /** @var ModifierServiceInterface|Mockery\Mock */
     private ModifierServiceInterface $modifierService;
 
@@ -41,14 +41,14 @@ class ActionServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
 
         $this->actionService = Mockery::mock(ActionServiceInterface::class);
         $this->validator = Mockery::mock(ValidatorInterface::class);
 
         $this->service = new ActionService(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->modifierService,
         );
     }
@@ -90,8 +90,8 @@ class ActionServiceTest extends TestCase
             return fn (PlayerVariableEvent $event, string $eventName) => $event->getQuantity() === $delta && $eventName === $name;
         };
 
-        $this->eventService
-            ->shouldReceive('callEvent')
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
             ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
             ->once()
         ;
@@ -121,8 +121,8 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService
-            ->shouldReceive('callEvent')
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
             ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
             ->once()
         ;
@@ -152,8 +152,8 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService
-            ->shouldReceive('callEvent')
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
             ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
             ->once()
         ;
@@ -183,8 +183,8 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService
-            ->shouldReceive('callEvent')
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
             ->withArgs(
                 fn (PlayerVariableEvent $event, string $eventName) => (
                     $event->getQuantity() === -1 &&
@@ -218,8 +218,8 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService
-            ->shouldReceive('callEvent')
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
             ->withArgs($eventDispatched(-3, AbstractQuantityEvent::CHANGE_VARIABLE))
             ->once()
         ;

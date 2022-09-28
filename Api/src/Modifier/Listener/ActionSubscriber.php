@@ -6,17 +6,17 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Service\EquipmentModifierServiceInterface;
-use Mush\Modifier\Service\ModifierService;
+use Mush\Modifier\Service\ModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ActionSubscriber implements EventSubscriberInterface
 {
     private EquipmentModifierServiceInterface $equipmentModifierService;
-    private ModifierService $modifierService;
+    private ModifierServiceInterface $modifierService;
 
     public function __construct(
         EquipmentModifierServiceInterface $equipmentModifierService,
-        ModifierService $modifierService
+        ModifierServiceInterface $modifierService
     ) {
         $this->equipmentModifierService = $equipmentModifierService;
         $this->modifierService = $modifierService;
@@ -26,11 +26,11 @@ class ActionSubscriber implements EventSubscriberInterface
     {
         return [
             ActionEvent::PRE_ACTION => 'onPreAction',
-            ActionEvent::RESULT_ACTION => 'onResultAction',
+            ActionEvent::POST_ACTION => 'onPostAction',
         ];
     }
 
-    public function onResultAction(ActionEvent $event): void
+    public function onPostAction(ActionEvent $event): void
     {
         $actionResult = $event->getActionResult();
         $player = $event->getPlayer();

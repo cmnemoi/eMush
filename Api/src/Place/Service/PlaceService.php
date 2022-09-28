@@ -4,25 +4,25 @@ namespace Mush\Place\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Event\PlaceInitEvent;
 use Mush\Place\Repository\PlaceRepository;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlaceService implements PlaceServiceInterface
 {
     private EntityManagerInterface $entityManager;
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
     private PlaceRepository $repository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         PlaceRepository $repository,
     ) {
         $this->entityManager = $entityManager;
-          $this->eventService = $eventService;
+        $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;
     }
 
@@ -56,7 +56,7 @@ class PlaceService implements PlaceServiceInterface
         $this->persist($room);
 
         $placeEvent = new PlaceInitEvent($room, $roomConfig, $reason, $time);
-        $this->eventService->callEvent($placeEvent, PlaceInitEvent::NEW_PLACE);
+        $this->eventDispatcher->dispatch($placeEvent, PlaceInitEvent::NEW_PLACE);
 
         return $room;
     }

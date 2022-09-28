@@ -34,7 +34,7 @@ class UltraHealActionTest extends AbstractActionTest
         $this->playerVariableService = Mockery::mock(PlayerVariableServiceInterface::class);
 
         $this->action = new UltraHeal(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->playerService,
@@ -70,8 +70,8 @@ class UltraHealActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent');
-        $this->eventService->shouldReceive('callEvent');
+        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventDispatcher->shouldReceive('dispatch');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

@@ -8,7 +8,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionSideEffectsService;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
@@ -20,11 +19,12 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ActionSideEffectsServiceTest extends TestCase
 {
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
     /** @var RoomLogServiceInterface|Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
     /** @var RandomServiceInterface|Mockery\Mock */
@@ -39,13 +39,13 @@ class ActionSideEffectsServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
 
         $this->actionService = new ActionSideEffectsService(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->modifierService
         );
     }
@@ -85,7 +85,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(false)
             ->twice()
         ;
-        $this->eventService->shouldReceive('callEvent')->never();
+        $this->eventDispatcher->shouldReceive('dispatch')->never();
 
         $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
@@ -99,8 +99,8 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(true)
             ->once()
         ;
-        $this->eventService
-            ->shouldReceive('callEvent')
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::DIRTY && $event->getStatusHolder() === $player)
             ->once()
         ;
@@ -135,7 +135,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(false)
             ->once()
         ;
-        $this->eventService->shouldReceive('callEvent')->never();
+        $this->eventDispatcher->shouldReceive('dispatch')->never();
 
         $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
@@ -168,7 +168,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(false)
             ->twice()
         ;
-        $this->eventService->shouldReceive('callEvent')->never();
+        $this->eventDispatcher->shouldReceive('dispatch')->never();
 
         $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
@@ -180,8 +180,8 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(true)
             ->once()
         ;
-        $this->eventService
-            ->shouldReceive('callEvent')
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
             ->withArgs(
                 fn (PlayerVariableEvent $playerEvent, string $eventName) => (
                     $playerEvent->getQuantity() === -2 &&

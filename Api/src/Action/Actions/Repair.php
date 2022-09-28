@@ -41,7 +41,7 @@ class Repair extends AttemptAction
                 $this->getActionName(),
                 new \DateTime()
             );
-            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
         }
     }
 }

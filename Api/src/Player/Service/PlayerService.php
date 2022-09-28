@@ -11,7 +11,6 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TriumphEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\DeadPlayerInfo;
@@ -26,6 +25,7 @@ use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerService implements PlayerServiceInterface
 {
@@ -37,7 +37,7 @@ class PlayerService implements PlayerServiceInterface
 
     private EntityManagerInterface $entityManager;
 
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     private PlayerRepository $repository;
 
@@ -49,14 +49,14 @@ class PlayerService implements PlayerServiceInterface
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         PlayerRepository $repository,
         DeadPlayerInfoRepository $deadPlayerRepository,
         RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
     ) {
         $this->entityManager = $entityManager;
-          $this->eventService = $eventService;
+        $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;
         $this->deadPlayerRepository = $deadPlayerRepository;
         $this->roomLogService = $roomLogService;
@@ -139,10 +139,9 @@ class PlayerService implements PlayerServiceInterface
             ->setCharacterConfig($characterConfig)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
-        $this->eventService->callEvent($playerEvent, PlayerEvent::NEW_PLAYER);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
 
         foreach ($characterConfig->getStartingItem() as $itemConfig) {
-
             // Create the equipment
             $item = $this->gameEquipmentService->createGameEquipment(
                 $itemConfig,
@@ -159,7 +158,7 @@ class PlayerService implements PlayerServiceInterface
                 $time
             );
 
-            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
         }
 
         return $player;
@@ -181,7 +180,7 @@ class PlayerService implements PlayerServiceInterface
             PlayerEvent::END_PLAYER,
             new \DateTime()
         );
-        $this->eventService->callEvent($playerEvent, PlayerEvent::END_PLAYER);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::END_PLAYER);
 
         $this->entityManager->persist($deadPlayerInfo);
         $this->persist($player);
@@ -201,7 +200,7 @@ class PlayerService implements PlayerServiceInterface
                 EndCauseEnum::DEPRESSION,
                 $date
             );
-            $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
 
             return $player;
         }
@@ -212,7 +211,7 @@ class PlayerService implements PlayerServiceInterface
             self::CYCLE_ACTION_CHANGE,
             EventEnum::NEW_CYCLE,
             $date);
-        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $playerModifierEvent = new PlayerVariableEvent(
             $player,
@@ -221,7 +220,7 @@ class PlayerService implements PlayerServiceInterface
             EventEnum::NEW_CYCLE,
             $date
         );
-        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $playerModifierEvent = new PlayerVariableEvent(
             $player,
@@ -230,7 +229,7 @@ class PlayerService implements PlayerServiceInterface
             EventEnum::NEW_CYCLE,
             $date
         );
-        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $triumphChange = 0;
 
@@ -276,7 +275,7 @@ class PlayerService implements PlayerServiceInterface
             EventEnum::NEW_DAY,
             $date
         );
-        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         if (!$player->isMush()) {
             $playerModifierEvent = new PlayerVariableEvent(
@@ -286,7 +285,7 @@ class PlayerService implements PlayerServiceInterface
                 EventEnum::NEW_DAY,
                 $date
             );
-            $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
 
         return $this->persist($player);
@@ -324,7 +323,7 @@ class PlayerService implements PlayerServiceInterface
                         EventEnum::PLAYER_DEATH,
                         $time
                     );
-                    $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+                    $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
                 }
             }
         }

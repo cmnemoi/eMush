@@ -34,7 +34,7 @@ class SabotageActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::SABOTAGE, 2);
 
         $this->action = new Sabotage(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -89,7 +89,7 @@ class SabotageActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
-        $this->eventService->shouldReceive('callEvent');
+        $this->eventDispatcher->shouldReceive('dispatch');
 
         // Success
         $result = $this->action->execute();

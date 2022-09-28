@@ -40,6 +40,7 @@ class UseBandage extends AbstractAction
     {
         $healedQuantity = self::BANDAGE_HEAL;
         $success = new Success();
+
         return $success->setQuantity($healedQuantity);
     }
 
@@ -57,7 +58,7 @@ class UseBandage extends AbstractAction
             $time
         );
         $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
-        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         // destroy the bandage
         $equipmentEvent = new InteractWithEquipmentEvent(
@@ -67,6 +68,6 @@ class UseBandage extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 }

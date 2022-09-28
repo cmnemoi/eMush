@@ -13,7 +13,6 @@ use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -22,14 +21,15 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class NewDiseaseOnCycleCest
 {
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testNewCycleDisease(FunctionalTester $I)
@@ -83,7 +83,7 @@ class NewDiseaseOnCycleCest
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventService->callEvent($playerEvent, PlayerEvent::CYCLE_DISEASE);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CYCLE_DISEASE);
 
         $I->seeInRepository(PlayerDisease::class, [
             'player' => $player->getId(),
@@ -149,7 +149,7 @@ class NewDiseaseOnCycleCest
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventService->callEvent($playerEvent, PlayerEvent::CYCLE_DISEASE);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CYCLE_DISEASE);
 
         $I->seeInRepository(PlayerDisease::class, [
             'player' => $player->getId(),

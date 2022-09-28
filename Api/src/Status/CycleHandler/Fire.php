@@ -8,7 +8,6 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEventEnum;
@@ -20,24 +19,25 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Fire extends AbstractStatusCycleHandler
 {
     protected string $name = StatusEnum::FIRE;
 
     private RandomServiceInterface $randomService;
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private DaedalusServiceInterface $daedalusService;
 
     public function __construct(
         RandomServiceInterface $randomService,
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         GameEquipmentServiceInterface $gameEquipmentService,
         DaedalusServiceInterface $daedalusService
     ) {
         $this->randomService = $randomService;
-          $this->eventService = $eventService;
+        $this->eventDispatcher = $eventDispatcher;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->daedalusService = $daedalusService;
     }
@@ -76,7 +76,7 @@ class Fire extends AbstractStatusCycleHandler
                     RoomEventEnum::PROPAGATING_FIRE,
                     $date
                 );
-                $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+                $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }
 
@@ -97,7 +97,7 @@ class Fire extends AbstractStatusCycleHandler
                 EndCauseEnum::BURNT,
                 $date
             );
-            $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
 
         foreach ($room->getEquipments() as $equipment) {
@@ -115,7 +115,7 @@ class Fire extends AbstractStatusCycleHandler
                 $date
             );
 
-            $this->eventService->callEvent($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
             $this->daedalusService->persist($room->getDaedalus());
         }

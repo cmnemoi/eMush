@@ -12,13 +12,13 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\MushSpore;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -36,12 +36,12 @@ class Phagocyte extends AbstractAction
     private StatusServiceInterface $statusService;
 
     public function __construct(
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         StatusServiceInterface $statusService
     ) {
-        parent::__construct($eventService, $actionService, $validator);
+        parent::__construct($eventDispatcher, $actionService, $validator);
 
         $this->statusService = $statusService;
     }
@@ -82,7 +82,7 @@ class Phagocyte extends AbstractAction
             new \DateTime()
         );
         $healthPointGainEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventService->callEvent($healthPointGainEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($healthPointGainEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         // The Player gains 4 :pa:
         $actionPointGainEvent = new PlayerVariableEvent(
@@ -93,6 +93,6 @@ class Phagocyte extends AbstractAction
             new \DateTime()
         );
         $actionPointGainEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventService->callEvent($actionPointGainEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($actionPointGainEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 }

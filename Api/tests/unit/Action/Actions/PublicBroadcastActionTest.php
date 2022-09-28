@@ -27,7 +27,7 @@ class PublicBroadcastActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::PUBLIC_BROADCAST);
 
         $this->action = new PublicBroadcast(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
         );
@@ -69,7 +69,7 @@ class PublicBroadcastActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         // @TODO : fix me
-        // $this->eventService->shouldReceive('callEvent')->twice();
+        // $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
         $result = $this->action->execute();
 

@@ -17,18 +17,18 @@ use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CycleEventCest
 {
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testOxygenCycleSubscriber(FunctionalTester $I)
@@ -86,8 +86,12 @@ class CycleEventCest
             ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig2, 'healthPoint' => 99]
         );
 
-        $event = new DaedalusCycleEvent($daedalus, EventEnum::NEW_CYCLE, new DateTime());
-        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $event = new DaedalusCycleEvent(
+            $daedalus,
+            EventEnum::NEW_CYCLE,
+            new DateTime()
+        );
+        $this->eventDispatcher->dispatch($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         $I->assertEquals(0, $daedalus->getOxygen());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerAlive());

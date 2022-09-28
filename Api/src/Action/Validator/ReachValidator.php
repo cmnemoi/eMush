@@ -2,7 +2,6 @@
 
 namespace Mush\Action\Validator;
 
-use Exception;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;

@@ -7,7 +7,6 @@ use Mush\Player\Entity\Player;
 
 class TransformEquipmentEvent extends EquipmentEvent
 {
-
     protected GameEquipment $from;
 
     public function __construct(
@@ -42,5 +41,4 @@ class TransformEquipmentEvent extends EquipmentEvent
 
         return $logParameters;
     }
-
 }

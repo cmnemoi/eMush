@@ -16,10 +16,10 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -29,12 +29,12 @@ class Cook extends AbstractAction
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService
     ) {
-        parent::__construct($eventService, $actionService, $validator);
+        parent::__construct($eventDispatcher, $actionService, $validator);
 
         $this->gameEquipmentService = $gameEquipmentService;
     }
@@ -62,7 +62,6 @@ class Cook extends AbstractAction
         $time = new \DateTime();
 
         if ($parameter->getEquipment()->getName() === GameRationEnum::STANDARD_RATION) {
-
             $cookedRation = $this->gameEquipmentService->createGameEquipmentFromName(
                 GameRationEnum::COOKED_RATION,
                 $this->player,
@@ -78,8 +77,8 @@ class Cook extends AbstractAction
                 $time
             );
 
-            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
-        } else if ($parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) {
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
+        } elseif ($parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) {
             $statusEvent = new StatusEvent(
                 EquipmentStatusEnum::FROZEN,
                 $parameter,
@@ -87,7 +86,7 @@ class Cook extends AbstractAction
                 $time
             );
 
-            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
         }
     }
 }

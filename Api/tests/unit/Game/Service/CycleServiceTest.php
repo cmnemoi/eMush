@@ -9,13 +9,13 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleService;
-use Mush\Game\Service\EventServiceInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CycleServiceTest extends TestCase
 {
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
 
@@ -26,13 +26,13 @@ class CycleServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
 
         $this->entityManager->shouldReceive('persist');
         $this->entityManager->shouldReceive('flush');
 
-        $this->service = new CycleService($this->entityManager, $this->eventService);
+        $this->service = new CycleService($this->entityManager, $this->eventDispatcher);
     }
 
     /**
@@ -65,8 +65,8 @@ class CycleServiceTest extends TestCase
     {
         $timeZone = 'Europe/Paris';
 
-        $this->eventService
-            ->shouldReceive('callEvent')
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
         ;
 
         $gameConfig = new GameConfig();
@@ -136,8 +136,8 @@ class CycleServiceTest extends TestCase
     {
         $timeZone = 'Europe/Paris';
 
-        $this->eventService
-            ->shouldReceive('callEvent')
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
         ;
 
         $gameConfig = new GameConfig();
@@ -213,8 +213,8 @@ class CycleServiceTest extends TestCase
     {
         $timeZone = 'Europe/Paris';
 
-        $this->eventService
-            ->shouldReceive('callEvent')
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
         ;
 
         $gameConfig = new GameConfig();

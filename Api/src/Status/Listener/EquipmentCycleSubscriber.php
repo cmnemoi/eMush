@@ -3,19 +3,19 @@
 namespace Mush\Status\Listener;
 
 use Mush\Equipment\Event\EquipmentCycleEvent;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Event\StatusCycleEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentCycleSubscriber implements EventSubscriberInterface
 {
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
-        EventServiceInterface $eventService
+        EventDispatcherInterface $eventDispatcher
     ) {
-          $this->eventService = $eventService;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -38,7 +38,7 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
                 $event->getReason(),
                 $event->getTime()
             );
-            $this->eventService->callEvent($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
+            $this->eventDispatcher->dispatch($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
         }
     }
 
@@ -54,7 +54,7 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
                 $event->getReason(),
                 $event->getTime()
             );
-            $this->eventService->callEvent($statusNewDay, StatusCycleEvent::STATUS_NEW_DAY);
+            $this->eventDispatcher->dispatch($statusNewDay, StatusCycleEvent::STATUS_NEW_DAY);
         }
     }
 }

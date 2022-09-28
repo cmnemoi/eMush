@@ -19,9 +19,8 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class SearchActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
-    /** @var StatusServiceInterface|Mockery\Mock */
+
     private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
@@ -37,7 +36,7 @@ class SearchActionTest extends AbstractActionTest
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new Search(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->statusService,
@@ -115,7 +114,7 @@ class SearchActionTest extends AbstractActionTest
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->statusService->shouldReceive('delete');
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $result = $this->action->execute();
 
@@ -163,7 +162,7 @@ class SearchActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('persist');
 
         $result = $this->action->execute();

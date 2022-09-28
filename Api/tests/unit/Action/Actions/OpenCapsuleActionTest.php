@@ -20,10 +20,8 @@ use Mush\Place\Entity\Place;
 
 class OpenCapsuleActionTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
 
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
@@ -39,7 +37,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
         $this->action = new OpenCapsule(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -93,7 +91,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
-        $this->eventService->shouldReceive('callEvent')->twice();
+        $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
         $result = $this->action->execute();
 

@@ -12,7 +12,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
@@ -20,7 +19,6 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 class ExpressCookActionTest extends AbstractActionTest
 {
-
     /* @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
@@ -36,7 +34,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::EXPRESS_COOK);
 
         $this->action = new ExpressCook(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService
@@ -83,7 +81,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->never();
 
         $result = $this->action->execute();
@@ -134,7 +132,7 @@ class ExpressCookActionTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $result = $this->action->execute();

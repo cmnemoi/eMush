@@ -52,6 +52,7 @@ class Heal extends AbstractAction
     {
         $healedQuantity = self::BASE_HEAL;
         $success = new Success();
+
         return $success->setQuantity($healedQuantity);
     }
 
@@ -67,7 +68,7 @@ class Heal extends AbstractAction
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $healEvent = new ApplyEffectEvent(
             $this->player,
@@ -76,6 +77,6 @@ class Heal extends AbstractAction
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventService->callEvent($healEvent, ApplyEffectEvent::HEAL);
+        $this->eventDispatcher->dispatch($healEvent, ApplyEffectEvent::HEAL);
     }
 }

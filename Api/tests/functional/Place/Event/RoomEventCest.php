@@ -15,7 +15,6 @@ use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
@@ -29,14 +28,15 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RoomEventCest
 {
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testRoomEventOnNonRoomPlace(FunctionalTester $I)
@@ -55,12 +55,12 @@ class RoomEventCest
         $roomEvent = new RoomEvent($room, RoomEvent::ELECTRIC_ARC, $time);
 
         $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {
-            $this->eventService->callEvent($roomEvent, RoomEvent::TREMOR);
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
         }
         );
 
         $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {
-            $this->eventService->callEvent($roomEvent, RoomEvent::ELECTRIC_ARC);
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::ELECTRIC_ARC);
         }
         );
     }
@@ -97,7 +97,7 @@ class RoomEventCest
         $room->setDaedalus($daedalus);
 
         $statusEvent = new StatusEvent(StatusEnum::FIRE, $room, EventEnum::NEW_CYCLE, $time);
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertEquals(1, $room->getStatuses()->count());
 
@@ -138,7 +138,7 @@ class RoomEventCest
         // apply tremor on rooms with players
         $rooms->map(function (Place $room) use ($time) {
             $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
-            $this->eventService->callEvent($roomEvent, RoomEvent::TREMOR);
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
         });
 
         $I->assertEquals(8, $player->getHealthPoint());
@@ -203,7 +203,7 @@ class RoomEventCest
         $I->haveInRepository($gameEquipment);
 
         $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
-        $this->eventService->callEvent($roomEvent, RoomEvent::ELECTRIC_ARC);
+        $this->eventDispatcher->dispatch($roomEvent, RoomEvent::ELECTRIC_ARC);
 
         $I->assertEquals(7, $player->getHealthPoint());
         $I->assertTrue($gameEquipment->isBroken());

@@ -51,6 +51,6 @@ class GetUp extends AbstractAction
             new \DateTime()
         );
         $statusEvent->setStatusTarget($lyingDownStatus->getTarget());
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
     }
 }

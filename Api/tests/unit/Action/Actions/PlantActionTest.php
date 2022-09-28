@@ -18,10 +18,8 @@ use Mush\Place\Entity\Place;
 
 class PlantActionTest extends AbstractActionTest
 {
-    /** @var GearToolServiceInterface|Mockery\Mock */
     private GearToolServiceInterface|Mockery\Mock $gearToolService;
 
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
@@ -36,7 +34,7 @@ class PlantActionTest extends AbstractActionTest
         $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
 
         $this->action = new Transplant(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->gearToolService,
@@ -92,7 +90,7 @@ class PlantActionTest extends AbstractActionTest
 
         $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameHydropot]));
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->times(3);
+        $this->eventDispatcher->shouldReceive('dispatch')->times(3);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $result = $this->action->execute();

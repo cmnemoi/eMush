@@ -18,7 +18,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class RemoveSporeActionTest extends AbstractActionTest
 {
-    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
@@ -33,7 +32,7 @@ class RemoveSporeActionTest extends AbstractActionTest
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new RemoveSpore(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->statusService,
@@ -75,7 +74,7 @@ class RemoveSporeActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->statusService->shouldReceive('updateCharge')->with($sporeStatus, -1)->andReturn($sporeStatus)->once();
         $this->statusService->shouldReceive('persist')->once();
 

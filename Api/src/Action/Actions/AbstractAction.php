@@ -12,9 +12,9 @@ use Mush\Action\Validator\ActionPoint;
 use Mush\Action\Validator\AreSymptomsPreventingAction;
 use Mush\Action\Validator\HasAction;
 use Mush\Action\Validator\PlayerAlive;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -28,16 +28,16 @@ abstract class AbstractAction
 
     protected string $name;
 
-    protected EventServiceInterface $eventService;
+    protected EventDispatcherInterface $eventDispatcher;
     protected ActionServiceInterface $actionService;
     protected ValidatorInterface $validator;
 
     public function __construct(
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator
     ) {
-          $this->eventService = $eventService;
+        $this->eventDispatcher = $eventDispatcher;
         $this->actionService = $actionService;
         $this->validator = $validator;
     }
@@ -67,6 +67,7 @@ abstract class AbstractAction
     public function isVisible(): bool
     {
         $validator = $this->validator;
+
         return $validator->validate($this, null, 'visibility')->count() === 0;
     }
 
@@ -83,8 +84,9 @@ abstract class AbstractAction
         return null;
     }
 
-    abstract protected function checkResult() : ActionResult;
-    abstract protected function applyEffect(ActionResult $result) : void;
+    abstract protected function checkResult(): ActionResult;
+
+    abstract protected function applyEffect(ActionResult $result): void;
 
     public function execute(): ActionResult
     {
@@ -97,7 +99,7 @@ abstract class AbstractAction
         $parameter = $this->getParameter();
 
         $preActionEvent = new ActionEvent($this->action, $this->player, $parameter);
-        $this->eventService->callEvent($preActionEvent, ActionEvent::PRE_ACTION);
+        $this->eventDispatcher->dispatch($preActionEvent, ActionEvent::PRE_ACTION);
 
         $this->actionService->applyCostToPlayer($this->player, $this->action, $this->parameter);
 
@@ -105,13 +107,13 @@ abstract class AbstractAction
 
         $resultActionEvent = new ActionEvent($this->action, $this->player, $parameter);
         $resultActionEvent->setActionResult($result);
-        $this->eventService->callEvent($resultActionEvent, ActionEvent::RESULT_ACTION);
+        $this->eventDispatcher->dispatch($resultActionEvent, ActionEvent::RESULT_ACTION);
 
         $this->applyEffect($result);
 
         $postActionEvent = new ActionEvent($this->action, $this->player, $parameter);
         $postActionEvent->setActionResult($result);
-        $this->eventService->callEvent($postActionEvent, ActionEvent::POST_ACTION);
+        $this->eventDispatcher->dispatch($postActionEvent, ActionEvent::POST_ACTION);
 
         return $result;
     }

@@ -72,6 +72,6 @@ class WashInSink extends AbstractAction
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 }

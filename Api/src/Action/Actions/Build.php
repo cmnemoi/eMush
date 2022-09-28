@@ -20,8 +20,8 @@ use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -33,14 +33,14 @@ class Build extends AbstractAction
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GearToolServiceInterface $gearToolService,
         GameEquipmentServiceInterface $gameEquipmentService
     ) {
         parent::__construct(
-            $eventService,
+            $eventDispatcher,
             $actionService,
             $validator
         );
@@ -48,7 +48,6 @@ class Build extends AbstractAction
         $this->gearToolService = $gearToolService;
         $this->gameEquipmentService = $gameEquipmentService;
     }
-
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -114,7 +113,7 @@ class Build extends AbstractAction
                     $time
                 );
 
-                $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+                $this->eventDispatcher->dispatch($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
         }
 
@@ -125,7 +124,7 @@ class Build extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         // Create the equipment
         $blueprintResult = $this->gameEquipmentService->createGameEquipment(
@@ -142,6 +141,6 @@ class Build extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
     }
 }

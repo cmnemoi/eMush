@@ -40,7 +40,7 @@ class SurgeryActionTest extends AbstractActionTest
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
 
         $this->action = new Surgery(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -95,12 +95,12 @@ class SurgeryActionTest extends AbstractActionTest
             ->once()
         ;
 
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $playerToHeal);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent');
+        $this->eventDispatcher->shouldReceive('dispatch');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Fail::class, $result);
@@ -145,12 +145,12 @@ class SurgeryActionTest extends AbstractActionTest
             ->once()
         ;
 
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $playerToHeal);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent');
+        $this->eventDispatcher->shouldReceive('dispatch');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
@@ -196,12 +196,12 @@ class SurgeryActionTest extends AbstractActionTest
             ->once()
         ;
 
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $playerToHeal);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent');
+        $this->eventDispatcher->shouldReceive('dispatch');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(CriticalSuccess::class, $result);

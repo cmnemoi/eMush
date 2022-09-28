@@ -15,10 +15,10 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -28,13 +28,13 @@ class Disassemble extends AttemptAction
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
         GameEquipmentServiceInterface $gameEquipmentService
     ) {
-        parent::__construct($eventService, $actionService, $validator, $randomService);
+        parent::__construct($eventDispatcher, $actionService, $validator, $randomService);
 
         $this->gameEquipmentService = $gameEquipmentService;
     }
@@ -87,7 +87,7 @@ class Disassemble extends AttemptAction
                     $this->getActionName(),
                     $time
                 );
-                $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
             }
         }
 
@@ -99,6 +99,6 @@ class Disassemble extends AttemptAction
             $this->getActionName(),
             $time
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 }

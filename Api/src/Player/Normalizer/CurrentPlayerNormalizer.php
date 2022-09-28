@@ -50,7 +50,6 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
         /** @var Player $player */
         $player = $object;
 
-
         $items = [];
         /** @var GameItem $item */
         foreach ($player->getEquipments() as $item) {

@@ -43,6 +43,6 @@ class ReportFire extends AbstractAction
             new \DateTime()
         );
 
-        $this->eventService->callEvent($reportEvent, ApplyEffectEvent::REPORT_FIRE);
+        $this->eventDispatcher->dispatch($reportEvent, ApplyEffectEvent::REPORT_FIRE);
     }
 }

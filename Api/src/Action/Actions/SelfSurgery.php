@@ -17,13 +17,13 @@ use Mush\Disease\Enum\TypeEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -46,14 +46,14 @@ class SelfSurgery extends AbstractAction
     private ModifierServiceInterface $modifierService;
 
     public function __construct(
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
         ModifierServiceInterface $modifierService
     ) {
         parent::__construct(
-            $eventService,
+            $eventDispatcher,
             $actionService,
             $validator
         );
@@ -113,9 +113,9 @@ class SelfSurgery extends AbstractAction
 
         if ($result === ActionOutputEnum::FAIL) {
             return new Fail();
-        } else if ($result === ActionOutputEnum::CRITICAL_SUCCESS) {
+        } elseif ($result === ActionOutputEnum::CRITICAL_SUCCESS) {
             return new CriticalSuccess();
-        } else if ($result === ActionOutputEnum::SUCCESS) {
+        } elseif ($result === ActionOutputEnum::SUCCESS) {
             return new Success();
         }
 
@@ -126,9 +126,9 @@ class SelfSurgery extends AbstractAction
     {
         if ($result instanceof Fail) {
             $this->failedSurgery();
-        } else if ($result instanceof CriticalSuccess) {
+        } elseif ($result instanceof CriticalSuccess) {
             $this->successSurgery(ActionOutputEnum::CRITICAL_SUCCESS);
-        } else if ($result instanceof Success) {
+        } elseif ($result instanceof Success) {
             $this->successSurgery(ActionOutputEnum::SUCCESS);
         }
     }
@@ -143,7 +143,7 @@ class SelfSurgery extends AbstractAction
             new \DateTime()
         );
 
-        $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_CURE_INJURY);
+        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_CURE_INJURY);
     }
 
     private function failedSurgery(): void
@@ -155,6 +155,6 @@ class SelfSurgery extends AbstractAction
             ActionEnum::SURGERY,
             new \DateTime()
         );
-        $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
+        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
     }
 }

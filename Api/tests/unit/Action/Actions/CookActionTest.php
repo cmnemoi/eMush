@@ -21,7 +21,6 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 class CookActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
@@ -35,7 +34,7 @@ class CookActionTest extends AbstractActionTest
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->action = new Cook(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService
@@ -82,7 +81,7 @@ class CookActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->never();
 
         $result = $this->action->execute();
@@ -133,7 +132,7 @@ class CookActionTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $result = $this->action->execute();

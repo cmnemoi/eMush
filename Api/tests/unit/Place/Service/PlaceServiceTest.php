@@ -11,7 +11,6 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\DoorEnum;
@@ -20,6 +19,7 @@ use Mush\Place\Repository\PlaceRepository;
 use Mush\Place\Service\PlaceService;
 use Mush\Place\Service\PlaceServiceInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlaceServiceTest extends TestCase
 {
@@ -28,7 +28,7 @@ class PlaceServiceTest extends TestCase
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
     /** @var PlaceRepository|Mockery\Mock */
     private PlaceRepository $repository;
 
@@ -38,12 +38,12 @@ class PlaceServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->repository = Mockery::mock(PlaceRepository::class);
 
         $this->placeService = new PlaceService(
             $this->entityManager,
-            $this->eventService,
+            $this->eventDispatcher,
             $this->repository,
         );
     }
@@ -74,8 +74,8 @@ class PlaceServiceTest extends TestCase
 
         $roomConfig = $this->createRoomConfig('bridge', $daedalusConfig);
 
-        $this->eventService
-            ->shouldReceive('callEvent')
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
             ->withArgs(fn (PlaceInitEvent $event) => (
                 $event->getPlaceConfig() === $roomConfig)
             )

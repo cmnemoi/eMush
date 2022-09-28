@@ -53,6 +53,6 @@ class ReadBook extends AbstractAction
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 }

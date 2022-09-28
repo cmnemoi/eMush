@@ -20,7 +20,6 @@ use Mush\Place\Entity\Place;
 
 class DispenseActionTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
 
     /* @var GameEquipmentServiceInterface|Mockery\Mock */
@@ -34,12 +33,12 @@ class DispenseActionTest extends AbstractActionTest
         parent::before();
 
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);;
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
         $this->action = new Dispense(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -86,7 +85,7 @@ class DispenseActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('getRandomElements')->andReturn([GameDrugEnum::PHUXX])->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $result = $this->action->execute();
 

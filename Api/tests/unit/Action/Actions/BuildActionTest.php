@@ -18,7 +18,6 @@ use Mush\Place\Entity\Place;
 
 class BuildActionTest extends AbstractActionTest
 {
-    /** @var GearToolServiceInterface|Mockery\Mock */
     private GearToolServiceInterface|Mockery\Mock $gearToolService;
 
     /* @var GameEquipmentServiceInterface|Mockery\Mock */
@@ -39,7 +38,7 @@ class BuildActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
         $this->action = new Build(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->gearToolService,
@@ -97,7 +96,7 @@ class BuildActionTest extends AbstractActionTest
         $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameIngredient]))->once();
 
         $this->gameEquipmentService->shouldReceive('createGameEquipment')->once();
-        $this->eventService->shouldReceive('callEvent')->times(3);
+        $this->eventDispatcher->shouldReceive('dispatch')->times(3);
 
         $result = $this->action->execute();
 

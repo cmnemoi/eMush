@@ -11,7 +11,6 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\ItemEnum;
@@ -19,7 +18,6 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
@@ -28,14 +26,15 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CreateDestroyEquipmentSubscriberCest
 {
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testCreateGearPlayerScope(FunctionalTester $I)
@@ -85,7 +84,7 @@ class CreateDestroyEquipmentSubscriberCest
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);
@@ -124,7 +123,11 @@ class CreateDestroyEquipmentSubscriberCest
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(ItemConfig::class, ['name' => 'test', 'gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
+        $equipmentConfig = $I->have(ItemConfig::class, [
+            'name' => 'test',
+            'gameConfig' => $gameConfig,
+            'mechanics' => new ArrayCollection([$gear]),
+        ]);
 
         $equipment = new GameItem();
         $equipment
@@ -140,7 +143,7 @@ class CreateDestroyEquipmentSubscriberCest
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertEquals($room->getEquipments()->count(), 1);
         $I->assertEquals($player->getEquipments()->count(), 0);
@@ -177,13 +180,11 @@ class CreateDestroyEquipmentSubscriberCest
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($gear);
 
-        /** @var EquipmentConfig $equipmentConfig */
+        /** @var ItemConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
 
-        $equipment = new GameItem();
-        $equipment
-            ->setName($equipmentConfig->getName())
-            ->setEquipment($equipmentConfig)
+        $equipment = $equipmentConfig
+            ->createGameItem()
             ->setHolder($player);
         $I->haveInRepository($equipment);
 
@@ -194,7 +195,7 @@ class CreateDestroyEquipmentSubscriberCest
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);
@@ -270,7 +271,7 @@ class CreateDestroyEquipmentSubscriberCest
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 0);
@@ -355,7 +356,7 @@ class CreateDestroyEquipmentSubscriberCest
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);
@@ -417,6 +418,7 @@ class CreateDestroyEquipmentSubscriberCest
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($gear);
+
         $gear2 = new Gear();
         $gear2->setModifierConfigs(new ArrayCollection([$modifierConfig2]));
         $I->haveInRepository($gear2);
@@ -426,7 +428,7 @@ class CreateDestroyEquipmentSubscriberCest
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
         ]);
-        /** @var ItemConfig $equipmentConfig */
+        /** @var ItemConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(ItemConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear2]),
@@ -434,20 +436,12 @@ class CreateDestroyEquipmentSubscriberCest
         ]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameItem();
-        $gameEquipment
-            ->setEquipment($equipmentConfig)
-            ->setName('some name')
-            ->setHolder($player)
-        ;
+        $gameEquipment = $equipmentConfig->createGameItem();
+        $gameEquipment->setHolder($player);
         $I->haveInRepository($gameEquipment);
 
-        $gameEquipment2 = new GameItem();
-        $gameEquipment2
-            ->setEquipment($equipmentConfig2)
-            ->setName('some name')
-            ->setHolder($player)
-        ;
+        $gameEquipment2 = $equipmentConfig2->createGameItem();
+        $gameEquipment2->setHolder($player);
         $I->haveInRepository($gameEquipment2);
 
         $equipmentEvent = new TransformEquipmentEvent(
@@ -457,7 +451,7 @@ class CreateDestroyEquipmentSubscriberCest
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
 
         $I->assertCount(0, $room->getEquipments());
         $I->assertCount(1, $player->getEquipments());

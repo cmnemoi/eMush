@@ -10,7 +10,6 @@ use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Service\ModifierConditionService;
@@ -18,18 +17,19 @@ use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerVariableEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CycleEventSubscriber implements EventSubscriberInterface
 {
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
     private ModifierConditionService $modifierConditionService;
 
     public function __construct(
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         ModifierConditionService $modifierConditionService,
     ) {
-          $this->eventService = $eventService;
+        $this->eventDispatcher = $eventDispatcher;
         $this->modifierConditionService = $modifierConditionService;
     }
 
@@ -60,7 +60,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
         foreach ($cycleModifiers as $modifier) {
             $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
 
-            $this->eventService->callEvent($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 
@@ -76,7 +76,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
         foreach ($cycleModifiers as $modifier) {
             $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
 
-            $this->eventService->callEvent($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 
@@ -92,7 +92,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
         foreach ($modifiers as $modifier) {
             $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
 
-            $this->eventService->callEvent($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 

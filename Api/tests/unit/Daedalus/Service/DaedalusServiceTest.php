@@ -19,7 +19,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
@@ -30,11 +29,12 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DaedalusServiceTest extends TestCase
 {
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
     /** @var DaedalusRepository|Mockery\Mock */
@@ -55,7 +55,7 @@ class DaedalusServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->repository = Mockery::mock(DaedalusRepository::class);
         $this->cycleService = Mockery::mock(CycleServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
@@ -64,7 +64,7 @@ class DaedalusServiceTest extends TestCase
 
         $this->service = new DaedalusService(
             $this->entityManager,
-            $this->eventService,
+            $this->eventDispatcher,
             $this->repository,
             $this->cycleService,
             $this->gameEquipmentService,
@@ -112,8 +112,8 @@ class DaedalusServiceTest extends TestCase
             ->setEquipmentsConfig(new ArrayCollection([$item]))
         ;
 
-        $this->eventService
-            ->shouldReceive('callEvent')
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
             ->withArgs(fn (DaedalusInitEvent $event) => (
                 $event->getDaedalusConfig() === $daedalusConfig)
             )
@@ -122,7 +122,7 @@ class DaedalusServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->twice()
+            ->times(3)
         ;
         $this->entityManager
             ->shouldReceive('flush')
@@ -259,7 +259,7 @@ class DaedalusServiceTest extends TestCase
             ->andReturn($noCapsulePlayer)
             ->once()
         ;
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $result = $this->service->getRandomAsphyxia($daedalus, new \DateTime());
 
@@ -319,7 +319,7 @@ class DaedalusServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService->shouldReceive('callEvent')->twice();
+        $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
         $result = $this->service->selectAlphaMush($daedalus, new \DateTime());
     }
@@ -336,7 +336,7 @@ class DaedalusServiceTest extends TestCase
 
         $time = new \DateTime('yesterday');
 
-        $this->eventService->shouldReceive('callEvent')
+        $this->eventDispatcher->shouldReceive('dispatch')
             ->withArgs(fn (DaedalusEvent $daedalusEvent, $eventName) => ($daedalusEvent->getTime() === $time && $eventName === DaedalusEvent::END_DAEDALUS))
             ->once()
         ;

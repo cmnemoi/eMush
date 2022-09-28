@@ -4,19 +4,19 @@ namespace Mush\Daedalus\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
 {
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
-        EventServiceInterface $eventService
+        EventDispatcherInterface $eventDispatcher
     ) {
-          $this->eventService = $eventService;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents()
@@ -38,14 +38,14 @@ class PlayerSubscriber implements EventSubscriberInterface
                 $event->getReason(),
                 $event->getTime()
             );
-            $this->eventService->callEvent($fullDaedalusEvent, DaedalusEvent::FULL_DAEDALUS);
-        } else if ($daedalus->getPlayers()->count() === 1) {
+            $this->eventDispatcher->dispatch($fullDaedalusEvent, DaedalusEvent::FULL_DAEDALUS);
+        } elseif ($daedalus->getPlayers()->count() === 1) {
             $startDaedalusEvent = new DaedalusEvent(
                 $daedalus,
                 $event->getReason(),
                 $event->getTime()
             );
-            $this->eventService->callEvent($startDaedalusEvent, DaedalusEvent::START_DAEDALUS);
+            $this->eventDispatcher->dispatch($startDaedalusEvent, DaedalusEvent::START_DAEDALUS);
         }
     }
 
@@ -64,7 +64,7 @@ class PlayerSubscriber implements EventSubscriberInterface
                 $event->getTime()
             );
 
-            $this->eventService->callEvent($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
+            $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
         }
     }
 }

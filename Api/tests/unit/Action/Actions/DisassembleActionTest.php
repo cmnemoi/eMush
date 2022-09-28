@@ -19,7 +19,6 @@ use Mush\Place\Entity\Place;
 
 class DisassembleActionTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
 
     /* @var GameEquipmentServiceInterface|Mockery\Mock */
@@ -38,7 +37,7 @@ class DisassembleActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::DISASSEMBLE, 3);
 
         $this->action = new Disassemble(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -114,7 +113,7 @@ class DisassembleActionTest extends AbstractActionTest
 
         $scrap = new GameItem();
 
-        $this->eventService->shouldReceive('callEvent')->twice();
+        $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
         // Success
         $result = $this->action->execute();

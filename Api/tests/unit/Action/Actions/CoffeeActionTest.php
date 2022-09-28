@@ -20,9 +20,8 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class CoffeeActionTest extends AbstractActionTest
 {
-    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
+
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
@@ -38,7 +37,7 @@ class CoffeeActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
         $this->action = new Coffee(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService
@@ -83,7 +82,7 @@ class CoffeeActionTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $result = $this->action->execute();

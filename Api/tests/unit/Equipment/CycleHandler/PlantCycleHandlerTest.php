@@ -166,7 +166,7 @@ class PlantCycleHandlerTest extends TestCase
                     $event->getStatusHolder() === $gamePlant)
                 ->once();
 
-        $this->plantCycleHandler->handleNewCycle($gamePlant, $daedalus, new \DateTime());
+        $this->plantCycleHandler->handleNewCycle($gamePlant, new \DateTime());
 
         $this->assertCount(1, $gamePlant->getStatuses());
     }
@@ -202,7 +202,7 @@ class PlantCycleHandlerTest extends TestCase
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
 
-        $this->plantCycleHandler->handleNewCycle($gamePlant, $daedalus, new \DateTime());
+        $this->plantCycleHandler->handleNewCycle($gamePlant, new \DateTime());
 
         $this->assertCount(1, $gamePlant->getStatuses());
     }

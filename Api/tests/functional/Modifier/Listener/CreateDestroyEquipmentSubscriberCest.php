@@ -124,7 +124,11 @@ class CreateDestroyEquipmentSubscriberCest
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(ItemConfig::class, ['name' => 'test', 'gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
+        $equipmentConfig = $I->have(ItemConfig::class, [
+            'name' => 'test',
+            'gameConfig' => $gameConfig,
+            'mechanics' => new ArrayCollection([$gear])
+        ]);
 
         $equipment = new GameItem();
         $equipment

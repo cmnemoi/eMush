@@ -98,7 +98,6 @@ class EquipmentSubscriberCest
         $alertGravity
             ->setDaedalus($daedalus)
             ->setName(AlertEnum::NO_GRAVITY)
-            ->addAlertElement($reportedAlert)
         ;
 
         $I->haveInRepository($alertGravity);

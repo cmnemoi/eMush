@@ -128,6 +128,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
 
     private function deleteGearModifiers(GameEquipment $gameEquipment, array $reaches, ?Player $player): void
     {
+        /* @var ModifierConfig $modifierConfig */
         foreach ($this->getGearModifierConfigs($gameEquipment) as $modifierConfig) {
             if (in_array($modifierConfig->getReach(), $reaches)) {
                 $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
@@ -135,6 +136,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
                     return;
                 }
 
+                codecept_debug("a: " . $modifierConfig);
                 $this->modifierService->deleteModifier($modifierConfig, $holder);
             }
         }

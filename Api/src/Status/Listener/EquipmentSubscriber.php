@@ -36,7 +36,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 ['onNewEquipmentInInventory', -2000], // after the overflowing part has been solved
             ],
             EquipmentEvent::INVENTORY_OVERFLOW => [
-                ['onEquipmentRemovedFromInventory']
+                ['onEquipmentRemovedFromInventory'],
             ],
             EquipmentEvent::CHANGE_HOLDER => [
                 ['onEquipmentRemovedFromInventory', 2000],

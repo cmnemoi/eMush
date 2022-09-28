@@ -7,7 +7,6 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Event\PlaceInitEvent;
@@ -20,7 +19,7 @@ class PlaceInitSubscriber implements EventSubscriberInterface
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(GameEquipmentServiceInterface $gameEquipmentService,
-    EventDispatcherInterface $eventDispatcher)
+        EventDispatcherInterface $eventDispatcher)
     {
         $this->gameEquipmentService = $gameEquipmentService;
         $this->eventDispatcher = $eventDispatcher;

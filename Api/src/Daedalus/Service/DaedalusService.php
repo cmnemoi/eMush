@@ -121,8 +121,6 @@ class DaedalusService implements DaedalusServiceInterface
 
         $this->createNeron($daedalus);
 
-        $this->persist($daedalus);
-
         $daedalusEvent = new DaedalusInitEvent(
             $daedalus,
             $daedalusConfig,
@@ -130,6 +128,8 @@ class DaedalusService implements DaedalusServiceInterface
             new \DateTime()
         );
         $this->eventDispatcher->dispatch($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
+
+        $this->persist($daedalus);
 
         return $daedalus;
     }

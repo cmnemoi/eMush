@@ -65,8 +65,8 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $equipment = $event->getEquipment();
         $reason = $event->getReason();
         $time = $event->getTime();
-
         $holder = $equipment->getHolder();
+
         if ($holder instanceof Player) {
             if ($equipment->hasStatus(EquipmentStatusEnum::HIDDEN)) {
                 $this->statusService->removeStatus(EquipmentStatusEnum::HIDDEN, $equipment, $reason, $time);

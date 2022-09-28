@@ -14,11 +14,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class EquipmentSubscriber implements EventSubscriberInterface
 {
     private EquipmentModifierServiceInterface $gearModifierService;
+    private EquipmentModifierServiceInterface $equipmentModifierService;
 
     public function __construct(
         EquipmentModifierServiceInterface $gearModifierService,
+        EquipmentModifierServiceInterface $equipmentModifierService
     ) {
         $this->gearModifierService = $gearModifierService;
+        $this->equipmentModifierService = $equipmentModifierService;
     }
 
     public static function getSubscribedEvents(): array
@@ -33,7 +36,18 @@ class EquipmentSubscriber implements EventSubscriberInterface
             EquipmentEvent::INVENTORY_OVERFLOW => [
                 ['onInventoryOverflow']
             ],
+            EquipmentEvent::EQUIPMENT_CREATED => [
+                ['onEquipmentCreated', 1000],
+            ],
         ];
+    }
+
+    public function onEquipmentCreated(EquipmentEvent $event) : void {
+        $equipment = $event->getEquipment();
+        $holder = $event->getEquipment()->getHolder();
+
+        if ($holder instanceof Player)
+            $this->equipmentModifierService->takeEquipment($equipment, $holder);
     }
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void

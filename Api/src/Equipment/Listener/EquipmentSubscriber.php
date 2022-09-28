@@ -69,6 +69,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getEquipment();
         $equipment->setHolder($equipment->getPlace());
+        $this->gameEquipmentService->persist($equipment);
     }
 
     public function checkInventoryOverflow(EquipmentEvent $event) {

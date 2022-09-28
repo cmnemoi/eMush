@@ -111,8 +111,8 @@ class EquipmentEventCest
         $I->assertCount(1, $player->getEquipments());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
-            'player' => $player->getId(),
+            'place' => $room,
+            'player' => $player,
             'log' => LogEnum::OBJECT_FELL,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);

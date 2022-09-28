@@ -99,6 +99,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $gameEquipment->setHolder($holder->getPlace());
         }
 
+        $gameEquipment->setDaedalus($gameEquipment->getHolder());
         $this->persist($gameEquipment);
 
         $gameEquipment = $this->initMechanics($gameEquipment, $holder->getPlace()->getDaedalus(), $reason);

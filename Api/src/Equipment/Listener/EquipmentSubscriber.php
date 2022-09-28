@@ -36,6 +36,9 @@ class EquipmentSubscriber implements EventSubscriberInterface
             EquipmentEvent::EQUIPMENT_DESTROYED => [
                 ['onEquipmentDestroyed', -1000] // the equipment is deleted after every other effect has been applied
             ],
+            EquipmentEvent::EQUIPMENT_DELETE => [
+                ['onEquipmentDelete']
+            ],
             EquipmentEvent::EQUIPMENT_TRANSFORM => [
                 ['checkInventoryOverflow'],
                 ['onEquipmentDestroyed', -1000], // the equipment is deleted after every other effect has been applied
@@ -48,6 +51,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
+        $this->eventService->callEvent($event, EquipmentEvent::EQUIPMENT_DELETE);
+    }
+
+    public function onEquipmentDelete(EquipmentEvent $event) : void {
         if ($event instanceof TransformEquipmentEvent) {
             $equipment = $event->getEquipmentFrom();
         } else {

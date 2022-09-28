@@ -83,9 +83,6 @@ class StatusSubscriber implements EventSubscriberInterface
 
     public function addStatusConfig(StatusEvent $event): void
     {
-        $holder = $event->getStatusHolder();
-        if ($holder instanceof GameEquipment && $holder->isDestroyed()) return;
-
         $statusConfig = $this->statusService->getStatusConfigByNameAndDaedalus($event->getStatusName(), $event->getPlace()->getDaedalus());
         $event->setStatusConfig($statusConfig);
     }

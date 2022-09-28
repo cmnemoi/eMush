@@ -65,7 +65,7 @@ class EquipmentSubscriberCest
 
         $gravitySimulator = new GameEquipment();
         $gravitySimulator
-            ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
+            ->setName($gravitySimulatorConfig->getName())
             ->setEquipment($gravitySimulatorConfig)
             ->setHolder($room)
         ;
@@ -96,6 +96,8 @@ class EquipmentSubscriberCest
 
         $I->haveInRepository($alertBroken);
 
+        $I->seeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS]);
+
         $equipmentEvent = new EquipmentEvent(
             $gravitySimulator,
             false,
@@ -105,6 +107,6 @@ class EquipmentSubscriberCest
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
+        $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS]);
     }
 }

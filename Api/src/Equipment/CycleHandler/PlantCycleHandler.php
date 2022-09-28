@@ -145,7 +145,7 @@ class PlantCycleHandler extends AbstractCycleHandler
 
             $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
         // If plant was dried, become hydropot
-        } elseif ($gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_DRY) !== null) {
+        } else if ($gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_DRY) !== null) {
             $this->handleDriedPlant($gamePlant, $dateTime);
         // If plant was not thirsty or dried become thirsty
         } else {

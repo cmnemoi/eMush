@@ -17,7 +17,7 @@ class EventService implements EventServiceInterface
          $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function callEvent(Event $eventParameters, string $name) : void {
+    public function callEvent(Event $eventParameters, string $name, bool $priority = false) : void {
         if (empty($this->tree)) {
             $this->tree = [[
                 'parameters' => $eventParameters,
@@ -35,6 +35,8 @@ class EventService implements EventServiceInterface
                     $this->tree = array_merge($this->tree[0]['next'], array_slice($this->tree, 1));
                 }
             }
+        } else if ($priority) {
+            $this->eventDispatcher->dispatch($eventParameters, $name);
         } else {
             $this->tree[0]['next'] = array_merge($this->tree[0]['next'], [[
                 'parameters' => $eventParameters,

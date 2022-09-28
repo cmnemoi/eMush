@@ -145,6 +145,8 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
 
     private function getGearModifierConfigs(GameEquipment $gameEquipment): Collection
     {
+        codecept_debug("alors oui");
+        codecept_debug($gameEquipment->getEquipment()->getMechanics());
         if ($gearMechanic = $gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR)) {
             if (!$gearMechanic instanceof Gear) {
                 throw new UnexpectedTypeException($gearMechanic, Gear::class);

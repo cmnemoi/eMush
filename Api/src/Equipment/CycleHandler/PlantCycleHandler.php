@@ -53,12 +53,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         /** @var GameItem $plant */
         $plant = $object;
         if (!$plant instanceof GameEquipment) return;
-        try {
-            codecept_debug("handle new cycle item destroyed before");
-            $daedalus = $plant->getPlace()->getDaedalus();
-        } catch (\LogicException) {
-            return;
-        }
+        if ($plant->isDestroyed()) return;
 
         $plantType = $plant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
         if (!$plantType instanceof Plant) return;
@@ -97,12 +92,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         /** @var GameItem $plant */
         $plant = $object;
         if (!$plant instanceof GameEquipment) return;
-        try {
-            codecept_debug("handle new day cycle item destroyed before");
-            $daedalus = $plant->getPlace()->getDaedalus();
-        } catch (\LogicException) {
-            return;
-        }
+        if ($plant->isDestroyed()) return;
 
         $plantType = $plant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
         if (!$plantType instanceof Plant) return;

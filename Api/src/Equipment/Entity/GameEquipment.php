@@ -95,11 +95,11 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     public function getPlace(): Place
     {
-        if (($holder = $this->getHolder()) === null) {
-            throw new \LogicException('Cannot find place of the GameEquipment');
-        }
+        return $this->getHolder()->getPlace();
+    }
 
-        return $holder->getPlace();
+    public function isDestroyed() : bool {
+        return $this->getPlace() === null;
     }
 
     public function getHolder(): ?EquipmentHolderInterface

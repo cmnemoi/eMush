@@ -2,6 +2,7 @@
 
 namespace Mush\Status\Listener;
 
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -82,6 +83,9 @@ class StatusSubscriber implements EventSubscriberInterface
 
     public function addStatusConfig(StatusEvent $event): void
     {
+        $holder = $event->getStatusHolder();
+        if ($holder instanceof GameEquipment && $holder->isDestroyed()) return;
+
         $statusConfig = $this->statusService->getStatusConfigByNameAndDaedalus($event->getStatusName(), $event->getPlace()->getDaedalus());
         $event->setStatusConfig($statusConfig);
     }

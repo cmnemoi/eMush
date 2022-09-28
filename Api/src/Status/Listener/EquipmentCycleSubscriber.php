@@ -33,7 +33,8 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
         /** @var Status $status */
         foreach ($equipment->getStatuses() as $status) {
             $statusNewCycle = new StatusCycleEvent(
-                $status, $equipment,
+                $status,
+                $equipment,
                 $event->getReason(),
                 $event->getTime()
             );

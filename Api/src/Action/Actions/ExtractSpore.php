@@ -11,7 +11,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\DailySporesLimit;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\MushSpore;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -26,13 +26,13 @@ class ExtractSpore extends AbstractAction
     private StatusServiceInterface $statusService;
 
     public function __construct(
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         StatusServiceInterface $statusService
     ) {
         parent::__construct(
-            $eventService,
+            $eventDispatcher,
             $actionService,
             $validator
         );

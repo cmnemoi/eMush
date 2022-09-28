@@ -3,7 +3,7 @@
 namespace Mush\Player\Listener;
 
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
@@ -15,14 +15,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class RoomSubscriber implements EventSubscriberInterface
 {
     private RandomServiceInterface $randomService;
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         RandomServiceInterface $randomService,
-        EventServiceInterface $eventService
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->randomService = $randomService;
-          $this->eventService = $eventService;
+          $this->eventService = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -52,7 +52,7 @@ class RoomSubscriber implements EventSubscriberInterface
                 EndCauseEnum::INJURY,
                 $event->getTime()
             );
-            $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 
@@ -75,7 +75,7 @@ class RoomSubscriber implements EventSubscriberInterface
                 EndCauseEnum::ELECTROCUTED,
                 $event->getTime()
             );
-            $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 }

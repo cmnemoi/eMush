@@ -9,7 +9,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -24,13 +24,13 @@ class TryKube extends AbstractAction
     private RandomServiceInterface $randomService;
 
     public function __construct(
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
     ) {
         parent::__construct(
-            $eventService,
+            $eventDispatcher,
             $actionService,
             $validator
         );

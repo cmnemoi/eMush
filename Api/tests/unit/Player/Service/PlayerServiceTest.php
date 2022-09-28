@@ -10,7 +10,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
@@ -30,7 +30,7 @@ use PHPUnit\Framework\TestCase;
 class PlayerServiceTest extends TestCase
 {
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
     /** @var PlayerRepository|Mockery\Mock */
@@ -119,7 +119,7 @@ class PlayerServiceTest extends TestCase
             ->once()
         ;
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->once()
         ;
 
@@ -198,7 +198,7 @@ class PlayerServiceTest extends TestCase
             'flush' => null,
         ]);
 
-        $this->eventService->shouldReceive('callEvent');
+        $this->eventService->shouldReceive('dispatch');
 
         $player = $this->service->endPlayer($player, $message);
 

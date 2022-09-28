@@ -18,7 +18,7 @@ class EventService implements EventServiceInterface
          $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function callEvent(Event $eventParameters, string $name, bool $cascade = false) : void {
+    public function dispatch(Event $eventParameters, string $name, bool $cascade = false) : void {
         if ($this->cascade) {
             codecept_debug($name);
             $this->eventDispatcher->dispatch($eventParameters, $name);

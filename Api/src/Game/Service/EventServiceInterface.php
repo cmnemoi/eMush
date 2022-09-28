@@ -7,6 +7,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 interface EventServiceInterface
 {
 
-    public function callEvent(Event $eventParameters, string $name) : void;
+    public function dispatch(Event $eventParameters, string $name) : void;
 
 }

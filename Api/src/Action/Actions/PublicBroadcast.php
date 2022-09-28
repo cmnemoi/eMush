@@ -13,7 +13,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -40,11 +40,11 @@ class PublicBroadcast extends AbstractAction
     protected const BASE_CONFORT = 3;
 
     public function __construct(
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator
     ) {
-        parent::__construct($eventService, $actionService, $validator);
+        parent::__construct($eventDispatcher, $actionService, $validator);
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -74,7 +74,7 @@ class PublicBroadcast extends AbstractAction
         );
 
         $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
     private function addWatchedPublicBroadcastStatus(Player $player): void
@@ -86,7 +86,7 @@ class PublicBroadcast extends AbstractAction
             new \DateTime()
         );
 
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
     protected function checkResult(): ActionResult

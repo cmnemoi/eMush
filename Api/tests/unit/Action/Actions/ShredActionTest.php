@@ -53,7 +53,7 @@ class ShredActionTest extends AbstractActionTest
             ->setHolder($room)
         ;
 
-        $this->eventService->shouldReceive('callEvent');
+        $this->eventService->shouldReceive('dispatch');
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

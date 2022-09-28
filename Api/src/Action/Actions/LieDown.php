@@ -63,6 +63,6 @@ class LieDown extends AbstractAction
         $statusEvent = new StatusEvent(PlayerStatusEnum::LYING_DOWN, $this->player, $this->getActionName(), new \DateTime());
         $statusEvent->setStatusTarget($parameter);
 
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 }

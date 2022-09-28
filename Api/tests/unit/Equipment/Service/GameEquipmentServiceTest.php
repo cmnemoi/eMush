@@ -18,7 +18,7 @@ use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -28,7 +28,7 @@ use PHPUnit\Framework\TestCase;
 class GameEquipmentServiceTest extends TestCase
 {
     /** @var EventServiceInterface|Mockery\Mock */
-    private Mockery\Mock|EventServiceInterface $eventService;
+    private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface|Mockery\Mock $entityManager;
     /** @var GameEquipmentRepository|Mockery\Mock */
@@ -81,7 +81,7 @@ class GameEquipmentServiceTest extends TestCase
             ->setMechanics(new ArrayCollection([]));
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (EquipmentInitEvent $event) => (
                 $event->getEquipmentConfig() === $itemConfig)
             )
@@ -114,7 +114,7 @@ class GameEquipmentServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (EquipmentInitEvent $event) => (
                 $event->getEquipmentConfig() === $equipmentConfig)
             )
@@ -153,7 +153,7 @@ class GameEquipmentServiceTest extends TestCase
         $plantEffect->setMaturationTime(8);
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => (
                 $event instanceof EquipmentInitEvent &&
                 $event->getEquipmentConfig() === $itemConfig)
@@ -170,7 +170,7 @@ class GameEquipmentServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => (
                 $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG))
@@ -199,7 +199,7 @@ class GameEquipmentServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => (
                 $event instanceof EquipmentInitEvent &&
                 $event->getEquipmentConfig() === $itemConfig)
@@ -216,7 +216,7 @@ class GameEquipmentServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => (
                 $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::DOCUMENT_CONTENT))

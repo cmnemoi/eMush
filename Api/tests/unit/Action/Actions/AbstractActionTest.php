@@ -12,7 +12,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 abstract class AbstractActionTest extends TestCase
 {
     /** @var EventServiceInterface|Mockery\Mock */
-    protected Mockery\Mock|EventServiceInterface $eventService;
+    protected Mockery\Mock|EventDispatcherInterface $eventDispatcher;
 
     /** @var ActionServiceInterface|Mockery\Mock */
     protected ActionServiceInterface|Mockery\Mock $actionService;
@@ -41,7 +41,7 @@ abstract class AbstractActionTest extends TestCase
     {
         $this->eventService = Mockery::mock(EventServiceInterface::class);
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof ActionEvent &&
                 $event->getAction() === $this->actionEntity
             )

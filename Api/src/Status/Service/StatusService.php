@@ -10,7 +10,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
@@ -30,16 +30,16 @@ class StatusService implements StatusServiceInterface
     private EntityManagerInterface $entityManager;
     private StatusRepository $statusRepository;
     private StatusConfigRepository $statusConfigRepository;
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         StatusRepository $statusRepository,
         StatusConfigRepository $statusConfigRepository,
     ) {
         $this->entityManager = $entityManager;
-          $this->eventService = $eventService;
+          $this->eventService = $eventDispatcher;
         $this->statusRepository = $statusRepository;
         $this->statusConfigRepository = $statusConfigRepository;
     }
@@ -79,7 +79,7 @@ class StatusService implements StatusServiceInterface
             $reason,
             $time
         );
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
+        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
     }
 
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
@@ -116,7 +116,7 @@ class StatusService implements StatusServiceInterface
             $time
         );
         $statusEvent->setStatusConfig($statusConfig);
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $status;
     }

@@ -8,7 +8,7 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Listener\PlayerSubscriber;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use PHPUnit\Framework\TestCase;
@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 class PlayerSuscriberTest extends TestCase
 {
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     private PlayerSubscriber $playerSubscriber;
 
@@ -61,7 +61,7 @@ class PlayerSuscriberTest extends TestCase
             $date
         );
 
-        $this->eventService->shouldReceive('callEvent')
+        $this->eventService->shouldReceive('dispatch')
             ->withArgs(fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::END_DAEDALUS))
             ->once();
 

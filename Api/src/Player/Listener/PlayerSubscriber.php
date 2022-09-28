@@ -3,7 +3,7 @@
 namespace Mush\Player\Listener;
 
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
@@ -18,18 +18,18 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class PlayerSubscriber implements EventSubscriberInterface
 {
     private PlayerServiceInterface $playerService;
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
     private ModifierServiceInterface $modifierService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
         PlayerServiceInterface $playerService,
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         ModifierServiceInterface $modifierService,
         RandomServiceInterface $randomService
     ) {
         $this->playerService = $playerService;
-          $this->eventService = $eventService;
+          $this->eventService = $eventDispatcher;
         $this->modifierService = $modifierService;
         $this->randomService = $randomService;
     }
@@ -66,7 +66,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             EndCauseEnum::METAL_PLATE,
             $event->getTime()
         );
-        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
     public function onPanicCrisis(PlayerEvent $event): void
@@ -84,7 +84,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             PlayerEvent::PANIC_CRISIS,
             $event->getTime()
         );
-        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
 }

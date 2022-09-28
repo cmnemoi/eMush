@@ -5,7 +5,7 @@ namespace Mush\Equipment\Listener;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -14,12 +14,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RoomSubscriber implements EventSubscriberInterface
 {
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
-        EventServiceInterface $eventService
+        EventDispatcherInterface $eventDispatcher
     ) {
-          $this->eventService = $eventService;
+          $this->eventService = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -49,7 +49,7 @@ class RoomSubscriber implements EventSubscriberInterface
                     $event->getTime()
                 );
                 $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
-                $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+                $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }
     }

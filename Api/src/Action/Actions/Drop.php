@@ -48,6 +48,6 @@ class Drop extends AbstractAction
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
+        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
     }
 }

@@ -12,7 +12,7 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -23,16 +23,16 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
     private DaedalusServiceInterface $daedalusService;
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         DaedalusIncidentServiceInterface $daedalusIncidentService,
-        EventServiceInterface $eventService
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->daedalusService = $daedalusService;
         $this->daedalusIncidentService = $daedalusIncidentService;
-          $this->eventService = $eventService;
+          $this->eventService = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -77,7 +77,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
                 EnumEndCauseEnum::KILLED_BY_NERON,
                 $time
             );
-            $this->eventService->callEvent($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
+            $this->eventService->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
 
             return true;
         }
@@ -97,7 +97,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             EventEnum::NEW_CYCLE,
             $date
         );
-        $this->eventService->callEvent($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         if ($daedalus->getOxygen() <= self::CYCLE_OXYGEN_LOSS) {
             $this->daedalusService->getRandomAsphyxia($daedalus, $date);
@@ -136,7 +136,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
                 EventEnum::NEW_CYCLE,
                 $time
             );
-            $this->eventService->callEvent($daedalusEvent, DaedalusEvent::FULL_DAEDALUS);
+            $this->eventService->dispatch($daedalusEvent, DaedalusEvent::FULL_DAEDALUS);
         }
 
         if ($newDay) {
@@ -145,7 +145,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
                 EventEnum::NEW_DAY,
                 $time
             );
-            $this->eventService->callEvent($dayEvent, DaedalusCycleEvent::DAEDALUS_NEW_DAY);
+            $this->eventService->dispatch($dayEvent, DaedalusCycleEvent::DAEDALUS_NEW_DAY);
         }
     }
 }

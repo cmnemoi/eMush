@@ -80,7 +80,7 @@ class RemoveCameraActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $cameraEquipment);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $result = $this->action->execute();
 

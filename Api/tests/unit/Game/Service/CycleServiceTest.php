@@ -9,13 +9,13 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleService;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use PHPUnit\Framework\TestCase;
 
 class CycleServiceTest extends TestCase
 {
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
 
@@ -66,7 +66,7 @@ class CycleServiceTest extends TestCase
         $timeZone = 'Europe/Paris';
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
         ;
 
         $gameConfig = new GameConfig();
@@ -137,7 +137,7 @@ class CycleServiceTest extends TestCase
         $timeZone = 'Europe/Paris';
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
         ;
 
         $gameConfig = new GameConfig();
@@ -214,7 +214,7 @@ class CycleServiceTest extends TestCase
         $timeZone = 'Europe/Paris';
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
         ;
 
         $gameConfig = new GameConfig();

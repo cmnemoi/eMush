@@ -47,7 +47,7 @@ abstract class InsertAction extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         // Add to container
         $daedalusEvent = new DaedalusModifierEvent(
@@ -57,7 +57,7 @@ abstract class InsertAction extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventService->callEvent($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
     protected abstract function getDaedalusVariable() : string;

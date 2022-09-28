@@ -3,7 +3,7 @@
 namespace Mush\Test\Player\Event;
 
 use Mockery;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -16,7 +16,7 @@ class PlayerModifierSubscriberTest extends TestCase
     /** @var PlayerVariableServiceInterface|Mockery\Mock */
     private PlayerVariableServiceInterface $playerVariableService;
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     private PlayerModifierSubscriber $playerModifierSubscriber;
 
@@ -148,7 +148,7 @@ class PlayerModifierSubscriberTest extends TestCase
             ->once()
         ;
 
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $this->playerModifierSubscriber->onChangeVariable($event);
     }

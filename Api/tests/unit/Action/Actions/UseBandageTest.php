@@ -47,15 +47,15 @@ class UseBandageActionTest extends AbstractActionTest
             ->setEquipment($item)
             ->setHolder($room);
 
-        $this->eventService->shouldReceive('callEvent');
+        $this->eventService->shouldReceive('dispatch');
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent');
-        $this->eventService->shouldReceive('callEvent');
+        $this->eventService->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('dispatch');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

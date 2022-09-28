@@ -6,7 +6,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -28,18 +28,18 @@ class StatusSubscriber implements EventSubscriberInterface
     private EquipmentModifierService $gearModifierService;
     private ModifierServiceInterface $modifierService;
     private ModifierConditionService $modifierConditionService;
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EquipmentModifierService $gearModifierService,
         ModifierServiceInterface $modifierService,
         ModifierConditionService $modifierConditionService,
-        EventServiceInterface $eventService
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->gearModifierService = $gearModifierService;
         $this->modifierService = $modifierService;
         $this->modifierConditionService = $modifierConditionService;
-          $this->eventService = $eventService;
+          $this->eventService = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -87,7 +87,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 /** @var  */
                 $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getReason());
                 $event->setVisibility(VisibilityEnum::HIDDEN);
-                $this->eventService->callEvent($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+                $this->eventService->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
             }
         }
     }

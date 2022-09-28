@@ -11,7 +11,7 @@ use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierCondition;
 use Mush\Modifier\Entity\ModifierConfig;
@@ -21,7 +21,7 @@ use Mush\Place\Entity\Place;
 
 class DaedalusVariableEventCest
 {
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function _before(FunctionalTester $I)
     {
@@ -46,7 +46,7 @@ class DaedalusVariableEventCest
             EventEnum::NEW_CYCLE,
             new DateTime()
         );
-        $this->eventService->callEvent($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $I->assertEquals(30, $daedalus->getOxygen());
 
@@ -75,7 +75,7 @@ class DaedalusVariableEventCest
             'other_reason',
             new DateTime()
         );
-        $this->eventService->callEvent($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $I->assertEquals(28, $daedalus->getOxygen());
 
@@ -86,7 +86,7 @@ class DaedalusVariableEventCest
             EventEnum::NEW_CYCLE,
             new DateTime()
         );
-        $this->eventService->callEvent($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $I->assertEquals(27, $daedalus->getOxygen());
     }

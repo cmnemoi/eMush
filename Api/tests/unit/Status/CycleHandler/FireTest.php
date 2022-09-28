@@ -13,7 +13,7 @@ use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -30,7 +30,7 @@ class FireTest extends TestCase
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
     /** @var EventServiceInterface|Mockery\Mock */
-    private Mockery\Mock|EventServiceInterface $eventService;
+    private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
     /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
     /** @var DaedalusServiceInterface|Mockery\Mock */
@@ -99,7 +99,7 @@ class FireTest extends TestCase
         $this->daedalusService->shouldReceive('persist')->once();
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (PlayerVariableEvent $playerEvent, string $eventName) => (
                 intval($playerEvent->getQuantity()) === -2 &&
                 $eventName === AbstractQuantityEvent::CHANGE_VARIABLE &&
@@ -109,7 +109,7 @@ class FireTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (DaedalusModifierEvent $daedalusEvent, string $eventName) => (
                 $eventName === AbstractQuantityEvent::CHANGE_VARIABLE &&
                 $daedalusEvent->getModifiedVariable() === DaedalusVariableEnum::HULL

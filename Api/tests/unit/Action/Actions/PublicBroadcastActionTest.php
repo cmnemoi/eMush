@@ -69,7 +69,7 @@ class PublicBroadcastActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         // @TODO : fix me
-        // $this->eventService->shouldReceive('callEvent')->twice();
+        // $this->eventService->shouldReceive('dispatch')->twice();
 
         $result = $this->action->execute();
 

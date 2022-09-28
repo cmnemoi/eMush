@@ -61,7 +61,7 @@ class SelfHeal extends AbstractAction
             new \DateTime()
         );
         $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
-        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $healEvent = new ApplyEffectEvent(
             $this->player,
@@ -70,6 +70,6 @@ class SelfHeal extends AbstractAction
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventService->callEvent($healEvent, ApplyEffectEvent::HEAL);
+        $this->eventService->dispatch($healEvent, ApplyEffectEvent::HEAL);
     }
 }

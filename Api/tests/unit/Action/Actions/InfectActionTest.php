@@ -72,7 +72,7 @@ class InfectActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
         $this->statusService->shouldReceive('persist')->once();
         $this->statusService->shouldReceive('persist')->once();
 

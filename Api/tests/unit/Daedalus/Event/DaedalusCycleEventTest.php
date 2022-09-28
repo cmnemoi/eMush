@@ -11,7 +11,7 @@ use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
@@ -25,7 +25,7 @@ class DaedalusCycleEventTest extends TestCase
     /** @var DaedalusIncidentServiceInterface|Mockery\Mock */
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     private DaedalusCycleSubscriber $daedalusCycleSubscriber;
 
@@ -73,7 +73,7 @@ class DaedalusCycleEventTest extends TestCase
 
         $event = new DaedalusCycleEvent($daedalus, DaedalusEvent::END_DAEDALUS, $date);
 
-        $this->eventService->shouldReceive('callEvent')
+        $this->eventService->shouldReceive('dispatch')
             ->withArgs(fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::END_DAEDALUS))
             ->once();
 

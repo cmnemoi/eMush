@@ -8,7 +8,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\DoorEnum;
@@ -22,16 +22,16 @@ use Mush\Status\Event\StatusEvent;
 class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 {
     private RandomServiceInterface $randomService;
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
     private GameEquipmentRepository $gameEquipmentRepository;
 
     public function __construct(
         RandomServiceInterface $randomService,
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         GameEquipmentRepository $gameEquipmentRepository
     ) {
         $this->randomService = $randomService;
-          $this->eventService = $eventService;
+          $this->eventService = $eventDispatcher;
         $this->gameEquipmentRepository = $gameEquipmentRepository;
     }
 
@@ -52,7 +52,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                     EventEnum::NEW_CYCLE,
                     $date
                 );
-                $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+                $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }
 
@@ -77,7 +77,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                 EventEnum::NEW_CYCLE,
                 $date
             );
-            $this->eventService->callEvent($roomEvent, RoomEvent::TREMOR);
+            $this->eventService->dispatch($roomEvent, RoomEvent::TREMOR);
         }
 
         return $numberOfNewTremor;
@@ -98,7 +98,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                 EventEnum::NEW_CYCLE,
                 $date
             );
-            $this->eventService->callEvent($roomEvent, RoomEvent::ELECTRIC_ARC);
+            $this->eventService->dispatch($roomEvent, RoomEvent::ELECTRIC_ARC);
         }
 
         return $numberOfNewElectricArcs;
@@ -125,7 +125,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                         EventEnum::NEW_CYCLE,
                         new \DateTime()
                     );
-                    $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+                    $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
                 }
             }
         }
@@ -159,7 +159,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                         EventEnum::NEW_CYCLE,
                         new \DateTime()
                     );
-                    $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+                    $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
                 }
             }
         }
@@ -183,7 +183,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                         EventEnum::NEW_CYCLE,
                         $date
                     );
-                    $this->eventService->callEvent($playerEvent, PlayerEvent::PANIC_CRISIS);
+                    $this->eventService->dispatch($playerEvent, PlayerEvent::PANIC_CRISIS);
                 }
             }
 
@@ -209,7 +209,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                         EventEnum::NEW_CYCLE,
                         $date
                     );
-                    $this->eventService->callEvent($playerEvent, PlayerEvent::METAL_PLATE);
+                    $this->eventService->dispatch($playerEvent, PlayerEvent::METAL_PLATE);
                 }
             }
 
@@ -235,7 +235,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                         EventEnum::NEW_CYCLE,
                         $date
                     );
-                    $this->eventService->callEvent($playerEvent, PlayerEvent::CYCLE_DISEASE);
+                    $this->eventService->dispatch($playerEvent, PlayerEvent::CYCLE_DISEASE);
                 }
             }
 

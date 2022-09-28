@@ -7,21 +7,21 @@ use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
-        EventServiceInterface $eventService
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->eventService = $eventService;
+        $this->eventService = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -51,7 +51,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        $this->eventService->callEvent($event, EquipmentEvent::EQUIPMENT_DELETE);
+        $this->eventService->dispatch($event, EquipmentEvent::EQUIPMENT_DELETE);
     }
 
     public function onEquipmentDelete(EquipmentEvent $event) : void {
@@ -86,7 +86,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 new \DateTime()
             );
 
-            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::INVENTORY_OVERFLOW);
+            $this->eventService->dispatch($equipmentEvent, EquipmentEvent::INVENTORY_OVERFLOW);
         }
     }
 

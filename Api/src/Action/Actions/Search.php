@@ -11,7 +11,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\IsRoom;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -27,13 +27,13 @@ class Search extends AbstractAction
     private StatusServiceInterface $statusService;
 
     public function __construct(
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         StatusServiceInterface $statusService
     ) {
         parent::__construct(
-            $eventService,
+            $eventDispatcher,
             $actionService,
             $validator
         );
@@ -100,6 +100,6 @@ class Search extends AbstractAction
             new \DateTime()
         );
         $statusEvent->setStatusTarget($hiddenBy);
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
+        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
     }
 }

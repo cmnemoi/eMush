@@ -65,7 +65,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventService->shouldReceive('callEvent')->twice();
+        $this->eventService->shouldReceive('dispatch')->twice();
         // Success
         $result = $this->action->execute();
 
@@ -99,7 +99,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
         // Success
         $result = $this->action->execute();
 

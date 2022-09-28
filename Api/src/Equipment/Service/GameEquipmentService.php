@@ -20,7 +20,7 @@ use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -32,20 +32,20 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     private GameEquipmentRepository $repository;
     private EquipmentServiceInterface $equipmentService;
     private RandomServiceInterface $randomService;
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         GameEquipmentRepository $repository,
         EquipmentServiceInterface $equipmentService,
         RandomServiceInterface $randomService,
-        EventServiceInterface $eventService
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->equipmentService = $equipmentService;
         $this->randomService = $randomService;
-          $this->eventService = $eventService;
+          $this->eventService = $eventDispatcher;
     }
 
     public function persist(GameEquipment $equipment): GameEquipment
@@ -113,7 +113,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
         $equipmentEvent = new EquipmentInitEvent($gameEquipment, $equipmentConfig, $reason, $time);
 
-        $this->eventService->callEvent($equipmentEvent, EquipmentInitEvent::NEW_EQUIPMENT);
+        $this->eventService->dispatch($equipmentEvent, EquipmentInitEvent::NEW_EQUIPMENT);
 
         return $gameEquipment;
     }
@@ -147,7 +147,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             new \DateTime()
         );
 
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $gameEquipment;
     }
@@ -165,7 +165,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             new \DateTime()
         );
 
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $gameEquipment;
     }
@@ -186,7 +186,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
                 EventEnum::FIRE,
                 $date
             );
-            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+            $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
 
         if ($gameEquipment->getEquipment()->isFireBreakable() &&
@@ -200,7 +200,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
                 $date
             );
             $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
-            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+            $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
             $this->persist($gameEquipment);
         }

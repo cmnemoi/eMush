@@ -14,7 +14,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Event\RoomEvent;
@@ -33,7 +33,7 @@ class DaedalusIncidentServiceTest extends TestCase
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
     /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
     /** @var GameEquipmentRepository|Mockery\Mock */
     private GameEquipmentRepository $gameEquipmentRepository;
 
@@ -83,7 +83,7 @@ class DaedalusIncidentServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => (
                 $event->getStatusHolder() === $room1 &&
                 $event->getReason() === EventEnum::NEW_CYCLE &&
@@ -117,7 +117,7 @@ class DaedalusIncidentServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (RoomEvent $event) => $event->getPlace() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
             ->once()
         ;
@@ -147,7 +147,7 @@ class DaedalusIncidentServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (RoomEvent $event) => $event->getPlace() === $room1 && $event->getReason() === EventEnum::NEW_CYCLE)
             ->once()
         ;
@@ -184,7 +184,7 @@ class DaedalusIncidentServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => (
                 $event->getStatusHolder() === $equipment &&
                 $event->getStatusName() === EquipmentStatusEnum::BROKEN))
@@ -219,7 +219,7 @@ class DaedalusIncidentServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => (
                 $event->getStatusHolder() === $equipment &&
                 $event->getStatusName() === EquipmentStatusEnum::BROKEN))
@@ -261,7 +261,7 @@ class DaedalusIncidentServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => (
                 $event->getStatusHolder() === $equipment &&
                 $event->getStatusName() === EquipmentStatusEnum::BROKEN))
@@ -301,7 +301,7 @@ class DaedalusIncidentServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => (
                 $event->getStatusHolder() === $door &&
                 $event->getStatusName() === EquipmentStatusEnum::BROKEN))
@@ -328,7 +328,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $player->setGameStatus(GameStatusEnum::CURRENT);
         $daedalus->addPlayer($player);
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (PlayerEvent $event) => $event->getPlayer() === $player)
             ->once()
         ;
@@ -361,7 +361,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $daedalus->addPlayer($player);
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (PlayerEvent $event) => $event->getPlayer() === $player)
             ->once()
         ;
@@ -391,7 +391,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $player->setGameStatus(GameStatusEnum::CURRENT);
         $daedalus->addPlayer($player);
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (PlayerEvent $event) => $event->getPlayer() === $player)
             ->once()
         ;

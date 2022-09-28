@@ -46,7 +46,7 @@ class Extinguish extends AttemptAction
                 $this->getActionName(),
                 new \DateTime()
             );
-            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
+            $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
         }
     }
 }

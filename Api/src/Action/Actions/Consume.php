@@ -68,6 +68,6 @@ class Consume extends AbstractAction
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventService->callEvent($consumeEquipment, ApplyEffectEvent::CONSUME);
+        $this->eventService->dispatch($consumeEquipment, ApplyEffectEvent::CONSUME);
     }
 }

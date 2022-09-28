@@ -72,7 +72,7 @@ class HideActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) =>
                 $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::HIDDEN &&
@@ -82,7 +82,7 @@ class HideActionTest extends AbstractActionTest
             ->once()
         ;
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) =>
                 $event instanceof InteractWithEquipmentEvent &&
                 $event->getEquipment() === $gameItem &&

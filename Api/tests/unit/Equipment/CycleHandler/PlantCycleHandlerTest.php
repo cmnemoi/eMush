@@ -18,7 +18,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -37,7 +37,7 @@ class PlantCycleHandlerTest extends TestCase
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
     /** @var EventServiceInterface|Mockery\Mock */
-    private EventServiceInterface|Mockery\Mock $eventService;
+    private EventServiceInterface|Mockery\Mock $eventDispatcher;
     /** @var EquipmentEffectServiceInterface|Mockery\Mock */
     private EquipmentEffectServiceInterface|Mockery\Mock $equipmentEffectService;
 
@@ -162,12 +162,12 @@ class PlantCycleHandlerTest extends TestCase
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->eventService
-                ->shouldReceive('callEvent')
+                ->shouldReceive('dispatch')
                 ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::PLANT_DISEASED && $event->getStatusHolder() === $gamePlant)
                 ->once();
 
         $this->eventService
-                ->shouldReceive('callEvent')
+                ->shouldReceive('dispatch')
                 ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                     $event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG &&
                     $event->getStatusHolder() === $gamePlant)
@@ -258,19 +258,19 @@ class PlantCycleHandlerTest extends TestCase
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
         $this->gameEquipmentService->shouldReceive('persist');
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::PLANT_THIRSTY &&
                 $event->getStatusHolder() === $gamePlant)
             ->once()
         ;
 
-        $this->eventService->shouldReceive('callEvent')
+        $this->eventService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusModifierEvent &&
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10
             )->once();
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipment')->once();
 
         // Mature Plant, no problem
@@ -319,13 +319,13 @@ class PlantCycleHandlerTest extends TestCase
         $status = new Status($gamePlant, $thirstyConfig);
 
         $this->eventService
-            ->shouldReceive('callEvent')
+            ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::PLANT_DRY &&
                 $event->getStatusHolder() === $gamePlant)
             ->once();
 
-        $this->eventService->shouldReceive('callEvent')
+        $this->eventService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusModifierEvent &&
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10)
@@ -382,12 +382,12 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
 
-        $this->eventService->shouldReceive('callEvent')
+        $this->eventService->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
                 $event->getEquipment() === $gamePlant
             )->once()
         ;
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         // Dried out plant

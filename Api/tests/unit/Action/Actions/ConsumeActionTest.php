@@ -72,7 +72,7 @@ class ConsumeActionTest extends AbstractActionTest
         ;
 
         $this->playerService->shouldReceive('persist');
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $player = $this->createPlayer($daedalus, $room);
 

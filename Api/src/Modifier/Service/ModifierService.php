@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
@@ -26,18 +26,18 @@ class ModifierService implements ModifierServiceInterface
 {
     private const ATTEMPT_INCREASE = 1.25;
     private EntityManagerInterface $entityManager;
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
     private ModifierConditionServiceInterface $conditionService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         ModifierConditionServiceInterface $conditionService,
         RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
-          $this->eventService = $eventService;
+          $this->eventService = $eventDispatcher;
         $this->conditionService = $conditionService;
         $this->randomService = $randomService;
     }
@@ -211,7 +211,7 @@ class ModifierService implements ModifierServiceInterface
             $reason = $modifier->getModifierConfig()->getName() ?: $reason;
             $modifierEvent = new ModifierEvent($modifier, $reason, $time, $isSuccessful);
 
-            $this->eventService->callEvent($modifierEvent, ModifierEvent::APPLY_MODIFIER);
+            $this->eventService->dispatch($modifierEvent, ModifierEvent::APPLY_MODIFIER);
         }
     }
 

@@ -5,7 +5,7 @@ namespace Mush\Action\Service;
 use Mush\Action\Entity\Action;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Game\Service\EventServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
@@ -22,14 +22,14 @@ class ActionService implements ActionServiceInterface
     public const BASE_MOVEMENT_POINT_CONVERSION_GAIN = 2;
     public const BASE_MOVEMENT_POINT_CONVERSION_COST = 1;
 
-    private EventServiceInterface $eventService;
+    private EventDispatcherInterface $eventDispatcher;
     private ModifierServiceInterface $modifierService;
 
     public function __construct(
-        EventServiceInterface $eventService,
+        EventDispatcherInterface $eventDispatcher,
         ModifierServiceInterface $modifierService,
     ) {
-          $this->eventService = $eventService;
+          $this->eventService = $eventDispatcher;
         $this->modifierService = $modifierService;
     }
 
@@ -178,6 +178,6 @@ class ActionService implements ActionServiceInterface
         );
 
         $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
-        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 }

@@ -85,9 +85,13 @@ class PlantCycleHandlerTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
+        $place = new Place();
+        $place->setDaedalus($daedalus);
+
         $gamePlant = new GameItem();
         $gamePlant
-            ->setEquipment($plant);
+            ->setEquipment($plant)
+            ->setHolder($place);
 
         $chargeStatusConfig = new ChargeStatusConfig();
         $chargeStatusConfig->setName(EquipmentStatusEnum::PLANT_YOUNG);

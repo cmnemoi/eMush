@@ -197,9 +197,10 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
 
                 $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
                 if ($holder === null) {
+                    codecept_debug('c\'est pas bien');
                     return;
                 }
-
+                codecept_debug($holder->getClassName());
                 $this->modifierService->createModifier(
                     $modifierConfig,
                     $holder,

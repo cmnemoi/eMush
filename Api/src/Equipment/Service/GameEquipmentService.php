@@ -98,8 +98,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $gameEquipment->setHolder($holder->getPlace());
         }
 
-        $this->persist($gameEquipment);
-
         $gameEquipment = $this->initMechanics($gameEquipment, $holder->getPlace()->getDaedalus(), $reason);
 
         if ($equipmentConfig->isPersonal()) {
@@ -107,8 +105,9 @@ class GameEquipmentService implements GameEquipmentServiceInterface
                 throw new Error('holder should be a player');
             }
             $gameEquipment->setOwner($holder);
-            $this->persist($gameEquipment);
         }
+
+        $this->persist($gameEquipment);
 
         return $gameEquipment;
     }

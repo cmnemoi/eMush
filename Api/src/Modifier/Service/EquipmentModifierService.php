@@ -35,6 +35,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
             $player = null;
         }
 
+        codecept_debug("non");
         $this->createGearModifiers(
             $gameEquipment,
             ModifierReachEnum::getAllReaches(),
@@ -124,6 +125,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
             $gameEquipment,
             $player,
         );
+        codecept_debug("bonjour");
     }
 
     private function deleteGearModifiers(GameEquipment $gameEquipment, array $reaches, ?Player $player): void
@@ -191,7 +193,12 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         GameEquipment $gameEquipment,
         ?Player $player
     ): void {
+        /* @var ModifierConfig $modifierConfig */
         foreach ($modifiers as $modifierConfig) {
+            codecept_debug("alors");
+            codecept_debug($modifierConfig->getName());
+            codecept_debug($modifierConfig->getReach());
+
             if (in_array($modifierConfig->getReach(), $reaches)) {
                 $charge = $this->getChargeStatus($modifierConfig->getScope(), $gameEquipment);
 

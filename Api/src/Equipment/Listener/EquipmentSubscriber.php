@@ -42,6 +42,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 ['onEquipmentDelete'],
             ],
             EquipmentEvent::EQUIPMENT_TRANSFORM => [
+                ['initModifier', 1000],
                 ['checkInventoryOverflow', -1001],
                 ['onEquipmentDestroyed', -1000], // the equipment is deleted after every other effect has been applied
             ],

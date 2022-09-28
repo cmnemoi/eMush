@@ -91,24 +91,23 @@ class PlantCycleHandler extends AbstractCycleHandler
         }
     }
 
-    public function handleNewDay($object, $daedalus, \DateTime $dateTime): void
+    public function handleNewDay($object, \DateTime $dateTime): void
     {
-        /** @var GameItem $gamePlant */
-        $gamePlant = $object;
-
-        if (!$gamePlant instanceof GameEquipment) {
+        /** @var GameItem $plant */
+        $plant = $object;
+        if (!$plant instanceof GameEquipment) return;
+        try {
+            $daedalus = $plant->getPlace()->getDaedalus();
+        } catch (\LogicException) {
             return;
         }
 
-        $plantType = $gamePlant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
-
-        if (!$plantType instanceof Plant) {
-            return;
-        }
+        $plantType = $plant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
+        if (!$plantType instanceof Plant) return;
 
         $plantEffect = $this->equipmentEffectService->getPlantEffect($plantType, $daedalus);
 
-        $plantStatus = $gamePlant->getStatuses();
+        $plantStatus = $plant->getStatuses();
 
         // If plant is young, dried or diseased, do not produce oxygen
         if ($plantStatus->filter(
@@ -122,17 +121,17 @@ class PlantCycleHandler extends AbstractCycleHandler
             )
         )->isEmpty()
         ) {
-            $this->addOxygen($gamePlant, $plantEffect, $dateTime);
+            $this->addOxygen($plant, $plantEffect, $dateTime);
             if ($plantStatus->filter(fn (Status $status) => in_array(
                 $status->getName(),
                 [EquipmentStatusEnum::PLANT_THIRSTY]
             ))->isEmpty()
             ) {
-                $this->addFruit($gamePlant, $plantType, $dateTime);
+                $this->addFruit($plant, $plantType, $dateTime);
             }
         }
 
-        $this->handleStatus($gamePlant, $dateTime);
+        $this->handleStatus($plant, $dateTime);
     }
 
     private function handleStatus(GameItem $gamePlant, \DateTime $dateTime): void

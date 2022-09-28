@@ -97,6 +97,11 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getEquipment();
         $holder = $equipment->getHolder();
+
+        if ($holder === null) {
+            throw new \LogicException('no equipment holder');
+        }
+
         $gameConfig = $holder->getPlace()->getDaedalus()->getGameConfig();
 
         if ($holder instanceof Player && $holder->getEquipments()->count() > $gameConfig->getMaxItemInInventory()) {

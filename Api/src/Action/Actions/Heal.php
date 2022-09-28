@@ -61,6 +61,10 @@ class Heal extends AbstractAction
         /** @var Player $parameter */
         $parameter = $this->parameter;
 
+        if ($result->getQuantity() === null) {
+            throw new \LogicException('no healing quantity');
+        }
+
         $playerModifierEvent = new PlayerVariableEvent(
             $parameter,
             PlayerVariableEnum::HEALTH_POINT,

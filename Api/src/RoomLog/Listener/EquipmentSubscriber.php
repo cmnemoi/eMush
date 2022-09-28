@@ -81,6 +81,11 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public function onInventoryOverflow(EquipmentEvent $event): void
     {
         $holder = $event->getEquipment()->getHolder();
+
+        if ($holder === null) {
+            throw new \LogicException('item should have an holder on overflow');
+        }
+
         $gameConfig = $holder->getPlace()->getDaedalus()->getGameConfig();
         $equipment = $event->getEquipment();
 
@@ -94,10 +99,21 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     private function createEventLog(string $logKey, EquipmentEvent $event, string $visibility): void
     {
-        if ($event instanceof InteractWithEquipmentEvent && $event->getActor() instanceof Player) {
-            $player = $event->getActor();
-        } elseif ($event->isCreated() && $event->getEquipment()->getHolder() instanceof Player) {
-            $player = $event->getEquipment()->getHolder();
+        /* @var Player|null $player */
+        if ($event instanceof InteractWithEquipmentEvent) {
+            $actor = $event->getActor();
+            if ($actor instanceof Player) {
+                $player = $actor;
+            } else {
+                $player = null;
+            }
+        } elseif ($event->isCreated()) {
+            $holder = $event->getEquipment()->getHolder();
+            if ($holder instanceof Player) {
+                $player = $holder;
+            } else {
+                $player = null;
+            }
         } else {
             $player = null;
         }

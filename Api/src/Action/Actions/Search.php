@@ -86,13 +86,23 @@ class Search extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $hiddenItem = $result->getEquipment();
-
-        if ($hiddenItem === null) {
+        if ($result instanceof Fail) {
             return;
         }
 
-        $hiddenBy = $hiddenItem->getStatusByName(EquipmentStatusEnum::HIDDEN)->getTarget();
+        $hiddenItem = $result->getEquipment();
+
+        if ($hiddenItem === null) {
+            throw new \LogicException('action should have an hidden item');
+        }
+
+        $hiddenStatus = $hiddenItem->getStatusByName(EquipmentStatusEnum::HIDDEN);
+
+        if ($hiddenStatus === null) {
+            throw new \LogicException('item should have an hidden status');
+        }
+
+        $hiddenBy = $hiddenStatus->getTarget();
 
         $statusEvent = new StatusEvent(
             $hiddenItem->getName(),

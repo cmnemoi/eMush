@@ -12,14 +12,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class EquipmentSubscriber implements EventSubscriberInterface
 {
     private EquipmentModifierServiceInterface $gearModifierService;
-    private EquipmentModifierServiceInterface $equipmentModifierService;
 
     public function __construct(
-        EquipmentModifierServiceInterface $gearModifierService,
-        EquipmentModifierServiceInterface $equipmentModifierService
+        EquipmentModifierServiceInterface $gearModifierService
     ) {
         $this->gearModifierService = $gearModifierService;
-        $this->equipmentModifierService = $equipmentModifierService;
     }
 
     public static function getSubscribedEvents(): array
@@ -52,6 +49,11 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getEquipment();
         $holder = $equipment->getHolder();
+
+        if ($holder === null) {
+            throw new \LogicException('should have an holder on item overflow');
+        }
+
         $gameConfig = $holder->getPlace()->getDaedalus()->getGameConfig();
 
         if (

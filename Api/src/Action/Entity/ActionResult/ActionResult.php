@@ -3,6 +3,7 @@
 namespace Mush\Action\ActionResult;
 
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Enum\VisibilityEnum;
 
 abstract class ActionResult
 {
@@ -10,6 +11,7 @@ abstract class ActionResult
 
     private ?GameEquipment $equipment = null;
     private ?int $quantity = null;
+    private string $visibility = VisibilityEnum::HIDDEN;
 
     public function setEquipment(GameEquipment $equipment): self
     {
@@ -38,5 +40,17 @@ abstract class ActionResult
     public function getName(): string
     {
         return self::DEFAULT;
+    }
+
+    public function setVisibility(string $visibility): self
+    {
+        $this->visibility = $visibility;
+
+        return $this;
+    }
+
+    public function getVisibility(): string
+    {
+        return $this->visibility;
     }
 }

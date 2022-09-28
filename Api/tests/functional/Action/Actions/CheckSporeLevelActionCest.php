@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -80,6 +81,7 @@ class CheckSporeLevelActionCest
             ->setName(ActionEnum::CHECK_SPORE_LEVEL)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($actionCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
         $I->haveInRepository($action);
 

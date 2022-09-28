@@ -11,6 +11,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Game\Enum\VisibilityEnum;
 
 class ActionsFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -106,6 +108,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setActionCost($oneActionPointCost)
             ->setDirtyRate(0)
             ->setInjuryRate(10)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
 
         $manager->persist($updatingTalkie);
@@ -142,6 +145,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ActionEnum::HIDE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($oneActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
         ;
         $manager->persist($hideAction);
 
@@ -172,6 +176,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setInjuryRate(0)
             ->setDirtyRate(50)
             ->setActionCost($freeCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
         ;
 
         $manager->persist($rationConsumeAction);
@@ -183,6 +188,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setInjuryRate(0)
             ->setDirtyRate(0)
             ->setActionCost($freeCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
 
         $manager->persist($phagocyteAction);
@@ -194,6 +200,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setInjuryRate(0)
             ->setDirtyRate(10)
             ->setActionCost($freeCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
         ;
 
         $manager->persist($drugConsumeAction);
@@ -287,6 +294,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ActionEnum::USE_BANDAGE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($oneActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
 
         $manager->persist($bandageAction);
@@ -319,6 +327,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             // ->setTypes([ActionTypeEnum::ACTION_HEAL])
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($threeActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
 
         $manager->persist($selfHealAction);
@@ -367,6 +376,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
             ->setActionCost($oneActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
 
         $manager->persist($hyperfreezeAction);
@@ -394,6 +404,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ActionEnum::SHOWER)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($twoActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
 
         $manager->persist($showerAction);
@@ -403,6 +414,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ActionEnum::WASH_IN_SINK)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($threeActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
 
         $manager->persist($sinkAction);
@@ -413,7 +425,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
             ->setDirtyRate(50)
-            ->setActionCost($freeCost);
+            ->setActionCost($freeCost)
+        ;
 
         $manager->persist($fuelInjectAction);
 
@@ -423,7 +436,9 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(50)
             ->setInjuryRate(5)
-            ->setActionCost($freeCost);
+            ->setActionCost($freeCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
+        ;
 
         $manager->persist($retrieveFuelAction);
 
@@ -433,6 +448,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
             ->setActionCost($freeCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
 
         $manager->persist($oxygenInjectAction);
@@ -442,6 +458,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ActionEnum::RETRIEVE_OXYGEN)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($freeCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
         ;
 
         $manager->persist($retrieveOxygenAction);
@@ -512,6 +529,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(50)
             ->setActionCost($twoActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
 
         $manager->persist($treatPlantAction);
@@ -522,6 +540,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(50)
             ->setActionCost($oneActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
 
         $manager->persist($waterPlantAction);
@@ -584,6 +603,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setInjuryRate(0)
             ->setDirtyRate(0)
             ->setActionCost($freeCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
 
         $manager->persist($checkSporeLevelAction);
@@ -611,6 +631,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ActionEnum::REMOVE_SPORE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($oneActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
 
         $manager->persist($removeSporeAction);
@@ -662,6 +683,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost($threeActionPointCost)
             ->setDirtyRate(100)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
         ;
 
         $manager->persist($surgeryAction);
@@ -672,6 +694,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($fourActionPointCost)
             ->setDirtyRate(100)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
         ;
 
         $manager->persist($selfSurgeryAction);

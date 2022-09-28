@@ -10,6 +10,8 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Game\Enum\VisibilityEnum;
 
 class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -197,6 +199,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
             ->setInjuryRate(0)
             ->setSuccessRate(1)
             ->setActionCost($twoActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
         ;
 
         $manager->persist($sabotageAction1);
@@ -209,6 +212,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
             ->setInjuryRate(0)
             ->setSuccessRate(3)
             ->setActionCost($twoActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
         ;
 
         $manager->persist($sabotageAction3);
@@ -221,6 +225,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
             ->setInjuryRate(0)
             ->setSuccessRate(6)
             ->setActionCost($twoActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
         ;
 
         $manager->persist($sabotageAction6);
@@ -233,6 +238,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
             ->setInjuryRate(0)
             ->setSuccessRate(12)
             ->setActionCost($twoActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
         ;
 
         $manager->persist($sabotageAction12);
@@ -245,6 +251,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
             ->setInjuryRate(0)
             ->setSuccessRate(25)
             ->setActionCost($twoActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
         ;
 
         $manager->persist($sabotageAction25);
@@ -257,6 +264,7 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
             ->setInjuryRate(0)
             ->setSuccessRate(50)
             ->setActionCost($twoActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
 
         $manager->persist($sabotageAction50);

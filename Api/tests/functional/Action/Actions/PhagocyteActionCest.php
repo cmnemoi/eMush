@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -82,7 +83,8 @@ class PhagocyteActionCest
             ->setScope(ActionScopeEnum::SELF)
             ->setDirtyRate(0)
             ->setInjuryRate(0)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
         $I->haveInRepository($phagocyteActionEntity);
 
         $characterConfig->setActions(new ArrayCollection([$phagocyteActionEntity]));

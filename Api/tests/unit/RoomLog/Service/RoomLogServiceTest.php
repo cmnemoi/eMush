@@ -358,6 +358,7 @@ class RoomLogServiceTest extends TestCase
         $player->setCharacterConfig($characterConfig1)->setPlace($place);
 
         $actionResult = new Success();
+        $actionResult->setVisibility(VisibilityEnum::PUBLIC);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -389,6 +390,7 @@ class RoomLogServiceTest extends TestCase
         $player->setCharacterConfig($characterConfig1)->setPlace($place);
 
         $actionResult = new Fail();
+        $actionResult->setVisibility(VisibilityEnum::PRIVATE);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -424,6 +426,7 @@ class RoomLogServiceTest extends TestCase
         $gameEquipment->setName('equipment')->setEquipment($equipmentConfig);
 
         $actionResult = new Fail($gameEquipment);
+        $actionResult->setVisibility(VisibilityEnum::PRIVATE);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();

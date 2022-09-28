@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -82,6 +83,7 @@ class RemoveSporeActionCest
             ->setName(ActionEnum::REMOVE_SPORE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($actionCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
         $I->haveInRepository($action);
 

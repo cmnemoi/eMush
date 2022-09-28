@@ -168,7 +168,7 @@
             </segment>
             <segment id="description">
                 <source>hit.description</source>
-                <target>Engager la conversation de façon musclée. Cette action est **Agressive**. Elle peut subir des restrictions. </target>
+                <target>Engager la conversation de façon musclée.</target>
             </segment>
         </unit>
         <unit id="hyperfreeze">
@@ -178,7 +178,7 @@
             </segment>
             <segment id="description">
                 <source>hyperfreeze.description</source>
-                <target>Transforme une denrée perissable en une non-perissable.</target>
+                <target>Transforme une denrée périssable en une non-périssable.</target>
             </segment>
         </unit>
         <unit id="infect">
@@ -398,7 +398,7 @@
             </segment>
             <segment id="description">
                 <source>extinguish.description</source>
-                <target>Avec un peu d'adresse vous arriverez à vous débarasser du feu. Faites attention à ne pas vous brûler.</target>
+                <target>Avec un peu d'adresse, vous arriverez à vous débarrasser du feu. Faites attention à ne pas vous brûler.</target>
             </segment>
         </unit>
         <unit id="heal">
@@ -408,7 +408,7 @@
             </segment>
             <segment id="description">
                 <source>heal.description</source>
-                <target>Rend des Points de Vie ( :hp: ) à la cible. Si celle ci est malade, enlève un point de maladie à l'une de ses maladies.</target>
+                <target>Rend des Points de Vie ( :hp: ) à la cible. Si celle-ci est malade, enlève un point de maladie à l'une de ses maladies.</target>
             </segment>
         </unit>
         <unit id="self_heal">
@@ -428,7 +428,7 @@
             </segment>
             <segment id="description">
                 <source>ultraheal.description</source>
-                <target>Permet de guérir de se toutes ses blessures.</target>
+                <target>Permet de guérir de toutes ses blessures.</target>
             </segment>
         </unit>
         <unit id="use_bandage">
@@ -458,7 +458,7 @@
             </segment>
             <segment id="description">
                 <source>open.description</source>
-                <target>L'ouverture de capsule spatiale est un art délicat et plein de surprise. Pire, dans certains systèmes, l'ouverture délicate de ces précieux oeufs est considéré comme une drogue dure et peu vous faire rejeter au ban de la société.</target>
+                <target>L'ouverture de capsule spatiale est un art délicat et plein de surprise. Pire, dans certains systèmes, l'ouverture délicate de ces précieux œufs est considérée comme une drogue dure et peu vous faire rejeter au ban de la société.</target>
             </segment>
         </unit>
         <unit id="strengthen_hull">
@@ -468,7 +468,7 @@
             </segment>
             <segment id="description">
                 <source>strengthen_hull.description</source>
-                <target>Permet de faire des réparation sur la coque du Daedalus.</target>
+                <target>Permet de faire des réparations sur la coque du Daedalus.</target>
             </segment>
         </unit>
         <unit id="spread_fire">
@@ -558,7 +558,7 @@
             </segment>
             <segment id="description">
                 <source>public_broadcast.description</source>
-                <target>Rien de tel qu'un bon film Alien pour se remonter le moral. Par contre, personne ne parle le Twingon et on a pas les sous-titres.</target>
+                <target>Rien de tel qu'un bon film Alien pour se remonter le moral. Par contre, personne ne parle le Twingon et on n'a pas les sous-titres.</target>
             </segment>
         </unit>
         <unit id="extinguish_manually">
@@ -669,6 +669,36 @@
             <segment id="description">
                 <source>update_talkie.description</source>
                 <target>Génial, une nouvelle version du logiciel est disponible. Attention, l'installation peut durer quelques cycles et vous empêcher de communiquer avec le reste de l'équipage.</target>
+            </segment>
+        </unit>
+        <unit id="action_aggressive">
+            <segment id="name">
+                <source>action_aggressive.name</source>
+                <target>Action aggressive</target>
+            </segment>
+            <segment id="description">
+                <source>action_aggressive.description</source>
+                <target>Cette action est **Agressive**. Elle peut subir des restrictions.</target>
+            </segment>
+        </unit>
+        <unit id="covert">
+            <segment id="name">
+                <source>covert.name</source>
+                <target>Action furtive</target>
+            </segment>
+            <segment id="description">
+                <source>covert.description</source>
+                <target>Cette action est **Furtive**. Elle sera révélée par les Caméras.</target>
+            </segment>
+        </unit>
+        <unit id="secret">
+            <segment id="name">
+                <source>secret.name</source>
+                <target>Action discrète</target>
+            </segment>
+            <segment id="description">
+                <source>secret.description</source>
+                <target>Cette action est **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.</target>
             </segment>
         </unit>
     </file>

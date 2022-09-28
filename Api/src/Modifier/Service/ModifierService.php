@@ -118,12 +118,12 @@ class ModifierService implements ModifierServiceInterface
 
     private function getActionModifiers(Action $action, Player $player, ?LogParameterInterface $parameter): ModifierCollection
     {
-        $scopes = array_merge([$action->getName()], $action->getTypes(), [ModifierScopeEnum::ACTIONS]);
+        $scopes = array_merge([ModifierScopeEnum::ACTIONS, $action->getName()], $action->getTypes());
 
         $modifiers = $player->getAllModifiers()->getScopedModifiers($scopes);
 
         if ($parameter instanceof Player) {
-            $modifiers = $modifiers->addModifiers($parameter->getModifiers()->getScopedModifiers($scopes));
+            $modifiers = $modifiers->addModifiers($parameter->getModifiers()->getScopedModifiers($scopes)->getReachedModifiers(ModifierReachEnum::TARGET_PLAYER));
         } elseif ($parameter instanceof GameEquipment) {
             $modifiers = $modifiers->addModifiers($parameter->getModifiers()->getScopedModifiers($scopes));
         }

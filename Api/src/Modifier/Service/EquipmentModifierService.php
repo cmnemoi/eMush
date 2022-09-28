@@ -197,8 +197,16 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
 
                 $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
                 if ($holder === null) {
-                    codecept_debug("c'est pas bien");
                     return;
+                }
+
+                if ($modifierConfig->getReach() === ModifierReachEnum::DAEDALUS) {
+                    codecept_debug('modifier');
+                    codecept_debug($modifierConfig);
+                    codecept_debug('holder');
+                    codecept_debug($holder);
+                    codecept_debug('charge');
+                    codecept_debug($charge);
                 }
 
                 $this->modifierService->createModifier(

@@ -74,8 +74,8 @@ class EquipmentSubscriberCest
         $statusConfig
             ->setGameConfig($gameConfig)
             ->setName(EquipmentStatusEnum::BROKEN)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-        ;
+            ->setVisibility(VisibilityEnum::PUBLIC);
+
         $I->haveInRepository($statusConfig);
 
         $broken = new Status($gravitySimulator, $statusConfig);
@@ -94,6 +94,16 @@ class EquipmentSubscriberCest
 
         $I->haveInRepository($alertBroken);
 
+        $alertGravity = new Alert();
+        $alertGravity
+            ->setDaedalus($daedalus)
+            ->setName(AlertEnum::NO_GRAVITY)
+            ->addAlertElement($reportedAlert)
+        ;
+
+        $I->haveInRepository($alertGravity);
+
+        $I->seeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
         $I->seeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS]);
 
         $equipmentEvent = new EquipmentEvent(
@@ -105,6 +115,7 @@ class EquipmentSubscriberCest
         );
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
+        $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
         $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS]);
     }
 }

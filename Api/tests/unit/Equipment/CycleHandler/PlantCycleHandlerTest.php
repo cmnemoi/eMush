@@ -192,9 +192,13 @@ class PlantCycleHandlerTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
+        $place = new Place();
+        $place->setDaedalus($daedalus);
+
         $gamePlant = new GameItem();
         $gamePlant
-            ->setEquipment($plant);
+            ->setEquipment($plant)
+            ->setHolder($place);
 
         // Plant already diseased can't get disease
         $diseaseConfig = new StatusConfig();
@@ -266,11 +270,7 @@ class PlantCycleHandlerTest extends TestCase
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10
             )->once();
-        $this->eventService->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
-                $event->getEquipment()->getName() === $newFruit->getName()
-            )->once()
-        ;
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipment')->once();
 
         // Mature Plant, no problem
@@ -387,11 +387,7 @@ class PlantCycleHandlerTest extends TestCase
                 $event->getEquipment() === $gamePlant
             )->once()
         ;
-        $this->eventService->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
-                $event->getEquipment()->getName() === ItemEnum::HYDROPOT
-            )->once()
-        ;
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         // Dried out plant

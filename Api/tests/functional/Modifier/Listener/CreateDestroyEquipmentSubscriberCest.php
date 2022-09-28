@@ -419,6 +419,7 @@ class CreateDestroyEquipmentSubscriberCest
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($gear);
+
         $gear2 = new Gear();
         $gear2->setModifierConfigs(new ArrayCollection([$modifierConfig2]));
         $I->haveInRepository($gear2);

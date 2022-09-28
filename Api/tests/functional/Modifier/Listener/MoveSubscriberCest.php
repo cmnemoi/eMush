@@ -150,7 +150,7 @@ class MoveSubscriberCest
         $player->addEquipment($gameEquipment2);
         $I->refreshEntities($player);
 
-        // lets create a status with modifier with room reach on player
+        // let's create a status with modifier with room reach on player
         $modifier3 = new Modifier($room, $modifierConfig2);
         $I->haveInRepository($modifier3);
 
@@ -164,7 +164,7 @@ class MoveSubscriberCest
         $statusPlayer = new Status($player, $statusConfig);
         $I->haveInRepository($statusPlayer);
 
-        // lets create a status with modifier with room reach on equipment2
+        // let's create a status with modifier with room reach on equipment2
         $modifier4 = new Modifier($room, $modifierConfig2);
         $I->haveInRepository($modifier4);
 

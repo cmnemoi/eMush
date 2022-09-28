@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
@@ -133,18 +134,16 @@ class MoveSubscriberCest
         $gear2 = new Gear();
         $gear2->setModifierConfigs(new ArrayCollection([$modifierConfig2]));
         $I->haveInRepository($gear2);
-        /** @var EquipmentConfig $equipmentConfig2 */
-        $equipmentConfig2 = $I->have(EquipmentConfig::class, [
+        /** @var ItemConfig $equipmentConfig2 */
+        $equipmentConfig2 = $I->have(ItemConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear2]),
         ]);
 
-        $gameEquipment2 = new GameItem();
-        $gameEquipment2
-            ->setEquipment($equipmentConfig2)
-            ->setName('some name')
-            ->setHolder($player)
-        ;
+        $gameEquipment2 = $equipmentConfig2
+            ->createGameItem()
+            ->setHolder($player);
+
         $I->haveInRepository($gameEquipment2);
         $I->refreshEntities($player);
         $player->addEquipment($gameEquipment2);

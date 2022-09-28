@@ -26,7 +26,7 @@ class ActionSubscriber implements EventSubscriberInterface
     {
         return [
             ActionEvent::PRE_ACTION => 'onPreAction',
-            ActionEvent::RESULT_ACTION => 'onResultAction',
+            ActionEvent::POST_ACTION => 'onResultAction',
         ];
     }
 

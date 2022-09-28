@@ -100,6 +100,9 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
         $gameEquipment = $this->initMechanics($gameEquipment, $holder->getPlace()->getDaedalus(), $reason);
 
+        codecept_debug('hello');
+        codecept_debug($gameEquipment->getEquipment()->getMechanics());
+
         if ($equipmentConfig->isPersonal()) {
             if (!($holder instanceof Player)) {
                 throw new Error('holder should be a player');

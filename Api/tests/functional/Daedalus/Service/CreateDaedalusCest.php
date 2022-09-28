@@ -82,6 +82,7 @@ class CreateDaedalusCest
             ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
         ;
         $I->haveInRepository($gravityModifier);
+
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$gravityModifier]));
         $I->haveInRepository($gear);

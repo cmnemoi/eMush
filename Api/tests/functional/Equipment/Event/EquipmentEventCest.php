@@ -62,8 +62,7 @@ class EquipmentEventCest
         ]);
 
         $equipment = $itemConfig->createGameItem();
-        $equipment
-            ->setHolder($player);
+        $equipment->setHolder($player);
         $I->haveInRepository($equipment);
 
         $equipmentEvent = new EquipmentEvent(

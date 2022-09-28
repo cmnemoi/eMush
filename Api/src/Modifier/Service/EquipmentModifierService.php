@@ -136,8 +136,6 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
                     return;
                 }
 
-                codecept_debug('a');
-                codecept_debug($modifierConfig);
                 $this->modifierService->deleteModifier($modifierConfig, $holder);
             }
         }

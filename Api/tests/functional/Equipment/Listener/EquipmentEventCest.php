@@ -87,14 +87,18 @@ class EquipmentEventCest
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(1, $player->getEquipments());
 
-        $equipment3 = new GameItem();
-        $equipment3
+        /** @var EquipmentConfig $equipmentConfig */
+        $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'name' => 'item_name']);
+
+        $equipment = new GameItem();
+        $equipment
             ->setHolder($player)
+            ->setEquipment($equipmentConfig)
             ->setName('equipment_name');
 
         // Case of a game Item full inventory
         $equipmentEvent = new EquipmentEvent(
-            $equipment3,
+            $equipment,
             true,
             VisibilityEnum::PUBLIC,
             ActionEnum::DISASSEMBLE,

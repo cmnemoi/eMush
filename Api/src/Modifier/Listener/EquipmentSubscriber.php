@@ -72,7 +72,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $holder instanceof Player &&
             $holder->getEquipments()->count() > $gameConfig->getMaxItemInInventory()
         ) {
-            codecept_debug($equipment->getModifiers());
             $this->gearModifierService->dropEquipment($equipment, $holder);
         }
     }

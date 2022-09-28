@@ -181,13 +181,11 @@ class CreateDestroyEquipmentSubscriberCest
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($gear);
 
-        /** @var EquipmentConfig $equipmentConfig */
+        /** @var ItemConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
 
-        $equipment = new GameItem();
-        $equipment
-            ->setName($equipmentConfig->getName())
-            ->setEquipment($equipmentConfig)
+        $equipment = $equipmentConfig
+            ->createGameItem()
             ->setHolder($player);
         $I->haveInRepository($equipment);
 
@@ -430,7 +428,7 @@ class CreateDestroyEquipmentSubscriberCest
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
         ]);
-        /** @var ItemConfig $equipmentConfig */
+        /** @var ItemConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(ItemConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear2]),
@@ -438,20 +436,12 @@ class CreateDestroyEquipmentSubscriberCest
         ]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameItem();
-        $gameEquipment
-            ->setEquipment($equipmentConfig)
-            ->setName('some name')
-            ->setHolder($player)
-        ;
+        $gameEquipment = $equipmentConfig->createGameItem();
+        $gameEquipment->setHolder($player);
         $I->haveInRepository($gameEquipment);
 
-        $gameEquipment2 = new GameItem();
-        $gameEquipment2
-            ->setEquipment($equipmentConfig2)
-            ->setName('some name')
-            ->setHolder($player)
-        ;
+        $gameEquipment2 = $equipmentConfig2->createGameItem();
+        $gameEquipment2->setHolder($player);
         $I->haveInRepository($gameEquipment2);
 
         $equipmentEvent = new TransformEquipmentEvent(

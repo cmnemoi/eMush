@@ -178,7 +178,7 @@ class MoveSubscriberCest
         $this->moveAction->loadParameters($moveActionEntity, $player, $door);
         $this->moveAction->execute();
 
-        // lets check that every player and item is placed in the right place
+        // let's check that every player and item is placed in the right place
         $I->assertCount(0, $room->getPlayers());
         $I->assertCount(1, $room2->getPlayers());
         $I->assertCount(2, $player->getEquipments());

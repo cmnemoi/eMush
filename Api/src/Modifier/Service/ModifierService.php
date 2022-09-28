@@ -74,7 +74,6 @@ class ModifierService implements ModifierServiceInterface
         ModifierConfig $modifierConfig,
         ModifierHolder $holder,
     ): void {
-        codecept_debug($holder->getModifiers());
         $modifier = $holder->getModifiers()->getModifierFromConfig($modifierConfig);
         $this->delete($modifier);
     }

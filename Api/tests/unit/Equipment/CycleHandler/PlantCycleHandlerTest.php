@@ -267,7 +267,7 @@ class PlantCycleHandlerTest extends TestCase
                 $event->getEquipment()->getName() === $newFruit->getName()
             )->once()
         ;
-        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
+        $this->gameEquipmentService->shouldReceive('createGameEquipment')->once();
 
         // Mature Plant, no problem
         $this->plantCycleHandler->handleNewDay($gamePlant, $time);

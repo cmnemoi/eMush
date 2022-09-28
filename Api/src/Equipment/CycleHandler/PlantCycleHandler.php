@@ -55,6 +55,8 @@ class PlantCycleHandler extends AbstractCycleHandler
         if (!$plant instanceof GameEquipment) return;
         if ($plant->isDestroyed()) return;
 
+        $daedalus = $plant->getPlace()->getDaedalus();
+
         $plantType = $plant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
         if (!$plantType instanceof Plant) return;
 
@@ -93,6 +95,8 @@ class PlantCycleHandler extends AbstractCycleHandler
         $plant = $object;
         if (!$plant instanceof GameEquipment) return;
         if ($plant->isDestroyed()) return;
+
+        $daedalus = $plant->getPlace()->getDaedalus();
 
         $plantType = $plant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
         if (!$plantType instanceof Plant) return;

@@ -103,6 +103,8 @@ abstract class AbstractAction
 
         $result = $this->applyEffects();
 
+        $result->setVisibility($this->action->getVisibility($result->getName()));
+
         $resultActionEvent = new ActionEvent($this->action, $this->player, $parameter);
         $resultActionEvent->setActionResult($result);
         $this->eventDispatcher->dispatch($resultActionEvent, ActionEvent::RESULT_ACTION);

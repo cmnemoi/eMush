@@ -10,6 +10,8 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Game\Enum\VisibilityEnum;
 
 class MushActionFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -37,6 +39,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($twoActionPointCost)
             ->setDirtyRate(101)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
         ;
 
         $manager->persist($extractSporeAction);
@@ -47,6 +50,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
             ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost($oneActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT)
         ;
 
         $manager->persist($infectAction);
@@ -56,6 +60,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ActionEnum::SPREAD_FIRE)
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($fourActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
         ;
 
         $manager->persist($spreadFireAction);
@@ -66,6 +71,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
             ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost($oneActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT)
         ;
 
         $manager->persist($makeSickAction);
@@ -76,6 +82,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($oneActionPointCost)
             ->setDirtyRate(60)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
         ;
 
         $manager->persist($fakeDiseaseAction);
@@ -86,6 +93,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
             ->setActionCost($threeActionPointCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT)
         ;
 
         $manager->persist($screwTalkieAction);

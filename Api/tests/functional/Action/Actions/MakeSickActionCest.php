@@ -16,6 +16,7 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -55,7 +56,9 @@ class MakeSickActionCest
         $action
             ->setName(ActionEnum::MAKE_SICK)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT)
+        ;
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */

@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -50,7 +51,8 @@ class SelfHealCest
         $action
             ->setName(ActionEnum::SELF_HEAL)
             ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */

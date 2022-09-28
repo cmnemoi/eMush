@@ -79,13 +79,13 @@ class RoomLogService implements RoomLogServiceInterface
 
         $parameters = $this->getActionLogParameters($actionResult, $player, $actionParameter);
 
-        $visibility = $logData[ActionLogEnum::VISIBILITY];
+        $visibility = $actionResult->getVisibility();
         if ($actionParameter instanceof GameEquipment && $actionParameter->getEquipment()->isPersonal()) {
             $visibility = VisibilityEnum::PRIVATE;
         }
 
         return $this->createLog(
-            $logData[ActionLogEnum::VALUE],
+            $logData,
             $player->getPlace(),
             $visibility,
             'actions_log',

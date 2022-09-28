@@ -13,6 +13,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -82,6 +83,7 @@ class AutomaticGetUpCest
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
         $I->haveInRepository($actionCost);
         $I->haveInRepository($action);

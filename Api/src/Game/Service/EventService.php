@@ -18,13 +18,18 @@ class EventService implements EventServiceInterface
          $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function callEvent(Event $eventParameters, string $name, bool $executeNow = false) : void {
+    public function callEvent(Event $eventParameters, string $name, bool $cascade = false) : void {
         if ($this->cascade) {
             codecept_debug($name);
             $this->eventDispatcher->dispatch($eventParameters, $name);
         }
 
-        if (empty($this->tree)) {
+        if ($cascade) {
+            $this->cascade = true;
+            codecept_debug($name);
+            $this->eventDispatcher->dispatch($eventParameters, $name);
+            $this->cascade = false;
+        } else if (empty($this->tree)) {
             $this->tree = [[
                 'parameters' => $eventParameters,
                 'name' => $name,
@@ -41,11 +46,6 @@ class EventService implements EventServiceInterface
                     $this->tree = array_merge($this->tree[0]['next'], array_slice($this->tree, 1));
                 }
             }
-        } else if ($executeNow) {
-            $this->cascade = true;
-            codecept_debug($name);
-            $this->eventDispatcher->dispatch($eventParameters, $name);
-            $this->cascade = false;
         } else {
             $this->tree[0]['next'] = array_merge($this->tree[0]['next'], [[
                 'parameters' => $eventParameters,

@@ -78,7 +78,7 @@ class PlantCycleHandler extends AbstractCycleHandler
             );
             $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
+            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED, true);
         }
 
         $diseaseRate = $daedalus->getGameConfig()->getDifficultyConfig()->getPlantDiseaseRate();

@@ -93,7 +93,7 @@ class RemoveSpore extends AbstractAction
             new \DateTime()
         );
 
-        $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         if ($sporeStatus === null) {
             throw new Error('Player should have a spore status');

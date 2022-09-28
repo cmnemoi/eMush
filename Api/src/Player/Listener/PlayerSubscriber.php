@@ -29,7 +29,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         RandomServiceInterface $randomService
     ) {
         $this->playerService = $playerService;
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
         $this->modifierService = $modifierService;
         $this->randomService = $randomService;
     }
@@ -66,7 +66,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             EndCauseEnum::METAL_PLATE,
             $event->getTime()
         );
-        $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
     public function onPanicCrisis(PlayerEvent $event): void
@@ -84,7 +84,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             PlayerEvent::PANIC_CRISIS,
             $event->getTime()
         );
-        $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
 }

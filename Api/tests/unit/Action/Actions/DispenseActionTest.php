@@ -39,7 +39,7 @@ class DispenseActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
         $this->action = new Dispense(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -86,7 +86,7 @@ class DispenseActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('getRandomElements')->andReturn([GameDrugEnum::PHUXX])->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
-        $this->eventService->shouldReceive('dispatch')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $result = $this->action->execute();
 

@@ -29,7 +29,7 @@ class InsertFuelTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::INSERT_FUEL);
 
         $this->action = new InsertFuel(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
         );
@@ -73,8 +73,8 @@ class InsertFuelTest extends AbstractActionTest
         $gameTank->setEquipment($tank)->setName(EquipmentEnum::FUEL_TANK)->setHolder($room);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('dispatch')->once();
-        $this->eventService->shouldReceive('dispatch')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 

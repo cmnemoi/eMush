@@ -22,7 +22,7 @@ class PlaceService implements PlaceServiceInterface
         PlaceRepository $repository,
     ) {
         $this->entityManager = $entityManager;
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;
     }
 
@@ -56,7 +56,7 @@ class PlaceService implements PlaceServiceInterface
         $this->persist($room);
 
         $placeEvent = new PlaceInitEvent($room, $roomConfig, $reason, $time);
-        $this->eventService->dispatch($placeEvent, PlaceInitEvent::NEW_PLACE);
+        $this->eventDispatcher->dispatch($placeEvent, PlaceInitEvent::NEW_PLACE);
 
         return $room;
     }

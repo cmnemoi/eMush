@@ -100,6 +100,6 @@ class Search extends AbstractAction
             new \DateTime()
         );
         $statusEvent->setStatusTarget($hiddenBy);
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
     }
 }

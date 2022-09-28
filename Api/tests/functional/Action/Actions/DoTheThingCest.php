@@ -42,7 +42,7 @@ class DoTheThingCest
     public function _before(FunctionalTester $I)
     {
         $this->doTheThingAction = $I->grabService(DoTheThing::class);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
     }
 
     public function testDoTheThing(FunctionalTester $I)
@@ -182,7 +182,7 @@ class DoTheThingCest
         );
         $pregnantStatusEvent->setVisibility(VisibilityEnum::PRIVATE);
 
-        $this->eventService->dispatch($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),

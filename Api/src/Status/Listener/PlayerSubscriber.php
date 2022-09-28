@@ -22,7 +22,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         StatusServiceInterface $statusService,
         PlayerDiseaseServiceInterface $playerDiseaseService,
     ) {
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
         $this->statusService = $statusService;
         $this->playerDiseaseService = $playerDiseaseService;
     }
@@ -57,7 +57,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         // @TODO implement research modifiers
         if ($playerSpores->getCharge() >= 3) {
-            $this->eventService->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
         }
     }
 

@@ -79,7 +79,7 @@ class Infect extends AbstractAction
         $parameter = $this->parameter;
 
         $playerEvent = new PlayerEvent($parameter, $this->getActionName(), new \DateTime());
-        $this->eventService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         /** @var ChargeStatus $sporeStatus */
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);

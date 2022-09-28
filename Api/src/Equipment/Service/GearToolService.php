@@ -30,7 +30,7 @@ class GearToolService implements GearToolServiceInterface
         EventDispatcherInterface $eventDispatcher,
         StatusServiceInterface $statusService
     ) {
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
         $this->statusService = $statusService;
     }
 
@@ -157,7 +157,7 @@ class GearToolService implements GearToolServiceInterface
                     EventEnum::OUT_OF_CHARGE,
                     new \DateTime()
                 );
-                $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
         }
     }

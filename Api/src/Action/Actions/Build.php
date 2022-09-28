@@ -114,7 +114,7 @@ class Build extends AbstractAction
                     $time
                 );
 
-                $this->eventService->dispatch($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+                $this->eventDispatcher->dispatch($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
         }
 
@@ -125,7 +125,7 @@ class Build extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventService->dispatch($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         // Create the equipment
         $blueprintResult = $this->gameEquipmentService->createGameEquipment(
@@ -142,6 +142,6 @@ class Build extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
     }
 }

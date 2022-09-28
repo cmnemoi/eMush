@@ -27,7 +27,7 @@ use PHPUnit\Framework\TestCase;
 
 class GameEquipmentServiceTest extends TestCase
 {
-    /** @var EventServiceInterface|Mockery\Mock */
+    /** @var eventDispatcherInterface|Mockery\Mock */
     private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface|Mockery\Mock $entityManager;
@@ -46,7 +46,7 @@ class GameEquipmentServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
         $this->repository = Mockery::mock(GameEquipmentRepository::class);
         $this->equipmentService = Mockery::mock(EquipmentServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
@@ -56,7 +56,7 @@ class GameEquipmentServiceTest extends TestCase
             $this->repository,
             $this->equipmentService,
             $this->randomService,
-            $this->eventService,
+            $this->eventDispatcher,
         );
     }
 
@@ -80,7 +80,7 @@ class GameEquipmentServiceTest extends TestCase
             ->setName('some Name')
             ->setMechanics(new ArrayCollection([]));
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (EquipmentInitEvent $event) => (
                 $event->getEquipmentConfig() === $itemConfig)
@@ -113,7 +113,7 @@ class GameEquipmentServiceTest extends TestCase
             ->setMechanics(new ArrayCollection([]))
         ;
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (EquipmentInitEvent $event) => (
                 $event->getEquipmentConfig() === $equipmentConfig)
@@ -152,7 +152,7 @@ class GameEquipmentServiceTest extends TestCase
         $plantEffect = new PlantEffect();
         $plantEffect->setMaturationTime(8);
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => (
                 $event instanceof EquipmentInitEvent &&
@@ -169,7 +169,7 @@ class GameEquipmentServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => (
                 $event instanceof StatusEvent &&
@@ -198,7 +198,7 @@ class GameEquipmentServiceTest extends TestCase
             ->setMechanics(new ArrayCollection([$documentMechanic]))
         ;
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => (
                 $event instanceof EquipmentInitEvent &&
@@ -215,7 +215,7 @@ class GameEquipmentServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => (
                 $event instanceof StatusEvent &&

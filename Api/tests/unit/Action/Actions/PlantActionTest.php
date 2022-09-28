@@ -36,7 +36,7 @@ class PlantActionTest extends AbstractActionTest
         $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
 
         $this->action = new Transplant(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->gearToolService,
@@ -92,7 +92,7 @@ class PlantActionTest extends AbstractActionTest
 
         $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameHydropot]));
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('dispatch')->times(3);
+        $this->eventDispatcher->shouldReceive('dispatch')->times(3);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $result = $this->action->execute();

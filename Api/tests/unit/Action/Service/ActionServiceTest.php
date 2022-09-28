@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ActionServiceTest extends TestCase
 {
-    /** @var EventServiceInterface|Mockery\Mock */
+    /** @var eventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
     /** @var ModifierServiceInterface|Mockery\Mock */
     private ModifierServiceInterface $modifierService;
@@ -41,14 +41,14 @@ class ActionServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
 
         $this->actionService = Mockery::mock(ActionServiceInterface::class);
         $this->validator = Mockery::mock(ValidatorInterface::class);
 
         $this->service = new ActionService(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->modifierService,
         );
     }
@@ -90,7 +90,7 @@ class ActionServiceTest extends TestCase
             return fn (PlayerVariableEvent $event, string $eventName) => $event->getQuantity() === $delta && $eventName === $name;
         };
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
             ->once()
@@ -121,7 +121,7 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
             ->once()
@@ -152,7 +152,7 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
             ->once()
@@ -183,7 +183,7 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(
                 fn (PlayerVariableEvent $event, string $eventName) => (
@@ -218,7 +218,7 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs($eventDispatched(-3, AbstractQuantityEvent::CHANGE_VARIABLE))
             ->once()

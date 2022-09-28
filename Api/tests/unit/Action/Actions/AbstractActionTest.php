@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractActionTest extends TestCase
 {
-    /** @var EventServiceInterface|Mockery\Mock */
+    /** @var eventDispatcherInterface|Mockery\Mock */
     protected Mockery\Mock|EventDispatcherInterface $eventDispatcher;
 
     /** @var ActionServiceInterface|Mockery\Mock */
@@ -39,8 +39,8 @@ abstract class AbstractActionTest extends TestCase
      */
     public function before()
     {
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
-        $this->eventService
+        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof ActionEvent &&
                 $event->getAction() === $this->actionEntity

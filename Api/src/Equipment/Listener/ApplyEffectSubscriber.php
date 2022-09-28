@@ -33,7 +33,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         EquipmentEffectServiceInterface $equipmentServiceEffect
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
         $this->equipmentServiceEffect = $equipmentServiceEffect;
     }
 
@@ -76,7 +76,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             $consumeEvent->getReason(),
             new \DateTime()
         );
-        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 
     protected function dispatchConsumableEffects(ConsumableEffect $consumableEffect, Player $player, bool $isFrozen): void
@@ -89,7 +89,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 ActionEnum::CONSUME,
                 new \DateTime()
             );
-            $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
         if (($delta = $consumableEffect->getMovementPoint()) !== null) {
             $playerModifierEvent = new PlayerVariableEvent(
@@ -99,7 +99,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 ActionEnum::CONSUME,
                 new \DateTime()
             );
-            $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
         if (($delta = $consumableEffect->getHealthPoint()) !== null) {
             $playerModifierEvent = new PlayerVariableEvent(
@@ -109,7 +109,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 ActionEnum::CONSUME,
                 new \DateTime()
             );
-            $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
         if (($delta = $consumableEffect->getMoralPoint()) !== null &&
             !($isFrozen && $delta > 0)) {
@@ -120,7 +120,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 ActionEnum::CONSUME,
                 new \DateTime()
             );
-            $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
         if (($delta = $consumableEffect->getSatiety()) !== null) {
             $playerModifierEvent = new PlayerVariableEvent(
@@ -130,7 +130,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 ActionEnum::CONSUME,
                 new \DateTime()
             );
-            $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 
@@ -143,6 +143,6 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             ActionEnum::CONSUME,
             new \DateTime()
         );
-        $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 }

@@ -53,7 +53,7 @@ class StrengthenHull extends AttemptAction
             );
 
             $daedalusEvent->setPlayer($this->player);
-            $this->eventService->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
             $equipmentEvent = new InteractWithEquipmentEvent(
                 $parameter,
@@ -62,7 +62,7 @@ class StrengthenHull extends AttemptAction
                 $this->getActionName(),
                 $time
             );
-            $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
     }
 }

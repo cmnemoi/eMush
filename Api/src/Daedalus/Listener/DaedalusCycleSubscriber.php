@@ -32,7 +32,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     ) {
         $this->daedalusService = $daedalusService;
         $this->daedalusIncidentService = $daedalusIncidentService;
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -77,7 +77,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
                 EnumEndCauseEnum::KILLED_BY_NERON,
                 $time
             );
-            $this->eventService->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
+            $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
 
             return true;
         }
@@ -97,7 +97,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             EventEnum::NEW_CYCLE,
             $date
         );
-        $this->eventService->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         if ($daedalus->getOxygen() <= self::CYCLE_OXYGEN_LOSS) {
             $this->daedalusService->getRandomAsphyxia($daedalus, $date);
@@ -136,7 +136,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
                 EventEnum::NEW_CYCLE,
                 $time
             );
-            $this->eventService->dispatch($daedalusEvent, DaedalusEvent::FULL_DAEDALUS);
+            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::FULL_DAEDALUS);
         }
 
         if ($newDay) {
@@ -145,7 +145,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
                 EventEnum::NEW_DAY,
                 $time
             );
-            $this->eventService->dispatch($dayEvent, DaedalusCycleEvent::DAEDALUS_NEW_DAY);
+            $this->eventDispatcher->dispatch($dayEvent, DaedalusCycleEvent::DAEDALUS_NEW_DAY);
         }
     }
 }

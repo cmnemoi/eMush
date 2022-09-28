@@ -42,11 +42,11 @@ class GearToolServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->service = new GearToolService(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->statusService
         );
     }

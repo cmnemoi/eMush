@@ -15,7 +15,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     public function __construct(
         EventDispatcherInterface $eventDispatcher
     ) {
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -34,7 +34,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
                 $event->getReason(),
                 $event->getTime()
             );
-            $this->eventService->dispatch($newRoomCycle, PlaceCycleEvent::PLACE_NEW_CYCLE);
+            $this->eventDispatcher->dispatch($newRoomCycle, PlaceCycleEvent::PLACE_NEW_CYCLE);
         }
     }
 
@@ -49,7 +49,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
                 $event->getReason(),
                 $event->getTime()
             );
-            $this->eventService->dispatch($newRoomDay, PlaceCycleEvent::PLACE_NEW_DAY);
+            $this->eventDispatcher->dispatch($newRoomDay, PlaceCycleEvent::PLACE_NEW_DAY);
         }
     }
 }

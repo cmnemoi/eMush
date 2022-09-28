@@ -26,7 +26,7 @@ class RationCycleHandler extends AbstractCycleHandler
         EventDispatcherInterface $eventDispatcher,
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->eventService = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function handleNewCycle($object, \DateTime $dateTime): void
@@ -76,6 +76,6 @@ class RationCycleHandler extends AbstractCycleHandler
         }
 
         $statusEvent = new StatusEvent($nextStatus, $gameRation, EventEnum::NEW_DAY, new \DateTime());
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 }

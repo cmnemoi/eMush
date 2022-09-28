@@ -33,7 +33,7 @@ class BreakRepairEquipmentSubscriberCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
     }
 
     public function testRepairGearPlaceReach(FunctionalTester $I)
@@ -103,7 +103,7 @@ class BreakRepairEquipmentSubscriberCest
         );
         $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);
@@ -120,7 +120,7 @@ class BreakRepairEquipmentSubscriberCest
         );
         $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);

@@ -19,7 +19,7 @@ class PlayerStatusServiceTest extends TestCase
 {
     /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
-    /** @var EventServiceInterface|Mockery\Mock */
+    /** @var eventDispatcherInterface|Mockery\Mock */
     private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
 
     private PlayerStatusServiceInterface $playerStatusService;
@@ -30,9 +30,9 @@ class PlayerStatusServiceTest extends TestCase
     public function before()
     {
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
 
-        $this->playerStatusService = new PlayerStatusService($this->statusService, $this->eventService);
+        $this->playerStatusService = new PlayerStatusService($this->statusService, $this->eventDispatcher);
     }
 
     /**
@@ -78,7 +78,7 @@ class PlayerStatusServiceTest extends TestCase
         $player = new Player();
         $player->setMoralPoint(3);
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::DEMORALIZED && $event->getStatusHolder() === $player)
             ->once()
@@ -91,7 +91,7 @@ class PlayerStatusServiceTest extends TestCase
         $demoralizedConfig->setName(PlayerStatusEnum::DEMORALIZED);
         $demoralizedStatus = new Status($player, $demoralizedConfig);
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->never()
         ;
@@ -107,7 +107,7 @@ class PlayerStatusServiceTest extends TestCase
         $suicidalConfig->setName(PlayerStatusEnum::SUICIDAL);
         $suicidalStatus = new Status($player, $suicidalConfig);
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::DEMORALIZED && $event->getStatusHolder() === $player)
             ->once()
@@ -122,7 +122,7 @@ class PlayerStatusServiceTest extends TestCase
         $player = new Player();
         $player->setMoralPoint(1);
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::SUICIDAL && $event->getStatusHolder() === $player)
             ->once()
@@ -135,7 +135,7 @@ class PlayerStatusServiceTest extends TestCase
         $suicidalConfig->setName(PlayerStatusEnum::SUICIDAL);
         $suicidalStatus = new Status($player, $suicidalConfig);
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->never()
         ;
@@ -150,7 +150,7 @@ class PlayerStatusServiceTest extends TestCase
         $demoralizedConfig->setName(PlayerStatusEnum::DEMORALIZED);
         $demoralizedStatus = new Status($player, $demoralizedConfig);
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::SUICIDAL && $event->getStatusHolder() === $player)
             ->once()
@@ -194,7 +194,7 @@ class PlayerStatusServiceTest extends TestCase
             ->setPlace(new Place())
         ;
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING && $event->getStatusHolder() === $player)
             ->once()
@@ -207,7 +207,7 @@ class PlayerStatusServiceTest extends TestCase
         $starvingConfig->setName(PlayerStatusEnum::STARVING);
         $starvingStatus = new Status($player, $starvingConfig);
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->never()
         ;
@@ -227,7 +227,7 @@ class PlayerStatusServiceTest extends TestCase
             ->with($fullBellyStatus)
             ->once()
         ;
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING && $event->getStatusHolder() === $player)
             ->once()
@@ -240,7 +240,7 @@ class PlayerStatusServiceTest extends TestCase
         $player = new Player();
         $player->setSatiety(40);
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH && $event->getStatusHolder() === $player)
             ->once()
@@ -253,7 +253,7 @@ class PlayerStatusServiceTest extends TestCase
         $starvingConfig->setName(PlayerStatusEnum::STARVING);
         $starvingStatus = new Status($player, $starvingConfig);
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH && $event->getStatusHolder() === $player)
             ->once()
@@ -269,7 +269,7 @@ class PlayerStatusServiceTest extends TestCase
         $fullStomachConfig->setName(PlayerStatusEnum::FULL_STOMACH);
         $fullBellyStatus = new Status($player, $fullStomachConfig);
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->never()
         ;
@@ -286,7 +286,7 @@ class PlayerStatusServiceTest extends TestCase
         $mushConfig->setName(PlayerStatusEnum::MUSH);
         $mushStatus = new Status($player, $mushConfig);
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH && $event->getStatusHolder() === $player)
             ->once()
@@ -299,7 +299,7 @@ class PlayerStatusServiceTest extends TestCase
         $player->setSatiety(-26);
         $mushStatus = new Status($player, $mushConfig);
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->never()
         ;

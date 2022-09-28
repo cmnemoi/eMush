@@ -26,11 +26,11 @@ class PlayerModifierSubscriberTest extends TestCase
     public function before()
     {
         $this->playerVariableService = Mockery::mock(PlayerVariableServiceInterface::class);
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
 
         $this->playerModifierSubscriber = new PlayerModifierSubscriber(
             $this->playerVariableService,
-            $this->eventService,
+            $this->eventDispatcher,
         );
     }
 
@@ -148,7 +148,7 @@ class PlayerModifierSubscriberTest extends TestCase
             ->once()
         ;
 
-        $this->eventService->shouldReceive('dispatch')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $this->playerModifierSubscriber->onChangeVariable($event);
     }

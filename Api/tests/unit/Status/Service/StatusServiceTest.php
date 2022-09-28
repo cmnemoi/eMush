@@ -51,13 +51,13 @@ class StatusServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
         $this->repository = Mockery::mock(StatusRepository::class);
         $this->configRepository = Mockery::mock(StatusConfigRepository::class);
 
         $this->service = new StatusService(
             $this->entityManager,
-            $this->eventService,
+            $this->eventDispatcher,
             $this->repository,
             $this->configRepository
         );
@@ -174,7 +174,7 @@ class StatusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->eventService->shouldReceive('dispatch')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, 'reason', new \DateTime());
 
@@ -199,7 +199,7 @@ class StatusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->eventService->shouldReceive('dispatch')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, 'reason', new \DateTime());
 

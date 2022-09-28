@@ -49,7 +49,7 @@ class SymptomService implements SymptomServiceInterface
         ValidatorInterface $validator,
     ) {
         $this->actionService = $actionService;
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
         $this->playerDiseaseService = $playerDiseaseService;
         $this->playerService = $playerService;
         $this->randomService = $randomService;
@@ -158,7 +158,7 @@ class SymptomService implements SymptomServiceInterface
             $time
         );
 
-        $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
     private function handleBreakouts(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
@@ -186,7 +186,7 @@ class SymptomService implements SymptomServiceInterface
             $symptomConfig->getName(),
             $time
         );
-        $this->eventService->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
+        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
     }
 
     private function handleDirtiness(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
@@ -211,7 +211,7 @@ class SymptomService implements SymptomServiceInterface
             $time
         );
 
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
     private function handleDrooling(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
@@ -267,7 +267,7 @@ class SymptomService implements SymptomServiceInterface
             $time
         );
 
-        $this->eventService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
     }
 
     private function handleVomiting(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
@@ -306,7 +306,7 @@ class SymptomService implements SymptomServiceInterface
         }
 
         $hitAction = new Hit(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->randomService
@@ -336,7 +336,7 @@ class SymptomService implements SymptomServiceInterface
         })->first();
 
         $moveAction = new Move(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->playerService

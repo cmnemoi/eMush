@@ -13,7 +13,7 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
 
     public function __construct(EventDispatcherInterface $eventDispatcher)
     {
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -35,7 +35,7 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
                 $event->getReason(),
                 $event->getTime()
             );
-            $this->eventService->dispatch($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
+            $this->eventDispatcher->dispatch($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
         }
     }
 
@@ -50,7 +50,7 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
                 $event->getReason(),
                 $event->getTime()
             );
-            $this->eventService->dispatch($statusNewDay, StatusCycleEvent::STATUS_NEW_DAY);
+            $this->eventDispatcher->dispatch($statusNewDay, StatusCycleEvent::STATUS_NEW_DAY);
         }
     }
 }

@@ -204,7 +204,7 @@ class DoTheThing extends AbstractAction
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         if ($firstTimeStatus) {
             $player->removeStatus($firstTimeStatus);
@@ -220,7 +220,7 @@ class DoTheThing extends AbstractAction
             new \DateTime()
         );
 
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
     private function addPregnantStatus(Player $player, Player $parameter): void
@@ -235,7 +235,7 @@ class DoTheThing extends AbstractAction
         );
         $pregnantStatus->setVisibility(VisibilityEnum::PRIVATE);
 
-        $this->eventService->dispatch($pregnantStatus, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($pregnantStatus, StatusEvent::STATUS_APPLIED);
     }
 
     private function getPlayerStds(Player $player): PlayerDiseaseCollection
@@ -263,7 +263,7 @@ class DoTheThing extends AbstractAction
 
         if ($sporeStatus->getCharge() > 0) {
             $playerEvent = new PlayerEvent($target, $this->getActionName(), new \DateTime());
-            $this->eventService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
             $sporeStatus->addCharge(-1);
             $this->statusService->persist($sporeStatus);

@@ -32,7 +32,7 @@ class StatusSubscriberCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
     }
 
     public function testCommunicationCenterBreak(FunctionalTester $I)
@@ -126,7 +126,7 @@ class StatusSubscriberCest
             $time
         );
 
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertCount(1, $privateChannel->getMessages());
         $I->assertCount(1, $privateChannel->getParticipants());

@@ -75,6 +75,6 @@ class Coffee extends AbstractAction
             $this->getActionName(),
             $date
         );
-        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
     }
 }

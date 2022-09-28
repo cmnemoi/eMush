@@ -25,7 +25,7 @@ class DaedalusVariableEventCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
     }
 
     public function testChangeOxygenWithTanks(FunctionalTester $I)
@@ -46,7 +46,7 @@ class DaedalusVariableEventCest
             EventEnum::NEW_CYCLE,
             new DateTime()
         );
-        $this->eventService->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $I->assertEquals(30, $daedalus->getOxygen());
 
@@ -75,7 +75,7 @@ class DaedalusVariableEventCest
             'other_reason',
             new DateTime()
         );
-        $this->eventService->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $I->assertEquals(28, $daedalus->getOxygen());
 
@@ -86,7 +86,7 @@ class DaedalusVariableEventCest
             EventEnum::NEW_CYCLE,
             new DateTime()
         );
-        $this->eventService->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $I->assertEquals(27, $daedalus->getOxygen());
     }

@@ -71,7 +71,7 @@ abstract class RetrieveAction extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $daedalusEvent = new DaedalusModifierEvent(
             $this->player->getDaedalus(),
@@ -80,7 +80,7 @@ abstract class RetrieveAction extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventService->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
     protected abstract function getDaedalusVariable() : string;

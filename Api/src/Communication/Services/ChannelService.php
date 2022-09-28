@@ -39,7 +39,7 @@ class ChannelService implements ChannelServiceInterface
         $this->entityManager = $entityManager;
         $this->channelRepository = $channelRepository;
         $this->channelPlayerRepository = $channelPlayerRepository;
-         $this->eventService = $eventDispatcher;;
+         $this->eventDispatcher = $eventDispatcher;;
         $this->statusService = $statusService;
     }
 
@@ -79,7 +79,7 @@ class ChannelService implements ChannelServiceInterface
         $this->entityManager->flush();
 
         $event = new ChannelEvent($channel, CommunicationActionEnum::CREATE_CHANNEL, new \DateTime(), $player);
-        $this->eventService->dispatch($event, ChannelEvent::NEW_CHANNEL);
+        $this->eventDispatcher->dispatch($event, ChannelEvent::NEW_CHANNEL);
 
         return $channel;
     }
@@ -109,7 +109,7 @@ class ChannelService implements ChannelServiceInterface
     public function invitePlayer(Player $player, Channel $channel): Channel
     {
         $event = new ChannelEvent($channel, CommunicationActionEnum::INVITED, new \DateTime(), $player);
-        $this->eventService->dispatch($event, ChannelEvent::JOIN_CHANNEL);
+        $this->eventDispatcher->dispatch($event, ChannelEvent::JOIN_CHANNEL);
 
         return $channel;
     }
@@ -124,7 +124,7 @@ class ChannelService implements ChannelServiceInterface
             $time = new \DateTime();
         }
         $event = new ChannelEvent($channel, $reason, $time, $player);
-        $this->eventService->dispatch($event, ChannelEvent::EXIT_CHANNEL);
+        $this->eventDispatcher->dispatch($event, ChannelEvent::EXIT_CHANNEL);
 
         if ($reason === CommunicationActionEnum::EXIT) {
             $this->updatePrivateChannel($channel, CommunicationActionEnum::EXIT, $time);

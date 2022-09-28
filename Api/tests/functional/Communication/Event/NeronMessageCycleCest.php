@@ -30,7 +30,7 @@ class NeronMessageCycleCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
     }
 
     public function testNewFire(FunctionalTester $I)
@@ -130,7 +130,7 @@ class NeronMessageCycleCest
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus);
 
-        $this->eventService->dispatch($cycleEvent, StatusCycleEvent::STATUS_NEW_CYCLE);
+        $this->eventDispatcher->dispatch($cycleEvent, StatusCycleEvent::STATUS_NEW_CYCLE);
 
         $message = $I->grabEntityFromRepository(Message::class, ['message' => NeronMessageEnum::CYCLE_FAILURES]);
         $fireMessages = $channel->getMessages()->filter(fn (Message $message) => $message->getMessage() === NeronMessageEnum::NEW_FIRE);

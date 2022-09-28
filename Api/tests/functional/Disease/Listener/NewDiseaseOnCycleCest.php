@@ -29,7 +29,7 @@ class NewDiseaseOnCycleCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
     }
 
     public function testNewCycleDisease(FunctionalTester $I)
@@ -83,7 +83,7 @@ class NewDiseaseOnCycleCest
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventService->dispatch($playerEvent, PlayerEvent::CYCLE_DISEASE);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CYCLE_DISEASE);
 
         $I->seeInRepository(PlayerDisease::class, [
             'player' => $player->getId(),
@@ -149,7 +149,7 @@ class NewDiseaseOnCycleCest
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventService->dispatch($playerEvent, PlayerEvent::CYCLE_DISEASE);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CYCLE_DISEASE);
 
         $I->seeInRepository(PlayerDisease::class, [
             'player' => $player->getId(),

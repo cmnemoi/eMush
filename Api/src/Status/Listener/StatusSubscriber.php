@@ -23,7 +23,7 @@ class StatusSubscriber implements EventSubscriberInterface
         EventDispatcherInterface $eventDispatcher,
     ) {
         $this->statusService = $statusService;
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -74,7 +74,7 @@ class StatusSubscriber implements EventSubscriberInterface
                     $event->getReason(),
                     $event->getTime()
                 );
-                $this->eventService->dispatch($removeEvent, StatusEvent::STATUS_REMOVED);
+                $this->eventDispatcher->dispatch($removeEvent, StatusEvent::STATUS_REMOVED);
             }
         }
 

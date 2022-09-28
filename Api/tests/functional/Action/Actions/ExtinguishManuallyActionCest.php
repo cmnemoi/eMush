@@ -36,7 +36,7 @@ class ExtinguishManuallyActionCest
     public function _before(FunctionalTester $I)
     {
         $this->extinguishManually = $I->grabService(ExtinguishManually::class);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
     }
 
     public function testExtinguishManually(FunctionalTester $I)
@@ -77,7 +77,7 @@ class ExtinguishManuallyActionCest
 
         $statusEvent = new StatusEvent(StatusEnum::FIRE, $room, EventEnum::NEW_CYCLE, new DateTime());
 
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $actionCost = new ActionCost();
         $actionCost

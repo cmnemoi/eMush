@@ -5,7 +5,7 @@ namespace Mush\Game\Service;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
-class EventService implements EventServiceInterface
+class eventDispatcher implements eventDispatcherInterface
 {
 
     private array $tree = [];

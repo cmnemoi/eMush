@@ -84,7 +84,7 @@ class Transplant extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $equipmentEvent = new InteractWithEquipmentEvent(
             $parameter,
@@ -93,7 +93,7 @@ class Transplant extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $plant = $this->gameEquipmentService->createGameEquipmentFromName(
             $fruitType->getPlantName(),
@@ -109,6 +109,6 @@ class Transplant extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
     }
 }

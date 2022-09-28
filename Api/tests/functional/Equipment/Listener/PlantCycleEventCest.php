@@ -34,7 +34,7 @@ class PlantCycleEventCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
     }
 
     public function testPlantGrowing(FunctionalTester $I)
@@ -97,7 +97,7 @@ class PlantCycleEventCest
 
         $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::NEW_CYCLE, $time);
 
-        $this->eventService->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
 
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(1, $gameEquipment->getStatuses());
@@ -107,7 +107,7 @@ class PlantCycleEventCest
         $time = new DateTime();
         $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::NEW_CYCLE, $time);
 
-        $this->eventService->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
 
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(0, $room->getEquipments()->first()->getStatuses());
@@ -201,7 +201,7 @@ class PlantCycleEventCest
 
         $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::PLANT_PRODUCTION, $time);
 
-        $this->eventService->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
 
         $I->assertCount(2, $gameEquipment->getStatuses());
         $I->assertCount(1, $room->getEquipments());
@@ -222,7 +222,7 @@ class PlantCycleEventCest
 
         $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::PLANT_PRODUCTION, $time);
 
-        $this->eventService->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
 
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(1, $room->getEquipments());
@@ -239,7 +239,7 @@ class PlantCycleEventCest
         $time = new DateTime();
         $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::PLANT_PRODUCTION, $time);
 
-        $this->eventService->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
 
         $I->assertCount(2, $room->getEquipments());
         $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
@@ -282,7 +282,7 @@ class PlantCycleEventCest
             new DateTime()
         );
 
-        $this->eventService->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
+        $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
 
         $I->assertCount(0, $room2->getStatuses());
         $I->assertCount(1, $room2->getEquipments());

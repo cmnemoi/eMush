@@ -26,7 +26,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         EventDispatcherInterface $eventDispatcher,
         ModifierServiceInterface $modifierService
     ) {
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
         $this->modifierService = $modifierService;
     }
 
@@ -63,7 +63,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 
         $statusEvent = new StatusEvent(PlayerStatusEnum::DIRTY, $player, $action->getName(), new \DateTime());
         $statusEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
     private function handleInjury(Action $action, Player $player, \DateTime $date): void
@@ -92,6 +92,6 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             EndCauseEnum::CLUMSINESS,
             $dateTime
         );
-        $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 }

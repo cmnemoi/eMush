@@ -36,12 +36,12 @@ class DaedalusCycleEventTest extends TestCase
     {
         $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
         $this->daedalusIncidentService = Mockery::mock(DaedalusIncidentServiceInterface::class);
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
 
         $this->daedalusCycleSubscriber = new DaedalusCycleSubscriber(
             $this->daedalusService,
             $this->daedalusIncidentService,
-            $this->eventService
+            $this->eventDispatcher
         );
     }
 
@@ -73,7 +73,7 @@ class DaedalusCycleEventTest extends TestCase
 
         $event = new DaedalusCycleEvent($daedalus, DaedalusEvent::END_DAEDALUS, $date);
 
-        $this->eventService->shouldReceive('dispatch')
+        $this->eventDispatcher->shouldReceive('dispatch')
             ->withArgs(fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::END_DAEDALUS))
             ->once();
 

@@ -79,7 +79,7 @@ class UltraHeal extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventService->dispatch($healEvent, ApplyEffectEvent::HEAL);
+        $this->eventDispatcher->dispatch($healEvent, ApplyEffectEvent::HEAL);
 
         $equipmentEvent = new InteractWithEquipmentEvent(
             $parameter,
@@ -88,6 +88,6 @@ class UltraHeal extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 }

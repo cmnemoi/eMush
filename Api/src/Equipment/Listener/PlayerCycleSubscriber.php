@@ -14,7 +14,7 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
 
     public function __construct(EventDispatcherInterface $eventDispatcher, PlayerServiceInterface $playerService)
     {
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -36,7 +36,7 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
                 $event->getReason(),
                 $event->getTime()
             );
-            $this->eventService->dispatch($itemNewCycle, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
+            $this->eventDispatcher->dispatch($itemNewCycle, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
         }
     }
 
@@ -51,7 +51,7 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
                 $event->getReason(),
                 $event->getTime()
             );
-            $this->eventService->dispatch($itemNewDay, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
+            $this->eventDispatcher->dispatch($itemNewDay, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
         }
     }
 }

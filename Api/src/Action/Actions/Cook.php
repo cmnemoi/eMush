@@ -78,7 +78,7 @@ class Cook extends AbstractAction
                 $time
             );
 
-            $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
         } else if ($parameter->getStatusByName(EquipmentStatusEnum::FROZEN)) {
             $statusEvent = new StatusEvent(
                 EquipmentStatusEnum::FROZEN,
@@ -87,7 +87,7 @@ class Cook extends AbstractAction
                 $time
             );
 
-            $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
         }
     }
 }

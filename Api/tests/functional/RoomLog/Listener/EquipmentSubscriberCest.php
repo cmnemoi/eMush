@@ -24,7 +24,7 @@ class EquipmentSubscriberCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
     }
 
     public function testCreateNewFruit(FunctionalTester $I)
@@ -59,7 +59,7 @@ class EquipmentSubscriberCest
             EventEnum::PLANT_PRODUCTION,
             new \DateTime()
         );
-        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(0, $player->getEquipments());

@@ -143,7 +143,7 @@ class SelfSurgery extends AbstractAction
             new \DateTime()
         );
 
-        $this->eventService->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_CURE_INJURY);
+        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_CURE_INJURY);
     }
 
     private function failedSurgery(): void
@@ -155,6 +155,6 @@ class SelfSurgery extends AbstractAction
             ActionEnum::SURGERY,
             new \DateTime()
         );
-        $this->eventService->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
+        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
     }
 }

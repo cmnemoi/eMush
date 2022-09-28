@@ -155,7 +155,7 @@ class Surgery extends AbstractAction
             $time
         );
 
-        $this->eventService->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_CURE_INJURY);
+        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_CURE_INJURY);
     }
 
     private function failedSurgery(Player $targetPlayer, \DateTime $time): ActionResult
@@ -167,7 +167,7 @@ class Surgery extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventService->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
+        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
 
         return new Fail();
     }

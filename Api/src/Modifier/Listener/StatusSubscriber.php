@@ -39,7 +39,7 @@ class StatusSubscriber implements EventSubscriberInterface
         $this->gearModifierService = $gearModifierService;
         $this->modifierService = $modifierService;
         $this->modifierConditionService = $modifierConditionService;
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -87,7 +87,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 /** @var  */
                 $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getReason());
                 $event->setVisibility(VisibilityEnum::HIDDEN);
-                $this->eventService->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+                $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
             }
         }
     }

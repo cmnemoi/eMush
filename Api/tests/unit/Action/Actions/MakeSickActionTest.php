@@ -23,7 +23,7 @@ class MakeSickActionTest extends AbstractActionTest
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->action = new Heal(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
         );
@@ -41,7 +41,7 @@ class MakeSickActionTest extends AbstractActionTest
     {
         $room = new Place();
 
-        $this->eventService->shouldReceive('dispatch');
+        $this->eventDispatcher->shouldReceive('dispatch');
 
         $player = $this->createPlayer(new Daedalus(), $room);
         $playerTarget = $this->createPlayer(new Daedalus(), $room);
@@ -49,7 +49,7 @@ class MakeSickActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $playerTarget);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('dispatch');
+        $this->eventDispatcher->shouldReceive('dispatch');
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

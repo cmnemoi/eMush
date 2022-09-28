@@ -27,7 +27,7 @@ class FlirtActionTest extends AbstractActionTest
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Flirt(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->playerService,

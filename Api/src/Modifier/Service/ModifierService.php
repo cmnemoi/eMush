@@ -37,7 +37,7 @@ class ModifierService implements ModifierServiceInterface
         RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
         $this->conditionService = $conditionService;
         $this->randomService = $randomService;
     }
@@ -211,7 +211,7 @@ class ModifierService implements ModifierServiceInterface
             $reason = $modifier->getModifierConfig()->getName() ?: $reason;
             $modifierEvent = new ModifierEvent($modifier, $reason, $time, $isSuccessful);
 
-            $this->eventService->dispatch($modifierEvent, ModifierEvent::APPLY_MODIFIER);
+            $this->eventDispatcher->dispatch($modifierEvent, ModifierEvent::APPLY_MODIFIER);
         }
     }
 

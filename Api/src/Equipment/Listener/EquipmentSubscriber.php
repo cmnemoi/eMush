@@ -21,7 +21,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->eventService = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -51,7 +51,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        $this->eventService->dispatch($event, EquipmentEvent::EQUIPMENT_DELETE);
+        $this->eventDispatcher->dispatch($event, EquipmentEvent::EQUIPMENT_DELETE);
     }
 
     public function onEquipmentDelete(EquipmentEvent $event) : void {
@@ -86,7 +86,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 new \DateTime()
             );
 
-            $this->eventService->dispatch($equipmentEvent, EquipmentEvent::INVENTORY_OVERFLOW);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::INVENTORY_OVERFLOW);
         }
     }
 

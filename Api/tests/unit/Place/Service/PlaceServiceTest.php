@@ -38,12 +38,12 @@ class PlaceServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
         $this->repository = Mockery::mock(PlaceRepository::class);
 
         $this->placeService = new PlaceService(
             $this->entityManager,
-            $this->eventService,
+            $this->eventDispatcher,
             $this->repository,
         );
     }
@@ -74,7 +74,7 @@ class PlaceServiceTest extends TestCase
 
         $roomConfig = $this->createRoomConfig('bridge', $daedalusConfig);
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (PlaceInitEvent $event) => (
                 $event->getPlaceConfig() === $roomConfig)

@@ -36,7 +36,7 @@ class RetrieveFuelTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_FUEL, -1);
 
         $this->action = new RetrieveFuel(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService
@@ -82,7 +82,7 @@ class RetrieveFuelTest extends AbstractActionTest
         $gameTank->setEquipment($tank)->setName(EquipmentEnum::FUEL_TANK)->setHolder($room);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('dispatch')->twice();
+        $this->eventDispatcher->shouldReceive('dispatch')->twice();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameTank);

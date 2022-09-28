@@ -19,7 +19,7 @@ class RoomSubscriber implements EventSubscriberInterface
     public function __construct(
         EventDispatcherInterface $eventDispatcher
     ) {
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -49,7 +49,7 @@ class RoomSubscriber implements EventSubscriberInterface
                     $event->getTime()
                 );
                 $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
-                $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+                $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }
     }

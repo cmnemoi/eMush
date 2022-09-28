@@ -34,7 +34,7 @@ class ShowerActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::SHOWER, 2);
 
         $this->action = new Shower(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
             $this->playerService,

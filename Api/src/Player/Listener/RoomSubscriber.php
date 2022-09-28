@@ -22,7 +22,7 @@ class RoomSubscriber implements EventSubscriberInterface
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->randomService = $randomService;
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -52,7 +52,7 @@ class RoomSubscriber implements EventSubscriberInterface
                 EndCauseEnum::INJURY,
                 $event->getTime()
             );
-            $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 
@@ -75,7 +75,7 @@ class RoomSubscriber implements EventSubscriberInterface
                 EndCauseEnum::ELECTROCUTED,
                 $event->getTime()
             );
-            $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 }

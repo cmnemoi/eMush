@@ -43,6 +43,6 @@ class SpreadFire extends AbstractAction
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 }

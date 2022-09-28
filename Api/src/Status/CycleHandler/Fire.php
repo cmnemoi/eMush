@@ -37,7 +37,7 @@ class Fire extends AbstractStatusCycleHandler
         DaedalusServiceInterface $daedalusService
     ) {
         $this->randomService = $randomService;
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->daedalusService = $daedalusService;
     }
@@ -76,7 +76,7 @@ class Fire extends AbstractStatusCycleHandler
                     RoomEventEnum::PROPAGATING_FIRE,
                     $date
                 );
-                $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+                $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }
 
@@ -97,7 +97,7 @@ class Fire extends AbstractStatusCycleHandler
                 EndCauseEnum::BURNT,
                 $date
             );
-            $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
 
         foreach ($room->getEquipments() as $equipment) {
@@ -115,7 +115,7 @@ class Fire extends AbstractStatusCycleHandler
                 $date
             );
 
-            $this->eventService->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
             $this->daedalusService->persist($room->getDaedalus());
         }

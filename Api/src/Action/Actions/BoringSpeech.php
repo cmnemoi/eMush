@@ -66,7 +66,7 @@ class BoringSpeech extends AbstractSpeech
             new \DateTime()
         );
 
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         parent::applyEffect($result);
     }

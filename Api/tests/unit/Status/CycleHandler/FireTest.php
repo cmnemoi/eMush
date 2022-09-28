@@ -29,7 +29,7 @@ class FireTest extends TestCase
 {
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
-    /** @var EventServiceInterface|Mockery\Mock */
+    /** @var eventDispatcherInterface|Mockery\Mock */
     private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
     /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
@@ -43,13 +43,13 @@ class FireTest extends TestCase
     public function before()
     {
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
 
         $this->cycleHandler = new Fire(
             $this->randomService,
-            $this->eventService,
+            $this->eventDispatcher,
             $this->gameEquipmentService,
             $this->daedalusService
         );
@@ -98,7 +98,7 @@ class FireTest extends TestCase
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaArray')->andReturn(2)->twice();
         $this->daedalusService->shouldReceive('persist')->once();
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (PlayerVariableEvent $playerEvent, string $eventName) => (
                 intval($playerEvent->getQuantity()) === -2 &&
@@ -108,7 +108,7 @@ class FireTest extends TestCase
             ->once()
         ;
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (DaedalusModifierEvent $daedalusEvent, string $eventName) => (
                 $eventName === AbstractQuantityEvent::CHANGE_VARIABLE &&

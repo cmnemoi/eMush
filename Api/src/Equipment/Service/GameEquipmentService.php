@@ -45,7 +45,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         $this->repository = $repository;
         $this->equipmentService = $equipmentService;
         $this->randomService = $randomService;
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
     }
 
     public function persist(GameEquipment $equipment): GameEquipment
@@ -113,7 +113,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
         $equipmentEvent = new EquipmentInitEvent($gameEquipment, $equipmentConfig, $reason, $time);
 
-        $this->eventService->dispatch($equipmentEvent, EquipmentInitEvent::NEW_EQUIPMENT);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentInitEvent::NEW_EQUIPMENT);
 
         return $gameEquipment;
     }
@@ -147,7 +147,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             new \DateTime()
         );
 
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $gameEquipment;
     }
@@ -165,7 +165,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             new \DateTime()
         );
 
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $gameEquipment;
     }
@@ -186,7 +186,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
                 EventEnum::FIRE,
                 $date
             );
-            $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
 
         if ($gameEquipment->getEquipment()->isFireBreakable() &&
@@ -200,7 +200,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
                 $date
             );
             $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
-            $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
             $this->persist($gameEquipment);
         }

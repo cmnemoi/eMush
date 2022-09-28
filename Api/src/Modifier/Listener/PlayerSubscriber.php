@@ -21,7 +21,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->modifierService = $modifierService;
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -49,7 +49,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         foreach ($eventModifiers as $modifier) {
             $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getReason());
 
-            $this->eventService->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 

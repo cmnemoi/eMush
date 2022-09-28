@@ -77,7 +77,7 @@ class Hyperfreeze extends AbstractAction
                 $this->getActionName(),
                 $time
             );
-            $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
 
         } else {
             $statusEvent = new StatusEvent(
@@ -86,7 +86,7 @@ class Hyperfreeze extends AbstractAction
                 $this->getActionName(),
                 $time
             );
-            $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         }
     }
 }

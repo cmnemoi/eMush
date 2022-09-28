@@ -26,7 +26,7 @@ class AddBrokenStatusEventCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
     }
 
     public function testDispatchEquipmentBroken(FunctionalTester $I)
@@ -78,7 +78,7 @@ class AddBrokenStatusEventCest
         );
         $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(1, $room->getEquipments()->first()->getStatuses());

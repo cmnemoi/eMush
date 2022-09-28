@@ -28,7 +28,7 @@ class CycleEventCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
     }
 
     public function testOxygenCycleSubscriber(FunctionalTester $I)
@@ -87,7 +87,7 @@ class CycleEventCest
         );
 
         $event = new DaedalusCycleEvent($daedalus, EventEnum::NEW_CYCLE, new DateTime());
-        $this->eventService->dispatch($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $this->eventDispatcher->dispatch($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         $I->assertEquals(0, $daedalus->getOxygen());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerAlive());

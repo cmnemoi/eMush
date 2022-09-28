@@ -50,6 +50,6 @@ class Shred extends AbstractAction
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 }

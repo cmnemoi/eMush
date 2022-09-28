@@ -29,7 +29,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
         EventDispatcherInterface $eventDispatcher,
         ModifierConditionService $modifierConditionService,
     ) {
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
         $this->modifierConditionService = $modifierConditionService;
     }
 
@@ -60,7 +60,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
         foreach ($cycleModifiers as $modifier) {
             $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
 
-            $this->eventService->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 
@@ -76,7 +76,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
         foreach ($cycleModifiers as $modifier) {
             $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
 
-            $this->eventService->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 
@@ -92,7 +92,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
         foreach ($modifiers as $modifier) {
             $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
 
-            $this->eventService->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 

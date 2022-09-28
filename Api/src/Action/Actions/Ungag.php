@@ -46,6 +46,6 @@ class Ungag extends AbstractAction
     {
         $statusEvent = new StatusEvent(PlayerStatusEnum::GAGGED, $this->player, $this->getActionName(), new \DateTime());
 
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
     }
 }

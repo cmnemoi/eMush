@@ -29,7 +29,7 @@ class ActionService implements ActionServiceInterface
         EventDispatcherInterface $eventDispatcher,
         ModifierServiceInterface $modifierService,
     ) {
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
         $this->modifierService = $modifierService;
     }
 
@@ -178,6 +178,6 @@ class ActionService implements ActionServiceInterface
         );
 
         $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
-        $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 }

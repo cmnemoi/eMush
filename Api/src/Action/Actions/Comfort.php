@@ -58,6 +58,6 @@ class Comfort extends AbstractAction
             $this->getActionName(),
             new \DateTime(),
         );
-        $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 }

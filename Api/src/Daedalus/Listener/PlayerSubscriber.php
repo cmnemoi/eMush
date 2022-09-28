@@ -16,7 +16,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function __construct(
         EventDispatcherInterface $eventDispatcher
     ) {
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents()
@@ -38,14 +38,14 @@ class PlayerSubscriber implements EventSubscriberInterface
                 $event->getReason(),
                 $event->getTime()
             );
-            $this->eventService->dispatch($fullDaedalusEvent, DaedalusEvent::FULL_DAEDALUS);
+            $this->eventDispatcher->dispatch($fullDaedalusEvent, DaedalusEvent::FULL_DAEDALUS);
         } else if ($daedalus->getPlayers()->count() === 1) {
             $startDaedalusEvent = new DaedalusEvent(
                 $daedalus,
                 $event->getReason(),
                 $event->getTime()
             );
-            $this->eventService->dispatch($startDaedalusEvent, DaedalusEvent::START_DAEDALUS);
+            $this->eventDispatcher->dispatch($startDaedalusEvent, DaedalusEvent::START_DAEDALUS);
         }
     }
 
@@ -64,7 +64,7 @@ class PlayerSubscriber implements EventSubscriberInterface
                 $event->getTime()
             );
 
-            $this->eventService->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
+            $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
         }
     }
 }

@@ -37,7 +37,7 @@ abstract class AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator
     ) {
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
         $this->actionService = $actionService;
         $this->validator = $validator;
     }
@@ -97,7 +97,7 @@ abstract class AbstractAction
         $parameter = $this->getParameter();
 
         $preActionEvent = new ActionEvent($this->action, $this->player, $parameter);
-        $this->eventService->dispatch($preActionEvent, ActionEvent::PRE_ACTION);
+        $this->eventDispatcher->dispatch($preActionEvent, ActionEvent::PRE_ACTION);
 
         $this->actionService->applyCostToPlayer($this->player, $this->action, $this->parameter);
 
@@ -105,13 +105,13 @@ abstract class AbstractAction
 
         $resultActionEvent = new ActionEvent($this->action, $this->player, $parameter);
         $resultActionEvent->setActionResult($result);
-        $this->eventService->dispatch($resultActionEvent, ActionEvent::RESULT_ACTION);
+        $this->eventDispatcher->dispatch($resultActionEvent, ActionEvent::RESULT_ACTION);
 
         $this->applyEffect($result);
 
         $postActionEvent = new ActionEvent($this->action, $this->player, $parameter);
         $postActionEvent->setActionResult($result);
-        $this->eventService->dispatch($postActionEvent, ActionEvent::POST_ACTION);
+        $this->eventDispatcher->dispatch($postActionEvent, ActionEvent::POST_ACTION);
 
         return $result;
     }

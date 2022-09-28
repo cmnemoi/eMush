@@ -21,8 +21,8 @@ class RationCycleHandlerTest extends TestCase
 {
     /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
-    /** @var EventServiceInterface|Mockery\Mock */
-    private EventServiceInterface|Mockery\Mock $eventDispatcher;
+    /** @var eventDispatcherInterface|Mockery\Mock */
+    private eventDispatcherInterface|Mockery\Mock $eventDispatcher;
 
     private RationCycleHandler $rationCycleHandler;
 
@@ -33,11 +33,11 @@ class RationCycleHandlerTest extends TestCase
     {
 
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
 
         $this->rationCycleHandler = new RationCycleHandler(
             $this->gameEquipmentService,
-            $this->eventService
+            $this->eventDispatcher
         );
     }
 
@@ -86,7 +86,7 @@ class RationCycleHandlerTest extends TestCase
 
         // unfrozen day 1
         $this->gameEquipmentService->shouldReceive('persist')->once();
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::UNSTABLE && $event->getStatusHolder() === $gameFruit)
             ->once()
@@ -99,7 +99,7 @@ class RationCycleHandlerTest extends TestCase
 
         // day 2
         $this->gameEquipmentService->shouldReceive('persist')->once();
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::HAZARDOUS && $event->getStatusHolder() === $gameFruit)
             ->once()
@@ -113,7 +113,7 @@ class RationCycleHandlerTest extends TestCase
         // day 3
         $this->gameEquipmentService->shouldReceive('persist')->once();
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::DECOMPOSING && $event->getStatusHolder() === $gameFruit)
             ->once()

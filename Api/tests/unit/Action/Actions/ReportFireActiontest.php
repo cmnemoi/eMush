@@ -21,7 +21,7 @@ class ReportFireActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::REPORT_FIRE, 1);
 
         $this->action = new ReportFire(
-            $this->eventService,
+            $this->eventDispatcher,
             $this->actionService,
             $this->validator,
         );
@@ -45,7 +45,7 @@ class ReportFireActionTest extends AbstractActionTest
 
         // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventService->shouldReceive('dispatch')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $result = $this->action->execute();
 

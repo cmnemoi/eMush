@@ -26,13 +26,13 @@ class CycleServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
 
         $this->entityManager->shouldReceive('persist');
         $this->entityManager->shouldReceive('flush');
 
-        $this->service = new CycleService($this->entityManager, $this->eventService);
+        $this->service = new CycleService($this->entityManager, $this->eventDispatcher);
     }
 
     /**
@@ -65,7 +65,7 @@ class CycleServiceTest extends TestCase
     {
         $timeZone = 'Europe/Paris';
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
         ;
 
@@ -136,7 +136,7 @@ class CycleServiceTest extends TestCase
     {
         $timeZone = 'Europe/Paris';
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
         ;
 
@@ -213,7 +213,7 @@ class CycleServiceTest extends TestCase
     {
         $timeZone = 'Europe/Paris';
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
         ;
 

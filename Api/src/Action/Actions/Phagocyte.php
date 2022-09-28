@@ -82,7 +82,7 @@ class Phagocyte extends AbstractAction
             new \DateTime()
         );
         $healthPointGainEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventService->dispatch($healthPointGainEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($healthPointGainEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         // The Player gains 4 :pa:
         $actionPointGainEvent = new PlayerVariableEvent(
@@ -93,6 +93,6 @@ class Phagocyte extends AbstractAction
             new \DateTime()
         );
         $actionPointGainEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventService->dispatch($actionPointGainEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($actionPointGainEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 }

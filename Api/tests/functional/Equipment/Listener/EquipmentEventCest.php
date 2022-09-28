@@ -26,7 +26,7 @@ class EquipmentEventCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
     }
 
     public function testDispatchEquipmentCreated(FunctionalTester $I)
@@ -60,7 +60,7 @@ class EquipmentEventCest
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(0, $player->getEquipments());
@@ -82,7 +82,7 @@ class EquipmentEventCest
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(1, $player->getEquipments());
@@ -95,7 +95,7 @@ class EquipmentEventCest
             ActionEnum::DISASSEMBLE,
             new \DateTime()
         );
-        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertCount(2, $room->getEquipments());
         $I->assertCount(1, $player->getEquipments());
@@ -137,7 +137,7 @@ class EquipmentEventCest
             StatusEnum::FIRE,
             new \DateTime()
         );
-        $this->eventService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $I->assertCount(0, $room->getEquipments());
         $I->seeInRepository(RoomLog::class, [

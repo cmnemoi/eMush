@@ -39,7 +39,7 @@ class StatusService implements StatusServiceInterface
         StatusConfigRepository $statusConfigRepository,
     ) {
         $this->entityManager = $entityManager;
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
         $this->statusRepository = $statusRepository;
         $this->statusConfigRepository = $statusConfigRepository;
     }
@@ -79,7 +79,7 @@ class StatusService implements StatusServiceInterface
             $reason,
             $time
         );
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
     }
 
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
@@ -116,7 +116,7 @@ class StatusService implements StatusServiceInterface
             $time
         );
         $statusEvent->setStatusConfig($statusConfig);
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $status;
     }

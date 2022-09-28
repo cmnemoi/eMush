@@ -24,7 +24,7 @@ class PlayerStatusService implements PlayerStatusServiceInterface
         EventDispatcherInterface $eventDispatcher,
     ) {
         $this->statusService = $statusService;
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
     }
 
     public function handleSatietyStatus(Player $player, \DateTime $dateTime): void
@@ -38,7 +38,7 @@ class PlayerStatusService implements PlayerStatusServiceInterface
         $fullStatus = $player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
         if ($player->getSatiety() >= self::FULL_STOMACH_STATUS_THRESHOLD && !$fullStatus) {
             $event = new StatusEvent(PlayerStatusEnum::FULL_STOMACH, $player, EventEnum::NEW_CYCLE, $dateTime);
-            $this->eventService->dispatch($event, StatusEvent::STATUS_APPLIED);
+            $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_APPLIED);
         } elseif ($player->getSatiety() < self::FULL_STOMACH_STATUS_THRESHOLD && $fullStatus) {
             $this->statusService->delete($fullStatus);
         }
@@ -52,7 +52,7 @@ class PlayerStatusService implements PlayerStatusServiceInterface
             $event = new StatusEvent(PlayerStatusEnum::STARVING, $player, EventEnum::NEW_CYCLE, $dateTime);
             $event->setVisibility(VisibilityEnum::PRIVATE);
 
-            $this->eventService->dispatch($event, StatusEvent::STATUS_APPLIED);
+            $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_APPLIED);
         } elseif (($player->getSatiety() >= self::STARVING_STATUS_THRESHOLD || $player->isMush()) && $starvingStatus) {
             $this->statusService->delete($starvingStatus);
         }
@@ -67,7 +67,7 @@ class PlayerStatusService implements PlayerStatusServiceInterface
 
         if ($this->isPlayerSuicidal($playerMoralPoint) && !$suicidalStatus) {
             $event = new StatusEvent(PlayerStatusEnum::SUICIDAL, $player, EventEnum::NEW_CYCLE, $dateTime);
-            $this->eventService->dispatch($event, StatusEvent::STATUS_APPLIED);
+            $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_APPLIED);
         }
 
         if ($suicidalStatus && !$this->isPlayerSuicidal($playerMoralPoint)) {
@@ -76,7 +76,7 @@ class PlayerStatusService implements PlayerStatusServiceInterface
 
         if (!$demoralizedStatus && $this->isPlayerDemoralized($playerMoralPoint)) {
             $event = new StatusEvent(PlayerStatusEnum::DEMORALIZED, $player, EventEnum::NEW_CYCLE, $dateTime);
-            $this->eventService->dispatch($event, StatusEvent::STATUS_APPLIED);
+            $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_APPLIED);
         }
 
         if ($demoralizedStatus && !$this->isPlayerDemoralized($playerMoralPoint)) {

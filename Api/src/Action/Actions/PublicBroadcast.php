@@ -74,7 +74,7 @@ class PublicBroadcast extends AbstractAction
         );
 
         $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventService->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
     private function addWatchedPublicBroadcastStatus(Player $player): void
@@ -86,7 +86,7 @@ class PublicBroadcast extends AbstractAction
             new \DateTime()
         );
 
-        $this->eventService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
     protected function checkResult(): ActionResult

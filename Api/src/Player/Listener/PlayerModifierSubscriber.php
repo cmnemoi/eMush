@@ -22,7 +22,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->playerVariableService = $playerVariableService;
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents()
@@ -94,7 +94,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
                 $playerEvent->setReason(EndCauseEnum::ASSASSINATED);
             }
 
-            $this->eventService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         }
     }
 

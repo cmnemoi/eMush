@@ -55,7 +55,7 @@ class DaedalusServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
         $this->repository = Mockery::mock(DaedalusRepository::class);
         $this->cycleService = Mockery::mock(CycleServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
@@ -64,7 +64,7 @@ class DaedalusServiceTest extends TestCase
 
         $this->service = new DaedalusService(
             $this->entityManager,
-            $this->eventService,
+            $this->eventDispatcher,
             $this->repository,
             $this->cycleService,
             $this->gameEquipmentService,
@@ -112,7 +112,7 @@ class DaedalusServiceTest extends TestCase
             ->setEquipmentsConfig(new ArrayCollection([$item]))
         ;
 
-        $this->eventService
+        $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (DaedalusInitEvent $event) => (
                 $event->getDaedalusConfig() === $daedalusConfig)
@@ -259,7 +259,7 @@ class DaedalusServiceTest extends TestCase
             ->andReturn($noCapsulePlayer)
             ->once()
         ;
-        $this->eventService->shouldReceive('dispatch')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $result = $this->service->getRandomAsphyxia($daedalus, new \DateTime());
 
@@ -319,7 +319,7 @@ class DaedalusServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService->shouldReceive('dispatch')->twice();
+        $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
         $result = $this->service->selectAlphaMush($daedalus, new \DateTime());
     }
@@ -336,7 +336,7 @@ class DaedalusServiceTest extends TestCase
 
         $time = new \DateTime('yesterday');
 
-        $this->eventService->shouldReceive('dispatch')
+        $this->eventDispatcher->shouldReceive('dispatch')
             ->withArgs(fn (DaedalusEvent $daedalusEvent, $eventName) => ($daedalusEvent->getTime() === $time && $eventName === DaedalusEvent::END_DAEDALUS))
             ->once()
         ;

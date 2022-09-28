@@ -50,7 +50,7 @@ class DaedalusService implements DaedalusServiceInterface
         RoomLogServiceInterface $roomLogService
     ) {
         $this->entityManager = $entityManager;
-          $this->eventService = $eventDispatcher;
+          $this->eventDispatcher = $eventDispatcher;
         $this->repository = $repository;
         $this->cycleService = $cycleService;
         $this->gameEquipmentService = $gameEquipmentService;
@@ -129,7 +129,7 @@ class DaedalusService implements DaedalusServiceInterface
             EventEnum::CREATE_DAEDALUS,
             new \DateTime()
         );
-        $this->eventService->dispatch($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
+        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
 
         return $daedalus;
     }
@@ -185,7 +185,7 @@ class DaedalusService implements DaedalusServiceInterface
                     DaedalusEvent::FULL_DAEDALUS,
                     $date
                 );
-                $this->eventService->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+                $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
             }
         }
 
@@ -203,7 +203,7 @@ class DaedalusService implements DaedalusServiceInterface
                 $date
             );
 
-            $this->eventService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         } else {
             $capsule = $player->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
 
@@ -252,7 +252,7 @@ class DaedalusService implements DaedalusServiceInterface
                 $cause,
                 $date
             );
-            $this->eventService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         }
 
         return $daedalus;
@@ -302,7 +302,7 @@ class DaedalusService implements DaedalusServiceInterface
                 $date
             );
 
-            $this->eventService->dispatch($daedalusEvent, DaedalusEvent::END_DAEDALUS);
+            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::END_DAEDALUS);
         } else {
             $daedalus->setHull(min($newHull, $maxHull));
         }

@@ -22,7 +22,7 @@ class PlayerDeathCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->eventDispatcher = $I->grabService(eventDispatcherInterface::class);
     }
 
     public function testDispatchPlayerDeath(FunctionalTester $I)
@@ -72,7 +72,7 @@ class PlayerDeathCest
             VisibilityEnum::PUBLIC,
             new \DateTime()
         );
-        $this->eventService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         $I->assertCount(1, $publicChannel->getMessages());
         $I->assertCount(1, $privateChannel->getMessages());

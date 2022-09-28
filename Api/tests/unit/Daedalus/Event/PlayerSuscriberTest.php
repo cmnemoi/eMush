@@ -25,10 +25,10 @@ class PlayerSuscriberTest extends TestCase
      */
     public function before()
     {
-        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(eventDispatcherInterface::class);
 
         $this->playerSubscriber = new PlayerSubscriber(
-            $this->eventService
+            $this->eventDispatcher
         );
     }
 
@@ -61,7 +61,7 @@ class PlayerSuscriberTest extends TestCase
             $date
         );
 
-        $this->eventService->shouldReceive('dispatch')
+        $this->eventDispatcher->shouldReceive('dispatch')
             ->withArgs(fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::END_DAEDALUS))
             ->once();
 

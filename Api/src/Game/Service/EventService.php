@@ -20,6 +20,7 @@ class EventService implements EventServiceInterface
 
     public function callEvent(Event $eventParameters, string $name, bool $executeNow = false) : void {
         if ($this->cascade) {
+            codecept_debug($name);
             $this->eventDispatcher->dispatch($eventParameters, $name);
         }
 
@@ -41,8 +42,8 @@ class EventService implements EventServiceInterface
                 }
             }
         } else if ($executeNow) {
-            codecept_debug($this->tree[0]['name']);
             $this->cascade = true;
+            codecept_debug($name);
             $this->eventDispatcher->dispatch($eventParameters, $name);
             $this->cascade = false;
         } else {

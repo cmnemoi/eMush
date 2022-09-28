@@ -43,8 +43,7 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
         ;
 
         $randomItemPlaces = new RandomItemPlaces();
-        $randomItemPlaces
-            ->setItems([
+        $randomItemPlaces->setItems([
                 GearItemEnum::PLASTENITE_ARMOR,
                 ToolItemEnum::HACKER_KIT,
                 ToolItemEnum::BLOCK_OF_POST_IT,

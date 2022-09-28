@@ -32,10 +32,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 ['onEquipmentDestroyed'],
             ],
             EquipmentEvent::INVENTORY_OVERFLOW => [
-                ['onInventoryOverflow'],
+                ['onInventoryOverflow', 100],
             ],
             EquipmentEvent::EQUIPMENT_CREATED => [
-                ['onEquipmentCreated', 1000],
+                ['onEquipmentCreated', 100],
             ],
         ];
     }

@@ -29,7 +29,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         return [
             EquipmentEvent::EQUIPMENT_CREATED => [
-                ['initModifier'],
+                ['initModifier', 1000],
                 ['checkInventoryOverflow'],
             ],
             EquipmentEvent::INVENTORY_OVERFLOW => [

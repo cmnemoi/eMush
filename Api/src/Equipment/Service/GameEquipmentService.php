@@ -111,10 +111,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $this->persist($gameEquipment);
         }
 
-        $equipmentEvent = new EquipmentInitEvent($gameEquipment, $equipmentConfig, $reason, $time);
-
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentInitEvent::NEW_EQUIPMENT);
-
         return $gameEquipment;
     }
 

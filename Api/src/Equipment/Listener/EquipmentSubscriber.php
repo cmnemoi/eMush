@@ -3,6 +3,7 @@
 namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\EquipmentInitEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -28,6 +29,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         return [
             EquipmentEvent::EQUIPMENT_CREATED => [
+                ['initModifier'],
                 ['checkInventoryOverflow']
             ],
             EquipmentEvent::INVENTORY_OVERFLOW => [
@@ -47,6 +49,22 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 ['onChangeHolder', -100] // the equipment is deleted after every other effect has been applied
             ],
         ];
+    }
+
+    public function initModifier(EquipmentEvent $event) {
+        $equipment = $event->getEquipment();
+        $config = $equipment->getEquipment();
+        $reason = $event->getReason();
+        $time = $event->getTime();
+
+        $equipmentEvent = new EquipmentInitEvent(
+            $equipment,
+            $config,
+            $reason,
+            $time
+        );
+
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentInitEvent::NEW_EQUIPMENT);
     }
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void

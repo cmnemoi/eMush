@@ -49,6 +49,7 @@ class DaedalusInitEventSubscriber implements EventSubscriberInterface
                 $roomName = $randomItemPlaces->getPlaces()[$this->randomService->random(0, count($randomItemPlaces->getPlaces()) - 1)];
                 $room = $daedalus->getRooms()->filter(fn (Place $room) => $roomName === $room->getName())->first();
 
+                codecept_debug("bien");
                 $equipment = $this->gameEquipmentService->createGameEquipmentFromName($itemName, $room, $reason, $time);
 
                 $event = new EquipmentEvent(

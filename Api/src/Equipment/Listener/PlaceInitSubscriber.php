@@ -5,18 +5,25 @@ namespace Mush\Equipment\Listener;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Event\PlaceInitEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlaceInitSubscriber implements EventSubscriberInterface
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private EventDispatcherInterface $eventDispatcher;
 
-    public function __construct(GameEquipmentServiceInterface $gameEquipmentService)
+    public function __construct(GameEquipmentServiceInterface $gameEquipmentService,
+    EventDispatcherInterface $eventDispatcher)
     {
         $this->gameEquipmentService = $gameEquipmentService;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -41,6 +48,15 @@ class PlaceInitSubscriber implements EventSubscriberInterface
                 ->filter(fn (EquipmentConfig $item) => $item->getName() === $itemName)->first()
             ;
             $gameItem = $this->gameEquipmentService->createGameEquipment($item, $place, $reason, $time);
+
+            $event = new EquipmentEvent(
+                $gameItem,
+                true,
+                VisibilityEnum::HIDDEN,
+                $reason,
+                new \DateTime()
+            );
+            $this->eventDispatcher->dispatch($event, EquipmentEvent::EQUIPMENT_CREATED);
         }
 
         foreach ($placeConfig->getEquipments() as $equipmentName) {
@@ -51,6 +67,15 @@ class PlaceInitSubscriber implements EventSubscriberInterface
             ;
 
             $gameEquipment = $this->gameEquipmentService->createGameEquipment($equipment, $place, $reason, $time);
+
+            $event = new EquipmentEvent(
+                $gameEquipment,
+                true,
+                VisibilityEnum::HIDDEN,
+                $reason,
+                new \DateTime()
+            );
+            $this->eventDispatcher->dispatch($event, EquipmentEvent::EQUIPMENT_CREATED);
         }
 
         // initialize doors

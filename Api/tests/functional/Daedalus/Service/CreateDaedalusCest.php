@@ -71,7 +71,10 @@ class CreateDaedalusCest
 
         // status config
         $alienArtifact = new StatusConfig();
-        $alienArtifact->setName(EquipmentStatusEnum::ALIEN_ARTEFACT)->setVisibility(VisibilityEnum::PUBLIC)->setGameConfig($gameConfig);
+        $alienArtifact
+            ->setName(EquipmentStatusEnum::ALIEN_ARTEFACT)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setGameConfig($gameConfig);
         $I->haveInRepository($alienArtifact);
 
         // Modifier configs
@@ -87,7 +90,7 @@ class CreateDaedalusCest
         $gear->setModifierConfigs(new ArrayCollection([$gravityModifier]));
         $I->haveInRepository($gear);
 
-        // Equipment Congigs
+        // Equipment Configs
         $waterStick = new ItemConfig();
         $waterStick
             ->setName(ItemEnum::WATER_STICK)

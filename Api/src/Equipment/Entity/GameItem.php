@@ -15,6 +15,8 @@ class GameItem extends GameEquipment
 
     public function getHolder(): ?EquipmentHolderInterface
     {
+        codecept_debug($this->player);
+        codecept_debug($this->place);
         return $this->player ?: $this->place;
     }
 

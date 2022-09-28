@@ -121,6 +121,8 @@ class DaedalusService implements DaedalusServiceInterface
 
         $this->createNeron($daedalus);
 
+        $this->persist($daedalus);
+
         $daedalusEvent = new DaedalusInitEvent(
             $daedalus,
             $daedalusConfig,

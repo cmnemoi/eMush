@@ -62,8 +62,6 @@ class ModifierService implements ModifierServiceInterface
         ?ChargeStatus $chargeStatus = null
     ): void {
         $modifier = new Modifier($holder, $modifierConfig);
-        codecept_debug('modifier');
-        codecept_debug($modifier);
 
         if ($chargeStatus) {
             $modifier->setCharge($chargeStatus);

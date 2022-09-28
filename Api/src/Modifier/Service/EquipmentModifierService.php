@@ -200,15 +200,6 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
                     return;
                 }
 
-                if ($modifierConfig->getReach() === ModifierReachEnum::DAEDALUS) {
-                    codecept_debug('modifier');
-                    codecept_debug($modifierConfig);
-                    codecept_debug('holder');
-                    codecept_debug($holder);
-                    codecept_debug('charge');
-                    codecept_debug($charge);
-                }
-
                 $this->modifierService->createModifier(
                     $modifierConfig,
                     $holder,

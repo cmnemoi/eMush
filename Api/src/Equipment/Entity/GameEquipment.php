@@ -99,7 +99,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     }
 
     public function isDestroyed() : bool {
-        return $this->getPlace() === null;
+        return $this->getHolder() === null;
     }
 
     public function getHolder(): ?EquipmentHolderInterface

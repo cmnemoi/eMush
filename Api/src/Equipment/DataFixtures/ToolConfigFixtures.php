@@ -125,7 +125,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $camera
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::CAMERA_ITEM)
-            ->setIsStackable(false)
+            ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)

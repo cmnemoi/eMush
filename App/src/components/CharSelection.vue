@@ -1,17 +1,21 @@
 <template>
     <div class="box-container">
-        <div class="daedalus-selection">
-            <label>Search:
+        <Spinner :loading="loading"></Spinner>
+        <form class="daedalus-selection" onsubmit="return false">
+            <div>
+                <label>Find your ship:</label>
                 <input
                     v-model="daedalusName"
                     type="search"
                     class=""
                     placeholder=""
                     aria-controls="example"
+                    @keyup.enter="loadAvailableCharacters"
                 >
-            </label>
-            <button @click=loadAvailableCharacters>Search</button>
-        </div>
+                <button type="button" @click="loadAvailableCharacters">Select</button>
+            </div>
+            <span v-if="error" class="error">No ship was found under this name. Please check and input the name again.</span>
+        </form>
         <div class="char-selection">
             <section
                 v-for="(character, key) in characters"
@@ -66,11 +70,15 @@ import ApiService from "@/services/api.service";
 import { characterEnum } from "@/enums/character";
 import PlayerService from "@/services/player.service";
 import { Character } from "@/entities/Character";
+import Spinner from "@/components/Utils/Spinner.vue";
 import { defineComponent } from "vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default defineComponent ({
     name: 'CharSelection',
+    components: {
+        Spinner
+    },
     props: {
     },
     data: () => {
@@ -78,7 +86,8 @@ export default defineComponent ({
             loading: false,
             daedalusId: -1,
             characters: [],
-            daedalusName: ''
+            daedalusName: '',
+            error: false
         };
     },
     computed: {
@@ -90,11 +99,19 @@ export default defineComponent ({
         loadAvailableCharacters() {
             if (this.daedalusName.length > 0) {
                 this.loading = true;
+                console.log('hi');
                 ApiService.get('daedaluses/available-characters', { params: { name: this.daedalusName } })
                     .then((response) => {
                         this.daedalusId = response.data.daedalus;
                         this.characters = response.data.characters;
+                        this.error = false;
                         this.loading = false;
+                    })
+                    .catch((error) => {
+                        this.clearError();
+                        this.error = true;
+                        this.loading = false;
+
                     });
             }
         },
@@ -113,7 +130,10 @@ export default defineComponent ({
                     console.error(error);
                     this.loading = false;
                 });
-        }
+        },
+        ...mapActions('error', [
+            'clearError'
+        ])
     }
 });
 </script>
@@ -123,7 +143,6 @@ export default defineComponent ({
 .box-container {
     justify-content: stretch;
     min-height: 625px;
-    // z-index: 10;
 }
 
 h1 {
@@ -131,6 +150,41 @@ h1 {
     margin: 15px;
     font-size: 1.5em;
     font-variant: small-caps;
+}
+
+
+.daedalus-selection {
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em 1em 1.8em;
+    font-size: 1.25em;
+
+    div {
+        flex-direction: row;
+        align-items: center;
+
+        & > * { margin: 0 .15em; }
+    }
+
+    label {
+        font-weight: bold;
+        font-style: italic;
+        color: #88a6fe;
+    }
+
+    button { @include button-style; }
+
+    .error {
+        margin: 1em 0;
+        padding: .3em .8em;
+        background: transparentize($red, .7);
+        border: 1px solid $red;
+        border-radius: 6px;
+        font-size: .9em;
+        font-style: italic;
+    }
 }
 
 .char-selection {
@@ -293,11 +347,6 @@ h1 {
     }
 }
 
-.daedalus-selection {
-    display: flex;
-    flex-direction: row;
-    padding: 10px;
-}
 </style>
 
 

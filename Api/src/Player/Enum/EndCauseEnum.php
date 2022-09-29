@@ -9,6 +9,9 @@ use Mush\Status\Enum\StatusEnum;
 
 class EndCauseEnum
 {
+    // admin only
+    public const SUICIDE = 'suicide';
+
     public const SOL_RETURN = 'sol_return';
     public const EDEN = 'eden';
     public const DAEDALUS_DESTROYED = 'daedalus_destroyed';
@@ -51,6 +54,5 @@ class EndCauseEnum
         StatusEnum::FIRE => self::BURNT,
         ActionEnum::REMOVE_SPORE => self::SELF_EXTRACTED,
         ModifierScopeEnum::EVENT_CLUMSINESS => self::CLUMSINESS,
-        // @TODO MORE DEATH REASON PER HEALTH POINT LOSS
     ];
 }

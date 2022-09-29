@@ -7,6 +7,8 @@ use Mush\Game\Enum\ActionOutputEnum;
 
 class ActionLogEnum
 {
+    public const SUICIDE_SUCCESS = 'suicide_success';
+
     public const DISASSEMBLE_SUCCESS = 'disassemble_success';
     public const DISASSEMBLE_FAIL = 'disassemble_fail';
     public const BUILD_SUCCESS = 'build_success';
@@ -78,6 +80,10 @@ class ActionLogEnum
     public const FAIL_SELF_SURGERY = 'fail_self_surgery';
     public const UPDATE_TALKIE_SUCCESS = 'update_talkie_success';
     public const SCREW_TALKIE_SUCCESS = 'screw_talkie_success';
+    public const ATTACK_SUCCESS = 'attack_success';
+    public const ATTACK_FAIL = 'attack_fail';
+    public const ATTACK_CRITICAL_SUCCESS = 'attack_critical_success';
+    public const ATTACK_CRITICAL_FAIL = 'attack_critical_fail';
 
     public const DEFAULT_FAIL = 'default_fail';
 
@@ -279,6 +285,15 @@ class ActionLogEnum
         ],
         ActionEnum::UPDATE_TALKIE => [
             ActionOutputEnum::SUCCESS => self::UPDATE_TALKIE_SUCCESS,
+        ],
+        ActionEnum::ATTACK => [
+            ActionOutputEnum::SUCCESS => self::ATTACK_SUCCESS,
+            ActionOutputEnum::FAIL => self::ATTACK_FAIL,
+            ActionOutputEnum::CRITICAL_FAIL => self::ATTACK_CRITICAL_FAIL,
+            ActionOutputEnum::CRITICAL_SUCCESS => self::ATTACK_CRITICAL_SUCCESS,
+        ],
+        ActionEnum::SUICIDE => [
+            ActionOutputEnum::SUCCESS => self::SUICIDE_SUCCESS,
         ],
     ];
 }

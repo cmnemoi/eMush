@@ -31,6 +31,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        // ADMIN ONLY
+        $suicideAction = $this->getReference(ActionsFixtures::SUICIDE);
+
         // @TODO: remove when the game is ready
         /** @var Action $rejuvenateAlphaAction */
         $rejuvenateAlphaAction = $this->getReference(ActionsFixtures::REJUVENATE_ALPHA);
@@ -115,6 +118,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $fakeDiseaseAction,
             $screwTalkieAction,
             $ungag,
+            $suicideAction,
         ]);
 
         /** @var StatusConfig $sporeStatus */

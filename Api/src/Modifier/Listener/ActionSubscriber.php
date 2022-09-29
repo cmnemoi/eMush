@@ -4,7 +4,7 @@ namespace Mush\Modifier\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Modifier\Service\EquipmentModifierServiceInterface;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -48,7 +48,7 @@ class ActionSubscriber implements EventSubscriberInterface
         switch ($actionName) {
             // handle gear modifiers when taken or dropped
             case ActionEnum::TAKE:
-                if (!$target instanceof GameEquipment) {
+                if (!$target instanceof Equipment) {
                     throw new \LogicException('a game equipment should be given');
                 }
 
@@ -56,7 +56,7 @@ class ActionSubscriber implements EventSubscriberInterface
 
                 return;
             case ActionEnum::DROP:
-                if (!$target instanceof GameEquipment) {
+                if (!$target instanceof Equipment) {
                     throw new \LogicException('a game equipment should be given');
                 }
 

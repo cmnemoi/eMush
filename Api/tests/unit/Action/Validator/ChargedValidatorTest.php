@@ -8,7 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Validator\Charged;
 use Mush\Action\Validator\ChargedValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -43,8 +43,8 @@ class ChargedValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setIsBreakable(true);
 
-        $target = new GameItem();
-        $target->setEquipment($itemConfig);
+        $target = new Item();
+        $target->setConfig($itemConfig);
 
         $statusConfig = new ChargeStatusConfig();
         $statusConfig->setName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategy(ActionEnum::EXPRESS_COOK);
@@ -75,8 +75,8 @@ class ChargedValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setIsBreakable(false);
 
-        $target = new GameItem();
-        $target->setEquipment($itemConfig);
+        $target = new Item();
+        $target->setConfig($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action

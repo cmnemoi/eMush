@@ -6,17 +6,17 @@ use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
 {
     private NeronMessageServiceInterface $neronMessageService;
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    private EquipmentFactoryInterface $gameEquipmentService;
 
     public function __construct(
         NeronMessageServiceInterface $neronMessageService,
-        GameEquipmentServiceInterface $gameEquipmentService,
+        EquipmentFactoryInterface    $gameEquipmentService,
     ) {
         $this->neronMessageService = $neronMessageService;
         $this->gameEquipmentService = $gameEquipmentService;

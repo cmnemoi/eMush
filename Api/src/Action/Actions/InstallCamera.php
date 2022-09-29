@@ -10,12 +10,12 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -26,13 +26,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class InstallCamera extends AbstractAction
 {
     protected string $name = ActionEnum::INSTALL_CAMERA;
-    protected GameEquipmentServiceInterface $gameEquipmentService;
+    protected EquipmentFactoryInterface $gameEquipmentService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService
+        EquipmentFactoryInterface $gameEquipmentService
     ) {
         parent::__construct($eventDispatcher, $actionService, $validator);
 
@@ -61,7 +61,7 @@ class InstallCamera extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameItem;
+        return $parameter instanceof Item;
     }
 
     protected function checkResult(): ActionResult
@@ -71,7 +71,7 @@ class InstallCamera extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $itemCamera */
+        /** @var Item $itemCamera */
         $itemCamera = $this->getParameter();
         $time = new \DateTime();
 

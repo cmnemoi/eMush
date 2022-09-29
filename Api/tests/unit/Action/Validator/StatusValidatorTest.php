@@ -6,8 +6,8 @@ use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\HasStatusValidator;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -43,7 +43,7 @@ class StatusValidatorTest extends TestCase
     {
         $this->constraint->target = HasStatus::PARAMETER;
 
-        $target = new GameItem();
+        $target = new Item();
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -73,7 +73,7 @@ class StatusValidatorTest extends TestCase
     {
         $this->constraint->target = HasStatus::PARAMETER;
 
-        $target = new GameItem();
+        $target = new Item();
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -235,7 +235,7 @@ class StatusValidatorTest extends TestCase
 
         $player = new Player();
 
-        $target = new GameEquipment();
+        $target = new Equipment();
 
         $action = Mockery::mock(AbstractAction::class);
         $action

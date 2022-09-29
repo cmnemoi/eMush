@@ -4,7 +4,7 @@ namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Alert\Service\AlertServiceInterface;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -50,7 +50,7 @@ class IsReportedValidator extends ConstraintValidator
     {
         $equipment = $value->getParameter();
 
-        if (!$equipment instanceof GameEquipment) {
+        if (!$equipment instanceof Equipment) {
             return false;
         }
 

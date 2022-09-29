@@ -9,17 +9,17 @@ use Mush\Action\Actions\TreatPlant;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Plant;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
 
 class TreatPlantActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    /** @var EquipmentFactoryInterface|Mockery\Mock */
+    private EquipmentFactoryInterface $gameEquipmentService;
     /** @var PlayerServiceInterface|Mockery\Mock */
     private PlayerServiceInterface $playerService;
     /** @var StatusServiceInterface|Mockery\Mock */
@@ -34,7 +34,7 @@ class TreatPlantActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::TREAT_PLANT, 2);
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(EquipmentFactoryInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
@@ -58,10 +58,10 @@ class TreatPlantActionTest extends AbstractActionTest
     {
         $room = new Place();
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
         $gameItem
-              ->setEquipment($item)
+              ->setConfig($item)
               ->setHolder($room)
         ;
 

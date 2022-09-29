@@ -3,7 +3,7 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -25,8 +25,8 @@ class ChargedValidator extends ConstraintValidator
         }
 
         $parameter = $value->getParameter();
-        if (!$parameter instanceof GameEquipment) {
-            throw new UnexpectedTypeException($parameter, GameEquipment::class);
+        if (!$parameter instanceof Equipment) {
+            throw new UnexpectedTypeException($parameter, Equipment::class);
         }
 
         /** @var ChargeStatus $chargeStatus */

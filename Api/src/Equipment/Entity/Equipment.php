@@ -26,11 +26,11 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
-    'game_equipment' => GameEquipment::class,
+    'game_equipment' => Equipment::class,
     'door' => Door::class,
-    'game_item' => GameItem::class,
+    'game_item' => Item::class,
 ])]
-class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolder
+class Equipment implements StatusHolderInterface, LogParameterInterface, ModifierHolder
 {
     use TimestampableEntity;
     use TargetStatusTrait;
@@ -47,7 +47,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     protected ?Place $place = null;
 
     #[ORM\ManyToOne(targetEntity: EquipmentConfig::class)]
-    protected EquipmentConfig $equipment;
+    protected EquipmentConfig $config;
 
     #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
@@ -76,7 +76,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     public function getActions(): Collection
     {
-        return $this->equipment->getActions();
+        return $this->config->getActions();
     }
 
     public function addStatus(Status $status): static
@@ -143,14 +143,14 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this;
     }
 
-    public function getEquipment(): EquipmentConfig
+    public function getConfig(): EquipmentConfig
     {
-        return $this->equipment;
+        return $this->config;
     }
 
-    public function setEquipment(EquipmentConfig $equipment): static
+    public function setConfig(EquipmentConfig $config): static
     {
-        $this->equipment = $equipment;
+        $this->config = $config;
 
         return $this;
     }
@@ -219,7 +219,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     public function isBreakable(): bool
     {
-        return $this->getEquipment()->isBreakable();
+        return $this->getConfig()->isBreakable();
     }
 
     public function getLogName(): string

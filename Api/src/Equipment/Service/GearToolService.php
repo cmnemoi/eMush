@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Error;
 use Mush\Action\Entity\Action;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -45,7 +45,7 @@ class GearToolService implements GearToolServiceInterface
                 return new ArrayCollection(array_merge(
                     $player->getEquipments()->toArray(),
                     array_filter($player->getPlace()->getEquipments()->toArray(),
-                        function (GameEquipment $gameEquipment) use ($player) {
+                        function (Equipment $gameEquipment) use ($player) {
                             return ($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) === null ||
                             $hiddenStatus->getTarget() === $player;
                         }
@@ -69,7 +69,7 @@ class GearToolService implements GearToolServiceInterface
 
     public function getEquipmentsOnReachByName(Player $player, string $equipmentName, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): Collection
     {
-        return $this->getEquipmentsOnReach($player, $reach)->filter(fn (GameEquipment $equipment) => $equipment->getName() === $equipmentName);
+        return $this->getEquipmentsOnReach($player, $reach)->filter(fn (Equipment $equipment) => $equipment->getName() === $equipmentName);
     }
 
     public function getActionsTools(Player $player, array $scopes, ?string $target = null): Collection
@@ -99,12 +99,12 @@ class GearToolService implements GearToolServiceInterface
     {
         $equipments = $this->getEquipmentsOnReach($player);
 
-        return $equipments->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL) !== null &&
+        return $equipments->filter(fn (Equipment $equipment) => $equipment->getConfig()->getMechanicByName(EquipmentMechanicEnum::TOOL) !== null &&
             !$equipment->isBroken()
         );
     }
 
-    public function getUsedTool(Player $player, string $actionName): ?GameEquipment
+    public function getUsedTool(Player $player, string $actionName): ?Equipment
     {
         /** @var Collection $tools */
         $tools = new ArrayCollection();
@@ -142,7 +142,7 @@ class GearToolService implements GearToolServiceInterface
         }
     }
 
-    private function removeCharge(GameEquipment $equipment, string $actionName): void
+    private function removeCharge(Equipment $equipment, string $actionName): void
     {
         $chargeStatus = $this->getChargeStatus($actionName, $equipment);
 
@@ -162,7 +162,7 @@ class GearToolService implements GearToolServiceInterface
         }
     }
 
-    private function getChargeStatus(string $actionName, GameEquipment $equipment): ?ChargeStatus
+    private function getChargeStatus(string $actionName, Equipment $equipment): ?ChargeStatus
     {
         $charges = $equipment->getStatuses()->filter(function (Status $status) use ($actionName) {
             return $status instanceof ChargeStatus &&

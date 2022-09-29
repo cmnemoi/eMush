@@ -14,7 +14,7 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\ActionOutputEnum;
@@ -64,7 +64,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
         $room = new Place();
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$this->actionEntity]));
         $item = new EquipmentConfig();
@@ -74,7 +74,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
         ;
 
         $gameEquipment
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($room)
             ->setName(EquipmentEnum::SURGERY_PLOT)
         ;
@@ -127,7 +127,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
         $room = new Place();
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$this->actionEntity]));
         $item = new EquipmentConfig();
@@ -137,7 +137,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
         ;
 
         $gameEquipment
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($room)
             ->setName(EquipmentEnum::SURGERY_PLOT)
         ;
@@ -191,7 +191,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
         $room = new Place();
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$this->actionEntity]));
         $item = new EquipmentConfig();
@@ -201,7 +201,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
         ;
 
         $gameEquipment
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($room)
             ->setName(EquipmentEnum::SURGERY_PLOT)
         ;

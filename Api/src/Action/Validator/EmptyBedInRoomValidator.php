@@ -3,7 +3,7 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Constraint;
@@ -24,9 +24,9 @@ class EmptyBedInRoomValidator extends ConstraintValidator
 
         $player = $value->getPlayer();
 
-        $bedsInRoom = $player->getPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => in_array($gameEquipment->getName(), EquipmentEnum::getBeds()));
+        $bedsInRoom = $player->getPlace()->getEquipments()->filter(fn (Equipment $gameEquipment) => in_array($gameEquipment->getName(), EquipmentEnum::getBeds()));
 
-        if ($bedsInRoom->filter(fn (GameEquipment $gameEquipment) => !$gameEquipment->hasTargetingStatus(PlayerStatusEnum::LYING_DOWN))->isEmpty()) {
+        if ($bedsInRoom->filter(fn (Equipment $gameEquipment) => !$gameEquipment->hasTargetingStatus(PlayerStatusEnum::LYING_DOWN))->isEmpty()) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

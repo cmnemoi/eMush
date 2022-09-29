@@ -14,7 +14,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
@@ -57,18 +57,18 @@ class ActionSubscriberCest
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie = new GameItem();
+        $iTrackie = new Item();
         $iTrackie
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
+            ->setConfig($iTrackieConfig)
             ->setHolder($room)
         ;
         $I->haveInRepository($iTrackie);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new Item();
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
+            ->setConfig($iTrackieConfig)
             ->setHolder($player2)
         ;
         $I->haveInRepository($iTrackie2);
@@ -143,18 +143,18 @@ class ActionSubscriberCest
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie = new GameItem();
+        $iTrackie = new Item();
         $iTrackie
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
+            ->setConfig($iTrackieConfig)
             ->setHolder($room)
         ;
         $I->haveInRepository($iTrackie);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new Item();
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
+            ->setConfig($iTrackieConfig)
             ->setHolder($player2)
         ;
         $I->haveInRepository($iTrackie2);
@@ -232,18 +232,18 @@ class ActionSubscriberCest
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie = new GameItem();
+        $iTrackie = new Item();
         $iTrackie
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
+            ->setConfig($iTrackieConfig)
             ->setHolder($room)
         ;
         $I->haveInRepository($iTrackie);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new Item();
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
+            ->setConfig($iTrackieConfig)
             ->setHolder($player2)
         ;
         $I->haveInRepository($iTrackie2);
@@ -314,18 +314,18 @@ class ActionSubscriberCest
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie = new GameItem();
+        $iTrackie = new Item();
         $iTrackie
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
+            ->setConfig($iTrackieConfig)
             ->setHolder($player)
         ;
         $I->haveInRepository($iTrackie);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new Item();
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
+            ->setConfig($iTrackieConfig)
             ->setHolder($player2)
         ;
         $I->haveInRepository($iTrackie2);
@@ -396,10 +396,10 @@ class ActionSubscriberCest
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new Item();
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
+            ->setConfig($iTrackieConfig)
             ->setHolder($player2)
         ;
         $I->haveInRepository($iTrackie2);
@@ -471,10 +471,10 @@ class ActionSubscriberCest
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new Item();
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
+            ->setConfig($iTrackieConfig)
             ->setHolder($player)
         ;
         $I->haveInRepository($iTrackie2);

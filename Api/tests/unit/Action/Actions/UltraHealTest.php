@@ -8,7 +8,7 @@ use Mush\Action\Actions\UltraHeal;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Place\Entity\Place;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -53,11 +53,11 @@ class UltraHealActionTest extends AbstractActionTest
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
         $gameItem
             ->setName('item')
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($room);
 
         $player = $this->createPlayer(new Daedalus(), $room);

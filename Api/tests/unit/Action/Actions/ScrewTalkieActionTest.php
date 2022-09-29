@@ -8,7 +8,7 @@ use Mush\Action\Actions\ScrewTalkie;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
@@ -47,7 +47,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new Item();
 
         $player = $this->createPlayer($daedalus, $room);
 
@@ -55,7 +55,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($targetPlayer)
         ;
 
@@ -77,7 +77,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new Item();
 
         $player = $this->createPlayer($daedalus, $room);
 
@@ -85,7 +85,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($targetPlayer)
         ;
 

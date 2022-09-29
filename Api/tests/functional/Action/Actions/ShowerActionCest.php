@@ -13,8 +13,8 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -124,10 +124,10 @@ class ShowerActionCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['actions' => new ArrayCollection([$action])]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
 
         $gameEquipment
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('shower')
             ->setHolder($room)
         ;
@@ -172,7 +172,7 @@ class ShowerActionCest
         // @TODO test skill water resistance
     }
 
-    private function createSoapItem(FunctionalTester $I): GameItem
+    private function createSoapItem(FunctionalTester $I): Item
     {
         $modifier = new ModifierConfig();
         $modifier
@@ -195,10 +195,10 @@ class ShowerActionCest
             ->setMechanics(new ArrayCollection([$soapGear]))
         ;
 
-        $gameSoap = new GameItem();
+        $gameSoap = new Item();
         $gameSoap
             ->setName(GearItemEnum::SOAP)
-            ->setEquipment($soap)
+            ->setConfig($soap)
         ;
 
         $I->haveInRepository($modifier);

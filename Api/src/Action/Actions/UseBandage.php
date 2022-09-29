@@ -8,7 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\FullHealth;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
@@ -27,7 +27,7 @@ class UseBandage extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $parameter instanceof Equipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -46,7 +46,7 @@ class UseBandage extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $parameter */
+        /** @var Equipment $parameter */
         $parameter = $this->parameter;
         $time = new \DateTime();
 

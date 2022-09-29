@@ -3,7 +3,7 @@
 namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
@@ -40,7 +40,7 @@ class RoomSubscriber implements EventSubscriberInterface
         foreach ($room->getEquipments() as $equipment) {
             if (!$equipment->isBroken() &&
                 !($equipment instanceof Door) &&
-                !($equipment instanceof GameItem) &&
+                !($equipment instanceof Item) &&
                 $equipment->isBreakable()) {
                 $statusEvent = new StatusEvent(
                     EquipmentStatusEnum::BROKEN,

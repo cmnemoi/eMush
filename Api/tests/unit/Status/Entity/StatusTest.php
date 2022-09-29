@@ -2,7 +2,7 @@
 
 namespace Mush\Test\Status\Entity;
 
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -37,7 +37,7 @@ class StatusTest extends TestCase
 
     public function testAddStatusWithTarget()
     {
-        $equipment = new GameEquipment();
+        $equipment = new Equipment();
 
         $statusConfig = new StatusConfig();
         $status = new Status($equipment, $statusConfig);

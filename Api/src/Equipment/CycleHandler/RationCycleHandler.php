@@ -2,10 +2,10 @@
 
 namespace Mush\Equipment\CycleHandler;
 
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Game\Enum\EventEnum;
 use Mush\Status\Entity\Status;
@@ -17,12 +17,12 @@ class RationCycleHandler extends AbstractCycleHandler
 {
     protected string $name = EquipmentMechanicEnum::RATION;
 
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    private EquipmentFactoryInterface $gameEquipmentService;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
-        GameEquipmentServiceInterface $gameEquipmentService,
-        EventDispatcherInterface $eventDispatcher,
+        EquipmentFactoryInterface $gameEquipmentService,
+        EventDispatcherInterface  $eventDispatcher,
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
         $this->eventDispatcher = $eventDispatcher;
@@ -36,12 +36,12 @@ class RationCycleHandler extends AbstractCycleHandler
     {
         $gameRation = $object;
 
-        if (!$gameRation instanceof GameEquipment) {
+        if (!$gameRation instanceof Equipment) {
             return;
         }
 
         /** @var Ration $rationType */
-        $rationType = $gameRation->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
+        $rationType = $gameRation->getConfig()->getMechanicByName(EquipmentMechanicEnum::RATION);
 
         if (null === $rationType) {
             return;
@@ -49,11 +49,9 @@ class RationCycleHandler extends AbstractCycleHandler
 
         // @TODO destroy perishable item according to NERON BIOS
         $this->handleStatus($gameRation, $rationType);
-
-        $this->gameEquipmentService->persist($gameRation);
     }
 
-    private function handleStatus(GameEquipment $gameRation, Ration $ration): void
+    private function handleStatus(Equipment $gameRation, Ration $ration): void
     {
         // If ration is not perishable or frozen oe decomposing do nothing
         if (!$ration->isPerishable() ||

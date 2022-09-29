@@ -9,8 +9,8 @@ use Mush\Action\Actions\Search;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Entity\Item;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
@@ -19,7 +19,7 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class SearchActionTest extends AbstractActionTest
 {
-    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+    private EquipmentFactoryInterface|Mockery\Mock $gameEquipmentService;
 
     private StatusServiceInterface|Mockery\Mock $statusService;
 
@@ -32,7 +32,7 @@ class SearchActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::SEARCH, 1);
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(EquipmentFactoryInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new Search(
@@ -74,11 +74,11 @@ class SearchActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player);
 
         // No hidden item in the room
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
         $gameItem
             ->setName('itemName')
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($room)
         ;
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
@@ -90,11 +90,11 @@ class SearchActionTest extends AbstractActionTest
     {
         // Success find
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
         $gameItem
             ->setName('itemName')
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($room)
         ;
 
@@ -128,11 +128,11 @@ class SearchActionTest extends AbstractActionTest
     {
         // 2 hidden items
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
         $gameItem
             ->setName('itemName')
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($room)
         ;
 
@@ -145,9 +145,9 @@ class SearchActionTest extends AbstractActionTest
             ->setTarget($hiddenBy)
         ;
 
-        $gameItem2 = new GameItem();
+        $gameItem2 = new Item();
         $gameItem2
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($room)
         ;
 

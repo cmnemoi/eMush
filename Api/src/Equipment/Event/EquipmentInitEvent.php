@@ -3,7 +3,7 @@
 namespace Mush\Equipment\Event;
 
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Game\Event\AbstractGameEvent;
 
 class EquipmentInitEvent extends AbstractGameEvent
@@ -11,13 +11,13 @@ class EquipmentInitEvent extends AbstractGameEvent
     public const NEW_EQUIPMENT = 'new.equipment';
 
     private EquipmentConfig $equipmentConfig;
-    private GameEquipment $gameEquipment;
+    private Equipment $gameEquipment;
 
     public function __construct(
-        GameEquipment $gameEquipment,
+        Equipment       $gameEquipment,
         EquipmentConfig $equipmentConfig,
-        string $reason,
-        \DateTime $time
+        string          $reason,
+        \DateTime       $time
     ) {
         parent::__construct($reason, $time);
 
@@ -30,7 +30,7 @@ class EquipmentInitEvent extends AbstractGameEvent
         return $this->equipmentConfig;
     }
 
-    public function getGameEquipment(): GameEquipment
+    public function getGameEquipment(): Equipment
     {
         return $this->gameEquipment;
     }

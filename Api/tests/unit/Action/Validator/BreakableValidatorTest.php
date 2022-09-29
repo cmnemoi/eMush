@@ -7,7 +7,7 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\Breakable;
 use Mush\Action\Validator\BreakableValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -39,8 +39,8 @@ class BreakableValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setIsBreakable(true);
 
-        $target = new GameItem();
-        $target->setEquipment($itemConfig);
+        $target = new Item();
+        $target->setConfig($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -58,8 +58,8 @@ class BreakableValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setIsBreakable(false);
 
-        $target = new GameItem();
-        $target->setEquipment($itemConfig);
+        $target = new Item();
+        $target->setConfig($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action

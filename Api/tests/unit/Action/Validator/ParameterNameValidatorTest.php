@@ -7,7 +7,7 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\ParameterNameValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\GameFruitEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -42,8 +42,8 @@ class ParameterNameValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setName(GameFruitEnum::ANEMOLE);
 
-        $gameItem = new GameItem();
-        $gameItem->setEquipment($itemConfig);
+        $gameItem = new Item();
+        $gameItem->setConfig($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -65,8 +65,8 @@ class ParameterNameValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setName(GameFruitEnum::ANEMOLE);
 
-        $gameItem = new GameItem();
-        $gameItem->setEquipment($itemConfig);
+        $gameItem = new Item();
+        $gameItem->setConfig($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action

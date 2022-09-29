@@ -9,7 +9,7 @@ use Mush\Action\Actions\LieDown;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Event\AbstractGameEvent;
@@ -50,7 +50,7 @@ class LieDownActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$this->actionEntity]));
         $item = new EquipmentConfig();
@@ -60,7 +60,7 @@ class LieDownActionTest extends AbstractActionTest
         ;
 
         $gameEquipment
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($room)
             ->setName(EquipmentEnum::BED)
         ;

@@ -3,7 +3,7 @@
 namespace Mush\Equipment\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 #[ORM\Entity]
@@ -12,12 +12,12 @@ class ItemConfig extends EquipmentConfig
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isStackable;
 
-    public function createGameItem(): GameItem
+    public function createGameItem(): Item
     {
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $gameItem
             ->setName($this->getShortName())
-            ->setEquipment($this)
+            ->setConfig($this)
         ;
 
         return $gameItem;

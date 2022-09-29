@@ -5,8 +5,8 @@ namespace Mush\RoomLog\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -81,7 +81,7 @@ class RoomLogService implements RoomLogServiceInterface
         $parameters = $this->getActionLogParameters($actionResult, $player, $actionParameter);
 
         $visibility = $logData[ActionLogEnum::VISIBILITY];
-        if ($actionParameter instanceof GameEquipment && $actionParameter->getEquipment()->isPersonal()) {
+        if ($actionParameter instanceof Equipment && $actionParameter->getConfig()->isPersonal()) {
             $visibility = VisibilityEnum::PRIVATE;
         }
 
@@ -122,7 +122,7 @@ class RoomLogService implements RoomLogServiceInterface
         Player $player,
         ?LogParameterInterface $actionParameter,
     ): RoomLog {
-        if ($actionParameter instanceof GameItem) {
+        if ($actionParameter instanceof Item) {
             return $this->createLog(
                 $actionParameter->getLogName() . '.examine',
                 $player->getPlace(),
@@ -132,7 +132,7 @@ class RoomLogService implements RoomLogServiceInterface
             );
         }
 
-        if ($actionParameter instanceof GameEquipment) {
+        if ($actionParameter instanceof Equipment) {
             return $this->createLog(
                 $actionParameter->getLogName() . '.examine',
                 $player->getPlace(),
@@ -187,9 +187,9 @@ class RoomLogService implements RoomLogServiceInterface
 
         $placeEquipements = $place->getEquipments();
 
-        $equipmentIsACamera = fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT;
+        $equipmentIsACamera = fn (Equipment $gameEquipment) => $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT;
 
-        $equipementIsNotBroken = fn (GameEquipment $gameEquipment) => $gameEquipment->isBroken() === false;
+        $equipementIsNotBroken = fn (Equipment $gameEquipment) => $gameEquipment->isBroken() === false;
 
         $placeHasAFunctionalCamera = $placeEquipements->filter($equipmentIsACamera)->filter($equipementIsNotBroken)->count() > 0;
         $placeHasAWitness = $place->getNumberPlayers() > 1;

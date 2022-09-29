@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Place\Entity\Place;
 
 interface AlertServiceInterface
@@ -27,11 +27,11 @@ interface AlertServiceInterface
 
     public function gravityAlert(Daedalus $daedalus, bool $activate): void;
 
-    public function handleEquipmentBreak(GameEquipment $equipment): void;
+    public function handleEquipmentBreak(Equipment $equipment): void;
 
-    public function handleEquipmentRepair(GameEquipment $equipment): void;
+    public function handleEquipmentRepair(Equipment $equipment): void;
 
-    public function getAlertEquipmentElement(Alert $alert, GameEquipment $equipment): AlertElement;
+    public function getAlertEquipmentElement(Alert $alert, Equipment $equipment): AlertElement;
 
     public function handleFireStart(Place $place): void;
 
@@ -45,5 +45,5 @@ interface AlertServiceInterface
 
     public function isFireReported(Place $room): bool;
 
-    public function isEquipmentReported(GameEquipment $equipment): bool;
+    public function isEquipmentReported(Equipment $equipment): bool;
 }

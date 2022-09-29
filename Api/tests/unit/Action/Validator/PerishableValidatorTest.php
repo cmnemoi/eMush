@@ -8,7 +8,7 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\Perishable;
 use Mush\Action\Validator\PerishableValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -44,8 +44,8 @@ class PerishableValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setMechanics(new ArrayCollection([$rationMechanic]));
 
-        $target = new GameItem();
-        $target->setEquipment($itemConfig);
+        $target = new Item();
+        $target->setConfig($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -64,8 +64,8 @@ class PerishableValidatorTest extends TestCase
     {
         $itemConfig = new ItemConfig();
 
-        $target = new GameItem();
-        $target->setEquipment($itemConfig);
+        $target = new Item();
+        $target->setConfig($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action

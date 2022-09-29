@@ -8,7 +8,7 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\Mechanic;
 use Mush\Action\Validator\MechanicValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use PHPUnit\Framework\TestCase;
@@ -44,8 +44,8 @@ class MechanicValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setMechanics(new ArrayCollection([$documentMechanic]));
 
-        $target = new GameItem();
-        $target->setEquipment($itemConfig);
+        $target = new Item();
+        $target->setConfig($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -66,8 +66,8 @@ class MechanicValidatorTest extends TestCase
     {
         $itemConfig = new ItemConfig();
 
-        $target = new GameItem();
-        $target->setEquipment($itemConfig);
+        $target = new Item();
+        $target->setConfig($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action

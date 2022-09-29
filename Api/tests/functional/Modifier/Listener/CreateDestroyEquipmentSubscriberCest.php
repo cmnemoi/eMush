@@ -11,7 +11,7 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -69,10 +69,10 @@ class CreateDestroyEquipmentSubscriberCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
 
-        $equipment = new GameItem();
+        $equipment = new Item();
         $equipment
             ->setName($equipmentConfig->getName())
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setHolder($player);
         $I->haveInRepository($equipment);
 
@@ -129,10 +129,10 @@ class CreateDestroyEquipmentSubscriberCest
             'mechanics' => new ArrayCollection([$gear]),
         ]);
 
-        $equipment = new GameItem();
+        $equipment = new Item();
         $equipment
             ->setName($equipmentConfig->getName())
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setHolder($player);
         $I->haveInRepository($equipment);
 
@@ -256,9 +256,9 @@ class CreateDestroyEquipmentSubscriberCest
         ]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('some name')
             ->setHolder($player)
         ;
@@ -333,17 +333,17 @@ class CreateDestroyEquipmentSubscriberCest
         ]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('some name')
             ->setHolder($player)
         ;
         $I->haveInRepository($gameEquipment);
 
-        $gameEquipment2 = new GameItem();
+        $gameEquipment2 = new Item();
         $gameEquipment2
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('some name')
             ->setHolder($player)
         ;

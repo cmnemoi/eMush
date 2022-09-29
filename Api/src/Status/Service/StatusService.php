@@ -9,7 +9,7 @@ use Error;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
@@ -189,18 +189,18 @@ class StatusService implements StatusServiceInterface
         }
     }
 
-    public function getMostRecent(string $statusName, Collection $equipments): gameEquipment
+    public function getMostRecent(string $statusName, Collection $equipments): Equipment
     {
         $pickedEquipments = $equipments
-            ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getStatusByName($statusName) !== null)
+            ->filter(fn (Equipment $gameEquipment) => $gameEquipment->getStatusByName($statusName) !== null)
         ;
         if ($pickedEquipments->isEmpty()) {
             throw new Error('no such status in item collection');
         } else {
-            /** @var GameEquipment $pickedEquipment */
+            /** @var Equipment $pickedEquipment */
             $pickedEquipment = $pickedEquipments->first();
             if ($pickedEquipments->count() > 1) {
-                /** @var GameEquipment $equipment */
+                /** @var Equipment $equipment */
                 foreach ($pickedEquipments as $equipment) {
                     $pickedEquipmentsStatus = $pickedEquipment->getStatusByName($statusName);
                     $equipmentsStatus = $equipment->getStatusByName($statusName);

@@ -10,7 +10,7 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\IsRoom;
 use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
@@ -27,7 +27,7 @@ class Hide extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameItem;
+        return $parameter instanceof Item;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -45,7 +45,7 @@ class Hide extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $parameter */
+        /** @var Item $parameter */
         $parameter = $this->parameter;
         $time = new \DateTime();
 

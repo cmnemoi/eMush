@@ -7,7 +7,7 @@ use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusWidgetService;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
@@ -58,7 +58,7 @@ class DaedalusWidgetServiceTest extends TestCase
 
         $player = new Player();
 
-        $tracker = new GameItem();
+        $tracker = new Item();
         $tracker->setName(ItemEnum::TRACKER);
         $player->addEquipment($tracker);
 
@@ -135,7 +135,7 @@ class DaedalusWidgetServiceTest extends TestCase
 
         $player = new Player();
 
-        $tracker = new GameItem();
+        $tracker = new Item();
         $tracker->setName(ItemEnum::TRACKER);
         $player->addEquipment($tracker);
 

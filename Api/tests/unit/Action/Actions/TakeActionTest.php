@@ -9,7 +9,7 @@ use Mush\Action\Actions\Take;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 
@@ -42,12 +42,12 @@ class TakeActionTest extends AbstractActionTest
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new Item();
 
         $item = new ItemConfig();
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
-        $gameItem->setEquipment($item);
+        $gameItem->setConfig($item);
         $gameItem
             ->setName('itemName')
             ->setHolder($room)
@@ -74,12 +74,12 @@ class TakeActionTest extends AbstractActionTest
     public function testTakeHeavyObject()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new Item();
 
         $item = new ItemConfig();
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
-        $gameItem->setEquipment($item);
+        $gameItem->setConfig($item);
         $gameItem
             ->setName('itemName')
             ->setHolder($room)

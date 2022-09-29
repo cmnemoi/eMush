@@ -10,7 +10,7 @@ use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Repository\AlertRepository;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Place\Entity\Place;
 use Mush\Status\Enum\StatusEnum;
 
@@ -142,7 +142,7 @@ class AlertService implements AlertServiceInterface
         }
     }
 
-    public function handleEquipmentBreak(GameEquipment $equipment): void
+    public function handleEquipmentBreak(Equipment $equipment): void
     {
         if ($equipment instanceof Door) {
             $daedalus = $equipment->getRooms()->first()->getDaedalus();
@@ -164,7 +164,7 @@ class AlertService implements AlertServiceInterface
         $this->persist($brokenAlert);
     }
 
-    public function handleEquipmentRepair(GameEquipment $equipment): void
+    public function handleEquipmentRepair(Equipment $equipment): void
     {
         if ($equipment instanceof Door) {
             $daedalus = $equipment->getRooms()->first()->getDaedalus();
@@ -185,7 +185,7 @@ class AlertService implements AlertServiceInterface
         $this->deleteAlertElement($reportedEquipment);
     }
 
-    public function getAlertEquipmentElement(Alert $alert, GameEquipment $equipment): AlertElement
+    public function getAlertEquipmentElement(Alert $alert, Equipment $equipment): AlertElement
     {
         $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getEquipment() === $equipment);
 
@@ -307,7 +307,7 @@ class AlertService implements AlertServiceInterface
         return $this->getAlertFireElement($alert, $room)->getPlayer() !== null;
     }
 
-    public function isEquipmentReported(GameEquipment $equipment): bool
+    public function isEquipmentReported(Equipment $equipment): bool
     {
         $daedalus = $equipment->getPlace()->getDaedalus();
         if (!$equipment->isBroken()) {

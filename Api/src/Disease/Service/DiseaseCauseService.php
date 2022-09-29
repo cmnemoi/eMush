@@ -5,7 +5,7 @@ namespace Mush\Disease\Service;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -30,7 +30,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
         $this->consumableDiseaseService = $consumableDiseaseService;
     }
 
-    public function handleSpoiledFood(Player $player, GameEquipment $gameEquipment): void
+    public function handleSpoiledFood(Player $player, Equipment $gameEquipment): void
     {
         if (($gameEquipment->hasStatus(EquipmentStatusEnum::HAZARDOUS) &&
                 $this->randomService->isSuccessful(self::HAZARDOUS_RATE))
@@ -41,7 +41,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
         }
     }
 
-    public function handleConsumable(Player $player, GameEquipment $gameEquipment): void
+    public function handleConsumable(Player $player, Equipment $gameEquipment): void
     {
         $consumableEffect = $this->consumableDiseaseService->findConsumableDiseases($gameEquipment->getName(), $player->getDaedalus());
 

@@ -8,7 +8,7 @@ use Mush\Action\Actions\UseBandage;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Place\Entity\Place;
 
 class UseBandageActionTest extends AbstractActionTest
@@ -40,11 +40,11 @@ class UseBandageActionTest extends AbstractActionTest
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
         $gameItem
             ->setName('item')
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($room);
 
         $this->eventDispatcher->shouldReceive('dispatch');

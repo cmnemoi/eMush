@@ -7,12 +7,12 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -32,14 +32,14 @@ class OpenCapsule extends AbstractAction
     protected string $name = ActionEnum::OPEN;
 
     protected RandomServiceInterface $randomService;
-    protected GameEquipmentServiceInterface $gameEquipmentService;
+    protected EquipmentFactoryInterface $gameEquipmentService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        GameEquipmentServiceInterface $gameEquipmentService
+        EquipmentFactoryInterface $gameEquipmentService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -53,7 +53,7 @@ class OpenCapsule extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $parameter instanceof Equipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -68,7 +68,7 @@ class OpenCapsule extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $parameter */
+        /** @var Equipment $parameter */
         $parameter = $this->parameter;
         $time = new \DateTime();
 

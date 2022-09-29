@@ -9,7 +9,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
@@ -49,7 +49,7 @@ class PublicBroadcast extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameItem;
+        return $parameter instanceof Item;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

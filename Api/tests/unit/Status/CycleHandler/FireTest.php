@@ -8,7 +8,7 @@ use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
@@ -31,7 +31,7 @@ class FireTest extends TestCase
 
     private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
 
-    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+    private EquipmentFactoryInterface|Mockery\Mock $gameEquipmentService;
 
     private DaedalusServiceInterface|Mockery\Mock $daedalusService;
     private Fire $cycleHandler;
@@ -43,7 +43,7 @@ class FireTest extends TestCase
     {
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(EquipmentFactoryInterface::class);
         $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
 
         $this->cycleHandler = new Fire(

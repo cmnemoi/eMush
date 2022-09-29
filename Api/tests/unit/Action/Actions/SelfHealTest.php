@@ -7,7 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\SelfHeal;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 
@@ -24,7 +24,7 @@ class SelfHealActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::SELF_HEAL);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(EquipmentFactoryInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new SelfHeal(

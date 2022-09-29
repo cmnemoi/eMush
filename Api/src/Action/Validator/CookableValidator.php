@@ -3,7 +3,7 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Constraint;
@@ -23,11 +23,11 @@ class CookableValidator extends ConstraintValidator
         }
 
         $parameter = $value->getParameter();
-        if (!$parameter instanceof GameEquipment) {
-            throw new UnexpectedTypeException($parameter, GameEquipment::class);
+        if (!$parameter instanceof Equipment) {
+            throw new UnexpectedTypeException($parameter, Equipment::class);
         }
 
-        if ($parameter->getEquipment()->getName() !== GameRationEnum::STANDARD_RATION &&
+        if ($parameter->getConfig()->getName() !== GameRationEnum::STANDARD_RATION &&
             !$parameter->hasStatus(EquipmentStatusEnum::FROZEN)
         ) {
             $this->context->buildViolation($constraint->message)

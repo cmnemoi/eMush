@@ -9,7 +9,7 @@ use Mush\Action\Actions\Shred;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Place\Entity\Place;
 
@@ -42,14 +42,14 @@ class ShredActionTest extends AbstractActionTest
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
         $document = new Document();
         $document->setCanShred(true);
         $item->setMechanics(new ArrayCollection([$document]));
         $gameItem
             ->setName('item')
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($room)
         ;
 

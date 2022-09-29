@@ -3,8 +3,8 @@
 namespace Mush\Action\Entity;
 
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 
@@ -12,8 +12,8 @@ class ActionParameters
 {
     private ?Place $place = null;
     private ?Player $player = null;
-    private ?GameEquipment $equipment = null;
-    private ?GameItem $item = null;
+    private ?Equipment $equipment = null;
+    private ?Item $item = null;
     private ?Door $door = null;
     private string $message = '';
 
@@ -41,24 +41,24 @@ class ActionParameters
         return $this;
     }
 
-    public function getEquipment(): ?GameEquipment
+    public function getEquipment(): ?Equipment
     {
         return $this->equipment;
     }
 
-    public function setEquipment(?GameEquipment $equipment): static
+    public function setEquipment(?Equipment $equipment): static
     {
         $this->equipment = $equipment;
 
         return $this;
     }
 
-    public function getItem(): ?GameItem
+    public function getItem(): ?Item
     {
         return $this->item;
     }
 
-    public function setItem(?GameItem $item): static
+    public function setItem(?Item $item): static
     {
         $this->item = $item;
 

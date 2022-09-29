@@ -6,7 +6,7 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\EquipmentInitEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -14,12 +14,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
 {
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    private EquipmentFactoryInterface $gameEquipmentService;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
-        GameEquipmentServiceInterface $gameEquipmentService,
-        EventDispatcherInterface $eventDispatcher
+        EquipmentFactoryInterface $gameEquipmentService,
+        EventDispatcherInterface  $eventDispatcher
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
         $this->eventDispatcher = $eventDispatcher;
@@ -55,7 +55,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public function initModifier(EquipmentEvent $event)
     {
         $equipment = $event->getEquipment();
-        $config = $equipment->getEquipment();
+        $config = $equipment->getConfig();
         $reason = $event->getReason();
         $time = $event->getTime();
 
@@ -83,14 +83,13 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
 
         $equipment->setHolder(null);
-        $this->gameEquipmentService->delete($equipment);
+        $this->gameEquipmentService->deleteEquipment($equipment);
     }
 
     public function onInventoryOverflow(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
         $equipment->setHolder($equipment->getPlace());
-        $this->gameEquipmentService->persist($equipment);
     }
 
     public function checkInventoryOverflow(EquipmentEvent $event)
@@ -127,7 +126,5 @@ class EquipmentSubscriber implements EventSubscriberInterface
         } else {
             $equipment->setHolder($event->getActor());
         }
-
-        $this->gameEquipmentService->persist($equipment);
     }
 }

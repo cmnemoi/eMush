@@ -10,7 +10,7 @@ use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -73,7 +73,7 @@ class StatusServiceTest extends TestCase
 
     public function testPersist()
     {
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $status = new Status($gameEquipment, new StatusConfig());
 
         $this->entityManager->shouldReceive('persist')->with($status)->once();
@@ -83,7 +83,7 @@ class StatusServiceTest extends TestCase
 
     public function testRemove()
     {
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $status = new Status($gameEquipment, new StatusConfig());
 
         $this->entityManager->shouldReceive('remove')->with($status)->once();
@@ -96,11 +96,11 @@ class StatusServiceTest extends TestCase
         $daedalus = new Daedalus();
         $room = new Place();
 
-        $item1 = new GameItem();
+        $item1 = new Item();
         $item1->setHolder($room)->setName('item 1');
-        $item2 = new GameItem();
+        $item2 = new Item();
         $item2->setHolder($room)->setName('item 2');
-        $item3 = new GameItem();
+        $item3 = new Item();
         $item3->setHolder($room)->setName('item 3');
 
         $statusConfig = new StatusConfig();
@@ -125,7 +125,7 @@ class StatusServiceTest extends TestCase
 
     public function testChangeCharge()
     {
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $chargeStatusConfig = new ChargeStatusConfig();
         $chargeStatusConfig
             ->setMaxCharge(6)
@@ -165,7 +165,7 @@ class StatusServiceTest extends TestCase
 
     public function testCreateStatusFromConfig()
     {
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setName(PlayerStatusEnum::EUREKA_MOMENT)
@@ -185,7 +185,7 @@ class StatusServiceTest extends TestCase
 
     public function testCreateChargeStatusFromConfig()
     {
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
             ->setName(PlayerStatusEnum::GUARDIAN)

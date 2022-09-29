@@ -11,17 +11,17 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 
 class RetrieveOxygenTest extends AbstractActionTest
 {
-    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+    private EquipmentFactoryInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -29,7 +29,7 @@ class RetrieveOxygenTest extends AbstractActionTest
     public function before()
     {
         parent::before();
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(EquipmentFactoryInterface::class);
         $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_OXYGEN);
 
         $this->action = new RetrieveOxygen(
@@ -52,9 +52,9 @@ class RetrieveOxygenTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
-        $gameItem->setEquipment($item);
+        $gameItem->setConfig($item);
 
         $item
             ->setName(ItemEnum::OXYGEN_CAPSULE)
@@ -78,9 +78,9 @@ class RetrieveOxygenTest extends AbstractActionTest
         $tank = new EquipmentConfig();
         $tank->setActions(new ArrayCollection([$this->actionEntity]));
 
-        $gameTank = new GameEquipment();
+        $gameTank = new Equipment();
         $gameTank
-            ->setEquipment($tank)
+            ->setConfig($tank)
             ->setName(EquipmentEnum::OXYGEN_TANK)
             ->setHolder($room)
         ;

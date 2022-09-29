@@ -3,7 +3,7 @@
 namespace Mush\RoomLog\Listener;
 
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\EventEnum;
@@ -90,7 +90,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $equipment = $event->getEquipment();
 
         if (
-            $equipment instanceof GameItem &&
+            $equipment instanceof Item &&
             $holder->getEquipments()->count() > $gameConfig->getMaxItemInInventory()
         ) {
             $this->createEventLog(LogEnum::OBJECT_FELL, $event, VisibilityEnum::PUBLIC);

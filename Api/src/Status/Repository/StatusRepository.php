@@ -5,8 +5,8 @@ namespace Mush\Status\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
@@ -30,8 +30,8 @@ class StatusRepository extends ServiceEntityRepository
             ->join(StatusTarget::class, 'status_target', Join::WITH, 'status_target = status.owner')
             ->leftJoin(Player::class, 'player', Join::WITH, 'player = status_target.player')
             ->leftJoin(Place::class, 'place', Join::WITH, 'place = status_target.place')
-            ->leftJoin(GameEquipment::class, 'equipment', Join::WITH, 'equipment = status_target.gameEquipment')
-            ->leftJoin(GameItem::class, 'item', Join::WITH, 'item = status_target.gameEquipment')
+            ->leftJoin(Equipment::class, 'equipment', Join::WITH, 'equipment = status_target.gameEquipment')
+            ->leftJoin(Item::class, 'item', Join::WITH, 'item = status_target.gameEquipment')
             ->leftJoin(Player::class, 'item_player', Join::WITH, 'item.player = item_player')
             ->leftJoin(Place::class, 'item_place', Join::WITH, 'item.place = item_place')
             ->leftJoin(Place::class, 'equipment_place', Join::WITH, 'equipment.place = equipment_place')

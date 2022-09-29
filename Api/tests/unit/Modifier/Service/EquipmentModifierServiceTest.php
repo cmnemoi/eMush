@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
@@ -73,9 +73,9 @@ class EquipmentModifierServiceTest extends TestCase
             ->setName('gear')
             ->setMechanics(new ArrayCollection([$gear]))
         ;
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName($equipmentConfig->getName())
             ->setHolder($room)
         ;
@@ -128,9 +128,9 @@ class EquipmentModifierServiceTest extends TestCase
             ->setName('gear')
             ->setMechanics(new ArrayCollection([$gear]))
         ;
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName($equipmentConfig->getName())
             ->setHolder($room)
         ;
@@ -172,8 +172,8 @@ class EquipmentModifierServiceTest extends TestCase
             ->setName('gear')
             ->setMechanics(new ArrayCollection([$gear]))
         ;
-        $gameEquipment = new GameItem();
-        $gameEquipment->setEquipment($equipmentConfig)->setHolder($room);
+        $gameEquipment = new Item();
+        $gameEquipment->setConfig($equipmentConfig)->setHolder($room);
 
         $this->modifierService
             ->shouldReceive('deleteModifier')
@@ -221,9 +221,9 @@ class EquipmentModifierServiceTest extends TestCase
             ->setName('gear')
             ->setMechanics(new ArrayCollection([$gear]))
         ;
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName($equipmentConfig->getName())
             ->setHolder($room)
         ;
@@ -248,9 +248,9 @@ class EquipmentModifierServiceTest extends TestCase
             ->setName('gear')
             ->setMechanics(new ArrayCollection([$gear]))
         ;
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName($equipmentConfig->getName())
             ->setHolder($room)
         ;
@@ -304,8 +304,8 @@ class EquipmentModifierServiceTest extends TestCase
             ->setName('gear')
             ->setMechanics(new ArrayCollection([$gear]))
         ;
-        $gameEquipment = new GameItem();
-        $gameEquipment->setEquipment($equipmentConfig)->setHolder($room);
+        $gameEquipment = new Item();
+        $gameEquipment->setConfig($equipmentConfig)->setHolder($room);
 
         $this->service->dropEquipment($gameEquipment, $player);
 
@@ -329,8 +329,8 @@ class EquipmentModifierServiceTest extends TestCase
             ->setName('gear')
             ->setMechanics(new ArrayCollection([$gear]))
         ;
-        $gameEquipment = new GameItem();
-        $gameEquipment->setEquipment($equipmentConfig)->setHolder($room);
+        $gameEquipment = new Item();
+        $gameEquipment->setConfig($equipmentConfig)->setHolder($room);
 
         $this->modifierService
             ->shouldReceive('deleteModifier')

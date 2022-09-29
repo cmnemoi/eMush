@@ -5,7 +5,7 @@ namespace Mush\Modifier\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\Action;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
@@ -124,7 +124,7 @@ class ModifierService implements ModifierServiceInterface
 
         if ($parameter instanceof Player) {
             $modifiers = $modifiers->addModifiers($parameter->getModifiers()->getScopedModifiers($scopes));
-        } elseif ($parameter instanceof GameEquipment) {
+        } elseif ($parameter instanceof Equipment) {
             $modifiers = $modifiers->addModifiers($parameter->getModifiers()->getScopedModifiers($scopes));
         }
 

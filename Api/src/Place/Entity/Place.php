@@ -9,7 +9,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -49,7 +49,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
     #[ORM\ManyToMany(targetEntity: Door::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $doors;
 
-    #[ORM\OneToMany(mappedBy: 'place', targetEntity: GameEquipment::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Equipment::class, orphanRemoval: true)]
     private Collection $equipments;
 
     #[ORM\OneToMany(mappedBy: 'place', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
@@ -170,7 +170,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return $this;
     }
 
-    public function addEquipment(GameEquipment $gameEquipment): static
+    public function addEquipment(Equipment $gameEquipment): static
     {
         if (!$this->equipments->contains($gameEquipment)) {
             $this->equipments->add($gameEquipment);
@@ -180,7 +180,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
         return $this;
     }
 
-    public function removeEquipment(GameEquipment $gameEquipment): static
+    public function removeEquipment(Equipment $gameEquipment): static
     {
         if ($this->equipments->contains($gameEquipment)) {
             $this->equipments->removeElement($gameEquipment);
@@ -192,12 +192,12 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
 
     public function hasEquipmentByName(string $name): bool
     {
-        return !$this->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->isEmpty();
+        return !$this->getEquipments()->filter(fn (Equipment $gameEquipment) => $gameEquipment->getName() === $name)->isEmpty();
     }
 
     public function hasOperationalEquipmentByName(string $name): bool
     {
-        return !$this->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name &&
+        return !$this->getEquipments()->filter(fn (Equipment $gameEquipment) => $gameEquipment->getName() === $name &&
             $gameEquipment->isOperational()
         )->isEmpty();
     }

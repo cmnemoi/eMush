@@ -53,7 +53,7 @@ abstract class EquipmentMechanic
         $this->actions = new ArrayCollection();
     }
 
-    public function initEquipment(GameEquipment $gameEquipment): GameEquipment
+    public function initEquipment(Equipment $gameEquipment): Equipment
     {
         return $gameEquipment;
     }

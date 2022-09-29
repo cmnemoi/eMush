@@ -3,7 +3,7 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -23,7 +23,7 @@ class FuelValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, Fuel::class);
         }
 
-        /** @var GameEquipment $param */
+        /** @var Equipment $param */
         $daedalus = $value->getPlayer()->getDaedalus();
 
         if ($constraint->retrieve && $daedalus->getFuel() <= 0) {

@@ -2,18 +2,18 @@
 
 namespace Mush\Equipment\Event;
 
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Player\Entity\Player;
 
 class TransformEquipmentEvent extends EquipmentEvent
 {
-    protected GameEquipment $from;
+    protected Equipment $from;
 
     public function __construct(
-        GameEquipment $equipment,
-        GameEquipment $from,
-        string $visibility,
-        string $reason,
+        Equipment $equipment,
+        Equipment $from,
+        string    $visibility,
+        string    $reason,
         \DateTime $time
     ) {
         parent::__construct($equipment, false, $visibility, $reason, $time);
@@ -21,7 +21,7 @@ class TransformEquipmentEvent extends EquipmentEvent
         $this->from = $from;
     }
 
-    public function getEquipmentFrom(): GameEquipment
+    public function getEquipmentFrom(): Equipment
     {
         return $this->from;
     }

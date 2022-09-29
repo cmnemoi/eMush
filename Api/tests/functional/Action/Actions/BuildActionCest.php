@@ -10,8 +10,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
@@ -39,7 +39,7 @@ class BuildActionCest
 
         $gameEquipment = $this->createEquipment('blueprint', $room2);
 
-        $gameEquipment->getEquipment()->setMechanics(new ArrayCollection([
+        $gameEquipment->getConfig()->setMechanics(new ArrayCollection([
             $this->createBlueprint(['metal_scraps' => 1], $buildActionEntity),
         ]));
 
@@ -67,7 +67,7 @@ class BuildActionCest
 
         $I->assertFalse($this->buildAction->isVisible());
 
-        $gameEquipment->getEquipment()->setMechanics(new ArrayCollection([
+        $gameEquipment->getConfig()->setMechanics(new ArrayCollection([
             $this->createBlueprint(['metal_scraps' => 1], $buildActionEntity),
         ]));
 
@@ -93,13 +93,13 @@ class BuildActionCest
         return $player;
     }
 
-    private function createEquipment(string $name, Place $place): GameEquipment
+    private function createEquipment(string $name, Place $place): Equipment
     {
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $equipment = new EquipmentConfig();
         $equipment->setName($name);
         $gameEquipment
-            ->setEquipment($equipment)
+            ->setConfig($equipment)
             ->setHolder($place)
             ->setName($name)
         ;
@@ -112,9 +112,9 @@ class BuildActionCest
         if ($product === null) {
             $product = new ItemConfig();
             $product->setName('product');
-            $gameProduct = new GameItem();
+            $gameProduct = new Item();
             $gameProduct
-                ->setEquipment($product)
+                ->setConfig($product)
                 ->setName('product')
             ;
         }

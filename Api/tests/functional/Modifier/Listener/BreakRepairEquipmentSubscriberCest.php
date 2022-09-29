@@ -10,7 +10,7 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
@@ -83,9 +83,9 @@ class BreakRepairEquipmentSubscriberCest
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('some name')
             ->setholder($player)
         ;

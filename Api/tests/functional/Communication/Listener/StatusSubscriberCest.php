@@ -12,8 +12,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
@@ -71,18 +71,18 @@ class StatusSubscriberCest
         /** @var EquipmentConfig $commsCenterConfig */
         $commsCenterConfig = $I->have(EquipmentConfig::class, ['name' => EquipmentEnum::COMMUNICATION_CENTER, 'gameConfig' => $gameConfig]);
 
-        $communicationCenter = new GameEquipment();
+        $communicationCenter = new Equipment();
         $communicationCenter
             ->setName(EquipmentEnum::COMMUNICATION_CENTER)
-            ->setEquipment($commsCenterConfig)
+            ->setConfig($commsCenterConfig)
             ->setHolder($room)
         ;
         $I->haveInRepository($communicationCenter);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new Item();
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
+            ->setConfig($iTrackieConfig)
             ->setHolder($player2)
         ;
         $I->haveInRepository($iTrackie2);

@@ -13,7 +13,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Entity\Modifier;
@@ -67,7 +67,7 @@ class MoveSubscriberCest
         $door = new Door();
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
+            ->setConfig($doorConfig)
             ->setHolder($room2)
         ;
         $I->haveInRepository($door);
@@ -107,9 +107,9 @@ class MoveSubscriberCest
             'mechanics' => new ArrayCollection([$gear]),
         ]);
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('some name')
             ->setHolder($player)
         ;

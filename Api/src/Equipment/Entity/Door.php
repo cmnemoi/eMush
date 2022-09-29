@@ -10,7 +10,7 @@ use Mush\Place\Entity\Place;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 #[ORM\Entity]
-class Door extends GameEquipment
+class Door extends Equipment
 {
     #[ORM\ManyToMany(targetEntity: Place::class)]
     private Collection $rooms;

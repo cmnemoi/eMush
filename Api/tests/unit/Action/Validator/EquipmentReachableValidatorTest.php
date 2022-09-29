@@ -7,7 +7,7 @@ use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\EquipmentReachable;
 use Mush\Action\Validator\EquipmentReachableValidator;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
@@ -51,7 +51,7 @@ class EquipmentReachableValidatorTest extends TestCase
             ])
         ;
 
-        $collection = new ArrayCollection([new GameEquipment()]);
+        $collection = new ArrayCollection([new Equipment()]);
 
         $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn($collection);
 

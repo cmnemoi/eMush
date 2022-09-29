@@ -9,10 +9,10 @@ use Mush\Action\Actions\Transplant;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Place\Entity\Place;
 
@@ -20,7 +20,7 @@ class PlantActionTest extends AbstractActionTest
 {
     private GearToolServiceInterface|Mockery\Mock $gearToolService;
 
-    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+    private EquipmentFactoryInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -30,7 +30,7 @@ class PlantActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::TRANSPLANT, 1);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(EquipmentFactoryInterface::class);
         $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
 
         $this->action = new Transplant(
@@ -53,10 +53,10 @@ class PlantActionTest extends AbstractActionTest
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
         $gameItem
-                    ->setEquipment($item)
+                    ->setConfig($item)
                     ->setHolder($room)
                     ->setName('toto')
         ;
@@ -69,17 +69,17 @@ class PlantActionTest extends AbstractActionTest
 
         $plant = new ItemConfig();
         $plant->setName('banana_tree');
-        $gamePlant = new GameItem();
+        $gamePlant = new Item();
         $gamePlant
-            ->setEquipment($plant)
+            ->setConfig($plant)
             ->setName('banana_tree')
         ;
 
-        $gameHydropot = new GameItem();
+        $gameHydropot = new Item();
         $hydropot = new ItemConfig();
         $hydropot->setName(ItemEnum::HYDROPOT);
         $gameHydropot
-                    ->setEquipment($hydropot)
+                    ->setConfig($hydropot)
                     ->setHolder($room)
                     ->setName(ItemEnum::HYDROPOT)
         ;

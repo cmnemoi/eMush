@@ -2,7 +2,7 @@
 
 namespace Mush\Equipment\Event;
 
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -17,15 +17,15 @@ class EquipmentEvent extends AbstractGameEvent implements LoggableEventInterface
     public const INVENTORY_OVERFLOW = 'inventory.overflow';
     public const CHANGE_HOLDER = 'change.holder';
 
-    private GameEquipment $equipment;
+    private Equipment $equipment;
     private string $visibility;
     private bool $created;
 
     public function __construct(
-        GameEquipment $equipment,
-        bool $created,
-        string $visibility,
-        string $reason,
+        Equipment $equipment,
+        bool      $created,
+        string    $visibility,
+        string    $reason,
         \DateTime $time
     ) {
         $this->equipment = $equipment;
@@ -35,7 +35,7 @@ class EquipmentEvent extends AbstractGameEvent implements LoggableEventInterface
         parent::__construct($reason, $time);
     }
 
-    public function getEquipment(): GameEquipment
+    public function getEquipment(): Equipment
     {
         return $this->equipment;
     }

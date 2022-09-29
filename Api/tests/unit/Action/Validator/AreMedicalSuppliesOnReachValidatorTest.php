@@ -6,7 +6,7 @@ use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\AreMedicalSuppliesOnReach;
 use Mush\Action\Validator\AreMedicalSuppliesOnReachValidator;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -75,7 +75,7 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
         $player->setCharacterConfig($characterConfig);
         $player->setPlace($room);
 
-        $equipment = new GameItem();
+        $equipment = new Item();
         $equipment->setName(ToolItemEnum::MEDIKIT);
         $player->addEquipment($equipment);
 
@@ -106,7 +106,7 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
         $player->setCharacterConfig($characterConfig);
         $player->setPlace($room);
 
-        $equipment = new GameItem();
+        $equipment = new Item();
         $equipment->setName(ToolItemEnum::MEDIKIT);
         $room->addEquipment($equipment);
 

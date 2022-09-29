@@ -2,11 +2,12 @@
 
 namespace Mush\Equipment\Listener;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Event\PlaceInitEvent;
@@ -15,11 +16,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlaceInitSubscriber implements EventSubscriberInterface
 {
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    private EquipmentFactoryInterface $gameEquipmentService;
     private EventDispatcherInterface $eventDispatcher;
 
-    public function __construct(GameEquipmentServiceInterface $gameEquipmentService,
-        EventDispatcherInterface $eventDispatcher)
+    public function __construct(EquipmentFactoryInterface $gameEquipmentService,
+                                EventDispatcherInterface  $eventDispatcher)
     {
         $this->gameEquipmentService = $gameEquipmentService;
         $this->eventDispatcher = $eventDispatcher;
@@ -38,43 +39,23 @@ class PlaceInitSubscriber implements EventSubscriberInterface
         $placeConfig = $event->getPlaceConfig();
         $daedalus = $place->getDaedalus();
         $reason = $event->getReason();
-        $time = $event->getTime();
 
         foreach ($placeConfig->getItems() as $itemName) {
-            $item = $daedalus
-                ->getGameConfig()
-                ->getEquipmentsConfig()
-                ->filter(fn (EquipmentConfig $item) => $item->getName() === $itemName)->first()
-            ;
-            $gameItem = $this->gameEquipmentService->createGameEquipment($item, $place, $reason, $time);
-
-            $event = new EquipmentEvent(
-                $gameItem,
-                true,
-                VisibilityEnum::HIDDEN,
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                $itemName,
+                $place,
                 $reason,
-                new \DateTime()
+                VisibilityEnum::HIDDEN
             );
-            $this->eventDispatcher->dispatch($event, EquipmentEvent::EQUIPMENT_CREATED);
         }
 
         foreach ($placeConfig->getEquipments() as $equipmentName) {
-            $equipment = $daedalus
-                ->getGameConfig()
-                ->getEquipmentsConfig()
-                ->filter(fn (EquipmentConfig $equipment) => $equipment->getName() === $equipmentName)->first()
-            ;
-
-            $gameEquipment = $this->gameEquipmentService->createGameEquipment($equipment, $place, $reason, $time);
-
-            $event = new EquipmentEvent(
-                $gameEquipment,
-                true,
-                VisibilityEnum::HIDDEN,
+            $this->gameEquipmentService->createGameEquipment(
+                $equipmentName,
+                $place,
                 $reason,
-                new \DateTime()
+                VisibilityEnum::HIDDEN
             );
-            $this->eventDispatcher->dispatch($event, EquipmentEvent::EQUIPMENT_CREATED);
         }
 
         // initialize doors
@@ -99,16 +80,10 @@ class PlaceInitSubscriber implements EventSubscriberInterface
                     return $door->getName() === $doorName;
                 })->first();
             } else { // else create new door
-                $door = new Door();
-                $door
-                    ->setName($doorName)
-                    ->setHolder($place)
-                    ->setEquipment($doorConfig)
-                ;
+                $door = $this->gameEquipmentService->createDoor($doorName, $place, $doorConfig);
             }
 
             $door->addRoom($place);
-            $this->gameEquipmentService->persist($door);
         }
     }
 }

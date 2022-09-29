@@ -10,11 +10,11 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Charged;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -28,14 +28,14 @@ class Dispense extends AbstractAction
     protected string $name = ActionEnum::DISPENSE;
 
     protected RandomServiceInterface $randomService;
-    protected GameEquipmentServiceInterface $gameEquipmentService;
+    protected EquipmentFactoryInterface $gameEquipmentService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        RandomServiceInterface $randomService,
-        GameEquipmentServiceInterface $gameEquipmentService,
+        EventDispatcherInterface  $eventDispatcher,
+        ActionServiceInterface    $actionService,
+        ValidatorInterface        $validator,
+        RandomServiceInterface    $randomService,
+        EquipmentFactoryInterface $gameEquipmentService,
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -49,7 +49,7 @@ class Dispense extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter !== null && $parameter->getClassName() === GameEquipment::class;
+        return $parameter !== null && $parameter->getClassName() === Equipment::class;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

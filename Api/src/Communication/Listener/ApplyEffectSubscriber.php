@@ -5,7 +5,7 @@ namespace Mush\Communication\Listener;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\NeronMessageServiceInterface;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ApplyEffectSubscriber implements EventSubscriberInterface
@@ -49,7 +49,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         $daedalus = $player->getDaedalus();
         $equipment = $event->getParameter();
 
-        if (!$equipment instanceof GameEquipment) {
+        if (!$equipment instanceof Equipment) {
             throw new \LogicException('equipment should not be null');
         }
 

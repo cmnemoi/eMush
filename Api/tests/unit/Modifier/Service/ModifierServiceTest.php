@@ -7,7 +7,7 @@ use Mockery;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
@@ -150,13 +150,13 @@ class ModifierServiceTest extends TestCase
         $this->service->createModifier($modifierConfig, $player, $charge);
 
         // create an equipment Modifier
-        $equipment = new GameEquipment();
+        $equipment = new Equipment();
         $modifierConfig = new ModifierConfig();
         $modifierConfig->setReach(ModifierReachEnum::EQUIPMENT);
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (Modifier $modifier) => $modifier->getModifierHolder() instanceof GameEquipment)
+            ->withArgs(fn (Modifier $modifier) => $modifier->getModifierHolder() instanceof Equipment)
             ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
@@ -272,7 +272,7 @@ class ModifierServiceTest extends TestCase
         $room->setDaedalus($daedalus);
         $player = new Player();
         $player->setDaedalus($daedalus)->setPlace($room);
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
 
         $actionCost = new ActionCost();
         $actionCost

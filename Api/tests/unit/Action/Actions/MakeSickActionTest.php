@@ -7,7 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Heal;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Place\Entity\Place;
 
 class MakeSickActionTest extends AbstractActionTest
@@ -20,7 +20,7 @@ class MakeSickActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::MAKE_SICK);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(EquipmentFactoryInterface::class);
 
         $this->action = new Heal(
             $this->eventDispatcher,

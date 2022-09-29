@@ -12,7 +12,7 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\ConsumableEffect;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
@@ -99,10 +99,10 @@ class ConsumeActionCest
 
         $I->haveInRepository($equipmentConfig);
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $gameItem
             ->setHolder($room)
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('ration')
         ;
         $I->haveInRepository($gameItem);
@@ -188,10 +188,10 @@ class ConsumeActionCest
 
         $I->haveInRepository($equipmentConfig);
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $gameItem
             ->setHolder($room)
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('ration')
         ;
         $I->haveInRepository($gameItem);
@@ -290,10 +290,10 @@ class ConsumeActionCest
 
         $I->haveInRepository($equipmentConfig);
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $gameItem
             ->setHolder($room)
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('ration')
         ;
         $I->haveInRepository($gameItem);

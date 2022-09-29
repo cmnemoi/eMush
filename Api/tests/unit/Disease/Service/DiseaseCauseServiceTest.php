@@ -13,7 +13,7 @@ use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Disease\Service\DiseaseCauseService;
 use Mush\Disease\Service\PlayerDiseaseService;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -65,7 +65,7 @@ class DiseaseCauseServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
 
         $this->playerDiseaseService
             ->shouldReceive('handleDiseaseForCause')
@@ -107,7 +107,7 @@ class DiseaseCauseServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
 
         $this->playerDiseaseService
             ->shouldReceive('handleDiseaseForCause')
@@ -149,7 +149,7 @@ class DiseaseCauseServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment->setName('someName');
 
         $this->consumableDiseaseService
@@ -211,7 +211,7 @@ class DiseaseCauseServiceTest extends TestCase
         $player->setDaedalus($daedalus);
 
         $diseaseName = 'someName';
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment->setName($diseaseName);
 
         $this->consumableDiseaseService

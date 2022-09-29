@@ -5,13 +5,13 @@ namespace Mush\Equipment\Listener;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Equipment\Entity\ConsumableEffect;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
@@ -23,13 +23,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ApplyEffectSubscriber implements EventSubscriberInterface
 {
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    private EquipmentFactoryInterface $gameEquipmentService;
     private EventDispatcherInterface $eventDispatcher;
     private EquipmentEffectServiceInterface $equipmentServiceEffect;
 
     public function __construct(
-        GameEquipmentServiceInterface $gameEquipmentService,
-        EventDispatcherInterface $eventDispatcher,
+        EquipmentFactoryInterface       $gameEquipmentService,
+        EventDispatcherInterface        $eventDispatcher,
         EquipmentEffectServiceInterface $equipmentServiceEffect
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
@@ -49,12 +49,12 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         $player = $consumeEvent->getPlayer();
         $ration = $consumeEvent->getParameter();
 
-        if (!$ration instanceof GameItem) {
+        if (!$ration instanceof Item) {
             return;
         }
 
         /** @var Ration $rationType */
-        $rationType = $ration->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
+        $rationType = $ration->getConfig()->getMechanicByName(EquipmentMechanicEnum::RATION);
 
         if (null === $rationType) {
             throw new \Exception('Cannot consume this equipment');

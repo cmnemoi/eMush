@@ -2,23 +2,23 @@
 
 namespace Mush\Action\ActionResult;
 
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 
 abstract class ActionResult
 {
     protected const DEFAULT = 'default';
 
-    private ?GameEquipment $equipment = null;
+    private ?Equipment $equipment = null;
     private ?int $quantity = null;
 
-    public function setEquipment(GameEquipment $equipment): self
+    public function setEquipment(Equipment $equipment): self
     {
         $this->equipment = $equipment;
 
         return $this;
     }
 
-    public function getEquipment(): ?GameEquipment
+    public function getEquipment(): ?Equipment
     {
         return $this->equipment;
     }

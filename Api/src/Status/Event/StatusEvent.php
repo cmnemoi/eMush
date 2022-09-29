@@ -2,7 +2,7 @@
 
 namespace Mush\Status\Event;
 
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
@@ -85,7 +85,7 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
     {
         if ($this->holder instanceof Place) {
             return $this->holder;
-        } elseif ($this->holder instanceof GameEquipment) {
+        } elseif ($this->holder instanceof Equipment) {
             return $this->holder->getPlace();
         } elseif ($this->holder instanceof Player) {
             return $this->holder->getPlace();
@@ -97,11 +97,11 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
     public function getLogParameters(): array
     {
         $parameters = [];
-        if ($this->holder instanceof Player || $this->holder instanceof GameEquipment) {
+        if ($this->holder instanceof Player || $this->holder instanceof Equipment) {
             $parameters[$this->holder->getLogKey()] = $this->holder->getLogName();
         }
 
-        if ($this->target instanceof Player || $this->target instanceof GameEquipment) {
+        if ($this->target instanceof Player || $this->target instanceof Equipment) {
             $parameters['target_' . $this->target->getLogKey()] = $this->target->getLogName();
         }
 

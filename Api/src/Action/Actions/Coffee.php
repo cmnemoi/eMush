@@ -10,11 +10,11 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Charged;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -25,13 +25,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class Coffee extends AbstractAction
 {
     protected string $name = ActionEnum::COFFEE;
-    protected GameEquipmentServiceInterface $gameEquipmentService;
+    protected EquipmentFactoryInterface $gameEquipmentService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService,
+        EventDispatcherInterface  $eventDispatcher,
+        ActionServiceInterface    $actionService,
+        ValidatorInterface        $validator,
+        EquipmentFactoryInterface $gameEquipmentService,
     ) {
         parent::__construct($eventDispatcher, $actionService, $validator);
 
@@ -40,7 +40,7 @@ class Coffee extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter !== null && $parameter->getClassName() === GameEquipment::class;
+        return $parameter !== null && $parameter->getClassName() === Equipment::class;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

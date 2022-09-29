@@ -11,7 +11,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -44,7 +44,7 @@ class CoffeeActionCest
         $coffeeActionEntity = new Action();
         $coffeeActionEntity->setName(ActionEnum::COFFEE);
 
-        $gameEquipment->getEquipment()->setActions(new ArrayCollection([$coffeeActionEntity]));
+        $gameEquipment->getConfig()->setActions(new ArrayCollection([$coffeeActionEntity]));
 
         $this->coffeeAction->loadParameters($coffeeActionEntity, $player, $gameEquipment);
 
@@ -70,7 +70,7 @@ class CoffeeActionCest
 
         $I->assertFalse($this->coffeeAction->isVisible());
 
-        $gameEquipment->getEquipment()->setActions(new ArrayCollection([$coffeeActionEntity]));
+        $gameEquipment->getConfig()->setActions(new ArrayCollection([$coffeeActionEntity]));
 
         $I->assertTrue($this->coffeeAction->isVisible());
     }
@@ -89,7 +89,7 @@ class CoffeeActionCest
 
         $this->coffeeAction->loadParameters($coffeeActionEntity, $player, $gameEquipment);
 
-        $gameEquipment->getEquipment()->setActions(new ArrayCollection([$coffeeActionEntity]));
+        $gameEquipment->getConfig()->setActions(new ArrayCollection([$coffeeActionEntity]));
 
         $statusConfig = new StatusConfig();
         $statusConfig
@@ -115,7 +115,7 @@ class CoffeeActionCest
 
         $this->coffeeAction->loadParameters($coffeeActionEntity, $player, $gameEquipment);
 
-        $gameEquipment->getEquipment()->setActions(new ArrayCollection([$coffeeActionEntity]));
+        $gameEquipment->getConfig()->setActions(new ArrayCollection([$coffeeActionEntity]));
 
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
@@ -151,13 +151,13 @@ class CoffeeActionCest
         return $player;
     }
 
-    private function createEquipment(string $name, Place $place): GameEquipment
+    private function createEquipment(string $name, Place $place): Equipment
     {
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $equipment = new EquipmentConfig();
         $equipment->setName($name);
         $gameEquipment
-            ->setEquipment($equipment)
+            ->setConfig($equipment)
             ->setHolder($place)
             ->setName($name)
         ;

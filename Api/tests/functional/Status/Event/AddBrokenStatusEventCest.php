@@ -8,7 +8,7 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -62,9 +62,9 @@ class AddBrokenStatusEventCest
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('some name')
             ->setHolder($room)
         ;

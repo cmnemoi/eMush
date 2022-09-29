@@ -4,7 +4,7 @@ namespace Mush\Communication\Services;
 
 use Mush\Communication\Entity\Message;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Player\Entity\Player;
 
 interface NeronMessageServiceInterface
@@ -13,7 +13,7 @@ interface NeronMessageServiceInterface
 
     public function createPlayerDeathMessage(Player $player, string $cause, \DateTime $time): void;
 
-    public function createBrokenEquipmentMessage(GameEquipment $equipment, string $visibility, \DateTime $time): void;
+    public function createBrokenEquipmentMessage(Equipment $equipment, string $visibility, \DateTime $time): void;
 
     public function createNewFireMessage(Daedalus $daedalus, \DateTime $time): void;
 

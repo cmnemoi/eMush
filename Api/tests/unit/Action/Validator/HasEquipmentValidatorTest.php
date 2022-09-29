@@ -6,7 +6,7 @@ use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasEquipmentValidator;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -50,10 +50,10 @@ class HasEquipmentValidatorTest extends TestCase
 
         $player = new Player();
         $player->setPlace($room);
-        $target = new GameItem();
+        $target = new Item();
         $target->setHolder($room)->setName('target');
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT)->setHolder($room);
 
         $action = Mockery::mock(AbstractAction::class);
@@ -84,10 +84,10 @@ class HasEquipmentValidatorTest extends TestCase
 
         $player = new Player();
         $player->setPlace($room);
-        $target = new GameItem();
+        $target = new Item();
         $target->setHolder($room)->setName('target');
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment->setName(ItemEnum::CAMERA_ITEM)->setHolder($room);
 
         $action = Mockery::mock(AbstractAction::class);
@@ -114,10 +114,10 @@ class HasEquipmentValidatorTest extends TestCase
 
         $player = new Player();
         $player->setPlace($room);
-        $target = new GameItem();
+        $target = new Item();
         $target->setHolder($room)->setName('target');
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT)->setHolder($room);
 
         $action = Mockery::mock(AbstractAction::class);
@@ -148,12 +148,12 @@ class HasEquipmentValidatorTest extends TestCase
 
         $player = new Player();
         $player->setPlace($room);
-        $target = new GameItem();
+        $target = new Item();
         $target->setHolder($room)->setName('target');
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT)->setHolder($room);
-        $gameEquipment2 = new GameItem();
+        $gameEquipment2 = new Item();
         $gameEquipment2->setName(EquipmentEnum::ANTENNA)->setHolder($room);
 
         $action = Mockery::mock(AbstractAction::class);
@@ -184,10 +184,10 @@ class HasEquipmentValidatorTest extends TestCase
 
         $player = new Player();
         $player->setPlace($room);
-        $target = new GameItem();
+        $target = new Item();
         $target->setHolder($room)->setName('target');
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT)->setHolder($room);
 
         $action = Mockery::mock(AbstractAction::class);
@@ -217,7 +217,7 @@ class HasEquipmentValidatorTest extends TestCase
         $player2 = new Player();
         $player2->setPlace($room);
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment->setName(ItemEnum::ITRACKIE)->setHolder($player2);
 
         $action = Mockery::mock(AbstractAction::class);

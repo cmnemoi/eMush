@@ -4,7 +4,7 @@ namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -58,7 +58,7 @@ class HasActionValidator extends ConstraintValidator
     private function isParameterAction(?LogParameterInterface $parameter, Action $action): bool
     {
         return ($parameter instanceof Player && !$parameter->getTargetActions()->contains($action)) ||
-            ($parameter instanceof GameEquipment && !$parameter->getActions()->contains($action))
+            ($parameter instanceof Equipment && !$parameter->getActions()->contains($action))
         ;
     }
 }

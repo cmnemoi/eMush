@@ -5,7 +5,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\HasStatus;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -16,7 +16,7 @@ class ConsumeDrug extends Consume
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameItem;
+        return $parameter instanceof Item;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

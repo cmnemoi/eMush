@@ -14,7 +14,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasDiseases;
 use Mush\Action\Validator\HasStatus;
 use Mush\Disease\Enum\TypeEnum;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -64,7 +64,7 @@ class SelfSurgery extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $parameter instanceof Equipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

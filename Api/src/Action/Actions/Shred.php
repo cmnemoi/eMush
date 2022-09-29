@@ -8,7 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Validator\Mechanic;
 use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\Shredable;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -23,7 +23,7 @@ class Shred extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameItem;
+        return $parameter instanceof Item;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -40,7 +40,7 @@ class Shred extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $parameter */
+        /** @var Item $parameter */
         $parameter = $this->parameter;
 
         $equipmentEvent = new InteractWithEquipmentEvent(

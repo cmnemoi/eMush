@@ -7,7 +7,7 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\PlantWaterable;
 use Mush\Action\Validator\PlantWaterableValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -43,8 +43,8 @@ class PlantWaterableValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setIsBreakable(true);
 
-        $target = new GameItem();
-        $target->setEquipment($itemConfig);
+        $target = new Item();
+        $target->setConfig($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -60,8 +60,8 @@ class PlantWaterableValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $target = new GameItem();
-        $target->setEquipment($itemConfig);
+        $target = new Item();
+        $target->setConfig($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -82,7 +82,7 @@ class PlantWaterableValidatorTest extends TestCase
 
     public function testNotValid()
     {
-        $target = new GameItem();
+        $target = new Item();
 
         $action = Mockery::mock(AbstractAction::class);
         $action

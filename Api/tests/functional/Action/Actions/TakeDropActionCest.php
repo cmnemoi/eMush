@@ -14,7 +14,7 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -88,9 +88,9 @@ class TakeDropActionCest
         /** @var EquipmentConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['actions' => new ArrayCollection([$actionTake, $actionDrop])]);
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $gameItem
-            ->setEquipment($itemConfig)
+            ->setConfig($itemConfig)
             ->setName('shower')
             ->setHolder($room)
         ;
@@ -191,9 +191,9 @@ class TakeDropActionCest
         /** @var EquipmentConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['actions' => new ArrayCollection([$actionTake, $actionDrop])]);
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $gameItem
-            ->setEquipment($itemConfig)
+            ->setConfig($itemConfig)
             ->setName('shower')
             ->setHolder($room)
         ;
@@ -290,9 +290,9 @@ class TakeDropActionCest
         /** @var EquipmentConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['actions' => new ArrayCollection([$actionTake])]);
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $gameItem
-            ->setEquipment($itemConfig)
+            ->setConfig($itemConfig)
             ->setName('shower')
             ->setHolder($room)
         ;
@@ -369,9 +369,9 @@ class TakeDropActionCest
         /** @var EquipmentConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['actions' => new ArrayCollection([$actionHide])]);
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $gameItem
-            ->setEquipment($itemConfig)
+            ->setConfig($itemConfig)
             ->setName('shower')
             ->setHolder($player)
         ;

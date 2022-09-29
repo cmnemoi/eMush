@@ -9,7 +9,7 @@ use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\IsReported;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -22,7 +22,7 @@ class ReportEquipment extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $parameter instanceof Equipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -39,7 +39,7 @@ class ReportEquipment extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $parameter */
+        /** @var Equipment $parameter */
         $parameter = $this->parameter;
 
         $reportEvent = new ApplyEffectEvent(

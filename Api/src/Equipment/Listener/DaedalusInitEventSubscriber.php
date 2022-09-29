@@ -4,7 +4,7 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -14,14 +14,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusInitEventSubscriber implements EventSubscriberInterface
 {
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    private EquipmentFactoryInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
-        GameEquipmentServiceInterface $gameEquipmentService,
-        RandomServiceInterface $randomService,
-        EventDispatcherInterface $eventDispatcher
+        EquipmentFactoryInterface $gameEquipmentService,
+        RandomServiceInterface    $randomService,
+        EventDispatcherInterface  $eventDispatcher
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;

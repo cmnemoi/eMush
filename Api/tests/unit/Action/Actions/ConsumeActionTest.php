@@ -10,7 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\ConsumableEffect;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -64,9 +64,9 @@ class ConsumeActionTest extends AbstractActionTest
         $equipment = new EquipmentConfig();
         $equipment->setMechanics(new ArrayCollection([$ration]));
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment
-            ->setEquipment($equipment)
+            ->setConfig($equipment)
             ->setHolder($room)
         ;
 

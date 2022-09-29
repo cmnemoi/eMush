@@ -11,7 +11,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -77,10 +77,10 @@ class PublicBroadcastCest
             ->setActions(new ArrayCollection([$action]))
         ;
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $gameItem
             ->setName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
-            ->setEquipment($itemConfig)
+            ->setConfig($itemConfig)
             ->setHolder($room)
         ;
         $I->haveInRepository($gameItem);
@@ -183,10 +183,10 @@ class PublicBroadcastCest
             ->setActions(new ArrayCollection([$action]))
         ;
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $gameItem
             ->setName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
-            ->setEquipment($itemConfig)
+            ->setConfig($itemConfig)
             ->setHolder($room)
         ;
         $I->haveInRepository($gameItem);

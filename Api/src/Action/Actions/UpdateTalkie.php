@@ -11,15 +11,15 @@ use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -30,13 +30,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class UpdateTalkie extends AbstractAction
 {
     protected string $name = ActionEnum::UPDATE_TALKIE;
-    protected GameEquipmentServiceInterface $gameEquipmentService;
+    protected EquipmentFactoryInterface $gameEquipmentService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService,
+        EventDispatcherInterface  $eventDispatcher,
+        ActionServiceInterface    $actionService,
+        ValidatorInterface        $validator,
+        EquipmentFactoryInterface $gameEquipmentService,
     ) {
         parent::__construct($eventDispatcher, $actionService, $validator);
 
@@ -45,7 +45,7 @@ class UpdateTalkie extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $parameter instanceof Equipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -81,8 +81,8 @@ class UpdateTalkie extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         // destroy tracker
-        /** @var GameItem $tracker */
-        $tracker = $this->player->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::TRACKER)->first();
+        /** @var Item $tracker */
+        $tracker = $this->player->getEquipments()->filter(fn (Item $item) => $item->getName() === ItemEnum::TRACKER)->first();
         $time = new \DateTime();
 
         $equipmentEvent = new InteractWithEquipmentEvent(
@@ -94,7 +94,7 @@ class UpdateTalkie extends AbstractAction
         );
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        /** @var GameEquipment $parameter */
+        /** @var Equipment $parameter */
         $parameter = $this->parameter;
 
         $iTrackie = $this->gameEquipmentService->createGameEquipmentFromName(

@@ -9,8 +9,8 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Validator\HasAction;
 use Mush\Action\Validator\HasActionValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
@@ -51,8 +51,8 @@ class ParameterHasActionValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setActions(new ArrayCollection([$actionEntity]));
 
-        $gameItem = new GameItem();
-        $gameItem->setEquipment($itemConfig);
+        $gameItem = new Item();
+        $gameItem->setConfig($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -74,8 +74,8 @@ class ParameterHasActionValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setActions(new ArrayCollection([]));
 
-        $gameItem = new GameItem();
-        $gameItem->setEquipment($itemConfig);
+        $gameItem = new Item();
+        $gameItem->setConfig($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -100,8 +100,8 @@ class ParameterHasActionValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setActions(new ArrayCollection([]));
 
-        $gameItem = new GameItem();
-        $gameItem->setEquipment($itemConfig);
+        $gameItem = new Item();
+        $gameItem->setConfig($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -113,7 +113,7 @@ class ParameterHasActionValidatorTest extends TestCase
             ])
         ;
 
-        $this->gearToolService->shouldReceive('getUsedTool')->andReturn(new GameEquipment());
+        $this->gearToolService->shouldReceive('getUsedTool')->andReturn(new Equipment());
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -126,8 +126,8 @@ class ParameterHasActionValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setActions(new ArrayCollection([]));
 
-        $gameItem = new GameItem();
-        $gameItem->setEquipment($itemConfig);
+        $gameItem = new Item();
+        $gameItem->setConfig($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action

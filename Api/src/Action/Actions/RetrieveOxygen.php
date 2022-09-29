@@ -9,7 +9,7 @@ use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\Oxygen;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -22,7 +22,7 @@ class RetrieveOxygen extends RetrieveAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $parameter instanceof Equipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

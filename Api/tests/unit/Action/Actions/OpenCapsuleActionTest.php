@@ -10,11 +10,11 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 
@@ -22,7 +22,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
 {
     private RandomServiceInterface|Mockery\Mock $randomService;
 
-    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+    private EquipmentFactoryInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -32,7 +32,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
         parent::before();
 
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(EquipmentFactoryInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
@@ -57,11 +57,11 @@ class OpenCapsuleActionTest extends AbstractActionTest
     {
         $room = new Place();
 
-        $gameSpaceCapsule = new GameEquipment();
+        $gameSpaceCapsule = new Equipment();
         $spaceCapsule = new EquipmentConfig();
         $spaceCapsule->setName(EquipmentEnum::COFFEE_MACHINE);
         $gameSpaceCapsule
-            ->setEquipment($spaceCapsule)
+            ->setConfig($spaceCapsule)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
             ->setHolder($room)
         ;
@@ -73,13 +73,13 @@ class OpenCapsuleActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $gameSpaceCapsule);
 
-        $gameMetalScrap = new GameItem();
+        $gameMetalScrap = new Item();
         $metalScrap = new ItemConfig();
         $metalScrap
             ->setName(ItemEnum::METAL_SCRAPS)
         ;
         $gameMetalScrap
-        ->setEquipment($metalScrap)
+        ->setConfig($metalScrap)
             ->setName(ItemEnum::METAL_SCRAPS)
         ;
 

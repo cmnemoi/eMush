@@ -7,7 +7,9 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Error;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
+use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -17,13 +19,13 @@ class ActionStrategyService implements ActionStrategyServiceInterface
 {
     private array $actions = [];
     private PlayerServiceInterface $playerService;
-    private GameEquipmentServiceInterface $equipmentService;
+    private EquipmentServiceInterface $equipmentService;
     private EntityManagerInterface $entityManager;
 
     public function __construct(
-        PlayerServiceInterface $playerService,
-        GameEquipmentServiceInterface $equipmentService,
-        EntityManagerInterface $entityManager
+        PlayerServiceInterface    $playerService,
+        EquipmentServiceInterface $equipmentService,
+        EntityManagerInterface    $entityManager
     ) {
         $this->playerService = $playerService;
         $this->equipmentService = $equipmentService;
@@ -55,7 +57,7 @@ class ActionStrategyService implements ActionStrategyServiceInterface
 
         $actionService = $this->getAction($action->getName());
 
-        if (null === $actionService) {
+        if (!$actionService) {
             return new Error('Action do not exist');
         }
 
@@ -66,19 +68,26 @@ class ActionStrategyService implements ActionStrategyServiceInterface
 
     private function loadParameter(?array $parameter): ?LogParameterInterface
     {
-        if ($parameter !== null) {
-            if (($equipmentId = $parameter['door'] ?? null) ||
-                ($equipmentId = $parameter['item'] ?? null) ||
-                ($equipmentId = $parameter['equipment'] ?? null)
-            ) {
-                return $this->equipmentService->findById($equipmentId);
-            }
+        if ($parameter === null) {
+            return null;
+        }
 
-            if ($playerId = $parameter['player'] ?? null) {
-                return $this->playerService->findById($playerId);
-            }
+        if ($equipmentId = $this->getEquipmentId($parameter)) {
+            return $this->equipmentService->findById($equipmentId);
+        }
+
+        if ($playerId = $this->getPlayerId($parameter)) {
+            return $this->playerService->findById($playerId);
         }
 
         return null;
+    }
+
+    private function getEquipmentId(?array $parameter) : string | null {
+        return $parameter['door'] ?? $parameter['item'] ?? $parameter['equipment'] ?? null;
+    }
+
+    private function getPlayerId(?array $parameter) : string | null {
+        return $parameter['player'] ?? null;
     }
 }

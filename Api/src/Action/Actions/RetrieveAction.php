@@ -8,9 +8,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -20,13 +20,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 abstract class RetrieveAction extends AbstractAction
 {
     protected string $name = ActionEnum::RETRIEVE_FUEL;
-    protected GameEquipmentServiceInterface $gameEquipmentService;
+    protected EquipmentFactoryInterface $gameEquipmentService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService
+        EquipmentFactoryInterface $gameEquipmentService
     ) {
         parent::__construct($eventDispatcher, $actionService, $validator);
 
@@ -35,7 +35,7 @@ abstract class RetrieveAction extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameEquipment && !$parameter instanceof Door;
+        return $parameter instanceof Equipment && !$parameter instanceof Door;
     }
 
     protected function checkResult(): ActionResult

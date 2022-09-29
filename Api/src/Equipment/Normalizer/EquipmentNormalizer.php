@@ -10,8 +10,8 @@ use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Ration;
@@ -49,7 +49,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        return $data instanceof GameEquipment;
+        return $data instanceof Equipment;
     }
 
     /**
@@ -67,7 +67,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         if ($object instanceof Door) {
             $context['door'] = $object;
             $type = 'door';
-        } elseif ($object instanceof GameItem) {
+        } elseif ($object instanceof Item) {
             $context['item'] = $object;
             $type = 'items';
         } else {
@@ -107,7 +107,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         ];
     }
 
-    private function getActions(GameEquipment $gameEquipment, Player $currentPlayer, ?string $format, array $context): array
+    private function getActions(Equipment $gameEquipment, Player $currentPlayer, ?string $format, array $context): array
     {
         $actions = [];
 
@@ -121,7 +121,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
             }
         }
 
-        $actionsObject = $gameEquipment->getEquipment()->getActions()
+        $actionsObject = $gameEquipment->getConfig()->getActions()
             ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::CURRENT)
         ;
 
@@ -136,13 +136,13 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         return $actions;
     }
 
-    private function getContextActions(GameEquipment $gameEquipment, Player $currentPlayer): Collection
+    private function getContextActions(Equipment $gameEquipment, Player $currentPlayer): Collection
     {
         $scopes = [ActionScopeEnum::ROOM];
         $scopes[] = ($gameEquipment->getPlace() instanceof Place) ? ActionScopeEnum::SHELVE : ActionScopeEnum::INVENTORY;
 
-        if ($gameEquipment instanceof GameItem) {
-            $target = GameItem::class;
+        if ($gameEquipment instanceof Item) {
+            $target = Item::class;
         } else {
             $target = null;
         }
@@ -150,10 +150,10 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         return $this->gearToolService->getActionsTools($currentPlayer, $scopes, $target);
     }
 
-    private function getRationsEffect(GameEquipment $gameEquipment, Daedalus $daedalus): array
+    private function getRationsEffect(Equipment $gameEquipment, Daedalus $daedalus): array
     {
         /** @var Ration $ration */
-        $ration = $gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
+        $ration = $gameEquipment->getConfig()->getMechanicByName(EquipmentMechanicEnum::RATION);
         if ($ration === null) {
             return [];
         }
@@ -258,11 +258,11 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         return "{$sign} {$quantity} {$this->translationService->translate($key, [], 'misc')}";
     }
 
-    private function getDefinition(GameEquipment $equipment, string $key, string $type): string
+    private function getDefinition(Equipment $equipment, string $key, string $type): string
     {
         $description = $this->translationService->translate("{$key}.description", [], $type);
 
-        if (($blueprint = $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) instanceof Blueprint) {
+        if (($blueprint = $equipment->getConfig()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) instanceof Blueprint) {
             foreach ($blueprint->getIngredients() as $name => $number) {
                 $ingredientTranslation = $this->translationService->translate(
                     'blueprint_ingredient.description',

@@ -9,7 +9,7 @@ use Mush\Action\Actions\Hide;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractGameEvent;
@@ -52,7 +52,7 @@ class HideActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
 
         $item = new ItemConfig();
         $item
@@ -60,7 +60,7 @@ class HideActionTest extends AbstractActionTest
         ;
         $gameItem
             ->setName('itemName')
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($player)
         ;
 

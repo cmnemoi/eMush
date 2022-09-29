@@ -8,14 +8,14 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Equipment\Service\EquipmentServiceInterface;
-use Mush\Equipment\Service\GameEquipmentService;
+use Mush\Equipment\Service\EquipmentFactory;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -36,7 +36,7 @@ class GameEquipmentServiceTest extends TestCase
 
     private EquipmentServiceInterface|Mockery\Mock $equipmentService;
 
-    private GameEquipmentService $service;
+    private EquipmentFactory $service;
 
     /**
      * @before
@@ -49,7 +49,7 @@ class GameEquipmentServiceTest extends TestCase
         $this->equipmentService = Mockery::mock(EquipmentServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
-        $this->service = new GameEquipmentService(
+        $this->service = new EquipmentFactory(
             $this->entityManager,
             $this->repository,
             $this->equipmentService,
@@ -87,7 +87,7 @@ class GameEquipmentServiceTest extends TestCase
 
         $gameItem = $this->service->createGameEquipment($itemConfig, $place, 'reason', new \DateTime());
 
-        $this->assertInstanceOf(GameItem::class, $gameItem);
+        $this->assertInstanceOf(Item::class, $gameItem);
         $this->assertEquals('some Name', $gameItem->getName());
     }
 
@@ -115,7 +115,7 @@ class GameEquipmentServiceTest extends TestCase
 
         $gameEquipment = $this->service->createGameEquipment($equipmentConfig, $place, 'reason', new \DateTime());
 
-        $this->assertInstanceOf(GameEquipment::class, $gameEquipment);
+        $this->assertInstanceOf(Equipment::class, $gameEquipment);
         $this->assertEquals('equipment Name', $gameEquipment->getName());
     }
 
@@ -155,7 +155,7 @@ class GameEquipmentServiceTest extends TestCase
 
         $gameItem = $this->service->createGameEquipment($itemConfig, $place, 'reason', new \DateTime());
 
-        $this->assertInstanceOf(GameItem::class, $gameItem);
+        $this->assertInstanceOf(Item::class, $gameItem);
         $this->assertEquals('some plant', $gameItem->getName());
     }
 
@@ -193,7 +193,7 @@ class GameEquipmentServiceTest extends TestCase
 
         $gameItem = $this->service->createGameEquipment($itemConfig, $place, 'reason', new \DateTime());
 
-        $this->assertInstanceOf(GameItem::class, $gameItem);
+        $this->assertInstanceOf(Item::class, $gameItem);
         $this->assertEquals('some document', $gameItem->getName());
     }
 }

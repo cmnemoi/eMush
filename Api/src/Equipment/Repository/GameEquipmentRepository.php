@@ -8,8 +8,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 
@@ -17,7 +17,7 @@ class GameEquipmentRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, GameEquipment::class);
+        parent::__construct($registry, Equipment::class);
     }
 
     public function findByCriteria(GameEquipmentCriteria $criteria): array
@@ -25,7 +25,7 @@ class GameEquipmentRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('equipment');
 
         $queryBuilder
-            ->leftJoin(GameItem::class, 'item', Join::WITH, 'item = equipment')
+            ->leftJoin(Item::class, 'item', Join::WITH, 'item = equipment')
             ->leftJoin(Player::class, 'item_player', Join::WITH, 'item.player = item_player')
             ->leftJoin(Place::class, 'item_place', Join::WITH, 'item.place = item_place')
             ->leftJoin(Place::class, 'equipment_place', Join::WITH, 'equipment.place = equipment_place')
@@ -75,7 +75,7 @@ class GameEquipmentRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('equipment');
 
         $queryBuilder
-            ->leftJoin(GameItem::class, 'item', Join::WITH, 'item = equipment')
+            ->leftJoin(Item::class, 'item', Join::WITH, 'item = equipment')
             ->leftJoin(Player::class, 'item_player', Join::WITH, 'item.player = item_player')
             ->leftJoin(Place::class, 'item_place', Join::WITH, 'item.place = item_place')
             ->leftJoin(Place::class, 'equipment_place', Join::WITH, 'equipment.place = equipment_place')

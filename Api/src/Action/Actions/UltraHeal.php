@@ -9,7 +9,7 @@ use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\FullHealth;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
@@ -48,7 +48,7 @@ class UltraHeal extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameItem;
+        return $parameter instanceof Item;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -64,7 +64,7 @@ class UltraHeal extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $parameter */
+        /** @var Item $parameter */
         $parameter = $this->parameter;
         $time = new \DateTime();
 

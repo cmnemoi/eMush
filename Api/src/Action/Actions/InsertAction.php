@@ -6,7 +6,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Validator\Fuel;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
@@ -17,7 +17,7 @@ abstract class InsertAction extends AbstractAction
 {
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameItem;
+        return $parameter instanceof Item;
     }
 
     protected function checkResult(): ActionResult
@@ -27,7 +27,7 @@ abstract class InsertAction extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $toInsert */
+        /** @var Item $toInsert */
         $toInsert = $this->getParameter();
         $time = new \DateTime();
 

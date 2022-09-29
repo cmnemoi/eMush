@@ -8,7 +8,7 @@ use Mush\Action\Actions\GetUp;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -47,13 +47,13 @@ class GetUpActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $gameItem = new GameEquipment();
+        $gameItem = new Equipment();
         $item = new EquipmentConfig();
         $item
             ->setName(EquipmentEnum::BED)
         ;
         $gameItem
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($room)
             ->setName(EquipmentEnum::BED)
         ;

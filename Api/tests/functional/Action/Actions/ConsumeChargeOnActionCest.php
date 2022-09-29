@@ -12,8 +12,8 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\GameRationEnum;
@@ -102,9 +102,9 @@ class ConsumeChargeOnActionCest
             ->setGameConfig($gameConfig)
         ;
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment
-            ->setEquipment($equipment)
+            ->setConfig($equipment)
             ->setName(ItemEnum::FUEL_CAPSULE)
         ;
 
@@ -192,9 +192,9 @@ class ConsumeChargeOnActionCest
             ->setGameConfig($gameConfig)
         ;
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment
-            ->setEquipment($equipment)
+            ->setConfig($equipment)
             ->setName(ItemEnum::FUEL_CAPSULE)
         ;
 
@@ -220,10 +220,10 @@ class ConsumeChargeOnActionCest
             ->setName(GearItemEnum::SOAP)
             ->setMechanics(new ArrayCollection([$gearMechanic]))
         ;
-        $gameGear = new GameItem();
+        $gameGear = new Item();
         $gameGear
             ->setName(GearItemEnum::SOAP)
-            ->setEquipment($gearConfig)
+            ->setConfig($gearConfig)
         ;
         $I->haveInRepository($modifierConfig);
         $I->haveInRepository($gearMechanic);
@@ -310,9 +310,9 @@ class ConsumeChargeOnActionCest
             ->setGameConfig($gameConfig)
         ;
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment
-            ->setEquipment($equipment)
+            ->setConfig($equipment)
             ->setName(ItemEnum::FUEL_CAPSULE)
         ;
 
@@ -338,10 +338,10 @@ class ConsumeChargeOnActionCest
             ->setName(GearItemEnum::SOAP)
             ->setMechanics(new ArrayCollection([$gearMechanic]))
         ;
-        $gameGear = new GameItem();
+        $gameGear = new Item();
         $gameGear
             ->setName(GearItemEnum::SOAP)
-            ->setEquipment($gearConfig)
+            ->setConfig($gearConfig)
         ;
         $I->haveInRepository($modifierConfig);
         $I->haveInRepository($gearMechanic);

@@ -9,7 +9,7 @@ use Mush\Action\Actions\RemoveSpore;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -55,9 +55,9 @@ class RemoveSporeActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
-        $gameItem->setEquipment($item);
+        $gameItem->setConfig($item);
         $gameItem
             ->setHolder($room)
         ;

@@ -9,8 +9,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -270,7 +270,7 @@ class RoomLogServiceTest extends TestCase
         $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
 
-        $cameraEquipment = new GameEquipment();
+        $cameraEquipment = new Equipment();
         $cameraEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT)->setHolder($place);
 
         $this->entityManager->shouldReceive('flush')->once();
@@ -316,7 +316,7 @@ class RoomLogServiceTest extends TestCase
         $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
 
-        $cameraEquipment = new GameItem();
+        $cameraEquipment = new Item();
         $cameraEquipment->setName(ItemEnum::CAMERA_ITEM)->setHolder($place);
 
         $this->entityManager->shouldReceive('flush')->once();
@@ -431,8 +431,8 @@ class RoomLogServiceTest extends TestCase
         $player->setCharacterConfig($characterConfig1)->setPlace($place);
 
         $equipmentConfig = new EquipmentConfig();
-        $gameEquipment = new GameEquipment();
-        $gameEquipment->setName('equipment')->setEquipment($equipmentConfig);
+        $gameEquipment = new Equipment();
+        $gameEquipment->setName('equipment')->setConfig($equipmentConfig);
 
         $actionResult = new Fail($gameEquipment);
 

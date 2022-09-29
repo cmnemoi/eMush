@@ -3,7 +3,7 @@
 namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 
@@ -24,8 +24,8 @@ class StatusTarget
     #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'statuses')]
     private ?Player $player = null;
 
-    #[ORM\ManyToOne(targetEntity: GameEquipment::class, inversedBy: 'statuses')]
-    private ?GameEquipment $gameEquipment = null;
+    #[ORM\ManyToOne(targetEntity: Equipment::class, inversedBy: 'statuses')]
+    private ?Equipment $gameEquipment = null;
 
     #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'statuses')]
     private ?Place $place = null;
@@ -77,12 +77,12 @@ class StatusTarget
         return $this;
     }
 
-    public function getGameEquipment(): ?GameEquipment
+    public function getGameEquipment(): ?Equipment
     {
         return $this->gameEquipment;
     }
 
-    public function setGameEquipment(?GameEquipment $gameEquipment): self
+    public function setGameEquipment(?Equipment $gameEquipment): self
     {
         $this->gameEquipment = $gameEquipment;
 

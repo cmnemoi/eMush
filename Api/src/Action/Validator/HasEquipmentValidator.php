@@ -3,8 +3,8 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Constraint;
@@ -75,27 +75,27 @@ class HasEquipmentValidator extends ConstraintValidator
     ): bool {
         switch ($reach) {
             case ReachEnum::INVENTORY:
-                $equipments = $player->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName);
+                $equipments = $player->getEquipments()->filter(fn (Item $gameItem) => $gameItem->getName() === $equipmentName);
                 if ($checkIfOperational) {
-                    return !$equipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
+                    return !$equipments->filter(fn (Equipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
                 }
 
                 return !$equipments->isEmpty();
 
             case ReachEnum::SHELVE:
-                $equipments = $player->getPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName);
+                $equipments = $player->getPlace()->getEquipments()->filter(fn (Equipment $gameEquipment) => $gameEquipment->getName() === $equipmentName);
                 if ($checkIfOperational) {
-                    return !$equipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
+                    return !$equipments->filter(fn (Equipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
                 }
 
                 return !$equipments->isEmpty();
 
             case ReachEnum::ROOM:
-                $shelfEquipments = $player->getPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName);
-                $playerEquipments = $player->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName);
+                $shelfEquipments = $player->getPlace()->getEquipments()->filter(fn (Equipment $gameEquipment) => $gameEquipment->getName() === $equipmentName);
+                $playerEquipments = $player->getEquipments()->filter(fn (Item $gameItem) => $gameItem->getName() === $equipmentName);
                 if ($checkIfOperational) {
-                    return !($playerEquipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty() &&
-                    $shelfEquipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty());
+                    return !($playerEquipments->filter(fn (Equipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty() &&
+                    $shelfEquipments->filter(fn (Equipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty());
                 }
 
                 return !($shelfEquipments->isEmpty() && $playerEquipments->isEmpty());

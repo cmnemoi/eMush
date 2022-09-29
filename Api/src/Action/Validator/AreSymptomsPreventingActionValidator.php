@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\Collection;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Disease\Entity\Config\SymptomCondition;
 use Mush\Disease\Enum\SymptomConditionEnum;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -60,8 +60,8 @@ class AreSymptomsPreventingActionValidator extends ConstraintValidator
     {
         switch ($symptomCondition->getName()) {
             case SymptomConditionEnum::ITEM_STATUS:
-                if (!$parameter instanceof GameItem) {
-                    throw new UnexpectedTypeException($parameter, GameItem::class);
+                if (!$parameter instanceof Item) {
+                    throw new UnexpectedTypeException($parameter, Item::class);
                 }
                 $item = $parameter;
 

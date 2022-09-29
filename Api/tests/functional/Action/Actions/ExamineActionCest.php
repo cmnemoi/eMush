@@ -11,7 +11,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
@@ -70,10 +70,10 @@ class ExamineActionCest
             'actions' => new ArrayCollection([$action]),
         ]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment
             ->setName(EquipmentEnum::NARCOTIC_DISTILLER)
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);

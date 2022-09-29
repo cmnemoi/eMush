@@ -4,8 +4,8 @@ namespace Mush\Equipment\CycleHandler;
 
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -13,7 +13,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -32,14 +32,14 @@ class PlantCycleHandler extends AbstractCycleHandler
     protected string $name = EquipmentMechanicEnum::PLANT;
 
     private EventDispatcherInterface $eventDispatcher;
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    private EquipmentFactoryInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
     private EquipmentEffectServiceInterface $equipmentEffectService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        GameEquipmentServiceInterface $gameEquipmentService,
-        RandomServiceInterface $randomService,
+        EventDispatcherInterface        $eventDispatcher,
+        EquipmentFactoryInterface       $gameEquipmentService,
+        RandomServiceInterface          $randomService,
         EquipmentEffectServiceInterface $equipmentEffectService
     ) {
         $this->eventDispatcher = $eventDispatcher;
@@ -50,15 +50,15 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     public function handleNewCycle($object, \DateTime $dateTime): void
     {
-        /** @var GameItem $plant */
+        /** @var Item $plant */
         $plant = $object;
-        if (!$plant instanceof GameEquipment) {
+        if (!$plant instanceof Equipment) {
             return;
         }
 
         $daedalus = $plant->getPlace()->getDaedalus();
 
-        $plantType = $plant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
+        $plantType = $plant->getConfig()->getMechanicByName(EquipmentMechanicEnum::PLANT);
         if (!$plantType instanceof Plant) {
             return;
         }
@@ -94,15 +94,15 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     public function handleNewDay($object, \DateTime $dateTime): void
     {
-        /** @var GameItem $plant */
+        /** @var Item $plant */
         $plant = $object;
-        if (!$plant instanceof GameEquipment) {
+        if (!$plant instanceof Equipment) {
             return;
         }
 
         $daedalus = $plant->getPlace()->getDaedalus();
 
-        $plantType = $plant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
+        $plantType = $plant->getConfig()->getMechanicByName(EquipmentMechanicEnum::PLANT);
         if (!$plantType instanceof Plant) {
             return;
         }
@@ -136,7 +136,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         $this->handleStatus($plant, $dateTime);
     }
 
-    private function handleStatus(GameItem $gamePlant, \DateTime $dateTime): void
+    private function handleStatus(Item $gamePlant, \DateTime $dateTime): void
     {
         // If plant was thirsty, become dried
         if (($thirsty = $gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)) !== null) {
@@ -155,7 +155,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         }
     }
 
-    private function handleDriedPlant(GameItem $gamePlant, \DateTime $dateTime): void
+    private function handleDriedPlant(Item $gamePlant, \DateTime $dateTime): void
     {
         $place = $gamePlant->getPlace();
         $holder = $gamePlant->getHolder();
@@ -191,7 +191,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
     }
 
-    private function addFruit(GameItem $gamePlant, Plant $plantType, \DateTime $dateTime): void
+    private function addFruit(Item $gamePlant, Plant $plantType, \DateTime $dateTime): void
     {
         // If plant is young, thirsty, dried or diseased, do not produce fruit
         if (!$gamePlant->getStatuses()
@@ -231,7 +231,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
     }
 
-    private function addOxygen(GameItem $gamePlant, PlantEffect $plantEffect, \DateTime $date): void
+    private function addOxygen(Item $gamePlant, PlantEffect $plantEffect, \DateTime $date): void
     {
         $daedalus = $gamePlant->getPlace()->getDaedalus();
         // Add Oxygen

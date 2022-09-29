@@ -9,8 +9,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -65,7 +65,7 @@ class DaedalusNormalizerTest extends TestCase
     {
         $equipmentConfig = new EquipmentConfig();
 
-        $equipment = Mockery::mock(GameEquipment::class);
+        $equipment = Mockery::mock(Equipment::class);
         $equipment->shouldReceive('getId')->andReturn(2);
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->makePartial();
@@ -75,7 +75,7 @@ class DaedalusNormalizerTest extends TestCase
         $player->setDaedalus(new Daedalus());
 
         $equipment
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('equipment')
             ->setHolder($place)
         ;
@@ -121,7 +121,7 @@ class DaedalusNormalizerTest extends TestCase
     {
         $equipmentConfig = new ItemConfig();
 
-        $equipment = Mockery::mock(GameItem::class);
+        $equipment = Mockery::mock(Item::class);
         $equipment->shouldReceive('getId')->andReturn(2);
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->makePartial();
@@ -131,7 +131,7 @@ class DaedalusNormalizerTest extends TestCase
         $player->setDaedalus(new Daedalus());
 
         $equipment
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('equipment')
             ->setHolder($place)
         ;
@@ -152,7 +152,7 @@ class DaedalusNormalizerTest extends TestCase
 
         $this->gearToolService
             ->shouldReceive('getActionsTools')
-            ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], GameItem::class)
+            ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], Item::class)
             ->andReturn(new ArrayCollection([]))
             ->once()
         ;
@@ -186,7 +186,7 @@ class DaedalusNormalizerTest extends TestCase
         $equipmentConfig = new EquipmentConfig();
         $equipmentConfig->setMechanics(new ArrayCollection([$blueprint]));
 
-        $equipment = Mockery::mock(GameEquipment::class);
+        $equipment = Mockery::mock(Equipment::class);
         $equipment->shouldReceive('getId')->andReturn(2);
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->makePartial();
@@ -196,7 +196,7 @@ class DaedalusNormalizerTest extends TestCase
         $player->setDaedalus(new Daedalus());
 
         $equipment
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('equipment')
             ->setHolder($place)
         ;

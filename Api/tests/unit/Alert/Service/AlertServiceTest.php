@@ -13,7 +13,7 @@ use Mush\Alert\Service\AlertService;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -182,7 +182,7 @@ class AlertServiceTest extends TestCase
 
         $room = new Place();
         $room->setDaedalus($daedalus);
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment->setHolder($room);
 
         $this->repository->shouldReceive('findOneBy')
@@ -233,7 +233,7 @@ class AlertServiceTest extends TestCase
         $daedalus = new Daedalus();
         $room = new Place();
         $room->setDaedalus($daedalus);
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment->setHolder($room);
 
         $equipmentElement1 = new AlertElement();
@@ -268,7 +268,7 @@ class AlertServiceTest extends TestCase
         $daedalus = new Daedalus();
         $room = new Place();
         $room->setDaedalus($daedalus);
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment->setHolder($room);
 
         $equipmentElement1 = new AlertElement();
@@ -585,7 +585,7 @@ class AlertServiceTest extends TestCase
         ;
         $room->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment->setHolder($room);
         $brokenConfig = new StatusConfig();
         $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
@@ -618,7 +618,7 @@ class AlertServiceTest extends TestCase
         ;
         $room->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment->setHolder($room);
         $brokenConfig = new StatusConfig();
         $brokenConfig->setName(EquipmentStatusEnum::BROKEN);

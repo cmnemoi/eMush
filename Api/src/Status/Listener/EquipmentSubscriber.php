@@ -2,7 +2,7 @@
 
 namespace Mush\Status\Listener;
 
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Player\Entity\Player;
@@ -92,7 +92,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $player = $equipment->getHolder();
         if ($player instanceof Player &&
             $player->hasStatus(PlayerStatusEnum::BURDENED) &&
-            $player->getEquipments()->filter(function (GameItem $item) {
+            $player->getEquipments()->filter(function (Item $item) {
                 return $item->hasStatus(EquipmentStatusEnum::HEAVY);
             })->count() === 1
         ) {

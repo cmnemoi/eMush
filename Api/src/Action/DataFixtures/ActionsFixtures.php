@@ -10,7 +10,7 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 
 class ActionsFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -295,7 +295,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $expressCookAction
             ->setName(ActionEnum::EXPRESS_COOK)
             ->setScope(ActionScopeEnum::ROOM)
-            ->setTarget(GameItem::class)
+            ->setTarget(Item::class)
             ->setActionCost($freeCost)
             ->setDirtyRate(50)
         ;
@@ -306,7 +306,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $cookAction
             ->setName(ActionEnum::COOK)
             ->setScope(ActionScopeEnum::ROOM)
-            ->setTarget(GameItem::class)
+            ->setTarget(Item::class)
             ->setActionCost($oneActionPointCost)
             ->setDirtyRate(50)
         ;
@@ -365,7 +365,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $hyperfreezeAction
             ->setName(ActionEnum::HYPERFREEZE)
             ->setScope(ActionScopeEnum::ROOM)
-            ->setTarget(GameItem::class)
+            ->setTarget(Item::class)
             ->setActionCost($oneActionPointCost)
         ;
 
@@ -411,7 +411,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $fuelInjectAction
             ->setName(ActionEnum::INSERT_FUEL)
             ->setScope(ActionScopeEnum::ROOM)
-            ->setTarget(GameItem::class)
+            ->setTarget(Item::class)
             ->setDirtyRate(50)
             ->setActionCost($freeCost);
 
@@ -431,7 +431,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $oxygenInjectAction
             ->setName(ActionEnum::INSERT_OXYGEN)
             ->setScope(ActionScopeEnum::ROOM)
-            ->setTarget(GameItem::class)
+            ->setTarget(Item::class)
             ->setActionCost($freeCost)
         ;
 
@@ -451,7 +451,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ActionEnum::STRENGTHEN_HULL)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setTarget(GameItem::class)
+            ->setTarget(Item::class)
             ->setDirtyRate(50)
             ->setInjuryRate(25)
             ->setActionCost($oneActionPointCost)

@@ -4,8 +4,8 @@ namespace Mush\Test\Game\Service;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomService;
@@ -117,15 +117,15 @@ class RandomServiceTest extends TestCase
     public function testGetItemInRoom()
     {
         $room = new Place();
-        $equipment = new GameEquipment();
-        $item = new GameItem();
+        $equipment = new Equipment();
+        $item = new Item();
         $room
             ->addEquipment($equipment)
             ->addEquipment($item)
         ;
 
         for ($i = 1; $i <= 10; ++$i) {
-            $this->assertInstanceOf(GameItem::class, $this->service->getItemInRoom($room));
+            $this->assertInstanceOf(Item::class, $this->service->getItemInRoom($room));
             $this->assertEquals($item, $this->service->getItemInRoom($room));
         }
     }

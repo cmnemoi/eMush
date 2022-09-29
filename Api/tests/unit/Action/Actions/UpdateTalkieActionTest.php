@@ -7,16 +7,16 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\UpdateTalkie;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Place\Entity\Place;
 
 class UpdateTalkieTest extends AbstractActionTest
 {
-    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+    private EquipmentFactoryInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -26,7 +26,7 @@ class UpdateTalkieTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::UPDATE_TALKIE);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(EquipmentFactoryInterface::class);
 
         $this->action = new UpdateTalkie(
             $this->eventDispatcher,
@@ -52,19 +52,19 @@ class UpdateTalkieTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $talkie = new GameItem();
+        $talkie = new Item();
         $talkie
             ->setHolder($player)
             ->setName(ItemEnum::WALKIE_TALKIE)
         ;
 
-        $tracker = new GameItem();
+        $tracker = new Item();
         $tracker
             ->setHolder($player)
             ->setName(ItemEnum::TRACKER)
         ;
 
-        $neronCore = new GameEquipment();
+        $neronCore = new Equipment();
         $neronCore
             ->setName(EquipmentEnum::NERON_CORE)
             ->setHolder($room)

@@ -3,7 +3,7 @@
 namespace Mush\Alert\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 
@@ -25,8 +25,8 @@ class AlertElement
     #[ORM\ManyToOne(targetEntity: Place::class)]
     private ?Place $place = null;
 
-    #[ORM\ManyToOne(targetEntity: GameEquipment::class)]
-    private ?GameEquipment $equipment = null;
+    #[ORM\ManyToOne(targetEntity: Equipment::class)]
+    private ?Equipment $equipment = null;
 
     public function getId(): ?int
     {
@@ -69,14 +69,14 @@ class AlertElement
         return $this->place;
     }
 
-    public function setEquipment(GameEquipment $equipment): self
+    public function setEquipment(Equipment $equipment): self
     {
         $this->equipment = $equipment;
 
         return $this;
     }
 
-    public function getEquipment(): ?GameEquipment
+    public function getEquipment(): ?Equipment
     {
         return $this->equipment;
     }

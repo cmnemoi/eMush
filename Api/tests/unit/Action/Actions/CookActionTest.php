@@ -9,11 +9,11 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
@@ -21,7 +21,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 class CookActionTest extends AbstractActionTest
 {
-    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+    private EquipmentFactoryInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -31,7 +31,7 @@ class CookActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::COOK, 1);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(EquipmentFactoryInterface::class);
 
         $this->action = new Cook(
             $this->eventDispatcher,
@@ -56,11 +56,11 @@ class CookActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $gameRation = new GameItem();
+        $gameRation = new Item();
         $ration = new EquipmentConfig();
         $ration->setName('ration');
         $gameRation
-            ->setEquipment($ration)
+            ->setConfig($ration)
             ->setHolder($player)
             ->setName('ration')
         ;
@@ -69,11 +69,11 @@ class CookActionTest extends AbstractActionTest
         $statusConfig->setName(EquipmentStatusEnum::FROZEN);
         $frozenStatus = new Status($gameRation, $statusConfig);
 
-        $gameKitchen = new GameEquipment();
+        $gameKitchen = new Equipment();
         $kitchen = new ItemConfig();
         $kitchen->setName(EquipmentEnum::KITCHEN);
         $gameKitchen
-            ->setEquipment($kitchen)
+            ->setConfig($kitchen)
             ->setName(EquipmentEnum::KITCHEN)
             ->setHolder($room)
         ;
@@ -100,20 +100,20 @@ class CookActionTest extends AbstractActionTest
         $room = new Place();
 
         // Standard Ration
-        $gameRation = new GameItem();
+        $gameRation = new Item();
         $ration = new ItemConfig();
         $ration->setName(GameRationEnum::STANDARD_RATION);
         $gameRation
-            ->setEquipment($ration)
+            ->setConfig($ration)
             ->setHolder($room)
             ->setName(GameRationEnum::STANDARD_RATION)
         ;
 
-        $gameKitchen = new GameEquipment();
+        $gameKitchen = new Equipment();
         $kitchen = new EquipmentConfig();
         $kitchen->setName(EquipmentEnum::KITCHEN);
         $gameKitchen
-            ->setEquipment($kitchen)
+            ->setConfig($kitchen)
             ->setName(EquipmentEnum::KITCHEN)
             ->setHolder($room)
         ;
@@ -121,13 +121,13 @@ class CookActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
-        $gameCookedRation = new GameItem();
+        $gameCookedRation = new Item();
         $cookedRation = new ItemConfig();
         $cookedRation
              ->setName(GameRationEnum::COOKED_RATION)
         ;
         $gameCookedRation
-            ->setEquipment($cookedRation)
+            ->setConfig($cookedRation)
             ->setName(GameRationEnum::COOKED_RATION)
         ;
 

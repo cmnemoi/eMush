@@ -11,7 +11,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
@@ -74,9 +74,9 @@ class InsertFuelCest
         /** @var EquipmentConfig $tankConfig */
         $tankConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'mechanics' => new ArrayCollection([$tankTool])]);
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment
-            ->setEquipment($tankConfig)
+            ->setConfig($tankConfig)
             ->setName('some name')
             ->setHolder($room)
         ;
@@ -85,9 +85,9 @@ class InsertFuelCest
         /** @var EquipmentConfig $capsuleConfig */
         $capsuleConfig = $I->have(EquipmentConfig::class, ['isBreakable' => false, 'name' => ItemEnum::FUEL_CAPSULE]);
 
-        $gameCapsule = new GameItem();
+        $gameCapsule = new Item();
         $gameCapsule
-            ->setEquipment($capsuleConfig)
+            ->setConfig($capsuleConfig)
             ->setName(ItemEnum::FUEL_CAPSULE)
             ->setHolder($player)
         ;
@@ -144,9 +144,9 @@ class InsertFuelCest
         /** @var EquipmentConfig $tankConfig */
         $tankConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'mechanics' => new ArrayCollection([$tankTool])]);
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment
-            ->setEquipment($tankConfig)
+            ->setConfig($tankConfig)
             ->setName('some name')
             ->setHolder($room)
         ;
@@ -155,9 +155,9 @@ class InsertFuelCest
         /** @var EquipmentConfig $capsuleConfig */
         $capsuleConfig = $I->have(EquipmentConfig::class, ['isBreakable' => false, 'name' => ItemEnum::FUEL_CAPSULE]);
 
-        $gameCapsule = new GameItem();
+        $gameCapsule = new Item();
         $gameCapsule
-            ->setEquipment($capsuleConfig)
+            ->setConfig($capsuleConfig)
             ->setName(ItemEnum::FUEL_CAPSULE)
             ->setHolder($player)
         ;

@@ -6,8 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Entity\Item;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -40,7 +40,7 @@ class PlayerServiceTest extends TestCase
     /** @var RoomLogServiceInterface|Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
     /** @var RandomServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    private EquipmentFactoryInterface $gameEquipmentService;
 
     private CharacterConfigCollection $charactersConfigs;
     private PlayerService $service;
@@ -55,7 +55,7 @@ class PlayerServiceTest extends TestCase
         $this->repository = Mockery::mock(PlayerRepository::class);
         $this->deadPlayerInfoRepository = Mockery::mock(DeadPlayerInfoRepository::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(EquipmentFactoryInterface::class);
 
         $this->charactersConfigs = new CharacterConfigCollection();
 
@@ -141,7 +141,7 @@ class PlayerServiceTest extends TestCase
         $room = new Place();
         $room->setType(PlaceTypeEnum::ROOM)->setName('randomRoom');
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
 
         $daedalus = new Daedalus();
         $daedalus

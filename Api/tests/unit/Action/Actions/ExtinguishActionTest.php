@@ -11,7 +11,7 @@ use Mush\Action\Entity\ActionParameters;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -53,9 +53,9 @@ class ExtinguishActionTest extends AbstractActionTest
         $room = new Place();
         $fire = new Status($room, new StatusConfig());
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
-        $gameItem->setEquipment($item);
+        $gameItem->setConfig($item);
         $gameItem
             ->setHolder($room)
         ;
@@ -86,9 +86,9 @@ class ExtinguishActionTest extends AbstractActionTest
         $room = new Place();
         $fire = new Status($room, new StatusConfig());
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
-        $gameItem->setEquipment($item);
+        $gameItem->setConfig($item);
         $gameItem
             ->setHolder($room)
         ;

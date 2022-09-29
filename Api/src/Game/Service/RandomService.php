@@ -6,8 +6,8 @@ use Error;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -79,13 +79,13 @@ class RandomService implements RandomServiceInterface
         return $this->getRandomPlayer($ship->getPlayers()->getPlayerAlive());
     }
 
-    public function getItemInRoom(Place $place): GameItem
+    public function getItemInRoom(Place $place): Item
     {
         if ($place->getEquipments()->isEmpty()) {
             throw new Error('getItemInRoom: room has no items');
         }
 
-        $items = $place->getEquipments()->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem);
+        $items = $place->getEquipments()->filter(fn (Equipment $equipment) => $equipment instanceof Item);
 
         return current($this->getRandomElements($items->toArray()));
     }

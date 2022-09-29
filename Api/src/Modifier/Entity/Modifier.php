@@ -4,7 +4,7 @@ namespace Mush\Modifier\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
@@ -28,8 +28,8 @@ class Modifier
     #[ORM\ManyToOne(targetEntity: Place::class)]
     private ?Place $place = null;
 
-    #[ORM\ManyToOne(targetEntity: GameEquipment::class)]
-    private ?GameEquipment $gameEquipment = null;
+    #[ORM\ManyToOne(targetEntity: Equipment::class)]
+    private ?Equipment $gameEquipment = null;
 
     #[ORM\ManyToOne(targetEntity: Daedalus::class)]
     private ?Daedalus $daedalus = null;
@@ -47,7 +47,7 @@ class Modifier
             $this->place = $holder;
         } elseif ($holder instanceof Daedalus) {
             $this->daedalus = $holder;
-        } elseif ($holder instanceof GameEquipment) {
+        } elseif ($holder instanceof Equipment) {
             $this->gameEquipment = $holder;
         }
 

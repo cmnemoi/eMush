@@ -6,8 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -71,7 +71,7 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
         );
 
         // Split equipments between items and equipments
-        $partition = $room->getEquipments()->partition(fn (int $key, GameEquipment $gameEquipment) => $gameEquipment->getClassName() === GameEquipment::class ||
+        $partition = $room->getEquipments()->partition(fn (int $key, Equipment $gameEquipment) => $gameEquipment->getClassName() === Equipment::class ||
             $gameEquipment->getClassName() === Door::class
         );
 
@@ -154,9 +154,9 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
         array $context
     ): array {
         $normalizedEquipments = [];
-        /** @var GameEquipment $equipment */
+        /** @var Equipment $equipment */
         foreach ($equipments as $equipment) {
-            if (!($equipment->getEquipment()->isPersonal() && $equipment->getOwner() !== $currentPlayer)) {
+            if (!($equipment->getConfig()->isPersonal() && $equipment->getOwner() !== $currentPlayer)) {
                 $normalizedEquipments[] = $this->normalizer->normalize($equipment, $format, $context);
             }
         }
@@ -170,10 +170,10 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
 
         // For each group of item
         foreach ($this->groupItemCollectionByName($items, $currentPlayer) as $itemGroup) {
-            /** @var GameItem $patron */
+            /** @var Item $patron */
             $patron = $itemGroup->first();
 
-            $patronConfig = $patron->getEquipment();
+            $patronConfig = $patron->getConfig();
 
             if ($patronConfig instanceof ItemConfig) {
                 // If not stackable, normalize each occurrence of the item
@@ -245,7 +245,7 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
     {
         $itemsGroup = [];
 
-        /** @var GameItem $item */
+        /** @var Item $item */
         foreach ($items as $item) {
             // Do not include items hidden to the player
             $hiddenStatus = $item->getStatusByName(EquipmentStatusEnum::HIDDEN);
@@ -253,11 +253,11 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
                 $name = $item->getName();
 
                 // book and blueprint hae the same name event for similar blueprint This part split them
-                $book = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK);
+                $book = $item->getConfig()->getMechanicByName(EquipmentMechanicEnum::BOOK);
                 if ($book instanceof Book) {
                     $name = $name . $book->getSkill();
                 }
-                $blueprint = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
+                $blueprint = $item->getConfig()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
                 if ($blueprint instanceof Blueprint) {
                     $name = $name . $blueprint->getEquipment()->getName();
                 }
@@ -280,7 +280,7 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
     private function groupByStatus(Collection $itemsGroup, Player $currentPlayer): array
     {
         $pile = [];
-        /** @var GameItem $item */
+        /** @var Item $item */
         foreach ($itemsGroup as $item) {
             $pileName = $this->getPileName($item, $currentPlayer);
             if (!isset($pile[$pileName])) {
@@ -295,7 +295,7 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
     /**
      * Return the name of the pile for a given item.
      */
-    private function getPileName(GameItem $item, Player $currentPlayer): string
+    private function getPileName(Item $item, Player $currentPlayer): string
     {
         $itemStatuses = $item->getStatuses();
         $pileName = null;

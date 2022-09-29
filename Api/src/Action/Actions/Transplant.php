@@ -8,14 +8,14 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\EquipmentReachable;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -28,14 +28,14 @@ class Transplant extends AbstractAction
     protected string $name = ActionEnum::TRANSPLANT;
 
     protected GearToolServiceInterface $gearToolService;
-    protected GameEquipmentServiceInterface $gameEquipmentService;
+    protected EquipmentFactoryInterface $gameEquipmentService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GearToolServiceInterface $gearToolService,
-        GameEquipmentServiceInterface $gameEquipmentService
+        EquipmentFactoryInterface $gameEquipmentService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -49,7 +49,7 @@ class Transplant extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameItem;
+        return $parameter instanceof Item;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -65,15 +65,15 @@ class Transplant extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $parameter */
+        /** @var Item $parameter */
         $parameter = $this->parameter;
         $time = new \DateTime();
 
         // @TODO fail transplant
         /** @var Fruit $fruitType */
-        $fruitType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::FRUIT);
+        $fruitType = $parameter->getConfig()->getMechanicByName(EquipmentMechanicEnum::FRUIT);
 
-        /** @var GameItem $hydropot */
+        /** @var Item $hydropot */
         $hydropot = $this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->first();
 
         $equipmentEvent = new InteractWithEquipmentEvent(

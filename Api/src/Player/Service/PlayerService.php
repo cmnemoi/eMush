@@ -5,7 +5,7 @@ namespace Mush\Player\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TriumphEnum;
@@ -45,15 +45,15 @@ class PlayerService implements PlayerServiceInterface
 
     private RoomLogServiceInterface $roomLogService;
 
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    private EquipmentFactoryInterface $gameEquipmentService;
 
     public function __construct(
-        EntityManagerInterface $entityManager,
-        EventDispatcherInterface $eventDispatcher,
-        PlayerRepository $repository,
-        DeadPlayerInfoRepository $deadPlayerRepository,
-        RoomLogServiceInterface $roomLogService,
-        GameEquipmentServiceInterface $gameEquipmentService,
+        EntityManagerInterface    $entityManager,
+        EventDispatcherInterface  $eventDispatcher,
+        PlayerRepository          $repository,
+        DeadPlayerInfoRepository  $deadPlayerRepository,
+        RoomLogServiceInterface   $roomLogService,
+        EquipmentFactoryInterface $gameEquipmentService,
     ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
@@ -331,7 +331,6 @@ class PlayerService implements PlayerServiceInterface
         $currentRoom = $player->getPlace();
         foreach ($player->getEquipments() as $item) {
             $item->setHolder($currentRoom);
-            $this->gameEquipmentService->persist($item);
         }
 
         // @TODO in case of assassination chance of disorder for roommates

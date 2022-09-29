@@ -15,8 +15,8 @@ use Mush\Communication\Repository\ChannelRepository;
 use Mush\Communication\Services\ChannelService;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Entity\Place;
@@ -152,7 +152,7 @@ class ChannelServiceTest extends TestCase
         $player = new Player();
         $place = new Place();
 
-        $talkie = new GameItem();
+        $talkie = new Item();
         $talkie->setName(ItemEnum::WALKIE_TALKIE);
 
         $player->setPlace($place)->addEquipment($talkie);
@@ -167,7 +167,7 @@ class ChannelServiceTest extends TestCase
         $player = new Player();
         $place = new Place();
 
-        $talkie = new GameItem();
+        $talkie = new Item();
         $talkie->setName(ItemEnum::WALKIE_TALKIE);
 
         $player->setPlace($place);
@@ -183,7 +183,7 @@ class ChannelServiceTest extends TestCase
         $player = new Player();
         $place = new Place();
 
-        $commCenter = new GameEquipment();
+        $commCenter = new Equipment();
         $commCenter->setName(EquipmentEnum::COMMUNICATION_CENTER);
 
         $player->setPlace($place);
@@ -238,9 +238,9 @@ class ChannelServiceTest extends TestCase
         $channel = new Channel();
         $place = new Place();
 
-        $item2 = new GameItem();
+        $item2 = new Item();
         $item2->setName(ItemEnum::ITRACKIE);
-        $item3 = new GameItem();
+        $item3 = new Item();
         $item3->setName(ItemEnum::ITRACKIE);
 
         $player = new Player();
@@ -320,10 +320,10 @@ class ChannelServiceTest extends TestCase
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME;
 
-        $item = new GameItem();
+        $item = new Item();
         $item->setName(ItemEnum::ITRACKIE);
 
-        $item2 = new GameItem();
+        $item2 = new Item();
         $item2->setName(ItemEnum::ITRACKIE);
 
         $player = new Player();
@@ -370,7 +370,7 @@ class ChannelServiceTest extends TestCase
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME;
 
-        $item2 = new GameItem();
+        $item2 = new Item();
         $item2->setName(ItemEnum::ITRACKIE);
 
         $player = new Player();
@@ -417,7 +417,7 @@ class ChannelServiceTest extends TestCase
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME;
 
-        $item2 = new GameItem();
+        $item2 = new Item();
         $item2->setName(ItemEnum::ITRACKIE);
 
         $player = new Player();
@@ -464,10 +464,10 @@ class ChannelServiceTest extends TestCase
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME;
 
-        $item2 = new GameItem();
+        $item2 = new Item();
         $item2->setName(ItemEnum::ITRACKIE);
 
-        $item3 = new GameItem();
+        $item3 = new Item();
         $item3->setName(ItemEnum::ITRACKIE);
 
         $player = new Player();
@@ -585,7 +585,7 @@ class ChannelServiceTest extends TestCase
 
         $place = new Place();
 
-        $item = new GameItem();
+        $item = new Item();
         $item->setName(ItemEnum::ITRACKIE);
 
         $player = new Player();

@@ -94,7 +94,7 @@ class NeronMessageCycleCest
         $door1 = new Door();
         $door1
             ->setName('door name')
-            ->setEquipment($doorConfig);
+            ->setConfig($doorConfig);
 
         $room->addDoor($door1);
         $room2->addDoor($door1);
@@ -102,7 +102,7 @@ class NeronMessageCycleCest
         $door2 = new Door();
         $door2
             ->setName('door name')
-            ->setEquipment($doorConfig);
+            ->setConfig($doorConfig);
 
         $room->addDoor($door2);
         $room3->addDoor($door2);
@@ -110,7 +110,7 @@ class NeronMessageCycleCest
         $door3 = new Door();
         $door3
             ->setName('door name')
-            ->setEquipment($doorConfig);
+            ->setConfig($doorConfig);
 
         $room->addDoor($door3);
         $room4->addDoor($door3);

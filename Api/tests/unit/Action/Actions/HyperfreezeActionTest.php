@@ -9,11 +9,11 @@ use Mush\Action\Actions\Hyperfreeze;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -21,7 +21,7 @@ use Mush\Status\Event\StatusEvent;
 
 class HyperfreezeActionTest extends AbstractActionTest
 {
-    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+    private EquipmentFactoryInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -31,7 +31,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::HYPERFREEZE, 1);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(EquipmentFactoryInterface::class);
 
         $this->action = new Hyperfreeze(
             $this->eventDispatcher,
@@ -59,23 +59,23 @@ class HyperfreezeActionTest extends AbstractActionTest
         $rationType = new Ration();
         $rationType->setIsPerishable(true);
 
-        $gameRation = new GameItem();
+        $gameRation = new Item();
         $ration = new ItemConfig();
         $ration
              ->setMechanics(new ArrayCollection([$rationType]))
              ->setName('fruit')
         ;
         $gameRation
-            ->setEquipment($ration)
+            ->setConfig($ration)
             ->setHolder($room)
             ->setName('fruit')
         ;
 
-        $gameSuperfreezer = new GameItem();
+        $gameSuperfreezer = new Item();
         $superfreezer = new ItemConfig();
         $superfreezer->setName(ToolItemEnum::SUPERFREEZER);
         $gameSuperfreezer
-            ->setEquipment($superfreezer)
+            ->setConfig($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER)
             ->setHolder($room)
         ;
@@ -110,36 +110,36 @@ class HyperfreezeActionTest extends AbstractActionTest
         $rationType = new Ration();
         $rationType->setIsPerishable(true);
 
-        $gameRation = new GameItem();
+        $gameRation = new Item();
         $ration = new ItemConfig();
         $ration
              ->setMechanics(new ArrayCollection([$rationType]))
              ->setName(GameRationEnum::ALIEN_STEAK)
         ;
         $gameRation
-            ->setEquipment($ration)
+            ->setConfig($ration)
             ->setHolder($room)
             ->setName(GameRationEnum::ALIEN_STEAK)
         ;
 
-        $gameSuperfreezer = new GameItem();
+        $gameSuperfreezer = new Item();
         $superfreezer = new ItemConfig();
         $superfreezer->setName(ToolItemEnum::SUPERFREEZER);
         $gameSuperfreezer
-            ->setEquipment($superfreezer)
+            ->setConfig($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER)
             ->setHolder($room)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
-        $gameStandardRation = new GameItem();
+        $gameStandardRation = new Item();
         $standardRation = new ItemConfig();
         $standardRation
              ->setName(GameRationEnum::STANDARD_RATION)
         ;
         $gameStandardRation
-            ->setEquipment($standardRation)
+            ->setConfig($standardRation)
             ->setName(GameRationEnum::STANDARD_RATION)
         ;
 

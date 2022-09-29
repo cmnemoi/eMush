@@ -3,7 +3,7 @@
 namespace Mush\Equipment\Event;
 
 use Mush\Equipment\Entity\EquipmentHolderInterface;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Player\Entity\Player;
 
 class InteractWithEquipmentEvent extends EquipmentEvent
@@ -11,11 +11,11 @@ class InteractWithEquipmentEvent extends EquipmentEvent
     protected EquipmentHolderInterface $actor;
 
     public function __construct(
-        GameEquipment $equipment,
+        Equipment                $equipment,
         EquipmentHolderInterface $actor,
-        string $visibility,
-        string $reason,
-        \DateTime $time
+        string                   $visibility,
+        string                   $reason,
+        \DateTime                $time
     ) {
         parent::__construct($equipment, false, $visibility, $reason, $time);
 

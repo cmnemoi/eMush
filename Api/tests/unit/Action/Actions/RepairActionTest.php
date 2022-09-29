@@ -9,7 +9,7 @@ use Mush\Action\Actions\Repair;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -50,14 +50,14 @@ class RepairActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
         $item
             ->setIsBreakable(true)
         ;
 
         $gameItem
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($room)
         ;
 
@@ -79,14 +79,14 @@ class RepairActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
         $item
             ->setIsBreakable(true)
         ;
 
         $gameItem
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($room)
         ;
 

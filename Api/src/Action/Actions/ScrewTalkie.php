@@ -9,7 +9,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Entity\Player;
@@ -78,8 +78,8 @@ class ScrewTalkie extends AbstractAction
         /** @var Player $parameter */
         $parameter = $this->parameter;
 
-        /** @var GameItem $talkie */
-        $talkie = $parameter->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::WALKIE_TALKIE ||
+        /** @var Item $talkie */
+        $talkie = $parameter->getEquipments()->filter(fn (Item $item) => $item->getName() === ItemEnum::WALKIE_TALKIE ||
             $item->getName() === ItemEnum::ITRACKIE
         )->first();
 

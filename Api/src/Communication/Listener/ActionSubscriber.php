@@ -5,7 +5,7 @@ namespace Mush\Communication\Listener;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Communication\Services\ChannelServiceInterface;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -38,7 +38,7 @@ class ActionSubscriber implements EventSubscriberInterface
 
         switch ($actionName) {
             case ActionEnum::DROP:
-                if (!($target instanceof GameEquipment)) {
+                if (!($target instanceof Equipment)) {
                     throw new \LogicException('a game equipment should be given');
                 }
 

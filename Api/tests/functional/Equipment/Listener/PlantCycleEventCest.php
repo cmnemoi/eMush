@@ -8,8 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentCycleEvent;
@@ -69,9 +69,9 @@ class PlantCycleEventCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$plantMechanic])]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('plant name')
             ->setHolder($room)
         ;
@@ -173,9 +173,9 @@ class PlantCycleEventCest
         /* @var EquipmentConfig $equipmentConfig */
         $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'name' => ItemEnum::HYDROPOT]);
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('plant name')
             ->setHolder($room)
         ;
@@ -243,7 +243,7 @@ class PlantCycleEventCest
 
         $I->assertCount(2, $room->getEquipments());
         $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
-        $I->assertTrue($room->getEquipments()->exists(fn (int $key, GameEquipment $item) => $item->getName() === 'fruit'));
+        $I->assertTrue($room->getEquipments()->exists(fn (int $key, Equipment $item) => $item->getName() === 'fruit'));
         $I->assertEquals(11, $daedalus->getOxygen());
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
@@ -255,9 +255,9 @@ class PlantCycleEventCest
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'corridor']);
 
-        $gameEquipment2 = new GameItem();
+        $gameEquipment2 = new Item();
         $gameEquipment2
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('plant name')
             ->setHolder($room2)
         ;

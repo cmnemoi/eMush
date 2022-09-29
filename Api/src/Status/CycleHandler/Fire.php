@@ -6,7 +6,7 @@ use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -27,14 +27,14 @@ class Fire extends AbstractStatusCycleHandler
 
     private RandomServiceInterface $randomService;
     private EventDispatcherInterface $eventDispatcher;
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    private EquipmentFactoryInterface $gameEquipmentService;
     private DaedalusServiceInterface $daedalusService;
 
     public function __construct(
-        RandomServiceInterface $randomService,
-        EventDispatcherInterface $eventDispatcher,
-        GameEquipmentServiceInterface $gameEquipmentService,
-        DaedalusServiceInterface $daedalusService
+        RandomServiceInterface    $randomService,
+        EventDispatcherInterface  $eventDispatcher,
+        EquipmentFactoryInterface $gameEquipmentService,
+        DaedalusServiceInterface  $daedalusService
     ) {
         $this->randomService = $randomService;
         $this->eventDispatcher = $eventDispatcher;

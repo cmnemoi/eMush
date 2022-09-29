@@ -5,7 +5,7 @@ namespace functional\Player\Service;
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -143,10 +143,10 @@ class PlayerServiceCest
         $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
 
         $item = $I->have(ItemConfig::class);
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $gameItem
             ->setName('item')
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($player)
         ;
 

@@ -2,7 +2,7 @@
 
 namespace Mush\Status\Listener;
 
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -58,7 +58,7 @@ class StatusSubscriber implements EventSubscriberInterface
 
         // If a talkie or itrackie is repaired, check if it was screwed.
         // If so, remove the screwed talkie status from the owner of the talkie and the pirate
-        if ($holder instanceof GameItem &&
+        if ($holder instanceof Item &&
             in_array($holder->getName(), [ItemEnum::ITRACKIE, ItemEnum::WALKIE_TALKIE]) &&
             $event->getStatusName() === EquipmentStatusEnum::BROKEN
         ) {

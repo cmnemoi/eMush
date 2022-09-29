@@ -9,11 +9,11 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -25,14 +25,14 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class Disassemble extends AttemptAction
 {
     protected string $name = ActionEnum::DISASSEMBLE;
-    protected GameEquipmentServiceInterface $gameEquipmentService;
+    protected EquipmentFactoryInterface $gameEquipmentService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        GameEquipmentServiceInterface $gameEquipmentService
+        EquipmentFactoryInterface $gameEquipmentService
     ) {
         parent::__construct($eventDispatcher, $actionService, $validator, $randomService);
 
@@ -41,7 +41,7 @@ class Disassemble extends AttemptAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameEquipment;
+        return $parameter instanceof Equipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -58,7 +58,7 @@ class Disassemble extends AttemptAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $parameter */
+        /** @var Equipment $parameter */
         $parameter = $this->parameter;
 
         if ($result instanceof Success) {
@@ -66,12 +66,12 @@ class Disassemble extends AttemptAction
         }
     }
 
-    private function disassemble(GameEquipment $gameEquipment): void
+    private function disassemble(Equipment $gameEquipment): void
     {
         $time = new \DateTime();
 
         // add the item produced by disassembling
-        foreach ($gameEquipment->getEquipment()->getDismountedProducts() as $productString => $number) {
+        foreach ($gameEquipment->getConfig()->getDismountedProducts() as $productString => $number) {
             for ($i = 0; $i < $number; ++$i) {
                 $product = $this->gameEquipmentService->createGameEquipmentFromName(
                     $productString,

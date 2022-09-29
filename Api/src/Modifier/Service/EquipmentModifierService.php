@@ -4,7 +4,7 @@ namespace Mush\Modifier\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Modifier\Entity\ModifierConfig;
@@ -28,7 +28,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         $this->modifierService = $modifierService;
     }
 
-    public function gearCreated(GameEquipment $gameEquipment): void
+    public function gearCreated(Equipment $gameEquipment): void
     {
         $player = $gameEquipment->getHolder();
         if (!$player instanceof Player) {
@@ -43,7 +43,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         );
     }
 
-    public function gearDestroyed(GameEquipment $gameEquipment): void
+    public function gearDestroyed(Equipment $gameEquipment): void
     {
         $player = $gameEquipment->getHolder();
         if (!$player instanceof Player) {
@@ -57,7 +57,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         );
     }
 
-    public function takeEquipment(GameEquipment $gameEquipment, Player $player): void
+    public function takeEquipment(Equipment $gameEquipment, Player $player): void
     {
         if ($gameEquipment->isBroken()) {
             return;
@@ -67,7 +67,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         $this->createEquipmentStatusModifiers($gameEquipment, [ModifierReachEnum::PLAYER, ModifierReachEnum::TARGET_PLAYER], $player);
     }
 
-    public function dropEquipment(GameEquipment $gameEquipment, Player $player): void
+    public function dropEquipment(Equipment $gameEquipment, Player $player): void
     {
         if ($gameEquipment->isBroken()) {
             return;
@@ -81,7 +81,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         $this->deleteEquipmentStatusModifiers($gameEquipment, [ModifierReachEnum::PLAYER, ModifierReachEnum::TARGET_PLAYER], $player);
     }
 
-    public function equipmentLeaveRoom(GameEquipment $gameEquipment, Place $place): void
+    public function equipmentLeaveRoom(Equipment $gameEquipment, Place $place): void
     {
         if ($gameEquipment->isBroken()) {
             return;
@@ -91,7 +91,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         $this->deleteEquipmentStatusModifiers($gameEquipment, [ModifierReachEnum::PLACE], null);
     }
 
-    public function equipmentEnterRoom(GameEquipment $gameEquipment, Place $place): void
+    public function equipmentEnterRoom(Equipment $gameEquipment, Place $place): void
     {
         if ($gameEquipment->isBroken()) {
             return;
@@ -117,7 +117,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         }
     }
 
-    private function createGearModifiers(GameEquipment $gameEquipment, array $reaches, ?Player $player): void
+    private function createGearModifiers(Equipment $gameEquipment, array $reaches, ?Player $player): void
     {
         $this->createModifiersWithName(
             $this->getGearModifierConfigs($gameEquipment),
@@ -128,7 +128,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         codecept_debug('bonjour');
     }
 
-    private function deleteGearModifiers(GameEquipment $gameEquipment, array $reaches, ?Player $player): void
+    private function deleteGearModifiers(Equipment $gameEquipment, array $reaches, ?Player $player): void
     {
         /* @var ModifierConfig $modifierConfig */
         foreach ($this->getGearModifierConfigs($gameEquipment) as $modifierConfig) {
@@ -143,11 +143,11 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         }
     }
 
-    private function getGearModifierConfigs(GameEquipment $gameEquipment): Collection
+    private function getGearModifierConfigs(Equipment $gameEquipment): Collection
     {
         codecept_debug('alors oui');
-        codecept_debug($gameEquipment->getEquipment()->getMechanics());
-        if ($gearMechanic = $gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR)) {
+        codecept_debug($gameEquipment->getConfig()->getMechanics());
+        if ($gearMechanic = $gameEquipment->getConfig()->getMechanicByName(EquipmentMechanicEnum::GEAR)) {
             if (!$gearMechanic instanceof Gear) {
                 throw new UnexpectedTypeException($gearMechanic, Gear::class);
             }
@@ -158,7 +158,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         return new ArrayCollection();
     }
 
-    private function createEquipmentStatusModifiers(GameEquipment $gameEquipment, array $reaches, ?Player $player): void
+    private function createEquipmentStatusModifiers(Equipment $gameEquipment, array $reaches, ?Player $player): void
     {
         foreach ($gameEquipment->getStatuses() as $status) {
             $statusConfig = $status->getStatusConfig();
@@ -171,7 +171,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         }
     }
 
-    private function deleteEquipmentStatusModifiers(GameEquipment $gameEquipment, array $reaches, ?Player $player): void
+    private function deleteEquipmentStatusModifiers(Equipment $gameEquipment, array $reaches, ?Player $player): void
     {
         foreach ($gameEquipment->getStatuses() as $status) {
             $statusConfig = $status->getStatusConfig();
@@ -191,9 +191,9 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
 
     private function createModifiersWithName(
         Collection $modifiers,
-        array $reaches,
-        GameEquipment $gameEquipment,
-        ?Player $player
+        array      $reaches,
+        Equipment  $gameEquipment,
+        ?Player    $player
     ): void {
         /* @var ModifierConfig $modifierConfig */
         foreach ($modifiers as $modifierConfig) {
@@ -220,7 +220,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         }
     }
 
-    private function getModifierHolderFromConfig(GameEquipment $gameEquipment, ModifierConfig $modifierConfig, ?Player $player): ?ModifierHolder
+    private function getModifierHolderFromConfig(Equipment $gameEquipment, ModifierConfig $modifierConfig, ?Player $player): ?ModifierHolder
     {
         switch ($modifierConfig->getReach()) {
             case ModifierReachEnum::DAEDALUS:

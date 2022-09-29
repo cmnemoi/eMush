@@ -11,9 +11,9 @@ use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Daedalus\Repository\DaedalusRepository;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
@@ -36,18 +36,18 @@ class DaedalusService implements DaedalusServiceInterface
     private EventDispatcherInterface $eventDispatcher;
     private DaedalusRepository $repository;
     private CycleServiceInterface $cycleService;
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    private EquipmentFactoryInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
-        EntityManagerInterface $entityManager,
-        EventDispatcherInterface $eventDispatcher,
-        DaedalusRepository $repository,
-        CycleServiceInterface $cycleService,
-        GameEquipmentServiceInterface $gameEquipmentService,
-        RandomServiceInterface $randomService,
-        RoomLogServiceInterface $roomLogService
+        EntityManagerInterface    $entityManager,
+        EventDispatcherInterface  $eventDispatcher,
+        DaedalusRepository        $repository,
+        CycleServiceInterface     $cycleService,
+        EquipmentFactoryInterface $gameEquipmentService,
+        RandomServiceInterface    $randomService,
+        RoomLogServiceInterface   $roomLogService
     ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
@@ -205,9 +205,9 @@ class DaedalusService implements DaedalusServiceInterface
 
             $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         } else {
-            $capsule = $player->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
+            $capsule = $player->getEquipments()->filter(fn (Item $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
 
-            $this->gameEquipmentService->delete($capsule);
+            $this->gameEquipmentService->deleteEquipment($capsule);
 
             $this->roomLogService->createLog(
                 LogEnum::OXY_LOW_USE_CAPSULE,
@@ -238,7 +238,7 @@ class DaedalusService implements DaedalusServiceInterface
 
     private function getOxygenCapsuleCount(Player $player): int
     {
-        return $player->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count();
+        return $player->getEquipments()->filter(fn (Item $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count();
     }
 
     public function killRemainingPlayers(Daedalus $daedalus, string $cause, \DateTime $date): Daedalus

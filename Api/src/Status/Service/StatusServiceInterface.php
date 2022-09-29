@@ -5,7 +5,7 @@ namespace Mush\Status\Service;
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\ChargeStatus;
@@ -44,7 +44,7 @@ interface StatusServiceInterface
 
     public function handleAttempt(Player $player, string $actionName, ActionResult $result): void;
 
-    public function getMostRecent(string $statusName, Collection $equipments): GameEquipment;
+    public function getMostRecent(string $statusName, Collection $equipments): Equipment;
 
     public function getByCriteria(StatusCriteria $criteria): Collection;
 

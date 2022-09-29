@@ -10,9 +10,9 @@ use Mush\Action\Actions\Disassemble;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -21,8 +21,8 @@ class DisassembleActionTest extends AbstractActionTest
 {
     private RandomServiceInterface|Mockery\Mock $randomService;
 
-    /* @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+    /* @var EquipmentFactoryInterface|Mockery\Mock */
+    private EquipmentFactoryInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -32,7 +32,7 @@ class DisassembleActionTest extends AbstractActionTest
         parent::before();
 
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(EquipmentFactoryInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::DISASSEMBLE, 3);
 
@@ -57,9 +57,9 @@ class DisassembleActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
-        $gameItem->setEquipment($item);
+        $gameItem->setConfig($item);
         $gameItem
             ->setName('some name')
             ->setHolder($room)
@@ -90,9 +90,9 @@ class DisassembleActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
-        $gameItem->setEquipment($item);
+        $gameItem->setConfig($item);
         $gameItem
             ->setName('some name')
             ->setHolder($room)
@@ -111,7 +111,7 @@ class DisassembleActionTest extends AbstractActionTest
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
-        $scrap = new GameItem();
+        $scrap = new Item();
 
         $this->eventDispatcher->shouldReceive('dispatch')->twice();
 

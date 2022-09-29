@@ -9,8 +9,8 @@ use Mush\Daedalus\Service\DaedalusIncidentService;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
@@ -167,12 +167,12 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
-        $equipment = new GameEquipment();
+        $equipment = new Equipment();
         $equipment->setHolder(new Place());
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByCriteria')
-            ->withArgs(fn (GameEquipmentCriteria $criteria) => $criteria->getNotInstanceOf() === [Door::class, GameItem::class])
+            ->withArgs(fn (GameEquipmentCriteria $criteria) => $criteria->getNotInstanceOf() === [Door::class, Item::class])
             ->andReturn([$equipment])
             ->once()
         ;
@@ -200,14 +200,14 @@ class DaedalusIncidentServiceTest extends TestCase
     {
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
-        $equipment = new GameEquipment();
+        $equipment = new Equipment();
         $brokenConfig = new StatusConfig();
         $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
         $brokenStatus = new Status($equipment, $brokenConfig);
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByCriteria')
-            ->withArgs(fn (GameEquipmentCriteria $criteria) => $criteria->getNotInstanceOf() === [Door::class, GameItem::class])
+            ->withArgs(fn (GameEquipmentCriteria $criteria) => $criteria->getNotInstanceOf() === [Door::class, Item::class])
             ->andReturn([$equipment])
             ->once()
         ;
@@ -241,15 +241,15 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
-        $item = new GameItem();
+        $item = new Item();
         $item->setHolder(new Place());
 
-        $equipment = new GameEquipment();
+        $equipment = new Equipment();
         $equipment->setHolder(new Place());
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByCriteria')
-            ->withArgs(fn (GameEquipmentCriteria $criteria) => $criteria->getNotInstanceOf() === [Door::class, GameItem::class])
+            ->withArgs(fn (GameEquipmentCriteria $criteria) => $criteria->getNotInstanceOf() === [Door::class, Item::class])
             ->andReturn([$equipment])
             ->once()
         ;

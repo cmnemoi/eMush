@@ -14,7 +14,7 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Listener\ActionEffectSubscriber;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
@@ -257,7 +257,7 @@ class ActionEffectSubscriberCest
         return $diseaseConfig;
     }
 
-    private function createRation(FunctionalTester $I): GameItem
+    private function createRation(FunctionalTester $I): Item
     {
         $ration = new Ration();
         $I->haveInRepository($ration);
@@ -270,10 +270,10 @@ class ActionEffectSubscriberCest
 
         $I->haveInRepository($itemConfig);
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $gameItem
             ->setName('itemName')
-            ->setEquipment($itemConfig)
+            ->setConfig($itemConfig)
         ;
 
         return $gameItem;

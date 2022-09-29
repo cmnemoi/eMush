@@ -13,8 +13,8 @@ use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
@@ -61,7 +61,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'players')]
     private Place $place;
 
-    #[ORM\OneToMany(mappedBy: 'player', targetEntity: GameItem::class)]
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: Item::class)]
     private Collection $items;
 
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
@@ -200,7 +200,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     /**
      * Return true if the item is reachable for the player i.e. in the inventory or the room.
      */
-    public function canReachEquipment(GameEquipment $gameEquipment): bool
+    public function canReachEquipment(Equipment $gameEquipment): bool
     {
         if ($gameEquipment instanceof Door &&
             $gameEquipment->getRooms()->contains($this->getPlace())
@@ -208,7 +208,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
             return true;
         }
 
-        if ($gameEquipment->getEquipment()->isPersonal() && $gameEquipment->getOwner() !== $this) {
+        if ($gameEquipment->getConfig()->isPersonal() && $gameEquipment->getOwner() !== $this) {
             return false;
         }
 
@@ -231,10 +231,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    public function addEquipment(GameEquipment $gameEquipment): static
+    public function addEquipment(Equipment $gameEquipment): static
     {
-        if (!$gameEquipment instanceof GameItem) {
-            throw new UnexpectedTypeException($gameEquipment, GameItem::class);
+        if (!$gameEquipment instanceof Item) {
+            throw new UnexpectedTypeException($gameEquipment, Item::class);
         }
         if (!$this->getEquipments()->contains($gameEquipment)) {
             $this->getEquipments()->add($gameEquipment);
@@ -244,7 +244,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    public function removeEquipment(GameEquipment $gameEquipment): static
+    public function removeEquipment(Equipment $gameEquipment): static
     {
         if ($this->items->contains($gameEquipment)) {
             $this->items->removeElement($gameEquipment);
@@ -256,12 +256,12 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function hasEquipmentByName(string $name): bool
     {
-        return !$this->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
+        return !$this->getEquipments()->filter(fn (Item $gameItem) => $gameItem->getName() === $name)->isEmpty();
     }
 
     public function hasOperationalEquipmentByName(string $name): bool
     {
-        return !$this->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name &&
+        return !$this->getEquipments()->filter(fn (Item $gameItem) => $gameItem->getName() === $name &&
             $gameItem->isOperational()
         )->isEmpty();
     }

@@ -3,7 +3,7 @@
 namespace Mush\Modifier\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
@@ -91,7 +91,7 @@ class ModifierConditionService implements ModifierConditionServiceInterface
     {
         if ($holder instanceof Place) {
             $room = $holder;
-        } elseif ($holder instanceof GameEquipment || $holder instanceof Player) {
+        } elseif ($holder instanceof Equipment || $holder instanceof Player) {
             $room = $holder->getPlace();
         } else {
             throw new \LogicException('daedalus cannot be used as holder for a player_in_room condition');
@@ -114,7 +114,7 @@ class ModifierConditionService implements ModifierConditionServiceInterface
     {
         if ($holder instanceof Place || $holder instanceof Player) {
             $daedalus = $holder->getDaedalus();
-        } elseif ($holder instanceof GameEquipment) {
+        } elseif ($holder instanceof Equipment) {
             $daedalus = $holder->getPlace()->getDaedalus();
         } elseif ($holder instanceof Daedalus) {
             $daedalus = $holder;
@@ -159,7 +159,7 @@ class ModifierConditionService implements ModifierConditionServiceInterface
             throw new \LogicException('invalid ModifierHolder for item_in_room condition');
         }
 
-        return $room->getEquipments()->filter(function (GameEquipment $equipment) use ($condition) {
+        return $room->getEquipments()->filter(function (Equipment $equipment) use ($condition) {
             return $equipment->getName() === $condition->getCondition();
         })->count() > 0;
     }

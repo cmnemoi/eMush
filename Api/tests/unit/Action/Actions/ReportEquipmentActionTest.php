@@ -7,7 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\ReportEquipment;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Place\Entity\Place;
 
 class ReportEquipmentActionTest extends AbstractActionTest
@@ -42,7 +42,7 @@ class ReportEquipmentActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
 

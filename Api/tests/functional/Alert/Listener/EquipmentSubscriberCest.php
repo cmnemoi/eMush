@@ -12,7 +12,7 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
@@ -60,10 +60,10 @@ class EquipmentSubscriberCest
             'gameConfig' => $gameConfig,
         ]);
 
-        $gravitySimulator = new GameEquipment();
+        $gravitySimulator = new Equipment();
         $gravitySimulator
             ->setName($gravitySimulatorConfig->getName())
-            ->setEquipment($gravitySimulatorConfig)
+            ->setConfig($gravitySimulatorConfig)
             ->setHolder($room)
         ;
 

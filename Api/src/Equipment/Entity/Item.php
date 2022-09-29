@@ -8,7 +8,7 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 #[ORM\Entity]
-class GameItem extends GameEquipment
+class Item extends Equipment
 {
     #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'items')]
     private ?Player $player = null;

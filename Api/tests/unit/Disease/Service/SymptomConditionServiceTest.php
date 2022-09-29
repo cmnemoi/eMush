@@ -11,7 +11,7 @@ use Mush\Disease\Entity\Config\SymptomCondition;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\SymptomConditionEnum;
 use Mush\Disease\Service\SymptomConditionService;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -61,7 +61,7 @@ class SymptomConditionServiceTest extends TestCase
 
         $room = new Place();
 
-        $document = new GameItem();
+        $document = new Item();
         $document->setName(ItemEnum::DOCUMENT);
         $document->setHolder($room);
 
@@ -139,7 +139,7 @@ class SymptomConditionServiceTest extends TestCase
         $player->setDaedalus($daedalus);
         $player->setPlace($room);
 
-        $document = new GameItem();
+        $document = new Item();
         $document->setName(ItemEnum::DOCUMENT);
         $document->setHolder($player);
 

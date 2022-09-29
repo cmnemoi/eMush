@@ -4,7 +4,7 @@ namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -87,7 +87,7 @@ class Status
         $statusOwner->setOwner($this);
         if ($owner instanceof Player) {
             $statusOwner->setPlayer($owner);
-        } elseif ($owner instanceof GameEquipment) {
+        } elseif ($owner instanceof Equipment) {
             $statusOwner->setGameEquipment($owner);
         } elseif ($owner instanceof Place) {
             $statusOwner->setPlace($owner);
@@ -134,7 +134,7 @@ class Status
 
         if ($target instanceof Player) {
             $statusTarget->setPlayer($target);
-        } elseif ($target instanceof GameEquipment) {
+        } elseif ($target instanceof Equipment) {
             $statusTarget->setGameEquipment($target);
         } elseif ($target instanceof Place) {
             $statusTarget->setPlace($target);

@@ -7,9 +7,9 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\CycleHandler\RationCycleHandler;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Fruit;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -19,7 +19,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RationCycleHandlerTest extends TestCase
 {
-    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+    private EquipmentFactoryInterface|Mockery\Mock $gameEquipmentService;
 
     private EventDispatcherInterface|Mockery\Mock $eventDispatcher;
 
@@ -30,7 +30,7 @@ class RationCycleHandlerTest extends TestCase
      */
     public function before()
     {
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(EquipmentFactoryInterface::class);
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
 
         $this->rationCycleHandler = new RationCycleHandler(
@@ -55,9 +55,9 @@ class RationCycleHandlerTest extends TestCase
         $fruit->setMechanics(new ArrayCollection([$fruitType]));
 
         $daedalus = new Daedalus();
-        $gameFruit = new GameItem();
+        $gameFruit = new Item();
         $gameFruit
-            ->setEquipment($fruit)
+            ->setConfig($fruit)
         ;
 
         $frozenConfig = new StatusConfig();
@@ -66,13 +66,13 @@ class RationCycleHandlerTest extends TestCase
 
         $unstableConfig = new StatusConfig();
         $unstableConfig->setName(EquipmentStatusEnum::UNSTABLE);
-        $unstable = new Status(new GameItem(), $unstableConfig);
+        $unstable = new Status(new Item(), $unstableConfig);
         $hazardousConfig = new StatusConfig();
         $hazardousConfig->setName(EquipmentStatusEnum::HAZARDOUS);
-        $hazardous = new Status(new GameItem(), $hazardousConfig);
+        $hazardous = new Status(new Item(), $hazardousConfig);
         $decomposingConfig = new StatusConfig();
         $decomposingConfig->setName(EquipmentStatusEnum::DECOMPOSING);
-        $decomposing = new Status(new GameItem(), $decomposingConfig);
+        $decomposing = new Status(new Item(), $decomposingConfig);
 
         // frozen
         $this->gameEquipmentService->shouldReceive('persist')->once();

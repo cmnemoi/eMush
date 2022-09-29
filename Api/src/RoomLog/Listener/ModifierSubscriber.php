@@ -3,7 +3,7 @@
 namespace Mush\RoomLog\Listener;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Modifier\Event\ModifierEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -54,7 +54,7 @@ class ModifierSubscriber implements EventSubscriberInterface
                 $place = $holder;
                 $parameters = [];
                 break;
-            case $holder instanceof GameEquipment:
+            case $holder instanceof Equipment:
                 $place = $holder->getPlace();
                 $parameters = [$holder->getLogKey() => $holder->getLogName()];
                 break;

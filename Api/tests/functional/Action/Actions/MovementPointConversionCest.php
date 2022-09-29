@@ -57,7 +57,7 @@ class MovementPointConversionCest
         $door = new Door();
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
+            ->setConfig($doorConfig)
             ->setHolder($room2)
         ;
         $I->haveInRepository($door);
@@ -119,7 +119,7 @@ class MovementPointConversionCest
         $door = new Door();
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
+            ->setConfig($doorConfig)
             ->setHolder($room2)
         ;
         $I->haveInRepository($door);
@@ -181,7 +181,7 @@ class MovementPointConversionCest
         $door = new Door();
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
+            ->setConfig($doorConfig)
             ->setHolder($room2)
         ;
         $I->haveInRepository($door);

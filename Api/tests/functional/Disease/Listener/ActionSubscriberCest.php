@@ -25,7 +25,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
@@ -75,7 +75,7 @@ class ActionSubscriberCest
         $door = new Door();
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
+            ->setConfig($doorConfig)
             ->setHolder($room2)
         ;
 
@@ -176,10 +176,10 @@ class ActionSubscriberCest
         /** @var EquipmentConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['actions' => new ArrayCollection([$takeActionEntity])]);
 
-        $cat = new GameItem();
+        $cat = new Item();
         $cat
             ->setName(ItemEnum::SCHRODINGER)
-            ->setEquipment($itemConfig)
+            ->setConfig($itemConfig)
             ->setHolder($room)
         ;
 
@@ -273,7 +273,7 @@ class ActionSubscriberCest
         $door = new Door();
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
+            ->setConfig($doorConfig)
             ->setHolder($room2)
         ;
 
@@ -371,7 +371,7 @@ class ActionSubscriberCest
         $door = new Door();
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
+            ->setConfig($doorConfig)
             ->setHolder($room2)
         ;
 
@@ -469,7 +469,7 @@ class ActionSubscriberCest
         $door = new Door();
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
+            ->setConfig($doorConfig)
             ->setHolder($room2)
         ;
 
@@ -586,7 +586,7 @@ class ActionSubscriberCest
         $door = new Door();
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
+            ->setConfig($doorConfig)
             ->setHolder($room2)
         ;
 
@@ -627,10 +627,10 @@ class ActionSubscriberCest
 
         $I->haveInRepository($equipmentConfig);
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $gameItem
             ->setHolder($room)
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('ration')
         ;
         $I->haveInRepository($gameItem);
@@ -734,10 +734,10 @@ class ActionSubscriberCest
         /** @var EquipmentConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class);
 
-        $cat = new GameItem();
+        $cat = new Item();
         $cat
             ->setName(ItemEnum::SCHRODINGER)
-            ->setEquipment($itemConfig)
+            ->setConfig($itemConfig)
             ->setHolder($room)
         ;
 
@@ -768,7 +768,7 @@ class ActionSubscriberCest
         $door = new Door();
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
+            ->setConfig($doorConfig)
             ->setHolder($room2)
         ;
 

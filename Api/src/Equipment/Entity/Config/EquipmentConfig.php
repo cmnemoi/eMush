@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\EquipmentMechanic;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\ConfigInterface;
@@ -66,12 +66,12 @@ class EquipmentConfig implements ConfigInterface
         $this->initStatus = new ArrayCollection();
     }
 
-    public function createGameEquipment(): GameEquipment
+    public function createGameEquipment(): Equipment
     {
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment
             ->setName($this->getShortName())
-            ->setEquipment($this)
+            ->setConfig($this)
         ;
 
         return $gameEquipment;

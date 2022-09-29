@@ -9,7 +9,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -23,7 +23,7 @@ class Consume extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameItem;
+        return $parameter instanceof Item;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -40,9 +40,9 @@ class Consume extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        /** @var GameItem $parameter */
+        /** @var Item $parameter */
         $parameter = $this->parameter;
-        $rationType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
+        $rationType = $parameter->getConfig()->getMechanicByName(EquipmentMechanicEnum::RATION);
 
         if (null === $rationType) {
             throw new \Exception('Cannot consume this equipment');
@@ -53,9 +53,9 @@ class Consume extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $parameter */
+        /** @var Item $parameter */
         $parameter = $this->parameter;
-        $rationType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
+        $rationType = $parameter->getConfig()->getMechanicByName(EquipmentMechanicEnum::RATION);
 
         if (null === $rationType) {
             throw new \Exception('Cannot consume this equipment');

@@ -10,11 +10,11 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameDrugEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 
@@ -22,8 +22,8 @@ class DispenseActionTest extends AbstractActionTest
 {
     private RandomServiceInterface|Mockery\Mock $randomService;
 
-    /* @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+    /* @var EquipmentFactoryInterface|Mockery\Mock */
+    private EquipmentFactoryInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -33,7 +33,7 @@ class DispenseActionTest extends AbstractActionTest
         parent::before();
 
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(EquipmentFactoryInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
@@ -59,10 +59,10 @@ class DispenseActionTest extends AbstractActionTest
         $room = new Place();
 
         $distillerMachine = new EquipmentConfig();
-        $gameDistillerMachine = new GameEquipment();
+        $gameDistillerMachine = new Equipment();
         $distillerMachine->setName(EquipmentEnum::NARCOTIC_DISTILLER);
         $gameDistillerMachine
-            ->setEquipment($distillerMachine)
+            ->setConfig($distillerMachine)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
             ->setHolder($room);
 
@@ -74,12 +74,12 @@ class DispenseActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $gameDistillerMachine);
 
-        $gameDrug = new GameItem();
+        $gameDrug = new Item();
         $drug = new ItemConfig();
         $drug
             ->setName(GameDrugEnum::PHUXX);
         $gameDrug
-            ->setEquipment($drug)
+            ->setConfig($drug)
             ->setName(GameDrugEnum::PHUXX);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);

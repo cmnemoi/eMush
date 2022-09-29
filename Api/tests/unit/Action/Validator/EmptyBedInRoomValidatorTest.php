@@ -6,7 +6,7 @@ use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\EmptyBedInRoom;
 use Mush\Action\Validator\EmptyBedInRoomValidator;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -47,7 +47,7 @@ class EmptyBedInRoomValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment->setName(EquipmentEnum::MEDLAB_BED)->setHolder($room);
 
         $action = Mockery::mock(AbstractAction::class);
@@ -68,7 +68,7 @@ class EmptyBedInRoomValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
         $gameEquipment->setName(EquipmentEnum::BED)->setHolder($room);
 
         $statusConfig = new StatusConfig();

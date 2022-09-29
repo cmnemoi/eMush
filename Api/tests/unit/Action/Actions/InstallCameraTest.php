@@ -9,17 +9,17 @@ use Mush\Action\Actions\InstallCamera;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Place\Entity\Place;
 
 class InstallCameraActionTest extends AbstractActionTest
 {
-    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+    private EquipmentFactoryInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -29,7 +29,7 @@ class InstallCameraActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::INSTALL_CAMERA);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(EquipmentFactoryInterface::class);
 
         $this->action = new InstallCamera(
             $this->eventDispatcher,
@@ -51,11 +51,11 @@ class InstallCameraActionTest extends AbstractActionTest
     {
         $room = new Place();
 
-        $cameraItem = new GameItem();
+        $cameraItem = new Item();
         $cameraItemConfig = new ItemConfig();
         $cameraItemConfig->setName(EquipmentEnum::COFFEE_MACHINE);
         $cameraItem
-            ->setEquipment($cameraItemConfig)
+            ->setConfig($cameraItemConfig)
             ->setName(ItemEnum::CAMERA_ITEM)
             ->setHolder($room)
         ;
@@ -66,13 +66,13 @@ class InstallCameraActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $cameraItem);
 
-        $cameraEquipment = new GameEquipment();
+        $cameraEquipment = new Equipment();
         $cameraEquipmentConfig = new ItemConfig();
         $cameraEquipmentConfig
             ->setName(GameRationEnum::COFFEE)
         ;
         $cameraEquipment
-            ->setEquipment($cameraEquipmentConfig)
+            ->setConfig($cameraEquipmentConfig)
             ->setName(GameRationEnum::COFFEE)
         ;
 

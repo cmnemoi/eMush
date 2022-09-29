@@ -8,8 +8,8 @@ use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
@@ -44,11 +44,11 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment
             ->setName('equipment 1')
             ->setHolder($room)
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -59,29 +59,29 @@ class GameEquipmentRepositoryCest
         $door
             ->setName('equipment 1')
             ->setHolder($room)
-            ->setEquipment($doorConfig)
+            ->setConfig($doorConfig)
         ;
         $I->haveInRepository($door);
 
         /** @var EquipmentConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
 
-        $gameEquipment2 = new GameItem();
+        $gameEquipment2 = new Item();
         $gameEquipment2
             ->setName('item 2')
             ->setHolder($player)
-            ->setEquipment($equipmentConfig2)
+            ->setConfig($equipmentConfig2)
         ;
         $I->haveInRepository($gameEquipment2);
 
         /** @var EquipmentConfig $equipmentConfig3 */
         $equipmentConfig3 = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        $gameEquipment3 = new GameEquipment();
+        $gameEquipment3 = new Equipment();
         $gameEquipment3
             ->setName('equipment 3')
             ->setHolder($room2)
-            ->setEquipment($equipmentConfig3)
+            ->setConfig($equipmentConfig3)
         ;
         $I->haveInRepository($gameEquipment3);
 
@@ -127,19 +127,19 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $unbreakableConfig */
         $unbreakableConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'isBreakable' => false]);
 
-        $breakableEquipment = new GameEquipment();
+        $breakableEquipment = new Equipment();
         $breakableEquipment
             ->setName('equipment 1')
             ->setHolder($room)
-            ->setEquipment($breakableConfig)
+            ->setConfig($breakableConfig)
         ;
         $I->haveInRepository($breakableEquipment);
 
-        $unbreakableItem = new GameItem();
+        $unbreakableItem = new Item();
         $unbreakableItem
             ->setName('item 2')
             ->setHolder($player)
-            ->setEquipment($unbreakableConfig)
+            ->setConfig($unbreakableConfig)
         ;
         $I->haveInRepository($unbreakableItem);
 
@@ -173,11 +173,11 @@ class GameEquipmentRepositoryCest
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment
             ->setName('equipment 1')
             ->setHolder($room)
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -188,23 +188,23 @@ class GameEquipmentRepositoryCest
         $door
             ->setName('door 1')
             ->setHolder($room)
-            ->setEquipment($doorConfig)
+            ->setConfig($doorConfig)
         ;
         $I->haveInRepository($door);
 
         /** @var EquipmentConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
 
-        $item = new GameItem();
+        $item = new Item();
         $item
             ->setName('item 2')
             ->setHolder($room)
-            ->setEquipment($equipmentConfig2)
+            ->setConfig($equipmentConfig2)
         ;
         $I->haveInRepository($item);
 
         $criteria = new GameEquipmentCriteria($daedalus);
-        $criteria->setInstanceOf([GameItem::class]);
+        $criteria->setInstanceOf([Item::class]);
 
         $result = $this->repository->findByCriteria($criteria);
 
@@ -217,12 +217,12 @@ class GameEquipmentRepositoryCest
         $I->assertCount(1, $result);
         $I->assertContains($door, $result);
 
-        $criteria->setInstanceOf([GameEquipment::class]);
+        $criteria->setInstanceOf([Equipment::class]);
         $result = $this->repository->findByCriteria($criteria);
 
         $I->assertCount(3, $result);
 
-        $criteria->setInstanceOf([Door::class, GameItem::class]);
+        $criteria->setInstanceOf([Door::class, Item::class]);
         $result = $this->repository->findByCriteria($criteria);
 
         $I->assertCount(2, $result);
@@ -243,11 +243,11 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment
             ->setName('equipment 1')
             ->setHolder($room)
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -259,23 +259,23 @@ class GameEquipmentRepositoryCest
         $door
             ->setName('door 1')
             ->setHolder($room)
-            ->setEquipment($doorConfig)
+            ->setConfig($doorConfig)
         ;
         $I->haveInRepository($door);
 
         /** @var EquipmentConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
 
-        $item = new GameItem();
+        $item = new Item();
         $item
             ->setName('item 2')
             ->setHolder($room)
-            ->setEquipment($equipmentConfig2)
+            ->setConfig($equipmentConfig2)
         ;
         $I->haveInRepository($item);
 
         $criteria = new GameEquipmentCriteria($daedalus);
-        $criteria->setNotInstanceOf([GameItem::class]);
+        $criteria->setNotInstanceOf([Item::class]);
 
         $result = $this->repository->findByCriteria($criteria);
 
@@ -290,12 +290,12 @@ class GameEquipmentRepositoryCest
         $I->assertContains($item, $result);
         $I->assertContains($gameEquipment, $result);
 
-        $criteria->setNotInstanceOf([GameEquipment::class]);
+        $criteria->setNotInstanceOf([Equipment::class]);
         $result = $this->repository->findByCriteria($criteria);
 
         $I->assertCount(0, $result);
 
-        $criteria->setNotInstanceOf([Door::class, GameItem::class]);
+        $criteria->setNotInstanceOf([Door::class, Item::class]);
         $result = $this->repository->findByCriteria($criteria);
 
         $I->assertCount(1, $result);
@@ -322,11 +322,11 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
         $gameEquipment
             ->setName('equipment1')
             ->setHolder($room)
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -337,29 +337,29 @@ class GameEquipmentRepositoryCest
         $door
             ->setName('equipment1')
             ->setHolder($room)
-            ->setEquipment($doorConfig)
+            ->setConfig($doorConfig)
         ;
         $I->haveInRepository($door);
 
         /** @var EquipmentConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
 
-        $gameEquipment2 = new GameItem();
+        $gameEquipment2 = new Item();
         $gameEquipment2
             ->setName('equipment2')
             ->setHolder($player)
-            ->setEquipment($equipmentConfig2)
+            ->setConfig($equipmentConfig2)
         ;
         $I->haveInRepository($gameEquipment2);
 
         /** @var EquipmentConfig $equipmentConfig3 */
         $equipmentConfig3 = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        $gameEquipment3 = new GameEquipment();
+        $gameEquipment3 = new Equipment();
         $gameEquipment3
             ->setName('equipment1')
             ->setHolder($room2)
-            ->setEquipment($equipmentConfig3)
+            ->setConfig($equipmentConfig3)
         ;
         $I->haveInRepository($gameEquipment3);
 

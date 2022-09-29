@@ -7,7 +7,7 @@ use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -45,7 +45,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getParameter();
 
-        if (!$equipment instanceof GameEquipment) {
+        if (!$equipment instanceof Equipment) {
             return;
         }
 

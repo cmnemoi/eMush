@@ -3,7 +3,7 @@
 namespace Mush\Modifier\Listener;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Entity\Modifier;
@@ -70,8 +70,8 @@ class StatusSubscriber implements EventSubscriberInterface
 
         // handle broken gears
         if ($event->getStatusName() === EquipmentStatusEnum::BROKEN) {
-            if (!$statusHolder instanceof GameEquipment) {
-                throw new UnexpectedTypeException($statusHolder, GameEquipment::class);
+            if (!$statusHolder instanceof Equipment) {
+                throw new UnexpectedTypeException($statusHolder, Equipment::class);
             }
             $this->gearModifierService->gearDestroyed($statusHolder);
         }
@@ -103,8 +103,8 @@ class StatusSubscriber implements EventSubscriberInterface
 
         // handle broken gears
         if ($event->getStatusName() === EquipmentStatusEnum::BROKEN) {
-            if (!$statusHolder instanceof GameEquipment) {
-                throw new UnexpectedTypeException($statusHolder, GameEquipment::class);
+            if (!$statusHolder instanceof Equipment) {
+                throw new UnexpectedTypeException($statusHolder, Equipment::class);
             }
             $this->gearModifierService->gearCreated($statusHolder);
         }
@@ -143,7 +143,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 return $statusHolder->getDaedalus();
             case $statusHolder instanceof Place:
                 return $statusHolder->getDaedalus();
-            case $statusHolder instanceof GameEquipment:
+            case $statusHolder instanceof Equipment:
                 return $statusHolder->getPlace()->getDaedalus();
             default:
                 throw new \LogicException('unknown statusholder type');
@@ -157,7 +157,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 return $statusHolder->getPlace();
             case $statusHolder instanceof Place:
                 return $statusHolder;
-            case $statusHolder instanceof GameEquipment:
+            case $statusHolder instanceof Equipment:
                 return $statusHolder->getPlace();
             default:
                 throw new \LogicException('unknown statusholder type');
@@ -171,7 +171,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 return $statusHolder;
             case $statusHolder instanceof Place:
                 return null;
-            case $statusHolder instanceof GameEquipment:
+            case $statusHolder instanceof Equipment:
                 if (($player = $statusHolder->getHolder()) instanceof Player) {
                     return $player;
                 } else {
@@ -183,13 +183,13 @@ class StatusSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function getEquipment(StatusHolderInterface $statusHolder): ?GameEquipment
+    private function getEquipment(StatusHolderInterface $statusHolder): ?Equipment
     {
         switch (true) {
             case $statusHolder instanceof Player:
             case $statusHolder instanceof Place:
                 return null;
-            case $statusHolder instanceof GameEquipment:
+            case $statusHolder instanceof Equipment:
                 return $statusHolder;
             default:
                 throw new \LogicException('unknown statusholder type');

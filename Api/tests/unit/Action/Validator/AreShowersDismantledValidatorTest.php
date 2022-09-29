@@ -7,7 +7,7 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\AreShowersDismantled;
 use Mush\Action\Validator\AreShowersDismantledValidator;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -43,7 +43,7 @@ class AreShowersDismantledValidatorTest extends TestCase
         $daedalus = new Daedalus();
         $place = new Place();
 
-        $equipment = new GameEquipment();
+        $equipment = new Equipment();
         $equipment->setName(EquipmentEnum::SHOWER);
         $place->addEquipment($equipment);
 

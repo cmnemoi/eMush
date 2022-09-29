@@ -5,7 +5,7 @@ namespace Mush\Game\Service;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -28,7 +28,7 @@ interface RandomServiceInterface
 
     public function getAlivePlayerInDaedalus(Daedalus $ship): Player;
 
-    public function getItemInRoom(Place $place): GameItem;
+    public function getItemInRoom(Place $place): Item;
 
     public function getRandomElements(array $array, int $number = 1): array;
 

@@ -7,7 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\CheckSporeLevel;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -55,7 +55,7 @@ class CheckSporeLevelActionTest extends AbstractActionTest
             ->setCharge(1)
         ;
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new Equipment();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
 

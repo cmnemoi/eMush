@@ -3,8 +3,8 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Constraint;
@@ -27,7 +27,7 @@ class ReachValidator extends ConstraintValidator
         $parameter = $value->getParameter();
         $player = $value->getPlayer();
 
-        if ($parameter instanceof GameEquipment) {
+        if ($parameter instanceof Equipment) {
             $canReach = $this->canReachGameEquipment($player, $parameter, $constraint->reach);
         } elseif ($parameter instanceof Player) {
             $canReach = $this->canReachPlayer($player, $parameter, $constraint->reach);
@@ -57,12 +57,12 @@ class ReachValidator extends ConstraintValidator
         return true;
     }
 
-    private function canReachGameEquipment(Player $player, GameEquipment $parameter, string $reach): bool
+    private function canReachGameEquipment(Player $player, Equipment $parameter, string $reach): bool
     {
         switch ($reach) {
             case ReachEnum::INVENTORY:
-                if (!$parameter instanceof GameItem) {
-                    throw new UnexpectedTypeException($parameter, GameItem::class);
+                if (!$parameter instanceof Item) {
+                    throw new UnexpectedTypeException($parameter, Item::class);
                 }
 
                 if (!$player->getEquipments()->contains($parameter)) {
@@ -70,8 +70,8 @@ class ReachValidator extends ConstraintValidator
                 }
                 break;
             case ReachEnum::SHELVE:
-                if (!$parameter instanceof GameItem) {
-                    throw new UnexpectedTypeException($parameter, GameItem::class);
+                if (!$parameter instanceof Item) {
+                    throw new UnexpectedTypeException($parameter, Item::class);
                 }
 
                 if (!$player->getPlace()->getEquipments()->contains($parameter)) {

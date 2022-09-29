@@ -3,8 +3,8 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -23,8 +23,8 @@ class PlantWaterableValidator extends ConstraintValidator
         }
 
         $parameter = $value->getParameter();
-        if (!$parameter instanceof GameItem) {
-            throw new UnexpectedTypeException($parameter, GameEquipment::class);
+        if (!$parameter instanceof Item) {
+            throw new UnexpectedTypeException($parameter, Equipment::class);
         }
 
         if ($parameter->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY) === null &&

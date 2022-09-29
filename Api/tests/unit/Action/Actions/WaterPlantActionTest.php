@@ -9,7 +9,7 @@ use Mush\Action\Actions\WaterPlant;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -46,10 +46,10 @@ class WaterPlantActionTest extends AbstractActionTest
     {
         $room = new Place();
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
         $gameItem
-              ->setEquipment($item)
+              ->setConfig($item)
               ->setHolder($room)
         ;
 
@@ -78,10 +78,10 @@ class WaterPlantActionTest extends AbstractActionTest
     {
         $room = new Place();
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
         $gameItem
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($room)
         ;
 

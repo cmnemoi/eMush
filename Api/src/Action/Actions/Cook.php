@@ -9,12 +9,12 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Cookable;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -26,13 +26,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class Cook extends AbstractAction
 {
     protected string $name = ActionEnum::COOK;
-    protected GameEquipmentServiceInterface $gameEquipmentService;
+    protected EquipmentFactoryInterface $gameEquipmentService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService
+        EquipmentFactoryInterface $gameEquipmentService
     ) {
         parent::__construct($eventDispatcher, $actionService, $validator);
 
@@ -41,7 +41,7 @@ class Cook extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter instanceof GameEquipment && !$parameter instanceof Door;
+        return $parameter instanceof Equipment && !$parameter instanceof Door;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -57,11 +57,11 @@ class Cook extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $parameter */
+        /** @var Equipment $parameter */
         $parameter = $this->parameter;
         $time = new \DateTime();
 
-        if ($parameter->getEquipment()->getName() === GameRationEnum::STANDARD_RATION) {
+        if ($parameter->getConfig()->getName() === GameRationEnum::STANDARD_RATION) {
             $cookedRation = $this->gameEquipmentService->createGameEquipmentFromName(
                 GameRationEnum::COOKED_RATION,
                 $this->player,

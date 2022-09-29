@@ -2,7 +2,7 @@
 
 namespace Mush\Modifier\Listener;
 
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Modifier\Service\EquipmentModifierServiceInterface;
@@ -57,7 +57,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $gameConfig = $holder->getPlace()->getDaedalus()->getGameConfig();
 
         if (
-            $equipment instanceof GameItem &&
+            $equipment instanceof Item &&
             $holder instanceof Player &&
             $holder->getEquipments()->count() > $gameConfig->getMaxItemInInventory()
         ) {

@@ -7,8 +7,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -42,23 +42,23 @@ class StatusRepositoryCest
         $door = new Door();
         $door
             ->setName('door')
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setHolder($room)
         ;
         $I->haveInRepository($door);
 
-        $equipment = new GameEquipment();
+        $equipment = new Equipment();
         $equipment
             ->setName('equipment')
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setHolder($room)
         ;
         $I->haveInRepository($equipment);
 
-        $item = new GameItem();
+        $item = new Item();
         $item
             ->setName('item')
-            ->setEquipment($itemConfig)
+            ->setConfig($itemConfig)
             ->setHolder($player)
         ;
         $I->haveInRepository($item);

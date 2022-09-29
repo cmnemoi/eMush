@@ -13,9 +13,9 @@ use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\Service\DaedalusService;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentFactoryInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
@@ -41,8 +41,8 @@ class DaedalusServiceTest extends TestCase
     private DaedalusRepository $repository;
     /** @var CycleServiceInterface|Mockery\Mock */
     private CycleServiceInterface $cycleService;
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    /** @var EquipmentFactoryInterface|Mockery\Mock */
+    private EquipmentFactoryInterface $gameEquipmentService;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
     /** @var RoomLogServiceInterface|Mockery\Mock */
@@ -58,7 +58,7 @@ class DaedalusServiceTest extends TestCase
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->repository = Mockery::mock(DaedalusRepository::class);
         $this->cycleService = Mockery::mock(CycleServiceInterface::class);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(EquipmentFactoryInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
 
@@ -221,35 +221,35 @@ class DaedalusServiceTest extends TestCase
         $oxCapsuleConfig = new ItemConfig();
         $oxCapsuleConfig->setName(ItemEnum::OXYGEN_CAPSULE);
 
-        $oxCapsule1 = new GameItem();
-        $oxCapsule2 = new GameItem();
-        $oxCapsule3 = new GameItem();
-        $oxCapsule4 = new GameItem();
-        $oxCapsule5 = new GameItem();
+        $oxCapsule1 = new Item();
+        $oxCapsule2 = new Item();
+        $oxCapsule3 = new Item();
+        $oxCapsule4 = new Item();
+        $oxCapsule5 = new Item();
 
         $oxCapsule1
-            ->setEquipment($oxCapsuleConfig)
+            ->setConfig($oxCapsuleConfig)
             ->setName(ItemEnum::OXYGEN_CAPSULE)
             ->setHolder($twoCapsulePlayer)
         ;
         $oxCapsule2
-            ->setEquipment($oxCapsuleConfig)
+            ->setConfig($oxCapsuleConfig)
             ->setName(ItemEnum::OXYGEN_CAPSULE)
             ->setHolder($twoCapsulePlayer)
         ;
 
         $oxCapsule3
-            ->setEquipment($oxCapsuleConfig)
+            ->setConfig($oxCapsuleConfig)
             ->setName(ItemEnum::OXYGEN_CAPSULE)
             ->setHolder($threeCapsulePlayer)
         ;
         $oxCapsule4
-            ->setEquipment($oxCapsuleConfig)
+            ->setConfig($oxCapsuleConfig)
             ->setName(ItemEnum::OXYGEN_CAPSULE)
             ->setHolder($threeCapsulePlayer)
         ;
         $oxCapsule5
-            ->setEquipment($oxCapsuleConfig)
+            ->setConfig($oxCapsuleConfig)
             ->setName(ItemEnum::OXYGEN_CAPSULE)
             ->setHolder($threeCapsulePlayer)
         ;

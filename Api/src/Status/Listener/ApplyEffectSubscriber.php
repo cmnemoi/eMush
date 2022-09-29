@@ -3,7 +3,7 @@
 namespace Mush\Status\Listener;
 
 use Mush\Action\Event\ApplyEffectEvent;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -33,12 +33,12 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         $drug = $event->getParameter();
         $player = $event->getPlayer();
 
-        if (!$drug instanceof GameEquipment) {
+        if (!$drug instanceof Equipment) {
             throw new UnexpectedTypeException($drug, Drug::class);
         }
 
         /** @var Drug $drugMechanic */
-        $drugMechanic = $drug->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG);
+        $drugMechanic = $drug->getConfig()->getMechanicByName(EquipmentMechanicEnum::DRUG);
 
         if ($drugMechanic !== null && !$player->isMush()) {
             $statusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(PlayerStatusEnum::DRUG_EATEN, $player->getDaedalus());

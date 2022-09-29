@@ -9,8 +9,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\IsRoom;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -57,12 +57,12 @@ class Search extends AbstractAction
             ->getPlace()
             ->getEquipments()
             ->filter(
-                fn (GameEquipment $gameEquipment) => ($gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN) !== null)
+                fn (Equipment $gameEquipment) => ($gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN) !== null)
             )
         ;
 
         if (!$hiddenItems->isEmpty()) {
-            /** @var GameItem $mostRecentHiddenItem */
+            /** @var Item $mostRecentHiddenItem */
             $mostRecentHiddenItem = $this->statusService
                 ->getMostRecent(EquipmentStatusEnum::HIDDEN, $hiddenItems)
             ;

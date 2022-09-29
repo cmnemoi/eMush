@@ -10,8 +10,8 @@ use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Daedalus\Service\DaedalusService;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -133,19 +133,19 @@ class CreateDaedalusCest
         $I->assertCount(2, $room2->getDoors());
         $I->assertCount(1, $room3->getDoors());
 
-        $I->assertNotNull($gameGravitySimulator = $room3->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR)->first()
+        $I->assertNotNull($gameGravitySimulator = $room3->getEquipments()->filter(fn (Equipment $gameEquipment) => $gameEquipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR)->first()
         );
 
-        $I->assertNotNull($gameHydropot = $room2->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === ItemEnum::HYDROPOT)->first()
+        $I->assertNotNull($gameHydropot = $room2->getEquipments()->filter(fn (Equipment $gameEquipment) => $gameEquipment->getName() === ItemEnum::HYDROPOT)->first()
         );
 
         $equipmentCollection = new ArrayCollection(array_merge($room1->getEquipments()->toArray(), $room2->getEquipments()->toArray()));
 
         $I->assertNotNull($gameWaterStick = $equipmentCollection
-            ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === ItemEnum::WATER_STICK)->first()
+            ->filter(fn (Equipment $gameEquipment) => $gameEquipment->getName() === ItemEnum::WATER_STICK)->first()
         );
 
-        $I->assertInstanceOf(GameItem::class, $gameWaterStick);
+        $I->assertInstanceOf(Item::class, $gameWaterStick);
         $I->assertCount(1, $gameWaterStick->getStatuses());
     }
 

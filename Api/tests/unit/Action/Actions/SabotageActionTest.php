@@ -9,7 +9,7 @@ use Mush\Action\Actions\Sabotage;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -52,11 +52,11 @@ class SabotageActionTest extends AbstractActionTest
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
         $item->setIsBreakable(true);
         $gameItem
-            ->setEquipment($item)
+            ->setConfig($item)
             ->setHolder($room)
         ;
 

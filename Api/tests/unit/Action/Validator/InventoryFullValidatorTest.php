@@ -7,7 +7,7 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\InventoryFullValidator;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Game\Entity\GameConfig;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
@@ -46,7 +46,7 @@ class InventoryFullValidatorTest extends TestCase
 
         $player = new Player();
         $player->setDaedalus($daedalus);
-        $player->addEquipment(new GameItem());
+        $player->addEquipment(new Item());
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -71,7 +71,7 @@ class InventoryFullValidatorTest extends TestCase
 
         $player = new Player();
         $player->setDaedalus($daedalus);
-        $player->addEquipment(new GameItem());
+        $player->addEquipment(new Item());
 
         $action = Mockery::mock(AbstractAction::class);
         $action

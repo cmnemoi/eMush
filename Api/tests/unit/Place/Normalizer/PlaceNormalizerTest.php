@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -243,13 +243,13 @@ class PlaceNormalizerTest extends TestCase
         $this->assertEquals($expected, $data);
     }
 
-    private function createGameItem(string $name, $isStackable = false): GameItem
+    private function createGameItem(string $name, $isStackable = false): Item
     {
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $itemConfig = new ItemConfig();
 
         $gameItem
-            ->setEquipment($itemConfig)
+            ->setConfig($itemConfig)
             ->setName($name)
         ;
         $itemConfig

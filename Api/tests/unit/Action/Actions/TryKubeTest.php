@@ -9,7 +9,7 @@ use Mush\Action\Actions\TryKube;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 
@@ -53,9 +53,9 @@ class TryKubeTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
-        $gameItem->setEquipment($item);
+        $gameItem->setConfig($item);
         $gameItem
             ->setHolder($room)
         ;
@@ -80,9 +80,9 @@ class TryKubeTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $item = new ItemConfig();
-        $gameItem->setEquipment($item);
+        $gameItem->setConfig($item);
         $gameItem
             ->setHolder($room)
         ;

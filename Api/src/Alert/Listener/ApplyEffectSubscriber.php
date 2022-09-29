@@ -6,7 +6,7 @@ use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -48,8 +48,8 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
         $equipment = $event->getParameter();
-        if (!$equipment instanceof GameEquipment) {
-            throw new UnexpectedTypeException($equipment, GameEquipment::class);
+        if (!$equipment instanceof Equipment) {
+            throw new UnexpectedTypeException($equipment, Equipment::class);
         }
 
         if ($equipment instanceof Door) {

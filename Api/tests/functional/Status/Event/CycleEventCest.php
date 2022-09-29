@@ -121,7 +121,7 @@ class CycleEventCest
         $door = new Door();
         $door
              ->setName('door name')
-             ->setEquipment($doorConfig)
+             ->setConfig($doorConfig)
         ;
 
         $room->addDoor($door);

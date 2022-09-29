@@ -8,7 +8,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\ItemEnum;
@@ -67,19 +67,19 @@ class GearToolServiceTest extends TestCase
         $item = new ItemConfig();
         $item->setName(ItemEnum::METAL_SCRAPS);
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $gameItem
             ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($item)
+            ->setConfig($item)
         ;
 
         $item2 = new ItemConfig();
         $item2->setName(ItemEnum::PLASTIC_SCRAPS);
 
-        $gameItem2 = new GameItem();
+        $gameItem2 = new Item();
         $gameItem2
             ->setName(ItemEnum::PLASTIC_SCRAPS)
-            ->setEquipment($item2)
+            ->setConfig($item2)
         ;
 
         $room
@@ -105,10 +105,10 @@ class GearToolServiceTest extends TestCase
 
         $player = new Player();
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $gameItem
             ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($item)
+            ->setConfig($item)
         ;
 
         $room
@@ -141,10 +141,10 @@ class GearToolServiceTest extends TestCase
         $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::SHELVE);
         $this->assertNotEmpty($items);
 
-        $gameItem2 = new GameItem();
+        $gameItem2 = new Item();
         $gameItem2
             ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($item)
+            ->setConfig($item)
         ;
         $player->addEquipment($gameItem2);
 
@@ -175,10 +175,10 @@ class GearToolServiceTest extends TestCase
             ->setMechanics(new arrayCollection([$tool]))
         ;
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $gameItem
             ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($item)
+            ->setConfig($item)
         ;
 
         $room
@@ -200,11 +200,11 @@ class GearToolServiceTest extends TestCase
         $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY]);
         $this->assertNotEmpty($actions);
 
-        $action->setTarget(GameItem::class);
+        $action->setTarget(Item::class);
         $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY]);
         $this->assertEmpty($actions);
 
-        $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY], GameItem::class);
+        $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY], Item::class);
         $this->assertNotEmpty($actions);
     }
 
@@ -228,10 +228,10 @@ class GearToolServiceTest extends TestCase
             ->setMechanics(new arrayCollection([$tool]))
         ;
 
-        $gameItem = new GameItem();
+        $gameItem = new Item();
         $gameItem
             ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($item)
+            ->setConfig($item)
         ;
 
         $room
@@ -254,10 +254,10 @@ class GearToolServiceTest extends TestCase
             ->setMechanics(new arrayCollection([$tool2]))
         ;
 
-        $gameItem2 = new GameItem();
+        $gameItem2 = new Item();
         $gameItem2
             ->setName(ItemEnum::PLASTIC_SCRAPS)
-            ->setEquipment($item2)
+            ->setConfig($item2)
         ;
         $room->addEquipment($gameItem2);
 
@@ -307,10 +307,10 @@ class GearToolServiceTest extends TestCase
             ->setName('tool')
             ->setMechanics(new arrayCollection([$tool]))
         ;
-        $gameTool = new GameItem();
+        $gameTool = new Item();
         $gameTool
             ->setName('tool')
-            ->setEquipment($toolConfig)
+            ->setConfig($toolConfig)
         ;
 
         $chargeConfig = new ChargeStatusConfig();
@@ -334,10 +334,10 @@ class GearToolServiceTest extends TestCase
             ->setName('gear1')
             ->setMechanics(new arrayCollection([$gear1]))
         ;
-        $gameGear1 = new GameItem();
+        $gameGear1 = new Item();
         $gameGear1
             ->setName('gear1')
-            ->setEquipment($gearConfig1)
+            ->setConfig($gearConfig1)
         ;
 
         $modifier2 = new ModifierConfig();
@@ -354,10 +354,10 @@ class GearToolServiceTest extends TestCase
             ->setName('gear2')
             ->setMechanics(new arrayCollection([$gear2]))
         ;
-        $gameGear2 = new GameItem();
+        $gameGear2 = new Item();
         $gameGear2
             ->setName('gear2')
-            ->setEquipment($gearConfig2)
+            ->setConfig($gearConfig2)
         ;
         $chargeStatus2 = new ChargeStatus($gameGear2, $chargeConfig);
         $chargeStatus2
@@ -378,10 +378,10 @@ class GearToolServiceTest extends TestCase
             ->setName('gear3')
             ->setMechanics(new arrayCollection([$gear3]))
         ;
-        $gameGear3 = new GameItem();
+        $gameGear3 = new Item();
         $gameGear3
             ->setName('gear3')
-            ->setEquipment($gearConfig1)
+            ->setConfig($gearConfig1)
         ;
         $chargeStatus3 = new ChargeStatus($gameGear3, $chargeConfig);
         $chargeStatus3

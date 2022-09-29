@@ -12,7 +12,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\SymptomEnum;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
@@ -322,7 +322,7 @@ class SymptomService implements SymptomServiceInterface
     private function makePlayerRandomlyMoving(Player $player): void
     {
         // get non broken doors
-        $availaibleDoors = $player->getPlace()->getDoors()->filter(function (GameEquipment $door) {
+        $availaibleDoors = $player->getPlace()->getDoors()->filter(function (Equipment $door) {
             return !$door->isBroken();
         })->toArray();
 

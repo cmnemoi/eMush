@@ -9,7 +9,7 @@ use Mush\Action\Actions\WashInSink;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Equipment;
 use Mush\Place\Entity\Place;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -46,10 +46,10 @@ class WashInSinkActionTest extends AbstractActionTest
     {
         $room = new Place();
 
-        $sinkEquipment = new GameEquipment();
+        $sinkEquipment = new Equipment();
         $sinkConfig = new EquipmentConfig();
         $sinkEquipment
-            ->setEquipment($sinkConfig)
+            ->setConfig($sinkConfig)
             ->setHolder($room);
         $sinkConfig->setActions(new ArrayCollection([$this->actionEntity]));
 

@@ -12,7 +12,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Item;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -81,10 +81,10 @@ class AttemptActionChangeCest
 
         $equipmentConfig->setActions(new ArrayCollection([$actionDisassemble, $actionRepair]));
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
 
         $gameEquipment
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('some name')
             ->setHolder($room)
         ;
@@ -185,10 +185,10 @@ class AttemptActionChangeCest
 
         $equipmentConfig->setActions(new ArrayCollection([$actionDisassemble, $actionRepair]));
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new Item();
 
         $gameEquipment
-            ->setEquipment($equipmentConfig)
+            ->setConfig($equipmentConfig)
             ->setName('some name')
             ->setHolder($room)
         ;

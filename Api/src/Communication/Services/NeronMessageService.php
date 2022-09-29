@@ -9,8 +9,8 @@ use Mush\Communication\Enum\NeronPersonalitiesEnum;
 use Mush\Communication\Repository\MessageRepository;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Equipment;
+use Mush\Equipment\Entity\Item;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -118,7 +118,7 @@ class NeronMessageService implements NeronMessageServiceInterface
         $this->createNeronMessage($message, $player->getDaedalus(), $parameters, $time);
     }
 
-    public function createBrokenEquipmentMessage(GameEquipment $equipment, string $visibility, \DateTime $time): void
+    public function createBrokenEquipmentMessage(Equipment $equipment, string $visibility, \DateTime $time): void
     {
         $equipmentName = $equipment->getName();
 
@@ -138,7 +138,7 @@ class NeronMessageService implements NeronMessageServiceInterface
 
         $parentMessage = $this->getMessageNeronCycleFailures($daedalus, $time);
 
-        if ($equipment instanceof GameItem) {
+        if ($equipment instanceof Item) {
             $this->createNeronMessage($message, $daedalus, ['target_item' => $equipmentName], $time, $parentMessage);
         } elseif (!($equipment instanceof Door)) {
             $this->createNeronMessage($message, $daedalus, ['target_equipment' => $equipmentName], $time, $parentMessage);

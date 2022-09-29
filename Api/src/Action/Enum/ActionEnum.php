@@ -6,6 +6,9 @@ class ActionEnum
 {
     // Not yet an exhaustive list
 
+    // admin actions
+    public const SUICIDE = 'suicide';
+
     // alpha actions
     public const REJUVENATE_ALPHA = 'rejuvenate_alpha';
     public const FAKE_DISEASE = 'fake_disease';

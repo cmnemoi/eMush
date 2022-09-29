@@ -671,6 +671,30 @@
                 <target>Génial, une nouvelle version du logiciel est disponible. Attention, l'installation peut durer quelques cycles et vous empêcher de communiquer avec le reste de l'équipage.</target>
             </segment>
         </unit>
+        <unit id="attack">
+            <segment id="name">
+                <source>attack.name</source>
+                <target>Attaquer : Couteau</target>
+            </segment>
+            <segment id="description">
+                <source>attack.description</source>
+                <target>
+                Vous avez une arme de corps à corps et vous avez envie de vous en servir ?
+                </target>
+            </segment>
+        </unit>
+        <unit id="suicide">
+            <segment id="name">
+                <source>suicide.name</source>
+                <target>Se suicider</target>
+            </segment>
+            <segment id="description">
+                <source>suicide.description</source>
+                <target>
+                Vous avez accompli votre mission ici-bas, il est temps d'aller coder ailleurs.
+                </target>
+            </segment>
+        </unit>
         <unit id="action_aggressive">
             <segment id="name">
                 <source>action_aggressive.name</source>

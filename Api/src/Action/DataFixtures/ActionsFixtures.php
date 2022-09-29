@@ -16,6 +16,8 @@ use Mush\Game\Enum\VisibilityEnum;
 
 class ActionsFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const SUICIDE = 'suicide';
+
     public const REJUVENATE_ALPHA = 'rejuvenate.alpha';
     public const UPDATING_TALKIE = 'updating.talkie';
 
@@ -93,6 +95,14 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $oneMovementPointCost = $this->getReference(ActionCostFixture::ACTION_COST_ONE_MOVEMENT);
 
         // @TODO remove this after alpha
+        $suicide = new Action();
+        $suicide
+            ->setName(ActionEnum::SUICIDE)
+            ->setScope(ActionScopeEnum::SELF)
+            ->setActionCost($freeCost)
+        ;
+        $manager->persist($suicide);
+
         $rejuvenateAlpha = new Action();
         $rejuvenateAlpha
             ->setName(ActionEnum::REJUVENATE_ALPHA)
@@ -241,11 +251,13 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $attackAction = new Action();
         $attackAction
             ->setName(ActionEnum::ATTACK)
-            ->setTypes([]) // @TODO
+            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(0)
             ->setDirtyRate(0)
             ->setActionCost($oneActionPointCost)
+            ->setSuccessRate(60)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
         ;
 
         $manager->persist($attackAction);
@@ -700,6 +712,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($selfSurgeryAction);
 
         $manager->flush();
+
+        $this->addReference(self::SUICIDE, $suicide);
 
         $this->addReference(self::REJUVENATE_ALPHA, $rejuvenateAlpha);
         $this->addReference(self::UPDATING_TALKIE, $updatingTalkie);

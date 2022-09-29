@@ -3,13 +3,7 @@
  "infinite":false,
  "layers":[
         {
-         "data":[0, 0, 5, 2, 2, 2, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            6, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 5, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":1,
          "name":"wall",
@@ -51,7 +45,7 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":-4,
+                 "x":2,
                  "y":62
                 }, 
                 {
@@ -84,13 +78,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            3, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":9,
          "name":"wall",
@@ -108,13 +96,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0,
-            0, 0, 15, 15, 15, 15, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 15, 15, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":10,
          "name":"ground",
@@ -137,13 +119,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 15, 0, 0, 0, 0, 0,
-            0, 16, 0, 0, 0, 0, 0,
-            0, 16, 0, 0, 0, 0, 0,
-            0, 15, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":11,
          "name":"ground",
@@ -166,13 +142,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 15, 15, 15, 15, 0,
-            0, 0, 16, 18, 15, 15, 0,
-            0, 0, 16, 16, 15, 15, 0,
-            0, 0, 16, 16, 15, 15, 0,
-            0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 15, 15, 15, 0, 0, 0, 16, 18, 15, 15, 0, 0, 0, 16, 16, 15, 15, 0, 0, 0, 16, 16, 15, 15, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":2,
          "name":"ground",
@@ -234,8 +204,109 @@
                  "type":"interact",
                  "visible":true,
                  "width":25,
-                 "x":-18.75,
-                 "y":53.75
+                 "x":-20.25,
+                 "y":45.25
+                }, 
+                {
+                 "gid":2147483947,
+                 "height":46,
+                 "id":35,
+                 "name":"turret_command",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":71,
+                 "x":-10.25,
+                 "y":-13.75
+                }, 
+                {
+                 "gid":284,
+                 "height":36,
+                 "id":37,
+                 "name":"turret_command",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"sit_back"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":34,
+                 "x":-3,
+                 "y":-11
                 }, 
                 {
                  "gid":2147483928,
@@ -277,8 +348,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":123,
-                 "x":-3.25,
-                 "y":-19.75
+                 "x":-1.75,
+                 "y":-19.25
                 }, 
                 {
                  "gid":45,
@@ -300,8 +371,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":45,
-                 "y":109
+                 "x":46,
+                 "y":108
                 }, 
                 {
                  "gid":258,
@@ -328,8 +399,8 @@
                  "type":"shelf",
                  "visible":true,
                  "width":33,
-                 "x":70.75,
-                 "y":9.25
+                 "x":72.25,
+                 "y":7.75
                 }, 
                 {
                  "gid":276,
@@ -351,41 +422,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":14,
-                 "x":33,
-                 "y":-24
-                }, 
-                {
-                 "gid":2147483947,
-                 "height":46,
-                 "id":35,
-                 "name":"turret_command",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"flipX",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":71,
-                 "x":-11.75,
-                 "y":-14.25
+                 "x":32.5,
+                 "y":-23.5
                 }, 
                 {
                  "gid":300,
@@ -409,76 +447,6 @@
                  "width":32,
                  "x":25.5,
                  "y":25.5
-                },
-            
-                {
-                 "gid":284,
-                 "height":36,
-                 "id":37,
-                 "name":"turret_command",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":2
-                        }, 
-                        {
-                         "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":12
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":12
-                        }, 
-                        {
-                         "name":"sitAnimation",
-                         "type":"string",
-                         "value":"sit_back"
-                        }, 
-                        {
-                         "name":"sitAutoTrigger",
-                         "type":"bool",
-                         "value":true
-                        },
-                    
-                        {
-                         "name":"sitDepth",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"sitFlip",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"sitX",
-                         "type":"float",
-                         "value":0
-                        }, 
-                        {
-                         "name":"sitY",
-                         "type":"float",
-                         "value":0
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":34,
-                 "x":-13.5,
-                 "y":-18.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -490,7 +458,7 @@
  "nextobjectid":38,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.5",
+ "tiledversion":"1.7.2",
  "tileheight":16,
  "tilesets":[
         {
@@ -698,8 +666,7 @@
                         {
                          "duration":100,
                          "tileid":6
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":7
@@ -727,8 +694,7 @@
                         {
                          "duration":100,
                          "tileid":13
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":14
@@ -756,8 +722,7 @@
                         {
                          "duration":100,
                          "tileid":20
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":21
@@ -801,8 +766,7 @@
                         {
                          "duration":100,
                          "tileid":30
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":31
@@ -830,8 +794,7 @@
                         {
                          "duration":100,
                          "tileid":37
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":38
@@ -859,8 +822,7 @@
                         {
                          "duration":100,
                          "tileid":44
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":45
@@ -904,8 +866,7 @@
                         {
                          "duration":100,
                          "tileid":54
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":55
@@ -933,8 +894,7 @@
                         {
                          "duration":100,
                          "tileid":61
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":62
@@ -962,8 +922,7 @@
                         {
                          "duration":100,
                          "tileid":68
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":69
@@ -1007,8 +966,7 @@
                         {
                          "duration":100,
                          "tileid":78
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":79
@@ -1036,8 +994,7 @@
                         {
                          "duration":100,
                          "tileid":85
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":86
@@ -1065,8 +1022,7 @@
                         {
                          "duration":100,
                          "tileid":92
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":93
@@ -1110,8 +1066,7 @@
                         {
                          "duration":100,
                          "tileid":102
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":103
@@ -1139,8 +1094,7 @@
                         {
                          "duration":100,
                          "tileid":109
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":110
@@ -1168,8 +1122,7 @@
                         {
                          "duration":100,
                          "tileid":116
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":117
@@ -1213,8 +1166,7 @@
                         {
                          "duration":100,
                          "tileid":126
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":127
@@ -1242,8 +1194,7 @@
                         {
                          "duration":100,
                          "tileid":133
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":134
@@ -1271,8 +1222,7 @@
                         {
                          "duration":100,
                          "tileid":140
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":141
@@ -1316,8 +1266,7 @@
                         {
                          "duration":100,
                          "tileid":150
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":151
@@ -1345,8 +1294,7 @@
                         {
                          "duration":100,
                          "tileid":157
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":158
@@ -1374,8 +1322,7 @@
                         {
                          "duration":100,
                          "tileid":164
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":165
@@ -1389,8 +1336,7 @@
                          "tileid":167
                         }],
                  "id":144
-                },
-            
+                }, 
                 {
                  "animation":[
                         {
@@ -1420,8 +1366,7 @@
                         {
                          "duration":100,
                          "tileid":174
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":175
@@ -1449,8 +1394,7 @@
                         {
                          "duration":100,
                          "tileid":181
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":182
@@ -1478,8 +1422,7 @@
                         {
                          "duration":100,
                          "tileid":188
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":189
@@ -1566,8 +1509,7 @@
                         {
                          "duration":300,
                          "tileid":6
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":7
@@ -1595,8 +1537,7 @@
                         {
                          "duration":300,
                          "tileid":13
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":12
@@ -1624,8 +1565,7 @@
                         {
                          "duration":300,
                          "tileid":6
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":5
@@ -1653,8 +1593,7 @@
                  "id":0
                 }],
          "tilewidth":25
-        },
-    
+        }, 
         {
          "columns":4,
          "firstgid":276,
@@ -1780,6 +1719,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.8",
+ "version":"1.6",
  "width":7
 }

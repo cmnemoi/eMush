@@ -3,13 +3,7 @@
  "infinite":false,
  "layers":[
         {
-         "data":[4, 2, 0, 0, 0, 0, 0,
-            3, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0],
+         "data":[4, 2, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":1,
          "name":"wall",
@@ -52,7 +46,7 @@
                  "visible":true,
                  "width":64,
                  "x":45,
-                 "y":-3
+                 "y":1
                 }, 
                 {
                  "gid":137,
@@ -120,8 +114,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":-3,
-                 "y":45
+                 "x":2,
+                 "y":46
                 }, 
                 {
                  "gid":113,
@@ -153,13 +147,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 2, 2, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            3, 0, 0, 0, 0, 0, 0,
-            3, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":3,
          "name":"wall",
@@ -177,13 +165,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0,
-            0, 15, 16, 16, 15, 15, 0,
-            0, 16, 16, 16, 15, 15, 0,
-            0, 16, 16, 19, 15, 15, 0,
-            0, 15, 15, 15, 15, 15, 0,
-            0, 15, 15, 15, 15, 15, 0,
-            0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 15, 16, 16, 15, 15, 0, 0, 16, 16, 16, 15, 15, 0, 0, 16, 16, 19, 15, 15, 0, 0, 15, 15, 15, 15, 15, 0, 0, 15, 15, 15, 15, 15, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":7,
          "id":2,
          "name":"ground",
@@ -211,6 +193,39 @@
          "name":"objects",
          "objects":[
                 {
+                 "gid":276,
+                 "height":15,
+                 "id":26,
+                 "name":"wall_box",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":10
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":14,
+                 "x":48.5,
+                 "y":-23.5
+                }, 
+                {
                  "gid":260,
                  "height":40,
                  "id":5,
@@ -236,7 +251,7 @@
                  "visible":true,
                  "width":33,
                  "x":8.25,
-                 "y":69.75
+                 "y":71.75
                 }, 
                 {
                  "gid":262,
@@ -273,8 +288,41 @@
                  "type":"interact",
                  "visible":true,
                  "width":25,
-                 "x":32.25,
-                 "y":-21.25
+                 "x":33.25,
+                 "y":-24.25
+                }, 
+                {
+                 "gid":299,
+                 "height":26,
+                 "id":30,
+                 "name":"turret_command",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":20
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"interact",
+                 "visible":true,
+                 "width":69,
+                 "x":71.25,
+                 "y":70.75
                 }, 
                 {
                  "gid":2147483930,
@@ -316,8 +364,7 @@
                          "name":"sitAnimation",
                          "type":"string",
                          "value":"sit_front"
-                        },
-                    
+                        }, 
                         {
                          "name":"sitAutoTrigger",
                          "type":"bool",
@@ -347,8 +394,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":34,
-                 "x":74.5,
-                 "y":73.5
+                 "x":81.5,
+                 "y":78.5
                 }, 
                 {
                  "gid":2147483929,
@@ -390,41 +437,8 @@
                  "type":"interact",
                  "visible":true,
                  "width":122,
-                 "x":102,
-                 "y":88
-                }, 
-                {
-                 "gid":276,
-                 "height":15,
-                 "id":26,
-                 "name":"wall_box",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":5
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":4
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":10
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":14,
-                 "x":48.0020202020202,
-                 "y":-22.9959595959596
+                 "x":103,
+                 "y":89
                 }, 
                 {
                  "gid":298,
@@ -446,41 +460,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":18,
-                 "x":89.5,
-                 "y":100.5
-                }, 
-                {
-                 "gid":299,
-                 "height":26,
-                 "id":30,
-                 "name":"turret_command",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":20
-                        }, 
-                        {
-                         "name":"flipX",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":69,
-                 "x":70.25,
-                 "y":69.75
+                 "x":90.5,
+                 "y":101.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -492,7 +473,7 @@
  "nextobjectid":31,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.8.5",
+ "tiledversion":"1.7.2",
  "tileheight":16,
  "tilesets":[
         {
@@ -700,8 +681,7 @@
                         {
                          "duration":100,
                          "tileid":6
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":7
@@ -729,8 +709,7 @@
                         {
                          "duration":100,
                          "tileid":13
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":14
@@ -758,8 +737,7 @@
                         {
                          "duration":100,
                          "tileid":20
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":21
@@ -803,8 +781,7 @@
                         {
                          "duration":100,
                          "tileid":30
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":31
@@ -832,8 +809,7 @@
                         {
                          "duration":100,
                          "tileid":37
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":38
@@ -861,8 +837,7 @@
                         {
                          "duration":100,
                          "tileid":44
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":45
@@ -906,8 +881,7 @@
                         {
                          "duration":100,
                          "tileid":54
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":55
@@ -935,8 +909,7 @@
                         {
                          "duration":100,
                          "tileid":61
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":62
@@ -964,8 +937,7 @@
                         {
                          "duration":100,
                          "tileid":68
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":69
@@ -1009,8 +981,7 @@
                         {
                          "duration":100,
                          "tileid":78
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":79
@@ -1038,8 +1009,7 @@
                         {
                          "duration":100,
                          "tileid":85
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":86
@@ -1067,8 +1037,7 @@
                         {
                          "duration":100,
                          "tileid":92
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":93
@@ -1112,8 +1081,7 @@
                         {
                          "duration":100,
                          "tileid":102
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":103
@@ -1141,8 +1109,7 @@
                         {
                          "duration":100,
                          "tileid":109
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":110
@@ -1170,8 +1137,7 @@
                         {
                          "duration":100,
                          "tileid":116
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":117
@@ -1215,8 +1181,7 @@
                         {
                          "duration":100,
                          "tileid":126
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":127
@@ -1244,8 +1209,7 @@
                         {
                          "duration":100,
                          "tileid":133
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":134
@@ -1273,8 +1237,7 @@
                         {
                          "duration":100,
                          "tileid":140
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":141
@@ -1318,8 +1281,7 @@
                         {
                          "duration":100,
                          "tileid":150
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":151
@@ -1347,8 +1309,7 @@
                         {
                          "duration":100,
                          "tileid":157
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":158
@@ -1376,8 +1337,7 @@
                         {
                          "duration":100,
                          "tileid":164
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":165
@@ -1391,8 +1351,7 @@
                          "tileid":167
                         }],
                  "id":144
-                },
-            
+                }, 
                 {
                  "animation":[
                         {
@@ -1422,8 +1381,7 @@
                         {
                          "duration":100,
                          "tileid":174
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":175
@@ -1451,8 +1409,7 @@
                         {
                          "duration":100,
                          "tileid":181
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":182
@@ -1480,8 +1437,7 @@
                         {
                          "duration":100,
                          "tileid":188
-                        },
-                    
+                        }, 
                         {
                          "duration":100,
                          "tileid":189
@@ -1568,8 +1524,7 @@
                         {
                          "duration":300,
                          "tileid":6
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":7
@@ -1597,8 +1552,7 @@
                         {
                          "duration":300,
                          "tileid":13
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":12
@@ -1626,8 +1580,7 @@
                         {
                          "duration":300,
                          "tileid":6
-                        },
-                    
+                        }, 
                         {
                          "duration":300,
                          "tileid":5
@@ -1655,8 +1608,7 @@
                  "id":0
                 }],
          "tilewidth":25
-        },
-    
+        }, 
         {
          "columns":4,
          "firstgid":276,
@@ -1768,6 +1720,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.8",
+ "version":"1.6",
  "width":7
 }

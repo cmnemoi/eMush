@@ -7,19 +7,20 @@ use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentFactoryInterface;
+use Mush\Equipment\Service\EquipmentServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
 {
     private NeronMessageServiceInterface $neronMessageService;
-    private EquipmentFactoryInterface $gameEquipmentService;
+    private EquipmentServiceInterface $equipmentService;
 
     public function __construct(
         NeronMessageServiceInterface $neronMessageService,
-        EquipmentFactoryInterface    $gameEquipmentService,
+        EquipmentServiceInterface    $equipmentService,
     ) {
         $this->neronMessageService = $neronMessageService;
-        $this->gameEquipmentService = $gameEquipmentService;
+        $this->equipmentService = $equipmentService;
     }
 
     public static function getSubscribedEvents(): array
@@ -44,8 +45,8 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
             $daedalus = $holder->getPlace()->getDaedalus();
 
-            $numberShowersLeft = ($this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::THALASSO, $daedalus)->count() +
-                $this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::SHOWER, $daedalus)->count());
+            $numberShowersLeft = ($this->equipmentService->findByNameAndDaedalus(EquipmentEnum::THALASSO, $daedalus)->count() +
+                $this->equipmentService->findByNameAndDaedalus(EquipmentEnum::SHOWER, $daedalus)->count());
 
             if ($numberShowersLeft <= 1) {
                 $this->neronMessageService->createNeronMessage(

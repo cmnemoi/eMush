@@ -52,7 +52,7 @@ class EquipmentFactory implements EquipmentFactoryInterface
     }
 
     private function dispatchDeletionEvent(Equipment $equipment, string $reason, string $visibility) {
-
+        // @TODO
     }
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ArrayCollection
@@ -85,7 +85,7 @@ class EquipmentFactory implements EquipmentFactoryInterface
         }
 
         $this->service->persist($equipment);
-        $this->initMechanics($equipment, $holder->getPlace()->getDaedalus(), $reason);
+        $this->setupMechanics($equipment, $reason);
 
         if ($config->isPersonal()) {
             if (!($holder instanceof Player)) {
@@ -111,21 +111,21 @@ class EquipmentFactory implements EquipmentFactoryInterface
         $this->eventDispatcher->dispatch($event, EquipmentEvent::EQUIPMENT_CREATED);
     }
 
-    private function initMechanics(Equipment $equipment, Daedalus $daedalus, string $reason): void
+    private function setupMechanics(Equipment $equipment, string $reason): void
     {
         /** @var EquipmentMechanic $mechanic */
         foreach ($equipment->getConfig()->getMechanics() as $mechanic) {
             if ($mechanic instanceof Plant) {
                 if ($reason !== EventEnum::CREATE_DAEDALUS) {
-                    $this->initPlant($equipment, $mechanic, $daedalus);
+                    $this->setupYoungPlantStatus($equipment, $mechanic);
                 }
             } elseif ($mechanic instanceof Document && $mechanic->getContent()) {
-                $this->initDocument($equipment, $mechanic);
+                $this->setupDocumentContent($equipment, $mechanic);
             }
         }
     }
 
-    private function initPlant(Equipment $equipment, EquipmentMechanic $plant): void
+    private function setupYoungPlantStatus(Equipment $equipment, EquipmentMechanic $plant): void
     {
         if (!$plant instanceof Plant) {
             throw new \LogicException('Parameter is not a plant');
@@ -141,7 +141,7 @@ class EquipmentFactory implements EquipmentFactoryInterface
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
-    private function initDocument(Equipment $equipment, $document): void
+    private function setupDocumentContent(Equipment $equipment, EquipmentMechanic $document): void
     {
         if (!$document instanceof Document) {
             throw new \LogicException('Parameter is not a document');

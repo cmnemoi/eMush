@@ -34,6 +34,8 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
         /** @var Action $attackAction */
         $attackAction = $this->getReference(ActionsFixtures::ATTACK_DEFAULT);
+        /** @var Action $shootAction */
+        $shootAction = $this->getReference(ActionsFixtures::SHOOT);
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
@@ -69,9 +71,17 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $blasterMechanic = new Weapon();
         $blasterMechanic
             ->setBaseAccuracy(50)
-            ->setBaseDamageRange([2 => 5])
+            ->setBaseDamageRange([
+                2 => 45,
+                3 => 45,
+                4 => 5,
+                5 => 5,
+            ])
             ->setExpeditionBonus(1)
-            ->addAction($attackAction)
+            ->setCriticalSucessRate(5)
+            ->setCriticalFailRate(1)
+            ->setOneShotRate(1)
+            ->addAction($shootAction)
         ;
 
         /** @var ChargeStatusConfig $blasterCharge */

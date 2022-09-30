@@ -8,6 +8,7 @@ use Mush\Action\ActionResult\CriticalSuccess;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasEquipment;
@@ -35,11 +36,11 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * Class implementing the attack Action.
+ * Class implementing the shoot action.
  */
-class Attack extends AttemptAction
+class Shoot extends AttemptAction
 {
-    protected string $name = ActionEnum::ATTACK;
+    protected string $name = ActionEnum::SHOOT;
 
     private ModifierServiceInterface $modifierService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
@@ -74,11 +75,13 @@ class Attack extends AttemptAction
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::INVENTORY,
-            'equipments' => [ItemEnum::KNIFE],
-            'contains' => true,
-            'checkIfOperational' => true,
+            'equipments' => [ItemEnum::BLASTER],
+            'contains' => false,
+            'checkIfOperational' => false,
+            'all' => false,
             'target' => HasEquipment::PLAYER,
-            'groups' => ['visibility'],
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::UNLOADED_WEAPON,
         ]));
     }
 
@@ -89,30 +92,30 @@ class Attack extends AttemptAction
         /** @var Player $target */
         $target = $this->parameter;
 
-        /** @var EquipmentConfig $knifeItem */
-        $knifeItem = $this->getPlayerKnife();
-        if ($knifeItem == null) {
-            throw new \Exception("Attack action : {$player->getLogName()} should have a knife");
+        /** @var EquipmentConfig $blasterItem */
+        $blasterItem = $this->getPlayerBlaster();
+        if ($blasterItem == null) {
+            throw new \Exception("Attack action : {$player->getLogName()} should have a blaster");
         }
 
-        /** @var Weapon $knifeWeapon */
-        $knifeWeapon = $knifeItem->getMechanics()->first();
+        /** @var Weapon $blasterWeapon */
+        $blasterWeapon = $blasterItem->getMechanics()->first();
 
-        if (!$knifeWeapon instanceof Weapon) {
-            throw new \Exception('Attack action : Knife should have a weapon mechanic');
+        if (!$blasterWeapon instanceof Weapon) {
+            throw new \Exception('Attack action : Blaster should have a weapon mechanic');
         }
 
         $result = $this->makeAttempt();
 
         if ($result instanceof Success) {
-            $isAOneShot = $this->handleOneShot($player, $target, $knifeWeapon);
+            $isAOneShot = $this->handleOneShot($player, $target, $blasterWeapon);
             if ($isAOneShot) {
                 return new CriticalSuccess();
             }
 
-            $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($knifeWeapon->getBaseDamageRange()));
+            $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($blasterWeapon->getBaseDamageRange()));
 
-            $isACriticalSuccess = $this->handleCriticalSuccess($player, $target, $knifeWeapon);
+            $isACriticalSuccess = $this->handleCriticalSuccess($player, $target, $blasterWeapon);
             // handle modifiers on damage : armor, hard boiled, etc
             if (!$isACriticalSuccess) {
                 $damage = $this->modifierService->getEventModifiedValue(
@@ -128,7 +131,7 @@ class Attack extends AttemptAction
 
             return new Success();
         } else {
-            $isACriticalFail = $this->handleCriticalFail($player, $knifeWeapon);
+            $isACriticalFail = $this->handleCriticalFail($player, $blasterWeapon);
             if ($isACriticalFail) {
                 return new CriticalFail();
             }
@@ -137,26 +140,26 @@ class Attack extends AttemptAction
         }
     }
 
-    private function getPlayerKnife(): ?EquipmentConfig
+    private function getPlayerBlaster(): ?EquipmentConfig
     {
         return $this->player->getEquipments()->filter(
-            fn (GameItem $gameItem) => $gameItem->getName() === ItemEnum::KNIFE && $gameItem->isOperational()
+            fn (GameItem $gameItem) => $gameItem->getName() === ItemEnum::BLASTER && $gameItem->isOperational()
         )->first()->getEquipment();
     }
 
-    private function handleCriticalFail(Player $player, Weapon $knife): bool
+    private function handleCriticalFail(Player $player, Weapon $blaster): bool
     {
         $criticalFailRate = $this->modifierService->getEventModifiedValue(
             $player,
-            [ActionTypeEnum::ACTION_ATTACK],
+            [ActionTypeEnum::ACTION_SHOOT],
             ModifierTargetEnum::CRITICAL_PERCENTAGE,
-            $knife->getCriticalFailRate(),
+            $blaster->getCriticalFailRate(),
             $this->getActionName(),
             new \DateTime()
         );
 
         if ($this->randomService->isSuccessful($criticalFailRate)) {
-            $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_FAIL_KNIFE, $player);
+            $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_FAIL_BLASTER, $player);
 
             return true;
         }
@@ -164,19 +167,19 @@ class Attack extends AttemptAction
         return false;
     }
 
-    private function handleCriticalSuccess(Player $player, Player $target, Weapon $knife): bool
+    private function handleCriticalSuccess(Player $player, Player $target, Weapon $blaster): bool
     {
         $criticalSuccessRate = $this->modifierService->getEventModifiedValue(
             $player,
-            [ActionTypeEnum::ACTION_ATTACK],
+            [ActionTypeEnum::ACTION_SHOOT],
             ModifierTargetEnum::CRITICAL_PERCENTAGE,
-            $knife->getCriticalSucessRate(),
+            $blaster->getCriticalSucessRate(),
             $this->getActionName(),
             new \DateTime()
         );
 
         if ($this->randomService->isSuccessful($criticalSuccessRate)) {
-            $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE, $target);
+            $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_BLASTER, $target);
 
             return true;
         }
@@ -184,13 +187,13 @@ class Attack extends AttemptAction
         return false;
     }
 
-    private function handleOneShot(Player $player, Player $target, Weapon $knife): bool
+    private function handleOneShot(Player $player, Player $target, Weapon $blaster): bool
     {
         $oneShotRate = $this->modifierService->getEventModifiedValue(
             $player,
-            [ActionTypeEnum::ACTION_ATTACK],
+            [ActionTypeEnum::ACTION_SHOOT],
             ModifierTargetEnum::CRITICAL_PERCENTAGE,
-            $knife->getOneShotRate(),
+            $blaster->getOneShotRate(),
             $this->getActionName(),
             new \DateTime()
         );
@@ -198,7 +201,7 @@ class Attack extends AttemptAction
         if ($this->randomService->isSuccessful($oneShotRate)) {
             $deathEvent = new PlayerEvent(
                 $target,
-                EndCauseEnum::BLED,
+                EndCauseEnum::BEHEADED,
                 new \DateTime()
             );
 

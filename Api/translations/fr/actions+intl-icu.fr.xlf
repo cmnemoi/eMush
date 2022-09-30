@@ -683,6 +683,18 @@
                 </target>
             </segment>
         </unit>
+        <unit id="shoot">
+            <segment id="name">
+                <source>shoot.name</source>
+                <target>Tirer : Blaster</target>
+            </segment>
+            <segment id="description">
+                <source>shoot.description</source>
+                <target>
+                Tirer sur quelqu'un pour le blesser, le tuer ou plus si affinité. Attention, jeux de mains, jeux de vilains !
+                </target>
+            </segment>
+        </unit>
         <unit id="suicide">
             <segment id="name">
                 <source>suicide.name</source>

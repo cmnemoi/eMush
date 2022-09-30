@@ -19,6 +19,8 @@ class DiseaseCauseEnum
     public const INFECTION = 'infection';
     public const CRITICAL_FAIL_KNIFE = 'critical_fail_knife';
     public const CRITICAL_SUCCESS_KNIFE = 'critical_success_knife';
+    public const CRITICAL_FAIL_BLASTER = 'critical_fail_blaster';
+    public const CRITICAL_SUCCESS_BLASTER = 'critical_success_blaster';
 
     public const OVERRODE = 'overrode';
 }

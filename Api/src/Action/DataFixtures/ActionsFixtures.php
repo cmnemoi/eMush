@@ -78,6 +78,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
     public const BORING_SPEECH = 'boring.speech';
     public const SURGERY = 'surgery';
     public const SELF_SURGERY = 'self.surgery';
+    public const SHOOT = 'shoot';
 
     public function load(ObjectManager $manager): void
     {
@@ -713,6 +714,19 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($selfSurgeryAction);
 
+        $shootAction = new Action();
+        $shootAction
+            ->setName(ActionEnum::SHOOT)
+            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_SHOOT])
+            ->setActionCost($oneActionPointCost)
+            ->setSuccessRate(50)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::CRITICAL_FAIL, VisibilityEnum::PUBLIC)
+        ;
+        $manager->persist($shootAction);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -777,6 +791,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::BORING_SPEECH, $boringSpeechAction);
         $this->addReference(self::SURGERY, $surgeryAction);
         $this->addReference(self::SELF_SURGERY, $selfSurgeryAction);
+        $this->addReference(self::SHOOT, $shootAction);
     }
 
     public function getDependencies(): array

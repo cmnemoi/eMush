@@ -8,6 +8,7 @@ use Error;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Tool;
+use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -112,6 +113,7 @@ class GearToolService implements GearToolServiceInterface
         foreach ($this->getToolsOnReach($player) as $tool) {
             /** @var Tool $toolMechanic */
             $toolMechanic = $tool->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
+            $weaponMechanics = $tool->getEquipment()->getMechanics()->filter(fn (Tool $tool) => $tool instanceof Weapon);
 
             if ($toolMechanic &&
                 !$toolMechanic->getActions()->filter(fn (Action $action) => $action->getName() === $actionName)->isEmpty()
@@ -122,6 +124,10 @@ class GearToolService implements GearToolServiceInterface
                 if ($chargeStatus === null) {
                     return $tool;
                 } elseif ($chargeStatus->getCharge() > 0) {
+                    $tools->add($tool);
+                }
+                // if it's a uncharged weapon, still add it to the list (to be able to tell the player it's uncharged in a validator)
+                elseif (!$weaponMechanics->isEmpty()) {
                     $tools->add($tool);
                 }
             }

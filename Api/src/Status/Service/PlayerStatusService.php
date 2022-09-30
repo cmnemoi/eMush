@@ -35,26 +35,40 @@ class PlayerStatusService implements PlayerStatusServiceInterface
 
     private function handleFullBellyStatus(Player $player, \DateTime $dateTime): void
     {
+        $event = new StatusEvent(
+            PlayerStatusEnum::FULL_STOMACH,
+            $player,
+            EventEnum::NEW_CYCLE,
+            $dateTime
+        );
         $fullStatus = $player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
+
         if ($player->getSatiety() >= self::FULL_STOMACH_STATUS_THRESHOLD && !$fullStatus) {
-            $event = new StatusEvent(PlayerStatusEnum::FULL_STOMACH, $player, EventEnum::NEW_CYCLE, $dateTime);
             $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_APPLIED);
         } elseif ($player->getSatiety() < self::FULL_STOMACH_STATUS_THRESHOLD && $fullStatus) {
-            $this->statusService->delete($fullStatus);
+            codecept_debug('aze');
+            $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_REMOVED);
         }
     }
 
     private function handleHungerStatus(Player $player, \DateTime $dateTime): void
     {
+        $event = new StatusEvent(
+            PlayerStatusEnum::STARVING,
+            $player,
+            EventEnum::NEW_CYCLE,
+            $dateTime
+        );
         $starvingStatus = $player->getStatusByName(PlayerStatusEnum::STARVING);
 
         if ($player->getSatiety() < self::STARVING_STATUS_THRESHOLD && !$starvingStatus && !$player->isMush()) {
-            $event = new StatusEvent(PlayerStatusEnum::STARVING, $player, EventEnum::NEW_CYCLE, $dateTime);
             $event->setVisibility(VisibilityEnum::PRIVATE);
-
             $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_APPLIED);
         } elseif (($player->getSatiety() >= self::STARVING_STATUS_THRESHOLD || $player->isMush()) && $starvingStatus) {
-            $this->statusService->delete($starvingStatus);
+            $event->setVisibility(VisibilityEnum::PRIVATE);
+            codecept_debug('azer');
+            $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_REMOVED);
+            codecept_debug('hum');
         }
     }
 

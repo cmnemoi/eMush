@@ -164,16 +164,12 @@ class PlayerStatusServiceTest extends TestCase
     {
         $player = new Player();
         $player->setSatiety(0);
-
-        $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
-
-        $player = new Player();
-        $player->setSatiety(0);
         $starvingConfig = new StatusConfig();
         $starvingConfig->setName(PlayerStatusEnum::STARVING);
         $starvingStatus = new Status($player, $starvingConfig);
 
-        $this->statusService->shouldReceive('delete')->with($starvingStatus);
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->statusService->shouldReceive('createStatusFromName')->withSomeOfArgs($starvingStatus);
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
 
         $player = new Player();
@@ -182,11 +178,12 @@ class PlayerStatusServiceTest extends TestCase
         $fullStomachConfig->setName(PlayerStatusEnum::FULL_STOMACH);
         $fullBellyStatus = new Status($player, $fullStomachConfig);
 
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $this->statusService->shouldReceive('delete')->with($fullBellyStatus);
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
     }
 
-    public function testHandleStarvingStatus()
+    public function testHandleNegativeSatiety()
     {
         $player = new Player();
         $player
@@ -196,23 +193,32 @@ class PlayerStatusServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING && $event->getStatusHolder() === $player)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING &&
+                $event->getStatusHolder() === $player
+            )
             ->once()
         ;
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
+    }
 
+    public function testHandleNegativeSatietyWhenAlreadyStarved()
+    {
         $player = new Player();
         $player->setSatiety(-40);
+
         $starvingConfig = new StatusConfig();
         $starvingConfig->setName(PlayerStatusEnum::STARVING);
-        $starvingStatus = new Status($player, $starvingConfig);
+        new Status($player, $starvingConfig);
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->never()
         ;
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
+    }
 
+    public function testHandleStarvingStatusWhenFullStomach()
+    {
         $player = new Player();
         $player
             ->setSatiety(-40)
@@ -220,16 +226,20 @@ class PlayerStatusServiceTest extends TestCase
         ;
         $fullStomachConfig = new StatusConfig();
         $fullStomachConfig->setName(PlayerStatusEnum::FULL_STOMACH);
-        $fullBellyStatus = new Status($player, $fullStomachConfig);
+        new Status($player, $fullStomachConfig);
 
-        $this->statusService
-            ->shouldReceive('delete')
-            ->with($fullBellyStatus)
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH &&
+                $event->getStatusHolder() === $player
+            )
             ->once()
         ;
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING && $event->getStatusHolder() === $player)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING &&
+                $event->getStatusHolder() === $player
+            )
             ->once()
         ;
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
@@ -242,40 +252,53 @@ class PlayerStatusServiceTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH && $event->getStatusHolder() === $player)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH &&
+                $event->getStatusHolder() === $player
+            )
             ->once()
         ;
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
+    }
 
+    public function testHandleFullStomachWhenStarving()
+    {
         $player = new Player();
         $player->setSatiety(40);
         $starvingConfig = new StatusConfig();
         $starvingConfig->setName(PlayerStatusEnum::STARVING);
-        $starvingStatus = new Status($player, $starvingConfig);
+        new Status($player, $starvingConfig);
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH && $event->getStatusHolder() === $player)
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH &&
+                $event->getStatusHolder() === $player
+            )
             ->once()
         ;
-        $this->statusService->shouldReceive('delete')->with($starvingStatus)->once();
-
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING &&
+                $event->getStatusHolder() === $player
+            )
+            ->once()
+        ;
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
+    }
 
+    public function testHandleFullStomachStatusWhenAlreadyFull()
+    {
         $player = new Player();
         $player->setSatiety(40);
 
         $fullStomachConfig = new StatusConfig();
         $fullStomachConfig->setName(PlayerStatusEnum::FULL_STOMACH);
-        $fullBellyStatus = new Status($player, $fullStomachConfig);
+        new Status($player, $fullStomachConfig);
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->never()
         ;
-
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
-        $this->assertCount(1, $player->getStatuses());
     }
 
     public function testHandleSatietyStatusMush()

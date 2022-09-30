@@ -5,22 +5,29 @@ namespace Mush\Modifier\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Modifier\Entity\Quantity\ActionCost\ActionCostModifier;
+use Mush\Modifier\Entity\Quantity\QuantityModifier;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Status\Entity\ChargeStatus;
 use Symfony\Component\Validator\Exception\LogicException;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'modifier')]
-class Modifier
+#[ORM\InheritanceType("SINGLE_TABLE")]
+#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
+#[ORM\DiscriminatorMap([
+    'modifier' => Modifier::class,
+    'delta_modifier' => QuantityModifier::class,
+    'action_cost_modifier' => ActionCostModifier::class
+])]
+abstract class Modifier
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: ModifierConfig::class)]
-    private ModifierConfig $modifierConfig;
+    private string $name;
 
     #[ORM\ManyToOne(targetEntity: Player::class)]
     private ?Player $player = null;
@@ -29,18 +36,18 @@ class Modifier
     private ?Place $place = null;
 
     #[ORM\ManyToOne(targetEntity: GameEquipment::class)]
-    private ?GameEquipment $gameEquipment = null;
+    private ?GameEquipment $equipment = null;
 
     #[ORM\ManyToOne(targetEntity: Daedalus::class)]
     private ?Daedalus $daedalus = null;
 
-    #[ORM\ManyToOne(targetEntity: ChargeStatus::class)]
-    private ?ChargeStatus $charge = null;
-
-    public function __construct(ModifierHolder $holder, ModifierConfig $modifierConfig)
+    public function __construct(ModifierHolder $holder, string $name)
     {
-        $this->modifierConfig = $modifierConfig;
+        $this->setModifierHolder($holder);
+        $this->name = $name;
+    }
 
+    private function setModifierHolder(ModifierHolder $holder) : void {
         if ($holder instanceof Player) {
             $this->player = $holder;
         } elseif ($holder instanceof Place) {
@@ -48,20 +55,8 @@ class Modifier
         } elseif ($holder instanceof Daedalus) {
             $this->daedalus = $holder;
         } elseif ($holder instanceof GameEquipment) {
-            $this->gameEquipment = $holder;
+            $this->equipment = $holder;
         }
-
-        $holder->addModifier($this);
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function getModifierConfig(): ModifierConfig
-    {
-        return $this->modifierConfig;
     }
 
     public function getModifierHolder(): ModifierHolder
@@ -72,22 +67,16 @@ class Modifier
             return $this->place;
         } elseif ($this->daedalus) {
             return $this->daedalus;
-        } elseif ($this->gameEquipment) {
-            return $this->gameEquipment;
+        } elseif ($this->equipment) {
+            return $this->equipment;
         } else {
-            throw new LogicException("this modifier don't have any valid holder");
+            throw new LogicException("This modifier don't have any valid holder");
         }
     }
 
-    public function getCharge(): ?ChargeStatus
+    public function getName(): string
     {
-        return $this->charge;
+        return $this->name;
     }
 
-    public function setCharge(ChargeStatus $charge): self
-    {
-        $this->charge = $charge;
-
-        return $this;
-    }
 }

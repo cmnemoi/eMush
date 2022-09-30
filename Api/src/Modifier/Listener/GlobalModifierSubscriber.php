@@ -24,11 +24,12 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
         $holder = $this->getModifierHolder($event);
 
         $modifiersToApply = $holder->getAllModifiers()->filter(function (Modifier $modifier) use ($eventName, $reasonName) {
-            return $modifier->isTargetedBy($eventName, $reasonName);
+            return $modifier->getConfig()->isTargetedBy($eventName, $reasonName);
         });
 
+        /* @var Modifier $modifier */
         foreach ($modifiersToApply as $modifier) {
-            $modifier->modify($event);
+            $modifier->getConfig()->modify($event);
         };
     }
 

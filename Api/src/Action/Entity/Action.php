@@ -115,7 +115,7 @@ class Action
         return $this;
     }
 
-    public function getInjuryRate(): int
+    public function getClumsinessRate(): int
     {
         return $this->injuryRate;
     }

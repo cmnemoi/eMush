@@ -6,12 +6,15 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionSideEffectEventEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Modifier\Entity\Config\Quantity\ActionCostModifierConfig;
+use Mush\Modifier\Entity\Config\Quantity\SideEffectPercentageModifierConfig;
 use Mush\Modifier\Entity\Trash\ModifierCondition;
 use Mush\Modifier\Entity\Trash\ModifierConfig;
 use Mush\Modifier\Enum\ModifierConditionEnum;
@@ -77,25 +80,23 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         ;
         $manager->persist($wrenchModifier);
 
-        $glovesModifier = new ModifierConfig();
-        $glovesModifier
-            ->setScope(ModifierScopeEnum::EVENT_CLUMSINESS)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
-            ->setDelta(0)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::SET_VALUE)
-            ->setName(ModifierNameEnum::GLOVES_MODIFIER)
-        ;
+        $glovesModifier = new SideEffectPercentageModifierConfig(
+            ModifierNameEnum::GLOVES_MODIFIER,
+            ModifierReachEnum::PLAYER,
+            0,
+            ModifierModeEnum::SET_VALUE
+        );
+        $glovesModifier->addTargetEvent(ActionSideEffectEventEnum::CLUMSINESS_ROLL_RATE);
         $manager->persist($glovesModifier);
 
-        $soapModifier = new ModifierConfig();
-        $soapModifier
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+        $soapModifier = new ActionCostModifierConfig(
+            ModifierNameEnum::SOAP,
+            ModifierReachEnum::PLAYER,
+            -1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::ACTION_POINT
+        );
+        $glovesModifier->addTargetEvent("todo" /* @TODO */);
         $manager->persist($soapModifier);
 
         $soapSinkModifier = new ModifierConfig();

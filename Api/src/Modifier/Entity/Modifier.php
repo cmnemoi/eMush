@@ -2,40 +2,25 @@
 
 namespace Mush\Modifier\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Event\AbstractGameEvent;
-use Mush\Modifier\Entity\Condition\ModifierCondition;
-use Mush\Modifier\Entity\Condition\ModifierConditionCollection;
-use Mush\Modifier\Entity\Quantity\ActionCost\ActionCostModifier;
-use Mush\Modifier\Entity\Quantity\QuantityModifier;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Exception\LogicException;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'modifier')]
-#[ORM\InheritanceType("SINGLE_TABLE")]
-#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
-#[ORM\DiscriminatorMap([
-    'base' => Modifier::class,
-    'delta' => QuantityModifier::class,
-    'action_cost' => ActionCostModifier::class
-])]
-abstract class Modifier
+class Modifier
 {
-
-    public const EVERY_REASONS = 'every_reasons';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    private string $name;
+    #[ORM\ManyToOne(targetEntity: ModifierConfig::class)]
+    private ModifierConfig $config;
 
     #[ORM\ManyToOne(targetEntity: Player::class)]
     private ?Player $player = null;
@@ -49,35 +34,15 @@ abstract class Modifier
     #[ORM\ManyToOne(targetEntity: Daedalus::class)]
     private ?Daedalus $daedalus = null;
 
-    private array $targetEvents = [];
-
-    public function __construct(ModifierHolder $holder, string $name)
+    public function __construct(ModifierHolder $holder, ModifierConfig $config)
     {
         $this->setModifierHolder($holder);
-        $this->name = $name;
+        $this->config = $config;
     }
 
-    public function addTargetEvent(string $eventName, array $eventReason = null) : self
+    public function getConfig(): ModifierConfig
     {
-        $events =
-            $eventReason === null ?
-            [$eventName => self::EVERY_REASONS] :
-            [$eventName => $eventReason];
-        $this->targetEvents = array_merge($this->targetEvents, $events);
-        return $this;
-    }
-
-    public function isTargetedBy(string $eventName, string $eventReason) : bool
-    {
-        $reasons = $this->targetEvents[$eventName];
-        return isset($reasons) && in_array($eventReason, $reasons);
-    }
-
-    public abstract function modify(AbstractGameEvent $event);
-
-    public function getTargetEvents(): array
-    {
-        return $this->targetEvents;
+        return $this->config;
     }
 
     private function setModifierHolder(ModifierHolder $holder) : void {
@@ -105,11 +70,6 @@ abstract class Modifier
         } else {
             throw new LogicException("This modifier don't have any valid holder");
         }
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     public function getId(): int

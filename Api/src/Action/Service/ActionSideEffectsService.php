@@ -3,8 +3,11 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionSideEffectEventEnum;
+use Mush\Action\Event\PrepareSideEffectRollEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
@@ -19,20 +22,20 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
     public const ACTION_INJURY_MODIFIER = -2;
 
     private EventServiceInterface $eventService;
-    private ModifierServiceInterface $modifierService;
+    private RandomServiceInterface $randomService;
 
     public function __construct(
         EventServiceInterface $eventService,
-        ModifierServiceInterface $modifierService
+        RandomServiceInterface $randomService
     ) {
         $this->eventService = $eventService;
-        $this->modifierService = $modifierService;
+        $this->randomService = $randomService;
     }
 
     public function handleActionSideEffect(Action $action, Player $player, \DateTime $date): Player
     {
         $this->handleDirty($action, $player, $date);
-        $this->handleInjury($action, $player, $date);
+        $this->handleClumsiness($action, $player, $date);
 
         return $player;
     }
@@ -47,35 +50,42 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         }
 
         if (!$isSuperDirty) {
-            $isSoiled = $this->modifierService->isSuccessfulWithModifiers(
+            $dirtyEvent = new PrepareSideEffectRollEvent(
+                ActionSideEffectEventEnum::DIRTY_ROLL_RATE,
                 $baseDirtyRate,
-                [ModifierScopeEnum::EVENT_DIRTY],
                 $action->getName(),
-                $date,
-                $player,
+                new \DateTime()
             );
+            $this->eventService->callEvent($dirtyEvent, ActionSideEffectEventEnum::DIRTY_ROLL_RATE);
 
+            $isSoiled = $this->randomService->isSuccessful($dirtyEvent->getRate());
             if (!$isSoiled) {
                 return;
             }
         }
 
-        $statusEvent = new StatusEvent(PlayerStatusEnum::DIRTY, $player, $action->getName(), new \DateTime());
+        $statusEvent = new StatusEvent(
+            PlayerStatusEnum::DIRTY,
+            $player,
+            $action->getName(),
+            new \DateTime()
+        );
         $statusEvent->setVisibility(VisibilityEnum::PRIVATE);
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
-    private function handleInjury(Action $action, Player $player, \DateTime $date): void
+    private function handleClumsiness(Action $action, Player $player, \DateTime $date): void
     {
-        $baseInjuryRate = $action->getInjuryRate();
+        $baseClumsinessRate = $action->getClumsinessRate();
 
-        $isHurt = $this->modifierService->isSuccessfulWithModifiers(
-            $baseInjuryRate,
-            [ModifierScopeEnum::EVENT_CLUMSINESS],
+        $clumsinessEvent = new PrepareSideEffectRollEvent(
+            $baseClumsinessRate,
             $action->getName(),
-            $date,
-            $player,
+            new \DateTime()
         );
+        $this->eventService->callEvent($clumsinessEvent, ActionSideEffectEventEnum::CLUMSINESS_ROLL_RATE);
+
+        $isHurt = $this->randomService->isSuccessful($clumsinessEvent->getRate());
 
         if ($isHurt) {
             $this->dispatchPlayerInjuryEvent($player, $date);

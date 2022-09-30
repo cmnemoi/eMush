@@ -48,7 +48,7 @@ class Daedalus implements ModifierHolder
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Modifier::class)]
     private Collection $modifiers;
 
-    #[ORM\Column(type: 'string', nullable: false, unique: true)]
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name = 'default';
 
     #[ORM\Column(type: 'integer', nullable: false)]

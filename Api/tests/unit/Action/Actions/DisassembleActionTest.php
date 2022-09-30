@@ -37,7 +37,7 @@ class DisassembleActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::DISASSEMBLE, 3);
 
         $this->action = new Disassemble(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -113,7 +113,7 @@ class DisassembleActionTest extends AbstractActionTest
 
         $scrap = new GameItem();
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         // Success
         $result = $this->action->execute();

@@ -32,7 +32,7 @@ class RemoveSporeActionTest extends AbstractActionTest
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new RemoveSpore(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->statusService,
@@ -74,7 +74,7 @@ class RemoveSporeActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
         $this->statusService->shouldReceive('updateCharge')->with($sporeStatus, -1)->andReturn($sporeStatus)->once();
         $this->statusService->shouldReceive('persist')->once();
 

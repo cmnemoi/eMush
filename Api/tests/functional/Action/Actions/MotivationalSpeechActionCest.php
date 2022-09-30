@@ -18,7 +18,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class MotivationalSpeechActionCest
 {
@@ -27,7 +27,7 @@ class MotivationalSpeechActionCest
     public function _before(FunctionalTester $I)
     {
         $this->MotivationalSpeechAction = $I->grabService(MotivationalSpeech::class);
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventServiceService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testMotivationalSpeech(FunctionalTester $I)

@@ -75,7 +75,7 @@ class Hyperfreeze extends AbstractAction
                 $this->getActionName(),
                 $time
             );
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
         }
     }
 }

@@ -34,7 +34,7 @@ class CookActionTest extends AbstractActionTest
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->action = new Cook(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService
@@ -81,7 +81,7 @@ class CookActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->never();
 
         $result = $this->action->execute();
@@ -91,8 +91,6 @@ class CookActionTest extends AbstractActionTest
         $this->assertCount(1, $player->getEquipments());
         $this->assertEquals($gameRation->getName(), $player->getEquipments()->first()->getName());
         $this->assertCount(0, $player->getStatuses());
-
-        $room = new Place();
     }
 
     public function testExecuteRation()

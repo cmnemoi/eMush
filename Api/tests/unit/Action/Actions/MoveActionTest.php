@@ -28,7 +28,7 @@ class MoveActionTest extends AbstractActionTest
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Move(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->playerService,
@@ -69,7 +69,7 @@ class MoveActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $this->eventDispatcher->shouldReceive('dispatch')->times(3);
+        $this->eventService->shouldReceive('dispatch')->times(3);
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

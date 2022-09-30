@@ -19,7 +19,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class PlayerDiseaseServiceTest extends TestCase
 {
@@ -37,8 +37,8 @@ class PlayerDiseaseServiceTest extends TestCase
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface $eventService;
 
     /**
      * @before
@@ -49,14 +49,14 @@ class PlayerDiseaseServiceTest extends TestCase
         $this->diseaseCausesConfigRepository = Mockery::mock(DiseaseCausesConfigRepository::class);
         $this->diseaseConfigRepository = Mockery::mock(DiseaseConfigRepository::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventService = Mockery::mock(EventServiceInterface::class);
 
         $this->playerDiseaseService = new PlayerDiseaseService(
             $this->entityManager,
             $this->diseaseCausesConfigRepository,
             $this->diseaseConfigRepository,
             $this->randomService,
-            $this->eventDispatcher,
+            $this->eventService,
         );
     }
 
@@ -95,7 +95,7 @@ class PlayerDiseaseServiceTest extends TestCase
             ->andReturn(4)
             ->once()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, DiseaseCauseEnum::INCUBATING_END);
 
@@ -130,7 +130,7 @@ class PlayerDiseaseServiceTest extends TestCase
             ->withArgs([10, 15])
             ->andReturn(4)
             ->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, 'cause', 10, 5);
 
@@ -165,7 +165,7 @@ class PlayerDiseaseServiceTest extends TestCase
             ->withArgs([$diseaseConfig->getDiseasePointMin(), $diseaseConfig->getDiseasePointMin() + $diseaseConfig->getDiseasePointLength()])
             ->andReturn(4)
             ->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->twice();
+        $this->eventService->shouldReceive('dispatch')->twice();
 
         $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, 'reason');
 
@@ -230,7 +230,7 @@ class PlayerDiseaseServiceTest extends TestCase
             'flush' => null,
         ])->once();
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::PERISHED_FOOD, $player);
     }
@@ -274,7 +274,7 @@ class PlayerDiseaseServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('remove')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $this->playerDiseaseService->handleNewCycle($diseasePlayer, new \DateTime());
 
@@ -299,7 +299,7 @@ class PlayerDiseaseServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $this->randomService->shouldReceive('random')->andReturn(10);
 
@@ -381,7 +381,7 @@ class PlayerDiseaseServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('remove')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $this->playerDiseaseService->healDisease($player, $diseasePlayer, 'reason', new \DateTime());
     }
@@ -401,7 +401,7 @@ class PlayerDiseaseServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $this->playerDiseaseService->healDisease($player, $diseasePlayer, 'reason', new \DateTime());
 

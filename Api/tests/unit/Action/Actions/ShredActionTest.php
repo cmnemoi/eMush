@@ -25,7 +25,7 @@ class ShredActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::SHRED);
 
         $this->action = new Shred(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -53,7 +53,7 @@ class ShredActionTest extends AbstractActionTest
             ->setHolder($room)
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('dispatch');
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

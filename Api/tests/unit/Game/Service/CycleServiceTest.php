@@ -10,12 +10,12 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleService;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class CycleServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface $eventService;
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
 
@@ -26,13 +26,13 @@ class CycleServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventService = Mockery::mock(EventServiceInterface::class);
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
 
         $this->entityManager->shouldReceive('persist');
         $this->entityManager->shouldReceive('flush');
 
-        $this->service = new CycleService($this->entityManager, $this->eventDispatcher);
+        $this->service = new CycleService($this->entityManager, $this->eventService);
     }
 
     /**
@@ -65,7 +65,7 @@ class CycleServiceTest extends TestCase
     {
         $timeZone = 'Europe/Paris';
 
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
         ;
 
@@ -136,7 +136,7 @@ class CycleServiceTest extends TestCase
     {
         $timeZone = 'Europe/Paris';
 
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
         ;
 
@@ -213,7 +213,7 @@ class CycleServiceTest extends TestCase
     {
         $timeZone = 'Europe/Paris';
 
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
         ;
 

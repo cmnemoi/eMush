@@ -8,21 +8,21 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         StatusServiceInterface $statusService,
         PlayerDiseaseServiceInterface $playerDiseaseService,
     ) {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->statusService = $statusService;
         $this->playerDiseaseService = $playerDiseaseService;
     }
@@ -57,7 +57,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         // @TODO implement research modifiers
         if ($playerSpores->getCharge() >= 3) {
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+            $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
         }
     }
 

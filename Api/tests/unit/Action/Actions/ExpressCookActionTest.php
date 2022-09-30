@@ -34,7 +34,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::EXPRESS_COOK);
 
         $this->action = new ExpressCook(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService
@@ -81,7 +81,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->never();
 
         $result = $this->action->execute();

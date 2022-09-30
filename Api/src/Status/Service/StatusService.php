@@ -23,23 +23,23 @@ use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Repository\StatusConfigRepository;
 use Mush\Status\Repository\StatusRepository;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class StatusService implements StatusServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private StatusRepository $statusRepository;
     private StatusConfigRepository $statusConfigRepository;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         StatusRepository $statusRepository,
         StatusConfigRepository $statusConfigRepository,
     ) {
         $this->entityManager = $entityManager;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->statusRepository = $statusRepository;
         $this->statusConfigRepository = $statusConfigRepository;
     }
@@ -79,7 +79,7 @@ class StatusService implements StatusServiceInterface
             $reason,
             $time
         );
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
     }
 
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
@@ -116,7 +116,7 @@ class StatusService implements StatusServiceInterface
             $time
         );
         $statusEvent->setStatusConfig($statusConfig);
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $status;
     }

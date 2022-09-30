@@ -90,7 +90,7 @@ class ScrewTalkie extends AbstractAction
                 $this->getActionName(),
                 new \DateTime()
             );
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
         }
 
         $statusEvent = new StatusEvent(
@@ -100,6 +100,6 @@ class ScrewTalkie extends AbstractAction
             new \DateTime()
         );
         $statusEvent->setStatusTarget($parameter);
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 }

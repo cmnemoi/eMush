@@ -6,17 +6,17 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher
+        EventServiceInterface $eventService
     ) {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents()
@@ -38,14 +38,14 @@ class PlayerSubscriber implements EventSubscriberInterface
                 $event->getReason(),
                 $event->getTime()
             );
-            $this->eventDispatcher->dispatch($fullDaedalusEvent, DaedalusEvent::FULL_DAEDALUS);
+            $this->eventService->callEvent($fullDaedalusEvent, DaedalusEvent::FULL_DAEDALUS);
         } elseif ($daedalus->getPlayers()->count() === 1) {
             $startDaedalusEvent = new DaedalusEvent(
                 $daedalus,
                 $event->getReason(),
                 $event->getTime()
             );
-            $this->eventDispatcher->dispatch($startDaedalusEvent, DaedalusEvent::START_DAEDALUS);
+            $this->eventService->callEvent($startDaedalusEvent, DaedalusEvent::START_DAEDALUS);
         }
     }
 
@@ -64,7 +64,7 @@ class PlayerSubscriber implements EventSubscriberInterface
                 $event->getTime()
             );
 
-            $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
+            $this->eventService->callEvent($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
         }
     }
 }

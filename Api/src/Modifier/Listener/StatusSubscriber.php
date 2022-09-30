@@ -19,7 +19,7 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -28,18 +28,18 @@ class StatusSubscriber implements EventSubscriberInterface
     private EquipmentModifierService $gearModifierService;
     private ModifierServiceInterface $modifierService;
     private ModifierConditionService $modifierConditionService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         EquipmentModifierService $gearModifierService,
         ModifierServiceInterface $modifierService,
         ModifierConditionService $modifierConditionService,
-        EventDispatcherInterface $eventDispatcher
+        EventServiceInterface $eventService
     ) {
         $this->gearModifierService = $gearModifierService;
         $this->modifierService = $modifierService;
         $this->modifierConditionService = $modifierConditionService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -87,7 +87,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 /** @var  */
                 $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getReason());
                 $event->setVisibility(VisibilityEnum::HIDDEN);
-                $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+                $this->eventService->callEvent($event, AbstractQuantityEvent::CHANGE_VARIABLE);
             }
         }
     }

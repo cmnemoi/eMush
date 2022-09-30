@@ -11,21 +11,21 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class RationCycleHandler extends AbstractCycleHandler
 {
     protected string $name = EquipmentMechanicEnum::RATION;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public function handleNewCycle($object, \DateTime $dateTime): void
@@ -75,6 +75,6 @@ class RationCycleHandler extends AbstractCycleHandler
         }
 
         $statusEvent = new StatusEvent($nextStatus, $gameRation, EventEnum::NEW_DAY, new \DateTime());
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 }

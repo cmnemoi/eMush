@@ -56,7 +56,7 @@ class Hide extends AbstractAction
             $time
         );
         $statusEvent->setStatusTarget($this->player);
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         if ($parameter->getHolder() instanceof Player) {
             $equipmentEvent = new InteractWithEquipmentEvent(
@@ -66,7 +66,7 @@ class Hide extends AbstractAction
                 $this->getActionName(),
                 $time
             );
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
+            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
         }
     }
 }

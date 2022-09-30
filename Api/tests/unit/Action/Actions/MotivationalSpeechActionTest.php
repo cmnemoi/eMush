@@ -21,7 +21,7 @@ class MotivationalSpeechActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::MOTIVATIONAL_SPEECH);
 
         $this->action = new MotivationalSpeech(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -47,7 +47,7 @@ class MotivationalSpeechActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $speaker);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($listener);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $result = $this->action->execute();
 

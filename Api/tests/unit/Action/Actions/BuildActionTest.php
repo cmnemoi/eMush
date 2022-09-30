@@ -38,7 +38,7 @@ class BuildActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
         $this->action = new Build(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->gearToolService,
@@ -96,7 +96,7 @@ class BuildActionTest extends AbstractActionTest
         $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameIngredient]))->once();
 
         $this->gameEquipmentService->shouldReceive('createGameEquipment')->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->times(2);
+        $this->eventService->shouldReceive('callEvent')->times(2);
 
         $result = $this->action->execute();
 

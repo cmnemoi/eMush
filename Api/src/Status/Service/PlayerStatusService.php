@@ -7,7 +7,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class PlayerStatusService implements PlayerStatusServiceInterface
 {
@@ -17,14 +17,14 @@ class PlayerStatusService implements PlayerStatusServiceInterface
     public const DEMORALIZED_THRESHOLD = 3;
 
     private StatusServiceInterface $statusService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         StatusServiceInterface $statusService,
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
     ) {
         $this->statusService = $statusService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public function handleSatietyStatus(Player $player, \DateTime $dateTime): void
@@ -44,9 +44,9 @@ class PlayerStatusService implements PlayerStatusServiceInterface
         $fullStatus = $player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
 
         if ($player->getSatiety() >= self::FULL_STOMACH_STATUS_THRESHOLD && !$fullStatus) {
-            $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_APPLIED);
+            $this->eventService->callEvent($event, StatusEvent::STATUS_APPLIED);
         } elseif ($player->getSatiety() < self::FULL_STOMACH_STATUS_THRESHOLD && $fullStatus) {
-            $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_REMOVED);
+            $this->eventService->callEvent($event, StatusEvent::STATUS_REMOVED);
         }
     }
 
@@ -62,10 +62,10 @@ class PlayerStatusService implements PlayerStatusServiceInterface
 
         if ($player->getSatiety() < self::STARVING_STATUS_THRESHOLD && !$starvingStatus && !$player->isMush()) {
             $event->setVisibility(VisibilityEnum::PRIVATE);
-            $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_APPLIED);
+            $this->eventService->callEvent($event, StatusEvent::STATUS_APPLIED);
         } elseif (($player->getSatiety() >= self::STARVING_STATUS_THRESHOLD || $player->isMush()) && $starvingStatus) {
             $event->setVisibility(VisibilityEnum::PRIVATE);
-            $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_REMOVED);
+            $this->eventService->callEvent($event, StatusEvent::STATUS_REMOVED);
         }
     }
 
@@ -78,7 +78,7 @@ class PlayerStatusService implements PlayerStatusServiceInterface
 
         if ($this->isPlayerSuicidal($playerMoralPoint) && !$suicidalStatus) {
             $event = new StatusEvent(PlayerStatusEnum::SUICIDAL, $player, EventEnum::NEW_CYCLE, $dateTime);
-            $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_APPLIED);
+            $this->eventService->callEvent($event, StatusEvent::STATUS_APPLIED);
         }
 
         if ($suicidalStatus && !$this->isPlayerSuicidal($playerMoralPoint)) {
@@ -87,7 +87,7 @@ class PlayerStatusService implements PlayerStatusServiceInterface
 
         if (!$demoralizedStatus && $this->isPlayerDemoralized($playerMoralPoint)) {
             $event = new StatusEvent(PlayerStatusEnum::DEMORALIZED, $player, EventEnum::NEW_CYCLE, $dateTime);
-            $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_APPLIED);
+            $this->eventService->callEvent($event, StatusEvent::STATUS_APPLIED);
         }
 
         if ($demoralizedStatus && !$this->isPlayerDemoralized($playerMoralPoint)) {

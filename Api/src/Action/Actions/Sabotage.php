@@ -52,7 +52,7 @@ class Sabotage extends AttemptAction
                 $this->getActionName(),
                 new \DateTime()
             );
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+            $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
         }
     }
 }

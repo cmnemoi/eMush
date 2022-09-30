@@ -28,7 +28,7 @@ class WashInSinkActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::WASH_IN_SINK, 3);
 
         $this->action = new WashInSink(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator
         );
@@ -58,7 +58,7 @@ class WashInSinkActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $sinkEquipment);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $result = $this->action->execute();
 

@@ -38,7 +38,7 @@ use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -58,7 +58,7 @@ class DoTheThing extends AbstractAction
     private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         DiseaseCausesConfigRepository $diseaseCausesConfigRepository,
@@ -69,7 +69,7 @@ class DoTheThing extends AbstractAction
         StatusServiceInterface $statusService
     ) {
         parent::__construct(
-            $eventDispatcher,
+            $eventService,
             $actionService,
             $validator
         );
@@ -204,7 +204,7 @@ class DoTheThing extends AbstractAction
             $this->getActionName(),
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         if ($firstTimeStatus) {
             $player->removeStatus($firstTimeStatus);
@@ -220,7 +220,7 @@ class DoTheThing extends AbstractAction
             new \DateTime()
         );
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
     private function addPregnantStatus(Player $player, Player $parameter): void
@@ -235,7 +235,7 @@ class DoTheThing extends AbstractAction
         );
         $pregnantStatus->setVisibility(VisibilityEnum::PRIVATE);
 
-        $this->eventDispatcher->dispatch($pregnantStatus, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($pregnantStatus, StatusEvent::STATUS_APPLIED);
     }
 
     private function getPlayerStds(Player $player): PlayerDiseaseCollection
@@ -263,7 +263,7 @@ class DoTheThing extends AbstractAction
 
         if ($sporeStatus->getCharge() > 0) {
             $playerEvent = new PlayerEvent($target, $this->getActionName(), new \DateTime());
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+            $this->eventService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
             $sporeStatus->addCharge(-1);
             $this->statusService->persist($sporeStatus);

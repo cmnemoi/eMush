@@ -19,12 +19,12 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class ActionSideEffectsServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface $eventService;
     /** @var RoomLogServiceInterface|Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
     /** @var RandomServiceInterface|Mockery\Mock */
@@ -39,13 +39,13 @@ class ActionSideEffectsServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventService = Mockery::mock(EventServiceInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
 
         $this->actionService = new ActionSideEffectsService(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->modifierService
         );
     }
@@ -85,7 +85,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(false)
             ->twice()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('dispatch')->never();
 
         $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
@@ -99,7 +99,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(true)
             ->once()
         ;
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::DIRTY && $event->getStatusHolder() === $player)
             ->once()
@@ -135,7 +135,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(false)
             ->once()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('dispatch')->never();
 
         $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
@@ -168,7 +168,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(false)
             ->twice()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('dispatch')->never();
 
         $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
@@ -180,7 +180,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(true)
             ->once()
         ;
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
             ->withArgs(
                 fn (PlayerVariableEvent $playerEvent, string $eventName) => (

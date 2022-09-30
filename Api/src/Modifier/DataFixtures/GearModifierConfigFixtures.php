@@ -8,12 +8,15 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionSideEffectEventEnum;
 use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Action\Event\ActionSideEffectRollEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Modifier\Entity\Config\Prevent\PreventApplyStatusModifierConfig;
 use Mush\Modifier\Entity\Config\Quantity\ActionCostModifierConfig;
+use Mush\Modifier\Entity\Config\Quantity\PlayerVariableModifierConfig;
 use Mush\Modifier\Entity\Config\Quantity\SideEffectPercentageModifierConfig;
 use Mush\Modifier\Entity\Trash\ModifierCondition;
 use Mush\Modifier\Entity\Trash\ModifierConfig;
@@ -24,6 +27,10 @@ use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Event\PreventStatusEvent;
 
 class GearModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -45,29 +52,21 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
-        $apronModifier = new ModifierConfig();
-
-        $apronModifier
-            ->setScope(ModifierScopeEnum::EVENT_DIRTY)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
-            ->setDelta(-100)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setName(ModifierNameEnum::APRON_MODIFIER)
-        ;
+        $apronModifier = new PreventApplyStatusModifierConfig(
+            ModifierNameEnum::APRON_MODIFIER,
+            ModifierReachEnum::PLAYER,
+            PlayerStatusEnum::DIRTY
+        );
         $manager->persist($apronModifier);
 
-        $armorModifier = new ModifierConfig();
-        $armorModifier
-            ->setScope(ModifierScopeEnum::INJURY)
-            ->setTarget(PlayerVariableEnum::HEALTH_POINT)
-            ->setDelta(-1)
-            ->setReach(ModifierReachEnum::TARGET_PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+        $armorModifier = new PlayerVariableModifierConfig(
+            ModifierNameEnum::ARMOR_MODIFIER,
+            ModifierReachEnum::PLAYER,
+            -1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::HEALTH_POINT
+        );
+        $armorModifier->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, ActionTypeEnum::getAgressiveActions());
         $manager->persist($armorModifier);
 
         $wrenchModifier = new ModifierConfig();
@@ -86,11 +85,11 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             0,
             ModifierModeEnum::SET_VALUE
         );
-        $glovesModifier->addTargetEvent(ActionSideEffectEventEnum::CLUMSINESS_ROLL_RATE);
+        $glovesModifier->addTargetEvent(ActionSideEffectRollEvent::CLUMSINESS_ROLL_RATE);
         $manager->persist($glovesModifier);
 
         $soapModifier = new ActionCostModifierConfig(
-            ModifierNameEnum::SOAP,
+            ModifierNameEnum::SOAP_MODIFIER,
             ModifierReachEnum::PLAYER,
             -1,
             ModifierModeEnum::ADDITIVE,

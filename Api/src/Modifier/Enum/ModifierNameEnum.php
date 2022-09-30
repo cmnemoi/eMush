@@ -16,5 +16,6 @@ class ModifierNameEnum
     public const RUN_IN_CIRCLES = 'run_in_circles';
     public const FITFULL_SLEEP = 'fitfull_sleep';
     public const LYING_DOWN_MODIFIER = 'lying_down_modifier';
-    public const SOAP = 'soap_modifier';
+    public const SOAP_MODIFIER = 'soap_modifier';
+    public const ARMOR_MODIFIER = 'armor_modifier';
 }

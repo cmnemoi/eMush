@@ -5,6 +5,8 @@ namespace Mush\Status\Event;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Game\Event\AbstractModifierHolderEvent;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
@@ -12,7 +14,7 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\StatusHolderInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
+class StatusEvent extends AbstractModifierHolderEvent implements LoggableEventInterface
 {
     public const STATUS_APPLIED = 'status.applied';
     public const STATUS_REMOVED = 'status.removed';
@@ -30,7 +32,11 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
         string $reason,
         \DateTime $time
     ) {
-        parent::__construct($reason, $time);
+        if ($holder instanceof ModifierHolder)
+            parent::__construct($holder, $reason, $time);
+        else
+            throw new \LogicException('The holder isn\' a modifier holder too.');
+
         $this->statusName = $statusName;
         $this->holder = $holder;
     }

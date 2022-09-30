@@ -5,10 +5,11 @@ namespace Mush\Action\Event;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\Entity\Action;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Game\Event\AbstractModifierHolderEvent;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 
-class ActionEvent extends AbstractGameEvent
+class ActionEvent extends AbstractModifierHolderEvent
 {
     public const PRE_ACTION = 'pre.action';
     public const POST_ACTION = 'post.action';
@@ -25,7 +26,7 @@ class ActionEvent extends AbstractGameEvent
         $this->player = $player;
         $this->actionParameter = $actionParameter;
 
-        parent::__construct($action->getName(), new \DateTime());
+        parent::__construct($player, $action->getName(), new \DateTime());
     }
 
     public function getPlayer(): Player

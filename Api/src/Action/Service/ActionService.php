@@ -3,6 +3,8 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ResourcePointChangeEventEnum;
+use Mush\Action\Event\ResourcePointChangeEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Enum\ModifierScopeEnum;
@@ -74,17 +76,16 @@ class ActionService implements ActionServiceInterface
         );
     }
 
-    private function getMovementPointConversionGain(Player $player, bool $consumeCharge = false): int
+    private function getMovementPointConversionGain(Player $player): int
     {
-        return $this->modifierService->getEventModifiedValue(
-            $player,
-            [ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION],
-            PlayerVariableEnum::MOVEMENT_POINT,
+        $event = new ResourcePointChangeEvent(
             self::BASE_MOVEMENT_POINT_CONVERSION_GAIN,
-            ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION,
-            new \DateTime(),
-            $consumeCharge
+            ResourcePointChangeEventEnum::CHECK_CONVERSION_ACTION_TO_MOUVEMENT_POINT,
+            new \DateTime()
         );
+        $this->eventService->callEvent($event, ResourcePointChangeEventEnum::CHECK_CONVERSION_ACTION_TO_MOUVEMENT_POINT);
+
+        return $event->getCost();
     }
 
     public function getTotalActionPointCost(

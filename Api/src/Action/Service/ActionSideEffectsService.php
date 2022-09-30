@@ -4,7 +4,7 @@ namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionSideEffectEventEnum;
-use Mush\Action\Event\PrepareSideEffectRollEvent;
+use Mush\Action\Event\ActionSideEffectRollEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
@@ -50,13 +50,13 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         }
 
         if (!$isSuperDirty) {
-            $dirtyEvent = new PrepareSideEffectRollEvent(
-                ActionSideEffectEventEnum::DIRTY_ROLL_RATE,
+            $dirtyEvent = new ActionSideEffectRollEvent(
+                $player,
                 $baseDirtyRate,
                 $action->getName(),
-                new \DateTime()
+                $date
             );
-            $this->eventService->callEvent($dirtyEvent, ActionSideEffectEventEnum::DIRTY_ROLL_RATE);
+            $this->eventService->callEvent($dirtyEvent, ActionSideEffectRollEvent::DIRTY_ROLL_RATE);
 
             $isSoiled = $this->randomService->isSuccessful($dirtyEvent->getRate());
             if (!$isSoiled) {
@@ -78,12 +78,13 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
     {
         $baseClumsinessRate = $action->getClumsinessRate();
 
-        $clumsinessEvent = new PrepareSideEffectRollEvent(
+        $clumsinessEvent = new ActionSideEffectRollEvent(
+            $player,
             $baseClumsinessRate,
             $action->getName(),
-            new \DateTime()
+            $date
         );
-        $this->eventService->callEvent($clumsinessEvent, ActionSideEffectEventEnum::CLUMSINESS_ROLL_RATE);
+        $this->eventService->callEvent($clumsinessEvent, ActionSideEffectRollEvent::CLUMSINESS_ROLL_RATE);
 
         $isHurt = $this->randomService->isSuccessful($clumsinessEvent->getRate());
 

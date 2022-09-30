@@ -2,14 +2,16 @@
 
 namespace Mush\Modifier\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Game\Event\AbstractModifierHolderEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Condition\ModifierCondition;
 use Mush\Modifier\Entity\Condition\ModifierConditionCollection;
 use Mush\Modifier\Entity\Config\Quantity\ActionCostModifierConfig;
 use Mush\Modifier\Entity\Config\Quantity\QuantityModifierConfig;
 use Mush\Modifier\Entity\Config\Quantity\SideEffectPercentageModifierConfig;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'modifier_config')]
@@ -25,6 +27,7 @@ abstract class ModifierConfig
 {
 
     public const EVERY_REASONS = 'every_reasons';
+    public const EXCLUDE = 'exclude';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -43,6 +46,11 @@ abstract class ModifierConfig
         $this->reach = $reach;
     }
 
+    public function addTargetEventsWithExcludedReasons(string $eventName, array $eventReason) : self {
+        $excluded = array_merge($eventReason, [self::EXCLUDE]);
+        $this->addTargetEvent($eventName, $excluded);
+    }
+
     public function addTargetEvent(string $eventName, array $eventReason = null) : self
     {
         $events =
@@ -56,10 +64,18 @@ abstract class ModifierConfig
     public function isTargetedBy(string $eventName, string $eventReason) : bool
     {
         $reasons = $this->targetEvents[$eventName];
-        return isset($reasons) && ($reasons === self::EVERY_REASONS || in_array($eventReason, $reasons));
+        if (isset($reasons)) {
+            if (in_array(self::EXCLUDE, $reasons)) {
+                return !in_array($eventReason, $reasons);
+            }
+
+            return  ($reasons === self::EVERY_REASONS || in_array($eventReason, $reasons));
+        }
+
+        return false;
     }
 
-    public abstract function modify(AbstractGameEvent $event);
+    public abstract function modify(AbstractModifierHolderEvent $event, EventServiceInterface $eventService);
 
     public function getTargetEvents(): array
     {

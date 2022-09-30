@@ -8,7 +8,7 @@ class AbstractGameEvent extends Event
 {
     protected \DateTime $time;
     protected string $reason;
-    private string $event;
+    private string $eventName;
 
     public function __construct(string $reason, \DateTime $time)
     {
@@ -16,14 +16,14 @@ class AbstractGameEvent extends Event
         $this->time = $time;
     }
 
-    public function setEvent(string $event): void
+    public function setEventName(string $eventName): void
     {
-        $this->event = $event;
+        $this->eventName = $eventName;
     }
 
-    public function getEvent(): string
+    public function getEventName(): string
     {
-        return $this->event;
+        return $this->eventName;
     }
 
     public function getTime(): \DateTime

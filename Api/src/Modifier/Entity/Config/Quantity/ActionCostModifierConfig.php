@@ -1,27 +1,23 @@
 <?php
 
-namespace Mush\Modifier\Entity\Quantity\ActionCost;
+namespace Mush\Modifier\Entity\Config\Quantity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Modifier\Entity\ModifierHolder;
-use Mush\Modifier\Entity\Quantity\QuantityModifier;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 
 #[ORM\Entity]
-class ActionCostModifier extends QuantityModifier
+class ActionCostModifierConfig extends QuantityModifierConfig
 {
 
     private string $playerVariable;
 
-    private string $mode;
-
-    public function __construct(ModifierHolder $holder, string $name, int $quantity, string $playerVariable, string $mode)
+    public function __construct(string $name, string $reach, int $quantity, string $mode, string $playerVariable,)
     {
-        parent::__construct($holder, $name, $quantity);
+        parent::__construct($name, $reach, $quantity, $mode);
         $this->playerVariable = $playerVariable;
-        $this->mode = $mode;
     }
 
     public function modify(AbstractGameEvent $event)
@@ -37,7 +33,7 @@ class ActionCostModifier extends QuantityModifier
         $actualQuantity = $event->getQuantity();
         $modifierQuantity = $this->getQuantity();
 
-        $value = match ($this->mode) {
+        $value = match ($this->getMode()) {
             ModifierModeEnum::ADDITIVE => $actualQuantity + $modifierQuantity,
             ModifierModeEnum::MULTIPLICATIVE => $actualQuantity * $modifierQuantity,
             ModifierModeEnum::SET_VALUE => $modifierQuantity,
@@ -49,11 +45,6 @@ class ActionCostModifier extends QuantityModifier
         } else {
             $event->setQuantity($value);
         }
-    }
-
-    public function getMode(): string
-    {
-        return $this->mode;
     }
 
     public function getPlayerVariable(): string

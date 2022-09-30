@@ -4,12 +4,10 @@ namespace Mush\Modifier\Service;
 
 use Mush\Action\Entity\Action;
 use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
-use Mush\Modifier\Entity\Quantity\ActionCost\ActionCostModifier;
-use Mush\Modifier\Entity\Trash\ModifierConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Entity\ChargeStatus;
 
 interface ModifierServiceInterface
 {
@@ -17,19 +15,9 @@ interface ModifierServiceInterface
 
     public function delete(Modifier $modifier): void;
 
-    public function createModifier(
-        ModifierConfig $modifierConfig,
-        ModifierHolder $holder,
-        ?ChargeStatus $chargeStatus = null
-    ): void;
+    public function getHolderFromConfig(ModifierConfig $config, ModifierHolder $holder, ModifierHolder $target = null) : ModifierHolder;
 
-    public function createActionCostModifier(
-        ModifierHolder $holder,
-        string $name,
-        int $quantity,
-        string $playerVariable,
-        string $mode
-    ) : ActionCostModifier;
+    public function createModifier(ModifierConfig $config, ModifierHolder $holder) : Modifier;
 
     public function deleteModifier(Modifier $modifier): void;
 

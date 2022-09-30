@@ -4,8 +4,8 @@ namespace Mush\Modifier\Service;
 
 use Mush\Action\Entity\Action;
 use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Entity\Trash\ModifierConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;

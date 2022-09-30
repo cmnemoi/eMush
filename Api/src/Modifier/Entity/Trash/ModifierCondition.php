@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Modifier\Entity;
+namespace Mush\Modifier\Entity\Trash;
 
 use Doctrine\ORM\Mapping as ORM;
 

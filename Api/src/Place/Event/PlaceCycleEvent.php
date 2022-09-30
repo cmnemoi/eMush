@@ -17,7 +17,7 @@ class PlaceCycleEvent extends AbstractGameEvent
         string $reason,
         \DateTime $time
     ) {
-        parent::__construct($reason, $time);
+        parent::__construct($reason, $place, $time);
 
         $this->place = $place;
     }

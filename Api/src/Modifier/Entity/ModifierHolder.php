@@ -2,8 +2,6 @@
 
 namespace Mush\Modifier\Entity;
 
-use Mush\Modifier\Entity\Collection\ModifierCollection;
-
 interface ModifierHolder
 {
     public function getModifiers(): ModifierCollection;

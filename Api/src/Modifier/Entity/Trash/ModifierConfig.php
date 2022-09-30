@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Modifier\Entity;
+namespace Mush\Modifier\Entity\Trash;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

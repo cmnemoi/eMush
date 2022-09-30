@@ -3,8 +3,11 @@
 namespace Mush\Modifier\Entity\Quantity\ActionCost;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Entity\Quantity\QuantityModifier;
+use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 
 #[ORM\Entity]
 class ActionCostModifier extends QuantityModifier
@@ -12,26 +15,45 @@ class ActionCostModifier extends QuantityModifier
 
     private string $playerVariable;
 
-    private array $targetActions = [];
+    private string $mode;
 
-    public function __construct(ModifierHolder $holder, string $name, int $quantity, string $playerVariable)
+    public function __construct(ModifierHolder $holder, string $name, int $quantity, string $playerVariable, string $mode)
     {
         parent::__construct($holder, $name, $quantity);
         $this->playerVariable = $playerVariable;
+        $this->mode = $mode;
     }
 
-    public function addTargetActions(array $actionsNames) : void
+    public function modify(AbstractGameEvent $event)
     {
-        $this->targetActions = array_merge($this->targetActions, $actionsNames);
+        if (!$event instanceof PlayerVariableEvent) {
+            return;
+        }
+
+        if ($event->getModifiedVariable() !== $this->playerVariable) {
+            return;
+        }
+
+        $actualQuantity = $event->getQuantity();
+        $modifierQuantity = $this->getQuantity();
+
+        switch ($this->mode)
+        {
+            case ModifierModeEnum::ADDITIVE:
+                $event->setQuantity($actualQuantity + $modifierQuantity);
+                break;
+            case ModifierModeEnum::MULTIPLICATIVE:
+                $event->setQuantity($actualQuantity * $modifierQuantity);
+                break;
+            case ModifierModeEnum::SET_VALUE:
+                $event->setQuantity($modifierQuantity);
+                break;
+        }
     }
 
-    public function addTargetAction(string $actionName) : void {
-        $this->addTargetActions([$actionName]);
-    }
-
-    public function getTargetActions(): array
+    public function getMode(): string
     {
-        return $this->targetActions;
+        return $this->mode;
     }
 
     public function getPlayerVariable(): string

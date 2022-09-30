@@ -258,6 +258,8 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setActionCost($oneActionPointCost)
             ->setSuccessRate(60)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::CRITICAL_FAIL, VisibilityEnum::PUBLIC)
         ;
 
         $manager->persist($attackAction);

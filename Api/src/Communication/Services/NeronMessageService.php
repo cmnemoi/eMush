@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
@@ -26,17 +27,20 @@ class NeronMessageService implements NeronMessageServiceInterface
     private EntityManagerInterface $entityManager;
     private RandomServiceInterface $randomService;
     private MessageRepository $messageRepository;
+    private TranslationServiceInterface $translationService;
 
     public function __construct(
         ChannelServiceInterface $channelService,
         EntityManagerInterface $entityManager,
         RandomServiceInterface $randomService,
-        MessageRepository $messageRepository
+        MessageRepository $messageRepository,
+        TranslationServiceInterface $translationService
     ) {
         $this->channelService = $channelService;
         $this->entityManager = $entityManager;
         $this->randomService = $randomService;
         $this->messageRepository = $messageRepository;
+        $this->translationService = $translationService;
     }
 
     public function createNeronMessage(
@@ -114,6 +118,7 @@ class NeronMessageService implements NeronMessageServiceInterface
                 break;
         }
 
+        $cause = $this->translationService->translate($cause . '.name', [], 'end_cause');
         $parameters = ['character' => $playerName, 'cause' => $cause];
         $this->createNeronMessage($message, $player->getDaedalus(), $parameters, $time);
     }

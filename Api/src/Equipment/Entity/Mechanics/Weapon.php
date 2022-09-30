@@ -14,17 +14,17 @@ class Weapon extends Tool
     #[ORM\Column(type: 'array', nullable: false)]
     private array $baseDamageRange = [0 => 0];
 
-    #[ORM\Column(type: 'array', nullable: false)]
-    private array $baseInjuryNumber = [0 => 0];
-
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $expeditionBonus = 0;
 
-    #[ORM\Column(type: 'array', nullable: false)]
-    private array $criticalSucessEvents = [];
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $criticalSucessRate = 0;
 
-    #[ORM\Column(type: 'array', nullable: false)]
-    private array $criticalFailEvents = [];
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $criticalFailRate = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $oneShotRate = 0;
 
     public function __construct()
     {
@@ -56,18 +56,6 @@ class Weapon extends Tool
         return $this;
     }
 
-    public function getBaseInjuryNumber(): array
-    {
-        return $this->baseInjuryNumber;
-    }
-
-    public function setBaseInjuryNumber(array $baseInjuryNumber): static
-    {
-        $this->baseInjuryNumber = $baseInjuryNumber;
-
-        return $this;
-    }
-
     public function getExpeditionBonus(): int
     {
         return $this->expeditionBonus;
@@ -80,26 +68,38 @@ class Weapon extends Tool
         return $this;
     }
 
-    public function getCriticalSucessEvents(): array
+    public function getCriticalSucessRate(): int
     {
-        return $this->criticalSucessEvents;
+        return $this->criticalSucessRate;
     }
 
-    public function setCriticalSucessEvents(array $criticalSucessEvents): static
+    public function setCriticalSucessRate(int $criticalSucessRate): static
     {
-        $this->criticalSucessEvents = $criticalSucessEvents;
+        $this->criticalSucessRate = $criticalSucessRate;
 
         return $this;
     }
 
-    public function getCriticalFailEvents(): array
+    public function getCriticalFailRate(): int
     {
-        return $this->criticalFailEvents;
+        return $this->criticalFailRate;
     }
 
-    public function setCriticalFailEvents(array $criticalFailEvents): static
+    public function setCriticalFailRate(int $criticalFailRate): static
     {
-        $this->criticalFailEvents = $criticalFailEvents;
+        $this->criticalFailRate = $criticalFailRate;
+
+        return $this;
+    }
+
+    public function getOneShotRate(): int
+    {
+        return $this->oneShotRate;
+    }
+
+    public function setOneShotRate(int $oneShotRate): static
+    {
+        $this->oneShotRate = $oneShotRate;
 
         return $this;
     }

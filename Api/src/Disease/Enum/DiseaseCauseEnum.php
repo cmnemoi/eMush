@@ -17,6 +17,8 @@ class DiseaseCauseEnum
     public const ALIEN_STEACK = 'alien_steack';
     public const ALIEN_FRUIT = 'alien_fruit';
     public const INFECTION = 'infection';
+    public const CRITICAL_FAIL_KNIFE = 'critical_fail_knife';
+    public const CRITICAL_SUCCESS_KNIFE = 'critical_success_knife';
 
     public const OVERRODE = 'overrode';
 }

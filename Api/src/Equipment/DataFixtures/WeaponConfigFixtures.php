@@ -70,7 +70,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $blasterMechanic
             ->setBaseAccuracy(50)
             ->setBaseDamageRange([2 => 5])
-            ->setBaseInjuryNumber([0 => 1])
             ->setExpeditionBonus(1)
             ->addAction($attackAction)
         ;
@@ -97,11 +96,18 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $knifeMechanic = new Weapon();
         $knifeMechanic
-            ->setBaseAccuracy(50)
-            ->setBaseDamageRange([1 => 5])
-            ->setBaseInjuryNumber([0 => 1])
+            ->setBaseAccuracy(60)
+            ->setBaseDamageRange([
+                1 => 25,
+                2 => 25,
+                3 => 25,
+                4 => 12,
+                5 => 12,
+                ])
             ->setExpeditionBonus(1)
-            ->setCriticalSucessEvents([])
+            ->setCriticalSucessRate(25)
+            ->setCriticalFailRate(20)
+            ->setOneShotRate(2)
             ->addAction($attackAction)
         ;
 
@@ -125,7 +131,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $grenadeMechanic
             ->setBaseAccuracy(100)
             ->setBaseDamageRange([0 => 10])
-            ->setBaseInjuryNumber([0 => 1])
             ->setExpeditionBonus(3)
             ->addAction($attackAction)
         ;
@@ -154,7 +159,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $natamyMechanic
             ->setBaseAccuracy(50)
             ->setBaseDamageRange([2 => 12])
-            ->setBaseInjuryNumber([1 => 3])
             ->setExpeditionBonus(1)
             ->addAction($attackAction)
         ;
@@ -186,7 +190,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $oldFaithfulMechanic
             ->setBaseAccuracy(50)
             ->setBaseDamageRange([2 => 3])
-            ->setBaseInjuryNumber([0 => 3])
             ->setExpeditionBonus(2)
             ->addAction($attackAction)
         ;
@@ -218,7 +221,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $lizaroJungleMechanic
             ->setBaseAccuracy(99)
             ->setBaseDamageRange([3 => 5])
-            ->setBaseInjuryNumber([1 => 2])
             ->setExpeditionBonus(1)
             ->addAction($attackAction)
         ;
@@ -244,7 +246,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $rocketLauncherMechanic
             ->setBaseAccuracy(50)
             ->setBaseDamageRange([0 => 8])
-            ->setBaseInjuryNumber([0 => 2])
             ->setExpeditionBonus(3)
             ->addAction($attackAction)
         ;

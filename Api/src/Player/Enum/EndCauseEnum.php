@@ -50,6 +50,7 @@ class EndCauseEnum
     public const DEATH_CAUSE_MAP = [
         ActionEnum::HIT => self::ASSASSINATED,
         ActionEnum::SHOOT => self::ASSASSINATED,
+        ActionEnum::ATTACK => self::ASSASSINATED,
         PlayerEvent::METAL_PLATE => self::METAL_PLATE,
         StatusEnum::FIRE => self::BURNT,
         ActionEnum::REMOVE_SPORE => self::SELF_EXTRACTED,

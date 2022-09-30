@@ -846,8 +846,8 @@
                     1 {**{character}** enfonce sa lame dans une des articulations de **{target_character}** qui pendouille maintenant tristement...}
                     2 {**{character}** estoque **{target_character}** avec maestria.}
                     3 {**{character}** taillade un gros morceau de **{target_character}**, c'est dégoutant...}
-                    4 {La lame de **{character}**, habilement maniée, fait une énorme estafilade a **{target_character}**.}
-                    5 {Le visage de **{target_character}** se tord quand **{character}** retire la lame qu'elle vient de lui enfoncer.}
+                    4 {La lame de **{character}**, habilement maniée, fait une énorme estafilade à **{target_character}**.}
+                    5 {Le visage de **{target_character}** se tord quand **{character}** retire la lame de son corps.}
                     6 {Les duels à la lame finissent rarement bien, **{character}** opère une coupe drastique dans le capital santé de **{target_character}**.}
                     7 {Malgré une jolie esquive, **{target_character}** verse un peu de son sang.}
                     8 {Peut-être l'esquive malencontreuse, peut-être le mauvais mouvement, peut-être une mauvaise imitation de combat vue dans un holodisque... **{target_character}** s'empale sur la lame de **{character}** avec lourdeur.}
@@ -865,7 +865,7 @@
                     2 {Zip, l'arme de **{character}** esquive fort élégamment **{target_character}** pour se heurter à un mur insolent. La lame se casse.}
                     3 {**{character}** se retourne vers **{character}** qui le menace de sa lame. Trop vif, trop rapide, trop précis, bref, trop...**{character}** fait un effort surhumain mais se trouve pris d'un malaise...}
                     4 {Au moment d'aggresser **{target_character}**, **{character}** se prend les pieds dans un tapis imaginaire et fait tomber sa lame.}
-                    5 {Qui eu crû que **{target_character}** aie de si bons réflêxes...**{character}** perd son couteau dans l'échange.}
+                    5 {Qui eut crû que **{target_character}** aie de si bons réflêxes...**{character}** perd son couteau dans l'échange.}
                     other {invalid version input}
                 }
                 </target>

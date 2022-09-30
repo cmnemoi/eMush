@@ -28,6 +28,8 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
     public const SEX_DISEASE_CAUSE_CONFIG = 'sex.disease.cause.config';
     public const TRAUMA_DISEASE_CAUSE_CONFIG = 'trauma.disease.cause.config';
     public const CONTACT_DISEASE_CAUSE_CONFIG = 'contact.disease.cause.config';
+    public const CRITICAL_FAIL_KNIFE_DISEASE_CAUSE_CONFIG = 'critical.fail.knife.disease.cause.config';
+    public const CRITICAL_SUCCESS_KNIFE_DISEASE_CAUSE_CONFIG = 'critical.success.knife.disease.cause.config';
 
     public function load(ObjectManager $manager): void
     {
@@ -236,6 +238,51 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
             );
         $manager->persist($diseaseCauseContact);
 
+        $diseaseCauseCriticalFailKnife = new DiseaseCauseConfig();
+        $diseaseCauseCriticalFailKnife
+            ->setGameConfig($gameConfig)
+            ->setName(DiseaseCauseEnum::CRITICAL_FAIL_KNIFE)
+            ->setDiseases(
+                [
+                    InjuryEnum::TORN_TONGUE => 1,
+                    InjuryEnum::BUSTED_SHOULDER => 1,
+                ]
+            );
+        $manager->persist($diseaseCauseCriticalFailKnife);
+
+        $diseaseCauseCriticalSuccessKnife = new DiseaseCauseConfig();
+        $diseaseCauseCriticalSuccessKnife
+            ->setGameConfig($gameConfig)
+            ->setName(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE)
+            ->setDiseases(
+                [
+                    InjuryEnum::CRITICAL_HAEMORRHAGE => 30,
+                    InjuryEnum::HAEMORRHAGE => 20,
+                    InjuryEnum::BUSTED_ARM_JOINT => 14,
+                    InjuryEnum::BRUISED_SHOULDER => 7,
+                    InjuryEnum::PUNCTURED_LUNG => 5,
+                    InjuryEnum::BURNT_HAND => 3,
+                    InjuryEnum::MISSING_FINGER => 2,
+                    InjuryEnum::BROKEN_FINGER => 2,
+                    InjuryEnum::MASHED_ARMS => 2,
+                    InjuryEnum::TORN_TONGUE => 2,
+                    InjuryEnum::OPEN_AIR_BRAIN => 2,
+                    InjuryEnum::MASHED_FOOT => 2,
+                    InjuryEnum::MASHED_LEGS => 2,
+                    InjuryEnum::INNER_EAR_DAMAGED => 2,
+                    InjuryEnum::BROKEN_SHOULDER => 2,
+                    InjuryEnum::BROKEN_FOOT => 2,
+                    InjuryEnum::MASHED_HAND => 1,
+                    InjuryEnum::BROKEN_RIBS => 1,
+                    InjuryEnum::BURNT_ARMS => 1,
+                    InjuryEnum::BUSTED_SHOULDER => 1,
+                    InjuryEnum::BURNS_90_OF_BODY => 1,
+                    InjuryEnum::DAMAGED_EARS => 1,
+                    InjuryEnum::BROKEN_LEG => 1,
+                ]
+            );
+        $manager->persist($diseaseCauseCriticalSuccessKnife);
+
         $manager->flush();
 
         $this->addReference(self::ALIEN_FRUIT_DISEASE_CAUSE_CONFIG, $diseaseCauseAlienFruit);
@@ -250,6 +297,8 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
         $this->addReference(self::SEX_DISEASE_CAUSE_CONFIG, $diseaseCauseSex);
         $this->addReference(self::TRAUMA_DISEASE_CAUSE_CONFIG, $diseaseCauseTrauma);
         $this->addReference(self::CONTACT_DISEASE_CAUSE_CONFIG, $diseaseCauseContact);
+        $this->addReference(self::CRITICAL_FAIL_KNIFE_DISEASE_CAUSE_CONFIG, $diseaseCauseCriticalFailKnife);
+        $this->addReference(self::CRITICAL_SUCCESS_KNIFE_DISEASE_CAUSE_CONFIG, $diseaseCauseCriticalSuccessKnife);
     }
 
     public function getDependencies()

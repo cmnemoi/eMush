@@ -11,4 +11,12 @@ class ActionTypeEnum
     public const ACTION_PILOT = 'action_pilot';
     public const ACTION_ATTACK = 'action_attack';
     public const ACTION_SPOKEN = 'action_spoken';
+
+    public static function getAgressiveActions(): array
+    {
+        return [
+            ActionEnum::HIT,
+            ActionEnum::SHOOT
+        ];
+    }
 }

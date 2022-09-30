@@ -4,6 +4,8 @@ namespace Mush\Modifier\Entity\Config\Quantity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Game\Event\AbstractModifierHolderEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -20,7 +22,7 @@ class ActionCostModifierConfig extends QuantityModifierConfig
         $this->playerVariable = $playerVariable;
     }
 
-    public function modify(AbstractGameEvent $event)
+    public function modify(AbstractModifierHolderEvent $event, EventServiceInterface $eventService)
     {
         if (!$event instanceof PlayerVariableEvent) {
             return;

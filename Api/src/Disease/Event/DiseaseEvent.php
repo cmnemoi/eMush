@@ -6,11 +6,12 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Game\Event\AbstractModifierHolderEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
 
-class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
+class DiseaseEvent extends AbstractModifierHolderEvent implements LoggableEventInterface
 {
     public const NEW_DISEASE = 'disease.new';
     public const APPEAR_DISEASE = 'disease.appear';
@@ -26,9 +27,9 @@ class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
         string $cureReason,
         \DateTime $time
     ) {
-        $this->playerDisease = $playerDisease;
+        parent::__construct($playerDisease->getPlayer(), $cureReason, $time);
 
-        parent::__construct($cureReason, $time);
+        $this->playerDisease = $playerDisease;
     }
 
     public function getAuthor(): ?Player

@@ -3,9 +3,10 @@
 namespace Mush\Player\Event;
 
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Game\Event\AbstractModifierHolderEvent;
 use Mush\Player\Entity\Player;
 
-class PlayerCycleEvent extends AbstractGameEvent
+class PlayerCycleEvent extends AbstractModifierHolderEvent
 {
     public const PLAYER_NEW_CYCLE = 'player.new.cycle';
     public const PLAYER_NEW_DAY = 'player.new.day';
@@ -17,7 +18,7 @@ class PlayerCycleEvent extends AbstractGameEvent
         string $reason,
         \DateTime $time
     ) {
-        parent::__construct($reason, $time);
+        parent::__construct($player, $reason, $time);
 
         $this->player = $player;
     }

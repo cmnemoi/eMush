@@ -2,10 +2,10 @@
 
 namespace Mush\Modifier\Entity\Config\Quantity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 abstract class QuantityModifierConfig extends ModifierConfig

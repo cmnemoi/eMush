@@ -160,7 +160,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return new ModifierCollection($this->modifiers->toArray());
     }
 
-    public function getAllModifiers(): ModifierCollection
+    public function getModifiersAtReach(): ModifierCollection
     {
         $allModifiers = new ModifierCollection($this->modifiers->toArray());
 

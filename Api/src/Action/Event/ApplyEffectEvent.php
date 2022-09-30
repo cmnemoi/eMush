@@ -2,13 +2,13 @@
 
 namespace Mush\Action\Event;
 
-use Mush\Game\Event\AbstractGameEvent;
+use Mush\Game\Event\AbstractModifierHolderEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Event\LoggableEventInterface;
 
-class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterface
+class ApplyEffectEvent extends AbstractModifierHolderEvent implements LoggableEventInterface
 {
     public const CONSUME = 'action.consume';
     public const HEAL = 'action.heal';
@@ -28,11 +28,11 @@ class ApplyEffectEvent extends AbstractGameEvent implements LoggableEventInterfa
         string $reason,
         \DateTime $time
     ) {
+        parent::__construct($player, $reason, $time);
+
         $this->player = $player;
         $this->visibility = $visibility;
         $this->parameter = $parameter;
-
-        parent::__construct($reason, $time);
     }
 
     public function getPlayer(): Player

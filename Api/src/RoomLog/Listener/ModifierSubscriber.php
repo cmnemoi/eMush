@@ -31,7 +31,7 @@ class ModifierSubscriber implements EventSubscriberInterface
     {
         $reason = $event->getReason();
 
-        if ($event->wasModifierUsed() && isset(LogEnum::MODIFIER_LOG_ENUM[$reason])) {
+        if (isset(LogEnum::MODIFIER_LOG_ENUM[$reason])) {
             $logKey = LogEnum::MODIFIER_LOG_ENUM[$reason];
 
             $this->createEventLog($logKey, $event);

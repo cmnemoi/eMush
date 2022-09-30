@@ -224,7 +224,7 @@ class Daedalus implements ModifierHolder
         return new ModifierCollection($this->modifiers->toArray());
     }
 
-    public function getAllModifiers(): ModifierCollection
+    public function getModifiersAtReach(): ModifierCollection
     {
         return new ModifierCollection($this->modifiers->toArray());
     }

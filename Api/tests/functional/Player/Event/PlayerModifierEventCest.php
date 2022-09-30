@@ -18,15 +18,15 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class PlayerModifierEventCest
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventServiceService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventServiceService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testDispatchMoralChange(FunctionalTester $I)
@@ -76,11 +76,11 @@ class PlayerModifierEventCest
             new \DateTime()
         );
 
-        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventServiceService->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(4, $player->getMoralPoint());
         $I->assertCount(0, $player->getStatuses());
 
-        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventServiceService->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(3, $player->getMoralPoint());
         $I->assertCount(1, $player->getStatuses());
         $I->seeInRepository(
@@ -95,7 +95,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventServiceService->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(1, $player->getMoralPoint());
         $I->assertCount(1, $player->getStatuses());
         $I->dontSeeInRepository(
@@ -114,7 +114,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventServiceService->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(0, $player->getMoralPoint());
         $I->assertCount(1, $player->getStatuses());
         $I->dontSeeInRepository(
@@ -133,7 +133,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventServiceService->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(7, $player->getMoralPoint());
         $I->assertCount(0, $player->getStatuses());
     }
@@ -184,7 +184,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventServiceService->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(-1, $player->getSatiety());
         $I->assertCount(0, $player->getStatuses());
 
@@ -195,7 +195,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventServiceService->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(2, $player->getSatiety());
         $I->assertCount(0, $player->getStatuses());
 
@@ -206,7 +206,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventServiceService->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(3, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
 
@@ -217,7 +217,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventServiceService->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(2, $player->getSatiety());
         $I->assertCount(0, $player->getStatuses());
 
@@ -228,7 +228,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventServiceService->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(-25, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
     }
@@ -279,7 +279,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventServiceService->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(-1, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
 
@@ -290,7 +290,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventServiceService->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(4, $player->getSatiety());
         $I->assertCount(2, $player->getStatuses());
 
@@ -301,7 +301,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventServiceService->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(-25, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
     }

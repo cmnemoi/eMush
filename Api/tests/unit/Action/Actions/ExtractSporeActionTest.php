@@ -29,7 +29,7 @@ class ExtractSporeActionTest extends AbstractActionTest
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new ExtractSpore(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->statusService,

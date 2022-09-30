@@ -19,27 +19,27 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class ChannelService implements ChannelServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private ChannelRepository $channelRepository;
     private ChannelPlayerRepository $channelPlayerRepository;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ChannelRepository $channelRepository,
         ChannelPlayerRepository $channelPlayerRepository,
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         StatusServiceInterface $statusService
     ) {
         $this->entityManager = $entityManager;
         $this->channelRepository = $channelRepository;
         $this->channelPlayerRepository = $channelPlayerRepository;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->statusService = $statusService;
     }
 
@@ -79,7 +79,7 @@ class ChannelService implements ChannelServiceInterface
         $this->entityManager->flush();
 
         $event = new ChannelEvent($channel, CommunicationActionEnum::CREATE_CHANNEL, new \DateTime(), $player);
-        $this->eventDispatcher->dispatch($event, ChannelEvent::NEW_CHANNEL);
+        $this->eventService->callEvent($event, ChannelEvent::NEW_CHANNEL);
 
         return $channel;
     }
@@ -109,7 +109,7 @@ class ChannelService implements ChannelServiceInterface
     public function invitePlayer(Player $player, Channel $channel): Channel
     {
         $event = new ChannelEvent($channel, CommunicationActionEnum::INVITED, new \DateTime(), $player);
-        $this->eventDispatcher->dispatch($event, ChannelEvent::JOIN_CHANNEL);
+        $this->eventService->callEvent($event, ChannelEvent::JOIN_CHANNEL);
 
         return $channel;
     }
@@ -124,7 +124,7 @@ class ChannelService implements ChannelServiceInterface
             $time = new \DateTime();
         }
         $event = new ChannelEvent($channel, $reason, $time, $player);
-        $this->eventDispatcher->dispatch($event, ChannelEvent::EXIT_CHANNEL);
+        $this->eventService->callEvent($event, ChannelEvent::EXIT_CHANNEL);
 
         if ($reason === CommunicationActionEnum::EXIT) {
             $this->updatePrivateChannel($channel, CommunicationActionEnum::EXIT, $time);

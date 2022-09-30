@@ -31,13 +31,13 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SymptomService implements SymptomServiceInterface
 {
     private ActionServiceInterface $actionService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
     private ModifierServiceInterface $modifierService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private PlayerServiceInterface $playerService;
@@ -47,7 +47,7 @@ class SymptomService implements SymptomServiceInterface
 
     public function __construct(
         ActionServiceInterface $actionService,
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ModifierServiceInterface $modifierService,
         PlayerDiseaseServiceInterface $playerDiseaseService,
         PlayerServiceInterface $playerService,
@@ -56,7 +56,7 @@ class SymptomService implements SymptomServiceInterface
         ValidatorInterface $validator,
     ) {
         $this->actionService = $actionService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->modifierService = $modifierService;
         $this->playerDiseaseService = $playerDiseaseService;
         $this->playerService = $playerService;
@@ -114,7 +114,7 @@ class SymptomService implements SymptomServiceInterface
             $time
         );
 
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
     public function handleBreakouts(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
@@ -266,7 +266,7 @@ class SymptomService implements SymptomServiceInterface
             $time
         );
 
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
     }
 
     public function handleVomiting(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
@@ -350,7 +350,7 @@ class SymptomService implements SymptomServiceInterface
         }
 
         $attackAction = new Attack(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -388,7 +388,7 @@ class SymptomService implements SymptomServiceInterface
         }
 
         $shootAction = new Shoot(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
@@ -424,7 +424,7 @@ class SymptomService implements SymptomServiceInterface
         })->first();
 
         $moveAction = new Move(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->playerService

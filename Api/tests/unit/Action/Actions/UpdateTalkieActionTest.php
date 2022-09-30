@@ -29,7 +29,7 @@ class UpdateTalkieActionTest extends AbstractActionTest
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->action = new UpdateTalkie(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService
@@ -73,7 +73,7 @@ class UpdateTalkieActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $talkie);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();
 
         $result = $this->action->execute();

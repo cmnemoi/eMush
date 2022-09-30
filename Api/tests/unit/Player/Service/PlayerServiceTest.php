@@ -25,12 +25,12 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class PlayerServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface $eventService;
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
     /** @var PlayerRepository|Mockery\Mock */
@@ -51,7 +51,7 @@ class PlayerServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventService = Mockery::mock(EventServiceInterface::class);
         $this->repository = Mockery::mock(PlayerRepository::class);
         $this->deadPlayerInfoRepository = Mockery::mock(DeadPlayerInfoRepository::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
@@ -61,7 +61,7 @@ class PlayerServiceTest extends TestCase
 
         $this->service = new PlayerService(
             $this->entityManager,
-            $this->eventDispatcher,
+            $this->eventService,
             $this->repository,
             $this->deadPlayerInfoRepository,
             $this->roomLogService,
@@ -118,7 +118,7 @@ class PlayerServiceTest extends TestCase
             ->shouldReceive('flush')
             ->once()
         ;
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
             ->once()
         ;
@@ -198,7 +198,7 @@ class PlayerServiceTest extends TestCase
             'flush' => null,
         ]);
 
-        $this->eventDispatcher->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('dispatch');
 
         $player = $this->service->endPlayer($player, $message);
 

@@ -24,7 +24,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class ModifierServiceTest extends TestCase
 {
@@ -34,8 +34,8 @@ class ModifierServiceTest extends TestCase
     private RandomServiceInterface $randomService;
     /** @var ModifierConditionServiceInterface|Mockery\Mock */
     private ModifierConditionServiceInterface $conditionService;
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface $eventService;
 
     private ModifierService $service;
 
@@ -45,13 +45,13 @@ class ModifierServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventService = Mockery::mock(EventServiceInterface::class);
         $this->conditionService = Mockery::mock(ModifierConditionServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new ModifierService(
             $this->entityManager,
-            $this->eventDispatcher,
+            $this->eventService,
             $this->conditionService,
             $this->randomService,
         );
@@ -604,7 +604,7 @@ class ModifierServiceTest extends TestCase
             ->andReturn(new ModifierCollection([$modifier1]))
             ->once()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $this->service->applyActionModifiers($action, $player, null);
     }
@@ -618,7 +618,7 @@ class ModifierServiceTest extends TestCase
         $player->setDaedalus($daedalus)->setPlace($room);
 
         $this->conditionService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection())->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $modifiedValue = $this->service->getEventModifiedValue(
             $player,
@@ -641,7 +641,7 @@ class ModifierServiceTest extends TestCase
         $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
         $this->conditionService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1]))->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $modifiedValue = $this->service->getEventModifiedValue(
             $player,
@@ -668,7 +668,7 @@ class ModifierServiceTest extends TestCase
         $modifier2 = new Modifier($player, $modifierConfig2);
         $modifier2->setCharge($status);
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
         $this->conditionService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1, $modifier2]))->once();
 
         $modifiedValue = $this->service->getEventModifiedValue(
@@ -701,7 +701,7 @@ class ModifierServiceTest extends TestCase
         $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
         $this->conditionService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1]))->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $modifiedValue = $this->service->getEventModifiedValue(
             $player,

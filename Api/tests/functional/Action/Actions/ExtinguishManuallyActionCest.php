@@ -26,17 +26,17 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class ExtinguishManuallyActionCest
 {
     private ExtinguishManually $extinguishManually;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
         $this->extinguishManually = $I->grabService(ExtinguishManually::class);
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testExtinguishManually(FunctionalTester $I)
@@ -77,7 +77,7 @@ class ExtinguishManuallyActionCest
 
         $statusEvent = new StatusEvent(StatusEnum::FIRE, $room, EventEnum::NEW_CYCLE, new DateTime());
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $actionCost = new ActionCost();
         $actionCost

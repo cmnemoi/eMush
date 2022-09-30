@@ -26,12 +26,12 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class GearToolServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface $eventService;
     /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
 
@@ -42,11 +42,11 @@ class GearToolServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventService = Mockery::mock(EventServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->service = new GearToolService(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->statusService
         );
     }

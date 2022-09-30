@@ -22,18 +22,19 @@ use Mush\Place\Entity\Place;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class GameEquipmentServiceTest extends TestCase
 {
-    private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
-
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface|Mockery\Mock $eventService;
+    /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface|Mockery\Mock $entityManager;
-
+    /** @var GameEquipmentRepository|Mockery\Mock */
     private GameEquipmentRepository|Mockery\Mock $repository;
-
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
-
+    /** @var EquipmentServiceInterface|Mockery\Mock */
     private EquipmentServiceInterface|Mockery\Mock $equipmentService;
 
     private GameEquipmentService $service;
@@ -44,7 +45,7 @@ class GameEquipmentServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventService = Mockery::mock(EventServiceInterface::class);
         $this->repository = Mockery::mock(GameEquipmentRepository::class);
         $this->equipmentService = Mockery::mock(EquipmentServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
@@ -54,7 +55,7 @@ class GameEquipmentServiceTest extends TestCase
             $this->repository,
             $this->equipmentService,
             $this->randomService,
-            $this->eventDispatcher,
+            $this->eventService,
         );
     }
 
@@ -155,7 +156,7 @@ class GameEquipmentServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => (
                 $event instanceof StatusEvent &&
@@ -198,7 +199,7 @@ class GameEquipmentServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => (
                 $event instanceof StatusEvent &&

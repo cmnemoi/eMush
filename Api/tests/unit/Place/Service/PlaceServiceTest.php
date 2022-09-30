@@ -19,7 +19,7 @@ use Mush\Place\Repository\PlaceRepository;
 use Mush\Place\Service\PlaceService;
 use Mush\Place\Service\PlaceServiceInterface;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class PlaceServiceTest extends TestCase
 {
@@ -27,8 +27,8 @@ class PlaceServiceTest extends TestCase
 
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface $eventService;
     /** @var PlaceRepository|Mockery\Mock */
     private PlaceRepository $repository;
 
@@ -38,12 +38,12 @@ class PlaceServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventService = Mockery::mock(EventServiceInterface::class);
         $this->repository = Mockery::mock(PlaceRepository::class);
 
         $this->placeService = new PlaceService(
             $this->entityManager,
-            $this->eventDispatcher,
+            $this->eventService,
             $this->repository,
         );
     }
@@ -74,7 +74,7 @@ class PlaceServiceTest extends TestCase
 
         $roomConfig = $this->createRoomConfig('bridge', $daedalusConfig);
 
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
             ->withArgs(fn (PlaceInitEvent $event) => (
                 $event->getPlaceConfig() === $roomConfig)

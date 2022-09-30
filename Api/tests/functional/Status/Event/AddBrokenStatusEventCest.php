@@ -18,15 +18,15 @@ use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class AddBrokenStatusEventCest
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventServiceService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventServiceService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testDispatchEquipmentBroken(FunctionalTester $I)
@@ -78,7 +78,7 @@ class AddBrokenStatusEventCest
         );
         $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventServiceService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(1, $room->getEquipments()->first()->getStatuses());

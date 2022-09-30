@@ -20,19 +20,19 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\Validator\Exception\LogicException;
 
 class GearToolService implements GearToolServiceInterface
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         StatusServiceInterface $statusService
     ) {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->statusService = $statusService;
     }
 
@@ -164,7 +164,7 @@ class GearToolService implements GearToolServiceInterface
                     EventEnum::OUT_OF_CHARGE,
                     new \DateTime()
                 );
-                $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+                $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
         }
     }

@@ -8,20 +8,20 @@ use Mush\Modifier\Service\ModifierService;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
 {
     private ModifierService $modifierService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         ModifierService $modifierService,
-        EventDispatcherInterface $eventDispatcher
+        EventServiceInterface $eventService
     ) {
         $this->modifierService = $modifierService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -49,7 +49,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         foreach ($eventModifiers as $modifier) {
             $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getReason());
 
-            $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventService->callEvent($event, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 

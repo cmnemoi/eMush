@@ -9,24 +9,26 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
 {
     private PlayerServiceInterface $playerService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
     private ModifierServiceInterface $modifierService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
         PlayerServiceInterface $playerService,
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ModifierServiceInterface $modifierService,
         RandomServiceInterface $randomService
     ) {
         $this->playerService = $playerService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->modifierService = $modifierService;
         $this->randomService = $randomService;
     }
@@ -64,7 +66,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             $event->getReason(),
             $event->getTime()
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
     public function onPanicCrisis(PlayerEvent $event): void
@@ -83,6 +85,6 @@ class PlayerSubscriber implements EventSubscriberInterface
             PlayerEvent::PANIC_CRISIS,
             $event->getTime()
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 }

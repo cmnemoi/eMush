@@ -4,16 +4,16 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Place\Event\PlaceCycleEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlaceCycleSubscriber implements EventSubscriberInterface
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
-    public function __construct(EventDispatcherInterface $eventDispatcher)
+    public function __construct(EventServiceInterface $eventService)
     {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -35,7 +35,7 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
                 $event->getReason(),
                 $event->getTime()
             );
-            $this->eventDispatcher->dispatch($itemNewCycle, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
+            $this->eventService->callEvent($itemNewCycle, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
         }
     }
 
@@ -51,7 +51,7 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
                 $event->getTime()
             );
 
-            $this->eventDispatcher->dispatch($equipmentNewDay, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
+            $this->eventService->callEvent($equipmentNewDay, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
         }
     }
 }

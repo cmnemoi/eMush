@@ -16,7 +16,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -35,14 +35,14 @@ class OpenCapsule extends AbstractAction
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
         GameEquipmentServiceInterface $gameEquipmentService
     ) {
         parent::__construct(
-            $eventDispatcher,
+            $eventService,
             $actionService,
             $validator
         );
@@ -80,7 +80,7 @@ class OpenCapsule extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         // Get the content
         $contentName = $this->randomService->getSingleRandomElementFromProbaArray(self::$capsuleContent);

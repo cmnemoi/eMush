@@ -23,17 +23,19 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class FireTest extends TestCase
 {
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
-
-    private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
-
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface|Mockery\Mock $eventService;
+    /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
-
+    /** @var DaedalusServiceInterface|Mockery\Mock */
     private DaedalusServiceInterface|Mockery\Mock $daedalusService;
+
     private Fire $cycleHandler;
 
     /**
@@ -42,13 +44,13 @@ class FireTest extends TestCase
     public function before()
     {
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventService = Mockery::mock(EventServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
 
         $this->cycleHandler = new Fire(
             $this->randomService,
-            $this->eventDispatcher,
+            $this->eventService,
             $this->gameEquipmentService,
             $this->daedalusService
         );
@@ -97,7 +99,7 @@ class FireTest extends TestCase
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaArray')->andReturn(2)->twice();
         $this->daedalusService->shouldReceive('persist')->once();
 
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
             ->withArgs(fn (PlayerVariableEvent $playerEvent, string $eventName) => (
                 intval($playerEvent->getQuantity()) === -2 &&
@@ -107,7 +109,7 @@ class FireTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher
+        $this->eventService
             ->shouldReceive('dispatch')
             ->withArgs(fn (DaedalusModifierEvent $daedalusEvent, string $eventName) => (
                 $eventName === AbstractQuantityEvent::CHANGE_VARIABLE &&

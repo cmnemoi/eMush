@@ -21,7 +21,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class HealCest
 {
@@ -30,7 +30,7 @@ class HealCest
     public function _before(FunctionalTester $I)
     {
         $this->healAction = $I->grabService(Heal::class);
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventServiceService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testHeal(FunctionalTester $I)

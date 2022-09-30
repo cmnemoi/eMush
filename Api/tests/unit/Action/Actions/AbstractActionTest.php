@@ -16,13 +16,14 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractActionTest extends TestCase
 {
-    protected Mockery\Mock|EventDispatcherInterface $eventDispatcher;
+    /** @var EventServiceInterface|Mockery\Mock */
+    protected EventServiceInterface|Mockery\Mock $eventService;
 
     protected ActionServiceInterface|Mockery\Mock $actionService;
 
@@ -36,8 +37,8 @@ abstract class AbstractActionTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->eventDispatcher
+        $this->eventService = Mockery::mock(EventServiceInterface::class);
+        $this->eventService
             ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof ActionEvent &&
                 $event->getAction() === $this->actionEntity

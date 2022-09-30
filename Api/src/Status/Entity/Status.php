@@ -27,8 +27,14 @@ class Status
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     protected ?int $id = null;
 
-    #[ORM\OneToOne(inversedBy: 'owner', targetEntity: StatusTarget::class, cascade: ['ALL'])]
-    protected ?StatusTarget $owner;
+    #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'statuses')]
+    private ?Player $holderPlayer = null;
+
+    #[ORM\ManyToOne(targetEntity: GameEquipment::class, inversedBy: 'statuses')]
+    private ?GameEquipment $holderEquipment = null;
+
+    #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'statuses')]
+    private ?Place $holderPlace = null;
 
     #[ORM\OneToOne(inversedBy: 'target', targetEntity: StatusTarget::class, cascade: ['ALL'])]
     protected ?StatusTarget $target = null;

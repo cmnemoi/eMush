@@ -9,20 +9,20 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class StatusSubscriber implements EventSubscriberInterface
 {
     private StatusServiceInterface $statusService;
-    protected EventDispatcherInterface $eventDispatcher;
+    protected EventServiceInterface $eventService;
 
     public function __construct(
         StatusServiceInterface $statusService,
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
     ) {
         $this->statusService = $statusService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -76,7 +76,7 @@ class StatusSubscriber implements EventSubscriberInterface
                     $event->getReason(),
                     $event->getTime()
                 );
-                $this->eventDispatcher->dispatch($removeEvent, StatusEvent::STATUS_REMOVED);
+                $this->eventService->callEvent($removeEvent, StatusEvent::STATUS_REMOVED);
             }
         }
 

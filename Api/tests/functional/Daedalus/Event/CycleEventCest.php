@@ -21,15 +21,15 @@ use Mush\Game\Enum\LanguageEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class CycleEventCest
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testOxygenCycleSubscriber(FunctionalTester $I)
@@ -92,7 +92,7 @@ class CycleEventCest
             EventEnum::NEW_CYCLE,
             new DateTime()
         );
-        $this->eventDispatcher->dispatch($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         $I->assertEquals(0, $daedalus->getOxygen());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerAlive());

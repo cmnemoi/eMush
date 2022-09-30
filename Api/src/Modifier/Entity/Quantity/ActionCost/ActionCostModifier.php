@@ -37,17 +37,17 @@ class ActionCostModifier extends QuantityModifier
         $actualQuantity = $event->getQuantity();
         $modifierQuantity = $this->getQuantity();
 
-        switch ($this->mode)
-        {
-            case ModifierModeEnum::ADDITIVE:
-                $event->setQuantity($actualQuantity + $modifierQuantity);
-                break;
-            case ModifierModeEnum::MULTIPLICATIVE:
-                $event->setQuantity($actualQuantity * $modifierQuantity);
-                break;
-            case ModifierModeEnum::SET_VALUE:
-                $event->setQuantity($modifierQuantity);
-                break;
+        $value = match ($this->mode) {
+            ModifierModeEnum::ADDITIVE => $actualQuantity + $modifierQuantity,
+            ModifierModeEnum::MULTIPLICATIVE => $actualQuantity * $modifierQuantity,
+            ModifierModeEnum::SET_VALUE => $modifierQuantity,
+            default => throw new \LogicException('The Modifier Mode is not correct.'),
+        };
+
+        if (($value < 0 && $actualQuantity > 0) || ($value > 0 && $actualQuantity < 0)) {
+            $event->setQuantity(0);
+        } else {
+            $event->setQuantity($value);
         }
     }
 

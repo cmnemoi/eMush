@@ -50,6 +50,6 @@ class ReportEquipment extends AbstractAction
             new \DateTime()
         );
 
-        $this->eventDispatcher->dispatch($reportEvent, ApplyEffectEvent::REPORT_EQUIPMENT);
+        $this->eventService->callEvent($reportEvent, ApplyEffectEvent::REPORT_EQUIPMENT);
     }
 }

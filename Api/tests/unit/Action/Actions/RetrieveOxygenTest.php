@@ -33,7 +33,7 @@ class RetrieveOxygenTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_OXYGEN);
 
         $this->action = new RetrieveOxygen(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService
@@ -86,7 +86,7 @@ class RetrieveOxygenTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameTank);

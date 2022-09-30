@@ -21,7 +21,7 @@ class SpreadFireActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::SPREAD_FIRE, 1);
 
         $this->action = new SpreadFire(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -45,7 +45,7 @@ class SpreadFireActionTest extends AbstractActionTest
 
         // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $result = $this->action->execute();
 

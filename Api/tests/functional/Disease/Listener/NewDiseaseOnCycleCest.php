@@ -21,15 +21,15 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class NewDiseaseOnCycleCest
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventServiceService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventServiceService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testNewCycleDisease(FunctionalTester $I)
@@ -83,7 +83,7 @@ class NewDiseaseOnCycleCest
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CYCLE_DISEASE);
+        $this->eventServiceService->dispatch($playerEvent, PlayerEvent::CYCLE_DISEASE);
 
         $I->seeInRepository(PlayerDisease::class, [
             'player' => $player->getId(),
@@ -149,7 +149,7 @@ class NewDiseaseOnCycleCest
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CYCLE_DISEASE);
+        $this->eventServiceService->dispatch($playerEvent, PlayerEvent::CYCLE_DISEASE);
 
         $I->seeInRepository(PlayerDisease::class, [
             'player' => $player->getId(),

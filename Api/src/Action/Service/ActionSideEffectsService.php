@@ -12,20 +12,20 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 {
     public const ACTION_INJURY_MODIFIER = -2;
 
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
     private ModifierServiceInterface $modifierService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ModifierServiceInterface $modifierService
     ) {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->modifierService = $modifierService;
     }
 
@@ -62,7 +62,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 
         $statusEvent = new StatusEvent(PlayerStatusEnum::DIRTY, $player, $action->getName(), new \DateTime());
         $statusEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
     private function handleInjury(Action $action, Player $player, \DateTime $date): void
@@ -91,6 +91,6 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             ModifierScopeEnum::EVENT_CLUMSINESS,
             $dateTime
         );
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 }

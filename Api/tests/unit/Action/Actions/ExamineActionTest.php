@@ -22,7 +22,7 @@ class ExamineActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::EXAMINE, 0);
 
         $this->action = new ReportEquipment(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -48,7 +48,7 @@ class ExamineActionTest extends AbstractActionTest
 
         // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $result = $this->action->execute();
 

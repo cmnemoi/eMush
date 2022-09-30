@@ -14,7 +14,7 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class ActionService implements ActionServiceInterface
 {
@@ -22,14 +22,14 @@ class ActionService implements ActionServiceInterface
     public const BASE_MOVEMENT_POINT_CONVERSION_GAIN = 2;
     public const BASE_MOVEMENT_POINT_CONVERSION_COST = 1;
 
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
     private ModifierServiceInterface $modifierService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ModifierServiceInterface $modifierService,
     ) {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->modifierService = $modifierService;
     }
 
@@ -178,6 +178,6 @@ class ActionService implements ActionServiceInterface
         );
 
         $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 }

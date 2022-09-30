@@ -38,7 +38,7 @@ class DispenseActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
         $this->action = new Dispense(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,

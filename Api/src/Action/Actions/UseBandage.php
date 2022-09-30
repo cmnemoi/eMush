@@ -58,7 +58,7 @@ class UseBandage extends AbstractAction
             $time
         );
         $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
-        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         // destroy the bandage
         $equipmentEvent = new InteractWithEquipmentEvent(
@@ -68,6 +68,6 @@ class UseBandage extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 }

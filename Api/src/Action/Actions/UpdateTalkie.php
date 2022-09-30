@@ -91,7 +91,7 @@ class UpdateTalkie extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;

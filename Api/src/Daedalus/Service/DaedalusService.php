@@ -28,12 +28,12 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class DaedalusService implements DaedalusServiceInterface
 {
     private EntityManagerInterface $entityManager;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
     private DaedalusRepository $repository;
     private CycleServiceInterface $cycleService;
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -42,7 +42,7 @@ class DaedalusService implements DaedalusServiceInterface
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         DaedalusRepository $repository,
         CycleServiceInterface $cycleService,
         GameEquipmentServiceInterface $gameEquipmentService,
@@ -50,7 +50,7 @@ class DaedalusService implements DaedalusServiceInterface
         RoomLogServiceInterface $roomLogService
     ) {
         $this->entityManager = $entityManager;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
         $this->repository = $repository;
         $this->cycleService = $cycleService;
         $this->gameEquipmentService = $gameEquipmentService;
@@ -134,7 +134,7 @@ class DaedalusService implements DaedalusServiceInterface
             EventEnum::CREATE_DAEDALUS,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
+        $this->eventService->callEvent($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
 
         return $daedalus;
     }
@@ -190,7 +190,7 @@ class DaedalusService implements DaedalusServiceInterface
                     DaedalusEvent::FULL_DAEDALUS,
                     $date
                 );
-                $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+                $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
             }
         }
 
@@ -208,7 +208,7 @@ class DaedalusService implements DaedalusServiceInterface
                 $date
             );
 
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+            $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
         } else {
             $capsule = $player->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
 
@@ -257,7 +257,7 @@ class DaedalusService implements DaedalusServiceInterface
                 $cause,
                 $date
             );
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+            $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
         }
 
         return $daedalus;
@@ -307,7 +307,7 @@ class DaedalusService implements DaedalusServiceInterface
                 $date
             );
 
-            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::END_DAEDALUS);
+            $this->eventService->callEvent($daedalusEvent, DaedalusEvent::END_DAEDALUS);
         } else {
             $daedalus->setHull(min($newHull, $maxHull));
         }

@@ -24,7 +24,7 @@ class DropActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::DROP);
 
         $this->action = new Drop(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
         );
@@ -60,7 +60,7 @@ class DropActionTest extends AbstractActionTest
         ;
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 

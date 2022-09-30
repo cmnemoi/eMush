@@ -39,7 +39,7 @@ class TreatPlantActionTest extends AbstractActionTest
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new TreatPlant(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->gameEquipmentService,

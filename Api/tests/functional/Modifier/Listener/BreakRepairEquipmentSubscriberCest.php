@@ -25,15 +25,15 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 
 class BreakRepairEquipmentSubscriberCest
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventServiceService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->eventServiceService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testRepairGearPlaceReach(FunctionalTester $I)
@@ -103,7 +103,7 @@ class BreakRepairEquipmentSubscriberCest
         );
         $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventServiceService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);
@@ -120,7 +120,7 @@ class BreakRepairEquipmentSubscriberCest
         );
         $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
+        $this->eventServiceService->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);

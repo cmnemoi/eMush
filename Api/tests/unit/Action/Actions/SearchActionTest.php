@@ -36,7 +36,7 @@ class SearchActionTest extends AbstractActionTest
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new Search(
-            $this->eventDispatcher,
+            $this->eventService,
             $this->actionService,
             $this->validator,
             $this->statusService,
@@ -114,7 +114,7 @@ class SearchActionTest extends AbstractActionTest
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->statusService->shouldReceive('delete');
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
 
         $result = $this->action->execute();
 
@@ -162,7 +162,7 @@ class SearchActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('dispatch')->once();
         $this->gameEquipmentService->shouldReceive('persist');
 
         $result = $this->action->execute();

@@ -21,7 +21,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -33,14 +33,14 @@ class Build extends AbstractAction
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GearToolServiceInterface $gearToolService,
         GameEquipmentServiceInterface $gameEquipmentService
     ) {
         parent::__construct(
-            $eventDispatcher,
+            $eventService,
             $actionService,
             $validator
         );
@@ -113,7 +113,7 @@ class Build extends AbstractAction
                     $time
                 );
 
-                $this->eventDispatcher->dispatch($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+                $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
             }
         }
 
@@ -124,7 +124,7 @@ class Build extends AbstractAction
             $this->getActionName(),
             $time
         );
-        $this->eventDispatcher->dispatch($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         // Create the equipment
         $blueprintResult = $this->gameEquipmentService->createGameEquipment(

@@ -20,6 +20,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Game\Service\EventServiceInterface;
 
 class SelfHealCest
 {
@@ -28,6 +29,7 @@ class SelfHealCest
     public function _before(FunctionalTester $I)
     {
         $this->selfHealAction = $I->grabService(SelfHeal::class);
+        $this->eventServiceService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testSelfHeal(FunctionalTester $I)

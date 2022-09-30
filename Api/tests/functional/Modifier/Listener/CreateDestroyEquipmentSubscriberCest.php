@@ -25,17 +25,18 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CreateDestroyEquipmentSubscriberCest
 {
-    private EventDispatcherInterface $eventDispatcher;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private EventServiceInterface $eventServiceService;
 
     public function _before(FunctionalTester $I): void
     {
-        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->eventServiceService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testCreateGearPlayerScope(FunctionalTester $I): void
@@ -255,7 +256,7 @@ class CreateDestroyEquipmentSubscriberCest
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($destroyEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventServiceService->callEvent($destroyEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 0);
@@ -343,7 +344,7 @@ class CreateDestroyEquipmentSubscriberCest
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($destroyEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventServiceService->callEvent($destroyEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $I->assertEquals(0, $room->getEquipments()->count());
         $I->assertEquals(1, $player->getEquipments()->count());

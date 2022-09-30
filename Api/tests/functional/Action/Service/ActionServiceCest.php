@@ -10,7 +10,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Trash\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;

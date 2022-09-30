@@ -18,7 +18,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Trash\ModifierConfig;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\DoorEnum;

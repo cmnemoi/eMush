@@ -1,10 +1,9 @@
 <?php
 
-namespace Mush\Modifier\Entity\Collection;
+namespace Mush\Modifier\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Trash\ModifierConfig;
 
 class ModifierCollection extends ArrayCollection
 {

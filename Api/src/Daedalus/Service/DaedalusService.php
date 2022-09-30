@@ -92,6 +92,11 @@ class DaedalusService implements DaedalusServiceInterface
         return $this->repository->findAvailableDaedalus($name);
     }
 
+    public function existAvailableDaedalus(): bool
+    {
+        return $this->repository->existAvailableDaedalus();
+    }
+
     public function findAvailableCharacterForDaedalus(Daedalus $daedalus): Collection
     {
         return $daedalus->getGameConfig()->getCharactersConfig()->filter(

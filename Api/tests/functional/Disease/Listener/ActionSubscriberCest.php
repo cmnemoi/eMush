@@ -4,13 +4,17 @@ namespace Mush\Tests\functional\Disease\Listener;
 
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Action\Actions\Consume;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\Neron;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\Config\SymptomCondition;
@@ -27,12 +31,14 @@ use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
+use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\Status\Entity\Config\StatusConfig;
 
 class ActionSubscriberCest
 {
@@ -580,6 +586,13 @@ class ActionSubscriberCest
         ;
         $I->haveInRepository($consumeDrugActionEntity);
 
+        $dirtyStatusConfig = new StatusConfig();
+        $dirtyStatusConfig
+            ->setName('dirty')
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($dirtyStatusConfig);
+
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
 
@@ -636,6 +649,7 @@ class ActionSubscriberCest
         $I->haveInRepository($gameItem);
 
         $characterConfig = $I->have(CharacterConfig::class);
+        $characterConfig->setActions(new ArrayCollection([$moveActionEntity]));
 
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -694,29 +708,27 @@ class ActionSubscriberCest
 
         $I->refreshEntities($player);
 
-        // @TODO : fix me
+        $moveAction = $I->grabService(Move::class);
 
-        // $moveAction = $I->grabService(Move::class);
+        $moveAction->loadParameters($moveActionEntity, $player, $door);
+        $moveAction->execute();
 
-        // $moveAction->loadParameters($moveActionEntity, $player, $door);
-        // $moveAction->execute();
+        $I->seeInRepository(RoomLog::class, [
+            'player' => $player,
+            'place' => $room2,
+            'log' => SymptomEnum::VOMITING,
+        ]);
 
-        // $I->seeInRepository(RoomLog::class, [
-        //     'player' => $player,
-        //     'place' => $room2,
-        //     'log' => SymptomEnum::VOMITING
-        // ]);
+        $consumeAction = $I->grabService(Consume::class);
 
-        // $consumeAction = $I->grabService(Consume::class);
+        $consumeAction->loadParameters($consumeActionEntity, $player, $gameItem);
+        $consumeAction->execute();
 
-        // $consumeAction->loadParameters($consumeActionEntity, $player, $gameItem);
-        // $consumeAction->execute();
-
-        // $I->seeInRepository(RoomLog::class, [
-        //     'player' => $player,
-        //     'place' => $room,
-        //     'log' => SymptomEnum::VOMITING
-        // ]);
+        $I->seeInRepository(RoomLog::class, [
+            'player' => $player,
+            'place' => $room2,
+            'log' => SymptomEnum::VOMITING,
+        ]);
     }
 
     public function testOnPostActionFearOfCatsSymptom(FunctionalTester $I)
@@ -780,6 +792,7 @@ class ActionSubscriberCest
         $I->refreshEntities($room, $room2, $door);
 
         $characterConfig = $I->have(CharacterConfig::class);
+        $characterConfig->setActions(new ArrayCollection([$moveActionEntity]));
 
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -829,17 +842,134 @@ class ActionSubscriberCest
 
         $I->refreshEntities($player);
 
-        // @TO DO : fix Call to a member function getActions() on bool error
+        $moveAction = $I->grabService(Move::class);
 
-        // $moveAction = $I->grabService(Move::class);
+        $moveAction->loadParameters($moveActionEntity, $player, $door);
+        $moveAction->execute();
 
-        // $moveAction->loadParameters($moveActionEntity, $player, $door);
-        // $moveAction->execute();
+        $I->seeInRepository(RoomLog::class, [
+            'player' => $player,
+            'place' => $room,
+            'log' => SymptomEnum::FEAR_OF_CATS,
+        ]);
+    }
 
-        // $I->seeInRepository(RoomLog::class, [
-        //     'player' => $player,
-        //     'place' => $room,
-        //     'log' => SymptomEnum::FEAR_OF_CATS,
-        // ]);
+    public function testOnPlayerCyclePsychoticAttackSymptom(FunctionalTester $I)
+    {
+        $gameConfig = $I->have(GameConfig::class);
+
+        $neron = new Neron();
+        $neron->setIsInhibited(true);
+        $I->haveInRepository($neron);
+
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+
+        $channel = new Channel();
+        $channel
+            ->setDaedalus($daedalus)
+            ->setScope(ChannelScopeEnum::PUBLIC)
+        ;
+        $I->haveInRepository($channel);
+
+        $actionCost = new ActionCost();
+
+        $attackAction = new Action();
+        $attackAction
+            ->setName(ActionEnum::ATTACK)
+            ->setDirtyRate(0)
+            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setInjuryRate(0)
+            ->setSuccessRate(100)
+            ->setActionCost($actionCost);
+
+        $searchAction = new Action();
+        $searchAction
+            ->setName(ActionEnum::SEARCH)
+            ->setDirtyRate(0)
+            ->setScope(ActionScopeEnum::SELF)
+            ->setInjuryRate(0)
+            ->setActionCost($actionCost);
+
+        $I->haveInRepository($actionCost);
+        $I->haveInRepository($attackAction);
+        $I->haveInRepository($searchAction);
+
+        $place = $I->have(Place::class, [
+            'daedalus' => $daedalus,
+        ]);
+        $characterConfig = $I->have(CharacterConfig::class);
+        $otherCharacterConfig = $I->have(CharacterConfig::class);
+
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'characterConfig' => $characterConfig,
+            'place' => $place,
+            'healthPoint' => 14,
+        ]);
+
+        $otherPlayer = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'characterConfig' => $characterConfig,
+            'place' => $place,
+            'healthPoint' => 14,
+        ]);
+
+        $knifeMechanic = new Weapon();
+        $knifeMechanic
+            ->setBaseDamageRange([1 => 100])
+            ->setActions(new ArrayCollection([$attackAction]))
+        ;
+        $I->haveInRepository($knifeMechanic);
+
+        $knifeItemConfig = $I->have(ItemConfig::class, [
+            'gameConfig' => $gameConfig,
+            'name' => ItemEnum::KNIFE,
+            'mechanics' => new ArrayCollection([$knifeMechanic]),
+        ]);
+
+        $knife = new GameItem();
+        $knife
+            ->setName(ItemEnum::KNIFE)
+            ->setEquipment($knifeItemConfig)
+            ->setHolder($player)
+        ;
+        $I->haveInRepository($knife);
+
+        $symptomConfig = new SymptomConfig('psychotic_attacks');
+        $symptomConfig
+            ->setTrigger(ActionEvent::POST_ACTION)
+        ;
+
+        $I->haveInRepository($symptomConfig);
+
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setName('Name')
+            ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+        ;
+
+        $I->haveInRepository($diseaseConfig);
+
+        $playerDisease = new PlayerDisease();
+        $playerDisease
+            ->setPlayer($player)
+            ->setDiseaseConfig($diseaseConfig)
+            ->setStatus(DiseaseStatusEnum::ACTIVE)
+            ->setDiseasePoint(10)
+        ;
+
+        $I->haveInRepository($playerDisease);
+
+        $I->refreshEntities($player);
+
+        $event = new ActionEvent($searchAction, $player, $otherPlayer);
+
+        $this->subscriber->onPostAction($event);
+
+        $I->seeInRepository(RoomLog::class, [
+            'player' => $player,
+            'place' => $place,
+            'log' => 'attack_success',
+        ]);
     }
 }

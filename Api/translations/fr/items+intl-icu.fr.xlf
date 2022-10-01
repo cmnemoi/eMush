@@ -686,11 +686,21 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
             </segment>
             <segment id="description">
                 <source>tracker.description</source>
-                <target></target>
+                <target>
+                Le Traqueur est l'équivalent à bord du GPS, il vous donne des informations globales sur le vaisseau ! 
+                //
+                Affiche la minimap
+                </target>
             </segment>
             <segment id="examine">
                 <source>tracker.examine</source>
-                <target></target>
+                <target>
+                Le Traqueur est l'équivalent à bord du GPS, il vous donne des informations globales sur le vaisseau !
+                //
+                Affiche la minimap
+                //
+                Perdu dans l'espace, dans la jungle, dans ce bon vieux Daedalus ? Nous avons exactement ce qu'il vous faut. Maintenant vous pourrez vous perdre dans la mini carte.
+                </target>
             </segment>
         </unit>
         <unit id="walkie_talkie">
@@ -716,11 +726,21 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
             </segment>
             <segment id="description">
                 <source>walkie_talkie.description</source>
-                <target></target>
+                <target>
+                Le talkie-walkie est un vieux moyen de communication, certes mais toujours efficace.
+                //
+                Permet de communiquer avec les autres équipiers.
+                </target>
             </segment>
             <segment id="examine">
                 <source>walkie_talkie.examine</source>
-                <target></target>
+                <target>
+                Le talkie-walkie est un vieux moyen de communication, certes mais toujours efficace.
+                //
+                Permet de communiquer à distance avec les autres équipiers.
+                //
+                Permet de communiquer sur le canal Général.
+                </target>
             </segment>
         </unit>
         <unit id="itrackie">

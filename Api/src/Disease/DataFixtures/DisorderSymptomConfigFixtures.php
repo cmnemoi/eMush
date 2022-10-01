@@ -73,7 +73,8 @@ class DisorderSymptomConfigFixtures extends Fixture implements DependentFixtureI
 
         $psychoticAttacks = new SymptomConfig(SymptomEnum::PSYCHOTIC_ATTACKS);
         $psychoticAttacks
-            ->setTrigger(EventEnum::NEW_CYCLE)
+            ->setTrigger(ActionEvent::POST_ACTION)
+            ->addSymptomCondition($moveActionCondition)
             ->addSymptomCondition($randCondition16)
         ;
         $manager->persist($psychoticAttacks);

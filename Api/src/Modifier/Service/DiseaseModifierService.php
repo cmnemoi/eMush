@@ -4,7 +4,7 @@ namespace Mush\Modifier\Service;
 
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Modifier\Entity\ModifierHolder;
-use Mush\Modifier\Entity\Trash\ModifierConfig;
+use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Player\Entity\Player;
 

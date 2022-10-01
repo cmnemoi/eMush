@@ -3,23 +3,40 @@
 namespace Mush\Modifier\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Action\Event\EnhancePercentageRollEvent;
+use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomService;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 
 class ModifierService implements ModifierServiceInterface
 {
 
     private EntityManagerInterface $entityManager;
+    private EventServiceInterface $eventService;
+    private RoomLogServiceInterface $logService;
+    private RandomServiceInterface $randomService;
 
-    public function __construct(EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        EventServiceInterface $eventService,
+        RoomLogServiceInterface $logService,
+        RandomServiceInterface $randomService
+    ) {
         $this->entityManager = $entityManager;
+        $this->eventService = $eventService;
+        $this->logService = $logService;
+        $this->randomService = $randomService;
     }
 
     public function persist(Modifier $modifier): Modifier
@@ -34,6 +51,78 @@ class ModifierService implements ModifierServiceInterface
     {
         $this->entityManager->remove($modifier);
         $this->entityManager->flush();
+    }
+
+    public function isSuccessfulWithModifier(
+        ModifierHolder $holder,
+        int $baseSuccessRate,
+        string $actionName,
+        bool $tryToSucceed = true
+    ) : bool {
+        $successThreshold = $this->randomService->getSuccessThreshold();
+
+        $event = new PreparePercentageRollEvent(
+            $holder,
+            $baseSuccessRate,
+            $actionName,
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, PreparePercentageRollEvent::ACTION_ROLL_RATE);
+        $successRate = $event->getRate();
+
+        if ($tryToSucceed) {
+            if ($successThreshold <= $successRate) {
+                return true;
+            }
+        } else {
+            if ($successThreshold > $successRate) {
+                return true;
+            }
+        }
+
+        return $this->enhancePercentageRoll($holder, $successRate, $tryToSucceed, $actionName);
+    }
+
+    private function enhancePercentageRoll(
+        ModifierHolder $holder,
+        int $successRate,
+        bool $tryToSucceed,
+        string $actionName
+    ) : bool {
+        $event = new EnhancePercentageRollEvent(
+            $holder,
+            $successRate,
+            $tryToSucceed,
+            $actionName,
+            new \DateTime()
+        );
+
+        $eventName = $tryToSucceed
+            ? EnhancePercentageRollEvent::ACTION_TRY_TO_SUCCEED_ROLL_RATE
+            : EnhancePercentageRollEvent::ACTION_TRY_TO_FAIL_ROLL_RATE;
+        $this->eventService->callEvent($event, $eventName);
+
+        $modifier = $event->getModifierConfig();
+        if ($modifier !== null) {
+            $this->logEnhancement($holder, $modifier);
+            return $tryToSucceed;
+        } else {
+            return !$tryToSucceed;
+        }
+    }
+
+    private function logEnhancement(ModifierHolder $holder, ModifierConfig $modifier) {
+        if (!$holder instanceof Player) {
+            return;
+        }
+
+        $this->logService->createLog(
+            $modifier->getLogKeyWhenApplied(),
+            $holder->getPlace(),
+            VisibilityEnum::PRIVATE,
+            "modifier_log",
+            $holder
+        );
     }
 
     public function createModifier(ModifierConfig $config, ModifierHolder $holder) : Modifier

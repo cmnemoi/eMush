@@ -12,6 +12,15 @@ class ActionTypeEnum
     public const ACTION_ATTACK = 'action_attack';
     public const ACTION_SPOKEN = 'action_spoken';
 
+    public static function getTechnicianActions() : array
+    {
+        return [
+            ActionEnum::STRENGTHEN_HULL,
+            ActionEnum::REPAIR,
+            ActionEnum::DISASSEMBLE,
+        ];
+    }
+
     public static function getAgressiveActions(): array
     {
         return [

@@ -11,16 +11,19 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Modifier\Entity\Trash\ModifierCondition;
-use Mush\Modifier\Entity\Trash\ModifierConfig;
+use Mush\Modifier\Entity\Condition\MinimumPlayerInPlaceModifierCondition;
+use Mush\Modifier\Entity\Condition\ModifierCondition;
+use Mush\Modifier\Entity\Config\Quantity\CostModifierConfig;
+use Mush\Modifier\Entity\Config\Quantity\PlayerVariableModifierConfig;
+use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierConditionEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
-use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\ResourcePointChangeEvent;
 
 class StatusModifierConfigFixtures extends Fixture
 {
@@ -47,75 +50,77 @@ class StatusModifierConfigFixtures extends Fixture
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        $frozenModifier = new ModifierConfig();
-
-        $frozenModifier
-            ->setScope(ActionEnum::CONSUME)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(1)
-            ->setReach(ModifierReachEnum::EQUIPMENT)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
-        $manager->persist($frozenModifier);
-
-        $disabledConversionModifier = new ModifierConfig();
-        $disabledConversionModifier
-            ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(-2)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
-        $manager->persist($disabledConversionModifier);
-
-        $notAloneCondition = new ModifierCondition(ModifierConditionEnum::PLAYER_IN_ROOM);
-        $notAloneCondition->setCondition(ModifierConditionEnum::NOT_ALONE);
+        $notAloneCondition = new MinimumPlayerInPlaceModifierCondition(1);
         $manager->persist($notAloneCondition);
 
-        $disabledNotAloneModifier = new ModifierConfig();
+        $frozenModifier = new CostModifierConfig(
+            ModifierNameEnum::FROZEN_MODIFIER,
+            ModifierReachEnum::EQUIPMENT,
+            1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::ACTION_POINT
+        );
+        $frozenModifier
+            ->addTargetEvent(ActionEnum::CONSUME);
+        $manager->persist($frozenModifier);
+
+        $disabledConversionModifier = new CostModifierConfig(
+            ModifierNameEnum::DISABLED_CONVERSION_MODIFIER,
+            ModifierReachEnum::PLAYER,
+            -2,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
+        $disabledConversionModifier
+            ->addTargetEvent(ResourcePointChangeEvent::CHECK_CONVERSION_ACTION_TO_MOVEMENT_POINT_COST);
+        $manager->persist($disabledConversionModifier);
+
+        $disabledNotAloneModifier = new CostModifierConfig(
+            ModifierNameEnum::DISABLED_MOVE_MODIFIER,
+            ModifierReachEnum::PLAYER,
+            -1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
         $disabledNotAloneModifier
-            ->setScope(ActionEnum::MOVE)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-            ->addModifierCondition($notAloneCondition)
-        ;
+            ->addCondition($notAloneCondition)
+            ->addTargetEvent(ResourcePointChangeEvent::CHECK_CHANGE_MOVEMENT_POINT);
         $manager->persist($disabledNotAloneModifier);
 
-        $pacifistModifier = new ModifierConfig();
+        $pacifistModifier = new CostModifierConfig(
+            ModifierNameEnum::PACIFIST_MODIFIER,
+            ModifierReachEnum::PLACE,
+            2,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::ACTION_POINT
+        );
         $pacifistModifier
-            ->setScope(ActionTypeEnum::ACTION_AGGRESSIVE)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(2)
-            ->setReach(ModifierReachEnum::PLACE)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+            ->addTargetEvent(ResourcePointChangeEvent::CHECK_CHANGE_ACTION_POINT, ActionTypeEnum::getAgressiveActions());
         $manager->persist($pacifistModifier);
 
-        $burdenedModifier = new ModifierConfig();
+        $burdenedModifier = new CostModifierConfig(
+            ModifierNameEnum::BURDENED_MODIFIER,
+            ModifierReachEnum::PLAYER,
+            2,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
         $burdenedModifier
-            ->setScope(ActionEnum::MOVE)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(2)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+            ->addTargetEvent(ResourcePointChangeEvent::CHECK_CHANGE_MOVEMENT_POINT, ActionTypeEnum::getAgressiveActions());
         $manager->persist($burdenedModifier);
 
-        $antisocialModifier = new ModifierConfig();
-        $antisocialModifier
-            ->setScope(EventEnum::NEW_CYCLE)
-            ->setTarget(PlayerVariableEnum::MORAL_POINT)
-            ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-            ->addModifierCondition($notAloneCondition)
-            ->setName(ModifierNameEnum::ANTISOCIAL_MODIFIER)
-        ;
+        $antisocialModifier = new PlayerVariableModifierConfig(
+            ModifierNameEnum::ANTISOCIAL_MODIFIER,
+            ModifierReachEnum::PLAYER,
+            -1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MORAL_POINT
+        );
         $manager->persist($antisocialModifier);
 
-        $lostModifier = new ModifierConfig();
+        $lostModifier = new CostModifierConfig(
+
+        );
         $lostModifier
             ->setScope(EventEnum::NEW_CYCLE)
             ->setTarget(PlayerVariableEnum::MORAL_POINT)
@@ -123,6 +128,8 @@ class StatusModifierConfigFixtures extends Fixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
+        $lostModifier
+            ->addTargetEvent();
         $manager->persist($lostModifier);
 
         $lyingDownModifier = new ModifierConfig();

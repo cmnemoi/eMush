@@ -10,6 +10,10 @@ use Mush\RoomLog\Event\LoggableEventInterface;
 
 class PlayerVariableEvent extends PlayerEvent implements LoggableEventInterface, AbstractQuantityEvent
 {
+
+    public const ACTION_COST = 'action_cost';
+    public const CONVERT_ACTION_TO_MOVEMENT_POINT = 'convert_action_to_movement_point';
+
     private int $quantity;
     private string $modifiedVariable;
 

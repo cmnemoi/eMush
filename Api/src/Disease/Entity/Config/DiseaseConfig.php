@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Game\Entity\GameConfig;
-use Mush\Modifier\Entity\Trash\ModifierConfig;
+use Mush\Modifier\Entity\ModifierConfig;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 

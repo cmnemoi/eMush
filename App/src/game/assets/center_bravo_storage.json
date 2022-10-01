@@ -1,773 +1,927 @@
-{ "compressionlevel":-1,
- "height":8,
- "infinite":false,
- "layers":[
+{
+    "compressionlevel": -1,
+    "height": 8,
+    "infinite": false,
+    "layers": [
         {
-         "data":[4, 2, 2, 2, 2, 2, 2, 2, 0,
-            3, 0, 0, 0, 0, 0, 0, 0, 0,
-            3, 0, 0, 0, 0, 0, 0, 0, 0,
-            3, 0, 0, 0, 0, 0, 0, 0, 0,
-            3, 0, 0, 0, 0, 0, 0, 0, 0,
-            3, 0, 0, 0, 0, 0, 0, 0, 0,
-            3, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":8,
-         "id":1,
-         "name":"wall",
-         "opacity":1,
-         "properties":[
+            "data": [
+                4,
+                2,
+                2,
+                2,
+                2,
+                2,
+                2,
+                2,
+                0,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "height": 8,
+            "id": 1,
+            "name": "wall",
+            "opacity": 1,
+            "properties": [
                 {
-                 "name":"depth",
-                 "type":"int",
-                 "value":0
-                }],
-         "type":"tilelayer",
-         "visible":true,
-         "width":9,
-         "x":0,
-         "y":0
-        }, 
+                    "name": "depth",
+                    "type": "int",
+                    "value": 0
+                }
+            ],
+            "type": "tilelayer",
+            "visible": true,
+            "width": 9,
+            "x": 0,
+            "y": 0
+        },
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 27, 27, 27, 27, 27, 27, 27, 0,
-            0, 27, 27, 27, 27, 27, 27, 27, 0,
-            0, 27, 27, 27, 27, 27, 27, 27, 0,
-            0, 27, 27, 27, 27, 27, 27, 27, 0,
-            0, 27, 27, 27, 27, 27, 27, 27, 0,
-            0, 27, 27, 27, 27, 27, 27, 27, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":8,
-         "id":2,
-         "name":"ground",
-         "opacity":1,
-         "properties":[
+            "data": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                27,
+                27,
+                27,
+                27,
+                27,
+                27,
+                27,
+                0,
+                0,
+                27,
+                27,
+                27,
+                27,
+                27,
+                27,
+                27,
+                0,
+                0,
+                27,
+                27,
+                27,
+                27,
+                27,
+                27,
+                27,
+                0,
+                0,
+                27,
+                27,
+                27,
+                27,
+                27,
+                27,
+                27,
+                0,
+                0,
+                27,
+                27,
+                27,
+                27,
+                27,
+                27,
+                27,
+                0,
+                0,
+                27,
+                27,
+                27,
+                27,
+                27,
+                27,
+                27,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "height": 8,
+            "id": 2,
+            "name": "ground",
+            "opacity": 1,
+            "properties": [
                 {
-                 "name":"depth",
-                 "type":"int",
-                 "value":1
-                }, 
+                    "name": "depth",
+                    "type": "int",
+                    "value": 1
+                },
                 {
-                 "name":"walkingDepth",
-                 "type":"int",
-                 "value":20
-                }],
-         "type":"tilelayer",
-         "visible":true,
-         "width":9,
-         "x":0,
-         "y":0
-        }, 
+                    "name": "walkingDepth",
+                    "type": "int",
+                    "value": 20
+                }
+            ],
+            "type": "tilelayer",
+            "visible": true,
+            "width": 9,
+            "x": 0,
+            "y": 0
+        },
         {
-         "draworder":"topdown",
-         "id":3,
-         "name":"objects",
-         "objects":[
+            "draworder": "topdown",
+            "id": 3,
+            "name": "objects",
+            "objects": [
                 {
-                 "gid":57,
-                 "height":17,
-                 "id":1,
-                 "name":"camera_equipment",
-                 "properties":[
+                    "gid": 57,
+                    "height": 17,
+                    "id": 1,
+                    "name": "camera_equipment",
+                    "properties": [
                         {
-                         "name":"animationYoyo",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":5
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":25,
-                 "x":75.75,
-                 "y":-20.75
-                }, 
-                {
-                 "gid":71,
-                 "height":36,
-                 "id":2,
-                 "name":"bravo_bay_center_bravo_storage",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":10
-                        }],
-                 "rotation":0,
-                 "type":"door_ground",
-                 "visible":true,
-                 "width":64,
-                 "x":44,
-                 "y":124
-                }, 
-                {
-                 "gid":21,
-                 "height":45,
-                 "id":3,
-                 "name":"oxygen_tank",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":24
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":24
-                        }],
-                 "rotation":0,
-                 "type":"interact",
-                 "visible":true,
-                 "width":45,
-                 "x":100.75,
-                 "y":12.2472026841296
-                }, 
-                {
-                 "gid":93,
-                 "height":15,
-                 "id":6,
-                 "name":"wall_box",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":10
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":4
-                        }],
-                 "rotation":0,
-                 "type":"decoration",
-                 "visible":true,
-                 "width":14,
-                 "x":47,
-                 "y":-24
-                }, 
-                {
-                 "gid":92,
-                 "height":64,
-                 "id":7,
-                 "name":"shelf",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":48
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }],
-                 "rotation":0,
-                 "type":"shelf",
-                 "visible":true,
-                 "width":64,
-                 "x":35,
-                 "y":3
-                }, 
-                {
-                 "gid":97,
-                 "height":93,
-                 "id":8,
-                 "name":"shelf",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":96
-                        }],
-                 "rotation":0,
-                 "type":"shelf",
-                 "visible":true,
-                 "width":106,
-                 "x":-1,
-                 "y":42
-                }, 
-                {
-                 "gid":91,
-                 "height":50,
-                 "id":5,
-                 "name":"shelf",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":48
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }],
-                 "rotation":0,
-                 "type":"shelf",
-                 "visible":true,
-                 "width":65,
-                 "x":42.25,
-                 "y":59.75
-                }],
-         "opacity":1,
-         "properties":[
-                {
-                 "name":"collides",
-                 "type":"bool",
-                 "value":false
-                }, 
-                {
-                 "name":"depth",
-                 "type":"int",
-                 "value":3
-                }, 
-                {
-                 "name":"isoSizeX",
-                 "type":"int",
-                 "value":10
-                }, 
-                {
-                 "name":"isoSizeY",
-                 "type":"int",
-                 "value":4
-                }],
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":6,
-         "name":"doors",
-         "objects":[],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }],
- "nextlayerid":7,
- "nextobjectid":9,
- "orientation":"isometric",
- "renderorder":"right-down",
- "tiledversion":"1.8.5",
- "tileheight":16,
- "tilesets":[
-        {
-         "columns":14,
-         "firstgid":1,
-         "grid":
-            {
-             "height":72,
-             "orientation":"isometric",
-             "width":32
-            },
-         "image":"tilemaps\/wall_tileset.png",
-         "imageheight":72,
-         "imagewidth":448,
-         "margin":0,
-         "name":"wall_tileset",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":14,
-         "tileheight":72,
-         "tilewidth":32
-        }, 
-        {
-         "columns":6,
-         "firstgid":15,
-         "image":"tilemaps\/oxygen_tank.png",
-         "imageheight":91,
-         "imagewidth":270,
-         "margin":0,
-         "name":"oxygen_tank",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":12,
-         "tileheight":45,
-         "tiles":[
-                {
-                 "animation":[
-                        {
-                         "duration":250,
-                         "tileid":0
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":1
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":2
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":3
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":4
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":5
-                        }],
-                 "id":0
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":250,
-                         "tileid":6
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":7
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":8
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":9
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":10
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":11
-                        }],
-                 "id":6
-                }],
-         "tilewidth":45
-        }, 
-        {
-         "columns":30,
-         "firstgid":27,
-         "grid":
-            {
-             "height":72,
-             "orientation":"isometric",
-             "width":32
-            },
-         "image":"tilemaps\/ground_tileset.png",
-         "imageheight":72,
-         "imagewidth":960,
-         "margin":0,
-         "name":"ground_tileset",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":30,
-         "tileheight":72,
-         "tilewidth":32
-        }, 
-        {
-         "columns":14,
-         "firstgid":57,
-         "image":"tilemaps\/camera_object.png",
-         "imageheight":17,
-         "imagewidth":350,
-         "margin":0,
-         "name":"camera_object",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":14,
-         "tileheight":17,
-         "tiles":[
-                {
-                 "animation":[
-                        {
-                         "duration":300,
-                         "tileid":0
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":1
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":2
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":3
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":4
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":5
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":6
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":7
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":8
+                            "name": "animationYoyo",
+                            "type": "bool",
+                            "value": true
                         },
-                    
                         {
-                         "duration":300,
-                         "tileid":9
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":10
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":11
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":12
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":13
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":12
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":11
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":10
-                        }, 
-                        {
-                         "duration":300,
-                         "tileid":9
+                            "name": "collides",
+                            "type": "bool",
+                            "value": false
                         },
-                    
                         {
-                         "duration":300,
-                         "tileid":8
-                        }, 
+                            "name": "depth",
+                            "type": "int",
+                            "value": 5
+                        },
                         {
-                         "duration":300,
-                         "tileid":7
-                        }, 
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 16
+                        },
                         {
-                         "duration":300,
-                         "tileid":6
-                        }, 
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 16
+                        }
+                    ],
+                    "rotation": 0,
+                    "type": "interact",
+                    "visible": true,
+                    "width": 25,
+                    "x": 81.25,
+                    "y": -24.25
+                },
+                {
+                    "gid": 71,
+                    "height": 36,
+                    "id": 2,
+                    "name": "bravo_bay_center_bravo_storage",
+                    "properties": [
                         {
-                         "duration":300,
-                         "tileid":5
-                        }, 
+                            "name": "collides",
+                            "type": "bool",
+                            "value": false
+                        },
                         {
-                         "duration":300,
-                         "tileid":4
-                        }, 
+                            "name": "depth",
+                            "type": "int",
+                            "value": 10
+                        }
+                    ],
+                    "rotation": 0,
+                    "type": "door_ground",
+                    "visible": true,
+                    "width": 64,
+                    "x": 46,
+                    "y": 124
+                },
+                {
+                    "gid": 21,
+                    "height": 45,
+                    "id": 3,
+                    "name": "oxygen_tank",
+                    "properties": [
                         {
-                         "duration":300,
-                         "tileid":3
-                        }, 
+                            "name": "collides",
+                            "type": "bool",
+                            "value": true
+                        },
                         {
-                         "duration":300,
-                         "tileid":2
-                        }, 
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 24
+                        },
                         {
-                         "duration":300,
-                         "tileid":1
-                        }, 
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 24
+                        }
+                    ],
+                    "rotation": 0,
+                    "type": "interact",
+                    "visible": true,
+                    "width": 45,
+                    "x": 100.75,
+                    "y": 52.25
+                },
+                {
+                    "gid": 93,
+                    "height": 15,
+                    "id": 6,
+                    "name": "wall_box",
+                    "properties": [
                         {
-                         "duration":300,
-                         "tileid":0
-                        }],
-                 "id":0
-                }],
-         "tilewidth":25
-        }, 
+                            "name": "collides",
+                            "type": "bool",
+                            "value": false
+                        },
+                        {
+                            "name": "depth",
+                            "type": "int",
+                            "value": 1
+                        },
+                        {
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 10
+                        },
+                        {
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 4
+                        }
+                    ],
+                    "rotation": 0,
+                    "type": "decoration",
+                    "visible": true,
+                    "width": 14,
+                    "x": 48.5,
+                    "y": -23.5
+                },
+                {
+                    "gid": 92,
+                    "height": 64,
+                    "id": 7,
+                    "name": "shelf",
+                    "properties": [
+                        {
+                            "name": "collides",
+                            "type": "bool",
+                            "value": true
+                        },
+                        {
+                            "name": "grouped",
+                            "type": "bool",
+                            "value": true
+                        },
+                        {
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 48
+                        },
+                        {
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 16
+                        }
+                    ],
+                    "rotation": 0,
+                    "type": "shelf",
+                    "visible": true,
+                    "width": 64,
+                    "x": 35,
+                    "y": 3
+                },
+                {
+                    "gid": 97,
+                    "height": 93,
+                    "id": 8,
+                    "name": "shelf",
+                    "properties": [
+                        {
+                            "name": "collides",
+                            "type": "bool",
+                            "value": true
+                        },
+                        {
+                            "name": "grouped",
+                            "type": "bool",
+                            "value": true
+                        },
+                        {
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 16
+                        },
+                        {
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 96
+                        }
+                    ],
+                    "rotation": 0,
+                    "type": "shelf",
+                    "visible": true,
+                    "width": 106,
+                    "x": -2,
+                    "y": 41
+                },
+                {
+                    "gid": 91,
+                    "height": 50,
+                    "id": 5,
+                    "name": "shelf",
+                    "properties": [
+                        {
+                            "name": "collides",
+                            "type": "bool",
+                            "value": true
+                        },
+                        {
+                            "name": "grouped",
+                            "type": "bool",
+                            "value": true
+                        },
+                        {
+                            "name": "isoSizeX",
+                            "type": "int",
+                            "value": 48
+                        },
+                        {
+                            "name": "isoSizeY",
+                            "type": "int",
+                            "value": 16
+                        }
+                    ],
+                    "rotation": 0,
+                    "type": "shelf",
+                    "visible": true,
+                    "width": 65,
+                    "x": 41.25,
+                    "y": 58.75
+                }
+            ],
+            "opacity": 1,
+            "properties": [
+                {
+                    "name": "collides",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "depth",
+                    "type": "int",
+                    "value": 3
+                },
+                {
+                    "name": "isoSizeX",
+                    "type": "int",
+                    "value": 10
+                },
+                {
+                    "name": "isoSizeY",
+                    "type": "int",
+                    "value": 4
+                }
+            ],
+            "type": "objectgroup",
+            "visible": true,
+            "x": 0,
+            "y": 0
+        },
         {
-         "columns":5,
-         "firstgid":71,
-         "grid":
-            {
-             "height":36,
-             "orientation":"isometric",
-             "width":64
+            "draworder": "topdown",
+            "id": 6,
+            "name": "doors",
+            "objects": [],
+            "opacity": 1,
+            "type": "objectgroup",
+            "visible": true,
+            "x": 0,
+            "y": 0
+        }
+    ],
+    "nextlayerid": 7,
+    "nextobjectid": 9,
+    "orientation": "isometric",
+    "renderorder": "right-down",
+    "tiledversion": "1.7.2",
+    "tileheight": 16,
+    "tilesets": [
+        {
+            "columns": 14,
+            "firstgid": 1,
+            "grid": {
+                "height": 72,
+                "orientation": "isometric",
+                "width": 32
             },
-         "image":"tilemaps\/door_ground_tileset.png",
-         "imageheight":144,
-         "imagewidth":320,
-         "margin":0,
-         "name":"door_ground_tileset",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":20,
-         "tileheight":36,
-         "tiles":[
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":0
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":1
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":2
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":3
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":4
-                        }],
-                 "id":0
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":5
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":6
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":7
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":8
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":9
-                        }],
-                 "id":5
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":10
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":11
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":12
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":13
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":14
-                        }],
-                 "id":10
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":15
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":16
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":17
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":18
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":19
-                        }],
-                 "id":15
-                }],
-         "tilewidth":64
-        }, 
+            "image": "tilemaps/wall_tileset.png",
+            "imageheight": 72,
+            "imagewidth": 448,
+            "margin": 0,
+            "name": "wall_tileset",
+            "objectalignment": "center",
+            "spacing": 0,
+            "tilecount": 14,
+            "tileheight": 72,
+            "tilewidth": 32
+        },
         {
-         "columns":1,
-         "firstgid":91,
-         "image":"tilemaps\/shelf_center_bravo_storage_2.png",
-         "imageheight":50,
-         "imagewidth":65,
-         "margin":0,
-         "name":"shelf_center_bravo_storage_2",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":50,
-         "tilewidth":65
-        }, 
-        {
-         "columns":1,
-         "firstgid":92,
-         "image":"tilemaps\/shelf_center_bravo_storage_3.png",
-         "imageheight":64,
-         "imagewidth":64,
-         "margin":0,
-         "name":"shelf_center_bravo_storage_3",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":64,
-         "tilewidth":64
-        }, 
-        {
-         "columns":4,
-         "firstgid":93,
-         "image":"tilemaps\/wall_box.png",
-         "imageheight":15,
-         "imagewidth":56,
-         "margin":0,
-         "name":"wall_box",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":4,
-         "tileheight":15,
-         "tiles":[
+            "columns": 6,
+            "firstgid": 15,
+            "image": "tilemaps/oxygen_tank.png",
+            "imageheight": 91,
+            "imagewidth": 270,
+            "margin": 0,
+            "name": "oxygen_tank",
+            "objectalignment": "center",
+            "spacing": 0,
+            "tilecount": 12,
+            "tileheight": 45,
+            "tiles": [
                 {
-                 "animation":[
+                    "animation": [
                         {
-                         "duration":1500,
-                         "tileid":0
-                        }, 
+                            "duration": 250,
+                            "tileid": 0
+                        },
                         {
-                         "duration":1500,
-                         "tileid":1
-                        }],
-                 "id":0
-                }, 
+                            "duration": 250,
+                            "tileid": 1
+                        },
+                        {
+                            "duration": 250,
+                            "tileid": 2
+                        },
+                        {
+                            "duration": 250,
+                            "tileid": 3
+                        },
+                        {
+                            "duration": 250,
+                            "tileid": 4
+                        },
+                        {
+                            "duration": 250,
+                            "tileid": 5
+                        }
+                    ],
+                    "id": 0
+                },
                 {
-                 "animation":[
+                    "animation": [
                         {
-                         "duration":1500,
-                         "tileid":2
-                        }, 
+                            "duration": 250,
+                            "tileid": 6
+                        },
                         {
-                         "duration":1500,
-                         "tileid":3
-                        }],
-                 "id":2
-                }],
-         "tilewidth":14
-        }, 
+                            "duration": 250,
+                            "tileid": 7
+                        },
+                        {
+                            "duration": 250,
+                            "tileid": 8
+                        },
+                        {
+                            "duration": 250,
+                            "tileid": 9
+                        },
+                        {
+                            "duration": 250,
+                            "tileid": 10
+                        },
+                        {
+                            "duration": 250,
+                            "tileid": 11
+                        }
+                    ],
+                    "id": 6
+                }
+            ],
+            "tilewidth": 45
+        },
         {
-         "columns":1,
-         "firstgid":97,
-         "image":"tilemaps\/shelf_center_bravo_storage_1.png",
-         "imageheight":93,
-         "imagewidth":106,
-         "margin":0,
-         "name":"shelf_center_bravo_storage_1",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":93,
-         "tilewidth":106
-        }],
- "tilewidth":32,
- "type":"map",
- "version":"1.8",
- "width":9
+            "columns": 30,
+            "firstgid": 27,
+            "grid": {
+                "height": 72,
+                "orientation": "isometric",
+                "width": 32
+            },
+            "image": "tilemaps/ground_tileset.png",
+            "imageheight": 72,
+            "imagewidth": 960,
+            "margin": 0,
+            "name": "ground_tileset",
+            "objectalignment": "center",
+            "spacing": 0,
+            "tilecount": 30,
+            "tileheight": 72,
+            "tilewidth": 32
+        },
+        {
+            "columns": 14,
+            "firstgid": 57,
+            "image": "tilemaps/camera_object.png",
+            "imageheight": 17,
+            "imagewidth": 350,
+            "margin": 0,
+            "name": "camera_object",
+            "objectalignment": "center",
+            "spacing": 0,
+            "tilecount": 14,
+            "tileheight": 17,
+            "tiles": [
+                {
+                    "animation": [
+                        {
+                            "duration": 300,
+                            "tileid": 0
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 1
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 2
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 3
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 4
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 5
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 6
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 7
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 8
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 9
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 10
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 11
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 12
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 13
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 12
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 11
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 10
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 9
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 8
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 7
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 6
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 5
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 4
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 3
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 2
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 1
+                        },
+                        {
+                            "duration": 300,
+                            "tileid": 0
+                        }
+                    ],
+                    "id": 0
+                }
+            ],
+            "tilewidth": 25
+        },
+        {
+            "columns": 5,
+            "firstgid": 71,
+            "grid": {
+                "height": 36,
+                "orientation": "isometric",
+                "width": 64
+            },
+            "image": "tilemaps/door_ground_tileset.png",
+            "imageheight": 144,
+            "imagewidth": 320,
+            "margin": 0,
+            "name": "door_ground_tileset",
+            "objectalignment": "center",
+            "spacing": 0,
+            "tilecount": 20,
+            "tileheight": 36,
+            "tiles": [
+                {
+                    "animation": [
+                        {
+                            "duration": 100,
+                            "tileid": 0
+                        },
+                        {
+                            "duration": 100,
+                            "tileid": 1
+                        },
+                        {
+                            "duration": 100,
+                            "tileid": 2
+                        },
+                        {
+                            "duration": 100,
+                            "tileid": 3
+                        },
+                        {
+                            "duration": 100,
+                            "tileid": 4
+                        }
+                    ],
+                    "id": 0
+                },
+                {
+                    "animation": [
+                        {
+                            "duration": 100,
+                            "tileid": 5
+                        },
+                        {
+                            "duration": 100,
+                            "tileid": 6
+                        },
+                        {
+                            "duration": 100,
+                            "tileid": 7
+                        },
+                        {
+                            "duration": 100,
+                            "tileid": 8
+                        },
+                        {
+                            "duration": 100,
+                            "tileid": 9
+                        }
+                    ],
+                    "id": 5
+                },
+                {
+                    "animation": [
+                        {
+                            "duration": 100,
+                            "tileid": 10
+                        },
+                        {
+                            "duration": 100,
+                            "tileid": 11
+                        },
+                        {
+                            "duration": 100,
+                            "tileid": 12
+                        },
+                        {
+                            "duration": 100,
+                            "tileid": 13
+                        },
+                        {
+                            "duration": 100,
+                            "tileid": 14
+                        }
+                    ],
+                    "id": 10
+                },
+                {
+                    "animation": [
+                        {
+                            "duration": 100,
+                            "tileid": 15
+                        },
+                        {
+                            "duration": 100,
+                            "tileid": 16
+                        },
+                        {
+                            "duration": 100,
+                            "tileid": 17
+                        },
+                        {
+                            "duration": 100,
+                            "tileid": 18
+                        },
+                        {
+                            "duration": 100,
+                            "tileid": 19
+                        }
+                    ],
+                    "id": 15
+                }
+            ],
+            "tilewidth": 64
+        },
+        {
+            "columns": 1,
+            "firstgid": 91,
+            "image": "tilemaps/shelf_center_bravo_storage_2.png",
+            "imageheight": 50,
+            "imagewidth": 65,
+            "margin": 0,
+            "name": "shelf_center_bravo_storage_2",
+            "objectalignment": "center",
+            "spacing": 0,
+            "tilecount": 1,
+            "tileheight": 50,
+            "tilewidth": 65
+        },
+        {
+            "columns": 1,
+            "firstgid": 92,
+            "image": "tilemaps/shelf_center_bravo_storage_3.png",
+            "imageheight": 64,
+            "imagewidth": 64,
+            "margin": 0,
+            "name": "shelf_center_bravo_storage_3",
+            "objectalignment": "center",
+            "spacing": 0,
+            "tilecount": 1,
+            "tileheight": 64,
+            "tilewidth": 64
+        },
+        {
+            "columns": 4,
+            "firstgid": 93,
+            "image": "tilemaps/wall_box.png",
+            "imageheight": 15,
+            "imagewidth": 56,
+            "margin": 0,
+            "name": "wall_box",
+            "objectalignment": "center",
+            "spacing": 0,
+            "tilecount": 4,
+            "tileheight": 15,
+            "tiles": [
+                {
+                    "animation": [
+                        {
+                            "duration": 1500,
+                            "tileid": 0
+                        },
+                        {
+                            "duration": 1500,
+                            "tileid": 1
+                        }
+                    ],
+                    "id": 0
+                },
+                {
+                    "animation": [
+                        {
+                            "duration": 1500,
+                            "tileid": 2
+                        },
+                        {
+                            "duration": 1500,
+                            "tileid": 3
+                        }
+                    ],
+                    "id": 2
+                }
+            ],
+            "tilewidth": 14
+        },
+        {
+            "columns": 1,
+            "firstgid": 97,
+            "image": "tilemaps/shelf_center_bravo_storage_1.png",
+            "imageheight": 93,
+            "imagewidth": 106,
+            "margin": 0,
+            "name": "shelf_center_bravo_storage_1",
+            "objectalignment": "center",
+            "spacing": 0,
+            "tilecount": 1,
+            "tileheight": 93,
+            "tilewidth": 106
+        }
+    ],
+    "tilewidth": 32,
+    "type": "map",
+    "version": "1.6",
+    "width": 9
 }

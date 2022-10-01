@@ -420,20 +420,25 @@
                         {
                             "name": "isoSizeX",
                             "type": "int",
-                            "value": 176
+                            "value": 170
                         },
                         {
                             "name": "isoSizeY",
                             "type": "int",
                             "value": 16
+                        },
+                        {
+                            "name": "isoShiftHitboxX",
+                            "type": "int",
+                            "value": -4
                         }
                     ],
                     "rotation": 0,
                     "type": "shelf",
                     "visible": true,
                     "width": 192,
-                    "x": 79.5,
-                    "y": -1.5
+                    "x": 79,
+                    "y": 0
                 },
                 {
                     "gid": 55,

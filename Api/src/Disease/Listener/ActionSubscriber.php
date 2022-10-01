@@ -122,7 +122,15 @@ class ActionSubscriber implements EventSubscriberInterface
         $postActionSymptomConfigs = $this->symptomConditionService->getActiveSymptoms($postActionSymptomConfigs, $player, $action->getName(), $action);
 
         foreach ($postActionSymptomConfigs as $symptomConfig) {
-            $this->symptomService->handlePostActionSymptom($symptomConfig, $player, $event->getTime());
+            $this->symptomService->handleBreakouts($symptomConfig, $player, $event->getTime());
+            $this->symptomService->handleCatAllergy($symptomConfig, $player, $event->getTime());
+            $this->symptomService->handleDrooling($symptomConfig, $player, $event->getTime());
+            $this->symptomService->handleFearOfCats($symptomConfig, $player, $event->getTime());
+            $this->symptomService->handleFoamingMouth($symptomConfig, $player, $event->getTime());
+            $this->symptomService->handlePsychoticAttacks($symptomConfig, $player);
+            $this->symptomService->handleSepticemia($symptomConfig, $player, $event->getTime());
+            $this->symptomService->handleSneezing($symptomConfig, $player, $event->getTime());
+            $this->symptomService->handleVomiting($symptomConfig, $player, $event->getTime());
         }
     }
 }

@@ -3,11 +3,6 @@
 namespace Mush\Tests\functional\Disease\Listener;
 
 use App\Tests\FunctionalTester;
-use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
-use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
@@ -239,80 +234,6 @@ class PlayerCycleSubscriberCest
             'player' => $player,
             'place' => $place,
             'log' => 'biting',
-        ]);
-    }
-
-    public function testOnPlayerCyclePsychoticAttackSymptom(FunctionalTester $I)
-    {
-        $daedalus = $I->have(Daedalus::class);
-
-        $actionCost = new ActionCost();
-
-        $action = new Action();
-        $action
-            ->setName(ActionEnum::HIT)
-            ->setDirtyRate(0)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setInjuryRate(0)
-            ->setSuccessRate(100)
-            ->setActionCost($actionCost);
-
-        $I->haveInRepository($actionCost);
-        $I->haveInRepository($action);
-
-        $place = $I->have(Place::class, [
-            'daedalus' => $daedalus,
-        ]);
-        $characterConfig = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$action])]);
-        $otherCharacterConfig = $I->have(CharacterConfig::class);
-
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
-            'place' => $place,
-        ]);
-
-        $otherPlayer = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
-            'place' => $place,
-        ]);
-
-        $symptomConfig = new SymptomConfig('psychotic_attacks');
-        $symptomConfig
-            ->setTrigger(EventEnum::NEW_CYCLE)
-        ;
-
-        $I->haveInRepository($symptomConfig);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setName('Name')
-            ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
-        ;
-
-        $I->haveInRepository($diseaseConfig);
-
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setPlayer($player)
-            ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setDiseasePoint(10)
-        ;
-
-        $I->haveInRepository($playerDisease);
-
-        $I->refreshEntities($player);
-
-        $event = new PlayerCycleEvent($player, EventEnum::NEW_CYCLE, new \DateTime());
-
-        $this->subscriber->onPlayerNewCycle($event);
-
-        $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
-            'place' => $place,
-            'log' => 'hit_success',
         ]);
     }
 

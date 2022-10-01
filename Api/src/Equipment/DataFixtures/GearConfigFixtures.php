@@ -16,7 +16,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
-use Mush\Modifier\Entity\Trash\ModifierConfig;
+use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
 use Mush\Status\Entity\Config\ChargeStatusConfig;

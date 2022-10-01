@@ -8,7 +8,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
-use Mush\Modifier\Entity\Trash\ModifierConfig;
+use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Service\EquipmentModifierService;
 use Mush\Modifier\Service\ModifierConditionService;

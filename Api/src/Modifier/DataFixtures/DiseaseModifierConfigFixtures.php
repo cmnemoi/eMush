@@ -12,8 +12,12 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Modifier\Entity\Condition\ModifierCondition;
+use Mush\Modifier\Entity\Condition\PlayerHasStatusModifierCondition;
+use Mush\Modifier\Entity\Condition\RandomModifierCondition;
 use Mush\Modifier\Entity\Trash\ModifierCondition;
-use Mush\Modifier\Entity\Trash\ModifierConfig;
+use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierConditionEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -22,6 +26,7 @@ use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -60,42 +65,35 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        $randCondition10 = new ModifierCondition(ModifierConditionEnum::RANDOM);
-        $randCondition10->setValue(10);
+        $randCondition10 = new RandomModifierCondition(10);
         $manager->persist($randCondition10);
 
-        $randCondition16 = new ModifierCondition(ModifierConditionEnum::RANDOM);
-        $randCondition16->setValue(16);
+        $randCondition16 = new RandomModifierCondition(16);
         $manager->persist($randCondition16);
 
-        $randCondition20 = new ModifierCondition(ModifierConditionEnum::RANDOM);
-        $randCondition20->setValue(20);
+        $randCondition20 = new RandomModifierCondition(20);
         $manager->persist($randCondition20);
 
-        $randCondition30 = new ModifierCondition(ModifierConditionEnum::RANDOM);
-        $randCondition30->setValue(30);
+        $randCondition30 = new RandomModifierCondition(30);
         $manager->persist($randCondition30);
 
-        $randCondition40 = new ModifierCondition(ModifierConditionEnum::RANDOM);
-        $randCondition40->setValue(40);
+        $randCondition40 = new RandomModifierCondition(40);
         $manager->persist($randCondition40);
 
-        $randCondition50 = new ModifierCondition(ModifierConditionEnum::RANDOM);
-        $randCondition50->setValue(50);
+        $randCondition50 = new RandomModifierCondition(50);
         $manager->persist($randCondition50);
 
-        $lyingDownCondition = new ModifierCondition(ModifierConditionEnum::PLAYER_STATUS);
-        $lyingDownCondition->setCondition(PlayerStatusEnum::LYING_DOWN);
+        $lyingDownCondition = new PlayerHasStatusModifierCondition(PlayerStatusEnum::LYING_DOWN);
         $manager->persist($lyingDownCondition);
 
-        $moveIncreaseMovement = new ModifierConfig();
-        $moveIncreaseMovement
-            ->setScope(ActionEnum::MOVE)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(1)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+        $moveIncreaseMovement = new ModifierConfig(
+            ModifierNameEnum::DISEASE_INCREASE_MOVE_COST,
+            ModifierReachEnum::PLAYER,
+            1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
+        $moveIncreaseMovement->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::MOVE]);
         $manager->persist($moveIncreaseMovement);
 
         $reduceMax1HealthPoint = new ModifierConfig();

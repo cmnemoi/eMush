@@ -15,35 +15,21 @@ interface ModifierServiceInterface
 
     public function delete(Modifier $modifier): void;
 
-    public function getHolderFromConfig(ModifierConfig $config, ModifierHolder $holder, ModifierHolder $target = null) : ModifierHolder;
+    public function getHolderFromConfig(
+        ModifierConfig $config,
+        ModifierHolder $holder,
+        ModifierHolder $target = null
+    ) : ModifierHolder;
 
     public function createModifier(ModifierConfig $config, ModifierHolder $holder) : Modifier;
 
     public function deleteModifier(Modifier $modifier): void;
 
-    public function getActionModifiedValue(Action $action, Player $player, string $target, ?LogParameterInterface $parameter, ?int $attemptNumber = null): int;
-
-    public function applyActionModifiers(Action $action, Player $player, ?LogParameterInterface $parameter): void;
-
-    public function getEventModifiedValue(
+    public function isSuccessfulWithModifier(
         ModifierHolder $holder,
-        array $scopes,
-        string $target,
-        int $initValue,
-        string $reason,
-        \DateTime $time,
-        bool $applyModifier = true
-    ): int;
+        int $baseSuccessRate,
+        string $actionName,
+        bool $tryToSucceed = true
+    ) : bool;
 
-    public function isSuccessfulWithModifiers(
-        int $successRate,
-        array $scopes,
-        string $reason,
-        \DateTime $time,
-        ModifierHolder $holder
-    ): bool;
-
-    public function playerEnterRoom(Player $player): void;
-
-    public function playerLeaveRoom(Player $player): void;
 }

@@ -2,28 +2,15 @@
 
 namespace Mush\Modifier\Entity;
 
-use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Event\AbstractModifierHolderEvent;
-use Mush\Game\Service\EventServiceInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Condition\ModifierCondition;
-use Mush\Modifier\Entity\Condition\ModifierConditionCollection;
-use Mush\Modifier\Entity\Config\Quantity\ActionCostModifierConfig;
-use Mush\Modifier\Entity\Config\Quantity\QuantityModifierConfig;
-use Mush\Modifier\Entity\Config\Quantity\SideEffectPercentageModifierConfig;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'modifier_config')]
-#[ORM\InheritanceType("SINGLE_TABLE")]
-#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
-#[ORM\DiscriminatorMap([
-    'base' => ModifierConfig::class,
-    'quantity' => QuantityModifierConfig::class,
-    'action_cost' => ActionCostModifierConfig::class,
-    'side_effect_percentage' => SideEffectPercentageModifierConfig::class
-])]
-abstract class ModifierConfig
+class ModifierConfig
 {
 
     public const EVERY_REASONS = 'every_reasons';
@@ -34,16 +21,34 @@ abstract class ModifierConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
+    #[ORM\ManyToMany(targetEntity: ModifierCondition::class)]
+    private Collection $conditions;
+
     private string $reach;
 
     private string $name;
 
-    private array $targetEvents = [];
+    private float $value;
 
-    public function __construct(string $name, string $reach)
+    private string $mode;
+
+    private ?string $logKeyWhenApplied;
+
+    private array $targetEvents;
+
+    private ?string $playerVariable;
+
+    public function __construct(string $name, string $reach, float $value, string $mode, string $playerVariable = null)
     {
         $this->name = $name;
         $this->reach = $reach;
+        $this->value = $value;
+        $this->mode = $mode;
+        $this->playerVariable = $playerVariable;
+
+        $this->logKeyWhenApplied = null;
+        $this->conditions = new ArrayCollection();
+        $this->targetEvents = [];
     }
 
     public function addTargetEventsWithExcludedReasons(string $eventName, array $eventReason) : self {
@@ -75,11 +80,35 @@ abstract class ModifierConfig
         return false;
     }
 
-    public abstract function modify(AbstractModifierHolderEvent $event, EventServiceInterface $eventService);
+    public function areConditionsTrue(ModifierHolder $holder, RandomServiceInterface $randomService) : bool {
+        /* @var ModifierCondition $condition */
+        foreach ($this->getConditions()->toArray() as $condition) {
+            if (!$condition->isTrue($holder, $randomService)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function getConditions(): Collection
+    {
+        return $this->conditions;
+    }
+
+    public function addCondition(ModifierCondition $condition) : self {
+        $this->conditions->add($condition);
+        return $this;
+    }
 
     public function getTargetEvents(): array
     {
         return $this->targetEvents;
+    }
+
+    public function getPlayerVariable(): ?string
+    {
+        return $this->playerVariable;
     }
 
     public function getReach(): string
@@ -95,6 +124,26 @@ abstract class ModifierConfig
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getMode(): string
+    {
+        return $this->mode;
+    }
+
+    public function getValue(): float
+    {
+        return $this->value;
+    }
+
+    public function setLogKeyWhenApplied(?string $logKeyWhenApplied): void
+    {
+        $this->logKeyWhenApplied = $logKeyWhenApplied;
+    }
+
+    public function getLogKeyWhenApplied(): ?string
+    {
+        return $this->logKeyWhenApplied;
     }
 
 }

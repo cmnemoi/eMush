@@ -8,18 +8,20 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionSideEffectEventEnum;
 use Mush\Action\Enum\ActionTypeEnum;
-use Mush\Action\Event\ActionSideEffectRollEvent;
+use Mush\Action\Event\EnhancePercentageRollEvent;
+use Mush\Action\Event\PercentageRollEvent;
+use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Entity\Config\Prevent\PreventApplyStatusModifierConfig;
-use Mush\Modifier\Entity\Config\Quantity\ActionCostModifierConfig;
+use Mush\Modifier\Entity\Config\Quantity\CostModifierConfig;
 use Mush\Modifier\Entity\Config\Quantity\PlayerVariableModifierConfig;
-use Mush\Modifier\Entity\Config\Quantity\SideEffectPercentageModifierConfig;
+use Mush\Modifier\Entity\Config\Quantity\PercentageModifierConfig;
 use Mush\Modifier\Entity\Trash\ModifierCondition;
-use Mush\Modifier\Entity\Trash\ModifierConfig;
+use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierConditionEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -69,33 +71,32 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $armorModifier->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, ActionTypeEnum::getAgressiveActions());
         $manager->persist($armorModifier);
 
-        $wrenchModifier = new ModifierConfig();
-        $wrenchModifier
-            ->setScope(ActionTypeEnum::ACTION_TECHNICIAN)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
-            ->setDelta(1.5)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-        ;
+        $wrenchModifier = new PercentageModifierConfig(
+            ModifierNameEnum::WRENCH_MODIFIER,
+            ModifierReachEnum::PLAYER,
+            1.5,
+            ModifierModeEnum::MULTIPLICATIVE
+        );
+        $wrenchModifier->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, ActionTypeEnum::getTechnicianActions());
         $manager->persist($wrenchModifier);
 
-        $glovesModifier = new SideEffectPercentageModifierConfig(
+        $glovesModifier = new PercentageModifierConfig(
             ModifierNameEnum::GLOVES_MODIFIER,
             ModifierReachEnum::PLAYER,
-            0,
-            ModifierModeEnum::SET_VALUE
+            0.2,
+            ModifierModeEnum::MULTIPLICATIVE
         );
-        $glovesModifier->addTargetEvent(ActionSideEffectRollEvent::CLUMSINESS_ROLL_RATE);
+        $glovesModifier->addTargetEvent(EnhancePercentageRollEvent::CLUMSINESS_ROLL_RATE);
         $manager->persist($glovesModifier);
 
-        $soapModifier = new ActionCostModifierConfig(
+        $soapModifier = new CostModifierConfig(
             ModifierNameEnum::SOAP_MODIFIER,
             ModifierReachEnum::PLAYER,
             -1,
             ModifierModeEnum::ADDITIVE,
             PlayerVariableEnum::ACTION_POINT
         );
-        $glovesModifier->addTargetEvent("todo" /* @TODO */);
+        $glovesModifier->addTargetEvent();
         $manager->persist($soapModifier);
 
         $soapSinkModifier = new ModifierConfig();

@@ -49,6 +49,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
     private function getSymptomEffects(DiseaseConfig $diseaseConfig, string $description): string
     {
         // first get symptom effects
+        $symptomEffects = [];
         /** @var SymptomConfig $symptomConfig */
         foreach ($diseaseConfig->getSymptomConfigs() as $symptomConfig) {
             $name = $symptomConfig->getName();
@@ -63,8 +64,15 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
 
             $effect = $this->translationService->translate($name . '.description', ['chance' => $chance], 'modifiers');
 
-            if ($effect) {
-                $description = $description . '//' . $effect;
+            if (!in_array($effect, $symptomEffects)) {
+                array_push($symptomEffects, $effect);
+            }
+        }
+
+        // then add them to the description
+        if (!empty($symptomEffects)) {
+            foreach ($symptomEffects as $symptomEffect) {
+                $description = $description . '//' . $symptomEffect;
             }
         }
 

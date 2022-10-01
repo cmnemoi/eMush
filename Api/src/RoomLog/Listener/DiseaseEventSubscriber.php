@@ -7,6 +7,7 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -62,6 +63,15 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
             $key = LogEnum::DISEASE_CURED;
         }
 
+        $privateCuredEvents = [
+            DiseaseCauseEnum::OVERRODE,
+            LogEnum::DISEASE_CURED,
+        ];
+
+        if (!in_array($reason, $privateCuredEvents)) {
+            $event->setVisibility(VisibilityEnum::PUBLIC);
+        }
+
         $this->createEventLog($key, $event, $player);
     }
 
@@ -76,6 +86,8 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         } else {
             $key = LogEnum::DISEASE_TREATED;
         }
+
+        $event->setVisibility(VisibilityEnum::PUBLIC);
 
         $this->createEventLog($key, $event, $player);
     }

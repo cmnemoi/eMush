@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
     <file id="modifiers.ext">
+        <unit id="cycle_disease_increase">
+            <segment id="description">
+                <source>cycle_disease_increase.description</source>
+                <target>Augmente vos chances de tomber malade.</target>
+            </segment>
+        </unit>
         <unit id="max_point_decrease">
             <segment id="description">
                 <source>max_point_decrease.description</source>
@@ -49,13 +55,13 @@
         <unit id="biting">
             <segment id="description">
                 <source>biting.description</source>
-                <target>Fait subir le symptôme **{morsure}**.</target>
+                <target>Fait subir le symptôme **Morsure**.</target>
             </segment>
         </unit>
         <unit id="breakouts">
             <segment id="description">
                 <source>biting.description</source>
-                <target>Fait subir le symptôme **{éruption}**.</target>
+                <target>Fait subir le symptôme **Éruptions**.</target>
             </segment>
         </unit>
         <unit id="disease_cycle">
@@ -82,7 +88,7 @@
         <unit id="cat_allergy">
             <segment id="description">
                 <source>cat_allergy.description</source>
-                <target>Fait subir le symptôme **{allergie au chat}**.</target>
+                <target>Fait subir le symptôme **Allergie au chat**.</target>
             </segment>
         </unit>
         <unit id="dirtiness">
@@ -103,19 +109,19 @@
         <unit id="drooling">
             <segment id="description">
                 <source>drooling.description</source>
-                <target>Fait subir le symptôme **{bave}**.</target>
+                <target>Fait subir le symptôme **Bave**.</target>
             </segment>
         </unit>
         <unit id="fear_of_cats">
             <segment id="description">
                 <source>fear_of_cats.description</source>
-                <target>Fait subir le symptôme **{phobie des chats}**.</target>
+                <target>Fait subir le symptôme **Phobie des chats**.</target>
             </segment>
         </unit>
         <unit id="foaming_mouth">
             <segment id="description">
                 <source>foaming_mouth.description</source>
-                <target>Fait subir le symptôme **{bouche écumeuse}**.</target>
+                <target>Fait subir le symptôme **Bouche écumeuse**.</target>
             </segment>
         </unit>
         <unit id="mute">
@@ -127,7 +133,7 @@
         <unit id="nausea">
             <segment id="description">
                 <source>nausea.description</source>
-                <target>Fait subir le symptôme **{nausée}**.</target>
+                <target>Fait subir le symptôme **Nausée**.</target>
             </segment>
         </unit>
         <unit id="no_attack_actions">
@@ -151,7 +157,7 @@
         <unit id="biting">
             <segment id="description">
                 <source>biting.description</source>
-                <target>Fait subir le symptôme **{accès psychotique}**.</target>
+                <target>Fait subir le symptôme **Accès psychotique**.</target>
             </segment>
         </unit>
         <unit id="septicemia">
@@ -163,7 +169,7 @@
         <unit id="vomiting">
             <segment id="description">
                 <source>vomiting.description</source>
-                <target>Fait subir le symptôme **{vomissements}**.</target>
+                <target>Fait subir le symptôme **Vomissements**.</target>
             </segment>
         </unit>
         <unit id="coprolalia_messages">

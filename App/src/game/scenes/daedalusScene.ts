@@ -607,7 +607,7 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.updateStatuses();
 
-        this.enableDebugView();
+        //this.enableDebugView();
     }
 
     deleteEquipmentsAndDecoration(): void

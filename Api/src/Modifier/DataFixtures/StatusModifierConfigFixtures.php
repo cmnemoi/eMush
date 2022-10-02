@@ -227,7 +227,7 @@ class StatusModifierConfigFixtures extends Fixture
             ModifierModeEnum::SET_VALUE,
             PlayerVariableEnum::ACTION_POINT
         );
-        $mushConsumeMoralModifier
+        $mushConsumeActionModifier
             ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::CONSUME])
             ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::CONSUME_DRUG]);
         $manager->persist($mushConsumeActionModifier);
@@ -239,7 +239,7 @@ class StatusModifierConfigFixtures extends Fixture
             ModifierModeEnum::SET_VALUE,
             PlayerVariableEnum::MOVEMENT_POINT
         );
-        $mushConsumeMoralModifier
+        $mushConsumeMovementModifier
             ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::CONSUME])
             ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::CONSUME_DRUG]);
         $manager->persist($mushConsumeMovementModifier);

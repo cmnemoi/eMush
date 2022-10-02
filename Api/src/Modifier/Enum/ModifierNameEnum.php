@@ -6,20 +6,34 @@ class ModifierNameEnum
 {
     public const MUSH_SHOWER_MALUS = 'mush_shower_malus';
     public const MUSH_SATIETY_CONSUME = 'mush_satiety_consume';
-    public const ANTISOCIAL_MODIFIER = 'antisocial_modifier';
-    public const DISABLED_MOVE_MODIFIER = 'disabled_move_modifier';
-    public const DISABLED_CONVERSION_MODIFIER = 'disabled_conversion_modifier';
-    public const PACIFIST_MODIFIER = 'pacifist_modifier';
-    public const BURDENED_MODIFIER = 'burdened_modifier';
+
+
+
+
+
     public const STARVING = 'starving';
     public const SCREAMING = 'screaming';
     public const WALL_HEAD_BANG = 'wall_head_bang';
     public const RUN_IN_CIRCLES = 'run_in_circles';
     public const FITFULL_SLEEP = 'fitfull_sleep';
-    public const LYING_DOWN_MODIFIER = 'lying_down_modifier';
 
-
+    // Status
     public const FROZEN_MODIFIER = 'frozen_modifier';
+    public const DISABLED_CONVERSION_MODIFIER = 'disabled_conversion_modifier';
+    public const DISABLED_MOVE_MODIFIER = 'disabled_move_modifier';
+    public const PACIFIST_MODIFIER = 'pacifist_modifier';
+    public const BURDENED_MODIFIER = 'burdened_modifier';
+    public const ANTISOCIAL_MODIFIER = 'antisocial_modifier';
+    public const LOST_MODIFIER = 'lost_modifier';
+    public const LYING_DOWN_MODIFIER = 'lying_down_modifier';
+    public const STARVING_MODIFIER = 'starving_modifier';
+    public const STATUS_GAIN_30_CYCLE_DISEASE_CHANCE = 'status_gain_30_cycle_disease_chance';
+    public const STATUS_MUSH_SHOWER_MODIFIER = 'status_mush_shower_modifier';
+    public const STATUS_MUSH_CONSUME_SATIETY_MODIFIER = 'status_mush_consume_satiety_modifier';
+    public const STATUS_MUSH_CONSUME_HP_MODIFIER = 'status_mush_consume_hp_modifier';
+    public const STATUS_MUSH_CONSUME_PMO_MODIFIER = 'status_mush_consume_pmo_modifier';
+    public const STATUS_MUSH_CONSUME_PA_MODIFIER = 'status_mush_consume_pm_modifier';
+    public const STATUS_MUSH_CONSUME_PM_MODIFIER = 'status_mush_consume_pm_modifier';
 
     // INJURY
     public const INJURY_COST_1_PA_ACTION_NOT_MOVE = 'injury_cost_1_pa_action_not_move';

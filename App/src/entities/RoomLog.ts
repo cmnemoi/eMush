@@ -1,8 +1,8 @@
 
 export class RoomLog {
-    public message : string|null
-    public visibility : string|null
-    public date : Date|null
+    public message : string|null;
+    public visibility : string|null;
+    public date : Date|null;
 
     constructor() {
         this.message = null;

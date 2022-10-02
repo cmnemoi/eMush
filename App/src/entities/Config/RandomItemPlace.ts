@@ -2,8 +2,8 @@
 export class RandomItemPlace {
     public iri: string|null;
     public id: number|null;
-    public places: array|null;
-    public items: array|null;
+    public places: Array<any>|null;
+    public items: Array<any>|null;
 
     constructor() {
         this.iri = null;
@@ -24,7 +24,7 @@ export class RandomItemPlace {
         return {
             'id': this.id,
             'places': this.places,
-            'items': this.items,
+            'items': this.items
         };
     }
     decode(jsonString : string): RandomItemPlace {

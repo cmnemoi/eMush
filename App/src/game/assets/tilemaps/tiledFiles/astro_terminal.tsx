@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <tileset version="1.5" tiledversion="1.7.2" name="astro_terminal" tilewidth="77" tileheight="72" tilecount="10" columns="5" objectalignment="bottomleft">
- <image source="../astro_terminal.png" width="385" height="144"/>
+ <img src="../astro_terminal.png" width="385" height="144"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="150"/>

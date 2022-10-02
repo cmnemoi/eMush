@@ -1,9 +1,9 @@
 import { Equipment } from "@/entities/Equipment";
 
 export class Item extends Equipment {
-    public number: number
-    public effectTitle: string
-    public effects: string[]
+    public number: number;
+    public effectTitle: string;
+    public effects: string[];
 
     constructor() {
         super();

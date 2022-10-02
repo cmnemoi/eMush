@@ -1,11 +1,11 @@
 export class Status {
-    public id : number|null
-    public key! : string
-    public name : string|null
-    public charge : number|null
-    public description : string|null
-    public target : { "key" : string, "id" : number } | null
-    public diseaseType : string | null
+    public id : number|null;
+    public key! : string;
+    public name : string|null;
+    public charge : number|null;
+    public description : string|null;
+    public target : { "key" : string, "id" : number } | null;
+    public diseaseType : string | null;
 
     constructor() {
         this.id = null;

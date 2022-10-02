@@ -6,9 +6,9 @@ export class PlaceConfig {
     public gameConfig: GameConfig|null;
     public name: string|null;
     public type: string|null;
-    public doors: array|null;
-    public items: array|null;
-    public equipments: array|null;
+    public doors: Array<any>|null;
+    public items: Array<any>|null;
+    public equipments: Array<any>|null;
 
     constructor() {
         this.iri = null;
@@ -41,7 +41,7 @@ export class PlaceConfig {
             'type': this.type,
             'doors': this.doors,
             'items': this.items,
-            'equipments': this.equipments,
+            'equipments': this.equipments
         };
     }
     decode(jsonString : string): PlaceConfig {

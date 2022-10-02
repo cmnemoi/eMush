@@ -1,11 +1,11 @@
 import { is_granted, UserRole } from "@/enums/user_role.enum";
 
 export class User {
-    public id : number|null
-    public userId : string|null
-    public username : string|null
-    public currentGame : number|null
-    public roles : UserRole[]
+    public id : number|null;
+    public userId : string|null;
+    public username : string|null;
+    public currentGame : number|null;
+    public roles : UserRole[];
 
     constructor() {
         this.id = null;

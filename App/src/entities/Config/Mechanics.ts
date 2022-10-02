@@ -16,7 +16,7 @@ export class Mechanics {
     }
     jsonEncode() : object {
         return {
-            'id': this.id,
+            'id': this.id
         };
     }
     decode(jsonString : string): Mechanics {

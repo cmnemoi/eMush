@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <tileset version="1.5" tiledversion="1.7.2" name="tube_object" tilewidth="42" tileheight="61" tilecount="18" columns="9" objectalignment="bottomleft">
  <grid orientation="isometric" width="42" height="61"/>
- <image source="../tube_object.png" width="378" height="122"/>
+ <img src="../tube_object.png" width="378" height="122"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="150"/>

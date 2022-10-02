@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class PlayerRequest.
  *
  * @UniqueCharacter
+ *
  * @UniqueUser
  */
 class PlayerCreateRequest
@@ -24,7 +25,9 @@ class PlayerCreateRequest
     private ?string $character = null;
     /**
      * @Assert\NotNull
+     *
      * @StartingDaedalus
+     *
      * @FullDaedalus
      */
     private ?Daedalus $daedalus = null;

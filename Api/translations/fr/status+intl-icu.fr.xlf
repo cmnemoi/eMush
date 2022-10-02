@@ -358,7 +358,7 @@
             </segment>
             <segment id="description">
                 <source>rejuvenation.description</source>
-                <target>Votre corps émet des lueurs pulsatiles vertes.ça ne favorise pas vraiment un sommeil reposant...</target>
+                <target>Votre corps émet des lueurs pulsatiles vertes, ça ne favorise pas vraiment un sommeil reposant...</target>
             </segment>
             <segment id="effect">
                 <source>rejuvenation.examine</source>

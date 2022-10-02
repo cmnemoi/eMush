@@ -16,6 +16,7 @@ export class Daedalus {
     public mushPlayerAlive: number;
     public mushPlayerDead: number;
     public crewPlayer: QuantityPoint | null;
+    public minimap: any;
 
     constructor() {
         this.id = null;
@@ -33,6 +34,7 @@ export class Daedalus {
         this.mushPlayerAlive = 0;
         this.mushPlayerDead = 0;
         this.crewPlayer = null;
+        this.minimap = null;
     }
     load(object :any): Daedalus {
         if (typeof object !== "undefined") {

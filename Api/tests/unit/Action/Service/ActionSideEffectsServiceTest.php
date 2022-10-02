@@ -85,7 +85,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(false)
             ->twice()
         ;
-        $this->eventService->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
@@ -100,7 +100,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->once()
         ;
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::DIRTY && $event->getStatusHolder() === $player)
             ->once()
         ;
@@ -135,7 +135,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(false)
             ->once()
         ;
-        $this->eventService->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
@@ -168,7 +168,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->andReturn(false)
             ->twice()
         ;
-        $this->eventService->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
@@ -181,7 +181,7 @@ class ActionSideEffectsServiceTest extends TestCase
             ->once()
         ;
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(
                 fn (PlayerVariableEvent $playerEvent, string $eventName) => (
                     $playerEvent->getQuantity() === -2 &&

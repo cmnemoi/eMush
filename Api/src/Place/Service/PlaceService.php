@@ -48,9 +48,9 @@ class PlaceService implements PlaceServiceInterface
         \DateTime $time
     ): Place {
         $room = new Place();
+
         $room->setName($roomConfig->getName());
         $room->setType($roomConfig->getType());
-
         $room->setDaedalus($daedalus);
 
         $this->persist($room);

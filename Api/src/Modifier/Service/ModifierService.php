@@ -12,7 +12,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomService;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Place\Entity\Place;
@@ -141,7 +141,8 @@ class ModifierService implements ModifierServiceInterface
         return $modifier;
     }
 
-    public function deleteModifier(Modifier $modifier): void {
+    public function deleteModifier(ModifierConfig $modifierConfig, ModifierHolder $holder): void {
+        $modifier = $holder->getModifiers()->getModifierFromConfig($modifierConfig);
         $this->delete($modifier);
     }
 

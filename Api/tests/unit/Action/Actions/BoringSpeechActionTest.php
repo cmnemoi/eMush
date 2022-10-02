@@ -47,7 +47,7 @@ class BoringSpeechActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $speaker);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($listener);
-        $this->eventService->shouldReceive('dispatch')->twice();
+        $this->eventService->shouldReceive('callEvent')->twice();
 
         $result = $this->action->execute();
 

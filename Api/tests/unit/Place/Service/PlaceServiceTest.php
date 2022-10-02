@@ -75,7 +75,7 @@ class PlaceServiceTest extends TestCase
         $roomConfig = $this->createRoomConfig('bridge', $daedalusConfig);
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(fn (PlaceInitEvent $event) => (
                 $event->getPlaceConfig() === $roomConfig)
             )

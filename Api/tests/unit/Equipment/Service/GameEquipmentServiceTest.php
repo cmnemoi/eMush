@@ -157,7 +157,7 @@ class GameEquipmentServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => (
                 $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG))
@@ -200,7 +200,7 @@ class GameEquipmentServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => (
                 $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::DOCUMENT_CONTENT))

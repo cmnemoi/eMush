@@ -126,7 +126,7 @@ class StatusSubscriberCest
             $time
         );
 
-        $this->eventServiceService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventServiceService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertCount(1, $privateChannel->getMessages());
         $I->assertCount(1, $privateChannel->getParticipants());

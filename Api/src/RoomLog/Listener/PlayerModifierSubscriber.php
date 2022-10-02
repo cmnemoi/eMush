@@ -41,7 +41,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
 
         // add special logs
         $logMap = PlayerModifierLogEnum::PLAYER_VARIABLE_SPECIAL_LOGS;
-        $reason = $playerEvent->getReasons();
+        $reason = $playerEvent->getReasons()[0];
         if (isset($logMap[$reason])) {
             $logKey = $logMap[$reason][PlayerModifierLogEnum::VALUE];
             $logVisibility = $logMap[$reason][PlayerModifierLogEnum::VISIBILITY];

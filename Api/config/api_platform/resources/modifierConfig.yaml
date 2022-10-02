@@ -1,4 +1,4 @@
-Mush\Modifier\Entity\ModifierConfig:
+Mush\Modifier\Entity\Config\ModifierConfig:
   shortName: 'ModifierConfig'
   description: 'eMush ModifierConfig'
   attributes:
@@ -20,5 +20,5 @@ Mush\Modifier\Entity\ModifierConfig:
   properties:
     modifierConditions:
       subresource:
-        resourceClass: 'Mush\Modifier\Entity\ModifierCondition'
+        resourceClass: 'Mush\Modifier\Entity\Condition\ModifierCondition'
         collection: true

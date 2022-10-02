@@ -1,4 +1,4 @@
-Mush\Modifier\Entity\ModifierCondition:
+Mush\Modifier\Entity\Condition\ModifierCondition:
   shortName: 'ModifierCondition'
   description: 'eMush modifierCondition'
   attributes:

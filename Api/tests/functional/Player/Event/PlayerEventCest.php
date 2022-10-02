@@ -77,7 +77,7 @@ class PlayerEventCest
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventServiceService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        $this->eventServiceService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         $I->assertEquals(GameStatusEnum::FINISHED, $player->getGameStatus());
 
@@ -140,19 +140,19 @@ class PlayerEventCest
 
         $playerEvent = new PlayerEvent($player, ActionEnum::INFECT, new \DateTime());
 
-        $this->eventServiceService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventServiceService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
         $I->assertEquals($room, $player->getPlace());
 
-        $this->eventServiceService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventServiceService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
         $I->assertEquals($room, $player->getPlace());
 
-        $this->eventServiceService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventServiceService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(2, $player->getStatuses());
         $I->assertEquals($room, $player->getPlace());

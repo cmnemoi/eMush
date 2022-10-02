@@ -161,12 +161,12 @@ class PlantCycleHandlerTest extends TestCase
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->eventService
-                ->shouldReceive('dispatch')
+                ->shouldReceive('callEvent')
                 ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === EquipmentStatusEnum::PLANT_DISEASED && $event->getStatusHolder() === $gamePlant)
                 ->once();
 
         $this->eventService
-                ->shouldReceive('dispatch')
+                ->shouldReceive('callEvent')
                 ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                     $event->getStatusName() === EquipmentStatusEnum::PLANT_YOUNG &&
                     $event->getStatusHolder() === $gamePlant)
@@ -257,14 +257,14 @@ class PlantCycleHandlerTest extends TestCase
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
         $this->gameEquipmentService->shouldReceive('persist');
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::PLANT_THIRSTY &&
                 $event->getStatusHolder() === $gamePlant)
             ->once()
         ;
 
-        $this->eventService->shouldReceive('dispatch')
+        $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent &&
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10
@@ -317,13 +317,13 @@ class PlantCycleHandlerTest extends TestCase
         $status = new Status($gamePlant, $thirstyConfig);
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === EquipmentStatusEnum::PLANT_DRY &&
                 $event->getStatusHolder() === $gamePlant)
             ->once();
 
-        $this->eventService->shouldReceive('dispatch')
+        $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent &&
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10)
@@ -380,7 +380,7 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
 
-        $this->eventService->shouldReceive('dispatch')
+        $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
                 $event->getEquipment() === $gamePlant
             )->once()

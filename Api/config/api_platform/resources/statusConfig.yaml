@@ -20,5 +20,5 @@ Mush\Status\Entity\Config\StatusConfig:
   properties:
     modifierConfigs:
       subresource:
-        resourceClass: 'Mush\Modifier\Entity\ModifierConfig'
+        resourceClass: 'Mush\Modifier\Entity\Config\ModifierConfig'
         collection: true

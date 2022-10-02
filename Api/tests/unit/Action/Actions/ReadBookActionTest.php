@@ -57,7 +57,7 @@ class ReadBookActionTest extends AbstractActionTest
             ->setName('name')
         ;
 
-        $this->eventService->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

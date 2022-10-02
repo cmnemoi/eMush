@@ -5,6 +5,7 @@ namespace Mush\Modifier\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Exception\LogicException;

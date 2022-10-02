@@ -134,6 +134,7 @@ class DaedalusService implements DaedalusServiceInterface
             EventEnum::CREATE_DAEDALUS,
             new \DateTime()
         );
+
         $this->eventService->callEvent($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
 
         return $daedalus;

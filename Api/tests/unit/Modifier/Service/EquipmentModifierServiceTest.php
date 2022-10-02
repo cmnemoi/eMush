@@ -9,7 +9,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Service\EquipmentModifierService;
@@ -85,7 +85,7 @@ class EquipmentModifierServiceTest extends TestCase
             ->with($modifierConfig1, $daedalus, null)
             ->once()
         ;
-        $this->service->gearCreated($gameEquipment);
+        $this->service->createGear($gameEquipment);
 
         // with a player holding the gear
         $player = new Player();
@@ -97,7 +97,7 @@ class EquipmentModifierServiceTest extends TestCase
             ->with($modifierConfig1, $daedalus, null)
             ->once()
         ;
-        $this->service->gearCreated($gameEquipment);
+        $this->service->createGear($gameEquipment);
 
         // with a charge
         $chargeConfig = new ChargeStatusConfig();
@@ -109,7 +109,7 @@ class EquipmentModifierServiceTest extends TestCase
             ->with($modifierConfig1, $daedalus, $charge)
             ->once()
         ;
-        $this->service->gearCreated($gameEquipment);
+        $this->service->createGear($gameEquipment);
 
         // gear with 2 modifiers
         $modifierConfig2 = new ModifierConfig();
@@ -145,7 +145,7 @@ class EquipmentModifierServiceTest extends TestCase
             ->with($modifierConfig2, $daedalus, null)
             ->once()
         ;
-        $this->service->gearCreated($gameEquipment);
+        $this->service->createGear($gameEquipment);
     }
 
     public function testGearDestroyed()
@@ -180,7 +180,7 @@ class EquipmentModifierServiceTest extends TestCase
             ->with($modifierConfig1, $daedalus)
             ->once()
         ;
-        $this->service->gearDestroyed($gameEquipment);
+        $this->service->destroyGear($gameEquipment);
 
         // with a player holding the gear
         $player = new Player();
@@ -192,7 +192,7 @@ class EquipmentModifierServiceTest extends TestCase
             ->with($modifierConfig1, $daedalus)
             ->once()
         ;
-        $this->service->gearDestroyed($gameEquipment);
+        $this->service->destroyGear($gameEquipment);
     }
 
     public function testTakeGear()

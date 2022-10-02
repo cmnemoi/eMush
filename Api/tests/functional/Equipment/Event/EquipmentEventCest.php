@@ -67,7 +67,7 @@ class EquipmentEventCest
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $this->eventServiceService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventServiceService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertEmpty($player->getEquipments());
         $I->assertEquals(1, $room->getEquipments()->count());

@@ -58,7 +58,7 @@ class EquipmentSubscriberCest
             EventEnum::PLANT_PRODUCTION,
             new \DateTime()
         );
-        $this->eventServiceService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventServiceService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(0, $player->getEquipments());

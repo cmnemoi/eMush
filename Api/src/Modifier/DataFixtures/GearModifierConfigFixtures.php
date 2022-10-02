@@ -21,7 +21,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Entity\Condition\CycleEvenModifierCondition;
 use Mush\Modifier\Entity\Condition\EquipmentRemainChargesModifierCondition;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierConditionEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;

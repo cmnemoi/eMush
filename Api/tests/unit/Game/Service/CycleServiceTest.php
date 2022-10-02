@@ -66,7 +66,7 @@ class CycleServiceTest extends TestCase
         $timeZone = 'Europe/Paris';
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
         ;
 
         $gameConfig = new GameConfig();
@@ -137,7 +137,7 @@ class CycleServiceTest extends TestCase
         $timeZone = 'Europe/Paris';
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
         ;
 
         $gameConfig = new GameConfig();
@@ -214,7 +214,7 @@ class CycleServiceTest extends TestCase
         $timeZone = 'Europe/Paris';
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
         ;
 
         $gameConfig = new GameConfig();

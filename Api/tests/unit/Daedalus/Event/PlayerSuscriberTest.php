@@ -61,7 +61,7 @@ class PlayerSuscriberTest extends TestCase
             $date
         );
 
-        $this->eventService->shouldReceive('dispatch')
+        $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::END_DAEDALUS))
             ->once();
 

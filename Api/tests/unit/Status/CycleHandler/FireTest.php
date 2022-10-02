@@ -100,7 +100,7 @@ class FireTest extends TestCase
         $this->daedalusService->shouldReceive('persist')->once();
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(fn (PlayerVariableEvent $playerEvent, string $eventName) => (
                 intval($playerEvent->getQuantity()) === -2 &&
                 $eventName === AbstractQuantityEvent::CHANGE_VARIABLE &&
@@ -110,7 +110,7 @@ class FireTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(fn (DaedalusVariableEvent $daedalusEvent, string $eventName) => (
                 $eventName === AbstractQuantityEvent::CHANGE_VARIABLE &&
                 $daedalusEvent->getModifiedVariable() === DaedalusVariableEnum::HULL

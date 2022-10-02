@@ -6,6 +6,6 @@ use Mush\Game\Event\AbstractGameEvent;
 
 interface EventServiceInterface {
 
-    public function callEvent(AbstractGameEvent $event, string $name) : void ;
+    public function callEvent(AbstractGameEvent $event, string $name, AbstractGameEvent $caller = null) : void ;
 
 }

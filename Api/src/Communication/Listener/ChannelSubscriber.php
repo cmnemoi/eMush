@@ -71,7 +71,7 @@ class ChannelSubscriber implements EventSubscriberInterface
         if ($player = $event->getPlayer()) {
             $this->channelPlayerService->removePlayer($player, $channel);
 
-            $key = $this->createPlayerLeaveMessage($event->getReason());
+            $key = $this->createPlayerLeaveMessage($event->getReasons()[0]);
 
             $this->messageService->createSystemMessage(
                 $key,

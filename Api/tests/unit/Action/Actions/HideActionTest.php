@@ -82,7 +82,7 @@ class HideActionTest extends AbstractActionTest
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof InteractWithEquipmentEvent &&
                 $event->getEquipment() === $gameItem &&
                 $event->getActor() === $player &&
-                $event->getReason() === ActionEnum::HIDE
+                $event->getReasons()[0] === ActionEnum::HIDE
             )
             ->once()
         ;

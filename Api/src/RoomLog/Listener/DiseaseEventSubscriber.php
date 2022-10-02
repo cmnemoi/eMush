@@ -55,7 +55,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayerDisease()->getPlayer();
 
-        $reason = $event->getReason();
+        $reason = $event->getReasons()[0];
 
         if (key_exists($reason, self::CURE_LOG_MAP)) {
             $key = self::CURE_LOG_MAP[$reason];
@@ -81,7 +81,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayerDisease()->getPlayer();
 
-        $reason = $event->getReason();
+        $reason = $event->getReasons()[0];
 
         if (key_exists($reason, self::TREAT_LOG_MAP)) {
             $key = self::TREAT_LOG_MAP[$reason];

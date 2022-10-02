@@ -47,7 +47,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         /** @var Modifier $modifier */
         foreach ($eventModifiers as $modifier) {
-            $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getReason());
+            $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getReasons()[0]);
 
             $this->eventService->callEvent($event, AbstractQuantityEvent::CHANGE_VARIABLE);
         }

@@ -56,7 +56,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getEquipment();
         $config = $equipment->getEquipment();
-        $reason = $event->getReason();
+        $reason = $event->getReasons()[0];
         $time = $event->getTime();
 
         $equipmentEvent = new EquipmentInitEvent(

@@ -31,7 +31,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         foreach ($event->getDaedalus()->getRooms() as $place) {
             $newRoomCycle = new PlaceCycleEvent(
                 $place,
-                $event->getReason(),
+                $event->getReasons()[0],
                 $event->getTime()
             );
             $this->eventService->callEvent($newRoomCycle, PlaceCycleEvent::PLACE_NEW_CYCLE);
@@ -46,7 +46,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         foreach ($daedalus->getRooms() as $place) {
             $newRoomDay = new PlaceCycleEvent(
                 $place,
-                $event->getReason(),
+                $event->getReasons()[0],
                 $event->getTime()
             );
             $this->eventService->callEvent($newRoomDay, PlaceCycleEvent::PLACE_NEW_DAY);

@@ -80,12 +80,12 @@ class StatusSubscriber implements EventSubscriberInterface
         $player = $this->getPlayer($statusHolder);
         if ($player !== null) {
             $modifiers = $player->getModifiers()->getScopedModifiers([StatusEvent::STATUS_APPLIED]);
-            $modifiers = $this->modifierConditionService->getActiveModifiers($modifiers, $event->getReason(), $player);
+            $modifiers = $this->modifierConditionService->getActiveModifiers($modifiers, $event->getReasons()[0], $player);
 
             /** @var Modifier $modifier */
             foreach ($modifiers as $modifier) {
                 /** @var  */
-                $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getReason());
+                $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getReasons()[0]);
                 $event->setVisibility(VisibilityEnum::HIDDEN);
                 $this->eventService->callEvent($event, AbstractQuantityEvent::CHANGE_VARIABLE);
             }

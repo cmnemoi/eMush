@@ -66,7 +66,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public function onNewEquipmentInInventory(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
-        $reason = $event->getReason();
+        $reason = $event->getReasons()[0];
         $time = $event->getTime();
         $holder = $equipment->getHolder();
 
@@ -86,7 +86,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public function onEquipmentRemovedFromInventory(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
-        $reason = $event->getReason();
+        $reason = $event->getReasons()[0];
         $time = $event->getTime();
 
         $player = $equipment->getHolder();

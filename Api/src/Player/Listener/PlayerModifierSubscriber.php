@@ -88,7 +88,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
 
         $this->playerVariableService->handleHealthPointModifier($delta, $player);
 
-        $reason = $playerEvent->getReason();
+        $reason = $playerEvent->getReasons()[0];
         $deathCause = EndCauseEnum::DEATH_CAUSE_MAP;
 
         if ($player->getHealthPoint() <= 0) {

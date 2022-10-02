@@ -36,7 +36,7 @@ class DaedalusInitEventSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
         $daedalusConfig = $event->getDaedalusConfig();
-        $reason = $event->getReason();
+        $reason = $event->getReasons()[0];
         $time = $event->getTime();
 
         $randomItemPlaces = $daedalusConfig->getRandomItemPlace();

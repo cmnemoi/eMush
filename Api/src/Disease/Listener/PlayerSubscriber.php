@@ -2,6 +2,7 @@
 
 namespace Mush\Disease\Listener;
 
+use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
@@ -32,7 +33,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         PlayerDiseaseServiceInterface $playerDiseaseService,
         ModifierServiceInterface $modifierService,
         RandomServiceInterface $randomService,
-        RoomLogServiceInterface $roomLogService
+        RoomLogServiceInterface $roomLogService,
     ) {
         $this->playerDiseaseService = $playerDiseaseService;
         $this->modifierService = $modifierService;
@@ -40,7 +41,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->roomLogService = $roomLogService;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents() : array
     {
         return [
             PlayerEvent::CYCLE_DISEASE => 'onCycleDisease',
@@ -53,19 +54,10 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onCycleDisease(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
-
         $difficultyConfig = $player->getDaedalus()->getGameConfig()->getDifficultyConfig();
+        $reasons = array_merge([$event->getEventName()], $event->getReasons());
 
-        $diseaseRate = $this->modifierService->getEventModifiedValue(
-            $player,
-            [PlayerEvent::CYCLE_DISEASE],
-            ModifierTargetEnum::PERCENTAGE,
-            $difficultyConfig->getCycleDiseaseRate(),
-            EventEnum::NEW_CYCLE,
-            $event->getTime()
-        );
-
-        if ($this->randomService->isSuccessful($diseaseRate)) {
+        if ($this->modifierService->isSuccessfulWithModifier($player, $difficultyConfig->getCycleDiseaseRate(), $reasons)) {
             if ($player->hasStatus(PlayerStatusEnum::DEMORALIZED) || $player->hasStatus(PlayerStatusEnum::SUICIDAL)) {
                 $cause = DiseaseCauseEnum::CYCLE_LOW_MORALE;
             } else {
@@ -114,7 +106,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
         $characterConfig = $player->getCharacterConfig();
-        $reason = $event->getReason();
+        $reason = $event->getReasons()[0];
 
         $initDiseases = $characterConfig->getInitDiseases();
         foreach ($initDiseases as $diseaseName) {

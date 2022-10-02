@@ -32,7 +32,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
         $time = $event->getTime();
 
-        if (!($reason = $event->getReason())) {
+        if (!($reason = $event->getReasons()[0])) {
             throw new \LogicException('Player should die with a reason');
         }
         $this->neronMessageService->createPlayerDeathMessage($player, $reason, $time);

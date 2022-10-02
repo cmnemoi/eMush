@@ -29,7 +29,7 @@ class ModifierSubscriber implements EventSubscriberInterface
 
     public function onApplyModifier(ModifierEvent $event): void
     {
-        $reason = $event->getReason();
+        $reason = $event->getReasons()[0];
 
         if (isset(LogEnum::MODIFIER_LOG_ENUM[$reason])) {
             $logKey = LogEnum::MODIFIER_LOG_ENUM[$reason];

@@ -33,7 +33,7 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
             $itemNewCycle = new EquipmentCycleEvent(
                 $item,
                 $player->getDaedalus(),
-                $event->getReason(),
+                $event->getReasons()[0],
                 $event->getTime()
             );
             $this->eventService->callEvent($itemNewCycle, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
@@ -48,7 +48,7 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
             $itemNewDay = new EquipmentCycleEvent(
                 $item,
                 $player->getDaedalus(),
-                $event->getReason(),
+                $event->getReasons()[0],
                 $event->getTime()
             );
             $this->eventService->callEvent($itemNewDay, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);

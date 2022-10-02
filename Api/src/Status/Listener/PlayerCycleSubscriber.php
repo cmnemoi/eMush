@@ -32,7 +32,7 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
             $statusNewCycle = new StatusCycleEvent(
                 $status,
                 $player,
-                $event->getReason(),
+                $event->getReasons()[0],
                 $event->getTime()
             );
             $this->eventService->callEvent($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
@@ -47,7 +47,7 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
             $statusNewCycle = new StatusCycleEvent(
                 $status,
                 $player,
-                $event->getReason(),
+                $event->getReasons()[0],
                 $event->getTime()
             );
             $this->eventService->callEvent($statusNewCycle, StatusCycleEvent::STATUS_NEW_DAY);

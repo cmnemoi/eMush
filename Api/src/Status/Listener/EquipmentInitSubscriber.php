@@ -27,7 +27,7 @@ class EquipmentInitSubscriber implements EventSubscriberInterface
     {
         $equipmentConfig = $event->getEquipmentConfig();
         $gameEquipment = $event->getGameEquipment();
-        $reason = $event->getReason();
+        $reason = $event->getReasons()[0];
         $time = $event->getTime();
 
         foreach ($equipmentConfig->getInitStatus() as $statusConfig) {

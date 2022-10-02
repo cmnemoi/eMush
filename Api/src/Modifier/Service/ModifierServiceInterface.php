@@ -28,7 +28,7 @@ interface ModifierServiceInterface
     public function isSuccessfulWithModifier(
         ModifierHolder $holder,
         int $baseSuccessRate,
-        string $actionName,
+        array $reasons,
         bool $tryToSucceed = true
     ) : bool;
 

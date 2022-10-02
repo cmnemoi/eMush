@@ -35,14 +35,14 @@ class PlayerSubscriber implements EventSubscriberInterface
         if ($daedalus->getPlayers()->count() === $daedalus->getGameConfig()->getMaxPlayer()) {
             $fullDaedalusEvent = new DaedalusEvent(
                 $daedalus,
-                $event->getReason(),
+                $event->getReasons()[0],
                 $event->getTime()
             );
             $this->eventService->callEvent($fullDaedalusEvent, DaedalusEvent::FULL_DAEDALUS);
         } elseif ($daedalus->getPlayers()->count() === 1) {
             $startDaedalusEvent = new DaedalusEvent(
                 $daedalus,
-                $event->getReason(),
+                $event->getReasons()[0],
                 $event->getTime()
             );
             $this->eventService->callEvent($startDaedalusEvent, DaedalusEvent::START_DAEDALUS);
@@ -52,7 +52,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onDeathPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
-        $reason = $event->getReason();
+        $reason = $event->getReasons()[0];
 
         if ($player->getDaedalus()->getPlayers()->getPlayerAlive()->isEmpty() &&
             !in_array($reason, [EndCauseEnum::SOL_RETURN, EndCauseEnum::EDEN, EndCauseEnum::SUPER_NOVA, EndCauseEnum::KILLED_BY_NERON]) &&

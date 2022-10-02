@@ -35,7 +35,7 @@ class PlaceInitSubscriber implements EventSubscriberInterface
         $place = $event->getPlace();
         $placeConfig = $event->getPlaceConfig();
         $daedalus = $place->getDaedalus();
-        $reason = $event->getReason();
+        $reason = $event->getReasons()[0];
         $time = $event->getTime();
 
         foreach ($placeConfig->getItems() as $itemName) {

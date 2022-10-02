@@ -45,7 +45,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onDeathPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
-        $reason = $event->getReason();
+        $reason = $event->getReasons()[0];
 
         $this->playerService->playerDeath($player, $reason, $event->getTime());
     }

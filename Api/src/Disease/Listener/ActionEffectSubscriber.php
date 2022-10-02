@@ -67,7 +67,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->playerDiseaseService->healDisease($event->getPlayer(), $diseaseToHeal, $event->getReason(), $event->getTime());
+        $this->playerDiseaseService->healDisease($event->getPlayer(), $diseaseToHeal, $event->getReasons()[0], $event->getTime());
     }
 
     public function onPlayerGetSick(ApplyEffectEvent $event)
@@ -78,10 +78,10 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $actionName = $event->getReason();
+        $actionName = $event->getReasons()[0];
         if ($actionName === ActionEnum::MAKE_SICK) {
             $this->playerDiseaseService->handleDiseaseForCause(
-                $event->getReason(),
+                $event->getReasons()[0],
                 $player,
                 self::MAKE_SICK_DELAY_MIN,
                 self::MAKE_SICK_DELAY_LENGTH
@@ -90,7 +90,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->playerDiseaseService->handleDiseaseForCause($event->getReason(), $player);
+        $this->playerDiseaseService->handleDiseaseForCause($event->getReasons()[0], $player);
     }
 
     public function onPlayerCureInjury(ApplyEffectEvent $event)
@@ -106,7 +106,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
 
         $this->playerDiseaseService->removePlayerDisease(
             $injuryToHeal,
-            $event->getReason(),
+            $event->getReasons()[0],
             $event->getTime(),
             $event->getVisibility(),
             $event->getPlayer(),

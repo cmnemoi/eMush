@@ -69,6 +69,10 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
         $randCondition40->setValue(40);
         $manager->persist($randCondition40);
 
+        $takeActionCondition = new SymptomCondition(SymptomConditionEnum::REASON);
+        $takeActionCondition->setCondition(ActionEnum::TAKE);
+        $manager->persist($takeActionCondition);
+
         $biting = new SymptomConfig(SymptomEnum::BITING);
         $biting
             ->setTrigger(EventEnum::NEW_CYCLE)
@@ -89,6 +93,7 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
         $catAllergySymptom
             ->setTrigger(ActionEvent::POST_ACTION)
             ->addSymptomCondition($holdCatCondition)
+            ->addSymptomCondition($takeActionCondition)
         ;
         $manager->persist($catAllergySymptom);
 

@@ -11,10 +11,10 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -61,7 +61,7 @@ class AddBrokenStatusEventCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameEquipment();
         $gameEquipment
             ->setEquipment($equipmentConfig)
@@ -71,10 +71,10 @@ class AddBrokenStatusEventCest
         $I->haveInRepository($gameEquipment);
 
         $statusEvent = new StatusEvent(
-          EquipmentStatusEnum::BROKEN,
-          $gameEquipment,
-          EventEnum::NEW_CYCLE,
-          new \DateTime()
+            EquipmentStatusEnum::BROKEN,
+            $gameEquipment,
+            EventEnum::NEW_CYCLE,
+            new \DateTime()
         );
         $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
 

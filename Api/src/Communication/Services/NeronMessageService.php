@@ -14,10 +14,10 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 
 class NeronMessageService implements NeronMessageServiceInterface
 {
@@ -27,17 +27,20 @@ class NeronMessageService implements NeronMessageServiceInterface
     private EntityManagerInterface $entityManager;
     private RandomServiceInterface $randomService;
     private MessageRepository $messageRepository;
+    private TranslationServiceInterface $translationService;
 
     public function __construct(
         ChannelServiceInterface $channelService,
         EntityManagerInterface $entityManager,
         RandomServiceInterface $randomService,
-        MessageRepository $messageRepository
+        MessageRepository $messageRepository,
+        TranslationServiceInterface $translationService
     ) {
         $this->channelService = $channelService;
         $this->entityManager = $entityManager;
         $this->randomService = $randomService;
         $this->messageRepository = $messageRepository;
+        $this->translationService = $translationService;
     }
 
     public function createNeronMessage(
@@ -53,7 +56,7 @@ class NeronMessageService implements NeronMessageServiceInterface
         }
 
         $neron = $daedalus->getNeron();
-        //Get Neron personality
+        // Get Neron personality
         if (!$neron->isInhibited()) {
             $parameters['neronMood'] = NeronPersonalitiesEnum::UNINHIBITED;
         } elseif ($this->randomService->randomPercent() <= self::CRAZY_NERON_CHANCE) {
@@ -115,36 +118,35 @@ class NeronMessageService implements NeronMessageServiceInterface
                 break;
         }
 
+        $cause = $this->translationService->translate($cause . '.name', [], 'end_cause');
         $parameters = ['character' => $playerName, 'cause' => $cause];
         $this->createNeronMessage($message, $player->getDaedalus(), $parameters, $time);
     }
 
     public function createBrokenEquipmentMessage(GameEquipment $equipment, string $visibility, \DateTime $time): void
     {
-        if ($visibility === VisibilityEnum::PUBLIC) {
-            $equipmentName = $equipment->getName();
+        $equipmentName = $equipment->getName();
 
-            $daedalus = $equipment->getPlace()->getDaedalus();
+        $daedalus = $equipment->getPlace()->getDaedalus();
 
-            switch ($equipmentName) {
-                case EquipmentEnum::OXYGEN_TANK:
-                    $message = NeronMessageEnum::BROKEN_OXYGEN;
-                    break;
-                case EquipmentEnum::FUEL_TANK:
-                    $message = NeronMessageEnum::BROKEN_FUEL;
-                    break;
-                default:
-                    $message = NeronMessageEnum::BROKEN_EQUIPMENT;
-                    break;
-            }
+        switch ($equipmentName) {
+            case EquipmentEnum::OXYGEN_TANK:
+                $message = NeronMessageEnum::BROKEN_OXYGEN;
+                break;
+            case EquipmentEnum::FUEL_TANK:
+                $message = NeronMessageEnum::BROKEN_FUEL;
+                break;
+            default:
+                $message = NeronMessageEnum::BROKEN_EQUIPMENT;
+                break;
+        }
 
-            $parentMessage = $this->getMessageNeronCycleFailures($daedalus, $time);
+        $parentMessage = $this->getMessageNeronCycleFailures($daedalus, $time);
 
-            if ($equipment instanceof GameItem) {
-                $this->createNeronMessage($message, $daedalus, ['targetItem' => $equipmentName], $time, $parentMessage);
-            } elseif (!($equipment instanceof Door)) {
-                $this->createNeronMessage($message, $daedalus, ['targetEquipment' => $equipmentName], $time, $parentMessage);
-            }
+        if ($equipment instanceof GameItem) {
+            $this->createNeronMessage($message, $daedalus, ['target_item' => $equipmentName], $time, $parentMessage);
+        } elseif (!($equipment instanceof Door)) {
+            $this->createNeronMessage($message, $daedalus, ['target_equipment' => $equipmentName], $time, $parentMessage);
         }
     }
 

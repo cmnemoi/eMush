@@ -7,16 +7,10 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
-/**
- * Class GameItem.
- *
- * @ORM\Entity
- */
+#[ORM\Entity]
 class GameItem extends GameEquipment
 {
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Player\Entity\Player", inversedBy="items")
-     */
+    #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'items')]
     private ?Player $player = null;
 
     public function getHolder(): ?EquipmentHolderInterface
@@ -24,10 +18,7 @@ class GameItem extends GameEquipment
         return $this->player ?: $this->place;
     }
 
-    /**
-     * @return static
-     */
-    public function setHolder(?EquipmentHolderInterface $holder): self
+    public function setHolder(?EquipmentHolderInterface $holder): static
     {
         if ($holder === null) {
             $this->place = null;

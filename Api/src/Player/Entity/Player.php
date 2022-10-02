@@ -23,6 +23,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Repository\PlayerRepository;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Status;
@@ -34,106 +35,67 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- * @ORM\Entity(repositoryClass="Mush\Player\Repository\PlayerRepository")
- */
+#[ORM\Entity(repositoryClass: PlayerRepository::class)]
 class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolder, EquipmentHolderInterface
 {
     use TimestampableEntity;
     use TargetStatusTrait;
 
-    /**
-     * @ORM\Id
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\User\Entity\User")
-     */
+    #[ORM\ManyToOne(targetEntity: User::class)]
     private User $user;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $gameStatus;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Player\Entity\Config\CharacterConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: CharacterConfig::class)]
     private CharacterConfig $characterConfig;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Daedalus\Entity\Daedalus", inversedBy="players")
-     */
+    #[ORM\ManyToOne(targetEntity: Daedalus::class, inversedBy: 'players')]
     private Daedalus $daedalus;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Place\Entity\Place", inversedBy="players")
-     */
+    #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'players')]
     private Place $place;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Mush\Equipment\Entity\GameItem", mappedBy="player")
-     */
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: GameItem::class)]
     private Collection $items;
 
-    /**
-     * @ORM\OneToMany (targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="player", cascade={"ALL"}, orphanRemoval=true)
-     */
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $statuses;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Mush\Disease\Entity\PlayerDisease", mappedBy="player")
-     */
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: PlayerDisease::class)]
     private Collection $medicalCondition;
 
-    /**
-     * @ORM\ManyToMany (targetEntity="Mush\Player\Entity\Player", cascade={"ALL"}, orphanRemoval=true)
-     * @ORM\JoinTable(name="player_player_flirts")
-     */
+    #[ORM\ManyToMany(targetEntity: Player::class, cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\JoinTable(name: 'player_player_flirts')]
     private Collection $flirts;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\Modifier", mappedBy="player")
-     */
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: Modifier::class)]
     private Collection $modifiers;
 
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
+    #[ORM\Column(type: 'array', nullable: true)]
     private array $skills = [];
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $healthPoint = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $moralPoint = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $actionPoint = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $movementPoint = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $triumph = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $satiety = 0;
 
     public function __construct()
@@ -160,10 +122,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->characterConfig->getName();
     }
 
-    /**
-     * @return static
-     */
-    public function setUser(User $user): self
+    public function setUser(User $user): static
     {
         $this->user = $user;
 
@@ -175,10 +134,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->gameStatus;
     }
 
-    /**
-     * @return static
-     */
-    public function setGameStatus(string $gameStatus): self
+    public function setGameStatus(string $gameStatus): static
     {
         $this->gameStatus = $gameStatus;
 
@@ -195,10 +151,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->characterConfig;
     }
 
-    /**
-     * @return static
-     */
-    public function setCharacterConfig(CharacterConfig $characterConfig): self
+    public function setCharacterConfig(CharacterConfig $characterConfig): static
     {
         $this->characterConfig = $characterConfig;
 
@@ -210,10 +163,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->daedalus;
     }
 
-    /**
-     * @return static
-     */
-    public function setDaedalus(Daedalus $daedalus): self
+    public function setDaedalus(Daedalus $daedalus): static
     {
         $this->daedalus = $daedalus;
 
@@ -227,10 +177,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->place;
     }
 
-    /**
-     * @return static
-     */
-    public function setPlace(Place $place): self
+    public function setPlace(Place $place): static
     {
         $this->place = $place;
         $place->addPlayer($this);
@@ -238,10 +185,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function changePlace(Place $place): self
+    public function changePlace(Place $place): static
     {
         if ($this->place !== $place) {
             $this->place->removePlayer($this);
@@ -263,6 +207,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         ) {
             return true;
         }
+
+        if ($gameEquipment->getEquipment()->isPersonal() && $gameEquipment->getOwner() !== $this) {
+            return false;
+        }
+
         if ($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) {
             return $hiddenStatus->getTarget() === $this;
         } else {
@@ -275,20 +224,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->items;
     }
 
-    /**
-     * @return static
-     */
-    public function setEquipments(ArrayCollection $equipments): self
+    public function setEquipments(ArrayCollection $equipments): static
     {
         $this->items = $equipments;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function addEquipment(GameEquipment $gameEquipment): self
+    public function addEquipment(GameEquipment $gameEquipment): static
     {
         if (!$gameEquipment instanceof GameItem) {
             throw new UnexpectedTypeException($gameEquipment, GameItem::class);
@@ -301,10 +244,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function removeEquipment(GameEquipment $gameEquipment): self
+    public function removeEquipment(GameEquipment $gameEquipment): static
     {
         if ($this->items->contains($gameEquipment)) {
             $this->items->removeElement($gameEquipment);
@@ -314,15 +254,19 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    public function hasItemByName(string $name): bool
+    public function hasEquipmentByName(string $name): bool
     {
         return !$this->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
     }
 
-    /**
-     * @return static
-     */
-    public function addStatus(Status $status): self
+    public function hasOperationalEquipmentByName(string $name): bool
+    {
+        return !$this->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name &&
+            $gameItem->isOperational()
+        )->isEmpty();
+    }
+
+    public function addStatus(Status $status): static
     {
         if (!$this->getStatuses()->contains($status)) {
             if (!$statusTarget = $status->getStatusTargetTarget()) {
@@ -357,14 +301,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $disease->isEmpty() ? null : $disease->first();
     }
 
-    public function setMedicalCondition(Collection $medicalCondition): self
+    public function setMedicalCondition(Collection $medicalCondition): static
     {
         $this->medicalCondition = $medicalCondition;
 
         return $this;
     }
 
-    public function addMedicalCondition(PlayerDisease $playerDisease): self
+    public function addMedicalCondition(PlayerDisease $playerDisease): static
     {
         $this->medicalCondition->add($playerDisease);
 
@@ -384,10 +328,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $allModifiers->addModifiers($this->daedalus->getModifiers());
     }
 
-    /**
-     * @return static
-     */
-    public function addModifier(Modifier $modifier): self
+    public function addModifier(Modifier $modifier): static
     {
         $this->modifiers->add($modifier);
 
@@ -403,14 +344,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->flirts;
     }
 
-    public function setFlirts(Collection $flirts): self
+    public function setFlirts(Collection $flirts): static
     {
         $this->flirts = $flirts;
 
         return $this;
     }
 
-    public function addFlirt(Player $playerFlirt): self
+    public function addFlirt(Player $playerFlirt): static
     {
         $this->flirts->add($playerFlirt);
 
@@ -422,10 +363,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getFlirts()->exists(fn (int $id, Player $player) => $player === $playerTarget);
     }
 
-    /**
-     * @return static
-     */
-    public function addSkill(string $skill): self
+    public function addSkill(string $skill): static
     {
         $this->skills[] = $skill;
 
@@ -437,10 +375,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->skills;
     }
 
-    /**
-     * @return static
-     */
-    public function setSkills(array $skills): self
+    public function setSkills(array $skills): static
     {
         $this->skills = $skills;
 
@@ -452,20 +387,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->healthPoint;
     }
 
-    /**
-     * @return static
-     */
-    public function setHealthPoint(int $healthPoint): self
+    public function setHealthPoint(int $healthPoint): static
     {
         $this->healthPoint = $healthPoint;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function addHealthPoint(int $healthPoint): self
+    public function addHealthPoint(int $healthPoint): static
     {
         $this->healthPoint += $healthPoint;
 
@@ -477,20 +406,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->moralPoint;
     }
 
-    /**
-     * @return static
-     */
-    public function setMoralPoint(int $moralPoint): self
+    public function setMoralPoint(int $moralPoint): static
     {
         $this->moralPoint = $moralPoint;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function addMoralPoint(int $moralPoint): self
+    public function addMoralPoint(int $moralPoint): static
     {
         $this->moralPoint += $moralPoint;
 
@@ -502,20 +425,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->actionPoint;
     }
 
-    /**
-     * @return static
-     */
-    public function setActionPoint(int $actionPoint): self
+    public function setActionPoint(int $actionPoint): static
     {
         $this->actionPoint = $actionPoint;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function addActionPoint(int $actionPoint): self
+    public function addActionPoint(int $actionPoint): static
     {
         $this->actionPoint += $actionPoint;
 
@@ -527,20 +444,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->movementPoint;
     }
 
-    /**
-     * @return static
-     */
-    public function setMovementPoint(int $movementPoint): self
+    public function setMovementPoint(int $movementPoint): static
     {
         $this->movementPoint = $movementPoint;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function addMovementPoint(int $movementPoint): self
+    public function addMovementPoint(int $movementPoint): static
     {
         $this->movementPoint += $movementPoint;
 
@@ -552,20 +463,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->triumph;
     }
 
-    /**
-     * @return static
-     */
-    public function setTriumph(int $triumph): self
+    public function setTriumph(int $triumph): static
     {
         $this->triumph = $triumph;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function addTriumph(int $triumph): self
+    public function addTriumph(int $triumph): static
     {
         $this->triumph += $triumph;
 
@@ -577,20 +482,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->satiety;
     }
 
-    /**
-     * @return static
-     */
-    public function setSatiety(int $satiety): self
+    public function setSatiety(int $satiety): static
     {
         $this->satiety = $satiety;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function addSatiety(int $satiety): self
+    public function addSatiety(int $satiety): static
     {
         $this->satiety += $satiety;
 
@@ -617,7 +516,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         }
     }
 
-    public function setVariableFromName(string $variableName, int $value): self
+    public function setVariableFromName(string $variableName, int $value): static
     {
         switch ($variableName) {
             case PlayerVariableEnum::MORAL_POINT:

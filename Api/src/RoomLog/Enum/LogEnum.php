@@ -2,13 +2,14 @@
 
 namespace Mush\RoomLog\Enum;
 
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 
 class LogEnum
 {
     public const AWAKEN = 'awaken';
     public const DEATH = 'death';
-    public const OBJECT_FELT = 'object_felt';
+    public const OBJECT_FELL = 'object_fell';
     public const SOIL_PREVENTED_OCD = 'soil_prevented_ocd';
     public const OXY_LOW_USE_CAPSULE = 'oxy_low_use_capsule';
     public const TREMOR_NO_GRAVITY = 'tremor_no_gravity';
@@ -34,6 +35,13 @@ class LogEnum
     public const DISEASE_TREATED_PLAYER = 'disease_treated_player';
     public const DISORDER_CURED = 'disorder_cured';
     public const DISORDER_TREATED = 'disorder_treated';
+    public const INJURY_APPEAR = 'injury_appear';
+    public const SURGERY_SUCCESS = 'surgery_success';
+    public const SURGERY_CRITICAL_SUCCESS = 'surgery_critical_success';
+    public const SELF_SURGERY_SUCCESS = 'self_surgery_success';
+    public const SELF_SURGERY_CRITICAL_SUCCESS = 'self_surgery_critical_success';
+    public const TRAUMA_DISEASE = 'trauma_disease';
+    public const DISEASE_OVERRIDDEN = 'disease_overridden';
 
     public const VISIBILITY = 'visibility';
     public const VALUE = 'value';
@@ -56,4 +64,14 @@ class LogEnum
             self::VALUE => self::CLUMSINESS_PREVENTED,
         ],
     ];
+
+    public static function getSurgeryLogs(): array
+    {
+        return [
+            self::SURGERY_CRITICAL_SUCCESS,
+            self::SURGERY_SUCCESS,
+            self::SELF_SURGERY_CRITICAL_SUCCESS,
+            self::SELF_SURGERY_SUCCESS,
+        ];
+    }
 }

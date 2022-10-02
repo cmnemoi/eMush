@@ -85,7 +85,7 @@ class EquipmentEvent extends AbstractGameEvent implements LoggableEventInterface
         $logParameters = [];
 
         if ($this->newEquipment !== null) {
-            $logParameters[$this->newEquipment->getLogKey()] = $this->newEquipment->getLogName();
+            $logParameters['target_' . $this->newEquipment->getLogKey()] = $this->newEquipment->getLogName();
         }
 
         if ($this->existingEquipment !== null) {

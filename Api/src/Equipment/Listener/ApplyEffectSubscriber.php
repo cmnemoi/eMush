@@ -11,11 +11,11 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerModifierEvent;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -69,11 +69,11 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
 
         // if no charges consume equipment
         $equipmentEvent = new EquipmentEvent(
-                $ration->getName(),
-                $ration->getHolder() ?: $ration->getPlace(),
-                VisibilityEnum::HIDDEN,
-                $consumeEvent->getReason(),
-                new \DateTime()
+            $ration->getName(),
+            $ration->getHolder() ?: $ration->getPlace(),
+            VisibilityEnum::HIDDEN,
+            $consumeEvent->getReason(),
+            new \DateTime()
         );
 
         $equipmentEvent->setExistingEquipment($ration);
@@ -83,7 +83,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
     protected function dispatchConsumableEffects(ConsumableEffect $consumableEffect, Player $player, bool $isFrozen): void
     {
         if (($delta = $consumableEffect->getActionPoint()) !== null) {
-            $playerModifierEvent = new PlayerModifierEvent(
+            $playerModifierEvent = new PlayerVariableEvent(
                 $player,
                 PlayerVariableEnum::ACTION_POINT,
                 $delta,
@@ -93,7 +93,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
         if (($delta = $consumableEffect->getMovementPoint()) !== null) {
-            $playerModifierEvent = new PlayerModifierEvent(
+            $playerModifierEvent = new PlayerVariableEvent(
                 $player,
                 PlayerVariableEnum::MOVEMENT_POINT,
                 $delta,
@@ -103,7 +103,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
         if (($delta = $consumableEffect->getHealthPoint()) !== null) {
-            $playerModifierEvent = new PlayerModifierEvent(
+            $playerModifierEvent = new PlayerVariableEvent(
                 $player,
                 PlayerVariableEnum::HEALTH_POINT,
                 $delta,
@@ -114,7 +114,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         }
         if (($delta = $consumableEffect->getMoralPoint()) !== null &&
             !($isFrozen && $delta > 0)) {
-            $playerModifierEvent = new PlayerModifierEvent(
+            $playerModifierEvent = new PlayerVariableEvent(
                 $player,
                 PlayerVariableEnum::MORAL_POINT,
                 $delta,
@@ -124,12 +124,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
         if (($delta = $consumableEffect->getSatiety()) !== null) {
-            $currentSatiety = $player->getSatiety();
-            if ($currentSatiety < 0) {
-                $delta = $delta - $currentSatiety;
-            }
-
-            $playerModifierEvent = new PlayerModifierEvent(
+            $playerModifierEvent = new PlayerVariableEvent(
                 $player,
                 PlayerVariableEnum::SATIETY,
                 $delta,
@@ -142,7 +137,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
 
     protected function dispatchMushEffect(Player $player): void
     {
-        $playerModifierEvent = new PlayerModifierEvent(
+        $playerModifierEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::SATIETY,
             4,

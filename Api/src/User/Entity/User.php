@@ -7,49 +7,37 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Player\Entity\Player;
 use Mush\User\Enum\RoleEnum;
+use Mush\User\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * Class User.
- *
- * @ORM\Entity(repositoryClass="Mush\User\Repository\UserRepository")
- * @ORM\Table(name="`user`")
- */
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: 'users')]
 class User implements UserInterface
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\Column(type="string", nullable=false, unique=true)
-     */
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $userId;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $username;
 
-    /**
-     * @ORM\OneToOne (targetEntity="Mush\Player\Entity\Player")
-     */
+    #[ORM\OneToOne(targetEntity: Player::class)]
     private ?Player $currentGame = null;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $nonceCode = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?DateTime $nonceExpiryDate = null;
+
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $roles = [RoleEnum::USER];
 
     public function getId(): int
     {
@@ -80,9 +68,16 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
-        return [RoleEnum::USER];
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     public function getPassword()
@@ -134,5 +129,10 @@ class User implements UserInterface
         $this->nonceExpiryDate = $nonceExpiryDate;
 
         return $this;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->userId;
     }
 }

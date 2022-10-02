@@ -9,6 +9,7 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\LogicException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class HasEquipmentValidator extends ConstraintValidator
@@ -23,16 +24,55 @@ class HasEquipmentValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, HasEquipment::class);
         }
 
-        $player = $value->getPlayer();
+        /** @var Player $player */
+        $player = match ($constraint->target) {
+            HasEquipment::PARAMETER => $value->getParameter(),
+            HasEquipment::PLAYER => $value->getPlayer(),
+            default => throw new LogicException('unsupported target'),
+        };
 
-        if ($this->canReachEquipment($player, $constraint->equipment, $constraint->reach, $constraint->checkIfOperational) !== $constraint->contains) {
+        if (
+            $this->canReachEquipments(
+                $player,
+                $constraint->equipments,
+                $constraint->reach,
+                $constraint->checkIfOperational,
+                $constraint->all,
+            ) !== $constraint->contains
+        ) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }
     }
 
-    private function canReachEquipment(Player $player, string $equipmentName, string $reach, bool $checkIfOperational): bool
-    {
+    private function canReachEquipments(
+        Player $player,
+        array $equipmentsName,
+        string $reach,
+        bool $checkIfOperational,
+        bool $all
+    ): bool {
+        foreach ($equipmentsName as $equipmentName) {
+            if ($all && !$this->canReachEquipment($player, $equipmentName, $reach, $checkIfOperational)) {
+                return false;
+            } elseif (!$all && $this->canReachEquipment($player, $equipmentName, $reach, $checkIfOperational)) {
+                return true;
+            }
+        }
+
+        if ($all) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private function canReachEquipment(
+        Player $player,
+        string $equipmentName,
+        string $reach,
+        bool $checkIfOperational
+    ): bool {
         switch ($reach) {
             case ReachEnum::INVENTORY:
                 $equipments = $player->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName);

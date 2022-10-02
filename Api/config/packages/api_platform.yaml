@@ -1,0 +1,14 @@
+api_platform:
+    version: '1.0.0'
+    mapping:
+        paths:
+            - '%kernel.project_dir%/config/api_platform/resources' # yaml or xml directory configuration
+    patch_formats:
+        json: ['application/merge-patch+json']
+    swagger:
+        versions: [3]
+    defaults:
+        pagination_client_items_per_page: true
+    collection:
+        pagination:
+            items_per_page_parameter_name: itemsPerPage

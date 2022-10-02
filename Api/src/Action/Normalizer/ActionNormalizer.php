@@ -4,8 +4,10 @@ namespace Mush\Action\Normalizer;
 
 use Mush\Action\Actions\AttemptAction;
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Service\ActionStrategyServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
@@ -15,6 +17,12 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
     private TranslationServiceInterface $translationService;
     private ActionStrategyServiceInterface $actionStrategyService;
     private ActionServiceInterface $actionService;
+
+    private const ACTION_TYPE_DESCRIPTION_MAP = [
+        ActionTypeEnum::ACTION_AGGRESSIVE => ActionTypeEnum::ACTION_AGGRESSIVE,
+        VisibilityEnum::COVERT => VisibilityEnum::COVERT,
+        VisibilityEnum::SECRET => VisibilityEnum::SECRET,
+    ];
 
     public function __construct(
         TranslationServiceInterface $translationService,
@@ -28,7 +36,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        return $data instanceof Action;
+        return $data instanceof Action && empty($context['groups']);
     }
 
     /**
@@ -71,7 +79,9 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
                 $normalizedAction['description'] = $this->translationService->translate("{$reason}.description", [], 'action_fail');
                 $normalizedAction['canExecute'] = false;
             } else {
-                $normalizedAction['description'] = $this->translationService->translate("{$actionName}.description", [], 'actions');
+                $description = $this->translationService->translate("{$actionName}.description", [], 'actions');
+                $description = $this->getTypesDescriptions($description, $object->getTypes());
+                $normalizedAction['description'] = $description;
                 $normalizedAction['canExecute'] = true;
             }
 
@@ -98,5 +108,17 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
         }
 
         return $parameter;
+    }
+
+    private function getTypesDescriptions(string $description, array $types): string
+    {
+        foreach ($types as $type) {
+            if (key_exists($type, self::ACTION_TYPE_DESCRIPTION_MAP)) {
+                $key = self::ACTION_TYPE_DESCRIPTION_MAP[$type];
+                $description = $description . '//' . $this->translationService->translate($key . '.description', [], 'actions');
+            }
+        }
+
+        return $description;
     }
 }

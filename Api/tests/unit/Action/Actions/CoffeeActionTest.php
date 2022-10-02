@@ -71,7 +71,7 @@ class CoffeeActionTest extends AbstractActionTest
         $coffee = new ItemConfig();
         $coffee
              ->setName(GameRationEnum::COFFEE)
-         ;
+        ;
         $gameCoffee
             ->setEquipment($coffee)
             ->setName(GameRationEnum::COFFEE)

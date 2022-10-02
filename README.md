@@ -15,7 +15,7 @@ See endpoints for information on the different endpoints available.
 
 ### Prerequisites
 
-To have a working devlopment environment you will need to install:
+To have a working development environment you will need to install:
 * [Docker](https://docs.docker.com/get-docker/)
   * _(Windows)_ during installation follow instruction to install WSL2
 * [Docker-compose](https://docs.docker.com/compose/install/)
@@ -80,9 +80,9 @@ $ make bash-api
 
 Create the JWT certificates (https://github.com/lexik/LexikJWTAuthenticationBundle):
 ```bash
-$ openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
-$ openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
-$ chmod go+r config/jwt/private.pem
+openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
+openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
+chmod go+r config/jwt/private.pem
 ```
 Use mush as passphrase or update the .env with your passphrase
 
@@ -134,7 +134,7 @@ VUE_APP_OAUTH_URL=http://localhost:8080/oauth
 `VUE_APP_API_URL=http://localhost:new_port/api/v1/
 VUE_APP_OAUTH_URL=http://localhost:new_port/oauth`
 
-- Change `Àpi.env`:
+- Change `Api.env`:
 `OAUTH_CALLBACK="'http://localhost:8080/oauth/callback'"`
 by
 `OAUTH_CALLBACK="'http://localhost:new_port/oauth/callback'"`
@@ -161,3 +161,4 @@ Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of cond
 
 Please read [API.md](./Api/README.md) for details on the API architecture
 Please read [APP.md](./APP/README.md) for details on the APP architecture
+

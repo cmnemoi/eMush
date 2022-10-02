@@ -8,10 +8,13 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Blueprint;
+use Mush\Equipment\Entity\Mechanics\Book;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -48,52 +51,41 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
             throw new \LogicException('Current player is missing from context');
         }
 
-        $players = [];
-        /** @var Player $player */
-        foreach ($room->getPlayers()->getPlayerAlive() as $player) {
-            if ($currentPlayer !== $player) {
-                $players[] = $this->normalizer->normalize($player, $format, $context);
-            }
-        }
+        $players = $this->normalizePlayers(
+            $room,
+            $currentPlayer,
+            $format,
+            $context
+        );
 
-        $doors = [];
-        /** @var Door $door */
-        foreach ($room->getDoors() as $door) {
-            $normedDoor = $this->normalizer->normalize($door, $format, $context);
-            if (is_array($normedDoor)) {
-                $doors[] = array_merge(
-                    $normedDoor,
-                    ['direction' => $this->translationService->translate($door
-                        ->getRooms()
-                        ->filter(fn (Place $doorRoom) => $doorRoom !== $room)
-                        ->first()
-                        ->getName() . '.name', [], 'rooms'),
-                    ]
-                );
-            }
-        }
+        $doors = $this->normalizeDoors(
+            $room,
+            $format,
+            $context
+        );
 
-        $statuses = [];
-        /** @var Status $status */
-        foreach ($room->getStatuses() as $status) {
-            if ($status->getVisibility() === VisibilityEnum::PUBLIC) {
-                $statuses[] = $this->normalizer->normalize($status, $format, $context);
-            }
-        }
+        $statuses = $this->normalizeStatuses(
+            $room,
+            $format,
+            $context
+        );
 
-        //Split equipments between items and equipments
-        $partition = $room->getEquipments()->partition(fn (int $key, GameEquipment $gameEquipment) => $gameEquipment->getClassName() === GameEquipment::class);
+        // Split equipments between items and equipments
+        $partition = $room->getEquipments()->partition(fn (int $key, GameEquipment $gameEquipment) => $gameEquipment->getClassName() === GameEquipment::class ||
+            $gameEquipment->getClassName() === Door::class
+        );
 
         $equipments = $partition[0];
         $items = $partition[1];
 
-        $normalizedEquipments = [];
-        /** @var GameEquipment $equipment */
-        foreach ($equipments as $equipment) {
-            $normalizedEquipments[] = $this->normalizer->normalize($equipment, $format, $context);
-        }
+        $normalizedEquipments = $this->normalizeEquipments(
+            $currentPlayer,
+            $equipments,
+            $format,
+            $context
+        );
 
-        $normalizedItems = $this->getItems($items, $currentPlayer, $format, $context);
+        $normalizedItems = $this->normalizeItems($items, $currentPlayer, $format, $context);
 
         return [
             'id' => $room->getId(),
@@ -107,11 +99,76 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
         ];
     }
 
-    private function getItems(Collection $items, Player $currentPlayer, ?string $format, array $context): array
+    private function normalizePlayers(Place $room, Player $currentPlayer, ?string $format, array $context): array
+    {
+        $players = [];
+        /** @var Player $player */
+        foreach ($room->getPlayers()->getPlayerAlive() as $player) {
+            if ($currentPlayer !== $player) {
+                $players[] = $this->normalizer->normalize($player, $format, $context);
+            }
+        }
+
+        return $players;
+    }
+
+    private function normalizeStatuses(Place $room, ?string $format, array $context): array
+    {
+        $statuses = [];
+        /** @var Status $status */
+        foreach ($room->getStatuses() as $status) {
+            if ($status->getVisibility() === VisibilityEnum::PUBLIC) {
+                $statuses[] = $this->normalizer->normalize($status, $format, $context);
+            }
+        }
+
+        return $statuses;
+    }
+
+    private function normalizeDoors(Place $room, ?string $format, array $context): array
+    {
+        $doors = [];
+        /** @var Door $door */
+        foreach ($room->getDoors() as $door) {
+            $normedDoor = $this->normalizer->normalize($door, $format, $context);
+            if (is_array($normedDoor)) {
+                $doors[] = array_merge(
+                    $normedDoor,
+                    ['direction' => $door
+                        ->getRooms()
+                        ->filter(fn (Place $doorRoom) => $doorRoom !== $room)
+                        ->first()
+                        ->getName(),
+                    ]
+                );
+            }
+        }
+
+        return $doors;
+    }
+
+    private function normalizeEquipments(
+        Player $currentPlayer,
+        Collection $equipments,
+        ?string $format,
+        array $context
+    ): array {
+        $normalizedEquipments = [];
+        /** @var GameEquipment $equipment */
+        foreach ($equipments as $equipment) {
+            if (!($equipment->getEquipment()->isPersonal() && $equipment->getOwner() !== $currentPlayer)) {
+                $normalizedEquipments[] = $this->normalizer->normalize($equipment, $format, $context);
+            }
+        }
+
+        return $normalizedEquipments;
+    }
+
+    private function normalizeItems(Collection $items, Player $currentPlayer, ?string $format, array $context): array
     {
         $piles = [];
 
-        //For each group of item
+        // For each group of item
         foreach ($this->groupItemCollectionByName($items, $currentPlayer) as $itemGroup) {
             /** @var GameItem $patron */
             $patron = $itemGroup->first();
@@ -119,26 +176,23 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
             $patronConfig = $patron->getEquipment();
 
             if ($patronConfig instanceof ItemConfig) {
-                //If not stackable, normalize each occurrence of the item
+                // If not stackable, normalize each occurrence of the item
                 if (!$patronConfig->isStackable()) {
-                    foreach ($itemGroup as $item) {
-                        $piles[] = $this->normalizer->normalize($item, $format, $context);
-                    }
-                } else {
-                    /** @var array $normalizedItem */
-                    $statusesPiles = $this->groupByStatus($itemGroup, $currentPlayer);
-
-                    foreach ($statusesPiles as $pileName => $statusesPile) {
-                        $item = current($statusesPile);
-                        /** @var array $normalizedItem */
-                        $normalizedItem = $this->normalizer->normalize($item, $format, $context);
-
-                        $countItem = count($statusesPile);
-                        if ($countItem > 1) {
-                            $normalizedItem['number'] = $countItem;
-                        }
-                        $piles[] = $normalizedItem;
-                    }
+                    $piles = $this->handleNonStackableItem(
+                        $itemGroup,
+                        $currentPlayer,
+                        $format,
+                        $context,
+                        $piles
+                    );
+                } elseif (!($patronConfig->isPersonal() && $patron->getOwner() !== $currentPlayer)) {
+                    $piles = $this->handleStackableItem(
+                        $itemGroup,
+                        $currentPlayer,
+                        $format,
+                        $context,
+                        $piles
+                    );
                 }
             }
         }
@@ -146,21 +200,73 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
         return $piles;
     }
 
-    //Group item by name
+    private function handleNonStackableItem(
+        ArrayCollection $itemGroup,
+        Player $currentPlayer,
+        ?string $format,
+        array $context,
+        array $piles
+    ): array {
+        foreach ($itemGroup as $item) {
+            if (!($item->getEquipment()->isPersonal() && $item->getOwner() !== $currentPlayer)) {
+                $piles[] = $this->normalizer->normalize($item, $format, $context);
+            }
+        }
+
+        return $piles;
+    }
+
+    private function handleStackableItem(
+        ArrayCollection $itemGroup,
+        Player $currentPlayer,
+        ?string $format,
+        array $context,
+        array $piles
+    ): array {
+        $statusesPiles = $this->groupByStatus($itemGroup, $currentPlayer);
+
+        foreach ($statusesPiles as $pileName => $statusesPile) {
+            $item = current($statusesPile);
+            /** @var array $normalizedItem */
+            $normalizedItem = $this->normalizer->normalize($item, $format, $context);
+
+            $countItem = count($statusesPile);
+            if ($countItem > 1) {
+                $normalizedItem['number'] = $countItem;
+            }
+            $piles[] = $normalizedItem;
+        }
+
+        return $piles;
+    }
+
+    // Group item by name
     private function groupItemCollectionByName(Collection $items, Player $currentPlayer): array
     {
         $itemsGroup = [];
 
         /** @var GameItem $item */
         foreach ($items as $item) {
-            //Do not include items hidden to the player
+            // Do not include items hidden to the player
             $hiddenStatus = $item->getStatusByName(EquipmentStatusEnum::HIDDEN);
             if (!$hiddenStatus || ($hiddenStatus->getTarget() === $currentPlayer)) {
-                if (!isset($itemsGroup[$item->getName()])) {
-                    $itemsGroup[$item->getName()] = new ArrayCollection();
+                $name = $item->getName();
+
+                // book and blueprint hae the same name event for similar blueprint This part split them
+                $book = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK);
+                if ($book instanceof Book) {
+                    $name = $name . $book->getSkill();
+                }
+                $blueprint = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
+                if ($blueprint instanceof Blueprint) {
+                    $name = $name . $blueprint->getEquipment()->getName();
+                }
+
+                if (!isset($itemsGroup[$name])) {
+                    $itemsGroup[$name] = new ArrayCollection();
                 }
                 /** @var Collection $currentCollection */
-                $currentCollection = $itemsGroup[$item->getName()];
+                $currentCollection = $itemsGroup[$name];
                 $currentCollection->add($item);
             }
         }
@@ -200,7 +306,8 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
             $statusesFilter[] = EquipmentStatusEnum::CONTAMINATED;
         }
 
-        $statusesName = $itemStatuses->filter(fn (Status $status) => (in_array($status->getName(), $statusesFilter)));
+        $statusesName = $itemStatuses->filter(fn (Status $status) => in_array($status->getName(), $statusesFilter));
+
         if (!$statusesName->isEmpty()) {
             /** @var Status $status */
             $status = $statusesName->first();

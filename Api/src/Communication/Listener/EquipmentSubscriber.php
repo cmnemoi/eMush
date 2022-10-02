@@ -7,9 +7,7 @@ use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class EquipmentSubscriber implements EventSubscriberInterface
 {
@@ -38,15 +36,12 @@ class EquipmentSubscriber implements EventSubscriberInterface
         if (in_array($equipmentName, [EquipmentEnum::SHOWER, EquipmentEnum::THALASSO])) {
             $holder = $event->getHolder();
 
-            if ($holder instanceof Player) {
-                throw new UnexpectedTypeException($holder, Player::class);
-            }
             $daedalus = $holder->getPlace()->getDaedalus();
 
-            $numberShowerLeft = ($this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::THALASSO, $daedalus)->count() +
+            $numberShowersLeft = ($this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::THALASSO, $daedalus)->count() +
                 $this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::SHOWER, $daedalus)->count());
 
-            if ($numberShowerLeft === 0) {
+            if ($numberShowersLeft <= 1) {
                 $this->neronMessageService->createNeronMessage(
                     NeronMessageEnum::NO_SHOWER,
                     $daedalus,

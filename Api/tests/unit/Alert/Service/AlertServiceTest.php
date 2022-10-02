@@ -59,7 +59,7 @@ class AlertServiceTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus->setOxygen(15);
 
-        //oxygen don't go bellow the threshold of 8 oxygen
+        // oxygen don't go bellow the threshold of 8 oxygen
         $this->entityManager->shouldReceive('persist')->never();
         $this->entityManager->shouldReceive('remove')->never();
         $this->entityManager->shouldReceive('flush')->never();
@@ -105,7 +105,7 @@ class AlertServiceTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus->setHull(95);
 
-        //oxygen don't go bellow the threshold of 8 oxygen
+        // oxygen don't go bellow the threshold of 8 oxygen
         $this->entityManager->shouldReceive('persist')->never();
         $this->entityManager->shouldReceive('remove')->never();
         $this->entityManager->shouldReceive('flush')->never();

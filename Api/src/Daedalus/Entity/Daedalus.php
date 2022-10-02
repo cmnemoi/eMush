@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -17,110 +18,72 @@ use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 
-/**
- * Class Daedalus.
- *
- * @ORM\Entity(repositoryClass="Mush\Daedalus\Repository\DaedalusRepository")
- */
+#[ORM\Entity(repositoryClass: DaedalusRepository::class)]
+#[ORM\Table(name: 'daedalus')]
 class Daedalus implements ModifierHolder
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Mush\Player\Entity\Player", mappedBy="daedalus")
-     */
+    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Player::class)]
     private Collection $players;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Game\Entity\GameConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: GameConfig::class)]
     private GameConfig $gameConfig;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Mush\Daedalus\Entity\Neron", inversedBy="daedalus")
-     */
+    #[ORM\OneToOne(inversedBy: 'daedalus', targetEntity: Neron::class)]
     private Neron $neron;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $gameStatus = GameStatusEnum::STANDBY;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Mush\Place\Entity\Place", mappedBy="daedalus")
-     */
+    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Place::class)]
     private Collection $places;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Mush\Modifier\Entity\Modifier", mappedBy="daedalus")
-     */
+    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Modifier::class)]
     private Collection $modifiers;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false, unique: true)]
+    private string $name = 'default';
+
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $oxygen = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $fuel = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $hull = 100;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $day = 1;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $cycle = 1;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $shield = -2;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $spores = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $dailySpores = 0;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?DateTime $filledAt = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?DateTime $finishedAt = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?DateTime $cycleStartedAt = null;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
+    #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isCycleChange = false;
 
     public function __construct()
@@ -140,20 +103,14 @@ class Daedalus implements ModifierHolder
         return new PlayerCollection($this->players->toArray());
     }
 
-    /**
-     * @return static
-     */
-    public function setPlayers(Collection $players): self
+    public function setPlayers(Collection $players): static
     {
         $this->players = $players;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function addPlayer(Player $player): self
+    public function addPlayer(Player $player): static
     {
         if (!$this->getPlayers()->contains($player)) {
             $this->players->add($player);
@@ -164,10 +121,7 @@ class Daedalus implements ModifierHolder
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function removePlayer(Player $player): self
+    public function removePlayer(Player $player): static
     {
         $this->players->removeElement($player);
 
@@ -179,10 +133,7 @@ class Daedalus implements ModifierHolder
         return $this->gameConfig;
     }
 
-    /**
-     * @return static
-     */
-    public function setGameConfig(GameConfig $gameConfig): self
+    public function setGameConfig(GameConfig $gameConfig): static
     {
         $this->gameConfig = $gameConfig;
 
@@ -194,9 +145,21 @@ class Daedalus implements ModifierHolder
         return $this->neron;
     }
 
-    public function setNeron(Neron $neron): self
+    public function setNeron(Neron $neron): static
     {
         $this->neron = $neron;
+
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }
@@ -206,10 +169,7 @@ class Daedalus implements ModifierHolder
         return $this->gameStatus;
     }
 
-    /**
-     * @return static
-     */
-    public function setGameStatus(string $gameStatus): self
+    public function setGameStatus(string $gameStatus): static
     {
         $this->gameStatus = $gameStatus;
 
@@ -233,20 +193,14 @@ class Daedalus implements ModifierHolder
         return $place === false ? null : $place;
     }
 
-    /**
-     * @return static
-     */
-    public function setPlaces(Collection $places): self
+    public function setPlaces(Collection $places): static
     {
         $this->places = $places;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function addPlace(Place $place): self
+    public function addPlace(Place $place): static
     {
         if (!$this->getPlaces()->contains($place)) {
             $this->places->add($place);
@@ -257,10 +211,7 @@ class Daedalus implements ModifierHolder
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function removePlace(Place $place): self
+    public function removePlace(Place $place): static
     {
         $this->places->removeElement($place);
 
@@ -277,10 +228,7 @@ class Daedalus implements ModifierHolder
         return new ModifierCollection($this->modifiers->toArray());
     }
 
-    /**
-     * @return static
-     */
-    public function addModifier(Modifier $modifier): self
+    public function addModifier(Modifier $modifier): static
     {
         $this->modifiers->add($modifier);
 
@@ -292,20 +240,14 @@ class Daedalus implements ModifierHolder
         return $this->oxygen;
     }
 
-    /**
-     * @return static
-     */
-    public function setOxygen(int $oxygen): self
+    public function setOxygen(int $oxygen): static
     {
         $this->oxygen = $oxygen;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function addOxygen(int $change): self
+    public function addOxygen(int $change): static
     {
         $this->oxygen += $change;
 
@@ -317,20 +259,14 @@ class Daedalus implements ModifierHolder
         return $this->fuel;
     }
 
-    /**
-     * @return static
-     */
-    public function setFuel(int $fuel): self
+    public function setFuel(int $fuel): static
     {
         $this->fuel = $fuel;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function addFuel(int $change): self
+    public function addFuel(int $change): static
     {
         $this->fuel += $change;
 
@@ -342,20 +278,14 @@ class Daedalus implements ModifierHolder
         return $this->hull;
     }
 
-    /**
-     * @return static
-     */
-    public function addHull(int $change): self
+    public function addHull(int $change): static
     {
         $this->hull += $change;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setHull(int $hull): self
+    public function setHull(int $hull): static
     {
         $this->hull = $hull;
 
@@ -367,10 +297,7 @@ class Daedalus implements ModifierHolder
         return $this->cycle;
     }
 
-    /**
-     * @return static
-     */
-    public function setCycle(int $cycle): self
+    public function setCycle(int $cycle): static
     {
         $this->cycle = $cycle;
 
@@ -382,10 +309,7 @@ class Daedalus implements ModifierHolder
         return $this->day;
     }
 
-    /**
-     * @return static
-     */
-    public function setDay(int $day): self
+    public function setDay(int $day): static
     {
         $this->day = $day;
 
@@ -397,10 +321,7 @@ class Daedalus implements ModifierHolder
         return $this->shield;
     }
 
-    /**
-     * @return static
-     */
-    public function setShield(int $shield): self
+    public function setShield(int $shield): static
     {
         $this->shield = $shield;
 
@@ -412,10 +333,7 @@ class Daedalus implements ModifierHolder
         return $this->spores;
     }
 
-    /**
-     * @return static
-     */
-    public function setSpores(int $spores): self
+    public function setSpores(int $spores): static
     {
         $this->spores = $spores;
 
@@ -427,10 +345,7 @@ class Daedalus implements ModifierHolder
         return $this->dailySpores;
     }
 
-    /**
-     * @return static
-     */
-    public function setDailySpores(int $dailySpores): self
+    public function setDailySpores(int $dailySpores): static
     {
         $this->dailySpores = $dailySpores;
 
@@ -442,7 +357,7 @@ class Daedalus implements ModifierHolder
         return $this->filledAt;
     }
 
-    public function setFilledAt(DateTime $filledAt): self
+    public function setFilledAt(DateTime $filledAt): static
     {
         $this->filledAt = $filledAt;
 
@@ -454,7 +369,7 @@ class Daedalus implements ModifierHolder
         return $this->finishedAt;
     }
 
-    public function setFinishedAt(DateTime $finishedAt): self
+    public function setFinishedAt(DateTime $finishedAt): static
     {
         $this->finishedAt = $finishedAt;
 
@@ -466,7 +381,7 @@ class Daedalus implements ModifierHolder
         return $this->cycleStartedAt;
     }
 
-    public function setCycleStartedAt(DateTime $cycleStartedAt): self
+    public function setCycleStartedAt(DateTime $cycleStartedAt): static
     {
         $this->cycleStartedAt = $cycleStartedAt;
 
@@ -478,7 +393,7 @@ class Daedalus implements ModifierHolder
         return $this->isCycleChange;
     }
 
-    public function setIsCycleChange(bool $isCycleChange): self
+    public function setIsCycleChange(bool $isCycleChange): static
     {
         $this->isCycleChange = $isCycleChange;
 

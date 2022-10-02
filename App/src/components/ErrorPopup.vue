@@ -1,5 +1,5 @@
 <template>
-    <PopUp :is-open="!! error" @close="clearError">
+    <PopUp :is-open="error && (parseInt(error.status) >= 500 && parseInt(error.status) <= 599)" @close="clearError">
         <h1 class="title">
             {{ title }}
         </h1>

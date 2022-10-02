@@ -1,5 +1,21 @@
 <template>
-    <div class="main">
+    <div class="box-container">
+        <Spinner :loading="loading"></Spinner>
+        <form class="daedalus-selection" onsubmit="return false">
+            <div>
+                <label>Find your ship:</label>
+                <input
+                    v-model="daedalusName"
+                    type="search"
+                    class=""
+                    placeholder=""
+                    aria-controls="example"
+                    @keyup.enter="loadAvailableCharacters"
+                >
+                <button type="button" @click="loadAvailableCharacters">Select</button>
+            </div>
+            <span v-if="error" class="error">No ship was found under this name. Please check and input the name again.</span>
+        </form>
         <div class="char-selection">
             <section
                 v-for="(character, key) in characters"
@@ -24,15 +40,15 @@
         <div style="display:none;" class="banner">
             <div class="skills">
                 <div class="Expert radio">
-                    <img src="@/assets/images/skills/cook.png" alt="cook">
+                    <img src="@/assets/images/skills/human/cook.png" alt="cook">
                     <p>Expert radio</p>
                 </div>
                 <div class="Expert logistique">
-                    <img src="@/assets/images/skills/cook.png" alt="cook">
+                    <img src="@/assets/images/skills/human/cook.png" alt="cook">
                     <p>Expert logistique</p>
                 </div>
                 <div class="Tireur">
-                    <img src="@/assets/images/skills/cook.png" alt="cook">
+                    <img src="@/assets/images/skills/human/cook.png" alt="cook">
                     <p>Tireur</p>
                 </div>
             </div>
@@ -54,29 +70,51 @@ import ApiService from "@/services/api.service";
 import { characterEnum } from "@/enums/character";
 import PlayerService from "@/services/player.service";
 import { Character } from "@/entities/Character";
+import Spinner from "@/components/Utils/Spinner.vue";
 import { defineComponent } from "vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default defineComponent ({
     name: 'CharSelection',
+    components: {
+        Spinner
+    },
     props: {
     },
     data: () => {
         return {
             loading: false,
             daedalusId: -1,
-            characters: []
+            characters: [],
+            daedalusName: '',
+            error: false
         };
     },
-    beforeMount(): void {
-        this.loading = true;
-        ApiService.get('daedalus/available-characters')
-            .then((response) => {
-                this.daedalusId = response.data.daedalus;
-                this.characters = response.data.characters;
-                this.loading = false;
-            });
+    computed: {
+        ...mapGetters('auth', [
+            'getUserInfo'
+        ])
     },
     methods: {
+        loadAvailableCharacters() {
+            if (this.daedalusName.length > 0) {
+                this.loading = true;
+                console.log('hi');
+                ApiService.get('daedaluses/available-characters', { params: { name: this.daedalusName } })
+                    .then((response) => {
+                        this.daedalusId = response.data.daedalus;
+                        this.characters = response.data.characters;
+                        this.error = false;
+                        this.loading = false;
+                    })
+                    .catch((error) => {
+                        this.clearError();
+                        this.error = true;
+                        this.loading = false;
+
+                    });
+            }
+        },
         characterPortrait: function(character: Character) {
             return characterEnum[character.key] ? characterEnum[character.key].portrait : require('@/assets/images/items/todo.jpg');
         },
@@ -84,7 +122,7 @@ export default defineComponent ({
             return characterEnum[character.key] ? characterEnum[character.key].body : require('@/assets/images/items/todo.jpg');
         },
         selectCharacter: function(character: Character) {
-            PlayerService.selectCharacter(this.daedalusId, character.key)
+            PlayerService.selectCharacter(this.getUserInfo.userId, this.daedalusId, character.key)
                 .then(() => {
                     this.loading = false;
                 })
@@ -92,38 +130,19 @@ export default defineComponent ({
                     console.error(error);
                     this.loading = false;
                 });
-        }
+        },
+        ...mapActions('error', [
+            'clearError'
+        ])
     }
 });
 </script>
 
 <style lang="scss" scoped>
 
-.main {
-    position: relative;
+.box-container {
     justify-content: stretch;
     min-height: 625px;
-    max-width: 1080px;
-    width: 100%;
-    margin: 36px auto;
-    padding: 12px 12px 42px 12px;
-    z-index: 10;
-
-    &::after {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-
-        @include corner-bezel(18.5px);
-
-        box-shadow: inset 0 0 35px 25px rgb(15, 89, 171);
-        background-color: rgb(34, 38, 102);
-        opacity: 0.5;
-    }
 }
 
 h1 {
@@ -131,6 +150,41 @@ h1 {
     margin: 15px;
     font-size: 1.5em;
     font-variant: small-caps;
+}
+
+
+.daedalus-selection {
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em 1em 1.8em;
+    font-size: 1.25em;
+
+    div {
+        flex-direction: row;
+        align-items: center;
+
+        & > * { margin: 0 .15em; }
+    }
+
+    label {
+        font-weight: bold;
+        font-style: italic;
+        color: #88a6fe;
+    }
+
+    button { @include button-style; }
+
+    .error {
+        margin: 1em 0;
+        padding: .3em .8em;
+        background: transparentize($red, .7);
+        border: 1px solid $red;
+        border-radius: 6px;
+        font-size: .9em;
+        font-style: italic;
+    }
 }
 
 .char-selection {
@@ -292,8 +346,6 @@ h1 {
         }
     }
 }
-
-
 
 </style>
 

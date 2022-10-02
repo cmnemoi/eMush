@@ -33,8 +33,8 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
         $daedalusConfig
             ->setGameConfig($gameConfig)
             ->setInitOxygen(32)
-            ->setInitFuel(32)
-            ->setInitHull(70)
+            ->setInitFuel(20)
+            ->setInitHull(100)
             ->setInitShield(-2)
             ->setDailySporeNb(4)
             ->setMaxOxygen(32)
@@ -42,8 +42,8 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setMaxHull(100)
         ;
 
-        $randomItemPlaces = new RandomItemPlaces();
-        $randomItemPlaces
+        $randomStorageItemPlaces = new RandomItemPlaces();
+        $randomStorageItemPlaces
             ->setItems([
                 GearItemEnum::PLASTENITE_ARMOR,
                 ToolItemEnum::HACKER_KIT,
@@ -68,18 +68,13 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
                 ToolItemEnum::DUCT_TAPE,
                 GearItemEnum::SOAP,
                 GearItemEnum::STAINPROOF_APRON,
+                ToolItemEnum::MEDIKIT,
                 GearItemEnum::ANTIGRAV_SCOOTER,
             ])
-            ->setPlaces([
-                RoomEnum::FRONT_STORAGE,
-                RoomEnum::CENTER_ALPHA_STORAGE,
-                RoomEnum::CENTER_BRAVO_STORAGE,
-                RoomEnum::REAR_ALPHA_STORAGE,
-                RoomEnum::REAR_BRAVO_STORAGE,
-            ])
+            ->setPlaces(RoomEnum::getStorages())
         ;
 
-        $daedalusConfig->setRandomItemPlace($randomItemPlaces);
+        $daedalusConfig->setRandomItemPlace($randomStorageItemPlaces);
 
         $manager->persist($daedalusConfig);
 

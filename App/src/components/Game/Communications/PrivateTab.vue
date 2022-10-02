@@ -1,5 +1,5 @@
 <template>
-    <TabContainer id="private-discussion-tab" :channel="channel" new-message-allowed>
+    <TabContainer id="private-discussion-tab" :channel="channel" :new-message-allowed = "newMessagesAllowed">
         <ActionButtons
             class="action-buttons"
             :actions="['refresh', 'invite', 'report', 'leave']"
@@ -44,7 +44,11 @@ export default defineComponent ({
     computed: {
         ...mapGetters('communication', [
             'messages'
-        ])
+        ]),
+        newMessagesAllowed(): boolean | undefined
+        {
+            return this.channel?.newMessageAllowed;
+        }
     },
     methods: {
         characterBody: function(character : string): string {

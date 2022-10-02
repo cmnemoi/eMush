@@ -2,51 +2,53 @@
 
 namespace Mush\Player\Entity\Config;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\Action;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Game\Entity\ConfigInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 
-/**
- * Class CharacterConfig.
- *
- * @ORM\Entity()
- * @ORM\Table(name="character_config")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'character_config')]
 class CharacterConfig implements ConfigInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig", inversedBy="charactersConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: GameConfig::class, inversedBy: 'charactersConfig')]
     private GameConfig $gameConfig;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Mush\Status\Entity\Config\StatusConfig")
-     */
+    #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
     private Collection $initStatuses;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Mush\Action\Entity\Action")
-     */
+    #[ORM\ManyToMany(targetEntity: Action::class)]
     private Collection $actions;
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $skills;
+
+    #[ORM\ManyToMany(targetEntity: ItemConfig::class)]
+    private Collection $startingItems;
+
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $initDiseases;
+
+    public function __construct()
+    {
+        $this->initStatuses = new ArrayCollection();
+        $this->actions = new ArrayCollection();
+        $this->startingItems = new ArrayCollection();
+        $this->initDiseases = [];
+        $this->skills = [];
+    }
 
     public function getId(): int
     {
@@ -58,10 +60,7 @@ class CharacterConfig implements ConfigInterface
         return $this->gameConfig;
     }
 
-    /**
-     * @return static
-     */
-    public function setGameConfig(GameConfig $gameConfig): self
+    public function setGameConfig(GameConfig $gameConfig): static
     {
         $this->gameConfig = $gameConfig;
 
@@ -73,10 +72,7 @@ class CharacterConfig implements ConfigInterface
         return $this->name;
     }
 
-    /**
-     * @return static
-     */
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
 
@@ -88,10 +84,7 @@ class CharacterConfig implements ConfigInterface
         return $this->initStatuses;
     }
 
-    /**
-     * @return static
-     */
-    public function setInitStatuses(Collection $initStatuses): self
+    public function setInitStatuses(Collection $initStatuses): static
     {
         $this->initStatuses = $initStatuses;
 
@@ -110,7 +103,7 @@ class CharacterConfig implements ConfigInterface
         return $actions->isEmpty() ? null : $actions->first();
     }
 
-    public function setActions(Collection $actions): self
+    public function setActions(Collection $actions): static
     {
         $this->actions = $actions;
 
@@ -122,12 +115,33 @@ class CharacterConfig implements ConfigInterface
         return $this->skills;
     }
 
-    /**
-     * @return static
-     */
-    public function setSkills(array $skills): self
+    public function setSkills(array $skills): static
     {
         $this->skills = $skills;
+
+        return $this;
+    }
+
+    public function getStartingItem(): Collection
+    {
+        return $this->startingItems;
+    }
+
+    public function setStartingItem(Collection $items): static
+    {
+        $this->startingItems = $items;
+
+        return $this;
+    }
+
+    public function getInitDiseases(): array
+    {
+        return $this->initDiseases;
+    }
+
+    public function setInitDiseases(array $initDiseases): static
+    {
+        $this->initDiseases = $initDiseases;
 
         return $this;
     }

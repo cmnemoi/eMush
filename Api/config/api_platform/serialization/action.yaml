@@ -1,0 +1,18 @@
+Mush\Action\Entity\Action:
+  attributes:                          # optional
+    id:
+      groups: [ 'action_read' ]
+    name:
+      groups: [ 'action_read', 'action_write' ]
+    types:
+      groups: [ 'action_read', 'action_write' ]
+    target:
+      groups: [ 'action_read', 'action_write' ]
+    scope:
+      groups: [ 'action_read', 'action_write' ]
+    successRate:
+      groups: [ 'action_read', 'action_write' ]
+    injuryRate:
+      groups: [ 'action_read', 'action_write' ]
+    dirtyRate:
+      groups: [ 'action_read', 'action_write' ]

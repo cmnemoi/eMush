@@ -20,7 +20,7 @@ class UseBandageActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::SELF_HEAL);
+        $this->actionEntity = $this->createActionEntity(ActionEnum::USE_BANDAGE);
 
         $this->action = new UseBandage(
             $this->eventDispatcher,

@@ -155,6 +155,11 @@ import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 import store from "@/store";
 import MushTiledMap from "@/game/tiled/mushTiledMap";
 import EquipmentObject from "@/game/objects/equipmentObject";
+import { Equipment } from "@/entities/Equipment";
+import DecorationObject from "@/game/objects/decorationObject";
+import DoorObject from "@/game/objects/doorObject";
+import DoorGroundObject from "@/game/objects/doorGroundObject";
+import { Door } from "@/entities/Door";
 
 
 export default class DaedalusScene extends Phaser.Scene
@@ -162,40 +167,50 @@ export default class DaedalusScene extends Phaser.Scene
     private characterSize = 6;
     private isoTileSize: number;
     private sceneIsoSize: IsometricCoordinates;
+    private playerIsoSize: IsometricCoordinates;
 
     public playerSprite! : PlayableCharacterObject;
 
     private player : Player;
-    private room : Room;
+    public room : Room;
     private equipments : Array<EquipmentObject>;
-    private cameraTarget : { x : number, y : number};
+    private map: MushTiledMap | null;
     private targetHighlightObject?: Phaser.GameObjects.Sprite;
 
     public sceneGrid: SceneGrid;
     public navMeshGrid: NavMeshGrid;
+    private roomBasicSceneGrid: SceneGrid;
+
+    private isScreenSliding = false;
+    private cameraTarget: CartesianCoordinates = new CartesianCoordinates(0,0);
+    private cameraDirection: CartesianCoordinates = new CartesianCoordinates(0,0);
+    private previousRoom: string | undefined = undefined;
 
     public selectedGameObject : Phaser.GameObjects.GameObject | null;
+    private fireParticles: Array<Phaser.GameObjects.Particles.ParticleEmitterManager> = []
 
     constructor(player: Player) {
         super('game-scene');
 
         this.isoTileSize = 16;
         this.sceneIsoSize= new IsometricCoordinates(0, 0);
+        this.playerIsoSize = new IsometricCoordinates(this.characterSize, this.characterSize);
+
 
         if (player.room === null){
             throw new Error('player should have a room');
         }
 
         this.room = player.room;
+        this.map = null;
         this.player = player;
         this.equipments = [];
 
         this.sceneGrid = new SceneGrid(this, this.characterSize);
+        this.roomBasicSceneGrid = new SceneGrid(this, this.characterSize);
         this.navMeshGrid = new NavMeshGrid(this);
 
         this.selectedGameObject = null;
-
-        this.cameraTarget = { x: 0 , y: 0 };
     }
 
     preload(): void
@@ -353,22 +368,14 @@ export default class DaedalusScene extends Phaser.Scene
     {
         (<Phaser.Renderer.WebGL.WebGLRenderer>this.game.renderer).pipelines.addPostPipeline('outline', OutlinePostFx);
 
-        const map = new MushTiledMap(this, this.room.key);
-
-        map.createInitialSceneGrid(this.sceneGrid);
-        this.sceneIsoSize = map.getMapSize();
-        this.equipments = map.createLayers(this.room, this.sceneGrid);
+        this.map = this.createRoom();
+        this.createEquipments(this.map);
 
         // add target tile highlight
         this.targetHighlightObject = new Phaser.GameObjects.Sprite(this, 0, 0, 'tile_highlight');
         this.add.existing(this.targetHighlightObject);
         this.targetHighlightObject.setDepth(500);
 
-        this.sceneGrid.updateDepth();
-
-        this.navMeshGrid = this.sceneGrid.buildNavMeshGrid();
-
-        // this.enableDebugView();
 
         this.input.setTopOnly(true);
         this.input.setGlobalTopOnly(true);
@@ -377,24 +384,285 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.enableEventListeners();
 
-        const background = this.add.tileSprite(0, 0, 848, 920, 'background');
-        background.setScrollFactor(0, 0);
 
-        if (this.room.isOnFire) {
-            this.displayFire();
+        //const loadPlayer = mapActions('player', ['loadPlayer']);
+        store.subscribeAction({
+            after: (action) => {
+                if (action.type === 'player/reloadPlayer') {
+                    this.reloadScene();
+                }
+            }
+        });
+    }
+
+    reloadScene(): void
+    {
+        this.player = store.getters["player/player"];
+        this.navMeshGrid = new NavMeshGrid(this);
+
+        const newRoom = this.player.room;
+        if (newRoom === null) { throw new Error("player room should be defined");}
+
+        if (this.room.key !== newRoom.key) {
+            this.room = newRoom;
+
+            this.selectedGameObject = null;
+            store.dispatch('room/selectTarget', { target: null });
+            store.dispatch('room/closeInventory');
+
+            this.deleteWallAndFloor();
+            this.deleteCharacters();
+            this.deleteEquipmentsAndDecoration();
+
+
+            this.map = this.createRoom();
+            this.createEquipments(this.map);
+            this.createPlayers();
+
+        } else if (this.isEquipmentModified()) {
+            this.room = newRoom;
+
+            this.deleteEquipmentsAndDecoration();
+            this.selectedGameObject = null;
+            store.dispatch('room/selectTarget', { target: null });
+            store.dispatch('room/closeInventory');
+
+            if (this.map === null) { throw new Error("player room should be defined");}
+
+            this.map = this.createRoom();
+            this.createEquipments(this.map);
+        } else{
+            this.room = newRoom;
+
+            this.updatePlayers();
+            this.updateEquipments();
+            this.updateStatuses();
         }
+    }
+
+    updateStatuses(): void
+    {
+        if (this.room.isOnFire && this.fireParticles.length === 0) {
+            this.displayFire();
+        } else if (!this.room.isOnFire && this.fireParticles.length > 0) {
+            for (let i=0; i< this.fireParticles.length; i++) {
+                const particleEmitter = this.fireParticles[i];
+                particleEmitter.destroy();
+                this.fireParticles.splice(i, 1);
+                i= i-1;
+            }
+        }
+    }
+
+    updateEquipments(): void
+    {
+        const sceneGameObjects = this.children.list;
+
+        const room = this.player.room;
+
+        if (room === null) { throw new Error("player room should be defined");}
+        for (let i=0; i < sceneGameObjects.length; i++) {
+            const gameObject = sceneGameObjects[i];
+
+            if (gameObject instanceof EquipmentObject) {
+                const updatedEquipment = room.equipments.filter((equipment: Equipment) => (equipment.key === gameObject.equipment.key))[0];
+
+                gameObject.updateEquipment(updatedEquipment);
+                if (gameObject.name === this.selectedGameObject?.name) {
+                    store.dispatch('room/selectTarget', { target: gameObject.equipment });
+                }
+
+            } else if (gameObject instanceof DoorObject || gameObject instanceof DoorGroundObject) {
+                const updatedDoor = room.doors.filter((door: Door) => (door.key === gameObject.door.key))[0];
+
+                gameObject.updateDoor(updatedDoor);
+                if (gameObject.name === this.selectedGameObject?.name) {
+                    store.dispatch('room/selectTarget', { target: gameObject.door });
+                }
+            }
+        }
+    }
+
+    updatePlayers(): void
+    {
+        const sceneGameObjects = this.children.list;
+        const addedPlayer: Array<string> = [];
+
+        const room = this.player.room;
+        if (room === null) { throw new Error("player room should be defined");}
+
+        // update player (that get up for instance) and remove player that moved or died
+        for (let i=0; i < sceneGameObjects.length; i++) {
+            const gameObject = sceneGameObjects[i];
+
+            if (gameObject instanceof CharacterObject) {
+                addedPlayer.push(gameObject.name);
+
+                if (room.players.filter((player: Player) => {return player.character.key === gameObject.name;}).length == 0 &&
+                    this.player.character.key !== gameObject.name
+                ) {
+                    gameObject.destroy();
+                    i = i-1;
+                } else {
+                    if (this.player.character.key === gameObject.name) {
+                        const playerEntity = this.player;
+
+                        gameObject.updatePlayer(playerEntity);
+                        if (gameObject.name === this.selectedGameObject?.name) {
+                            store.dispatch('room/selectTarget', { target: gameObject.player });
+                        }
+                    } else {
+                        const playerEntity = room.players.filter((player: Player) => {return player.character.key === gameObject.name;})[0];
+
+                        gameObject.updatePlayer(playerEntity);
+                        if (gameObject.name === this.selectedGameObject?.name) {
+                            store.dispatch('room/selectTarget', { target: gameObject.player });
+                        }
+                    }
+                }
+            }
+        }
+
+        //add players
+        for (let i=0; i < room.players.length; i++) {
+            const player = room.players[i];
+
+            if (!addedPlayer.includes(player.character.key)) {
+                const otherPlayerCoordinates = this.navMeshGrid.getRandomPoint();
+
+                const newCharacter = new CharacterObject(
+                    this,
+                    otherPlayerCoordinates,
+                    new IsometricGeom(otherPlayerCoordinates.toIsometricCoordinates(), this.playerIsoSize),
+                    player
+                );
+            }
+        }
+    }
+
+    isEquipmentModified(): boolean
+    {
+        const sceneGameObjects = this.children.list;
+
+        const room = this.player.room;
+
+        if (room === null) { throw new Error("player room should be defined");}
+        for (let i=0; i < sceneGameObjects.length; i++) {
+            const gameObject = sceneGameObjects[i];
+
+            if (gameObject instanceof EquipmentObject &&
+                room.equipments.filter((equipment: Equipment) => {return equipment.key === gameObject.name;}).length === 0
+            ) {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    createRoom(): MushTiledMap
+    {
+        this.sceneGrid = new SceneGrid(this, this.characterSize);
+        this.navMeshGrid = new NavMeshGrid(this);
+
+        const map = new MushTiledMap(this, this.room.key);
+        this.roomBasicSceneGrid = map.createInitialSceneGrid(this.sceneGrid);
+        this.sceneIsoSize = map.getMapSize();
+        this.cameraDirection = new CartesianCoordinates(0,0);
+        map.createLayers(this.room, this.sceneGrid);
+
+
+        this.playerSprite = new PlayableCharacterObject(
+            this,
+            new CartesianCoordinates(0,0),
+            new IsometricGeom(new IsometricCoordinates(0,0), this.playerIsoSize),
+            this.player
+        );
 
         //place the starting camera.
         //If the scene size is larger than the camera, the camera is centered on the player
         //else it is centered on the scene
-        const cameraPosition = map.getCameraPosition();
-        if (cameraPosition.width < 424 && cameraPosition.height < 460) {
-            this.cameras.main.setBounds(-212, -160, 424, 460);
+        const sceneCartesianSize = new CartesianCoordinates(this.sceneIsoSize.x + this.sceneIsoSize.y, (this.sceneIsoSize.x + this.sceneIsoSize.y)/2);
+        //this.cameras.main.setBounds(-this.sceneIsoSize.y, 0, sceneCartesianSize.x, sceneCartesianSize.y);
+
+        if (sceneCartesianSize.x -32 < this.game.scale.gameSize.width && sceneCartesianSize.y - 32 < this.game.scale.gameSize.height) {
+            this.cameras.main.setBounds(-this.game.scale.gameSize.width/2, -this.game.scale.gameSize.height/2 +72, sceneCartesianSize.x, sceneCartesianSize.y);
         } else {
-            this.cameras.main.setBounds(cameraPosition.x, cameraPosition.y, cameraPosition.width, cameraPosition.height);
-            this.cameras.main.startFollow(this.playerSprite);
+            this.isScreenSliding = true;
+            this.cameras.main.setBounds(-this.sceneIsoSize.y, -72, sceneCartesianSize.x, sceneCartesianSize.y + 72);
+        }
+
+        const background = this.add.tileSprite(0, 0, 848, 920, 'background');
+        background.setScrollFactor(0, 0);
+
+        return map;
+    }
+
+    createEquipments(map: MushTiledMap): void
+    {
+        this.equipments = map.createEquipmentLayers(this.room, this.roomBasicSceneGrid);
+
+        this.sceneGrid.updateDepth();
+        this.navMeshGrid = this.sceneGrid.buildNavMeshGrid();
+
+        this.updateStatuses();
+
+        //this.enableDebugView();
+    }
+
+    deleteEquipmentsAndDecoration(): void
+    {
+        const sceneGameObjects = this.children.list;
+        const room = this.player.room;
+        if (room === null) { throw new Error("player room should be defined");}
+
+        for (let i=0; i < sceneGameObjects.length; i++) {
+            const gameObject = sceneGameObjects[i];
+
+            if (gameObject instanceof DecorationObject &&
+                !(gameObject instanceof CharacterObject))
+            {
+                gameObject.destroy();
+                this.input.clear(gameObject);
+                i = i-1;
+            }
         }
     }
+
+    deleteWallAndFloor(): void
+    {
+        const sceneGameObjects = this.children.list;
+        const room = this.player.room;
+        if (room === null) { throw new Error("player room should be defined");}
+
+        for (let i=0; i < sceneGameObjects.length; i++) {
+            const gameObject = sceneGameObjects[i];
+
+            if (!(gameObject instanceof DecorationObject))
+            {
+                gameObject.destroy();
+                i = i-1;
+            }
+        }
+    }
+
+    deleteCharacters(): void
+    {
+        const sceneGameObjects = this.children.list;
+        const room = this.player.room;
+        if (room === null) { throw new Error("player room should be defined");}
+
+        for (let i=0; i < sceneGameObjects.length; i++) {
+            const gameObject = sceneGameObjects[i];
+
+            if ((gameObject instanceof CharacterObject))
+            {
+                gameObject.destroy();
+                i = i-1;
+            }
+        }
+    }
+
 
     displayFire(): void
     {
@@ -467,6 +735,8 @@ export default class DaedalusScene extends Phaser.Scene
             //@ts-ignore
             emitZone: { type: 'random', source: tile }
         });
+
+        this.fireParticles.push(particles);
     }
 
     update(time: number, delta: number): void
@@ -486,6 +756,21 @@ export default class DaedalusScene extends Phaser.Scene
                 this.targetHighlightObject.setDepth(0);
             }
         }
+
+        // camera
+        //this.cameras.main.centerOn(this.cameraTarget.x, this.cameraTarget.y);
+        if (this.cameraDirection.x !== 0 || this.cameraDirection.y !== 0) {
+            this.cameras.main.scrollX += this.cameraDirection.x;
+            this.cameras.main.scrollY += this.cameraDirection.y;
+
+            if (((this.cameraDirection.x >= 0 && this.cameras.main.scrollX >= this.cameraTarget.x) ||
+                (this.cameraDirection.x <= 0 && this.cameras.main.scrollX <= this.cameraTarget.x)) &&
+                ((this.cameraDirection.y >= 0 && this.cameras.main.scrollY >= this.cameraTarget.y) ||
+                (this.cameraDirection.y <= 0 && this.cameras.main.scrollY <= this.cameraTarget.y))
+            ) {
+                this.cameraDirection.setTo(0,0);
+            }
+        }
     }
 
     // return the center of the currently pointed tile
@@ -499,15 +784,18 @@ export default class DaedalusScene extends Phaser.Scene
 
     createPlayers(): void
     {
-        const playerIsoSize = new IsometricCoordinates(this.characterSize, this.characterSize);
-        const playerCoordinates = this.navMeshGrid.getRandomPoint();
+        let playerCoordinates = this.navMeshGrid.getRandomPoint();
+        if (this.previousRoom !== undefined && this.previousRoom !== this.room.key) {
+            playerCoordinates = this.findRoomEntryPoint();
+        }
 
-        this.playerSprite = new PlayableCharacterObject(
-            this,
-            playerCoordinates,
-            new IsometricGeom(playerCoordinates.toIsometricCoordinates(), playerIsoSize),
-            this.player
-        );
+        this.previousRoom = this.room.key;
+        this.cameras.main.centerOn(playerCoordinates.x, playerCoordinates.y);
+
+        this.playerSprite.setPositionFromFeet(playerCoordinates);
+        this.playerSprite.updateNavMesh();
+        this.playerSprite.checkPositionDepth();
+        this.playerSprite.applyEquipmentInteraction();
 
         this.room.players.forEach((roomPlayer: Player) => {
             if (roomPlayer.id !== this.player.id) {
@@ -516,11 +804,27 @@ export default class DaedalusScene extends Phaser.Scene
                 const newCharacter = new CharacterObject(
                     this,
                     otherPlayerCoordinates,
-                    new IsometricGeom(playerCoordinates.toIsometricCoordinates(), playerIsoSize),
+                    new IsometricGeom(otherPlayerCoordinates.toIsometricCoordinates(), this.playerIsoSize),
                     roomPlayer
                 );
             }
         });
+    }
+
+    findRoomEntryPoint(): CartesianCoordinates
+    {
+        const sceneGameObjects = this.children.list;
+
+        for (let i=0; i < sceneGameObjects.length; i++) {
+            const gameObject = sceneGameObjects[i];
+
+            if (gameObject instanceof DoorGroundObject &&
+                gameObject.door.direction === this.previousRoom)
+            {
+                return this.navMeshGrid.getClosestPoint(gameObject.isoGeom.getIsoCoords()).toCartesianCoordinates();
+            }
+        }
+        return this.navMeshGrid.getRandomPoint();
     }
 
     enableEventListeners(): void
@@ -549,6 +853,30 @@ export default class DaedalusScene extends Phaser.Scene
             if (gameObject instanceof InteractObject){
                 gameObject.onSelected();
                 this.selectedGameObject = gameObject;
+            }
+            if (gameObject instanceof DoorObject) {
+                gameObject.onDoorClicked(pointer);
+            }
+
+
+            // screen sliding
+            const requiredScroll = this.cameras.main.getScroll(pointer.worldX, pointer.worldY);
+
+            if (this.isScreenSliding &&
+                (requiredScroll.x !== this.cameras.main.scrollX ||
+                    requiredScroll.y !== this.cameras.main.scrollY)
+            ) {
+                this.cameraTarget.setTo(requiredScroll.x, requiredScroll.y);
+
+                const norm = Math.pow(
+                    Math.pow((requiredScroll.x - this.cameras.main.scrollX), 2)+
+                    Math.pow((requiredScroll.y - this.cameras.main.scrollY), 2),
+                    1/2
+                );
+                this.cameraDirection.setTo(
+                    (requiredScroll.x  - this.cameras.main.scrollX)/norm,
+                    (requiredScroll.y  - this.cameras.main.scrollY)/norm,
+                );
             }
         });
 

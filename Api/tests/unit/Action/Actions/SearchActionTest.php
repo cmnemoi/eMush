@@ -60,7 +60,7 @@ class SearchActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player);
 
-        //No item in the room
+        // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
         $this->assertInstanceOf(Fail::class, $result);
@@ -74,7 +74,7 @@ class SearchActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player);
 
-        //No hidden item in the room
+        // No hidden item in the room
         $gameItem = new GameItem();
         $item = new ItemConfig();
         $gameItem
@@ -89,7 +89,7 @@ class SearchActionTest extends AbstractActionTest
 
     public function testExecuteSuccess()
     {
-        //Success find
+        // Success find
         $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();
@@ -127,7 +127,7 @@ class SearchActionTest extends AbstractActionTest
 
     public function testExecuteTwoHiddenItems()
     {
-        //2 hidden items
+        // 2 hidden items
         $room = new Place();
         $gameItem = new GameItem();
         $item = new ItemConfig();

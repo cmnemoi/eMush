@@ -48,7 +48,7 @@ class RationCycleHandler extends AbstractCycleHandler
             return;
         }
 
-        //@TODO destroy perishable item according to NERON BIOS
+        // @TODO destroy perishable item according to NERON BIOS
         $this->handleStatus($gameRation, $rationType);
 
         $this->gameEquipmentService->persist($gameRation);
@@ -56,11 +56,10 @@ class RationCycleHandler extends AbstractCycleHandler
 
     private function handleStatus(GameEquipment $gameRation, Ration $ration): void
     {
-        //If ration is not perishable or frozen oe decomposing do nothing
+        // If ration is not perishable or frozen oe decomposing do nothing
         if (!$ration->isPerishable() ||
             $gameRation->getStatuses()->exists(
-                fn (int $key, Status $status) => (
-                in_array($status->getName(), [EquipmentStatusEnum::DECOMPOSING, EquipmentStatusEnum::FROZEN]))
+                fn (int $key, Status $status) => in_array($status->getName(), [EquipmentStatusEnum::DECOMPOSING, EquipmentStatusEnum::FROZEN])
             )
         ) {
             return;

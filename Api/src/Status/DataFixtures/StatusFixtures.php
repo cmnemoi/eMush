@@ -8,9 +8,9 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\ModifierConfig;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -56,11 +56,16 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
     public const STARVING_STATUS = 'starving_status';
     public const STUCK_IN_THE_SHIP_STATUS = 'stuck_in_the_ship_status';
     public const SUICIDAL_STATUS = 'suicidal_status';
+    public const WATCHED_PUBLIC_BROADCAST_STATUS = 'watched_public_broadcast_status';
+    public const TALKIE_SCREWED_STATUS = 'talkie_screwed_status';
 
     public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+
+        /** @var ModifierConfig $increaseCycleDiseaseChances30 */
+        $increaseCycleDiseaseChances30 = $this->getReference(StatusModifierConfigFixtures::INCREASE_CYCLE_DISEASE_CHANCES_30);
 
         $alienArtefact = new StatusConfig();
         $alienArtefact
@@ -222,6 +227,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setName(PlayerStatusEnum::DEMORALIZED)
             ->setVisibility(VisibilityEnum::PRIVATE)
             ->setGameConfig($gameConfig)
+            ->setModifierConfigs(new ArrayCollection([$increaseCycleDiseaseChances30]))
         ;
         $manager->persist($demoralized);
 
@@ -257,7 +263,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $fullStomach = new StatusConfig();
         $fullStomach
             ->setName(PlayerStatusEnum::FULL_STOMACH)
-            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setVisibility(VisibilityEnum::PRIVATE)
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($fullStomach);
@@ -400,8 +406,33 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setName(PlayerStatusEnum::SUICIDAL)
             ->setVisibility(VisibilityEnum::PRIVATE)
             ->setGameConfig($gameConfig)
+            ->setModifierConfigs(new ArrayCollection([$increaseCycleDiseaseChances30]))
         ;
         $manager->persist($suicidal);
+
+        $watched_public_broadcast = new StatusConfig();
+        $watched_public_broadcast
+            ->setName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST)
+            ->setVisibility(VisibilityEnum::PRIVATE)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($watched_public_broadcast);
+
+        $washed_in_the_sink = new StatusConfig();
+        $washed_in_the_sink
+            ->setName(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK)
+            ->setVisibility(VisibilityEnum::PRIVATE)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($washed_in_the_sink);
+
+        $screwedTalkie = new StatusConfig();
+        $screwedTalkie
+            ->setName(PlayerStatusEnum::TALKIE_SCREWED)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($screwedTalkie);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
         $this->addReference(self::HEAVY_STATUS, $heavy);
@@ -442,6 +473,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::STARVING_STATUS, $starving);
         $this->addReference(self::STUCK_IN_THE_SHIP_STATUS, $stuckInTheShip);
         $this->addReference(self::SUICIDAL_STATUS, $suicidal);
+        $this->addReference(self::WATCHED_PUBLIC_BROADCAST_STATUS, $watched_public_broadcast);
 
         $manager->flush();
     }

@@ -1,0 +1,16 @@
+Mush\Daedalus\Entity\Daedalus:
+  shortName: 'Daedalus'
+  description: 'eMush Daedalus'
+  attributes:
+    pagination_items_per_page: 25
+    normalization_context:
+      groups: [ 'daedalus_read' ]
+    denormalization_context:
+      groups: [ 'daedalus_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'daedalus.search_filter', 'default.order_filter' ]
+    post:
+      security: 'is_granted("ROLE_MODERATOR")'
+  itemOperations:
+    get:

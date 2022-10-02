@@ -10,7 +10,7 @@ export class DepthSortingArray {
     private elementArray: Array<DepthElement>;
 
     constructor(
-        scene: DaedalusScene,
+        scene: DaedalusScene
     )
     {
         this.scene = scene;

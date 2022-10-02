@@ -17,12 +17,12 @@ class InjuryEnum
     public const BURST_NOSE = 'burst_nose';
     public const BUSTED_ARM_JOINT = 'busted_arm_joint';
     public const BUSTED_SHOULDER = 'busted_shoulder';
-    public const HAEMORRHAGE_CRITICAL = 'haemorrhage_critical';
+    public const CRITICAL_HAEMORRHAGE = 'critical_haemorrhage';
+    public const HAEMORRHAGE = 'haemorrhage';
+    public const MINOR_HAEMORRHAGE = 'minor_haemorrhage';
     public const DAMAGED_EARS = 'damaged_ears';
     public const DESTROYED_EARS = 'destroyed_ears';
     public const DISFUNCTIONAL_LIVER = 'disfunctional_liver';
-    public const HAEMORRHAGE = 'haemorrhage';
-    public const HAEMORRHAGE_MINOR = 'haemorrhage_minor';
     public const HEAD_TRAUMA = 'head_trauma';
     public const IMPLANTED_BULLET = 'implanted_bullet';
     public const INNER_EAR_DAMAGED = 'inner_ear_damaged';
@@ -31,7 +31,7 @@ class InjuryEnum
     public const MISSING_FINGER = 'missing_finger';
     public const OPEN_AIR_BRAIN = 'open_air_brain';
     public const PUNCTURED_LUNG = 'punctured_lung';
-    public const SMASHED_ARMS = 'smashed_arms';
-    public const SMASHED_LEGS = 'smashed_legs';
+    public const MASHED_ARMS = 'mashed_arms';
+    public const MASHED_LEGS = 'mashed_legs';
     public const TORN_TONGUE = 'torn_tongue';
 }

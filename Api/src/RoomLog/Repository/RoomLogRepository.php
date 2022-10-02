@@ -4,9 +4,9 @@ namespace Mush\RoomLog\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Enum\VisibilityEnum;
 
 class RoomLogRepository extends ServiceEntityRepository
 {

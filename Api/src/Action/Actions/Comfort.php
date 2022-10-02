@@ -5,13 +5,16 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Comfort extends AbstractAction
@@ -27,8 +30,15 @@ class Comfort extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        //@TODO add validator on shrink skill ?
+        // @TODO add validator on shrink skill ?
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new HasStatus([
+            'status' => PlayerStatusEnum::GAGGED,
+            'contain' => false,
+            'target' => HasStatus::PLAYER,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::GAGGED_PREVENT_SPOKEN_ACTION,
+        ]));
     }
 
     protected function applyEffects(): ActionResult
@@ -36,7 +46,7 @@ class Comfort extends AbstractAction
         /** @var Player $parameter */
         $parameter = $this->parameter;
 
-        $playerModifierEvent = new PlayerModifierEvent(
+        $playerModifierEvent = new PlayerVariableEvent(
             $parameter,
             PlayerVariableEnum::MORAL_POINT,
             self::BASE_CONFORT,

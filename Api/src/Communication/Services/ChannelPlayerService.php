@@ -5,15 +5,23 @@ namespace Mush\Communication\Services;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
+use Mush\Communication\Repository\ChannelRepository;
 use Mush\Player\Entity\Player;
 
 class ChannelPlayerService implements ChannelPlayerServiceInterface
 {
     private EntityManagerInterface $entityManager;
+    private ChannelServiceInterface $channelService;
+    private ChannelRepository $channelRepository;
 
-    public function __construct(EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        ChannelServiceInterface $channelService,
+        ChannelRepository $channelRepository
+    ) {
         $this->entityManager = $entityManager;
+        $this->channelService = $channelService;
+        $this->channelRepository = $channelRepository;
     }
 
     public function addPlayer(Player $player, Channel $channel): ChannelPlayer

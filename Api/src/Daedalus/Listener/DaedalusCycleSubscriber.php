@@ -61,7 +61,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
 
-        //reset spore count
+        // reset spore count
         $daedalus->setSpores($daedalus->getDailySpores());
 
         $this->daedalusService->persist($daedalus);
@@ -87,7 +87,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
     private function handleOxygen(Daedalus $daedalus, \DateTime $date): Daedalus
     {
-        //Handle oxygen loss
+        // Handle oxygen loss
         $oxygenLoss = self::CYCLE_OXYGEN_LOSS;
 
         $daedalusEvent = new DaedalusModifierEvent(
@@ -128,7 +128,8 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
         $daedalus = $this->handleOxygen($daedalus, $time);
 
-        $timeElapsedSinceStart = ($daedalus->getCycle() + $daedalus->getDay() * $gameConfig->getCyclePerGameDay()) * $gameConfig->getCycleLength();
+        $timeElapsedSinceStart = ($daedalus->getCycle() + ($daedalus->getDay() - 1) * $gameConfig->getCyclePerGameDay()) * $gameConfig->getCycleLength();
+
         if ($timeElapsedSinceStart >= self::LOBBY_TIME_LIMIT && $daedalus->getGameStatus() === GameStatusEnum::STARTING) {
             $daedalusEvent = new DaedalusEvent(
                 $daedalus,

@@ -1,0 +1,16 @@
+Mush\Game\Entity\DifficultyConfig:
+  shortName: 'DifficultyConfig'
+  description: 'eMush Difficulty Config'
+  attributes:
+    pagination_items_per_page: 25
+    normalization_context:
+      groups: [ 'difficulty_config_read' ]
+    denormalization_context:
+      groups: [ 'difficulty_config_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+    post:
+      security: 'is_granted("ROLE_ADMIN")'
+  itemOperations:
+    get:

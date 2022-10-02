@@ -16,10 +16,10 @@ use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlantLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -103,7 +103,7 @@ class PlantCycleEventCest
         $I->assertCount(1, $gameEquipment->getStatuses());
         $I->assertEquals(7, $gameEquipment->getStatuses()->first()->getCharge());
 
-        //growing up
+        // growing up
         $time = new DateTime();
         $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::NEW_CYCLE, $time);
 
@@ -196,7 +196,7 @@ class PlantCycleEventCest
         ;
         $I->haveInRepository($youngStatus);
 
-        //Plant is young : no fruit or oxygen
+        // Plant is young : no fruit or oxygen
         $time = new DateTime();
 
         $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::PLANT_PRODUCTION, $time);
@@ -208,7 +208,7 @@ class PlantCycleEventCest
         $I->assertTrue($gameEquipment->getStatuses()->exists(fn (int $key, Status $value) => $value->getName() === EquipmentStatusEnum::PLANT_THIRSTY));
         $I->assertEquals(10, $daedalus->getOxygen());
 
-        //Plant is diseased
+        // Plant is diseased
         $diseasedConfig = new StatusConfig();
         $diseasedConfig
             ->setName(EquipmentStatusEnum::PLANT_DISEASED)
@@ -230,7 +230,7 @@ class PlantCycleEventCest
         $I->assertTrue($gameEquipment->getStatuses()->exists(fn (int $key, Status $value) => $value->getName() === EquipmentStatusEnum::PLANT_DRY));
         $I->assertEquals(10, $daedalus->getOxygen());
 
-        //Plant is totally healthy
+        // Plant is totally healthy
         $thirstyStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED);
         $gameEquipment->removeStatus($thirstyStatus);
         $thirstyStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DRY);
@@ -251,7 +251,7 @@ class PlantCycleEventCest
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
-        //Plant is dried
+        // Plant is dried
         /** @var Place $room */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'corridor']);
 

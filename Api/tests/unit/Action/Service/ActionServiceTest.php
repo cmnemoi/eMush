@@ -13,7 +13,7 @@ use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
@@ -63,7 +63,7 @@ class ActionServiceTest extends TestCase
 
     public function testApplyCostToPlayer()
     {
-        //ActionPoint
+        // ActionPoint
         $player = $this->createPlayer(5, 5, 5);
         $action = $this->createAction(1, null, null);
 
@@ -87,7 +87,7 @@ class ActionServiceTest extends TestCase
         ;
 
         $eventDispatched = static function (int $delta, string $name) {
-            return fn (PlayerModifierEvent $event, string $eventName) => ($event->getQuantity() === $delta && $eventName === $name);
+            return fn (PlayerVariableEvent $event, string $eventName) => $event->getQuantity() === $delta && $eventName === $name;
         };
 
         $this->eventDispatcher
@@ -98,7 +98,7 @@ class ActionServiceTest extends TestCase
 
         $this->service->applyCostToPlayer($player, $action, null);
 
-        //movement cost
+        // movement cost
         $player = $this->createPlayer(5, 5, 5);
         $action = $this->createAction(null, 1, null);
 
@@ -129,7 +129,7 @@ class ActionServiceTest extends TestCase
 
         $this->service->applyCostToPlayer($player, $action, null);
 
-        //moral cost
+        // moral cost
         $player = $this->createPlayer(5, 5, 5);
         $action = $this->createAction(null, null, 1);
 
@@ -160,7 +160,7 @@ class ActionServiceTest extends TestCase
 
         $this->service->applyCostToPlayer($player, $action, null);
 
-        //mixed cost
+        // mixed cost
         $player = $this->createPlayer(5, 5, 5);
         $action = $this->createAction(1, null, 1);
 
@@ -186,7 +186,7 @@ class ActionServiceTest extends TestCase
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(
-                fn (PlayerModifierEvent $event, string $eventName) => (
+                fn (PlayerVariableEvent $event, string $eventName) => (
                     $event->getQuantity() === -1 &&
                     $eventName === AbstractQuantityEvent::CHANGE_VARIABLE)
             )
@@ -195,7 +195,7 @@ class ActionServiceTest extends TestCase
 
         $this->service->applyCostToPlayer($player, $action, null);
 
-        //ActionPoint with modifiers
+        // ActionPoint with modifiers
         $player = $this->createPlayer(5, 5, 5);
         $action = $this->createAction(1, null, null);
 
@@ -250,7 +250,7 @@ class ActionServiceTest extends TestCase
         ;
         $this->assertEquals(20, $this->service->getSuccessRate($action, $player, null));
 
-        //With Modifier
+        // With Modifier
         $this->modifierService->shouldReceive('getActionModifiedValue')
             ->with($action, $player, ModifierTargetEnum::PERCENTAGE, null, 0)
             ->andReturn(40)
@@ -258,7 +258,7 @@ class ActionServiceTest extends TestCase
         ;
         $this->assertEquals(40, $this->service->getSuccessRate($action, $player, null));
 
-        //With already an attempt
+        // With already an attempt
         $attempt->setCharge(1);
 
         $this->modifierService->shouldReceive('getActionModifiedValue')
@@ -268,7 +268,7 @@ class ActionServiceTest extends TestCase
         ;
         $this->assertEquals(25, $this->service->getSuccessRate($action, $player, null));
 
-        //With 3 attempts
+        // With 3 attempts
         $attempt->setCharge(3);
 
         $this->modifierService->shouldReceive('getActionModifiedValue')
@@ -278,7 +278,7 @@ class ActionServiceTest extends TestCase
         ;
         $this->assertEquals(39, $this->service->getSuccessRate($action, $player, null));
 
-        //Attempt + modifier
+        // Attempt + modifier
         $attempt->setCharge(3);
 
         $this->modifierService->shouldReceive('getActionModifiedValue')
@@ -288,7 +288,7 @@ class ActionServiceTest extends TestCase
         ;
         $this->assertEquals(78, $this->service->getSuccessRate($action, $player, null));
 
-        //More than 99%
+        // More than 99%
         $attempt->setCharge(3);
 
         $this->modifierService->shouldReceive('getActionModifiedValue')

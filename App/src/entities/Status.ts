@@ -5,6 +5,7 @@ export class Status {
     public charge : number|null
     public description : string|null
     public target : { "key" : string, "id" : number } | null
+    public diseaseType : string | null
 
     constructor() {
         this.id = null;
@@ -12,6 +13,7 @@ export class Status {
         this.charge = null;
         this.description = null;
         this.target = null;
+        this.diseaseType = null;
     }
 
     load(object: any): Status {
@@ -22,6 +24,10 @@ export class Status {
             this.charge = object.charge;
             this.description = object.description;
             this.target = object.target;
+
+            if (object.hasOwnProperty('type')) {
+                this.diseaseType = object.type;
+            }
         }
         return this;
     }

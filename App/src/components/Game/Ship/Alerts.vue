@@ -1,15 +1,13 @@
 <template>
     <div class="daedalus-alarms">
-        <p v-if="!loadingAlerts" class="calme">
-            <span v-if="isNoAlert && alerts.length > 0">
-                <Tippy>
-                    <img :src="alertIcon(alerts[0])">{{ alerts[0].name }}
-                    <template #content>
-                        <h1>{{ alerts[0].name }}</h1>
-                        <p>{{ alerts[0].description }}</p>
-                    </template>
-                </Tippy>
-            </span>
+        <p v-if="!loadingAlerts" :class="{ alarm: !isNoAlert }">
+            <Tippy v-if="isNoAlert && alerts.length > 0">
+                <img :src="alertIcon(alerts[0])">{{ alerts[0].name }}
+                <template #content>
+                    <h1>{{ alerts[0].name }}</h1>
+                    <p>{{ alerts[0].description }}</p>
+                </template>
+            </Tippy>
             <span v-else>{{ $t('alerts') }}</span>
             <Tippy tag="div" v-for="(alert, key) in alertsDisplayed" :key="key">
                 <img
@@ -36,6 +34,7 @@ import DaedalusService from "@/services/daedalus.service";
 import { AlertsIcons, NO_ALERT } from "@/enums/alerts.enum";
 import { defineComponent } from "vue";
 import { Alert } from "@/entities/Alerts";
+import { mapGetters } from "vuex";
 
 interface AlertsState {
     loading: boolean,
@@ -44,19 +43,11 @@ interface AlertsState {
 
 export default defineComponent ({
     name: "Alerts",
-    props: {
-        daedalus: {
-            type: Daedalus,
-            required: true
-        }
-    },
-    data: function (): AlertsState {
-        return {
-            loading: false,
-            alerts: []
-        };
-    },
     computed: {
+        ...mapGetters('daedalus', [
+            'alerts',
+            'loadingAlerts'
+        ]),
         isNoAlert: function (): boolean {
             return this.alerts.length === 0 || (this.alerts.length === 1 && (this.alerts[0].key ?? '') === NO_ALERT);
         },
@@ -67,13 +58,6 @@ export default defineComponent ({
 
             return this.alerts;
         }
-    },
-    beforeMount() {
-        this.loading = true;
-        DaedalusService.loadAlerts(this.daedalus).then((res: Alert[]) => {
-            this.loading = false;
-            this.alerts = res;
-        });
     },
     methods: {
         alertIcon: function (alert: Alert): string {

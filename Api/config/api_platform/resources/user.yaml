@@ -1,0 +1,24 @@
+Mush\User\Entity\User:
+  shortName: 'Users'
+  description: 'eMush Users'
+  attributes:
+    pagination_items_per_page: 25
+    normalization_context:
+      groups: [ 'user_read' ]
+    denormalization_context:
+      groups: [ 'user_write' ]
+  collectionOperations:
+    get:
+      security: 'is_granted("ROLE_MODERATOR")'
+      filters: ['user.search_filter', 'user.order_filter']
+  itemOperations:
+    get:
+      security: 'is_granted("ROLE_MODERATOR") or object == user'
+    patch:
+      security: 'is_granted("ROLE_ADMIN") and is_granted("EDIT_USER_ROLE", object)'
+
+  properties:
+    id:
+      identifier: false
+    userId:
+      identifier: true

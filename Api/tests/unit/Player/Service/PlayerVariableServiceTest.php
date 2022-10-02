@@ -101,7 +101,7 @@ class PlayerVariableServiceTest extends TestCase
             ->setCharacterConfig($characterConfig)
         ;
 
-        //go below 4 moral
+        // go below 4 moral
         $this->playerService->shouldReceive('persist')->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')
             ->andReturn(16)
@@ -111,7 +111,7 @@ class PlayerVariableServiceTest extends TestCase
 
         $this->assertEquals(3, $player->getMoralPoint());
 
-        //go below 1 moral
+        // go below 1 moral
         $this->playerService->shouldReceive('persist')->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')
             ->andReturn(16)
@@ -121,7 +121,7 @@ class PlayerVariableServiceTest extends TestCase
 
         $this->assertEquals(1, $player->getMoralPoint());
 
-        //regain more moral than suicidal threshold
+        // regain more moral than suicidal threshold
         $this->playerService->shouldReceive('persist')->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')
             ->andReturn(16)
@@ -131,9 +131,9 @@ class PlayerVariableServiceTest extends TestCase
 
         $this->assertEquals(3, $player->getMoralPoint());
 
-        //$status = new Status($player, PlayerStatusEnum::DEMORALIZED);
+        // $status = new Status($player, PlayerStatusEnum::DEMORALIZED);
 
-        //gain more than morale threshold
+        // gain more than morale threshold
         $this->playerService->shouldReceive('persist')->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')
             ->andReturn(16)
@@ -170,7 +170,7 @@ class PlayerVariableServiceTest extends TestCase
 
         $this->assertEquals(3, $player->getActionPoint());
 
-        //less than 0
+        // less than 0
         $this->playerService->shouldReceive('persist')->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')
             ->andReturn(16)
@@ -180,7 +180,7 @@ class PlayerVariableServiceTest extends TestCase
 
         $this->assertEquals(0, $player->getActionPoint());
 
-        //more than threshold
+        // more than threshold
         $this->playerService->shouldReceive('persist')->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')
             ->andReturn(16)

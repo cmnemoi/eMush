@@ -48,5 +48,7 @@ interface StatusServiceInterface
 
     public function getByCriteria(StatusCriteria $criteria): Collection;
 
+    public function getByTargetAndName(StatusHolderInterface $target, string $name): ?Status;
+
     public function updateCharge(ChargeStatus $chargeStatus, int $delta): ?ChargeStatus;
 }

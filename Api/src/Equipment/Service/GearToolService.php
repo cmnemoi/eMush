@@ -6,14 +6,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Error;
 use Mush\Action\Entity\Action;
+use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Tool;
+use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -36,7 +38,7 @@ class GearToolService implements GearToolServiceInterface
 
     public function getEquipmentsOnReach(Player $player, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): Collection
     {
-        //reach can be set to inventory, shelve, shelve only or any room of the Daedalus
+        // reach can be set to inventory, shelve, shelve only or any room of the Daedalus
         switch ($reach) {
             case ReachEnum::INVENTORY:
                 return $player->getEquipments();
@@ -112,6 +114,7 @@ class GearToolService implements GearToolServiceInterface
         foreach ($this->getToolsOnReach($player) as $tool) {
             /** @var Tool $toolMechanic */
             $toolMechanic = $tool->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
+            $weaponMechanics = $tool->getEquipment()->getMechanics()->filter(fn (EquipmentMechanic $mechanic) => $mechanic instanceof Weapon);
 
             if ($toolMechanic &&
                 !$toolMechanic->getActions()->filter(fn (Action $action) => $action->getName() === $actionName)->isEmpty()
@@ -122,6 +125,10 @@ class GearToolService implements GearToolServiceInterface
                 if ($chargeStatus === null) {
                     return $tool;
                 } elseif ($chargeStatus->getCharge() > 0) {
+                    $tools->add($tool);
+                }
+                // if it's a uncharged weapon, still add it to the list (to be able to tell the player it's uncharged in a validator)
+                elseif (!$weaponMechanics->isEmpty()) {
                     $tools->add($tool);
                 }
             }

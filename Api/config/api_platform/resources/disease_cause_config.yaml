@@ -1,0 +1,16 @@
+Mush\Disease\Entity\Config\DiseaseCauseConfig:
+  shortName: 'DiseaseCauseConfig'
+  description: 'eMush Disease Cause Config'
+  attributes:
+    pagination_items_per_page: 25
+    normalization_context:
+      groups: [ 'disease_cause_config_read' ]
+    denormalization_context:
+      groups: [ 'disease_cause_config_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+    post:
+      security: 'is_granted("ROLE_ADMIN")'
+  itemOperations:
+    get:

@@ -5,75 +5,48 @@ namespace Mush\Daedalus\Entity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\GameConfig;
+use Mush\Place\Entity\PlaceConfig;
 
-/**
- * Class DaedalusConfig.
- *
- * @ORM\Entity()
- * @ORM\Table(name="config_daedalus")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'config_daedalus')]
 class DaedalusConfig
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\OneToOne (targetEntity="Mush\Game\Entity\GameConfig", inversedBy="daedalusConfig")
-     */
+    #[ORM\OneToOne(inversedBy: 'daedalusConfig', targetEntity: GameConfig::class)]
     private GameConfig $gameConfig;
 
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $initOxygen;
 
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $initFuel;
 
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $initHull;
 
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $initShield;
 
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $maxOxygen = 0;
 
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $maxFuel = 0;
 
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $maxHull = 0;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Mush\Daedalus\Entity\RandomItemPlaces", cascade={"ALL"})
-     */
+    #[ORM\OneToOne(targetEntity: RandomItemPlaces::class, cascade: ['ALL'])]
     private ?RandomItemPlaces $randomItemPlace = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Mush\Place\Entity\PlaceConfig", mappedBy="daedalusConfig")
-     */
+    #[ORM\OneToMany(targetEntity: PlaceConfig::class, mappedBy: 'daedalusConfig')]
     private Collection $placeConfigs;
 
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $dailySporeNb = 4;
 
     public function getId(): int
@@ -86,10 +59,7 @@ class DaedalusConfig
         return $this->gameConfig;
     }
 
-    /**
-     * @return static
-     */
-    public function setGameConfig(GameConfig $gameConfig): self
+    public function setGameConfig(GameConfig $gameConfig): static
     {
         $this->gameConfig = $gameConfig;
 
@@ -101,10 +71,7 @@ class DaedalusConfig
         return $this->initOxygen;
     }
 
-    /**
-     * @return static
-     */
-    public function setInitOxygen(int $initOxygen): self
+    public function setInitOxygen(int $initOxygen): static
     {
         $this->initOxygen = $initOxygen;
 
@@ -116,10 +83,7 @@ class DaedalusConfig
         return $this->initFuel;
     }
 
-    /**
-     * @return static
-     */
-    public function setInitFuel(int $initFuel): self
+    public function setInitFuel(int $initFuel): static
     {
         $this->initFuel = $initFuel;
 
@@ -131,10 +95,7 @@ class DaedalusConfig
         return $this->initHull;
     }
 
-    /**
-     * @return static
-     */
-    public function setInitHull(int $initHull): self
+    public function setInitHull(int $initHull): static
     {
         $this->initHull = $initHull;
 
@@ -146,10 +107,7 @@ class DaedalusConfig
         return $this->initShield;
     }
 
-    /**
-     * @return static
-     */
-    public function setInitShield(int $initShield): self
+    public function setInitShield(int $initShield): static
     {
         $this->initShield = $initShield;
 
@@ -161,10 +119,7 @@ class DaedalusConfig
         return $this->randomItemPlace;
     }
 
-    /**
-     * @return static
-     */
-    public function setRandomItemPlace(RandomItemPlaces $randomItemPlace): self
+    public function setRandomItemPlace(RandomItemPlaces $randomItemPlace): static
     {
         $this->randomItemPlace = $randomItemPlace;
 
@@ -176,10 +131,7 @@ class DaedalusConfig
         return $this->placeConfigs;
     }
 
-    /**
-     * @return static
-     */
-    public function setPlaceConfigs(Collection $placeConfigs): self
+    public function setPlaceConfigs(Collection $placeConfigs): static
     {
         $this->placeConfigs = $placeConfigs;
 
@@ -191,10 +143,7 @@ class DaedalusConfig
         return $this->dailySporeNb;
     }
 
-    /**
-     * @return static
-     */
-    public function setDailySporeNb(int $dailySporeNb): self
+    public function setDailySporeNb(int $dailySporeNb): static
     {
         $this->dailySporeNb = $dailySporeNb;
 
@@ -206,10 +155,7 @@ class DaedalusConfig
         return $this->maxOxygen;
     }
 
-    /**
-     * @return static
-     */
-    public function setMaxOxygen(int $maxOxygen): self
+    public function setMaxOxygen(int $maxOxygen): static
     {
         $this->maxOxygen = $maxOxygen;
 
@@ -221,10 +167,7 @@ class DaedalusConfig
         return $this->maxFuel;
     }
 
-    /**
-     * @return static
-     */
-    public function setMaxFuel(int $maxFuel): self
+    public function setMaxFuel(int $maxFuel): static
     {
         $this->maxFuel = $maxFuel;
 
@@ -236,10 +179,7 @@ class DaedalusConfig
         return $this->maxHull;
     }
 
-    /**
-     * @return static
-     */
-    public function setMaxHull(int $maxHull): self
+    public function setMaxHull(int $maxHull): static
     {
         $this->maxHull = $maxHull;
 

@@ -11,7 +11,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -68,7 +68,7 @@ class PlayerModifierEventCest
         $I->haveInRepository($suicidalStatusConfig);
         $I->haveInRepository($demoralizedStatusConfig);
 
-        $playerEvent = new PlayerModifierEvent(
+        $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::MORAL_POINT,
             -1,
@@ -88,7 +88,7 @@ class PlayerModifierEventCest
             'statusConfig' => $demoralizedStatusConfig->getId(),
         ]);
 
-        $playerEvent = new PlayerModifierEvent(
+        $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::MORAL_POINT,
             -2,
@@ -107,7 +107,7 @@ class PlayerModifierEventCest
             'statusConfig' => $suicidalStatusConfig->getId(),
         ]);
 
-        $playerEvent = new PlayerModifierEvent(
+        $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::MORAL_POINT,
             -1,
@@ -126,7 +126,7 @@ class PlayerModifierEventCest
             'statusConfig' => $suicidalStatusConfig->getId(),
         ]);
 
-        $playerEvent = new PlayerModifierEvent(
+        $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::MORAL_POINT,
             7,
@@ -177,7 +177,7 @@ class PlayerModifierEventCest
         $I->haveInRepository($fullStatusConfig);
         $I->haveInRepository($starvingStatusConfig);
 
-        $playerEvent = new PlayerModifierEvent(
+        $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::SATIETY,
             -1,
@@ -188,7 +188,7 @@ class PlayerModifierEventCest
         $I->assertEquals(-1, $player->getSatiety());
         $I->assertCount(0, $player->getStatuses());
 
-        $playerEvent = new PlayerModifierEvent(
+        $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::SATIETY,
             2,
@@ -199,7 +199,7 @@ class PlayerModifierEventCest
         $I->assertEquals(2, $player->getSatiety());
         $I->assertCount(0, $player->getStatuses());
 
-        $playerEvent = new PlayerModifierEvent(
+        $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::SATIETY,
             1,
@@ -210,7 +210,7 @@ class PlayerModifierEventCest
         $I->assertEquals(3, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
 
-        $playerEvent = new PlayerModifierEvent(
+        $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::SATIETY,
             -1,
@@ -221,7 +221,7 @@ class PlayerModifierEventCest
         $I->assertEquals(2, $player->getSatiety());
         $I->assertCount(0, $player->getStatuses());
 
-        $playerEvent = new PlayerModifierEvent(
+        $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::SATIETY,
             -27,
@@ -272,7 +272,7 @@ class PlayerModifierEventCest
         $mushStatus = new ChargeStatus($player, $mushConfig);
         $I->haveInRepository($mushStatus);
 
-        $playerEvent = new PlayerModifierEvent(
+        $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::SATIETY,
             -1,
@@ -283,7 +283,7 @@ class PlayerModifierEventCest
         $I->assertEquals(-1, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
 
-        $playerEvent = new PlayerModifierEvent(
+        $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::SATIETY,
             4,
@@ -294,7 +294,7 @@ class PlayerModifierEventCest
         $I->assertEquals(4, $player->getSatiety());
         $I->assertCount(2, $player->getStatuses());
 
-        $playerEvent = new PlayerModifierEvent(
+        $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::SATIETY,
             -29,

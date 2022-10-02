@@ -5,7 +5,7 @@ namespace Mush\Status\Listener;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Service\PlayerStatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -22,13 +22,13 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            AbstractQuantityEvent::CHANGE_VARIABLE => ['onChangeVariable', -10], //Applied after player modification
+            AbstractQuantityEvent::CHANGE_VARIABLE => ['onChangeVariable', -10], // Applied after player modification
         ];
     }
 
     public function onChangeVariable(AbstractQuantityEvent $playerEvent): void
     {
-        if (!$playerEvent instanceof PlayerModifierEvent) {
+        if (!$playerEvent instanceof PlayerVariableEvent) {
             return;
         }
 

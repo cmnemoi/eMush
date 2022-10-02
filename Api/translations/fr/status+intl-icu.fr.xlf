@@ -358,7 +358,7 @@
             </segment>
             <segment id="description">
                 <source>rejuvenation.description</source>
-                <target>Votre corps émet des lueurs pulsatiles vertes.ça ne favorise pas vraiment un sommeil reposant...</target>
+                <target>Votre corps émet des lueurs pulsatiles vertes, ça ne favorise pas vraiment un sommeil reposant...</target>
             </segment>
             <segment id="effect">
                 <source>rejuvenation.examine</source>
@@ -841,17 +841,17 @@
                 <target>TODO</target>
             </segment>
         </unit>
-        <unit id="haemorrhage_critical">
+        <unit id="critical_haemorrhage">
             <segment id="name">
-                <source>haemorrhage_critical.name</source>
+                <source>critical_haemorrhage.name</source>
                 <target>Hémorragie critique</target>
             </segment>
             <segment id="description">
-                <source>haemorrhage_critical.description</source>
+                <source>critical_haemorrhage.description</source>
                 <target>Vous avez une hémorragie sur une artère majeure qui nécessite une chirurgie lourde. Bonne chance.</target>
             </segment>
             <segment id="effect">
-                <source>haemorrhage_critical.examine</source>
+                <source>critical_haemorrhage.examine</source>
                 <target>TODO</target>
             </segment>
         </unit>
@@ -911,17 +911,17 @@
                 <target>TODO</target>
             </segment>
         </unit>
-        <unit id="haemorrhage_minor">
+        <unit id="minor_haemorrhage">
             <segment id="name">
-                <source>haemorrhage_minor.name</source>
+                <source>minor_haemorrhage.name</source>
                 <target>Hémorragie légère </target>
             </segment>
             <segment id="description">
-                <source>haemorrhage_minor.description</source>
+                <source>minor_haemorrhage.description</source>
                 <target>Vous avez une hémorragie sur une artère mineure qu'un médecin peut contenir. Attention à ne pas laisser traîner. </target>
             </segment>
             <segment id="effect">
-                <source>haemorrhage_minor.examine</source>
+                <source>minor_haemorrhage.examine</source>
                 <target>TODO</target>
             </segment>
         </unit>
@@ -1525,6 +1525,16 @@
             <segment id="effect">
                 <source>suicidal.examine</source>
                 <target>TODO</target>
+            </segment>
+        </unit>
+        <unit id="updating">
+            <segment id="name">
+                <source>updating.name</source>
+                <target>Mise à jour en cours</target>
+            </segment>
+            <segment id="description">
+                <source>updating.description</source>
+                <target>NERON installe des mises à jour. NE PAS ÉTEINDRE L'APPAREIL !!! 30%</target>
             </segment>
         </unit>
     </file>

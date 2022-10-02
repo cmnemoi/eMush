@@ -20,4 +20,15 @@ class PlayerVariableEnum
             self::HEALTH_POINT,
         ];
     }
+
+    public static function getEmoteMap(): array
+    {
+        return [
+            self::ACTION_POINT => ':pa:',
+            self::MOVEMENT_POINT => ':pm:',
+            self::HEALTH_POINT => ':hp:',
+            self::MORAL_POINT => ':pmo:',
+            self::SATIETY => ':hungry:',
+        ];
+    }
 }

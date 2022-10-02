@@ -1,0 +1,14 @@
+Mush\Player\Entity\Config\CharacterConfig:
+  attributes:
+    id:
+      groups: [ 'character_config_read' ]
+    gameConfig:
+      groups: [ 'character_config_read', 'character_config_write' ]
+    name:
+      groups: [ 'character_config_read', 'character_config_write' ]
+    initStatuses:
+      groups: [ 'character_config_read', 'character_config_write' ]
+    actions:
+      groups: [ 'character_config_read', 'character_config_write' ]
+    startingItems:
+      groups: [ 'character_config_read', 'character_config_write' ]

@@ -2,11 +2,15 @@ import DaedalusService from "@/services/daedalus.service";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { Daedalus } from "@/entities/Daedalus";
 import { Alert } from "@/entities/Alerts";
+import { Minimap } from "@/entities/Minimap";
 
 const state =  {
     daedalus: null,
     alerts: [],
-    loadingAlerts: false
+    loadingAlerts: false,
+    minimap: [],
+    isMinimapAvailable: false,
+    loadingMinimap: false
 };
 
 const getters: GetterTree<any, any> = {
@@ -18,7 +22,16 @@ const getters: GetterTree<any, any> = {
     },
     loadingAlerts: (state: any): boolean => {
         return state.loadingAlerts;
-    }
+    },
+    minimap: (state: any): Minimap[] => {
+        return state.minimap;
+    },
+    isMinimapAvailable: (state: any): boolean => {
+        return state.isMinimapAvailable;
+    },
+    loadingMinimap: (state: any): boolean => {
+        return state.loadingMinimap;
+    },
 };
 
 const actions: ActionTree<any, any> = {
@@ -33,7 +46,19 @@ const actions: ActionTree<any, any> = {
         } catch (e) {
             return false;
         }
-    }
+    },
+    async loadMinimap({ commit, state }, { player }) {
+        commit('updateDaedalus', player.daedalus);
+        commit('setLoadingMinimap', true);
+        try {
+            const minimap = await DaedalusService.loadMinimap(state.daedalus);
+            commit('updateMinimap', minimap);
+
+            return true;
+        } catch (e) {
+            return false;
+        }
+    },
 };
 
 const mutations: MutationTree<any> = {
@@ -46,7 +71,22 @@ const mutations: MutationTree<any> = {
     },
     setLoadingAlerts(state: any, newValue: boolean): void {
         state.loadingAlerts = newValue;
-    }
+    },
+    updateMinimap(state: any, minimap: Minimap[]): void
+    {
+        state.minimap = minimap;
+        if (minimap.length > 0) {
+            state.isMinimapAvailable = true;
+        }
+        state.loadingMinimap = false;
+    },
+    setIsMinimapAvailable(state: any, newValue: boolean): void
+    {
+        state.isMinimapAvailable = newValue;
+    },
+    setLoadingMinimap(state: any, newValue: boolean): void {
+        state.loadingMinimap = newValue;
+    },
 };
 
 export const daedalus = {

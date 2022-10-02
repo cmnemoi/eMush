@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <tileset version="1.5" tiledversion="1.7.2" name="bay_door" tilewidth="334" tileheight="230" tilecount="32" columns="16" objectalignment="bottomleft">
- <image source="../bay_door.png" width="5573" height="465"/>
+ <img src="../bay_door.png" width="5573" height="465"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="100"/>

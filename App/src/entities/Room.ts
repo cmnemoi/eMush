@@ -44,7 +44,7 @@ export class Room {
     public statuses: Array<Status>;
     public equipments: Array<Equipment>;
     public players: Array<Player>;
-    public isOnFire: boolean
+    public isOnFire: boolean;
 
     constructor() {
         this.id = null;

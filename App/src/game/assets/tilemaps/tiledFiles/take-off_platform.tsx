@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <tileset version="1.5" tiledversion="1.7.2" name="take-off_platform" tilewidth="328" tileheight="206" tilecount="2" columns="2" objectalignment="bottomleft">
- <image source="../take-off_platform.png" width="656" height="206"/>
+ <img src="../take-off_platform.png" width="656" height="206"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="1000"/>

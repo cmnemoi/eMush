@@ -37,13 +37,13 @@ export default defineComponent ({
     },
     computed: {
         ...mapGetters('room', [
-            'selectedTarget',
+            'selectedTarget'
         ]),
         getSelectedItem(): Item | null
         {
             if (this.selectedTarget instanceof Item) { return this.selectedTarget;}
             return null;
-        },
+        }
     },
     props: {
         items: Array
@@ -51,14 +51,14 @@ export default defineComponent ({
     methods: {
         ...mapActions({
             'executeAction': 'action/executeAction',
-            'selectTarget': 'room/selectTarget',
+            'selectTarget': 'room/selectTarget'
         }),
         async executeItemAction(action: Action) {
             this.executeAction({ target: this.getSelectedItem, action });
         },
         selectItem(target: Item | null): void {
             this.selectTarget({ target: target });
-        },
+        }
     }
 });
 </script>

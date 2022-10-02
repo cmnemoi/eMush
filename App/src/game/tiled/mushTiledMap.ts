@@ -45,7 +45,7 @@ export default class MushTiledMap {
         return new IsometricCoordinates(this.tilemap.width * this.isoTileSize, this.tilemap.height * this.isoTileSize);
     }
 
-    createLayers(room: Room, sceneGrid: SceneGrid, ): void
+    createLayers(room: Room, sceneGrid: SceneGrid ): void
     {
         for (let i=0; i < this.tilemap.layers.length; i++) {
             const tiledLayer = new MushTiledLayer(this.tilemap.layers[i]);
@@ -71,7 +71,7 @@ export default class MushTiledMap {
         sceneGrid.finalizeGroundMesh();
     }
 
-    createEquipmentLayers(room: Room, sceneGrid: SceneGrid, ): Array<EquipmentObject>
+    createEquipmentLayers(room: Room, sceneGrid: SceneGrid ): Array<EquipmentObject>
     {
         for (let i=0; i < this.tilemap.objects.length; i++) {
             this.createObjectsLayer(room, this.tilemap.objects[i], sceneGrid);

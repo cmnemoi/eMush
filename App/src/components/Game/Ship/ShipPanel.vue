@@ -66,8 +66,8 @@ export default defineComponent ({
         },
         ...mapState('daedalus', [
             'isMinimapAvailable'
-        ]),
-    },
+        ])
+    }
 });
 </script>
 

@@ -37,7 +37,7 @@ export default defineComponent ({
         this.$nextTick(() => {
             this.gameInstance = game.launch(this.containerId, this.player);
         });
-    },
+    }
 });
 </script>
 

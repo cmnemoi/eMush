@@ -43,7 +43,7 @@ export class ActionConfig {
             'scope': this.scope,
             'successRate': this.successRate,
             'injuryRate': this.injuryRate,
-            'dirtyRate': this.dirtyRate,
+            'dirtyRate': this.dirtyRate
         };
     }
     decode(jsonString : string): ActionConfig {

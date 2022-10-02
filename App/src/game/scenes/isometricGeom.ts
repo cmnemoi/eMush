@@ -12,31 +12,31 @@ import InteractObject from "@/game/objects/interactObject";
 export default class IsometricGeom extends Phaser.Geom.Polygon implements Phaser.Types.GameObjects.Particles.RandomZoneSource {
     private iso_size : IsometricCoordinates;
     private iso_coords: IsometricCoordinates;
-    private iso_array:  Array<IsometricCoordinates>;
-    private cart_array: Array<CartesianCoordinates>;
+    private iso_Array:  Array<IsometricCoordinates>;
+    private cart_Array: Array<CartesianCoordinates>;
 
     constructor(
         iso_coords: IsometricCoordinates,
         iso_size: IsometricCoordinates
     )
     {
-        const iso_array = [
+        const iso_Array = [
             new IsometricCoordinates(iso_coords.x - iso_size.x/2, iso_coords.y - iso_size.y/2),
             new IsometricCoordinates(iso_coords.x - iso_size.x/2, iso_coords.y + iso_size.y/2),
             new IsometricCoordinates(iso_coords.x + iso_size.x/2, iso_coords.y + iso_size.y/2),
             new IsometricCoordinates(iso_coords.x + iso_size.x/2, iso_coords.y - iso_size.y/2)
         ];
 
-        super(iso_array);
+        super(iso_Array);
 
         this.iso_size = iso_size;
         this.iso_coords = iso_coords;
 
-        this.iso_array = iso_array;
+        this.iso_Array = iso_Array;
 
-        this.cart_array = [];
-        this.iso_array.forEach((isoCoords: IsometricCoordinates) => {
-            this.cart_array.push((<IsometricCoordinates>isoCoords).toCartesianCoordinates());
+        this.cart_Array = [];
+        this.iso_Array.forEach((isoCoords: IsometricCoordinates) => {
+            this.cart_Array.push((<IsometricCoordinates>isoCoords).toCartesianCoordinates());
         });
     }
 
@@ -56,22 +56,22 @@ export default class IsometricGeom extends Phaser.Geom.Polygon implements Phaser
 
     getCartesianPolygon(): Phaser.Geom.Polygon
     {
-        return new Phaser.Geom.Polygon(this.cart_array);
+        return new Phaser.Geom.Polygon(this.cart_Array);
     }
 
     getIsoArray(): Array<IsometricCoordinates>
     {
-        return this.iso_array;
+        return this.iso_Array;
     }
 
     getMaxIso(): IsometricCoordinates
     {
-        return this.iso_array[2];
+        return this.iso_Array[2];
     }
 
     getMinIso(): IsometricCoordinates
     {
-        return this.iso_array[0];
+        return this.iso_Array[0];
     }
 
     getIsoSize(): IsometricCoordinates

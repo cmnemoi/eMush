@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <tileset version="1.5" tiledversion="1.7.2" name="mycoscan_object" tilewidth="81" tileheight="57" tilecount="12" columns="12" objectalignment="bottomleft">
- <image source="../mycoscan_object.png" width="972" height="57"/>
+ <img src="../mycoscan_object.png" width="972" height="57"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="100"/>

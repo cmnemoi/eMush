@@ -42,7 +42,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $equipment = $event->getEquipment();
         }
 
-        $this->gearModifierService->gearDestroyed($equipment);
+        $this->gearModifierService->destroyGear($equipment);
     }
 
     public function onInventoryOverflow(EquipmentEvent $event): void

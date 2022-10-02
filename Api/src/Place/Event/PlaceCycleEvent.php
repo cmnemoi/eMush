@@ -3,9 +3,10 @@
 namespace Mush\Place\Event;
 
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Game\Event\AbstractModifierHolderEvent;
 use Mush\Place\Entity\Place;
 
-class PlaceCycleEvent extends AbstractGameEvent
+class PlaceCycleEvent extends AbstractModifierHolderEvent
 {
     public const PLACE_NEW_CYCLE = 'place.new.cycle';
     public const PLACE_NEW_DAY = 'place.new.day';
@@ -17,7 +18,7 @@ class PlaceCycleEvent extends AbstractGameEvent
         string $reason,
         \DateTime $time
     ) {
-        parent::__construct($reason, $place, $time);
+        parent::__construct($place, $reason, $time);
 
         $this->place = $place;
     }

@@ -108,7 +108,7 @@ class ChannelServiceTest extends TestCase
         ;
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(fn (ChannelEvent $event) => ($event->getPlayer() === $player))
             ->once()
         ;
@@ -125,7 +125,7 @@ class ChannelServiceTest extends TestCase
         $channel = new Channel();
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(fn (ChannelEvent $event) => ($event->getPlayer() === $player && $event->getChannel() === $channel))
             ->once()
         ;
@@ -139,7 +139,7 @@ class ChannelServiceTest extends TestCase
         $channel = new Channel();
 
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(fn (ChannelEvent $event) => ($event->getPlayer() === $player && $event->getChannel() === $channel))
             ->once()
         ;
@@ -355,7 +355,7 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -402,7 +402,7 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -449,7 +449,7 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -506,7 +506,7 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventService->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }
@@ -527,7 +527,7 @@ class ChannelServiceTest extends TestCase
             ->andReturn(new ArrayCollection([]))
         ;
 
-        $this->eventService->shouldReceive('dispatch')->never();
+        $this->eventService->shouldReceive('callEvent')->never();
 
         $this->service->updatePlayerPrivateChannels($player, $reason, $time);
     }

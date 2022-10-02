@@ -73,7 +73,7 @@ class PlayerDeathCest
             VisibilityEnum::PUBLIC,
             new \DateTime()
         );
-        $this->eventServiceService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        $this->eventServiceService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         $I->assertCount(1, $publicChannel->getMessages());
         $I->assertCount(1, $privateChannel->getMessages());

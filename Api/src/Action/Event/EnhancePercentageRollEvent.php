@@ -4,7 +4,7 @@ namespace Mush\Action\Event;
 
 use Mush\Game\Event\AbstractModifierHolderEvent;
 use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Player\Entity\Player;
 

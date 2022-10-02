@@ -1,18 +1,20 @@
-Mush\Modifier\Entity\ModifierConfig:
+Mush\Modifier\Entity\Config\ModifierConfig:
   attributes:
     id:
       groups: [ 'modifier_config_read' ]
     name:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    delta:
+    value:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    target:
-      groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    scope:
+    variable:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     reach:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     mode:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    modifierConditions:
+    logKeyWhenApplied:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    targetEvents:
+      groups: [ 'modifier_config_read', 'modifier_config_write' ]
+    conditions:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]

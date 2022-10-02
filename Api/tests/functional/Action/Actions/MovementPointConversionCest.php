@@ -40,7 +40,7 @@ class MovementPointConversionCest
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
 
         $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(null)->setMovementPointCost(1);
+        $actionCost->setActionPointCost(0)->setMovementPointCost(1);
         $I->haveInRepository($actionCost);
         $moveActionEntity = new Action();
         $moveActionEntity
@@ -102,7 +102,7 @@ class MovementPointConversionCest
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
 
         $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(null)->setMovementPointCost(2);
+        $actionCost->setActionPointCost(0)->setMovementPointCost(2);
         $I->haveInRepository($actionCost);
         $moveActionEntity = new Action();
         $moveActionEntity
@@ -164,7 +164,7 @@ class MovementPointConversionCest
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
 
         $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(null)->setMovementPointCost(5);
+        $actionCost->setActionPointCost(0)->setMovementPointCost(5);
         $I->haveInRepository($actionCost);
         $moveActionEntity = new Action();
         $moveActionEntity

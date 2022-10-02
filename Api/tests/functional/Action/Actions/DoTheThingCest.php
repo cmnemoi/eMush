@@ -182,7 +182,7 @@ class DoTheThingCest
         );
         $pregnantStatusEvent->setVisibility(VisibilityEnum::PRIVATE);
 
-        $this->eventServiceService->dispatch($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventServiceService->callEvent($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),

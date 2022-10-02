@@ -16,7 +16,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\DataFixtures\DiseaseModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\DisorderModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\InjuryModifierConfigFixtures;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\ModifierConfig;
 
 class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 {

@@ -47,7 +47,7 @@ class MotivationalSpeechActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $speaker);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($listener);
-        $this->eventService->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->action->execute();
 

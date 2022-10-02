@@ -113,7 +113,7 @@ class DisassembleActionTest extends AbstractActionTest
 
         $scrap = new GameItem();
 
-        $this->eventService->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         // Success
         $result = $this->action->execute();

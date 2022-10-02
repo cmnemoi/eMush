@@ -119,7 +119,7 @@ class PlayerServiceTest extends TestCase
             ->once()
         ;
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->once()
         ;
 
@@ -198,7 +198,7 @@ class PlayerServiceTest extends TestCase
             'flush' => null,
         ]);
 
-        $this->eventService->shouldReceive('dispatch');
+        $this->eventService->shouldReceive('callEvent');
 
         $player = $this->service->endPlayer($player, $message);
 

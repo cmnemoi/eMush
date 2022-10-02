@@ -67,7 +67,7 @@ class LieDownActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService
-            ->shouldReceive('dispatch')
+            ->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof StatusEvent &&
                 $event->getStatusName() === PlayerStatusEnum::LYING_DOWN &&
                 $event->getStatusHolder() === $player &&

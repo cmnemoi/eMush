@@ -1,0 +1,4 @@
+Mush\Modifier\Entity\Conditions\MinimumPlayerInPlaceModifierCondition:
+  attributes:
+    minimum:
+      groups: [ 'modifier_condition_read', 'modifier_condition_write' ]

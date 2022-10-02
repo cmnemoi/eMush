@@ -14,7 +14,7 @@ use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Entity\Condition\EquipmentInPlaceModifierCondition;
 use Mush\Modifier\Entity\Condition\MinimumPlayerInPlaceModifierCondition;
 use Mush\Modifier\Entity\Condition\RandomModifierCondition;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;

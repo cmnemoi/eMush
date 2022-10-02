@@ -13,45 +13,45 @@ class ActionCost
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $actionPointCost = null;
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private ?int $actionPointCost = 0;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $movementPointCost = null;
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private ?int $movementPointCost = 0;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $moralPointCost = null;
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private ?int $moralPointCost = 0;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getActionPointCost(): ?int
+    public function getActionPointCost(): int
     {
         return $this->actionPointCost;
     }
 
-    public function setActionPointCost(?int $actionPointCost): self
+    public function setActionPointCost(int $actionPointCost): self
     {
         $this->actionPointCost = $actionPointCost;
 
         return $this;
     }
 
-    public function getMovementPointCost(): ?int
+    public function getMovementPointCost(): int
     {
         return $this->movementPointCost;
     }
 
-    public function setMovementPointCost(?int $movementPointCost): self
+    public function setMovementPointCost(int $movementPointCost): self
     {
         $this->movementPointCost = $movementPointCost;
 
         return $this;
     }
 
-    public function getMoralPointCost(): ?int
+    public function getMoralPointCost(): int
     {
         return $this->moralPointCost;
     }
@@ -63,17 +63,13 @@ class ActionCost
         return $this;
     }
 
-    public function getVariableCost(string $variable): ?int
+    public function getVariableCost(string $variable): int
     {
-        switch ($variable) {
-            case PlayerVariableEnum::ACTION_POINT:
-                return $this->actionPointCost;
-            case PlayerVariableEnum::MOVEMENT_POINT:
-                return $this->movementPointCost;
-            case PlayerVariableEnum::MORAL_POINT:
-                return $this->moralPointCost;
-        }
-
-        return null;
+        return match ($variable) {
+            PlayerVariableEnum::ACTION_POINT => $this->actionPointCost,
+            PlayerVariableEnum::MOVEMENT_POINT => $this->movementPointCost,
+            PlayerVariableEnum::MORAL_POINT => $this->moralPointCost,
+            default => 0,
+        };
     }
 }

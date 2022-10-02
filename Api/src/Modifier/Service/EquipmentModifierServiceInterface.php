@@ -8,9 +8,9 @@ use Mush\Player\Entity\Player;
 
 interface EquipmentModifierServiceInterface
 {
-    public function gearCreated(GameEquipment $gameEquipment): void;
+    public function createGear(GameEquipment $gameEquipment): void;
 
-    public function gearDestroyed(GameEquipment $gameEquipment): void;
+    public function destroyGear(GameEquipment $gameEquipment): void;
 
     public function takeEquipment(GameEquipment $gameEquipment, Player $player): void;
 

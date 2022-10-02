@@ -16,7 +16,7 @@ use Mush\Modifier\Entity\Condition\MinimumPlayerInPlaceModifierCondition;
 use Mush\Modifier\Entity\Condition\ModifierCondition;
 use Mush\Modifier\Entity\Config\Quantity\CostModifierConfig;
 use Mush\Modifier\Entity\Config\Quantity\PlayerVariableModifierConfig;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierConditionEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;

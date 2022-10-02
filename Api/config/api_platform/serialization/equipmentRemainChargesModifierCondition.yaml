@@ -1,0 +1,4 @@
+Mush\Modifier\Entity\Conditions\EquipmentRemainChargesModifierCondition:
+  attributes:
+    equipmentName:
+      groups: [ 'modifier_condition_read', 'modifier_condition_write' ]

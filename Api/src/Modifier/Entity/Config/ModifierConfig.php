@@ -1,12 +1,13 @@
 <?php
 
-namespace Mush\Modifier\Entity;
+namespace Mush\Modifier\Entity\Config;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Condition\ModifierCondition;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Modifier\Entity\ModifierHolder;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'modifier_config')]
@@ -24,18 +25,24 @@ class ModifierConfig
     #[ORM\ManyToMany(targetEntity: ModifierCondition::class)]
     private Collection $conditions;
 
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $reach;
 
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
+    #[ORM\Column(type: 'float', nullable: false)]
     private float $value;
 
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $mode;
 
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $logKeyWhenApplied;
 
     private array $targetEvents;
 
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $variable;
 
     public function __construct(string $name, string $reach, float $value, string $mode, string $variable = null)

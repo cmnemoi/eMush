@@ -10,14 +10,10 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-
-use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Enum\ModifierConditionEnum;
+use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
-use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\ResourceMaxPointEvent;
 use Mush\Player\Event\ResourcePointChangeEvent;
@@ -38,10 +34,6 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
-        $notMoveActionCondition = new ModifierCondition(ModifierConditionEnum::NOT_REASON);
-        $notMoveActionCondition->setCondition(ActionEnum::MOVE);
-        $manager->persist($notMoveActionCondition);
 
         $notMoveAction1Increase = new ModifierConfig(
             ModifierNameEnum::INJURY_COST_1_PA_ACTION_NOT_MOVE,

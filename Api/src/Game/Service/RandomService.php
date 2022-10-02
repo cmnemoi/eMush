@@ -14,7 +14,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Service\ModifierService;
 use Mush\Modifier\Service\ModifierServiceInterface;

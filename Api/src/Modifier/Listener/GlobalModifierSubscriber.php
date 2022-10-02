@@ -4,23 +4,37 @@ namespace Mush\Modifier\Listener;
 
 use Mush\Action\Event\EnhancePercentageRollEvent;
 use Mush\Action\Event\PreparePercentageRollEvent;
+use Mush\Game\Event\AbstractModifierHolderEvent;
+use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Player\Event\ResourceMaxPointEvent;
 use Mush\Player\Event\ResourcePointChangeEvent;
+use Mush\Player\Service\PlayerVariableServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class GlobalModifierSubscriber implements EventSubscriberInterface
 {
 
     private RandomServiceInterface $randomService;
+    private EventServiceInterface $eventService;
+    private PlayerVariableServiceInterface $playerVariableService;
 
-    public function __construct(RandomServiceInterface $randomService)
-    {
+    public function __construct(
+        RandomServiceInterface $randomService,
+        EventServiceInterface $eventService,
+        PlayerVariableServiceInterface $playerVariableService
+    ) {
+        $this->eventService = $eventService;
         $this->randomService = $randomService;
+        $this->playerVariableService = $playerVariableService;
     }
 
     public static function getSubscribedEvents(): array
@@ -37,23 +51,70 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
             ],
             ResourcePointChangeEvent::class => [
                 'onResourcePointChangeEvent', 100_000
+            ],
+            ResourceMaxPointEvent::class => [
+                'onResourceMaxPointEvent', 100_000
+            ],
+            AbstractModifierHolderEvent::class => [
+                'onEvent', 50_000
             ]
         ];
     }
 
-    public function onResourcePointChangeEvent(ResourcePointChangeEvent $event) {
-        $variable = $event->getVariablePoint();
+    public function onEvent(AbstractModifierHolderEvent $event) {
+        if ($this->isEventAlreadyHandled($event)) {
+            return;
+        }
 
-        $modifiers = $this->getModifiersToApply(
+        $holder = $event->getModifierHolder();
+        if (!$holder instanceof Player) {
+            return;
+        }
+
+        foreach (PlayerVariableEnum::getInteractivePlayerVariables() as $variable) {
+            $variableEvent = new PlayerVariableEvent(
+                $holder,
+                $variable,
+                0,
+                $event->getEventName(),
+                new \DateTime()
+            );
+
+            $this->eventService->callEvent($variableEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        }
+    }
+
+    private function isEventAlreadyHandled(AbstractModifierHolderEvent $event) : bool {
+        return
+            $event instanceof PlayerVariableEvent ||
+            $event instanceof ResourceMaxPointEvent ||
+            $event instanceof ResourcePointChangeEvent ||
+            $event instanceof EnhancePercentageRollEvent ||
+            $event instanceof PreparePercentageRollEvent;
+    }
+
+    public function onResourceMaxPointEvent(ResourceMaxPointEvent $event) {
+        $event->setValue($this->calculateModifiedValue(
+            $event->getValue(),
+            $this->getModifiersToApplyForVariable($event, $event->getVariablePoint())->toArray()
+        ));
+    }
+
+    public function onResourcePointChangeEvent(ResourcePointChangeEvent $event) {
+        $event->setCost($this->calculateModifiedValue(
+            $event->getCost(),
+            $this->getModifiersToApplyForVariable($event, $event->getVariablePoint())->toArray()
+        ));
+    }
+
+    private function getModifiersToApplyForVariable(AbstractModifierHolderEvent $event, string $variable) : ModifierCollection {
+        return $this->getModifiersToApply(
             $event->getModifierHolder(),
             $event->getEventName(),
             $event->getReason()
         )->filter(function (Modifier $modifier) use ($variable) {
             return $modifier->getConfig()->getPlayerVariable() === $variable;
         });
-
-        $baseCost = $event->getCost();
-        $event->setCost($this->calculateModifiedValue($baseCost, $modifiers->toArray()));
     }
 
     public function onPlayerVariableEvent(PlayerVariableEvent $event) {
@@ -132,7 +193,6 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
     }
 
     private function calculateModifiedValue(int $baseValue, array $modifiers) : int {
-        $setValue = $baseValue;
         $multiplicativeValue = 1;
         $additiveValue = 0;
 
@@ -142,23 +202,14 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
 
             switch ($modifierConfig->getMode()) {
                 case ModifierModeEnum::SET_VALUE:
-                    if ($this->canProceed($setValue, $modifierConfig->getValue())) {
-                        $setValue = $modifierConfig->getValue();
-                        break;
-                    } else {
-                        return 0;
-                    }
+                    return $modifierConfig->getValue();
 
                 case ModifierModeEnum::MULTIPLICATIVE:
-                    if ($this->canProceed($setValue, $modifierConfig->getValue())) {
-                        $multiplicativeValue *= $modifierConfig->getValue();
-                        break;
-                    } else {
-                        return 0;
-                    }
+                    $multiplicativeValue *= $modifierConfig->getValue();
+                    break;
 
                 case ModifierModeEnum::ADDITIVE:
-                    if ($this->canProceed($setValue, $modifierConfig->getValue())) {
+                    if ($this->canProceed($baseValue, $modifierConfig->getValue())) {
                         $additiveValue += $modifierConfig->getValue();
                         break;
                     } else {
@@ -170,7 +221,7 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
             }
         }
 
-        return intval(($setValue + $additiveValue) * $multiplicativeValue);
+        return intval($baseValue * $multiplicativeValue + $additiveValue);
     }
 
     private function canProceed(int $quantity1, int $quantity2) : bool {

@@ -8,7 +8,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
-use Mush\Modifier\Entity\Trash\ModifierCondition;
+
 use Mush\Modifier\Enum\ModifierConditionEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;

@@ -136,7 +136,11 @@ class ModifierService implements ModifierServiceInterface
         $this->delete($modifier);
     }
 
-    public function getHolderFromConfig(ModifierConfig $config, ModifierHolder $holder, ModifierHolder $target = null) : ModifierHolder {
+    public function getHolderFromConfig(
+        ModifierConfig $config,
+        ModifierHolder $holder,
+        ModifierHolder $target = null
+    ) : ModifierHolder {
         $reach = $config->getReach();
 
         if ($holder instanceof Daedalus) {

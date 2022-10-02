@@ -13,8 +13,10 @@ use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Service\ModifierConditionService;
+use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Game\Service\EventServiceInterface;
@@ -24,13 +26,16 @@ class CycleEventSubscriber implements EventSubscriberInterface
 {
     private EventServiceInterface $eventService;
     private ModifierConditionService $modifierConditionService;
+    private ModifierServiceInterface $modifierService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ModifierConditionService $modifierConditionService,
+        ModifierServiceInterface $modifierService
     ) {
         $this->eventService = $eventService;
         $this->modifierConditionService = $modifierConditionService;
+        $this->modifierService = $modifierService;
     }
 
     public static function getSubscribedEvents(): array
@@ -62,10 +67,14 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
             $this->eventService->callEvent($event, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
+
+        PlayerVariableEnum::
     }
 
     public function onNewDay(AbstractGameEvent $event): void
     {
+        $this->modifierService->getHolderFromConfig($)
+
         $holder = $this->getModifierHolder($event);
 
         $cycleModifiers = $holder->getModifiers()->getScopedModifiers([EventEnum::NEW_DAY]);

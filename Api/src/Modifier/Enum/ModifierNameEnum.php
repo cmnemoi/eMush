@@ -25,5 +25,26 @@ class ModifierNameEnum
     public const WRENCH_MODIFIER = 'wrench_modifier';
 
     public const DISEASE_INCREASE_MOVE_COST = 'disease_increase_move_cost';
-
+    public const DISEASE_REDUCE_1_MAX_HP = 'disease_reduce_1_max_hp';
+    public const DISEASE_REDUCE_2_MAX_HP = 'disease_reduce_2_max_hp';
+    public const DISEASE_REDUCE_4_MAX_HP = 'disease_reduce_4_max_hp';
+    public const DISEASE_REDUCE_1_MAX_PMO = 'disease_reduce_1_max_pmo';
+    public const DISEASE_REDUCE_2_MAX_PMO = 'disease_reduce_2_max_pmo';
+    public const DISEASE_LOSE_1_HP_PER_CYCLE = 'disease_lose_1_hp_per_cycle';
+    public const DISEASE_LOSE_2_HP_PER_CYCLE = 'disease_lose_2_hp_per_cycle';
+    public const DISEASE_LOSE_4_HP_PER_CYCLE = 'disease_lose_4_hp_per_cycle';
+    public const DISEASE_LOSE_1_MP_PER_CYCLE = 'disease_lose_1_mp_per_cycle';
+    public const DISEASE_LOSE_1_SATIETY_PER_CYCLE = 'disease_lose_1_satiety_per_cycle';
+    public const DISEASE_LOSE_1_AP_PER_CYCLE_RANDOM_10 = 'disease_lose_1_ap_per_cycle_random_10';
+    public const DISEASE_LOSE_1_AP_PER_CYCLE_RANDOM_16 = 'disease_lose_1_ap_per_cycle_random_16';
+    public const DISEASE_LOSE_1_AP_PER_CYCLE_RANDOM_20 = 'disease_lose_1_ap_per_cycle_random_20';
+    public const DISEASE_LOSE_1_AP_PER_CYCLE_RANDOM_30 = 'disease_lose_1_ap_per_cycle_random_30';
+    public const DISEASE_LOSE_2_AP_PER_CYCLE_RANDOM_40 = 'disease_lose_2_ap_per_cycle_random_40';
+    public const DISEASE_LOSE_1_HP_PER_CYCLE_RANDOM_10 = 'disease_lose_1_hp_per_cycle_random_10';
+    public const DISEASE_LOSE_1_HP_PER_CYCLE_RANDOM_16 = 'disease_lose_1_hp_per_cycle_random_16';
+    public const DISEASE_LOSE_1_HP_PER_CYCLE_RANDOM_50 = 'disease_lose_1_hp_per_cycle_random_50';
+    public const DISEASE_LOSE_1_MP_PER_CYCLE_RANDOM_50 = 'disease_lose_1_mp_per_cycle_random_50';
+    public const DISEASE_LOSE_1_AP_AFTER_CONSUMPTION = 'disease_lose_1_ap_after_consumption';
+    public const DISEASE_LOSE_2_AP_AFTER_CONSUMPTION = 'disease_lose_2_ap_after_consumption';
+    public const DISEASE_LOSE_4_HP_ON_INFECTION = 'disease_lose_4_hp_on_infection';
 }

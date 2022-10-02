@@ -6,7 +6,7 @@ use Mush\Player\Entity\Player;
 
 interface PlayerVariableServiceInterface
 {
-    public function getMaxPlayerVariable(Player $player, string $target): int;
+    public function getMaxPlayerVariable(Player $player, string $variable): int;
 
     public function handleActionPointModifier(int $delta, Player $player): Player;
 

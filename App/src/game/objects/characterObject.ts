@@ -100,9 +100,18 @@ export default class CharacterObject extends InteractObject {
         }
     }
 
-
     createAnimations(): void
     {
+        this.anims.create({
+            key: 'move_right',
+            frames: this.anims.generateFrameNames('character', {
+                prefix: this.player.character.key,
+                start: 5,
+                end: 10
+            }),
+            frameRate: 10,
+            repeat: -1
+        });
         this.anims.create({
             key: 'move_right',
             frames: this.anims.generateFrameNames('character', {

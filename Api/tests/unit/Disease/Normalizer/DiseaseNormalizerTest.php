@@ -107,7 +107,7 @@ class DiseaseNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with(
                 'injury_decrease.description',
-                ['chance' => 100, 'emote' => ':pmo:', 'quantity' => 6],
+                ['chance' => 100,  'action_name' => '', 'emote' => ':pmo:', 'quantity' => 6],
                 'modifiers'
             )
             ->andReturn('translated three')

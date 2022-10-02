@@ -105,11 +105,14 @@ button {
 }
 
 .tippy-box[data-theme~='mush'] {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 	position: sticky;
 	pointer-events: none;
 	z-index: 10;
 	padding: .75em;
-	max-width: 270px !important;
+	max-width: 273px !important;
 	width: max-content;
 	background-color: rgba(35, 37, 100, .9);
     font-size: 1rem;

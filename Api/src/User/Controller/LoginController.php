@@ -38,13 +38,10 @@ class LoginController extends AbstractFOSRestController
      *
      * @OA\RequestBody (
      *      description="Input data format",
-     *
      * @OA\MediaType (
      *             mediaType="application/json",
-     *
      * @OA\Schema (
      *              type="object",
-     *
      * @OA\Property (
      *                     property="username",
      *                     description="The user username",
@@ -53,7 +50,6 @@ class LoginController extends AbstractFOSRestController
      *             )
      *         )
      *     )
-     *
      * @OA\Tag (name="Login")
      *
      * @Post (name="username_login", path="/token")

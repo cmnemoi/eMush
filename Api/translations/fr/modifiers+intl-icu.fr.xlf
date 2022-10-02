@@ -18,7 +18,7 @@
                 <source>new_cycle_decrease.description</source>
                 <target>{chance, select,
                     100 {Chaque cycle, fait perdre **{quantity}** {emote}.}
-                    other {Chaque cycle, **{chance}**% de chances de perdre **{quantity}** {emote}.}
+                    other {Chaque cycle, **{chance}%** de chances de perdre **{quantity}** {emote}.}
                 }</target>
             </segment>
         </unit>
@@ -28,10 +28,10 @@
                 <target>Recevoir un Spore fait perdre **{quantity}** {emote}.</target>
             </segment>
         </unit>
-        <unit id="consume_decrease">
+        <unit id="post_action_decrease">
             <segment id="description">
-                <source>consume_decrease.description</source>
-                <target>À chaque action **consommer**, fait perdre **{quantity}** {emote}.</target>
+                <source>post.action_decrease.description</source>
+                <target>À chaque action **{action_name}**, fait perdre **{quantity}** {emote}.</target>
             </segment>
         </unit>
         <unit id="move_increase">
@@ -43,7 +43,7 @@
         <unit id="actions_increase">
             <segment id="description">
                 <source>actions_increase.description</source>
-                <target>Chaque action, coûte **{quantity}** :pa: de plus.</target>
+                <target>Chaque action, coûte **{quantity}** {emote} de plus.</target>
             </segment>
         </unit>
         <unit id="action_shoot_decrease">
@@ -69,7 +69,7 @@
                 <source>disease_cycle.description</source>
                 <target>{chance, select,
                     100 {Chaque cycle, fait tomber malade.}
-                    other {Chaque cycle, **{chance}**% de chances de tomber malade.}
+                    other {Chaque cycle, **{chance}%** de chances de tomber malade.}
                     }</target>
             </segment>
         </unit>
@@ -96,7 +96,7 @@
                 <source>dirtiness.description</source>
                 <target>{chance, select,
                     100 {Chaque cycle, rend sale.}
-                    other {Chaque cycle, **{chance}**% de chances de rendre sale.}
+                    other {Chaque cycle, **{chance}%** de chances de rendre sale.}
                     }</target>
             </segment>
         </unit>
@@ -134,6 +134,12 @@
             <segment id="description">
                 <source>nausea.description</source>
                 <target>Fait subir le symptôme **Nausée**.</target>
+            </segment>
+        </unit>
+        <unit id="sneezing">
+            <segment id="description">
+                <source>sneezing.description</source>
+                <target>Fait subir le symptôme **Éternuements**.</target>
             </segment>
         </unit>
         <unit id="no_attack_actions">

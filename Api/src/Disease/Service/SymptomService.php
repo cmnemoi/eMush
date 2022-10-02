@@ -141,6 +141,16 @@ class SymptomService implements SymptomServiceInterface
 
         $this->createSymptomLog($symptomConfig->getName(), $player, $time, $symptomConfig->getVisibility(), $logParameters);
 
+        $damageEvent = new PlayerVariableEvent(
+            $player,
+            PlayerVariableEnum::HEALTH_POINT,
+            -6,
+            $symptomConfig->getName(),
+            $time
+        );
+
+        $this->eventDispatcher->dispatch($damageEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+
         $this->playerDiseaseService->createDiseaseFromName(DiseaseEnum::QUINCKS_OEDEMA, $player, $symptomConfig->getName());
 
         $diseaseEvent = new ApplyEffectEvent(
@@ -150,6 +160,7 @@ class SymptomService implements SymptomServiceInterface
             $symptomConfig->getName(),
             $time
         );
+
         $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
     }
 

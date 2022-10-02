@@ -152,9 +152,6 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $catAllergySymptom,
                 $catSneezing,
             ]))
-            ->setModifierConfigs(new ArrayCollection([
-                $takeCat6HealthLoss,
-                ]))
         ;
 
         $manager->persist($catAllergy);

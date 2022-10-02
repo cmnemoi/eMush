@@ -113,16 +113,13 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
                 $emote = '';
             }
 
-            $randomCondition = $modifierConfig->getModifierConditions()
-                ->filter(fn (ModifierCondition $condition) => $condition->getName() === SymptomConditionEnum::RANDOM);
-            if (!$randomCondition->isEmpty()) {
-                $chance = $randomCondition->first()->getValue();
-            } else {
-                $chance = 100;
-            }
+            $chance = $this->getModifierChance($modifierConfig);
+            $action = $this->getModifierAction($modifierConfig);
+            $action = $this->translateAction($action);
 
             $parameters = [
                 'chance' => $chance,
+                'action_name' => $action,
                 'emote' => $emote,
                 'quantity' => abs($delta),
             ];
@@ -135,5 +132,36 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         }
 
         return $description;
+    }
+
+    private function getModifierChance(ModifierConfig $modifierConfig): int
+    {
+        $randomCondition = $modifierConfig->getModifierConditions()
+                ->filter(fn (ModifierCondition $condition) => $condition->getName() === SymptomConditionEnum::RANDOM);
+        if (!$randomCondition->isEmpty()) {
+            return $randomCondition->first()->getValue();
+        } else {
+            return 100;
+        }
+    }
+
+    private function getModifierAction(ModifierConfig $modifierConfig): ?string
+    {
+        $reasonCondition = $modifierConfig->getModifierConditions()
+            ->filter(fn (ModifierCondition $condition) => $condition->getName() === SymptomConditionEnum::REASON);
+        if (!$reasonCondition->isEmpty()) {
+            return $reasonCondition->first()->getCondition();
+        } else {
+            return null;
+        }
+    }
+
+    private function translateAction(?string $action): string
+    {
+        if ($action) {
+            return $this->translationService->translate($action . 'name', [], 'actions');
+        } else {
+            return '';
+        }
     }
 }

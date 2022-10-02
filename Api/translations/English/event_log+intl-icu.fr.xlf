@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en-UD" trgLang="en">
+  <file id="event_log.ext">
+    <unit id="build_success">
+      <segment id="build_success" state="initial">
+        <source>build_success</source>
+        <target>build_success</target>
+      </segment>
+    </unit>
+    <unit id="open_success">
+      <segment id="open_success" state="initial">
+        <source>open_success</source>
+        <target>open_success</target>
+      </segment>
+    </unit>
+    <unit id="transplant_success">
+      <segment id="transplant_success" state="initial">
+        <source>transplant_success</source>
+        <target>transplant_success</target>
+      </segment>
+    </unit>
+    <unit id="awaken">
+      <segment state="initial">
+        <source>awaken</source>
+        <target>awaken</target>
+      </segment>
+    </unit>
+    <unit id="gain_action_point">
+      <segment state="initial">
+        <source>gain_action_point</source>
+        <target>gain_action_point</target>
+      </segment>
+    </unit>
+    <unit id="gain_movement_point">
+      <segment state="initial">
+        <source>gain_movement_point</source>
+        <target>gain_movement_point</target>
+      </segment>
+    </unit>
+    <unit id="gain_health_point">
+      <segment state="initial">
+        <source>gain_health_point</source>
+        <target>gain_health_point</target>
+      </segment>
+    </unit>
+    <unit id="loss_health_point">
+      <segment state="initial">
+        <source>loss_health_point</source>
+        <target>loss_health_point</target>
+      </segment>
+    </unit>
+    <unit id="gain_moral_point">
+      <segment state="initial">
+        <source>gain_moral_point</source>
+        <target>gain_moral_point</target>
+      </segment>
+    </unit>
+    <unit id="loss_moral_point">
+      <segment state="initial">
+        <source>loss_moral_point</source>
+        <target>loss_moral_point</target>
+      </segment>
+    </unit>
+    <unit id="gain_triumph">
+      <segment state="initial">
+        <source>gain_triumph</source>
+        <target>gain_triumph</target>
+      </segment>
+    </unit>
+    <unit id="object_felt">
+      <segment state="initial">
+        <source>object_felt</source>
+        <target>object_felt</target>
+      </segment>
+    </unit>
+    <unit id="oxy_low_use_capsule">
+      <segment state="initial">
+        <source>oxy_low_use_capsule</source>
+        <target>oxy_low_use_capsule</target>
+      </segment>
+    </unit>
+    <unit id="soiled">
+      <segment state="initial">
+        <source>soiled</source>
+        <target>soiled</target>
+      </segment>
+    </unit>
+    <unit id="soil_prevented">
+      <segment state="initial">
+        <source>soil_prevented</source>
+        <target>soil_prevented</target>
+      </segment>
+    </unit>
+    <unit id="clumsiness">
+      <segment state="initial">
+        <source>clumsiness</source>
+        <target>clumsiness</target>
+      </segment>
+    </unit>
+    <unit id="clumsiness_prevented">
+      <segment state="initial">
+        <source>clumsiness_prevented</source>
+        <target>clumsiness_prevented</target>
+      </segment>
+    </unit>
+    <unit id="metal_plate">
+      <segment state="initial">
+        <source>metal_plate</source>
+        <target>metal_plate</target>
+      </segment>
+    </unit>
+    <unit id="tremor_gravity">
+      <segment state="initial">
+        <source>tremor_gravity</source>
+        <target>tremor_gravity</target>
+      </segment>
+    </unit>
+    <unit id="tremor_no_gravity">
+      <segment state="initial">
+        <source>tremor_no_gravity</source>
+        <target>tremor_no_gravity</target>
+      </segment>
+    </unit>
+    <unit id="electric_arc">
+      <segment state="initial">
+        <source>electric_arc</source>
+        <target>electric_arc</target>
+      </segment>
+    </unit>
+    <unit id="equipment_broken">
+      <segment state="initial">
+        <source>equipment_broken</source>
+        <target>equipment_broken</target>
+      </segment>
+    </unit>
+    <unit id="equipment_destroyed">
+      <segment state="initial">
+        <source>equipment_destroyed</source>
+        <target>equipment_destroyed</target>
+      </segment>
+    </unit>
+    <unit id="panic_crisis">
+      <segment state="initial">
+        <source>panic_crisis</source>
+        <target>panic_crisis</target>
+      </segment>
+    </unit>
+    <unit id="plant_new_fruit">
+      <segment state="initial">
+        <source>plant_new_fruit</source>
+        <target>plant_new_fruit</target>
+      </segment>
+    </unit>
+    <unit id="plant_maturity">
+      <segment state="initial">
+        <source>plant_maturity</source>
+        <target>plant_maturity</target>
+      </segment>
+    </unit>
+    <unit id="plant_death">
+      <segment state="initial">
+        <source>plant_death</source>
+        <target>plant_death</target>
+      </segment>
+    </unit>
+    <unit id="garden_destroyed">
+      <segment state="initial">
+        <source>garden_destroyed</source>
+        <target>garden_destroyed</target>
+      </segment>
+    </unit>
+    <unit id="hunger">
+      <segment state="initial">
+        <source>hunger</source>
+        <target>hunger</target>
+      </segment>
+    </unit>
+    <unit id="force_get_up">
+      <segment state="initial">
+        <source>force_get_up</source>
+        <target>force_get_up</target>
+      </segment>
+    </unit>
+    <unit id="antisocial_morale_loss">
+      <segment state="initial">
+        <source>antisocial_morale_loss</source>
+        <target>antisocial_morale_loss</target>
+      </segment>
+    </unit>
+    <unit id="become_pregnant">
+      <segment state="initial">
+        <source>become_pregnant</source>
+        <target>become_pregnant</target>
+      </segment>
+    </unit>
+    <unit id="disease_appear">
+      <segment state="initial">
+        <source>disease_appear</source>
+        <target>disease_appear</target>
+      </segment>
+    </unit>
+    <unit id="disease_cured">
+      <segment state="initial">
+        <source>disease_cured</source>
+        <target>disease_cured</target>
+      </segment>
+    </unit>
+    <unit id="disorder_appear">
+      <segment state="initial">
+        <source>disorder_appear</source>
+        <target>disorder_appear</target>
+      </segment>
+    </unit>
+    <unit id="disease_curred_player">
+      <segment state="initial">
+        <source>disease_cured_player</source>
+        <target>disease_cured_player</target>
+      </segment>
+    </unit>
+    <unit id="disease_healed_player">
+      <segment state="initial">
+        <source>disease_healed_player</source>
+        <target>disease_healed_player</target>
+      </segment>
+    </unit>
+    <unit id="disease_curred_drug">
+      <segment state="initial">
+        <source>disease_curred_drug</source>
+        <target>disease_curred_drug</target>
+      </segment>
+    </unit>
+    <unit id="disease_treated_drug">
+      <segment state="initial">
+        <source>disease_treated_drug</source>
+        <target>disease_treated_drug</target>
+      </segment>
+    </unit>
+    <unit id="disorder_curred_player">
+      <segment state="initial">
+        <source>disorder_cured_player</source>
+        <target>disorder_cured_player</target>
+      </segment>
+    </unit>
+    <unit id="disorder_treated_player">
+      <segment state="initial">
+        <source>disorder_treated_player</source>
+        <target>disorder_treated_player</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

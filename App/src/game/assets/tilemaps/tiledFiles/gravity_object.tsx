@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <tileset version="1.5" tiledversion="1.7.2" name="gravity_object" tilewidth="28" tileheight="46" tilecount="9" columns="9" objectalignment="bottomleft">
- <image source="../gravity_object.png" width="279" height="46"/>
+ <img src="../gravity_object.png" width="279" height="46"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="100"/>

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <tileset version="1.5" tiledversion="1.7.2" name="combustion_chamber" tilewidth="73" tileheight="63" tilecount="8" columns="8" objectalignment="bottomleft">
- <image source="../combustion_chamber.png" width="584" height="63"/>
+ <img src="../combustion_chamber.png" width="584" height="63"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="1000"/>

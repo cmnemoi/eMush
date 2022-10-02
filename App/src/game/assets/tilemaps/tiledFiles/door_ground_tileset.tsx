@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <tileset version="1.5" tiledversion="1.7.2" name="door_ground_tileset" tilewidth="64" tileheight="36" tilecount="20" columns="5" objectalignment="bottomleft">
  <grid orientation="isometric" width="64" height="36"/>
- <image source="../door_ground_tileset.png" width="320" height="144"/>
+ <img src="../door_ground_tileset.png" width="320" height="144"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="100"/>

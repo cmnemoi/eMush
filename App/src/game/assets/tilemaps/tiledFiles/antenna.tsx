@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <tileset version="1.5" tiledversion="1.7.2" name="antenna" tilewidth="51" tileheight="68" tilecount="14" columns="7" objectalignment="bottomleft">
- <image source="../antenna.png" width="357" height="136"/>
+ <img src="../antenna.png" width="357" height="136"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="100"/>

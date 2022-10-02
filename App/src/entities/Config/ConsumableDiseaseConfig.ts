@@ -5,14 +5,14 @@ export class ConsumableDiseaseConfig {
     public id: number|null;
     public gameConfig: GameConfig|null;
     public name: string|null;
-    public diseasesName: array|null;
-    public curesName: array|null;
-    public diseasesChances: array|null;
-    public curesChances: array|null;
-    public diseasesDelayMin: array|null;
-    public diseasesDelayLength: array|null;
-    public effectNumber: array|null;
-    public consumableAttributes: array|null;
+    public diseasesName: Array<any>|null;
+    public curesName: Array<any>|null;
+    public diseasesChances: Array<any>|null;
+    public curesChances: Array<any>|null;
+    public diseasesDelayMin: Array<any>|null;
+    public diseasesDelayLength: Array<any>|null;
+    public effectNumber: Array<any>|null;
+    public consumableAttributes: Array<any>|null;
 
     constructor() {
         this.iri = null;
@@ -57,7 +57,7 @@ export class ConsumableDiseaseConfig {
             'diseasesDelayMin': this.diseasesDelayMin,
             'diseasesDelayLength': this.diseasesDelayLength,
             'effectNumber': this.effectNumber,
-            'consumableAttributes': this.consumableAttributes,
+            'consumableAttributes': this.consumableAttributes
         };
     }
     decode(jsonString : string): ConsumableDiseaseConfig {

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <tileset version="1.5" tiledversion="1.7.2" name="garden" tilewidth="268" tileheight="168" tilecount="8" columns="4" objectalignment="bottomleft">
- <image source="../garden.png" width="1073" height="336"/>
+ <img src="../garden.png" width="1073" height="336"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="60"/>

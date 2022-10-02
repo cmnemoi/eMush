@@ -71,5 +71,5 @@ export const adminConfigRoutes = [
         name: "AdminActionConfigDetail",
         path: 'action-config/:actionConfigId',
         component: ActionConfigDetailPage
-    },
+    }
 ];

@@ -20,17 +20,17 @@ export class DepthSortingArray {
     addElement(phaserObject: DecorationObject): Array<DepthElement>
     {
         const newElementDepth = new DepthElement(phaserObject);
-        const arrayLength = this.elementArray.length;
-        if (arrayLength === 0)
+        const ArrayLength = this.elementArray.length;
+        if (ArrayLength === 0)
         {
             this.elementArray.push(newElementDepth);
         } else {
-            for (let i = 0; i < arrayLength; i++) {
+            for (let i = 0; i < ArrayLength; i++) {
                 if (!newElementDepth.isInFront(this.elementArray[i])) {
                     this.elementArray.splice(i,0, newElementDepth);
                     break;
                 }
-                if (i === arrayLength - 1) {
+                if (i === ArrayLength - 1) {
                     this.elementArray.push(newElementDepth);
                 }
             }

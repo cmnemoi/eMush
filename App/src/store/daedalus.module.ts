@@ -31,7 +31,7 @@ const getters: GetterTree<any, any> = {
     },
     loadingMinimap: (state: any): boolean => {
         return state.loadingMinimap;
-    },
+    }
 };
 
 const actions: ActionTree<any, any> = {
@@ -58,7 +58,7 @@ const actions: ActionTree<any, any> = {
         } catch (e) {
             return false;
         }
-    },
+    }
 };
 
 const mutations: MutationTree<any> = {
@@ -86,7 +86,7 @@ const mutations: MutationTree<any> = {
     },
     setLoadingMinimap(state: any, newValue: boolean): void {
         state.loadingMinimap = newValue;
-    },
+    }
 };
 
 export const daedalus = {

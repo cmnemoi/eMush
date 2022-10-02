@@ -47,7 +47,7 @@ export class ModifierConfig {
             'scope': this.scope,
             'reach': this.reach,
             'mode': this.mode,
-            'modifierConditions': modifierConditions,
+            'modifierConditions': modifierConditions
         };
     }
     decode(jsonString : string): ModifierConfig {

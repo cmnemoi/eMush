@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <tileset version="1.5" tiledversion="1.7.2" name="nerons_core" tilewidth="87" tileheight="90" tilecount="16" columns="8" objectalignment="bottomleft">
- <image source="../nerons_core.png" width="696" height="180"/>
+ <img src="../nerons_core.png" width="696" height="180"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="100"/>

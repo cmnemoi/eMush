@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <tileset version="1.8" tiledversion="1.8.0" name="wall_box" tilewidth="14" tileheight="15" tilecount="4" columns="4" objectalignment="center">
- <image source="../wall_box.png" width="56" height="15"/>
+ <img src="../wall_box.png" width="56" height="15"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="1500"/>

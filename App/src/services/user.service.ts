@@ -15,7 +15,7 @@ const callBackUrl = urlJoin(process.env.VUE_APP_URL, "token");
 const userEndPoint = urlJoin(process.env.VUE_APP_API_URL+'users');
 
 class AuthenticationError extends Error {
-    public errorCode: number
+    public errorCode: number;
 
     constructor(errorCode: number, message: string) {
         super();

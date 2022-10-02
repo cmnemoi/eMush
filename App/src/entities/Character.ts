@@ -1,8 +1,8 @@
 import { CharacterEnum } from "@/enums/character";
 
 export class Character {
-    public key!: CharacterEnum
-    public name!: string
+    public key!: CharacterEnum;
+    public name!: string;
 
     load(object: any): Character {
         if (typeof object !== "undefined") {

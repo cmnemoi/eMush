@@ -5,7 +5,7 @@ export class DiseaseCauseConfig {
     public id: number|null;
     public gameConfig: GameConfig|null;
     public causeName: string|null;
-    public diseases: array|null;
+    public diseases: Array<any>|null;
 
     constructor() {
         this.iri = null;
@@ -29,7 +29,7 @@ export class DiseaseCauseConfig {
             'id': this.id,
             'gameConfig': this.gameConfig?.iri,
             'causeName': this.causeName,
-            'diseases': this.diseases,
+            'diseases': this.diseases
         };
     }
     decode(jsonString : string): DiseaseCauseConfig {

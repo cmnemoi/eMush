@@ -8,8 +8,8 @@ export class DaedalusConfig {
     public initFuel: number|null;
     public initHull: number|null;
     public initShield: number|null;
-    public randomItemPlace: array|null;
-    public placeConfigs: array|null;
+    public randomItemPlace: Array<any>|null;
+    public placeConfigs: Array<any>|null;
     public dailySporeNb: number|null;
     public maxOxygen: number|null;
     public maxFuel: number|null;
@@ -61,7 +61,7 @@ export class DaedalusConfig {
             'dailySporeNb': this.dailySporeNb,
             'maxOxygen': this.maxOxygen,
             'maxFuel': this.maxFuel,
-            'maxHull': this.maxHull,
+            'maxHull': this.maxHull
         };
     }
     decode(jsonString : string): DaedalusConfig {

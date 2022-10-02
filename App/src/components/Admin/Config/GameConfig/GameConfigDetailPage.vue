@@ -150,7 +150,7 @@ interface GameConfigState {
 export default defineComponent({
     name: "GameConfigDetailPage",
     components: {
-        Input,
+        Input
     },
     data: function (): GameConfigState {
         return {

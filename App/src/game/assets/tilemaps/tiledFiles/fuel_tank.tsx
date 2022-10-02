@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <tileset version="1.5" tiledversion="1.7.2" name="fuel_tank" tilewidth="46" tileheight="45" tilecount="12" columns="6" objectalignment="bottomleft">
- <image source="../fuel_tank.png" width="276" height="90"/>
+ <img src="../fuel_tank.png" width="276" height="90"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="250"/>

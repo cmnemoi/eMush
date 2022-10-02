@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <tileset version="1.5" tiledversion="1.7.2" name="comms_center" tilewidth="64" tileheight="48" tilecount="8" columns="8" objectalignment="bottomleft">
- <image source="../comms_center.png" width="512" height="48"/>
+ <img src="../comms_center.png" width="512" height="48"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="200"/>

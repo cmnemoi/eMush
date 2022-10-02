@@ -187,7 +187,7 @@ export default class DaedalusScene extends Phaser.Scene
     private previousRoom: string | undefined = undefined;
 
     public selectedGameObject : Phaser.GameObjects.GameObject | null;
-    private fireParticles: Array<Phaser.GameObjects.Particles.ParticleEmitterManager> = []
+    private fireParticles: Array<Phaser.GameObjects.Particles.ParticleEmitterManager> = [];
 
     constructor(player: Player) {
         super('game-scene');
@@ -875,7 +875,7 @@ export default class DaedalusScene extends Phaser.Scene
                 );
                 this.cameraDirection.setTo(
                     (requiredScroll.x  - this.cameras.main.scrollX)/norm,
-                    (requiredScroll.y  - this.cameras.main.scrollY)/norm,
+                    (requiredScroll.y  - this.cameras.main.scrollY)/norm
                 );
             }
         });

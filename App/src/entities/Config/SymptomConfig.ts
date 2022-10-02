@@ -4,7 +4,7 @@ export class SymptomConfig {
     public name: string|null;
     public trigger: string|null;
     public visibility: number|null;
-    public symptomConditions: array|null;
+    public symptomConditions: Array<any>|null;
 
     constructor() {
         this.iri = null;
@@ -31,7 +31,7 @@ export class SymptomConfig {
             'name': this.name,
             'trigger': this.trigger,
             'visibility': this.visibility,
-            'symptomConditions': this.symptomConditions,
+            'symptomConditions': this.symptomConditions
         };
     }
     decode(jsonString : string): SymptomConfig {

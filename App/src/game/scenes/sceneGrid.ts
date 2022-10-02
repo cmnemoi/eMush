@@ -516,7 +516,7 @@ export class GridElement {
     public geom: IsometricGeom;
     public object?: DecorationObject;
     public isNavigable: boolean;
-    public initDepth: number
+    public initDepth: number;
 
     constructor(geom: IsometricGeom, isNavigable: boolean, initDepth: number, object?: DecorationObject) {
         this.geom = geom;

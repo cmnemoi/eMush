@@ -2,7 +2,7 @@
 export class QuantityPoint {
     public name!: string;
     public description: string|null;
-    public quantity!: number
+    public quantity!: number;
 
     constructor() {
         this.description = null;

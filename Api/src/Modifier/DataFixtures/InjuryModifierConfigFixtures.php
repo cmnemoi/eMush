@@ -7,16 +7,20 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierConditionEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\ResourceMaxPointEvent;
+use Mush\Player\Event\ResourcePointChangeEvent;
 
 class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -39,97 +43,107 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $notMoveActionCondition->setCondition(ActionEnum::MOVE);
         $manager->persist($notMoveActionCondition);
 
-        $notMoveAction1Increase = new ModifierConfig();
+        $notMoveAction1Increase = new ModifierConfig(
+            ModifierNameEnum::INJURY_COST_1_PA_ACTION_NOT_MOVE,
+            ModifierReachEnum::PLAYER,
+            1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::ACTION_POINT
+        );
         $notMoveAction1Increase
-            ->setScope(ModifierScopeEnum::ACTIONS)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(1)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-            ->addModifierCondition($notMoveActionCondition)
-        ;
+            ->excludeTargetEvent(ResourcePointChangeEvent::CHECK_CHANGE_ACTION_POINT, [ActionEnum::MOVE]);
         $manager->persist($notMoveAction1Increase);
 
-        $notMoveAction2Increase = new ModifierConfig();
+        $notMoveAction2Increase = new ModifierConfig(
+            ModifierNameEnum::INJURY_COST_2_PA_ACTION_NOT_MOVE,
+            ModifierReachEnum::PLAYER,
+            2,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::ACTION_POINT
+        );
         $notMoveAction2Increase
-            ->setScope(ModifierScopeEnum::ACTIONS)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(2)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-            ->addModifierCondition($notMoveActionCondition)
-        ;
+            ->excludeTargetEvent(ResourcePointChangeEvent::CHECK_CHANGE_ACTION_POINT, [ActionEnum::MOVE]);
         $manager->persist($notMoveAction2Increase);
 
-        $notMoveAction3Increase = new ModifierConfig();
+        $notMoveAction3Increase = new ModifierConfig(
+            ModifierNameEnum::INJURY_COST_3_PA_ACTION_NOT_MOVE,
+            ModifierReachEnum::PLAYER,
+            3,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::ACTION_POINT
+        );
         $notMoveAction3Increase
-            ->setScope(ModifierScopeEnum::ACTIONS)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(3)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-            ->addModifierCondition($notMoveActionCondition)
-        ;
+            ->excludeTargetEvent(ResourcePointChangeEvent::CHECK_CHANGE_ACTION_POINT, [ActionEnum::MOVE]);
+
         $manager->persist($notMoveAction3Increase);
 
-        $reduceMax3MovementPoint = new ModifierConfig();
+        $reduceMax3MovementPoint = new ModifierConfig(
+            ModifierNameEnum::INJURY_LOSE_3_MAX_PM,
+            ModifierReachEnum::PLAYER,
+            -3,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
         $reduceMax3MovementPoint
-            ->setScope(ModifierScopeEnum::MAX_POINT)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(-3)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+            ->addTargetEvent(ResourceMaxPointEvent::CHECK_MAX_POINT);
         $manager->persist($reduceMax3MovementPoint);
 
-        $reduceMax5MovementPoint = new ModifierConfig();
+        $reduceMax5MovementPoint = new ModifierConfig(
+            ModifierNameEnum::INJURY_LOSE_5_MAX_PM,
+            ModifierReachEnum::PLAYER,
+            -5,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
         $reduceMax5MovementPoint
-            ->setScope(ModifierScopeEnum::MAX_POINT)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(-5)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+            ->addTargetEvent(ResourceMaxPointEvent::CHECK_MAX_POINT);
         $manager->persist($reduceMax5MovementPoint);
 
-        $reduceMax12MovementPoint = new ModifierConfig();
+        $reduceMax12MovementPoint = new ModifierConfig(
+            ModifierNameEnum::INJURY_LOSE_12_MAX_PM,
+            ModifierReachEnum::PLAYER,
+            -12,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
         $reduceMax12MovementPoint
-            ->setScope(ModifierScopeEnum::MAX_POINT)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(-12)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+            ->addTargetEvent(ResourceMaxPointEvent::CHECK_MAX_POINT);
         $manager->persist($reduceMax12MovementPoint);
 
-        $shootAction15PercentAccuracyLost = new ModifierConfig();
-        $shootAction15PercentAccuracyLost
-            ->setScope(ActionTypeEnum::ACTION_SHOOT)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
-            ->setDelta(0.85)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-        ;
+        $shootAction15PercentAccuracyLost = new ModifierConfig(
+            ModifierNameEnum::INJURY_LOSE_15_SHOOTING_ACCURACY,
+            ModifierReachEnum::PLAYER,
+            0.85,
+            ModifierModeEnum::MULTIPLICATIVE
+        );
+        foreach (ActionTypeEnum::getShootActions() as $action) {
+            $shootAction15PercentAccuracyLost
+                ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [$action]);
+        }
         $manager->persist($shootAction15PercentAccuracyLost);
 
-        $shootAction20PercentAccuracyLost = new ModifierConfig();
-        $shootAction20PercentAccuracyLost
-            ->setScope(ActionTypeEnum::ACTION_SHOOT)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
-            ->setDelta(0.80)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-        ;
+        $shootAction20PercentAccuracyLost = new ModifierConfig(
+            ModifierNameEnum::INJURY_LOSE_20_SHOOTING_ACCURACY,
+            ModifierReachEnum::PLAYER,
+            0.80,
+            ModifierModeEnum::MULTIPLICATIVE
+        );
+        foreach (ActionTypeEnum::getShootActions() as $action) {
+            $shootAction20PercentAccuracyLost
+                ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [$action]);
+        }
         $manager->persist($shootAction20PercentAccuracyLost);
 
-        $shootAction40PercentAccuracyLost = new ModifierConfig();
-        $shootAction40PercentAccuracyLost
-            ->setScope(ActionTypeEnum::ACTION_SHOOT)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
-            ->setDelta(0.60)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-        ;
+        $shootAction40PercentAccuracyLost = new ModifierConfig(
+            ModifierNameEnum::INJURY_LOSE_40_SHOOTING_ACCURACY,
+            ModifierReachEnum::PLAYER,
+            0.60,
+            ModifierModeEnum::MULTIPLICATIVE
+        );
+        foreach (ActionTypeEnum::getShootActions() as $action) {
+            $shootAction40PercentAccuracyLost
+                ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [$action]);
+        }
         $manager->persist($shootAction40PercentAccuracyLost);
 
         $manager->flush();

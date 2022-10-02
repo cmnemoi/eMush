@@ -4,12 +4,11 @@ namespace Mush\RoomLog\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\Fail;
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
@@ -18,7 +17,6 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
 
 class RoomLogService implements RoomLogServiceInterface
@@ -50,7 +48,9 @@ class RoomLogService implements RoomLogServiceInterface
 
     public function findById(int $id): ?RoomLog
     {
-        return $this->repository->find($id);
+        $roomLog = $this->repository->find($id);
+
+        return $roomLog instanceof RoomLog ? $roomLog : null;
     }
 
     public function createLogFromActionResult(
@@ -70,26 +70,24 @@ class RoomLogService implements RoomLogServiceInterface
             return null;
         }
 
-        if ($actionResult instanceof Success && isset($logMapping[ActionLogEnum::SUCCESS])) {
-            $logData = $logMapping[ActionLogEnum::SUCCESS];
-        } elseif ($actionResult instanceof Fail && isset($logMapping[ActionLogEnum::FAIL])) {
-            $logData = $logMapping[ActionLogEnum::FAIL];
+        $actionResultString = $actionResult->getName();
+        if (isset($logMapping[$actionResultString])) {
+            $logData = $logMapping[$actionResultString];
         } else {
-            return $this->createLog(
-                'no_log_yet_' . $actionName,
-                $player->getPlace(),
-                VisibilityEnum::PUBLIC,
-                'actions_log',
-                $player,
-            );
+            return null;
         }
 
         $parameters = $this->getActionLogParameters($actionResult, $player, $actionParameter);
 
+        $visibility = $actionResult->getVisibility();
+        if ($actionParameter instanceof GameEquipment && $actionParameter->getEquipment()->isPersonal()) {
+            $visibility = VisibilityEnum::PRIVATE;
+        }
+
         return $this->createLog(
-            $logData[ActionLogEnum::VALUE],
+            $logData,
             $player->getPlace(),
-            $logData[ActionLogEnum::VISIBILITY],
+            $visibility,
             'actions_log',
             $player,
             $parameters,
@@ -154,7 +152,7 @@ class RoomLogService implements RoomLogServiceInterface
         array $parameters = [],
         \DateTime $dateTime = null
     ): RoomLog {
-        //if there is several version of the log
+        // if there is several version of the log
         if (array_key_exists($logKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
             foreach ($declinations[$logKey] as $keyVersion => $versionNb) {
                 $parameters[$keyVersion] = $this->randomService->random(1, $versionNb);
@@ -184,21 +182,25 @@ class RoomLogService implements RoomLogServiceInterface
         }
 
         $place = $player->getPlace();
+
+        $placeEquipements = $place->getEquipments();
+
+        $equipmentIsACamera = fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT;
+
+        $equipementIsNotBroken = fn (GameEquipment $gameEquipment) => $gameEquipment->isBroken() === false;
+
+        $placeHasAFunctionalCamera = $placeEquipements->filter($equipmentIsACamera)->filter($equipementIsNotBroken)->count() > 0;
+        $placeHasAWitness = $place->getNumberPlayers() > 1;
+
         if (
-            $visibility === VisibilityEnum::COVERT &&
-            ($place->getPlayers()->count() > 1 ||
-            !$place->getEquipments()
-                ->filter(fn (GameEquipment $gameEquipment) => (
-                    $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT
-                ))->isEmpty())
+            $visibility === VisibilityEnum::SECRET &&
+            ($placeHasAWitness ||
+             $placeHasAFunctionalCamera)
         ) {
             return VisibilityEnum::REVEALED;
         } elseif (
-            $visibility === VisibilityEnum::SECRET &&
-            !$place->getEquipments()
-                ->filter(fn (GameEquipment $gameEquipment) => (
-                    $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT
-                ))->isEmpty()
+            $visibility === VisibilityEnum::COVERT &&
+            $placeHasAFunctionalCamera
         ) {
             return VisibilityEnum::REVEALED;
         }

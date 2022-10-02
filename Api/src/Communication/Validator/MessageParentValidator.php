@@ -27,7 +27,7 @@ class MessageParentValidator extends ConstraintValidator
                     ->buildViolation($constraint->message)
                     ->setCode(MessageParent::PARENT_CANNOT_BE_SET)
                     ->addViolation()
-                ;
+            ;
         }
     }
 }

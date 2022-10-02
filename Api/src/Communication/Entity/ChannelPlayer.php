@@ -6,29 +6,21 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Player\Entity\Player;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="communication_channel_player")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'communication_channel_player')]
 class ChannelPlayer
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Communication\Entity\Channel", inversedBy="participants")
-     */
+    #[ORM\ManyToOne(targetEntity: Channel::class, inversedBy: 'participants')]
     private Channel $channel;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player")
-     */
+    #[ORM\ManyToOne(targetEntity: Player::class)]
     private Player $participant;
 
     public function getId(): ?int

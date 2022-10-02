@@ -1,8 +1,8 @@
 <template>
     <Tippy tag="div">
-        <a class="action-button" href="#">
-            <span v-if="action.movementPointCost > 0">{{ action.movementPointCost }}<img src="@/assets/images/pm.png" alt="mp"></span>
-            <span v-else-if="action.actionPointCost > 0">{{ action.actionPointCost }}<img src="@/assets/images/pa.png" alt="ap"></span>
+        <a :class="{ crossed: !action.canExecute }" class="action-button" href="#">
+            <span v-if="action.movementPointCost > 0" class="cost">{{ action.movementPointCost }}<img src="@/assets/images/pm.png" alt="mp"></span>
+            <span v-else-if="action.actionPointCost > 0" class="cost">{{ action.actionPointCost }}<img src="@/assets/images/pa.png" alt="ap"></span>
             <span v-if="action.canExecute">{{ action.name }}</span>
             <span v-else><s>{{ action.name }}</s></span>
             <span v-if="action.successRate < 100" class="success-rate"> ({{ action.successRate }}%)</span>
@@ -28,10 +28,7 @@ export default defineComponent ({
 <style lang="scss" scoped>
 .action-button {
     @include button-style();
+    display: block;
     margin: 0.2rem;
-}
-
-.success-rate {
-    margin-left: 5px;
 }
 </style>

@@ -6,8 +6,13 @@ class ActionEnum
 {
     // Not yet an exhaustive list
 
-    //alpha actions
+    // admin actions
+    public const SUICIDE = 'suicide';
+
+    // alpha actions
     public const REJUVENATE_ALPHA = 'rejuvenate_alpha';
+    public const FAKE_DISEASE = 'fake_disease';
+    public const UPDATE_TALKIE = 'update_talkie';
 
     // Permanent Item actions
     public const MOVE = 'move';
@@ -45,14 +50,14 @@ class ActionEnum
     public const STRENGTHEN_HULL = 'strengthen_hull';
     public const WRITE = 'write';
     public const PUBLIC_BROADCAST = 'public_broadcast';
-    public const HEAL = 'heal';
-    public const SELF_HEAL = 'self_heal';
     public const ULTRAHEAL = 'ultraheal';
     public const CURE = 'cure';
     public const USE_BANDAGE = 'use_bandage';
     public const TRY_KUBE = 'try_kube';
     public const OPEN = 'open';
     public const SHOOT = 'shoot';
+    public const HEAL = 'heal';
+    public const SELF_HEAL = 'self_heal';
 
     // Item-enabled actions
     public const INSERT_FUEL = 'insert_fuel';
@@ -66,6 +71,7 @@ class ActionEnum
     public const SELF_SURGERY = 'self_surgery';
     public const CHECK_INFECTION = 'check_infection';
     public const SHOWER = 'shower';
+    public const WASH_IN_SINK = 'wash_in_sink';
     public const CHECK_ROSTER = 'check_roster';
     public const PLAY_ARCADE = 'play_arcade';
     public const LIE_DOWN = 'lie_down';
@@ -99,7 +105,7 @@ class ActionEnum
     public const DISASSEMBLE = 'disassemble';
     public const REINFORCE_EQUIPMENT = 'reinforce_equipment'; // /!\ This is preventing disassembly, not reinforcing the hull!
     public const PREMONITION = 'premonition';
-    public const HAND_EXTINGUISH = 'hand_extinguish';
+    public const EXTINGUISH_MANUALLY = 'extinguish_manually';
     public const CEASEFIRE = 'ceasefire';
     public const TORTURE = 'torture';
     public const GENIUS = 'become_genius';
@@ -109,6 +115,8 @@ class ActionEnum
     public const ANATHEM = 'anathem';
     public const METALWORKER = 'gen_metal';
     public const GEN_METAL = 'gen_metal';
+    public const MOTIVATIONAL_SPEECH = 'motivational_speech';
+    public const BORING_SPEECH = 'boring_speech';
 
     // Skill-related actions (Mush)
     public const PHAGOCYTE = 'eat_spore';
@@ -124,8 +132,8 @@ class ActionEnum
     public const DOOR_SABOTAGE = 'door_sabotage';
     public const DEFACE = 'deface';
     public const DELOG = 'delog';
-    public const GIVE_DISEASE = 'give_disease';
-    public const SCREW_TALKY = 'screw_talky';
+    public const MAKE_SICK = 'make_sick';
+    public const SCREW_TALKIE = 'screw_talkie';
     public const SPREAD_FIRE = 'spread_fire';
     public const NERON_DEPRESS = 'neron_depress';
     public const MASS_MUSHIFICATION = 'mass_ggeddon';
@@ -167,6 +175,8 @@ class ActionEnum
         return [
             self::HIT,
             self::WHISPER,
+            self::HEAL,
+            self::SELF_HEAL,
         ];
     }
 

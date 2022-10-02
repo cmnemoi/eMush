@@ -1,0 +1,24 @@
+Mush\Disease\Entity\Config\ConsumableDiseaseConfig:
+  attributes:
+    id:
+      groups: [ 'consumable_disease_config_read' ]
+    gameConfig:
+      groups: [ 'consumable_disease_config_read', 'consumable_disease_config_write' ]
+    name:
+      groups: [ 'consumable_disease_config_read', 'consumable_disease_config_write' ]
+    diseasesName:
+      groups: [ 'consumable_disease_config_read', 'consumable_disease_config_write' ]
+    curesName:
+      groups: [ 'consumable_disease_config_read', 'consumable_disease_config_write' ]
+    diseasesChances:
+      groups: [ 'consumable_disease_config_read', 'consumable_disease_config_write' ]
+    curesChances:
+      groups: [ 'consumable_disease_config_read', 'consumable_disease_config_write' ]
+    diseasesDelayMin:
+      groups: [ 'consumable_disease_config_read', 'consumable_disease_config_write' ]
+    diseasesDelayLength:
+      groups: [ 'consumable_disease_config_read', 'consumable_disease_config_write' ]
+    effectNumber:
+      groups: [ 'consumable_disease_config_read', 'consumable_disease_config_write' ]
+    consumableAttributes:
+      groups: [ 'consumable_disease_config_read', 'consumable_disease_config_write' ]

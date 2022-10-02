@@ -5,35 +5,24 @@ namespace Mush\Alert\Entity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Alert\Entity\Collection\AlertElementCollection;
+use Mush\Alert\Repository\AlertRepository;
 use Mush\Daedalus\Entity\Daedalus;
 
-/**
- * Class Alert.
- *
- * @ORM\Entity(repositoryClass="Mush\Alert\Repository\AlertRepository")
- */
+#[ORM\Entity(repositoryClass: AlertRepository::class)]
 class Alert
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string')]
     private string $name;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Daedalus\Entity\Daedalus")
-     */
+    #[ORM\ManyToOne(targetEntity: Daedalus::class)]
     private Daedalus $daedalus;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Mush\Alert\Entity\AlertElement", mappedBy="alert")
-     */
+    #[ORM\OneToMany(mappedBy: 'alert', targetEntity: AlertElement::class)]
     private Collection $alertElements;
 
     public function __construct()

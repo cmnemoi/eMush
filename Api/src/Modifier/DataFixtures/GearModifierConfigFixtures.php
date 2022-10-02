@@ -29,6 +29,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
     public const WRENCH_MODIFIER = 'wrench_modifier';
     public const GLOVES_MODIFIER = 'gloves_modifier';
     public const SOAP_MODIFIER = 'soap_modifier';
+    public const SOAP_SINK_MODIFIER = 'soap_sink_modifier';
     public const AIM_MODIFIER = 'aim_modifier';
     public const SCOOTER_MODIFIER = 'scooter_modifier';
     public const ROLLING_BOULDER = 'rolling_boulder';
@@ -53,7 +54,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->setName(ModifierNameEnum::APRON_MODIFIER)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($apronModifier);
 
@@ -64,7 +64,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::TARGET_PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($armorModifier);
 
@@ -75,7 +74,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1.5)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($wrenchModifier);
 
@@ -87,7 +85,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->setName(ModifierNameEnum::GLOVES_MODIFIER)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($glovesModifier);
 
@@ -98,9 +95,18 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($soapModifier);
+
+        $soapSinkModifier = new ModifierConfig();
+        $soapSinkModifier
+            ->setScope(ActionEnum::WASH_IN_SINK)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(-1)
+            ->setReach(ModifierReachEnum::PLAYER)
+            ->setMode(ModifierModeEnum::ADDITIVE)
+        ;
+        $manager->persist($soapSinkModifier);
 
         $aimModifier = new ModifierConfig();
         $aimModifier
@@ -109,7 +115,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1.1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($aimModifier);
 
@@ -120,7 +125,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($antiGravScooterModifier);
 
@@ -135,7 +139,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
             ->addModifierCondition($evenCyclesCondition)
         ;
         $manager->persist($rollingBoulderModifier);
@@ -147,7 +150,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1.5)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($oscilloscopeSuccessModifier);
 
@@ -162,7 +164,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-            ->setGameConfig($gameConfig)
             ->addModifierCondition($strengthenCondition)
         ;
         $manager->persist($oscilloscopeRepairModifier);
@@ -174,7 +175,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($antennaModifier);
 
@@ -185,7 +185,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($gravityConversionModifier);
 
@@ -201,7 +200,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($cycleEventCondition)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($gravityCycleModifier);
 
@@ -212,7 +210,6 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
             ->addModifierCondition($cycleEventCondition)
         ;
         $manager->persist($oxygenTankModifier);
@@ -224,6 +221,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $this->addReference(self::WRENCH_MODIFIER, $wrenchModifier);
         $this->addReference(self::GLOVES_MODIFIER, $glovesModifier);
         $this->addReference(self::SOAP_MODIFIER, $soapModifier);
+        $this->addReference(self::SOAP_SINK_MODIFIER, $soapSinkModifier);
         $this->addReference(self::AIM_MODIFIER, $aimModifier);
         $this->addReference(self::SCOOTER_MODIFIER, $antiGravScooterModifier);
         $this->addReference(self::ROLLING_BOULDER, $rollingBoulderModifier);

@@ -1,0 +1,10 @@
+Mush\Modifier\Entity\ModifierCondition:
+  attributes:
+    id:
+      groups: [ 'modifier_condition_read' ]
+    name:
+      groups: [ 'modifier_condition_read', 'modifier_condition_write' ]
+    condition:
+      groups: [ 'modifier_condition_read', 'modifier_condition_write' ]
+    value:
+      groups: [ 'modifier_condition_read', 'modifier_condition_write' ]

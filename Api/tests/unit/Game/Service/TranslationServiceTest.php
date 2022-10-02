@@ -39,7 +39,7 @@ class TranslationServiceTest extends TestCase
 
     public function testGetSimpleTranslationParameters()
     {
-        //test simple parameter
+        // test simple parameter
         $this->translator->shouldReceive('trans')
             ->with('key', ['quantity' => 1], 'domain')
             ->andReturn('translated message')
@@ -50,10 +50,10 @@ class TranslationServiceTest extends TestCase
 
     public function testGetCharacterTranslationParameters()
     {
-        //test character parameter
+        // test character parameter
         $this->translator
             ->shouldReceive('trans')
-            ->with(CharacterEnum::ANDIE . '.name', [], 'characters')
+            ->with(CharacterEnum::PAOLA . '.name', [], 'characters')
             ->andReturn('Andie')
         ;
 
@@ -62,15 +62,15 @@ class TranslationServiceTest extends TestCase
             ->andReturn('translated message')
             ->once()
         ;
-        $this->translationService->translate('key', ['character' => CharacterEnum::ANDIE], 'domain');
+        $this->translationService->translate('key', ['character' => CharacterEnum::PAOLA], 'domain');
     }
 
     public function testGetTargetCharacterTranslationParameters()
     {
-        //test targetPlayer parameter
+        // test targetPlayer parameter
         $this->translator
             ->shouldReceive('trans')
-            ->with(CharacterEnum::ANDIE . '.name', [], 'characters')
+            ->with(CharacterEnum::PAOLA . '.name', [], 'characters')
             ->andReturn('Andie')
         ;
 
@@ -79,12 +79,12 @@ class TranslationServiceTest extends TestCase
             ->andReturn('translated message')
             ->once()
         ;
-        $this->translationService->translate('key', ['target_character' => CharacterEnum::ANDIE], 'domain');
+        $this->translationService->translate('key', ['target_character' => CharacterEnum::PAOLA], 'domain');
     }
 
     public function testGetTargetEquipmentTranslationParameters()
     {
-        //test targetEquipment parameter
+        // test targetEquipment parameter
         $this->translator
             ->shouldReceive('trans')
             ->with(EquipmentEnum::ANTENNA . '.short_name', [], 'equipments')
@@ -97,7 +97,7 @@ class TranslationServiceTest extends TestCase
         ;
         $this->translator
             ->shouldReceive('trans')
-            ->with(EquipmentEnum::ANTENNA . '.first_Letter', [], 'equipments')
+            ->with(EquipmentEnum::ANTENNA . '.first_letter', [], 'equipments')
             ->andReturn('vowel')
         ;
         $this->translator
@@ -128,7 +128,7 @@ class TranslationServiceTest extends TestCase
         ;
         $this->translator
             ->shouldReceive('trans')
-            ->with(EquipmentEnum::ANTENNA . '.first_Letter', [], 'items')
+            ->with(EquipmentEnum::ANTENNA . '.first_letter', [], 'items')
             ->andReturn('vowel')
         ;
         $this->translator
@@ -148,12 +148,12 @@ class TranslationServiceTest extends TestCase
             'target_equipment_gender' => 'female',
             'target_equipment_first_letter' => 'vowel',
             'target_equipment_plural' => 'Antennes',
-            'cause' => 'Pas infirmerie',
+            'reason' => 'Pas infirmerie',
         ];
 
         $initialParameters = [
             'target_item' => EquipmentEnum::ANTENNA,
-            'cause' => EndCauseEnum::NO_INFIRMERY,
+            'reason' => EndCauseEnum::NO_INFIRMERY,
         ];
 
         $this->translator->shouldReceive('trans')

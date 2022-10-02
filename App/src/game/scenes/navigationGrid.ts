@@ -29,7 +29,7 @@ export class NavMeshGrid
     {
         this.geomArray.push(new IsometricGeom(
             new IsometricCoordinates((minX + maxX)/2, (minY +maxY)/2),
-            new IsometricCoordinates((maxX - minX), (maxY - minY)),
+            new IsometricCoordinates((maxX - minX), (maxY - minY))
         ));
 
         this.depthArray.push(depth);

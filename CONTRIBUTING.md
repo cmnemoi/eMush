@@ -24,10 +24,14 @@ vendor/bin/php-cs-fixer fix
 vendor/bin/psalm
 . linters.sh 
 ```
-in case of trouble when running tests
+In case of trouble when running tests
 ```
 vendor/bin/codecept clean
 vendor/bin/psalm --no-cache
+```
+Test should cover at least 70 % of the lines. To check test coverage run:
+```
+XDEBUG_MODE=coverage php vendor/bin/codecept run  --coverage
 ```
 
 4- Issue a Merge Request describing summarizing what you have done, wait a moment (ideally 24h) or the approval of an other developper before merging

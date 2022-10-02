@@ -230,7 +230,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($fuelCapsule);
 
-        //@TODO add drones, cat, coffee thermos, lunchbox, survival kit
+        // @TODO add drones, cat, coffee thermos, lunchbox, survival kit
         $manager->flush();
     }
 

@@ -32,17 +32,20 @@ export default class MushTiledMap {
         this.tilemap.addTilesetImage('wall_tileset', 'wall_tileset');
     }
 
-    createInitialSceneGrid(sceneGrid: SceneGrid) {
+    createInitialSceneGrid(sceneGrid: SceneGrid): SceneGrid
+    {
         const sceneIsoSize = this.getMapSize();
         sceneGrid.addSceneGeom(sceneIsoSize, this.groundTilesThickness);
+
+        return sceneGrid;
     }
 
     getMapSize(): IsometricCoordinates
     {
-        return new IsometricCoordinates(this.tilemap.width* this.isoTileSize, this.tilemap.height * this.isoTileSize);
+        return new IsometricCoordinates(this.tilemap.width * this.isoTileSize, this.tilemap.height * this.isoTileSize);
     }
 
-    createLayers(room: Room, sceneGrid: SceneGrid): Array<EquipmentObject>
+    createLayers(room: Room, sceneGrid: SceneGrid, ): void
     {
         for (let i=0; i < this.tilemap.layers.length; i++) {
             const tiledLayer = new MushTiledLayer(this.tilemap.layers[i]);
@@ -66,7 +69,10 @@ export default class MushTiledMap {
             }
         }
         sceneGrid.finalizeGroundMesh();
+    }
 
+    createEquipmentLayers(room: Room, sceneGrid: SceneGrid, ): Array<EquipmentObject>
+    {
         for (let i=0; i < this.tilemap.objects.length; i++) {
             this.createObjectsLayer(room, this.tilemap.objects[i], sceneGrid);
         }
@@ -78,7 +84,7 @@ export default class MushTiledMap {
     createObjectsLayer(
         room: Room,
         objectLayer: Phaser.Tilemaps.ObjectLayer,
-        sceneGrid: SceneGrid,
+        sceneGrid: SceneGrid
     ) {
         const addedObjectId: Array<number> = [];
 

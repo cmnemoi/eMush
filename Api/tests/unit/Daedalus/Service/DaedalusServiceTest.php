@@ -129,7 +129,7 @@ class DaedalusServiceTest extends TestCase
             ->once()
         ;
 
-        $daedalus = $this->service->createDaedalus($gameConfig);
+        $daedalus = $this->service->createDaedalus($gameConfig, 'name');
 
         $this->assertInstanceOf(Daedalus::class, $daedalus);
         $this->assertEquals($daedalusConfig->getInitFuel(), $daedalus->getFuel());
@@ -139,6 +139,7 @@ class DaedalusServiceTest extends TestCase
         $this->assertEquals(0, $daedalus->getCycle());
         $this->assertEquals(GameStatusEnum::STANDBY, $daedalus->getGameStatus());
         $this->assertNull($daedalus->getCycleStartedAt());
+        $this->assertEquals('name', $daedalus->getName());
     }
 
     public function testStartDaedalus()

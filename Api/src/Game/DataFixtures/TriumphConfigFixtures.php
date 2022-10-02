@@ -9,7 +9,7 @@ use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\TriumphConfig;
 use Mush\Game\Enum\TriumphEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Game\Enum\VisibilityEnum;
 
 class TriumphConfigFixtures extends Fixture implements DependentFixtureInterface
 {

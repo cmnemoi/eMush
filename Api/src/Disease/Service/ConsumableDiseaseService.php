@@ -4,9 +4,9 @@ namespace Mush\Disease\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
-use Mush\Disease\Entity\ConsumableDiseaseConfig;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Repository\ConsumableDiseaseConfigRepository;
 use Mush\Disease\Repository\ConsumableDiseaseRepository;
@@ -37,6 +37,8 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
             ['name' => $name, 'daedalus' => $daedalus]
         );
 
+        $consumableDisease = $consumableDisease instanceof ConsumableDisease ? $consumableDisease : null;
+
         if ($consumableDisease === null) {
             $consumableDisease = $this->createConsumableDiseases($name, $daedalus);
         }
@@ -48,7 +50,8 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
     {
         /** @var ConsumableDiseaseConfig $consumableDiseaseConfig */
         $consumableDiseaseConfig = $this->consumableDiseaseConfigRepository->findOneBy(['name' => $name, 'gameConfig' => $daedalus->getGameConfig()]);
-        if ($consumableDiseaseConfig === null) {
+
+        if (!$consumableDiseaseConfig instanceof ConsumableDiseaseConfig) {
             return null;
         }
 
@@ -76,10 +79,10 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
                 range(
                     1,
                     $diseasesNumberPossible + $curesNumberPossible),
-                    $effectsNumber
+                $effectsNumber
             );
 
-            //Get the number of cures, disease and special effect from the id
+            // Get the number of cures, disease and special effect from the id
             $curesNumber = count(array_filter($pickedEffects, fn ($idEffect) => $idEffect <= $curesNumberPossible));
 
             $diseasesNumber = $effectsNumber - $curesNumber;

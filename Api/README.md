@@ -7,20 +7,28 @@
     |-- public/           
     |-- src/            
         |-- Action/
+        |-- Alert/
+        |-- Communication/
         |-- Daedalus/
             |-- config
             |-- Controller
+            |-- DataFixtures
             |-- Entity
+            |-- Enum
             |-- Event
+            |-- Listener
             |-- Normalizer
             |-- Repository
             |-- Service
             |-- Validator
-        |-- Game/
+        |-- Disease/
         |-- Equipment/
-        |-- Player/
+        |-- Game/
+        |-- Modifier/
         |-- Place/
+        |-- Player/
         |-- RoomLog/       
+        |-- Status/
         |-- User/
 
     |-- tests/              --> Test directory
@@ -44,7 +52,7 @@ entry point of Symfony, that are the public files and asset that apache can acce
 It is very unlikely that you need to modify something there
 ### src/
 In previous versions of Symfony that would have been bundles
-Each folder manage a part, the Game folder is for all the services/entities that are sharad across each
+Each folder manage a part, the Game folder is for all the services/entities that are shared across each
 module/folder.
 Daedalus folder manage the Daedalus, Player folder manage the Player (etc...)  
 #### config
@@ -52,10 +60,17 @@ Config for the module/folder
 #### Controller
 Responsible for declaring the routes (with annotations), it receives the request and send the response
 There should be no logic inside the controller except calling some services and verify the request
+#### DataFixtures
+Store all the initialization data.
+This folder can be easily change to tweak game parameters such as action cost, intensity of effects...
 #### Entity
 The class that holds the data, some of them are stored in database
+#### Enum
+Store the strings, ex : key for the equipments
 #### Event
-Event declaration and event listener/suscriber
+Event declaration
+#### Listener
+Event listener/suscriber
 #### Normalizer
 Normalize the data returned by the controller, basically it transforms an object into an array
 This normalization is where we decide which part of the object are retured or not
@@ -87,7 +102,8 @@ To finish that, once the **entity** player created, the service will use the **R
 
 ### Actions vs Events
 
-The difference between an action and an event (from a development perspective) is an Action is what a User want to do. An event is something that can be the result of an action,or the change of cycle.
+The difference between an action and an event (from a development perspective) is an Action is what a User want to do.
+An event is something that can be the result of an action, or the change of cycle.
 Obvious example:
 - Action:
     - Move: The player use a door
@@ -98,25 +114,24 @@ Obvious example:
     
  For instance a player can make the action 'hit' on an other player, this will trigger the event 'player die'.  
  Less obvious example:   
-    A player make the action eat, that trigger the event 'become Dirty'  
-There are several grey area still:   
-     Player make the action 'repare' on a door, should the repared door trigger the event repared?
+    A player make the action eat, that trigger the event 'become Dirty'
 
-#### Action
+## Module documentation
+- [Action](./src/Action/README.md): handle actions performed by the player
+- [Alert](./src/Alert/README.md): track Daedalus and crew critical points
+- [Communication](./src/Communication/README.md): handle chat between players
+- [Daedalus](./src/Daedalus/README.md)
+- [Disease](./src/Disease/README.md)
+- [Equipment](./src/Equipment/README.md)
+- [Game](./src/Game/README.md)
+- [Modifier](./src/Modifier/README.md)
+- [Place](./src/Place/README.md)
+- [Player](./src/Player/README.md)
+- [RoomLog](./src/RoomLog/README.md)
+- [Status](./src/Status/README.md)
+- [User](./src/User/README.md)
 
-Create a new Action:
-- Create a class that extends [src/Action/Actions/Action.php](./src/Action/Actions/Action.php) abstract class: implement the abstract methods
-- Register this action in the [src/Action/Enum/ActionEnum.php](./src/Action/Enum/ActionEnum.php)
 
-## [Items](./docs/Items.md)
-
-
-## RoomLogs
-When an action, or an event is being performed, a roomLog should be created  
-In order to add a roomLog, use the RoomLogService::createLog method
-```
-public function createLog(string $logKey, Player $player, Room $room, string $visibility, RoomLogParameter $roomLogParameter): RoomLog;
-```
 
 ## Tests Codeception
 The test folder is a mirror of the src directory
@@ -153,3 +168,19 @@ Check what the folowing command returns:
 
 On the host machine (not the docker container) run :
 `sudo ufw allow from any to any port 9003 proto tcp`
+
+
+## Accessing Data Base
+From terminal type:
+```
+docker exec -it mush_database bash
+psql --username mysql mush
+```
+List the tables with:
+```
+\dt
+```
+Get a table with:
+```
+select * from table;
+```

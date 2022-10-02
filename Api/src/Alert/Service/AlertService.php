@@ -61,7 +61,9 @@ class AlertService implements AlertServiceInterface
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?Alert
     {
-        return $this->repository->findOneBy(['daedalus' => $daedalus, 'name' => $name]);
+        $alert = $this->repository->findOneBy(['daedalus' => $daedalus, 'name' => $name]);
+
+        return $alert instanceof Alert ? $alert : null;
     }
 
     public function findByDaedalus(Daedalus $daedalus): ArrayCollection
@@ -76,8 +78,6 @@ class AlertService implements AlertServiceInterface
             ($hullAlert = $this->findByNameAndDaedalus(AlertEnum::LOW_HULL, $daedalus)) !== null
         ) {
             $this->delete($hullAlert);
-
-            return;
         } elseif (
             $daedalus->getHull() <= self::HULL_ALERT &&
             $this->findByNameAndDaedalus(AlertEnum::LOW_HULL, $daedalus) === null

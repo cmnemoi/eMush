@@ -57,7 +57,7 @@ class CycleService implements CycleServiceInterface
                     );
                     $this->eventDispatcher->dispatch($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
-                    //Do not continue make cycle if Daedalus is finish
+                    // Do not continue make cycle if Daedalus is finish
                     if ($daedalus->getGameStatus() === GameStatusEnum::FINISHED) {
                         break;
                     }
@@ -87,7 +87,7 @@ class CycleService implements CycleServiceInterface
         return $nextCycleStartAt->add(new DateInterval('PT' . strval($gameConfig->getCycleLength()) . 'M'));
     }
 
-    //get day cycle from date (value between 1 and $gameConfig->getCyclePerGameDay())
+    // get day cycle from date (value between 1 and $gameConfig->getCyclePerGameDay())
     public function getInDayCycleFromDate(DateTime $date, GameConfig $gameConfig): int
     {
         $timeZoneDate = $date->setTimezone(new \DateTimeZone($gameConfig->getTimeZone()));
@@ -95,8 +95,8 @@ class CycleService implements CycleServiceInterface
         $hours = intval($timeZoneDate->format('H'));
 
         return (int) (floor(
-                    ($minutes + $hours * 60) / $gameConfig->getCycleLength() + 1
-                ) - 1) % $gameConfig->getCyclePerGameDay() + 1;
+            ($minutes + $hours * 60) / $gameConfig->getCycleLength() + 1
+        ) - 1) % $gameConfig->getCyclePerGameDay() + 1;
     }
 
     /**
@@ -115,7 +115,7 @@ class CycleService implements CycleServiceInterface
             ->setTimezone(new \DateTimeZone('UTC'))
         ;
 
-        $gameDayLength = intval($gameConfig->getCyclePerGameDay() * $gameConfig->getCycleLength()); //in min
+        $gameDayLength = intval($gameConfig->getCyclePerGameDay() * $gameConfig->getCycleLength()); // in min
         $numberOfCompleteDay = intval($this->getDateIntervalAsMinutes($firstCycleDate, $firstDayDate) / $gameDayLength);
         $minutesBetweenDayStartAndDaedalusFirstCycle = $numberOfCompleteDay * $gameDayLength + (($daedalus->getCycle() - 1) * $gameConfig->getCycleLength());
 

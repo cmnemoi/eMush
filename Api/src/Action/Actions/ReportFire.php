@@ -8,8 +8,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\IsReported;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\StatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 

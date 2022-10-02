@@ -9,7 +9,6 @@ use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\View\View;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Mush\User\Service\LoginService;
-use Mush\User\Service\UserServiceInterface;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,20 +23,14 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 class LoginController extends AbstractFOSRestController
 {
     private JWTTokenManagerInterface $jwtManager;
-    private UserServiceInterface $userService;
     private LoginService $loginService;
-    private string $alphaPassphrase;
 
     public function __construct(
-        string $alphaPassphrase,
         JWTTokenManagerInterface $jwtManager,
-        UserServiceInterface $userService,
         LoginService $loginService
     ) {
         $this->jwtManager = $jwtManager;
-        $this->userService = $userService;
         $this->loginService = $loginService;
-        $this->alphaPassphrase = $alphaPassphrase;
     }
 
     /**
@@ -45,13 +38,10 @@ class LoginController extends AbstractFOSRestController
      *
      * @OA\RequestBody (
      *      description="Input data format",
-     *
      * @OA\MediaType (
      *             mediaType="application/json",
-     *
      * @OA\Schema (
      *              type="object",
-     *
      * @OA\Property (
      *                     property="username",
      *                     description="The user username",
@@ -60,7 +50,6 @@ class LoginController extends AbstractFOSRestController
      *             )
      *         )
      *     )
-     *
      * @OA\Tag (name="Login")
      *
      * @Post (name="username_login", path="/token")
@@ -100,14 +89,9 @@ class LoginController extends AbstractFOSRestController
     public function redirectAction(Request $request): Response
     {
         $redirectUri = $request->get('redirect_uri');
-        $passphrase = $request->get('passphrase');
 
-        if (!$redirectUri || !$passphrase) {
+        if (!$redirectUri) {
             throw new UnauthorizedHttpException('Bad credentials: missing redirect uri');
-        }
-
-        if ($passphrase !== $this->alphaPassphrase) {
-            return $this->redirect($redirectUri . '?error=invalid passphrase');
         }
 
         $uri = $this->loginService->getAuthorizationUri('base', $redirectUri);

@@ -3,7 +3,7 @@
 namespace Mush\Tests\unit\Disease\Entity\Collection;
 
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
-use Mush\Disease\Entity\DiseaseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\TypeEnum;

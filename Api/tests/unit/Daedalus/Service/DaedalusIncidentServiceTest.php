@@ -10,6 +10,7 @@ use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
@@ -64,14 +65,14 @@ class DaedalusIncidentServiceTest extends TestCase
 
     public function testHandleFireEvents()
     {
-        $this->randomService->shouldReceive('random')->andReturn(0)->once();
+        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
         $this->randomService->shouldReceive('getRandomElements')->andReturn([])->once();
 
         $fires = $this->service->handleFireEvents(new Daedalus(), new \DateTime());
 
         $this->assertEquals(0, $fires);
 
-        $this->randomService->shouldReceive('random')->andReturn(1)->once();
+        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
         $room1 = new Place();
 
@@ -98,14 +99,14 @@ class DaedalusIncidentServiceTest extends TestCase
 
     public function testHandleTremorEvents()
     {
-        $this->randomService->shouldReceive('random')->andReturn(0)->once();
+        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
         $this->randomService->shouldReceive('getRandomElements')->andReturn([])->once();
 
         $fires = $this->service->handleTremorEvents(new Daedalus(), new \DateTime());
 
         $this->assertEquals(0, $fires);
 
-        $this->randomService->shouldReceive('random')->andReturn(1)->once();
+        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
         $room1 = new Place();
 
@@ -128,14 +129,14 @@ class DaedalusIncidentServiceTest extends TestCase
 
     public function testHandleElectricArcEvents()
     {
-        $this->randomService->shouldReceive('random')->andReturn(0)->once();
+        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
         $this->randomService->shouldReceive('getRandomElements')->andReturn([])->once();
 
         $fires = $this->service->handleElectricArcEvents(new Daedalus(), new \DateTime());
 
         $this->assertEquals(0, $fires);
 
-        $this->randomService->shouldReceive('random')->andReturn(1)->once();
+        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
         $room1 = new Place();
 
@@ -158,20 +159,20 @@ class DaedalusIncidentServiceTest extends TestCase
 
     public function testHandleEquipmentBreakEvents()
     {
-        $this->randomService->shouldReceive('random')->andReturn(0)->once();
+        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
 
         $broken = $this->service->handleEquipmentBreak(new Daedalus(), new \DateTime());
 
         $this->assertEquals(0, $broken);
 
-        $this->randomService->shouldReceive('random')->andReturn(1)->once();
+        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
         $equipment = new GameEquipment();
         $equipment->setHolder(new Place());
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByCriteria')
-            ->withArgs(fn (GameEquipmentCriteria $criteria) => $criteria->getNotInstanceOf() === [Door::class])
+            ->withArgs(fn (GameEquipmentCriteria $criteria) => $criteria->getNotInstanceOf() === [Door::class, GameItem::class])
             ->andReturn([$equipment])
             ->once()
         ;
@@ -197,7 +198,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
     public function testEquipmentBreakAlreadyBrokenEvent()
     {
-        $this->randomService->shouldReceive('random')->andReturn(1)->once();
+        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
         $equipment = new GameEquipment();
         $brokenConfig = new StatusConfig();
@@ -206,7 +207,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByCriteria')
-            ->withArgs(fn (GameEquipmentCriteria $criteria) => $criteria->getNotInstanceOf() === [Door::class])
+            ->withArgs(fn (GameEquipmentCriteria $criteria) => $criteria->getNotInstanceOf() === [Door::class, GameItem::class])
             ->andReturn([$equipment])
             ->once()
         ;
@@ -230,18 +231,61 @@ class DaedalusIncidentServiceTest extends TestCase
         $this->assertEquals(1, $broken);
     }
 
+    public function testNotBreakingGameItems()
+    {
+        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
+
+        $broken = $this->service->handleEquipmentBreak(new Daedalus(), new \DateTime());
+
+        $this->assertEquals(0, $broken);
+
+        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
+
+        $item = new GameItem();
+        $item->setHolder(new Place());
+
+        $equipment = new GameEquipment();
+        $equipment->setHolder(new Place());
+
+        $this->gameEquipmentRepository
+            ->shouldReceive('findByCriteria')
+            ->withArgs(fn (GameEquipmentCriteria $criteria) => $criteria->getNotInstanceOf() === [Door::class, GameItem::class])
+            ->andReturn([$equipment])
+            ->once()
+        ;
+
+        $this->randomService
+            ->shouldReceive('getRandomElements')
+            ->andReturn([$equipment])
+            ->once()
+        ;
+
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => (
+                $event->getStatusHolder() === $equipment &&
+                $event->getStatusName() === EquipmentStatusEnum::BROKEN))
+            ->once()
+        ;
+
+        $broken = $this->service->handleEquipmentBreak(new Daedalus(), new \DateTime());
+
+        $this->assertEquals(1, $broken);
+    }
+
     public function testHandleDoorBreakEvents()
     {
-        $this->randomService->shouldReceive('random')->andReturn(0)->once();
+        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
 
         $broken = $this->service->handleDoorBreak(new Daedalus(), new \DateTime());
 
         $this->assertEquals(0, $broken);
 
-        $this->randomService->shouldReceive('random')->andReturn(1)->once();
+        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
         $door = new Door();
         $door->setRooms(new ArrayCollection([new Place(), new Place()]));
+        $door->setName('Door');
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByCriteria')
@@ -277,7 +321,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->assertEquals(0, $panicCrisis);
 
-        $this->randomService->shouldReceive('random')->andReturn(1)->once();
+        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
         $daedalus = new Daedalus();
         $player = new Player();
@@ -302,7 +346,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
     public function testHandlePanicCrisisEventsMushNotConcerned()
     {
-        $this->randomService->shouldReceive('random')->andReturn(2)->once();
+        $this->randomService->shouldReceive('poissonRandom')->andReturn(2)->once();
 
         $daedalus = new Daedalus();
         $player = new Player();
@@ -340,7 +384,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->assertEquals(0, $metalPlates);
 
-        $this->randomService->shouldReceive('random')->andReturn(1)->once();
+        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
         $daedalus = new Daedalus();
         $player = new Player();

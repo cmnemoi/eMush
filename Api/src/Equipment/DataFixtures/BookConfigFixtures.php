@@ -39,7 +39,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
 
-        //First Mage Books
+        // First Mage Books
         $skillsArray = [SkillEnum::ASTROPHYSICIST,
             SkillEnum::BIOLOGIST,
             SkillEnum::BOTANIST,
@@ -80,7 +80,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($apprenton);
         }
 
-        //Then Documents
+        // Then Documents
         $documentMechanic = new Document();
         $documentMechanic
             ->setIsTranslated(true)

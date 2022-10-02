@@ -6,6 +6,7 @@ use App\Tests\FunctionalTester;
 use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierCondition;
 use Mush\Modifier\Entity\ModifierConfig;
@@ -21,7 +22,6 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -132,6 +132,69 @@ class CycleEventCest
         $I->seeInRepository(RoomLog::class, [
             'player' => $player,
             'log' => PlayerModifierLogEnum::ANTISOCIAL_MORALE_LOSS,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
+    }
+
+    public function testFitfullSleepCycleSubscriber(FunctionalTester $I)
+    {
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+
+        $actionPointBefore = $player->getActionPoint();
+
+        $time = new DateTime();
+
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(PlayerStatusEnum::LYING_DOWN);
+        $I->haveInRepository($statusConfig);
+        $status = new Status($player, $statusConfig);
+        $I->haveInRepository($status);
+
+        $modifierConfig = new ModifierConfig();
+        $modifierConfig
+            ->setScope(EventEnum::NEW_CYCLE)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(1)
+            ->setReach(ModifierReachEnum::PLAYER)
+            ->setMode(ModifierModeEnum::ADDITIVE)
+        ;
+        $I->haveInRepository($modifierConfig);
+
+        $modifier = new Modifier($player, $modifierConfig);
+        $I->haveInRepository($modifier);
+
+        $fitfullModifierConfig = new ModifierConfig();
+        $fitfullModifierConfig
+            ->setScope(EventEnum::NEW_CYCLE)
+            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(-1)
+            ->setReach(ModifierReachEnum::PLAYER)
+            ->setMode(ModifierModeEnum::SET_VALUE)
+            ->setName(ModifierNameEnum::FITFULL_SLEEP)
+        ;
+        $I->haveInRepository($fitfullModifierConfig);
+
+        $fitfullModifier = new Modifier($player, $fitfullModifierConfig);
+        $I->haveInRepository($fitfullModifier);
+
+        $cycleEvent = new PlayerCycleEvent($player, EventEnum::NEW_CYCLE, $time);
+
+        $I->refreshEntities($player, $daedalus);
+
+        $this->cycleSubscriber->onNewCycle($cycleEvent);
+
+        $I->assertEquals($actionPointBefore, $player->getActionPoint());
+
+        $I->seeInRepository(RoomLog::class, [
+            'player' => $player,
+            'log' => PlayerModifierLogEnum::FITFULL_SLEEP,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
     }

@@ -9,8 +9,17 @@
 		"inventory": "Inventaire",
 		"inventoryDescription": "Cliquez ici pour ouvrir l'inventaire de la pièce.",
 		"equipement": "Equipement",
-		"player": "Joueurs"
+		"player": "Joueurs",
+		"issue": "Merci de signaler les bugs rencontrés sur "
 	},
+	"footer": {
+		"developpers": "Développement",
+		"thanks": "Remerciements",
+		"emush": "EMush",
+		"text1": "Ce jeu est un fan-project pour {mush} de MotionTwin. Sauf indication contraire, tous les éléments graphiques sont tirés de ces jeux et sont donc la propriété de MotionTwin.",
+		"text2": "EMush est Open Source et tout le monde est le bienvenu pour y participer. Vous pouvez consulter le code source sur {Gitlab}.",
+		"text3": "EMush fait partie du projet {EternalTwin}, si vous le souhaitez, vous pouvez faire une donation sur {OpenCollective}."
+	  },
 	"login": "Connexion",
 	"logout": "Deconnexion",
 	"deathpage": {
@@ -53,5 +62,52 @@
 		"centerBravoStorage": "Stockage Beta Centre",
 		"rearAlphaStorage": "Stockage Alpha Arrière",
 		"rearBravoStorage": "Stockage Beta Arrière"
+	},
+	"admin": {
+		"user": {
+			"username": "Username",
+			"roles": "Rôles"
+		},
+		"gameConfig": {
+			"name": "Nom",
+			"language": "Language",
+			"timeZone": "TimeZone",
+			"nbMush": "Nombre de Mushs",
+			"cyclePerGameDay": "Cycles par jour",
+			"cycleLength": "Durée du cycle",
+			"maxNumberPrivateChannel": "Max. Cannaux privées",
+			"maxItemInInventory": "Max Item en inventaire",
+			"initSatiety": "Init Satiété",
+			"initHealthPoint": "Init Point de Vie",
+			"maxHealthPoint": "Max Point de Vie",
+			"initMoralPoint": "Init Morale Point",
+			"maxMoralPoint": "Max Moral Point",
+			"initActionPoint": "Init Action Point",
+			"maxActionPoint": "Max Action Point",
+			"initMovementPoint": "Init Mouvement Point",
+			"maxMovementPoint": "Max Mouvement Point"
+		},
+		"modifierConfig": {
+			"name": "Nom",
+			"delta": "Delta",
+			"target": "Cible",
+			"scope": "Scope",
+			"reach": "Portée",
+			"mode": "Mode"
+		},
+		"modifierCondition": {
+			"name": "Nom",
+			"condition": "Condition",
+			"value": "Valeur"
+		},
+		"statusConfig": {
+			"name": "Nom",
+			"visibility": "Visibilite",
+			"chargeVisibility": "Charge Visibilite",
+			"chargeStrategy": "Charge Strategie",
+			"dischargeStrategy": "Decharge Strategie",
+			"maxCharge": "Max Charge",
+			"startCharge": "Init Charge"
+		}
 	}
 }

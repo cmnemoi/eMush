@@ -61,25 +61,33 @@ class ModifierConditionService implements ModifierConditionServiceInterface
             case ModifierConditionEnum::REASON:
                 return $reason === $condition->getCondition();
 
-            case ModifierConditionEnum::RANDOM:
-                if (($percentage = $condition->getValue()) === null) {
-                    throw new \LogicException('provide a numeric value for random modifier condition');
-                }
+            case ModifierConditionEnum::NOT_REASON:
+                return $reason !== $condition->getCondition();
 
-                return $this->randomService->isSuccessful(intval($percentage));
+            case ModifierConditionEnum::RANDOM:
+                return $this->randomService->isSuccessful(intval($condition->getValue()));
 
             case ModifierConditionEnum::PLAYER_IN_ROOM:
-                return $this->playerAloneInRoom($condition, $holder);
+                return $this->handlePlayerInRoomCondition($condition, $holder);
 
             case ModifierConditionEnum::CYCLE:
                 return $this->handleCycleCondition($condition, $holder);
+
+            case ModifierConditionEnum::PLAYER_EQUIPMENT:
+                return $this->handlePlayerEquipmentCondition($condition, $holder);
+
+            case ModifierConditionEnum::ITEM_IN_ROOM:
+                return $this->handleItemInRoomCondition($condition, $holder);
+
+            case ModifierConditionEnum::PLAYER_STATUS:
+                return $this->handlePlayerStatusCondition($condition, $holder);
 
             default:
                 throw new \LogicException('this condition is not implemented');
         }
     }
 
-    private function playerAloneInRoom(ModifierCondition $condition, ModifierHolder $holder): bool
+    private function handlePlayerInRoomCondition(ModifierCondition $condition, ModifierHolder $holder): bool
     {
         if ($holder instanceof Place) {
             $room = $holder;
@@ -93,7 +101,9 @@ class ModifierConditionService implements ModifierConditionServiceInterface
             case ModifierConditionEnum::NOT_ALONE:
                 return $room->getPlayers()->count() >= 2;
             case ModifierConditionEnum::ALONE:
-                return $room->getPlayers()->count() === 2;
+                return $room->getPlayers()->count() === 1;
+            case ModifierConditionEnum::FOUR_PEOPLE:
+                return $room->getPlayers()->count() >= 4;
 
             default:
                 throw new \LogicException('This condition is invalid for player_in_room');
@@ -119,5 +129,53 @@ class ModifierConditionService implements ModifierConditionServiceInterface
             default:
                 throw new \LogicException('This condition is invalid for cycle');
         }
+    }
+
+    private function handlePlayerEquipmentCondition(ModifierCondition $condition, ModifierHolder $holder): bool
+    {
+        if (!$holder instanceof Player) {
+            throw new \LogicException('PLAYER_EQUIPMENT condition can only be applied on a player');
+        }
+
+        /** @var Player $player */
+        $player = $holder;
+
+        $expectedItem = $condition->getCondition();
+
+        if ($expectedItem === null) {
+            throw new \LogicException('provide an item for player_equipment condition');
+        }
+
+        return $player->hasEquipmentByName($expectedItem);
+    }
+
+    private function handleItemInRoomCondition(ModifierCondition $condition, ModifierHolder $holder): bool
+    {
+        if ($holder instanceof Place) {
+            $room = $holder;
+        } elseif ($holder instanceof Player) {
+            $room = $holder->getPlace();
+        } else {
+            throw new \LogicException('invalid ModifierHolder for item_in_room condition');
+        }
+
+        return $room->getEquipments()->filter(function (GameEquipment $equipment) use ($condition) {
+            return $equipment->getName() === $condition->getCondition();
+        })->count() > 0;
+    }
+
+    private function handlePlayerStatusCondition(ModifierCondition $condition, ModifierHolder $holder): bool
+    {
+        if (!$holder instanceof Player) {
+            throw new \LogicException('PLAYER_STATUS condition can only be applied on a player');
+        }
+        /** @var Player $player */
+        $player = $holder;
+        $expectedStatus = $condition->getCondition();
+        if ($expectedStatus === null) {
+            throw new \LogicException('provide a status for player_status condition');
+        }
+
+        return $player->hasStatus($expectedStatus);
     }
 }

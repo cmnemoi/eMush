@@ -3,6 +3,7 @@
 namespace Mush\RoomLog\Enum;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Communication\Enum\DiseaseMessagesEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 
 class LogDeclinationEnum
@@ -13,6 +14,17 @@ class LogDeclinationEnum
             ActionLogEnum::CONSUME_SUCCESS => ['version' => 46],
             ActionLogEnum::REPAIR_SUCCESS => ['version' => 7],
             ActionLogEnum::REPAIR_FAIL => ['versionPart1' => 10, 'versionPart2' => 50],
+            ActionLogEnum::HIT_SUCCESS => ['version' => 5],
+            ActionLogEnum::HIT_FAIL => ['version' => 2],
+            ActionLogEnum::MOTIVATIONAL_SPEECH => ['version' => 19],
+            ActionLogEnum::BORING_SPEECH => ['version' => 3],
+            ActionLogEnum::ATTACK_SUCCESS => ['version' => 9],
+            ActionLogEnum::ATTACK_FAIL => ['version' => 5],
+            ActionLogEnum::ATTACK_CRITICAL_SUCCESS => ['version' => 2],
+            ActionLogEnum::ATTACK_CRITICAL_FAIL => ['version' => 2],
+            ActionLogEnum::SHOOT_SUCCESS => ['version' => 6],
+            ActionLogEnum::SHOOT_FAIL => ['version' => 4],
+            ActionLogEnum::SHOOT_CRITICAL_FAIL => ['version' => 2],
             ActionEnum::SHRED => ['version' => 4],
             ActionEnum::RETRIEVE_OXYGEN => ['version' => 10],
             NeronMessageEnum::ASPHYXIA_DEATH => ['versionPart1' => 3, 'versionPart2' => 9],
@@ -27,6 +39,34 @@ class LogDeclinationEnum
             NeronMessageEnum::TRAVEL_ARRIVAL => ['version' => 11],
             NeronMessageEnum::SHIELD_BREACH => ['version' => 4],
             NeronMessageEnum::PATCHING_UP => ['versionPart1' => 10, 'versionPart2' => 4],
+            LogEnum::SELF_SURGERY_SUCCESS => ['version' => 2],
+            LogEnum::SURGERY_SUCCESS => ['version' => 2],
+            DiseaseMessagesEnum::REPLACE_COPROLALIA => [
+                'version' => 13,
+                'word' => 20,
+                'animal' => 14,
+                'prefix' => 4,
+                'adjective' => 6,
+                'balls' => 9,
+            ],
+            DiseaseMessagesEnum::PRE_COPROLALIA => [
+                'version' => 3,
+                'word' => 20,
+                'animal' => 14,
+                'prefix' => 4,
+                'adjective' => 6,
+                'balls' => 9,
+            ],
+            DiseaseMessagesEnum::POST_COPROLALIA => [
+                'version' => 3,
+                'word' => 20,
+                'animal' => 14,
+                'prefix' => 4,
+                'adjective' => 6,
+                'balls' => 9,
+            ],
+            DiseaseMessagesEnum::REPLACE_PARANOIA => ['version' => 12, 'paranoia_version4' => 4, 'paranoia_version6' => 6],
+            DiseaseMessagesEnum::ACCUSE_PARANOIA => ['version' => 10, 'paranoia_version4' => 4, 'paranoia_version6' => 6],
         ];
     }
 }

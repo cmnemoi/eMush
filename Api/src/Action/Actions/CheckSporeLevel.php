@@ -56,7 +56,11 @@ class CheckSporeLevel extends AbstractAction
             throw new Error('Player should have a spore status');
         }
 
-        $nbSpores = $sporeStatus->getCharge();
+        if ($player->isMush()) {
+            $nbSpores = 0;
+        } else {
+            $nbSpores = $sporeStatus->getCharge();
+        }
 
         $success = new Success();
 

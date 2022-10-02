@@ -9,43 +9,31 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
 
-/**
- * Class Status.
- *
- * @ORM\Entity()
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({
- *     "status" = "Mush\Status\Entity\Status",
- *     "charge_status" = "Mush\Status\Entity\ChargeStatus",
- *     "attempt" = "Mush\Status\Entity\Attempt",
- *     "content_status" = "Mush\Status\Entity\ContentStatus",
- * })
- */
+#[ORM\Entity]
+#[ORM\InheritanceType('SINGLE_TABLE')]
+#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
+#[ORM\DiscriminatorMap([
+    'status' => Status::class,
+    'charge_status' => ChargeStatus::class,
+    'attempt' => Attempt::class,
+    'content_status' => ContentStatus::class,
+])]
 class Status
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     protected ?int $id = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\StatusTarget", cascade={"ALL"}, inversedBy="owner")
-     */
+    #[ORM\OneToOne(inversedBy: 'owner', targetEntity: StatusTarget::class, cascade: ['ALL'])]
     protected ?StatusTarget $owner;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\StatusTarget", cascade={"ALL"}, inversedBy="target")
-     */
+    #[ORM\OneToOne(inversedBy: 'target', targetEntity: StatusTarget::class, cascade: ['ALL'])]
     protected ?StatusTarget $target = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Status\Entity\Config\StatusConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: StatusConfig::class)]
     protected StatusConfig $statusConfig;
 
     public function __construct(StatusHolderInterface $statusHolder, StatusConfig $statusConfig)

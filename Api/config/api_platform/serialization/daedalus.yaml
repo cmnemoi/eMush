@@ -1,0 +1,14 @@
+Mush\Daedalus\Entity\Daedalus:
+  attributes:                          # optional
+    id:
+      groups: [ 'daedalus_read' ]
+    name:
+      groups: [ 'daedalus_read', 'daedalus_write' ]
+    gameStatus:
+      groups: [ 'daedalus_read' ]
+    day:
+      groups: [ 'daedalus_read' ]
+    cycle:
+      groups: [ 'daedalus_read' ]
+    updatedAt:
+      groups: [ 'daedalus_read' ]

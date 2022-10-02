@@ -13,8 +13,8 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
@@ -28,7 +28,7 @@ class InstallCamera extends AbstractAction
             new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]),
             new HasEquipment([
                 'reach' => ReachEnum::ROOM,
-                'equipment' => EquipmentEnum::CAMERA_EQUIPMENT,
+                'equipments' => [EquipmentEnum::CAMERA_EQUIPMENT],
                 'contains' => false,
                 'groups' => ['execute'],
                 'message' => ActionImpossibleCauseEnum::ALREADY_INSTALLED_CAMERA,

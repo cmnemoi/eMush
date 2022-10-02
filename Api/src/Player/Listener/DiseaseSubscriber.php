@@ -24,7 +24,7 @@ class DiseaseSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            DiseaseEvent::APPEAR_DISEASE => ['onDiseaseAppear', -10], //apply after the modifiers had been applied
+            DiseaseEvent::APPEAR_DISEASE => ['onDiseaseAppear', -10], // apply after the modifiers had been applied
         ];
     }
 

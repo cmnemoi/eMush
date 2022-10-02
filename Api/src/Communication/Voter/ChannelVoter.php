@@ -3,6 +3,7 @@
 namespace Mush\Communication\Voter;
 
 use Mush\Communication\Entity\Channel;
+use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -12,7 +13,14 @@ class ChannelVoter extends Voter
 {
     public const VIEW = 'view';
 
-    protected function supports(string $attribute, $subject)
+    private ChannelServiceInterface $channelService;
+
+    public function __construct(ChannelServiceInterface $channelService)
+    {
+        $this->channelService = $channelService;
+    }
+
+    protected function supports(string $attribute, $subject): bool
     {
         // if the attribute isn't one we support, return false
         if (!in_array($attribute, [self::VIEW])) {
@@ -26,11 +34,11 @@ class ChannelVoter extends Voter
         return true;
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 
-        //User must be logged in and have a current game
+        // User must be logged in and have a current game
         if (!$user instanceof User || !($player = $user->getCurrentGame())) {
             return false;
         }
@@ -49,6 +57,10 @@ class ChannelVoter extends Voter
 
     private function canView(Channel $channel, Player $player): bool
     {
-        return $channel->isPublic() || $channel->isPlayerParticipant($player);
+        // check for pirated channels
+        $piratedPlayer = $this->channelService->getPiratedPlayer($player);
+
+        return $channel->isPublic() || $channel->isPlayerParticipant($player) ||
+            ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer));
     }
 }

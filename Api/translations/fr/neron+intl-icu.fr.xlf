@@ -44,9 +44,9 @@
             <segment id="cycle_failures">
                 <source>cycle_failures</source>
                 <target>{neronMood, select,
-                    neutral {placeHolder : Alerte : Défaillances detectées}
-                    crazy {placeHolder : Alerte : Défaillances detectées}
-                    uninhibited {placeHolder : Alerte : Défaillances detectées}
+                    neutral {Alerte : Défaillances détectées}
+                    crazy {Alerte : Défaillances détectées}
+                    uninhibited {Alerte : Défaillances détectées}
                     other {invalid mood input}
                 }</target>
             </segment>
@@ -114,30 +114,30 @@
             <segment id="broken_equipment">
                 <source>broken_equipment</source>
                 <target>{neronMood, select,
-                    neutral {{target_gender, select,
-                        male {**{target}** dysfonctionnel. *Réparation requise*.}
-                        female {**{target}** dysfonctionnelle. *Réparation requise*.}
+                    neutral {{target_equipment_gender, select,
+                        male {**{target_equipment}** dysfonctionnel. *Réparation requise*.}
+                        female {**{target_equipment}** dysfonctionnelle. *Réparation requise*.}
                         other {invalid gender input}
                     }}
-                    crazy {{target_gender, select,
-                        male {Réparez !! RÉPAREZ !! **{target}** cassé, cassé, cassé !! *Réparez* ! [Hax!]}
-                        female {Réparez !! RÉPAREZ !! **{target}** cassée, cassée, cassée !! *Réparez* ! [Hax!]}
+                    crazy {{target_equipment_gender, select,
+                        male {Réparez !! RÉPAREZ !! **{target_equipment}** cassé, cassé, cassé !! *Réparez* ! [Hax!]}
+                        female {Réparez !! RÉPAREZ !! **{target_equipment}** cassée, cassée, cassée !! *Réparez* ! [Hax!]}
                         other {invalid gender input}
                     }}
-                    uninhibited {{target_gender, select,
-                        male {C'est terrible, un **{target}** vient d'être mis hors d'usage !}
-                        female {C'est terrible, une **{target}** vient d'être mise hors d'usage !}
+                    uninhibited {{target_equipment_gender, select,
+                        male {C'est terrible, un **{target_equipment}** vient d'être mis hors d'usage !}
+                        female {C'est terrible, une **{target_equipment}** vient d'être mise hors d'usage !}
                         other {invalid gender input}
                     } {version, select,
                         1 {Merci de vous remuez pour me *réparer* ça ! Et regardez moi quand je vous parle !}
                         2 {Merci d'effectuer les *réparations* nécessaires Et **prenez-soin de mon matériel !**}
                         3 {Merci d'effectuer les *réparations* qui s'imposent. Et cessez de traîner des pieds, vous abîmez la moquette.}
-                        4 {{target_gender, select,
+                        4 {{target_equipment_gender, select,
                             male {Réparez-le rapidement, merci !}
                             female {Réparez-la rapidement, merci !}
                             other {invalid gender input}
                         }}
-                        5 {{target_gender, select,
+                        5 {{target_equipment_gender, select,
                             male {Merci de mobiliser les moins balourds d'entre vous pour le *réparer* au plus vite !}
                             female {Merci de mobiliser les moins balourds d'entre vous pour la *réparer* au plus vite !}
                             other {invalid gender input}

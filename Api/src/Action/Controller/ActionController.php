@@ -15,8 +15,6 @@ use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -33,81 +31,6 @@ class ActionController extends AbstractFOSRestController
     ) {
         $this->actionService = $actionService;
         $this->cycleService = $cycleService;
-    }
-
-    /**
-     * Deprecated Perform an action.
-     *
-     * @OA\RequestBody (
-     *      description="Input data format",
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *      @OA\Schema(
-     *              type="object",
-     *                 @OA\Property(
-     *                     property="action",
-     *                     description="The action id to perform",
-     *                     type="integer",
-     *                 ),
-     *                  @OA\Property(
-     *                  property="parameters",
-     *                  type="object",
-     *                      @OA\Property(
-     *                          property="item",
-     *                          description="The item parameter",
-     *                          type="integer",
-     *                      ),
-     *                      @OA\Property(
-     *                          property="door",
-     *                          description="The door parameter",
-     *                          type="integer",
-     *                      ),
-     *                      @OA\Property(
-     *                          property="player",
-     *                          description="The player parameter",
-     *                          type="integer",
-     *                      ),
-     *                 )
-     *             )
-     *         )
-     *     )
-     * @OA\Tag(name="Action")
-     * @Security(name="Bearer")
-     * @ParamConverter("actionRequest", converter="fos_rest.request_body")
-     * @Rest\Post(path="/action")
-     */
-    public function createAction(ActionRequest $actionRequest): View
-    {
-        /** @var User $user */
-        $user = $this->getUser();
-
-        if (!($currentPlayer = $user->getCurrentGame())) {
-            throw new AccessDeniedException('User must be in game for actions');
-        }
-
-        $daedalus = $currentPlayer->getDaedalus();
-        if ($daedalus->isCycleChange()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
-        }
-        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
-
-        try {
-            $result = $this->actionService->executeAction(
-                $currentPlayer,
-                $actionRequest->getAction(),
-                $actionRequest->getParams()
-            );
-        } catch (\InvalidArgumentException $exception) {
-            return $this->view($this->view(['error' => $exception->getMessage()], 422));
-        }
-
-        if ($result instanceof Error) {
-            $view = $this->view($result->getMessage(), 422);
-        } else {
-            $view = $this->view(null, 200);
-        }
-
-        return $this->view($view);
     }
 
     /**
@@ -156,7 +79,7 @@ class ActionController extends AbstractFOSRestController
         /** @var User $user */
         $user = $this->getUser();
 
-        //@TODO: use voter
+        // @TODO: use voter
         if ($player !== $user->getCurrentGame()) {
             throw new AccessDeniedException('player must be the same as user');
         }

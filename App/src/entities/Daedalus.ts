@@ -65,7 +65,6 @@ export class Daedalus {
             if (typeof object.crewPlayer !== 'undefined') {
                 this.crewPlayer = (new QuantityPoint()).load(object.crewPlayer);
             };
-            this.minimap = object.minimap;
         }
         return this;
     }

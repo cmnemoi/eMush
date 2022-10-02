@@ -1,0 +1,14 @@
+Mush\Status\Entity\Config\ChargeStatusConfig:
+  attributes:                          # optional
+    chargeVisibility :
+      groups: [ 'status_config_read', 'status_config_write' ]
+    chargeStrategy :
+      groups: [ 'status_config_read', 'status_config_write' ]
+    maxCharge :
+      groups: [ 'status_config_read', 'status_config_write' ]
+    startCharge :
+      groups: [ 'status_config_read', 'status_config_write' ]
+    dischargeStrategy :
+      groups: [ 'status_config_read', 'status_config_write' ]
+    autoRemove :
+      groups: [ 'status_config_read', 'status_config_write' ]

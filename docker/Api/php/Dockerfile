@@ -1,4 +1,4 @@
-FROM php:8-fpm
+FROM php:8.1-fpm
 
 #For mac and windows
 ARG HOST_IP=host.docker.internal
@@ -12,9 +12,9 @@ RUN apt-get update \
     build-essential locales acl mailutils wget zip unzip \
     gnupg gnupg1 gnupg2 ffmpeg
 
-COPY php.ini /etc/php/8.0/php.ini
+COPY php.ini /etc/php/8.1/php.ini
 COPY php.ini /usr/local/etc/php/php.ini
-COPY php-fpm-pool.conf /etc/php/8.0/pool.d/www.conf
+COPY php-fpm-pool.conf /etc/php/8.1/pool.d/www.conf
 
 RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
    mv composer.phar /usr/local/bin/composer

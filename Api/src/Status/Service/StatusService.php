@@ -172,7 +172,7 @@ class StatusService implements StatusServiceInterface
                 ->setAction($actionName)
                 ->setCharge(0)
             ;
-        } elseif ($attempt === null) { //Create Attempt
+        } elseif ($attempt === null) { // Create Attempt
             $attempt = $this->createAttemptStatus(
                 $actionName,
                 $player
@@ -219,6 +219,11 @@ class StatusService implements StatusServiceInterface
     public function getByCriteria(StatusCriteria $criteria): Collection
     {
         return new ArrayCollection($this->statusRepository->findByCriteria($criteria));
+    }
+
+    public function getByTargetAndName(StatusHolderInterface $target, string $name): ?Status
+    {
+        return $this->statusRepository->findByTargetAndName($target, $name);
     }
 
     public function updateCharge(ChargeStatus $chargeStatus, int $delta): ?ChargeStatus

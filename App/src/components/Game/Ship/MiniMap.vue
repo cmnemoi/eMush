@@ -874,15 +874,22 @@
 
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { defineComponent } from "vue";
 import { RoomsEnum } from '@/enums/room.enum';
 import { DoorsEnum } from '@/enums/doors.enum';
+import { Minimap } from "@/entities/Minimap";
+import { mapGetters } from "vuex";
 
 export default defineComponent ({
     name: "MiniMap",
     props: {
         myPosition: Object,
-        minimap: Object as PropType<MiniMap>
+    },
+    computed: {
+        ...mapGetters('daedalus', [
+            'minimap',
+            'loadingMinimap'
+        ]),
     },
     data() {
         return {
@@ -905,34 +912,35 @@ export default defineComponent ({
             this.me.left = myCoord.A.x + Math.round(Math.random() * (myCoord.B.x - 6 - myCoord.A.x) );
             this.me.top = myCoord.A.y + Math.round(Math.random() * (myCoord.C.y - 6 - myCoord.B.y));
         },
-        displayerOther(): void {
+        displayOther(): void
+        {
             if (this.minimap){
-                const roomsWithPlayers = Object.values(this.minimap).filter(room => room.players_count > 0);
-                roomsWithPlayers.forEach(room => {
+                const roomsWithPlayers = this.minimap.filter((room: Minimap) => room.players_count > 0);
+                roomsWithPlayers.forEach((room: Minimap) => {
                     let roomCoord = RoomsEnum[room.name];
                     let i = 0;
                     if (room.name === this.myPosition?.key) {
                         i++;
-                    };
+                    }
                     while ( i < room.players_count ){
                         let left = roomCoord.A.x + Math.round(Math.random() * (roomCoord.B.x - 4 - roomCoord.A.x));
                         let top = roomCoord.A.y + Math.round(Math.random() * (roomCoord.C.y - 4 - roomCoord.B.y));
                         let name = '';
                         this.playersPoints.push( { left, top, name } );
                         i++;
-                    };
+                    }
                 });
-            };
+            }
         },
         isFire(room: string): boolean {
-            return Object.values(this.minimap!).find(rooms => rooms.name === room)!.fire;
+            return this.minimap.find((rooms: Minimap) => rooms.name === room)!.fire;
         },
         isBroken(type: string, room: string, object: string): boolean {
             switch (type) {
             case 'door':
-                return Object.values(this.minimap!).find(rooms => rooms.name === room.split(' ')[0])!.broken_doors.includes(object) || Object.values(this.minimap!).find(rooms => rooms.name === room.split(' ')[1])!.broken_doors.includes(object);
+                return this.minimap.find((rooms: Minimap) => rooms.name === room.split(' ')[0])!.broken_doors.includes(object) || this.minimap.find((rooms: Minimap) => rooms.name === room.split(' ')[1])!.broken_doors.includes(object);
             case 'equipment':
-                return Object.values(this.minimap!).find(rooms => rooms.name === room)!.broken_equipments.includes(object);
+                return this.minimap.find((rooms: Minimap) => rooms.name === room)!.broken_equipments.includes(object);
             default:
                 return false;
             }
@@ -940,27 +948,15 @@ export default defineComponent ({
     },
     mounted(): void {
         this.displayMe();
-        this.displayerOther();
+        this.displayOther();
     }
 });
 
-interface MiniMap {
-    [name : string] : ApiRooms
-};
-interface ApiRooms {
-    actopi : Array<number>,
-    broken_count: number,
-    broken_doors: Array<string>,
-    broken_equipments: Array<string>,
-    fire: boolean,
-    players_count: number,
-    name: string
-};
 interface PlayersPoints {
     left: number;
     top: number;
     name: string;
-};
+}
 interface Doors {
     name: string,
     svg: string,
@@ -999,6 +995,7 @@ interface Doors {
     width: 184px;
     height: 96px;
     margin: auto;
+    filter: drop-shadow(0 0 8px rgba(18,215,255,.6));
     transform: translate(-0.4em, -0.4em) rotate(30deg);
 }
 

@@ -1,10 +1,12 @@
 <template>
     <div class="banner">
         <div class="logo">
-            <a href="/" class="logo"><img src="@/assets/images/logo_new.png" alt=""></a>
+            <router-link :to="{ name: 'HomePage' }"><img src="@/assets/images/logo_new.png" alt=""></router-link>
         </div>
         <div class="mainmenu">
-            <a href="/#">Daedalus</a>
+            <router-link v-if="loggedIn"  :to="{ name: 'GamePage' }">Daedalus</router-link>
+            <span v-else>Daedalus</span>
+            <router-link v-if="isAdmin" :to="{ name: 'Admin' }">Admin</router-link>
             <Login />
             <!--
         <a class="unavailable" href="/#">Mon Compte</a>
@@ -19,12 +21,19 @@
 <script lang="ts">
 import Login from "@/components/Login.vue";
 import { defineComponent } from "vue";
+import { mapGetters } from "vuex";
 
 
 export default defineComponent ({
     name: 'Banner',
     components: {
         Login
+    },
+    computed: {
+        ...mapGetters('auth', [
+            'loggedIn',
+            'isAdmin'
+        ])
     }
 });
 </script>
@@ -34,6 +43,16 @@ export default defineComponent ({
 .mainmenu {
     display: flex;
     flex-direction: row;
+
+    span {
+        margin: 0 1.4em;
+        padding: .3em .6em;
+        color: white;
+        font-size: 1.1rem;
+        font-weight: normal;
+        letter-spacing: .06em;
+        text-decoration: none;
+    }
 
     a {
         margin: 0 1.4em;

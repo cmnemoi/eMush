@@ -28,7 +28,14 @@ class UserService implements UserServiceInterface
 
     public function findById(int $id): ?User
     {
-        return $this->repository->find($id);
+        $user = $this->repository->find($id);
+
+        return $user instanceof User ? $user : null;
+    }
+
+    public function findUsers(int $page, int $size, array $sort): array
+    {
+        return $this->repository->findBy([], $sort, $size, $page);
     }
 
     public function findUserByUserId(string $userId): ?User
@@ -38,7 +45,9 @@ class UserService implements UserServiceInterface
 
     public function findUserByNonceCode(string $nonceCode): ?User
     {
-        return $this->repository->findOneBy(['nonceCode' => $nonceCode]);
+        $user = $this->repository->findOneBy(['nonceCode' => $nonceCode]);
+
+        return $user instanceof User ? $user : null;
     }
 
     public function createUser(string $userId, string $username): User

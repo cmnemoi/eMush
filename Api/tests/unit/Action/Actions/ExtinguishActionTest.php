@@ -74,7 +74,7 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
-        //Fail try
+        // Fail try
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Fail::class, $result);
@@ -108,7 +108,7 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
-        //Success
+        // Success
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

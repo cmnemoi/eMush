@@ -26,8 +26,12 @@ const ApiService = {
         return axios.post(resource, data, options);
     },
 
-    put(resource: string, data?: Record<string, unknown>): Promise<AxiosResponse> {
+    put(resource: string, data?: any): Promise<AxiosResponse> {
         return axios.put(resource, data);
+    },
+
+    patch(resource: string, data?: any, config?: any): Promise<AxiosResponse> {
+        return axios.patch(resource, data, { headers: { 'Content-Type' : 'application/merge-patch+json' } });
     },
 
     delete(resource: string): Promise<AxiosResponse> {

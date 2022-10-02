@@ -83,7 +83,7 @@ class MoveSubscriberCest
             'characterConfig' => $characterConfig,
         ]);
 
-        //first let create a gear with an irrelevant reach
+        // first let create a gear with an irrelevant reach
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
             ->setScope(ActionEnum::SHOWER)
@@ -91,7 +91,6 @@ class MoveSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($modifierConfig1);
         $I->refreshEntities($player);
@@ -118,7 +117,7 @@ class MoveSubscriberCest
         $player->addEquipment($gameEquipment);
         $I->refreshEntities($player);
 
-        //lets create a gear with room reach in player inventory
+        // lets create a gear with room reach in player inventory
         $modifierConfig2 = new ModifierConfig();
         $modifierConfig2
             ->setScope(ActionEnum::SHOWER)
@@ -126,7 +125,6 @@ class MoveSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLACE)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($modifierConfig2);
         $modifier2 = new Modifier($room, $modifierConfig2);
@@ -152,7 +150,7 @@ class MoveSubscriberCest
         $player->addEquipment($gameEquipment2);
         $I->refreshEntities($player);
 
-        //lets create a status with modifier with room reach on player
+        // lets create a status with modifier with room reach on player
         $modifier3 = new Modifier($room, $modifierConfig2);
         $I->haveInRepository($modifier3);
 
@@ -166,7 +164,7 @@ class MoveSubscriberCest
         $statusPlayer = new Status($player, $statusConfig);
         $I->haveInRepository($statusPlayer);
 
-        //lets create a status with modifier with room reach on equipment2
+        // lets create a status with modifier with room reach on equipment2
         $modifier4 = new Modifier($room, $modifierConfig2);
         $I->haveInRepository($modifier4);
 
@@ -180,7 +178,7 @@ class MoveSubscriberCest
         $this->moveAction->loadParameters($moveActionEntity, $player, $door);
         $this->moveAction->execute();
 
-        //lets check that every player and item is placed in the right place
+        // lets check that every player and item is placed in the right place
         $I->assertCount(0, $room->getPlayers());
         $I->assertCount(1, $room2->getPlayers());
         $I->assertCount(2, $player->getEquipments());
@@ -188,7 +186,7 @@ class MoveSubscriberCest
         $I->assertCount(0, $gameEquipment->getStatuses());
         $I->assertCount(1, $gameEquipment2->getStatuses());
 
-        //now check the modifiers
+        // now check the modifiers
         $I->assertCount(0, $room->getModifiers());
         $I->assertCount(3, $room2->getModifiers());
         $I->assertCount(1, $player->getModifiers());

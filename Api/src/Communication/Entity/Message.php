@@ -9,54 +9,36 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Player\Entity\Player;
 
-/**
- * @ORM\Entity
- */
+#[ORM\Entity]
 class Message
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player")
-     */
+    #[ORM\ManyToOne(targetEntity: Player::class)]
     private ?Player $author = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Daedalus\Entity\Neron")
-     */
+    #[ORM\ManyToOne(targetEntity: Neron::class)]
     private ?Neron $neron = null;
 
-    /**
-     * @ORM\OneToMany (targetEntity="Mush\Communication\Entity\Message", mappedBy="parent")
-     * @ORM\OrderBy({"createdAt" = "ASC"})
-     */
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: Message::class)]
+    #[ORM\OrderBy(['createdAt' => 'ASC'])]
     private Collection $child;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Communication\Entity\Message", inversedBy="child")
-     */
+    #[ORM\ManyToOne(targetEntity: Message::class, inversedBy: 'child')]
     private ?Message $parent = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Communication\Entity\Channel", inversedBy="messages")
-     */
+    #[ORM\ManyToOne(targetEntity: Channel::class, inversedBy: 'messages')]
     private Channel $channel;
 
-    /**
-     * @ORM\Column(type="text", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $message;
 
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
+    #[ORM\Column(type: 'array', nullable: true)]
     private array $translationParameters = [];
 
     public function __construct()
@@ -74,10 +56,7 @@ class Message
         return $this->author;
     }
 
-    /**
-     * @return static
-     */
-    public function setAuthor(?Player $author): self
+    public function setAuthor(?Player $author): static
     {
         $this->author = $author;
 
@@ -101,10 +80,7 @@ class Message
         return $this->parent;
     }
 
-    /**
-     * @return static
-     */
-    public function setParent(?Message $parent): self
+    public function setParent(?Message $parent): static
     {
         $this->parent = $parent;
 
@@ -116,10 +92,7 @@ class Message
         return $this->message;
     }
 
-    /**
-     * @return static
-     */
-    public function setMessage(string $message): self
+    public function setMessage(string $message): static
     {
         $this->message = $message;
 
@@ -131,10 +104,7 @@ class Message
         return $this->translationParameters;
     }
 
-    /**
-     * @return static
-     */
-    public function setTranslationParameters(array $translationParameters): self
+    public function setTranslationParameters(array $translationParameters): static
     {
         $this->translationParameters = $translationParameters;
 
@@ -146,10 +116,7 @@ class Message
         return $this->channel;
     }
 
-    /**
-     * @return static
-     */
-    public function setChannel(Channel $channel): self
+    public function setChannel(Channel $channel): static
     {
         $this->channel = $channel;
 
@@ -161,10 +128,7 @@ class Message
         return $this->child;
     }
 
-    /**
-     * @return static
-     */
-    public function setChild(Collection $child): self
+    public function setChild(Collection $child): static
     {
         $this->child = $child;
 

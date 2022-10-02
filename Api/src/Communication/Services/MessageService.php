@@ -8,27 +8,37 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
+use Mush\Disease\Enum\SymptomEnum;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 class MessageService implements MessageServiceInterface
 {
     private EntityManagerInterface $entityManager;
+    private DiseaseMessageServiceInterface $diseaseMessageService;
 
     public function __construct(
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        DiseaseMessageServiceInterface $diseaseMessageService
     ) {
         $this->entityManager = $entityManager;
+        $this->diseaseMessageService = $diseaseMessageService;
     }
 
     public function createPlayerMessage(Player $player, CreateMessage $createMessage): Message
     {
+        $messageContent = trim($createMessage->getMessage());
+
         $message = new Message();
         $message
             ->setAuthor($player)
             ->setChannel($createMessage->getChannel())
-            ->setMessage($createMessage->getMessage())
+            ->setMessage($messageContent)
             ->setParent($createMessage->getParent())
         ;
+
+        $message = $this->diseaseMessageService->applyDiseaseEffects($message);
 
         $rootMessage = $createMessage->getParent();
         if ($rootMessage) {
@@ -73,7 +83,19 @@ class MessageService implements MessageServiceInterface
         return new ArrayCollection($this->entityManager
             ->getRepository(Message::class)
             ->findBy(['channel' => $channel, 'parent' => null], ['updatedAt' => 'desc']))
-            ;
+        ;
+    }
+
+    public function canPlayerPostMessage(Player $player, Channel $channel): bool
+    {
+        if ($player->hasStatus(PlayerStatusEnum::GAGGED) ||
+            $player->getMedicalConditions()->getActiveDiseases()->getAllSymptoms()->hasSymptomByName(SymptomEnum::MUTE) ||
+            $player->getGameStatus() !== GameStatusEnum::CURRENT
+        ) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

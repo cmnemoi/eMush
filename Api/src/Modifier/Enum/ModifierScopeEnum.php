@@ -2,6 +2,20 @@
 
 namespace Mush\Modifier\Enum;
 
+/**
+ * Class enumerating the conditions applied on modifiers
+ * Modifier is only applied if the condition is valid.
+ *
+ * MAX_POINT: modify the max amount of a player or Daedalus variable
+ * ACTIONS: apply on all actions
+ * INJURY: when the player is hurt
+ *
+ * EVENT_CLUMSINESS: change the injury rate of actions
+ * EVENT_DIRTY: change the chances of getting dirty on an action
+ * EVENT_ACTION_MOVEMENT_CONVERSION
+ *
+ * CYCLE_CHANGE:
+ */
 class ModifierScopeEnum
 {
     public const MAX_POINT = 'max_point';

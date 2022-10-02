@@ -634,11 +634,21 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
             </segment>
             <segment id="description">
                 <source>tracker.description</source>
-                <target></target>
+                <target>
+                Le Traqueur est l'équivalent à bord du GPS, il vous donne des informations globales sur le vaisseau ! 
+                //
+                Affiche la minimap
+                </target>
             </segment>
             <segment id="examine">
                 <source>tracker.examine</source>
-                <target></target>
+                <target>
+                Le Traqueur est l'équivalent à bord du GPS, il vous donne des informations globales sur le vaisseau !
+                //
+                Affiche la minimap
+                //
+                Perdu dans l'espace, dans la jungle, dans ce bon vieux Daedalus ? Nous avons exactement ce qu'il vous faut. Maintenant vous pourrez vous perdre dans la mini carte.
+                </target>
             </segment>
         </unit>
         <unit id="walkie_talkie">
@@ -664,28 +674,38 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
             </segment>
             <segment id="description">
                 <source>walkie_talkie.description</source>
-                <target></target>
+                <target>
+                Le talkie-walkie est un vieux moyen de communication, certes mais toujours efficace.
+                //
+                Permet de communiquer avec les autres équipiers.
+                </target>
             </segment>
             <segment id="examine">
                 <source>walkie_talkie.examine</source>
-                <target></target>
+                <target>
+                Le talkie-walkie est un vieux moyen de communication, certes mais toujours efficace.
+                //
+                Permet de communiquer à distance avec les autres équipiers.
+                //
+                Permet de communiquer sur le canal Général.
+                </target>
             </segment>
         </unit>
-        <unit id="itrakie">
+        <unit id="itrackie">
             <segment id="name">
-                <source>itrakie.name</source>
+                <source>itrackie.name</source>
                 <target>iTrakie®©</target>
             </segment>
             <segment id="short_name">
-                <source>itrakie.short_name</source>
-                <target>iTrakie®©</target>
+                <source>itrackie.short_name</source>
+                <target>iTrackie®©</target>
             </segment>
             <segment id="plural_name">
-                <source>itrakie.plural_name</source>
-                <target>iTrakies®©</target>
+                <source>itrackie.plural_name</source>
+                <target>iTrackies®©</target>
             </segment>
             <segment id="genre">
-                <source>itrakie.genre</source>
+                <source>itrackie.genre</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -693,15 +713,15 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
                 <target>vowel</target>
             </segment>
             <segment id="description">
-                <source>itrakie.description</source>
-                <target>L'iTrakie®© est ce qui se fait de mieux en matière de gadget numérique. Il est beau, élégant, sobre, il vibre et ne tombe presque jamais en panne.
-Permet de communiquer à distance avec les autres équipier.
+                <source>itrackie.description</source>
+                <target>L'iTrackie®© est ce qui se fait de mieux en matière de gadget numérique. Il est beau, élégant, sobre, il vibre et ne tombe presque jamais en panne.
+Permet de communiquer à distance avec les autres équipiers.
 Permet d'avoir accès à la mini-carte augmentée du Daedalus</target>
             </segment>
             <segment id="examine">
-                <source>itrakie.examine</source>
-                <target>L'iTrakie®© est ce qui se fait de mieux en matière de gadget numérique. Il est beau, élégant, sobre, il vibre et ne tombe presque jamais en panne.
-Permet de communiquer à distance avec les autres équipier.
+                <source>itrackie.examine</source>
+                <target>L'iTrackie®© est ce qui se fait de mieux en matière de gadget numérique. Il est beau, élégant, sobre, il vibre et ne tombe presque jamais en panne.
+Permet de communiquer à distance avec les autres équipiers.
 Permet d'avoir accès à la mini-carte augmentée du Daedalus</target>
             </segment>
         </unit>
@@ -1679,11 +1699,11 @@ Il est parfois surprenant de voir ce que certains savent faire avec quelques mor
         <unit id="thick_tube">
             <segment id="name">
                 <source>thick_tube.name</source>
-                <target>Interact épais</target>
+                <target>Tube épais</target>
             </segment>
             <segment id="short_name">
                 <source>thick_tube.short_name</source>
-                <target>Interact épais</target>
+                <target>Tube épais</target>
             </segment>
             <segment id="genre">
                 <source>thick_tube.genre</source>
@@ -3344,836 +3364,73 @@ Imperissable
                 <target>Le produit spatial SNC le plus en vogue. Dans certaines tributs d'Amérique du Sud, il remplace avantageusement l'ayahuasca. Contient uniquement des choses mauvaises pour votre santé !</target>
             </segment>
         </unit>
-        <unit id="babel_module_blueprint">
+        <unit id="blueprint">
             <segment id="name">
-                <source>babel_module_blueprint.name</source>
-                <target>Plan du module Babel</target>
+                <source>blueprint.name</source>
+                <target>{equipment_first_letter, select,
+                    vowel {Plan de l''{equipment}}
+                    other {{equipment_gender, select,
+                        male {Plan du {equipment}}
+                        female {Plan de la {equipment}}
+                        other {invalid gender input}
+                    }}
+                }</target>
             </segment>
             <segment id="short_name">
-                <source>babel_module_blueprint.short_name</source>
+                <source>blueprint.short_name</source>
                 <target>Plan</target>
             </segment>
             <segment id="genre">
-                <source>babel_module_blueprint.genre</source>
+                <source>blueprint.genre</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
-                <source>babel_module_blueprint.first_letter</source>
+                <source>blueprint.first_letter</source>
                 <target>consonant</target>
             </segment>
             <segment id="description">
-                <source>babel_module_blueprint.description</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Débris Métallique
-1 x Débris Plastique</target>
+                <source>blueprint.description</source>
+                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé :
+                </target>
             </segment>
             <segment id="examine">
-                <source>babel_module_blueprint.examine</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Débris Métallique
-1 x Débris Plastique
-Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
+                <source>blueprint.examine</source>
+                <target>Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
             </segment>
         </unit>
-        <unit id="echolocator_blueprint">
-            <segment id="name">
-                <source>echolocator_blueprint.name</source>
-                <target>Plan de l'écholocateur</target>
-            </segment>
-            <segment id="short_name">
-                <source>echolocator_blueprint.short_name</source>
-                <target>Plan</target>
-            </segment>
-            <segment id="genre">
-                <source>echolocator_blueprint.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>echolocator_blueprint.first_letter</source>
-                <target>consonant</target>
-            </segment>
+        <unit id="blueprint_ingredient">
             <segment id="description">
-                <source>echolocator_blueprint.description</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Débris Métallique
-1 x Débris Plastique</target>
-            </segment>
-            <segment id="examine">
-                <source>echolocator_blueprint.examine</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Débris Métallique
-1 x Débris Plastique
-Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
+                <source>blueprint_ingredient.description</source>
+                <target>{quantity, plural,
+                        one {1 x {equipment}}
+                        other {# x {equipment_plural}}
+                    }
+                </target>
             </segment>
         </unit>
-        <unit id="extinguisher_blueprint">
+        <unit id="apprenton">
             <segment id="name">
-                <source>extinguisher_blueprint.name</source>
-                <target>Plan de l'extincteur</target>
+                <source>apprenton.name</source>
+                <target>Apprentron : {skill}</target>
             </segment>
             <segment id="short_name">
-                <source>extinguisher_blueprint.short_name</source>
-                <target>Plan</target>
-            </segment>
-            <segment id="genre">
-                <source>extinguisher_blueprint.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>extinguisher_blueprint.first_letter</source>
-                <target>consonant</target>
-            </segment>
-            <segment id="description">
-                <source>extinguisher_blueprint.description</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Débris Métallique
-1 x Capsule d'Oxygène</target>
-            </segment>
-            <segment id="examine">
-                <source>extinguisher_blueprint.examine</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Débris Métallique
-1 x Capsule d'Oxygène
-Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
-            </segment>
-        </unit>
-        <unit id="grenade_blueprint">
-            <segment id="name">
-                <source>grenade_blueprint.name</source>
-                <target>Plan de la grenade</target>
-            </segment>
-            <segment id="short_name">
-                <source>grenade_blueprint.short_name</source>
-                <target>Plan</target>
-            </segment>
-            <segment id="genre">
-                <source>grenade_blueprint.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>grenade_blueprint.first_letter</source>
-                <target>consonant</target>
-            </segment>
-            <segment id="description">
-                <source>grenade_blueprint.description</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Capsule de Fuel
-1 x Capsule d'Oxygène</target>
-            </segment>
-            <segment id="examine">
-                <source>grenade_blueprint.examine</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Capsule de Fuel
-1 x Capsule d'Oxygène
-Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
-            </segment>
-        </unit>
-        <unit id="lizaro_jungle_blueprint">
-            <segment id="name">
-                <source>lizaro_jungle_blueprint.name</source>
-                <target>Plan du Lizaro Jungle</target>
-            </segment>
-            <segment id="short_name">
-                <source>lizaro_jungle_blueprint.short_name</source>
-                <target>Plan</target>
-            </segment>
-            <segment id="genre">
-                <source>lizaro_jungle_blueprint.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>lizaro_jungle_blueprint.first_letter</source>
-                <target>consonant</target>
-            </segment>
-            <segment id="description">
-                <source>lizaro_jungle_blueprint.description</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-2 x Débris Métallique
-1 x Débris Plastique</target>
-            </segment>
-            <segment id="examine">
-                <source>lizaro_jungle_blueprint.examine</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-2 x Débris Métallique
-1 x Débris Plastique
-Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
-            </segment>
-        </unit>
-        <unit id="old_faithful_blueprint">
-            <segment id="name">
-                <source>old_faithful_blueprint.name</source>
-                <target>Plan de la sulfateuse</target>
-            </segment>
-            <segment id="short_name">
-                <source>old_faithful_blueprint.short_name</source>
-                <target>Plan</target>
-            </segment>
-            <segment id="genre">
-                <source>old_faithful_blueprint.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>old_faithful_blueprint.first_letter</source>
-                <target>consonant</target>
-            </segment>
-            <segment id="description">
-                <source>old_faithful_blueprint.description</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-4 x Débris Métallique</target>
-            </segment>
-            <segment id="examine">
-                <source>old_faithful_blueprint.examine</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-4 x Débris Métallique
-Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
-            </segment>
-        </unit>
-        <unit id="rocket_launcher_blueprint">
-            <segment id="name">
-                <source>rocket_launcher_blueprint.name</source>
-                <target>Plan du lance-roquette</target>
-            </segment>
-            <segment id="short_name">
-                <source>rocket_launcher_blueprint.short_name</source>
-                <target>Plan</target>
-            </segment>
-            <segment id="genre">
-                <source>rocket_launcher_blueprint.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>rocket_launcher_blueprint.first_letter</source>
-                <target>consonant</target>
-            </segment>
-            <segment id="description">
-                <source>rocket_launcher_blueprint.description</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Interact Epais
-1 x Débris Métallique
-1 x Débris Plastique</target>
-            </segment>
-            <segment id="examine">
-                <source>rocket_launcher_blueprint.examine</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Interact Epais
-1 x Débris Métallique
-1 x Débris Plastique
-Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
-            </segment>
-        </unit>
-        <unit id="oscilloscope_blueprint">
-            <segment id="name">
-                <source>oscilloscope_blueprint.name</source>
-                <target>Plan du vaguoscope</target>
-            </segment>
-            <segment id="short_name">
-                <source>oscilloscope_blueprint.short_name</source>
-                <target>Plan</target>
-            </segment>
-            <segment id="genre">
-                <source>oscilloscope_blueprint.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>oscilloscope_blueprint.first_letter</source>
-                <target>consonant</target>
-            </segment>
-            <segment id="description">
-                <source>oscilloscope_blueprint.description</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Débris Métallique
-1 x Débris Plastique</target>
-            </segment>
-            <segment id="examine">
-                <source>oscilloscope_blueprint.examine</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Débris Métallique
-1 x Débris Plastique
-Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
-            </segment>
-        </unit>
-        <unit id="sniper_helmet_blueprint">
-            <segment id="name">
-                <source>sniper_helmet_blueprint.name</source>
-                <target>Plan du casque de visée</target>
-            </segment>
-            <segment id="short_name">
-                <source>sniper_helmet_blueprint.short_name</source>
-                <target>Plan</target>
-            </segment>
-            <segment id="genre">
-                <source>sniper_helmet_blueprint.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>sniper_helmet_blueprint.first_letter</source>
-                <target>consonant</target>
-            </segment>
-            <segment id="description">
-                <source>sniper_helmet_blueprint.description</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Débris Métallique
-1 x Débris Plastique</target>
-            </segment>
-            <segment id="examine">
-                <source>sniper_helmet_blueprint.examine</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Débris Métallique
-1 x Débris Plastique
-Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
-            </segment>
-        </unit>
-        <unit id="support_drone_blueprint">
-            <segment id="name">
-                <source>support_drone_blueprint.name</source>
-                <target>Plan du drone de soutien</target>
-            </segment>
-            <segment id="short_name">
-                <source>support_drone_blueprint.short_name</source>
-                <target>Plan</target>
-            </segment>
-            <segment id="genre">
-                <source>support_drone_blueprint.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>support_drone_blueprint.first_letter</source>
-                <target>consonant</target>
-            </segment>
-            <segment id="description">
-                <source>support_drone_blueprint.description</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-4 x Débris Métallique
-1 x Débris Plastique</target>
-            </segment>
-            <segment id="examine">
-                <source>support_drone_blueprint.examine</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-4 x Débris Métallique
-1 x Débris Plastique
-Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
-            </segment>
-        </unit>
-        <unit id="swedish_sofa_blueprint">
-            <segment id="name">
-                <source>swedish_sofa_blueprint.name</source>
-                <target>Plan du sofa suédois</target>
-            </segment>
-            <segment id="short_name">
-                <source>swedish_sofa_blueprint.short_name</source>
-                <target>Plan</target>
-            </segment>
-            <segment id="genre">
-                <source>swedish_sofa_blueprint.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>swedish_sofa_blueprint.first_letter</source>
-                <target>consonant</target>
-            </segment>
-            <segment id="description">
-                <source>swedish_sofa_blueprint.description</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Interact Epais
-1 x Débris Métallique</target>
-            </segment>
-            <segment id="examine">
-                <source>swedish_sofa_blueprint.examine</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Interact Epais
-1 x Débris Métallique
-Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
-            </segment>
-        </unit>
-        <unit id="thermosensor_blueprint">
-            <segment id="name">
-                <source>thermosensor_blueprint.name</source>
-                <target>Plan du thermosenseur</target>
-            </segment>
-            <segment id="short_name">
-                <source>thermosensor_blueprint.short_name</source>
-                <target>Plan</target>
-            </segment>
-            <segment id="genre">
-                <source>thermosensor_blueprint.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>thermosensor_blueprint.first_letter</source>
-                <target>consonant</target>
-            </segment>
-            <segment id="description">
-                <source>thermosensor_blueprint.description</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Débris Métallique
-1 x Débris Plastique</target>
-            </segment>
-            <segment id="examine">
-                <source>thermosensor_blueprint.examine</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Débris Métallique
-1 x Débris Plastique
-Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
-            </segment>
-        </unit>
-        <unit id="white_flag_blueprint">
-            <segment id="name">
-                <source>white_flag_blueprint.name</source>
-                <target>Plan du drapeau blanc</target>
-            </segment>
-            <segment id="short_name">
-                <source>white_flag_blueprint.short_name</source>
-                <target>Plan</target>
-            </segment>
-            <segment id="genre">
-                <source>white_flag_blueprint.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>white_flag_blueprint.first_letter</source>
-                <target>consonant</target>
-            </segment>
-            <segment id="description">
-                <source>white_flag_blueprint.description</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Savon
-1 x Vieux T-Shirt</target>
-            </segment>
-            <segment id="examine">
-                <source>white_flag_blueprint.examine</source>
-                <target>Pour construire quelque chose, un bon plan vaut mieux que de longs discours. Ce plan nécessite des composants pour être réalisé.
-Ce plan nécessite :
-1 x Savon
-1 x Vieux T-Shirt
-Les plans de construction bleus sont une bénédiction pour les équipiers en mal de jeux de construction.</target>
-            </segment>
-        </unit>
-        <unit id="apprenton_astrophysicist">
-            <segment id="name">
-                <source>apprenton_astrophysicist.name</source>
-                <target>Apprentron : Astrophysicien</target>
-            </segment>
-            <segment id="short_name">
-                <source>apprenton_astrophysicist.short_name</source>
+                <source>apprenton.short_name</source>
                 <target>Apprentron</target>
             </segment>
             <segment id="genre">
-                <source>apprenton_astrophysicist.genre</source>
+                <source>apprenton.genre</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
-                <source>apprenton_astrophysicist.first_letter</source>
+                <source>apprenton.first_letter</source>
                 <target>vowel</target>
             </segment>
             <segment id="description">
-                <source>apprenton_astrophysicist.description</source>
+                <source>apprenton.description</source>
                 <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
             </segment>
             <segment id="examine">
-                <source>apprenton_astrophysicist.examine</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
-Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
-            </segment>
-        </unit>
-        <unit id="apprenton_biologist">
-            <segment id="name">
-                <source>apprenton_biologist.name</source>
-                <target>Apprentron : Biologiste</target>
-            </segment>
-            <segment id="short_name">
-                <source>apprenton_biologist.short_name</source>
-                <target>Apprentron : Biologiste</target>
-            </segment>
-            <segment id="genre">
-                <source>apprenton_biologist.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>apprenton_biologist.first_letter</source>
-                <target>vowel</target>
-            </segment>
-            <segment id="description">
-                <source>apprenton_biologist.description</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
-            </segment>
-            <segment id="examine">
-                <source>apprenton_biologist.examine</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
-Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
-            </segment>
-        </unit>
-        <unit id="apprenton_botanist">
-            <segment id="name">
-                <source>apprenton_botanist.name</source>
-                <target>Apprentron : Botaniste</target>
-            </segment>
-            <segment id="short_name">
-                <source>apprenton_botanist.short_name</source>
-                <target>Apprentron</target>
-            </segment>
-            <segment id="genre">
-                <source>apprenton_botanist.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>apprenton_botanist.first_letter</source>
-                <target>vowel</target>
-            </segment>
-            <segment id="description">
-                <source>apprenton_botanist.description</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
-            </segment>
-            <segment id="examine">
-                <source>apprenton_botanist.examine</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
-Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
-            </segment>
-        </unit>
-        <unit id="apprenton_diplomat">
-            <segment id="name">
-                <source>apprenton_diplomat.name</source>
-                <target>Apprentron : Diplomate</target>
-            </segment>
-            <segment id="short_name">
-                <source>apprenton_diplomat.short_name</source>
-                <target>Apprentron : Diplomate</target>
-            </segment>
-            <segment id="genre">
-                <source>apprenton_diplomat.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>apprenton_diplomat.first_letter</source>
-                <target>vowel</target>
-            </segment>
-            <segment id="description">
-                <source>apprenton_diplomat.description</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
-            </segment>
-            <segment id="examine">
-                <source>apprenton_diplomat.examine</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
-Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
-            </segment>
-        </unit>
-        <unit id="apprenton_firefighter">
-            <segment id="name">
-                <source>apprenton_firefighter.name</source>
-                <target>Apprentron : Pompier</target>
-            </segment>
-            <segment id="short_name">
-                <source>apprenton_firefighter.short_name</source>
-                <target>Apprentron</target>
-            </segment>
-            <segment id="genre">
-                <source>apprenton_firefighter.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>apprenton_firefighter.first_letter</source>
-                <target>vowel</target>
-            </segment>
-            <segment id="description">
-                <source>apprenton_firefighter.description</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
-            </segment>
-            <segment id="examine">
-                <source>apprenton_firefighter.examine</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
-Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
-            </segment>
-        </unit>
-        <unit id="apprenton_chef">
-            <segment id="name">
-                <source>apprenton_chef.name</source>
-                <target>Apprentron : Cuistot</target>
-            </segment>
-            <segment id="short_name">
-                <source>apprenton_chef.short_name</source>
-                <target>Apprentron</target>
-            </segment>
-            <segment id="genre">
-                <source>apprenton_chef.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>apprenton_chef.first_letter</source>
-                <target>vowel</target>
-            </segment>
-            <segment id="description">
-                <source>apprenton_chef.description</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
-            </segment>
-            <segment id="examine">
-                <source>apprenton_chef.examine</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
-Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
-            </segment>
-        </unit>
-        <unit id="apprenton_it_expert">
-            <segment id="name">
-                <source>apprenton_it_expert.name</source>
-                <target>Apprentron : Informaticien</target>
-            </segment>
-            <segment id="short_name">
-                <source>apprenton_it_expert.short_name</source>
-                <target>Apprentron</target>
-            </segment>
-            <segment id="genre">
-                <source>apprenton_it_expert.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>apprenton_it_expert.first_letter</source>
-                <target>vowel</target>
-            </segment>
-            <segment id="description">
-                <source>apprenton_it_expert.description</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
-            </segment>
-            <segment id="examine">
-                <source>apprenton_it_expert.examine</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
-Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
-            </segment>
-        </unit>
-        <unit id="apprenton_logistics_expert">
-            <segment id="name">
-                <source>apprenton_logistics_expert.name</source>
-                <target>Apprentron : Logistique</target>
-            </segment>
-            <segment id="short_name">
-                <source>apprenton_logistics_expert.short_name</source>
-                <target>Apprentron</target>
-            </segment>
-            <segment id="genre">
-                <source>apprenton_logistics_expert.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>apprenton_logistics_expert.first_letter</source>
-                <target>vowel</target>
-            </segment>
-            <segment id="description">
-                <source>apprenton_logistics_expert.description</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
-            </segment>
-            <segment id="examine">
-                <source>apprenton_logistics_expert.examine</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
-Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
-            </segment>
-        </unit>
-        <unit id="apprenton_medic">
-            <segment id="name">
-                <source>apprenton_medic.name</source>
-                <target>Apprentron : Médecin</target>
-            </segment>
-            <segment id="short_name">
-                <source>apprenton_medic.short_name</source>
-                <target>Apprentron</target>
-            </segment>
-            <segment id="genre">
-                <source>apprenton_medic.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>apprenton_medic.first_letter</source>
-                <target>vowel</target>
-            </segment>
-            <segment id="description">
-                <source>apprenton_medic.description</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
-            </segment>
-            <segment id="examine">
-                <source>apprenton_medic.examine</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
-Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
-            </segment>
-        </unit>
-        <unit id="apprenton_pilot">
-            <segment id="name">
-                <source>apprenton_pilot.name</source>
-                <target>Apprentron : Pilote</target>
-            </segment>
-            <segment id="short_name">
-                <source>apprenton_pilot.short_name</source>
-                <target>Apprentron</target>
-            </segment>
-            <segment id="genre">
-                <source>apprenton_pilot.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>apprenton_pilot.first_letter</source>
-                <target>vowel</target>
-            </segment>
-            <segment id="description">
-                <source>apprenton_pilot.description</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
-            </segment>
-            <segment id="examine">
-                <source>apprenton_pilot.examine</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
-Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
-            </segment>
-        </unit>
-        <unit id="apprenton_radio_expert">
-            <segment id="name">
-                <source>apprenton_radio_expert.name</source>
-                <target>Apprentron : Expert radio</target>
-            </segment>
-            <segment id="short_name">
-                <source>apprenton_radio_expert.short_name</source>
-                <target>Apprentron</target>
-            </segment>
-            <segment id="genre">
-                <source>apprenton_radio_expert.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>apprenton_radio_expert.first_letter</source>
-                <target>vowel</target>
-            </segment>
-            <segment id="description">
-                <source>apprenton_radio_expert.description</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
-            </segment>
-            <segment id="examine">
-                <source>apprenton_radio_expert.examine</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
-Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
-            </segment>
-        </unit>
-        <unit id="apprenton_shooter">
-            <segment id="name">
-                <source>apprenton_shooter.name</source>
-                <target>Apprentron : Tireur</target>
-            </segment>
-            <segment id="short_name">
-                <source>apprenton_shooter.short_name</source>
-                <target>Apprentron</target>
-            </segment>
-            <segment id="genre">
-                <source>apprenton_shooter.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>apprenton_shooter.first_letter</source>
-                <target>vowel</target>
-            </segment>
-            <segment id="description">
-                <source>apprenton_shooter.description</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
-            </segment>
-            <segment id="examine">
-                <source>apprenton_shooter.examine</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
-Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
-            </segment>
-        </unit>
-        <unit id="apprenton_shrink">
-            <segment id="name">
-                <source>apprenton_shrink.name</source>
-                <target>Apprentron : Psy</target>
-            </segment>
-            <segment id="short_name">
-                <source>apprenton_shrink.short_name</source>
-                <target>Apprentron</target>
-            </segment>
-            <segment id="genre">
-                <source>apprenton_shrink.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>apprenton_shrink.first_letter</source>
-                <target>vowel</target>
-            </segment>
-            <segment id="description">
-                <source>apprenton_shrink.description</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
-            </segment>
-            <segment id="examine">
-                <source>apprenton_shrink.examine</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
-Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
-            </segment>
-        </unit>
-        <unit id="apprenton_sprinter">
-            <segment id="name">
-                <source>apprenton_sprinter.name</source>
-                <target>Apprentron : Sprinter</target>
-            </segment>
-            <segment id="short_name">
-                <source>apprenton_sprinter.short_name</source>
-                <target>Apprentron</target>
-            </segment>
-            <segment id="genre">
-                <source>apprenton_sprinter.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>apprenton_sprinter.first_letter</source>
-                <target>vowel</target>
-            </segment>
-            <segment id="description">
-                <source>apprenton_sprinter.description</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
-            </segment>
-            <segment id="examine">
-                <source>apprenton_sprinter.examine</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
-Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
-            </segment>
-        </unit>
-        <unit id="apprenton_technician">
-            <segment id="name">
-                <source>apprenton_technician.name</source>
-                <target>Apprentron : Technicien</target>
-            </segment>
-            <segment id="short_name">
-                <source>apprenton_technician.short_name</source>
-                <target>Apprentron</target>
-            </segment>
-            <segment id="genre">
-                <source>apprenton_technician.genre</source>
-                <target>male</target>
-            </segment>
-            <segment id="first_letter">
-                <source>apprenton_technician.first_letter</source>
-                <target>vowel</target>
-            </segment>
-            <segment id="description">
-                <source>apprenton_technician.description</source>
-                <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.</target>
-            </segment>
-            <segment id="examine">
-                <source>apprenton_technician.examine</source>
+                <source>apprenton.examine</source>
                 <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
 Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
             </segment>

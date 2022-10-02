@@ -17,4 +17,16 @@ class PlayerDiseaseCollection extends ArrayCollection
     {
         return $this->filter(fn (PlayerDisease $disease) => ($disease->getDiseaseConfig()->getType() === $type));
     }
+
+    public function getAllSymptoms(): SymptomConfigCollection
+    {
+        $symptoms = [];
+
+        /** @var PlayerDisease $playerDisease */
+        foreach ($this as $playerDisease) {
+            $symptoms = array_merge($symptoms, $playerDisease->getDiseaseConfig()->getSymptomConfigs()->toArray());
+        }
+
+        return new SymptomConfigCollection($symptoms);
+    }
 }

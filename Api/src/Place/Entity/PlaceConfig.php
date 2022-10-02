@@ -11,43 +11,30 @@ use Mush\Place\Enum\PlaceTypeEnum;
 /**
  * @ORM\Entity()
  */
+#[ORM\Entity]
 class PlaceConfig implements ConfigInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Daedalus\Entity\DaedalusConfig", inversedBy="placeConfigs")
-     */
+    #[ORM\ManyToOne(targetEntity: DaedalusConfig::class, inversedBy: 'placeConfigs')]
     private DaedalusConfig $daedalusConfig;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $type = PlaceTypeEnum::ROOM;
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $doors = [];
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $items = [];
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $equipments = [];
 
     public function getId(): int
@@ -65,10 +52,7 @@ class PlaceConfig implements ConfigInterface
         return $this->daedalusConfig->getGameConfig();
     }
 
-    /**
-     * @return static
-     */
-    public function setDaedalusConfig(DaedalusConfig $daedalusConfig): self
+    public function setDaedalusConfig(DaedalusConfig $daedalusConfig): static
     {
         $this->daedalusConfig = $daedalusConfig;
 
@@ -80,10 +64,7 @@ class PlaceConfig implements ConfigInterface
         return $this->name;
     }
 
-    /**
-     * @return static
-     */
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
 
@@ -107,10 +88,7 @@ class PlaceConfig implements ConfigInterface
         return $this->doors;
     }
 
-    /**
-     * @return static
-     */
-    public function setDoors(array $doors): self
+    public function setDoors(array $doors): static
     {
         $this->doors = $doors;
 
@@ -122,10 +100,7 @@ class PlaceConfig implements ConfigInterface
         return $this->items;
     }
 
-    /**
-     * @return static
-     */
-    public function setItems(array $items): self
+    public function setItems(array $items): static
     {
         $this->items = $items;
 
@@ -137,10 +112,7 @@ class PlaceConfig implements ConfigInterface
         return $this->equipments;
     }
 
-    /**
-     * @return static
-     */
-    public function setEquipments(array $equipments): self
+    public function setEquipments(array $equipments): static
     {
         $this->equipments = $equipments;
 

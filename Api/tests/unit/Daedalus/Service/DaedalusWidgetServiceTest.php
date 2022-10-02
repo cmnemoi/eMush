@@ -10,6 +10,9 @@ use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusWidgetService;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
@@ -57,6 +60,13 @@ class DaedalusWidgetServiceTest extends TestCase
         ;
 
         $player = new Player();
+
+        $tracker = new GameItem();
+        $tracker->setName(ItemEnum::TRACKER);
+        $player->addEquipment($tracker);
+
+        $player->setGameStatus(GameStatusEnum::CURRENT); // player is alive
+
         $room2->addPlayer($player);
 
         $this->alertService
@@ -71,13 +81,50 @@ class DaedalusWidgetServiceTest extends TestCase
             ->andReturn(null)
             ->once()
         ;
-        $minimap = $this->service->getMinimap($daedalus);
+        $minimap = $this->service->getMinimap($daedalus, $player);
 
         $this->assertIsArray($minimap);
         $this->assertArrayHasKey(RoomEnum::LABORATORY, $minimap);
         $this->assertEquals(0, $minimap[RoomEnum::LABORATORY]['players_count']);
         $this->assertArrayHasKey(RoomEnum::BRIDGE, $minimap);
         $this->assertEquals(1, $minimap[RoomEnum::BRIDGE]['players_count']);
+    }
+
+    public function testgetMinimapNoTracker()
+    {
+        $room = new Place();
+        $room->setName(RoomEnum::LABORATORY);
+        $room2 = new Place();
+        $room2->setName(RoomEnum::BRIDGE);
+
+        $daedalus = new Daedalus();
+        $daedalus
+            ->addPlace($room)
+            ->addPlace($room2)
+        ;
+
+        $player = new Player();
+
+        $player->setGameStatus(GameStatusEnum::CURRENT); // player is alive
+
+        $room2->addPlayer($player);
+
+        $this->alertService
+            ->shouldReceive('findByNameAndDaedalus')
+            ->with(AlertEnum::BROKEN_EQUIPMENTS, $daedalus)
+            ->andReturn(null)
+            ->once()
+        ;
+        $this->alertService
+            ->shouldReceive('findByNameAndDaedalus')
+            ->with(AlertEnum::BROKEN_DOORS, $daedalus)
+            ->andReturn(null)
+            ->once()
+        ;
+        $minimap = $this->service->getMinimap($daedalus, $player);
+
+        $this->assertIsArray($minimap);
+        $this->assertEmpty($minimap);
     }
 
     public function testgetMinimapWithReportedFires()
@@ -90,6 +137,10 @@ class DaedalusWidgetServiceTest extends TestCase
         $room3->setName(RoomEnum::CENTRAL_CORRIDOR);
 
         $player = new Player();
+
+        $tracker = new GameItem();
+        $tracker->setName(ItemEnum::TRACKER);
+        $player->addEquipment($tracker);
 
         $daedalus = new Daedalus();
         $daedalus
@@ -120,16 +171,16 @@ class DaedalusWidgetServiceTest extends TestCase
             ->once()
         ;
 
-        $minimap = $this->service->getMinimap($daedalus);
+        $minimap = $this->service->getMinimap($daedalus, $player);
 
         $this->assertIsArray($minimap);
-        //fire reported
+        // fire reported
         $this->assertArrayHasKey(RoomEnum::LABORATORY, $minimap);
         $this->assertTrue($minimap[RoomEnum::LABORATORY]['fire']);
-        //fire but no reported
+        // fire but no reported
         $this->assertArrayHasKey(RoomEnum::BRIDGE, $minimap);
         $this->assertFalse($minimap[RoomEnum::BRIDGE]['fire']);
-        //no fire
+        // no fire
         $this->assertArrayHasKey(RoomEnum::CENTRAL_CORRIDOR, $minimap);
         $this->assertFalse($minimap[RoomEnum::CENTRAL_CORRIDOR]['fire']);
     }

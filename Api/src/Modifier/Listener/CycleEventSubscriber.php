@@ -16,7 +16,7 @@ use Mush\Modifier\Service\ModifierConditionService;
 use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerCycleEvent;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -26,8 +26,8 @@ class CycleEventSubscriber implements EventSubscriberInterface
     private ModifierConditionService $modifierConditionService;
 
     public function __construct(
-         EventDispatcherInterface $eventDispatcher,
-         ModifierConditionService $modifierConditionService,
+        EventDispatcherInterface $eventDispatcher,
+        ModifierConditionService $modifierConditionService,
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->modifierConditionService = $modifierConditionService;
@@ -54,6 +54,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
         $cycleModifiers = $holder->getModifiers()->getScopedModifiers([EventEnum::NEW_CYCLE]);
         $cycleModifiers = $this->modifierConditionService->getActiveModifiers($cycleModifiers, EventEnum::NEW_CYCLE, $holder);
+        $cycleModifiers = $cycleModifiers->sortModifiersByDelta(false);
 
         /** @var Modifier $modifier */
         foreach ($cycleModifiers as $modifier) {
@@ -69,6 +70,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
         $cycleModifiers = $holder->getModifiers()->getScopedModifiers([EventEnum::NEW_DAY]);
         $cycleModifiers = $this->modifierConditionService->getActiveModifiers($cycleModifiers, EventEnum::NEW_CYCLE, $holder);
+        $cycleModifiers = $cycleModifiers->sortModifiersByDelta(false);
 
         /** @var Modifier $modifier */
         foreach ($cycleModifiers as $modifier) {
@@ -84,6 +86,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
         $modifiers = $holder->getModifiers()->getScopedModifiers([ActionEvent::POST_ACTION]);
         $modifiers = $this->modifierConditionService->getActiveModifiers($modifiers, $event->getReason(), $holder);
+        $modifiers = $modifiers->sortModifiersByDelta(false);
 
         /** @var Modifier $modifier */
         foreach ($modifiers as $modifier) {
@@ -119,7 +122,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
         switch (true) {
             case $holder instanceof Player:
-                return new PlayerModifierEvent(
+                return new PlayerVariableEvent(
                     $holder,
                     $target,
                     $value,

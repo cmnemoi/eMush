@@ -73,7 +73,7 @@ class DisasembleActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
-        //Fail try
+        // Fail try
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Fail::class, $result);
@@ -107,7 +107,7 @@ class DisasembleActionTest extends AbstractActionTest
 
         $this->eventDispatcher->shouldReceive('dispatch')->twice();
 
-        //Success
+        // Success
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

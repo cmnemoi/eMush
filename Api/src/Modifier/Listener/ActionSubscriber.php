@@ -46,7 +46,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $this->modifierService->applyActionModifiers($event->getAction(), $player, $target);
 
         switch ($actionName) {
-        // handle gear modifiers when taken or dropped
+            // handle gear modifiers when taken or dropped
             case ActionEnum::TAKE:
                 if (!$target instanceof GameEquipment) {
                     throw new \LogicException('a game equipment should be given');
@@ -64,7 +64,7 @@ class ActionSubscriber implements EventSubscriberInterface
 
                 return;
 
-            // handle movement of a player
+                // handle movement of a player
             case ActionEnum::MOVE:
                 $this->modifierService->playerEnterRoom($player);
 

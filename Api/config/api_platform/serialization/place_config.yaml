@@ -1,0 +1,16 @@
+Mush\Place\Entity\PlaceConfig:
+  attributes:
+    id:
+      groups: [ 'place_config_read' ]
+    gameConfig:
+      groups: [ 'place_config_read', 'place_config_write' ]
+    name:
+      groups: [ 'place_config_read', 'place_config_write' ]
+    type:
+      groups: [ 'place_config_read', 'place_config_write' ]
+    doors:
+      groups: [ 'place_config_read', 'place_config_write' ]
+    items:
+      groups: [ 'place_config_read', 'place_config_write' ]
+    equipments:
+      groups: [ 'place_config_read', 'place_config_write' ]

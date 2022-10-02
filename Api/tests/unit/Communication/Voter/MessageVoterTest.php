@@ -2,21 +2,25 @@
 
 namespace Mush\Test\Communication\Voter;
 
+use Mockery;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Voter\MessageVoter;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class MessageVoterTest extends TestCase
 {
+    /** @var ChannelServiceInterface|Mockery\mock */
+    private ChannelServiceInterface $channelService;
+
     private Voter $voter;
 
     /**
@@ -24,7 +28,9 @@ class MessageVoterTest extends TestCase
      */
     public function before()
     {
-        $this->voter = new MessageVoter();
+        $this->channelService = Mockery::mock(ChannelServiceInterface::class);
+
+        $this->voter = new MessageVoter($this->channelService);
     }
 
     public function testCanView()
@@ -40,7 +46,6 @@ class MessageVoterTest extends TestCase
             Voter::ACCESS_DENIED,
         ];
 
-        $this->testVote(MessageVoter::VIEW, new Message(), null, Voter::ACCESS_DENIED);
         $this->testVote(MessageVoter::VIEW, new Message(), $user, Voter::ACCESS_GRANTED);
     }
 
@@ -51,15 +56,17 @@ class MessageVoterTest extends TestCase
         $player = new Player();
         $user->setCurrentGame($player);
 
-        $this->testVote(MessageVoter::CREATE, new Message(), null, Voter::ACCESS_DENIED);
-
         $message = new Message();
         $message->setChannel($channel);
         $player->setGameStatus(GameStatusEnum::CURRENT);
+        $this->channelService->shouldReceive('getPiratedPlayer')->with($player)->andReturn(null)->once();
+        $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(true)->once();
 
         $this->testVote(MessageVoter::CREATE, $message, $user, Voter::ACCESS_GRANTED);
 
         $player->setGameStatus(GameStatusEnum::FINISHED);
+        $this->channelService->shouldReceive('getPiratedPlayer')->with($player)->andReturn(null)->once();
+        $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(true)->once();
 
         $this->testVote(MessageVoter::CREATE, $message, $user, Voter::ACCESS_DENIED);
     }
@@ -72,11 +79,11 @@ class MessageVoterTest extends TestCase
         $player = new Player();
         $user->setCurrentGame($player);
 
-        $this->testVote(MessageVoter::CREATE, new Message(), null, Voter::ACCESS_DENIED);
-
         $message = new Message();
         $message->setChannel($channel);
         $player->setGameStatus(GameStatusEnum::CURRENT);
+        $this->channelService->shouldReceive('getPiratedPlayer')->with($player)->andReturn(null)->once();
+        $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(true)->once();
 
         $this->testVote(MessageVoter::CREATE, $message, $user, Voter::ACCESS_DENIED);
 
@@ -86,10 +93,14 @@ class MessageVoterTest extends TestCase
             ->setParticipant($player)
         ;
         $channel->addParticipant($channelPlayer);
+        $this->channelService->shouldReceive('getPiratedPlayer')->with($player)->andReturn(null)->once();
+        $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(true)->once();
 
         $this->testVote(MessageVoter::CREATE, $message, $user, Voter::ACCESS_GRANTED);
 
         $player->setGameStatus(GameStatusEnum::FINISHED);
+        $this->channelService->shouldReceive('getPiratedPlayer')->with($player)->andReturn(null)->once();
+        $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(true)->once();
 
         $this->testVote(MessageVoter::CREATE, $message, $user, Voter::ACCESS_DENIED);
     }
@@ -97,15 +108,12 @@ class MessageVoterTest extends TestCase
     private function testVote(
         string $attribute,
         Message $message,
-        ?User $user,
+        User $user,
         $expectedVote
     ) {
-        $token = new AnonymousToken('secret', 'anonymous');
-        if ($user) {
-            $token = new UsernamePasswordToken(
-                $user, 'credentials', 'memory'
-            );
-        }
+        $token = new UsernamePasswordToken(
+            $user, 'credentials', []
+        );
 
         $this->assertEquals(
             $expectedVote,

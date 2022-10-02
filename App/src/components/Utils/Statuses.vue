@@ -6,7 +6,7 @@
     >
         <Tippy>
             <img :src="statusIcon(status)">
-            <span v-if="status.charge">{{ status.charge }}</span>
+            <span v-if="status.charge !== null">{{ status.charge }}</span>
             <template #content>
                 <h1 v-html="formatContent(status.name)" />
                 <p v-html="formatContent(status.description)" />
@@ -33,7 +33,15 @@ export default defineComponent ({
                 case "player":
                     return statusPlayerEnum[status.key]?.icon || null;
                 case "disease":
-                    return require('@/assets/images/status/disease.png');
+                    switch (status.diseaseType) {
+                    case "disease":
+                        return require('@/assets/images/status/disease.png');
+                    case "disorder":
+                        return require('@/assets/images/status/disorder.png');
+                    case "injury":
+                        return require('@/assets/images/status/injury.png');
+                    }
+                    return null;
                 case "item":
                 case "equipment":
                     return statusItemEnum[status.key]?.icon || null;

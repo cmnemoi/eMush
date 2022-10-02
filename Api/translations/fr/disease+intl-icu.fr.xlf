@@ -138,7 +138,7 @@
             </segment>
             <segment id="description">
                 <source>quincks_oedema.description</source>
-                <target>TODO</target>
+                <target>Vous avez dû frôler de trop près un de vos alergènes...</target>
             </segment>
         </unit>
         <unit id="rejuvenation">
@@ -148,7 +148,7 @@
             </segment>
             <segment id="description">
                 <source>rejuvenation.description</source>
-                <target>Votre corps émet des lueurs pulsatiles vertes.ça ne favorise pas vraiment un sommeil reposant...</target>
+                <target>Votre corps émet des lueurs pulsatiles vertes, ça ne favorise pas vraiment un sommeil reposant...</target>
             </segment>
         </unit>
         <unit id="rubella">
@@ -359,6 +359,306 @@
             <segment id="description">
                 <source>weapon_phobia.description</source>
                 <target>Vous ne pouvez plus tirer avec une arme, et leur simple vue vous incommode...</target>
+            </segment>
+        </unit>
+        <unit id="burns_50_of_body">
+            <segment id="name">
+                <source>burns_50_of_body.name</source>
+                <target>Brûlure au 3ème degré sur 50%</target>
+            </segment>
+            <segment id="description">
+                <source>burns_50_of_body.description</source>
+                <target>La partie avant de votre corps est brûlée, pas trop non plus mais tout de même.</target>
+            </segment>
+        </unit>
+        <unit id="burns_90_of_body">
+            <segment id="name">
+                <source>burns_90_of_body.name</source>
+                <target>Brûlure au 3ème degré sur 90%</target>
+            </segment>
+            <segment id="description">
+                <source>burns_90_of_body.description</source>
+                <target>Votre corps est très gravement brulé et risque une septicémie.</target>
+            </segment>
+        </unit>
+        <unit id="broken_finger">
+            <segment id="name">
+                <source>broken_finger.name</source>
+                <target>Doigt cassé</target>
+            </segment>
+            <segment id="description">
+                <source>broken_finger.description</source>
+                <target>Un des doigts de votre bonne main est cassé.</target>
+            </segment>
+        </unit>
+        <unit id="broken_foot">
+            <segment id="name">
+                <source>broken_foot.name</source>
+                <target>Pied cassé</target>
+            </segment>
+            <segment id="description">
+                <source>broken_foot.description</source>
+                <target>Votre pied est cassé.</target>
+            </segment>
+        </unit>
+        <unit id="broken_leg">
+            <segment id="name">
+                <source>broken_leg.name</source>
+                <target>Jambe cassée</target>
+            </segment>
+            <segment id="description">
+                <source>broken_leg.description</source>
+                <target>Votre jambe a subi de multiples fractures qui l'handicapent...</target>
+            </segment>
+        </unit>
+        <unit id="broken_ribs">
+            <segment id="name">
+                <source>broken_ribs.name</source>
+                <target>Côtes pétées</target>
+            </segment>
+            <segment id="description">
+                <source>broken_ribs.description</source>
+                <target>Vos côtes sont cassées, occasionnant une douleur en posture debout.</target>
+            </segment>
+        </unit>
+        <unit id="broken_shoulder">
+            <segment id="name">
+                <source>broken_shoulder.name</source>
+                <target>Épaule brisée</target>
+            </segment>
+            <segment id="description">
+                <source>broken_shoulder.description</source>
+                <target>Votre épaule a été brisée et démise. Impossible de porter des objets lourds...</target>
+            </segment>
+        </unit>
+        <unit id="bruised_shoulder">
+            <segment id="name">
+                <source>bruised_shoulder.name</source>
+                <target>Épaule froissée</target>
+            </segment>
+            <segment id="description">
+                <source>bruised_shoulder.description</source>
+                <target>Votre épaule a subi des contusions majeures réversibles.</target>
+            </segment>
+        </unit>
+        <unit id="burnt_arms">
+            <segment id="name">
+                <source>burnt_arms.name</source>
+                <target>Bras brûlés</target>
+            </segment>
+            <segment id="description">
+                <source>burnt_arms.description</source>
+                <target>Vos bras sont fortement brûlés. Saisir le moindre objet est une torture.</target>
+            </segment>
+        </unit>
+        <unit id="burnt_hand">
+            <segment id="name">
+                <source>burnt_hand.name</source>
+                <target>Main brûlée</target>
+            </segment>
+            <segment id="description">
+                <source>burnt_hand.description</source>
+                <target>Votre main est brûlée.</target>
+            </segment>
+        </unit>
+        <unit id="burst_nose">
+            <segment id="name">
+                <source>burst_nose.name</source>
+                <target>Nez explosé</target>
+            </segment>
+            <segment id="description">
+                <source>burst_nose.description</source>
+                <target>Votre nez n'est plus, plus du tout, vous faites un peu peur aussi...</target>
+            </segment>
+        </unit>
+        <unit id="busted_arm_joint">
+            <segment id="name">
+                <source>busted_arm_joint.name</source>
+                <target>Articulation du bras fort morte</target>
+            </segment>
+            <segment id="description">
+                <source>busted_arm_joint.description</source>
+                <target>Le bras pendouillant peut faire rire mais reste tout de même très handicapant.</target>
+            </segment>
+        </unit>
+        <unit id="busted_shoulder">
+            <segment id="name">
+                <source>busted_shoulder.name</source>
+                <target>Épaule pulvérisée</target>
+            </segment>
+            <segment id="description">
+                <source>busted_shoulder.description</source>
+                <target>L'épaule a subi des contusions majeures irréversibles, le bras est considéré comme mort.</target>
+            </segment>
+        </unit>
+        <unit id="critical_haemorrhage">
+            <segment id="name">
+                <source>critical_haemorrhage.name</source>
+                <target>Hémorragie critique</target>
+            </segment>
+            <segment id="description">
+                <source>critical_haemorrhage.description</source>
+                <target>Vous avez une hémorragie sur une artère majeure qui nécessite une chirurgie lourde. Bonne chance.</target>
+            </segment>
+        </unit>
+        <unit id="damaged_ears">
+            <segment id="name">
+                <source>damaged_ears.name</source>
+                <target>Oreilles incapacitées</target>
+            </segment>
+            <segment id="description">
+                <source>damaged_ears.description</source>
+                <target>Vos oreilles ne vous sont plus d'aucune utilité et de toute façon vous ne pouvez plus les utiliser.</target>
+            </segment>
+        </unit>
+        <unit id="destroyed_ears">
+            <segment id="name">
+                <source>destroyed_ears.name</source>
+                <target>Oreilles pulvérisées</target>
+            </segment>
+            <segment id="description">
+                <source>destroyed_ears.description</source>
+                <target>Vos oreilles ont disparues. Peut-être qu'en cherchant bien...</target>
+            </segment>
+        </unit>
+        <unit id="disfunctional_liver">
+            <segment id="name">
+                <source>disfunctional_liver.name</source>
+                <target>Foie hors d'état</target>
+            </segment>
+            <segment id="description">
+                <source>disfunctional_liver.description</source>
+                <target>Vous pouvez encore vivre avec votre foie détruit mais combien de temps et dans quelles conditions ?</target>
+            </segment>
+        </unit>
+        <unit id="haemorrhage">
+            <segment id="name">
+                <source>haemorrhage.name</source>
+                <target>Hémorragie</target>
+            </segment>
+            <segment id="description">
+                <source>haemorrhage.description</source>
+                <target>Vous avez une hémorragie il vous faut une chirurgie.</target>
+            </segment>
+        </unit>
+        <unit id="head_trauma">
+            <segment id="name">
+                <source>head_trauma.name</source>
+                <target>Trauma crânien</target>
+            </segment>
+            <segment id="description">
+                <source>head_trauma.description</source>
+                <target>Vous avez subi un traumatisme crânien récent, à moins d'arriver à trouver un médecin amateur de puzzle rapidement, vous risquez gros.</target>
+            </segment>
+        </unit>
+        <unit id="implanted_bullet">
+            <segment id="name">
+                <source>implanted_bullet.name</source>
+                <target>Balle en balade</target>
+            </segment>
+            <segment id="description">
+                <source>implanted_bullet.description</source>
+                <target>Un éclat de balle se balade désormais dans votre corps, ce n'est pas douloureux mais on ne sait pas quelle sera sa prochaine destination.</target>
+            </segment>
+        </unit>
+        <unit id="inner_ear_damaged">
+            <segment id="name">
+                <source>inner_ear_damaged.name</source>
+                <target>Oreille interne déréglée</target>
+            </segment>
+            <segment id="description">
+                <source>inner_ear_damaged.description</source>
+                <target>L'oreille interne ne semble plus fonctionner correctement. Vous pouvez être pris de vertiges, de surdité partielle ou de vomissements intempestifs quand vous voyagez.</target>
+            </segment>
+        </unit>
+        <unit id="mashed_foot">
+            <segment id="name">
+                <source>mashed_foot.name</source>
+                <target>Pied en bouillie</target>
+            </segment>
+            <segment id="description">
+                <source>mashed_foot.description</source>
+                <target>Vous n'avez plus de pied digne de ce nom...</target>
+            </segment>
+        </unit>
+        <unit id="mashed_hand">
+            <segment id="name">
+                <source>mashed_hand.name</source>
+                <target>Main en charpie</target>
+            </segment>
+            <segment id="description">
+                <source>mashed_hand.description</source>
+                <target>Votre main ne vous sera plus d'aucun secours.</target>
+            </segment>
+        </unit>
+        <unit id="minor_haemorrhage">
+            <segment id="name">
+                <source>minor_haemorrhage.name</source>
+                <target>Hémorragie légère</target>
+            </segment>
+            <segment id="description">
+                <source>minor_haemorrhage.description</source>
+                <target>Vous avez une hémorragie sur une artère mineure qu'un médecin peut contenir. Attention à ne pas laisser traîner.</target>
+            </segment>
+        </unit>
+        <unit id="missing_finger">
+            <segment id="name">
+                <source>missing_finger.name</source>
+                <target>Doigt manquant</target>
+            </segment>
+            <segment id="description">
+                <source>missing_finger.description</source>
+                <target>Vous ne pouvez plus compter que jusqu'à 4 sur votre bonne main.</target>
+            </segment>
+        </unit>
+        <unit id="open_air_brain">
+            <segment id="name">
+                <source>open_air_brain.name</source>
+                <target>Cerveau à l'air libre</target>
+            </segment>
+            <segment id="description">
+                <source>open_air_brain.description</source>
+                <target>Il manque un morceau de votre crâne. Dans beaucoup de circonstances, il ne serait pas faux de dire que cela peut poser problème.</target>
+            </segment>
+        </unit>
+        <unit id="punctured_lung">
+            <segment id="name">
+                <source>punctured_lung.name</source>
+                <target>Poumon à trou</target>
+            </segment>
+            <segment id="description">
+                <source>punctured_lung.description</source>
+                <target>Souffle court, du sang dans les poumons... Sans soins, vous n'en avez plus pour longtemps à vivre.</target>
+            </segment>
+        </unit>
+        <unit id="mashed_arms">
+            <segment id="name">
+                <source>mashed_arms.name</source>
+                <target>Absence de bras</target>
+            </segment>
+            <segment id="description">
+                <source>mashed_arms.description</source>
+                <target>Vos bras sont complètement inutiles.</target>
+            </segment>
+        </unit>
+        <unit id="mashed_legs">
+            <segment id="name">
+                <source>mashed_legs.name</source>
+                <target>Jambes inutilisables</target>
+            </segment>
+            <segment id="description">
+                <source>smashed_legs.description</source>
+                <target>Vous n'avez plus l'usage de vos jambes, dommage, ça peut servir.</target>
+            </segment>
+        </unit>
+        <unit id="torn_tongue">
+            <segment id="name">
+                <source>torn_tongue.name</source>
+                <target>Langue cisaillée</target>
+            </segment>
+            <segment id="description">
+                <source>torn_tongue.description</source>
+                <target>Votre langue est réduite à un amas flasque sans vie.</target>
             </segment>
         </unit>
     </file>

@@ -1,8 +1,6 @@
 <template>
     <ActionPanel
         class="equipment-panel"
-        :actions="target.actions"
-        @clickOnAction="action => $emit('executeAction', action)"
     />
 </template>
 
@@ -18,9 +16,6 @@ export default defineComponent ({
     props: {
         target: Equipment
     },
-    emits: [
-        'executeAction'
-    ]
 });
 </script>
 

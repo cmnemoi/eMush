@@ -6,6 +6,7 @@ use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\ReachValidator;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\GameStatusEnum;
@@ -77,8 +78,10 @@ class ReachValidatorTest extends TestCase
 
         $player = new Player();
         $player->setPlace($room);
+
+        $targetConfig = new ItemConfig();
         $target = new GameItem();
-        $target->setHolder($room);
+        $target->setHolder($room)->setEquipment($targetConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -131,8 +134,10 @@ class ReachValidatorTest extends TestCase
 
         $player = new Player();
         $player->setPlace(new Place());
+
+        $itemConfig = new ItemConfig();
         $target = new GameItem();
-        $target->setHolder(new Place());
+        $target->setHolder(new Place())->setEquipment($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action

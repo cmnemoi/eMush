@@ -37,7 +37,7 @@ export class TriumphConfig {
             'name': this.name,
             'triumph': this.triumph,
             'isAllCrew': this.isAllCrew,
-            'team': this.team,
+            'team': this.team
         };
     }
     decode(jsonString : string): TriumphConfig {

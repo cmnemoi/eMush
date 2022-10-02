@@ -6,20 +6,27 @@ export class EquipmentConfig {
     public gameConfig: GameConfig|null;
     public name: string|null;
     public initStatus: string|null;
-    public mechanics: array|null;
+    public mechanics: Array<any>|null;
     public isFireDestroyable: boolean|null;
     public isFireBreakable: boolean|null;
     public isBreakable: boolean|null;
-    public actions: array|null;
-    public dismountedProducts: array|null;
+    public actions: Array<any>|null;
+    public dismountedProducts: Array<any>|null;
     public isPersonal: boolean|null;
 
     constructor() {
         this.iri = null;
         this.id = null;
         this.gameConfig = null;
-        this.causeName = null;
-        this.diseases = [];
+        this.name = null;
+        this.initStatus = null;
+        this.mechanics = [];
+        this.isFireDestroyable = null;
+        this.isFireBreakable = null;
+        this.isBreakable = null;
+        this.actions = [];
+        this.dismountedProducts = [];
+        this.isPersonal = null;
     }
     load(object:any) : EquipmentConfig {
         if (typeof object !== "undefined") {
@@ -50,7 +57,7 @@ export class EquipmentConfig {
             'isBreakable': this.isBreakable,
             'actions': this.actions,
             'dismountedProducts': this.dismountedProducts,
-            'isPersonal': this.isPersonal,
+            'isPersonal': this.isPersonal
         };
     }
     decode(jsonString : string): EquipmentConfig {

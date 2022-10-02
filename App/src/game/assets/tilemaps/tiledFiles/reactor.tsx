@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <tileset version="1.5" tiledversion="1.7.2" name="reactor" tilewidth="199" tileheight="181" tilecount="9" columns="1" objectalignment="bottomleft">
- <image source="../reactor.png" width="199" height="1629"/>
+ <img src="../reactor.png" width="199" height="1629"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="100"/>

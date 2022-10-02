@@ -27,7 +27,7 @@ export default defineComponent ({
         ...mapActions('auth', [
             'redirectToLogin',
             'logout'
-        ]),
+        ])
     }
 });
 </script>

@@ -14,12 +14,12 @@ export class DifficultyConfig {
     public electricArcRate: number|null;
     public metalPlateRate: number|null;
     public panicCrisisRate: number|null;
-    public firePlayerDamage: array|null;
-    public fireHullDamage: array|null;
-    public electricArcPlayerDamage: array|null;
-    public tremorPlayerDamage: array|null;
-    public metalPlatePlayerDamage: array|null;
-    public panicCrisisPlayerDamage: array|null;
+    public firePlayerDamage: Array<any>|null;
+    public fireHullDamage: Array<any>|null;
+    public electricArcPlayerDamage: Array<any>|null;
+    public tremorPlayerDamage: Array<any>|null;
+    public metalPlatePlayerDamage: Array<any>|null;
+    public panicCrisisPlayerDamage: Array<any>|null;
     public plantDiseaseRate: number|null;
     public cycleDiseaseRate: number|null;
 
@@ -93,7 +93,7 @@ export class DifficultyConfig {
             'metalPlatePlayerDamage': this.metalPlatePlayerDamage,
             'panicCrisisPlayerDamage': this.panicCrisisPlayerDamage,
             'plantDiseaseRate': this.plantDiseaseRate,
-            'cycleDiseaseRate': this.cycleDiseaseRate,
+            'cycleDiseaseRate': this.cycleDiseaseRate
         };
     }
     decode(jsonString : string): DifficultyConfig {

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <tileset version="1.5" tiledversion="1.7.2" name="oxygen_tank" tilewidth="45" tileheight="45" tilecount="12" columns="6" objectalignment="bottomleft">
- <image source="../oxygen_tank.png" width="270" height="91"/>
+ <img src="../oxygen_tank.png" width="270" height="91"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="250"/>

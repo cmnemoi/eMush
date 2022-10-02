@@ -1,11 +1,11 @@
 import { Character } from "@/entities/Character";
 
 export class Message {
-    public id : number|null
-    public message : string|null
-    public character : Character
-    public child : Array<Message>
-    public date : Date|null
+    public id : number|null;
+    public message : string|null;
+    public character : Character;
+    public child : Array<Message>;
+    public date : Date|null;
 
     constructor() {
         this.id = null;

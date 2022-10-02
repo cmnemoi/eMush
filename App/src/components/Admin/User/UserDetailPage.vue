@@ -14,7 +14,7 @@
                 <div class="flex-grow-1">
                     <label for="user_roles">{{ $t('admin.user.roles') }}</label>
                     <select v-model="user.roles" multiple>
-                        <option v-for="option in rolesOption" v-bind:value="option.key" :key="option.key">
+                        <option v-for="option in rolesOption" :value="option.key" :key="option.key">
                             {{ option.text }}
                         </option>
                     </select>
@@ -56,25 +56,25 @@ export default defineComponent({
             rolesOption: [
                 {
                     key: UserRole.USER,
-                    text: 'User',
+                    text: 'User'
                 },
                 {
                     key: UserRole.MODERATOR,
-                    text: 'Moderator',
+                    text: 'Moderator'
                 },
                 {
                     key: UserRole.ADMIN,
-                    text: 'Admin',
+                    text: 'Admin'
                 },
                 {
                     key: UserRole.SUPER_ADMIN,
-                    text: 'Super Admin',
+                    text: 'Super Admin'
                 },
                 {
                     key: 'error',
-                    text: 'Super Admin error',
-                },
-            ],
+                    text: 'Super Admin error'
+                }
+            ]
         };
     },
     methods: {
@@ -95,7 +95,7 @@ export default defineComponent({
                     }
                 });
             ;
-        },
+        }
     },
     beforeMount() {
         const userId = this.$route.params.userId;

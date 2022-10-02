@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <tileset version="1.5" tiledversion="1.7.2" name="scanner" tilewidth="60" tileheight="71" tilecount="16" columns="8" objectalignment="bottomleft">
- <image source="../scanner.png" width="480" height="142"/>
+ <img src="../scanner.png" width="480" height="142"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="200"/>

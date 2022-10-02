@@ -27,7 +27,7 @@ export class ActionCost {
             'id': this.id,
             'actionPointCost': this.actionPointCost,
             'movementPointCost': this.movementPointCost,
-            'moralPointCost': this.moralPointCost,
+            'moralPointCost': this.moralPointCost
         };
     }
     decode(jsonString : string): ActionCost {

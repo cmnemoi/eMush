@@ -6,8 +6,8 @@ export class CharacterConfig {
     public gameConfig: GameConfig|null;
     public name: string|null;
     public initStatuses: string|null;
-    public actions: array|null;
-    public startingItems: array|null;
+    public actions: Array<any>|null;
+    public startingItems: Array<any>|null;
 
     constructor() {
         this.iri = null;
@@ -37,7 +37,7 @@ export class CharacterConfig {
             'name': this.name,
             'initStatuses': this.initStatuses,
             'actions': this.actions,
-            'startingItems': this.startingItems,
+            'startingItems': this.startingItems
         };
     }
     decode(jsonString : string): CharacterConfig {

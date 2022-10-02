@@ -59,7 +59,7 @@ export default defineComponent ({
     ],
     computed: {
         ...mapGetters('room', [
-            'selectedTarget',
+            'selectedTarget'
         ]),
         getActions(): Action[]
         {
@@ -75,7 +75,7 @@ export default defineComponent ({
     },
     methods: {
         ...mapActions({
-            'executeAction': 'action/executeAction',
+            'executeAction': 'action/executeAction'
         }),
         async executeTargetAction(action: Action) {
             if (this.target === this.player) {

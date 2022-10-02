@@ -30,7 +30,7 @@ export default class PlayableCharacterObject extends CharacterObject {
         this.movement();
     }
 
-    //this function return an array of direction to follow to get from character position to the pointed coordinates
+    //this function return an Array of direction to follow to get from character position to the pointed coordinates
     updateMovement(pointer: Phaser.Input.Pointer, object : GameObject | null ): MushPath
     {
         const startingPoint = this.getFeetCartCoords().toIsometricCoordinates();
@@ -113,7 +113,7 @@ export default class PlayableCharacterObject extends CharacterObject {
     // moving the sprite and playing the animation
     movement(): void
     {
-        //Would it be possible to use variables instead of array? :)
+        //Would it be possible to use variables instead of Array? :)
         const cartSpeed = { x: 50, y: 25 };
 
         if (this.currentMove !== -1) {

@@ -57,8 +57,8 @@ export default defineComponent({
                 })
                 .finally(() => store.dispatch('gameConfig/setLoading', { loading: false }))
             ;
-        },
-    },
+        }
+    }
 });
 </script>
 

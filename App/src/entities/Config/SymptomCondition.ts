@@ -27,7 +27,7 @@ export class SymptomCondition {
             'id': this.id,
             'name': this.name,
             'condition': this.condition,
-            'value': this.value,
+            'value': this.value
         };
     }
     decode(jsonString : string): SymptomCondition {

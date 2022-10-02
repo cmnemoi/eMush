@@ -7,7 +7,7 @@ use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
@@ -39,7 +39,7 @@ class DaedalusVariableEventCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $event = new DaedalusModifierEvent(
+        $event = new DaedalusVariableEvent(
             $daedalus,
             DaedalusVariableEnum::OXYGEN,
             -2,
@@ -68,7 +68,7 @@ class DaedalusVariableEventCest
         $modifier = new Modifier($daedalus, $modifierConfig);
         $I->haveInRepository($modifier);
 
-        $event = new DaedalusModifierEvent(
+        $event = new DaedalusVariableEvent(
             $daedalus,
             DaedalusVariableEnum::OXYGEN,
             -2,
@@ -79,7 +79,7 @@ class DaedalusVariableEventCest
 
         $I->assertEquals(28, $daedalus->getOxygen());
 
-        $event = new DaedalusModifierEvent(
+        $event = new DaedalusVariableEvent(
             $daedalus,
             DaedalusVariableEnum::OXYGEN,
             -2,

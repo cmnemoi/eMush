@@ -3,7 +3,7 @@
 namespace Mush\Equipment\CycleHandler;
 
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
@@ -218,7 +218,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         $daedalus = $gamePlant->getPlace()->getDaedalus();
         // Add Oxygen
         if ($oxygen = $plantEffect->getOxygen()) {
-            $daedalusEvent = new DaedalusModifierEvent(
+            $daedalusEvent = new DaedalusVariableEvent(
                 $daedalus,
                 DaedalusVariableEnum::OXYGEN,
                 $oxygen,

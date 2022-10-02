@@ -2,8 +2,10 @@
 
 namespace Mush\Modifier\Listener;
 
+use LogicException;
 use Mush\Action\Event\EnhancePercentageRollEvent;
 use Mush\Action\Event\PreparePercentageRollEvent;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Game\Event\AbstractModifierHolderEvent;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\EventServiceInterface;
@@ -17,7 +19,6 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Event\ResourceMaxPointEvent;
 use Mush\Player\Event\ResourcePointChangeEvent;
-use Mush\Player\Service\PlayerVariableServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class GlobalModifierSubscriber implements EventSubscriberInterface
@@ -25,16 +26,13 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
 
     private RandomServiceInterface $randomService;
     private EventServiceInterface $eventService;
-    private PlayerVariableServiceInterface $playerVariableService;
 
     public function __construct(
         RandomServiceInterface $randomService,
         EventServiceInterface $eventService,
-        PlayerVariableServiceInterface $playerVariableService
     ) {
         $this->eventService = $eventService;
         $this->randomService = $randomService;
-        $this->playerVariableService = $playerVariableService;
     }
 
     public static function getSubscribedEvents(): array
@@ -54,6 +52,9 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
             ],
             ResourceMaxPointEvent::class => [
                 'onResourceMaxPointEvent', 100_000
+            ],
+            DaedalusVariableEvent::class => [
+                'onDaedalusVariableEvent', 100_000
             ],
             AbstractModifierHolderEvent::class => [
                 'onEvent', -100_000
@@ -90,7 +91,24 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
             $event instanceof ResourceMaxPointEvent ||
             $event instanceof ResourcePointChangeEvent ||
             $event instanceof EnhancePercentageRollEvent ||
-            $event instanceof PreparePercentageRollEvent;
+            $event instanceof PreparePercentageRollEvent ||
+            $event instanceof DaedalusVariableEvent;
+    }
+
+    public function onDaedalusVariableEvent(DaedalusVariableEvent $event) {
+        $variable = $event->getModifiedVariable();
+
+        $modifiers = $this->getModifiersToApply(
+            $event->getModifierHolder(),
+            $event->getEventName(),
+            $event->getReasons()[0]
+        )->filter(function (Modifier $modifier) use ($variable) {
+            return $modifier->getConfig()->getVariable() === $variable;
+        });
+
+        $baseQuantity = $event->getQuantity();
+        $event->setQuantity($this->calculateModifiedValue($baseQuantity, $modifiers->toArray()));
+
     }
 
     public function onResourceMaxPointEvent(ResourceMaxPointEvent $event) {
@@ -113,7 +131,7 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
             $event->getEventName(),
             $event->getReasons()[0]
         )->filter(function (Modifier $modifier) use ($variable) {
-            return $modifier->getConfig()->getPlayerVariable() === $variable;
+            return $modifier->getConfig()->getVariable() === $variable;
         });
     }
 
@@ -125,7 +143,7 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
             $event->getEventName(),
             $event->getReasons()[0]
         )->filter(function (Modifier $modifier) use ($variable) {
-            return $modifier->getConfig()->getPlayerVariable() === $variable;
+            return $modifier->getConfig()->getVariable() === $variable;
         });
 
         $baseQuantity = $event->getQuantity();
@@ -164,7 +182,7 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
                     break;
 
                 default:
-                    throw new \LogicException('Incorrect ModifierModeEnum string value in ModifierConfig');
+                    throw new LogicException('Incorrect ModifierModeEnum string value in ModifierConfig');
             }
 
             if ($event->tryToSucceed()) {

@@ -3,7 +3,7 @@
 namespace Mush\Status\CycleHandler;
 
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -106,7 +106,7 @@ class Fire extends AbstractStatusCycleHandler
         if ($this->randomService->isSuccessful($difficultyConfig->getHullFireDamageRate())) {
             $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getFireHullDamage()));
 
-            $daedalusEvent = new DaedalusModifierEvent(
+            $daedalusEvent = new DaedalusVariableEvent(
                 $room->getDaedalus(),
                 DaedalusVariableEnum::HULL,
                 -$damage,

@@ -7,7 +7,7 @@ use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Player\Entity\Player;
 
-class DaedalusModifierEvent extends DaedalusEvent implements AbstractQuantityEvent
+class DaedalusVariableEvent extends DaedalusEvent implements AbstractQuantityEvent
 {
     private int $quantity;
     private string $modifiedVariable;
@@ -43,6 +43,11 @@ class DaedalusModifierEvent extends DaedalusEvent implements AbstractQuantityEve
         return $this->modifiedVariable;
     }
 
+    public function getModifierHolder(): ModifierHolder
+    {
+        return $this->player !== null ? $this->player : $this->daedalus;
+    }
+
     public function getPlayer(): ?Player
     {
         return $this->player;
@@ -51,16 +56,7 @@ class DaedalusModifierEvent extends DaedalusEvent implements AbstractQuantityEve
     public function setPlayer(Player $player): self
     {
         $this->player = $player;
-
         return $this;
     }
 
-    public function getModifierHolder(): ModifierHolder
-    {
-        if ($this->player !== null) {
-            return $this->player;
-        }
-
-        return $this->daedalus;
-    }
 }

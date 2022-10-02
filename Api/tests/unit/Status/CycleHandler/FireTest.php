@@ -6,7 +6,7 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
@@ -111,7 +111,7 @@ class FireTest extends TestCase
 
         $this->eventService
             ->shouldReceive('dispatch')
-            ->withArgs(fn (DaedalusModifierEvent $daedalusEvent, string $eventName) => (
+            ->withArgs(fn (DaedalusVariableEvent $daedalusEvent, string $eventName) => (
                 $eventName === AbstractQuantityEvent::CHANGE_VARIABLE &&
                 $daedalusEvent->getModifiedVariable() === DaedalusVariableEnum::HULL
             ))

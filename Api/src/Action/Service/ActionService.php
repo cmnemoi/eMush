@@ -20,7 +20,7 @@ class ActionService implements ActionServiceInterface
 {
     public const MAX_PERCENT = 99;
     public const ATTEMPT_INCREASE = 1.25;
-    public const BASE_MOVEMENT_POINT_CONVERSION_GAIN = 2;
+    public const BASE_MOVEMENT_POINT_CONVERSION_GAIN = 1;
     public const BASE_MOVEMENT_POINT_CONVERSION_COST = 1;
 
     private EventServiceInterface $eventService;

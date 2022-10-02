@@ -3,7 +3,7 @@
 namespace Mush\Daedalus\Listener;
 
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -27,7 +27,7 @@ class DaedalusModifierSubscriber implements EventSubscriberInterface
 
     public function onChangeVariable(AbstractQuantityEvent $event): void
     {
-        if (!$event instanceof DaedalusModifierEvent) {
+        if (!$event instanceof DaedalusVariableEvent) {
             return;
         }
 

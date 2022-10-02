@@ -14,14 +14,15 @@
 	},
 	"footer": {
 		"developpers": "Développement",
+		"alpha-testers": "Tous les alpha-testeurs :)",
 		"thanks": "Remerciements",
-		"emush": "EMush",
-		"text1": "Ce jeu est un fan-project pour {mush} de MotionTwin. Sauf indication contraire, tous les éléments graphiques sont tirés de ces jeux et sont donc la propriété de MotionTwin.",
-		"text2": "EMush est Open Source et tout le monde est le bienvenu pour y participer. Vous pouvez consulter le code source sur {Gitlab}.",
-		"text3": "EMush fait partie du projet {EternalTwin}, si vous le souhaitez, vous pouvez faire une donation sur {OpenCollective}."
+		"emush": "eMush",
+		"text1": "Ce jeu est un fan-project pour {mush} de Motion Twin. Sauf indication contraire, tous les éléments graphiques sont tirés de ces jeux et sont donc la propriété de Motion Twin.",
+		"text2": "eMush est Open Source et tout le monde est le bienvenu pour y participer. Vous pouvez consulter le code source sur {Gitlab}.",
+		"text3": "eMush fait partie du projet {EternalTwin}, si vous le souhaitez, vous pouvez faire une donation sur {OpenCollective}."
 	  },
 	"login": "Connexion",
-	"logout": "Deconnexion",
+	"logout": "Déconnexion",
 	"deathpage": {
 		"title": "Vous êtes mort !",
 		"name": "nom",

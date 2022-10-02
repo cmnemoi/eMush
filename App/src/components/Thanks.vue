@@ -10,12 +10,12 @@
                 </i18n-t>
                 <i18n-t keypath="footer.text2" tag="div" class="text">
                     <template #Gitlab>
-                        <a style="white-space: nowrap" href="https://gitlab.com/eternaltwin/mush/mush/" target="_blank"> Gitlab </a>
+                        <a style="white-space: nowrap" href="https://gitlab.com/eternaltwin/mush/mush/" target="_blank"> GitLab </a>
                     </template>
                 </i18n-t>
                 <i18n-t keypath="footer.text3" tag="div" class="text">
                     <template #EternalTwin>
-                        <a style="white-space: nowrap" href="https://eternal-twin.net/" target="_blank"> EternalTwin </a>
+                        <a style="white-space: nowrap" href="https://eternal-twin.net/" target="_blank"> Eternaltwin </a>
                     </template>
                     <template #OpenCollective>
                         <a style="white-space: nowrap" href="https://opencollective.com/eternaltwin" target="_blank"> OpenCollective </a>
@@ -24,15 +24,20 @@
             </div>
         </div>
         <div class="wrapper">
-            <strong>{{ $t('footer.thanks') }}</strong>
-            <div class="content">
-                <p>{{ randomHelpers }}</p>
-            </div>
-        </div>
-        <div class="wrapper">
             <strong>{{ $t('footer.developpers') }}</strong>
             <div class="content">
                 <p v-for="dev in randomDev" :key="dev">{{ dev }}</p>
+            </div>
+        </div>
+        <div class="wrapper">
+            <strong>{{ $t('footer.thanks') }}</strong>
+            <div class="content">
+                <p v-for="helper in randomHelpers" :key="helper">{{ helper }}</p>
+                <!-- <i18n-t keypath="footer.alpha-testers" tag="div" class="text">
+                    <template #alpha-testers>
+                        <p>alpha-testers</p>
+                    </template>
+                </i18n-t> -->
             </div>
         </div>
     </div>
@@ -49,12 +54,12 @@ export default defineComponent({
             developers: developers,
             randomDev: [] as Array<string>,
             helpers: helpers,
-            randomHelpers: '' as string
+            randomHelpers: [] as Array<string>
         };
     },
     mounted() {
         this.randomDev = this.developers.sort(() => 0.5 - Math.random());
-        this.randomHelpers = this.helpers.sort(() => 0.5 - Math.random()).toString();
+        this.randomHelpers = this.helpers.sort(() => 0.5 - Math.random());
     }
 });
 </script>

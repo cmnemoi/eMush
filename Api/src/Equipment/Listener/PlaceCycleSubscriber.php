@@ -32,7 +32,7 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
             $itemNewCycle = new EquipmentCycleEvent(
                 $equipment,
                 $place->getDaedalus(),
-                $event->getReason(),
+                $event->getReasons()[0],
                 $event->getTime()
             );
             $this->eventService->callEvent($itemNewCycle, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
@@ -47,7 +47,7 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
             $equipmentNewDay = new EquipmentCycleEvent(
                 $equipment,
                 $room->getDaedalus(),
-                $event->getReason(),
+                $event->getReasons()[0],
                 $event->getTime()
             );
 

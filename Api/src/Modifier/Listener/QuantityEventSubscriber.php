@@ -32,7 +32,7 @@ class QuantityEventSubscriber implements EventSubscriberInterface
             [AbstractQuantityEvent::CHANGE_VARIABLE],
             $event->getModifiedVariable(),
             $initQuantity,
-            $event->getReason(),
+            $event->getReasons()[0],
             $event->getTime()
         ));
     }

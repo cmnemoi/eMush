@@ -77,7 +77,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         }
 
         $mushStatusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(PlayerStatusEnum::MUSH, $player->getDaedalus());
-        $mushStatus = $this->statusService->createStatusFromConfig($mushStatusConfig, $player, $playerEvent->getReason(), $playerEvent->getTime());
+        $mushStatus = $this->statusService->createStatusFromConfig($mushStatusConfig, $player, $playerEvent->getReasons(), $playerEvent->getTime());
         $this->statusService->persist($mushStatus);
     }
 
@@ -85,7 +85,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $player = $playerEvent->getPlayer();
         $characterConfig = $playerEvent->getCharacterConfig();
-        $reason = $playerEvent->getReason();
+        $reason = $playerEvent->getReasons();
         $time = $playerEvent->getTime();
 
         if ($characterConfig === null) {
@@ -105,6 +105,6 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     public function onPlayerDeath(PlayerEvent $playerEvent): void
     {
-        $this->statusService->removeAllStatuses($playerEvent->getPlayer(), $playerEvent->getReason(), $playerEvent->getTime());
+        $this->statusService->removeAllStatuses($playerEvent->getPlayer(), $playerEvent->getReasons(), $playerEvent->getTime());
     }
 }

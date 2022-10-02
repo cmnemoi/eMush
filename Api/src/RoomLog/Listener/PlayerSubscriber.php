@@ -49,7 +49,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $logParameters = $event->getLogParameters();
 
         if ($logKey == LogEnum::DEATH) {
-            if (!($reason = $event->getReason())) {
+            if (!($reason = $event->getReasons()[0])) {
                 throw new \LogicException('Player should die with a reason');
             }
 

@@ -40,7 +40,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 $event->getStatusName(),
                 $event->getPlace()->getDaedalus(),
                 $event->getStatusHolder(),
-                $event->getReason(),
+                $event->getReasons()[0],
                 $event->getTime(),
                 $event->getStatusTarget()
             );
@@ -73,7 +73,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 $removeEvent = new StatusEvent(
                     $screwedTalkieStatus->getName(),
                     $screwedTalkieStatus->getOwner(),
-                    $event->getReason(),
+                    $event->getReasons()[0],
                     $event->getTime()
                 );
                 $this->eventService->callEvent($removeEvent, StatusEvent::STATUS_REMOVED);

@@ -38,7 +38,7 @@ class StatusSubscriber implements EventSubscriberInterface
     {
         $holder = $event->getStatusHolder();
         $time = $event->getTime();
-        $equipmentBrokenByCycleChange = $event->getReason() === EventEnum::NEW_CYCLE && $holder instanceof GameEquipment;
+        $equipmentBrokenByCycleChange = $event->getReasons()[0] === EventEnum::NEW_CYCLE && $holder instanceof GameEquipment;
         $equipementIsADoor = $holder instanceof Door;
         // @TODO : $brokenByGreenJelly = $event->getReason() === EventEnum::GREEN_JELLY;
 

@@ -30,7 +30,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         foreach ($event->getDaedalus()->getPlayers()->getPlayerAlive() as $player) {
             $newPlayerCycle = new PlayerCycleEvent(
                 $player,
-                $event->getReason(),
+                $event->getReasons()[0],
                 $event->getTime()
             );
             $this->eventService->callEvent($newPlayerCycle, PlayerCycleEvent::PLAYER_NEW_CYCLE);
@@ -42,7 +42,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         foreach ($event->getDaedalus()->getPlayers()->getPlayerAlive() as $player) {
             $newPlayerDay = new PlayerCycleEvent(
                 $player,
-                $event->getReason(),
+                $event->getReasons()[0],
                 $event->getTime()
             );
 

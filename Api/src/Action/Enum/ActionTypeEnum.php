@@ -28,4 +28,12 @@ class ActionTypeEnum
             ActionEnum::SHOOT
         ];
     }
+
+    public static function getShootActions(): array
+    {
+        return [
+            ActionEnum::SHOOT
+        ];
+    }
+
 }

@@ -56,7 +56,7 @@ class ModifierService implements ModifierServiceInterface
     public function isSuccessfulWithModifier(
         ModifierHolder $holder,
         int $baseSuccessRate,
-        string $actionName,
+        array $reasons,
         bool $tryToSucceed = true
     ) : bool {
         $successThreshold = $this->randomService->getSuccessThreshold();
@@ -64,9 +64,14 @@ class ModifierService implements ModifierServiceInterface
         $event = new PreparePercentageRollEvent(
             $holder,
             $baseSuccessRate,
-            $actionName,
+            $reasons[count($reasons) - 1],
             new \DateTime()
         );
+
+        for ($i=count($reasons)-2; $i>=0; $i--) {
+            $event->addReason($reasons[$i]);
+        }
+
         $this->eventService->callEvent($event, PreparePercentageRollEvent::ACTION_ROLL_RATE);
         $successRate = $event->getRate();
 
@@ -80,22 +85,26 @@ class ModifierService implements ModifierServiceInterface
             }
         }
 
-        return $this->enhancePercentageRoll($holder, $successRate, $tryToSucceed, $actionName);
+        return $this->enhancePercentageRoll($holder, $successRate, $tryToSucceed, $reasons);
     }
 
     private function enhancePercentageRoll(
         ModifierHolder $holder,
         int $successRate,
         bool $tryToSucceed,
-        string $actionName
+        array $reasons
     ) : bool {
         $event = new EnhancePercentageRollEvent(
             $holder,
             $successRate,
             $tryToSucceed,
-            $actionName,
+            $reasons[count($reasons) - 1],
             new \DateTime()
         );
+
+        for ($i=count($reasons)-2; $i>=0; $i--) {
+            $event->addReason($reasons[$i]);
+        }
 
         $eventName = $tryToSucceed
             ? EnhancePercentageRollEvent::ACTION_TRY_TO_SUCCEED_ROLL_RATE

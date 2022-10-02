@@ -32,7 +32,7 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
             $statusNewCycle = new StatusCycleEvent(
                 $status,
                 $place,
-                $event->getReason(),
+                $event->getReasons()[0],
                 $event->getTime()
             );
             $this->eventService->callEvent($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
@@ -47,7 +47,7 @@ class PlaceCycleSubscriber implements EventSubscriberInterface
             $statusNewDay = new StatusCycleEvent(
                 $status,
                 $room,
-                $event->getReason(),
+                $event->getReasons()[0],
                 $event->getTime()
             );
             $this->eventService->callEvent($statusNewDay, StatusCycleEvent::STATUS_NEW_DAY);

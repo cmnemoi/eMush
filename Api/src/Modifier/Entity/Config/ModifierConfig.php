@@ -14,7 +14,7 @@ class ModifierConfig
 {
 
     public const EVERY_REASONS = 'every_reasons';
-    public const EXCLUDE = 'exclude';
+    public const EXCLUDE_REASON = 'exclude_reason';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -51,33 +51,68 @@ class ModifierConfig
         $this->targetEvents = [];
     }
 
-    public function addTargetEventsWithExcludedReasons(string $eventName, array $eventReason) : self {
-        $excluded = array_merge($eventReason, [self::EXCLUDE]);
-        $this->addTargetEvent($eventName, $excluded);
-    }
-
     public function addTargetEvent(string $eventName, array $eventReason = null) : self
     {
-        $events =
-            $eventReason === null ?
-                [$eventName => self::EVERY_REASONS] :
-                [$eventName => $eventReason];
-        $this->targetEvents = array_merge($this->targetEvents, $events);
+        if (isset($this->targetEvents[$eventName])) {
+            if ($eventReason === null) {
+                $this->targetEvents[$eventName] = [[self::EVERY_REASONS]];
+            } else {
+                $this->targetEvents[$eventName][] = $eventReason;
+            }
+        } else {
+            if ($eventReason === null) {
+                $this->targetEvents[] = [$eventName => [self::EVERY_REASONS]];
+            } else {
+                $this->targetEvents[] = [$eventName => [$eventReason]];
+            }
+        }
+
         return $this;
     }
 
-    public function isTargetedBy(string $eventName, string $eventReason) : bool
+    public function excludeTargetEvent(string $eventName, array $eventReason) : self
+    {
+        if (isset($this->targetEvents[$eventName])) {
+            $this->targetEvents[$eventName][] = $eventReason;
+        } else {
+            $this->targetEvents[] = [$eventName => [array_merge([self::EXCLUDE_REASON], $eventReason)]];
+        }
+
+        return $this;
+    }
+
+    public function isTargetedBy(string $eventName, array $eventReasons) : bool
     {
         $reasons = $this->targetEvents[$eventName];
-        if (isset($reasons)) {
-            if (in_array(self::EXCLUDE, $reasons)) {
-                return !in_array($eventReason, $reasons);
+        if (!isset($reasons)) return false;
+
+        for ($i = 0; $i < count($reasons); $i++) {
+            if (in_array(self::EVERY_REASONS, $reasons[$i])) {
+                return true;
             }
 
-            return  ($reasons === self::EVERY_REASONS || in_array($eventReason, $reasons));
+            if (in_array(self::EXCLUDE_REASON, $reasons[$i])) {
+                if ($this->isTargetReasonsInOrder(array_splice($reasons, 1), $eventReasons)) {
+                    return false;
+                }
+            }
+
+            if ($this->isTargetReasonsInOrder($reasons[$i], $eventReasons)) {
+                return true;
+            }
         }
 
         return false;
+    }
+
+    private function isTargetReasonsInOrder(array $reasons, array $eventReasons) : bool {
+        for ($i=0; $i<count($reasons); $i++) {
+            if ($reasons[$i] !== $eventReasons[$i]) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function areConditionsTrue(ModifierHolder $holder, RandomServiceInterface $randomService) : bool {

@@ -73,7 +73,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             $ration,
             $player,
             VisibilityEnum::HIDDEN,
-            $consumeEvent->getReason(),
+            $consumeEvent->getReasons(),
             new \DateTime()
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);

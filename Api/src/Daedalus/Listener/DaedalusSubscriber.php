@@ -29,13 +29,13 @@ class DaedalusSubscriber implements EventSubscriberInterface
     public function onDaedalusEnd(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-        $reason = $event->getReason();
+        $reason = $event->getReasons()[0];
 
         if (!$reason) {
             throw new \LogicException('daedalus should end with a reason');
         }
 
-        $this->daedalusService->killRemainingPlayers($daedalus, $reason, $event->getTime());
+        $this->daedalusService->killRemainingPlayers($daedalus, $reason[0], $event->getTime());
 
         // @TODO: create logs
         // @TODO: remove all fire and charged statuses

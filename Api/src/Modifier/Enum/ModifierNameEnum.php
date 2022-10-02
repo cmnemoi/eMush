@@ -24,6 +24,7 @@ class ModifierNameEnum
     public const FROZEN_MODIFIER = 'frozen_modifier';
     public const WRENCH_MODIFIER = 'wrench_modifier';
 
+    // DISEASE MODIFIER
     public const DISEASE_INCREASE_MOVE_COST = 'disease_increase_move_cost';
     public const DISEASE_REDUCE_1_MAX_HP = 'disease_reduce_1_max_hp';
     public const DISEASE_REDUCE_2_MAX_HP = 'disease_reduce_2_max_hp';
@@ -33,18 +34,38 @@ class ModifierNameEnum
     public const DISEASE_LOSE_1_HP_PER_CYCLE = 'disease_lose_1_hp_per_cycle';
     public const DISEASE_LOSE_2_HP_PER_CYCLE = 'disease_lose_2_hp_per_cycle';
     public const DISEASE_LOSE_4_HP_PER_CYCLE = 'disease_lose_4_hp_per_cycle';
-    public const DISEASE_LOSE_1_MP_PER_CYCLE = 'disease_lose_1_mp_per_cycle';
+    public const DISEASE_LOSE_1_PM_PER_CYCLE = 'disease_lose_1_pm_per_cycle';
     public const DISEASE_LOSE_1_SATIETY_PER_CYCLE = 'disease_lose_1_satiety_per_cycle';
-    public const DISEASE_LOSE_1_AP_PER_CYCLE_RANDOM_10 = 'disease_lose_1_ap_per_cycle_random_10';
-    public const DISEASE_LOSE_1_AP_PER_CYCLE_RANDOM_16 = 'disease_lose_1_ap_per_cycle_random_16';
-    public const DISEASE_LOSE_1_AP_PER_CYCLE_RANDOM_20 = 'disease_lose_1_ap_per_cycle_random_20';
-    public const DISEASE_LOSE_1_AP_PER_CYCLE_RANDOM_30 = 'disease_lose_1_ap_per_cycle_random_30';
-    public const DISEASE_LOSE_2_AP_PER_CYCLE_RANDOM_40 = 'disease_lose_2_ap_per_cycle_random_40';
+    public const DISEASE_LOSE_1_PA_PER_CYCLE_RANDOM_10 = 'disease_lose_1_pa_per_cycle_random_10';
+    public const DISEASE_LOSE_1_PA_PER_CYCLE_RANDOM_16 = 'disease_lose_1_pa_per_cycle_random_16';
+    public const DISEASE_LOSE_1_PA_PER_CYCLE_RANDOM_20 = 'disease_lose_1_pa_per_cycle_random_20';
+    public const DISEASE_LOSE_1_PA_PER_CYCLE_RANDOM_30 = 'disease_lose_1_pa_per_cycle_random_30';
+    public const DISEASE_LOSE_2_PA_PER_CYCLE_RANDOM_40 = 'disease_lose_2_pa_per_cycle_random_40';
     public const DISEASE_LOSE_1_HP_PER_CYCLE_RANDOM_10 = 'disease_lose_1_hp_per_cycle_random_10';
     public const DISEASE_LOSE_1_HP_PER_CYCLE_RANDOM_16 = 'disease_lose_1_hp_per_cycle_random_16';
     public const DISEASE_LOSE_1_HP_PER_CYCLE_RANDOM_50 = 'disease_lose_1_hp_per_cycle_random_50';
-    public const DISEASE_LOSE_1_MP_PER_CYCLE_RANDOM_50 = 'disease_lose_1_mp_per_cycle_random_50';
-    public const DISEASE_LOSE_1_AP_AFTER_CONSUMPTION = 'disease_lose_1_ap_after_consumption';
-    public const DISEASE_LOSE_2_AP_AFTER_CONSUMPTION = 'disease_lose_2_ap_after_consumption';
+    public const DISEASE_LOSE_1_PM_PER_CYCLE_RANDOM_50 = 'disease_lose_1_pm_per_cycle_random_50';
+    public const DISEASE_LOSE_1_PA_AFTER_CONSUMPTION = 'disease_lose_1_pa_after_consumption';
+    public const DISEASE_LOSE_2_PA_AFTER_CONSUMPTION = 'disease_lose_2_pa_after_consumption';
     public const DISEASE_LOSE_4_HP_ON_INFECTION = 'disease_lose_4_hp_on_infection';
+    public const DISEASE_LOSE_6_HP_TAKE_CAT = 'disease_lose_6_hp_take_cat';
+    public const DISEASE_GAIN_1_SATIETY_PER_CYCLE = 'disease_gain_1_satiety_per_cycle';
+    public const DISEASE_LOSE_10_SHOOTING_ACCURACY = 'disease_lose_10_shooting_accuracy';
+    public const DISEASE_GAIN_10_CYCLE_DISEASE_CHANCE = 'disease_gain_10_cycle_disease_chance';
+    public const DISEASE_LOSE_1_PA_FITFUL_SLEEP_RANDOM_16 = 'disease_lose_1_pa_fitful_sleep_random_16';
+
+    // DISORDER MODIFIER
+    public const DISORDER_COST_2_MORE_MP_TO_MOVE_WHEN_CAT_IN_PLACE = 'disorder_cost_2_more_mp_to_move_when_cat_in_place';
+    public const DISORDER_COST_2_MORE_PA_ACTION_NOT_MOVE_WHEN_CAT_IN_PLACE = 'disorder_cost_2_more_pa_action_not_move_when_cat_in_place';
+    public const DISORDER_LOSE_1_PA_WITH_SCREAMING_RANDOM_16 = 'disorder_lose_1_pa_with_screaming_random_16';
+    public const DISORDER_LOSE_1_HP_WITH_WALL_BANG_RANDOM_16 = 'disorder_lose_1_hp_with_wall_bang_random_16';
+    public const DISORDER_LOSE_1_PMO_PER_CYCLE_RANDOM_70 = 'disorder_lose_1_pmo_per_cycle_random_70';
+    public const DISORDER_LOSE_2_PM_WITH_RUNNING_IN_CIRCLES_PER_CYCLE_RANDOM_16 = 'disorder_lose_2_pm_with_running_in_circles_per_cycle_random_16';
+    public const DISORDER_COST_1_PA_WHEN_FOUR_PEOPLE_OR_MORE = 'disorder_cost_1_pa_when_four_people_or_more';
+    public const DISORDER_COST_1_PM_WHEN_FOUR_PEOPLE_OR_MORE = 'disorder_cost_1_pa_when_four_people_or_more';
+    public const DISORDER_LOSE_2_MAX_PA = 'disorder_lose_2_max_pa';
+    public const DISORDER_LOSE_2_MAX_PMO = 'disorder_lose_2_max_pmo';
+    public const DISORDER_LOSE_3_MAX_PMO = 'disorder_lose_3_max_pmo';
+    public const DISORDER_LOSE_4_MAX_PMO = 'disorder_lose_4_max_pmo';
+
 }

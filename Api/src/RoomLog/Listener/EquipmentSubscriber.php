@@ -41,7 +41,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentCreated(EquipmentEvent $event): void
     {
-        switch ($event->getReason()) {
+        switch ($event->getReasons()[0]) {
             case EventEnum::PLANT_PRODUCTION:
                 $logKey = PlantLogEnum::PLANT_NEW_FRUIT;
                 break;
@@ -66,7 +66,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        switch ($event->getReason()) {
+        switch ($event->getReasons()[0]) {
             case EventEnum::FIRE:
                 $this->createEventLog(LogEnum::EQUIPMENT_DESTROYED, $event, VisibilityEnum::PUBLIC);
 

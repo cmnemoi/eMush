@@ -63,7 +63,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
         /** @var Modifier $modifier */
         foreach ($cycleModifiers as $modifier) {
-            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
+            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReasons()[0]);
 
             $this->eventService->callEvent($event, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
@@ -83,7 +83,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
 
         /** @var Modifier $modifier */
         foreach ($cycleModifiers as $modifier) {
-            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
+            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReasons()[0]);
 
             $this->eventService->callEvent($event, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
@@ -94,12 +94,12 @@ class CycleEventSubscriber implements EventSubscriberInterface
         $holder = $event->getPlayer();
 
         $modifiers = $holder->getModifiers()->getScopedModifiers([ActionEvent::POST_ACTION]);
-        $modifiers = $this->modifierConditionService->getActiveModifiers($modifiers, $event->getReason(), $holder);
+        $modifiers = $this->modifierConditionService->getActiveModifiers($modifiers, $event->getReasons()[0], $holder);
         $modifiers = $modifiers->sortModifiersByDelta(false);
 
         /** @var Modifier $modifier */
         foreach ($modifiers as $modifier) {
-            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
+            $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReasons()[0]);
 
             $this->eventService->callEvent($event, AbstractQuantityEvent::CHANGE_VARIABLE);
         }

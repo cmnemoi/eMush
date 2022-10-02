@@ -56,7 +56,7 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
                 'onResourceMaxPointEvent', 100_000
             ],
             AbstractModifierHolderEvent::class => [
-                'onEvent', 50_000
+                'onEvent', -100_000
             ]
         ];
     }
@@ -80,7 +80,7 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
                 new \DateTime()
             );
 
-            $this->eventService->callEvent($variableEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+            $this->eventService->callEvent($variableEvent, AbstractQuantityEvent::CHANGE_VARIABLE, $event);
         }
     }
 
@@ -111,7 +111,7 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
         return $this->getModifiersToApply(
             $event->getModifierHolder(),
             $event->getEventName(),
-            $event->getReason()
+            $event->getReasons()[0]
         )->filter(function (Modifier $modifier) use ($variable) {
             return $modifier->getConfig()->getPlayerVariable() === $variable;
         });
@@ -123,7 +123,7 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
         $modifiers = $this->getModifiersToApply(
             $event->getModifierHolder(),
             $event->getEventName(),
-            $event->getReason()
+            $event->getReasons()[0]
         )->filter(function (Modifier $modifier) use ($variable) {
             return $modifier->getConfig()->getPlayerVariable() === $variable;
         });
@@ -137,7 +137,7 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
             $event->getModifierHolder(),
             $event->getRate(),
             $event->getEventName(),
-            $event->getReason()
+            $event->getReasons()[0]
         );
 
         $event->setRate($value);
@@ -146,9 +146,9 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
     public function onEnhancePercentageRollEvent(EnhancePercentageRollEvent $event) {
         $holder = $event->getModifierHolder();
         $eventName = $event->getEventName();
-        $reasonName = $event->getReason();
+        $reasons = $event->getReasons();
 
-        $modifiers = $this->getModifiersToApply($holder, $eventName, $reasonName);
+        $modifiers = $this->getModifiersToApply($holder, $eventName, $reasons);
 
         /* @var Modifier $modifier */
         foreach ($modifiers as $modifier) {
@@ -181,14 +181,14 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function getModifiersToApply(ModifierHolder $holder, string $event, string $reason) : ModifierCollection {
-        return $holder->getModifiersAtReach()->filter(function (Modifier $modifier) use ($holder, $event, $reason) {
+    private function getModifiersToApply(ModifierHolder $holder, string $event, array $reasons) : ModifierCollection {
+        return $holder->getModifiersAtReach()->filter(function (Modifier $modifier) use ($holder, $event, $reasons) {
             $modifierConfig = $modifier->getConfig();
-            return $modifierConfig->areConditionsTrue($holder, $this->randomService) && $modifierConfig->isTargetedBy($event, $reason);
+            return $modifierConfig->areConditionsTrue($holder, $this->randomService) && $modifierConfig->isTargetedBy($event, $reasons);
         });
     }
 
-    private function getModifiedValue(ModifierHolder $holder, int $baseValue, string $event, string $reason) : int {
+    private function getModifiedValue(ModifierHolder $holder, int $baseValue, string $event, array $reason) : int {
         return $this->calculateModifiedValue($baseValue, $this->getModifiersToApply($holder, $event, $reason)->toArray());
     }
 

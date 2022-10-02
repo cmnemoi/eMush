@@ -5,7 +5,7 @@ namespace Mush\Test\Player\Event;
 use Mockery;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Listener\PlayerModifierSubscriber;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use PHPUnit\Framework\TestCase;
@@ -46,7 +46,7 @@ class PlayerModifierSubscriberTest extends TestCase
     {
         $player = new Player();
 
-        $event = new PlayerModifierEvent(
+        $event = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::MOVEMENT_POINT,
             3,
@@ -67,7 +67,7 @@ class PlayerModifierSubscriberTest extends TestCase
     {
         $player = new Player();
 
-        $event = new PlayerModifierEvent(
+        $event = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::ACTION_POINT,
             1,
@@ -90,7 +90,7 @@ class PlayerModifierSubscriberTest extends TestCase
 
         $player->setMoralPoint(1);
 
-        $event = new PlayerModifierEvent(
+        $event = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::MORAL_POINT,
             -1,
@@ -123,7 +123,7 @@ class PlayerModifierSubscriberTest extends TestCase
         $player = new Player();
 
         $player->setHealthPoint(1);
-        $event = new PlayerModifierEvent(
+        $event = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::HEALTH_POINT,
             1,
@@ -157,11 +157,11 @@ class PlayerModifierSubscriberTest extends TestCase
     {
         $player = new Player();
 
-        $event = new PlayerModifierEvent(
+        $event = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::SATIETY,
             1,
-    'reason',
+            'reason',
             new \DateTime()
         );
 

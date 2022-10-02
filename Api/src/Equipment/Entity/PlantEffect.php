@@ -6,38 +6,24 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Mechanics\Plant;
 
-/**
- * Class PlantEffect.
- *
- * @ORM\Entity
- */
+#[ORM\Entity]
 class PlantEffect
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Daedalus\Entity\Daedalus")
-     */
+    #[ORM\ManyToOne(targetEntity: Daedalus::class)]
     private Daedalus $daedalus;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\Mechanics\Plant")
-     */
+    #[ORM\ManyToOne(targetEntity: Plant::class)]
     private Plant $plant;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private int $maturationTime;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private int $oxygen;
 
     public function getId(): int
@@ -50,10 +36,7 @@ class PlantEffect
         return $this->daedalus;
     }
 
-    /**
-     * @return static
-     */
-    public function setDaedalus(Daedalus $daedalus): self
+    public function setDaedalus(Daedalus $daedalus): static
     {
         $this->daedalus = $daedalus;
 
@@ -65,10 +48,7 @@ class PlantEffect
         return $this->plant;
     }
 
-    /**
-     * @return static
-     */
-    public function setPlant(Plant $plant): self
+    public function setPlant(Plant $plant): static
     {
         $this->plant = $plant;
 
@@ -80,10 +60,7 @@ class PlantEffect
         return $this->maturationTime;
     }
 
-    /**
-     * @return static
-     */
-    public function setMaturationTime(int $maturationTime): self
+    public function setMaturationTime(int $maturationTime): static
     {
         $this->maturationTime = $maturationTime;
 
@@ -95,10 +72,7 @@ class PlantEffect
         return $this->oxygen;
     }
 
-    /**
-     * @return static
-     */
-    public function setOxygen(int $oxygen): self
+    public function setOxygen(int $oxygen): static
     {
         $this->oxygen = $oxygen;
 

@@ -11,19 +11,21 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Entity\Config\DiseaseCauseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -107,6 +109,21 @@ class DoTheThingCest
             'name' => EquipmentEnum::BED,
         ]);
 
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setName('disease')
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($diseaseConfig);
+
+        $diseaseCauseConfig = new DiseaseCauseConfig();
+        $diseaseCauseConfig
+            ->setGameConfig($gameConfig)
+            ->setName('sex')
+            ->setDiseases(['disease'])
+        ;
+        $I->haveInRepository($diseaseCauseConfig);
+
         $gameEquipment = new GameEquipment();
         $gameEquipment
             ->setName(EquipmentEnum::BED)
@@ -156,13 +173,13 @@ class DoTheThingCest
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
-        //Check if pregnancy log works
+        // Check if pregnancy log works
         $pregnantStatusEvent = new StatusEvent(
             PlayerStatusEnum::PREGNANT,
             $player,
             $this->doTheThingAction->getActionName(),
             new \DateTime()
-          );
+        );
         $pregnantStatusEvent->setVisibility(VisibilityEnum::PRIVATE);
 
         $this->eventDispatcherService->dispatch($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);

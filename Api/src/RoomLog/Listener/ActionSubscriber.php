@@ -4,10 +4,10 @@ namespace Mush\RoomLog\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -75,13 +75,16 @@ class ActionSubscriber implements EventSubscriberInterface
         ) {
             $actionParameter->removeStatus($lyingDownStatus);
 
+            $logParameters = [];
+            $logParameters[$actionParameter->getLogKey()] = $actionParameter->getLogName();
+
             $this->roomLogService->createLog(
                 LogEnum::FORCE_GET_UP,
                 $actionParameter->getPlace(),
                 VisibilityEnum::PUBLIC,
                 'event_log',
                 $actionParameter,
-                [],
+                $logParameters,
                 new \DateTime()
             );
         }

@@ -117,7 +117,7 @@
                 <target>Tourelle Alpha Centre</target>
             </segment>
             <segment id="loc_prep">
-                <source>center_alpha_turret.loc_prep</source>
+                <source>centre_alpha_turret.loc_prep</source>
                 <target>dans la </target>
             </segment>
         </unit>

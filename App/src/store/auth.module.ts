@@ -30,6 +30,22 @@ const getters = {
 
     isLoading: (state: AuthState): boolean => {
         return state.loading;
+    },
+
+    userId: (state: AuthState): number | null => {
+        const token = state.accessToken;
+        if (token === null) {
+            return null;
+        }
+        try {
+            return JSON.parse(atob(token.split('.')[1])).userId;
+        } catch (e) {
+            return null;
+        }
+    },
+
+    isAdmin: (state: AuthState): boolean => {
+        return state.userInfo ? state.userInfo.isAdmin() : false;
     }
 };
 
@@ -43,9 +59,9 @@ const actions: ActionTree<any, any> = {
         commit('setToken', token);
     },
 
-    redirect({ commit }, { passphrase }): void {
+    redirectToLogin({ commit }): Promise<void> {
         commit('resetUserInfo');
-        UserService.redirect(passphrase);
+        return UserService.redirectToLogin();
     },
 
     async login({ commit }, { code }): Promise<boolean> {

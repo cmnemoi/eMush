@@ -7,37 +7,25 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="alert_element")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'alert_element')]
 class AlertElement
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Alert\Entity\Alert", inversedBy="alertElements")
-     */
+    #[ORM\ManyToOne(targetEntity: Alert::class, inversedBy: 'alertElements')]
     private Alert $alert;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player")
-     */
+    #[ORM\ManyToOne(targetEntity: Player::class)]
     private ?Player $player = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Place\Entity\Place")
-     */
+    #[ORM\ManyToOne(targetEntity: Place::class)]
     private ?Place $place = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\GameEquipment")
-     */
+    #[ORM\ManyToOne(targetEntity: GameEquipment::class)]
     private ?GameEquipment $equipment = null;
 
     public function getId(): ?int

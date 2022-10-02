@@ -7,8 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
+use Mush\Action\DataFixtures\MushActionFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
+use Mush\Disease\DataFixtures\DisorderConfigFixtures;
+use Mush\Disease\Enum\DisorderEnum;
+use Mush\Equipment\DataFixtures\PersonalEquipmentConfigFixtures;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -26,10 +31,20 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        // ADMIN ONLY
+        $suicideAction = $this->getReference(ActionsFixtures::SUICIDE);
+
+        // @TODO: remove when the game is ready
         /** @var Action $rejuvenateAlphaAction */
         $rejuvenateAlphaAction = $this->getReference(ActionsFixtures::REJUVENATE_ALPHA);
         /** @var Action $comfortAction */
         $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
+        /** @var Action $healAction */
+        $healAction = $this->getReference(ActionsFixtures::HEAL);
+        /** @var Action $selfHealAction */
+        $selfHealAction = $this->getReference(ActionsFixtures::SELF_HEAL);
+        /** @var Action $fakeDiseaseAction */
+        $fakeDiseaseAction = $this->getReference(MushActionFixtures::FAKE_DISEASE);
 
         /** @var Action $hitAction */
         $hitAction = $this->getReference(ActionsFixtures::HIT_DEFAULT);
@@ -37,6 +52,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
         /** @var Action $searchAction */
         $searchAction = $this->getReference(ActionsFixtures::SEARCH_DEFAULT);
+        /** @var Action $phagocyteAction */
+        $phagocyteAction = $this->getReference(ActionsFixtures::PHAGOCYTE);
         /** @var Action $reportFireAction */
         $reportFireAction = $this->getReference(ActionsFixtures::REPORT_FIRE);
         /** @var Action $getUpAction */
@@ -45,27 +62,63 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $flirtAction = $this->getReference(ActionsFixtures::FLIRT_DEFAULT);
         /** @var Action $doTheThingAction */
         $doTheThingAction = $this->getReference(ActionsFixtures::DO_THE_THING);
+        /** @var Action $ungag */
+        $ungag = $this->getReference(ActionsFixtures::UNGAG_DEFAULT);
 
         /** @var Action $extractSporeAction */
-        $extractSporeAction = $this->getReference(ActionsFixtures::EXTRACT_SPORE);
-        /** @var Action $spreadFireAction */
-        $spreadFireAction = $this->getReference(ActionsFixtures::INFECT_PLAYER);
+        $extractSporeAction = $this->getReference(MushActionFixtures::EXTRACT_SPORE);
         /** @var Action $infectAction */
-        $infectAction = $this->getReference(ActionsFixtures::SPREAD_FIRE);
+        $infectAction = $this->getReference(MushActionFixtures::SPREAD_FIRE);
+
+        // Skills actions
+        // @TODO: after skill implementation, action will be given by skills
+        /** @var Action $comfortAction */
+        $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
+        /** @var Action $motivationalSpeechAction */
+        $motivationalSpeechAction = $this->getReference(ActionsFixtures::MOTIVATIONAL_SPEECH);
+        /** @var Action $boringSpeechAction */
+        $boringSpeechAction = $this->getReference(ActionsFixtures::BORING_SPEECH);
+        /** @var Action $extinguishManuallyAction */
+        $extinguishManuallyAction = $this->getReference(ActionsFixtures::EXTINGUISH_MANUALLY);
+
+        /** @var Action $makeSickAction */
+        $makeSickAction = $this->getReference(MushActionFixtures::MAKE_SICK);
+        /** @var Action $spreadFireAction */
+        $spreadFireAction = $this->getReference(MushActionFixtures::INFECT_PLAYER);
+        /** @var Action $screwTalkieAction */
+        $screwTalkieAction = $this->getReference(MushActionFixtures::SCREW_TALKIE);
+
+        /** @var ItemConfig $talkieConfig */
+        $talkieConfig = $this->getReference(PersonalEquipmentConfigFixtures::WALKIE_TALKIE);
+        /** @var ItemConfig $trackerConfig */
+        $trackerConfig = $this->getReference(PersonalEquipmentConfigFixtures::TRACKER);
+        /** @var ItemConfig $iTrackieConfig */
+        $iTrackieConfig = $this->getReference(PersonalEquipmentConfigFixtures::ITRACKIE);
 
         $defaultActions = new ArrayCollection([
             $hitAction,
             $hideAction,
             $searchAction,
+            $phagocyteAction,
             $reportFireAction,
             $infectAction,
             $extractSporeAction,
             $getUpAction,
             $comfortAction,
+            $extinguishManuallyAction,
+            $motivationalSpeechAction,
+            $boringSpeechAction,
+            $healAction,
+            $selfHealAction,
             $rejuvenateAlphaAction,
             $spreadFireAction,
             $flirtAction,
             $doTheThingAction,
+            $makeSickAction,
+            $fakeDiseaseAction,
+            $screwTalkieAction,
+            $ungag,
+            $suicideAction,
         ]);
 
         /** @var StatusConfig $sporeStatus */
@@ -84,6 +137,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::PILOT,
                 SkillEnum::POLYVALENT,
             ])
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($andie);
 
@@ -119,6 +173,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::PREMONITION,
                 SkillEnum::SNEAK,
             ])
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($chun);
 
@@ -138,6 +193,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::WRESTLER,
                 SkillEnum::HYGIENIST,
             ])
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($derek);
 
@@ -155,6 +211,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::TECHNICIAN,
                 SkillEnum::TRACKER,
             ])
+            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
+            ->setInitDiseases([DisorderEnum::CHRONIC_VERTIGO])
         ;
         $manager->persist($eleesha);
 
@@ -187,6 +245,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::RADIO_EXPERT,
                 SkillEnum::SURVIVALIST,
             ])
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($frieda);
 
@@ -204,6 +263,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::SOLID,
                 SkillEnum::VICTIMIZER,
             ])
+            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
         ;
         $manager->persist($gioele);
 
@@ -221,6 +281,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::TECHNICIAN,
                 SkillEnum::U_TURN,
             ])
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($hua);
 
@@ -241,6 +302,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::GREEN_THUMB,
                 SkillEnum::MYCOLOGIST,
             ])
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($ian);
 
@@ -258,13 +320,14 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::SELF_SACRIFICE,
                 SkillEnum::SHRINK,
             ])
+            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
         ;
         $manager->persist($janice);
 
         $jinSu = new CharacterConfig();
         $jinSu
             ->setGameConfig($gameConfig)
-            ->setName(CharacterEnum::KIM_JIN_SU)
+            ->setName(CharacterEnum::JIN_SU)
             ->setActions($defaultActions)
             ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
@@ -275,6 +338,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::SHOOTER,
                 SkillEnum::STRATEGURU,
             ])
+            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
         ;
         $manager->persist($jinSu);
 
@@ -292,6 +356,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::TECHNICIAN,
                 SkillEnum::OPTIMIST,
             ])
+            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
         ;
         $manager->persist($kuanTi);
 
@@ -309,6 +374,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::REBEL,
                 SkillEnum::SHOOTER,
             ])
+            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
         ;
         $manager->persist($paola);
 
@@ -327,6 +393,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::PHYSICIST,
                 SkillEnum::TECHNICIAN,
             ])
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($raluca);
 
@@ -344,6 +411,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::SPRINTER,
                 SkillEnum::OPTIMIST,
             ])
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($roland);
 
@@ -361,6 +429,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::SHOOTER,
                 SkillEnum::SOLID,
             ])
+            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($stephen);
 
@@ -381,6 +450,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::SHOOTER,
                 SkillEnum::TECHNICIAN,
             ])
+            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
         ;
         $manager->persist($terrence);
 
@@ -392,7 +462,10 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         return [
             DaedalusConfigFixtures::class,
             ActionsFixtures::class,
+            MushActionFixtures::class,
             StatusFixtures::class,
+            PersonalEquipmentConfigFixtures::class,
+            DisorderConfigFixtures::class,
         ];
     }
 }

@@ -53,7 +53,7 @@ class PlaceInitSubscriber implements EventSubscriberInterface
             $gameEquipment = $this->gameEquipmentService->createGameEquipment($equipment, $place, $reason, $time);
         }
 
-        //initialize doors
+        // initialize doors
         $doorConfig = $daedalus
             ->getGameConfig()
             ->getEquipmentsConfig()
@@ -63,7 +63,7 @@ class PlaceInitSubscriber implements EventSubscriberInterface
         // @FIXME how to simplify that?
         foreach ($placeConfig->getDoors() as $doorName) {
             if (
-                $roomDoor = $daedalus->getRooms()->filter( //If door already exist
+                $roomDoor = $daedalus->getRooms()->filter( // If door already exist
                     function (Place $room) use ($doorName) {
                         return $room->getDoors()->exists(function ($key, Door $door) use ($doorName) {
                             return $door->getName() === $doorName;
@@ -74,7 +74,7 @@ class PlaceInitSubscriber implements EventSubscriberInterface
                 $door = $roomDoor->getDoors()->filter(function (Door $door) use ($doorName) {
                     return $door->getName() === $doorName;
                 })->first();
-            } else { //else create new door
+            } else { // else create new door
                 $door = new Door();
                 $door
                     ->setName($doorName)

@@ -72,12 +72,18 @@
         </div>
 
         <div class="column">
-            <ul class="skills">
-                <!--        <li><img src="@/assets/images/skills/cook.png" alt="cook"></li>-->
-                <!--        <li><img src="@/assets/images/skills/sturdy.png" alt="sturdy"></li>-->
-                <!--        <li><img src="@/assets/images/skills/opportunist.png" alt="opportunist"></li>-->
-                <!--        <li><img src="@/assets/images/skills/sturdy.png" alt="sturdy"></li>-->
-            </ul>
+            <div class="skills">
+                <!-- <ul class="taught">
+                    <li><img src="@/assets/images/skills/human/politician.png" alt="politician"></li>
+                </ul>
+                <ul class="innate">
+                    <li><img src="@/assets/images/skills/human/cook.png" alt="cook"></li>
+                    <li><img src="@/assets/images/skills/human/sturdy.png" alt="sturdy"></li>
+                    <li class="select"><button class="flashing"><img src="@/assets/images/comms/newtab.png" alt="Select your new skill"></button></li>
+                    <li class="locked"><button class="crossed"><img src="@/assets/images/comms/newtab.png" alt="Select your new skill"></button></li>
+                    <li class="genome"><button><img src="@/assets/images/comms/mush.png" alt="Access the Mush Genome"></button></li>
+                </ul> -->
+            </div>
 
             <div class="actions-sheet">
                 <img src="@/assets/images/pam.png" alt="pam">
@@ -393,13 +399,16 @@ export default defineComponent ({
 }
 
 .skills {
-    display: flex;
-    flex-direction: column;
-    min-width: 32px;
-    float: right;
+    ul {
+        display: flex;
+        flex-direction: column;
+        float: right;
+        min-width: 32px;
+    }
 
     li {
         display: flex;
+        position: relative;
         align-items: center;
 
         /* justify-content: center; */
@@ -407,16 +416,47 @@ export default defineComponent ({
         height: 34px;
         padding-right: 3px;
         margin-bottom: 7px;
-        background: transparent url('~@/assets/images/skills/skillblock_gold.png') center left no-repeat;
+        background: transparent url('~@/assets/images/skills/skillblock.png') center left no-repeat;
         border-left: 1px solid #191a53;
 
-        &:nth-child(1) {
-            background: transparent url('~@/assets/images/skills/skillblock.png') center left no-repeat;
+        button {
+            @include button-style();
+            width: 22px;
+            height: 22px;
+            padding: 0;
+
+            img {
+                top: 0;
+                padding: 0;
+            }
         }
 
-        &:nth-child(2) {
-            background: transparent url('~@/assets/images/skills/skillblock_once.png') center left no-repeat;
+        &.locked {
+            background: transparent url('~@/assets/images/skills/skillblock_gold.png') center left no-repeat;
+
+            &:before {
+                content: "";
+                position: absolute;
+                z-index: 1;
+                top: 14px;
+                left: 13px;
+                background: transparent url('~@/assets/images/skills/lock_gold.png') center no-repeat;
+                width: 20px;
+                height: 23px;
+                padding-top: 7px;
+                font-family: $font-days-one;
+                font-size: .9em;
+                text-align: center;
+            }
         }
+
+        &:nth-child(2).locked:before { content:"2"; }
+        &:nth-child(3).locked:before { content:"3"; }
+        &:nth-child(4).locked:before { content:"4"; }
+
+        &.innate.locked { border: 1px solid red; }
+
+        &.genome { background-image: url('~@/assets/images/skills/skillblock_once.png'); }
     }
 }
 

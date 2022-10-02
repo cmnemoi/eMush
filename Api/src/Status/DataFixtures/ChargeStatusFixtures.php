@@ -9,10 +9,10 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -41,6 +41,10 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const COMBUSTION_CHAMBER = 'combustion_chamber';
     public const DRUG_EATEN_STATUS = 'drug_eaten_status';
     public const DID_THE_THING_STATUS = 'did_the_thing_status';
+    public const DID_BORING_SPEECH_STATUS = 'did_boring_speech_status';
+    public const ALREADY_WASHED_IN_THE_SINK = 'already_washed_in_the_sink';
+
+    public const UPDATING_TRACKIE_STATUS = 'updating_trackie_status';
 
     public function load(ObjectManager $manager): void
     {
@@ -288,6 +292,42 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($did_the_thing);
 
+        $did_boring_speech = new ChargeStatusConfig();
+        $did_boring_speech
+            ->setName(PlayerStatusEnum::DID_BORING_SPEECH)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
+            ->setStartCharge(1)
+            ->setAutoRemove(true)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($did_boring_speech);
+
+        $already_washed_in_the_sink = new ChargeStatusConfig();
+        $already_washed_in_the_sink
+            ->setName(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
+            ->setStartCharge(1)
+            ->setAutoRemove(true)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($did_boring_speech);
+
+        $updatingTrackie = new ChargeStatusConfig();
+        $updatingTrackie
+            ->setName(EquipmentStatusEnum::UPDATING)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PUBLIC)
+            ->setStartCharge(4)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
+            ->setAutoRemove(true)
+            ->setGameConfig($gameConfig)
+        ;
+        $manager->persist($updatingTrackie);
+
         $manager->flush();
 
         $this->addReference(self::SCOOTER_CHARGE, $scooterCharge);
@@ -309,6 +349,9 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::COMBUSTION_CHAMBER, $combustionChamber);
         $this->addReference(self::DRUG_EATEN_STATUS, $drug_eaten);
         $this->addReference(self::DID_THE_THING_STATUS, $did_the_thing);
+        $this->addReference(self::DID_BORING_SPEECH_STATUS, $did_boring_speech);
+        $this->addReference(self::UPDATING_TRACKIE_STATUS, $updatingTrackie);
+        $this->addReference(self::ALREADY_WASHED_IN_THE_SINK, $already_washed_in_the_sink);
     }
 
     public function getDependencies(): array

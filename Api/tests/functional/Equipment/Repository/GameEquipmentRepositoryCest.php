@@ -30,14 +30,14 @@ class GameEquipmentRepositoryCest
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'name' => 'daedalus_1']);
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus]);
 
         /** @var Daedalus $daedalus2 */
-        $daedalus2 = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus2 = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'name' => 'daedalus_2']);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus2]);
 
@@ -172,7 +172,7 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $gameEquipment = new GameEquipment();
         $gameEquipment
             ->setName('equipment 1')
@@ -254,7 +254,7 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        //Case of a game Equipment
+        // Case of a game Equipment
         $door = new Door();
         $door
             ->setName('door 1')
@@ -308,14 +308,14 @@ class GameEquipmentRepositoryCest
         $gameConfig = $I->have(GameConfig::class);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'name' => 'daedalus_1']);
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus]);
 
         /** @var Daedalus $daedalus2 */
-        $daedalus2 = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus2 = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'name' => 'daedalus_2']);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus2]);
 

@@ -1,34 +1,16 @@
 <template>
     <div>
-        <a v-if="! loggedIn" class="login-button" @click="openPopup">{{ $t('login') }}</a>
-        <a v-if="loggedIn" class="logout-button" @click="logout">{{ $t('logout') }}</a>
-        <PopUp :is-open="isPassphrasePopupOpen" @close="closePopup">
-            <span>{{ $t('alpha.description') }}</span>
-            <label for="passphrase" class="passphrase">{{ $t('alpha.passphrase') }}</label>
-            <input
-                id="passphrase"
-                ref="passphrase_input"
-                v-model="passphrase"
-                type="text"
-                @keyup.enter="submitPassphrase"
-            >
-            <button type="submit" @click="submitPassphrase">
-                {{ $t('alpha.valide') }}
-            </button>
-        </PopUp>
+        <a v-if="!loggedIn" class="login-button" @click="redirectToLogin">{{ $t('login') }}</a>
+        <a v-else class="logout-button" @click="logout">{{ $t('logout') }}</a>
     </div>
 </template>
 
 <script lang="ts">
 import { mapActions, mapGetters } from "vuex";
-import PopUp from "@/components/Utils/PopUp.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent ({
     name: 'Login',
-    components: {
-        PopUp
-    },
     data() {
         return {
             isPassphrasePopupOpen: false,
@@ -43,25 +25,9 @@ export default defineComponent ({
     },
     methods: {
         ...mapActions('auth', [
-            'redirect',
+            'redirectToLogin',
             'logout'
         ]),
-        submitPassphrase(): void {
-            if (this.passphrase !== "") {
-                this.redirect({ passphrase: this.passphrase });
-                this.passphrase = "";
-            }
-            this.closePopup();
-        },
-        async openPopup(): Promise<void> {
-            this.isPassphrasePopupOpen = true;
-            await this.$nextTick;
-            const ref: HTMLElement = this.$refs.passphrase_input as HTMLHtmlElement;
-            ref.focus();
-        },
-        closePopup(): void {
-            this.isPassphrasePopupOpen = false;
-        }
     }
 });
 </script>

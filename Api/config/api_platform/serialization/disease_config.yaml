@@ -1,0 +1,24 @@
+Mush\Disease\Entity\Config\DiseaseConfig:
+  attributes:                          # optional
+    id:
+      groups: [ 'disease_config_read' ]
+    name:
+      groups: [ 'disease_config_read', 'disease_config_write' ]
+    gameConfig:
+      groups: [ 'disease_config_read', 'disease_config_write' ]
+    type:
+      groups: [ 'disease_config_read', 'disease_config_write' ]
+    modifierConfigs:
+      groups: [ 'disease_config_read', 'disease_config_write' ]
+    symptomConfigs:
+      groups: [ 'disease_config_read', 'disease_config_write' ]
+    resistance:
+      groups: [ 'disease_config_read', 'disease_config_write' ]
+    delayMin:
+      groups: [ 'disease_config_read', 'disease_config_write' ]
+    delayLength:
+      groups: [ 'disease_config_read', 'disease_config_write' ]
+    diseasePointMin:
+      groups: [ 'disease_config_read', 'disease_config_write' ]
+    diseasePointLength:
+      groups: [ 'disease_config_read', 'disease_config_write' ]

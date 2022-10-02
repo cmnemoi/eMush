@@ -1,5 +1,5 @@
 <template>
-    <div class="purgatory-container">
+    <div class="box-container">
         <div v-if="deadPlayerInfo" class="death-summary">
             <Title :title="$t('deathpage.title')" />
             <div class="char-sheet">
@@ -125,19 +125,12 @@ export default defineComponent ({
 
 <style lang="scss" scoped>
 
-.purgatory-container {
-    flex-flow: row wrap;
-    max-width: 1080px;
-    width: 100%;
-    margin: 36px auto;
-    padding: 12px 12px 42px 12px;
-    z-index: 10;
-    font-size: 1.05rem;
-}
+.box-container { flex-flow: row wrap; }
 
 .death-summary {
     flex: 1;
     padding-right: 10px;
+    font-size: 1.05rem;
 }
 
 h1 {

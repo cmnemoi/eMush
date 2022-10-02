@@ -4,6 +4,7 @@ namespace Mush\Tests\Place\Event;
 
 use App\Tests\FunctionalTester;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -13,6 +14,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
@@ -20,7 +22,6 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
@@ -117,21 +118,37 @@ class RoomEventCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
 
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        /** @var Place $roomWithPlayers */
+        $roomWithPlayers = $I->have(Place::class, ['daedalus' => $daedalus]);
+        /** @var Place $roomWithoutPlayers */
+        $roomWithoutPlayers = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        $rooms = new ArrayCollection([$roomWithPlayers, $roomWithoutPlayers]);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $roomWithPlayers, 'healthPoint' => 10, 'characterConfig' => $characterConfig]);
 
-        $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
+        // filter rooms with players
+        $rooms = $rooms->filter(function (Place $room) {
+            return $room->getPlayers()->getPlayerAlive()->count() > 0;
+        });
 
-        $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
+        // apply tremor on rooms with players
+        $rooms->map(function (Place $room) use ($time) {
+            $roomEvent = new RoomEvent($room, EventEnum::NEW_CYCLE, $time);
+            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::TREMOR);
+        });
 
         $I->assertEquals(8, $player->getHealthPoint());
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $roomWithPlayers->getId(),
+            'log' => LogEnum::TREMOR_GRAVITY,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+        $I->dontSeeInRepository(RoomLog::class, [
+            'place' => $roomWithoutPlayers->getId(),
             'log' => LogEnum::TREMOR_GRAVITY,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);

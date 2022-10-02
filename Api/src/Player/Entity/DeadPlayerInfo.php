@@ -6,48 +6,32 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Player\Enum\EndCauseEnum;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class DeadPlayerInfo
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    /**
-     * @ORM\OneToOne (targetEntity="Mush\Player\Entity\Player")
-     */
+    #[ORM\OneToOne(targetEntity: Player::class)]
     private Player $player;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $message = null;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $endStatus = EndCauseEnum::NO_INFIRMERY;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $dayDeath;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $cycleDeath;
 
-    /**
-     * @ORM\Column(type="array")
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private ?array $likes;
 
     public function getId(): ?int
@@ -60,10 +44,7 @@ class DeadPlayerInfo
         return $this->player;
     }
 
-    /**
-     * @return static
-     */
-    public function setPlayer(Player $player): self
+    public function setPlayer(Player $player): static
     {
         $this->player = $player;
 
@@ -75,7 +56,7 @@ class DeadPlayerInfo
         return $this->message;
     }
 
-    public function setMessage(string $message): self
+    public function setMessage(string $message): static
     {
         $this->message = $message;
 
@@ -87,10 +68,7 @@ class DeadPlayerInfo
         return $this->dayDeath;
     }
 
-    /**
-     * @return static
-     */
-    public function setDayDeath(int $dayDeath): self
+    public function setDayDeath(int $dayDeath): static
     {
         $this->dayDeath = $dayDeath;
 
@@ -102,10 +80,7 @@ class DeadPlayerInfo
         return $this->cycleDeath;
     }
 
-    /**
-     * @return static
-     */
-    public function setCycleDeath(int $cycleDeath): self
+    public function setCycleDeath(int $cycleDeath): static
     {
         $this->cycleDeath = $cycleDeath;
 
@@ -117,10 +92,7 @@ class DeadPlayerInfo
         return $this->likes;
     }
 
-    /**
-     * @return static
-     */
-    public function setLikes(array $likes): self
+    public function setLikes(array $likes): static
     {
         $this->likes = $likes;
 
@@ -132,10 +104,7 @@ class DeadPlayerInfo
         return $this->endStatus;
     }
 
-    /**
-     * @return static
-     */
-    public function setEndStatus(string $endStatus): self
+    public function setEndStatus(string $endStatus): static
     {
         $this->endStatus = $endStatus;
 

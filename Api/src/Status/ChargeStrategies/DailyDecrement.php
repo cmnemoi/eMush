@@ -12,7 +12,7 @@ class DailyDecrement extends AbstractChargeStrategy
 
     public function apply(ChargeStatus $status, string $reason): ?ChargeStatus
     {
-        //Only applied on cycle 1
+        // Only applied on cycle 1
         if ($reason !== EventEnum::NEW_DAY) {
             return $status;
         }

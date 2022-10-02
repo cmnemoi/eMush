@@ -1,0 +1,16 @@
+Mush\Player\Entity\Config\CharacterConfig:
+  shortName: 'CharacterConfig'
+  description: 'eMush Characters Config'
+  attributes:
+    pagination_items_per_page: 25
+    normalization_context:
+      groups: [ 'character_config_read' ]
+    denormalization_context:
+      groups: [ 'character_config_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+  itemOperations:
+    get: ~
+    put:
+      security: 'is_granted("ROLE_ADMIN")'

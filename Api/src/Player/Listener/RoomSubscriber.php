@@ -8,7 +8,7 @@ use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -45,7 +45,7 @@ class RoomSubscriber implements EventSubscriberInterface
         foreach ($room->getPlayers()->getPlayerAlive() as $player) {
             $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getTremorPlayerDamage());
 
-            $playerModifierEvent = new PlayerModifierEvent(
+            $playerModifierEvent = new PlayerVariableEvent(
                 $player,
                 PlayerVariableEnum::HEALTH_POINT,
                 -$damage,
@@ -68,7 +68,7 @@ class RoomSubscriber implements EventSubscriberInterface
         foreach ($room->getPlayers()->getPlayerAlive() as $player) {
             $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getElectricArcPlayerDamage());
 
-            $playerModifierEvent = new PlayerModifierEvent(
+            $playerModifierEvent = new PlayerVariableEvent(
                 $player,
                 PlayerVariableEnum::HEALTH_POINT,
                 -$damage,

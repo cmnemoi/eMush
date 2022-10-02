@@ -48,7 +48,7 @@ class ActionSubscriberCest
 
         $this->actionSubscriber->onResultAction($actionEvent);
 
-        $I->seeInRepository(RoomLog::class, ['player' => $player, 'log' => 'no_log_yet_' . ActionEnum::GET_UP]);
+        $I->dontSeeInRepository(RoomLog::class, ['player' => $player]);
 
         $actionResult = new Success();
         $actionEvent->setActionResult($actionResult);

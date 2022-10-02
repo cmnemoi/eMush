@@ -2,9 +2,9 @@
 
 namespace Mush\Status\Normalizer;
 
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;

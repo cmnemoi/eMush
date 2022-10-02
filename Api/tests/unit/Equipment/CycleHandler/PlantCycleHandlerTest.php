@@ -76,7 +76,7 @@ class PlantCycleHandlerTest extends TestCase
         $plantType = new Plant();
         $plant->setMechanics(new ArrayCollection([$plantType]));
 
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once(); //Plant should not get disease
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once(); // Plant should not get disease
 
         $difficultyConfig = new DifficultyConfig();
         $difficultyConfig->setPlantDiseaseRate(50);
@@ -140,7 +140,7 @@ class PlantCycleHandlerTest extends TestCase
         $chargeStatus = new ChargeStatus($gamePlant, $chargeStatusConfig);
         $chargeStatus->setCharge(1);
 
-        //Plant get disease and grow
+        // Plant get disease and grow
         $chargeStatus->setCharge(10);
 
         $gamePlant
@@ -189,7 +189,7 @@ class PlantCycleHandlerTest extends TestCase
         $gamePlant
             ->setEquipment($plant);
 
-        //Plant already diseased can't get disease
+        // Plant already diseased can't get disease
         $diseaseConfig = new StatusConfig();
         $diseaseConfig->setName(EquipmentStatusEnum::PLANT_DISEASED);
         $diseaseStatus = new Status($gamePlant, $diseaseConfig);
@@ -265,7 +265,7 @@ class PlantCycleHandlerTest extends TestCase
             )->once()
         ;
 
-        //Mature Plant, no problem
+        // Mature Plant, no problem
         $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, $time);
 
         $this->assertCount(1, $room->getEquipments());
@@ -323,7 +323,7 @@ class PlantCycleHandlerTest extends TestCase
                 $event->getQuantity() === 10)
             ->once();
 
-        //Thirsty plant
+        // Thirsty plant
         $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, new \DateTime());
 
         $this->assertCount(1, $room->getEquipments());
@@ -385,7 +385,7 @@ class PlantCycleHandlerTest extends TestCase
             )->once()
         ;
 
-        //Dried out plant
+        // Dried out plant
         $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, $time);
 
         $this->assertCount(1, $room->getEquipments());

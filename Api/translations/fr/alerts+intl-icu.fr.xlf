@@ -12,7 +12,7 @@
             </segment>
             <segment id="report">
                 <source>broken_doors.report</source>
-                <target>{character} a reporté une porte bloquée {loc_prep}{place}.</target>
+                <target>**{character}** a reporté une porte bloquée {loc_prep}**{place}**.</target>
             </segment>
         </unit>
 
@@ -27,14 +27,14 @@
             </segment>
             <segment id="report">
                 <source>fires.report</source>
-                <target>{character} a reporté un incendie {loc_prep}{place}.</target>
+                <target>**{character}** a reporté un incendie {loc_prep}**{place}**.</target>
             </segment>
         </unit>
 
         <unit id="broken_equipments">
             <segment id="name">
                 <source>broken_equipments.name</source>
-                <target>{quantity, plural, one {# Equipement hors-service} other {# Equipements hors-service}}</target>
+                <target>{quantity, plural, one {# Équipement hors-service} other {# Équipements hors-service}}</target>
             </segment>
             <segment id="description">
                 <source>broken_equipments.description</source>
@@ -42,7 +42,7 @@
             </segment>
             <segment id="report">
                 <source>broken_equipments.report</source>
-                <target>{character} a reporté un équipement endomagé {loc_prep}{place}.</target>
+                <target>**{character}** a reporté un équipement endommagé {loc_prep}**{place}**.</target>
             </segment>
         </unit>
 
@@ -98,7 +98,7 @@
             </segment>
             <segment id="description">
                 <source>low_hull.description</source>
-                <target>La structure du vaisseau est mal en point. Contactez un technicien ou mettez vous au boulot !</target>
+                <target>La structure du vaisseau est mal en point. Contactez un technicien ou mettez-vous au boulot !</target>
             </segment>
         </unit>
 

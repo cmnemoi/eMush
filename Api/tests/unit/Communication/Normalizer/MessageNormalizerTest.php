@@ -5,8 +5,15 @@ namespace Mush\Test\Communication\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Communication\Entity\Message;
+use Mush\Communication\Enum\DiseaseMessagesEnum;
 use Mush\Communication\Normalizer\MessageNormalizer;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Disease\Entity\Collection\SymptomConfigCollection;
+use Mush\Disease\Entity\Config\DiseaseConfig;
+use Mush\Disease\Entity\Config\SymptomConfig;
+use Mush\Disease\Entity\PlayerDisease;
+use Mush\Disease\Enum\DiseaseStatusEnum;
+use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -61,7 +68,8 @@ class MessageNormalizerTest extends TestCase
 
         $this->translationService->shouldReceive('translate')->andReturn('translatedName');
 
-        $normalizedData = $this->normalizer->normalize($message);
+        $context = ['currentPlayer' => new Player()];
+        $normalizedData = $this->normalizer->normalize($message, null, $context);
 
         $this->assertEquals([
             'id' => null,
@@ -104,7 +112,8 @@ class MessageNormalizerTest extends TestCase
             ->andReturn('translatedName')
         ;
 
-        $normalizedData = $this->normalizer->normalize($message);
+        $context = ['currentPlayer' => new Player()];
+        $normalizedData = $this->normalizer->normalize($message, null, $context);
 
         $this->assertEquals([
             'id' => null,
@@ -164,7 +173,8 @@ class MessageNormalizerTest extends TestCase
             ->once()
         ;
 
-        $normalizedData = $this->normalizer->normalize($neronMessage);
+        $context = ['currentPlayer' => new Player()];
+        $normalizedData = $this->normalizer->normalize($neronMessage, null, $context);
 
         $this->assertEquals([
             'id' => null,
@@ -178,6 +188,161 @@ class MessageNormalizerTest extends TestCase
                 'createdAt' => $createdAt->format(\DateTime::ATOM),
                 'child' => [],
             ]],
+        ], $normalizedData);
+    }
+
+    public function testNormalizeDeafPlayerMessage()
+    {
+        $playerConfig = new CharacterConfig();
+        $playerConfig->setName('name');
+
+        $player = new Player();
+        $player->setCharacterConfig($playerConfig);
+
+        $symptomConfig = new SymptomConfig(SymptomEnum::DEAF);
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
+        $playerDisease = new PlayerDisease();
+        $playerDisease
+            ->setDiseaseConfig($diseaseConfig)
+            ->setStatus(DiseaseStatusEnum::ACTIVE)
+        ;
+
+        $player->addMedicalCondition($playerDisease);
+
+        $createdAt = new \DateTime();
+
+        $message = new Message();
+        $message
+            ->setAuthor($player)
+            ->setMessage('message')
+            ->setCreatedAt($createdAt)
+        ;
+
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('name.name', [], 'characters')
+            ->andReturn('translatedName')
+        ;
+
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with(DiseaseMessagesEnum::DEAF, [], 'disease_message')
+            ->andReturn('...')
+        ;
+
+        $context = ['currentPlayer' => $player];
+        $normalizedData = $this->normalizer->normalize($message, null, $context);
+
+        $this->assertEquals([
+            'id' => null,
+            'character' => ['key' => 'name', 'value' => 'translatedName'],
+            'message' => '...',
+            'createdAt' => $createdAt->format(\DateTime::ATOM),
+            'child' => [],
+        ], $normalizedData);
+    }
+
+    public function testNormalizeParanoiacPlayerMessage()
+    {
+        $playerConfig = new CharacterConfig();
+        $playerConfig->setName('name');
+
+        $player = new Player();
+        $player->setCharacterConfig($playerConfig);
+
+        $otherPlayer = new Player();
+        $otherPlayer->setCharacterConfig($playerConfig);
+
+        $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
+        $playerDisease = new PlayerDisease();
+        $playerDisease
+            ->setDiseaseConfig($diseaseConfig)
+            ->setStatus(DiseaseStatusEnum::ACTIVE)
+        ;
+
+        $player->addMedicalCondition($playerDisease);
+
+        $createdAt = new \DateTime();
+
+        $message = new Message();
+        $message
+            ->setAuthor($otherPlayer)
+            ->setMessage('modified message')
+            ->setCreatedAt($createdAt)
+            ->setTranslationParameters([
+                DiseaseMessagesEnum::MODIFICATION_CAUSE => SymptomEnum::PARANOIA_MESSAGES,
+                DiseaseMessagesEnum::ORIGINAL_MESSAGE => 'original message',
+            ])
+        ;
+
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('name.name', [], 'characters')
+            ->andReturn('translatedName')
+        ;
+
+        $context = ['currentPlayer' => $player];
+        $normalizedData = $this->normalizer->normalize($message, null, $context);
+
+        $this->assertEquals([
+            'id' => null,
+            'character' => ['key' => 'name', 'value' => 'translatedName'],
+            'message' => 'modified message',
+            'createdAt' => $createdAt->format(\DateTime::ATOM),
+            'child' => [],
+        ], $normalizedData);
+    }
+
+    public function testNormalizeParanoiacPlayerMessageSelf()
+    {
+        $playerConfig = new CharacterConfig();
+        $playerConfig->setName('name');
+
+        $player = new Player();
+        $player->setCharacterConfig($playerConfig);
+
+        $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
+        $playerDisease = new PlayerDisease();
+        $playerDisease
+            ->setDiseaseConfig($diseaseConfig)
+            ->setStatus(DiseaseStatusEnum::ACTIVE)
+        ;
+
+        $player->addMedicalCondition($playerDisease);
+
+        $createdAt = new \DateTime();
+
+        $message = new Message();
+        $message
+            ->setAuthor($player)
+            ->setMessage('modified message')
+            ->setCreatedAt($createdAt)
+            ->setTranslationParameters([
+                DiseaseMessagesEnum::MODIFICATION_CAUSE => SymptomEnum::PARANOIA_MESSAGES,
+                DiseaseMessagesEnum::ORIGINAL_MESSAGE => 'original message',
+            ])
+        ;
+
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('name.name', [], 'characters')
+            ->andReturn('translatedName')
+        ;
+
+        $context = ['currentPlayer' => $player];
+        $normalizedData = $this->normalizer->normalize($message, null, $context);
+
+        $this->assertEquals([
+            'id' => null,
+            'character' => ['key' => 'name', 'value' => 'translatedName'],
+            'message' => 'original message',
+            'createdAt' => $createdAt->format(\DateTime::ATOM),
+            'child' => [],
         ], $normalizedData);
     }
 }

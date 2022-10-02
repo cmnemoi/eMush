@@ -2,11 +2,14 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-intl": "*",
+        "ext-openssl": "*",
+        "api-platform/core": "^2.6",
         "composer/package-versions-deprecated": "^1.11",
+        "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.3",
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.8",
@@ -17,42 +20,54 @@
         "lexik/jwt-authentication-bundle": "^2.11",
         "nelmio/api-doc-bundle": "^4.2",
         "nelmio/cors-bundle": "^2.1",
+        "phpdocumentor/reflection-docblock": "^5.3",
+        "phpstan/phpdoc-parser": "^1.6",
         "sensio/framework-extra-bundle": "^6.1",
-        "symfony/asset": "5.4.*",
-        "symfony/console": "5.4.*",
-        "symfony/dotenv": "5.4.*",
-        "symfony/flex": "^1.13",
-        "symfony/framework-bundle": "5.4.*",
+        "symfony/asset": "6.1.*",
+        "symfony/console": "6.1.*",
+        "symfony/dotenv": "6.1.*",
+        "symfony/expression-language": "6.1.*",
+        "symfony/flex": "^2.2",
+        "symfony/framework-bundle": "6.1.*",
         "symfony/monolog-bundle": "^3.6",
-        "symfony/serializer": "5.4.*",
-        "symfony/translation": "5.4.*",
-        "symfony/twig-bundle": "5.4.*",
-        "symfony/validator": "5.4.*",
-        "symfony/yaml": "5.4.*",
+        "symfony/property-access": "6.1.*",
+        "symfony/property-info": "6.1.*",
+        "symfony/proxy-manager-bridge": "6.1.*",
+        "symfony/security-bundle": "6.1.*",
+        "symfony/serializer": "6.1.*",
+        "symfony/translation": "6.1.*",
+        "symfony/twig-bundle": "6.1.*",
+        "symfony/uid": "6.1.*",
+        "symfony/validator": "6.1.*",
+        "symfony/yaml": "6.1.*",
         "twig/extra-bundle": "^3.3",
-        "twig/twig": "^3.3",
-        "ext-openssl": "*"
+        "twig/twig": "^3.3"
     },
     "require-dev": {
-        "codeception/codeception": "^4.1",
-        "codeception/module-asserts": "^2.0",
-        "codeception/module-datafactory": "^2.0",
-        "codeception/module-doctrine2": "^2.0",
-        "codeception/module-symfony": "^2.0",
+        "codeception/codeception": "^5.0",
+        "codeception/module-asserts": "^3.0",
+        "codeception/module-datafactory": "^3.0",
+        "codeception/module-doctrine2": "^3.0",
+        "codeception/module-phpbrowser": "^3.0",
+        "codeception/module-rest": "^3.1",
+        "codeception/module-symfony": "^3.1",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "friendsofphp/php-cs-fixer": "^3.0",
         "mockery/mockery": "^1.4",
         "phpmd/phpmd": "^2.10",
         "squizlabs/php_codesniffer": "^3.6",
         "vimeo/psalm": "^4.10",
-        "weirdan/doctrine-psalm-plugin": "1.0.*"
+        "weirdan/doctrine-psalm-plugin": "^2.3"
     },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": true
+        }
     },
     "autoload": {
         "classmap": ["src/"],
@@ -93,7 +108,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "5.4.*"
+            "require": "6.1.*"
         }
     }
 }

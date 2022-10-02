@@ -1,0 +1,4 @@
+Mush\Equipment\Entity\EquipmentMechanic:
+  attributes:
+    id:
+      groups: [ 'equipment_mechanic_read' ]

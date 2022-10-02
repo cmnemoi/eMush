@@ -10,7 +10,8 @@ import IsometricGeom from "@/game/scenes/isometricGeom";
 
 /*eslint no-unused-vars: "off"*/
 export default class DoorGroundObject extends InteractObject {
-    protected door: DoorEntity;
+    public door: DoorEntity;
+    private particles: Phaser.GameObjects.Particles.ParticleEmitterManager | null = null;
 
     constructor(
         scene: DaedalusScene,
@@ -19,12 +20,14 @@ export default class DoorGroundObject extends InteractObject {
         tileset: Phaser.Tilemaps.Tileset,
         firstFrame: number,
         isFlipped: { x: boolean, y: boolean},
-        door: DoorEntity,
+        door: DoorEntity
     )
     {
         super(scene, cart_coords, iso_geom, tileset, firstFrame, door.key, isFlipped, true, false);
 
         this.door = door;
+
+        this.handleBroken();
 
         if (firstFrame === 5 || firstFrame === 15){
             this.setDepth(0);
@@ -36,6 +39,45 @@ export default class DoorGroundObject extends InteractObject {
         this.on('pointerdown', () => {this.onDoorClicked();}, this);
 
         this.canMove();
+        this.updateDoor(door);
+    }
+
+    updateDoor(door: DoorEntity | null = null) {
+        if (door !== null) {
+            this.door = door;
+        }
+
+        this.handleBroken();
+    }
+
+    handleBroken(): void
+    {
+        if (this.door.isBroken && this.particles === null) {
+            this.particles = this.scene.add.particles('smoke_particle');
+
+            this.particles.createEmitter({
+                x: 0,
+                y: 0,
+                lifespan: { min: 1000, max: 1200 },
+                speed: { min: 10, max: 30 },
+                angle: { min: 260, max: 280 },
+                gravityY: 10,
+                scale: { start: 0.5, end: 2, ease: 'Quad.easeIn' },
+                alpha: { start: 0.5, end: 0, ease: 'Quad.easeIn' },
+                tint: [ 0x666666, 0xFFFFFF, 0x10EEEEEE ],
+                quantity: 1,
+                frequency: 100000/(this.width * this.height ),
+                //@ts-ignore
+                emitZone: { type: 'random', source: this }
+            });
+        } else if (this.particles !== null  && !this.door.isBroken) {
+            this.particles.destroy();
+            this.particles = null;
+        }
+
+        if (this.particles !== null) {
+            this.particles.setDepth(this.depth + 1);
+        }
     }
 
     getMoveAction(): Action
@@ -52,12 +94,12 @@ export default class DoorGroundObject extends InteractObject {
 
     onDoorClicked(): void
     {
-        console.log('coucou');
-        console.log(this.door);
         if(!this.door.isBroken && this.canMove()) {
             //if player click on the door
             const moveAction = this.getMoveAction();
             store.dispatch('action/executeAction', { target: this.door, action: moveAction });
+            store.dispatch('room/selectTarget', { target: null });
+            store.dispatch('room/closeInventory');
         } else {
             //If the door is broken propose the repair action
             store.dispatch('room/selectTarget', { target: this.door });

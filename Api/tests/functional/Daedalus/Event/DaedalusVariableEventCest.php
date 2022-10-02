@@ -50,14 +50,13 @@ class DaedalusVariableEventCest
 
         $I->assertEquals(30, $daedalus->getOxygen());
 
-        //add an oxygen tank
+        // add an oxygen tank
         $modifierCondition = new ModifierCondition(ModifierConditionEnum::REASON);
         $modifierCondition->setCondition(EventEnum::NEW_CYCLE);
         $I->haveInRepository($modifierCondition);
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setGameConfig($gameConfig)
             ->setTarget(DaedalusVariableEnum::OXYGEN)
             ->setDelta(1)
             ->setReach(ModifierReachEnum::DAEDALUS)

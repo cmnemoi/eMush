@@ -10,6 +10,10 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Disease\Entity\Config\DiseaseCauseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
+use Mush\Disease\Enum\DiseaseCauseEnum;
+use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
@@ -47,6 +51,23 @@ class CycleEventCest
             ->setScope(ChannelScopeEnum::PUBLIC)
         ;
         $I->haveInRepository($channel);
+
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setGameConfig($gameConfig)
+            ->setName(DiseaseEnum::FOOD_POISONING)
+        ;
+        $I->haveInRepository($diseaseConfig);
+
+        $diseaseCause = new DiseaseCauseConfig();
+        $diseaseCause
+            ->setName(DiseaseCauseEnum::TRAUMA)
+            ->setDiseases([
+               DiseaseEnum::FOOD_POISONING => 2,
+            ])
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($diseaseCause);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);

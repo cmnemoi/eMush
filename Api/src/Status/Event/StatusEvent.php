@@ -3,10 +3,10 @@
 namespace Mush\Status\Event;
 
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Event\LoggableEventInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\StatusHolderInterface;

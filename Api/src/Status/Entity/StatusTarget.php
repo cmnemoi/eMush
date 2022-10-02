@@ -7,41 +7,27 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class StatusTarget
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\Status", mappedBy="owner", cascade={"ALL"})
-     */
+    #[ORM\OneToOne(mappedBy: 'owner', targetEntity: Status::class, cascade: ['ALL'])]
     private ?Status $owner = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\Status", mappedBy="target", cascade={"ALL"})
-     */
+    #[ORM\OneToOne(mappedBy: 'target', targetEntity: Status::class, cascade: ['ALL'])]
     private ?Status $target = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player", inversedBy="statuses")
-     */
+    #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'statuses')]
     private ?Player $player = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\GameEquipment", inversedBy="statuses")
-     */
+    #[ORM\ManyToOne(targetEntity: GameEquipment::class, inversedBy: 'statuses')]
     private ?GameEquipment $gameEquipment = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Place\Entity\Place", inversedBy="statuses")
-     */
+    #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'statuses')]
     private ?Place $place = null;
 
     public function getId(): ?int

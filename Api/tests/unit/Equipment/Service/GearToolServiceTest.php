@@ -267,7 +267,7 @@ class GearToolServiceTest extends TestCase
         $usedTool = $this->service->getUsedTool($player, ActionEnum::REPAIR);
         $this->assertEquals($gameItem2, $usedTool);
 
-        //Two tool with the same action but 1 with charges
+        // Two tool with the same action but 1 with charges
         $chargeConfig = new ChargeStatusConfig();
         $chargeConfig->setName(EquipmentStatusEnum::FUEL_CHARGE)->setDischargeStrategy(ActionEnum::REPAIR);
         $chargeStatus = new ChargeStatus($gameItem, $chargeConfig);
@@ -280,7 +280,7 @@ class GearToolServiceTest extends TestCase
         $usedTool = $this->service->getUsedTool($player, ActionEnum::REPAIR);
         $this->assertEquals($gameItem2, $usedTool);
 
-        //Two tool with the same action but 1 is charged and the other have no charge left
+        // Two tool with the same action but 1 is charged and the other have no charge left
         $chargeStatus2 = new ChargeStatus($gameItem2, $chargeConfig);
         $chargeStatus2
             ->setCharge(0)

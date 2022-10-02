@@ -23,7 +23,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_DESTROYED => ['onEquipmentDestroyed', 10], //change in modifier must be applied before the item is totally removed
+            EquipmentEvent::EQUIPMENT_DESTROYED => ['onEquipmentDestroyed', 10], // change in modifier must be applied before the item is totally removed
             EquipmentEvent::EQUIPMENT_TRANSFORM => [['onEquipmentDestroyed'], ['onInventoryOverflow']],
             EquipmentEvent::EQUIPMENT_CREATED => 'onInventoryOverflow',
         ];

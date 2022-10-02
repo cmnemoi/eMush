@@ -13,8 +13,8 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 

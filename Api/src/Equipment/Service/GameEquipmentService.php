@@ -4,6 +4,7 @@ namespace Mush\Equipment\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Error;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -18,8 +19,9 @@ use Mush\Equipment\Event\EquipmentInitEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -29,7 +31,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     private EntityManagerInterface $entityManager;
     private GameEquipmentRepository $repository;
     private EquipmentServiceInterface $equipmentService;
-    private EquipmentEffectServiceInterface $equipmentEffectService;
     private RandomServiceInterface $randomService;
     private EventDispatcherInterface $eventDispatcher;
 
@@ -37,14 +38,12 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         EntityManagerInterface $entityManager,
         GameEquipmentRepository $repository,
         EquipmentServiceInterface $equipmentService,
-        EquipmentEffectServiceInterface $equipmentEffectService,
         RandomServiceInterface $randomService,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->equipmentService = $equipmentService;
-        $this->equipmentEffectService = $equipmentEffectService;
         $this->randomService = $randomService;
         $this->eventDispatcher = $eventDispatcher;
     }
@@ -65,7 +64,9 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     public function findById(int $id): ?GameEquipment
     {
-        return $this->repository->find($id);
+        $equipment = $this->repository->find($id);
+
+        return $equipment instanceof GameEquipment ? $equipment : null;
     }
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ArrayCollection
@@ -88,7 +89,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         EquipmentConfig $equipmentConfig,
         EquipmentHolderInterface $holder,
         string $reason,
-        \DateTime $time
+        \DateTime $time,
     ): GameEquipment {
         if ($equipmentConfig instanceof ItemConfig) {
             $gameEquipment = $equipmentConfig->createGameItem();
@@ -101,6 +102,14 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         $this->persist($gameEquipment);
 
         $gameEquipment = $this->initMechanics($gameEquipment, $holder->getPlace()->getDaedalus(), $reason);
+
+        if ($equipmentConfig->isPersonal()) {
+            if (!($holder instanceof Player)) {
+                throw new Error('holder should be a player');
+            }
+            $gameEquipment->setOwner($holder);
+            $this->persist($gameEquipment);
+        }
 
         $equipmentEvent = new EquipmentInitEvent($gameEquipment, $equipmentConfig, $reason, $time);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentInitEvent::NEW_EQUIPMENT);

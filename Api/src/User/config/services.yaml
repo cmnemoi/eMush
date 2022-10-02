@@ -22,7 +22,12 @@ services:
     tags: ['controller.service_arguments']
 
   Mush\User\Service\LoginService:
-    arguments: ['%env(IDENTITY_SERVER_URI)%', '%env(OAUTH_AUTHORIZATION_URI)%', '%env(OAUTH_TOKEN_URI)%', '%env(OAUTH_CALLBACK)%', '%env(OAUTH_CLIENT_ID)%', '%env(OAUTH_SECRET_ID)%']
-
-  Mush\User\Controller\LoginController:
-    arguments: ['%env(ALPHA_PASSPHRASE)%']
+    arguments: [
+      '%env(IDENTITY_SERVER_URI)%',
+      '%env(OAUTH_AUTHORIZATION_URI)%',
+      '%env(OAUTH_TOKEN_URI)%',
+      '%env(OAUTH_CALLBACK)%',
+      '%env(OAUTH_CLIENT_ID)%',
+      '%env(OAUTH_SECRET_ID)%',
+      '%env(APP_ENV)%'
+    ]

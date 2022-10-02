@@ -1,0 +1,42 @@
+Mush\Game\Entity\DifficultyConfig:
+  attributes:
+    id:
+      groups: [ 'difficulty_config_read' ]
+    gameConfig:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    equipmentBreakRate:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    doorBreakRate:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    equipmentFireBreakRate:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    startingFireRate:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    propagatingFireRate:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    hullFireDamageRate:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    tremorRate:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    electricArcRate:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    metalPlateRate:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    panicCrisisRate:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    firePlayerDamage:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    fireHullDamage:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    electricArcPlayerDamage:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    tremorPlayerDamage:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    metalPlatePlayerDamage:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    panicCrisisPlayerDamage:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    plantDiseaseRate:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    cycleDiseaseRate:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]

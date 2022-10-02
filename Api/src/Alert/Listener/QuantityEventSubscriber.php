@@ -7,7 +7,7 @@ use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class QuantityEventSubscriber implements EventSubscriberInterface
@@ -23,20 +23,20 @@ class QuantityEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            AbstractQuantityEvent::CHANGE_VARIABLE => ['onChangeVariable', -10], //Applied after player modification
+            AbstractQuantityEvent::CHANGE_VARIABLE => ['onChangeVariable', -10], // Applied after player modification
         ];
     }
 
     public function onChangeVariable(AbstractQuantityEvent $event): void
     {
-        if ($event instanceof PlayerModifierEvent) {
+        if ($event instanceof PlayerVariableEvent) {
             $this->handlePlayerChange($event);
         } elseif ($event instanceof DaedalusModifierEvent) {
             $this->handleDaedalusChange($event);
         }
     }
 
-    private function handlePlayerChange(PlayerModifierEvent $playerEvent): void
+    private function handlePlayerChange(PlayerVariableEvent $playerEvent): void
     {
         if ($playerEvent->getModifiedVariable() === PlayerVariableEnum::SATIETY) {
             $this->alertService->handleSatietyAlert($playerEvent->getPlayer()->getDaedalus());

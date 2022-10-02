@@ -31,7 +31,7 @@ class ItemEnum
     public const ROCKET_LAUNCHER = 'rocket_launcher';
     public const TRACKER = 'tracker';
     public const WALKIE_TALKIE = 'walkie_talkie';
-    public const ITRAKIE = 'itrakie';
+    public const ITRACKIE = 'itrackie';
     public const OXYGEN_CAPSULE = 'oxygen_capsule';
     public const FUEL_CAPSULE = 'fuel_capsule';
     public const APPRENTON = 'apprenton';
@@ -41,4 +41,5 @@ class ItemEnum
     public const MUSH_RESEARCH_REVIEW = 'mush_research_review';
     public const POST_IT = 'post_it';
     public const HYDROPOT = 'hydropot';
+    public const SCHRODINGER = 'schrodinger';
 }

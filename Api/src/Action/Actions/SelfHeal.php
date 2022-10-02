@@ -6,17 +6,28 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
+use Mush\Action\Validator\AreMedicalSuppliesOnReach;
 use Mush\Action\Validator\FullHealth;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
+/**
+ * implement self heal action.
+ * For 3 Action Points, this action gives back 3 health points to the player which uses it.
+ *  - +1 health point if the Ultra-healing pommade research is active (@TODO)
+ *  - +2 health point if the player has the Medic skill (@TODO).
+ *
+ * Also weakens / heals diseases
+ *
+ * More info: http://www.mushpedia.com/wiki/Medikit
+ */
 class SelfHeal extends AbstractAction
 {
-    public const BASE_HEAL = 2;
+    public const BASE_HEAL = 3;
 
     protected string $name = ActionEnum::SELF_HEAL;
 
@@ -28,18 +39,19 @@ class SelfHeal extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new FullHealth(['target' => FullHealth::PLAYER, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new AreMedicalSuppliesOnReach([
+            'groups' => ['visibility'],
+        ]));
     }
 
     protected function applyEffects(): ActionResult
     {
-        //@TODO remove diseases
+        $healedQuantity = self::BASE_HEAL;
 
-        $initialHealth = $this->player->getHealthPoint();
-
-        $playerModifierEvent = new PlayerModifierEvent(
+        $playerModifierEvent = new PlayerVariableEvent(
             $this->player,
             PlayerVariableEnum::HEALTH_POINT,
-            self::BASE_HEAL,
+            $healedQuantity,
             $this->getActionName(),
             new \DateTime()
         );
@@ -49,13 +61,11 @@ class SelfHeal extends AbstractAction
         $healEvent = new ApplyEffectEvent(
             $this->player,
             $this->player,
-            VisibilityEnum::HIDDEN,
+            VisibilityEnum::PRIVATE,
             $this->getActionName(),
             new \DateTime()
         );
         $this->eventDispatcher->dispatch($healEvent, ApplyEffectEvent::HEAL);
-
-        $healedQuantity = $this->player->getHealthPoint() - $initialHealth;
 
         $success = new Success();
 

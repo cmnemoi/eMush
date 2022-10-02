@@ -283,7 +283,7 @@ class ModifierServiceTest extends TestCase
         $action = new Action();
         $action->setName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
 
-        //Daedalus Modifier
+        // Daedalus Modifier
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
             ->setReach(ModifierReachEnum::DAEDALUS)
@@ -294,7 +294,7 @@ class ModifierServiceTest extends TestCase
         ;
         $modifier1 = new Modifier($daedalus, $modifierConfig1);
 
-        //Place Modifier
+        // Place Modifier
         $modifierConfig2 = new ModifierConfig();
         $modifierConfig2
             ->setReach(ModifierReachEnum::PLACE)
@@ -305,7 +305,7 @@ class ModifierServiceTest extends TestCase
         ;
         $modifier2 = new Modifier($room, $modifierConfig2);
 
-        //Player Modifier
+        // Player Modifier
         $modifierConfig3 = new ModifierConfig();
         $modifierConfig3
             ->setReach(ModifierReachEnum::PLAYER)
@@ -316,7 +316,7 @@ class ModifierServiceTest extends TestCase
         ;
         $modifier3 = new Modifier($player, $modifierConfig3);
 
-        //Equipment Modifier
+        // Equipment Modifier
         $modifierConfig4 = new ModifierConfig();
         $modifierConfig4
             ->setReach(ModifierReachEnum::EQUIPMENT)
@@ -355,7 +355,7 @@ class ModifierServiceTest extends TestCase
         $action = new Action();
         $action->setName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
 
-        //Movement Point
+        // Movement Point
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
             ->setReach(ModifierReachEnum::DAEDALUS)
@@ -376,7 +376,7 @@ class ModifierServiceTest extends TestCase
 
         $this->assertEquals(0, $modifiedCost);
 
-        //Moral point
+        // Moral point
         $daedalus = new Daedalus();
         $room = new Place();
         $room->setDaedalus($daedalus);
@@ -410,7 +410,7 @@ class ModifierServiceTest extends TestCase
 
         $this->assertEquals(1, $modifiedCost);
 
-        //Percentage
+        // Percentage
         $daedalus = new Daedalus();
         $room = new Place();
         $room->setDaedalus($daedalus);
@@ -465,7 +465,7 @@ class ModifierServiceTest extends TestCase
         $action = new Action();
         $action->setName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost)->setSuccessRate(50);
 
-        //multiplicative
+        // multiplicative
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
             ->setReach(ModifierReachEnum::DAEDALUS)
@@ -486,7 +486,7 @@ class ModifierServiceTest extends TestCase
 
         $this->assertEquals(75, $modifiedCost);
 
-        //multiplicative and additive
+        // multiplicative and additive
         $modifierConfig2 = new ModifierConfig();
         $modifierConfig2
             ->setReach(ModifierReachEnum::DAEDALUS)
@@ -653,7 +653,7 @@ class ModifierServiceTest extends TestCase
         );
         $this->assertEquals(6, $modifiedValue);
 
-        //add a modifier with a charge
+        // add a modifier with a charge
         $status = new ChargeStatus($player, new ChargeStatusConfig());
         $status->setCharge(5);
 

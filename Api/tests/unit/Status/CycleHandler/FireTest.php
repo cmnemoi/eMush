@@ -17,7 +17,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\CycleHandler\Fire;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -100,7 +100,7 @@ class FireTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (PlayerModifierEvent $playerEvent, string $eventName) => (
+            ->withArgs(fn (PlayerVariableEvent $playerEvent, string $eventName) => (
                 intval($playerEvent->getQuantity()) === -2 &&
                 $eventName === AbstractQuantityEvent::CHANGE_VARIABLE &&
                 $playerEvent->getModifiedVariable() === PlayerVariableEnum::HEALTH_POINT

@@ -12,79 +12,79 @@ doctrine:
         mappings:
             Game:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Game/Entity'
                 prefix: 'Mush\Game\Entity'
                 alias: Game
             Daedalus:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Daedalus/Entity'
                 prefix: 'Mush\Daedalus\Entity'
                 alias: Daedalus
             Player:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Player/Entity'
                 prefix: 'Mush\Player\Entity'
                 alias: Player
             Item:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Equipment/Entity'
                 prefix: 'Mush\Equipment\Entity'
                 alias: Item
             User:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/User/Entity'
                 prefix: 'Mush\User\Entity'
                 alias: User
             Place:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Place/Entity'
                 prefix: 'Mush\Place\Entity'
                 alias: Place
             RoomLog:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/RoomLog/Entity'
                 prefix: 'Mush\RoomLog\Entity'
                 alias: RoomLog
             Status:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Status/Entity'
                 prefix: 'Mush\Status\Entity'
                 alias: Status
             Action:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Action/Entity'
                 prefix: 'Mush\Action\Entity'
                 alias: Action
             Communication:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Communication/Entity'
                 prefix: 'Mush\Communication\Entity'
                 alias: Communication
             Disease:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Disease/Entity'
                 prefix: 'Mush\Disease\Entity'
                 alias: Disease
             Alert:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Alert/Entity'
                 prefix: 'Mush\Alert\Entity'
                 alias: Alert
             Modifier:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Modifier/Entity'
                 prefix: 'Mush\Modifier\Entity'
                 alias: Modifier

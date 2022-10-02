@@ -20,8 +20,8 @@
                     <img src="@/assets/images/projects/icarus_antigrav_propeller.png">
                     <div class="progress-container">
                         <div>
-                            <img class="skill" src="@/assets/images/skills/cook.png">
-                            <img class="skill" src="@/assets/images/skills/sturdy.png">
+                            <img class="skill" src="@/assets/images/skills/human/cook.png">
+                            <img class="skill" src="@/assets/images/skills/human/sturdy.png">
                         </div>
                         <span class="completion">0%</span>
                     </div>
@@ -43,7 +43,7 @@
                     <img src="@/assets/images/projects/patrol_ship_launcher.png">
                     <div class="progress-container">
                         <div>
-                            <img class="skill" src="@/assets/images/skills/sturdy.png">
+                            <img class="skill" src="@/assets/images/skills/human/sturdy.png">
                         </div>
                         <span class="completion">25%</span>
                     </div>

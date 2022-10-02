@@ -13,6 +13,7 @@ const SPORES = "spores";
 const ANTISOCIAL = "antisocial";
 const FIRST_TIME = "first_time";
 const PREGNANT = "pregnant";
+const GAGGED = "gagged";
 
 
 export const statusPlayerEnum: {[index: string]: any} = {
@@ -63,5 +64,8 @@ export const statusPlayerEnum: {[index: string]: any} = {
     },
     [PREGNANT]: {
         'icon': require('@/assets/images/status/pregnant.png')
+    },
+    [GAGGED]: {
+        'icon': require('@/assets/images/status/gagged.png')
     }
 };

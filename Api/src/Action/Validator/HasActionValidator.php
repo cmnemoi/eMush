@@ -59,6 +59,6 @@ class HasActionValidator extends ConstraintValidator
     {
         return ($parameter instanceof Player && !$parameter->getTargetActions()->contains($action)) ||
             ($parameter instanceof GameEquipment && !$parameter->getActions()->contains($action))
-            ;
+        ;
     }
 }

@@ -3,9 +3,9 @@
 namespace Mush\RoomLog\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

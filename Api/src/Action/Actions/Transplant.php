@@ -15,8 +15,8 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -58,7 +58,7 @@ class Transplant extends AbstractAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
-        //@TODO fail transplant
+        // @TODO fail transplant
         /** @var Fruit $fruitType */
         $fruitType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::FRUIT);
 

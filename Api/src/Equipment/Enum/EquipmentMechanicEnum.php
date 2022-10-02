@@ -9,15 +9,12 @@ class EquipmentMechanicEnum
     public const TOOL = 'tools';
     public const WEAPON = 'weapon';
     public const EXPLORATION = 'exploration';
-    public const INSTRUMENT = 'instrument';
     public const FRUIT = 'fruit';
     public const PLANT = 'plant';
     public const DRUG = 'drug';
     public const BOOK = 'book';
     public const BLUEPRINT = 'blueprint';
-    public const COMPONENT = 'component';
     public const DOCUMENT = 'document';
     public const ENTITY = 'entity';
-    public const DISMOUNTABLE = 'dismountable';
-    public const CHARGED = 'charged';
+    public const PRIVATE_EQUIPMENT = 'private_equipment';  // an equipment that only the owner can see
 }

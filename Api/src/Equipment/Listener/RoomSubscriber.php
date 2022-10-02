@@ -4,9 +4,9 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -37,7 +37,6 @@ class RoomSubscriber implements EventSubscriberInterface
             throw new \LogicException('place should be a room');
         }
 
-        //@FIXME does electric arc break everything?
         foreach ($room->getEquipments() as $equipment) {
             if (!$equipment->isBroken() &&
                 !($equipment instanceof Door) &&

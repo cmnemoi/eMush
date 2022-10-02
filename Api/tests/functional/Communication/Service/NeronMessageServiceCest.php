@@ -73,7 +73,7 @@ class NeronMessageServiceCest
         $I->assertInstanceOf(Message::class, $answer2);
         $I->assertEquals($answer2->getParent(), $message);
 
-        //new cycle
+        // new cycle
         $daedalus->setCycleStartedAt(new \DateTime('2020-10-10 03:00:00.0 Europe/Paris'));
 
         $time3 = new \DateTime('2020-10-10 03:50:00.0 Europe/Paris');

@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\User\Entity\User;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserRepository extends ServiceEntityRepository implements UserLoaderInterface
 {
@@ -16,6 +17,15 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
 
     public function loadUserByUsername(string $username): ?User
     {
-        return $this->findOneBy(['userId' => $username]);
+        $user = $this->findOneBy(['userId' => $username]);
+
+        return $user instanceof User ? $user : null;
+    }
+
+    public function loadUserByIdentifier(string $identifier): ?UserInterface
+    {
+        $user = $this->findOneBy(['userId' => $identifier]);
+
+        return $user instanceof User ? $user : null;
     }
 }

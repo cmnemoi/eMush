@@ -33,4 +33,48 @@ class RoomEnum
     public const CENTER_BRAVO_STORAGE = 'center_bravo_storage';
     public const REAR_BRAVO_STORAGE = 'rear_bravo_storage';
     public const SPACE = 'space';
+
+    public static function getAllDaedalusRooms(): array
+    {
+        return [
+            self::BRIDGE,
+            self::ALPHA_BAY,
+            self::BRAVO_BAY,
+            self::ALPHA_BAY_2,
+            self::NEXUS,
+            self::MEDLAB,
+            self::LABORATORY,
+            self::REFECTORY,
+            self::HYDROPONIC_GARDEN,
+            self::ENGINE_ROOM,
+            self::FRONT_ALPHA_TURRET,
+            self::CENTRE_ALPHA_TURRET,
+            self::REAR_ALPHA_TURRET,
+            self::FRONT_BRAVO_TURRET,
+            self::CENTRE_BRAVO_TURRET,
+            self::REAR_BRAVO_TURRET,
+            self::FRONT_CORRIDOR,
+            self::CENTRAL_CORRIDOR,
+            self::REAR_CORRIDOR,
+            self::ICARUS_BAY,
+            self::ALPHA_DORM,
+            self::BRAVO_DORM,
+            self::FRONT_STORAGE,
+            self::CENTER_ALPHA_STORAGE,
+            self::REAR_ALPHA_STORAGE,
+            self::CENTER_BRAVO_STORAGE,
+            self::REAR_BRAVO_STORAGE,
+        ];
+    }
+
+    public static function getStorages(): array
+    {
+        return [
+            self::FRONT_STORAGE,
+            self::CENTER_ALPHA_STORAGE,
+            self::REAR_ALPHA_STORAGE,
+            self::CENTER_BRAVO_STORAGE,
+            self::REAR_BRAVO_STORAGE,
+        ];
+    }
 }

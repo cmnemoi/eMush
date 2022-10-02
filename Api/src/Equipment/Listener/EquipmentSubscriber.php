@@ -23,16 +23,16 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         return [
             EquipmentEvent::EQUIPMENT_CREATED => [
-                ['onEquipmentCreated', 1000], //this is done before everything else as the newGameEquipment is created here
+                ['onEquipmentCreated', 1000], // this is done before everything else as the newGameEquipment is created here
                 ['onOverflowingInventory', -1000],
             ],
-            EquipmentEvent::EQUIPMENT_DESTROYED => ['onEquipmentDestroyed', -1000], //the equipment is deleted after every other effect has been applied
+            EquipmentEvent::EQUIPMENT_DESTROYED => ['onEquipmentDestroyed', -1000], // the equipment is deleted after every other effect has been applied
             EquipmentEvent::EQUIPMENT_TRANSFORM => [
-                ['onEquipmentCreated', 1000], //this is done before everything else as the newGameEquipment is created here
-                ['onEquipmentDestroyed', -1000], //the equipment is deleted after every other effect has been applied
+                ['onEquipmentCreated', 1000], // this is done before everything else as the newGameEquipment is created here
+                ['onEquipmentDestroyed', -1000], // the equipment is deleted after every other effect has been applied
                 ['onOverflowingInventory', -1001],
             ],
-            EquipmentEvent::CHANGE_HOLDER => ['onChangeHolder', -1000], //the equipment is deleted after every other effect has been applied
+            EquipmentEvent::CHANGE_HOLDER => ['onChangeHolder', -100], // the equipment is deleted after every other effect has been applied
         ];
     }
 

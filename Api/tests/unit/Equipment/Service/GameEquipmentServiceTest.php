@@ -15,16 +15,13 @@ use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Event\EquipmentInitEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
-use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -40,10 +37,6 @@ class GameEquipmentServiceTest extends TestCase
     private RandomServiceInterface $randomService;
     /** @var EquipmentServiceInterface|Mockery\Mock */
     private EquipmentServiceInterface $equipmentService;
-    /** @var EquipmentEffectServiceInterface|Mockery\Mock */
-    private EquipmentEffectServiceInterface $equipmentEffectService;
-    /** @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface $statusService;
 
     private GameEquipmentService $service;
 
@@ -56,15 +49,12 @@ class GameEquipmentServiceTest extends TestCase
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->repository = Mockery::mock(GameEquipmentRepository::class);
         $this->equipmentService = Mockery::mock(EquipmentServiceInterface::class);
-        $this->equipmentEffectService = Mockery::mock(EquipmentEffectServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
 
         $this->service = new GameEquipmentService(
             $this->entityManager,
             $this->repository,
             $this->equipmentService,
-            $this->equipmentEffectService,
             $this->randomService,
             $this->eventDispatcher,
         );
@@ -84,7 +74,7 @@ class GameEquipmentServiceTest extends TestCase
         $place = new Place();
         $place->setDaedalus($daedalus);
 
-        //Basic item
+        // Basic item
         $itemConfig = new ItemConfig();
         $itemConfig
             ->setName('some Name')
@@ -116,7 +106,7 @@ class GameEquipmentServiceTest extends TestCase
         $place = new Place();
         $place->setDaedalus($daedalus);
 
-        //Equipment
+        // Equipment
         $equipmentConfig = new EquipmentConfig();
         $equipmentConfig
             ->setName('equipment Name')
@@ -151,7 +141,7 @@ class GameEquipmentServiceTest extends TestCase
         $place = new Place();
         $place->setDaedalus($daedalus);
 
-        //Plant
+        // Plant
         $plantMechanic = new Plant();
         $itemConfig = new ItemConfig();
         $itemConfig

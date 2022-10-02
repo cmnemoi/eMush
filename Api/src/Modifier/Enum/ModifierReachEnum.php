@@ -2,6 +2,15 @@
 
 namespace Mush\Modifier\Enum;
 
+/**
+ * Class enumerating the different modifier reaches.
+ *
+ * PLAYER: modifier is linked to a player
+ * TARGET_PLAYER: modifier is linked to a player and activate when the player is targeted
+ * PLACE: modifier is linked to a place
+ * DAEDALUS: modifier is linked to the Daedalus
+ * EQUIPMENT: modifier is linked to an equipment
+ */
 class ModifierReachEnum
 {
     public const PLAYER = 'player';

@@ -1,0 +1,14 @@
+Mush\Game\Entity\TriumphConfig:
+  attributes:
+    id:
+      groups: [ 'triumph_config_read' ]
+    gameConfig:
+      groups: [ 'triumph_config_read', 'triumph_config_write' ]
+    name:
+      groups: [ 'triumph_config_read', 'triumph_config_write' ]
+    triumph:
+      groups: [ 'triumph_config_read', 'triumph_config_write' ]
+    isAllCrew:
+      groups: [ 'triumph_config_read', 'triumph_config_write' ]
+    team:
+      groups: [ 'triumph_config_read', 'triumph_config_write' ]

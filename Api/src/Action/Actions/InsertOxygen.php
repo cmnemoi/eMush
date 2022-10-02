@@ -14,9 +14,9 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class InsertOxygen extends AbstractAction
@@ -40,7 +40,7 @@ class InsertOxygen extends AbstractAction
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
 
-        //delete the item
+        // delete the item
         $equipmentEvent = new EquipmentEvent(
             $parameter->getName(),
             $this->player,
@@ -51,7 +51,7 @@ class InsertOxygen extends AbstractAction
         $equipmentEvent->setExistingEquipment($parameter);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        //add Oxygen
+        // add Oxygen
         $daedalusEvent = new DaedalusModifierEvent(
             $this->player->getDaedalus(),
             DaedalusVariableEnum::OXYGEN,

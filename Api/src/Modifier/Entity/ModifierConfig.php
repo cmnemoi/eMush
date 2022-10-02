@@ -5,61 +5,41 @@ namespace Mush\Modifier\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="modifier_config")
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'modifier_config')]
 class ModifierConfig
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig")
-     */
-    private GameConfig $gameConfig;
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $name = null;
 
-    /**
-     * @ORM\Column(type="float", nullable=false)
-     */
+    #[ORM\Column(type: 'float', nullable: false)]
     private float $delta = 0;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $target;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $scope;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private ?string $reach = null;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $mode = ModifierModeEnum::ADDITIVE;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Mush\Modifier\Entity\ModifierCondition")
-     */
+    #[ORM\ManyToMany(targetEntity: ModifierCondition::class)]
     private Collection $modifierConditions;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private ?string $name = null;
 
     public function __construct()
     {
@@ -69,18 +49,6 @@ class ModifierConfig
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function getGameConfig(): GameConfig
-    {
-        return $this->gameConfig;
-    }
-
-    public function setGameConfig(GameConfig $gameConfig): self
-    {
-        $this->gameConfig = $gameConfig;
-
-        return $this;
     }
 
     public function getDelta(): float
@@ -155,7 +123,18 @@ class ModifierConfig
         return $this;
     }
 
-    public function setName(string $name): self
+    public function setModifierConditions(array|Collection $modifierConditions): self
+    {
+        if (is_array($modifierConditions)) {
+            $modifierConditions = new ArrayCollection($modifierConditions);
+        }
+
+        $this->modifierConditions = $modifierConditions;
+
+        return $this;
+    }
+
+    public function setName(?string $name): self
     {
         $this->name = $name;
 

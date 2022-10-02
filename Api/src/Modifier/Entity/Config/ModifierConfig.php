@@ -36,15 +36,15 @@ class ModifierConfig
 
     private array $targetEvents;
 
-    private ?string $playerVariable;
+    private ?string $variable;
 
-    public function __construct(string $name, string $reach, float $value, string $mode, string $playerVariable = null)
+    public function __construct(string $name, string $reach, float $value, string $mode, string $variable = null)
     {
         $this->name = $name;
         $this->reach = $reach;
         $this->value = $value;
         $this->mode = $mode;
-        $this->playerVariable = $playerVariable;
+        $this->variable = $variable;
 
         $this->logKeyWhenApplied = null;
         $this->conditions = new ArrayCollection();
@@ -141,9 +141,9 @@ class ModifierConfig
         return $this->targetEvents;
     }
 
-    public function getPlayerVariable(): ?string
+    public function getVariable(): ?string
     {
-        return $this->playerVariable;
+        return $this->variable;
     }
 
     public function getReach(): string

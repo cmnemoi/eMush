@@ -11,18 +11,31 @@ class ModifierNameEnum
     public const DISABLED_CONVERSION_MODIFIER = 'disabled_conversion_modifier';
     public const PACIFIST_MODIFIER = 'pacifist_modifier';
     public const BURDENED_MODIFIER = 'burdened_modifier';
-    public const APRON_MODIFIER = 'apron_modifier';
-    public const GLOVES_MODIFIER = 'gloves_modifier';
     public const STARVING = 'starving';
     public const SCREAMING = 'screaming';
     public const WALL_HEAD_BANG = 'wall_head_bang';
     public const RUN_IN_CIRCLES = 'run_in_circles';
     public const FITFULL_SLEEP = 'fitfull_sleep';
     public const LYING_DOWN_MODIFIER = 'lying_down_modifier';
-    public const SOAP_MODIFIER = 'soap_modifier';
-    public const ARMOR_MODIFIER = 'armor_modifier';
+
+
     public const FROZEN_MODIFIER = 'frozen_modifier';
+
+    // GEAR
+    public const APRON_MODIFIER = 'apron_modifier';
+    public const ARMOR_MODIFIER = 'armor_modifier';
     public const WRENCH_MODIFIER = 'wrench_modifier';
+    public const GLOVES_MODIFIER = 'gloves_modifier';
+    public const SOAP_MODIFIER = 'soap_modifier';
+    public const AIM_MODIFIER = 'aim_modifier';
+    public const GRAV_SCOOTER_MODIFIER = 'grav_scooter_modifier';
+    public const ROLLING_BOULDER_MODIFIER = 'rolling_boulder_modifier';
+    public const OSCILLOSCOPE_SUCCESS_MODIFIER = 'oscilloscope_modifier';
+    public const OSCILLOSCOPE_REPAIR_MODIFIER = 'oscilloscope_modifier';
+    public const ANTENNA_MODIFIER = 'antenna_modifier';
+    public const GRAVITY_CONVERSION_MODIFIER = 'gravity_conversion_modifier';
+    public const GRAVITY_CYCLE_MODIFIER = 'gravity_cycle_modifier';
+    public const OXYGEN_TANK_MODIFIER = 'oxygen_tank_modifier';
 
     // DISEASE MODIFIER
     public const DISEASE_INCREASE_MOVE_COST = 'disease_increase_move_cost';
@@ -67,5 +80,6 @@ class ModifierNameEnum
     public const DISORDER_LOSE_2_MAX_PMO = 'disorder_lose_2_max_pmo';
     public const DISORDER_LOSE_3_MAX_PMO = 'disorder_lose_3_max_pmo';
     public const DISORDER_LOSE_4_MAX_PMO = 'disorder_lose_4_max_pmo';
+
 
 }

@@ -12,4 +12,8 @@ class ItemCollection extends ArrayCollection
     {
         return $this->filter(fn (GameItem $gameItem) => $gameItem->getStatusByName($statusName));
     }
+
+    public function getByName(string $itemName) : Collection {
+        return $this->filter(fn (GameItem $gameItem) => $gameItem->getName() === $itemName);
+    }
 }

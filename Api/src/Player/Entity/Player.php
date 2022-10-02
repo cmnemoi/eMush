@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
+use Mush\Equipment\Entity\Collection\ItemCollection;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
@@ -219,9 +220,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         }
     }
 
-    public function getEquipments(): Collection
+    public function getEquipments(): ItemCollection
     {
-        return $this->items;
+        return new ItemCollection($this->items->toArray());
     }
 
     public function setEquipments(ArrayCollection $equipments): static

@@ -6,7 +6,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\EventEnum;
@@ -90,7 +90,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         // Handle oxygen loss
         $oxygenLoss = self::CYCLE_OXYGEN_LOSS;
 
-        $daedalusEvent = new DaedalusModifierEvent(
+        $daedalusEvent = new DaedalusVariableEvent(
             $daedalus,
             DaedalusVariableEnum::OXYGEN,
             $oxygenLoss,

@@ -14,7 +14,7 @@ interface AbstractQuantityEvent
 
     public function getModifiedVariable(): string;
 
-    public function getReason(): string;
+    public function getReasons(): array;
 
     public function getModifierHolder(): ModifierHolder;
 

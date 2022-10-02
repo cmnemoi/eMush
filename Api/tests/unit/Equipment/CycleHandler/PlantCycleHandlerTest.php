@@ -5,7 +5,7 @@ namespace Mush\Unit\Equipment\CycleHandler;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\CycleHandler\PlantCycleHandler;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
@@ -265,7 +265,7 @@ class PlantCycleHandlerTest extends TestCase
         ;
 
         $this->eventService->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusModifierEvent &&
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent &&
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10
             )->once();
@@ -324,7 +324,7 @@ class PlantCycleHandlerTest extends TestCase
             ->once();
 
         $this->eventService->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusModifierEvent &&
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent &&
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10)
             ->once();

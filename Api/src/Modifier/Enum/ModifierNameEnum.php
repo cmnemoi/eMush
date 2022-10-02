@@ -21,6 +21,17 @@ class ModifierNameEnum
 
     public const FROZEN_MODIFIER = 'frozen_modifier';
 
+    // INJURY
+    public const INJURY_COST_1_PA_ACTION_NOT_MOVE = 'injury_cost_1_pa_action_not_move';
+    public const INJURY_COST_2_PA_ACTION_NOT_MOVE = 'injury_cost_2_pa_action_not_move';
+    public const INJURY_COST_3_PA_ACTION_NOT_MOVE = 'injury_cost_3_pa_action_not_move';
+    public const INJURY_LOSE_3_MAX_PM = 'injury_lose_3_max_pm';
+    public const INJURY_LOSE_5_MAX_PM = 'injury_lose_5_max_pm';
+    public const INJURY_LOSE_12_MAX_PM = 'injury_lose_12_max_pm';
+    public const INJURY_LOSE_15_SHOOTING_ACCURACY = 'injury_lose_15_shooting_accuracy';
+    public const INJURY_LOSE_20_SHOOTING_ACCURACY = 'injury_lose_20_shooting_accuracy';
+    public const INJURY_LOSE_40_SHOOTING_ACCURACY = 'injury_lose_40_shooting_accuracy';
+
     // GEAR
     public const APRON_MODIFIER = 'apron_modifier';
     public const ARMOR_MODIFIER = 'armor_modifier';

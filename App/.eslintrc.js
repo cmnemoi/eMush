@@ -25,6 +25,8 @@ module.exports = {
         "eol-last": ["warn", "always"],
         "no-trailing-spaces": "warn",
         "no-var": "error",
+        "vue/multi-word-component-names": "warn",
+        "vue/no-reserved-component-names": "warn",
         "object-curly-spacing": ["error", "always"],
         "semi": ["error", "always"],
         'vue/no-deprecated-slot-attribute': 'off',

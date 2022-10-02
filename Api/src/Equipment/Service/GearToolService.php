@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Error;
 use Mush\Action\Entity\Action;
+use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Entity\Mechanics\Weapon;
@@ -113,7 +114,7 @@ class GearToolService implements GearToolServiceInterface
         foreach ($this->getToolsOnReach($player) as $tool) {
             /** @var Tool $toolMechanic */
             $toolMechanic = $tool->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
-            $weaponMechanics = $tool->getEquipment()->getMechanics()->filter(fn (Tool $tool) => $tool instanceof Weapon);
+            $weaponMechanics = $tool->getEquipment()->getMechanics()->filter(fn (EquipmentMechanic $mechanic) => $mechanic instanceof Weapon);
 
             if ($toolMechanic &&
                 !$toolMechanic->getActions()->filter(fn (Action $action) => $action->getName() === $actionName)->isEmpty()

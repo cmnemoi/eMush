@@ -16,10 +16,12 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
+use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\Config\SymptomCondition;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Entity\PlayerDisease;
+use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\SymptomConditionEnum;
@@ -854,7 +856,7 @@ class ActionSubscriberCest
         ]);
     }
 
-    public function testOnPlayerCyclePsychoticAttackSymptom(FunctionalTester $I)
+    public function testPostActionPsychoticAttackSymptom(FunctionalTester $I)
     {
         $gameConfig = $I->have(GameConfig::class);
 
@@ -947,8 +949,15 @@ class ActionSubscriberCest
             ->setName('Name')
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
         ;
-
         $I->haveInRepository($diseaseConfig);
+
+        $diseaseCauseConfig = new DiseaseCauseConfig();
+        $diseaseCauseConfig
+            ->setDiseases(['Name' => 1])
+            ->setGameConfig($gameConfig)
+            ->setName(DiseaseCauseEnum::TRAUMA)
+        ;
+        $I->haveInRepository($diseaseCauseConfig);
 
         $playerDisease = new PlayerDisease();
         $playerDisease

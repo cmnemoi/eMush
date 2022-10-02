@@ -23,6 +23,8 @@ export const helpers = {
             return `<img src="${require("@/assets/images/status/injury.png")}" alt="hurt">`;
         case "psy_disease":
             return `<img src="${require("@/assets/images/status/disorder.png")}" alt="psy_disease">`;
+        case "hungry":
+            return `<img src="${require("@/assets/images/status/hungry.png")}" alt="hungry">`;
         default:
             throw Error(`Unexpected key for replaced image: ${key}`);
         }
@@ -45,5 +47,6 @@ export function formatText(text: string): string {
     formattedText = formattedText.replaceAll(/:cat:/g, helpers.computeImageHtml("cat"));
     formattedText = formattedText.replaceAll(/:hurt:/g, helpers.computeImageHtml("hurt"));
     formattedText = formattedText.replaceAll(/:psy_disease:/g, helpers.computeImageHtml("psy_disease"));
+    formattedText = formattedText.replaceAll(/:hungry:/g, helpers.computeImageHtml("hungry"));
     return formattedText;
 }

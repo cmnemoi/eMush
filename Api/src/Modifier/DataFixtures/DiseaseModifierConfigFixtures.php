@@ -188,15 +188,15 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($cycle1MovementLost);
 
-        $cycleDoubleSatietyLost = new ModifierConfig();
-        $cycleDoubleSatietyLost
+        $cycle1SatietyLost = new ModifierConfig();
+        $cycle1SatietyLost
             ->setScope(EventEnum::NEW_CYCLE)
             ->setTarget(PlayerVariableEnum::SATIETY)
-            ->setDelta(2)
+            ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->setMode(ModifierModeEnum::SET_VALUE)
         ;
-        $manager->persist($cycleDoubleSatietyLost);
+        $manager->persist($cycle1SatietyLost);
 
         $cycle1ActionLostRand10 = new ModifierConfig();
         $cycle1ActionLostRand10
@@ -402,7 +402,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $this->addReference(self::CYCLE_2_HEALTH_LOST, $cycle2HealthLost);
         $this->addReference(self::CYCLE_4_HEALTH_LOST, $cycle4HealthLost);
         $this->addReference(self::CYCLE_1_MOVEMENT_LOST, $cycle1MovementLost);
-        $this->addReference(self::CYCLE_1_SATIETY_LOST, $cycleDoubleSatietyLost);
+        $this->addReference(self::CYCLE_1_SATIETY_LOST, $cycle1SatietyLost);
         $this->addReference(self::CYCLE_1_ACTION_LOST_RAND_10, $cycle1ActionLostRand10);
         $this->addReference(self::CYCLE_1_HEALTH_LOST_RAND_10, $cycle1HealthLostRand10);
         $this->addReference(self::CYCLE_1_ACTION_LOST_RAND_16, $cycle1ActionLostRand16);

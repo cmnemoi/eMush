@@ -21,6 +21,17 @@ class PlayerVariableEnum
         ];
     }
 
+    public static function getInteractivePlayerVariables(): array
+    {
+        return [
+            self::ACTION_POINT,
+            self::MOVEMENT_POINT,
+            self::MORAL_POINT,
+            self::HEALTH_POINT,
+            self::SATIETY
+        ];
+    }
+
     public static function getEmoteMap(): array
     {
         return [

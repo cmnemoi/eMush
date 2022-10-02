@@ -20,7 +20,7 @@ use Mush\Modifier\Entity\Config\Prevent\PreventApplyStatusModifierConfig;
 use Mush\Modifier\Entity\Config\Quantity\CostModifierConfig;
 use Mush\Modifier\Entity\Config\Quantity\PlayerVariableModifierConfig;
 use Mush\Modifier\Entity\Config\Quantity\PercentageModifierConfig;
-use Mush\Modifier\Entity\Trash\ModifierCondition;
+
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierConditionEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;

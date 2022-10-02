@@ -13,12 +13,18 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Consume extends AbstractAction
 {
+
+    public const AFTER_CONSUMPTION = 'after_consumption';
+
     protected string $name = ActionEnum::CONSUME;
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -69,5 +75,22 @@ class Consume extends AbstractAction
             new \DateTime()
         );
         $this->eventService->callEvent($consumeEquipment, ApplyEffectEvent::CONSUME);
+        $this->afterConsumption();
     }
+
+    private function afterConsumption() {
+        foreach (PlayerVariableEnum::getCappedPlayerVariables() as $variable) {
+            $afterConsumption = new PlayerVariableEvent(
+                $this->player,
+                $variable,
+                0,
+                self::AFTER_CONSUMPTION,
+                new \DateTime()
+            );
+
+            $this->eventService->callEvent($afterConsumption, AbstractQuantityEvent::CHANGE_VARIABLE);
+        }
+
+    }
+
 }

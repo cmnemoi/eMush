@@ -8,7 +8,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierCollection;
-use Mush\Modifier\Entity\Trash\ModifierCondition;
+
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierConditionEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;

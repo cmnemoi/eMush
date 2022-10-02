@@ -3,53 +3,53 @@
 namespace Mush\Player\Service;
 
 use Error;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\ResourceMaxPointEvent;
 
 class PlayerVariableService implements PlayerVariableServiceInterface
 {
-    private ModifierServiceInterface $modifierService;
+
     private PlayerServiceInterface $playerService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
-        ModifierServiceInterface $modifierService,
         PlayerServiceInterface $playerService,
+        EventServiceInterface $eventService
     ) {
-        $this->modifierService = $modifierService;
         $this->playerService = $playerService;
+        $this->eventService = $eventService;
     }
 
-    public function getMaxPlayerVariable(Player $player, string $target): int
+    public function getMaxPlayerVariable(Player $player, string $variable): int
     {
         $gameConfig = $player->getDaedalus()->getGameConfig();
 
-        switch ($target) {
-            case PlayerVariableEnum::ACTION_POINT:
-                $maxValue = $gameConfig->getMaxActionPoint();
-                break;
-            case PlayerVariableEnum::MOVEMENT_POINT:
-                $maxValue = $gameConfig->getMaxMovementPoint();
-                break;
-            case PlayerVariableEnum::HEALTH_POINT:
-                $maxValue = $gameConfig->getMaxHealthPoint();
-                break;
-            case PlayerVariableEnum::MORAL_POINT:
-                $maxValue = $gameConfig->getMaxMoralPoint();
-                break;
-            default:
-                throw new Error('getMaxPlayerVariable : invalid target string');
-        }
+        $baseValue = match ($variable) {
+            PlayerVariableEnum::ACTION_POINT => $gameConfig->getMaxActionPoint(),
+            PlayerVariableEnum::MOVEMENT_POINT => $gameConfig->getMaxMovementPoint(),
+            PlayerVariableEnum::HEALTH_POINT => $gameConfig->getMaxHealthPoint(),
+            PlayerVariableEnum::MORAL_POINT => $gameConfig->getMaxMoralPoint(),
+            default => throw new Error('getMaxPlayerVariable : invalid target string'),
+        };
 
-        return $this->modifierService->getEventModifiedValue(
+        return $this->getMaxPlayerVariableWithModifier($player, $variable, $baseValue);
+    }
+
+    private function getMaxPlayerVariableWithModifier(Player $player, string $variable, int $baseValue) : int {
+        $event = new ResourceMaxPointEvent(
             $player,
-            [ModifierScopeEnum::MAX_POINT],
-            $target,
-            $maxValue,
-            ModifierScopeEnum::MAX_POINT,
+            $variable,
+            $baseValue,
+            ResourceMaxPointEvent::CHECK_MAX_POINT,
             new \DateTime()
         );
+
+        $this->eventService->callEvent($event, ResourceMaxPointEvent::CHECK_MAX_POINT);
+        return $event->getValue();
     }
 
     public function setPlayerVariableToMax(Player $player, string $target, \DateTime $date = null): Player

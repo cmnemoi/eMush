@@ -27,15 +27,15 @@ export default {
     },
     computed:{
         hour(){
-            let h = Math.trunc((this.endDate - this.now) / 1000 / 3600);
+            const h = Math.trunc((this.endDate - this.now) / 1000 / 3600);
             return h>9?h:'0'+h;
         },
         min(){
-            let m = Math.trunc((this.endDate - this.now) / 1000 / 60) % 60;
+            const m = Math.trunc((this.endDate - this.now) / 1000 / 60) % 60;
             return m>9?m:'0'+m;
         },
         sec(){
-            let s = Math.trunc((this.endDate - this.now)/1000) % 60;
+            const s = Math.trunc((this.endDate - this.now)/1000) % 60;
             return s>9?s:'0'+s;
         }
     },

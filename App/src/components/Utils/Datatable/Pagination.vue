@@ -248,10 +248,10 @@ export default defineComponent ({
             }
         },
         pages: function () {
-            let items = {};
+            const items = {};
             if (this.pageCount <= this.pageRange) {
                 for (let index = 0; index < this.pageCount; index++) {
-                    let page = {
+                    const page = {
                         index: index,
                         content: index + 1,
                         selected: index === (this.selected - 1)
@@ -260,16 +260,16 @@ export default defineComponent ({
                 }
             } else {
                 const halfPageRange = Math.floor(this.pageRange / 2);
-                let setPageItem = index => {
-                    let page = {
+                const setPageItem = index => {
+                    const page = {
                         index: index,
                         content: index + 1,
                         selected: index === (this.selected - 1)
                     };
                     items[index] = page;
                 };
-                let setBreakView = index => {
-                    let breakView = {
+                const setBreakView = index => {
+                    const breakView = {
                         disabled: true,
                         breakView: true
                     };

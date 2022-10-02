@@ -883,13 +883,13 @@ import { mapGetters } from "vuex";
 export default defineComponent ({
     name: "MiniMap",
     props: {
-        myPosition: Object,
+        myPosition: Object
     },
     computed: {
         ...mapGetters('daedalus', [
             'minimap',
             'loadingMinimap'
-        ]),
+        ])
     },
     data() {
         return {
@@ -917,15 +917,15 @@ export default defineComponent ({
             if (this.minimap){
                 const roomsWithPlayers = this.minimap.filter((room: Minimap) => room.players_count > 0);
                 roomsWithPlayers.forEach((room: Minimap) => {
-                    let roomCoord = RoomsEnum[room.name];
+                    const roomCoord = RoomsEnum[room.name];
                     let i = 0;
                     if (room.name === this.myPosition?.key) {
                         i++;
                     }
                     while ( i < room.players_count ){
-                        let left = roomCoord.A.x + Math.round(Math.random() * (roomCoord.B.x - 4 - roomCoord.A.x));
-                        let top = roomCoord.A.y + Math.round(Math.random() * (roomCoord.C.y - 4 - roomCoord.B.y));
-                        let name = '';
+                        const left = roomCoord.A.x + Math.round(Math.random() * (roomCoord.B.x - 4 - roomCoord.A.x));
+                        const top = roomCoord.A.y + Math.round(Math.random() * (roomCoord.C.y - 4 - roomCoord.B.y));
+                        const name = '';
                         this.playersPoints.push( { left, top, name } );
                         i++;
                     }

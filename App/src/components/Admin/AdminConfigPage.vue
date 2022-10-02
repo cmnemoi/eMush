@@ -16,7 +16,7 @@ export default defineComponent ({
     name: "AdminConfigPage",
     components: {
         AdminConfigBanner
-    },
+    }
 });
 
 </script>

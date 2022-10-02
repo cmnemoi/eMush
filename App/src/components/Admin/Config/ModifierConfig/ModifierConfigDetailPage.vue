@@ -84,7 +84,7 @@ export default defineComponent({
     name: "ModifierConfigState",
     components: {
         ChildCollectionManager,
-        Input,
+        Input
     },
     data: function (): ModifierConfigState {
         return {

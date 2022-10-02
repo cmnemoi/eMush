@@ -98,7 +98,7 @@ export default defineComponent({
     name: "StatusConfigDetailPage",
     components: {
         ChildCollectionManager,
-        Input,
+        Input
     },
     data: function (): StatusConfigState {
         return {

@@ -8,7 +8,7 @@ const state =  {
     loading: false,
     room: null,
     inventoryOpen: false,
-    selectedTarget: null,
+    selectedTarget: null
 };
 
 const getters: GetterTree<any, any> = {
@@ -41,7 +41,7 @@ const actions: ActionTree<any, any> = {
     },
     updateSelectedItemPile({ commit }) {
         commit('updateSelectedItemPile');
-    },
+    }
 };
 
 const mutations : MutationTree<any> = {

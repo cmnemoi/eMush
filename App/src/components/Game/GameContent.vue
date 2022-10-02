@@ -47,7 +47,7 @@ export default defineComponent ({
     computed: {
         ...mapState('player', [
             'player'
-        ]),
+        ])
     },
     beforeMount(): void {
         if (this.playerId) {

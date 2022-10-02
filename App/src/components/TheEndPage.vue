@@ -72,7 +72,7 @@
                             <img src="@/assets/images/triumph-mush.png" alt="triumph">
                         </p>
                         <p class="death-cause">
-                            <img src="@/assets/images/dead.png" alt="Dead"> 
+                            <img src="@/assets/images/dead.png" alt="Dead">
                             Le Daedalus est rentré sur Sol !
                         </p>
                         <p class="nova">
@@ -157,7 +157,7 @@
                             <img src="@/assets/images/triumph-mush.png" alt="triumph">
                         </p>
                         <p class="death-cause">
-                            <img src="@/assets/images/dead.png" alt="Dead"> 
+                            <img src="@/assets/images/dead.png" alt="Dead">
                             Vos co-équipiers avaient la flemme de venir vous chercher !
                         </p>
                         <p class="nova">
@@ -193,7 +193,7 @@
                             <img src="@/assets/images/triumph.png" alt="triumph">
                         </p>
                         <p class="death-cause">
-                            <img src="@/assets/images/dead.png" alt="Dead"> 
+                            <img src="@/assets/images/dead.png" alt="Dead">
                             Vous avez été enlevé.
                         </p>
                         <p class="epitaph">
@@ -703,7 +703,7 @@ a.back {
 
     .stats {
         flex-direction: column;
-        
+
         div p:first-child { border-bottom: none; }
 
         div:not(:last-child) {

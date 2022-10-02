@@ -68,7 +68,7 @@ export class StatusConfig {
             'gameConfig': this.gameConfig?.iri,
             'name': this.name,
             'visibility': this.visibility,
-            'modifierConfigs': modifierConfigs,
+            'modifierConfigs': modifierConfigs
         };
         if (this.configType === 'ChargeStatusConfig') {
             data['chargeVisibility'] = this.chargeVisibility;

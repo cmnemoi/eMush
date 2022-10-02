@@ -15,7 +15,7 @@ export default defineComponent ({
     },
     props: {
         target: Equipment
-    },
+    }
 });
 </script>
 

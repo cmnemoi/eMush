@@ -22,7 +22,7 @@ import GamePopUp from "@/components/Utils/GamePopUp.vue";
 import { defineComponent } from "vue";
 export default defineComponent ({
     name: "SkillSelectionMenu",
-    components: { GamePopUp },
+    components: { GamePopUp }
 });
 </script>
 

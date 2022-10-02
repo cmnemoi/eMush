@@ -11,11 +11,11 @@ export default {
     name: "Pannel",
     props: {
         title: {
-            type: String,
+            type: String
             // required: true
         },
         content: {
-            type: String,
+            type: String
             // required: true
         },
         status: {

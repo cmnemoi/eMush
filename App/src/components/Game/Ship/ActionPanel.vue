@@ -29,7 +29,7 @@ export default defineComponent ({
     },
     computed: {
         ...mapGetters('room', [
-            'selectedTarget',
+            'selectedTarget'
         ]),
         getActions(): Action[]
         {
@@ -38,14 +38,14 @@ export default defineComponent ({
         },
         ...mapGetters('player', [
             'player'
-        ]),
+        ])
     },
     props: {
         actions: Array
     },
     methods: {
         ...mapActions({
-            'executeAction': 'action/executeAction',
+            'executeAction': 'action/executeAction'
         }),
         async executeTargetAction(action: Action) {
             if (this.selectedTarget === this.player) {
@@ -54,7 +54,7 @@ export default defineComponent ({
                 await this.executeAction({ target: this.selectedTarget, action });
             }
         }
-    },
+    }
 });
 </script>
 

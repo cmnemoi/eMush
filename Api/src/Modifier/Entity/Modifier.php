@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Exception\LogicException;
 #[ORM\Table(name: 'modifier')]
 class Modifier
 {
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
@@ -48,7 +47,8 @@ class Modifier
         return $this->config;
     }
 
-    private function setModifierHolder(ModifierHolder $holder) : void {
+    private function setModifierHolder(ModifierHolder $holder): void
+    {
         if ($holder instanceof Player) {
             $this->player = $holder;
         } elseif ($holder instanceof Place) {
@@ -79,5 +79,4 @@ class Modifier
     {
         return $this->id;
     }
-
 }

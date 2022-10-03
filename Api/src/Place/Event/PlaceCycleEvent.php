@@ -2,7 +2,6 @@
 
 namespace Mush\Place\Event;
 
-use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\AbstractModifierHolderEvent;
 use Mush\Place\Entity\Place;
 

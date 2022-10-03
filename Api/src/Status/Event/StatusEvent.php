@@ -4,7 +4,6 @@ namespace Mush\Status\Event;
 
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\AbstractModifierHolderEvent;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
@@ -32,10 +31,11 @@ class StatusEvent extends AbstractModifierHolderEvent implements LoggableEventIn
         string $reason,
         \DateTime $time
     ) {
-        if ($holder instanceof ModifierHolder)
+        if ($holder instanceof ModifierHolder) {
             parent::__construct($holder, $reason, $time);
-        else
+        } else {
             throw new \LogicException('The holder isn\' a modifier holder too.');
+        }
 
         $this->statusName = $statusName;
         $this->holder = $holder;

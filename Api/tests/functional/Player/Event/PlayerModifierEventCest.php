@@ -7,6 +7,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -18,18 +19,17 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
-use Mush\Game\Service\EventServiceInterface;
 
 class PlayerModifierEventCest
 {
-    private EventServiceInterface $eventServiceService;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventServiceService = $I->grabService(EventServiceInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testDispatchMoralChange(FunctionalTester $I) : void
+    public function testDispatchMoralChange(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -76,15 +76,14 @@ class PlayerModifierEventCest
             new \DateTime()
         );
 
-        $this->eventServiceService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(4, $player->getMoralPoint());
         $I->assertCount(0, $player->getStatuses());
 
-        $this->eventServiceService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(3, $player->getMoralPoint());
         $I->assertCount(1, $player->getStatuses());
-        $I->seeInRepository(
-            Status::class, [
+        $I->seeInRepository(Status::class, [
             'statusConfig' => $demoralizedStatusConfig->getId(),
         ]);
 
@@ -96,11 +95,10 @@ class PlayerModifierEventCest
             new \DateTime()
         );
 
-        $this->eventServiceService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(1, $player->getMoralPoint());
         $I->assertCount(1, $player->getStatuses());
-        $I->dontSeeInRepository(
-            Status::class, [
+        $I->dontSeeInRepository(Status::class, [
             'statusConfig' => $demoralizedStatusConfig->getId(),
         ]);
         $I->seeInRepository(
@@ -115,7 +113,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventServiceService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(0, $player->getMoralPoint());
         $I->assertCount(1, $player->getStatuses());
         $I->dontSeeInRepository(
@@ -134,12 +132,12 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventServiceService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(7, $player->getMoralPoint());
         $I->assertCount(0, $player->getStatuses());
     }
 
-    public function testDispatchSatietyChange(FunctionalTester $I)
+    public function testDispatchSatietyChange(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -185,7 +183,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventServiceService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(-1, $player->getSatiety());
         $I->assertCount(0, $player->getStatuses());
 
@@ -196,7 +194,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventServiceService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(2, $player->getSatiety());
         $I->assertCount(0, $player->getStatuses());
 
@@ -207,7 +205,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventServiceService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(3, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
 
@@ -218,7 +216,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventServiceService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(2, $player->getSatiety());
         $I->assertCount(0, $player->getStatuses());
 
@@ -229,12 +227,12 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventServiceService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(-25, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
     }
 
-    public function testDispatchMushSatietyChange(FunctionalTester $I)
+    public function testDispatchMushSatietyChange(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -280,7 +278,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventServiceService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(-1, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
 
@@ -291,7 +289,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventServiceService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(4, $player->getSatiety());
         $I->assertCount(2, $player->getStatuses());
 
@@ -302,7 +300,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
-        $this->eventServiceService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(-25, $player->getSatiety());
         $I->assertCount(1, $player->getStatuses());
     }

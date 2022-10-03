@@ -22,12 +22,12 @@ class MovementPointConversionCest
 {
     private Move $moveAction;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->moveAction = $I->grabService(Move::class);
     }
 
-    public function testBasicConversion(FunctionalTester $I)
+    public function testBasicConversion(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -86,10 +86,10 @@ class MovementPointConversionCest
         $this->moveAction->execute();
 
         $I->assertEquals($player->getActionPoint(), 1);
-        $I->assertEquals($player->getMovementPoint(), 1);
+        $I->assertEquals($player->getMovementPoint(), 0);
     }
 
-    public function testConversionWithIncreasedMovementCost(FunctionalTester $I)
+    public function testConversionWithIncreasedMovementCost(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -102,7 +102,7 @@ class MovementPointConversionCest
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
 
         $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(0)->setMovementPointCost(2);
+        $actionCost->setMovementPointCost(2);
         $I->haveInRepository($actionCost);
         $moveActionEntity = new Action();
         $moveActionEntity
@@ -148,10 +148,10 @@ class MovementPointConversionCest
         $this->moveAction->execute();
 
         $I->assertEquals($player->getActionPoint(), 9);
-        $I->assertEquals($player->getMovementPoint(), 1);
+        $I->assertEquals($player->getMovementPoint(), 0);
     }
 
-    public function testSeveralConversionRequired(FunctionalTester $I)
+    public function testSeveralConversionRequired(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -203,13 +203,13 @@ class MovementPointConversionCest
         $this->moveAction->loadParameters($moveActionEntity, $player, $door);
 
         $I->assertEquals(5, $this->moveAction->getMovementPointCost());
-        $I->assertEquals(2, $this->moveAction->getActionPointCost());
+        $I->assertEquals(4, $this->moveAction->getActionPointCost());
         $I->assertEquals($player->getActionPoint(), 10);
         $I->assertEquals($player->getMovementPoint(), 1);
 
         $this->moveAction->execute();
 
-        $I->assertEquals($player->getActionPoint(), 8);
+        $I->assertEquals($player->getActionPoint(), 6);
         $I->assertEquals($player->getMovementPoint(), 0);
     }
 }

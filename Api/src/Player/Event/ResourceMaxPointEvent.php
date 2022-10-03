@@ -7,7 +7,6 @@ use Mush\Player\Entity\Player;
 
 class ResourceMaxPointEvent extends AbstractModifierHolderEvent
 {
-
     public const CHECK_MAX_POINT = 'check_max_point';
 
     private int $value;

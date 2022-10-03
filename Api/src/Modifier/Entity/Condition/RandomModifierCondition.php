@@ -2,15 +2,13 @@
 
 namespace Mush\Modifier\Entity\Condition;
 
+use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\ModifierHolder;
-use Mush\Player\Entity\Player;
-use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 class RandomModifierCondition extends ModifierCondition
 {
-
     private int $value;
 
     public function __construct(int $value)
@@ -23,5 +21,4 @@ class RandomModifierCondition extends ModifierCondition
     {
         return $randomService->isSuccessful($this->value);
     }
-
 }

@@ -2,15 +2,10 @@
 
 namespace Mush\Modifier\Listener;
 
-use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Service\ModifierService;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Player\Event\PlayerVariableEvent;
-use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
@@ -26,7 +21,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            PlayerEvent::DEATH_PLAYER => 'onPlayerDeath'
+            PlayerEvent::DEATH_PLAYER => 'onPlayerDeath',
         ];
     }
 

@@ -18,21 +18,23 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\LanguageEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\Game\Service\EventServiceInterface;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Enum\StatusEnum;
 
 class CycleEventCest
 {
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testOxygenCycleSubscriber(FunctionalTester $I)
+    public function testOxygenCycleSubscriber(FunctionalTester $I): void
     {
         /** @var DaedalusConfig $gameConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
@@ -45,6 +47,12 @@ class CycleEventCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'oxygen' => 1, 'neron' => $neron]);
+
+        $fireConfig = new StatusConfig();
+        $fireConfig
+            ->setName(StatusEnum::FIRE)
+            ->setGameConfig($gameConfig);
+        $I->haveInRepository($fireConfig);
 
         $channel = new Channel();
         $channel

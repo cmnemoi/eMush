@@ -4,16 +4,14 @@ namespace Mush\Modifier\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Event\EnhancePercentageRollEvent;
-use Mush\Action\Event\PercentageRollEvent;
 use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Service\RandomService;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\Config\ModifierConfig;
+use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Place\Entity\Place;
@@ -22,7 +20,6 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 
 class ModifierService implements ModifierServiceInterface
 {
-
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
     private RoomLogServiceInterface $logService;
@@ -59,7 +56,7 @@ class ModifierService implements ModifierServiceInterface
         int $baseSuccessRate,
         array $reasons,
         bool $tryToSucceed = true
-    ) : bool {
+    ): bool {
         $successThreshold = $this->randomService->getSuccessThreshold();
 
         $event = new PreparePercentageRollEvent(
@@ -69,7 +66,7 @@ class ModifierService implements ModifierServiceInterface
             new \DateTime()
         );
 
-        for ($i=count($reasons)-2; $i>=0; $i--) {
+        for ($i = count($reasons) - 2; $i >= 0; --$i) {
             $event->addReason($reasons[$i]);
         }
 
@@ -95,7 +92,7 @@ class ModifierService implements ModifierServiceInterface
         int $thresholdRate,
         bool $tryToSucceed,
         array $reasons
-    ) : bool {
+    ): bool {
         $event = new EnhancePercentageRollEvent(
             $holder,
             $successRate,
@@ -105,7 +102,7 @@ class ModifierService implements ModifierServiceInterface
             new \DateTime()
         );
 
-        for ($i=count($reasons)-2; $i>=0; $i--) {
+        for ($i = count($reasons) - 2; $i >= 0; --$i) {
             $event->addReason($reasons[$i]);
         }
 
@@ -114,43 +111,52 @@ class ModifierService implements ModifierServiceInterface
         $modifier = $event->getModifierConfig();
         if ($modifier !== null) {
             $this->logEnhancement($holder, $modifier);
+
             return $tryToSucceed;
         } else {
             return !$tryToSucceed;
         }
     }
 
-    private function logEnhancement(ModifierHolder $holder, ModifierConfig $modifier) {
+    private function logEnhancement(ModifierHolder $holder, ModifierConfig $modifier)
+    {
         if (!$holder instanceof Player) {
             return;
         }
 
+        $logKey = $modifier->getLogKeyWhenApplied();
+        if ($logKey === null) return;
+
         $this->logService->createLog(
-            $modifier->getLogKeyWhenApplied(),
+            $logKey,
             $holder->getPlace(),
             VisibilityEnum::PRIVATE,
-            "modifier_log",
+            'modifier_log',
             $holder
         );
     }
 
-    public function createModifier(ModifierConfig $config, ModifierHolder $holder) : Modifier
+    public function createModifier(ModifierConfig $config, ModifierHolder $holder): Modifier
     {
         $modifier = new Modifier($holder, $config);
         $this->persist($modifier);
+
         return $modifier;
     }
 
-    public function deleteModifier(ModifierConfig $modifierConfig, ModifierHolder $holder): void {
+    public function deleteModifier(ModifierConfig $modifierConfig, ModifierHolder $holder): void
+    {
         $modifier = $holder->getModifiers()->getModifierFromConfig($modifierConfig);
-        $this->delete($modifier);
+        if ($modifier !== null) {
+            $this->delete($modifier);
+        }
     }
 
     public function getHolderFromConfig(
         ModifierConfig $config,
         ModifierHolder $holder,
         ModifierHolder $target = null
-    ) : ModifierHolder {
+    ): ModifierHolder {
         $reach = $config->getReach();
 
         if ($holder instanceof Daedalus) {
@@ -185,10 +191,11 @@ class ModifierService implements ModifierServiceInterface
             }
         }
 
-        throw new \LogicException($holder->getClassName() .' can\'t have a ' . $reach . ' reach.');
+        throw new \LogicException($holder->getClassName() . ' can\'t have a ' . $reach . ' reach.');
     }
 
-    private function getEquipmentHolder(GameEquipment $holder, string $reach) : ModifierHolder {
+    private function getEquipmentHolder(GameEquipment $holder, string $reach): ModifierHolder
+    {
         switch ($reach) {
             case ModifierReachEnum::DAEDALUS:
                 return $holder->getPlace()->getDaedalus();
@@ -207,12 +214,14 @@ class ModifierService implements ModifierServiceInterface
                     throw new \LogicException('Equipment without a holder have a ' . $reach . ' reach.');
                 }
 
+                // no break
             default:
                 throw new \LogicException('Equipment don\'t have a ' . $reach . ' reach.');
         }
     }
 
-    private function getPlayerHolder(Player $holder, Player | null $target, string $reach) : ModifierHolder {
+    private function getPlayerHolder(Player $holder, Player|null $target, string $reach): ModifierHolder
+    {
         switch ($reach) {
             case ModifierReachEnum::DAEDALUS:
                 return $holder->getPlace()->getDaedalus();
@@ -222,7 +231,6 @@ class ModifierService implements ModifierServiceInterface
 
             case ModifierReachEnum::EQUIPMENT:
                 throw new \LogicException('Player can\'t have a ' . $reach . ' reach.');
-
             case ModifierReachEnum::PLAYER:
                 return $holder;
 
@@ -233,9 +241,9 @@ class ModifierService implements ModifierServiceInterface
                     return $target;
                 }
 
+                // no break
             default:
                 throw new \LogicException('Player don\'t have a ' . $reach . ' reach.');
         }
     }
-
 }

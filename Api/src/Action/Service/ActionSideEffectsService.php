@@ -3,23 +3,18 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
-use Mush\Action\Enum\ActionSideEffectEventEnum;
 use Mush\Action\Event\EnhancePercentageRollEvent;
-use Mush\Action\Event\PercentageRollEvent;
 use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
-use Mush\RoomLog\Service\RoomLogService;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Mush\Game\Service\EventServiceInterface;
 
 class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 {
@@ -104,7 +99,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         Action $action,
         string $prepareType,
         string $enhanceType
-    ) : bool {
+    ): bool {
         $date = new \DateTime();
 
         $prepareEvent = new PreparePercentageRollEvent(

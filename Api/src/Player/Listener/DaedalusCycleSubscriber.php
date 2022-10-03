@@ -3,8 +3,8 @@
 namespace Mush\Player\Listener;
 
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Event\PlayerCycleEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusCycleSubscriber implements EventSubscriberInterface

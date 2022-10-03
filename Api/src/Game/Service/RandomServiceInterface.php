@@ -6,7 +6,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -19,7 +18,7 @@ interface RandomServiceInterface
 
     public function isSuccessful(int $successRate): bool;
 
-    public function getSuccessThreshold() : int;
+    public function getSuccessThreshold(): int;
 
     public function outputCriticalChances(int $successRate, int $criticalFailRate = 0, int $criticalSuccessRate = 0): string;
 

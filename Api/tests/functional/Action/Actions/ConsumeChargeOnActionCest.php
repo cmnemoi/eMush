@@ -19,14 +19,12 @@ use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\Config\ModifierConfig;
+use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
-use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -41,12 +39,12 @@ class ConsumeChargeOnActionCest
 {
     private Coffee $coffeeAction;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->coffeeAction = $I->grabService(Coffee::class);
     }
 
-    public function testToolCharge(FunctionalTester $I)
+    public function testToolCharge(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -140,7 +138,7 @@ class ConsumeChargeOnActionCest
         $I->assertEquals(1, $chargeStatus->getCharge());
     }
 
-    public function testGearCharge(FunctionalTester $I)
+    public function testGearCharge(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -244,7 +242,7 @@ class ConsumeChargeOnActionCest
         $I->haveInRepository($statusConfig);
         $chargeStatus = new ChargeStatus($gameGear, $statusConfig);
         $chargeStatus
-            ->setCharge(1)
+            ->setCharge(2)
         ;
         $I->haveInRepository($chargeStatus);
 
@@ -264,7 +262,7 @@ class ConsumeChargeOnActionCest
         $I->assertEquals(2, $this->coffeeAction->getActionPointCost());
     }
 
-    public function testGearMovementActionConversionCharge(FunctionalTester $I)
+    public function testGearMovementActionConversionCharge(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -323,7 +321,7 @@ class ConsumeChargeOnActionCest
         $room->addEquipment($gameEquipment);
         $I->refreshEntities($room);
 
-        $modifierConfig =  new ModifierConfig(
+        $modifierConfig = new ModifierConfig(
             'a random modifier config',
             ModifierReachEnum::PLAYER,
             1,

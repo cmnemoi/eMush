@@ -2,7 +2,6 @@
 
 namespace Mush\Modifier\Listener;
 
-use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\GameEquipment;

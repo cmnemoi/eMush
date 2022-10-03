@@ -3,7 +3,6 @@
 namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\AbstractModifierHolderEvent;
 
 class DaedalusCycleEvent extends AbstractModifierHolderEvent

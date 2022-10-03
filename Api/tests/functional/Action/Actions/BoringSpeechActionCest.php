@@ -14,6 +14,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -30,6 +31,7 @@ class BoringSpeechActionCest
     public function _before(FunctionalTester $I)
     {
         $this->BoringSpeechAction = $I->grabService(BoringSpeech::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testBoringSpeech(FunctionalTester $I)

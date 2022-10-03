@@ -3,29 +3,18 @@
 namespace Mush\Game\Service;
 
 use Error;
-use Mush\Action\Entity\Action;
-use Mush\Action\Event\EnhancePercentageRollEvent;
-use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Enum\ActionOutputEnum;
-use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\Config\ModifierConfig;
-use Mush\Modifier\Entity\ModifierHolder;
-use Mush\Modifier\Service\ModifierService;
-use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 
 class RandomService implements RandomServiceInterface
 {
-
     public function random(int $min, int $max): int
     {
         return random_int($min, $max);
@@ -41,7 +30,8 @@ class RandomService implements RandomServiceInterface
         return $this->getSuccessThreshold() <= $successRate;
     }
 
-    public function getSuccessThreshold() : int {
+    public function getSuccessThreshold(): int
+    {
         return $this->randomPercent();
     }
 
@@ -192,5 +182,4 @@ class RandomService implements RandomServiceInterface
 
         return $k - 1;
     }
-
 }

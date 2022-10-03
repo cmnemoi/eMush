@@ -5,7 +5,6 @@ namespace Mush\Disease\Event;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\AbstractModifierHolderEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;

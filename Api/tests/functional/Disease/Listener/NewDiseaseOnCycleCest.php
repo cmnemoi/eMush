@@ -13,6 +13,7 @@ use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -21,18 +22,18 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Game\Service\EventServiceInterface;
+use Mush\Status\Service\PlayerStatusService;
 
 class NewDiseaseOnCycleCest
 {
-    private EventServiceInterface $eventServiceService;
+    private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
-        $this->eventServiceService = $I->grabService(EventServiceInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testNewCycleDisease(FunctionalTester $I)
+    public function testNewCycleDisease(FunctionalTester $I): void
     {
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class, ['cycleDiseaseRate' => 100]);
@@ -83,7 +84,7 @@ class NewDiseaseOnCycleCest
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventServiceService->callEvent($playerEvent, PlayerEvent::CYCLE_DISEASE);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::CYCLE_DISEASE);
 
         $I->seeInRepository(PlayerDisease::class, [
             'player' => $player->getId(),
@@ -91,7 +92,7 @@ class NewDiseaseOnCycleCest
         ]);
     }
 
-    public function testNewCycleDiseaseLowMorale(FunctionalTester $I)
+    public function testNewCycleDiseaseLowMorale(FunctionalTester $I): void
     {
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class, ['cycleDiseaseRate' => 100]);
@@ -108,7 +109,12 @@ class NewDiseaseOnCycleCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+            'characterConfig' => $characterConfig,
+            'moralPoint' => PlayerStatusService::DEMORALIZED_THRESHOLD,
+        ]);
 
         $statusConfig = new StatusConfig();
         $statusConfig
@@ -149,7 +155,7 @@ class NewDiseaseOnCycleCest
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventServiceService->callEvent($playerEvent, PlayerEvent::CYCLE_DISEASE);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::CYCLE_DISEASE);
 
         $I->seeInRepository(PlayerDisease::class, [
             'player' => $player->getId(),

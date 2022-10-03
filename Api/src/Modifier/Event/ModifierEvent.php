@@ -25,5 +25,4 @@ class ModifierEvent extends AbstractGameEvent
     {
         return $this->modifier;
     }
-
 }

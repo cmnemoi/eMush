@@ -9,8 +9,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleService;
-use PHPUnit\Framework\TestCase;
 use Mush\Game\Service\EventServiceInterface;
+use PHPUnit\Framework\TestCase;
 
 class CycleServiceTest extends TestCase
 {

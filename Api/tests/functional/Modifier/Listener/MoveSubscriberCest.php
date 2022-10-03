@@ -9,6 +9,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Event\ActionEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -17,8 +18,8 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\Config\ModifierConfig;
+use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Place\Entity\Place;
@@ -26,7 +27,6 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -35,12 +35,12 @@ class MoveSubscriberCest
 {
     private Move $moveAction;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->moveAction = $I->grabService(Move::class);
     }
 
-    public function testMoveWithPlaceModifiers(FunctionalTester $I)
+    public function testMoveWithPlaceModifiers(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -86,7 +86,7 @@ class MoveSubscriberCest
             'characterConfig' => $characterConfig,
         ]);
 
-        // first let create a gear with an irrelevant reach
+        // first let's create a gear with an irrelevant reach
         $modifierConfig1 = new ModifierConfig(
             'a random modifier config',
             ModifierReachEnum::PLAYER,
@@ -95,7 +95,7 @@ class MoveSubscriberCest
             PlayerVariableEnum::MORAL_POINT
         );
         $modifierConfig1
-            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::SHOWER]);
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEvent::POST_ACTION, ActionEnum::SHOWER]);
         $I->haveInRepository($modifierConfig1);
 
         $I->refreshEntities($player);
@@ -122,16 +122,16 @@ class MoveSubscriberCest
         $player->addEquipment($gameEquipment);
         $I->refreshEntities($player);
 
-        // lets create a gear with room reach in player inventory
+        // let's create a gear with room reach in player inventory
         $modifierConfig2 = new ModifierConfig(
             'a random modifier config',
-            ModifierReachEnum::PLAYER,
+            ModifierReachEnum::PLACE,
             -1,
             ModifierModeEnum::ADDITIVE,
             PlayerVariableEnum::MORAL_POINT
         );
         $modifierConfig2
-            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::SHOWER]);
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEvent::POST_ACTION, ActionEnum::SHOWER]);
         $I->haveInRepository($modifierConfig2);
 
         $modifier2 = new Modifier($room, $modifierConfig2);

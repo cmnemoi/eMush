@@ -4,10 +4,10 @@ namespace Mush\Status\Service;
 
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Mush\Game\Service\EventServiceInterface;
 
 class PlayerStatusService implements PlayerStatusServiceInterface
 {
@@ -82,7 +82,8 @@ class PlayerStatusService implements PlayerStatusServiceInterface
         }
 
         if ($suicidalStatus && !$this->isPlayerSuicidal($playerMoralPoint)) {
-            $this->statusService->delete($suicidalStatus);
+            $event = new StatusEvent(PlayerStatusEnum::SUICIDAL, $player, EventEnum::NEW_CYCLE, $dateTime);
+            $this->eventService->callEvent($event, StatusEvent::STATUS_REMOVED);
         }
 
         if (!$demoralizedStatus && $this->isPlayerDemoralized($playerMoralPoint)) {
@@ -91,7 +92,8 @@ class PlayerStatusService implements PlayerStatusServiceInterface
         }
 
         if ($demoralizedStatus && !$this->isPlayerDemoralized($playerMoralPoint)) {
-            $this->statusService->delete($demoralizedStatus);
+            $event = new StatusEvent(PlayerStatusEnum::DEMORALIZED, $player, EventEnum::NEW_CYCLE, $dateTime);
+            $this->eventService->callEvent($event, StatusEvent::STATUS_REMOVED);
         }
     }
 

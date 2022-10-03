@@ -4,37 +4,29 @@ namespace Mush\Test\Modifier\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
-use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\ModifierCollection;
 use Mush\Modifier\Entity\Config\ModifierConfig;
+use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
-use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierService;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
 use PHPUnit\Framework\TestCase;
-use Mush\Game\Service\EventServiceInterface;
 
 class ModifierServiceTest extends TestCase
 {
-    /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface|Mockery\Mock $entityManager;
-    /** @var RandomServiceInterface|Mockery\Mock */
+
     private RandomServiceInterface|Mockery\Mock $randomService;
-    /** @var RoomLogServiceInterface|Mockery\Mock */
+
     private RoomLogServiceInterface|Mockery\Mock $roomLogService;
-    /** @var EventServiceInterface|Mockery\Mock */
+
     private EventServiceInterface|Mockery\Mock $eventService;
 
     private ModifierService $modifierService;
@@ -201,5 +193,4 @@ class ModifierServiceTest extends TestCase
 
         $this->modifierService->createModifier($modifierConfig, $equipment);
     }
-
 }

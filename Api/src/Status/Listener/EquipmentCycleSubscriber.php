@@ -3,9 +3,9 @@
 namespace Mush\Status\Listener;
 
 use Mush\Equipment\Event\EquipmentCycleEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Event\StatusCycleEvent;
-use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentCycleSubscriber implements EventSubscriberInterface

@@ -11,26 +11,23 @@ use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Modifier\Entity\Modifier;
-
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\ModifierConfig;
-use Mush\Modifier\Enum\ModifierConditionEnum;
+use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Place\Entity\Place;
-use Mush\Game\Service\EventServiceInterface;
-use Mush\Player\Enum\PlayerVariableEnum;
 
 class DaedalusVariableEventCest
 {
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testChangeOxygenWithTanks(FunctionalTester $I)
+    public function testChangeOxygenWithTanks(FunctionalTester $I): void
     {
         /** @var DaedalusConfig $gameConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
@@ -52,9 +49,9 @@ class DaedalusVariableEventCest
 
         $I->assertEquals(30, $daedalus->getOxygen());
 
-        $modifierConfig =  new ModifierConfig(
+        $modifierConfig = new ModifierConfig(
             'a random modifier config',
-            ModifierReachEnum::PLAYER,
+            ModifierReachEnum::DAEDALUS,
             1,
             ModifierModeEnum::ADDITIVE,
             DaedalusVariableEnum::OXYGEN

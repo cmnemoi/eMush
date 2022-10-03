@@ -7,7 +7,6 @@ use Mush\Player\Entity\Player;
 
 class ResourcePointChangeEvent extends AbstractModifierHolderEvent
 {
-
     public const CHECK_CHANGE_MORAL_POINT = 'check_change_moral_point';
     public const CHECK_CHANGE_ACTION_POINT = 'check_change_action_point';
     public const CHECK_CHANGE_MOVEMENT_POINT = 'check_change_movement_point';
@@ -24,7 +23,8 @@ class ResourcePointChangeEvent extends AbstractModifierHolderEvent
         $this->variablePoint = $variablePoint;
     }
 
-    public function addCost(int $cost) : void {
+    public function addCost(int $cost): void
+    {
         $this->cost += $cost;
     }
 
@@ -42,5 +42,4 @@ class ResourcePointChangeEvent extends AbstractModifierHolderEvent
     {
         return $this->cost;
     }
-
 }

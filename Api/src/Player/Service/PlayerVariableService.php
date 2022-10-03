@@ -4,15 +4,12 @@ namespace Mush\Player\Service;
 
 use Error;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\ResourceMaxPointEvent;
 
 class PlayerVariableService implements PlayerVariableServiceInterface
 {
-
     private PlayerServiceInterface $playerService;
     private EventServiceInterface $eventService;
 
@@ -39,7 +36,8 @@ class PlayerVariableService implements PlayerVariableServiceInterface
         return $this->getMaxPlayerVariableWithModifier($player, $variable, $baseValue);
     }
 
-    private function getMaxPlayerVariableWithModifier(Player $player, string $variable, int $baseValue) : int {
+    private function getMaxPlayerVariableWithModifier(Player $player, string $variable, int $baseValue): int
+    {
         $event = new ResourceMaxPointEvent(
             $player,
             $variable,
@@ -49,6 +47,7 @@ class PlayerVariableService implements PlayerVariableServiceInterface
         );
 
         $this->eventService->callEvent($event, ResourceMaxPointEvent::CHECK_MAX_POINT);
+
         return $event->getValue();
     }
 
@@ -108,9 +107,7 @@ class PlayerVariableService implements PlayerVariableServiceInterface
 
     public function handleSatietyModifier(int $delta, Player $player): Player
     {
-        if ($delta >= 0 &&
-            $player->getSatiety() < 0
-        ) {
+        if ($delta >= 0 && $player->getSatiety() < 0) {
             $player->setSatiety($delta);
         } else {
             $player->setSatiety($player->getSatiety() + $delta);

@@ -28,7 +28,7 @@ class PlayerVariableEnum
             self::MOVEMENT_POINT,
             self::MORAL_POINT,
             self::HEALTH_POINT,
-            self::SATIETY
+            self::SATIETY,
         ];
     }
 

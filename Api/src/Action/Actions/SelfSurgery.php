@@ -109,7 +109,6 @@ class SelfSurgery extends AbstractAction
             $this->getActionName(),
             new \DateTime(),
         );
-        PreparePercentageRollEvent::ACTION_ROLL_RATE
 
         $result = $this->randomService->outputCriticalChances($failChances, 0, $criticalSuccessChances);
 

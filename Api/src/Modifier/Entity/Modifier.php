@@ -8,6 +8,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\ChargeStatus;
 use Symfony\Component\Validator\Exception\LogicException;
 
 #[ORM\Entity]
@@ -34,12 +35,21 @@ class Modifier
     #[ORM\ManyToOne(targetEntity: Daedalus::class)]
     private ?Daedalus $daedalus = null;
 
-    public function __construct(ModifierHolder $holder, ModifierConfig $config)
+    #[ORM\ManyToOne(targetEntity: ChargeStatus::class)]
+    private ?ChargeStatus $charge;
+
+    public function __construct(ModifierHolder $holder, ModifierConfig $config, ChargeStatus $charge = null)
     {
         $this->setModifierHolder($holder);
         $this->config = $config;
+        $this->charge = $charge;
 
         $holder->addModifier($this);
+    }
+
+    public function getCharge(): ?ChargeStatus
+    {
+        return $this->charge;
     }
 
     public function getConfig(): ModifierConfig

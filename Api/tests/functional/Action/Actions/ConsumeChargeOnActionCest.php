@@ -242,11 +242,11 @@ class ConsumeChargeOnActionCest
         $I->haveInRepository($statusConfig);
         $chargeStatus = new ChargeStatus($gameGear, $statusConfig);
         $chargeStatus
-            ->setCharge(2)
+            ->setCharge(1)
         ;
         $I->haveInRepository($chargeStatus);
 
-        $modifier = new Modifier($player, $modifierConfig);
+        $modifier = new Modifier($player, $modifierConfig, $chargeStatus);
         $I->haveInRepository($modifier);
 
         $this->coffeeAction->loadParameters($actionEntity, $player, $gameEquipment);
@@ -324,7 +324,7 @@ class ConsumeChargeOnActionCest
         $modifierConfig = new ModifierConfig(
             'a random modifier config',
             ModifierReachEnum::PLAYER,
-            1,
+            2,
             ModifierModeEnum::ADDITIVE,
             PlayerVariableEnum::MOVEMENT_POINT
         );
@@ -364,7 +364,7 @@ class ConsumeChargeOnActionCest
         ;
         $I->haveInRepository($chargeStatus);
 
-        $modifier = new Modifier($player, $modifierConfig);
+        $modifier = new Modifier($player, $modifierConfig, $chargeStatus);
         $I->haveInRepository($modifier);
 
         $this->coffeeAction->loadParameters($actionEntity, $player, $gameEquipment);
@@ -375,6 +375,8 @@ class ConsumeChargeOnActionCest
 
         $this->coffeeAction->execute();
 
+        $I->assertEquals(9, $player->getActionPoint());
+        $I->assertEquals(2, $player->getMovementPoint());
         $I->assertEquals(0, $chargeStatus->getCharge());
         $I->assertEquals(1, $this->coffeeAction->getMovementPointCost());
         $I->assertEquals(0, $this->coffeeAction->getActionPointCost());

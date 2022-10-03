@@ -33,7 +33,7 @@ class StatusCycleSubscriber implements EventSubscriberInterface
     {
         $status = $event->getStatus();
 
-        if ($status instanceof ChargeStatus && ($strategyName = $status->getStrategy())) {
+        if ($status instanceof ChargeStatus && ($strategyName = $status->getChargeStrategy())) {
             if ($strategy = $this->chargeStrategyService->getStrategy($strategyName)) {
                 $strategy->execute($status, $event->getReasons()[0]);
             }
@@ -48,7 +48,7 @@ class StatusCycleSubscriber implements EventSubscriberInterface
     {
         $status = $event->getStatus();
 
-        if ($status instanceof ChargeStatus && ($strategyName = $status->getStrategy())) {
+        if ($status instanceof ChargeStatus && ($strategyName = $status->getChargeStrategy())) {
             if ($strategy = $this->chargeStrategyService->getStrategy($strategyName)) {
                 $strategy->execute($status, $event->getReasons()[0]);
             }

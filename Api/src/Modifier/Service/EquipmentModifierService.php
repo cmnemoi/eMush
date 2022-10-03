@@ -100,19 +100,19 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         $this->createEquipmentStatusModifiers($gameEquipment, [ModifierReachEnum::PLACE], null);
     }
 
-    private function getChargeStatus(string $eventName, StatusHolderInterface $statusHolder): ?ChargeStatus
+    private function getChargeStatus(ModifierConfig $config, StatusHolderInterface $statusHolder): ?ChargeStatus
     {
-        $charges = $statusHolder->getStatuses()->filter(function (Status $status) use ($eventName) {
-            return $status instanceof ChargeStatus &&
-                $status->getDischargeStrategy() === $eventName;
+        $charges = $statusHolder->getStatuses()->filter(function (Status $status) use ($config) {
+            $eventTargeted = array_keys($config->getTargetEvents());
+            return $status instanceof ChargeStatus && in_array($status->getDischargeStrategy(), $eventTargeted);
         });
 
         if ($charges->count() > 0) {
             return $charges->first();
-        } elseif ($charges->count() === 0) {
+        } else if ($charges->count() === 0) {
             return null;
         } else {
-            throw new LogicException('there should be maximum 1 chargeStatus with this dischargeStrategy on this statusHolder');
+            throw new LogicException('there should be minimum 0 chargeStatus');
         }
     }
 
@@ -194,6 +194,8 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         /* @var ModifierConfig $modifierConfig */
         foreach ($modifiers as $modifierConfig) {
             if (in_array($modifierConfig->getReach(), $reaches)) {
+                $charge = $this->getChargeStatus($modifierConfig, $gameEquipment);
+
                 $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
                 if ($holder === null) {
                     return;
@@ -201,7 +203,8 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
 
                 $this->modifierService->createModifier(
                     $modifierConfig,
-                    $holder
+                    $holder,
+                    $charge
                 );
             }
         }

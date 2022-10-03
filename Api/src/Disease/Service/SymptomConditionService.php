@@ -88,13 +88,13 @@ class SymptomConditionService implements SymptomConditionServiceInterface
         $dirtyRate = $action->getDirtyRate();
         $isSuperDirty = $dirtyRate > 100;
 
-        return $this->modifierService->isSuccessfulWithModifiers(
+        return $isSuperDirty || $this->modifierService->isSuccessfulWithModifiers(
             $dirtyRate,
             [ModifierScopeEnum::EVENT_DIRTY],
             $action->getName(),
             new DateTime(),
             $player
-        ) || $isSuperDirty;
+        );
     }
 
     private function checkPlayerEquipmentCondition(?string $expectedEquipment, Player $player): bool

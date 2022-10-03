@@ -5,6 +5,8 @@ namespace Mush\Game\Service;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\AbstractModifierHolderEvent;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Event\ModifierEvent;
 use Mush\Modifier\Service\ModifierListenerServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -32,8 +34,15 @@ class EventService implements EventServiceInterface
         $event->setEventName($name);
 
         $handled = false;
-        if ($event instanceof AbstractModifierHolderEvent) {
-            $handled = $this->modifierListenerService->applyModifiers($event);
+        if ($this->modifierListenerService->canHandle($event)) {
+            $handled = true;
+
+            if ($event instanceof AbstractModifierHolderEvent) {
+                if ($this->modifierListenerService->applyModifiers($event)) {
+                    $modifiers = $this->modifierListenerService->harvestAppliedModifier($event);
+                    $this->applyModifiers($modifiers);
+                }
+            }
         }
 
         $this->eventDispatcher->dispatch($event, $name);
@@ -61,6 +70,19 @@ class EventService implements EventServiceInterface
 
                 $this->callEvent($variableEvent, AbstractQuantityEvent::CHANGE_VARIABLE, $event);
             }
+        }
+    }
+
+    private function applyModifiers(array $modifiers) {
+        foreach ($modifiers as  $modifier) {
+            $logKey = $modifier->getConfig()->getLogKeyWhenApplied();
+
+            $event = new ModifierEvent(
+                $modifier,
+                $logKey === null ? $modifier->getConfig()->getName() : $logKey,
+                new \DateTime()
+            );
+            $this->callEvent($event, ModifierEvent::APPLY_MODIFIER);
         }
     }
 }

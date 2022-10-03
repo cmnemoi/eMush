@@ -77,7 +77,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig, $daedalus)
+            ->with($modifierConfig, $daedalus, null)
             ->once()
         ;
         $this->service->createGear($gameEquipment);
@@ -89,7 +89,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig, $daedalus)
+            ->with($modifierConfig, $daedalus, null)
             ->once()
         ;
         $this->service->createGear($gameEquipment);
@@ -120,12 +120,12 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig, $daedalus)
+            ->with($modifierConfig, $daedalus, null)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig2, $daedalus)
+            ->with($modifierConfig2, $daedalus, null)
             ->once()
         ;
         $this->service->createGear($gameEquipment);
@@ -237,7 +237,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $player)
+            ->with($modifierConfig1, $player, null)
             ->once()
         ;
         $this->service->takeEquipment($gameEquipment, $player);

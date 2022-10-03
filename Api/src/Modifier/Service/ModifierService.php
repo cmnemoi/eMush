@@ -17,6 +17,7 @@ use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\ChargeStatus;
 
 class ModifierService implements ModifierServiceInterface
 {
@@ -136,9 +137,9 @@ class ModifierService implements ModifierServiceInterface
         );
     }
 
-    public function createModifier(ModifierConfig $config, ModifierHolder $holder): Modifier
+    public function createModifier(ModifierConfig $config, ModifierHolder $holder, ChargeStatus $charge = null): Modifier
     {
-        $modifier = new Modifier($holder, $config);
+        $modifier = new Modifier($holder, $config, $charge);
         $this->persist($modifier);
 
         return $modifier;

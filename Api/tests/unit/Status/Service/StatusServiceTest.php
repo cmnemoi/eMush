@@ -209,7 +209,7 @@ class StatusServiceTest extends TestCase
         $this->assertEquals($result->getThreshold(), 4);
         $this->assertEquals($result->getCharge(), 3);
         $this->assertEquals($result->getChargeVisibility(), VisibilityEnum::PUBLIC);
-        $this->assertEquals($result->getStrategy(), ChargeStrategyTypeEnum::CYCLE_INCREMENT);
+        $this->assertEquals($result->getChargeStrategy(), ChargeStrategyTypeEnum::CYCLE_INCREMENT);
         $this->assertTrue($result->isAutoRemove());
     }
 

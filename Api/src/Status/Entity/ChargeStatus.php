@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 class ChargeStatus extends Status
 {
     #[ORM\Column(type: 'integer', nullable: false)]
-    private int $charge = 0;
+    private int $charge;
 
     public function __construct(StatusHolderInterface $statusHolder, ChargeStatusConfig $statusConfig)
     {
@@ -52,7 +52,7 @@ class ChargeStatus extends Status
         return $this;
     }
 
-    public function getStrategy(): ?string
+    public function getChargeStrategy(): ?string
     {
         return $this->getStatusConfig()->getChargeStrategy();
     }
@@ -71,4 +71,5 @@ class ChargeStatus extends Status
     {
         return $this->getStatusConfig()->isAutoRemove();
     }
+
 }

@@ -5,6 +5,7 @@ namespace Mush\Modifier\Service;
 use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Status\Entity\ChargeStatus;
 
 interface ModifierServiceInterface
 {
@@ -18,7 +19,7 @@ interface ModifierServiceInterface
         ModifierHolder $target = null
     ): ModifierHolder;
 
-    public function createModifier(ModifierConfig $config, ModifierHolder $holder): Modifier;
+    public function createModifier(ModifierConfig $config, ModifierHolder $holder, ChargeStatus $charge = null): Modifier;
 
     public function deleteModifier(ModifierConfig $modifierConfig, ModifierHolder $holder): void;
 

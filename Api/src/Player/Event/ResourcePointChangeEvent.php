@@ -15,12 +15,29 @@ class ResourcePointChangeEvent extends AbstractModifierHolderEvent
 
     private int $cost;
     private string $variablePoint;
+    private bool $consumed;
 
-    public function __construct(Player $player, string $variablePoint, int $cost, string $reason, \DateTime $time)
-    {
+    public function __construct(
+        Player $player,
+        string $variablePoint,
+        int $cost,
+        string $reason,
+        \DateTime $time
+    ) {
         parent::__construct($player, $reason, $time);
         $this->cost = $cost;
         $this->variablePoint = $variablePoint;
+        $this->consumed = false;
+    }
+
+    public function setConsumed(bool $consumed): void
+    {
+        $this->consumed = $consumed;
+    }
+
+    public function isConsumed(): bool
+    {
+        return $this->consumed;
     }
 
     public function addCost(int $cost): void

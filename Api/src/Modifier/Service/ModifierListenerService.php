@@ -13,6 +13,7 @@ use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Event\ModifierEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Event\ResourceMaxPointEvent;
 use Mush\Player\Event\ResourcePointChangeEvent;
@@ -20,46 +21,64 @@ use Mush\Player\Event\ResourcePointChangeEvent;
 class ModifierListenerService implements ModifierListenerServiceInterface
 {
     private RandomServiceInterface $randomService;
+    private array $appliedModifiers;
+    private int $stack;
 
     public function __construct(RandomServiceInterface $randomService)
     {
         $this->randomService = $randomService;
+        $this->appliedModifiers = [];
+        $this->stack = -1;
     }
 
     public function applyModifiers(AbstractModifierHolderEvent $event): bool
     {
-        if (!$this->canHandle($event)) {
-            return false;
-        }
+        $this->stack += 1;
+        $this->appliedModifiers[] = [];
 
         if ($event instanceof DaedalusVariableEvent) {
             $this->onDaedalusVariableEvent($event);
+            return true;
         }
 
         if ($event instanceof ResourceMaxPointEvent) {
             $this->onResourceMaxPointEvent($event);
+            return true;
         }
 
         if ($event instanceof ResourcePointChangeEvent) {
-            $this->onResourcePointChangeEvent($event);
+            return $this->onResourcePointChangeEvent($event);
         }
 
         if ($event instanceof PlayerVariableEvent) {
             $this->onPlayerVariableEvent($event);
+            return true;
         }
 
         if ($event instanceof PreparePercentageRollEvent) {
             $this->onPreparePercentageRollEvent($event);
+            return true;
         }
 
         if ($event instanceof EnhancePercentageRollEvent) {
             $this->onEnhancePercentageRollEvent($event);
+            return true;
         }
 
         return true;
     }
 
-    private function canHandle(AbstractGameEvent $event): bool
+    public function harvestAppliedModifier(AbstractModifierHolderEvent $event): array {
+        $modifiers = $this->appliedModifiers[$this->stack];
+        $this->stack -= 1;
+        return $modifiers;
+    }
+
+    private function addAppliedModifier(Modifier $modifier) {
+        $this->appliedModifiers[$this->stack][] = $modifier;
+    }
+
+    public function canHandle(AbstractGameEvent $event): bool
     {
         return
             $event instanceof PlayerVariableEvent ||
@@ -73,7 +92,6 @@ class ModifierListenerService implements ModifierListenerServiceInterface
     private function onDaedalusVariableEvent(DaedalusVariableEvent $event): void
     {
         $variable = $event->getModifiedVariable();
-        codecept_debug('oui');
 
         $modifiers = $this->getModifiersToApply(
             $event->getModifierHolder(),
@@ -87,6 +105,8 @@ class ModifierListenerService implements ModifierListenerServiceInterface
         $event->setQuantity($this->calculateModifiedValue($baseQuantity, $modifiers->toArray()));
     }
 
+
+
     private function onResourceMaxPointEvent(ResourceMaxPointEvent $event): void
     {
         $event->setValue($this->calculateModifiedValue(
@@ -95,12 +115,14 @@ class ModifierListenerService implements ModifierListenerServiceInterface
         ));
     }
 
-    private function onResourcePointChangeEvent(ResourcePointChangeEvent $event): void
+    private function onResourcePointChangeEvent(ResourcePointChangeEvent $event): bool
     {
         $event->setCost($this->calculateModifiedValue(
             $event->getCost(),
             $this->getModifiersToApplyForVariable($event, $event->getVariablePoint())->toArray()
         ));
+
+        return $event->isConsumed();
     }
 
     private function getModifiersToApplyForVariable(AbstractModifierHolderEvent $event, string $variable): ModifierCollection
@@ -166,15 +188,17 @@ class ModifierListenerService implements ModifierListenerServiceInterface
                     if ($this->isDone($event->getRate(), $threshold, $tryToSucceed)) {
                         $event->setModifierConfig($modifierConfig);
                     }
-
+                    $this->appliedModifiers[$this->stack] = [$modifier];
                     return;
 
                 case ModifierModeEnum::MULTIPLICATIVE:
                     $event->setRate($event->getRate() * $modifierConfig->getValue());
+                    $this->addAppliedModifier($modifier);
                     break;
 
                 case ModifierModeEnum::ADDITIVE:
                     $event->setRate($event->getRate() + $modifierConfig->getValue());
+                    $this->addAppliedModifier($modifier);
                     break;
 
                 default:
@@ -225,18 +249,28 @@ class ModifierListenerService implements ModifierListenerServiceInterface
 
         /* @var Modifier $modifier */
         foreach ($modifiers as $modifier) {
+            $charge = $modifier->getCharge();
+            if ($charge !== null) {
+                if ($charge->getCharge() <= 0) {
+                    continue;
+                }
+            }
+
             $modifierConfig = $modifier->getConfig();
 
             switch ($modifierConfig->getMode()) {
                 case ModifierModeEnum::SET_VALUE:
+                    $this->appliedModifiers[$this->stack] = [$modifier];
                     return $modifierConfig->getValue();
 
                 case ModifierModeEnum::MULTIPLICATIVE:
                     $multiplicativeValue *= $modifierConfig->getValue();
+                    $this->addAppliedModifier($modifier);
                     break;
 
                 case ModifierModeEnum::ADDITIVE:
                     $additiveValue += $modifierConfig->getValue();
+                    $this->addAppliedModifier($modifier);
                     break;
 
                 default:

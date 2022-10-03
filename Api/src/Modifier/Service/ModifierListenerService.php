@@ -13,7 +13,6 @@ use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierModeEnum;
-use Mush\Modifier\Event\ModifierEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Event\ResourceMaxPointEvent;
 use Mush\Player\Event\ResourcePointChangeEvent;
@@ -33,16 +32,18 @@ class ModifierListenerService implements ModifierListenerServiceInterface
 
     public function applyModifiers(AbstractModifierHolderEvent $event): bool
     {
-        $this->stack += 1;
+        ++$this->stack;
         $this->appliedModifiers[] = [];
 
         if ($event instanceof DaedalusVariableEvent) {
             $this->onDaedalusVariableEvent($event);
+
             return true;
         }
 
         if ($event instanceof ResourceMaxPointEvent) {
             $this->onResourceMaxPointEvent($event);
+
             return true;
         }
 
@@ -52,29 +53,35 @@ class ModifierListenerService implements ModifierListenerServiceInterface
 
         if ($event instanceof PlayerVariableEvent) {
             $this->onPlayerVariableEvent($event);
+
             return true;
         }
 
         if ($event instanceof PreparePercentageRollEvent) {
             $this->onPreparePercentageRollEvent($event);
+
             return true;
         }
 
         if ($event instanceof EnhancePercentageRollEvent) {
             $this->onEnhancePercentageRollEvent($event);
+
             return true;
         }
 
         return true;
     }
 
-    public function harvestAppliedModifier(AbstractModifierHolderEvent $event): array {
+    public function harvestAppliedModifier(AbstractModifierHolderEvent $event): array
+    {
         $modifiers = $this->appliedModifiers[$this->stack];
-        $this->stack -= 1;
+        --$this->stack;
+
         return $modifiers;
     }
 
-    private function addAppliedModifier(Modifier $modifier) {
+    private function addAppliedModifier(Modifier $modifier)
+    {
         $this->appliedModifiers[$this->stack][] = $modifier;
     }
 
@@ -104,8 +111,6 @@ class ModifierListenerService implements ModifierListenerServiceInterface
         $baseQuantity = $event->getQuantity();
         $event->setQuantity($this->calculateModifiedValue($baseQuantity, $modifiers->toArray()));
     }
-
-
 
     private function onResourceMaxPointEvent(ResourceMaxPointEvent $event): void
     {
@@ -189,6 +194,7 @@ class ModifierListenerService implements ModifierListenerServiceInterface
                         $event->setModifierConfig($modifierConfig);
                     }
                     $this->appliedModifiers[$this->stack] = [$modifier];
+
                     return;
 
                 case ModifierModeEnum::MULTIPLICATIVE:
@@ -261,6 +267,7 @@ class ModifierListenerService implements ModifierListenerServiceInterface
             switch ($modifierConfig->getMode()) {
                 case ModifierModeEnum::SET_VALUE:
                     $this->appliedModifiers[$this->stack] = [$modifier];
+
                     return $modifierConfig->getValue();
 
                 case ModifierModeEnum::MULTIPLICATIVE:

@@ -2,14 +2,12 @@
 
 namespace Mush\Disease\Service;
 
-use DateTime;
 use Mush\Action\Entity\Action;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\SymptomCondition;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Enum\SymptomConditionEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
 
@@ -88,13 +86,13 @@ class SymptomConditionService implements SymptomConditionServiceInterface
         $dirtyRate = $action->getDirtyRate();
         $isSuperDirty = $dirtyRate > 100;
 
-        return $isSuperDirty || $this->modifierService->isSuccessfulWithModifiers(
-            $dirtyRate,
-            [ModifierScopeEnum::EVENT_DIRTY],
-            $action->getName(),
-            new DateTime(),
-            $player
-        );
+        return $isSuperDirty ||
+            $this->modifierService->isSuccessfulWithModifier(
+                $player,
+                $dirtyRate,
+                [$action->getName()],
+                false
+            );
     }
 
     private function checkPlayerEquipmentCondition(?string $expectedEquipment, Player $player): bool

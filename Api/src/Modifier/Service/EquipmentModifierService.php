@@ -104,12 +104,13 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
     {
         $charges = $statusHolder->getStatuses()->filter(function (Status $status) use ($config) {
             $eventTargeted = array_keys($config->getTargetEvents());
+
             return $status instanceof ChargeStatus && in_array($status->getDischargeStrategy(), $eventTargeted);
         });
 
         if ($charges->count() > 0) {
             return $charges->first();
-        } else if ($charges->count() === 0) {
+        } elseif ($charges->count() === 0) {
             return null;
         } else {
             throw new LogicException('there should be minimum 0 chargeStatus');

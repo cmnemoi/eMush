@@ -26,7 +26,6 @@ class EquipmentInPlaceModifierCondition extends ModifierCondition
             throw new \LogicException('No place to check equipments in it');
         }
 
-
         if ($place->hasEquipmentByName($this->equipmentName)) {
             return true;
         }

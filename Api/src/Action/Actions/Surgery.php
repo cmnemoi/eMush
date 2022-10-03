@@ -10,6 +10,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Event\ApplyEffectEvent;
+use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\AreMedicalSuppliesOnReach;
 use Mush\Action\Validator\HasDiseases;
@@ -19,7 +20,6 @@ use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -91,22 +91,25 @@ class Surgery extends AbstractAction
     {
         $date = new \DateTime();
 
-        $failChances = $this->modifierService->getEventModifiedValue(
+        $failChanceEvent = new PreparePercentageRollEvent(
             $this->player,
-            [ActionEnum::SURGERY],
-            ModifierTargetEnum::PERCENTAGE,
             self::FAIL_CHANCES,
-            $this->getActionName(),
-            $date,
+            ActionEnum::SURGERY,
+            $date
         );
-        $criticalSuccessChances = $this->modifierService->getEventModifiedValue(
+        $failChanceEvent->addReason(ActionOutputEnum::FAIL);
+        $this->eventService->callEvent($failChanceEvent, PreparePercentageRollEvent::TRIGGER_ROLL_RATE);
+        $failChances = $failChanceEvent->getRate();
+
+        $criticalSuccessChancesEvent = new PreparePercentageRollEvent(
             $this->player,
-            [ActionEnum::SURGERY],
-            ModifierTargetEnum::CRITICAL_PERCENTAGE,
             self::CRITICAL_SUCCESS_CHANCES,
-            $this->getActionName(),
-            $date,
+            ActionEnum::SURGERY,
+            $date
         );
+        $criticalSuccessChancesEvent->addReason(ActionOutputEnum::CRITICAL_SUCCESS);
+        $this->eventService->callEvent($failChanceEvent, PreparePercentageRollEvent::TRIGGER_ROLL_RATE);
+        $criticalSuccessChances = $failChanceEvent->getRate();
 
         $result = $this->randomService->outputCriticalChances($failChances, 0, $criticalSuccessChances);
 

@@ -20,7 +20,6 @@ use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -93,22 +92,27 @@ class SelfSurgery extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        $failChances = $this->modifierService->getEventModifiedValue(
+        $date = new \DateTime();
+
+        $failChanceEvent = new PreparePercentageRollEvent(
             $this->player,
-            [ActionEnum::SURGERY],
-            ModifierTargetEnum::PERCENTAGE,
             self::FAIL_CHANCES,
-            $this->getActionName(),
-            new \DateTime(),
+            ActionEnum::SURGERY,
+            $date
         );
-        $criticalSuccessChances = $this->modifierService->getEventModifiedValue(
+        $failChanceEvent->addReason(ActionOutputEnum::FAIL);
+        $this->eventService->callEvent($failChanceEvent, PreparePercentageRollEvent::TRIGGER_ROLL_RATE);
+        $failChances = $failChanceEvent->getRate();
+
+        $criticalSuccessChancesEvent = new PreparePercentageRollEvent(
             $this->player,
-            [ActionEnum::SURGERY],
-            ModifierTargetEnum::CRITICAL_PERCENTAGE,
             self::CRITICAL_SUCCESS_CHANCES,
-            $this->getActionName(),
-            new \DateTime(),
+            ActionEnum::SURGERY,
+            $date
         );
+        $criticalSuccessChancesEvent->addReason(ActionOutputEnum::CRITICAL_SUCCESS);
+        $this->eventService->callEvent($failChanceEvent, PreparePercentageRollEvent::TRIGGER_ROLL_RATE);
+        $criticalSuccessChances = $failChanceEvent->getRate();
 
         $result = $this->randomService->outputCriticalChances($failChances, 0, $criticalSuccessChances);
 

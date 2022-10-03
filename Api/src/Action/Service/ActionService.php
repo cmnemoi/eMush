@@ -47,8 +47,6 @@ class ActionService implements ActionServiceInterface
                 }
                 $numberOfConversions = (int) ceil($missingMovementPoints / $movementPointGain);
 
-
-
                 $conversionGain = $numberOfConversions * $movementPointGain;
                 $this->applyCost(
                     $player,
@@ -127,7 +125,6 @@ class ActionService implements ActionServiceInterface
             ResourcePointChangeEvent::CHECK_CHANGE_MORAL_POINT,
             $consumed
         );
-
     }
 
     public function getSuccessRate(Action $action, Player $player): int
@@ -172,7 +169,6 @@ class ActionService implements ActionServiceInterface
 
     private function getMovementPointConversionGain(Player $player, Action $action, bool $consumed = false): int
     {
-
         return $this->getPointFromResourceChange(
             $player,
             PlayerVariableEnum::MOVEMENT_POINT,
@@ -191,7 +187,6 @@ class ActionService implements ActionServiceInterface
         string $reason,
         bool $consumed = false
     ): int {
-
         $event = new ResourcePointChangeEvent(
             $player,
             $variablePoint,

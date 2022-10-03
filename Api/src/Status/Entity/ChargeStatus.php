@@ -71,5 +71,4 @@ class ChargeStatus extends Status
     {
         return $this->getStatusConfig()->isAutoRemove();
     }
-
 }

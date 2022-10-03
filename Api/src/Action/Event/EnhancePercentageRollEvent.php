@@ -11,6 +11,7 @@ class EnhancePercentageRollEvent extends PercentageRollEvent
     public const CLUMSINESS_ROLL_RATE = 'enhance_side_effect_roll_clumsiness';
     public const DIRTY_ROLL_RATE = 'enhance_side_effect_roll_dirty';
     public const ACTION_ROLL_RATE = 'enhance_try_to_fail_roll_action';
+    public const TRIGGER_ROLL_RATE = 'enhance_trigger_roll_rate';
 
     private ?ModifierConfig $modifier;
     private int $thresholdRate;

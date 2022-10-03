@@ -5,7 +5,6 @@ namespace Mush\Game\Service;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\AbstractModifierHolderEvent;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Event\ModifierEvent;
 use Mush\Modifier\Service\ModifierListenerServiceInterface;
 use Mush\Player\Entity\Player;
@@ -73,8 +72,9 @@ class EventService implements EventServiceInterface
         }
     }
 
-    private function applyModifiers(array $modifiers) {
-        foreach ($modifiers as  $modifier) {
+    private function applyModifiers(array $modifiers)
+    {
+        foreach ($modifiers as $modifier) {
             $logKey = $modifier->getConfig()->getLogKeyWhenApplied();
 
             $event = new ModifierEvent(

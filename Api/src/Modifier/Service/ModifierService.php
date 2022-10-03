@@ -71,7 +71,7 @@ class ModifierService implements ModifierServiceInterface
             $event->addReason($reasons[$i]);
         }
 
-        $this->eventService->callEvent($event, PreparePercentageRollEvent::ACTION_ROLL_RATE);
+        $this->eventService->callEvent($event, PreparePercentageRollEvent::TRIGGER_ROLL_RATE);
         $successRate = $event->getRate();
 
         if ($tryToSucceed) {
@@ -107,7 +107,7 @@ class ModifierService implements ModifierServiceInterface
             $event->addReason($reasons[$i]);
         }
 
-        $this->eventService->callEvent($event, EnhancePercentageRollEvent::ACTION_ROLL_RATE);
+        $this->eventService->callEvent($event, EnhancePercentageRollEvent::TRIGGER_ROLL_RATE);
 
         $modifier = $event->getModifierConfig();
         if ($modifier !== null) {
@@ -126,7 +126,9 @@ class ModifierService implements ModifierServiceInterface
         }
 
         $logKey = $modifier->getLogKeyWhenApplied();
-        if ($logKey === null) return;
+        if ($logKey === null) {
+            return;
+        }
 
         $this->logService->createLog(
             $logKey,

@@ -18,5 +18,4 @@ class ModifierCollection extends ArrayCollection
 
         return !$modifier ? null : $modifier;
     }
-
 }

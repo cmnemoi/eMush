@@ -166,35 +166,26 @@ class ModifierService implements ModifierServiceInterface
             if ($reach === ModifierReachEnum::DAEDALUS) {
                 return $holder;
             }
-        }
-
-        if ($holder instanceof Place) {
-            if ($reach === ModifierReachEnum::DAEDALUS) {
-                return $holder->getDaedalus();
-            }
-
-            if ($reach === ModifierReachEnum::PLACE) {
-                return $holder;
-            }
-        }
-
-        if ($holder instanceof GameEquipment) {
+        } elseif ($holder instanceof Place) {
+            return $this->getPlaceHolder($holder, $reach);
+        } elseif ($holder instanceof GameEquipment) {
             return $this->getEquipmentHolder($holder, $reach);
-        }
-
-        if ($holder instanceof Player) {
-            if ($target !== null) {
-                if ($target instanceof Player) {
-                    return $this->getPlayerHolder($holder, $target, $reach);
-                } else {
-                    throw new \LogicException('Target is not a player.');
-                }
-            } else {
-                return $this->getPlayerHolder($holder, null, $reach);
-            }
+        } elseif ($holder instanceof Player) {
+            return $this->getPlayerHolder($holder, $target, $reach);
         }
 
         throw new \LogicException($holder->getClassName() . ' can\'t have a ' . $reach . ' reach.');
+    }
+
+    private function getPlaceHolder(Place $holder, string $reach): ModifierHolder
+    {
+        if ($reach === ModifierReachEnum::DAEDALUS) {
+            return $holder->getDaedalus();
+        } elseif ($reach === ModifierReachEnum::PLACE) {
+            return $holder;
+        } else {
+            throw new \LogicException('Place can\'t have a ' . $reach . ' reach.');
+        }
     }
 
     private function getEquipmentHolder(GameEquipment $holder, string $reach): ModifierHolder
@@ -223,7 +214,7 @@ class ModifierService implements ModifierServiceInterface
         }
     }
 
-    private function getPlayerHolder(Player $holder, Player|null $target, string $reach): ModifierHolder
+    private function getPlayerHolder(Player $holder, ?ModifierHolder $target, string $reach): ModifierHolder
     {
         switch ($reach) {
             case ModifierReachEnum::DAEDALUS:

@@ -22,10 +22,10 @@ use Mush\Place\Entity\Place;
 class SurgeryActionTest extends AbstractActionTest
 {
     /** @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface $randomService;
+    private RandomServiceInterface|Mockery\Mock $randomService;
 
     /** @var ModifierServiceInterface|Mockery\Mock */
-    private ModifierServiceInterface $modifierService;
+    private ModifierServiceInterface|Mockery\Mock $modifierService;
 
     /**
      * @before
@@ -35,7 +35,6 @@ class SurgeryActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::SELF_HEAL);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
 
@@ -75,27 +74,12 @@ class SurgeryActionTest extends AbstractActionTest
 
         $playerToHeal->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
-        $this->modifierService
-            ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::PERCENTAGE, 10, ActionEnum::SURGERY, Mockery::any())
-            ->once()
-            ->andReturn(10)
-        ;
-
-        $this->modifierService
-            ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::CRITICAL_PERCENTAGE, 15, ActionEnum::SURGERY, Mockery::any())
-            ->once()
-            ->andReturn(15)
-        ;
-
         $this->randomService->shouldReceive('outputCriticalChances')
-            ->with(10, 0, 15)
             ->andReturn(ActionOutputEnum::FAIL)
             ->once()
         ;
 
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('callEvent')->times(3);
 
         $this->action->loadParameters($this->actionEntity, $player, $playerToHeal);
 
@@ -125,27 +109,12 @@ class SurgeryActionTest extends AbstractActionTest
 
         $playerToHeal->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
-        $this->modifierService
-            ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::PERCENTAGE, 10, ActionEnum::SURGERY, Mockery::any())
-            ->once()
-            ->andReturn(10)
-        ;
-
-        $this->modifierService
-            ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::CRITICAL_PERCENTAGE, 15, ActionEnum::SURGERY, Mockery::any())
-            ->once()
-            ->andReturn(15)
-        ;
-
         $this->randomService->shouldReceive('outputCriticalChances')
-            ->with(10, 0, 15)
             ->andReturn(ActionOutputEnum::SUCCESS)
             ->once()
         ;
 
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('callEvent')->times(3);
 
         $this->action->loadParameters($this->actionEntity, $player, $playerToHeal);
 
@@ -176,27 +145,12 @@ class SurgeryActionTest extends AbstractActionTest
 
         $playerToHeal->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
-        $this->modifierService
-            ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::PERCENTAGE, 10, ActionEnum::SURGERY, Mockery::any())
-            ->once()
-            ->andReturn(10)
-        ;
-
-        $this->modifierService
-            ->shouldReceive('getEventModifiedValue')
-            ->with($player, [ActionEnum::SURGERY], ModifierTargetEnum::CRITICAL_PERCENTAGE, 15, ActionEnum::SURGERY, Mockery::any())
-            ->once()
-            ->andReturn(15)
-        ;
-
         $this->randomService->shouldReceive('outputCriticalChances')
-            ->with(10, 0, 15)
             ->andReturn(ActionOutputEnum::CRITICAL_SUCCESS)
             ->once()
         ;
 
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('callEvent')->times(3);
 
         $this->action->loadParameters($this->actionEntity, $player, $playerToHeal);
 

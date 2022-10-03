@@ -7,31 +7,22 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\EnhancePercentageRollEvent;
-use Mush\Action\Event\PercentageRollEvent;
 use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Daedalus\Event\DaedalusVariableEvent;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
-use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Entity\Condition\CycleEvenModifierCondition;
 use Mush\Modifier\Entity\Condition\EquipmentRemainChargesModifierCondition;
 use Mush\Modifier\Entity\Config\ModifierConfig;
-use Mush\Modifier\Enum\ModifierConditionEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
-use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Event\ResourcePointChangeEvent;
-use Mush\Status\Enum\PlayerStatusEnum;
 
 class GearModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -170,7 +161,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             DaedalusVariableEnum::HULL
         );
         $oscilloscopeRepairModifier
-            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::STRENGTHEN_HULL]);
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEvent::POST_ACTION, ActionEnum::STRENGTHEN_HULL]);
         $manager->persist($oscilloscopeRepairModifier);
 
         $antennaModifier = new ModifierConfig(
@@ -192,7 +183,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         );
         $gravityConversionModifier
             ->addTargetEvent(ResourcePointChangeEvent::CHECK_CONVERSION_ACTION_TO_MOVEMENT_POINT_GAIN);
-            // @TODO IF BROKEN ON THE ACTUAL CYCLE, DOESN'T WORK
+        // @TODO IF BROKEN ON THE ACTUAL CYCLE, DOESN'T WORK
         $manager->persist($gravityConversionModifier);
 
         $gravityCycleModifier = new ModifierConfig(
@@ -204,7 +195,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         );
         $gravityCycleModifier
             ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [EventEnum::NEW_CYCLE]);
-            // @TODO IF BROKEN ON THE ACTUAL CYCLE, DOESN'T WORK
+        // @TODO IF BROKEN ON THE ACTUAL CYCLE, DOESN'T WORK
         $manager->persist($gravityCycleModifier);
 
         $oxygenTankModifier = new ModifierConfig(

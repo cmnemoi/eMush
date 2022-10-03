@@ -5,7 +5,6 @@ namespace Mush\Game\Service;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\AbstractModifierHolderEvent;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Modifier\Service\ModifierListenerService;
 use Mush\Modifier\Service\ModifierListenerServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -14,7 +13,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class EventService implements EventServiceInterface
 {
-
     private EventDispatcherInterface $eventDispatcher;
     private ModifierListenerServiceInterface $modifierListenerService;
 
@@ -28,7 +26,9 @@ class EventService implements EventServiceInterface
 
     public function callEvent(AbstractGameEvent $event, string $name, AbstractGameEvent $caller = null): void
     {
-        if ($caller !== null) $event->setReason(array_merge($event->getReasons(), $caller->getReasons()));
+        if ($caller !== null) {
+            $event->setReason(array_merge($event->getReasons(), $caller->getReasons()));
+        }
         $event->setEventName($name);
 
         $handled = false;
@@ -56,10 +56,11 @@ class EventService implements EventServiceInterface
                     $event->getEventName(),
                     new \DateTime()
                 );
+                $variableEvent->setArtificial(true);
+                $variableEvent->setModified(false);
 
                 $this->callEvent($variableEvent, AbstractQuantityEvent::CHANGE_VARIABLE, $event);
             }
         }
     }
-
 }

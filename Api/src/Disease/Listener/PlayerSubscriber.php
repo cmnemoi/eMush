@@ -2,14 +2,11 @@
 
 namespace Mush\Disease\Listener;
 
-use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\LogEnum;
@@ -41,7 +38,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->roomLogService = $roomLogService;
     }
 
-    public static function getSubscribedEvents() : array
+    public static function getSubscribedEvents(): array
     {
         return [
             PlayerEvent::CYCLE_DISEASE => 'onCycleDisease',

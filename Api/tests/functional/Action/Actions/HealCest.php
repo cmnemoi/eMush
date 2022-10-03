@@ -15,13 +15,13 @@ use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Game\Service\EventServiceInterface;
 
 class HealCest
 {
@@ -30,7 +30,7 @@ class HealCest
     public function _before(FunctionalTester $I)
     {
         $this->healAction = $I->grabService(Heal::class);
-        $this->eventServiceService = $I->grabService(EventServiceInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testHeal(FunctionalTester $I)

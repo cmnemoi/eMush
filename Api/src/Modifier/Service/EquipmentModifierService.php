@@ -7,8 +7,8 @@ use Doctrine\Common\Collections\Collection;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Entity\Config\ModifierConfig;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -34,7 +34,6 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         if (!$player instanceof Player) {
             $player = null;
         }
-
 
         $this->createGearModifiers(
             $gameEquipment,
@@ -196,7 +195,9 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         foreach ($modifiers as $modifierConfig) {
             if (in_array($modifierConfig->getReach(), $reaches)) {
                 $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
-                if ($holder === null) return;
+                if ($holder === null) {
+                    return;
+                }
 
                 $this->modifierService->createModifier(
                     $modifierConfig,

@@ -14,7 +14,7 @@ use Mush\Player\Entity\Player;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'modifier_condition')]
-#[ORM\InheritanceType("SINGLE_TABLE")]
+#[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
     'base' => ModifierCondition::class,
@@ -24,7 +24,7 @@ use Mush\Player\Entity\Player;
     'player_has_status' => PlayerHasStatusModifierCondition::class,
     'equipment_in_place' => EquipmentInPlaceModifierCondition::class,
     'equipment_remain_charges' => EquipmentRemainChargesModifierCondition::class,
-    'cycle_even' => CycleEvenModifierCondition::class
+    'cycle_even' => CycleEvenModifierCondition::class,
 ])]
 abstract class ModifierCondition
 {
@@ -41,14 +41,15 @@ abstract class ModifierCondition
         $this->configs = new ArrayCollection();
     }
 
-    public abstract function isTrue(ModifierHolder $holder, RandomServiceInterface $randomService) : bool;
+    abstract public function isTrue(ModifierHolder $holder, RandomServiceInterface $randomService): bool;
 
     public function getId(): int
     {
         return $this->id;
     }
 
-    protected function getPlace(ModifierHolder $holder) : ?Place {
+    protected function getPlace(ModifierHolder $holder): ?Place
+    {
         if ($holder instanceof Place) {
             return $holder;
         }
@@ -64,5 +65,4 @@ abstract class ModifierCondition
     {
         return $this->configs;
     }
-
 }

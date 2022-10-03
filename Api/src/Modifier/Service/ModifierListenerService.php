@@ -19,14 +19,15 @@ use Mush\Player\Event\ResourcePointChangeEvent;
 
 class ModifierListenerService implements ModifierListenerServiceInterface
 {
-
     private RandomServiceInterface $randomService;
 
-    public function __construct(RandomServiceInterface $randomService) {
+    public function __construct(RandomServiceInterface $randomService)
+    {
         $this->randomService = $randomService;
     }
 
-    public function applyModifiers(AbstractModifierHolderEvent $event) : bool {
+    public function applyModifiers(AbstractModifierHolderEvent $event): bool
+    {
         if (!$this->canHandle($event)) {
             return false;
         }
@@ -58,7 +59,8 @@ class ModifierListenerService implements ModifierListenerServiceInterface
         return true;
     }
 
-    private function canHandle(AbstractGameEvent $event) : bool {
+    private function canHandle(AbstractGameEvent $event): bool
+    {
         return
             $event instanceof PlayerVariableEvent ||
             $event instanceof ResourceMaxPointEvent ||
@@ -68,8 +70,10 @@ class ModifierListenerService implements ModifierListenerServiceInterface
             $event instanceof DaedalusVariableEvent;
     }
 
-    private function onDaedalusVariableEvent(DaedalusVariableEvent $event) : void {
+    private function onDaedalusVariableEvent(DaedalusVariableEvent $event): void
+    {
         $variable = $event->getModifiedVariable();
+        codecept_debug('oui');
 
         $modifiers = $this->getModifiersToApply(
             $event->getModifierHolder(),
@@ -81,24 +85,26 @@ class ModifierListenerService implements ModifierListenerServiceInterface
 
         $baseQuantity = $event->getQuantity();
         $event->setQuantity($this->calculateModifiedValue($baseQuantity, $modifiers->toArray()));
-
     }
 
-    private function onResourceMaxPointEvent(ResourceMaxPointEvent $event) : void {
+    private function onResourceMaxPointEvent(ResourceMaxPointEvent $event): void
+    {
         $event->setValue($this->calculateModifiedValue(
             $event->getValue(),
             $this->getModifiersToApplyForVariable($event, $event->getVariablePoint())->toArray()
         ));
     }
 
-    private function onResourcePointChangeEvent(ResourcePointChangeEvent $event) : void {
+    private function onResourcePointChangeEvent(ResourcePointChangeEvent $event): void
+    {
         $event->setCost($this->calculateModifiedValue(
             $event->getCost(),
             $this->getModifiersToApplyForVariable($event, $event->getVariablePoint())->toArray()
         ));
     }
 
-    private function getModifiersToApplyForVariable(AbstractModifierHolderEvent $event, string $variable) : ModifierCollection {
+    private function getModifiersToApplyForVariable(AbstractModifierHolderEvent $event, string $variable): ModifierCollection
+    {
         return $this->getModifiersToApply(
             $event->getModifierHolder(),
             $event->getEventName(),
@@ -108,7 +114,8 @@ class ModifierListenerService implements ModifierListenerServiceInterface
         });
     }
 
-    private function onPlayerVariableEvent(PlayerVariableEvent $event) : void {
+    private function onPlayerVariableEvent(PlayerVariableEvent $event): void
+    {
         $variable = $event->getModifiedVariable();
 
         $modifiers = $this->getModifiersToApply(
@@ -120,10 +127,15 @@ class ModifierListenerService implements ModifierListenerServiceInterface
         });
 
         $baseQuantity = $event->getQuantity();
-        $event->setQuantity($this->calculateModifiedValue($baseQuantity, $modifiers->toArray()));
+        $quantity = $this->calculateModifiedValue($baseQuantity, $modifiers->toArray());
+        if ($baseQuantity !== $quantity) {
+            $event->setQuantity($quantity);
+            $event->setModified(true);
+        }
     }
 
-    private function onPreparePercentageRollEvent(PreparePercentageRollEvent $event) : void {
+    private function onPreparePercentageRollEvent(PreparePercentageRollEvent $event): void
+    {
         $value = $this->getModifiedValue(
             $event->getModifierHolder(),
             $event->getRate(),
@@ -134,10 +146,13 @@ class ModifierListenerService implements ModifierListenerServiceInterface
         $event->setRate($value);
     }
 
-    private function onEnhancePercentageRollEvent(EnhancePercentageRollEvent $event) : void {
+    private function onEnhancePercentageRollEvent(EnhancePercentageRollEvent $event): void
+    {
         $holder = $event->getModifierHolder();
         $eventName = $event->getEventName();
         $reasons = $event->getReasons();
+        $threshold = $event->getThresholdRate();
+        $tryToSucceed = $event->tryToSucceed();
 
         $modifiers = $this->getModifiersToApply($holder, $eventName, $reasons);
 
@@ -146,44 +161,65 @@ class ModifierListenerService implements ModifierListenerServiceInterface
             $modifierConfig = $modifier->getConfig();
 
             switch ($modifierConfig->getMode()) {
+                case ModifierModeEnum::SET_VALUE:
+                    $event->setRate($modifierConfig->getValue());
+                    if ($this->isDone($event->getRate(), $threshold, $tryToSucceed)) {
+                        $event->setModifierConfig($modifierConfig);
+                    }
+
+                    return;
+
                 case ModifierModeEnum::MULTIPLICATIVE:
-                    $event->setThresholdRate($event->getThresholdRate() * $modifierConfig->getValue());
+                    $event->setRate($event->getRate() * $modifierConfig->getValue());
                     break;
 
                 case ModifierModeEnum::ADDITIVE:
-                    $event->setThresholdRate($event->getThresholdRate() + $modifierConfig->getValue());
+                    $event->setRate($event->getRate() + $modifierConfig->getValue());
                     break;
 
                 default:
                     throw new LogicException('Incorrect ModifierModeEnum string value in ModifierConfig');
             }
 
-            if ($event->tryToSucceed()) {
-                if ($event->getThresholdRate() <= $event->getRate()) {
-                    $event->setModifierConfig($modifierConfig);
-                    return;
-                }
-            } else {
-                if ($event->getThresholdRate() > $event->getRate()) {
-                    $event->setModifierConfig($modifierConfig);
-                    return;
-                }
+            if ($this->isDone($event->getRate(), $threshold, $tryToSucceed)) {
+                $event->setModifierConfig($modifierConfig);
+
+                return;
             }
         }
     }
 
-    private function getModifiersToApply(ModifierHolder $holder, string $event, array $reasons) : ModifierCollection {
+    private function isDone(int $rate, int $threshold, bool $tryToSucceed): bool
+    {
+        if ($tryToSucceed) {
+            if ($threshold < $rate) {
+                return true;
+            }
+        } else {
+            if ($threshold >= $rate) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function getModifiersToApply(ModifierHolder $holder, string $event, array $reasons): ModifierCollection
+    {
         return $holder->getModifiersAtReach()->filter(function (Modifier $modifier) use ($holder, $event, $reasons) {
             $modifierConfig = $modifier->getConfig();
+
             return $modifierConfig->areConditionsTrue($holder, $this->randomService) && $modifierConfig->isTargetedBy($event, $reasons);
         });
     }
 
-    private function getModifiedValue(ModifierHolder $holder, int $baseValue, string $event, array $reason) : int {
+    private function getModifiedValue(ModifierHolder $holder, int $baseValue, string $event, array $reason): int
+    {
         return $this->calculateModifiedValue($baseValue, $this->getModifiersToApply($holder, $event, $reason)->toArray());
     }
 
-    private function calculateModifiedValue(int $baseValue, array $modifiers) : int {
+    private function calculateModifiedValue(int $baseValue, array $modifiers): int
+    {
         $multiplicativeValue = 1;
         $additiveValue = 0;
 
@@ -200,12 +236,8 @@ class ModifierListenerService implements ModifierListenerServiceInterface
                     break;
 
                 case ModifierModeEnum::ADDITIVE:
-                    if ($this->canProceed($baseValue, $modifierConfig->getValue())) {
-                        $additiveValue += $modifierConfig->getValue();
-                        break;
-                    } else {
-                        return 0;
-                    }
+                    $additiveValue += $modifierConfig->getValue();
+                    break;
 
                 default:
                     throw new LogicException('No ModifierModeEnum string value in ModifierConfig');
@@ -215,8 +247,8 @@ class ModifierListenerService implements ModifierListenerServiceInterface
         return intval($baseValue * $multiplicativeValue + $additiveValue);
     }
 
-    private function canProceed(int $quantity1, int $quantity2) : bool {
-        return ($quantity1 > 0 && $quantity2 < 0) || ($quantity2 > 0 && $quantity1 < 0);
+    private function canProceed(int $quantity1, int $quantity2): bool
+    {
+        return !(($quantity1 > 0 && $quantity2 < 0) || ($quantity2 > 0 && $quantity1 < 0));
     }
-
 }

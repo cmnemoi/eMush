@@ -3,12 +3,12 @@
 namespace Mush\Player\Listener;
 
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerVariableServiceInterface;
-use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerModifierSubscriber implements EventSubscriberInterface
@@ -34,6 +34,10 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
     public function onChangeVariable(AbstractQuantityEvent $playerEvent): void
     {
         if (!$playerEvent instanceof PlayerVariableEvent) {
+            return;
+        }
+
+        if ($playerEvent->isArtificial() && !$playerEvent->isModified()) {
             return;
         }
 

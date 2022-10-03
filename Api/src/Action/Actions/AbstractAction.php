@@ -12,9 +12,9 @@ use Mush\Action\Validator\ActionPoint;
 use Mush\Action\Validator\AreSymptomsPreventingAction;
 use Mush\Action\Validator\HasAction;
 use Mush\Action\Validator\PlayerAlive;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -127,17 +127,17 @@ abstract class AbstractAction
 
     public function getActionPointCost(): int
     {
-        return $this->actionService->getTotalActionPointCost($this->player, $this->action, $this->parameter);
+        return $this->actionService->getTotalActionPointCost($this->player, $this->action);
     }
 
     public function getMovementPointCost(): int
     {
-        return $this->actionService->getTotalMovementPointCost($this->player, $this->action, $this->parameter);
+        return $this->actionService->getTotalMovementPointCost($this->player, $this->action);
     }
 
     public function getMoralPointCost(): int
     {
-        return $this->actionService->getTotalMoralPointCost($this->player, $this->action, $this->parameter);
+        return $this->actionService->getTotalMoralPointCost($this->player, $this->action);
     }
 
     public function getPlayer(): Player

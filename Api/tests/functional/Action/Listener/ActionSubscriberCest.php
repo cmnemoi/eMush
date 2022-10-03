@@ -7,26 +7,21 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\EnhancePercentageRollEvent;
-use Mush\Action\Event\PercentageRollEvent;
 use Mush\Action\Listener\ActionSubscriber;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\Config\ModifierConfig;
+use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
-use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -42,7 +37,7 @@ class ActionSubscriberCest
         $this->actionSubscriber = $I->grabService(ActionSubscriber::class);
     }
 
-    public function testOnPostActionSubscriberInjury(FunctionalTester $I)
+    public function testOnPostActionSubscriberInjury(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -54,7 +49,13 @@ class ActionSubscriberCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 2, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+            'actionPoint' => 2,
+            'healthPoint' => 10,
+            'characterConfig' => $characterConfig,
+        ]);
         $action = new Action();
 
         $action
@@ -77,7 +78,7 @@ class ActionSubscriberCest
         ]);
     }
 
-    public function testOnPostActionSubscriberDirty(FunctionalTester $I)
+    public function testOnPostActionSubscriberDirty(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -120,7 +121,7 @@ class ActionSubscriberCest
         ]);
     }
 
-    public function testOnPostActionSubscriberAlreadyDirty(FunctionalTester $I)
+    public function testOnPostActionSubscriberAlreadyDirty(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -157,7 +158,7 @@ class ActionSubscriberCest
         $I->assertEquals(PlayerStatusEnum::DIRTY, $player->getStatuses()->first()->getName());
     }
 
-    public function testOnPostActionSubscriberDirtyApron(FunctionalTester $I)
+    public function testOnPostActionSubscriberDirtyApron(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -190,7 +191,8 @@ class ActionSubscriberCest
             ModifierModeEnum::SET_VALUE,
         );
         $modifierConfig
-            ->addTargetEvent(EnhancePercentageRollEvent::DIRTY_ROLL_RATE);
+            ->addTargetEvent(EnhancePercentageRollEvent::DIRTY_ROLL_RATE)
+            ->setLogKeyWhenApplied(ModifierNameEnum::APRON_MODIFIER);
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($player, $modifierConfig);
@@ -201,11 +203,5 @@ class ActionSubscriberCest
 
         $I->assertEquals(10, $player->getHealthPoint());
         $I->assertCount(0, $player->getStatuses());
-        $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
-            'player' => $player->getId(),
-            'log' => LogEnum::SOIL_PREVENTED,
-            'visibility' => VisibilityEnum::PRIVATE,
-        ]);
     }
 }

@@ -17,15 +17,15 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\ModifierConfig;
+use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\ResourcePointChangeEvent;
 
 class CreateDestroyEquipmentSubscriberCest
@@ -143,7 +143,7 @@ class CreateDestroyEquipmentSubscriberCest
         $I->assertEquals($room->getModifiers()->count(), 0);
     }
 
-    public function testCreateGearPlaceReach(FunctionalTester $I)
+    public function testCreateGearPlaceReach(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
@@ -160,7 +160,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         $modifierConfig = new ModifierConfig(
             'a random modifier config',
-            ModifierReachEnum::PLAYER,
+            ModifierReachEnum::PLACE,
             -1,
             ModifierModeEnum::ADDITIVE,
             PlayerVariableEnum::ACTION_POINT

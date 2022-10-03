@@ -8,7 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Actions\Consume;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
-use Mush\Action\Event\PercentageRollEvent;
+use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -92,7 +92,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             PlayerVariableEnum::MOVEMENT_POINT
         );
         $moveIncreaseMovement
-            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::MOVE]);
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEvent::POST_ACTION, ActionEnum::MOVE]);
         $manager->persist($moveIncreaseMovement);
 
         $reduceMax1HealthPoint = new ModifierConfig(
@@ -357,7 +357,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [
                 EquipmentEvent::CHANGE_HOLDER,
                 ActionEnum::TAKE,
-                ItemEnum::SCHRODINGER
+                ItemEnum::SCHRODINGER,
             ]);
         $manager->persist($takeCat6HealthLost);
 

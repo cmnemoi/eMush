@@ -14,13 +14,13 @@ class ActionCost
     private ?int $id = null;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private ?int $actionPointCost = 0;
+    private int $actionPointCost = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private ?int $movementPointCost = 0;
+    private int $movementPointCost = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private ?int $moralPointCost = 0;
+    private int $moralPointCost = 0;
 
     public function getId(): ?int
     {
@@ -56,7 +56,7 @@ class ActionCost
         return $this->moralPointCost;
     }
 
-    public function setMoralPointCost(?int $moralPointCost): self
+    public function setMoralPointCost(int $moralPointCost): self
     {
         $this->moralPointCost = $moralPointCost;
 

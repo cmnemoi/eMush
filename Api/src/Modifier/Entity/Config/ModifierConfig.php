@@ -4,16 +4,15 @@ namespace Mush\Modifier\Entity\Config;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Condition\ModifierCondition;
-use Doctrine\ORM\Mapping as ORM;
 use Mush\Modifier\Entity\ModifierHolder;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'modifier_config')]
 class ModifierConfig
 {
-
     public const EVERY_REASONS = 'every_reasons';
     public const EXCLUDE_REASON = 'exclude_reason';
 
@@ -58,26 +57,26 @@ class ModifierConfig
         $this->targetEvents = [];
     }
 
-    public function addTargetEvent(string $eventName, array $eventReason = null) : self
+    public function addTargetEvent(string $eventName, array $eventReason = null): self
     {
-        if (isset($this->targetEvents[$eventName])) {
-            if ($eventReason === null) {
-                $this->targetEvents[$eventName] = [[self::EVERY_REASONS]];
-            } else {
-                $this->targetEvents[$eventName][] = $eventReason;
-            }
-        } else {
+        if (array_key_exists($eventName, $this->targetEvents)) {
             if ($eventReason === null) {
                 $this->targetEvents[] = [$eventName => [self::EVERY_REASONS]];
             } else {
                 $this->targetEvents[] = [$eventName => [$eventReason]];
+            }
+        } else {
+            if ($eventReason === null) {
+                $this->targetEvents[$eventName] = [[self::EVERY_REASONS]];
+            } else {
+                $this->targetEvents[$eventName][] = $eventReason;
             }
         }
 
         return $this;
     }
 
-    public function excludeTargetEvent(string $eventName, array $eventReason) : self
+    public function excludeTargetEvent(string $eventName, array $eventReason): self
     {
         if (isset($this->targetEvents[$eventName])) {
             $this->targetEvents[$eventName][] = $eventReason;
@@ -88,12 +87,14 @@ class ModifierConfig
         return $this;
     }
 
-    public function isTargetedBy(string $eventName, array $eventReasons) : bool
+    public function isTargetedBy(string $eventName, array $eventReasons): bool
     {
-        if (!array_key_exists($eventName, $this->targetEvents)) return false;
+        if (!array_key_exists($eventName, $this->targetEvents)) {
+            return false;
+        }
         $reasons = $this->targetEvents[$eventName];
 
-        for ($i = 0; $i < count($reasons); $i++) {
+        for ($i = 0; $i < count($reasons); ++$i) {
             if (in_array(self::EVERY_REASONS, $reasons[$i])) {
                 return true;
             }
@@ -112,8 +113,9 @@ class ModifierConfig
         return false;
     }
 
-    private function isTargetReasonsInOrder(array $reasons, array $eventReasons) : bool {
-        for ($i=0; $i<count($reasons); $i++) {
+    private function isTargetReasonsInOrder(array $reasons, array $eventReasons): bool
+    {
+        for ($i = 0; $i < count($reasons); ++$i) {
             if ($reasons[$i] !== $eventReasons[$i]) {
                 return false;
             }
@@ -122,7 +124,8 @@ class ModifierConfig
         return true;
     }
 
-    public function areConditionsTrue(ModifierHolder $holder, RandomServiceInterface $randomService) : bool {
+    public function areConditionsTrue(ModifierHolder $holder, RandomServiceInterface $randomService): bool
+    {
         /* @var ModifierCondition $condition */
         foreach ($this->getConditions()->toArray() as $condition) {
             if (!$condition->isTrue($holder, $randomService)) {
@@ -138,8 +141,10 @@ class ModifierConfig
         return $this->conditions;
     }
 
-    public function addCondition(ModifierCondition $condition) : self {
+    public function addCondition(ModifierCondition $condition): self
+    {
         $this->conditions->add($condition);
+
         return $this;
     }
 
@@ -187,5 +192,4 @@ class ModifierConfig
     {
         return $this->logKeyWhenApplied;
     }
-
 }

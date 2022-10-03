@@ -4,11 +4,9 @@ namespace Mush\Action\Event;
 
 use Mush\Game\Event\AbstractModifierHolderEvent;
 use Mush\Modifier\Entity\ModifierHolder;
-use Mush\Player\Entity\Player;
 
 class PercentageRollEvent extends AbstractModifierHolderEvent
 {
-
     public const INJURY_ROLL_RATE = 'side_effect_roll_injury';
     public const CLUMSINESS_ROLL_RATE = 'side_effect_roll_clumsiness';
     public const DIRTY_ROLL_RATE = 'side_effect_roll_dirty';
@@ -31,5 +29,4 @@ class PercentageRollEvent extends AbstractModifierHolderEvent
     {
         $this->rate = $rate;
     }
-
 }

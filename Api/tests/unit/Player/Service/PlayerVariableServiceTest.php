@@ -6,7 +6,6 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -16,9 +15,8 @@ use PHPUnit\Framework\TestCase;
 
 class PlayerVariableServiceTest extends TestCase
 {
-    /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface|Mockery\Mock $eventService;
-    /** @var PlayerServiceInterface|Mockery\Mock */
+
     private PlayerServiceInterface|Mockery\Mock $playerService;
 
     private PlayerVariableService $playerVariableService;

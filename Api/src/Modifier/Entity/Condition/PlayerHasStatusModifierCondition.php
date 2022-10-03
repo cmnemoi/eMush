@@ -2,15 +2,14 @@
 
 namespace Mush\Modifier\Entity\Condition;
 
+use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Player\Entity\Player;
-use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 class PlayerHasStatusModifierCondition extends ModifierCondition
 {
-
     private string $statusName;
 
     public function __construct(string $statusName)

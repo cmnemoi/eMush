@@ -2,7 +2,6 @@
 
 namespace Mush\Player\Event;
 
-use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\AbstractModifierHolderEvent;
 use Mush\Player\Entity\Player;
 

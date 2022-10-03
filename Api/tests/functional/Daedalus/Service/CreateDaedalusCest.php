@@ -4,7 +4,6 @@ namespace functional\Daedalus\Service;
 
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Daedalus\Service\DaedalusService;
@@ -37,7 +36,7 @@ class CreateDaedalusCest
         $this->daedalusService = $I->grabService(DaedalusService::class);
     }
 
-    public function createDaedalusTest(FunctionalTester $I)
+    public function createDaedalusTest(FunctionalTester $I): void
     {
         // Lets create a Daedalus with 3 rooms, few random equipment.
         $gameConfig = $this->createGameConfig();
@@ -82,7 +81,7 @@ class CreateDaedalusCest
         // Modifier configs
         $gravityModifier = new ModifierConfig(
             'a random modifier config',
-            ModifierReachEnum::PLAYER,
+            ModifierReachEnum::DAEDALUS,
             2,
             ModifierModeEnum::ADDITIVE,
             PlayerVariableEnum::MOVEMENT_POINT
@@ -137,13 +136,11 @@ class CreateDaedalusCest
         $I->assertCount(1, $room3->getDoors());
 
         $I->assertNotNull($room3->getEquipments()
-            ->filter(fn (GameEquipment $gameEquipment) =>
-                $gameEquipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR)->first()
+            ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR)->first()
         );
 
         $I->assertNotNull($room2->getEquipments()
-            ->filter(fn (GameEquipment $gameEquipment) =>
-                $gameEquipment->getName() === ItemEnum::HYDROPOT)->first()
+            ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === ItemEnum::HYDROPOT)->first()
         );
 
         $equipmentCollection = new ArrayCollection(array_merge($room1->getEquipments()->toArray(), $room2->getEquipments()->toArray()));

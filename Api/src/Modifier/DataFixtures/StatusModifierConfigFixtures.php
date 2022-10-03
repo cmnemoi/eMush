@@ -7,25 +7,18 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Event\ActionEvent;
-use Mush\Action\Event\PercentageRollEvent;
 use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Entity\Condition\MinimumPlayerInPlaceModifierCondition;
-use Mush\Modifier\Entity\Condition\ModifierCondition;
-use Mush\Modifier\Entity\Config\Quantity\CostModifierConfig;
-use Mush\Modifier\Entity\Config\Quantity\PlayerVariableModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierConfig;
-use Mush\Modifier\Enum\ModifierConditionEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Event\ResourcePointChangeEvent;
 
 class StatusModifierConfigFixtures extends Fixture
@@ -180,8 +173,8 @@ class StatusModifierConfigFixtures extends Fixture
             PlayerVariableEnum::HEALTH_POINT
         );
         $mushShowerModifier
-            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::SHOWER])
-            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::WASH_IN_SINK])
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEvent::POST_ACTION, ActionEnum::SHOWER])
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEvent::POST_ACTION, ActionEnum::WASH_IN_SINK])
             ->setLogKeyWhenApplied(ModifierNameEnum::MUSH_SHOWER_MALUS);
         $manager->persist($mushShowerModifier);
 
@@ -193,8 +186,8 @@ class StatusModifierConfigFixtures extends Fixture
             PlayerVariableEnum::SATIETY
         );
         $mushConsumeSatietyModifier
-            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::CONSUME])
-            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::CONSUME_DRUG]);
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEvent::POST_ACTION, ActionEnum::CONSUME])
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEvent::POST_ACTION, ActionEnum::CONSUME_DRUG]);
         $manager->persist($mushConsumeSatietyModifier);
 
         $mushConsumeHealthModifier = new ModifierConfig(
@@ -205,8 +198,8 @@ class StatusModifierConfigFixtures extends Fixture
             PlayerVariableEnum::HEALTH_POINT
         );
         $mushConsumeHealthModifier
-            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::CONSUME])
-            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::CONSUME_DRUG]);
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEvent::POST_ACTION, ActionEnum::CONSUME])
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEvent::POST_ACTION, ActionEnum::CONSUME_DRUG]);
         $manager->persist($mushConsumeHealthModifier);
 
         $mushConsumeMoralModifier = new ModifierConfig(
@@ -217,8 +210,8 @@ class StatusModifierConfigFixtures extends Fixture
             PlayerVariableEnum::MORAL_POINT
         );
         $mushConsumeMoralModifier
-            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::CONSUME])
-            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::CONSUME_DRUG]);
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEvent::POST_ACTION, ActionEnum::CONSUME])
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEvent::POST_ACTION, ActionEnum::CONSUME_DRUG]);
         $manager->persist($mushConsumeMoralModifier);
 
         $mushConsumeActionModifier = new ModifierConfig(
@@ -229,8 +222,8 @@ class StatusModifierConfigFixtures extends Fixture
             PlayerVariableEnum::ACTION_POINT
         );
         $mushConsumeActionModifier
-            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::CONSUME])
-            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::CONSUME_DRUG]);
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEvent::POST_ACTION, ActionEnum::CONSUME])
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEvent::POST_ACTION, ActionEnum::CONSUME_DRUG]);
         $manager->persist($mushConsumeActionModifier);
 
         $mushConsumeMovementModifier = new ModifierConfig(
@@ -241,8 +234,8 @@ class StatusModifierConfigFixtures extends Fixture
             PlayerVariableEnum::MOVEMENT_POINT
         );
         $mushConsumeMovementModifier
-            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::CONSUME])
-            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::CONSUME_DRUG]);
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEvent::POST_ACTION, ActionEnum::CONSUME])
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEvent::POST_ACTION, ActionEnum::CONSUME_DRUG]);
         $manager->persist($mushConsumeMovementModifier);
 
         $manager->flush();

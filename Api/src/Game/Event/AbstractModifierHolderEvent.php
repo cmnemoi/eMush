@@ -6,7 +6,6 @@ use Mush\Modifier\Entity\ModifierHolder;
 
 abstract class AbstractModifierHolderEvent extends AbstractGameEvent
 {
-
     private ModifierHolder $modifierHolder;
 
     public function __construct(ModifierHolder $modifierHolder, string $reason, \DateTime $time)
@@ -19,5 +18,4 @@ abstract class AbstractModifierHolderEvent extends AbstractGameEvent
     {
         return $this->modifierHolder;
     }
-
 }

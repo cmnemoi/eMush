@@ -2,15 +2,14 @@
 
 namespace Mush\Modifier\Entity\Condition;
 
+use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Player\Entity\Player;
-use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 class MinimumPlayerInPlaceModifierCondition extends ModifierCondition
 {
-
     private int $minimum;
 
     public function __construct(int $minimum)
@@ -22,13 +21,14 @@ class MinimumPlayerInPlaceModifierCondition extends ModifierCondition
     public function isTrue(ModifierHolder $holder, RandomServiceInterface $randomService): bool
     {
         $place = $this->getPlace($holder);
+        if ($place === null) {
+            throw new \LogicException('Minimum player in place need a place to execute.');
+        }
 
         if ($holder instanceof Player) {
             return $this->minimum <= $place->getNumberPlayers() - 1;
-        } else if ($place !== null) {
-            return $this->minimum <= $place->getNumberPlayers();
         } else {
-            throw new \LogicException('Minimum player in place need a place to execute.');
+            return $this->minimum <= $place->getNumberPlayers();
         }
     }
 }

@@ -7,10 +7,6 @@ class ModifierNameEnum
     public const MUSH_SHOWER_MALUS = 'mush_shower_malus';
     public const MUSH_SATIETY_CONSUME = 'mush_satiety_consume';
 
-
-
-
-
     public const STARVING = 'starving';
     public const SCREAMING = 'screaming';
     public const WALL_HEAD_BANG = 'wall_head_bang';
@@ -105,6 +101,4 @@ class ModifierNameEnum
     public const DISORDER_LOSE_2_MAX_PMO = 'disorder_lose_2_max_pmo';
     public const DISORDER_LOSE_3_MAX_PMO = 'disorder_lose_3_max_pmo';
     public const DISORDER_LOSE_4_MAX_PMO = 'disorder_lose_4_max_pmo';
-
-
 }

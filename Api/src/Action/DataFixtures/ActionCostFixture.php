@@ -50,7 +50,7 @@ class ActionCostFixture extends Fixture
         $this->addReference(self::ACTION_COST_TWO_MOVEMENT, $twoMovementPoint);
     }
 
-    private function buildActionCost(?int $actionPoint, ?int $movementPoint = 0, ?int $moralPoint = 0): ActionCost
+    private function buildActionCost(int $actionPoint, int $movementPoint = 0, int $moralPoint = 0): ActionCost
     {
         $actionCost = new ActionCost();
         $actionCost

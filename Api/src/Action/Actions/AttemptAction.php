@@ -6,8 +6,8 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AttemptAction extends AbstractAction
@@ -41,6 +41,6 @@ abstract class AttemptAction extends AbstractAction
 
     public function getSuccessRate(): int
     {
-        return $this->actionService->getSuccessRate($this->action, $this->player, $this->parameter);
+        return $this->actionService->getSuccessRate($this->action, $this->player);
     }
 }

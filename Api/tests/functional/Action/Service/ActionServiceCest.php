@@ -9,12 +9,10 @@ use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\Config\ModifierConfig;
+use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Enum\ModifierModeEnum;
-use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
-use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -68,7 +66,7 @@ class ActionServiceCest
         ]);
     }
 
-    public function testApplyCostToPlayerWithMovementPointConversion(FunctionalTester $I)
+    public function testApplyCostToPlayerWithMovementPointConversion(FunctionalTester $I): void
     {
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -97,10 +95,10 @@ class ActionServiceCest
         $this->actionService->applyCostToPlayer($player, $action, null);
 
         $I->assertEquals(9, $player->getActionPoint());
-        $I->assertEquals(1, $player->getMovementPoint());
+        $I->assertEquals(0, $player->getMovementPoint());
     }
 
-    public function testApplyCostToPlayerWithMovementPointConversionAndModifier(FunctionalTester $I)
+    public function testApplyCostToPlayerWithMovementPointConversionAndModifier(FunctionalTester $I): void
     {
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -128,11 +126,9 @@ class ActionServiceCest
         );
         $modifierConfig
             ->addTargetEvent(ResourcePointChangeEvent::CHECK_CONVERSION_ACTION_TO_MOVEMENT_POINT_GAIN);
-
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($player, $modifierConfig);
-
         $I->haveInRepository($modifier);
 
         $actionCost = new ActionCost();

@@ -56,7 +56,7 @@ class DaedalusVariableEvent extends DaedalusEvent implements AbstractQuantityEve
     public function setPlayer(Player $player): self
     {
         $this->player = $player;
+
         return $this;
     }
-
 }

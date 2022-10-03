@@ -12,7 +12,7 @@ class ActionTypeEnum
     public const ACTION_ATTACK = 'action_attack';
     public const ACTION_SPOKEN = 'action_spoken';
 
-    public static function getTechnicianActions() : array
+    public static function getTechnicianActions(): array
     {
         return [
             ActionEnum::STRENGTHEN_HULL,
@@ -25,15 +25,14 @@ class ActionTypeEnum
     {
         return [
             ActionEnum::HIT,
-            ActionEnum::SHOOT
+            ActionEnum::SHOOT,
         ];
     }
 
     public static function getShootActions(): array
     {
         return [
-            ActionEnum::SHOOT
+            ActionEnum::SHOOT,
         ];
     }
-
 }

@@ -36,7 +36,8 @@ class AbstractGameEvent extends Event
         return $this->reason;
     }
 
-    public function addReason(string $reason) {
+    public function addReason(string $reason)
+    {
         $this->reason = array_merge([$reason], $this->reason);
     }
 

@@ -90,8 +90,8 @@ class ModifierConfig
 
     public function isTargetedBy(string $eventName, array $eventReasons) : bool
     {
+        if (!array_key_exists($eventName, $this->targetEvents)) return false;
         $reasons = $this->targetEvents[$eventName];
-        if (!isset($reasons)) return false;
 
         for ($i = 0; $i < count($reasons); $i++) {
             if (in_array(self::EVERY_REASONS, $reasons[$i])) {

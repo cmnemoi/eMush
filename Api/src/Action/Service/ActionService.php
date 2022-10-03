@@ -55,7 +55,7 @@ class ActionService implements ActionServiceInterface
             $this->applyCost($player, -$movementPointCost, PlayerVariableEnum::MOVEMENT_POINT);
         }
 
-        if (($moralPointCost = $this->getTotalMoralPointCost($player, $action, $parameter)) > 0) {
+        if (($moralPointCost = $this->getTotalMoralPointCost($player, $action)) > 0) {
             $this->applyCost($player, -$moralPointCost, PlayerVariableEnum::MORAL_POINT);
         }
 
@@ -75,7 +75,7 @@ class ActionService implements ActionServiceInterface
         $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
-    public function getTotalActionPointCost(Player $player, Action $action,): int {
+    public function getTotalActionPointCost(Player $player, Action $action): int {
         $actionPointsCost = 0;
         $missingMovementPoints = $this->getTotalMovementPointCost($player, $action) - $player->getMovementPoint();
         if ($missingMovementPoints > 0) {
@@ -123,7 +123,7 @@ class ActionService implements ActionServiceInterface
             $action->getName(),
             new \DateTime()
         );
-        $this->eventService->callEvent($event, PercentageRollEvent::ACTION_ROLL_RATE);
+        $this->eventService->callEvent($event, PreparePercentageRollEvent::ACTION_ROLL_RATE);
 
         return min($this::MAX_PERCENT, $event->getRate());
     }

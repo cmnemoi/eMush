@@ -4,6 +4,7 @@ namespace Mush\Modifier\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Event\EnhancePercentageRollEvent;
+use Mush\Action\Event\PercentageRollEvent;
 use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
@@ -108,10 +109,7 @@ class ModifierService implements ModifierServiceInterface
             $event->addReason($reasons[$i]);
         }
 
-        $eventName = $tryToSucceed
-            ? EnhancePercentageRollEvent::ACTION_TRY_TO_SUCCEED_ROLL_RATE
-            : EnhancePercentageRollEvent::ACTION_TRY_TO_FAIL_ROLL_RATE;
-        $this->eventService->callEvent($event, $eventName);
+        $this->eventService->callEvent($event, EnhancePercentageRollEvent::ACTION_ROLL_RATE);
 
         $modifier = $event->getModifierConfig();
         if ($modifier !== null) {

@@ -89,7 +89,7 @@ class CreateDestroyEquipmentSubscriberCest
         $I->assertEquals($player->getEquipments()->count(), 1);
         $I->assertEquals($player->getModifiers()->count(), 1);
         $I->assertEquals($room->getModifiers()->count(), 0);
-        $I->assertEquals($player->getModifiers()->first()->getModifierConfig(), $modifierConfig);
+        $I->assertEquals($player->getModifiers()->first()->getConfig(), $modifierConfig);
     }
 
     public function testCreateGearPlayerScopeInventoryFull(FunctionalTester $I): void
@@ -191,7 +191,7 @@ class CreateDestroyEquipmentSubscriberCest
         $I->assertEquals($player->getEquipments()->count(), 1);
         $I->assertEquals($player->getModifiers()->count(), 0);
         $I->assertEquals($room->getModifiers()->count(), 1);
-        $I->assertEquals($room->getModifiers()->first()->getModifierConfig(), $modifierConfig);
+        $I->assertEquals($room->getModifiers()->first()->getConfig(), $modifierConfig);
     }
 
     public function testDestroyGear(FunctionalTester $I): void
@@ -453,6 +453,6 @@ class CreateDestroyEquipmentSubscriberCest
         $I->assertCount(0, $player->getModifiers());
         $I->assertCount(0, $room->getModifiers());
         $I->assertCount(1, $daedalus->getModifiers());
-        $I->assertEquals($daedalus->getModifiers()->first()->getModifierConfig(), $modifierConfig2);
+        $I->assertEquals($daedalus->getModifiers()->first()->getConfig(), $modifierConfig2);
     }
 }

@@ -65,238 +65,51 @@ class ActionServiceTest extends TestCase
     {
         // ActionPoint
         $player = $this->createPlayer(5, 5, 5);
-        $action = $this->createAction(1, null, null);
+        $action = $this->createAction(1, 0, 0);
 
-        $this->modifierService
-            ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, PlayerVariableEnum::ACTION_POINT, null)
-            ->andReturn(1)
-            ->once()
-        ;
-        $this->modifierService
-            ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, PlayerVariableEnum::MOVEMENT_POINT, null)
-            ->andReturn(0)
-            ->once()
-        ;
-        $this->modifierService
-            ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, PlayerVariableEnum::MORAL_POINT, null)
-            ->andReturn(0)
-            ->once()
-        ;
-
-        $eventDispatched = static function (int $delta, string $name) {
-            return fn (PlayerVariableEvent $event, string $eventName) => $event->getQuantity() === $delta && $eventName === $name;
-        };
-
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
-            ->once()
-        ;
+        $this->eventService->shouldReceive('callEvent')->times(5);
 
         $this->service->applyCostToPlayer($player, $action, null);
+
+        $this->assertEquals(4, $player->getActionPoint());
+        $this->assertEquals(5, $player->getMovementPoint());
+        $this->assertEquals(5, $player->getMoralPoint());
 
         // movement cost
         $player = $this->createPlayer(5, 5, 5);
-        $action = $this->createAction(null, 1, null);
+        $action = $this->createAction(0, 1, 0);
 
-        $this->modifierService
-            ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, PlayerVariableEnum::ACTION_POINT, null)
-            ->andReturn(0)
-            ->once()
-        ;
-        $this->modifierService
-            ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, PlayerVariableEnum::MOVEMENT_POINT, null)
-            ->andReturn(1)
-            ->once()
-        ;
-        $this->modifierService
-            ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, PlayerVariableEnum::MORAL_POINT, null)
-            ->andReturn(0)
-            ->once()
-        ;
-
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
-            ->once()
-        ;
+        $this->eventService->shouldReceive('callEvent')->times(5);
 
         $this->service->applyCostToPlayer($player, $action, null);
+
+        $this->assertEquals(5, $player->getActionPoint());
+        $this->assertEquals(4, $player->getMovementPoint());
+        $this->assertEquals(5, $player->getMoralPoint());
 
         // moral cost
         $player = $this->createPlayer(5, 5, 5);
-        $action = $this->createAction(null, null, 1);
+        $action = $this->createAction(0, 0, 1);
 
-        $this->modifierService
-            ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, PlayerVariableEnum::ACTION_POINT, null)
-            ->andReturn(0)
-            ->once()
-        ;
-        $this->modifierService
-            ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, PlayerVariableEnum::MOVEMENT_POINT, null)
-            ->andReturn(0)
-            ->once()
-        ;
-        $this->modifierService
-            ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, PlayerVariableEnum::MORAL_POINT, null)
-            ->andReturn(1)
-            ->once()
-        ;
-
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs($eventDispatched(-1, AbstractQuantityEvent::CHANGE_VARIABLE))
-            ->once()
-        ;
+        $this->eventService->shouldReceive('callEvent')->times(5);
 
         $this->service->applyCostToPlayer($player, $action, null);
+
+        $this->assertEquals(5, $player->getActionPoint());
+        $this->assertEquals(5, $player->getMovementPoint());
+        $this->assertEquals(4, $player->getMoralPoint());
 
         // mixed cost
         $player = $this->createPlayer(5, 5, 5);
-        $action = $this->createAction(1, null, 1);
+        $action = $this->createAction(1, 0, 1);
 
-        $this->modifierService
-            ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, PlayerVariableEnum::ACTION_POINT, null)
-            ->andReturn(1)
-            ->once()
-        ;
-        $this->modifierService
-            ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, PlayerVariableEnum::MOVEMENT_POINT, null)
-            ->andReturn(0)
-            ->once()
-        ;
-        $this->modifierService
-            ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, PlayerVariableEnum::MORAL_POINT, null)
-            ->andReturn(1)
-            ->once()
-        ;
-
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(
-                fn (PlayerVariableEvent $event, string $eventName) => (
-                    $event->getQuantity() === -1 &&
-                    $eventName === AbstractQuantityEvent::CHANGE_VARIABLE)
-            )
-            ->twice()
-        ;
+        $this->eventService->shouldReceive('callEvent')->times(6);
 
         $this->service->applyCostToPlayer($player, $action, null);
 
-        // ActionPoint with modifiers
-        $player = $this->createPlayer(5, 5, 5);
-        $action = $this->createAction(1, null, null);
-
-        $this->modifierService
-            ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, PlayerVariableEnum::ACTION_POINT, null)
-            ->andReturn(3)
-            ->once()
-        ;
-        $this->modifierService
-            ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, PlayerVariableEnum::MOVEMENT_POINT, null)
-            ->andReturn(0)
-            ->once()
-        ;
-        $this->modifierService
-            ->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, PlayerVariableEnum::MORAL_POINT, null)
-            ->andReturn(0)
-            ->once()
-        ;
-
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs($eventDispatched(-3, AbstractQuantityEvent::CHANGE_VARIABLE))
-            ->once()
-        ;
-
-        $this->service->applyCostToPlayer($player, $action, null);
-    }
-
-    public function testGetSuccessRate()
-    {
-        $player = $this->createPlayer(5, 5, 5);
-
-        $statusConfig = new ChargeStatusConfig();
-        $statusConfig->setName(StatusEnum::ATTEMPT);
-        $attempt = new Attempt($player, $statusConfig);
-        $attempt
-            ->setAction(ActionEnum::TAKE)
-            ->setCharge(0)
-        ;
-
-        $action = $this->createAction(null, 1, null);
-
-        $action->setSuccessRate(20);
-
-        $this->modifierService->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::PERCENTAGE, null, 0)
-            ->andReturn(20)
-            ->once()
-        ;
-        $this->assertEquals(20, $this->service->getSuccessRate($action, $player, null));
-
-        // With Modifier
-        $this->modifierService->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::PERCENTAGE, null, 0)
-            ->andReturn(40)
-            ->once()
-        ;
-        $this->assertEquals(40, $this->service->getSuccessRate($action, $player, null));
-
-        // With already an attempt
-        $attempt->setCharge(1);
-
-        $this->modifierService->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::PERCENTAGE, null, 1)
-            ->andReturn(25)
-            ->once()
-        ;
-        $this->assertEquals(25, $this->service->getSuccessRate($action, $player, null));
-
-        // With 3 attempts
-        $attempt->setCharge(3);
-
-        $this->modifierService->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::PERCENTAGE, null, 3)
-            ->andReturn(39)
-            ->once()
-        ;
-        $this->assertEquals(39, $this->service->getSuccessRate($action, $player, null));
-
-        // Attempt + modifier
-        $attempt->setCharge(3);
-
-        $this->modifierService->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::PERCENTAGE, null, 3)
-            ->andReturn(78)
-            ->once()
-        ;
-        $this->assertEquals(78, $this->service->getSuccessRate($action, $player, null));
-
-        // More than 99%
-        $attempt->setCharge(3);
-
-        $this->modifierService->shouldReceive('getActionModifiedValue')
-            ->with($action, $player, ModifierTargetEnum::PERCENTAGE, null, 3)
-            ->andReturn(117)
-            ->once()
-        ;
-        $this->assertEquals(99, $this->service->getSuccessRate($action, $player, null));
+        $this->assertEquals(5, $player->getActionPoint());
+        $this->assertEquals(4, $player->getMovementPoint());
+        $this->assertEquals(4, $player->getMoralPoint());
     }
 
     private function createPlayer(int $actionPoint, int $movementPoint, int $moralPoint): Player

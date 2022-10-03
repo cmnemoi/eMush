@@ -29,7 +29,7 @@ class PlayerModifierEventCest
         $this->eventServiceService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testDispatchMoralChange(FunctionalTester $I)
+    public function testDispatchMoralChange(FunctionalTester $I) : void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -95,6 +95,7 @@ class PlayerModifierEventCest
             EventEnum::NEW_CYCLE,
             new \DateTime()
         );
+
         $this->eventServiceService->callEvent($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         $I->assertEquals(1, $player->getMoralPoint());
         $I->assertCount(1, $player->getStatuses());

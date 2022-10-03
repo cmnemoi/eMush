@@ -183,7 +183,7 @@ class ActionSubscriberCest
         $itemConfig = $I->have(ItemConfig::class, ['name' => GearItemEnum::STAINPROOF_APRON]);
 
         //       $gear = new Gear();
-        $modifierConfig =  new ModifierConfig(
+        $modifierConfig = new ModifierConfig(
             ModifierNameEnum::APRON_MODIFIER,
             ModifierReachEnum::PLAYER,
             0,
@@ -194,7 +194,6 @@ class ActionSubscriberCest
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($player, $modifierConfig);
-        $I->refreshEntities($player);
         $I->haveInRepository($modifier);
 
         // Test dirty with apron

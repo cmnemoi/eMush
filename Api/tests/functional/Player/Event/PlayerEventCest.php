@@ -143,13 +143,11 @@ class PlayerEventCest
         $this->eventServiceService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(1, $player->getStatuses());
-        $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
         $I->assertEquals($room, $player->getPlace());
 
         $this->eventServiceService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(1, $player->getStatuses());
-        $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
         $I->assertEquals($room, $player->getPlace());
 
         $this->eventServiceService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);

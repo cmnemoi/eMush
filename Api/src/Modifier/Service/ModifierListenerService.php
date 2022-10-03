@@ -1,91 +1,64 @@
 <?php
 
-namespace Mush\Modifier\Listener;
+namespace Mush\Modifier\Service;
 
 use LogicException;
 use Mush\Action\Event\EnhancePercentageRollEvent;
 use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
+use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\AbstractModifierHolderEvent;
-use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Enum\ModifierModeEnum;
-use Mush\Player\Entity\Player;
-use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Event\ResourceMaxPointEvent;
 use Mush\Player\Event\ResourcePointChangeEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class GlobalModifierSubscriber implements EventSubscriberInterface
+class ModifierListenerService implements ModifierListenerServiceInterface
 {
 
     private RandomServiceInterface $randomService;
-    private EventServiceInterface $eventService;
 
-    public function __construct(
-        RandomServiceInterface $randomService,
-        EventServiceInterface $eventService,
-    ) {
-        $this->eventService = $eventService;
+    public function __construct(RandomServiceInterface $randomService) {
         $this->randomService = $randomService;
     }
 
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            PreparePercentageRollEvent::class => [
-                'onPreparePercentageRollEvent', 100_000
-            ],
-            EnhancePercentageRollEvent::class => [
-                'onEnhancePercentageRollEvent', 100_000
-            ],
-            PlayerVariableEvent::class => [
-                'onPlayerVariableEvent', 100_000
-            ],
-            ResourcePointChangeEvent::class => [
-                'onResourcePointChangeEvent', 100_000
-            ],
-            ResourceMaxPointEvent::class => [
-                'onResourceMaxPointEvent', 100_000
-            ],
-            DaedalusVariableEvent::class => [
-                'onDaedalusVariableEvent', 100_000
-            ],
-            AbstractModifierHolderEvent::class => [
-                'onEvent', -100_000
-            ]
-        ];
+    public function applyModifiers(AbstractModifierHolderEvent $event) : bool {
+        if (!$this->canHandle($event)) {
+            return false;
+        }
+
+        if ($event instanceof DaedalusVariableEvent) {
+            $this->onDaedalusVariableEvent($event);
+        }
+
+        if ($event instanceof ResourceMaxPointEvent) {
+            $this->onResourceMaxPointEvent($event);
+        }
+
+        if ($event instanceof ResourcePointChangeEvent) {
+            $this->onResourcePointChangeEvent($event);
+        }
+
+        if ($event instanceof PlayerVariableEvent) {
+            $this->onPlayerVariableEvent($event);
+        }
+
+        if ($event instanceof PreparePercentageRollEvent) {
+            $this->onPreparePercentageRollEvent($event);
+        }
+
+        if ($event instanceof EnhancePercentageRollEvent) {
+            $this->onEnhancePercentageRollEvent($event);
+        }
+
+        return true;
     }
 
-    public function onEvent(AbstractModifierHolderEvent $event) {
-        if ($this->isEventAlreadyHandled($event)) {
-            return;
-        }
-
-        $holder = $event->getModifierHolder();
-        if (!$holder instanceof Player) {
-            return;
-        }
-
-        foreach (PlayerVariableEnum::getInteractivePlayerVariables() as $variable) {
-            $variableEvent = new PlayerVariableEvent(
-                $holder,
-                $variable,
-                0,
-                $event->getEventName(),
-                new \DateTime()
-            );
-
-            $this->eventService->callEvent($variableEvent, AbstractQuantityEvent::CHANGE_VARIABLE, $event);
-        }
-    }
-
-    private function isEventAlreadyHandled(AbstractModifierHolderEvent $event) : bool {
+    private function canHandle(AbstractGameEvent $event) : bool {
         return
             $event instanceof PlayerVariableEvent ||
             $event instanceof ResourceMaxPointEvent ||
@@ -95,13 +68,13 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
             $event instanceof DaedalusVariableEvent;
     }
 
-    public function onDaedalusVariableEvent(DaedalusVariableEvent $event) {
+    private function onDaedalusVariableEvent(DaedalusVariableEvent $event) : void {
         $variable = $event->getModifiedVariable();
 
         $modifiers = $this->getModifiersToApply(
             $event->getModifierHolder(),
             $event->getEventName(),
-            $event->getReasons()[0]
+            $event->getReasons()
         )->filter(function (Modifier $modifier) use ($variable) {
             return $modifier->getConfig()->getVariable() === $variable;
         });
@@ -111,14 +84,14 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
 
     }
 
-    public function onResourceMaxPointEvent(ResourceMaxPointEvent $event) {
+    private function onResourceMaxPointEvent(ResourceMaxPointEvent $event) : void {
         $event->setValue($this->calculateModifiedValue(
             $event->getValue(),
             $this->getModifiersToApplyForVariable($event, $event->getVariablePoint())->toArray()
         ));
     }
 
-    public function onResourcePointChangeEvent(ResourcePointChangeEvent $event) {
+    private function onResourcePointChangeEvent(ResourcePointChangeEvent $event) : void {
         $event->setCost($this->calculateModifiedValue(
             $event->getCost(),
             $this->getModifiersToApplyForVariable($event, $event->getVariablePoint())->toArray()
@@ -129,19 +102,19 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
         return $this->getModifiersToApply(
             $event->getModifierHolder(),
             $event->getEventName(),
-            $event->getReasons()[0]
+            $event->getReasons()
         )->filter(function (Modifier $modifier) use ($variable) {
             return $modifier->getConfig()->getVariable() === $variable;
         });
     }
 
-    public function onPlayerVariableEvent(PlayerVariableEvent $event) {
+    private function onPlayerVariableEvent(PlayerVariableEvent $event) : void {
         $variable = $event->getModifiedVariable();
 
         $modifiers = $this->getModifiersToApply(
             $event->getModifierHolder(),
             $event->getEventName(),
-            $event->getReasons()[0]
+            $event->getReasons()
         )->filter(function (Modifier $modifier) use ($variable) {
             return $modifier->getConfig()->getVariable() === $variable;
         });
@@ -150,18 +123,18 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
         $event->setQuantity($this->calculateModifiedValue($baseQuantity, $modifiers->toArray()));
     }
 
-    public function onPreparePercentageRollEvent(PreparePercentageRollEvent $event) {
+    private function onPreparePercentageRollEvent(PreparePercentageRollEvent $event) : void {
         $value = $this->getModifiedValue(
             $event->getModifierHolder(),
             $event->getRate(),
             $event->getEventName(),
-            $event->getReasons()[0]
+            $event->getReasons()
         );
 
         $event->setRate($value);
     }
 
-    public function onEnhancePercentageRollEvent(EnhancePercentageRollEvent $event) {
+    private function onEnhancePercentageRollEvent(EnhancePercentageRollEvent $event) : void {
         $holder = $event->getModifierHolder();
         $eventName = $event->getEventName();
         $reasons = $event->getReasons();
@@ -235,7 +208,7 @@ class GlobalModifierSubscriber implements EventSubscriberInterface
                     }
 
                 default:
-                    throw new \LogicException('No ModifierModeEnum string value in ModifierConfig');
+                    throw new LogicException('No ModifierModeEnum string value in ModifierConfig');
             }
         }
 

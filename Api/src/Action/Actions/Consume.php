@@ -75,22 +75,6 @@ class Consume extends AbstractAction
             new \DateTime()
         );
         $this->eventService->callEvent($consumeEquipment, ApplyEffectEvent::CONSUME);
-        $this->afterConsumption();
-    }
-
-    private function afterConsumption() {
-        foreach (PlayerVariableEnum::getCappedPlayerVariables() as $variable) {
-            $afterConsumption = new PlayerVariableEvent(
-                $this->player,
-                $variable,
-                0,
-                self::AFTER_CONSUMPTION,
-                new \DateTime()
-            );
-
-            $this->eventService->callEvent($afterConsumption, AbstractQuantityEvent::CHANGE_VARIABLE);
-        }
-
     }
 
 }

@@ -81,7 +81,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig, $daedalus, null)
+            ->with($modifierConfig, $daedalus)
             ->once()
         ;
         $this->service->createGear($gameEquipment);
@@ -93,19 +93,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig, $daedalus, null)
-            ->once()
-        ;
-        $this->service->createGear($gameEquipment);
-
-        // with a charge
-        $chargeConfig = new ChargeStatusConfig();
-        $chargeConfig->setDischargeStrategy('action');
-        $charge = new ChargeStatus($gameEquipment, $chargeConfig);
-
-        $this->modifierService
-            ->shouldReceive('createModifier')
-            ->with($modifierConfig, $daedalus, $charge)
+            ->with($modifierConfig, $daedalus)
             ->once()
         ;
         $this->service->createGear($gameEquipment);
@@ -136,12 +124,12 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig, $daedalus, null)
+            ->with($modifierConfig, $daedalus)
             ->once()
         ;
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig2, $daedalus, null)
+            ->with($modifierConfig2, $daedalus)
             ->once()
         ;
         $this->service->createGear($gameEquipment);
@@ -253,22 +241,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $player, null)
-            ->once()
-        ;
-        $this->service->takeEquipment($gameEquipment, $player);
-
-        // Modifier with a charge
-        $chargeConfig = new ChargeStatusConfig();
-        $chargeConfig
-            ->setName(EquipmentStatusEnum::FUEL_CHARGE)
-            ->setDischargeStrategy('action')
-        ;
-        $charge = new ChargeStatus($gameEquipment, $chargeConfig);
-
-        $this->modifierService
-            ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $player, $charge)
+            ->with($modifierConfig1, $player)
             ->once()
         ;
         $this->service->takeEquipment($gameEquipment, $player);

@@ -6,6 +6,8 @@ use App\Tests\FunctionalTester;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Action\Event\EnhancePercentageRollEvent;
+use Mush\Action\Event\PercentageRollEvent;
 use Mush\Action\Listener\ActionSubscriber;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -14,6 +16,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\Config\ModifierConfig;
+use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
@@ -21,6 +24,7 @@ use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
@@ -31,11 +35,11 @@ use Mush\Status\Enum\PlayerStatusEnum;
 
 class ActionSubscriberCest
 {
-    private ActionSubscriber $cycleSubscriber;
+    private ActionSubscriber $actionSubscriber;
 
     public function _before(FunctionalTester $I)
     {
-        $this->cycleSubscriber = $I->grabService(ActionSubscriber::class);
+        $this->actionSubscriber = $I->grabService(ActionSubscriber::class);
     }
 
     public function testOnPostActionSubscriberInjury(FunctionalTester $I)
@@ -61,7 +65,7 @@ class ActionSubscriberCest
         $actionEvent = new ActionEvent($action, $player, null);
 
         // Test injury
-        $this->cycleSubscriber->onPostAction($actionEvent);
+        $this->actionSubscriber->onPostAction($actionEvent);
 
         $I->assertEquals(8, $player->getHealthPoint());
         $I->assertCount(0, $player->getStatuses());
@@ -103,7 +107,7 @@ class ActionSubscriberCest
         $actionEvent = new ActionEvent($action, $player, null);
 
         // Test dirty
-        $this->cycleSubscriber->onPostAction($actionEvent);
+        $this->actionSubscriber->onPostAction($actionEvent);
 
         $I->assertEquals(10, $player->getHealthPoint());
         $I->assertCount(1, $player->getStatuses());
@@ -146,7 +150,7 @@ class ActionSubscriberCest
         $actionEvent = new ActionEvent($action, $player, null);
 
         // Test already dirty
-        $this->cycleSubscriber->onPostAction($actionEvent);
+        $this->actionSubscriber->onPostAction($actionEvent);
 
         $I->assertEquals(10, $player->getHealthPoint());
         $I->assertCount(1, $player->getStatuses());
@@ -179,14 +183,14 @@ class ActionSubscriberCest
         $itemConfig = $I->have(ItemConfig::class, ['name' => GearItemEnum::STAINPROOF_APRON]);
 
         //       $gear = new Gear();
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig =  new ModifierConfig(
+            ModifierNameEnum::APRON_MODIFIER,
+            ModifierReachEnum::PLAYER,
+            0,
+            ModifierModeEnum::SET_VALUE,
+        );
         $modifierConfig
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setDelta(-100)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
-            ->setScope(ModifierScopeEnum::EVENT_DIRTY)
-            ->setName(ModifierNameEnum::APRON_MODIFIER)
-        ;
+            ->addTargetEvent(EnhancePercentageRollEvent::DIRTY_ROLL_RATE);
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($player, $modifierConfig);
@@ -194,7 +198,7 @@ class ActionSubscriberCest
         $I->haveInRepository($modifier);
 
         // Test dirty with apron
-        $this->cycleSubscriber->onPostAction($actionEvent);
+        $this->actionSubscriber->onPostAction($actionEvent);
 
         $I->assertEquals(10, $player->getHealthPoint());
         $I->assertCount(0, $player->getStatuses());

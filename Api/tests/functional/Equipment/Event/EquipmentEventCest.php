@@ -20,11 +20,11 @@ use Mush\Game\Service\EventServiceInterface;
 
 class EquipmentEventCest
 {
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I) : void
     {
-        $this->eventServiceService = $I->grabService(EventServiceInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testHeavyStatusOverflowingInventory(FunctionalTester $I)
@@ -67,7 +67,7 @@ class EquipmentEventCest
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $this->eventServiceService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertEmpty($player->getEquipments());
         $I->assertEquals(1, $room->getEquipments()->count());

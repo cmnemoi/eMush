@@ -237,8 +237,8 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         if (!$gameEquipment instanceof GameItem) {
             throw new UnexpectedTypeException($gameEquipment, GameItem::class);
         }
-        if (!$this->getEquipments()->contains($gameEquipment)) {
-            $this->getEquipments()->add($gameEquipment);
+        if (!$this->items->contains($gameEquipment)) {
+            $this->items->add($gameEquipment);
             $gameEquipment->setHolder($this);
         }
 

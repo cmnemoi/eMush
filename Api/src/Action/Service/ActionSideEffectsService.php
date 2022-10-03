@@ -4,6 +4,7 @@ namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionSideEffectEventEnum;
+use Mush\Action\Event\EnhancePercentageRollEvent;
 use Mush\Action\Event\PercentageRollEvent;
 use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Game\Enum\VisibilityEnum;
@@ -14,6 +15,8 @@ use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\RoomLog\Service\RoomLogService;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Game\Service\EventServiceInterface;
@@ -24,13 +27,16 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 
     private EventServiceInterface $eventService;
     private RandomServiceInterface $randomService;
+    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
         EventServiceInterface $eventService,
-        RandomServiceInterface $randomService
+        RandomServiceInterface $randomService,
+        RoomLogServiceInterface $roomLogService
     ) {
         $this->eventService = $eventService;
         $this->randomService = $randomService;
+        $this->roomLogService = $roomLogService;
     }
 
     public function handleActionSideEffect(Action $action, Player $player, \DateTime $date): Player
@@ -59,8 +65,24 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             );
             $this->eventService->callEvent($dirtyEvent, PercentageRollEvent::DIRTY_ROLL_RATE);
 
-            $isSoiled = $this->randomService->isSuccessful($dirtyEvent->getRate());
-            if (!$isSoiled) {
+            $rate = $dirtyEvent->getRate();
+            $threshold = $this->randomService->getSuccessThreshold();
+            if ($rate < $threshold) {
+                return;
+            }
+
+            $checkSuccessEvent = new EnhancePercentageRollEvent(
+                $player,
+                $rate,
+                $threshold,
+                false,
+                $action->getName(),
+                $date
+            );
+
+            $this->eventService->callEvent($checkSuccessEvent, EnhancePercentageRollEvent::DIRTY_ROLL_RATE, $dirtyEvent);
+
+            if ($checkSuccessEvent->getRate() < $checkSuccessEvent->getThresholdRate()) {
                 return;
             }
         }

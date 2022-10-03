@@ -17,7 +17,7 @@ class EventService implements EventServiceInterface
 
     public function callEvent(AbstractGameEvent $event, string $name, AbstractGameEvent $caller = null): void
     {
-        if ($caller !== null) $event->setReason(array_merge($event->getReasons()[0], $caller->getReasons()));
+        if ($caller !== null) $event->setReason(array_merge($event->getReasons(), $caller->getReasons()));
         $event->setEventName($name);
         $this->eventDispatcher->dispatch($event, $name);
     }

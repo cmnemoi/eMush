@@ -18,6 +18,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Repository\DeadPlayerInfoRepository;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\Service\PlayerService;
@@ -43,7 +44,7 @@ class PlayerServiceTest extends TestCase
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     private CharacterConfigCollection $charactersConfigs;
-    private PlayerService $service;
+    private PlayerService $playerService;
 
     /**
      * @before
@@ -59,7 +60,7 @@ class PlayerServiceTest extends TestCase
 
         $this->charactersConfigs = new CharacterConfigCollection();
 
-        $this->service = new PlayerService(
+        $this->playerService = new PlayerService(
             $this->entityManager,
             $this->eventService,
             $this->repository,
@@ -123,7 +124,7 @@ class PlayerServiceTest extends TestCase
             ->once()
         ;
 
-        $player = $this->service->createPlayer($daedalus, $user, 'character');
+        $player = $this->playerService->createPlayer($daedalus, $user, 'character');
 
         $this->assertInstanceOf(Player::class, $player);
         $this->assertEquals('character', $player->getCharacterConfig()->getName());
@@ -159,22 +160,8 @@ class PlayerServiceTest extends TestCase
         ;
 
         $this->entityManager->shouldReceive('persist')->once();
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->once()
-        ;
-        $this->entityManager
-            ->shouldReceive('flush')
-            ->once()
-        ;
-        $this->gameEquipmentService
-            ->shouldReceive('persist')
-            ->once()
-        ;
 
-        $reason = 'bled';
-
-        $player = $this->service->playerDeath($player, $reason, new \DateTime());
+        $player = $this->playerService->playerDeath($player, EndCauseEnum::BLED, new \DateTime());
 
         $this->assertEquals(GameStatusEnum::FINISHED, $player->getGameStatus());
         $this->assertCount(0, $player->getEquipments());
@@ -200,7 +187,7 @@ class PlayerServiceTest extends TestCase
 
         $this->eventService->shouldReceive('callEvent');
 
-        $player = $this->service->endPlayer($player, $message);
+        $player = $this->playerService->endPlayer($player, $message);
 
         $this->assertEquals(GameStatusEnum::CLOSED, $player->getGameStatus());
         $this->assertNull($user->getCurrentGame());

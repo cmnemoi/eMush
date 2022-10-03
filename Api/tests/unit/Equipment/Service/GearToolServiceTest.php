@@ -7,6 +7,7 @@ use Mockery;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
@@ -15,10 +16,13 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GearToolService;
 use Mush\Modifier\Entity\Config\ModifierConfig;
+use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\ResourcePointChangeEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -31,11 +35,11 @@ use Mush\Game\Service\EventServiceInterface;
 class GearToolServiceTest extends TestCase
 {
     /** @var EventServiceInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
+    private EventServiceInterface|Mockery\Mock $eventService;
     /** @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface $statusService;
+    private StatusServiceInterface|Mockery\Mock $statusService;
 
-    private GearToolService $service;
+    private GearToolService $gearToolService;
 
     /**
      * @before
@@ -45,7 +49,7 @@ class GearToolServiceTest extends TestCase
         $this->eventService = Mockery::mock(EventServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
 
-        $this->service = new GearToolService(
+        $this->gearToolService = new GearToolService(
             $this->eventService,
             $this->statusService
         );
@@ -88,10 +92,10 @@ class GearToolServiceTest extends TestCase
         ;
         $player->addEquipment($gameItem2);
 
-        $items = $this->service->getEquipmentsOnReach($player, ReachEnum::SHELVE);
+        $items = $this->gearToolService->getEquipmentsOnReach($player, ReachEnum::SHELVE);
         $this->assertCount(2, $items);
 
-        $items = $this->service->getEquipmentsOnReach($player, ReachEnum::INVENTORY);
+        $items = $this->gearToolService->getEquipmentsOnReach($player, ReachEnum::INVENTORY);
         $this->assertCount(1, $items);
         $this->assertEquals($gameItem2, $items->first());
     }
@@ -116,29 +120,27 @@ class GearToolServiceTest extends TestCase
             ->addPlayer($player)
         ;
 
-        $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::PLASTIC_SCRAPS, ReachEnum::SHELVE);
+        $items = $this->gearToolService->getEquipmentsOnReachByName($player, ItemEnum::PLASTIC_SCRAPS, ReachEnum::SHELVE);
 
         $this->assertEmpty($items);
 
-        $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::INVENTORY);
+        $items = $this->gearToolService->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::INVENTORY);
 
         $this->assertEmpty($items);
 
-        $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::SHELVE);
+        $items = $this->gearToolService->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::SHELVE);
 
         $this->assertNotEmpty($items);
 
         $hiddenConfig = new StatusConfig();
         $hiddenConfig->setName(EquipmentStatusEnum::HIDDEN);
         $hidden = new Status($gameItem, $hiddenConfig);
-        $hidden
-            ->setTarget(new Player())
-        ;
+        $hidden->setTarget(new Player());
 
-        $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::SHELVE_NOT_HIDDEN);
+        $items = $this->gearToolService->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::SHELVE_NOT_HIDDEN);
         $this->assertEmpty($items);
 
-        $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::SHELVE);
+        $items = $this->gearToolService->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::SHELVE);
         $this->assertNotEmpty($items);
 
         $gameItem2 = new GameItem();
@@ -148,10 +150,10 @@ class GearToolServiceTest extends TestCase
         ;
         $player->addEquipment($gameItem2);
 
-        $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::INVENTORY);
+        $items = $this->gearToolService->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::INVENTORY);
         $this->assertCount(1, $items);
 
-        $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::SHELVE);
+        $items = $this->gearToolService->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::SHELVE);
         $this->assertCount(2, $items);
     }
 
@@ -186,25 +188,25 @@ class GearToolServiceTest extends TestCase
             ->addEquipment($gameItem)
         ;
 
-        $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM]);
+        $actions = $this->gearToolService->getActionsTools($player, [ActionScopeEnum::ROOM]);
         $this->assertEmpty($actions);
 
         $action->setScope(ActionScopeEnum::ROOM);
-        $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM]);
+        $actions = $this->gearToolService->getActionsTools($player, [ActionScopeEnum::ROOM]);
         $this->assertNotEmpty($actions);
 
         $action->setScope(ActionScopeEnum::INVENTORY);
-        $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM]);
+        $actions = $this->gearToolService->getActionsTools($player, [ActionScopeEnum::ROOM]);
         $this->assertEmpty($actions);
 
-        $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY]);
+        $actions = $this->gearToolService->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY]);
         $this->assertNotEmpty($actions);
 
         $action->setTarget(GameItem::class);
-        $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY]);
+        $actions = $this->gearToolService->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY]);
         $this->assertEmpty($actions);
 
-        $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY], GameItem::class);
+        $actions = $this->gearToolService->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY], GameItem::class);
         $this->assertNotEmpty($actions);
     }
 
@@ -261,10 +263,10 @@ class GearToolServiceTest extends TestCase
         ;
         $room->addEquipment($gameItem2);
 
-        $usedTool = $this->service->getUsedTool($player, ActionEnum::TAKE);
+        $usedTool = $this->gearToolService->getUsedTool($player, ActionEnum::TAKE);
         $this->assertNull($usedTool);
 
-        $usedTool = $this->service->getUsedTool($player, ActionEnum::REPAIR);
+        $usedTool = $this->gearToolService->getUsedTool($player, ActionEnum::REPAIR);
         $this->assertEquals($gameItem2, $usedTool);
 
         // Two tool with the same action but 1 with charges
@@ -277,7 +279,7 @@ class GearToolServiceTest extends TestCase
 
         $action->setName(ActionEnum::REPAIR);
 
-        $usedTool = $this->service->getUsedTool($player, ActionEnum::REPAIR);
+        $usedTool = $this->gearToolService->getUsedTool($player, ActionEnum::REPAIR);
         $this->assertEquals($gameItem2, $usedTool);
 
         // Two tool with the same action but 1 is charged and the other have no charge left
@@ -286,7 +288,7 @@ class GearToolServiceTest extends TestCase
             ->setCharge(0)
         ;
 
-        $usedTool = $this->service->getUsedTool($player, ActionEnum::REPAIR);
+        $usedTool = $this->gearToolService->getUsedTool($player, ActionEnum::REPAIR);
         $this->assertEquals($gameItem, $usedTool);
     }
 
@@ -320,13 +322,15 @@ class GearToolServiceTest extends TestCase
             ->setCharge(1)
         ;
 
-        $modifier1 = new ModifierConfig();
+        $modifier1 = new ModifierConfig(
+            'action',
+            ModifierReachEnum::PLAYER,
+            1.5,
+            ModifierModeEnum::MULTIPLICATIVE
+        );
         $modifier1
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
-            ->setDelta(1.5)
-            ->setScope(ActionEnum::REPAIR)
-            ->setReach(ReachEnum::INVENTORY)
-        ;
+            ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [ActionEnum::REPAIR]);
+
         $gear1 = new Gear();
         $gear1->setModifierConfigs(new arrayCollection([$modifier1]));
         $gearConfig1 = new ItemConfig();
@@ -340,13 +344,15 @@ class GearToolServiceTest extends TestCase
             ->setEquipment($gearConfig1)
         ;
 
-        $modifier2 = new ModifierConfig();
+        $modifier2 = new ModifierConfig(
+            'action',
+            ModifierReachEnum::PLAYER,
+            1.5,
+            ModifierModeEnum::MULTIPLICATIVE
+        );
         $modifier2
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
-            ->setDelta(1.5)
-            ->setScope(ActionEnum::REPAIR)
-            ->setReach(ReachEnum::INVENTORY)
-        ;
+            ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [ActionEnum::REPAIR]);
+
         $gear2 = new Gear();
         $gear2->setModifierConfigs(new arrayCollection([$modifier2]));
         $gearConfig2 = new ItemConfig();
@@ -364,12 +370,15 @@ class GearToolServiceTest extends TestCase
             ->setCharge(1)
         ;
 
-        $modifier3 = new ModifierConfig();
+        $modifier3 = new ModifierConfig(
+            'action',
+            ModifierReachEnum::PLAYER,
+            1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::ACTION_POINT
+        );
         $modifier3
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(1)
-            ->setScope(ActionEnum::REPAIR)
-            ->setReach(ReachEnum::INVENTORY)
+            ->addTargetEvent(ResourcePointChangeEvent::CHECK_CHANGE_ACTION_POINT, [ActionEnum::REPAIR]);
         ;
         $gear3 = new Gear();
         $gear3->setModifierConfigs(new arrayCollection([$modifier3]));
@@ -395,13 +404,13 @@ class GearToolServiceTest extends TestCase
             ->andReturn($chargeStatus1)
             ->once()
         ;
-        $this->service->applyChargeCost($player, ActionEnum::REPAIR);
+        $this->gearToolService->applyChargeCost($player, ActionEnum::REPAIR);
 
         $this->statusService->shouldReceive('updateCharge')
             ->with($chargeStatus1, -1)
             ->andReturn($chargeStatus1)
             ->once()
         ;
-        $this->service->applyChargeCost($player, ActionEnum::REPAIR);
+        $this->gearToolService->applyChargeCost($player, ActionEnum::REPAIR);
     }
 }

@@ -85,18 +85,20 @@ class ModifierService implements ModifierServiceInterface
             }
         }
 
-        return $this->enhancePercentageRoll($holder, $successRate, $tryToSucceed, $reasons);
+        return $this->enhancePercentageRoll($holder, $successRate, $successThreshold, $tryToSucceed, $reasons);
     }
 
     private function enhancePercentageRoll(
         ModifierHolder $holder,
         int $successRate,
+        int $thresholdRate,
         bool $tryToSucceed,
         array $reasons
     ) : bool {
         $event = new EnhancePercentageRollEvent(
             $holder,
             $successRate,
+            $thresholdRate,
             $tryToSucceed,
             $reasons[count($reasons) - 1],
             new \DateTime()

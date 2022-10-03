@@ -4,6 +4,8 @@ namespace Mush\Player\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
@@ -318,16 +320,14 @@ class PlayerService implements PlayerServiceInterface
         }
 
         $currentRoom = $player->getPlace();
-        foreach ($player->getEquipments() as $item) {
+        /* @var GameItem $item */
+        foreach ($player->getEquipments()->toArray() as $item) {
             $item->setHolder($currentRoom);
-            $this->gameEquipmentService->persist($item);
         }
 
         // @TODO in case of assassination chance of disorder for roommates
 
         $player->setGameStatus(GameStatusEnum::FINISHED);
-
-        $this->persist($player);
 
         return $player;
     }

@@ -23,6 +23,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\ResourcePointChangeEvent;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -64,14 +65,15 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new ModifierConfig(
+            'a random modifier config',
+            ModifierReachEnum::PLAYER,
+            -1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::ACTION_POINT
+        );
         $modifierConfig
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+            ->addTargetEvent(ResourcePointChangeEvent::CHECK_CHANGE_ACTION_POINT, [ActionEnum::SHOWER]);
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($player, $modifierConfig);
@@ -136,14 +138,15 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new ModifierConfig(
+            'a random modifier config',
+            ModifierReachEnum::PLAYER,
+            -1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::ACTION_POINT
+        );
         $modifierConfig
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+            ->addTargetEvent(ResourcePointChangeEvent::CHECK_CHANGE_ACTION_POINT, [ActionEnum::SHOWER]);
         $I->haveInRepository($modifierConfig);
 
         $gear = new Gear();
@@ -215,14 +218,15 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new ModifierConfig(
+            'a random modifier config',
+            ModifierReachEnum::PLAYER,
+            -1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::ACTION_POINT
+        );
         $modifierConfig
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLACE)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+            ->addTargetEvent(ResourcePointChangeEvent::CHECK_CHANGE_ACTION_POINT, [ActionEnum::SHOWER]);
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($room, $modifierConfig);
@@ -298,24 +302,26 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new ModifierConfig(
+            'a random modifier config',
+            ModifierReachEnum::PLAYER,
+            -1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::ACTION_POINT
+        );
         $modifierConfig
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+            ->addTargetEvent(ResourcePointChangeEvent::CHECK_CHANGE_ACTION_POINT, [ActionEnum::SHOWER]);
         $I->haveInRepository($modifierConfig);
 
-        $modifierConfig2 = new ModifierConfig();
-        $modifierConfig2
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(1)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+        $modifierConfig2 = new ModifierConfig(
+            'a random modifier config',
+            ModifierReachEnum::PLAYER,
+            1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::ACTION_POINT
+        );
+        $modifierConfig
+            ->addTargetEvent(ResourcePointChangeEvent::CHECK_CHANGE_ACTION_POINT, [ActionEnum::SHOWER]);
         $I->haveInRepository($modifierConfig2);
 
         $modifier = new Modifier($player, $modifierConfig);
@@ -339,7 +345,7 @@ class DropSubscriberCest
             'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
-        /** @var EquipmentConfig $equipmentConfig */
+        /** @var EquipmentConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(EquipmentConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear2]),
@@ -404,14 +410,15 @@ class DropSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new ModifierConfig(
+            'a random modifier config',
+            ModifierReachEnum::PLAYER,
+            -1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::ACTION_POINT
+        );
         $modifierConfig
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+            ->addTargetEvent(ResourcePointChangeEvent::CHECK_CHANGE_ACTION_POINT, [ActionEnum::SHOWER]);
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($player, $modifierConfig);

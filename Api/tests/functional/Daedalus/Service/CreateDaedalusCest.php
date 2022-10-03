@@ -19,6 +19,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\ModifierConfig;
+use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\DoorEnum;
@@ -79,12 +80,13 @@ class CreateDaedalusCest
         $I->haveInRepository($alienArtifact);
 
         // Modifier configs
-        $gravityModifier = new ModifierConfig();
-        $gravityModifier
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope(ActionEnum::MOVE)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
-        ;
+        $gravityModifier = new ModifierConfig(
+            'a random modifier config',
+            ModifierReachEnum::PLAYER,
+            2,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
         $I->haveInRepository($gravityModifier);
 
         $gear = new Gear();
@@ -134,10 +136,14 @@ class CreateDaedalusCest
         $I->assertCount(2, $room2->getDoors());
         $I->assertCount(1, $room3->getDoors());
 
-        $I->assertNotNull($gameGravitySimulator = $room3->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR)->first()
+        $I->assertNotNull($room3->getEquipments()
+            ->filter(fn (GameEquipment $gameEquipment) =>
+                $gameEquipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR)->first()
         );
 
-        $I->assertNotNull($gameHydropot = $room2->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === ItemEnum::HYDROPOT)->first()
+        $I->assertNotNull($room2->getEquipments()
+            ->filter(fn (GameEquipment $gameEquipment) =>
+                $gameEquipment->getName() === ItemEnum::HYDROPOT)->first()
         );
 
         $equipmentCollection = new ArrayCollection(array_merge($room1->getEquipments()->toArray(), $room2->getEquipments()->toArray()));

@@ -25,7 +25,7 @@ use PHPUnit\Framework\TestCase;
 class EquipmentModifierServiceTest extends TestCase
 {
     /** @var ModifierServiceInterface|Mockery\Mock */
-    private ModifierServiceInterface $modifierService;
+    private ModifierServiceInterface|Mockery\Mock $modifierService;
 
     private EquipmentModifierService $service;
 
@@ -49,24 +49,23 @@ class EquipmentModifierServiceTest extends TestCase
         Mockery::close();
     }
 
-    public function testGearCreated()
+    public function testCreateGear()
     {
         $daedalus = new Daedalus();
         $room = new Place();
         $room->setDaedalus($daedalus);
 
         // create a gear with daedalus modifier
-        $modifierConfig1 = new ModifierConfig();
-        $modifierConfig1
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope('action')
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(1)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+        $modifierConfig = new ModifierConfig(
+            'action',
+            ModifierReachEnum::DAEDALUS,
+            1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig1]));
+        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
 
         $equipmentConfig = new ItemConfig();
         $equipmentConfig
@@ -82,7 +81,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, null)
+            ->with($modifierConfig, $daedalus, null)
             ->once()
         ;
         $this->service->createGear($gameEquipment);
@@ -94,7 +93,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, null)
+            ->with($modifierConfig, $daedalus, null)
             ->once()
         ;
         $this->service->createGear($gameEquipment);
@@ -106,22 +105,22 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, $charge)
+            ->with($modifierConfig, $daedalus, $charge)
             ->once()
         ;
         $this->service->createGear($gameEquipment);
 
         // gear with 2 modifiers
-        $modifierConfig2 = new ModifierConfig();
-        $modifierConfig2
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope('action')
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(1)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+        $modifierConfig2 = new ModifierConfig(
+            'action',
+            ModifierReachEnum::DAEDALUS,
+            1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::ACTION_POINT
+        );
+
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig1, $modifierConfig2]));
+        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig, $modifierConfig2]));
 
         $equipmentConfig = new ItemConfig();
         $equipmentConfig
@@ -137,7 +136,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $this->modifierService
             ->shouldReceive('createModifier')
-            ->with($modifierConfig1, $daedalus, null)
+            ->with($modifierConfig, $daedalus, null)
             ->once()
         ;
         $this->modifierService
@@ -155,14 +154,13 @@ class EquipmentModifierServiceTest extends TestCase
         $room->setDaedalus($daedalus);
 
         // gear with daedalus modifier
-        $modifierConfig1 = new ModifierConfig();
-        $modifierConfig1
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope('action')
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(1)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+        $modifierConfig1 = new ModifierConfig(
+            'action',
+            ModifierReachEnum::DAEDALUS,
+            1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
 
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig1]));
@@ -204,14 +202,13 @@ class EquipmentModifierServiceTest extends TestCase
         $player->setPlace($room)->setDaedalus($daedalus);
 
         // gear with daedalus modifier
-        $modifierConfig1 = new ModifierConfig();
-        $modifierConfig1
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope('action')
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(1)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+        $modifierConfig1 = new ModifierConfig(
+            'action',
+            ModifierReachEnum::DAEDALUS,
+            1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
 
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig1]));
@@ -231,14 +228,13 @@ class EquipmentModifierServiceTest extends TestCase
         $this->service->takeEquipment($gameEquipment, $player);
 
         // gear with player Modifier
-        $modifierConfig1 = new ModifierConfig();
-        $modifierConfig1
-            ->setReach(ModifierReachEnum::TARGET_PLAYER)
-            ->setScope('action')
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(1)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+        $modifierConfig1 = new ModifierConfig(
+            'action',
+            ModifierReachEnum::PLAYER,
+            1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
 
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig1]));
@@ -287,14 +283,13 @@ class EquipmentModifierServiceTest extends TestCase
         $player->setPlace($room)->setDaedalus($daedalus);
 
         // gear with daedalus modifier
-        $modifierConfig1 = new ModifierConfig();
-        $modifierConfig1
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope('action')
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(1)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+        $modifierConfig1 = new ModifierConfig(
+            'action',
+            ModifierReachEnum::DAEDALUS,
+            1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
 
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig1]));
@@ -310,14 +305,13 @@ class EquipmentModifierServiceTest extends TestCase
         $this->service->dropEquipment($gameEquipment, $player);
 
         // gear with player Modifier
-        $modifierConfig2 = new ModifierConfig();
-        $modifierConfig2
-            ->setReach(ModifierReachEnum::TARGET_PLAYER)
-            ->setScope('action')
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(1)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+        $modifierConfig2 = new ModifierConfig(
+            'action',
+            ModifierReachEnum::PLAYER,
+            1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
 
         $modifier2 = new Modifier($player, $modifierConfig2);
 

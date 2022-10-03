@@ -21,10 +21,10 @@ class EnhancePercentageRollEvent extends PercentageRollEvent
     private int $thresholdRate;
     private bool $tryToSucceed;
 
-    public function __construct(ModifierHolder $modifierHolder, int $rate, bool $tryToSucceed, string $reason, \DateTime $time)
+    public function __construct(ModifierHolder $modifierHolder, int $rate, int $thresholdRate, bool $tryToSucceed, string $reason, \DateTime $time)
     {
         parent::__construct($modifierHolder, $rate, $reason, $time);
-        $this->thresholdRate = 100;
+        $this->thresholdRate = $thresholdRate;
         $this->tryToSucceed = $tryToSucceed;
         $this->modifier = null;
     }

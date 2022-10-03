@@ -10,6 +10,7 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Action\Event\PercentageRollEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -22,6 +23,8 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -101,14 +104,14 @@ class RepairActionCest
 
         $I->assertTrue($this->repairAction->isVisible());
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new ModifierConfig(
+            ModifierNameEnum::WRENCH_MODIFIER,
+            ModifierReachEnum::PLAYER,
+            1.5,
+            ModifierModeEnum::MULTIPLICATIVE
+        );
         $modifierConfig
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
-            ->setDelta(1.5)
-            ->setScope(ActionTypeEnum::ACTION_TECHNICIAN)
-            ->setReach(ReachEnum::INVENTORY)
-            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-        ;
+            ->addTargetEvent(PercentageRollEvent::ACTION_ROLL_RATE, [ActionEnum::REPAIR]);
 
         $I->haveInRepository($modifierConfig);
 

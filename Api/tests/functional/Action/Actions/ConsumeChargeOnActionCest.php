@@ -25,11 +25,13 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\ResourcePointChangeEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -204,14 +206,15 @@ class ConsumeChargeOnActionCest
         $room->addEquipment($gameEquipment);
         $I->refreshEntities($room);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig =  new ModifierConfig(
+            'a random modifier config',
+            ModifierReachEnum::PLAYER,
+            -1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::ACTION_POINT
+        );
         $modifierConfig
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setScope(ActionEnum::COFFEE)
-            ->setReach(ReachEnum::INVENTORY)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+            ->addTargetEvent(ResourcePointChangeEvent::CHECK_CHANGE_ACTION_POINT);
 
         $gearMechanic = new Gear();
         $gearMechanic->setModifierConfigs(new arrayCollection([$modifierConfig]));
@@ -247,7 +250,6 @@ class ConsumeChargeOnActionCest
         $I->haveInRepository($chargeStatus);
 
         $modifier = new Modifier($player, $modifierConfig);
-        $modifier->setCharge($chargeStatus);
         $I->haveInRepository($modifier);
 
         $this->coffeeAction->loadParameters($actionEntity, $player, $gameEquipment);
@@ -322,14 +324,15 @@ class ConsumeChargeOnActionCest
         $room->addEquipment($gameEquipment);
         $I->refreshEntities($room);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig =  new ModifierConfig(
+            'a random modifier config',
+            ModifierReachEnum::PLAYER,
+            1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
         $modifierConfig
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(1)
-            ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
-            ->setReach(ReachEnum::INVENTORY)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+            ->addTargetEvent(ResourcePointChangeEvent::CHECK_CONVERSION_ACTION_TO_MOVEMENT_POINT_GAIN);
 
         $gearMechanic = new Gear();
         $gearMechanic->setModifierConfigs(new arrayCollection([$modifierConfig]));
@@ -365,7 +368,6 @@ class ConsumeChargeOnActionCest
         $I->haveInRepository($chargeStatus);
 
         $modifier = new Modifier($player, $modifierConfig);
-        $modifier->setCharge($chargeStatus);
         $I->haveInRepository($modifier);
 
         $this->coffeeAction->loadParameters($actionEntity, $player, $gameEquipment);

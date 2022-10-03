@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
@@ -25,6 +26,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -85,15 +87,17 @@ class MoveSubscriberCest
         ]);
 
         // first let create a gear with an irrelevant reach
-        $modifierConfig1 = new ModifierConfig();
+        $modifierConfig1 = new ModifierConfig(
+            'a random modifier config',
+            ModifierReachEnum::PLAYER,
+            -1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MORAL_POINT
+        );
         $modifierConfig1
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::MORAL_POINT)
-            ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::SHOWER]);
         $I->haveInRepository($modifierConfig1);
+
         $I->refreshEntities($player);
         $modifier = new Modifier($player, $modifierConfig1);
         $I->haveInRepository($modifier);
@@ -118,16 +122,18 @@ class MoveSubscriberCest
         $player->addEquipment($gameEquipment);
         $I->refreshEntities($player);
 
-        // let's create a gear with room reach in player inventory
-        $modifierConfig2 = new ModifierConfig();
+        // lets create a gear with room reach in player inventory
+        $modifierConfig2 = new ModifierConfig(
+            'a random modifier config',
+            ModifierReachEnum::PLAYER,
+            -1,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MORAL_POINT
+        );
         $modifierConfig2
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::MORAL_POINT)
-            ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLACE)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEnum::SHOWER]);
         $I->haveInRepository($modifierConfig2);
+
         $modifier2 = new Modifier($room, $modifierConfig2);
         $I->haveInRepository($modifier2);
 

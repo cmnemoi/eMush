@@ -15,9 +15,11 @@ use Mush\Modifier\Entity\Modifier;
 
 use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierConditionEnum;
+use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Place\Entity\Place;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Enum\PlayerVariableEnum;
 
 class DaedalusVariableEventCest
 {
@@ -50,19 +52,15 @@ class DaedalusVariableEventCest
 
         $I->assertEquals(30, $daedalus->getOxygen());
 
-        // add an oxygen tank
-        $modifierCondition = new ModifierCondition(ModifierConditionEnum::REASON);
-        $modifierCondition->setCondition(EventEnum::NEW_CYCLE);
-        $I->haveInRepository($modifierCondition);
-
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig =  new ModifierConfig(
+            'a random modifier config',
+            ModifierReachEnum::PLAYER,
+            1,
+            ModifierModeEnum::ADDITIVE,
+            DaedalusVariableEnum::OXYGEN
+        );
         $modifierConfig
-            ->setTarget(DaedalusVariableEnum::OXYGEN)
-            ->setDelta(1)
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope(AbstractQuantityEvent::CHANGE_VARIABLE)
-            ->addModifierCondition($modifierCondition)
-        ;
+            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [EventEnum::NEW_CYCLE]);
         $I->haveInRepository($modifierConfig);
 
         $modifier = new Modifier($daedalus, $modifierConfig);
@@ -72,7 +70,7 @@ class DaedalusVariableEventCest
             $daedalus,
             DaedalusVariableEnum::OXYGEN,
             -2,
-            'other_reason',
+            'a random reason',
             new DateTime()
         );
         $this->eventService->callEvent($event, AbstractQuantityEvent::CHANGE_VARIABLE);

@@ -12,6 +12,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Place\Entity\Place;
@@ -19,6 +20,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\ResourcePointChangeEvent;
 use Mush\RoomLog\Entity\RoomLog;
 
 class ActionServiceCest
@@ -117,31 +119,32 @@ class ActionServiceCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $modifierConfig = new ModifierConfig();
+        $modifierConfig = new ModifierConfig(
+            'a random modifier config',
+            ModifierReachEnum::PLAYER,
+            2,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MOVEMENT_POINT
+        );
         $modifierConfig
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(-1)
-            ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
+            ->addTargetEvent(ResourcePointChangeEvent::CHECK_CONVERSION_ACTION_TO_MOVEMENT_POINT_GAIN);
 
         $I->haveInRepository($modifierConfig);
 
-        $disabledModifier = new Modifier($player, $modifierConfig);
+        $modifier = new Modifier($player, $modifierConfig);
 
-        $I->haveInRepository($disabledModifier);
+        $I->haveInRepository($modifier);
 
         $actionCost = new ActionCost();
         $actionCost->setMovementPointCost(1);
 
         $action = new Action();
-        $action->setName('some name');
+        $action->setName('a random action');
         $action->setActionCost($actionCost);
 
         $this->actionService->applyCostToPlayer($player, $action, null);
 
         $I->assertEquals(9, $player->getActionPoint());
-        $I->assertEquals(0, $player->getMovementPoint());
+        $I->assertEquals(2, $player->getMovementPoint());
     }
 }

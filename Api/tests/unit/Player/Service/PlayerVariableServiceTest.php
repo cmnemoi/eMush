@@ -102,9 +102,7 @@ class PlayerVariableServiceTest extends TestCase
 
         // go below 4 moral
         $this->playerService->shouldReceive('persist')->once();
-        $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->andReturn(16)
-            ->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->playerVariableService->handleMoralPointModifier(-2, $player);
 
@@ -112,9 +110,7 @@ class PlayerVariableServiceTest extends TestCase
 
         // go below 1 moral
         $this->playerService->shouldReceive('persist')->once();
-        $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->andReturn(16)
-            ->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->playerVariableService->handleMoralPointModifier(-2, $player);
 
@@ -122,9 +118,7 @@ class PlayerVariableServiceTest extends TestCase
 
         // regain more moral than suicidal threshold
         $this->playerService->shouldReceive('persist')->once();
-        $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->andReturn(16)
-            ->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->playerVariableService->handleMoralPointModifier(2, $player);
 
@@ -134,9 +128,7 @@ class PlayerVariableServiceTest extends TestCase
 
         // gain more than morale threshold
         $this->playerService->shouldReceive('persist')->once();
-        $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->andReturn(16)
-            ->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->playerVariableService->handleMoralPointModifier(22, $player);
 
@@ -161,9 +153,7 @@ class PlayerVariableServiceTest extends TestCase
         ;
 
         $this->playerService->shouldReceive('persist')->once();
-        $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->andReturn(16)
-            ->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->playerVariableService->handleActionPointModifier(-2, $player);
 
@@ -171,9 +161,7 @@ class PlayerVariableServiceTest extends TestCase
 
         // less than 0
         $this->playerService->shouldReceive('persist')->once();
-        $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->andReturn(16)
-            ->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->playerVariableService->handleActionPointModifier(-6, $player);
 
@@ -181,9 +169,7 @@ class PlayerVariableServiceTest extends TestCase
 
         // more than threshold
         $this->playerService->shouldReceive('persist')->once();
-        $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->andReturn(16)
-            ->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->playerVariableService->handleActionPointModifier(35, $player);
 
@@ -207,10 +193,9 @@ class PlayerVariableServiceTest extends TestCase
             ->setCharacterConfig($characterConfig)
         ;
 
-        $this->modifierService->shouldReceive('getEventModifiedValue')
-            ->andReturn(16)
-            ->once();
         $this->playerService->shouldReceive('persist')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
+
         $this->playerVariableService->handleHealthPointModifier(-2, $player);
 
         $this->assertEquals(3, $player->getHealthPoint());

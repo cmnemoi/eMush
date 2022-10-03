@@ -9,7 +9,7 @@ use Mush\Player\Entity\Player;
 class PercentageRollEvent extends AbstractModifierHolderEvent
 {
 
-    public const INJURY_ROLL = 'side_effect_roll_injury';
+    public const INJURY_ROLL_RATE = 'side_effect_roll_injury';
     public const CLUMSINESS_ROLL_RATE = 'side_effect_roll_clumsiness';
     public const DIRTY_ROLL_RATE = 'side_effect_roll_dirty';
     public const ACTION_ROLL_RATE = 'roll_action';

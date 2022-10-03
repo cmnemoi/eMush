@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Event\PercentageRollEvent;
+use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -111,7 +112,7 @@ class RepairActionCest
             ModifierModeEnum::MULTIPLICATIVE
         );
         $modifierConfig
-            ->addTargetEvent(PercentageRollEvent::ACTION_ROLL_RATE, [ActionEnum::REPAIR]);
+            ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [ActionEnum::REPAIR]);
 
         $I->haveInRepository($modifierConfig);
 

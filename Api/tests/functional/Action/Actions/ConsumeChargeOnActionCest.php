@@ -206,7 +206,7 @@ class ConsumeChargeOnActionCest
         $room->addEquipment($gameEquipment);
         $I->refreshEntities($room);
 
-        $modifierConfig =  new ModifierConfig(
+        $modifierConfig = new ModifierConfig(
             'a random modifier config',
             ModifierReachEnum::PLAYER,
             -1,
@@ -215,9 +215,10 @@ class ConsumeChargeOnActionCest
         );
         $modifierConfig
             ->addTargetEvent(ResourcePointChangeEvent::CHECK_CHANGE_ACTION_POINT);
+        $I->haveInRepository($modifierConfig);
 
         $gearMechanic = new Gear();
-        $gearMechanic->setModifierConfigs(new arrayCollection([$modifierConfig]));
+        $gearMechanic->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $gearConfig = new ItemConfig();
         $gearConfig
             ->setName(GearItemEnum::SOAP)
@@ -228,13 +229,11 @@ class ConsumeChargeOnActionCest
             ->setName(GearItemEnum::SOAP)
             ->setEquipment($gearConfig)
         ;
-        $I->haveInRepository($modifierConfig);
         $I->haveInRepository($gearMechanic);
         $I->haveInRepository($gearConfig);
         $I->haveInRepository($gameGear);
 
         $player->addEquipment($gameGear);
-        $I->refreshEntities($player);
 
         $statusConfig = new ChargeStatusConfig();
         $statusConfig

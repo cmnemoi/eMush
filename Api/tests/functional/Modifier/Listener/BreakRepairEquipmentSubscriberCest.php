@@ -129,6 +129,6 @@ class BreakRepairEquipmentSubscriberCest
         $I->assertEquals($player->getModifiers()->count(), 0);
         $I->assertEquals($room->getModifiers()->count(), 0);
         $I->assertEquals($daedalus->getModifiers()->count(), 1);
-        $I->assertEquals($daedalus->getModifiers()->first()->getModifierConfig(), $modifierConfig);
+        $I->assertEquals($daedalus->getModifiers()->first()->getConfig(), $modifierConfig);
     }
 }

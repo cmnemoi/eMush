@@ -57,32 +57,15 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         }
 
         if (!$isSuperDirty) {
-            $dirtyEvent = new PreparePercentageRollEvent(
+            $isDirtyRollSuccessful = $this->isSideEffectRollSuccessful(
                 $player,
                 $baseDirtyRate,
-                $action->getName(),
-                $date
-            );
-            $this->eventService->callEvent($dirtyEvent, PercentageRollEvent::DIRTY_ROLL_RATE);
-
-            $rate = $dirtyEvent->getRate();
-            $threshold = $this->randomService->getSuccessThreshold();
-            if ($rate < $threshold) {
-                return;
-            }
-
-            $checkSuccessEvent = new EnhancePercentageRollEvent(
-                $player,
-                $rate,
-                $threshold,
-                false,
-                $action->getName(),
-                $date
+                $action,
+                PreparePercentageRollEvent::DIRTY_ROLL_RATE,
+                EnhancePercentageRollEvent::DIRTY_ROLL_RATE
             );
 
-            $this->eventService->callEvent($checkSuccessEvent, EnhancePercentageRollEvent::DIRTY_ROLL_RATE, $dirtyEvent);
-
-            if ($checkSuccessEvent->getRate() < $checkSuccessEvent->getThresholdRate()) {
+            if (!$isDirtyRollSuccessful) {
                 return;
             }
         }
@@ -93,6 +76,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             $action->getName(),
             new \DateTime()
         );
+
         $statusEvent->setVisibility(VisibilityEnum::PRIVATE);
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
@@ -101,19 +85,58 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
     {
         $baseClumsinessRate = $action->getClumsinessRate();
 
-        $clumsinessEvent = new PreparePercentageRollEvent(
+        $isClumsinessRollSuccessful = $this->isSideEffectRollSuccessful(
             $player,
             $baseClumsinessRate,
+            $action,
+            PreparePercentageRollEvent::CLUMSINESS_ROLL_RATE,
+            EnhancePercentageRollEvent::CLUMSINESS_ROLL_RATE
+        );
+
+        if ($isClumsinessRollSuccessful) {
+            $this->dispatchPlayerInjuryEvent($player, $date);
+        }
+    }
+
+    private function isSideEffectRollSuccessful(
+        Player $player,
+        int $baseRate,
+        Action $action,
+        string $prepareType,
+        string $enhanceType
+    ) : bool {
+        $date = new \DateTime();
+
+        $prepareEvent = new PreparePercentageRollEvent(
+            $player,
+            $baseRate,
             $action->getName(),
             $date
         );
-        $this->eventService->callEvent($clumsinessEvent, PercentageRollEvent::CLUMSINESS_ROLL_RATE);
+        $this->eventService->callEvent($prepareEvent, $prepareType);
 
-        $isHurt = $this->randomService->isSuccessful($clumsinessEvent->getRate());
-
-        if ($isHurt) {
-            $this->dispatchPlayerInjuryEvent($player, $date);
+        $rate = $prepareEvent->getRate();
+        $threshold = $this->randomService->getSuccessThreshold();
+        if ($rate <= $threshold) {
+            return false;
         }
+
+        $checkSuccessEvent = new EnhancePercentageRollEvent(
+            $player,
+            $rate,
+            $threshold,
+            false,
+            $action->getName(),
+            $date
+        );
+
+        $this->eventService->callEvent($checkSuccessEvent, $enhanceType, $prepareEvent);
+
+        if ($checkSuccessEvent->getRate() <= $checkSuccessEvent->getThresholdRate()) {
+            return false;
+        }
+
+        return true;
     }
 
     private function dispatchPlayerInjuryEvent(Player $player, \DateTime $dateTime): void

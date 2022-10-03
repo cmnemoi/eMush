@@ -7,6 +7,7 @@ use Mockery;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Event\PercentageRollEvent;
 use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;

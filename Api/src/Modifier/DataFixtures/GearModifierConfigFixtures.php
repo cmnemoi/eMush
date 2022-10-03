@@ -118,7 +118,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         );
         foreach (ActionTypeEnum::getShootActions() as $action) {
             $aimModifier
-                ->addTargetEvent(PercentageRollEvent::ACTION_ROLL_RATE, [$action]);
+                ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [$action]);
         }
         $manager->persist($aimModifier);
 

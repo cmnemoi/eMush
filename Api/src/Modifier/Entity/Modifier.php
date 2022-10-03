@@ -39,6 +39,8 @@ class Modifier
     {
         $this->setModifierHolder($holder);
         $this->config = $config;
+
+        $holder->addModifier($this);
     }
 
     public function getConfig(): ModifierConfig

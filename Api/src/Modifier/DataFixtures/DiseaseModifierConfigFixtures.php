@@ -8,6 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Actions\Consume;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Action\Event\PercentageRollEvent;
 use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;

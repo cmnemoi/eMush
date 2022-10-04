@@ -7,7 +7,6 @@ use Mush\Action\Event\EnhancePercentageRollEvent;
 use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Config\ModifierConfig;

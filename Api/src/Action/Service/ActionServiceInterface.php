@@ -17,5 +17,4 @@ interface ActionServiceInterface
     public function getTotalMoralPointCost(Player $player, Action $action, bool $consumed = false): int;
 
     public function getSuccessRate(Action $action, Player $player): int;
-
 }

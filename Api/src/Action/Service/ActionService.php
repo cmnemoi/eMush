@@ -82,9 +82,11 @@ class ActionService implements ActionServiceInterface
     public function getTotalActionPointCost(Player $player, Action $action, bool $consumed = false): int
     {
         $actionPointsCost = 0;
+
         $missingMovementPoints = $this->getTotalMovementPointCost($player, $action, $consumed) - $player->getMovementPoint();
         if ($missingMovementPoints > 0) {
             $conversionGain = $this->getMovementPointConversionGain($player, $action);
+
             if ($conversionGain <= 0) {
                 return self::IMPOSSIBLE_ACTION_COST;
             }

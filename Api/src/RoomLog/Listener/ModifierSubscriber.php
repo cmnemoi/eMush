@@ -4,7 +4,6 @@ namespace Mush\RoomLog\Listener;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Event\ModifierEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -43,7 +42,8 @@ class ModifierSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function canCreateLog(ModifierEvent $event) : bool {
+    private function canCreateLog(ModifierEvent $event): bool
+    {
         $reason = $event->getReasons()[0];
         $targetEvents = $event->getModifier()->getConfig()->getTargetEvents();
 

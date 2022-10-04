@@ -10,6 +10,7 @@ use Mush\Player\Entity\Player;
 #[ORM\Entity]
 class PlayerHasStatusModifierCondition extends ModifierCondition
 {
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $statusName;
 
     public function __construct(string $statusName)

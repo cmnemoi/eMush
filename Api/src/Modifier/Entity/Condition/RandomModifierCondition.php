@@ -9,6 +9,7 @@ use Mush\Modifier\Entity\ModifierHolder;
 #[ORM\Entity]
 class RandomModifierCondition extends ModifierCondition
 {
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $value;
 
     public function __construct(int $value)

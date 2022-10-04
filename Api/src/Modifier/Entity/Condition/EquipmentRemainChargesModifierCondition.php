@@ -13,6 +13,7 @@ use Mush\Status\Enum\StatusEnum;
 #[ORM\Entity]
 class EquipmentRemainChargesModifierCondition extends ModifierCondition
 {
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $equipmentName;
 
     public function __construct(string $equipmentName)

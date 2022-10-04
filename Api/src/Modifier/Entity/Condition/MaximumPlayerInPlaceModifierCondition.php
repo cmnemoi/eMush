@@ -10,6 +10,7 @@ use Mush\Player\Entity\Player;
 #[ORM\Entity]
 class MaximumPlayerInPlaceModifierCondition extends ModifierCondition
 {
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $maximum;
 
     public function __construct(int $maximum)

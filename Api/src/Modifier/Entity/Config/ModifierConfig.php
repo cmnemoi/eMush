@@ -62,15 +62,15 @@ class ModifierConfig
     {
         if (array_key_exists($eventName, $this->targetEvents)) {
             if ($eventReason === null) {
-                $this->targetEvents[] = [$eventName => [self::EVERY_REASONS]];
+                $this->targetEvents[$eventName] = [[self::EVERY_REASONS]];
             } else {
-                $this->targetEvents[] = [$eventName => [$eventReason]];
+                $this->targetEvents[$eventName] = array_merge($this->targetEvents[$eventName], [$eventReason]);
             }
         } else {
             if ($eventReason === null) {
-                $this->targetEvents[$eventName] = [[self::EVERY_REASONS]];
+                $this->targetEvents = array_merge($this->targetEvents, [$eventName => [[self::EVERY_REASONS]]]);
             } else {
-                $this->targetEvents[$eventName][] = $eventReason;
+                $this->targetEvents = array_merge($this->targetEvents, [$eventName => [$eventReason]]);
             }
         }
 
@@ -80,9 +80,9 @@ class ModifierConfig
     public function excludeTargetEvent(string $eventName, array $eventReason): self
     {
         if (isset($this->targetEvents[$eventName])) {
-            $this->targetEvents[$eventName][] = $eventReason;
+            $this->targetEvents[$eventName] = array_merge($this->targetEvents[$eventName], [$eventReason]);
         } else {
-            $this->targetEvents[] = [$eventName => [array_merge([self::EXCLUDE_REASON], $eventReason)]];
+            $this->targetEvents = array_merge($this->targetEvents, [$eventName => [array_merge([self::EXCLUDE_REASON], $eventReason)]]);
         }
 
         return $this;
@@ -93,7 +93,9 @@ class ModifierConfig
         if (!array_key_exists($eventName, $this->targetEvents)) {
             return false;
         }
+
         $reasons = $this->targetEvents[$eventName];
+        codecept_debug($reasons);
 
         for ($i = 0; $i < count($reasons); ++$i) {
             if (in_array(self::EVERY_REASONS, $reasons[$i])) {

@@ -193,6 +193,7 @@ class ModifierListenerService implements ModifierListenerServiceInterface
                     if ($this->isDone($event->getRate(), $threshold, $tryToSucceed)) {
                         $event->setModifierConfig($modifierConfig);
                     }
+
                     $this->appliedModifiers[$this->stack] = [$modifier];
 
                     return;
@@ -239,13 +240,14 @@ class ModifierListenerService implements ModifierListenerServiceInterface
         return $holder->getModifiersAtReach()->filter(function (Modifier $modifier) use ($holder, $event, $reasons) {
             $modifierConfig = $modifier->getConfig();
 
-            return $modifierConfig->areConditionsTrue($holder, $this->randomService) && $modifierConfig->isTargetedBy($event, $reasons);
+            return $modifierConfig->areConditionsTrue($holder, $this->randomService) &&
+                $modifierConfig->isTargetedBy($event, $reasons);
         });
     }
 
-    private function getModifiedValue(ModifierHolder $holder, int $baseValue, string $event, array $reason): int
+    private function getModifiedValue(ModifierHolder $holder, int $baseValue, string $event, array $reasons): int
     {
-        return $this->calculateModifiedValue($baseValue, $this->getModifiersToApply($holder, $event, $reason)->toArray());
+        return $this->calculateModifiedValue($baseValue, $this->getModifiersToApply($holder, $event, $reasons)->toArray());
     }
 
     private function calculateModifiedValue(int $baseValue, array $modifiers): int
@@ -285,7 +287,12 @@ class ModifierListenerService implements ModifierListenerServiceInterface
             }
         }
 
-        return intval($baseValue * $multiplicativeValue + $additiveValue);
+        $modifiedValue = intval($baseValue * $multiplicativeValue + $additiveValue);
+        if ($this->canProceed($baseValue, $modifiedValue)) {
+            return $modifiedValue;
+        } else {
+            return 0;
+        }
     }
 
     private function canProceed(int $quantity1, int $quantity2): bool

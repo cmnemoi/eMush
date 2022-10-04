@@ -28,7 +28,10 @@ class EventService implements EventServiceInterface
     public function callEvent(AbstractGameEvent $event, string $name, AbstractGameEvent $caller = null): void
     {
         if ($caller !== null) {
-            $event->setReason(array_merge($event->getReasons(), $caller->getReasons()));
+            $event->setReason(array_merge(
+                $event->getReasons(),
+                array_merge($caller->getReasons())
+            ));
         }
         $event->setEventName($name);
 
@@ -36,6 +39,8 @@ class EventService implements EventServiceInterface
         if ($this->modifierListenerService->canHandle($event)) {
             $handled = true;
 
+            codecept_debug('hallo');
+            codecept_debug($event->getReasons());
             if ($event instanceof AbstractModifierHolderEvent) {
                 if ($this->modifierListenerService->applyModifiers($event)) {
                     $modifiers = $this->modifierListenerService->harvestAppliedModifier($event);

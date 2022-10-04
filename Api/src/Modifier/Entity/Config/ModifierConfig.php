@@ -39,10 +39,10 @@ class ModifierConfig
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $logKeyWhenApplied;
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $targetEvents;
 
-    #[ORM\Column(type: 'array', nullable: false)]
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $variable;
 
     public function __construct(string $name, string $reach, float $value, string $mode, string $variable = null)

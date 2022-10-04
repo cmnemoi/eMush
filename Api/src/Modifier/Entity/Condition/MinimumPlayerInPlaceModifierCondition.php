@@ -10,6 +10,7 @@ use Mush\Player\Entity\Player;
 #[ORM\Entity]
 class MinimumPlayerInPlaceModifierCondition extends ModifierCondition
 {
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $minimum;
 
     public function __construct(int $minimum)

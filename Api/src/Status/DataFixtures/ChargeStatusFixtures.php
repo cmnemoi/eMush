@@ -13,6 +13,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Player\Event\ResourcePointChangeEvent;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -83,7 +84,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setMaxCharge(8)
             ->setStartCharge(2)
-            ->setDischargeStrategy(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
+            ->setDischargeStrategy(ResourcePointChangeEvent::CHECK_CONVERSION_ACTION_TO_MOVEMENT_POINT_GAIN)
             ->setGameConfig($gameConfig)
         ;
         $manager->persist($scooterCharge);

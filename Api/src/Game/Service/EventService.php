@@ -39,8 +39,6 @@ class EventService implements EventServiceInterface
         if ($this->modifierListenerService->canHandle($event)) {
             $handled = true;
 
-            codecept_debug('hallo');
-            codecept_debug($event->getReasons());
             if ($event instanceof AbstractModifierHolderEvent) {
                 if ($this->modifierListenerService->applyModifiers($event)) {
                     $modifiers = $this->modifierListenerService->harvestAppliedModifier($event);

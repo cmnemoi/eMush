@@ -8,6 +8,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 
 #[ORM\Entity]
@@ -29,9 +30,9 @@ class EquipmentRemainChargesModifierCondition extends ModifierCondition
 
             /* @var GameItem $item */
             foreach ($items as $item) {
-                if ($item->hasStatus(StatusEnum::CHARGE)) {
+                if ($item->hasStatus(EquipmentStatusEnum::ELECTRIC_CHARGES)) {
                     /* @var ChargeStatus $charge */
-                    $charge = $item->getStatusByName(StatusEnum::CHARGE);
+                    $charge = $item->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
                     if ($charge->getCharge() > 0) {
                         return true;
                     }

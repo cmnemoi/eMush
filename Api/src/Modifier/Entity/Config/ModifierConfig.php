@@ -95,7 +95,6 @@ class ModifierConfig
         }
 
         $reasons = $this->targetEvents[$eventName];
-        codecept_debug($reasons);
 
         for ($i = 0; $i < count($reasons); ++$i) {
             if (in_array(self::EVERY_REASONS, $reasons[$i])) {

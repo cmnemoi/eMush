@@ -39,7 +39,7 @@ class EventService implements EventServiceInterface
             if ($event instanceof AbstractModifierHolderEvent) {
                 if ($this->modifierListenerService->applyModifiers($event)) {
                     $modifiers = $this->modifierListenerService->harvestAppliedModifier($event);
-                    $this->applyModifiers($modifiers);
+                    $this->applyModifiers($event, $modifiers);
                 }
             }
         }
@@ -72,14 +72,12 @@ class EventService implements EventServiceInterface
         }
     }
 
-    private function applyModifiers(array $modifiers)
+    private function applyModifiers(AbstractModifierHolderEvent $event, array $modifiers)
     {
         foreach ($modifiers as $modifier) {
-            $logKey = $modifier->getConfig()->getLogKeyWhenApplied();
-
             $event = new ModifierEvent(
                 $modifier,
-                $logKey === null ? $modifier->getConfig()->getName() : $logKey,
+                $event->getEventName(),
                 new \DateTime()
             );
             $this->callEvent($event, ModifierEvent::APPLY_MODIFIER);

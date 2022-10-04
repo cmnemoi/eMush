@@ -109,34 +109,7 @@ class ModifierService implements ModifierServiceInterface
 
         $this->eventService->callEvent($event, EnhancePercentageRollEvent::TRIGGER_ROLL_RATE);
 
-        $modifier = $event->getModifierConfig();
-        if ($modifier !== null) {
-            $this->logEnhancement($holder, $modifier);
-
-            return $tryToSucceed;
-        } else {
-            return !$tryToSucceed;
-        }
-    }
-
-    private function logEnhancement(ModifierHolder $holder, ModifierConfig $modifier)
-    {
-        if (!$holder instanceof Player) {
-            return;
-        }
-
-        $logKey = $modifier->getLogKeyWhenApplied();
-        if ($logKey === null) {
-            return;
-        }
-
-        $this->logService->createLog(
-            $logKey,
-            $holder->getPlace(),
-            VisibilityEnum::PRIVATE,
-            'modifier_log',
-            $holder
-        );
+        return $tryToSucceed;
     }
 
     public function createModifier(ModifierConfig $config, ModifierHolder $holder, ChargeStatus $charge = null): Modifier

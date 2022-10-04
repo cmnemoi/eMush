@@ -157,6 +157,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
 
     private function createEquipmentStatusModifiers(GameEquipment $gameEquipment, array $reaches, ?Player $player): void
     {
+        /* @var Status $status */
         foreach ($gameEquipment->getStatuses() as $status) {
             $statusConfig = $status->getStatusConfig();
             $this->createModifiersWithName(
@@ -217,7 +218,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
             ModifierReachEnum::DAEDALUS => $gameEquipment->getPlace()->getDaedalus(),
             ModifierReachEnum::PLACE => $gameEquipment->getPlace(),
             ModifierReachEnum::EQUIPMENT => $gameEquipment,
-            ModifierReachEnum::PLAYER, ModifierReachEnum::TARGET_PLAYER => $player instanceof Player ? $player : $gameEquipment->getPlace(),
+            ModifierReachEnum::PLAYER, ModifierReachEnum::TARGET_PLAYER => $player !== null ? $player : $gameEquipment->getHolder(),
             default => null,
         };
     }

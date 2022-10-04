@@ -314,7 +314,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setAutoRemove(true)
             ->setGameConfig($gameConfig)
         ;
-        $manager->persist($did_boring_speech);
+        $manager->persist($already_washed_in_the_sink);
 
         $updatingTrackie = new ChargeStatusConfig();
         $updatingTrackie

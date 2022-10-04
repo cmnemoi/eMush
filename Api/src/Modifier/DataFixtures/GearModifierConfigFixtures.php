@@ -86,7 +86,8 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ModifierModeEnum::MULTIPLICATIVE
         );
         $glovesModifier
-            ->addTargetEvent(EnhancePercentageRollEvent::CLUMSINESS_ROLL_RATE);
+            ->addTargetEvent(EnhancePercentageRollEvent::CLUMSINESS_ROLL_RATE)
+            ->setLogKeyWhenApplied(ModifierNameEnum::GLOVES_MODIFIER);
         $manager->persist($glovesModifier);
 
         $soapModifier = new ModifierConfig(

@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
-    <file id="player.ext">
-        <unit id="healthPoint">
-            <segment id="name">
-                <source>healthPoint.name</source>
-                <target>{quantity} points de Vie</target>
-            </segment>
-            <segment id="description">
-                <source>healthPoint.description</source>
-                <target>Les *Points de Vie* ( :hp: ) représentent votre forme actuelle. Quand la barre est vide, c'est la mort.</target>
-            </segment>
-        </unit>
-        <unit id="moralPoint">
-            <segment id="name">
-                <source>moralPoint.name</source>
-                <target>{quantity} points de Moral</target>
-            </segment>
-            <segment id="description">
-                <source>moralPoint.description</source>
-                <target>Les *Points de Moral* ( :pmo: ) représentent votre espoir et votre résistance aux pires épreuves.
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en-UD" trgLang="fr">
+  <file id="player.ext">
+    <unit id="healthPoint">
+      <segment id="name" state="final">
+        <source>healthPoint.name</source>
+        <target>{quantity} points de Vie</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>healthPoint.description</source>
+        <target>Les *Points de Vie* ( :hp: ) représentent votre forme actuelle. Quand la barre est vide, c'est la mort.</target>
+      </segment>
+    </unit>
+    <unit id="moralPoint">
+      <segment id="name" state="final">
+        <source>moralPoint.name</source>
+        <target>{quantity} points de Moral</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>moralPoint.description</source>
+        <target>Les *Points de Moral* ( :pmo: ) représentent votre espoir et votre résistance aux pires épreuves.
 C'est un capital précieux : pour le remonter rapidement, vous pouvez manger des fruits ou consulter vos équipiers.</target>
-            </segment>
-        </unit>
-        <unit id="actionPoint">
-            <segment id="name">
-                <source>actionPoint.name</source>
-                <target>Points d'Action et de Mouvement</target>
-            </segment>
-            <segment id="description">
-                <source>actionPoint.description</source>
-                <target>Vous gagnez des *Points d'Action* ( :pa: ) et des *Points de Mouvement* ( :pm: ) à chaque **nouveau cycle** et en **mangeant**. Actuellement vous avez {quantityaction}  :pa: et {quantitymovement}  :pm:</target>
-            </segment>
-        </unit>
-    </file>
+      </segment>
+    </unit>
+    <unit id="actionPoint">
+      <segment id="name" state="final">
+        <source>actionPoint.name</source>
+        <target>Points d'Action et de Mouvement</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>actionPoint.description</source>
+        <target>Vous gagnez des *Points d'Action* ( :pa: ) et des *Points de Mouvement* ( :pm: ) à chaque **nouveau cycle** et en **mangeant**. Actuellement vous avez {quantityaction}  :pa: et {quantitymovement}  :pm:</target>
+      </segment>
+    </unit>
+  </file>
 </xliff>

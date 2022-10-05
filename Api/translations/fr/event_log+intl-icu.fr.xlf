@@ -1,209 +1,232 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en-UD" trgLang="fr">
-  <file id="event_log.ext">
-    <unit id="build_success">
-      <segment id="build_success" state="final">
-        <source>build_success</source>
-        <target>{equipment_gender, select,
-                        male {Vous avez assemblé un {equipment}.}
-                        female {Vous avez assemblé une {equipment}.}
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="event_log.ext">
+        <unit id="build_success">
+            <segment id="build_success">
+                <source>build_success</source>
+                <target>{target_equipment_gender, select,
+                        male {Vous avez assemblé un {target_equipment}.}
+                        female {Vous avez assemblé une {target_equipment}.}
                         other {invalid gender input}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="open_success">
-      <segment id="open_success" state="final">
-        <source>open_success</source>
-        <target>{equipment_gender, select,
-                    male {**{character}** a trouvé un **{equipment}** dans une Capsule Spatiale.}
-                    female {**{character}** a trouvé une **{equipment}** dans une Capsule Spatiale.}
+            </segment>
+        </unit>
+        <unit id="open_success">
+            <segment id="open_success">
+                <source>open_success</source>
+                <target>{target_equipment_gender, select,
+                    male {**{character}** a trouvé un **{target_equipment}** dans une Capsule Spatiale.}
+                    female {**{character}** a trouvé une **{target_equipment}** dans une Capsule Spatiale.}
                     other {invalid gender input}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="transplant_success">
-      <segment id="transplant_success" state="final">
-        <source>transplant_success</source>
-        <target>{equipment_first_letter, select,
-                    vowel {**{character}** entreprend de reproduire un plant d'**{equipment}**. Félicitation ! Le jeune plant est en parfaite santé.}
-                    other {**{character}** entreprend de reproduire un plant de **{equipment}**. Félicitation ! Le jeune plant est en parfaite santé.}
+            </segment>
+        </unit>
+        <unit id="transplant_success">
+            <segment id="transplant_success">
+                <source>transplant_success</source>
+                <target>{target_equipment_first_letter, select,
+                    vowel {**{character}** entreprend de reproduire un plant d'**{target_equipment}**. Félicitation ! Le jeune plant est en parfaite santé.}
+                    other {**{character}** entreprend de reproduire un plant de **{target_equipment}**. Félicitation ! Le jeune plant est en parfaite santé.}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="awaken">
-      <segment state="final">
-        <source>awaken</source>
-        <target>{character_gender, select,
+            </segment>
+        </unit>
+        <unit id="awaken">
+            <segment>
+                <source>awaken</source>
+                <target>{character_gender, select,
                     male {**{character}** s'est éveillé de son si doux sommeil.}
                     female {**{character}** s'est éveillée de son si doux sommeil.}
                     other {invalid gender input}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="gain_action_point">
-      <segment state="final">
-        <source>gain_action_point</source>
-        <target>Vous avez gagné {quantity} :pa:</target>
-      </segment>
-    </unit>
-    <unit id="gain_movement_point">
-      <segment state="final">
-        <source>gain_movement_point</source>
-        <target>Vous avez gagné {quantity} :pm:</target>
-      </segment>
-    </unit>
-    <unit id="gain_health_point">
-      <segment state="final">
-        <source>gain_health_point</source>
-        <target>Vous avez gagné {quantity} :hp:</target>
-      </segment>
-    </unit>
-    <unit id="loss_health_point">
-      <segment state="final">
-        <source>loss_health_point</source>
-        <target>Vous perdez {quantity} :hp:</target>
-      </segment>
-    </unit>
-    <unit id="gain_moral_point">
-      <segment state="final">
-        <source>gain_moral_point</source>
-        <target>Vous avez gagné {quantity} :pmo:</target>
-      </segment>
-    </unit>
-    <unit id="loss_moral_point">
-      <segment state="final">
-        <source>loss_moral_point</source>
-        <target>Vous perdez {quantity} :pmo:</target>
-      </segment>
-    </unit>
-    <unit id="gain_triumph">
-      <segment state="final">
-        <source>gain_triumph</source>
-        <target>:triumph: Cette action remplit les objectifs personnels de votre personnage. Vous gagnez *{quantity} Triomphe*.</target>
-      </segment>
-    </unit>
-    <unit id="object_felt">
-      <segment state="final">
-        <source>object_felt</source>
-        <target>{equipment_gender, select,
-                        male {Étrange, **{character}** a fait tomber un **{equipment}**.}
-                        female {Étrange, **{character}** a fait tomber une **{equipment}**.}
+            </segment>
+        </unit>
+        <unit id="gain_action_point">
+            <segment>
+                <source>gain_action_point</source>
+                <target>Vous avez gagné {quantity} :pa:</target>
+            </segment>
+        </unit>
+        <unit id="gain_movement_point">
+            <segment>
+                <source>gain_movement_point</source>
+                <target>Vous avez gagné {quantity} :pm:</target>
+            </segment>
+        </unit>
+        <unit id="gain_health_point">
+            <segment>
+                <source>gain_health_point</source>
+                <target>Vous avez gagné {quantity} :hp:</target>
+            </segment>
+        </unit>
+        <unit id="loss_health_point">
+            <segment>
+                <source>loss_health_point</source>
+                <target>Vous perdez {quantity} :hp:</target>
+            </segment>
+        </unit>
+        <unit id="gain_moral_point">
+            <segment>
+                <source>gain_moral_point</source>
+                <target>Vous avez gagné {quantity} :pmo:</target>
+            </segment>
+        </unit>
+        <unit id="loss_moral_point">
+            <segment>
+                <source>loss_moral_point</source>
+                <target>Vous perdez {quantity} :pmo:</target>
+            </segment>
+        </unit>
+        <unit id="loss_action_point">
+            <segment>
+                <source>loss_action_point</source>
+                <target>Vous perdez {quantity} :pa:</target>
+            </segment>
+        </unit>
+        <unit id="loss_movement_point">
+            <segment>
+                <source>loss_movement_point</source>
+                <target>Vous perdez {quantity} :pm:</target>
+            </segment>
+        </unit>
+        <unit id="gain_triumph">
+            <segment>
+                <source>gain_triumph</source>
+                <target>:triumph: Cette action remplit les objectifs personnels de votre personnage. Vous gagnez *{quantity} Triomphe*.</target>
+            </segment>
+        </unit>
+        <unit id="death">
+            <segment>
+                <source>death</source>
+                <target>{character_gender, select,
+                        male {:dead: **{character}** est mort. Cause : {reason}.}
+                        female {:dead: **{character}** est morte. Cause : {reason}.}
                         other {invalid gender input}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="oxy_low_use_capsule">
-      <segment state="final">
-        <source>oxy_low_use_capsule</source>
-        <target>Vous ne respirez plus... Vous vous étouffez... Mais heureusement cette **Capsule d'Oxygène** vous a sauvé la vie...</target>
-      </segment>
-    </unit>
-    <unit id="soiled">
-      <segment state="final">
-        <source>soiled</source>
-        <target>{character_gender, select,
+            </segment>
+        </unit>
+        <unit id="object_fell">
+            <segment>
+                <source>object_fell</source>
+                <target>{target_equipment_gender, select,
+                        male {Étrange, **{character}** a fait tomber un **{target_equipment}**.}
+                        female {Étrange, **{character}** a fait tomber une **{target_equipment}**.}
+                        other {invalid gender input}
+                }</target>
+            </segment>
+        </unit>
+        <unit id="oxy_low_use_capsule">
+            <segment>
+                <source>oxy_low_use_capsule</source>
+                <target>Vous ne respirez plus... Vous vous étouffez... Mais heureusement cette **Capsule d'Oxygène** vous a sauvé la vie...</target>
+            </segment>
+        </unit>
+        <unit id="soiled">
+            <segment>
+                <source>soiled</source>
+                <target>{character_gender, select,
                     male {C'est dégoûtant... Vous vous êtes sali.}
                     female {C'est dégoûtant... Vous vous êtes salie.}
                     other {invalid gender input}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="soil_prevented">
-      <segment state="final">
-        <source>soil_prevented</source>
-        <target>C'est dégoûtant... Heureusement que vous aviez votre **Tablier intachable**...</target>
-      </segment>
-    </unit>
-    <unit id="clumsiness">
-      <segment state="final">
-        <source>clumsiness</source>
-        <target>Ça ne devait pas se passer comme cela. Lors de votre action, vous vous êtes fait mal...</target>
-      </segment>
-    </unit>
-    <unit id="clumsiness_prevented">
-      <segment state="final">
-        <source>clumsiness_prevented</source>
-        <target>Ça ne devait pas se passer comme cela. Mais grâce à vos **Gants de protection**, vous avez évité la catastrophe...</target>
-      </segment>
-    </unit>
-    <unit id="metal_plate">
-      <segment state="final">
-        <source>metal_plate</source>
-        <target>{character_gender, select,
+            </segment>
+        </unit>
+        <unit id="soil_prevented">
+            <segment>
+                <source>soil_prevented</source>
+                <target>C'est dégoûtant... Heureusement que vous aviez votre **Tablier intachable**...</target>
+            </segment>
+        </unit>
+        <unit id="clumsiness">
+            <segment>
+                <source>clumsiness</source>
+                <target>Ça ne devait pas se passer comme cela. Lors de votre action, vous vous êtes fait mal...</target>
+            </segment>
+        </unit>
+        <unit id="clumsiness_prevented">
+            <segment>
+                <source>clumsiness_prevented</source>
+                <target>Ça ne devait pas se passer comme cela. Mais grâce à vos **Gants de protection**, vous avez évité la catastrophe...</target>
+            </segment>
+        </unit>
+        <unit id="metal_plate">
+            <segment>
+                <source>metal_plate</source>
+                <target>{character_gender, select,
                     male {Un tremblement soudain projette une grosse plaque de métal sur **{character}**. Il est grièvement blessé !}
                     female {Un tremblement soudain projette une grosse plaque de métal sur **{character}**. Elle est grièvement blessée !}
                     other {invalid gender input}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="tremor_gravity">
-      <segment state="final">
-        <source>tremor_gravity</source>
-        <target>La salle est soudain prise de fortes secousses. Les membres d'équipage présents se retrouvent par terre et le plafond s'effondre par endroit. Quelle épave...</target>
-      </segment>
-    </unit>
-    <unit id="tremor_no_gravity">
-      <segment state="final">
-        <source>tremor_no_gravity</source>
-        <target>La salle est soudain prise de fortes secousses. Les objets volent à travers la pièce et heurtent les membres d'équipage présents.</target>
-      </segment>
-    </unit>
-    <unit id="electric_arc">
-      <segment state="final">
-        <source>electric_arc</source>
-        <target>Une surcharge électrique brutale fait crépiter les équipements de la pièce, une gigantesque décharge traverse les équipiers !</target>
-      </segment>
-    </unit>
-    <unit id="equipment_broken">
-      <segment state="final">
-        <source>equipment_broken</source>
-        <target>{equipment_gender, select,
+            </segment>
+        </unit>
+        <unit id="tremor_gravity">
+            <segment>
+                <source>tremor_gravity</source>
+                <target>La salle est soudain prise de fortes secousses. Les membres d'équipage présents se retrouvent par terre et le plafond s'effondre par endroit. Quelle épave...</target>
+            </segment>
+        </unit>
+        <unit id="tremor_no_gravity">
+            <segment>
+                <source>tremor_no_gravity</source>
+                <target>La salle est soudain prise de fortes secousses. Les objets volent à travers la pièce et heurtent les membres d'équipage présents.</target>
+            </segment>
+        </unit>
+        <unit id="electric_arc">
+            <segment>
+                <source>electric_arc</source>
+                <target>Une surcharge électrique brutale fait crépiter les équipements de la pièce, une gigantesque décharge traverse les équipiers !</target>
+            </segment>
+        </unit>
+        <unit id="equipment_broken">
+            <segment>
+                <source>equipment_broken</source>
+                <target>{equipment_gender, select,
                     male {Un **{equipment}** a été cassé !}
                     female {Une **{equipment}** a été cassée !}
                     other {invalid gender input}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="equipment_destroyed">
-      <segment state="final">
-        <source>equipment_destroyed</source>
-        <target>{equipment_gender, select,
+            </segment>
+        </unit>
+        <unit id="equipment_destroyed">
+            <segment>
+                <source>equipment_destroyed</source>
+                <target>{equipment_gender, select,
                     male {Un **{equipment}** a été détruit !}
                     female {Une **{equipment}** a été détruite !}
                     other {invalid gender input}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="panic_crisis">
-      <segment state="final">
-        <source>panic_crisis</source>
-        <target>Vous ressentez des frissons, l'espoir vous quitte, vous vous demandez ce que vous faites ici et quand cet enfer va s'arrêter... Vous êtes victime d'une Crise de Panique.</target>
-      </segment>
-    </unit>
-    <unit id="plant_new_fruit">
-      <segment state="final">
-        <source>plant_new_fruit</source>
-        <target>{equipment_gender, select,
-                    male {Oh ! Une des plantes a donné : un **{equipment}**.}
-                    female {Oh ! Une des plantes a donné : une **{equipment}**.}
+            </segment>
+        </unit>
+        <unit id="panic_crisis">
+            <segment>
+                <source>panic_crisis</source>
+                <target>Vous ressentez des frissons, l'espoir vous quitte, vous vous demandez ce que vous faites ici et quand cet enfer va s'arrêter... Vous êtes victime d'une Crise de Panique.</target>
+            </segment>
+
+        </unit>
+        <unit id="plant_new_fruit">
+            <segment>
+                <source>plant_new_fruit</source>
+                <target>{target_equipment_gender, select,
+                    male {Oh ! Une des plantes a donné : un **{target_equipment}**.}
+                    female {Oh ! Une des plantes a donné : une **{target_equipment}**.}
                     other {invalid gender input}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="plant_maturity">
-      <segment state="final">
-        <source>plant_maturity</source>
-        <target>{equipment_gender, select,
+            </segment>
+        </unit>
+        <unit id="plant_maturity">
+            <segment>
+                <source>plant_maturity</source>
+                <target>{equipment_gender, select,
                     male {Un **{equipment}** est arrivé à maturité ! Enfin !}
                     female {Une **{equipment}** est arrivée à maturité ! Enfin !}
                     other {invalid gender input}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="plant_death">
-      <segment state="final">
-        <source>plant_death</source>
-        <target>{equipment_first_letter, select,
+            </segment>
+        </unit>
+        <unit id="plant_death">
+            <segment>
+                <source>plant_death</source>
+                <target>{equipment_first_letter, select,
                     vowel {{equipment_gender, select,
                         male {L'**{equipment}** est mort...snif !}
                         female {L'**{equipment}** est morte...snif !}
@@ -215,106 +238,107 @@
                         other {invalid gender input}
                     }}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="garden_destroyed">
-      <segment state="final">
-        <source>garden_destroyed</source>
-        <target>Le jardin a été saccagé par l'attaque, sur les 12 plantes, il n'en reste plus que 2 et un pot vide...</target>
-      </segment>
-    </unit>
-    <unit id="hunger">
-      <segment state="final">
-        <source>hunger</source>
-        <target>Vous avez faim. Si vous n'y remédiez pas, votre santé va se détériorer à chaque changement de cycle.</target>
-      </segment>
-    </unit>
-    <unit id="force_get_up">
-      <segment state="final">
-        <source>force_get_up</source>
-        <target>{character_gender, select,
+            </segment>
+        </unit>
+        <unit id="garden_destroyed">
+            <segment>
+                <source>garden_destroyed</source>
+                <target>Le jardin a été saccagé par l'attaque, sur les 12 plantes, il n'en reste plus que 2 et un pot vide...</target>
+            </segment>
+        </unit>
+        <unit id="hunger">
+            <segment>
+                <source>hunger</source>
+                <target>Vous avez faim. Si vous n'y remédiez pas, votre santé va se détériorer à chaque changement de cycle.</target>
+            </segment>
+        </unit>
+        <unit id="force_get_up">
+            <segment>
+                <source>force_get_up</source>
+                <target>{character_gender, select,
                     male {**{character}** est violemment tiré de son lit.}
                     female {**{character}** est violemment tirée de son lit.}
                     other {invalid gender input}
-                }</target>
-      </segment>
-    </unit>
-    <unit id="antisocial_morale_loss">
-      <segment state="final">
-        <source>antisocial_morale_loss</source>
-        <target>Ces importuns vous importunent au plus haut point, les voir s'affairer à de si inutiles besognes vous rend pessimiste pour l'avenir de l'Humanité...</target>
-      </segment>
-    </unit>
-    <unit id="become_pregnant">
-      <segment state="final">
-        <source>become_pregnant</source>
-        <target>Vous avez gagné *8 Triomphe* car vous attendez un heureux évènement !</target>
-      </segment>
-    </unit>
-    <unit id="disease_appear">
-      <segment state="final">
-        <source>disease_appear</source>
-        <target>Vous ne vous sentez pas très très bien... Chaud... Froid... Chaud... Froid... Vous devriez voir un docteur. Vous avez contracté une maladie physique : {disease}.</target>
-      </segment>
-    </unit>
-    <unit id="disease_cured">
-      <segment state="final">
-        <source>disease_cured</source>
-        <target>Vous vous sentez mieux, votre {disease} a fini par guérir...</target>
-      </segment>
-    </unit>
-    <unit id="disorder_appear">
-      <segment state="final">
-        <source>disorder_appear</source>
-        <target>Vous ne vous sentez pas très très bien... Votre tête tourne, vous vous sentez confus, stressé, angoissé. Vous devriez voir un *Psy*. Vous avez développé une maladie mentale : {disease}.</target>
-      </segment>
-    </unit>
-    <unit id="disease_curred_player">
-      <segment state="final">
-        <source>disease_cured_player</source>
-        <target>**{character}** a réussi a soigner **{target_character}** de sa maladie ({disease}).</target>
-      </segment>
-    </unit>
-    <unit id="disease_healed_player">
-      <segment state="final">
-        <source>disease_healed_player</source>
-        <target>**{character}** a progressé sur les soins de la maladie de *{target_character}* mais il faudra continuer le traitement.</target>
-      </segment>
-    </unit>
-    <unit id="disease_curred_drug">
-      <segment state="final">
-        <source>disease_curred_drug</source>
-        <target>{character_gender, select,
+                }
+                </target>
+            </segment>
+        </unit>
+        <unit id="antisocial_morale_loss">
+            <segment>
+                <source>antisocial_morale_loss</source>
+                <target>Ces importuns vous importunent au plus haut point, les voir s'affairer à de si inutiles besognes vous rend pessimiste pour l'avenir de l'Humanité...</target>
+            </segment>
+        </unit>
+        <unit id="become_pregnant">
+            <segment>
+                <source>become_pregnant</source>
+                <target>Vous avez gagné *8 Triomphe* car vous attendez un heureux évènement !</target>
+            </segment>
+        </unit>
+        <unit id="disease_appear">
+            <segment>
+                <source>disease_appear</source>
+                <target>:ill: Vous ne vous sentez pas très très bien... Chaud... Froid... Chaud... Froid... Vous devriez voir un docteur. Vous avez contracté une maladie physique : {disease}.</target>
+            </segment>
+        </unit>
+        <unit id="disease_cured">
+            <segment>
+                <source>disease_cured</source>
+                <target>Vous vous sentez mieux, votre {disease} a fini par guérir...</target>
+            </segment>
+        </unit>
+        <unit id="disorder_appear">
+            <segment>
+                <source>disorder_appear</source>
+                <target>:psy_disease: Vous ne vous sentez pas très très bien... Votre tête tourne, vous vous sentez confus, stressé, angoissé. Vous devriez voir un *Psy*. Vous avez développé une maladie mentale : {disease}.</target>
+            </segment>
+        </unit>
+        <unit id="disease_curred_player">
+            <segment>
+                <source>disease_cured_player</source>
+                <target>**{character}** a réussi a soigner **{target_character}** de sa maladie ({disease}).</target>
+            </segment>
+        </unit>
+        <unit id="disease_healed_player">
+            <segment>
+                <source>disease_healed_player</source>
+                <target>**{character}** a progressé sur les soins de la maladie de *{target_character}* mais il faudra continuer le traitement.</target>
+            </segment>
+        </unit>
+        <unit id="disease_curred_drug">
+            <segment>
+                <source>disease_curred_drug</source>
+                <target>{character_gender, select,
                     male {**{character}** est soulagé. Il a réussi à se guérir de sa maladie ({disease}).}
                     female {**{character}** est soulagée. Elle a réussi à se guérir de sa maladie ({disease}).}
                     other {invalid gender input}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="disease_treated_drug">
-      <segment state="final">
-        <source>disease_treated_drug</source>
-        <target>{character_gender, select,
+            </segment>
+        </unit>
+        <unit id="disease_treated_drug">
+            <segment>
+                <source>disease_treated_drug</source>
+                <target>{character_gender, select,
                     male {**{character}** se sent soulagé mais le traitement est insuffisant. Il faudra recommencer.}
                     female {**{character}** se sent soulagée mais le traitement est insuffisant. Il faudra recommencer.}
                     other {invalid gender input}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="disorder_curred_player">
-      <segment state="final">
-        <source>disorder_cured_player</source>
-        <target>{character_gender, select,
+            </segment>
+        </unit>
+        <unit id="disorder_curred_player">
+            <segment>
+                <source>disorder_cured_player</source>
+                <target>{character_gender, select,
                     male {**{character}** est satisfait. La séance de *{target_character}* s'est bien passée, mais il en faudra d'autres.}
                     female {**{character}** est satisfaite. La séance de *{target_character}* s'est bien passée, mais il en faudra d'autres.}
                     other {invalid gender input}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="disorder_treated_player">
-      <segment state="final">
-        <source>disorder_treated_player</source>
-        <target>{target_character_gender, select,
+            </segment>
+        </unit>
+        <unit id="disorder_treated_player">
+            <segment>
+                <source>disorder_treated_player</source>
+                <target>{target_character_gender, select,
                     male {La séance est une réussite, *{target_character_gender}* est guéri de sa maladie ({disease}).}
                     female {La séance est une réussite, *{target_character_gender}* est guérie de sa maladie ({disease}).}
                     other {invalid gender input}
@@ -322,8 +346,168 @@
                      male {*{character}* est très satisfait.}
                      female {*{character}* est très satisfaite.}
                      other {invalid gender input}
-                 }</target>
-      </segment>
-    </unit>
-  </file>
+                 }
+                </target>
+            </segment>
+        </unit>
+        <unit id="injury_appear">
+            <segment>
+                <source>injury_appear</source>
+                <target>{target_character_gender, select,
+                    male {:hurt: Vous avez été blessé : {disease}. Vous subissez des malus.}
+                    female {:hurt: Vous avez été blessée : {disease}. Vous subissez des malus.}
+                    other {invalid gender input}
+                }
+                </target>
+            </segment>
+        </unit>
+        <unit id="disease_overridden">
+            <segment>
+                <source>disease_overridden</source>
+                <target>:ill: Avec ce qui vient de vous arriver, votre maladie {disease} a disparu. Mais c'est maintenant le cadet de vos soucis.</target>
+            </segment>
+        </unit>
+        <unit id="screaming">
+            <segment>
+                <source>screaming</source>
+                <target>:pill: **{character}** se jette par terre en hurlant et en appelant sa mère...</target>
+            </segment>
+        </unit>
+        <unit id="wall_head_bang">
+            <segment>
+                <source>wall_head_bang</source>
+                <target>:pill: **{character}** se met subitement à se taper la tête contre le mur... ça a l'air de faire mal...</target>
+            </segment>
+        </unit>
+        <unit id="run_in_circles">
+            <segment>
+                <source>run_in_circles</source>
+                <target>:pill: **{character}** se met à courir en rond, et rien ne semble pouvoir l'arrêter... à part la fatigue...</target>
+            </segment>
+        </unit>
+        <unit id="vomiting">
+            <segment id="vomiting">
+                <source>vomiting</source>
+                <target>:ill: **{character}** vomit son repas. Pas très ragoutant…</target>
+            </segment>
+        </unit>
+        <unit id="sneezing">
+            <segment id="sneezing">
+                <source>sneezing</source>
+                <target>Atchoum !</target>
+            </segment>
+        </unit>
+        <unit id="biting">
+            <segment id="biting">
+                <source>biting</source>
+                <target>:pill: **{character}** se tourne soudainement vers **{target_character}** et se met à lui dévorer le bras…</target>
+            </segment>
+        </unit>
+        <unit id="breakouts">
+            <segment id="breakouts">
+                <source>breakouts</source>
+                <target>:ill: **{character}** gratte ses plaques immondes, c'est vraiment atroce…</target>
+            </segment>
+        </unit>
+        <unit id="foaming_mouth">
+            <segment id="foaming_mouth">
+                <source>foaming_mouth</source>
+                <target>:pill: **{character}** laisse échapper un petit filet de mousse du coin de sa bouche… C'est dégoûtant..</target>
+            </segment>
+        </unit>
+        <unit id="drooling">
+            <segment id="drooling">
+                <source>drooling</source>
+                <target>:pill: **{character}** bave vraiment beaucoup, ça commence à paraître suspect...</target>
+            </segment>
+        </unit>
+        <unit id="cat_allergy">
+            <segment id="cat_allergy">
+                <source>cat_allergy</source>
+                <target>{character_gender, select,
+                    male {:ill: **{character}** subit une éruption cutanée fulgurante, il étouffe, on lui avait pourtant dit de ne pas prendre ce #%$ de chat !}
+                    female {:ill: **{character}** subit une éruption cutanée fulgurante, elle étouffe, on lui avait pourtant dit de ne pas prendre ce #%$ de chat !}
+                    other {invalid gender input}}
+                </target>
+            </segment>
+        </unit>
+        <unit id="fear_of_cats">
+            <segment id="fear_of_cats">
+                <source>fear_of_cats</source>
+                <target>AAAaaaaaaaRRRrgghhhhhhh....</target>
+            </segment>
+        </unit>
+        <unit id="fear_of_cats_notif">
+            <segment id="fear_of_cats_notif">
+                <source>fear_of_cats_notif</source>
+                <target>:cat: Le chat était dans la pièce, vous n'avez pas pu vous empêcher de fuir...</target>
+            </segment>
+        </unit>
+        <unit id="fitfull_sleep">
+            <segment id="fitfull_sleep">
+                <source>fitfull_sleep</source>
+                <target>Votre sommeil est agité, impossible de vous reposer...</target>
+            </segment>
+        </unit>
+        <unit id="surgery_success">
+            <segment id="surgery_success">
+                <source>surgery_success</source>
+                <target>L'opération semble durer une éternité, **{character}** rend enfin son verdict la mine souriante... {version, select,
+                    1 {l'opération s'est déroulé avec succès. **{target_character}** va bien et sera bientôt sur pied.}
+                    2 {**{target_character}** s'en sort admirablement.}
+                    other {invalid gender input}
+                    } La blessure ({disease}) de **{target_character}** est guérie.
+                </target>
+            </segment>
+        </unit>
+        <unit id="surgery_critical_success">
+            <segment id="surgery_critical_success">
+                <source>surgery_critical_success</source>
+                <target>
+                    L'opération semble durer une éternité, **{character}** rend enfin son verdict la mine souriante... une telle opération menée avec un tel brio peut faire avancer la science ! La blessure ({disease}) de **{target_character}** est guérie.
+                </target>
+            </segment>
+        </unit>
+        <unit id="self_surgery_success">
+            <segment id="self_surgery_success">
+                <source>self_surgery_success</source>
+                <target>L'opération semble durer une éternité... {version, select,
+                    1 {**{character}** s'en sort admirablement.}
+                    2 {l'opération s'est déroulé avec succès. **{character}** va bien et sera bientôt sur pied.}
+                    other {invalid gender input}
+                    } La blessure ({disease}) de **{character}** est guérie.
+                </target>
+            </segment>
+        </unit>
+        <unit id="self_surgery_critical_success">
+            <segment id="self_surgery_critical_success">
+                <source>self_surgery_critical_success</source>
+                <target>
+                    L'opération semble durer une éternité... une telle opération menée avec un tel brio peut faire avancer la science ! La blessure ({disease}) de **{character}** est guérie.
+                </target>
+            </segment>
+        </unit>
+        <unit id="disease_by_sex">
+            <segment id="disease_by_sex">
+                <source>disease_by_sex</source>
+                <target>
+                    Vous vous sentez bizarre... l'émotion... ou bien... Votre partenaire vous a transmis une maladie ({disease}).
+                </target>
+            </segment>
+        </unit>
+        <unit id="trauma_disease">
+            <segment id="trauma_disease">
+                <source>trauma_disease</source>
+                <target>
+                    {character_gender, select,
+                     male {Ce que vous venez de voir vous a choqué.}
+                     female {Ce que vous venez de voir vous a choquée.}
+                     other {invalid gender input}
+                    }
+                    Vous ne serez plus jamais la même personne.
+                </target>
+            </segment>
+        </unit>
+    </file>
 </xliff>
+

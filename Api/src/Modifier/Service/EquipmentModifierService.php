@@ -212,14 +212,33 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         }
     }
 
-    private function getModifierHolderFromConfig(GameEquipment $gameEquipment, ModifierConfig $modifierConfig, ?Player $player): ?ModifierHolder
-    {
-        return match ($modifierConfig->getReach()) {
-            ModifierReachEnum::DAEDALUS => $gameEquipment->getPlace()->getDaedalus(),
-            ModifierReachEnum::PLACE => $gameEquipment->getPlace(),
-            ModifierReachEnum::EQUIPMENT => $gameEquipment,
-            ModifierReachEnum::PLAYER, ModifierReachEnum::TARGET_PLAYER => $player !== null ? $player : $gameEquipment->getHolder(),
-            default => null,
-        };
+    private function getModifierHolderFromConfig(
+        GameEquipment $gameEquipment,
+        ModifierConfig $modifierConfig,
+        ?Player $player
+    ): ?ModifierHolder {
+        switch ($modifierConfig->getReach()) {
+            case ModifierReachEnum::DAEDALUS:
+                return $gameEquipment->getPlace()->getDaedalus();
+            case ModifierReachEnum::PLACE:
+                return $gameEquipment->getPlace();
+            case ModifierReachEnum::EQUIPMENT:
+                return $gameEquipment;
+            case ModifierReachEnum::PLAYER:
+            case ModifierReachEnum::TARGET_PLAYER:
+                if ($player !== null) {
+                    return $player;
+                } else {
+                    $holder = $gameEquipment->getHolder();
+                    if ($holder instanceof ModifierHolder) {
+                        return $holder;
+                    }
+
+                    throw new \LogicException('Holder should be a Modifier Holder.');
+                }
+                // no break
+            default:
+                return null;
+        }
     }
 }

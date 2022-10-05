@@ -12,7 +12,6 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\ModifierConfig;
-use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Player\Event\ResourcePointChangeEvent;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;

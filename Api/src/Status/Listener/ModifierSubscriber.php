@@ -29,7 +29,6 @@ class ModifierSubscriber implements EventSubscriberInterface
 
         if (key_exists($event->getReasons()[0], $modifier->getConfig()->getTargetEvents())) {
             if (($charge = $modifier->getCharge()) !== null) {
-                codecept_debug('oui');
                 $this->statusService->updateCharge($charge, -1);
             }
         }

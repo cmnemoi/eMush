@@ -5,7 +5,6 @@ namespace functional\Modifier\Listener;
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Move;
-use Mush\Action\Actions\WashInSink;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
@@ -14,7 +13,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -29,7 +27,6 @@ use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
-use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -39,7 +36,6 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 
 class MoveWithScooterCest
 {
@@ -72,7 +68,7 @@ class MoveWithScooterCest
             'place' => $room1,
             'characterConfig' => $characterConfig,
             'actionPoint' => 1,
-            'movementPoint' => 0
+            'movementPoint' => 0,
         ]);
 
         $actionCost = new ActionCost();

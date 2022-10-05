@@ -9,7 +9,6 @@ use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\StatusEnum;
 
 #[ORM\Entity]
 class EquipmentRemainChargesModifierCondition extends ModifierCondition

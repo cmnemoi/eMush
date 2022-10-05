@@ -104,6 +104,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
     {
         $charges = $statusHolder->getStatuses()->filter(function (Status $status) use ($config) {
             $eventTargeted = array_keys($config->getTargetEvents());
+
             return $status instanceof ChargeStatus && in_array($status->getDischargeStrategy(), $eventTargeted);
         });
 

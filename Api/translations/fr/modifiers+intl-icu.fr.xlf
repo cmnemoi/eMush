@@ -160,9 +160,9 @@
                 <target>Impossible d'utiliser une arme à feu.</target>
             </segment>
         </unit>
-        <unit id="biting">
+        <unit id="psychotic_attacks">
             <segment id="description">
-                <source>biting.description</source>
+                <source>psychotic_attacks.description</source>
                 <target>Fait subir le symptôme **Accès psychotique**.</target>
             </segment>
         </unit>

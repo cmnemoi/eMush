@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+    <file id="event_log.ext">
+        <unit id="build_success">
+            <segment id="build_success">
+                <source>build_success</source>
+                <target>build_success</target>
+            </segment>
+        </unit>
+        <unit id="open_success">
+            <segment id="open_success">
+                <source>open_success</source>
+                <target>open_success</target>
+            </segment>
+        </unit>
+        <unit id="transplant_success">
+            <segment id="transplant_success">
+                <source>transplant_success</source>
+                <target>transplant_success</target>
+            </segment>
+        </unit>
+        <unit id="awaken">
+            <segment>
+                <source>awaken</source>
+                <target>awaken</target>
+            </segment>
+        </unit>
+        <unit id="gain_action_point">
+            <segment>
+                <source>gain_action_point</source>
+                <target>gain_action_point</target>
+            </segment>
+        </unit>
+        <unit id="gain_movement_point">
+            <segment>
+                <source>gain_movement_point</source>
+                <target>gain_movement_point</target>
+            </segment>
+        </unit>
+        <unit id="gain_health_point">
+            <segment>
+                <source>gain_health_point</source>
+                <target>gain_health_point</target>
+            </segment>
+        </unit>
+        <unit id="loss_health_point">
+            <segment>
+                <source>loss_health_point</source>
+                <target>loss_health_point</target>
+            </segment>
+        </unit>
+        <unit id="gain_moral_point">
+            <segment>
+                <source>gain_moral_point</source>
+                <target>gain_moral_point</target>
+            </segment>
+        </unit>
+        <unit id="loss_moral_point">
+            <segment>
+                <source>loss_moral_point</source>
+                <target>loss_moral_point</target>
+            </segment>
+        </unit>
+        <unit id="loss_action_point">
+            <segment>
+                <source>loss_action_point</source>
+                <target>loss_action_point</target>
+            </segment>
+        </unit>
+        <unit id="loss_movement_point">
+            <segment>
+                <source>loss_movement_point</source>
+                <target>loss_movement_point</target>
+            </segment>
+        </unit>
+        <unit id="gain_triumph">
+            <segment>
+                <source>gain_triumph</source>
+                <target>gain_triumph</target>
+            </segment>
+        </unit>
+        <unit id="death">
+            <segment>
+                <source>death</source>
+                <target>death</target>
+            </segment>
+        </unit>
+        <unit id="object_fell">
+            <segment>
+                <source>object_fell</source>
+                <target>object_fell</target>
+            </segment>
+        </unit>
+        <unit id="oxy_low_use_capsule">
+            <segment>
+                <source>oxy_low_use_capsule</source>
+                <target>oxy_low_use_capsule</target>
+            </segment>
+        </unit>
+        <unit id="soiled">
+            <segment>
+                <source>soiled</source>
+                <target>soiled</target>
+            </segment>
+        </unit>
+        <unit id="soil_prevented">
+            <segment>
+                <source>soil_prevented</source>
+                <target>soil_prevented</target>
+            </segment>
+        </unit>
+        <unit id="clumsiness">
+            <segment>
+                <source>clumsiness</source>
+                <target>clumsiness</target>
+            </segment>
+        </unit>
+        <unit id="clumsiness_prevented">
+            <segment>
+                <source>clumsiness_prevented</source>
+                <target>clumsiness_prevented</target>
+            </segment>
+        </unit>
+        <unit id="metal_plate">
+            <segment>
+                <source>metal_plate</source>
+                <target>metal_plate</target>
+            </segment>
+        </unit>
+        <unit id="tremor_gravity">
+            <segment>
+                <source>tremor_gravity</source>
+                <target>tremor_gravity</target>
+            </segment>
+        </unit>
+        <unit id="tremor_no_gravity">
+            <segment>
+                <source>tremor_no_gravity</source>
+                <target>tremor_no_gravity</target>
+            </segment>
+        </unit>
+        <unit id="electric_arc">
+            <segment>
+                <source>electric_arc</source>
+                <target>electric_arc</target>
+            </segment>
+        </unit>
+        <unit id="equipment_broken">
+            <segment>
+                <source>equipment_broken</source>
+                <target>equipment_broken</target>
+            </segment>
+        </unit>
+        <unit id="equipment_destroyed">
+            <segment>
+                <source>equipment_destroyed</source>
+                <target>equipment_destroyed</target>
+            </segment>
+        </unit>
+        <unit id="panic_crisis">
+            <segment>
+                <source>panic_crisis</source>
+                <target>panic_crisis</target>
+            </segment>
+
+        </unit>
+        <unit id="plant_new_fruit">
+            <segment>
+                <source>plant_new_fruit</source>
+                <target>plant_new_fruit</target>
+            </segment>
+        </unit>
+        <unit id="plant_maturity">
+            <segment>
+                <source>plant_maturity</source>
+                <target>plant_maturity</target>
+            </segment>
+        </unit>
+        <unit id="plant_death">
+            <segment>
+                <source>plant_death</source>
+                <target>plant_death</target>
+            </segment>
+        </unit>
+        <unit id="garden_destroyed">
+            <segment>
+                <source>garden_destroyed</source>
+                <target>garden_destroyed</target>
+            </segment>
+        </unit>
+        <unit id="hunger">
+            <segment>
+                <source>hunger</source>
+                <target>hunger</target>
+            </segment>
+        </unit>
+        <unit id="force_get_up">
+            <segment>
+                <source>force_get_up</source>
+                <target>force_get_up</target>
+            </segment>
+        </unit>
+        <unit id="antisocial_morale_loss">
+            <segment>
+                <source>antisocial_morale_loss</source>
+                <target>antisocial_morale_loss</target>
+            </segment>
+        </unit>
+        <unit id="become_pregnant">
+            <segment>
+                <source>become_pregnant</source>
+                <target>become_pregnant</target>
+            </segment>
+        </unit>
+        <unit id="disease_appear">
+            <segment>
+                <source>disease_appear</source>
+                <target>disease_appear</target>
+            </segment>
+        </unit>
+        <unit id="disease_cured">
+            <segment>
+                <source>disease_cured</source>
+                <target>disease_cured</target>
+            </segment>
+        </unit>
+        <unit id="disorder_appear">
+            <segment>
+                <source>disorder_appear</source>
+                <target>disorder_appear</target>
+            </segment>
+        </unit>
+        <unit id="disease_curred_player">
+            <segment>
+                <source>disease_cured_player</source>
+                <target>disease_cured_player</target>
+            </segment>
+        </unit>
+        <unit id="disease_healed_player">
+            <segment>
+                <source>disease_healed_player</source>
+                <target>disease_healed_player</target>
+            </segment>
+        </unit>
+        <unit id="disease_curred_drug">
+            <segment>
+                <source>disease_curred_drug</source>
+                <target>disease_curred_drug</target>
+            </segment>
+        </unit>
+        <unit id="disease_treated_drug">
+            <segment>
+                <source>disease_treated_drug</source>
+                <target>disease_treated_drug</target>
+            </segment>
+        </unit>
+        <unit id="disorder_curred_player">
+            <segment>
+                <source>disorder_cured_player</source>
+                <target>disorder_cured_player</target>
+            </segment>
+        </unit>
+        <unit id="disorder_treated_player">
+            <segment>
+                <source>disorder_treated_player</source>
+                <target>disorder_treated_player</target>
+            </segment>
+        </unit>
+        <unit id="injury_appear">
+            <segment>
+                <source>injury_appear</source>
+                <target>injury_appear</target>
+            </segment>
+        </unit>
+        <unit id="disease_overridden">
+            <segment>
+                <source>disease_overridden</source>
+                <target>disease_overridden</target>
+            </segment>
+        </unit>
+        <unit id="screaming">
+            <segment>
+                <source>screaming</source>
+                <target>screaming</target>
+            </segment>
+        </unit>
+        <unit id="wall_head_bang">
+            <segment>
+                <source>wall_head_bang</source>
+                <target>wall_head_bang</target>
+            </segment>
+        </unit>
+        <unit id="run_in_circles">
+            <segment>
+                <source>run_in_circles</source>
+                <target>run_in_circles</target>
+            </segment>
+        </unit>
+        <unit id="vomiting">
+            <segment id="vomiting">
+                <source>vomiting</source>
+                <target>vomiting</target>
+            </segment>
+        </unit>
+        <unit id="sneezing">
+            <segment id="sneezing">
+                <source>sneezing</source>
+                <target>sneezing</target>
+            </segment>
+        </unit>
+        <unit id="biting">
+            <segment id="biting">
+                <source>biting</source>
+                <target>biting</target>
+            </segment>
+        </unit>
+        <unit id="breakouts">
+            <segment id="breakouts">
+                <source>breakouts</source>
+                <target>breakouts</target>
+            </segment>
+        </unit>
+        <unit id="foaming_mouth">
+            <segment id="foaming_mouth">
+                <source>foaming_mouth</source>
+                <target>foaming_mouth</target>
+            </segment>
+        </unit>
+        <unit id="drooling">
+            <segment id="drooling">
+                <source>drooling</source>
+                <target>drooling</target>
+            </segment>
+        </unit>
+        <unit id="cat_allergy">
+            <segment id="cat_allergy">
+                <source>cat_allergy</source>
+                <target>cat_allergy</target>
+            </segment>
+        </unit>
+        <unit id="fear_of_cats">
+            <segment id="fear_of_cats">
+                <source>fear_of_cats</source>
+                <target>fear_of_cats</target>
+            </segment>
+        </unit>
+        <unit id="fear_of_cats_notif">
+            <segment id="fear_of_cats_notif">
+                <source>fear_of_cats_notif</source>
+                <target>fear_of_cats_notif</target>
+            </segment>
+        </unit>
+        <unit id="fitfull_sleep">
+            <segment id="fitfull_sleep">
+                <source>fitfull_sleep</source>
+                <target>fitfull_sleep</target>
+            </segment>
+        </unit>
+        <unit id="surgery_success">
+            <segment id="surgery_success">
+                <source>surgery_success</source>
+                <target>surgery_success</target>
+            </segment>
+        </unit>
+        <unit id="surgery_critical_success">
+            <segment id="surgery_critical_success">
+                <source>surgery_critical_success</source>
+                <target>surgery_critical_success</target>
+            </segment>
+        </unit>
+        <unit id="self_surgery_success">
+            <segment id="self_surgery_success">
+                <source>self_surgery_success</source>
+                <target>self_surgery_success</target>
+            </segment>
+        </unit>
+        <unit id="self_surgery_critical_success">
+            <segment id="self_surgery_critical_success">
+                <source>self_surgery_critical_success</source>
+                <target>self_surgery_critical_success</target>
+            </segment>
+        </unit>
+        <unit id="disease_by_sex">
+            <segment id="disease_by_sex">
+                <source>disease_by_sex</source>
+                <target>disease_by_sex</target>
+            </segment>
+        </unit>
+        <unit id="trauma_disease">
+            <segment id="trauma_disease">
+                <source>trauma_disease</source>
+                <target>trauma_disease</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

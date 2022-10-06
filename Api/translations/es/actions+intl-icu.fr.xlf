@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8"?><xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+    <file id="actions.ext">
+        <unit id="build">
+            <segment id="build">
+                <source>build.name</source>
+                <target>build.name</target>
+            </segment>
+            <segment id="description">
+                <source>build.description</source>
+                <target>build.description</target>
+            </segment>
+        </unit>
+        <unit id="coffee">
+            <segment id="coffee">
+                <source>coffee.name</source>
+                <target>coffee.name</target>
+            </segment>
+            <segment id="description">
+                <source>coffee.description</source>
+                <target>coffee.description</target>
+            </segment>
+        </unit>
+        <unit id="dispense">
+            <segment id="dispense">
+                <source>dispense.name</source>
+                <target>dispense.name</target>
+            </segment>
+            <segment id="description">
+                <source>dispense.description</source>
+                <target>dispense.description</target>
+            </segment>
+        </unit>
+        <unit id="do_the_thing">
+            <segment id="name">
+                <source>do_the_thing.name</source>
+                <target>do_the_thing.name</target>
+            </segment>
+            <segment id="description">
+                <source>do_the_thing.description</source>
+                <target>do_the_thing.description</target>
+            </segment>
+        </unit>
+        <unit id="check_spore_level">
+            <segment id="check_spore_level">
+                <source>check_spore_level.name</source>
+                <target>check_spore_level.name</target>
+            </segment>
+            <segment id="description">
+                <source>check_spore_level.description</source>
+                <target>check_spore_level.description</target>
+            </segment>
+        </unit>
+        <unit id="consume">
+            <segment id="consume">
+                <source>consume.name</source>
+                <target>consume.name</target>
+            </segment>
+            <segment id="description">
+                <source>consume.description</source>
+                <target>consume.description</target>
+            </segment>
+        </unit>
+        <unit id="consume_drug">
+            <segment id="consume_drug">
+                <source>consume_drug.name</source>
+                <target>consume_drug.name</target>
+            </segment>
+            <segment id="description">
+                <source>consume_drug.description</source>
+                <target>consume_drug.description</target>
+            </segment>
+        </unit>
+        <unit id="eat_spore">
+            <segment id="eat_spore">
+                <source>eat_spore.name</source>
+                <target>eat_spore.name</target>
+            </segment>
+            <segment id="description">
+                <source>eat_spore.description</source>
+                <target>eat_spore.description</target>
+            </segment>
+        </unit>
+        <unit id="cook">
+            <segment id="cook">
+                <source>cook.name</source>
+                <target>cook.name</target>
+            </segment>
+            <segment id="description">
+                <source>cook.description</source>
+                <target>cook.description</target>
+            </segment>
+        </unit>
+        <unit id="disassemble">
+            <segment id="disassemble">
+                <source>disassemble.name</source>
+                <target>disassemble.name</target>
+            </segment>
+            <segment id="description">
+                <source>disassemble.description</source>
+                <target>disassemble.description</target>
+            </segment>
+        </unit>
+        <unit id="drop">
+            <segment id="name">
+                <source>drop.name</source>
+                <target>drop.name</target>
+            </segment>
+            <segment id="description">
+                <source>drop.description</source>
+                <target>drop.description</target>
+            </segment>
+        </unit>
+        <unit id="express_cook">
+            <segment id="express_cook">
+                <source>express_cook.name</source>
+                <target>express_cook.name</target>
+            </segment>
+            <segment id="description">
+                <source>express_cook.description</source>
+                <target>express_cook.description</target>
+            </segment>
+        </unit>
+        <unit id="extract_spore">
+            <segment id="extract_spore">
+                <source>extract_spore.name</source>
+                <target>extract_spore.name</target>
+            </segment>
+            <segment id="description">
+                <source>extract_spore.description</source>
+                <target>extract_spore.description</target>
+            </segment>
+        </unit>
+        <unit id="flirt">
+            <segment id="name">
+                <source>flirt.name</source>
+                <target>flirt.name</target>
+            </segment>
+            <segment id="description">
+                <source>flirt.description</source>
+                <target>flirt.description</target>
+            </segment>
+        </unit>
+        <unit id="get_up">
+            <segment id="get_up">
+                <source>get_up.name</source>
+                <target>get_up.name</target>
+            </segment>
+            <segment id="description">
+                <source>get_up.description</source>
+                <target>get_up.description</target>
+            </segment>
+        </unit>
+        <unit id="hide">
+            <segment id="hide">
+                <source>hide.name</source>
+                <target>hide.name</target>
+            </segment>
+            <segment id="description">
+                <source>hide.description</source>
+                <target>hide.description</target>
+            </segment>
+        </unit>
+        <unit id="hit">
+            <segment id="hit">
+                <source>hit.name</source>
+                <target>hit.name</target>
+            </segment>
+            <segment id="description">
+                <source>hit.description</source>
+                <target>hit.description</target>
+            </segment>
+        </unit>
+        <unit id="hyperfreeze">
+            <segment id="hyperfreeze">
+                <source>hyperfreeze.name</source>
+                <target>hyperfreeze.name</target>
+            </segment>
+            <segment id="description">
+                <source>hyperfreeze.description</source>
+                <target>hyperfreeze.description</target>
+            </segment>
+        </unit>
+        <unit id="infect">
+            <segment id="infect">
+                <source>infect.name</source>
+                <target>infect.name</target>
+            </segment>
+            <segment id="description">
+                <source>infect.description</source>
+                <target>infect.description</target>
+            </segment>
+        </unit>
+        <unit id="lie_down">
+            <segment id="lie_down">
+                <source>lie_down.name</source>
+                <target>lie_down.name</target>
+            </segment>
+            <segment id="description">
+                <source>lie_down.description</source>
+                <target>lie_down.description</target>
+            </segment>
+        </unit>
+        <unit id="move">
+            <segment id="name">
+                <source>move.name</source>
+                <target>move.name</target>
+            </segment>
+            <segment id="description">
+                <source>move.description</source>
+                <target>move.description</target>
+            </segment>
+        </unit>
+        <unit id="read_book">
+            <segment id="read_book">
+                <source>read_book.name</source>
+                <target>read_book.name</target>
+            </segment>
+            <segment id="description">
+                <source>read_book.description</source>
+                <target>read_book.description</target>
+            </segment>
+        </unit>
+        <unit id="read_document">
+            <segment id="read_document">
+                <source>read_document.name</source>
+                <target>read_document.name</target>
+            </segment>
+            <segment id="description">
+                <source>read_document.description</source>
+                <target>read_document.description</target>
+            </segment>
+        </unit>
+        <unit id="repair">
+            <segment id="repair">
+                <source>repair.name</source>
+                <target>repair.name</target>
+            </segment>
+            <segment id="description">
+                <source>repair.description</source>
+                <target>repair.description</target>
+            </segment>
+        </unit>
+        <unit id="search">
+            <segment id="search">
+                <source>search.name</source>
+                <target>search.name</target>
+            </segment>
+            <segment id="description">
+                <source>search.description</source>
+                <target>search.description</target>
+            </segment>
+        </unit>
+        <unit id="rejuvenate_alpha">
+            <segment id="rejuvenate_alpha">
+                <source>rejuvenate_alpha.name</source>
+                <target>rejuvenate_alpha.name</target>
+            </segment>
+            <segment id="description">
+                <source>rejuvenate_alpha.description</source>
+                <target>rejuvenate_alpha.description</target>
+            </segment>
+        </unit>
+        <unit id="shred">
+            <segment id="shred">
+                <source>shred.name</source>
+                <target>shred.name</target>
+            </segment>
+            <segment id="description">
+                <source>shred.description</source>
+                <target>shred.description</target>
+            </segment>
+        </unit>
+        <unit id="take">
+            <segment id="name">
+                <source>take.name</source>
+                <target>take.name</target>
+            </segment>
+            <segment id="description">
+                <source>take.description</source>
+                <target>take.description</target>
+            </segment>
+        </unit>
+        <unit id="transplant">
+            <segment id="name">
+                <source>transplant.name</source>
+                <target>transplant.name</target>
+            </segment>
+            <segment id="description">
+                <source>transplant.description</source>
+                <target>transplant.description</target>
+            </segment>
+        </unit>
+        <unit id="treat_plant">
+            <segment id="name">
+                <source>treat_plant.name</source>
+                <target>treat_plant.name</target>
+            </segment>
+            <segment id="description">
+                <source>treat_plant.description</source>
+                <target>treat_plant.description</target>
+            </segment>
+        </unit>
+        <unit id="water_plant">
+            <segment id="name">
+                <source>water_plant.name</source>
+                <target>water_plant.name</target>
+            </segment>
+            <segment id="description">
+                <source>water_plant.description</source>
+                <target>water_plant.description</target>
+            </segment>
+        </unit>
+        <unit id="write">
+            <segment id="name">
+                <source>write.name</source>
+                <target>write.name</target>
+            </segment>
+            <segment id="description">
+                <source>write.description</source>
+                <target>write.description</target>
+            </segment>
+        </unit>
+        <unit id="insert_oxygen">
+            <segment id="name">
+                <source>insert_oxygen.name</source>
+                <target>insert_oxygen.name</target>
+            </segment>
+            <segment id="description">
+                <source>insert_oxygen.description</source>
+                <target>insert_oxygen.description</target>
+            </segment>
+        </unit>
+        <unit id="retrieve_oxygen">
+            <segment id="name">
+                <source>retrieve_oxygen.name</source>
+                <target>retrieve_oxygen.name</target>
+            </segment>
+            <segment id="description">
+                <source>retrieve_oxygen.description</source>
+                <target>retrieve_oxygen.description</target>
+            </segment>
+        </unit>
+        <unit id="insert_fuel">
+            <segment id="name">
+                <source>insert_fuel.name</source>
+                <target>insert_fuel.name</target>
+            </segment>
+            <segment id="description">
+                <source>insert_fuel.description</source>
+                <target>insert_fuel.description</target>
+            </segment>
+        </unit>
+        <unit id="retrieve_fuel">
+            <segment id="name">
+                <source>retrieve_fuel.name</source>
+                <target>retrieve_fuel.name</target>
+            </segment>
+            <segment id="description">
+                <source>retrieve_fuel.description</source>
+                <target>retrieve_fuel.description</target>
+            </segment>
+        </unit>
+        <unit id="sabotage">
+            <segment id="name">
+                <source>sabotage.name</source>
+                <target>sabotage.name</target>
+            </segment>
+            <segment id="description">
+                <source>sabotage.description</source>
+                <target>sabotage.description</target>
+            </segment>
+        </unit>
+        <unit id="shower">
+            <segment id="name">
+                <source>shower.name</source>
+                <target>shower.name</target>
+            </segment>
+            <segment id="description">
+                <source>shower.description</source>
+                <target>shower.description</target>
+            </segment>
+        </unit>
+        <unit id="wash_in_sink">
+            <segment id="name">
+                <source>wash_in_sink.name</source>
+                <target>wash_in_sink.name</target>
+            </segment>
+            <segment id="description">
+                <source>wash_in_sink.description</source>
+                <target>wash_in_sink.description</target>
+            </segment>
+        </unit>
+        <unit id="extinguish">
+            <segment id="name">
+                <source>extinguish.name</source>
+                <target>extinguish.name</target>
+            </segment>
+            <segment id="description">
+                <source>extinguish.description</source>
+                <target>extinguish.description</target>
+            </segment>
+        </unit>
+        <unit id="heal">
+            <segment id="name">
+                <source>heal.name</source>
+                <target>heal.name</target>
+            </segment>
+            <segment id="description">
+                <source>heal.description</source>
+                <target>heal.description</target>
+            </segment>
+        </unit>
+        <unit id="self_heal">
+            <segment id="name">
+                <source>self_heal.name</source>
+                <target>self_heal.name</target>
+            </segment>
+            <segment id="description">
+                <source>self_heal.description</source>
+                <target>self_heal.description</target>
+            </segment>
+        </unit>
+        <unit id="ultraheal">
+            <segment id="name">
+                <source>ultraheal.name</source>
+                <target>ultraheal.name</target>
+            </segment>
+            <segment id="description">
+                <source>ultraheal.description</source>
+                <target>ultraheal.description</target>
+            </segment>
+        </unit>
+        <unit id="use_bandage">
+            <segment id="name">
+                <source>use_bandage.name</source>
+                <target>use_bandage.name</target>
+            </segment>
+            <segment id="description">
+                <source>use_bandage.description</source>
+                <target>use_bandage.description</target>
+            </segment>
+        </unit>
+        <unit id="comfort">
+            <segment id="name">
+                <source>comfort.name</source>
+                <target>comfort.name</target>
+            </segment>
+            <segment id="description">
+                <source>comfort.description</source>
+                <target>comfort.description</target>
+            </segment>
+        </unit>
+        <unit id="open">
+            <segment id="name">
+                <source>open.name</source>
+                <target>open.name</target>
+            </segment>
+            <segment id="description">
+                <source>open.description</source>
+                <target>open.description</target>
+            </segment>
+        </unit>
+        <unit id="strengthen_hull">
+            <segment id="name">
+                <source>strengthen_hull.name</source>
+                <target>strengthen_hull.name</target>
+            </segment>
+            <segment id="description">
+                <source>strengthen_hull.description</source>
+                <target>strengthen_hull.description</target>
+            </segment>
+        </unit>
+        <unit id="spread_fire">
+            <segment id="name">
+                <source>spread_fire.name</source>
+                <target>spread_fire.name</target>
+            </segment>
+            <segment id="description">
+                <source>spread_fire.description</source>
+                <target>spread_fire.description</target>
+            </segment>
+        </unit>
+        <unit id="install_camera">
+            <segment id="name">
+                <source>install_camera.name</source>
+                <target>install_camera.name</target>
+            </segment>
+            <segment id="description">
+                <source>install_camera.description</source>
+                <target>install_camera.description</target>
+            </segment>
+        </unit>
+        <unit id="remove_camera">
+            <segment id="name">
+                <source>remove_camera.name</source>
+                <target>remove_camera.name</target>
+            </segment>
+            <segment id="description">
+                <source>remove_camera.description</source>
+                <target>remove_camera.description</target>
+            </segment>
+        </unit>
+        <unit id="examine">
+            <segment id="name">
+                <source>examine.name</source>
+                <target>examine.name</target>
+            </segment>
+            <segment id="description">
+                <source>examine.description</source>
+                <target>examine.description</target>
+            </segment>
+        </unit>
+        <unit id="remove_spore">
+            <segment id="name">
+                <source>remove_spore.name</source>
+                <target>remove_spore.name</target>
+            </segment>
+            <segment id="description">
+                <source>remove_spore.description</source>
+                <target>remove_spore.description</target>
+            </segment>
+        </unit>
+        <unit id="report_equipment">
+            <segment id="name">
+                <source>report_equipment.name</source>
+                <target>report_equipment.name</target>
+            </segment>
+            <segment id="description">
+                <source>report_equipment.description</source>
+                <target>report_equipment.description</target>
+            </segment>
+        </unit>
+        <unit id="report_fire">
+            <segment id="name">
+                <source>report_fire.name</source>
+                <target>report_fire.name</target>
+            </segment>
+            <segment id="description">
+                <source>report_fire.description</source>
+                <target>report_fire.description</target>
+            </segment>
+        </unit>
+        <unit id="try_kube">
+            <segment id="name">
+                <source>try_kube.name</source>
+                <target>try_kube.name</target>
+            </segment>
+            <segment id="description">
+                <source>try_kube.description</source>
+                <target>try_kube.description</target>
+            </segment>
+        </unit>
+        <unit id="public_broadcast">
+            <segment id="name">
+                <source>public_broadcast.name</source>
+                <target>public_broadcast.name</target>
+            </segment>
+            <segment id="description">
+                <source>public_broadcast.description</source>
+                <target>public_broadcast.description</target>
+            </segment>
+        </unit>
+        <unit id="extinguish_manually">
+            <segment id="name">
+                <source>extinguish_manually.name</source>
+                <target>extinguish_manually.name</target>
+            </segment>
+            <segment id="description">
+                <source>extinguish_manually.description</source>
+                <target>extinguish_manually.description</target>
+            </segment>
+        </unit>
+        <unit id="motivational_speech">
+            <segment id="name">
+                <source>motivational_speech.name</source>
+                <target>motivational_speech.name</target>
+            </segment>
+            <segment id="description">
+                <source>motivational_speech.description</source>
+                <target>motivational_speech.description</target>
+            </segment>
+        </unit>
+        <unit id="boring_speech">
+            <segment id="name">
+                <source>boring_speech.name</source>
+                <target>boring_speech.name</target>
+            </segment>
+            <segment id="description">
+                <source>boring_speech.description</source>
+                <target>boring_speech.description</target>
+            </segment>
+        </unit>
+        <unit id="make_sick">
+            <segment id="name">
+                <source>make_sick.name</source>
+                <target>make_sick.name</target>
+            </segment>
+            <segment id="description">
+                <source>make_sick.description</source>
+                <target>make_sick.description</target>
+            </segment>
+        </unit>
+        <unit id="fake_disease">
+            <segment id="name">
+                <source>fake_disease.name</source>
+                <target>fake_disease.name</target>
+            </segment>
+            <segment id="description">
+                <source>fake_disease.description</source>
+                <target>fake_disease.description</target>
+            </segment>
+        </unit>
+        <unit id="surgery">
+            <segment id="name">
+                <source>surgery.name</source>
+                <target>surgery.name</target>
+            </segment>
+            <segment id="description">
+                <source>surgery.description</source>
+                <target>surgery.description</target>
+            </segment>
+        </unit>
+        <unit id="self_surgery">
+            <segment id="name">
+                <source>self_surgery.name</source>
+                <target>self_surgery.name</target>
+            </segment>
+            <segment id="description">
+                <source>self_surgery.description</source>
+                <target>self_surgery.description</target>
+            </segment>
+        </unit>
+        <unit id="gag">
+            <segment id="name">
+                <source>gag.name</source>
+                <target>gag.name</target>
+            </segment>
+            <segment id="description">
+                <source>gag.description</source>
+                <target>gag.description</target>
+            </segment>
+        </unit>
+        <unit id="ungag">
+            <segment id="name">
+                <source>ungag.name</source>
+                <target>ungag.name</target>
+            </segment>
+            <segment id="description">
+                <source>ungag.description</source>
+                <target>ungag.description</target>
+            </segment>
+        </unit>
+        <unit id="screw_talkie">
+            <segment id="name">
+                <source>screw_talkie.name</source>
+                <target>screw_talkie.name</target>
+            </segment>
+            <segment id="description">
+                <source>screw_talkie.description</source>
+                <target>screw_talkie.description</target>
+            </segment>
+        </unit>
+        <unit id="update_talkie">
+            <segment id="name">
+                <source>update_talkie.name</source>
+                <target>update_talkie.name</target>
+            </segment>
+            <segment id="description">
+                <source>update_talkie.description</source>
+                <target>update_talkie.description</target>
+            </segment>
+        </unit>
+        <unit id="attack">
+            <segment id="name">
+                <source>attack.name</source>
+                <target>attack.name</target>
+            </segment>
+            <segment id="description">
+                <source>attack.description</source>
+                <target>attack.description</target>
+            </segment>
+        </unit>
+        <unit id="shoot">
+            <segment id="name">
+                <source>shoot.name</source>
+                <target>shoot.name</target>
+            </segment>
+            <segment id="description">
+                <source>shoot.description</source>
+                <target>shoot.description</target>
+            </segment>
+        </unit>
+        <unit id="suicide">
+            <segment id="name">
+                <source>suicide.name</source>
+                <target>suicide.name</target>
+            </segment>
+            <segment id="description">
+                <source>suicide.description</source>
+                <target>suicide.description</target>
+            </segment>
+        </unit>
+        <unit id="action_aggressive">
+            <segment id="name">
+                <source>action_aggressive.name</source>
+                <target>action_aggressive.name</target>
+            </segment>
+            <segment id="description">
+                <source>action_aggressive.description</source>
+                <target>action_aggressive.description</target>
+            </segment>
+        </unit>
+        <unit id="covert">
+            <segment id="name">
+                <source>covert.name</source>
+                <target>covert.name</target>
+            </segment>
+            <segment id="description">
+                <source>covert.description</source>
+                <target>covert.description</target>
+            </segment>
+        </unit>
+        <unit id="secret">
+            <segment id="name">
+                <source>secret.name</source>
+                <target>secret.name</target>
+            </segment>
+            <segment id="description">
+                <source>secret.description</source>
+                <target>secret.description</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

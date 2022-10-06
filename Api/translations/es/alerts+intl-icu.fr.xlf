@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?><xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+    <file id="alerts.ext">
+        <unit id="broken_doors">
+            <segment id="name">
+                <source>broken_doors.name</source>
+                <target>broken_doors.name</target>
+            </segment>
+            <segment id="description">
+                <source>broken_doors.description</source>
+                <target>broken_doors.description</target>
+            </segment>
+            <segment id="report">
+                <source>broken_doors.report</source>
+                <target>broken_doors.report</target>
+            </segment>
+        </unit>
+
+        <unit id="fires">
+            <segment id="name">
+                <source>fires.name</source>
+                <target>fires.name</target>
+            </segment>
+            <segment id="description">
+                <source>fires.description</source>
+                <target>fires.description</target>
+            </segment>
+            <segment id="report">
+                <source>fires.report</source>
+                <target>fires.report</target>
+            </segment>
+        </unit>
+
+        <unit id="broken_equipments">
+            <segment id="name">
+                <source>broken_equipments.name</source>
+                <target>broken_equipments.name</target>
+            </segment>
+            <segment id="description">
+                <source>broken_equipments.description</source>
+                <target>broken_equipments.description</target>
+            </segment>
+            <segment id="report">
+                <source>broken_equipments.report</source>
+                <target>broken_equipments.report</target>
+            </segment>
+        </unit>
+
+        <unit id="no_gravity">
+            <segment id="name">
+                <source>no_gravity.name</source>
+                <target>no_gravity.name</target>
+            </segment>
+            <segment id="description">
+                <source>no_gravity.description</source>
+                <target>no_gravity.description</target>
+            </segment>
+        </unit>
+
+        <unit id="low_oxygen">
+            <segment id="name">
+                <source>low_oxygen.name</source>
+                <target>low_oxygen.name</target>
+            </segment>
+            <segment id="description">
+                <source>low_oxygen.description</source>
+                <target>low_oxygen.description</target>
+            </segment>
+        </unit>
+
+        <unit id="outcast">
+            <segment id="name">
+                <source>outcast.name</source>
+                <target>outcast.name</target>
+            </segment>
+            <segment id="description">
+                <source>outcast.description</source>
+                <target>outcast.description</target>
+            </segment>
+        </unit>
+
+        <unit id="lost_crewmate">
+            <segment id="name">
+                <source>lost_crewmate.name</source>
+                <target>lost_crewmate.name</target>
+            </segment>
+            <segment id="description">
+                <source>lost_crewmate.description</source>
+                <target>lost_crewmate.description</target>
+            </segment>
+        </unit>
+
+        <unit id="low_hull">
+            <segment id="name">
+                <source>low_hull.name</source>
+                <target>low_hull.name</target>
+            </segment>
+            <segment id="description">
+                <source>low_hull.description</source>
+                <target>low_hull.description</target>
+            </segment>
+        </unit>
+
+        <unit id="hunger">
+            <segment id="name">
+                <source>hunger.name</source>
+                <target>hunger.name</target>
+            </segment>
+            <segment id="description">
+                <source>hunger.description</source>
+                <target>hunger.description</target>
+            </segment>
+        </unit>
+
+        <unit id="communication_down">
+            <segment id="name">
+                <source>communication_down.name</source>
+                <target>communication_down.name</target>
+            </segment>
+            <segment id="description">
+                <source>communication_down.description</source>
+                <target>communication_down.description</target>
+            </segment>
+        </unit>
+
+        <unit id="hunter">
+            <segment id="name">
+                <source>hunter.name</source>
+                <target>hunter.name</target>
+            </segment>
+            <segment id="description">
+                <source>hunter.description</source>
+                <target>hunter.description</target>
+            </segment>
+        </unit>
+
+        <unit id="no_alert">
+            <segment id="name">
+                <source>no_alert.name</source>
+                <target>no_alert.name</target>
+            </segment>
+            <segment id="description">
+                <source>no_alert.description</source>
+                <target>no_alert.description</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

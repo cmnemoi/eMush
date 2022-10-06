@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+    <file id="actions_log.ext">
+        <unit id="check_spore_level">
+            <segment id="check_spore_level">
+                <source>check_spore_level</source>
+                <target>check_spore_level</target>
+            </segment>
+        </unit>
+        <unit id="coffee_success">
+            <segment id="coffee_success">
+                <source>coffee_success</source>
+                <target>coffee_success</target>
+            </segment>
+        </unit>
+        <unit id="dispense_success">
+            <segment id="dispense_success">
+                <source>dispense_success</source>
+                <target>dispense_success</target>
+            </segment>
+        </unit>
+        <unit id="phagocyte_success">
+            <segment id="phagocyte_success">
+                <source>phagocyte_success</source>
+                <target>phagocyte_success</target>
+            </segment>
+        </unit>
+        <unit id="consume_success">
+            <segment id="consume_success">
+                <source>consume_success</source>
+                <target>consume_success</target>
+            </segment>
+        </unit>
+        <unit id="consume_drug">
+            <segment id="consume_drug">
+                <source>consume_drug</source>
+                <target>consume_drug</target>
+            </segment>
+        </unit>
+        <unit id="consume_mush">
+            <segment id="consume_mush">
+                <source>consume_mush</source>
+                <target>consume_mush</target>
+            </segment>
+        </unit>
+        <unit id="cook_success">
+            <segment id="cook_success">
+                <source>cook_success</source>
+                <target>cook_success</target>
+            </segment>
+        </unit>
+        <unit id="disassemble_fail">
+            <segment id="disassemble_fail">
+                <source>disassemble_fail</source>
+                <target>disassemble_fail</target>
+            </segment>
+        </unit>
+        <unit id="disassemble_success">
+            <segment id="disassemble_success">
+                <source>disassemble_success</source>
+                <target>disassemble_success</target>
+            </segment>
+        </unit>
+        <unit id="do_the_thing_success">
+            <segment id="do_the_thing_success">
+                <source>do_the_thing_success</source>
+                <target>do_the_thing_success</target>
+            </segment>
+        </unit>
+        <unit id="drop">
+            <segment id="drop">
+                <source>drop</source>
+                <target>drop</target>
+            </segment>
+        </unit>
+        <unit id="express_cook_success">
+            <segment id="express_cook_success">
+                <source>express_cook_success</source>
+                <target>express_cook_success</target>
+            </segment>
+        </unit>
+        <unit id="extract_spore_success">
+            <segment id="extract_spore_success">
+                <source>extract_spore_success</source>
+                <target>extract_spore_success</target>
+            </segment>
+        </unit>
+        <unit id="flirt_success">
+            <segment id="flirt_success">
+                <source>flirt_success</source>
+                <target>flirt_success</target>
+            </segment>
+        </unit>
+        <unit id="get_up">
+            <segment id="get_up">
+                <source>get_up</source>
+                <target>get_up</target>
+            </segment>
+        </unit>
+        <unit id="hide_success">
+            <segment id="hide_success">
+                <source>hide_success</source>
+                <target>hide_success</target>
+            </segment>
+        </unit>
+        <unit id="hit_success">
+            <segment id="hit_success">
+                <source>hit_success</source>
+                <target>hit_success</target>
+            </segment>
+        </unit>
+        <unit id="hit_fail">
+            <segment id="hit_fail">
+                <source>hit_fail</source>
+                <target>hit_fail</target>
+            </segment>
+        </unit>
+        <unit id="hyperfreeze_success">
+            <segment id="hyperfreeze_success">
+                <source>hyperfreeze_success</source>
+                <target>hyperfreeze_success</target>
+            </segment>
+        </unit>
+        <unit id="infect_success">
+            <segment id="infect_success">
+                <source>infect_success</source>
+                <target>infect_success</target>
+            </segment>
+        </unit>
+        <unit id="lie_down">
+            <segment id="lie_down">
+                <source>lie_down</source>
+                <target>lie_down</target>
+            </segment>
+        </unit>
+        <unit id="enter_room">
+            <segment id="enter_room">
+                <source>enter_room</source>
+                <target>enter_room</target>
+            </segment>
+        </unit>
+        <unit id="exit_room">
+            <segment id="exit_room">
+                <source>exit_room</source>
+                <target>exit_room</target>
+            </segment>
+        </unit>
+        <unit id="read_book">
+            <segment id="read_book">
+                <source>read_book</source>
+                <target>read_book</target>
+            </segment>
+        </unit>
+        <unit id="read_document">
+            <segment id="read_document">
+                <source>read_document</source>
+                <target>read_document</target>
+            </segment>
+        </unit>
+        <unit id="repair_fail">
+            <segment id="repair_fail">
+                <source>repair_fail</source>
+                <target>repair_fail</target>
+            </segment>
+        </unit>
+        <unit id="repair_success">
+            <segment id="repair_success">
+                <source>repair_success</source>
+                <target>repair_success</target>
+            </segment>
+        </unit>
+        <unit id="search_success">
+            <segment id="search_success">
+                <source>search_success</source>
+                <target>search_success</target>
+            </segment>
+        </unit>
+        <unit id="search_fail">
+            <segment id="search_fail">
+                <source>search_fail</source>
+                <target>search_fail</target>
+            </segment>
+        </unit>
+        <unit id="shower_human">
+            <segment id="shower_human">
+                <source>shower_human</source>
+                <target>shower_human</target>
+            </segment>
+        </unit>
+        <unit id="shower_mush">
+            <segment id="shower_mush">
+                <source>shower_mush</source>
+                <target>shower_mush</target>
+            </segment>
+        </unit>
+        <unit id="wash_in_sink_human">
+            <segment id="wash_in_sink_human">
+                <source>wash_in_sink_human</source>
+                <target>wash_in_sink_human</target>
+            </segment>
+        </unit>
+        <unit id="wash_in_sink_mush">
+            <segment id="wash_in_sink_mush">
+                <source>wash_in_sink_mush</source>
+                <target>wash_in_sink_mush</target>
+            </segment>
+        </unit>
+        <unit id="shred_success">
+            <segment id="shred_success">
+                <source>shred_success</source>
+                <target>shred_success</target>
+            </segment>
+        </unit>
+        <unit id="take">
+            <segment id="take">
+                <source>take</source>
+                <target>take</target>
+            </segment>
+        </unit>
+        <unit id="hybridize_success">
+            <segment id="hybridize_success">
+                <source>hybridize_success</source>
+                <target>hybridize_success</target>
+            </segment>
+        </unit>
+        <unit id="hybridize_fail">
+            <segment id="hybridize_fail">
+                <source>hybridize_fail</source>
+                <target>hybridize_fail</target>
+            </segment>
+        </unit>
+        <unit id="treat_plant_success">
+            <segment id="treat_plant_success">
+                <source>treat_plant_success</source>
+                <target>treat_plant_success</target>
+            </segment>
+        </unit>
+        <unit id="water_plant_success">
+            <segment id="water_plant_success">
+                <source>water_plant_success</source>
+                <target>water_plant_success</target>
+            </segment>
+        </unit>
+        <unit id="write_success">
+            <segment id="write_success">
+                <source>write_success</source>
+                <target>write_success</target>
+            </segment>
+        </unit>
+        <unit id="insert_oxygen">
+            <segment id="insert_oxygen">
+                <source>insert_oxygen</source>
+                <target>insert_oxygen</target>
+            </segment>
+        </unit>
+        <unit id="retrieve_oxygen">
+            <segment id="retrieve_oxygen">
+                <source>retrieve_oxygen</source>
+                <target>retrieve_oxygen</target>
+            </segment>
+        </unit>
+        <unit id="retrieve_fuel">
+            <segment id="retrieve_fuel">
+                <source>retrieve_fuel</source>
+                <target>retrieve_fuel</target>
+            </segment>
+        </unit>
+        <unit id="insert_fuel">
+            <segment id="insert_fuel">
+                <source>insert_fuel</source>
+                <target>insert_fuel</target>
+            </segment>
+        </unit>
+        <unit id="sabotage_success">
+            <segment id="sabotage_success">
+                <source>sabotage_success</source>
+                <target>sabotage_success</target>
+            </segment>
+        </unit>
+        <unit id="sabotage_fail">
+            <segment id="sabotage_fail">
+                <source>sabotage_fail</source>
+                <target>sabotage_fail</target>
+            </segment>
+        </unit>
+        <unit id="extinguish_success">
+            <segment id="extinguish_success">
+                <source>extinguish_success</source>
+                <target>extinguish_success</target>
+            </segment>
+        </unit>
+        <unit id="extinguish_fail">
+            <segment id="extinguish_fail">
+                <source>extinguish_fail</source>
+                <target>extinguish_fail</target>
+            </segment>
+        </unit>
+        <unit id="comfort_success">
+            <segment id="comfort_success">
+                <source>comfort_success</source>
+                <target>comfort_success</target>
+            </segment>
+        </unit>
+        <unit id="heal_success">
+            <segment id="heal_success">
+                <source>heal_success</source>
+                <target>heal_success</target>
+            </segment>
+        </unit>
+        <unit id="self_heal">
+            <segment id="self_heal">
+                <source>self_heal</source>
+                <target>self_heal</target>
+            </segment>
+        </unit>
+        <unit id="ultraheal_success">
+            <segment id="ultraheal_success">
+                <source>ultraheal_success</source>
+                <target>ultraheal_success</target>
+            </segment>
+        </unit>
+        <unit id="strengthen_success">
+            <segment id="strengthen_success">
+                <source>strengthen_success</source>
+                <target>strengthen_success</target>
+            </segment>
+        </unit>
+        <unit id="default_fail">
+            <segment id="default_fail">
+                <source>default_fail</source>
+                <target>default_fail</target>
+            </segment>
+        </unit>
+        <unit id="spread_fire_success">
+            <segment id="spread_fire_success">
+                <source>spread_fire_success</source>
+                <target>spread_fire_success</target>
+            </segment>
+        </unit>
+        <unit id="install_camera">
+            <segment id="install_camera">
+                <source>install_camera</source>
+                <target>install_camera</target>
+            </segment>
+        </unit>
+        <unit id="remove_camera">
+            <segment id="remove_camera">
+                <source>remove_camera</source>
+                <target>remove_camera</target>
+            </segment>
+        </unit>
+        <unit id="try_kube">
+            <segment id="try_kube">
+                <source>try_kube</source>
+                <target>try_kube</target>
+            </segment>
+        </unit>
+        <unit id="remove_spore_success">
+            <segment id="remove_spore_fail">
+                <source>remove_spore_success</source>
+                <target>remove_spore_success</target>
+            </segment>
+        </unit>
+        <unit id="remove_spore_fail">
+            <segment id="remove_spore_fail">
+                <source>remove_spore_fail</source>
+                <target>remove_spore_fail</target>
+            </segment>
+        </unit>
+        <unit id="public_broadcast">
+            <segment id="public_broadcast">
+                <source>public_broadcast</source>
+                <target>public_broadcast</target>
+            </segment>
+        </unit>
+        <unit id="motivational_speech">
+            <segment id="motivational_speech">
+                <source>motivational_speech</source>
+                <target>motivational_speech</target>
+            </segment>
+        </unit>
+        <unit id="boring_speech">
+            <segment id="boring_speech">
+                <source>boring_speech</source>
+                <target>boring_speech</target>
+            </segment>
+        </unit>
+        <unit id="make_sick">
+            <segment id="make_sick">
+                <source>make_sick</source>
+                <target>make_sick</target>
+            </segment>
+        </unit>
+        <unit id="fake_disease">
+            <segment id="fake_disease">
+                <source>fake_disease</source>
+                <target>fake_disease</target>
+            </segment>
+        </unit>
+        <unit id="fail_surgery">
+            <segment id="fail_surgery">
+                <source>fail_surgery</source>
+                <target>fail_surgery</target>
+            </segment>
+        </unit>
+        <unit id="fail_self_surgery">
+            <segment id="fail_self_surgery">
+                <source>fail_self_surgery</source>
+                <target>fail_self_surgery</target>
+            </segment>
+        </unit>
+        <unit id="gag_success">
+            <segment id="gag_success">
+                <source>gag_success</source>
+                <target>gag_success</target>
+            </segment>
+        </unit>
+        <unit id="ungag_success">
+            <segment id="ungag_success">
+                <source>ungag_success</source>
+                <target>ungag_success</target>
+            </segment>
+        </unit>
+        <unit id="screw_talkie_success">
+            <segment id="screw_talkie_success">
+                <source>screw_talkie_success</source>
+                <target>screw_talkie_success</target>
+            </segment>
+        </unit>
+        <unit id="update_talkie_success">
+            <segment id="update_talkie_success">
+                <source>update_talkie_success</source>
+                <target>update_talkie_success</target>
+            </segment>
+        </unit>
+        <unit id="attack_success">
+            <segment id="attack_success">
+                <source>attack_success</source>
+                <target>attack_success</target>
+            </segment>
+        </unit>
+        <unit id="attack_fail">
+            <segment id="attack_fail">
+                <source>attack_fail</source>
+                <target>attack_fail</target>
+            </segment>
+        </unit>
+        <unit id="attack_critical_success">
+            <segment id="attack_critical_success">
+                <source>attack_critical_success</source>
+                <target>attack_critical_success</target>
+            </segment>
+        </unit>
+        <unit id="attack_critical_fail">
+            <segment id="attack_critical_fail">
+                <source>attack_critical_fail</source>
+                <target>attack_critical_fail</target>
+            </segment>
+        </unit>
+        <unit id="shoot_success">
+            <segment id="shoot_success">
+                <source>shoot_success</source>
+                <target>shoot_success</target>
+            </segment>
+        </unit>
+        <unit id="shoot_fail">
+            <segment id="shoot_fail">
+                <source>shoot_fail</source>
+                <target>shoot_fail</target>
+            </segment>
+        </unit>
+        <unit id="shoot_critical_success">
+            <segment id="shoot_critical_success">
+                <source>shoot_critical_success</source>
+                <target>shoot_critical_success</target>
+            </segment>
+        </unit>
+        <unit id="shoot_critical_fail">
+            <segment id="shoot_critical_fail">
+                <source>shoot_critical_fail</source>
+                <target>shoot_critical_fail</target>
+            </segment>
+        </unit>
+        <unit id="suicide_success">
+            <segment id="suicide_success">
+                <source>suicide_success</source>
+                <target>suicide_success</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

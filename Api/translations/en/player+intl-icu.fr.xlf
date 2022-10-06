@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+    <file id="player.ext">
+        <unit id="healthPoint">
+            <segment id="name">
+                <source>healthPoint.name</source>
+                <target>healthPoint.name</target>
+            </segment>
+            <segment id="description">
+                <source>healthPoint.description</source>
+                <target>healthPoint.description</target>
+            </segment>
+        </unit>
+        <unit id="moralPoint">
+            <segment id="name">
+                <source>moralPoint.name</source>
+                <target>moralPoint.name</target>
+            </segment>
+            <segment id="description">
+                <source>moralPoint.description</source>
+                <target>moralPoint.description</target>
+            </segment>
+        </unit>
+        <unit id="actionPoint">
+            <segment id="name">
+                <source>actionPoint.name</source>
+                <target>actionPoint.name</target>
+            </segment>
+            <segment id="description">
+                <source>actionPoint.description</source>
+                <target>actionPoint.description</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

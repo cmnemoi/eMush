@@ -1,0 +1,3361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+    <file id="items.ext">
+        <unit id="bacta">
+            <segment id="name">
+                <source>bacta.name</source>
+                <target>bacta.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>bacta.short_name</source>
+                <target>bacta.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>bacta.genre</source>
+                <target>bacta.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>bacta.first_letter</source>
+                <target>bacta.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>bacta.description</source>
+                <target>bacta.description</target>
+            </segment>
+            <segment id="examine">
+                <source>bacta.examine</source>
+                <target>bacta.examine</target>
+            </segment>
+        </unit>
+        <unit id="betapropyl">
+            <segment id="name">
+                <source>betapropyl.name</source>
+                <target>betapropyl.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>betapropyl.short_name</source>
+                <target>betapropyl.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>betapropyl.genre</source>
+                <target>betapropyl.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>betapropyl.first_letter</source>
+                <target>betapropyl.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>betapropyl.description</source>
+                <target>betapropyl.description</target>
+            </segment>
+            <segment id="examine">
+                <source>betapropyl.examine</source>
+                <target>betapropyl.examine</target>
+            </segment>
+        </unit>
+        <unit id="eufurylate">
+            <segment id="name">
+                <source>eufurylate.name</source>
+                <target>eufurylate.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>eufurylate.short_name</source>
+                <target>eufurylate.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>eufurylate.genre</source>
+                <target>eufurylate.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>eufurylate.first_letter</source>
+                <target>eufurylate.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>eufurylate.description</source>
+                <target>eufurylate.description</target>
+            </segment>
+            <segment id="examine">
+                <source>eufurylate.examine</source>
+                <target>eufurylate.examine</target>
+            </segment>
+        </unit>
+        <unit id="newke">
+            <segment id="name">
+                <source>newke.name</source>
+                <target>newke.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>newke.short_name</source>
+                <target>newke.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>newke.genre</source>
+                <target>newke.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>newke.first_letter</source>
+                <target>newke.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>newke.description</source>
+                <target>newke.description</target>
+            </segment>
+            <segment id="examine">
+                <source>newke.examine</source>
+                <target>newke.examine</target>
+            </segment>
+        </unit>
+        <unit id="phuxx">
+            <segment id="name">
+                <source>phuxx.name</source>
+                <target>phuxx.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>phuxx.short_name</source>
+                <target>phuxx.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>phuxx.genre</source>
+                <target>phuxx.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>phuxx.first_letter</source>
+                <target>phuxx.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>phuxx.description</source>
+                <target>phuxx.description</target>
+            </segment>
+            <segment id="examine">
+                <source>phuxx.examine</source>
+                <target>phuxx.examine</target>
+            </segment>
+        </unit>
+        <unit id="pinq">
+            <segment id="name">
+                <source>pinq.name</source>
+                <target>pinq.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>pinq.short_name</source>
+                <target>pinq.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>pinq.genre</source>
+                <target>pinq.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>pinq.first_letter</source>
+                <target>pinq.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>pinq.description</source>
+                <target>pinq.description</target>
+            </segment>
+            <segment id="examine">
+                <source>pinq.examine</source>
+                <target>pinq.examine</target>
+            </segment>
+        </unit>
+        <unit id="pymp">
+            <segment id="name">
+                <source>pymp.name</source>
+                <target>pymp.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>pymp.short_name</source>
+                <target>pymp.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>pymp.genre</source>
+                <target>pymp.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>pymp.first_letter</source>
+                <target>pymp.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>pymp.description</source>
+                <target>pymp.description</target>
+            </segment>
+            <segment id="examine">
+                <source>pymp.examine</source>
+                <target>pymp.examine</target>
+            </segment>
+        </unit>
+        <unit id="rosebud">
+            <segment id="name">
+                <source>rosebud.name</source>
+                <target>rosebud.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>rosebud.short_name</source>
+                <target>rosebud.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>rosebud.genre</source>
+                <target>rosebud.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>rosebud.first_letter</source>
+                <target>rosebud.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>rosebud.description</source>
+                <target>rosebud.description</target>
+            </segment>
+            <segment id="examine">
+                <source>rosebud.examine</source>
+                <target>rosebud.examine</target>
+            </segment>
+        </unit>
+        <unit id="soma">
+            <segment id="name">
+                <source>soma.name</source>
+                <target>soma.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>soma.short_name</source>
+                <target>soma.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>soma.genre</source>
+                <target>soma.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>soma.first_letter</source>
+                <target>soma.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>soma.description</source>
+                <target>soma.description</target>
+            </segment>
+            <segment id="examine">
+                <source>soma.examine</source>
+                <target>soma.examine</target>
+            </segment>
+        </unit>
+        <unit id="spyce">
+            <segment id="name">
+                <source>spyce.name</source>
+                <target>spyce.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>spyce.short_name</source>
+                <target>spyce.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>spyce.genre</source>
+                <target>spyce.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>spyce.first_letter</source>
+                <target>spyce.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>spyce.description</source>
+                <target>spyce.description</target>
+            </segment>
+            <segment id="examine">
+                <source>spyce.examine</source>
+                <target>spyce.examine</target>
+            </segment>
+        </unit>
+        <unit id="twinoid">
+            <segment id="name">
+                <source>twinoid.name</source>
+                <target>twinoid.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>twinoid.short_name</source>
+                <target>twinoid.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>twinoid.genre</source>
+                <target>twinoid.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>twinoid.first_letter</source>
+                <target>twinoid.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>twinoid.description</source>
+                <target>twinoid.description</target>
+            </segment>
+            <segment id="examine">
+                <source>twinoid.examine</source>
+                <target>twinoid.examine</target>
+            </segment>
+        </unit>
+        <unit id="xenox">
+            <segment id="name">
+                <source>xenox.name</source>
+                <target>xenox.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>xenox.short_name</source>
+                <target>xenox.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>xenox.genre</source>
+                <target>xenox.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>xenox.first_letter</source>
+                <target>xenox.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>xenox.description</source>
+                <target>xenox.description</target>
+            </segment>
+            <segment id="examine">
+                <source>xenox.examine</source>
+                <target>xenox.examine</target>
+            </segment>
+        </unit>
+        <unit id="banana">
+            <segment id="name">
+                <source>banana.name</source>
+                <target>banana.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>banana.short_name</source>
+                <target>banana.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>banana.genre</source>
+                <target>banana.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>banana.first_letter</source>
+                <target>banana.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>banana.description</source>
+                <target>banana.description</target>
+            </segment>
+            <segment id="examine">
+                <source>banana.examine</source>
+                <target>banana.examine</target>
+            </segment>
+        </unit>
+        <unit id="creepnut">
+            <segment id="name">
+                <source>creepnut.name</source>
+                <target>creepnut.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>creepnut.short_name</source>
+                <target>creepnut.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>creepnut.genre</source>
+                <target>creepnut.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>creepnut.first_letter</source>
+                <target>creepnut.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>creepnut.description</source>
+                <target>creepnut.description</target>
+            </segment>
+            <segment id="examine">
+                <source>creepnut.examine</source>
+                <target>creepnut.examine</target>
+            </segment>
+        </unit>
+        <unit id="meztine">
+            <segment id="name">
+                <source>meztine.name</source>
+                <target>meztine.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>meztine.short_name</source>
+                <target>meztine.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>meztine.genre</source>
+                <target>meztine.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>metzine.first_letter</source>
+                <target>metzine.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>meztine.description</source>
+                <target>meztine.description</target>
+            </segment>
+            <segment id="examine">
+                <source>meztine.examine</source>
+                <target>meztine.examine</target>
+            </segment>
+        </unit>
+        <unit id="guntiflop">
+            <segment id="name">
+                <source>guntiflop.name</source>
+                <target>guntiflop.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>guntiflop.short_name</source>
+                <target>guntiflop.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>guntiflop.genre</source>
+                <target>guntiflop.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>guntiflop.first_letter</source>
+                <target>guntiflop.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>guntiflop.description</source>
+                <target>guntiflop.description</target>
+            </segment>
+            <segment id="examine">
+                <source>guntiflop.examine</source>
+                <target>guntiflop.examine</target>
+            </segment>
+        </unit>
+        <unit id="ploshmina">
+            <segment id="name">
+                <source>ploshmina.name</source>
+                <target>ploshmina.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>ploshmina.short_name</source>
+                <target>ploshmina.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>ploshmina.genre</source>
+                <target>ploshmina.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>ploshima.first_letter</source>
+                <target>ploshima.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>ploshmina.description</source>
+                <target>ploshmina.description</target>
+            </segment>
+            <segment id="examine">
+                <source>ploshmina.examine</source>
+                <target>ploshmina.examine</target>
+            </segment>
+        </unit>
+        <unit id="precati">
+            <segment id="name">
+                <source>precati.name</source>
+                <target>precati.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>precati.short_name</source>
+                <target>precati.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>precati.genre</source>
+                <target>precati.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>precati.first_letter</source>
+                <target>precati.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>precati.description</source>
+                <target>precati.description</target>
+            </segment>
+            <segment id="examine">
+                <source>precati.examine</source>
+                <target>precati.examine</target>
+            </segment>
+        </unit>
+        <unit id="bottine">
+            <segment id="name">
+                <source>bottine.name</source>
+                <target>bottine.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>bottine.short_name</source>
+                <target>bottine.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>bottine.genre</source>
+                <target>bottine.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>bottine.first_letter</source>
+                <target>bottine.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>bottine.description</source>
+                <target>bottine.description</target>
+            </segment>
+            <segment id="examine">
+                <source>bottine.examine</source>
+                <target>bottine.examine</target>
+            </segment>
+        </unit>
+        <unit id="fragilane">
+            <segment id="name">
+                <source>fragilane.name</source>
+                <target>fragilane.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>fragilane.short_name</source>
+                <target>fragilane.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>fragilane.genre</source>
+                <target>fragilane.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>fragilane.first_letter</source>
+                <target>fragilane.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>fragilane.description</source>
+                <target>fragilane.description</target>
+            </segment>
+            <segment id="examine">
+                <source>fragilane.examine</source>
+                <target>fragilane.examine</target>
+            </segment>
+        </unit>
+        <unit id="anemole">
+            <segment id="name">
+                <source>anemole.name</source>
+                <target>anemole.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>anemole.short_name</source>
+                <target>anemole.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>anemole.genre</source>
+                <target>anemole.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>anemole.first_letter</source>
+                <target>anemole.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>anemole.description</source>
+                <target>anemole.description</target>
+            </segment>
+            <segment id="examine">
+                <source>anemole.examine</source>
+                <target>anemole.examine</target>
+            </segment>
+        </unit>
+        <unit id="kubinus">
+            <segment id="name">
+                <source>kubinus.name</source>
+                <target>kubinus.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>kubinus.short_name</source>
+                <target>kubinus.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>kubinus.genre</source>
+                <target>kubinus.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>kubinus.first_letter</source>
+                <target>kubinus.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>kubinus.description</source>
+                <target>kubinus.description</target>
+            </segment>
+            <segment id="examine">
+                <source>kubinus.examine</source>
+                <target>kubinus.examine</target>
+            </segment>
+        </unit>
+        <unit id="caleboot">
+            <segment id="name">
+                <source>caleboot.name</source>
+                <target>caleboot.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>caleboot.short_name</source>
+                <target>caleboot.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>caleboot.genre</source>
+                <target>caleboot.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>caleboot.first_letter</source>
+                <target>caleboot.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>caleboot.description</source>
+                <target>caleboot.description</target>
+            </segment>
+            <segment id="examine">
+                <source>caleboot.examine</source>
+                <target>caleboot.examine</target>
+            </segment>
+        </unit>
+        <unit id="tracker">
+            <segment id="name">
+                <source>tracker.name</source>
+                <target>tracker.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>tracker.short_name</source>
+                <target>tracker.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>tracker.plural_name</source>
+                <target>tracker.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>tracker.genre</source>
+                <target>tracker.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>tracker.first_letter</source>
+                <target>tracker.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>tracker.description</source>
+                <target>tracker.description</target>
+            </segment>
+            <segment id="examine">
+                <source>tracker.examine</source>
+                <target>tracker.examine</target>
+            </segment>
+        </unit>
+        <unit id="walkie_talkie">
+            <segment id="name">
+                <source>walkie_talkie.name</source>
+                <target>walkie_talkie.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>walkie_talkie.short_name</source>
+                <target>walkie_talkie.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>walkie_talkie.plural_name</source>
+                <target>walkie_talkie.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>walkie_talkie.genre</source>
+                <target>walkie_talkie.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>walkie_talkie.first_letter</source>
+                <target>walkie_talkie.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>walkie_talkie.description</source>
+                <target>walkie_talkie.description</target>
+            </segment>
+            <segment id="examine">
+                <source>walkie_talkie.examine</source>
+                <target>walkie_talkie.examine</target>
+            </segment>
+        </unit>
+        <unit id="itrackie">
+            <segment id="name">
+                <source>itrackie.name</source>
+                <target>itrackie.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>itrackie.short_name</source>
+                <target>itrackie.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>itrackie.plural_name</source>
+                <target>itrackie.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>itrackie.genre</source>
+                <target>itrackie.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>itrackie.first_letter</source>
+                <target>itrackie.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>itrackie.description</source>
+                <target>itrackie.description</target>
+            </segment>
+            <segment id="examine">
+                <source>itrackie.examine</source>
+                <target>itrackie.examine</target>
+            </segment>
+        </unit>
+        <unit id="adjustable_wrench">
+            <segment id="name">
+                <source>adjustable_wrench.name</source>
+                <target>adjustable_wrench.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>adjustable_wrench.short_name</source>
+                <target>adjustable_wrench.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>adjustable_wrench.genre</source>
+                <target>adjustable_wrench.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>adjustable_wrench.first_letter</source>
+                <target>adjustable_wrench.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>adjustable_wrench.description</source>
+                <target>adjustable_wrench.description</target>
+            </segment>
+            <segment id="examine">
+                <source>adjustable_wrench.examine</source>
+                <target>adjustable_wrench.examine</target>
+            </segment>
+        </unit>
+        <unit id="alien_bottle_opener">
+            <segment id="name">
+                <source>alien_bottle_opener.name</source>
+                <target>alien_bottle_opener.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>alien_bottle_opener.short_name</source>
+                <target>alien_bottle_opener.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>alien_bottle_opener.plural_name</source>
+                <target>alien_bottle_opener.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>alien_bottle_opener.genre</source>
+                <target>alien_bottle_opener.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>alien_bottle_opener.first_letter</source>
+                <target>alien_bottle_opener.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>alien_bottle_opener.description</source>
+                <target>alien_bottle_opener.description</target>
+            </segment>
+            <segment id="examine">
+                <source>alien_bottle_opener.examine</source>
+                <target>alien_bottle_opener.examine</target>
+            </segment>
+        </unit>
+        <unit id="antigrav_scooter">
+            <segment id="name">
+                <source>antigrav_scooter.name</source>
+                <target>antigrav_scooter.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>antigrav_scooter.short_name</source>
+                <target>antigrav_scooter.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>antigrav_scooter.plural_name</source>
+                <target>antigrav_scooter.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>antigrav_scooter.genre</source>
+                <target>antigrav_scooter.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>antigrav_scooter..first_letter</source>
+                <target>antigrav_scooter..first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>antigrav_scooter.description</source>
+                <target>antigrav_scooter.description</target>
+            </segment>
+            <segment id="examine">
+                <source>antigrav_scooter.examine</source>
+                <target>antigrav_scooter.examine</target>
+            </segment>
+        </unit>
+        <unit id="rolling_boulder">
+            <segment id="name">
+                <source>rolling_boulder.name</source>
+                <target>rolling_boulder.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>rolling_boulder.short_name</source>
+                <target>rolling_boulder.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>rolling_boulder.plural_name</source>
+                <target>rolling_boulder.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>rolling_boulder.genre</source>
+                <target>rolling_boulder.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>rolling_boulder.first_letter</source>
+                <target>rolling_boulder.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>rolling_boulder.description</source>
+                <target>rolling_boulder.description</target>
+            </segment>
+            <segment id="examine">
+                <source>rolling_boulder.examine</source>
+                <target>rolling_boulder.examine</target>
+            </segment>
+        </unit>
+        <unit id="sniper_helmet">
+            <segment id="name">
+                <source>sniper_helmet.name</source>
+                <target>sniper_helmet.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>sniper_helmet.short_name</source>
+                <target>sniper_helmet.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>sniper_helmet.plural_name</source>
+                <target>sniper_helmet.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>sniper_helmet.genre</source>
+                <target>sniper_helmet.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>sniper_helmet.first_letter</source>
+                <target>sniper_helmet.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>sniper_helmet.description</source>
+                <target>sniper_helmet.description</target>
+            </segment>
+            <segment id="examine">
+                <source>sniper_helmet.examine</source>
+                <target>sniper_helmet.examine</target>
+            </segment>
+        </unit>
+        <unit id="lenses">
+            <segment id="name">
+                <source>lenses.name</source>
+                <target>lenses.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>lenses.short_name</source>
+                <target>lenses.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>lenses.plural_name</source>
+                <target>lenses.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>lenses.genre</source>
+                <target>lenses.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>lenses.first_letter</source>
+                <target>lenses.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>lenses.description</source>
+                <target>lenses.description</target>
+            </segment>
+            <segment id="examine">
+                <source>lenses.examine</source>
+                <target>lenses.examine</target>
+            </segment>
+        </unit>
+        <unit id="oscilloscope">
+            <segment id="name">
+                <source>oscilloscope.name</source>
+                <target>oscilloscope.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>oscilloscope.short_name</source>
+                <target>oscilloscope.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>oscilloscope.plural_name</source>
+                <target>oscilloscope.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>oscilloscope.genre</source>
+                <target>oscilloscope.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>oscilloscope.first_letter</source>
+                <target>oscilloscope.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>oscilloscope.description</source>
+                <target>oscilloscope.description</target>
+            </segment>
+            <segment id="examine">
+                <source>oscilloscope.examine</source>
+                <target>oscilloscope.examine</target>
+            </segment>
+        </unit>
+        <unit id="plastenite_armor">
+            <segment id="name">
+                <source>plastenite_armor.name</source>
+                <target>plastenite_armor.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>plastenite_armor.short_name</source>
+                <target>plastenite_armor.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>plastenite_armor.plural_name</source>
+                <target>plastenite_armor.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>plastenite_armor.genre</source>
+                <target>plastenite_armor.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>plastenite_armor.first_letter</source>
+                <target>plastenite_armor.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>plastenite_armor.description</source>
+                <target>plastenite_armor.description</target>
+            </segment>
+            <segment id="examine">
+                <source>plastenite_armor.examine</source>
+                <target>plastenite_armor.examine</target>
+            </segment>
+        </unit>
+        <unit id="protective_gloves">
+            <segment id="name">
+                <source>protective_gloves.name</source>
+                <target>protective_gloves.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>protective_gloves.short_name</source>
+                <target>protective_gloves.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>protective_gloves.plural_name</source>
+                <target>protective_gloves.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>protective_gloves.genre</source>
+                <target>protective_gloves.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>protective_gloves.first_letter</source>
+                <target>protective_gloves.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>protective_gloves.description</source>
+                <target>protective_gloves.description</target>
+            </segment>
+            <segment id="examine">
+                <source>protective_gloves.examine</source>
+                <target>protective_gloves.examine</target>
+            </segment>
+        </unit>
+        <unit id="spacesuit">
+            <segment id="name">
+                <source>spacesuit.name</source>
+                <target>spacesuit.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>spacesuit.short_name</source>
+                <target>spacesuit.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>spacesuit.plural_name</source>
+                <target>spacesuit.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>spacesuit.genre</source>
+                <target>spacesuit.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>spacesuit.first_letter</source>
+                <target>spacesuit.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>spacesuit.description</source>
+                <target>spacesuit.description</target>
+            </segment>
+            <segment id="examine">
+                <source>spacesuit.examine</source>
+                <target>spacesuit.examine</target>
+            </segment>
+        </unit>
+        <unit id="stainproof_apron">
+            <segment id="name">
+                <source>stainproof_apron.name</source>
+                <target>stainproof_apron.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>stainproof_apron.short_name</source>
+                <target>stainproof_apron.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>stainproof_apron.plural_name</source>
+                <target>stainproof_apron.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>stainproof_apron.genre</source>
+                <target>stainproof_apron.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>stainproof_apron.first_letter</source>
+                <target>stainproof_apron.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>stainproof_apron.description</source>
+                <target>stainproof_apron.description</target>
+            </segment>
+            <segment id="examine">
+                <source>stainproof_apron.examine</source>
+                <target>stainproof_apron.examine</target>
+            </segment>
+        </unit>
+        <unit id="soap">
+            <segment id="name">
+                <source>soap.name</source>
+                <target>soap.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>soap.short_name</source>
+                <target>soap.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>soap.genre</source>
+                <target>soap.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>soap.first_letter</source>
+                <target>soap.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>soap.description</source>
+                <target>soap.description</target>
+            </segment>
+            <segment id="examine">
+                <source>soap.examine</source>
+                <target>soap.examine</target>
+            </segment>
+        </unit>
+        <unit id="super_soaper">
+            <segment id="name">
+                <source>super_soaper.name</source>
+                <target>super_soaper.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>super_soaper.short_name</source>
+                <target>super_soaper.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>super_soaper.genre</source>
+                <target>super_soaper.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>super_soaper.first_letter</source>
+                <target>super_soaper.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>super_soaper.description</source>
+                <target>super_soaper.description</target>
+            </segment>
+            <segment id="examine">
+                <source>super_soaper.examine</source>
+                <target>super_soaper.examine</target>
+            </segment>
+        </unit>
+        <unit id="babel_module">
+            <segment id="name">
+                <source>babel_module.name</source>
+                <target>babel_module.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>babel_module.short_name</source>
+                <target>babel_module.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>babel_module.plural_name</source>
+                <target>babel_module.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>babel_module.genre</source>
+                <target>babel_module.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>babel_module.first_letter</source>
+                <target>babel_module.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>babel_module.description</source>
+                <target>babel_module.description</target>
+            </segment>
+            <segment id="examine">
+                <source>babel_module.examine</source>
+                <target>babel_module.examine</target>
+            </segment>
+        </unit>
+        <unit id="drill">
+            <segment id="name">
+                <source>drill.name</source>
+                <target>drill.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>drill.short_name</source>
+                <target>drill.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>drill.plural_name</source>
+                <target>drill.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>drill.genre</source>
+                <target>drill.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>drill.first_letter</source>
+                <target>drill.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>drill.description</source>
+                <target>drill.description</target>
+            </segment>
+            <segment id="examine">
+                <source>drill.examine</source>
+                <target>drill.examine</target>
+            </segment>
+        </unit>
+        <unit id="echolocator">
+            <segment id="name">
+                <source>echolocator.name</source>
+                <target>echolocator.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>echolocator.short_name</source>
+                <target>echolocator.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>echolocator.plural_name</source>
+                <target>echolocator.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>echolocator.genre</source>
+                <target>echolocator.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>echolocator.first_letter</source>
+                <target>echolocator.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>echolocator.description</source>
+                <target>echolocator.description</target>
+            </segment>
+            <segment id="examine">
+                <source>echolocator.examine</source>
+                <target>echolocator.examine</target>
+            </segment>
+        </unit>
+        <unit id="quadrimetric_compass">
+            <segment id="name">
+                <source>quadrimetric_compass.name</source>
+                <target>quadrimetric_compass.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>quadrimetric_compass.short_name</source>
+                <target>quadrimetric_compass.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>quadrimetric_compass.genre</source>
+                <target>quadrimetric_compass.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>quadrimetric_compass.first_letter</source>
+                <target>quadrimetric_compass.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>quadrimetric_compass.description</source>
+                <target>quadrimetric_compass.description</target>
+            </segment>
+            <segment id="examine">
+                <source>quadrimetric_compass.examine</source>
+                <target>quadrimetric_compass.examine</target>
+            </segment>
+        </unit>
+        <unit id="rope">
+            <segment id="name">
+                <source>rope.name</source>
+                <target>rope.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>rope.short_name</source>
+                <target>rope.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>rope.genre</source>
+                <target>rope.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>rope.first_letter</source>
+                <target>rope.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>rope.description</source>
+                <target>rope.description</target>
+            </segment>
+            <segment id="examine">
+                <source>rope.examine</source>
+                <target>rope.examine</target>
+            </segment>
+        </unit>
+        <unit id="thermosensor">
+            <segment id="name">
+                <source>thermosensor.name</source>
+                <target>thermosensor.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>thermosensor.short_name</source>
+                <target>thermosensor.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>thermosensor.plural_name</source>
+                <target>thermosensor.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>thermosensor.genre</source>
+                <target>thermosensor.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>thermosensor.first_letter</source>
+                <target>thermosensor.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>thermosensor.description</source>
+                <target>thermosensor.description</target>
+            </segment>
+            <segment id="examine">
+                <source>thermosensor.examine</source>
+                <target>thermosensor.examine</target>
+            </segment>
+        </unit>
+        <unit id="white_flag">
+            <segment id="name">
+                <source>white_flag.name</source>
+                <target>white_flag.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>white_flag.short_name</source>
+                <target>white_flag.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>white_flag.genre</source>
+                <target>white_flag.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>white_flag.first_letter</source>
+                <target>white_flag.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>white_flag.description</source>
+                <target>white_flag.description</target>
+            </segment>
+            <segment id="examine">
+                <source>white_flag.examine</source>
+                <target>white_flag.examine</target>
+            </segment>
+        </unit>
+        <unit id="alien_holographic_tv">
+            <segment id="name">
+                <source>alien_holographic_tv.name</source>
+                <target>alien_holographic_tv.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>alien_holographic_tv.short_name</source>
+                <target>alien_holographic_tv.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>alien_holographic_tv.plural_name</source>
+                <target>alien_holographic_tv.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>alien_holographic_tv.genre</source>
+                <target>alien_holographic_tv.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>alien_holographic_tv.first_letter</source>
+                <target>alien_holographic_tv.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>alien_holographic_tv.description</source>
+                <target>alien_holographic_tv.description</target>
+            </segment>
+            <segment id="examine">
+                <source>alien_holographic_tv.examine</source>
+                <target>alien_holographic_tv.examine</target>
+            </segment>
+        </unit>
+        <unit id="block_of_post_it">
+            <segment id="name">
+                <source>block_of_post_it.name</source>
+                <target>block_of_post_it.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>block_of_post_it.short_name</source>
+                <target>block_of_post_it.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>block_of_post_it.genre</source>
+                <target>block_of_post_it.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>block_of_post_it.first_letter</source>
+                <target>block_of_post_it.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>block_of_post_it.description</source>
+                <target>block_of_post_it.description</target>
+            </segment>
+            <segment id="examine">
+                <source>block_of_post_it.examine</source>
+                <target>block_of_post_it.examine</target>
+            </segment>
+        </unit>
+        <unit id="duct_tape">
+            <segment id="name">
+                <source>duct_tape.name</source>
+                <target>duct_tape.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>duct_tape.short_name</source>
+                <target>duct_tape.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>duct_tape.genre</source>
+                <target>duct_tape.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>duct_tape.first_letter</source>
+                <target>duct_tape.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>duct_tape.description</source>
+                <target>duct_tape.description</target>
+            </segment>
+            <segment id="examine">
+                <source>duct_tape.examine</source>
+                <target>duct_tape.examine</target>
+            </segment>
+        </unit>
+        <unit id="extinguisher">
+            <segment id="name">
+                <source>extinguisher.name</source>
+                <target>extinguisher.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>extinguisher.short_name</source>
+                <target>extinguisher.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>extinguisher.plural_name</source>
+                <target>extinguisher.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>extinguisher.genre</source>
+                <target>extinguisher.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>extinguisher.first_letter</source>
+                <target>extinguisher.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>extinguisher.description</source>
+                <target>extinguisher.description</target>
+            </segment>
+            <segment id="examine">
+                <source>extinguisher.examine</source>
+                <target>extinguisher.examine</target>
+            </segment>
+        </unit>
+        <unit id="hacker_kit">
+            <segment id="name">
+                <source>hacker_kit.name</source>
+                <target>hacker_kit.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>hacker_kit.short_name</source>
+                <target>hacker_kit.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>hacker_kit.plural_name</source>
+                <target>hacker_kit.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>hacker_kit.genre</source>
+                <target>hacker_kit.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>hacker_kit.first_letter</source>
+                <target>hacker_kit.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>hacker_kit.description</source>
+                <target>hacker_kit.description</target>
+            </segment>
+            <segment id="examine">
+                <source>hacker_kit.examine</source>
+                <target>hacker_kit.examine</target>
+            </segment>
+        </unit>
+        <unit id="mad_kube">
+            <segment id="name">
+                <source>mad_kube.name</source>
+                <target>mad_kube.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>mad_kube.short_name</source>
+                <target>mad_kube.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>mad_kube.genre</source>
+                <target>mad_kube.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>mad_kube.first_letter</source>
+                <target>mad_kube.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>mad_kube.description</source>
+                <target>mad_kube.description</target>
+            </segment>
+            <segment id="examine">
+                <source>mad_kube.examine</source>
+                <target>mad_kube.examine</target>
+            </segment>
+        </unit>
+        <unit id="microwave">
+            <segment id="name">
+                <source>microwave.name</source>
+                <target>microwave.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>microwave.short_name</source>
+                <target>microwave.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>microwave.plural_name</source>
+                <target>microwave.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>microwave.genre</source>
+                <target>microwave.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>microwave.first_letter</source>
+                <target>microwave.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>microwave.description</source>
+                <target>microwave.description</target>
+            </segment>
+            <segment id="examine">
+                <source>microwave.examine</source>
+                <target>microwave.examine</target>
+            </segment>
+        </unit>
+        <unit id="superfreezer">
+            <segment id="name">
+                <source>superfreezer.name</source>
+                <target>superfreezer.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>superfreezer.short_name</source>
+                <target>superfreezer.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>superfreezer.plural_name</source>
+                <target>superfreezer.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>superfreezer.genre</source>
+                <target>superfreezer.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>superfreezer.first_letter</source>
+                <target>superfreezer.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>superfreezer.description</source>
+                <target>superfreezer.description</target>
+            </segment>
+            <segment id="examine">
+                <source>superfreezer.examine</source>
+                <target>superfreezer.examine</target>
+            </segment>
+        </unit>
+        <unit id="tabulatrix">
+            <segment id="name">
+                <source>tabulatrix.name</source>
+                <target>tabulatrix.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>tabulatrix.short_name</source>
+                <target>tabulatrix.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>tabulatrix.plural_name</source>
+                <target>tabulatrix.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>tabulatrix.genre</source>
+                <target>tabulatrix.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>tabulatrix.first_letter</source>
+                <target>tabulatrix.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>tabulatrix.description</source>
+                <target>tabulatrix.description</target>
+            </segment>
+            <segment id="examine">
+                <source>tabulatrix.examine</source>
+                <target>tabulatrix.examine</target>
+            </segment>
+        </unit>
+        <unit id="old_t_shirt">
+            <segment id="name">
+                <source>old_t_shirt.name</source>
+                <target>old_t_shirt.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>old_t_shirt.short_name</source>
+                <target>old_t_shirt.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>old_t_shirt.genre</source>
+                <target>old_t_shirt.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>old_t_shirt.first_letter</source>
+                <target>old_t_shirt.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>old_t_shirt.description</source>
+                <target>old_t_shirt.description</target>
+            </segment>
+            <segment id="examine">
+                <source>old_t_shirt.examine</source>
+                <target>old_t_shirt.examine</target>
+            </segment>
+        </unit>
+        <unit id="plastic_scraps">
+            <segment id="name">
+                <source>plastic_scraps.name</source>
+                <target>plastic_scraps.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>plastic_scraps.short_name</source>
+                <target>plastic_scraps.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>plastic_scraps.genre</source>
+                <target>plastic_scraps.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>plastic_scraps.first_letter</source>
+                <target>plastic_scraps.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>plastic_scraps.description</source>
+                <target>plastic_scraps.description</target>
+            </segment>
+            <segment id="examine">
+                <source>plastic_scraps.examine</source>
+                <target>plastic_scraps.examine</target>
+            </segment>
+        </unit>
+        <unit id="metal_scraps">
+            <segment id="name">
+                <source>metal_scraps.name</source>
+                <target>metal_scraps.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>metal_scraps.short_name</source>
+                <target>metal_scraps.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>metal_scraps.genre</source>
+                <target>metal_scraps.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>metal_scraps.first_letter</source>
+                <target>metal_scraps.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>metal_scraps.description</source>
+                <target>metal_scraps.description</target>
+            </segment>
+            <segment id="examine">
+                <source>metal_scraps.examine</source>
+                <target>metal_scraps.examine</target>
+            </segment>
+        </unit>
+        <unit id="thick_tube">
+            <segment id="name">
+                <source>thick_tube.name</source>
+                <target>thick_tube.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>thick_tube.short_name</source>
+                <target>thick_tube.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>thick_tube.genre</source>
+                <target>thick_tube.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>thick_tube.first_letter</source>
+                <target>thick_tube.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>thick_tube.description</source>
+                <target>thick_tube.description</target>
+            </segment>
+            <segment id="examine">
+                <source>thick_tube.examine</source>
+                <target>thick_tube.examine</target>
+            </segment>
+        </unit>
+        <unit id="schrodinger">
+            <segment id="name">
+                <source>schrodinger.name</source>
+                <target>schrodinger.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>schrodinger.short_name</source>
+                <target>schrodinger.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>schrodinger.genre</source>
+                <target>schrodinger.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>schrodinger.first_letter</source>
+                <target>schrodinger.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>schrodinger.description</source>
+                <target>schrodinger.description</target>
+            </segment>
+            <segment id="examine">
+                <source>schrodinger.examine</source>
+                <target>schrodinger.examine</target>
+            </segment>
+        </unit>
+        <unit id="support_drone">
+            <segment id="name">
+                <source>support_drone.name</source>
+                <target>support_drone.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>support_drone.short_name</source>
+                <target>support_drone.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>support_drone.plural_name</source>
+                <target>support_drone.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>support_drone.genre</source>
+                <target>support_drone.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>support_drone.first_letter</source>
+                <target>support_drone.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>support_drone.description</source>
+                <target>support_drone.description</target>
+            </segment>
+            <segment id="examine">
+                <source>support_drone.examine</source>
+                <target>support_drone.examine</target>
+            </segment>
+        </unit>
+        <unit id="jar_of_alien_oil">
+            <segment id="name">
+                <source>jar_of_alien_oil.name</source>
+                <target>jar_of_alien_oil.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>jar_of_alien_oil.short_name</source>
+                <target>jar_of_alien_oil.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>jar_of_alien_oil.genre</source>
+                <target>jar_of_alien_oil.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>jar_of_alien_oil.first_letter</source>
+                <target>jar_of_alien_oil.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>jar_of_alien_oil.description</source>
+                <target>jar_of_alien_oil.description</target>
+            </segment>
+            <segment id="examine">
+                <source>jar_of_alien_oil.examine</source>
+                <target>jar_of_alien_oil.examine</target>
+            </segment>
+        </unit>
+        <unit id="bandage">
+            <segment id="name">
+                <source>bandage.name</source>
+                <target>bandage.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>bandage.short_name</source>
+                <target>bandage.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>bandage.genre</source>
+                <target>bandage.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>bandage.first_letter</source>
+                <target>bandage.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>bandage.description</source>
+                <target>bandage.description</target>
+            </segment>
+            <segment id="examine">
+                <source>bandage.examine</source>
+                <target>bandage.examine</target>
+            </segment>
+        </unit>
+        <unit id="medikit">
+            <segment id="name">
+                <source>medikit.name</source>
+                <target>medikit.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>medikit.short_name</source>
+                <target>medikit.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>medikit.genre</source>
+                <target>medikit.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>medikit.first_letter</source>
+                <target>medikit.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>medikit.description</source>
+                <target>medikit.description</target>
+            </segment>
+            <segment id="examine">
+                <source>medikit.examine</source>
+                <target>medikit.examine</target>
+            </segment>
+        </unit>
+        <unit id="retro_fungal_serum">
+            <segment id="name">
+                <source>retro_fungal_serum.name</source>
+                <target>retro_fungal_serum.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>retro_fungal_serum.short_name</source>
+                <target>retro_fungal_serum.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>retro_fungal_serum.genre</source>
+                <target>retro_fungal_serum.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>retro_fungal_serum.first_letter</source>
+                <target>retro_fungal_serum.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>retro_fungal_serum.description</source>
+                <target>retro_fungal_serum.description</target>
+            </segment>
+            <segment id="examine">
+                <source>retro_fungal_serum.examine</source>
+                <target>retro_fungal_serum.examine</target>
+            </segment>
+        </unit>
+        <unit id="spore_sucker">
+            <segment id="name">
+                <source>spore_sucker.name</source>
+                <target>spore_sucker.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>spore_sucker.short_name</source>
+                <target>spore_sucker.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>spore_sucker.plural_name</source>
+                <target>spore_sucker.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>spore_sucker.genre</source>
+                <target>spore_sucker.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>spore_sucker.first_letter</source>
+                <target>spore_sucker.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>spore_sucker.description</source>
+                <target>spore_sucker.description</target>
+            </segment>
+            <segment id="examine">
+                <source>spore_sucker.examine</source>
+                <target>spore_sucker.examine</target>
+            </segment>
+        </unit>
+        <unit id="printed_circuit_jelly">
+            <segment id="name">
+                <source>printed_circuit_jelly.name</source>
+                <target>printed_circuit_jelly.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>printed_circuit_jelly.short_name</source>
+                <target>printed_circuit_jelly.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>printed_circuit_jelly.plural_name</source>
+                <target>printed_circuit_jelly.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>printed_circuit_jelly.genre</source>
+                <target>printed_circuit_jelly.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>printed_circuit_jelly.first_letter</source>
+                <target>printed_circuit_jelly.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>printed_circuit_jelly.description</source>
+                <target>printed_circuit_jelly.description</target>
+            </segment>
+            <segment id="examine">
+                <source>printed_circuit_jelly.examine</source>
+                <target>printed_circuit_jelly.examine</target>
+            </segment>
+        </unit>
+        <unit id="invertebrate_shell">
+            <segment id="name">
+                <source>invertebrate_shell.name</source>
+                <target>invertebrate_shell.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>invertebrate_shell.short_name</source>
+                <target>invertebrate_shell.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>invertebrate_shell.genre</source>
+                <target>invertebrate_shell.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>invertebrate_shell.first_letter</source>
+                <target>invertebrate_shell.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>invertebrate_shell.description</source>
+                <target>invertebrate_shell.description</target>
+            </segment>
+            <segment id="examine">
+                <source>invertebrate_shell.examine</source>
+                <target>invertebrate_shell.examine</target>
+            </segment>
+        </unit>
+        <unit id="magellan_liquid_map">
+            <segment id="name">
+                <source>magellan_liquid_map.name</source>
+                <target>magellan_liquid_map.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>magellan_liquid_map.short_name</source>
+                <target>magellan_liquid_map.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>magellan_liquid_map.plural_name</source>
+                <target>magellan_liquid_map.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>magellan_liquid_map.genre</source>
+                <target>magellan_liquid_map.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>magellan_liquid_map.first_letter</source>
+                <target>magellan_liquid_map.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>magellan_liquid_map.description</source>
+                <target>magellan_liquid_map.description</target>
+            </segment>
+            <segment id="examine">
+                <source>magellan_liquid_map.examine</source>
+                <target>magellan_liquid_map.examine</target>
+            </segment>
+        </unit>
+        <unit id="camera_item">
+            <segment id="name">
+                <source>camera_item.name</source>
+                <target>camera_item.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>camera_item.short_name</source>
+                <target>camera_item.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>camera_item.plural_name</source>
+                <target>camera_item.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>camera_item.genre</source>
+                <target>camera_item.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>camera_item.first_letter</source>
+                <target>camera_item.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>camera_item.description</source>
+                <target>camera_item.description</target>
+            </segment>
+            <segment id="examine">
+                <source>camera.examine</source>
+                <target>camera.examine</target>
+            </segment>
+        </unit>
+        <unit id="mush_genome_disk">
+            <segment id="name">
+                <source>mush_genome_disk.name</source>
+                <target>mush_genome_disk.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>mush_genome_disk.short_name</source>
+                <target>mush_genome_disk.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>mush_genome_disk.plural_name</source>
+                <target>mush_genome_disk.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>mush_genome_disk.genre</source>
+                <target>mush_genome_disk.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>mush_genome_disk.first_letter</source>
+                <target>mush_genome_disk.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>mush_genome_disk.description</source>
+                <target>mush_genome_disk.description</target>
+            </segment>
+            <segment id="examine">
+                <source>mush_genome_disk.examine</source>
+                <target>mush_genome_disk.examine</target>
+            </segment>
+        </unit>
+        <unit id="mush_sample">
+            <segment id="name">
+                <source>mush_sample.name</source>
+                <target>mush_sample.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>mush_sample.short_name</source>
+                <target>mush_sample.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>mush_sample.genre</source>
+                <target>mush_sample.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>mush_sample.first_letter</source>
+                <target>mush_sample.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>mush_sample.description</source>
+                <target>mush_sample.description</target>
+            </segment>
+            <segment id="examine">
+                <source>mush_sample.examine</source>
+                <target>mush_sample.examine</target>
+            </segment>
+        </unit>
+        <unit id="myco_alarm">
+            <segment id="name">
+                <source>myco_alarm.name</source>
+                <target>myco_alarm.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>myco_alarm.short_name</source>
+                <target>myco_alarm.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>myco_alarm.plural_name</source>
+                <target>myco_alarm.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>myco_alarm.genre</source>
+                <target>myco_alarm.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>myco_alarm.first_letter</source>
+                <target>myco_alarm.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>myco_alarm.description</source>
+                <target>myco_alarm.description</target>
+            </segment>
+            <segment id="examine">
+                <source>myco_alarm.examine</source>
+                <target>myco_alarm.examine</target>
+            </segment>
+        </unit>
+        <unit id="starmap_fragment">
+            <segment id="name">
+                <source>starmap_fragment.name</source>
+                <target>starmap_fragment.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>starmap_fragment.short_name</source>
+                <target>starmap_fragment.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>starmap_fragment.genre</source>
+                <target>starmap_fragment.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>starmap_fragment.first_letter</source>
+                <target>starmap_fragment.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>starmap_fragment.description</source>
+                <target>starmap_fragment.description</target>
+            </segment>
+            <segment id="examine">
+                <source>starmap_fragment.examine</source>
+                <target>starmap_fragment.examine</target>
+            </segment>
+        </unit>
+        <unit id="water_stick">
+            <segment id="name">
+                <source>water_stick.name</source>
+                <target>water_stick.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>water_stick.short_name</source>
+                <target>water_stick.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>water_stick.genre</source>
+                <target>water_stick.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>water_stick.first_letter</source>
+                <target>water_stick.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>water_stick.description</source>
+                <target>water_stick.description</target>
+            </segment>
+            <segment id="examine">
+                <source>water_stick.examine</source>
+                <target>water_stick.examine</target>
+            </segment>
+        </unit>
+        <unit id="old_faithful">
+            <segment id="name">
+                <source>old_faithful.name</source>
+                <target>old_faithful.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>old_faithful.short_name</source>
+                <target>old_faithful.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>old_faithful.plural_name</source>
+                <target>old_faithful.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>old_faithful.genre</source>
+                <target>old_faithful.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>old_faithful.first_letter</source>
+                <target>old_faithful.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>old_faithful.description</source>
+                <target>old_faithful.description</target>
+            </segment>
+            <segment id="examine">
+                <source>old_faithful.examine</source>
+                <target>old_faithful.examine</target>
+            </segment>
+        </unit>
+        <unit id="lizaro_jungle">
+            <segment id="name">
+                <source>lizaro_jungle.name</source>
+                <target>lizaro_jungle.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>lizaro_jungle.short_name</source>
+                <target>lizaro_jungle.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>lizaro_jungle.plural_name</source>
+                <target>lizaro_jungle.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>lizaro_jungle.genre</source>
+                <target>lizaro_jungle.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>lizaro_jungle.first_letter</source>
+                <target>lizaro_jungle.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>lizaro_jungle.description</source>
+                <target>lizaro_jungle.description</target>
+            </segment>
+            <segment id="examine">
+                <source>lizaro_jungle.examine</source>
+                <target>lizaro_jungle.examine</target>
+            </segment>
+        </unit>
+        <unit id="knife">
+            <segment id="name">
+                <source>knife.name</source>
+                <target>knife.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>knife.short_name</source>
+                <target>knife.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>knife.plural_name</source>
+                <target>knife.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>knife.genre</source>
+                <target>knife.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>knife.first_letter</source>
+                <target>knife.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>knife.description</source>
+                <target>knife.description</target>
+            </segment>
+            <segment id="examine">
+                <source>knife.examine</source>
+                <target>knife.examine</target>
+            </segment>
+        </unit>
+        <unit id="blaster">
+            <segment id="name">
+                <source>blaster.name</source>
+                <target>blaster.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>blaster.short_name</source>
+                <target>blaster.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>blaster.plural_name</source>
+                <target>blaster.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>blaster.genre</source>
+                <target>blaster.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>blaster.first_letter</source>
+                <target>blaster.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>blaster.description</source>
+                <target>blaster.description</target>
+            </segment>
+            <segment id="examine">
+                <source>blaster.examine</source>
+                <target>blaster.examine</target>
+            </segment>
+        </unit>
+        <unit id="natamy_rifle">
+            <segment id="name">
+                <source>natamy_rifle.name</source>
+                <target>natamy_rifle.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>natamy_rifle.short_name</source>
+                <target>natamy_rifle.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>natamy_rifle.plural_name</source>
+                <target>natamy_rifle.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>natamy_rifle.genre</source>
+                <target>natamy_rifle.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>natamy_rifle.first_letter</source>
+                <target>natamy_rifle.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>natamy_rifle.description</source>
+                <target>natamy_rifle.description</target>
+            </segment>
+            <segment id="examine">
+                <source>natamy_rifle.examine</source>
+                <target>natamy_rifle.examine</target>
+            </segment>
+        </unit>
+        <unit id="grenade">
+            <segment id="name">
+                <source>grenade.name</source>
+                <target>grenade.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>grenade.short_name</source>
+                <target>grenade.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>grenade.plural_name</source>
+                <target>grenade.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>grenade.genre</source>
+                <target>grenade.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>grenade.first_letter</source>
+                <target>grenade.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>grenade.description</source>
+                <target>grenade.description</target>
+            </segment>
+            <segment id="examine">
+                <source>grenade.examine</source>
+                <target>grenade.examine</target>
+            </segment>
+        </unit>
+        <unit id="rocket_launcher">
+            <segment id="name">
+                <source>rocket_launcher.name</source>
+                <target>rocket_launcher.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>rocket_launcher.short_name</source>
+                <target>rocket_launcher.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>rocket_launcher.plural_name</source>
+                <target>rocket_launcher.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>rocket_launcher.genre</source>
+                <target>rocket_launcher.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>rocket_launcher.first_letter</source>
+                <target>rocket_launcher.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>rocket_launcher.description</source>
+                <target>rocket_launcher.description</target>
+            </segment>
+            <segment id="examine">
+                <source>rocket_launcher.examine</source>
+                <target>rocket_launcher.examine</target>
+            </segment>
+        </unit>
+        <unit id="survival_kit">
+            <segment id="name">
+                <source>survival_kit.name</source>
+                <target>survival_kit.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>survival_kit.short_name</source>
+                <target>survival_kit.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>survival_kit.genre</source>
+                <target>survival_kit.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>survival_kit.first_letter</source>
+                <target>survival_kit.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>survival_kit.description</source>
+                <target>survival_kit.description</target>
+            </segment>
+            <segment id="examine">
+                <source>survival_kit.examine</source>
+                <target>survival_kit.examine</target>
+            </segment>
+        </unit>
+        <unit id="fuel_capsule">
+            <segment id="name">
+                <source>fuel_capsule.name</source>
+                <target>fuel_capsule.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>fuel_capsule.short_name</source>
+                <target>fuel_capsule.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>fuel_capsule.genre</source>
+                <target>fuel_capsule.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>fuel_capsule.first_letter</source>
+                <target>fuel_capsule.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>fuel_capsule.description</source>
+                <target>fuel_capsule.description</target>
+            </segment>
+            <segment id="examine">
+                <source>fuel_capsule.examine</source>
+                <target>fuel_capsule.examine</target>
+            </segment>
+        </unit>
+        <unit id="hydropot">
+            <segment id="name">
+                <source>hydropot.name</source>
+                <target>hydropot.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>hydropot.short_name</source>
+                <target>hydropot.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>hydropot.genre</source>
+                <target>hydropot.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>hydropot.first_letter</source>
+                <target>hydropot.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>hydropot.description</source>
+                <target>hydropot.description</target>
+            </segment>
+            <segment id="examine">
+                <source>hydropot.examine</source>
+                <target>hydropot.examine</target>
+            </segment>
+        </unit>
+        <unit id="lunchbox">
+            <segment id="name">
+                <source>lunchbox.name</source>
+                <target>lunchbox.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>lunchbox.short_name</source>
+                <target>lunchbox.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>lunchbox.genre</source>
+                <target>lunchbox.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>lunchbox.first_letter</source>
+                <target>lunchbox.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>lunchbox.description</source>
+                <target>lunchbox.description</target>
+            </segment>
+            <segment id="examine">
+                <source>lunchbox.examine</source>
+                <target>lunchbox.examine</target>
+            </segment>
+        </unit>
+        <unit id="oxygen_capsule">
+            <segment id="name">
+                <source>oxygen_capsule.name</source>
+                <target>oxygen_capsule.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>oxygen_capsule.short_name</source>
+                <target>oxygen_capsule.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>oxygen_capsule.genre</source>
+                <target>oxygen_capsule.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>oxygen_capsule.first_letter</source>
+                <target>oxygen_capsule.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>oxygen_capsule.description</source>
+                <target>oxygen_capsule.description</target>
+            </segment>
+            <segment id="examine">
+                <source>oxygen_capsule.examine</source>
+                <target>oxygen_capsule.examine</target>
+            </segment>
+        </unit>
+        <unit id="space_capsule">
+            <segment id="name">
+                <source>space_capsule.name</source>
+                <target>space_capsule.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>space_capsule.short_name</source>
+                <target>space_capsule.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>space_capsule.genre</source>
+                <target>space_capsule.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>space_capsule.first_letter</source>
+                <target>space_capsule.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>space_capsule.description</source>
+                <target>space_capsule.description</target>
+            </segment>
+            <segment id="examine">
+                <source>space_capsule.examine</source>
+                <target>space_capsule.examine</target>
+            </segment>
+        </unit>
+        <unit id="swedish_sofa">
+            <segment id="name">
+                <source>swedish_sofa.name</source>
+                <target>swedish_sofa.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>swedish_sofa.short_name</source>
+                <target>swedish_sofa.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>swedish_sofa.plural_name</source>
+                <target>swedish_sofa.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>swedish_sofa.genre</source>
+                <target>swedish_sofa.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>swedish_sofa.first_letter</source>
+                <target>swedish_sofa.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>swedish_sofa.description</source>
+                <target>swedish_sofa.description</target>
+            </segment>
+            <segment id="examine">
+                <source>swedish_sofa.examine</source>
+                <target>swedish_sofa.examine</target>
+            </segment>
+        </unit>
+        <unit id="thermos_of_coffee">
+            <segment id="name">
+                <source>thermos_of_coffee.name</source>
+                <target>thermos_of_coffee.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>thermos_of_coffee.short_name</source>
+                <target>thermos_of_coffee.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>thermos_of_coffee.genre</source>
+                <target>thermos_of_coffee.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>thermos_of_coffee.first_letter</source>
+                <target>thermos_of_coffee.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>thermos_of_coffee.description</source>
+                <target>thermos_of_coffee.description</target>
+            </segment>
+            <segment id="examine">
+                <source>thermos_of_coffee.examine</source>
+                <target>thermos_of_coffee.examine</target>
+            </segment>
+        </unit>
+        <unit id="banana_tree">
+            <segment id="name">
+                <source>banana_tree.name</source>
+                <target>banana_tree.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>banana_tree.short_name</source>
+                <target>banana_tree.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>banana_tree.genre</source>
+                <target>banana_tree.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>banana_tree.first_letter</source>
+                <target>banana_tree.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>banana_tree.description</source>
+                <target>banana_tree.description</target>
+            </segment>
+            <segment id="examine">
+                <source>banana_tree.examine</source>
+                <target>banana_tree.examine</target>
+            </segment>
+        </unit>
+        <unit id="creepist">
+            <segment id="name">
+                <source>creepist.name</source>
+                <target>creepist.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>creepist.short_name</source>
+                <target>creepist.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>creepist.genre</source>
+                <target>creepist.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>creepist.first_letter</source>
+                <target>creepist.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>creepist.description</source>
+                <target>creepist.description</target>
+            </segment>
+            <segment id="examine">
+                <source>creepist.examine</source>
+                <target>creepist.examine</target>
+            </segment>
+        </unit>
+        <unit id="cactax">
+            <segment id="name">
+                <source>cactax.name</source>
+                <target>cactax.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>cactax.short_name</source>
+                <target>cactax.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>cactax.genre</source>
+                <target>cactax.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>cactax.first_letter</source>
+                <target>cactax.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>cactax.description</source>
+                <target>cactax.description</target>
+            </segment>
+            <segment id="examine">
+                <source>cactax.examine</source>
+                <target>cactax.examine</target>
+            </segment>
+        </unit>
+        <unit id="bifflon">
+            <segment id="name">
+                <source>bifflon.name</source>
+                <target>bifflon.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>bifflon.short_name</source>
+                <target>bifflon.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>bifflon.genre</source>
+                <target>bifflon.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>bifflon.first_letter</source>
+                <target>bifflon.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>bifflon.description</source>
+                <target>bifflon.description</target>
+            </segment>
+            <segment id="examine">
+                <source>bifflon.examine</source>
+                <target>bifflon.examine</target>
+            </segment>
+        </unit>
+        <unit id="pulminagro">
+            <segment id="name">
+                <source>pulminagro.name</source>
+                <target>pulminagro.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>pulminagro.short_name</source>
+                <target>pulminagro.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>pulminagro.genre</source>
+                <target>pulminagro.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>pulminagro.first_letter</source>
+                <target>pulminagro.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>pulminagro.description</source>
+                <target>pulminagro.description</target>
+            </segment>
+            <segment id="examine">
+                <source>pulminagro.examine</source>
+                <target>pulminagro.examine</target>
+            </segment>
+        </unit>
+        <unit id="precatus">
+            <segment id="name">
+                <source>precatus.name</source>
+                <target>precatus.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>precatus.short_name</source>
+                <target>precatus.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>precatus.genre</source>
+                <target>precatus.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>precatus.first_letter</source>
+                <target>precatus.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>precatus.description</source>
+                <target>precatus.description</target>
+            </segment>
+            <segment id="examine">
+                <source>precatus.examine</source>
+                <target>precatus.examine</target>
+            </segment>
+        </unit>
+        <unit id="buttalien">
+            <segment id="name">
+                <source>buttalien.name</source>
+                <target>buttalien.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>buttalien.short_name</source>
+                <target>buttalien.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>buttalien.genre</source>
+                <target>buttalien.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>buttalien.first_letter</source>
+                <target>buttalien.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>buttalien.description</source>
+                <target>buttalien.description</target>
+            </segment>
+            <segment id="examine">
+                <source>buttalien.examine</source>
+                <target>buttalien.examine</target>
+            </segment>
+        </unit>
+        <unit id="platacia">
+            <segment id="name">
+                <source>platacia.name</source>
+                <target>platacia.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>platacia.short_name</source>
+                <target>platacia.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>platacia.genre</source>
+                <target>platacia.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>platacia.first_letter</source>
+                <target>platacia.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>platacia.description</source>
+                <target>platacia.description</target>
+            </segment>
+            <segment id="examine">
+                <source>platacia.examine</source>
+                <target>platacia.examine</target>
+            </segment>
+        </unit>
+        <unit id="tubiliscus">
+            <segment id="name">
+                <source>tubiliscus.name</source>
+                <target>tubiliscus.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>tubiliscus.short_name</source>
+                <target>tubiliscus.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>tubiliscus.genre</source>
+                <target>tubiliscus.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>tubiliscus.first_letter</source>
+                <target>tubiliscus.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>tubiliscus.description</source>
+                <target>tubiliscus.description</target>
+            </segment>
+            <segment id="examine">
+                <source>tubiliscus.examine</source>
+                <target>tubiliscus.examine</target>
+            </segment>
+        </unit>
+        <unit id="graapshoot">
+            <segment id="name">
+                <source>graapshoot.name</source>
+                <target>graapshoot.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>graapshoot.short_name</source>
+                <target>graapshoot.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>graapshoot.genre</source>
+                <target>graapshoot.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>graapshoot.first_letter</source>
+                <target>graapshoot.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>graapshoot.description</source>
+                <target>graapshoot.description</target>
+            </segment>
+            <segment id="examine">
+                <source>graapshoot.examine</source>
+                <target>graapshoot.examine</target>
+            </segment>
+        </unit>
+        <unit id="peniraft">
+            <segment id="name">
+                <source>peniraft.name</source>
+                <target>peniraft.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>peniraft.short_name</source>
+                <target>peniraft.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>peniraft.genre</source>
+                <target>peniraft.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>peniraft.first_letter</source>
+                <target>peniraft.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>peniraft.description</source>
+                <target>peniraft.description</target>
+            </segment>
+            <segment id="examine">
+                <source>peniraft.examine</source>
+                <target>peniraft.examine</target>
+            </segment>
+        </unit>
+        <unit id="fiboniccus">
+            <segment id="name">
+                <source>fiboniccus.name</source>
+                <target>fiboniccus.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>fiboniccus.short_name</source>
+                <target>fiboniccus.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>fiboniccus.genre</source>
+                <target>fiboniccus.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>fiboniccus.first_letter</source>
+                <target>fiboniccus.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>fiboniccus.description</source>
+                <target>fiboniccus.description</target>
+            </segment>
+            <segment id="examine">
+                <source>fiboniccus.examine</source>
+                <target>fiboniccus.examine</target>
+            </segment>
+        </unit>
+        <unit id="mycopia">
+            <segment id="name">
+                <source>mycopia.name</source>
+                <target>mycopia.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>mycopia.short_name</source>
+                <target>mycopia.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>mycopia.genre</source>
+                <target>mycopia.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>mycopia.first_letter</source>
+                <target>mycopia.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>mycopia.description</source>
+                <target>mycopia.description</target>
+            </segment>
+            <segment id="examine">
+                <source>mycopia.examine</source>
+                <target>mycopia.examine</target>
+            </segment>
+        </unit>
+        <unit id="asperagunk">
+            <segment id="name">
+                <source>asperagunk.name</source>
+                <target>asperagunk.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>asperagunk.short_name</source>
+                <target>asperagunk.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>asperagunk.genre</source>
+                <target>asperagunk.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>asperagunk.first_letter</source>
+                <target>asperagunk.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>asperagunk.description</source>
+                <target>asperagunk.description</target>
+            </segment>
+            <segment id="examine">
+                <source>asperagunk.examine</source>
+                <target>asperagunk.examine</target>
+            </segment>
+        </unit>
+        <unit id="filandra">
+            <segment id="name">
+                <source>filandra.name</source>
+                <target>filandra.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>filandra.short_name</source>
+                <target>filandra.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>filandra.genre</source>
+                <target>filandra.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>filandra.first_letter</source>
+                <target>filandra.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>filandra.description</source>
+                <target>filandra.description</target>
+            </segment>
+            <segment id="examine">
+                <source>filandra.examine</source>
+                <target>filandra.examine</target>
+            </segment>
+        </unit>
+        <unit id="bumpjunkin">
+            <segment id="name">
+                <source>bumpjunkin.name</source>
+                <target>bumpjunkin.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>bumpjunkin.short_name</source>
+                <target>bumpjunkin.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>bumpjunkin.genre</source>
+                <target>bumpjunkin.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>bumpjunkin.first_letter</source>
+                <target>bumpjunkin.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>bumpjunkin.description</source>
+                <target>bumpjunkin.description</target>
+            </segment>
+            <segment id="examine">
+                <source>bumpjunkin.examine</source>
+                <target>bumpjunkin.examine</target>
+            </segment>
+        </unit>
+        <unit id="jumpkin">
+            <segment id="name">
+                <source>jumpkin.name</source>
+                <target>jumpkin.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>jumpkin.short_name</source>
+                <target>jumpkin.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>jumpkin.genre</source>
+                <target>jumpkin.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>jumpkin.first_letter</source>
+                <target>jumpkin.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>jumpkin.description</source>
+                <target>jumpkin.description</target>
+            </segment>
+            <segment id="examine">
+                <source>jumpkin.examine</source>
+                <target>jumpkin.examine</target>
+            </segment>
+        </unit>
+        <unit id="lombrick_bar">
+            <segment id="name">
+                <source>lombrick_bar.name</source>
+                <target>lombrick_bar.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>lombrick_bar.short_name</source>
+                <target>lombrick_bar.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>lombrick_bar.genre</source>
+                <target>lombrick_bar.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>lombrick_bar.first_letter</source>
+                <target>lombrick_bar.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>lombrick_bar.description</source>
+                <target>lombrick_bar.description</target>
+            </segment>
+            <segment id="examine">
+                <source>lombrick_bar.examine</source>
+                <target>lombrick_bar.examine</target>
+            </segment>
+        </unit>
+        <unit id="organic_waste">
+            <segment id="name">
+                <source>organic_waste.name</source>
+                <target>organic_waste.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>organic_waste.short_name</source>
+                <target>organic_waste.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>organic_waste.genre</source>
+                <target>organic_waste.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>organic_waste.first_letter</source>
+                <target>organic_waste.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>organic_waste.description</source>
+                <target>organic_waste.description</target>
+            </segment>
+            <segment id="examine">
+                <source>organic_waste.examine</source>
+                <target>organic_waste.examine</target>
+            </segment>
+        </unit>
+        <unit id="proactive_puffed_rice">
+            <segment id="name">
+                <source>proactive_puffed_rice.name</source>
+                <target>proactive_puffed_rice.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>proactive_puffed_rice.short_name</source>
+                <target>proactive_puffed_rice.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>proactive_puffed_rice.genre</source>
+                <target>proactive_puffed_rice.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>proactive_puffed_rice.first_letter</source>
+                <target>proactive_puffed_rice.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>proactive_puffed_rice.description</source>
+                <target>proactive_puffed_rice.description</target>
+            </segment>
+            <segment id="examine">
+                <source>proactive_puffed_rice.examine</source>
+                <target>proactive_puffed_rice.examine</target>
+            </segment>
+        </unit>
+        <unit id="alien_steak">
+            <segment id="name">
+                <source>alien_steak.name</source>
+                <target>alien_steak.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>alien_steak.short_name</source>
+                <target>alien_steak.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>alien_steak.genre</source>
+                <target>alien_steak.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>alien_steak.first_letter</source>
+                <target>alien_steak.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>alien_steak.description</source>
+                <target>alien_steak.description</target>
+            </segment>
+            <segment id="examine">
+                <source>alien_steak.examine</source>
+                <target>alien_steak.examine</target>
+            </segment>
+        </unit>
+        <unit id="anabolic">
+            <segment id="name">
+                <source>anabolic.name</source>
+                <target>anabolic.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>anabolic.short_name</source>
+                <target>anabolic.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>anabolic.genre</source>
+                <target>anabolic.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>anabolic.first_letter</source>
+                <target>anabolic.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>anabolic.description</source>
+                <target>anabolic.description</target>
+            </segment>
+            <segment id="examine">
+                <source>anabolic.examine</source>
+                <target>anabolic.examine</target>
+            </segment>
+        </unit>
+        <unit id="coffee">
+            <segment id="name">
+                <source>coffee.name</source>
+                <target>coffee.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>coffee.short_name</source>
+                <target>coffee.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>coffee.genre</source>
+                <target>coffee.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>coffee.first_letter</source>
+                <target>coffee.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>coffee.description</source>
+                <target>coffee.description</target>
+            </segment>
+            <segment id="examine">
+                <source>coffee.examine</source>
+                <target>coffee.examine</target>
+            </segment>
+        </unit>
+        <unit id="cooked_ration">
+            <segment id="name">
+                <source>cooked_ration.name</source>
+                <target>cooked_ration.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>cooked_ration.short_name</source>
+                <target>cooked_ration.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>cooked_ration.genre</source>
+                <target>cooked_ration.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>cooked_ration.first_letter</source>
+                <target>cooked_ration.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>cooked_ration.description</source>
+                <target>cooked_ration.description</target>
+            </segment>
+            <segment id="examine">
+                <source>cooked_ration.examine</source>
+                <target>cooked_ration.examine</target>
+            </segment>
+        </unit>
+        <unit id="space_potato">
+            <segment id="name">
+                <source>space_potato.name</source>
+                <target>space_potato.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>space_potato.short_name</source>
+                <target>space_potato.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>space_potato.genre</source>
+                <target>space_potato.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>space_potato.first_letter</source>
+                <target>space_potato.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>space_potato.description</source>
+                <target>space_potato.description</target>
+            </segment>
+            <segment id="examine">
+                <source>space_potato.examine</source>
+                <target>space_potato.examine</target>
+            </segment>
+        </unit>
+        <unit id="standard_ration">
+            <segment id="name">
+                <source>standard_ration.name</source>
+                <target>standard_ration.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>standard_ration.short_name</source>
+                <target>standard_ration.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>standard_ration.genre</source>
+                <target>standard_ration.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>standard_ration.first_letter</source>
+                <target>standard_ration.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>standard_ration.description</source>
+                <target>standard_ration.description</target>
+            </segment>
+            <segment id="examine">
+                <source>standard_ration.examine</source>
+                <target>standard_ration.examine</target>
+            </segment>
+        </unit>
+        <unit id="supervitamin_bar">
+            <segment id="name">
+                <source>supervitamin_bar.name</source>
+                <target>supervitamin_bar.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>supervitamin_bar.short_name</source>
+                <target>supervitamin_bar.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>supervitamin_bar.genre</source>
+                <target>supervitamin_bar.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>supervitamin_bar.first_letter</source>
+                <target>supervitamin_bar.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>supervitamin_bar.description</source>
+                <target>supervitamin_bar.description</target>
+            </segment>
+            <segment id="examine">
+                <source>supervitamin_bar.examine</source>
+                <target>supervitamin_bar.examine</target>
+            </segment>
+        </unit>
+        <unit id="blueprint">
+            <segment id="name">
+                <source>blueprint.name</source>
+                <target>blueprint.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>blueprint.short_name</source>
+                <target>blueprint.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>blueprint.genre</source>
+                <target>blueprint.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>blueprint.first_letter</source>
+                <target>blueprint.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>blueprint.description</source>
+                <target>blueprint.description</target>
+            </segment>
+            <segment id="examine">
+                <source>blueprint.examine</source>
+                <target>blueprint.examine</target>
+            </segment>
+        </unit>
+        <unit id="blueprint_ingredient">
+            <segment id="description">
+                <source>blueprint_ingredient.description</source>
+                <target>blueprint_ingredient.description</target>
+            </segment>
+        </unit>
+        <unit id="apprenton">
+            <segment id="name">
+                <source>apprenton.name</source>
+                <target>apprenton.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>apprenton.short_name</source>
+                <target>apprenton.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>apprenton.genre</source>
+                <target>apprenton.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>apprenton.first_letter</source>
+                <target>apprenton.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>apprenton.description</source>
+                <target>apprenton.description</target>
+            </segment>
+            <segment id="examine">
+                <source>apprenton.examine</source>
+                <target>apprenton.examine</target>
+            </segment>
+        </unit>
+        <unit id="document">
+            <segment id="name">
+                <source>document.name</source>
+                <target>document.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>document.short_name</source>
+                <target>document.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>document.genre</source>
+                <target>document.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>document.first_letter</source>
+                <target>document.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>document.description</source>
+                <target>document.description</target>
+            </segment>
+            <segment id="examine">
+                <source>document.examine</source>
+                <target>document.examine</target>
+            </segment>
+        </unit>
+        <unit id="commanders_manual">
+            <segment id="name">
+                <source>commanders_manual.name</source>
+                <target>commanders_manual.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>commanders_manual.short_name</source>
+                <target>commanders_manual.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>commanders_manual.genre</source>
+                <target>commanders_manual.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>commanders_manual.first_letter</source>
+                <target>commanders_manual.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>commanders_manual.description</source>
+                <target>commanders_manual.description</target>
+            </segment>
+            <segment id="examine">
+                <source>commanders_manual.examine</source>
+                <target>commanders_manual.examine</target>
+            </segment>
+        </unit>
+        <unit id="mush_research_review">
+            <segment id="name">
+                <source>mush_research_review.name</source>
+                <target>mush_research_review.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>mush_research_review.short_name</source>
+                <target>mush_research_review.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>mush_research_review.genre</source>
+                <target>mush_research_review.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>mush_research_review.first_letter</source>
+                <target>mush_research_review.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>mush_research_review.description</source>
+                <target>mush_research_review.description</target>
+            </segment>
+            <segment id="examine">
+                <source>mush_research_review.examine</source>
+                <target>mush_research_review.examine</target>
+            </segment>
+        </unit>
+        <unit id="post_it">
+            <segment id="name">
+                <source>post_it.name</source>
+                <target>post_it.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>post_it.short_name</source>
+                <target>post_it.short_name</target>
+            </segment>
+            <segment id="genre">
+                <source>post_it.genre</source>
+                <target>post_it.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>post_it.first_letter</source>
+                <target>post_it.first_letter</target>
+            </segment>
+            <segment id="description">
+                <source>post_it.description</source>
+                <target>post_it.description</target>
+            </segment>
+            <segment id="examine">
+                <source>post_it.examine</source>
+                <target>post_it.examine</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

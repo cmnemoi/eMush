@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+    <file id="modifiers.ext">
+        <unit id="cycle_disease_increase">
+            <segment id="description">
+                <source>cycle_disease_increase.description</source>
+                <target>cycle_disease_increase.description</target>
+            </segment>
+        </unit>
+        <unit id="max_point_decrease">
+            <segment id="description">
+                <source>max_point_decrease.description</source>
+                <target>max_point_decrease.description</target>
+            </segment>
+        </unit>
+        <unit id="new_cycle_decrease">
+            <segment id="description">
+                <source>new_cycle_decrease.description</source>
+                <target>new_cycle_decrease.description</target>
+            </segment>
+        </unit>
+        <unit id="infection.player_decrease">
+            <segment id="description">
+                <source>infection.player_decrease.description</source>
+                <target>infection.player_decrease.description</target>
+            </segment>
+        </unit>
+        <unit id="post_action_decrease">
+            <segment id="description">
+                <source>post.action_decrease.description</source>
+                <target>post.action_decrease.description</target>
+            </segment>
+        </unit>
+        <unit id="move_increase">
+            <segment id="description">
+                <source>move_increase.description</source>
+                <target>move_increase.description</target>
+            </segment>
+        </unit>
+        <unit id="actions_increase">
+            <segment id="description">
+                <source>actions_increase.description</source>
+                <target>actions_increase.description</target>
+            </segment>
+        </unit>
+        <unit id="action_shoot_decrease">
+            <segment id="description">
+                <source>action_shoot_decrease.description</source>
+                <target>action_shoot_decrease.description</target>
+            </segment>
+        </unit>
+        <unit id="biting">
+            <segment id="description">
+                <source>biting.description</source>
+                <target>biting.description</target>
+            </segment>
+        </unit>
+        <unit id="breakouts">
+            <segment id="description">
+                <source>biting.description</source>
+                <target>biting.description</target>
+            </segment>
+        </unit>
+        <unit id="disease_cycle">
+            <segment id="description">
+                <source>disease_cycle.description</source>
+                <target>disease_cycle.description</target>
+            </segment>
+        </unit>
+        <unit id="cant_move">
+            <segment id="description">
+                <source>cant_move.description</source>
+                <target>cant_move.description</target>
+            </segment>
+        </unit>
+        <unit id="cant_pick_up_heavy_item">
+            <segment id="description">
+                <source>cant_pick_up_heavy_items.description</source>
+                <target>cant_pick_up_heavy_items.description</target>
+            </segment>
+        </unit>
+        <unit id="cat_allergy">
+            <segment id="description">
+                <source>cat_allergy.description</source>
+                <target>cat_allergy.description</target>
+            </segment>
+        </unit>
+        <unit id="dirtiness">
+            <segment id="description">
+                <source>dirtiness.description</source>
+                <target>dirtiness.description</target>
+            </segment>
+        </unit>
+        <unit id="deaf">
+            <segment id="description">
+                <source>deaf.description</source>
+                <target>deaf.description</target>
+            </segment>
+        </unit>
+        <unit id="drooling">
+            <segment id="description">
+                <source>drooling.description</source>
+                <target>drooling.description</target>
+            </segment>
+        </unit>
+        <unit id="fear_of_cats">
+            <segment id="description">
+                <source>fear_of_cats.description</source>
+                <target>fear_of_cats.description</target>
+            </segment>
+        </unit>
+        <unit id="foaming_mouth">
+            <segment id="description">
+                <source>foaming_mouth.description</source>
+                <target>foaming_mouth.description</target>
+            </segment>
+        </unit>
+        <unit id="mute">
+            <segment id="description">
+                <source>mute.description</source>
+                <target>mute.description</target>
+            </segment>
+        </unit>
+        <unit id="nausea">
+            <segment id="description">
+                <source>nausea.description</source>
+                <target>nausea.description</target>
+            </segment>
+        </unit>
+        <unit id="sneezing">
+            <segment id="description">
+                <source>sneezing.description</source>
+                <target>sneezing.description</target>
+            </segment>
+        </unit>
+        <unit id="no_attack_actions">
+            <segment id="description">
+                <source>no_attack_actions.description</source>
+                <target>no_attack_actions.description</target>
+            </segment>
+        </unit>
+        <unit id="no_piloting_actions">
+            <segment id="description">
+                <source>no_piloting_actions.description</source>
+                <target>no_piloting_actions.description</target>
+            </segment>
+        </unit>
+        <unit id="no_shoot_actions">
+            <segment id="description">
+                <source>no_shoot_actions.description</source>
+                <target>no_shoot_actions.description</target>
+            </segment>
+        </unit>
+        <unit id="biting">
+            <segment id="description">
+                <source>biting.description</source>
+                <target>biting.description</target>
+            </segment>
+        </unit>
+        <unit id="septicemia">
+            <segment id="description">
+                <source>septicemia.description</source>
+                <target>septicemia.description</target>
+            </segment>
+        </unit>
+        <unit id="vomiting">
+            <segment id="description">
+                <source>vomiting.description</source>
+                <target>vomiting.description</target>
+            </segment>
+        </unit>
+        <unit id="coprolalia_messages">
+            <segment id="description">
+                <source>coprolalia_messages.description</source>
+                <target>coprolalia_messages.description</target>
+            </segment>
+        </unit>
+        <unit id="paranoia_messages">
+            <segment id="description">
+                <source>paranoia_messages.description</source>
+                <target>paranoia_messages.description</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

@@ -1,0 +1,1096 @@
+<?xml version="1.0" encoding="UTF-8"?><xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+    <file id="equipements.ext">
+        <unit id="antenna">
+            <segment id="name">
+                <source>antenna.name</source>
+                <target>antenna.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>antenna.short_name</source>
+                <target>antenna.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>antenna.plural_name</source>
+                <target>antenna.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>antenna.genre</source>
+                <target>antenna.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>antenna.first_letter</source>
+                <target>antenna.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>antenna.examine</source>
+                <target>antenna.examine</target>
+            </segment>
+        </unit>
+        <unit id="astro_terminal">
+            <segment id="name">
+                <source>astro_terminal.name</source>
+                <target>astro_terminal.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>astro_terminal.short_name</source>
+                <target>astro_terminal.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>astro_terminal.plural_name</source>
+                <target>astro_terminal.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>astro_terminal.genre</source>
+                <target>astro_terminal.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>astro_terminal.first_letter</source>
+                <target>astro_terminal.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>astro_terminal.examine</source>
+                <target>astro_terminal.examine</target>
+            </segment>
+        </unit>
+        <unit id="auxiliary_terminal">
+            <segment id="name">
+                <source>auxiliary_terminal.name</source>
+                <target>auxiliary_terminal.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>auxiliary_terminal.short_name</source>
+                <target>auxiliary_terminal.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>auxiliary_terminal.plural_name</source>
+                <target>auxiliary_terminal.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>auxiliary_terminal.genre</source>
+                <target>auxiliary_terminal.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>auxiliary_terminal.first_letter</source>
+                <target>auxiliary_terminal.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>auxiliary_terminal.examine</source>
+                <target>auxiliary_terminal.examine</target>
+            </segment>
+        </unit>
+        <unit id="bed">
+            <segment id="name">
+                <source>bed.name</source>
+                <target>bed.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>bed.short_name</source>
+                <target>bed.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>bed.plural_name</source>
+                <target>bed.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>bed.genre</source>
+                <target>bed.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>bed.first_letter</source>
+                <target>bed.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>bed.examine</source>
+                <target>bed.examine</target>
+            </segment>
+        </unit>
+        <unit id="medlab_bed">
+            <segment id="name">
+                <source>medlab_bed.name</source>
+                <target>medlab_bed.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>medlab_bed.short_name</source>
+                <target>medlab_bed.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>medlab_bed.plural_name</source>
+                <target>medlab_bed.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>medlab_bed.genre</source>
+                <target>medlab_bed.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>medlab_bed.first_letter</source>
+                <target>medlab_bed.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>medlab_bed.examine</source>
+                <target>medlab_bed.examine</target>
+            </segment>
+        </unit>
+        <unit id="bios_terminal">
+            <segment id="name">
+                <source>bios_terminal.name</source>
+                <target>bios_terminal.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>bios_terminal.short_name</source>
+                <target>bios_terminal.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>bios_terminal.plural_name</source>
+                <target>bios_terminal.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>bios_terminal.genre</source>
+                <target>bios_terminal.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>bios_terminal.first_letter</source>
+                <target>bios_terminal.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>bios_terminal.examine</source>
+                <target>bios_terminal.examine</target>
+            </segment>
+        </unit>
+        <unit id="calculator">
+            <segment id="name">
+                <source>calculator.name</source>
+                <target>calculator.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>calculator.short_name</source>
+                <target>calculator.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>calculator.plural_name</source>
+                <target>calculator.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>calculator.genre</source>
+                <target>calculator.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>calculator.first_letter</source>
+                <target>calculator.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>calculator.examine</source>
+                <target>calculator.examine</target>
+            </segment>
+        </unit>
+        <unit id="coffee_machine">
+            <segment id="name">
+                <source>coffee_machine.name</source>
+                <target>coffee_machine.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>coffee_machine.short_name</source>
+                <target>coffee_machine.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>coffee_machine.plural_name</source>
+                <target>coffee_machine.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>coffee_machine.genre</source>
+                <target>coffee_machine.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>coffee_machine.first_letter</source>
+                <target>coffee_machine.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>coffee_machine.examine</source>
+                <target>coffee_machine.examine</target>
+            </segment>
+        </unit>
+        <unit id="combustion_chamber">
+            <segment id="name">
+                <source>combustion_chamber.name</source>
+                <target>combustion_chamber.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>combustion_chamber.short_name</source>
+                <target>combustion_chamber.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>combustion_chamber.plural_name</source>
+                <target>combustion_chamber.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>combustion_chamber.genre</source>
+                <target>combustion_chamber.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>combustion_chamber.first_letter</source>
+                <target>combustion_chamber.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>combustion_chamber.examine</source>
+                <target>combustion_chamber.examine</target>
+            </segment>
+        </unit>
+        <unit id="command_terminal">
+            <segment id="name">
+                <source>command_terminal.name</source>
+                <target>command_terminal.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>command_terminal.short_name</source>
+                <target>command_terminal.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>command_terminal.plural_name</source>
+                <target>command_terminal.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>command_terminal.genre</source>
+                <target>command_terminal.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>command_terminal.first_letter</source>
+                <target>command_terminal.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>command_terminal.examine</source>
+                <target>command_terminal.examine</target>
+            </segment>
+        </unit>
+        <unit id="communication_center">
+            <segment id="name">
+                <source>communication_center.name</source>
+                <target>communication_center.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>communication_center.short_name</source>
+                <target>communication_center.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>communication_center.plural_name</source>
+                <target>communication_center.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>communication_center.genre</source>
+                <target>communication_center.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>communication_center.first_letter</source>
+                <target>communication_center.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>communication_center.examine</source>
+                <target>communication_center.examine</target>
+            </segment>
+        </unit>
+        <unit id="cryo_module">
+            <segment id="name">
+                <source>cryo_module.name</source>
+                <target>cryo_module.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>cryo_module.short_name</source>
+                <target>cryo_module.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>cryo_module.plural_name</source>
+                <target>cryo_module.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>cryo_module.genre</source>
+                <target>cryo_module.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>cryo_module.first_letter</source>
+                <target>cryo_module.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>cryo_module.examine</source>
+                <target>cryo_module.examine</target>
+            </segment>
+        </unit>
+        <unit id="door">
+            <segment id="name">
+                <source>door.name</source>
+                <target>door.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>door.short_name</source>
+                <target>door.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>door.plural_name</source>
+                <target>door.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>door.genre</source>
+                <target>door.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>door.first_letter</source>
+                <target>door.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>door.examine</source>
+                <target>door.examine</target>
+            </segment>
+        </unit>
+        <unit id="dynarcade">
+            <segment id="name">
+                <source>dynarcade.name</source>
+                <target>dynarcade.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>dynarcade.short_name</source>
+                <target>dynarcade.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>dynarcade.plural_name</source>
+                <target>dynarcade.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>dynarcade.genre</source>
+                <target>dynarcade.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>dynarcade.first_letter</source>
+                <target>dynarcade.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>dynarcade.examine</source>
+                <target>dynarcade.examine</target>
+            </segment>
+        </unit>
+        <unit id="emergency_reactor">
+            <segment id="name">
+                <source>emergency_reactor.name</source>
+                <target>emergency_reactor.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>emergency_reactor.short_name</source>
+                <target>emergency_reactor.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>emergency_reactor.plural_name</source>
+                <target>emergency_reactor.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>emergency_reactor.genre</source>
+                <target>emergency_reactor.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>emergency_reactor.first_letter</source>
+                <target>emergency_reactor.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>emergency_reactor.examine</source>
+                <target>emergency_reactor.examine</target>
+            </segment>
+        </unit>
+        <unit id="fuel_tank">
+            <segment id="name">
+                <source>fuel_tank.name</source>
+                <target>fuel_tank.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>fuel_tank.short_name</source>
+                <target>fuel_tank.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>fuel_tank.plural_name</source>
+                <target>fuel_tank.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>fuel_tank.genre</source>
+                <target>fuel_tank.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>fuel_tank.first_letter</source>
+                <target>fuel_tank.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>fuel_tank.examine</source>
+                <target>fuel_tank.examine</target>
+            </segment>
+        </unit>
+        <unit id="gravity_simulator">
+            <segment id="name">
+                <source>gravity_simulator.name</source>
+                <target>gravity_simulator.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>gravity_simulator.short_name</source>
+                <target>gravity_simulator.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>gravity_simulator.plural_name</source>
+                <target>gravity_simulator.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>gravity_simulator.genre</source>
+                <target>gravity_simulator.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>gravity_simulator.first_letter</source>
+                <target>gravity_simulator.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>gravity_simulator.examine</source>
+                <target>gravity_simulator.examine</target>
+            </segment>
+        </unit>
+        <unit id="kitchen">
+            <segment id="name">
+                <source>kitchen.name</source>
+                <target>kitchen.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>kitchen.short_name</source>
+                <target>kitchen.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>kitchen.plural_name</source>
+                <target>kitchen.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>kitchen.genre</source>
+                <target>kitchen.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>kitchen.first_letter</source>
+                <target>kitchen.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>kitchen.examine</source>
+                <target>kitchen.examine</target>
+            </segment>
+        </unit>
+        <unit id="reactor_lateral">
+            <segment id="name">
+                <source>reactor_lateral.name</source>
+                <target>reactor_lateral.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>reactor_lateral.short_name</source>
+                <target>reactor_lateral.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>reactor_lateral.plural_name</source>
+                <target>reactor_lateral.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>reactor_lateral.genre</source>
+                <target>reactor_lateral.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>reactor_lateral.first_letter</source>
+                <target>reactor_lateral.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>reactor_lateral.examine</source>
+                <target>reactor_lateral.examine</target>
+            </segment>
+        </unit>
+        <unit id="mycoscan">
+            <segment id="name">
+                <source>mycoscan.name</source>
+                <target>mycoscan.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>mycoscan.short_name</source>
+                <target>mycoscan.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>mycoscan.plural_name</source>
+                <target>mycoscan.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>mycoscan.genre</source>
+                <target>mycoscan.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>mycoscan.first_letter</source>
+                <target>mycoscan.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>mycoscan.examine</source>
+                <target>mycoscan.examine</target>
+            </segment>
+        </unit>
+        <unit id="narcotic_distiller">
+            <segment id="name">
+                <source>narcotic_distiller.name</source>
+                <target>narcotic_distiller.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>narcotic_distiller.short_name</source>
+                <target>narcotic_distiller.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>narcotic_distiller.plural_name</source>
+                <target>narcotic_distiller.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>narcotic_distiller.genre</source>
+                <target>narcotic_distiller.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>narcotic_distiller.first_letter</source>
+                <target>narcotic_distiller.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>narcotic_distiller.examine</source>
+                <target>narcotic_distiller.examine</target>
+            </segment>
+        </unit>
+        <unit id="neron_core">
+            <segment id="name">
+                <source>neron_core.name</source>
+                <target>neron_core.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>neron_core.short_name</source>
+                <target>neron_core.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>neron_core.plural_name</source>
+                <target>neron_core.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>neron_core.genre</source>
+                <target>neron_core.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>neron_core.first_letter</source>
+                <target>neron_core.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>neron_core.examine</source>
+                <target>neron_core.examine</target>
+            </segment>
+        </unit>
+        <unit id="oxygen_tank">
+            <segment id="name">
+                <source>oxygen_tank.name</source>
+                <target>oxygen_tank.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>oxygen_tank.short_name</source>
+                <target>oxygen_tank.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>oxygen_tank.plural_name</source>
+                <target>oxygen_tank.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>oxygen_tank.genre</source>
+                <target>oxygen_tank.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>oxygen_tank.first_letter</source>
+                <target>oxygen_tank.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>oxygen_tank.examine</source>
+                <target>oxygen_tank.examine</target>
+            </segment>
+        </unit>
+        <unit id="pasiphae">
+            <segment id="name">
+                <source>pasiphae.name</source>
+                <target>pasiphae.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>pasiphae.short_name</source>
+                <target>pasiphae.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>pasiphae.plural_name</source>
+                <target>pasiphae.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>pasiphae.genre</source>
+                <target>pasiphae.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>pasiphae.first_letter</source>
+                <target>pasiphae.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>pasiphae.examine</source>
+                <target>pasiphae.examine</target>
+            </segment>
+        </unit>
+        <unit id="patrol_ship_alpha_2_wallis">
+            <segment id="name">
+                <source>patrol_ship_alpha_2_wallis.name</source>
+                <target>patrol_ship_alpha_2_wallis.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>patrol_ship_alpha_2_wallis.short_name</source>
+                <target>patrol_ship_alpha_2_wallis.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>patrol_ship_alpha_2_wallis.plural_name</source>
+                <target>patrol_ship_alpha_2_wallis.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>patrol_ship_alpha_2_wallis.genre</source>
+                <target>patrol_ship_alpha_2_wallis.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>patrol_ship_alpha_2_wallis.first_letter</source>
+                <target>patrol_ship_alpha_2_wallis.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>patrol_ship_alpha_2_wallis.examine</source>
+                <target>patrol_ship_alpha_2_wallis.examine</target>
+            </segment>
+        </unit>
+        <unit id="patrol_ship_alpha_epicure">
+            <segment id="name">
+                <source>patrol_ship_alpha_epicure.name</source>
+                <target>patrol_ship_alpha_epicure.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>patrol_ship_alpha_epicure.short_name</source>
+                <target>patrol_ship_alpha_epicure.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>patrol_ship_alpha_epicure.plural_name</source>
+                <target>patrol_ship_alpha_epicure.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>patrol_ship_alpha_epicure.genre</source>
+                <target>patrol_ship_alpha_epicure.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>patrol_ship_alpha_epicure.first_letter</source>
+                <target>patrol_ship_alpha_epicure.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>patrol_ship_alpha_epicure.examine</source>
+                <target>patrol_ship_alpha_epicure.examine</target>
+            </segment>
+        </unit>
+        <unit id="patrol_ship_alpha_jujube">
+            <segment id="name">
+                <source>patrol_ship_alpha_jujube.name</source>
+                <target>patrol_ship_alpha_jujube.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>patrol_ship_alpha_jujube.short_name</source>
+                <target>patrol_ship_alpha_jujube.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>patrol_ship_alpha_jujube.plural_name</source>
+                <target>patrol_ship_alpha_jujube.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>patrol_ship_alpha_jujube.genre</source>
+                <target>patrol_ship_alpha_jujube.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>patrol_ship_alpha_jujube.first_letter</source>
+                <target>patrol_ship_alpha_jujube.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>patrol_ship_alpha_jujube.examine</source>
+                <target>patrol_ship_alpha_jujube.examine</target>
+            </segment>
+        </unit>
+        <unit id="patrol_ship_alpha_longane">
+            <segment id="name">
+                <source>patrol_ship_alpha_longane.name</source>
+                <target>patrol_ship_alpha_longane.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>patrol_ship_alpha_longane.short_name</source>
+                <target>patrol_ship_alpha_longane.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>patrol_ship_alpha_longane.plural_name</source>
+                <target>patrol_ship_alpha_longane.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>patrol_ship_alpha_longane.genre</source>
+                <target>patrol_ship_alpha_longane.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>patrol_ship_alpha_longane.first_letter</source>
+                <target>patrol_ship_alpha_longane.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>patrol_ship_alpha_longane.examine</source>
+                <target>patrol_ship_alpha_longane.examine</target>
+            </segment>
+        </unit>
+        <unit id="patrol_ship_alpha_planton">
+            <segment id="name">
+                <source>patrol_ship_alpha_planton.name</source>
+                <target>patrol_ship_alpha_planton.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>patrol_ship_alpha_planton.short_name</source>
+                <target>patrol_ship_alpha_planton.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>patrol_ship_alpha_planton.plural_name</source>
+                <target>patrol_ship_alpha_planton.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>patrol_ship_alpha_planton.genre</source>
+                <target>patrol_ship_alpha_planton.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>patrol_ship_alpha_planton.first_letter</source>
+                <target>patrol_ship_alpha_planton.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>patrol_ship_alpha_planton.examine</source>
+                <target>patrol_ship_alpha_planton.examine</target>
+            </segment>
+        </unit>
+        <unit id="patrol_ship_alpha_socrate">
+            <segment id="name">
+                <source>patrol_ship_alpha_socrate.name</source>
+                <target>patrol_ship_alpha_socrate.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>patrol_ship_alpha_socrate.short_name</source>
+                <target>patrol_ship_alpha_socrate.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>patrol_ship_alpha_socrate.plural_name</source>
+                <target>patrol_ship_alpha_socrate.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>patrol_ship_alpha_socrate.genre</source>
+                <target>patrol_ship_alpha_socrate.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>patrol_ship_alpha_socrate.first_letter</source>
+                <target>patrol_ship_alpha_socrate.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>patrol_ship_alpha_socrate.examine</source>
+                <target>patrol_ship_alpha_socrate.examine</target>
+            </segment>
+        </unit>
+        <unit id="patrol_ship_alpha_tamarin">
+            <segment id="name">
+                <source>patrol_ship_alpha_tamarin.name</source>
+                <target>patrol_ship_alpha_tamarin.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>patrol_ship_alpha_tamarin.short_name</source>
+                <target>patrol_ship_alpha_tamarin.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>patrol_ship_alpha_tamarin.plural_name</source>
+                <target>patrol_ship_alpha_tamarin.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>patrol_ship_alpha_tamarin.genre</source>
+                <target>patrol_ship_alpha_tamarin.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>patrol_ship_alpha_tamarin.first_letter</source>
+                <target>patrol_ship_alpha_tamarin.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>patrol_ship_alpha_tamarin.examine</source>
+                <target>patrol_ship_alpha_tamarin.examine</target>
+            </segment>
+        </unit>
+        <unit id="pilgred">
+            <segment id="name">
+                <source>pilgred.name</source>
+                <target>pilgred.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>pilgred.short_name</source>
+                <target>pilgred.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>pilgred.plural_name</source>
+                <target>pilgred.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>pilgred.genre</source>
+                <target>pilgred.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>pilgred.first_letter</source>
+                <target>pilgred.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>pilgred.examine</source>
+                <target>pilgred.examine</target>
+            </segment>
+        </unit>
+        <unit id="planet_scanner">
+            <segment id="name">
+                <source>planet_scanner.name</source>
+                <target>planet_scanner.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>planet_scanner.short_name</source>
+                <target>planet_scanner.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>planet_scanner.plural_name</source>
+                <target>planet_scanner.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>planet_scanner.genre</source>
+                <target>planet_scanner.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>planet_scanner.first_letter</source>
+                <target>planet_scanner.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>planet_scanner.examine</source>
+                <target>planet_scanner.examine</target>
+            </segment>
+        </unit>
+        <unit id="research_laboratory">
+            <segment id="name">
+                <source>research_laboratory.name</source>
+                <target>research_laboratory.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>research_laboratory.short_name</source>
+                <target>research_laboratory.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>research_laboratory.plural_name</source>
+                <target>research_laboratory.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>research_laboratory.genre</source>
+                <target>research_laboratory.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>research_laboratory.first_letter</source>
+                <target>research_laboratory.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>research_laboratory.examine</source>
+                <target>research_laboratory.examine</target>
+            </segment>
+        </unit>
+        <unit id="shower">
+            <segment id="name">
+                <source>shower.name</source>
+                <target>shower.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>shower.short_name</source>
+                <target>shower.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>shower.plural_name</source>
+                <target>shower.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>shower.genre</source>
+                <target>shower.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>shower.first_letter</source>
+                <target>shower.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>shower.examine</source>
+                <target>shower.examine</target>
+            </segment>
+        </unit>
+        <unit id="swedish_sofa">
+            <segment id="name">
+                <source>.name</source>
+                <target>.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>swedish_sofa.short_name</source>
+                <target>swedish_sofa.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>swedish_sofa.plural_name</source>
+                <target>swedish_sofa.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>swedish_sofa.genre</source>
+                <target>swedish_sofa.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>swedish_sofa.first_letter</source>
+                <target>swedish_sofa.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>swedish_sofa.examine</source>
+                <target>swedish_sofa.examine</target>
+            </segment>
+        </unit>
+        <unit id="surgery_plot">
+            <segment id="name">
+                <source>surgery_plot.name</source>
+                <target>surgery_plot.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>surgery_plot.short_name</source>
+                <target>surgery_plot.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>surgery_plot.plural_name</source>
+                <target>surgery_plot.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>surgery_plot.genre</source>
+                <target>surgery_plot.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>surgery_plot.first_letter</source>
+                <target>surgery_plot.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>surgery_plot.examine</source>
+                <target>surgery_plot.examine</target>
+            </segment>
+        </unit>
+        <unit id="thalasso">
+            <segment id="name">
+                <source>thalasso.name</source>
+                <target>thalasso.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>thalasso.short_name</source>
+                <target>thalasso.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>thalasso.plural_name</source>
+                <target>thalasso.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>thalasso.genre</source>
+                <target>thalasso.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>thalasso.first_letter</source>
+                <target>thalasso.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>thalasso.examine</source>
+                <target>thalasso.examine</target>
+            </segment>
+        </unit>
+        <unit id="turret_command">
+            <segment id="name">
+                <source>turret_command.name</source>
+                <target>turret_command.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>turret_command.short_name</source>
+                <target>turret_command.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>turret_command.plural_name</source>
+                <target>turret_command.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>turret_command.genre</source>
+                <target>turret_command.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>turret_command.first_letter</source>
+                <target>turret_command.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>turret_command.examine</source>
+                <target>turret_command.examine</target>
+            </segment>
+        </unit>
+        <unit id="icarus">
+            <segment id="name">
+                <source>icarus.name</source>
+                <target>icarus.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>icarus.short_name</source>
+                <target>icarus.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>icarus.plural_name</source>
+                <target>icarus.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>icarus.genre</source>
+                <target>icarus.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>icarus.first_letter</source>
+                <target>icarus.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>icarus.examine</source>
+                <target>icarus.examine</target>
+            </segment>
+        </unit>
+        <unit id="jukebox">
+            <segment id="name">
+                <source>jukebox.name</source>
+                <target>jukebox.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>jukebox.short_name</source>
+                <target>jukebox.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>jukebox.plural_name</source>
+                <target>jukebox.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>jukebox.genre</source>
+                <target>jukebox.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>jukebox.first_letter</source>
+                <target>jukebox.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>jukebox.examine</source>
+                <target>jukebox.examine</target>
+            </segment>
+        </unit>
+        <unit id="camera_equipment">
+            <segment id="name">
+                <source>camera_equipment.name</source>
+                <target>camera_equipment.name</target>
+            </segment>
+            <segment id="short_name">
+                <source>camera_equipment.short_name</source>
+                <target>camera_equipment.short_name</target>
+            </segment>
+            <segment id="plural_name">
+                <source>camera_equipment.plural_name</source>
+                <target>camera_equipment.plural_name</target>
+            </segment>
+            <segment id="genre">
+                <source>camera_equipment.genre</source>
+                <target>camera_equipment.genre</target>
+            </segment>
+            <segment id="first_letter">
+                <source>camera_equipment.first_letter</source>
+                <target>camera_equipment.first_letter</target>
+            </segment>
+            <segment id="examine">
+                <source>camera_equipment.examine</source>
+                <target>camera_equipment.examine</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

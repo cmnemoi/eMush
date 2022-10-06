@@ -56,8 +56,8 @@
         </unit>
         <unit id="breakouts">
             <segment id="description">
-                <source>biting.description</source>
-                <target>biting.description</target>
+                <source>breakouts.description</source>
+                <target>breakouts.description</target>
             </segment>
         </unit>
         <unit id="disease_cycle">

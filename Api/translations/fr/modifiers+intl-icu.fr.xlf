@@ -60,7 +60,7 @@
         </unit>
         <unit id="breakouts">
             <segment id="description">
-                <source>biting.description</source>
+                <source>breakouts.description</source>
                 <target>Fait subir le symptôme **Éruptions**.</target>
             </segment>
         </unit>

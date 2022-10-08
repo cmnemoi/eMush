@@ -1,32 +1,9 @@
 <template>
     <div class="footer">
-        <div class="wrapper">
+        <div class="wrapper" id="eternaltwin">
             <strong>{{ $t('footer.emush') }}</strong>
             <div class="content">
-                <i18n-t keypath="footer.text1" tag="div" class="text">
-                    <template #mush>
-                        <a style="white-space: nowrap" href="http://www.mush.vg/" target="_blank"> Mush </a>
-                    </template>
-                </i18n-t>
-                <i18n-t keypath="footer.text2" tag="div" class="text">
-                    <template #Gitlab>
-                        <a style="white-space: nowrap" href="https://gitlab.com/eternaltwin/mush/mush/" target="_blank"> Gitlab </a>
-                    </template>
-                </i18n-t>
-                <i18n-t keypath="footer.text3" tag="div" class="text">
-                    <template #EternalTwin>
-                        <a style="white-space: nowrap" href="https://eternal-twin.net/" target="_blank"> EternalTwin </a>
-                    </template>
-                    <template #OpenCollective>
-                        <a style="white-space: nowrap" href="https://opencollective.com/eternaltwin" target="_blank"> OpenCollective </a>
-                    </template>
-                </i18n-t>
-            </div>
-        </div>
-        <div class="wrapper">
-            <strong>{{ $t('footer.thanks') }}</strong>
-            <div class="content">
-                <p>{{ randomHelpers }}</p>
+                <p v-html="$t('footer.eternaltwin')" />
             </div>
         </div>
         <div class="wrapper">
@@ -34,6 +11,21 @@
             <div class="content">
                 <p v-for="dev in randomDev" :key="dev">{{ dev }}</p>
             </div>
+        </div>
+        <div class="wrapper">
+            <strong>{{ $t('footer.thanks') }}</strong>
+            <div class="content">
+                <p v-for="helper in randomHelpers" :key="helper">{{ helper }}</p>
+            </div>
+            <i18n-t
+                keypath="footer.alpha-testers"
+                tag="div"
+                class="text"
+                id="alpha-testers">
+                <template #alpha-testers>
+                    <p>alpha-testers</p>
+                </template>
+            </i18n-t>
         </div>
     </div>
 </template>
@@ -49,12 +41,12 @@ export default defineComponent({
             developers: developers,
             randomDev: [] as Array<string>,
             helpers: helpers,
-            randomHelpers: '' as string
+            randomHelpers: [] as Array<string>
         };
     },
     mounted() {
         this.randomDev = this.developers.sort(() => 0.5 - Math.random());
-        this.randomHelpers = this.helpers.sort(() => 0.5 - Math.random()).toString();
+        this.randomHelpers = this.helpers.sort(() => 0.5 - Math.random());
     }
 });
 </script>
@@ -63,6 +55,7 @@ export default defineComponent({
 .text {
 	text-align: justify;
 	padding: 0.5em;
+    display: inline;
 }
 .wrapper {
 	font-family: Nunito, Century Gothic, Arial, Trebuchet MS, Verdana, Open Sans, sans-serif;
@@ -80,13 +73,17 @@ export default defineComponent({
 		display: block;
 		background: rgba(0, 0, 0, 0.5);
 	}
+
+    #alpha-testers {
+    text-align: center;
+}
 }
 .footer {
 	box-sizing: border-box;
-	margin-top: 15px;
+	margin-top: 100px;
 	color: rgb(250, 227, 206);
 	justify-content: space-around;
-	display: flex;
+    display: flex;
 	float: left;
 	font-family: Nunito, Century Gothic, Arial, Trebuchet MS, Verdana, Open Sans, sans-serif;
 	font-size: 11px;
@@ -104,5 +101,15 @@ export default defineComponent({
             white-space: nowrap;
         }
     }
+}
+
+#eternaltwin::before {
+    content: "";
+    margin: -50px auto 0;
+    width: 80px;
+    height: 50px;
+    background-image: url(img/etwin_icon.svg),radial-gradient(circle,#13124b 40%,rgba(4,4,6,0) 75%);
+    background-repeat: no-repeat;
+    background-position: top;
 }
 </style>

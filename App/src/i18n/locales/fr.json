@@ -15,10 +15,9 @@
 	"footer": {
 		"developpers": "Développement",
 		"thanks": "Remerciements",
-		"emush": "EMush",
-		"text1": "Ce jeu est un fan-project pour {mush} de MotionTwin. Sauf indication contraire, tous les éléments graphiques sont tirés de ces jeux et sont donc la propriété de MotionTwin.",
-		"text2": "EMush est Open Source et tout le monde est le bienvenu pour y participer. Vous pouvez consulter le code source sur {Gitlab}.",
-		"text3": "EMush fait partie du projet {EternalTwin}, si vous le souhaitez, vous pouvez faire une donation sur {OpenCollective}."
+		"alpha-testers": "Tous les alpha testeurs :)",
+		"emush": "eMush",
+		"eternaltwin": "eMush est un site web non-commercial géré par des amateurs. Il fait partie du projet Eternaltwin dont le but est d'archiver les jeux de Motion Twin, c'est à dire les garder accessibles même en cas de fermeture du site officiel. <strong>Nous ne sommes pas liés à Motion Twin</strong>."
 	  },
 	"login": "Connexion",
 	"logout": "Deconnexion",

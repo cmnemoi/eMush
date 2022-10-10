@@ -23,6 +23,7 @@ use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
@@ -49,7 +50,7 @@ class Shoot extends AttemptAction
     protected RandomServiceInterface $randomService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
@@ -57,7 +58,7 @@ class Shoot extends AttemptAction
         PlayerDiseaseServiceInterface $playerDiseaseService,
     ) {
         parent::__construct(
-            $eventDispatcher,
+            $eventService,
             $actionService,
             $validator,
             $randomService
@@ -244,7 +245,7 @@ class Shoot extends AttemptAction
             new \DateTime()
         );
 
-        $this->eventDispatcher->dispatch(
+        $this->eventService->callEvent(
             $damageEvent,
             AbstractQuantityEvent::CHANGE_VARIABLE
         );

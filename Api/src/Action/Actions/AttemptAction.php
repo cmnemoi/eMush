@@ -33,6 +33,7 @@ abstract class AttemptAction extends AbstractAction
     {
         $successChance = $this->getSuccessRate();
 
+        // TODO: ADD ENHANCE EVENT
         if ($this->randomService->isSuccessful($successChance)) {
             return new Success();
         } else {

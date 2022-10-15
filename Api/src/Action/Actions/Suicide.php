@@ -29,12 +29,14 @@ class Suicide extends AbstractAction
         $metadata->addConstraint(new HasRole(['role' => RoleEnum::SUPER_ADMIN, 'groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         $deathEvent = new PlayerEvent($this->player, EndCauseEnum::SUICIDE, new \DateTime());
-
         $this->eventDispatcher->dispatch($deathEvent, PlayerEvent::DEATH_PLAYER);
-
-        return new Success();
     }
 }

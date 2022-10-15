@@ -3,10 +3,9 @@
 namespace Mush\RoomLog\Listener;
 
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Game\Entity\GameConfig;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
@@ -28,20 +27,20 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_CREATED => [['onEquipmentCreated', -1], ['onInventoryOverflow']],
-            EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
-            EquipmentEvent::EQUIPMENT_TRANSFORM => ['onInventoryOverflow', -5],
+            EquipmentEvent::EQUIPMENT_CREATED => [
+                ['onEquipmentCreated', -1],
+            ],
+            EquipmentEvent::EQUIPMENT_DESTROYED => [
+                ['onEquipmentDestroyed'],
+            ],
+            EquipmentEvent::INVENTORY_OVERFLOW => [
+                ['onInventoryOverflow'],
+            ],
         ];
     }
 
     public function onEquipmentCreated(EquipmentEvent $event): void
     {
-        $newEquipment = $event->getNewEquipment();
-
-        if ($newEquipment === null) {
-            throw new \LogicException('Replacement equipment should be provided');
-        }
-
         switch ($event->getReason()) {
             case EventEnum::PLANT_PRODUCTION:
                 $logKey = PlantLogEnum::PLANT_NEW_FRUIT;
@@ -81,30 +80,41 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onInventoryOverflow(EquipmentEvent $event): void
     {
-        $holder = $event->getHolder();
+        $holder = $event->getEquipment()->getHolder();
 
-        if (($newEquipment = $event->getNewEquipment()) === null) {
-            throw new \LogicException('Replacement equipment should be provided');
+        if ($holder === null) {
+            throw new \LogicException('item should have an holder on overflow');
         }
 
+        $gameConfig = $holder->getPlace()->getDaedalus()->getGameConfig();
+        $equipment = $event->getEquipment();
+
         if (
-            $newEquipment instanceof GameItem &&
-            $holder instanceof Player &&
-            $holder->getEquipments()->count() > $this->getGameConfig($newEquipment)->getMaxItemInInventory()
+            $equipment instanceof GameItem &&
+            $holder->getEquipments()->count() > $gameConfig->getMaxItemInInventory()
         ) {
             $this->createEventLog(LogEnum::OBJECT_FELL, $event, VisibilityEnum::PUBLIC);
         }
     }
 
-    private function getGameConfig(GameEquipment $gameEquipment): GameConfig
-    {
-        return $gameEquipment->getEquipment()->getGameConfig();
-    }
-
     private function createEventLog(string $logKey, EquipmentEvent $event, string $visibility): void
     {
-        $player = $event->getHolder();
-        if (!$player instanceof Player) {
+        /* @var Player|null $player */
+        if ($event instanceof InteractWithEquipmentEvent) {
+            $actor = $event->getActor();
+            if ($actor instanceof Player) {
+                $player = $actor;
+            } else {
+                $player = null;
+            }
+        } elseif ($event->isCreated()) {
+            $holder = $event->getEquipment()->getHolder();
+            if ($holder instanceof Player) {
+                $player = $holder;
+            } else {
+                $player = null;
+            }
+        } else {
             $player = null;
         }
 

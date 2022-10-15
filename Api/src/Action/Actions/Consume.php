@@ -38,11 +38,23 @@ class Consume extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
     {
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
+        $rationType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
 
+        if (null === $rationType) {
+            throw new \Exception('Cannot consume this equipment');
+        }
+
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
+    {
+        /** @var GameItem $parameter */
+        $parameter = $this->parameter;
         $rationType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
 
         if (null === $rationType) {
@@ -57,7 +69,5 @@ class Consume extends AbstractAction
             new \DateTime()
         );
         $this->eventDispatcher->dispatch($consumeEquipment, ApplyEffectEvent::CONSUME);
-
-        return new Success();
     }
 }

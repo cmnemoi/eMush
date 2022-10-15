@@ -30,8 +30,12 @@ class PlayerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            PlayerEvent::INFECTION_PLAYER => ['onInfectionPlayer', 100], // do this before checking the number of spores
-            PlayerEvent::CONVERSION_PLAYER => 'onConversionPlayer',
+            PlayerEvent::INFECTION_PLAYER => [
+                ['onInfectionPlayer', 1000], // do this before checking the number of spores
+            ],
+            PlayerEvent::CONVERSION_PLAYER => [
+                ['onConversionPlayer'],
+            ],
             PlayerEvent::NEW_PLAYER => ['onNewPlayer', 100],
             PlayerEvent::DEATH_PLAYER => 'onPlayerDeath',
         ];
@@ -49,7 +53,6 @@ class PlayerSubscriber implements EventSubscriberInterface
         }
 
         $playerSpores->addCharge(1);
-
         $this->statusService->persist($playerSpores);
 
         // @TODO implement research modifiers

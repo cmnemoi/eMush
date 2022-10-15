@@ -24,15 +24,15 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class StatusSubscriberCest
 {
-    private EventDispatcherInterface $eventDispatcherService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testCommunicationCenterBreak(FunctionalTester $I)
@@ -126,7 +126,7 @@ class StatusSubscriberCest
             $time
         );
 
-        $this->eventDispatcherService->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->assertCount(1, $privateChannel->getMessages());
         $I->assertCount(1, $privateChannel->getParticipants());

@@ -5,6 +5,7 @@ namespace functional\RoomLog\Listener;
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
@@ -14,15 +15,15 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlantLogEnum;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class EquipmentSubscriberCest
 {
-    private EventDispatcherInterface $eventDispatcherService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testCreateNewFruit(FunctionalTester $I)
@@ -43,14 +44,21 @@ class EquipmentSubscriberCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'name' => 'equipment_name']);
 
+        $equipment = new GameItem();
+        $equipment
+            ->setName($equipmentConfig->getName())
+            ->setEquipment($equipmentConfig)
+            ->setHolder($room);
+        $I->haveInRepository($equipment);
+
         $equipmentEvent = new EquipmentEvent(
-            'equipment_name',
-            $player,
+            $equipment,
+            true,
             VisibilityEnum::PUBLIC,
             EventEnum::PLANT_PRODUCTION,
             new \DateTime()
         );
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(0, $player->getEquipments());

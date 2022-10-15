@@ -118,13 +118,13 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         if (!$holder instanceof Place) {
             throw new UnexpectedTypeException($holder, Place::class);
         }
+
         if ($holder !== ($oldPlace = $this->getHolder())) {
             if ($oldPlace !== null) {
                 $oldPlace->removeEquipment($this);
             }
 
             $this->place = $holder;
-
             $holder->addEquipment($this);
         }
 

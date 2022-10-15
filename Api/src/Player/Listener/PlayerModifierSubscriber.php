@@ -105,7 +105,7 @@ class PlayerModifierSubscriber implements EventSubscriberInterface
                 $playerEvent->getTime()
             );
 
-            $this->eventDispatcher->dispatch($deathEvent, PlayerEvent::DEATH_PLAYER);
+            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
         }
     }
 

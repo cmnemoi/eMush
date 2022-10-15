@@ -14,6 +14,8 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -25,13 +27,15 @@ class Transplant extends AbstractAction
 {
     protected string $name = ActionEnum::TRANSPLANT;
 
-    private GearToolServiceInterface $gearToolService;
+    protected GearToolServiceInterface $gearToolService;
+    protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GearToolServiceInterface $gearToolService,
+        GameEquipmentServiceInterface $gameEquipmentService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -40,6 +44,7 @@ class Transplant extends AbstractAction
         );
 
         $this->gearToolService = $gearToolService;
+        $this->gameEquipmentService = $gameEquipmentService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -53,10 +58,16 @@ class Transplant extends AbstractAction
         $metadata->addConstraint(new EquipmentReachable(['name' => ItemEnum::HYDROPOT, 'groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
+        $time = new \DateTime();
 
         // @TODO fail transplant
         /** @var Fruit $fruitType */
@@ -65,35 +76,29 @@ class Transplant extends AbstractAction
         /** @var GameItem $hydropot */
         $hydropot = $this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->first();
 
-        $newHolder = $hydropot->getPlace();
-
-        $equipmentEvent = new EquipmentEvent(
-            ItemEnum::HYDROPOT,
+        $equipmentEvent = new InteractWithEquipmentEvent(
+            $hydropot,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
-            new \DateTime());
-        $equipmentEvent->setExistingEquipment($hydropot);
+            $time
+        );
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        $equipmentEvent = new EquipmentEvent(
-            $parameter->getName(),
+        $equipmentEvent = new InteractWithEquipmentEvent(
+            $parameter,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
-            new \DateTime());
-        $equipmentEvent->setExistingEquipment($parameter);
+            $time
+        );
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        $equipmentEvent = new EquipmentEvent(
+        $plant = $this->gameEquipmentService->createGameEquipmentFromName(
             $fruitType->getPlantName(),
             $this->player,
-            VisibilityEnum::PUBLIC,
             $this->getActionName(),
-            new \DateTime()
+            VisibilityEnum::PUBLIC
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
-
-        return new Success();
     }
 }

@@ -28,8 +28,12 @@ class ReadDocument extends AbstractAction
         $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::DOCUMENT, 'groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
     {
         return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
+    {
     }
 }

@@ -29,11 +29,21 @@ class GetUp extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        if (!$this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN)) {
+            throw new \LogicException('Player should have a lying down status');
+        }
+
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         if (!$lyingDownStatus = $this->player->getStatusByName(PlayerStatusEnum::LYING_DOWN)) {
             throw new \LogicException('Player should have a lying down status');
         }
+
         $statusEvent = new StatusEvent(
             $lyingDownStatus->getName(),
             $this->player,
@@ -42,7 +52,5 @@ class GetUp extends AbstractAction
         );
         $statusEvent->setStatusTarget($lyingDownStatus->getTarget());
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
-
-        return new Success();
     }
 }

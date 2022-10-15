@@ -61,7 +61,25 @@ class RemoveSpore extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        /** @var ?ChargeStatus $sporeStatus */
+        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
+
+        if ($sporeStatus === null) {
+            throw new Error('Player should have a spore status');
+        }
+
+        $nbSpores = $sporeStatus->getCharge();
+
+        if ($nbSpores > 0) {
+            return new Success();
+        } else {
+            return new Fail();
+        }
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         // Check spore status before applying health modifier in case player dies
         /** @var ?ChargeStatus $sporeStatus */
@@ -81,9 +99,7 @@ class RemoveSpore extends AbstractAction
             throw new Error('Player should have a spore status');
         }
 
-        $nbSpores = $sporeStatus->getCharge();
-
-        if ($nbSpores > 0) {
+        if ($sporeStatus->getCharge() > 0) {
             $sporeStatus = $this->statusService->updateCharge($sporeStatus, -1);
 
             if ($sporeStatus === null) {
@@ -91,10 +107,6 @@ class RemoveSpore extends AbstractAction
             }
 
             $this->statusService->persist($sporeStatus);
-
-            return new Success();
-        } else {
-            return new Fail();
         }
     }
 }

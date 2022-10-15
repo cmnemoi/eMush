@@ -8,15 +8,19 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Event\PlaceInitEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlaceInitSubscriber implements EventSubscriberInterface
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private EventDispatcherInterface $eventDispatcher;
 
-    public function __construct(GameEquipmentServiceInterface $gameEquipmentService)
+    public function __construct(GameEquipmentServiceInterface $gameEquipmentService,
+        EventDispatcherInterface $eventDispatcher)
     {
         $this->gameEquipmentService = $gameEquipmentService;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -40,7 +44,8 @@ class PlaceInitSubscriber implements EventSubscriberInterface
                 ->getEquipmentsConfig()
                 ->filter(fn (EquipmentConfig $item) => $item->getName() === $itemName)->first()
             ;
-            $gameItem = $this->gameEquipmentService->createGameEquipment($item, $place, $reason, $time);
+
+            $gameItem = $this->gameEquipmentService->createGameEquipment($item, $place, $reason);
         }
 
         foreach ($placeConfig->getEquipments() as $equipmentName) {
@@ -50,7 +55,7 @@ class PlaceInitSubscriber implements EventSubscriberInterface
                 ->filter(fn (EquipmentConfig $equipment) => $equipment->getName() === $equipmentName)->first()
             ;
 
-            $gameEquipment = $this->gameEquipmentService->createGameEquipment($equipment, $place, $reason, $time);
+            $gameEquipment = $this->gameEquipmentService->createGameEquipment($equipment, $place, $reason);
         }
 
         // initialize doors

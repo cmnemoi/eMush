@@ -4,33 +4,20 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Validator\Mechanic;
-use Mush\Action\Validator\Reach;
-use Mush\Action\Validator\Shredable;
+use Mush\Action\Validator\Fuel;
+use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-class Shred extends AbstractAction
+abstract class InsertAction extends AbstractAction
 {
-    protected string $name = ActionEnum::SHRED;
-
     protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameItem;
-    }
-
-    public static function loadValidatorMetadata(ClassMetadata $metadata): void
-    {
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::DOCUMENT, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Shredable(['groups' => ['visibility']]));
     }
 
     protected function checkResult(): ActionResult
@@ -40,16 +27,30 @@ class Shred extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $parameter */
-        $parameter = $this->parameter;
+        /** @var GameItem $toInsert */
+        $toInsert = $this->getParameter();
+        $time = new \DateTime();
 
+        // Delete the fuel
         $equipmentEvent = new InteractWithEquipmentEvent(
-            $parameter,
+            $toInsert,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
-            new \DateTime()
+            $time
         );
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+
+        // Add to container
+        $daedalusEvent = new DaedalusModifierEvent(
+            $this->player->getDaedalus(),
+            $this->getDaedalusVariable(),
+            1,
+            $this->getActionName(),
+            $time
+        );
+        $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
+
+    abstract protected function getDaedalusVariable(): string;
 }

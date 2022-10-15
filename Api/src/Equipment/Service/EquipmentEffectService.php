@@ -4,7 +4,6 @@ namespace Mush\Equipment\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\ConsumableEffect;
-use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Entity\PlantEffect;

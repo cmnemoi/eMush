@@ -13,6 +13,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -20,6 +21,8 @@ use Mush\Status\Event\StatusEvent;
 
 class HyperfreezeActionTest extends AbstractActionTest
 {
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+
     /**
      * @before
      */
@@ -28,11 +31,13 @@ class HyperfreezeActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::HYPERFREEZE, 1);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->action = new Hyperfreeze(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
+            $this->gameEquipmentService
         );
     }
 
@@ -139,7 +144,8 @@ class HyperfreezeActionTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();
+
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

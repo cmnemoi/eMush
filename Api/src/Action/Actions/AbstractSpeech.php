@@ -40,7 +40,12 @@ abstract class AbstractSpeech extends AbstractAction
         $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         $speaker = $this->player;
         $listeners = $this->player->getPlace()->getPlayers()
@@ -51,7 +56,5 @@ abstract class AbstractSpeech extends AbstractAction
         foreach ($listeners as $player) {
             $this->addVariablePoints($player, $this->playerVariable, $this->gain);
         }
-
-        return new Success();
     }
 }

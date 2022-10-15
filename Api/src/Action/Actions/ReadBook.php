@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -31,7 +32,12 @@ class ReadBook extends AbstractAction
         $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::BOOK, 'groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
@@ -40,16 +46,13 @@ class ReadBook extends AbstractAction
         $bookType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK);
         $this->player->addSkill($bookType->getSkill());
 
-        $equipmentEvent = new EquipmentEvent(
-            $parameter->getName(),
+        $equipmentEvent = new InteractWithEquipmentEvent(
+            $parameter,
             $this->player,
             VisibilityEnum::HIDDEN,
             $this->getActionName(),
             new \DateTime()
         );
-        $equipmentEvent->setExistingEquipment($parameter);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
-
-        return new Success();
     }
 }

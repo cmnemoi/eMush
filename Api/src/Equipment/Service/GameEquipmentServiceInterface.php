@@ -7,6 +7,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Enum\VisibilityEnum;
 
 interface GameEquipmentServiceInterface
 {
@@ -22,14 +23,30 @@ interface GameEquipmentServiceInterface
         string $equipmentName,
         EquipmentHolderInterface $equipmentHolder,
         string $reason,
-        \DateTime $time
+        string $visibility = VisibilityEnum::PRIVATE
     ): GameEquipment;
 
     public function createGameEquipment(
         EquipmentConfig $equipmentConfig,
         EquipmentHolderInterface $holder,
         string $reason,
-        \DateTime $time,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): GameEquipment;
+
+    public function transformGameEquipmentToEquipmentWithName(
+        string $resultName,
+        GameEquipment $input,
+        EquipmentHolderInterface $holder,
+        string $reason,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): GameEquipment;
+
+    public function transformGameEquipmentToEquipment(
+        EquipmentConfig $resultConfig,
+        GameEquipment $input,
+        EquipmentHolderInterface $holder,
+        string $reason,
+        string $visibility = VisibilityEnum::HIDDEN
     ): GameEquipment;
 
     public function handleBreakFire(GameEquipment $gameEquipment, \DateTime $date): void;

@@ -4,7 +4,6 @@ namespace Mush\Player\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
@@ -98,6 +97,7 @@ class PlayerService implements PlayerServiceInterface
     public function createPlayer(Daedalus $daedalus, User $user, string $character): Player
     {
         $player = new Player();
+        $time = new \DateTime();
 
         $gameConfig = $daedalus->getGameConfig();
 
@@ -132,7 +132,7 @@ class PlayerService implements PlayerServiceInterface
         $playerEvent = new PlayerEvent(
             $player,
             EventEnum::CREATE_DAEDALUS,
-            new \DateTime()
+            $time
         );
         $playerEvent
             ->setCharacterConfig($characterConfig)
@@ -141,15 +141,13 @@ class PlayerService implements PlayerServiceInterface
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
 
         foreach ($characterConfig->getStartingItem() as $itemConfig) {
-            // create the equipment
-            $equipmentEvent = new EquipmentEvent(
-                $itemConfig->getName(),
+            // Create the equipment
+            $item = $this->gameEquipmentService->createGameEquipment(
+                $itemConfig,
                 $player,
-                VisibilityEnum::PRIVATE,
                 PlayerEvent::NEW_PLAYER,
-                new \DateTime()
+                VisibilityEnum::PRIVATE
             );
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
         }
 
         return $player;

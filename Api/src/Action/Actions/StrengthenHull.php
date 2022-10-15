@@ -12,6 +12,7 @@ use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -34,14 +35,13 @@ class StrengthenHull extends AttemptAction
         $metadata->addConstraint(new FullHull(['groups' => ['execute']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
+        $time = new \DateTime();
 
-        $response = $this->makeAttempt();
-
-        if ($response instanceof Success) {
+        if ($result instanceof Success) {
             $quantity = self::BASE_REPAIR;
 
             $daedalusEvent = new DaedalusModifierEvent(
@@ -49,22 +49,20 @@ class StrengthenHull extends AttemptAction
                 DaedalusVariableEnum::HULL,
                 $quantity,
                 $this->getActionName(),
-                new \DateTime()
+                $time
             );
+
             $daedalusEvent->setPlayer($this->player);
             $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
-            $equipmentEvent = new EquipmentEvent(
-                $parameter->getName(),
+            $equipmentEvent = new InteractWithEquipmentEvent(
+                $parameter,
                 $this->player,
                 VisibilityEnum::HIDDEN,
                 $this->getActionName(),
-                new \DateTime()
+                $time
             );
-            $equipmentEvent->setExistingEquipment($parameter);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
-
-        return $response;
     }
 }

@@ -32,17 +32,17 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DoTheThingCest
 {
     private DoTheThing $doTheThingAction;
-    private EventDispatcherInterface $eventDispatcherService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function _before(FunctionalTester $I)
     {
         $this->doTheThingAction = $I->grabService(DoTheThing::class);
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testDoTheThing(FunctionalTester $I)
@@ -182,7 +182,7 @@ class DoTheThingCest
         );
         $pregnantStatusEvent->setVisibility(VisibilityEnum::PRIVATE);
 
-        $this->eventDispatcherService->dispatch($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventDispatcher->dispatch($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),

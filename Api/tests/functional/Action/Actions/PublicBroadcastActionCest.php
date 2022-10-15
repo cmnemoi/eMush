@@ -25,7 +25,6 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class PublicBroadcastCest
 {
@@ -34,7 +33,6 @@ class PublicBroadcastCest
     public function _before(FunctionalTester $I)
     {
         $this->PublicBroadcastAction = $I->grabService(PublicBroadcast::class);
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testPublicBroadcast(FunctionalTester $I)

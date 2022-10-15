@@ -9,13 +9,15 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 
-class UpdateTalkieTest extends AbstractActionTest
+class UpdateTalkieActionTest extends AbstractActionTest
 {
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+
     /**
      * @before
      */
@@ -24,11 +26,13 @@ class UpdateTalkieTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::UPDATE_TALKIE);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->action = new UpdateTalkie(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
+            $this->gameEquipmentService
         );
     }
 
@@ -70,7 +74,8 @@ class UpdateTalkieTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();
+
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

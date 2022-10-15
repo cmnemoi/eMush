@@ -86,7 +86,11 @@ class CycleEventCest
             ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig2, 'healthPoint' => 99]
         );
 
-        $event = new DaedalusCycleEvent($daedalus, EventEnum::NEW_CYCLE, new DateTime());
+        $event = new DaedalusCycleEvent(
+            $daedalus,
+            EventEnum::NEW_CYCLE,
+            new DateTime()
+        );
         $this->eventDispatcher->dispatch($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         $I->assertEquals(0, $daedalus->getOxygen());

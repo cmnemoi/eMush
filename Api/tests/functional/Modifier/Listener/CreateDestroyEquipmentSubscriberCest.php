@@ -11,13 +11,12 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
@@ -25,18 +24,20 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CreateDestroyEquipmentSubscriberCest
 {
-    private EventDispatcherInterface $eventDispatcherService;
+    private EventDispatcherInterface $eventDispatcher;
+    private GameEquipmentServiceInterface $gameEquipmentService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
-    public function testCreateGearPlayerScope(FunctionalTester $I)
+    public function testCreateGearPlayerScope(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
@@ -65,18 +66,21 @@ class CreateDestroyEquipmentSubscriberCest
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($gear);
 
-        /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
+        $name = 'test item';
 
-        // Case of a game Equipment
-        $equipmentEvent = new EquipmentEvent(
-            $equipmentConfig->getName(),
+        /* @var EquipmentConfig $equipmentConfig */
+        $I->have(ItemConfig::class, [
+            'gameConfig' => $gameConfig,
+            'mechanics' => new ArrayCollection([$gear]),
+            'name' => $name,
+        ]);
+
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            $name,
             $player,
-            VisibilityEnum::PUBLIC,
-            ActionEnum::COFFEE,
-            new \DateTime()
+            'a test reason',
+            VisibilityEnum::PUBLIC
         );
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);
@@ -85,7 +89,7 @@ class CreateDestroyEquipmentSubscriberCest
         $I->assertEquals($player->getModifiers()->first()->getModifierConfig(), $modifierConfig);
     }
 
-    public function testCreateGearPlayerScopeInventoryFull(FunctionalTester $I)
+    public function testCreateGearPlayerScopeInventoryFull(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 0]);
@@ -114,17 +118,20 @@ class CreateDestroyEquipmentSubscriberCest
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($gear);
 
-        /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
+        $name = 'test item';
 
-        $equipmentEvent = new EquipmentEvent(
-            $equipmentConfig->getName(),
+        $I->have(ItemConfig::class, [
+            'name' => $name,
+            'gameConfig' => $gameConfig,
+            'mechanics' => new ArrayCollection([$gear]),
+        ]);
+
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            $name,
             $player,
-            VisibilityEnum::PUBLIC,
-            ActionEnum::COFFEE,
-            new \DateTime()
+            'a test reason',
+            VisibilityEnum::PUBLIC
         );
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertEquals($room->getEquipments()->count(), 1);
         $I->assertEquals($player->getEquipments()->count(), 0);
@@ -161,17 +168,19 @@ class CreateDestroyEquipmentSubscriberCest
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($gear);
 
-        /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
+        $name = 'test name';
+        $I->have(ItemConfig::class, [
+            'gameConfig' => $gameConfig,
+            'mechanics' => new ArrayCollection([$gear]),
+            'name' => $name,
+        ]);
 
-        $equipmentEvent = new EquipmentEvent(
-            $equipmentConfig->getName(),
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            $name,
             $player,
-            VisibilityEnum::PUBLIC,
-            ActionEnum::COFFEE,
-            new \DateTime()
+            'a test reason',
+            VisibilityEnum::PUBLIC
         );
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 1);
@@ -180,7 +189,7 @@ class CreateDestroyEquipmentSubscriberCest
         $I->assertEquals($room->getModifiers()->first()->getModifierConfig(), $modifierConfig);
     }
 
-    public function testDestroyGear(FunctionalTester $I)
+    public function testDestroyGear(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
@@ -218,37 +227,34 @@ class CreateDestroyEquipmentSubscriberCest
         ;
         $I->haveInRepository($modifierConfig);
 
-        $modifier = new Modifier($player, $modifierConfig);
-        $I->haveInRepository($modifier);
-
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($gear);
 
-        /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, [
+        $name = 'test name';
+
+        /* @var EquipmentConfig $equipmentConfig */
+        $I->have(EquipmentConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
+            'name' => $name,
         ]);
 
-        // Case of a game Equipment
-        $gameEquipment = new GameItem();
-        $gameEquipment
-            ->setEquipment($equipmentConfig)
-            ->setName('some name')
-            ->setHolder($player)
-        ;
-        $I->haveInRepository($gameEquipment);
-
-        $equipmentEvent = new EquipmentEvent(
-            $gameEquipment->getName(),
+        $equipment = $this->gameEquipmentService->createGameEquipmentFromName(
+            $name,
             $player,
+            'a test reason',
+            VisibilityEnum::PUBLIC
+        );
+
+        $destroyEvent = new EquipmentEvent(
+            $equipment,
+            false,
             VisibilityEnum::PUBLIC,
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $equipmentEvent->setExistingEquipment($gameEquipment);
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($destroyEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $I->assertEquals($room->getEquipments()->count(), 0);
         $I->assertEquals($player->getEquipments()->count(), 0);
@@ -256,10 +262,12 @@ class CreateDestroyEquipmentSubscriberCest
         $I->assertEquals($room->getModifiers()->count(), 0);
     }
 
-    public function testDestroyOneOfTwoGear(FunctionalTester $I)
+    public function testDestroyOneOfTwoGear(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
+        $gameConfig = $I->have(GameConfig::class, [
+            'maxItemInInventory' => 2,
+        ]);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
@@ -269,7 +277,11 @@ class CreateDestroyEquipmentSubscriberCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+            'characterConfig' => $characterConfig,
+        ]);
 
         $actionCost = new ActionCost();
         $I->haveInRepository($actionCost);
@@ -294,55 +306,51 @@ class CreateDestroyEquipmentSubscriberCest
         ;
         $I->haveInRepository($modifierConfig);
 
-        $modifier = new Modifier($player, $modifierConfig);
-        $I->haveInRepository($modifier);
-        $modifier2 = new Modifier($player, $modifierConfig);
-        $I->haveInRepository($modifier2);
-
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($gear);
 
-        /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, [
+        $name = 'test name';
+
+        $I->have(ItemConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
+            'name' => $name,
         ]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameItem();
-        $gameEquipment
-            ->setEquipment($equipmentConfig)
-            ->setName('some name')
-            ->setHolder($player)
-        ;
-        $I->haveInRepository($gameEquipment);
-
-        $gameEquipment2 = new GameItem();
-        $gameEquipment2
-            ->setEquipment($equipmentConfig)
-            ->setName('some name')
-            ->setHolder($player)
-        ;
-        $I->haveInRepository($gameEquipment2);
-
-        $equipmentEvent = new EquipmentEvent(
-            $gameEquipment->getName(),
+        $gameEquipment = $this->gameEquipmentService->createGameEquipmentFromName(
+            $name,
             $player,
+            'a test reason',
+            VisibilityEnum::PUBLIC
+        );
+
+        $gameEquipment2 = $this->gameEquipmentService->createGameEquipmentFromName(
+            $name,
+            $player,
+            'a test reason',
+            VisibilityEnum::PUBLIC
+        );
+
+        $I->assertEquals(2, $player->getEquipments()->count());
+
+        $destroyEvent = new EquipmentEvent(
+            $gameEquipment,
+            false,
             VisibilityEnum::PUBLIC,
             ActionEnum::COFFEE,
             new \DateTime()
         );
-        $equipmentEvent->setExistingEquipment($gameEquipment);
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->eventDispatcher->dispatch($destroyEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        $I->assertEquals($room->getEquipments()->count(), 0);
-        $I->assertEquals($player->getEquipments()->count(), 1);
-        $I->assertEquals($player->getModifiers()->count(), 1);
-        $I->assertEquals($room->getModifiers()->count(), 0);
+        $I->assertEquals(0, $room->getEquipments()->count());
+        $I->assertEquals(1, $player->getEquipments()->count());
+        $I->assertEquals(1, $player->getModifiers()->count());
+        $I->assertEquals(0, $room->getModifiers()->count());
     }
 
-    public function testTransformGear(FunctionalTester $I)
+    public function testTransformGear(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
@@ -355,7 +363,11 @@ class CreateDestroyEquipmentSubscriberCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+            'characterConfig' => $characterConfig,
+        ]);
 
         $actionCost = new ActionCost();
         $I->haveInRepository($actionCost);
@@ -390,12 +402,10 @@ class CreateDestroyEquipmentSubscriberCest
         ;
         $I->haveInRepository($modifierConfig2);
 
-        $modifier = new Modifier($player, $modifierConfig);
-        $I->haveInRepository($modifier);
-
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($gear);
+
         $gear2 = new Gear();
         $gear2->setModifierConfigs(new ArrayCollection([$modifierConfig2]));
         $I->haveInRepository($gear2);
@@ -404,8 +414,9 @@ class CreateDestroyEquipmentSubscriberCest
         $equipmentConfig = $I->have(ItemConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
+            'name' => ItemEnum::OXYGEN_CAPSULE,
         ]);
-        /** @var ItemConfig $equipmentConfig */
+        /** @var ItemConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(ItemConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear2]),
@@ -413,23 +424,20 @@ class CreateDestroyEquipmentSubscriberCest
         ]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameItem();
-        $gameEquipment
-            ->setEquipment($equipmentConfig)
-            ->setName('some name')
-            ->setHolder($player)
-        ;
-        $I->haveInRepository($gameEquipment);
-
-        $equipmentEvent = new EquipmentEvent(
-            $equipmentConfig2->getName(),
+        $gameEquipment = $this->gameEquipmentService->createGameEquipmentFromName(
+            ItemEnum::OXYGEN_CAPSULE,
             $player,
-            VisibilityEnum::PUBLIC,
-            ActionEnum::COFFEE,
-            new \DateTime()
+            'a test reason',
+            VisibilityEnum::PUBLIC
         );
-        $equipmentEvent->setExistingEquipment($gameEquipment);
-        $this->eventDispatcherService->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
+
+        $transformedEquipment = $this->gameEquipmentService->transformGameEquipmentToEquipmentWithName(
+            ItemEnum::APPRENTON,
+            $gameEquipment,
+            $player,
+            'a test reason',
+            VisibilityEnum::PUBLIC
+        );
 
         $I->assertCount(0, $room->getEquipments());
         $I->assertCount(1, $player->getEquipments());

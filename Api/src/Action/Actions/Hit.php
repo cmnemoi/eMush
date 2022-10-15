@@ -34,12 +34,10 @@ class Hit extends AttemptAction
         $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var Player $parameter */
         $parameter = $this->parameter;
-
-        $result = $this->makeAttempt();
 
         if ($result instanceof Success) {
             $damage = $this->randomService->random(1, 3);
@@ -70,7 +68,5 @@ class Hit extends AttemptAction
                 $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
             }
         }
-
-        return $result;
     }
 }

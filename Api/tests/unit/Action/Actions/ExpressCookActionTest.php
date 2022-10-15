@@ -9,9 +9,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
@@ -19,6 +19,9 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 class ExpressCookActionTest extends AbstractActionTest
 {
+    /* @var GameEquipmentServiceInterface|Mockery\Mock */
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+
     /**
      * @before
      */
@@ -26,12 +29,15 @@ class ExpressCookActionTest extends AbstractActionTest
     {
         parent::before();
 
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+
         $this->actionEntity = $this->createActionEntity(ActionEnum::EXPRESS_COOK);
 
         $this->action = new ExpressCook(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
+            $this->gameEquipmentService
         );
     }
 
@@ -76,6 +82,7 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->never();
 
         $result = $this->action->execute();
 
@@ -125,7 +132,8 @@ class ExpressCookActionTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();
+
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

@@ -19,10 +19,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RationCycleHandlerTest extends TestCase
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+
+    private EventDispatcherInterface|Mockery\Mock $eventDispatcher;
 
     private RationCycleHandler $rationCycleHandler;
 
@@ -78,7 +77,7 @@ class RationCycleHandlerTest extends TestCase
         // frozen
         $this->gameEquipmentService->shouldReceive('persist')->once();
 
-        $this->rationCycleHandler->handleNewDay($gameFruit, $daedalus, new \DateTime());
+        $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
         $this->assertCount(1, $gameFruit->getStatuses());
 
         $gameFruit->removeStatus($frozen);
@@ -91,7 +90,7 @@ class RationCycleHandlerTest extends TestCase
             ->once()
         ;
 
-        $this->rationCycleHandler->handleNewDay($gameFruit, $daedalus, new \DateTime());
+        $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
         $this->assertCount(0, $gameFruit->getStatuses());
 
         $gameFruit->addStatus($unstable);
@@ -104,7 +103,7 @@ class RationCycleHandlerTest extends TestCase
             ->once()
         ;
 
-        $this->rationCycleHandler->handleNewDay($gameFruit, $daedalus, new \DateTime());
+        $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
         $this->assertCount(0, $gameFruit->getStatuses());
 
         $gameFruit->addStatus($hazardous);
@@ -118,7 +117,7 @@ class RationCycleHandlerTest extends TestCase
             ->once()
         ;
 
-        $this->rationCycleHandler->handleNewDay($gameFruit, $daedalus, new \DateTime());
+        $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
         $this->assertCount(0, $gameFruit->getStatuses());
     }
 }

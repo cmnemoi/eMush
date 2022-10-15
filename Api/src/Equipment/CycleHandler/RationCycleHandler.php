@@ -2,7 +2,6 @@
 
 namespace Mush\Equipment\CycleHandler;
 
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -29,11 +28,11 @@ class RationCycleHandler extends AbstractCycleHandler
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime): void
+    public function handleNewCycle($object, \DateTime $dateTime): void
     {
     }
 
-    public function handleNewDay($object, $daedalus, \DateTime $dateTime): void
+    public function handleNewDay($object, \DateTime $dateTime): void
     {
         $gameRation = $object;
 

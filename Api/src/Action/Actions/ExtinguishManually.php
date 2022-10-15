@@ -30,15 +30,17 @@ class ExtinguishManually extends AttemptAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new HasStatus(['status' => StatusEnum::FIRE, 'target' => HasStatus::PLAYER_ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new HasStatus([
+            'status' => StatusEnum::FIRE,
+            'target' => HasStatus::PLAYER_ROOM,
+            'groups' => ['visibility'],
+        ]));
         // @TODO validator on Firefighter skill
     }
 
-    protected function applyEffects(): ActionResult
+    protected function applyEffect(ActionResult $result): void
     {
-        $response = $this->makeAttempt();
-
-        if ($response instanceof Success) {
+        if ($result instanceof Success) {
             $statusEvent = new StatusEvent(
                 StatusEnum::FIRE,
                 $this->player->getPlace(),
@@ -47,7 +49,5 @@ class ExtinguishManually extends AttemptAction
             );
             $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
         }
-
-        return $response;
     }
 }

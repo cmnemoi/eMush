@@ -57,7 +57,12 @@ class Phagocyte extends AbstractAction
         $metadata->addConstraint(new MushSpore(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PHAGOCYTE_NO_SPORE]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var ?ChargeStatus $sporeStatus */
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
@@ -89,7 +94,5 @@ class Phagocyte extends AbstractAction
         );
         $actionPointGainEvent->setVisibility(VisibilityEnum::PRIVATE);
         $this->eventDispatcher->dispatch($actionPointGainEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
-
-        return new Success();
     }
 }

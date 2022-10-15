@@ -13,6 +13,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -37,27 +38,35 @@ class Hide extends AbstractAction
         $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
+        $time = new \DateTime();
 
-        $statusEvent = new StatusEvent(EquipmentStatusEnum::HIDDEN, $parameter, $this->getActionName(), new \DateTime());
+        $statusEvent = new StatusEvent(
+            EquipmentStatusEnum::HIDDEN,
+            $parameter,
+            $this->getActionName(),
+            $time
+        );
         $statusEvent->setStatusTarget($this->player);
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         if ($parameter->getHolder() instanceof Player) {
-            $equipmentEvent = new EquipmentEvent(
-                $parameter->getName(),
-                $this->player->getPlace(),
+            $equipmentEvent = new InteractWithEquipmentEvent(
+                $parameter,
+                $this->player,
                 VisibilityEnum::HIDDEN,
                 $this->getActionName(),
-                new \DateTime()
+                $time
             );
-            $equipmentEvent->setExistingEquipment($parameter);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
         }
-
-        return new Success();
     }
 }

@@ -5,8 +5,8 @@ namespace Mush\Test\Action\Actions;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\ActionResult\CriticalFail;
-use Mush\Action\ActionResult\CriticalSuccess;
 use Mush\Action\ActionResult\Fail;
+use Mush\Action\ActionResult\OneShot;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Attack;
 use Mush\Action\Enum\ActionEnum;
@@ -22,14 +22,11 @@ use Mush\Place\Entity\Place;
 
 class AttackActionTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface $randomService;
+    private RandomServiceInterface|Mockery\Mock $randomService;
 
-    /** @var ModifierServiceInterface|Mockery\Mock */
-    private ModifierServiceInterface $modifierService;
+    private ModifierServiceInterface|Mockery\Mock $modifierService;
 
-    /** @var PlayerDiseaseServiceInterface|Mockery\Mock */
-    private PlayerDiseaseServiceInterface $playerDiseaseService;
+    private PlayerDiseaseServiceInterface|Mockery\Mock $playerDiseaseService;
 
     /**
      * @before
@@ -180,7 +177,7 @@ class AttackActionTest extends AbstractActionTest
         $this->eventDispatcher->shouldReceive('dispatch')->once();
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(CriticalSuccess::class, $result);
+        $this->assertInstanceOf(OneShot::class, $result);
     }
 
     public function testCriticalFail()

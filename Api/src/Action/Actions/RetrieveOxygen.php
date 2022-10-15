@@ -2,8 +2,6 @@
 
 namespace Mush\Action\Actions;
 
-use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\HasStatus;
@@ -11,18 +9,14 @@ use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\Oxygen;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-class RetrieveOxygen extends AbstractAction
+class RetrieveOxygen extends RetrieveAction
 {
     protected string $name = ActionEnum::RETRIEVE_OXYGEN;
 
@@ -44,26 +38,13 @@ class RetrieveOxygen extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function getDaedalusVariable(): string
     {
-        $equipmentEvent = new EquipmentEvent(
-            ItemEnum::OXYGEN_CAPSULE,
-            $this->player,
-            VisibilityEnum::HIDDEN,
-            $this->getActionName(),
-            new \DateTime()
-        );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
+        return DaedalusVariableEnum::OXYGEN;
+    }
 
-        $daedalusEvent = new DaedalusModifierEvent(
-            $this->player->getDaedalus(),
-            DaedalusVariableEnum::OXYGEN,
-            -1,
-            $this->getActionName(),
-            new \DateTime()
-        );
-        $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
-
-        return new Success();
+    protected function getItemName(): string
+    {
+        return ItemEnum::OXYGEN_CAPSULE;
     }
 }

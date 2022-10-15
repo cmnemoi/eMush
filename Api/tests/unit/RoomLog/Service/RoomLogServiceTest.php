@@ -27,14 +27,13 @@ use PHPUnit\Framework\TestCase;
 
 class RoomLogServiceTest extends TestCase
 {
-    /** @var EntityManagerInterface|Mockery\Mock */
-    private EntityManagerInterface $entityManager;
-    /** @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface $randomService;
-    /** @var RoomLogRepository|Mockery\Mock */
-    private RoomLogRepository $repository;
-    /** @var TranslationServiceInterface|Mockery\Mock */
-    private TranslationServiceInterface $translationService;
+    private EntityManagerInterface|Mockery\Mock $entityManager;
+
+    private RandomServiceInterface|Mockery\Mock $randomService;
+
+    private RoomLogRepository|Mockery\Mock $repository;
+
+    private TranslationServiceInterface|Mockery\Mock $translationService;
 
     private RoomLogService $service;
 
@@ -363,7 +362,13 @@ class RoomLogServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $test = $this->service->createLogFromActionResult(ActionEnum::STRENGTHEN_HULL, $actionResult, $player, null);
+        $test = $this->service->createLogFromActionResult(
+            ActionEnum::STRENGTHEN_HULL,
+            $actionResult,
+            $player,
+            null,
+            new \DateTime()
+        );
 
         $this->assertEquals(ActionLogEnum::STRENGTHEN_SUCCESS, $test->getLog());
         $this->assertEquals(['character' => 'andie'], $test->getParameters());
@@ -395,7 +400,13 @@ class RoomLogServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $test = $this->service->createLogFromActionResult(ActionEnum::STRENGTHEN_HULL, $actionResult, $player, null);
+        $test = $this->service->createLogFromActionResult(
+            ActionEnum::STRENGTHEN_HULL,
+            $actionResult,
+            $player,
+            null,
+            new \DateTime()
+        );
 
         $this->assertEquals(ActionLogEnum::DEFAULT_FAIL, $test->getLog());
         $this->assertEquals(['character' => 'andie'], $test->getParameters());
@@ -431,7 +442,13 @@ class RoomLogServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $test = $this->service->createLogFromActionResult(ActionEnum::STRENGTHEN_HULL, $actionResult, $player, $gameEquipment);
+        $test = $this->service->createLogFromActionResult(
+            ActionEnum::STRENGTHEN_HULL,
+            $actionResult,
+            $player,
+            $gameEquipment,
+            new \DateTime()
+        );
 
         $this->assertEquals(ActionLogEnum::DEFAULT_FAIL, $test->getLog());
         $this->assertEquals(['character' => 'andie', 'target_equipment' => 'equipment'], $test->getParameters());

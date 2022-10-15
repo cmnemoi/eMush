@@ -25,8 +25,12 @@ class Examine extends AbstractAction
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
     {
         return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
+    {
     }
 }

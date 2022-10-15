@@ -3,7 +3,6 @@
 namespace Mush\Status\Listener;
 
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Service\PlayerStatusServiceInterface;

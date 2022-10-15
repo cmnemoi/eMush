@@ -5,31 +5,27 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\Charged;
-use Mush\Action\Validator\HasStatus;
-use Mush\Action\Validator\Reach;
+use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\GameRationEnum;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class Coffee extends AbstractAction
+abstract class RetrieveAction extends AbstractAction
 {
-    protected string $name = ActionEnum::COFFEE;
+    protected string $name = ActionEnum::RETRIEVE_FUEL;
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService,
+        GameEquipmentServiceInterface $gameEquipmentService
     ) {
         parent::__construct($eventDispatcher, $actionService, $validator);
 
@@ -38,16 +34,7 @@ class Coffee extends AbstractAction
 
     protected function support(?LogParameterInterface $parameter): bool
     {
-        return $parameter !== null && $parameter->getClassName() === GameEquipment::class;
-    }
-
-    public static function loadValidatorMetadata(ClassMetadata $metadata): void
-    {
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new HasStatus([
-            'status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
-        ]));
-        $metadata->addConstraint(new Charged(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DAILY_LIMIT]));
+        return $parameter instanceof GameEquipment && !$parameter instanceof Door;
     }
 
     protected function checkResult(): ActionResult
@@ -57,10 +44,26 @@ class Coffee extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
+        $time = new \DateTime();
+
         $this->gameEquipmentService->createGameEquipmentFromName(
-            GameRationEnum::COFFEE,
+            $this->getItemName(),
             $this->player,
-            $this->getActionName()
+            $this->getActionName(),
+            VisibilityEnum::HIDDEN
         );
+
+        $daedalusEvent = new DaedalusModifierEvent(
+            $this->player->getDaedalus(),
+            $this->getDaedalusVariable(),
+            -1,
+            $this->getActionName(),
+            $time
+        );
+        $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
+
+    abstract protected function getDaedalusVariable(): string;
+
+    abstract protected function getItemName(): string;
 }

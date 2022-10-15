@@ -13,14 +13,13 @@ use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\PlayerStatusService;
 use Mush\Status\Service\PlayerStatusServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerStatusServiceTest extends TestCase
 {
-    /** @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface $statusService;
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
+    private StatusServiceInterface|Mockery\Mock $statusService;
+
+    private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
 
     private PlayerStatusServiceInterface $playerStatusService;
 

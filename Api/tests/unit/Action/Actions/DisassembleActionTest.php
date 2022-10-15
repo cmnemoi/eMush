@@ -12,14 +12,17 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 
-class DisasembleActionTest extends AbstractActionTest
+class DisassembleActionTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface $randomService;
+    private RandomServiceInterface|Mockery\Mock $randomService;
+
+    /* @var GameEquipmentServiceInterface|Mockery\Mock */
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -29,6 +32,7 @@ class DisasembleActionTest extends AbstractActionTest
         parent::before();
 
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::DISASSEMBLE, 3);
 
@@ -37,6 +41,7 @@ class DisasembleActionTest extends AbstractActionTest
             $this->actionService,
             $this->validator,
             $this->randomService,
+            $this->gameEquipmentService
         );
     }
 
@@ -72,6 +77,7 @@ class DisasembleActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->never();
 
         // Fail try
         $result = $this->action->execute();
@@ -103,9 +109,11 @@ class DisasembleActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
+
         $scrap = new GameItem();
 
-        $this->eventDispatcher->shouldReceive('dispatch')->twice();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         // Success
         $result = $this->action->execute();

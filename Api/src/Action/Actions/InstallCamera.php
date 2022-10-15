@@ -6,21 +6,36 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class InstallCamera extends AbstractAction
 {
     protected string $name = ActionEnum::INSTALL_CAMERA;
+    protected GameEquipmentServiceInterface $gameEquipmentService;
+
+    public function __construct(
+        EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
+        GameEquipmentServiceInterface $gameEquipmentService
+    ) {
+        parent::__construct($eventDispatcher, $actionService, $validator);
+
+        $this->gameEquipmentService = $gameEquipmentService;
+    }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -47,21 +62,22 @@ class InstallCamera extends AbstractAction
         return $parameter instanceof GameItem;
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameItem $itemCamera */
         $itemCamera = $this->getParameter();
 
-        $equipmentEvent = new EquipmentEvent(
+        $this->gameEquipmentService->transformGameEquipmentToEquipmentWithName(
             EquipmentEnum::CAMERA_EQUIPMENT,
-            $this->player,
-            VisibilityEnum::PUBLIC,
+            $itemCamera,
+            $this->player->getPlace(),
             $this->getActionName(),
-            new \DateTime()
+            VisibilityEnum::PUBLIC
         );
-        $equipmentEvent->setExistingEquipment($itemCamera);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
-
-        return new Success();
     }
 }

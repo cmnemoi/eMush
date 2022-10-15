@@ -160,7 +160,6 @@ class SymptomService implements SymptomServiceInterface
             $symptomConfig->getName(),
             $time
         );
-
         $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
     }
 

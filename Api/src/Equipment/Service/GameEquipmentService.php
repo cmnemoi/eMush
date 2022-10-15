@@ -15,7 +15,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Event\EquipmentInitEvent;
+use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
@@ -78,43 +78,91 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         string $equipmentName,
         EquipmentHolderInterface $equipmentHolder,
         string $reason,
-        \DateTime $time
+        string $visibility = VisibilityEnum::HIDDEN
     ): GameEquipment {
-        $equipment = $this->equipmentService->findByNameAndDaedalus($equipmentName, $equipmentHolder->getPlace()->getDaedalus());
+        $config = $this->equipmentService->findByNameAndDaedalus($equipmentName, $equipmentHolder->getPlace()->getDaedalus());
 
-        return $this->createGameEquipment($equipment, $equipmentHolder, $reason, $time);
+        return $this->createGameEquipment($config, $equipmentHolder, $reason, $visibility);
     }
 
     public function createGameEquipment(
         EquipmentConfig $equipmentConfig,
         EquipmentHolderInterface $holder,
         string $reason,
-        \DateTime $time,
+        string $visibility = VisibilityEnum::HIDDEN
     ): GameEquipment {
-        if ($equipmentConfig instanceof ItemConfig) {
-            $gameEquipment = $equipmentConfig->createGameItem();
+        $equipment = $this->getEquipmentFromConfig($equipmentConfig, $holder, $reason);
+
+        $event = new EquipmentEvent(
+            $equipment,
+            true,
+            $visibility,
+            $reason,
+            new \DateTime()
+        );
+        $this->eventDispatcher->dispatch($event, EquipmentEvent::EQUIPMENT_CREATED);
+
+        return $equipment;
+    }
+
+    private function getEquipmentFromConfig(
+        EquipmentConfig $config,
+        EquipmentHolderInterface $holder,
+        string $reason
+    ): GameEquipment {
+        if ($config instanceof ItemConfig) {
+            $gameEquipment = $config->createGameItem();
             $gameEquipment->setHolder($holder);
         } else {
-            $gameEquipment = $equipmentConfig->createGameEquipment();
+            $gameEquipment = $config->createGameEquipment();
             $gameEquipment->setHolder($holder->getPlace());
         }
 
-        $this->persist($gameEquipment);
+        $this->initMechanics($gameEquipment, $holder->getPlace()->getDaedalus(), $reason);
 
-        $gameEquipment = $this->initMechanics($gameEquipment, $holder->getPlace()->getDaedalus(), $reason);
-
-        if ($equipmentConfig->isPersonal()) {
+        if ($config->isPersonal()) {
             if (!($holder instanceof Player)) {
                 throw new Error('holder should be a player');
             }
             $gameEquipment->setOwner($holder);
-            $this->persist($gameEquipment);
         }
 
-        $equipmentEvent = new EquipmentInitEvent($gameEquipment, $equipmentConfig, $reason, $time);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentInitEvent::NEW_EQUIPMENT);
+        $this->persist($gameEquipment);
 
         return $gameEquipment;
+    }
+
+    public function transformGameEquipmentToEquipmentWithName(
+        string $resultName,
+        GameEquipment $input,
+        EquipmentHolderInterface $holder,
+        string $reason,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): GameEquipment {
+        $config = $this->equipmentService->findByNameAndDaedalus($resultName, $holder->getPlace()->getDaedalus());
+
+        return $this->transformGameEquipmentToEquipment($config, $input, $holder, $reason, $visibility);
+    }
+
+    public function transformGameEquipmentToEquipment(
+        EquipmentConfig $resultConfig,
+        GameEquipment $input,
+        EquipmentHolderInterface $holder,
+        string $reason,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): GameEquipment {
+        $result = $this->getEquipmentFromConfig($resultConfig, $holder, $reason);
+
+        $equipmentEvent = new TransformEquipmentEvent(
+            $result,
+            $input,
+            $visibility,
+            $reason,
+            new \DateTime()
+        );
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
+
+        return $result;
     }
 
     private function initMechanics(GameEquipment $gameEquipment, Daedalus $daedalus, string $reason): GameEquipment
@@ -139,7 +187,12 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a plant');
         }
 
-        $statusEvent = new StatusEvent(EquipmentStatusEnum::PLANT_YOUNG, $gameEquipment, EquipmentEvent::EQUIPMENT_CREATED, new \DateTime());
+        $statusEvent = new StatusEvent(
+            EquipmentStatusEnum::PLANT_YOUNG,
+            $gameEquipment,
+            EquipmentEvent::EQUIPMENT_CREATED,
+            new \DateTime()
+        );
 
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
@@ -152,7 +205,13 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a document');
         }
 
-        $statusEvent = new StatusEvent(EquipmentStatusEnum::DOCUMENT_CONTENT, $gameEquipment, EquipmentEvent::EQUIPMENT_CREATED, new \DateTime());
+        $statusEvent = new StatusEvent(
+            EquipmentStatusEnum::DOCUMENT_CONTENT,
+            $gameEquipment,
+            EquipmentEvent::EQUIPMENT_CREATED,
+            new \DateTime()
+        );
+
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $gameEquipment;
@@ -168,13 +227,12 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
             $equipmentEvent = new EquipmentEvent(
-                $gameEquipment->getName(),
-                $gameEquipment->getPlace(),
+                $gameEquipment,
+                false,
                 VisibilityEnum::PUBLIC,
                 EventEnum::FIRE,
                 $date
             );
-            $equipmentEvent->setExistingEquipment($gameEquipment);
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
 

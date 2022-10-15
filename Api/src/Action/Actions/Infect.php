@@ -68,7 +68,12 @@ class Infect extends AbstractAction
         $metadata->addConstraint(new DailySporesLimit(['target' => DailySporesLimit::PLAYER, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INFECT_DAILY_LIMIT]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var Player $parameter */
         $parameter = $this->parameter;
@@ -85,7 +90,5 @@ class Infect extends AbstractAction
         $mushStatus = $this->player->getStatusByName(PlayerStatusEnum::MUSH);
         $mushStatus->addCharge(-1);
         $this->statusService->persist($mushStatus);
-
-        return new Success();
     }
 }

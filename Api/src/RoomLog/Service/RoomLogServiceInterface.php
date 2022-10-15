@@ -25,6 +25,7 @@ interface RoomLogServiceInterface
         ActionResult $actionResult,
         Player $player,
         ?LogParameterInterface $actionParameter,
+        \DateTime $time
     ): ?RoomLog;
 
     public function persist(RoomLog $roomLog): RoomLog;

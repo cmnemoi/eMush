@@ -99,7 +99,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         );
         $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
-        if ($daedalus->getOxygen() === 0) {
+        if ($daedalus->getOxygen() <= 0) {
             $this->daedalusService->getRandomAsphyxia($daedalus, $date);
         }
 

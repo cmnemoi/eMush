@@ -62,7 +62,12 @@ class Flirt extends AbstractAction
         $metadata->addConstraint(new FlirtedAlready(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FLIRT_ALREADY_FLIRTED]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var Player $parameter */
         $parameter = $this->parameter;
@@ -72,7 +77,5 @@ class Flirt extends AbstractAction
         $this->player->addFlirt($parameter);
 
         $this->playerService->persist($this->player);
-
-        return new Success();
     }
 }

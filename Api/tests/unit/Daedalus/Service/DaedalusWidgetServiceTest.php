@@ -3,13 +3,10 @@
 namespace Mush\Test\Daedalus\Service;
 
 use Mockery;
-use Mush\Alert\Entity\Alert;
-use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusWidgetService;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\GameStatusEnum;

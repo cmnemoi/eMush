@@ -51,7 +51,7 @@ class Search extends AbstractAction
         $metadata->addConstraint(new IsRoom(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NOT_A_ROOM]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
     {
         $hiddenItems = $this->player
             ->getPlace()
@@ -76,20 +76,41 @@ class Search extends AbstractAction
 
             $itemFound = $mostRecentHiddenItem;
 
-            $statusEvent = new StatusEvent(
-                $hiddenStatus->getName(),
-                $itemFound,
-                $this->getActionName(),
-                new \DateTime()
-            );
-            $statusEvent->setStatusTarget($hiddenBy);
-            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
-
             $success = new Success();
 
             return $success->setEquipment($itemFound);
         } else {
             return new Fail();
         }
+    }
+
+    protected function applyEffect(ActionResult $result): void
+    {
+        if ($result instanceof Fail) {
+            return;
+        }
+
+        $hiddenItem = $result->getEquipment();
+
+        if ($hiddenItem === null) {
+            throw new \LogicException('action should have an hidden item');
+        }
+
+        $hiddenStatus = $hiddenItem->getStatusByName(EquipmentStatusEnum::HIDDEN);
+
+        if ($hiddenStatus === null) {
+            throw new \LogicException('item should have an hidden status');
+        }
+
+        $hiddenBy = $hiddenStatus->getTarget();
+
+        $statusEvent = new StatusEvent(
+            $hiddenItem->getName(),
+            $hiddenItem,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $statusEvent->setStatusTarget($hiddenBy);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
     }
 }

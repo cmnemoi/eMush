@@ -11,7 +11,6 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
-use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -32,14 +31,13 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlantCycleHandlerTest extends TestCase
 {
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface $randomService;
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
-    /** @var EquipmentEffectServiceInterface|Mockery\Mock */
-    private EquipmentEffectServiceInterface $equipmentEffectService;
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+
+    private RandomServiceInterface|Mockery\Mock $randomService;
+
+    private EventDispatcherInterface|Mockery\Mock $eventDispatcher;
+
+    private EquipmentEffectServiceInterface|Mockery\Mock $equipmentEffectService;
 
     private PlantCycleHandler $plantCycleHandler;
 
@@ -85,9 +83,13 @@ class PlantCycleHandlerTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
+        $place = new Place();
+        $place->setDaedalus($daedalus);
+
         $gamePlant = new GameItem();
         $gamePlant
-            ->setEquipment($plant);
+            ->setEquipment($plant)
+            ->setHolder($place);
 
         $chargeStatusConfig = new ChargeStatusConfig();
         $chargeStatusConfig->setName(EquipmentStatusEnum::PLANT_YOUNG);
@@ -101,7 +103,7 @@ class PlantCycleHandlerTest extends TestCase
             ->setOxygen(10);
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect)->once();
 
-        $this->plantCycleHandler->handleNewCycle($gamePlant, $daedalus, new \DateTime());
+        $this->plantCycleHandler->handleNewCycle($gamePlant, new \DateTime());
 
         $this->assertFalse(
             $gamePlant
@@ -143,9 +145,12 @@ class PlantCycleHandlerTest extends TestCase
         // Plant get disease and grow
         $chargeStatus->setCharge(10);
 
+        $place = new Place();
+        $place->setDaedalus($daedalus);
+
         $gamePlant
                 ->setEquipment($plant)
-                ->setHolder(new Place());
+                ->setHolder($place);
 
         $plantEffect = new PlantEffect();
         $plantEffect
@@ -166,7 +171,7 @@ class PlantCycleHandlerTest extends TestCase
                     $event->getStatusHolder() === $gamePlant)
                 ->once();
 
-        $this->plantCycleHandler->handleNewCycle($gamePlant, $daedalus, new \DateTime());
+        $this->plantCycleHandler->handleNewCycle($gamePlant, new \DateTime());
 
         $this->assertCount(1, $gamePlant->getStatuses());
     }
@@ -185,9 +190,13 @@ class PlantCycleHandlerTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
+        $place = new Place();
+        $place->setDaedalus($daedalus);
+
         $gamePlant = new GameItem();
         $gamePlant
-            ->setEquipment($plant);
+            ->setEquipment($plant)
+            ->setHolder($place);
 
         // Plant already diseased can't get disease
         $diseaseConfig = new StatusConfig();
@@ -202,7 +211,7 @@ class PlantCycleHandlerTest extends TestCase
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
 
-        $this->plantCycleHandler->handleNewCycle($gamePlant, $daedalus, new \DateTime());
+        $this->plantCycleHandler->handleNewCycle($gamePlant, new \DateTime());
 
         $this->assertCount(1, $gamePlant->getStatuses());
     }
@@ -259,14 +268,10 @@ class PlantCycleHandlerTest extends TestCase
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10
             )->once();
-        $this->eventDispatcher->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
-                $event->getEquipmentName() === $newFruit->getName()
-            )->once()
-        ;
+        $this->gameEquipmentService->shouldReceive('createGameEquipment')->once();
 
         // Mature Plant, no problem
-        $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, $time);
+        $this->plantCycleHandler->handleNewDay($gamePlant, $time);
 
         $this->assertCount(1, $room->getEquipments());
     }
@@ -324,7 +329,7 @@ class PlantCycleHandlerTest extends TestCase
             ->once();
 
         // Thirsty plant
-        $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, new \DateTime());
+        $this->plantCycleHandler->handleNewDay($gamePlant, new \DateTime());
 
         $this->assertCount(1, $room->getEquipments());
 
@@ -376,17 +381,14 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->eventDispatcher->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
-                $event->getExistingEquipment() === $gamePlant
+                $event->getEquipment() === $gamePlant
             )->once()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent &&
-                $event->getEquipmentName() === ItemEnum::HYDROPOT
-            )->once()
-        ;
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         // Dried out plant
-        $this->plantCycleHandler->handleNewDay($gamePlant, $daedalus, $time);
+        // @TODO $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName');
+        $this->plantCycleHandler->handleNewDay($gamePlant, $time);
 
         $this->assertCount(1, $room->getEquipments());
         $this->assertNotContains($plant, $room->getEquipments());

@@ -4,6 +4,7 @@ namespace Mush\Status\Listener;
 
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -24,21 +25,30 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_TRANSFORM => ['onEquipmentTransform', 1000], // change the status before original equipment is destroyed
-            EquipmentEvent::EQUIPMENT_DESTROYED => [['onEquipmentDestroyed'], ['onEquipmentRemovedFromInventory', -10]],
-            EquipmentEvent::EQUIPMENT_CREATED => ['onNewEquipmentInInventory', -2000], // after the overflowing part has been solved
-            EquipmentEvent::CHANGE_HOLDER => [['onEquipmentRemovedFromInventory', 2000], ['onNewEquipmentInInventory', -2000]],
+            EquipmentEvent::EQUIPMENT_TRANSFORM => [
+                ['onEquipmentTransform', 1000], // change the status before original equipment is destroyed
+            ],
+            EquipmentEvent::EQUIPMENT_DESTROYED => [
+                ['onEquipmentDestroyed'],
+                ['onEquipmentRemovedFromInventory', -10],
+            ],
+            EquipmentEvent::EQUIPMENT_CREATED => [
+                ['onNewEquipmentInInventory', -2000], // after the overflowing part has been solved
+            ],
+            EquipmentEvent::INVENTORY_OVERFLOW => [
+                ['onEquipmentRemovedFromInventory'],
+            ],
+            EquipmentEvent::CHANGE_HOLDER => [
+                ['onEquipmentRemovedFromInventory', 2000],
+                ['onNewEquipmentInInventory', -2000],
+            ],
         ];
     }
 
-    public function onEquipmentTransform(EquipmentEvent $event): void
+    public function onEquipmentTransform(TransformEquipmentEvent $event): void
     {
-        $newEquipment = $event->getNewEquipment();
-        $oldEquipment = $event->getExistingEquipment();
-
-        if ($oldEquipment === null || $newEquipment === null) {
-            throw new \LogicException('2 equipments should be provided');
-        }
+        $newEquipment = $event->getEquipment();
+        $oldEquipment = $event->getEquipmentFrom();
 
         /** @var Status $status */
         foreach ($oldEquipment->getStatuses() as $status) {
@@ -49,26 +59,17 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        $equipment = $event->getExistingEquipment();
-
-        if ($equipment === null) {
-            throw new \LogicException('Replaced equipment should be provided');
-        }
-
+        $equipment = $event->getEquipment();
         $this->statusService->removeAllStatuses($equipment, $event->getReason(), $event->getTime());
     }
 
     public function onNewEquipmentInInventory(EquipmentEvent $event): void
     {
-        $equipment = $event->getExistingEquipment() ?: $event->getNewEquipment();
+        $equipment = $event->getEquipment();
         $reason = $event->getReason();
         $time = $event->getTime();
-
-        if ($equipment === null) {
-            throw new \LogicException('Equipment should be provided');
-        }
-
         $holder = $equipment->getHolder();
+
         if ($holder instanceof Player) {
             if ($equipment->hasStatus(EquipmentStatusEnum::HIDDEN)) {
                 $this->statusService->removeStatus(EquipmentStatusEnum::HIDDEN, $equipment, $reason, $time);
@@ -84,13 +85,9 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentRemovedFromInventory(EquipmentEvent $event): void
     {
-        $equipment = $event->getExistingEquipment();
+        $equipment = $event->getEquipment();
         $reason = $event->getReason();
         $time = $event->getTime();
-
-        if ($equipment === null) {
-            throw new \LogicException('Existing equipment should be provided');
-        }
 
         $player = $equipment->getHolder();
         if ($player instanceof Player &&

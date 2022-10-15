@@ -48,17 +48,28 @@ class Heal extends AbstractAction
         $metadata->addConstraint(new FullHealth(['target' => FullHealth::PARAMETER, 'groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        $healedQuantity = self::BASE_HEAL;
+        $success = new Success();
+
+        return $success->setQuantity($healedQuantity);
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var Player $parameter */
         $parameter = $this->parameter;
+        $quantity = $result->getQuantity();
 
-        $healedQuantity = self::BASE_HEAL;
+        if ($quantity === null) {
+            throw new \LogicException('no healing quantity');
+        }
 
         $playerModifierEvent = new PlayerVariableEvent(
             $parameter,
             PlayerVariableEnum::HEALTH_POINT,
-            $healedQuantity,
+            $quantity,
             $this->getActionName(),
             new \DateTime()
         );
@@ -72,9 +83,5 @@ class Heal extends AbstractAction
             new \DateTime()
         );
         $this->eventDispatcher->dispatch($healEvent, ApplyEffectEvent::HEAL);
-
-        $success = new Success();
-
-        return $success->setQuantity($healedQuantity);
     }
 }

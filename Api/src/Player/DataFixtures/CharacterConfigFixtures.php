@@ -22,7 +22,6 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
 use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Enum\PlayerStatusEnum;
 
 class CharacterConfigFixtures extends Fixture implements DependentFixtureInterface
 {

@@ -9,6 +9,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
@@ -68,15 +69,13 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         }
 
         // if no charges consume equipment
-        $equipmentEvent = new EquipmentEvent(
-            $ration->getName(),
-            $ration->getHolder() ?: $ration->getPlace(),
+        $equipmentEvent = new InteractWithEquipmentEvent(
+            $ration,
+            $player,
             VisibilityEnum::HIDDEN,
             $consumeEvent->getReason(),
             new \DateTime()
         );
-
-        $equipmentEvent->setExistingEquipment($ration);
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 

@@ -30,7 +30,7 @@ abstract class AbstractAction
 
     protected EventDispatcherInterface $eventDispatcher;
     protected ActionServiceInterface $actionService;
-    private ValidatorInterface $validator;
+    protected ValidatorInterface $validator;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -84,7 +84,9 @@ abstract class AbstractAction
         return null;
     }
 
-    abstract protected function applyEffects(): ActionResult;
+    abstract protected function checkResult(): ActionResult;
+
+    abstract protected function applyEffect(ActionResult $result): void;
 
     public function execute(): ActionResult
     {
@@ -101,13 +103,15 @@ abstract class AbstractAction
 
         $this->actionService->applyCostToPlayer($this->player, $this->action, $this->parameter);
 
-        $result = $this->applyEffects();
+        $result = $this->checkResult();
 
         $result->setVisibility($this->action->getVisibility($result->getName()));
 
         $resultActionEvent = new ActionEvent($this->action, $this->player, $parameter);
         $resultActionEvent->setActionResult($result);
         $this->eventDispatcher->dispatch($resultActionEvent, ActionEvent::RESULT_ACTION);
+
+        $this->applyEffect($result);
 
         $postActionEvent = new ActionEvent($this->action, $this->player, $parameter);
         $postActionEvent->setActionResult($result);

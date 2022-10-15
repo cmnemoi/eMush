@@ -6,6 +6,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\CriticalFail;
 use Mush\Action\ActionResult\CriticalSuccess;
 use Mush\Action\ActionResult\Fail;
+use Mush\Action\ActionResult\OneShot;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
@@ -85,14 +86,10 @@ class Shoot extends AttemptAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
     {
-        /** @var Player $player */
         $player = $this->player;
-        /** @var Player $target */
-        $target = $this->parameter;
 
-        /** @var EquipmentConfig $blasterItem */
         $blasterItem = $this->getPlayerBlaster();
         if ($blasterItem == null) {
             throw new \Exception("Attack action : {$player->getLogName()} should have a blaster");
@@ -100,24 +97,67 @@ class Shoot extends AttemptAction
 
         /** @var Weapon $blasterWeapon */
         $blasterWeapon = $blasterItem->getMechanics()->first();
-
         if (!$blasterWeapon instanceof Weapon) {
             throw new \Exception('Attack action : Blaster should have a weapon mechanic');
         }
 
-        $result = $this->makeAttempt();
+        $result = parent::checkResult();
 
         if ($result instanceof Success) {
-            $isAOneShot = $this->handleOneShot($player, $target, $blasterWeapon);
-            if ($isAOneShot) {
+            if ($this->isOneShot($player, $blasterWeapon)) {
+                return new OneShot();
+            }
+
+            if ($this->isCriticalSuccess($player, $blasterWeapon)) {
                 return new CriticalSuccess();
+            }
+
+            return new Success();
+        } else {
+            if ($this->isCriticalFail($player, $blasterWeapon)) {
+                return new CriticalFail();
+            }
+
+            return new Fail();
+        }
+    }
+
+    protected function applyEffect(ActionResult $result): void
+    {
+        $player = $this->player;
+        /** @var Player $target */
+        $target = $this->parameter;
+
+        $blasterItem = $this->getPlayerBlaster();
+        if ($blasterItem == null) {
+            throw new \Exception("Attack action : {$player->getLogName()} should have a blaster");
+        }
+
+        /** @var Weapon $blasterWeapon */
+        $blasterWeapon = $blasterItem->getMechanics()->first();
+        if (!$blasterWeapon instanceof Weapon) {
+            throw new \Exception('Attack action : Blaster should have a weapon mechanic');
+        }
+
+        if ($result instanceof Success) {
+            if ($result instanceof OneShot) {
+                $deathEvent = new PlayerEvent(
+                    $target,
+                    EndCauseEnum::BEHEADED,
+                    new \DateTime()
+                );
+
+                $this->eventDispatcher->dispatch($deathEvent, PlayerEvent::DEATH_PLAYER);
+
+                return;
             }
 
             $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($blasterWeapon->getBaseDamageRange()));
 
-            $isACriticalSuccess = $this->handleCriticalSuccess($player, $target, $blasterWeapon);
-            // handle modifiers on damage : armor, hard boiled, etc
-            if (!$isACriticalSuccess) {
+            if ($result instanceof CriticalSuccess) {
+                $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_BLASTER, $target);
+            } else {
+                // handle modifiers on damage : armor, hard boiled, etc
                 $damage = $this->modifierService->getEventModifiedValue(
                     $target,
                     [ModifierScopeEnum::INJURY],
@@ -127,16 +167,12 @@ class Shoot extends AttemptAction
                     new \DateTime()
                 );
             }
+
             $this->inflictDamage($damage, $target);
-
-            return new Success();
         } else {
-            $isACriticalFail = $this->handleCriticalFail($player, $blasterWeapon);
-            if ($isACriticalFail) {
-                return new CriticalFail();
+            if ($result instanceof CriticalFail) {
+                $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_FAIL_BLASTER, $player);
             }
-
-            return new Fail();
         }
     }
 
@@ -147,7 +183,7 @@ class Shoot extends AttemptAction
         )->first()->getEquipment();
     }
 
-    private function handleCriticalFail(Player $player, Weapon $blaster): bool
+    private function isCriticalFail(Player $player, Weapon $blaster): bool
     {
         $criticalFailRate = $this->modifierService->getEventModifiedValue(
             $player,
@@ -158,16 +194,10 @@ class Shoot extends AttemptAction
             new \DateTime()
         );
 
-        if ($this->randomService->isSuccessful($criticalFailRate)) {
-            $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_FAIL_BLASTER, $player);
-
-            return true;
-        }
-
-        return false;
+        return $this->randomService->isSuccessful($criticalFailRate);
     }
 
-    private function handleCriticalSuccess(Player $player, Player $target, Weapon $blaster): bool
+    private function isCriticalSuccess(Player $player, Weapon $blaster): bool
     {
         $criticalSuccessRate = $this->modifierService->getEventModifiedValue(
             $player,
@@ -178,16 +208,10 @@ class Shoot extends AttemptAction
             new \DateTime()
         );
 
-        if ($this->randomService->isSuccessful($criticalSuccessRate)) {
-            $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_BLASTER, $target);
-
-            return true;
-        }
-
-        return false;
+        return $this->randomService->isSuccessful($criticalSuccessRate);
     }
 
-    private function handleOneShot(Player $player, Player $target, Weapon $blaster): bool
+    private function isOneShot(Player $player, Weapon $blaster): bool
     {
         $oneShotRate = $this->modifierService->getEventModifiedValue(
             $player,
@@ -198,19 +222,7 @@ class Shoot extends AttemptAction
             new \DateTime()
         );
 
-        if ($this->randomService->isSuccessful($oneShotRate)) {
-            $deathEvent = new PlayerEvent(
-                $target,
-                EndCauseEnum::BEHEADED,
-                new \DateTime()
-            );
-
-            $this->eventDispatcher->dispatch($deathEvent, PlayerEvent::DEATH_PLAYER);
-
-            return true;
-        }
-
-        return false;
+        return $this->randomService->isSuccessful($oneShotRate);
     }
 
     private function inflictDamage(int $damage, Player $target): void

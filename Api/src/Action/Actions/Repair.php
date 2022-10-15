@@ -29,14 +29,12 @@ class Repair extends AttemptAction
         $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
 
-        $response = $this->makeAttempt();
-
-        if ($response instanceof Success) {
+        if ($result instanceof Success) {
             $statusEvent = new StatusEvent(
                 EquipmentStatusEnum::BROKEN,
                 $parameter,
@@ -45,7 +43,5 @@ class Repair extends AttemptAction
             );
             $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
         }
-
-        return $response;
     }
 }

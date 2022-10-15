@@ -58,6 +58,7 @@ class RoomLogService implements RoomLogServiceInterface
         ActionResult $actionResult,
         Player $player,
         ?LogParameterInterface $actionParameter,
+        \DateTime $time
     ): ?RoomLog {
         // first lets handle the special case of examine action
         if ($actionName === ActionEnum::EXAMINE) {
@@ -91,6 +92,7 @@ class RoomLogService implements RoomLogServiceInterface
             'actions_log',
             $player,
             $parameters,
+            $time
         );
     }
 

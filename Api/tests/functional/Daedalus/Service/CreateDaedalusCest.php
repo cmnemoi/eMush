@@ -5,7 +5,6 @@ namespace functional\Daedalus\Service;
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Daedalus\Service\DaedalusService;
@@ -72,7 +71,10 @@ class CreateDaedalusCest
 
         // status config
         $alienArtifact = new StatusConfig();
-        $alienArtifact->setName(EquipmentStatusEnum::ALIEN_ARTEFACT)->setVisibility(VisibilityEnum::PUBLIC)->setGameConfig($gameConfig);
+        $alienArtifact
+            ->setName(EquipmentStatusEnum::ALIEN_ARTEFACT)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setGameConfig($gameConfig);
         $I->haveInRepository($alienArtifact);
 
         // Modifier configs
@@ -83,11 +85,12 @@ class CreateDaedalusCest
             ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
         ;
         $I->haveInRepository($gravityModifier);
+
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$gravityModifier]));
         $I->haveInRepository($gear);
 
-        // Equipment Congigs
+        // Equipment Configs
         $waterStick = new ItemConfig();
         $waterStick
             ->setName(ItemEnum::WATER_STICK)

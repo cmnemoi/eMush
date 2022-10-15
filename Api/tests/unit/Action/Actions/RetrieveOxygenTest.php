@@ -9,33 +9,34 @@ use Mush\Action\Actions\RetrieveOxygen;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
-use Symfony\Contracts\EventDispatcher\Event;
 
 class RetrieveOxygenTest extends AbstractActionTest
 {
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+
     /**
      * @before
      */
     public function before()
     {
         parent::before();
-
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_OXYGEN);
 
         $this->action = new RetrieveOxygen(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
+            $this->gameEquipmentService
         );
     }
 
@@ -85,19 +86,8 @@ class RetrieveOxygenTest extends AbstractActionTest
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->eventDispatcher->shouldReceive('dispatch')
-            ->withArgs(fn (Event $event) => (
-                $event instanceof EquipmentEvent &&
-                $event->getEquipmentName() === ItemEnum::OXYGEN_CAPSULE &&
-                $event->getHolder() === $player)
-            )
-            ->once();
-        $this->eventDispatcher->shouldReceive('dispatch')
-            ->withArgs(fn (Event $event) => (
-                $event instanceof DaedalusModifierEvent &&
-                $event->getQuantity() === -1)
-            )
-            ->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameTank);
 

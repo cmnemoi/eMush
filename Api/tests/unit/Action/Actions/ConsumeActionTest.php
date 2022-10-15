@@ -17,8 +17,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 
 class ConsumeActionTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface|Mockery\Mock */
-    private PlayerServiceInterface $playerService;
+    private PlayerServiceInterface|Mockery\Mock $playerService;
 
     /**
      * @before

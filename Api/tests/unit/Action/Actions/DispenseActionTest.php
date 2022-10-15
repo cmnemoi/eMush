@@ -14,13 +14,16 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameDrugEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 
 class DispenseActionTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface $randomService;
+    private RandomServiceInterface|Mockery\Mock $randomService;
+
+    /* @var GameEquipmentServiceInterface|Mockery\Mock */
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -30,6 +33,7 @@ class DispenseActionTest extends AbstractActionTest
         parent::before();
 
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
@@ -38,6 +42,7 @@ class DispenseActionTest extends AbstractActionTest
             $this->actionService,
             $this->validator,
             $this->randomService,
+            $this->gameEquipmentService
         );
     }
 
@@ -79,8 +84,8 @@ class DispenseActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('getRandomElements')->andReturn([GameDrugEnum::PHUXX])->once();
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

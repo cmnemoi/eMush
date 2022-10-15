@@ -96,11 +96,8 @@ class Surgery extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
     {
-        /** @var Player $targetPlayer */
-        $targetPlayer = $this->parameter;
-
         $date = new \DateTime();
 
         $failChances = $this->modifierService->getEventModifiedValue(
@@ -123,18 +120,29 @@ class Surgery extends AbstractAction
         $result = $this->randomService->outputCriticalChances($failChances, 0, $criticalSuccessChances);
 
         if ($result === ActionOutputEnum::FAIL) {
-            return $this->failedSurgery($targetPlayer, $date);
-        }
-
-        $this->successSurgery($targetPlayer, $result, $date);
-
-        if ($result === ActionOutputEnum::CRITICAL_SUCCESS) {
+            return new Fail();
+        } elseif ($result === ActionOutputEnum::CRITICAL_SUCCESS) {
             return new CriticalSuccess();
         } elseif ($result === ActionOutputEnum::SUCCESS) {
             return new Success();
         }
 
         return new Error('this output should not exist');
+    }
+
+    protected function applyEffect(ActionResult $result): void
+    {
+        /** @var Player $targetPlayer */
+        $targetPlayer = $this->parameter;
+        $date = new \DateTime();
+
+        if ($result instanceof Fail) {
+            $this->failedSurgery($targetPlayer, $date);
+        } elseif ($result instanceof CriticalSuccess) {
+            $this->successSurgery($targetPlayer, ActionOutputEnum::CRITICAL_SUCCESS, $date);
+        } elseif ($result instanceof Success) {
+            $this->successSurgery($targetPlayer, ActionOutputEnum::SUCCESS, $date);
+        }
     }
 
     private function successSurgery(Player $targetPlayer, string $reason, \DateTime $time): void

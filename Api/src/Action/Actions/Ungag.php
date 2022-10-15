@@ -6,7 +6,6 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Validator\HasStatus as StatusValidator;
-use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -38,12 +37,15 @@ class Ungag extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         $statusEvent = new StatusEvent(PlayerStatusEnum::GAGGED, $this->player, $this->getActionName(), new \DateTime());
 
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_REMOVED);
-
-        return new Success();
     }
 }

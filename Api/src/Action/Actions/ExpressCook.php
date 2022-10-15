@@ -3,19 +3,21 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 
 class ExpressCook extends AbstractCook
 {
     protected string $name = ActionEnum::EXPRESS_COOK;
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
     {
-        parent::applyEffects();
-
         // @TODO add effect on the link with sol
+        return parent::checkResult();
+    }
 
-        return new Success();
+    protected function applyEffect(ActionResult $result): void
+    {
+        parent::applyEffect($result);
+        // @TODO add effect on the link with sol
     }
 }

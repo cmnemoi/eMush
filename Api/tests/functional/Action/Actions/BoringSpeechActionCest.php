@@ -22,7 +22,6 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class BoringSpeechActionCest
 {
@@ -31,7 +30,6 @@ class BoringSpeechActionCest
     public function _before(FunctionalTester $I)
     {
         $this->BoringSpeechAction = $I->grabService(BoringSpeech::class);
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testBoringSpeech(FunctionalTester $I)

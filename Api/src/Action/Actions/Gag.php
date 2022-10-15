@@ -42,7 +42,12 @@ class Gag extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var Player $parameter */
         $parameter = $this->parameter;
@@ -55,7 +60,5 @@ class Gag extends AbstractAction
         );
 
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
-
-        return new Success();
     }
 }

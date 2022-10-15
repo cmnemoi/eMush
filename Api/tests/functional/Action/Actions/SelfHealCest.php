@@ -20,7 +20,6 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class SelfHealCest
 {
@@ -29,7 +28,6 @@ class SelfHealCest
     public function _before(FunctionalTester $I)
     {
         $this->selfHealAction = $I->grabService(SelfHeal::class);
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testSelfHeal(FunctionalTester $I)

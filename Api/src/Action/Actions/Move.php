@@ -49,7 +49,12 @@ class Move extends AbstractAction
         $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var Door $parameter */
         $parameter = $this->parameter;
@@ -58,7 +63,5 @@ class Move extends AbstractAction
         $this->player->changePlace($newRoom);
 
         $this->playerService->persist($this->player);
-
-        return new Success();
     }
 }

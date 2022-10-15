@@ -7,7 +7,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerStatusService implements PlayerStatusServiceInterface
 {
@@ -46,7 +46,6 @@ class PlayerStatusService implements PlayerStatusServiceInterface
         if ($player->getSatiety() >= self::FULL_STOMACH_STATUS_THRESHOLD && !$fullStatus) {
             $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_APPLIED);
         } elseif ($player->getSatiety() < self::FULL_STOMACH_STATUS_THRESHOLD && $fullStatus) {
-            codecept_debug('aze');
             $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_REMOVED);
         }
     }
@@ -66,9 +65,7 @@ class PlayerStatusService implements PlayerStatusServiceInterface
             $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_APPLIED);
         } elseif (($player->getSatiety() >= self::STARVING_STATUS_THRESHOLD || $player->isMush()) && $starvingStatus) {
             $event->setVisibility(VisibilityEnum::PRIVATE);
-            codecept_debug('azer');
             $this->eventDispatcher->dispatch($event, StatusEvent::STATUS_REMOVED);
-            codecept_debug('hum');
         }
     }
 

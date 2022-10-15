@@ -5,22 +5,37 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Perishable;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Hyperfreeze extends AbstractAction
 {
     protected string $name = ActionEnum::HYPERFREEZE;
+    protected GameEquipmentServiceInterface $gameEquipmentService;
+
+    public function __construct(
+        EventDispatcherInterface $eventDispatcher,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
+        GameEquipmentServiceInterface $gameEquipmentService
+    ) {
+        parent::__construct($eventDispatcher, $actionService, $validator);
+
+        $this->gameEquipmentService = $gameEquipmentService;
+    }
 
     protected function support(?LogParameterInterface $parameter): bool
     {
@@ -34,29 +49,33 @@ class Hyperfreeze extends AbstractAction
         $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::FROZEN, 'contain' => false, 'groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
+        $time = new \DateTime();
 
-        if (
-            $parameter->getEquipment()->getName() === GameRationEnum::COOKED_RATION ||
-            $parameter->getEquipment()->getName() === GameRationEnum::ALIEN_STEAK
-        ) {
-            $equipmentEvent = new EquipmentEvent(
+        if (in_array($parameter->getName(), [GameRationEnum::COOKED_RATION, GameRationEnum::ALIEN_STEAK])) {
+            $this->gameEquipmentService->transformGameEquipmentToEquipmentWithName(
                 GameRationEnum::STANDARD_RATION,
+                $parameter,
                 $this->player,
-                VisibilityEnum::PUBLIC,
                 $this->getActionName(),
-                new \DateTime()
+                VisibilityEnum::PUBLIC
             );
-            $equipmentEvent->setExistingEquipment($parameter);
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
         } else {
-            $statusEvent = new StatusEvent(EquipmentStatusEnum::FROZEN, $parameter, $this->getActionName(), new \DateTime());
+            $statusEvent = new StatusEvent(
+                EquipmentStatusEnum::FROZEN,
+                $parameter,
+                $this->getActionName(),
+                $time
+            );
             $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
         }
-
-        return new Success();
     }
 }

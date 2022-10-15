@@ -23,18 +23,17 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class FireTest extends TestCase
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface $randomService;
-    /** @var EventDispatcherInterface|Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var DaedalusServiceInterface|Mockery\Mock */
-    private DaedalusServiceInterface $daedalusService;
+    private RandomServiceInterface|Mockery\Mock $randomService;
+
+    private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
+
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+
+    private DaedalusServiceInterface|Mockery\Mock $daedalusService;
     private Fire $cycleHandler;
 
     /**

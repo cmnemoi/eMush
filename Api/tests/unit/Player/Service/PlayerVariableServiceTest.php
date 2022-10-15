@@ -11,8 +11,6 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableService;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
 
 class PlayerVariableServiceTest extends TestCase

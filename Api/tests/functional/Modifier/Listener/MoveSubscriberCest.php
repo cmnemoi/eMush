@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
@@ -117,7 +118,7 @@ class MoveSubscriberCest
         $player->addEquipment($gameEquipment);
         $I->refreshEntities($player);
 
-        // lets create a gear with room reach in player inventory
+        // let's create a gear with room reach in player inventory
         $modifierConfig2 = new ModifierConfig();
         $modifierConfig2
             ->setScope(ActionEnum::SHOWER)
@@ -133,24 +134,22 @@ class MoveSubscriberCest
         $gear2 = new Gear();
         $gear2->setModifierConfigs(new ArrayCollection([$modifierConfig2]));
         $I->haveInRepository($gear2);
-        /** @var EquipmentConfig $equipmentConfig2 */
-        $equipmentConfig2 = $I->have(EquipmentConfig::class, [
+        /** @var ItemConfig $equipmentConfig2 */
+        $equipmentConfig2 = $I->have(ItemConfig::class, [
             'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear2]),
         ]);
 
-        $gameEquipment2 = new GameItem();
-        $gameEquipment2
-            ->setEquipment($equipmentConfig2)
-            ->setName('some name')
-            ->setHolder($player)
-        ;
+        $gameEquipment2 = $equipmentConfig2
+            ->createGameItem()
+            ->setHolder($player);
+
         $I->haveInRepository($gameEquipment2);
         $I->refreshEntities($player);
         $player->addEquipment($gameEquipment2);
         $I->refreshEntities($player);
 
-        // lets create a status with modifier with room reach on player
+        // let's create a status with modifier with room reach on player
         $modifier3 = new Modifier($room, $modifierConfig2);
         $I->haveInRepository($modifier3);
 
@@ -164,7 +163,7 @@ class MoveSubscriberCest
         $statusPlayer = new Status($player, $statusConfig);
         $I->haveInRepository($statusPlayer);
 
-        // lets create a status with modifier with room reach on equipment2
+        // let's create a status with modifier with room reach on equipment2
         $modifier4 = new Modifier($room, $modifierConfig2);
         $I->haveInRepository($modifier4);
 
@@ -178,7 +177,7 @@ class MoveSubscriberCest
         $this->moveAction->loadParameters($moveActionEntity, $player, $door);
         $this->moveAction->execute();
 
-        // lets check that every player and item is placed in the right place
+        // let's check that every player and item is placed in the right place
         $I->assertCount(0, $room->getPlayers());
         $I->assertCount(1, $room2->getPlayers());
         $I->assertCount(2, $player->getEquipments());

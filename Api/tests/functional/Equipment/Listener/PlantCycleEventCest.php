@@ -252,7 +252,7 @@ class PlantCycleEventCest
         ]);
 
         // Plant is dried
-        /** @var Place $room */
+        /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'corridor']);
 
         $gameEquipment2 = new GameItem();
@@ -275,8 +275,12 @@ class PlantCycleEventCest
         $driedOutStatus = new Status($gameEquipment2, $dryConfig);
         $I->haveInRepository($driedOutStatus);
 
-        $time = new DateTime();
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment2, $daedalus, EventEnum::PLANT_PRODUCTION, $time);
+        $cycleEvent = new EquipmentCycleEvent(
+            $gameEquipment2,
+            $daedalus,
+            EventEnum::PLANT_PRODUCTION,
+            new DateTime()
+        );
 
         $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
 

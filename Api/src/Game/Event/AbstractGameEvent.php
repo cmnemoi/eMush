@@ -7,12 +7,12 @@ use Symfony\Contracts\EventDispatcher\Event;
 class AbstractGameEvent extends Event
 {
     protected \DateTime $time;
-    protected array $reason;
+    protected array $reasons;
     private string $eventName;
 
     public function __construct(string $reason, \DateTime $time)
     {
-        $this->reason = [$reason];
+        $this->reasons = [$reason];
         $this->time = $time;
     }
 
@@ -33,17 +33,17 @@ class AbstractGameEvent extends Event
 
     public function getReasons(): array
     {
-        return $this->reason;
+        return $this->reasons;
     }
 
     public function addReason(string $reason)
     {
-        $this->reason = array_merge([$reason], $this->reason);
+        $this->reasons = array_merge([$reason], $this->reasons);
     }
 
-    public function setReason(array $reason): self
+    public function setReasons(array $reasons): self
     {
-        $this->reason = $reason;
+        $this->reasons = $reasons;
 
         return $this;
     }

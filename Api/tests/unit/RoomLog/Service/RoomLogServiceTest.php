@@ -21,6 +21,7 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\Collection\RoomLogCollection;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
@@ -506,25 +507,9 @@ class RoomLogServiceTest extends TestCase
             ->once()
         ;
 
-        $this->translationService
-            ->shouldReceive('translate')
-            ->with('logKey1', [], 'log', LanguageEnum::FRENCH)
-            ->andReturn('translated log 1')
-            ->once()
-        ;
-        $this->translationService
-            ->shouldReceive('translate')
-            ->with('logKey2', ['player' => 'andie'], 'log', LanguageEnum::FRENCH)
-            ->andReturn('translated log 2')
-            ->once()
-        ;
-
         $logs = $this->service->getRoomLog($player);
 
-        $expectedLogs = [1 => [
-            3 => [['log' => 'translated log 1', 'visibility' => VisibilityEnum::PUBLIC, 'date' => $date]],
-            4 => [['log' => 'translated log 2', 'visibility' => VisibilityEnum::PUBLIC, 'date' => $date]],
-            ]];
+        $expectedLogs = new RoomLogCollection([$roomLog1, $roomLog2]);
 
         $this->assertEquals($expectedLogs, $logs);
     }

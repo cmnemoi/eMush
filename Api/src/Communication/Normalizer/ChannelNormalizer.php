@@ -63,8 +63,8 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
         return [
             'id' => $object->getId(),
             'scope' => $object->getScope(),
-            'name' => $this->translationService->translate($object->getScope() . '.name', [], 'chat'),
-            'description' => $this->translationService->translate($object->getScope() . '.description', [], 'chat'), 
+            'name' => $this->translationService->translate($object->getScope() . '.name', [], 'chat', $language),
+            'description' => $this->translationService->translate($object->getScope() . '.description', [], 'chat', $language),
             'participants' => $participants,
             'createdAt' => $object->getCreatedAt()->format(\DateTime::ATOM),
             'newMessageAllowed' => $this->messageService->canPlayerPostMessage($currentPlayer, $object),

@@ -10,9 +10,9 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\Collection\RoomLogCollection;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -24,18 +24,15 @@ class RoomLogService implements RoomLogServiceInterface
     private EntityManagerInterface $entityManager;
     private RandomServiceInterface $randomService;
     private RoomLogRepository $repository;
-    private TranslationServiceInterface $translationService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         RandomServiceInterface $randomService,
         RoomLogRepository $repository,
-        TranslationServiceInterface $translationService,
     ) {
         $this->entityManager = $entityManager;
         $this->randomService = $randomService;
         $this->repository = $repository;
-        $this->translationService = $translationService;
     }
 
     public function persist(RoomLog $roomLog): RoomLog
@@ -210,25 +207,8 @@ class RoomLogService implements RoomLogServiceInterface
         return $visibility;
     }
 
-    public function getRoomLog(Player $player): array
+    public function getRoomLog(Player $player): RoomLogCollection
     {
-        $roomLogs = $this->repository->getPlayerRoomLog($player);
-
-        $logs = [];
-        /** @var RoomLog $roomLog */
-        foreach ($roomLogs as $roomLog) {
-            $logs[$roomLog->getDay()][$roomLog->getCycle()][] = [
-                'log' => $this->translationService->translate(
-                    $roomLog->getLog(),
-                    $roomLog->getParameters(),
-                    $roomLog->getType(),
-                    $player->getDaedalus()->getGameConfig()->getLanguage()
-                ),
-                'visibility' => $roomLog->getVisibility(),
-                'date' => $roomLog->getDate(),
-            ];
-        }
-
-        return $logs;
+        return new RoomLogCollection($this->repository->getPlayerRoomLog($player));
     }
 }

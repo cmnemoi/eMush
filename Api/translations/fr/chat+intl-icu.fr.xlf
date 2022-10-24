@@ -18,8 +18,8 @@
             </segment>
             <segment id="description">
                 <source>room_log.description</source>
-                <target>Ici vous avez l'historique des **événements de la salle où vous vous trouvez actuellement** depuis que vous êtes arrivé(e).
-S'il y a une camera, les actions discrètes et furtives seront révélées.</target>
+                <target>Ici vous avez l'historique des **événements de la salle où vous vous trouvez actuellement**.
+S'il y a une caméra, les actions discrètes et furtives seront révélées.</target>
             </segment>
         </unit>
         <unit id="public">

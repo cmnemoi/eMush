@@ -13,22 +13,29 @@ const CHANNELS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "channel");
 const PIRATED_CHANNELS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "channel/pirated");
 // @ts-ignore
 const ROOM_LOGS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "room-log");
+// @ts-ignore
+const ROOM_LOGS_CHANNEL_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "room-log/channel");
 
 const CommunicationService = {
 
     loadChannels: async(): Promise<Channel[]> => {
-        const channelsData = await ApiService.get(CHANNELS_ENDPOINT);
-        const piratedChannelsData = await ApiService.get(PIRATED_CHANNELS_ENDPOINT);
-
         const channels = [
             (new Channel()).load({ scope: ChannelType.TIPS, id: ChannelType.TIPS }),
-            (new Channel()).load({ scope: ChannelType.ROOM_LOG, id: ChannelType.ROOM_LOG })
         ];
+
+        const roomLogChannelData = await ApiService.get(ROOM_LOGS_CHANNEL_ENDPOINT);
+        if (roomLogChannelData.data) {
+            channels.push((new Channel()).load(roomLogChannelData.data));
+        }
+
+        const channelsData = await ApiService.get(CHANNELS_ENDPOINT);
         if (channelsData.data) {
             channelsData.data.forEach((data: any) => {
                 channels.push((new Channel()).load(data));
             });
         }
+
+        const piratedChannelsData = await ApiService.get(PIRATED_CHANNELS_ENDPOINT);
         if (piratedChannelsData.data) {
             Object.values(piratedChannelsData.data).forEach((data: any) => {
                 channels.push((new Channel()).load(data));

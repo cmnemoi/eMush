@@ -7,6 +7,8 @@ export class Channel {
     public participants: Array<ChannelParticipant>;
     public newMessageAllowed = false;
     public piratedPlayer: number | null = null;
+    public name!: string;
+    public description!: string;
 
     constructor() {
         this.participants = [];
@@ -24,6 +26,9 @@ export class Channel {
                     this.participants.push(participant);
                 });
             }
+
+            this.name = object.name;
+            this.description = object.description;
         }
         return this;
     }

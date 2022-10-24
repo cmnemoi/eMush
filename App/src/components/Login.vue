@@ -1,34 +1,16 @@
 <template>
     <div>
-        <a v-if="! loggedIn" class="login-button" @click="openPopup">Login</a>
-        <a v-if="loggedIn" class="logout-button" @click="logout">Logout</a>
-        <PopUp :is-open="isPassphrasePopupOpen" @close="closePopup">
-            <span>Ceci est une alpha reservée aux testeurs</span>
-            <span>This is an alpha for testers only</span>
-            <label for="passphrase" class="passphrase">Passphrase:</label>
-            <input
-                id="passphrase"
-                ref="passphrase_input"
-                v-model="passphrase"
-                type="text"
-                @keyup.enter="submitPassphrase"
-            >
-            <button type="submit" @click="submitPassphrase">
-                Submit
-            </button>
-        </PopUp>
+        <a v-if="!loggedIn" class="login-button" @click="redirectToLogin">{{ $t('login') }}</a>
+        <a v-else class="logout-button" @click="logout">{{ $t('logout') }}</a>
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions, mapGetters } from "vuex";
-import PopUp from "@/components/Utils/PopUp";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: 'Login',
-    components: {
-        PopUp
-    },
     data() {
         return {
             isPassphrasePopupOpen: false,
@@ -43,26 +25,11 @@ export default {
     },
     methods: {
         ...mapActions('auth', [
-            'redirect',
+            'redirectToLogin',
             'logout'
-        ]),
-        submitPassphrase() {
-            if (this.passphrase !== "") {
-                this.redirect({ passphrase: this.passphrase });
-                this.passphrase = "";
-            }
-            this.closePopup();
-        },
-        async openPopup() {
-            this.isPassphrasePopupOpen = true;
-            await this.$nextTick;
-            this.$refs.passphrase_input.focus();
-        },
-        closePopup() {
-            this.isPassphrasePopupOpen = false;
-        }
+        ])
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -72,6 +39,8 @@ export default {
     margin: 0 20px;
     padding: 5px 10px;
     color: white;
+    font-size: 1.1em;
+    letter-spacing: .06em;
 
     &:hover,
     &:active {
@@ -80,9 +49,12 @@ export default {
     }
 }
 
+.modal-box { font-size: 1em; }
+
 .passphrase {
     margin-top: 15px;
-    font-size: 150%;
+    font-size: 1.4em;
+    font-weight: 700;
     font-variant: small-caps;
 }
 

@@ -4,10 +4,10 @@ namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -46,7 +46,7 @@ class HasActionValidator extends ConstraintValidator
     /**
      * no parameter and player do not have action.
      */
-    private function isPlayerAction(?ActionParameter $parameter, Player $player, Action $action): bool
+    private function isPlayerAction(?LogParameterInterface $parameter, Player $player, Action $action): bool
     {
         return $parameter === null && !$player->getSelfActions()->contains($action);
     }
@@ -55,10 +55,10 @@ class HasActionValidator extends ConstraintValidator
      * parameter is player but do not have action or
      * parameter is equipment and do not have action.
      */
-    private function isParameterAction(?ActionParameter $parameter, Action $action): bool
+    private function isParameterAction(?LogParameterInterface $parameter, Action $action): bool
     {
         return ($parameter instanceof Player && !$parameter->getTargetActions()->contains($action)) ||
             ($parameter instanceof GameEquipment && !$parameter->getActions()->contains($action))
-            ;
+        ;
     }
 }

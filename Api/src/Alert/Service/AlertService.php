@@ -12,6 +12,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
+use Mush\Status\Enum\StatusEnum;
 
 class AlertService implements AlertServiceInterface
 {
@@ -56,11 +57,20 @@ class AlertService implements AlertServiceInterface
     {
         $this->entityManager->remove($alertElement);
         $this->entityManager->flush();
+
+        $alert = $alertElement->getAlert();
+        if ($alert->getAlertElements()->count() <= 0) {
+            $this->delete($alert);
+        } else {
+            $this->persist($alert);
+        }
     }
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?Alert
     {
-        return $this->repository->findOneBy(['daedalus' => $daedalus, 'name' => $name]);
+        $alert = $this->repository->findOneBy(['daedalus' => $daedalus, 'name' => $name]);
+
+        return $alert instanceof Alert ? $alert : null;
     }
 
     public function findByDaedalus(Daedalus $daedalus): ArrayCollection
@@ -68,17 +78,15 @@ class AlertService implements AlertServiceInterface
         return new ArrayCollection($this->repository->findBy(['daedalus' => $daedalus]));
     }
 
-    public function hullAlert(Daedalus $daedalus, int $change): void
+    public function hullAlert(Daedalus $daedalus): void
     {
         if (
-            $daedalus->getHull() + $change > self::HULL_ALERT &&
+            $daedalus->getHull() > self::HULL_ALERT &&
             ($hullAlert = $this->findByNameAndDaedalus(AlertEnum::LOW_HULL, $daedalus)) !== null
         ) {
             $this->delete($hullAlert);
-
-            return;
         } elseif (
-            $daedalus->getHull() + $change <= self::HULL_ALERT &&
+            $daedalus->getHull() <= self::HULL_ALERT &&
             $this->findByNameAndDaedalus(AlertEnum::LOW_HULL, $daedalus) === null
         ) {
             $hullAlert = new Alert();
@@ -91,17 +99,17 @@ class AlertService implements AlertServiceInterface
         }
     }
 
-    public function oxygenAlert(Daedalus $daedalus, int $change): void
+    public function oxygenAlert(Daedalus $daedalus): void
     {
         if (
-            $daedalus->getOxygen() + $change > self::OXYGEN_ALERT &&
+            $daedalus->getOxygen() > self::OXYGEN_ALERT &&
             ($oxygenAlert = $this->findByNameAndDaedalus(AlertEnum::LOW_OXYGEN, $daedalus)) !== null
         ) {
             $this->delete($oxygenAlert);
 
             return;
         } elseif (
-            $daedalus->getOxygen() + $change <= self::OXYGEN_ALERT &&
+            $daedalus->getOxygen() <= self::OXYGEN_ALERT &&
             $this->findByNameAndDaedalus(AlertEnum::LOW_OXYGEN, $daedalus) === null
         ) {
             $oxygenAlert = new Alert();
@@ -140,7 +148,7 @@ class AlertService implements AlertServiceInterface
             $daedalus = $equipment->getRooms()->first()->getDaedalus();
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_DOORS);
         } else {
-            $daedalus = $equipment->getCurrentPlace()->getDaedalus();
+            $daedalus = $equipment->getPlace()->getDaedalus();
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_EQUIPMENTS);
         }
 
@@ -162,7 +170,7 @@ class AlertService implements AlertServiceInterface
             $daedalus = $equipment->getRooms()->first()->getDaedalus();
             $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_DOORS, $daedalus);
         } else {
-            $daedalus = $equipment->getCurrentPlace()->getDaedalus();
+            $daedalus = $equipment->getPlace()->getDaedalus();
             $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_EQUIPMENTS, $daedalus);
         }
 
@@ -175,14 +183,6 @@ class AlertService implements AlertServiceInterface
         $brokenAlert->getAlertElements()->removeElement($reportedEquipment);
 
         $this->deleteAlertElement($reportedEquipment);
-
-        if ($brokenAlert->getAlertElements()->count() === 0) {
-            $this->delete($brokenAlert);
-
-            return;
-        }
-
-        $this->persist($brokenAlert);
     }
 
     public function getAlertEquipmentElement(Alert $alert, GameEquipment $equipment): AlertElement
@@ -226,14 +226,6 @@ class AlertService implements AlertServiceInterface
         $fireAlert->getAlertElements()->removeElement($reportedFire);
 
         $this->deleteAlertElement($reportedFire);
-
-        if ($fireAlert->getAlertElements()->count() === 0) {
-            $this->delete($fireAlert);
-
-            return;
-        }
-
-        $this->persist($fireAlert);
     }
 
     public function getAlertFireElement(Alert $alert, Place $place): AlertElement
@@ -299,5 +291,39 @@ class AlertService implements AlertServiceInterface
         } elseif ($totalSatiety > $playersAlive->count() * self::FAMINE_ALERT && $alert !== null) {
             $this->delete($alert);
         }
+    }
+
+    public function isFireReported(Place $room): bool
+    {
+        if (!$room->hasStatus(StatusEnum::FIRE)) {
+            return false;
+        }
+
+        $alert = $this->findByNameAndDaedalus(AlertEnum::FIRES, $room->getDaedalus());
+        if ($alert === null) {
+            return false;
+        }
+
+        return $this->getAlertFireElement($alert, $room)->getPlayer() !== null;
+    }
+
+    public function isEquipmentReported(GameEquipment $equipment): bool
+    {
+        $daedalus = $equipment->getPlace()->getDaedalus();
+        if (!$equipment->isBroken()) {
+            return false;
+        }
+
+        if ($equipment instanceof Door) {
+            $alert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_DOORS, $daedalus);
+        } else {
+            $alert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_EQUIPMENTS, $daedalus);
+        }
+
+        if ($alert === null) {
+            return false;
+        }
+
+        return $this->getAlertEquipmentElement($alert, $equipment)->getPlayer() !== null;
     }
 }

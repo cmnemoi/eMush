@@ -1,5 +1,5 @@
 .php_template: &php_template
-  image: registry.gitlab.com/eternal-twin/mush/mush/api:latest
+  image: registry.gitlab.com/eternaltwin/mush/mush/api:latest
   cache:
     paths:
       - "Api/vendor/"
@@ -27,9 +27,12 @@
     - cp .env.gitlab .env
     - bin/console doctrine:schema:update -f
     - echo y | bin/console doctrine:fixture:load
+    - openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -pass pass:mush
+    - openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout -passin pass:mush
+    - chmod go+r config/jwt/private.pem
 
 .node_template: &node_template
-  image: node:15
+  image: node:16
   cache:
     paths:
       - node_modules/

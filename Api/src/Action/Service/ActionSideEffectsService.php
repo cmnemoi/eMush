@@ -3,42 +3,30 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
-use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Enum\ModifierScopeEnum;
-use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Event\PlayerModifierEvent;
-use Mush\Player\Service\ActionModifierServiceInterface;
-use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Mush\Status\Event\StatusEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ActionSideEffectsService implements ActionSideEffectsServiceInterface
 {
     public const ACTION_INJURY_MODIFIER = -2;
 
     private EventDispatcherInterface $eventDispatcher;
-    private RandomServiceInterface $randomService;
-    private StatusServiceInterface $statusService;
-    private RoomLogServiceInterface $roomLogService;
-    private ActionModifierServiceInterface $actionModifierService;
+    private ModifierServiceInterface $modifierService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        RandomServiceInterface $randomService,
-        StatusServiceInterface $statusService,
-        RoomLogServiceInterface $roomLogService,
-        ActionModifierServiceInterface $actionModifierService
+        ModifierServiceInterface $modifierService
     ) {
         $this->eventDispatcher = $eventDispatcher;
-        $this->randomService = $randomService;
-        $this->statusService = $statusService;
-        $this->roomLogService = $roomLogService;
-        $this->actionModifierService = $actionModifierService;
+        $this->modifierService = $modifierService;
     }
 
     public function handleActionSideEffect(Action $action, Player $player, \DateTime $date): Player
@@ -49,93 +37,60 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         return $player;
     }
 
-    private function handleDirty(Action $action, Player $player, ?\DateTime $date): void
+    private function handleDirty(Action $action, Player $player, \DateTime $date): void
     {
         $baseDirtyRate = $action->getDirtyRate();
         $isSuperDirty = $baseDirtyRate > 100;
-        if (!$player->hasStatus(PlayerStatusEnum::DIRTY) &&
-            $baseDirtyRate > 0) {
-            $dirtyRate = $this->actionModifierService->getModifiedValue(
+
+        if ($player->hasStatus(PlayerStatusEnum::DIRTY)) {
+            return;
+        }
+
+        if (!$isSuperDirty) {
+            $isSoiled = $this->modifierService->isSuccessfulWithModifiers(
                 $baseDirtyRate,
-                $player,
                 [ModifierScopeEnum::EVENT_DIRTY],
-                ModifierTargetEnum::PERCENTAGE
+                $action->getName(),
+                $date,
+                $player,
             );
 
-            $percent = $this->randomService->randomPercent();
-
-            if ($percent <= $baseDirtyRate && $percent > $dirtyRate && !$isSuperDirty) {
-                $this->roomLogService->createLog(
-                    LogEnum::SOIL_PREVENTED,
-                    $player->getPlace(),
-                    VisibilityEnum::PRIVATE,
-                    'event_log',
-                    $player,
-                    null,
-                    null,
-                    $date
-                );
-            } elseif ($percent <= $dirtyRate) {
-                $this->statusService->createCoreStatus(PlayerStatusEnum::DIRTY, $player);
-
-                $this->roomLogService->createLog(
-                    LogEnum::SOILED,
-                    $player->getPlace(),
-                    VisibilityEnum::PRIVATE,
-                    'event_log',
-                    $player,
-                    null,
-                    null,
-                    $date
-                );
+            if (!$isSoiled) {
+                return;
             }
         }
+
+        $statusEvent = new StatusEvent(PlayerStatusEnum::DIRTY, $player, $action->getName(), new \DateTime());
+        $statusEvent->setVisibility(VisibilityEnum::PRIVATE);
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
     private function handleInjury(Action $action, Player $player, \DateTime $date): void
     {
         $baseInjuryRate = $action->getInjuryRate();
-        if ($baseInjuryRate > 0) {
-            $injuryRate = $this->actionModifierService->getModifiedValue(
-                $baseInjuryRate,
-                $player,
-                [ModifierScopeEnum::EVENT_CLUMSINESS],
-                ModifierTargetEnum::PERCENTAGE
-            );
 
-            $percent = $this->randomService->randomPercent();
+        $isHurt = $this->modifierService->isSuccessfulWithModifiers(
+            $baseInjuryRate,
+            [ModifierScopeEnum::EVENT_CLUMSINESS],
+            $action->getName(),
+            $date,
+            $player,
+        );
 
-            if ($percent <= $baseInjuryRate && $percent > $injuryRate) {
-                $this->roomLogService->createLog(
-                    LogEnum::CLUMSINESS_PREVENTED,
-                    $player->getPlace(),
-                    VisibilityEnum::PRIVATE,
-                    'event_log',
-                    $player,
-                    null,
-                    null,
-                    $date
-                );
-            } elseif ($percent <= $injuryRate) {
-                $this->roomLogService->createLog(
-                    LogEnum::CLUMSINESS,
-                    $player->getPlace(),
-                    VisibilityEnum::PRIVATE,
-                    'event_log',
-                    $player,
-                    null,
-                    null,
-                    $date
-                );
-                $this->dispatchPlayerInjuryEvent($player, $date);
-            }
+        if ($isHurt) {
+            $this->dispatchPlayerInjuryEvent($player, $date);
         }
     }
 
     private function dispatchPlayerInjuryEvent(Player $player, \DateTime $dateTime): void
     {
-        $playerModifierEvent = new PlayerModifierEvent($player, self::ACTION_INJURY_MODIFIER, $dateTime);
-        $playerModifierEvent->setReason(EndCauseEnum::CLUMSINESS);
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+        $playerModifierEvent = new PlayerVariableEvent(
+            $player,
+            PlayerVariableEnum::HEALTH_POINT,
+            self::ACTION_INJURY_MODIFIER,
+            ModifierScopeEnum::EVENT_CLUMSINESS,
+            $dateTime
+        );
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 }

@@ -9,10 +9,10 @@
   ],
   "private": true,
   "scripts": {
-    "etwin": "etwin start"
+    "etwin": "etwin"
   },
   "devDependencies": {
-    "@eternal-twin/website": "^0.4"
+    "@eternal-twin/cli": "^0.10.3"
   },
   "workspaces": {
     "packages": [

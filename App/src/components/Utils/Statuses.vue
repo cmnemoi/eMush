@@ -4,38 +4,44 @@
         :key="key"
         class="status"
     >
-        <Tooltip>
-            <template v-slot:tooltip-trigger>
-                <img :src="statusIcon(status)">
-                <span v-if="status.charge">{{ status.charge }}</span>
+        <Tippy>
+            <img :src="statusIcon(status)">
+            <span v-if="status.charge !== null">{{ status.charge }}</span>
+            <template #content>
+                <h1 v-html="formatContent(status.name)" />
+                <p v-html="formatContent(status.description)" />
             </template>
-            <template #tooltip-content="{ formatContent }">
-                <h1 v-html="formatContent(status.name)"></h1>
-                <p v-html="formatContent(status.description)"></p>
-            </template>
-        </Tooltip>
+        </Tippy>
     </span>
 </template>
 
-<script>
+<script lang="ts">
 import { statusPlayerEnum } from "@/enums/status.player.enum";
 import { statusItemEnum } from "@/enums/status.item.enum";
-import Tooltip from "@/components/Utils/ToolTip";
+import { defineComponent } from "vue";
+import { Status } from "@/entities/Status";
 
-export default {
-    components: {Tooltip},
+export default defineComponent ({
     props: {
         statuses: Array,
         type: String
     },
     computed: {
         statusIcon() {
-            return (status) => {
+            return (status: Status): string|null => {
                 switch (this.type) {
                 case "player":
                     return statusPlayerEnum[status.key]?.icon || null;
                 case "disease":
-                    return require('@/assets/images/status/disease.png');
+                    switch (status.diseaseType) {
+                    case "disease":
+                        return require('@/assets/images/status/disease.png');
+                    case "disorder":
+                        return require('@/assets/images/status/disorder.png');
+                    case "injury":
+                        return require('@/assets/images/status/injury.png');
+                    }
+                    return null;
                 case "item":
                 case "equipment":
                     return statusItemEnum[status.key]?.icon || null;
@@ -47,5 +53,5 @@ export default {
             };
         }
     }
-};
+});
 </script>

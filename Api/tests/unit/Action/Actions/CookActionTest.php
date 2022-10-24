@@ -7,27 +7,21 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Cook;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 
 class CookActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface | Mockery\Mock */
-    private PlayerServiceInterface $playerService;
-    /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusService;
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -36,19 +30,14 @@ class CookActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
-
         $this->actionEntity = $this->createActionEntity(ActionEnum::COOK, 1);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->action = new Cook(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService,
-            $this->playerService,
-            $this->statusService,
+            $this->gameEquipmentService
         );
     }
 
@@ -62,7 +51,7 @@ class CookActionTest extends AbstractActionTest
 
     public function testExecute()
     {
-        //frozen fruit
+        // frozen fruit
         $room = new Place();
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -72,14 +61,13 @@ class CookActionTest extends AbstractActionTest
         $ration->setName('ration');
         $gameRation
             ->setEquipment($ration)
-            ->setPlayer($player)
+            ->setHolder($player)
             ->setName('ration')
         ;
 
-        $frozenStatus = new Status($gameRation);
-        $frozenStatus
-             ->setName(EquipmentStatusEnum::FROZEN)
-        ;
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(EquipmentStatusEnum::FROZEN);
+        $frozenStatus = new Status($gameRation, $statusConfig);
 
         $gameKitchen = new GameEquipment();
         $kitchen = new ItemConfig();
@@ -87,21 +75,21 @@ class CookActionTest extends AbstractActionTest
         $gameKitchen
             ->setEquipment($kitchen)
             ->setName(EquipmentEnum::KITCHEN)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
-        $this->gameEquipmentService->shouldReceive('persist')->once();
-        $this->playerService->shouldReceive('persist')->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->never();
+
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(1, $player->getItems());
-        $this->assertCount(0, $player->getItems()->first()->getStatuses());
-        $this->assertEquals($gameRation->getName(), $player->getItems()->first()->getName());
+        $this->assertCount(1, $player->getEquipments());
+        $this->assertEquals($gameRation->getName(), $player->getEquipments()->first()->getName());
         $this->assertCount(0, $player->getStatuses());
 
         $room = new Place();
@@ -111,13 +99,13 @@ class CookActionTest extends AbstractActionTest
     {
         $room = new Place();
 
-        //Standard Ration
+        // Standard Ration
         $gameRation = new GameItem();
         $ration = new ItemConfig();
         $ration->setName(GameRationEnum::STANDARD_RATION);
         $gameRation
             ->setEquipment($ration)
-            ->setPlace($room)
+            ->setHolder($room)
             ->setName(GameRationEnum::STANDARD_RATION)
         ;
 
@@ -127,7 +115,7 @@ class CookActionTest extends AbstractActionTest
         $gameKitchen
             ->setEquipment($kitchen)
             ->setName(EquipmentEnum::KITCHEN)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -137,17 +125,15 @@ class CookActionTest extends AbstractActionTest
         $cookedRation = new ItemConfig();
         $cookedRation
              ->setName(GameRationEnum::COOKED_RATION)
-         ;
+        ;
         $gameCookedRation
             ->setEquipment($cookedRation)
             ->setName(GameRationEnum::COOKED_RATION)
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameCookedRation)->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
+        $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();
+
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

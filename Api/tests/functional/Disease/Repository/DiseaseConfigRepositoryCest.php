@@ -4,75 +4,52 @@ namespace functional\Disease\Repository;
 
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Disease\Entity\DiseaseConfig;
+use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
-use Mush\Disease\Repository\DiseaseConfigRepository;
+use Mush\Disease\Repository\DiseaseCausesConfigRepository;
 use Mush\Game\Entity\GameConfig;
 
 class DiseaseConfigRepositoryCest
 {
-    private DiseaseConfigRepository $repository;
+    private DiseaseCausesConfigRepository $repository;
 
     public function _before(FunctionalTester $I)
     {
-        $this->repository = $I->grabService(DiseaseConfigRepository::class);
+        $this->repository = $I->grabService(DiseaseCausesConfigRepository::class);
     }
 
-    public function testFindByCauseInexistantCause(FunctionalTester $I)
+    public function testCauseByDaedalus(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, [
             'gameConfig' => $gameConfig,
         ]);
 
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setName(DiseaseEnum::TAPEWORM)
-            ->setGameConfig($gameConfig)
-            ->setCauses([DiseaseCauseEnum::PERISHED_FOOD])
-        ;
-        $I->haveInRepository($diseaseConfig);
-
-        $diseaseConfig2 = new DiseaseConfig();
-        $diseaseConfig2
-            ->setName(DiseaseEnum::GASTROENTERIS)
+        $diseaseCause = new DiseaseCauseConfig();
+        $diseaseCause
+            ->setName(DiseaseCauseEnum::CYCLE)
+            ->setDiseases([
+                DiseaseEnum::FOOD_POISONING => 2,
+            ])
             ->setGameConfig($gameConfig)
         ;
+        $I->haveInRepository($diseaseCause);
 
-        $I->haveInRepository($diseaseConfig2);
-
-        $diseases = $this->repository->findByCauses('inexistant', $daedalus);
-
-        $I->assertEmpty($diseases);
-    }
-
-    public function testFindByCause(FunctionalTester $I)
-    {
-        $gameConfig = $I->have(GameConfig::class);
-        $daedalus = $I->have(Daedalus::class, [
-            'gameConfig' => $gameConfig,
-        ]);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setName(DiseaseEnum::TAPEWORM)
-            ->setGameConfig($gameConfig)
-            ->setCauses([DiseaseCauseEnum::PERISHED_FOOD])
-        ;
-        $I->haveInRepository($diseaseConfig);
-
-        $diseaseConfig2 = new DiseaseConfig();
-        $diseaseConfig2
-            ->setName(DiseaseEnum::GASTROENTERIS)
+        $diseaseCause2 = new DiseaseCauseConfig();
+        $diseaseCause2
+            ->setName(DiseaseCauseEnum::PERISHED_FOOD)
+            ->setDiseases(
+                [DiseaseEnum::MUSH_ALLERGY => 1]
+            )
             ->setGameConfig($gameConfig)
         ;
+        $I->haveInRepository($diseaseCause2);
 
-        $I->haveInRepository($diseaseConfig2);
+        $diseases = $this->repository->findCausesByDaedalus(DiseaseCauseEnum::CYCLE, $daedalus);
 
-        $diseases = $this->repository->findByCauses(DiseaseCauseEnum::PERISHED_FOOD, $daedalus);
-
-        $I->assertCount(1, $diseases);
-        $I->assertContains($diseaseConfig, $diseases);
+        $I->assertEquals($diseases, $diseaseCause);
     }
 }

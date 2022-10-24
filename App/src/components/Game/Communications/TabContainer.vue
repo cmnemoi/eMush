@@ -10,12 +10,13 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters, mapState } from "vuex";
 import { Channel } from "@/entities/Channel";
-import MessageInput from "@/components/Game/Communications/Messages/MessageInput";
+import MessageInput from "@/components/Game/Communications/Messages/MessageInput.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: "DiscussionTab",
     components: {
         MessageInput
@@ -32,14 +33,13 @@ export default {
             'loadingChannels'
         ])
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>
 
 .tab-content {
     min-width: 100%;
-    font-size: 0.8em;
 
     .chatbox-container {
         display: flex;
@@ -47,7 +47,7 @@ export default {
         z-index: 2;
         height: 436px;
         margin-top: -1px;
-        color: #090a61;
+        color: $deepBlue;
         line-height: initial;
         background: rgba(194, 243, 252, 1);
 
@@ -57,14 +57,14 @@ export default {
     .chatbox {
         overflow: auto;
         padding: 7px;
-        color: #090a61;
+        color: $deepBlue;
     }
 
     /* SCROLLBAR STYLING */
     .chatbox,
     .chatbox-container {
         --scrollbarBG: white;
-        --thumbBG: #090a61;
+        --thumbBG: $deepBlue;
 
         scrollbar-width: thin;
         scrollbar-color: var(--thumbBG) var(--scrollbarBG);
@@ -75,7 +75,7 @@ export default {
 
     .loading {
         padding: 7px;
-        color: #090a61;
+        color: $deepBlue;
         font-style: italic;
         text-align: right;
         margin-top: auto;

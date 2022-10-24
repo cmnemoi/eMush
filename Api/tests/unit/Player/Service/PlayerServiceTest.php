@@ -2,48 +2,47 @@
 
 namespace Mush\Test\Player\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\CharacterConfig;
-use Mush\Game\Entity\Collection\CharacterConfigCollection;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
 use Mush\Player\Repository\DeadPlayerInfoRepository;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerServiceTest extends TestCase
 {
-    /** @var EventDispatcherInterface | Mockery\Mock */
+    /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
-    /** @var EntityManagerInterface | Mockery\Mock */
+    /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
-    /** @var PlayerRepository | Mockery\Mock */
+    /** @var PlayerRepository|Mockery\Mock */
     private PlayerRepository $repository;
-    /** @var DeadPlayerInfoRepository | Mockery\Mock */
+    /** @var DeadPlayerInfoRepository|Mockery\Mock */
     private DeadPlayerInfoRepository $deadPlayerInfoRepository;
-    /** @var RoomLogServiceInterface | Mockery\Mock */
+    /** @var RoomLogServiceInterface|Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
-    /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusService;
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    private CharacterConfigCollection $charactersConfig;
+    private CharacterConfigCollection $charactersConfigs;
     private PlayerService $service;
 
     /**
@@ -55,12 +54,10 @@ class PlayerServiceTest extends TestCase
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
         $this->repository = Mockery::mock(PlayerRepository::class);
         $this->deadPlayerInfoRepository = Mockery::mock(DeadPlayerInfoRepository::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
-        $this->charactersConfig = new CharacterConfigCollection();
+        $this->charactersConfigs = new CharacterConfigCollection();
 
         $this->service = new PlayerService(
             $this->entityManager,
@@ -68,7 +65,6 @@ class PlayerServiceTest extends TestCase
             $this->repository,
             $this->deadPlayerInfoRepository,
             $this->roomLogService,
-            $this->statusService,
             $this->gameEquipmentService,
         );
     }
@@ -83,6 +79,7 @@ class PlayerServiceTest extends TestCase
 
     public function testCreatePlayer()
     {
+        $user = new User();
         $gameConfig = new GameConfig();
         $gameConfig
             ->setInitMovementPoint(0)
@@ -92,12 +89,26 @@ class PlayerServiceTest extends TestCase
             ->setInitHealthPoint(4)
         ;
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
-            ->once()
-        ;
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+        $laboratory = new Place();
+        $laboratory->setName(RoomEnum::LABORATORY); // @FIXME: should we move the starting room in the config
+        $daedalus->addPlace($laboratory);
 
-        $user = new User();
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName('some status');
+
+        $characterConfig = new CharacterConfig();
+        $characterConfig
+            ->setName('character')
+            ->setInitStatuses(new ArrayCollection([$statusConfig]))
+            ->setSkills(['some skills'])
+        ;
+        $this->charactersConfigs->add($characterConfig);
+
+        $gameConfig
+            ->setCharactersConfig($this->charactersConfigs)
+        ;
 
         $this->entityManager
             ->shouldReceive('persist')
@@ -107,34 +118,8 @@ class PlayerServiceTest extends TestCase
             ->shouldReceive('flush')
             ->once()
         ;
-
-        $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
-        $laboratory = new Place();
-        $laboratory->setName(RoomEnum::LABORATORY); // @FIXME: should we move the starting room in the config
-        $daedalus->addPlace($laboratory);
-
-        $characterConfig = new CharacterConfig();
-        $characterConfig
-            ->setName('character')
-            ->setStatuses(['some status'])
-            ->setSkills(['some skills'])
-        ;
-        $this->charactersConfig->add($characterConfig);
-        $this->charactersConfig->add($characterConfig);
-        $this->charactersConfig->add($characterConfig);
-
-        $gameConfig
-            ->setCharactersConfig($this->charactersConfig)
-        ;
-
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->once()
-        ;
-
-        $this->statusService
-            ->shouldReceive('createChargeStatus')
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
             ->once()
         ;
 
@@ -147,7 +132,7 @@ class PlayerServiceTest extends TestCase
         $this->assertEquals($gameConfig->getInitHealthPoint(), $player->getHealthPoint());
         $this->assertEquals($gameConfig->getInitMoralPoint(), $player->getMoralPoint());
         $this->assertEquals($gameConfig->getInitSatiety(), $player->getSatiety());
-        $this->assertCount(0, $player->getItems());
+        $this->assertCount(0, $player->getEquipments());
         $this->assertCount(0, $player->getSkills());
     }
 
@@ -168,7 +153,7 @@ class PlayerServiceTest extends TestCase
         $player = new Player();
         $player
             ->setDaedalus($daedalus)
-            ->addItem($gameItem)
+            ->addEquipment($gameItem)
             ->setPlace($room)
             ->setGameStatus(GameStatusEnum::CURRENT)
         ;
@@ -192,7 +177,7 @@ class PlayerServiceTest extends TestCase
         $player = $this->service->playerDeath($player, $reason, new \DateTime());
 
         $this->assertEquals(GameStatusEnum::FINISHED, $player->getGameStatus());
-        $this->assertCount(0, $player->getItems());
+        $this->assertCount(0, $player->getEquipments());
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(1, $room->getPlayers());
     }

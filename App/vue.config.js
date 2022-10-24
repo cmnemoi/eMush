@@ -1,11 +1,15 @@
 module.exports = {
-    chainWebpack: config => {
-        config
-            .plugin('html')
-            .tap(args => {
-                args[0].title = "Mush - Jeu de survie dans l'espace : Vous êtes le seul espoir de l'humanité !";
-                return args;
+    chainWebpack: config =>
+    {
+        config.plugin('html');
+        config.module
+            .rule('images')
+            .set('parser', {
+                dataUrlCondition: {
+                    maxSize: 0
+                }
             });
+
     },
     css: {
         loaderOptions: {
@@ -15,8 +19,10 @@ module.exports = {
             // Note: this option is named as "additionalData" in sass-loader v9
             sass: {
                 additionalData: `
-                  @import "@/assets/scss/_mixins.scss";
-              `
+                    @import "@/assets/scss/_variables.scss";
+                    @import "@/assets/scss/_placeholders.scss";
+                    @import "@/assets/scss/_mixins.scss";
+                `
             }
         }
     }

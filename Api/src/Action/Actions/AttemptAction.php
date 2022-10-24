@@ -28,25 +28,19 @@ abstract class AttemptAction extends AbstractAction
         );
     }
 
-    protected function makeAttempt(): ActionResult
+    protected function checkResult(): ActionResult
     {
-        $attempt = $this->actionService->getAttempt($this->player, $this->getActionName());
-
         $successChance = $this->getSuccessRate();
 
         if ($this->randomService->isSuccessful($successChance)) {
-            $this->player->removeStatus($attempt);
-            $response = new Success();
+            return new Success();
         } else {
-            $response = new Fail();
-            $attempt->addCharge(1);
+            return new Fail();
         }
-
-        return $response;
     }
 
     public function getSuccessRate(): int
     {
-        return $this->actionService->getSuccessRate($this->action, $this->player);
+        return $this->actionService->getSuccessRate($this->action, $this->player, $this->parameter);
     }
 }

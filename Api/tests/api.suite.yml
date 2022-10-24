@@ -1,0 +1,19 @@
+actor: ApiTester
+modules:
+    enabled:
+        - REST:
+              url: http://localhost:8080/api/v1/
+              depends: Symfony
+        - Symfony:
+            app_path: 'src'
+            environment: 'test'
+            kernel_class: 'Mush\Kernel'
+        - Doctrine2:
+            depends: Symfony
+            cleanup: true
+        - DataFactory:
+              depends: Doctrine2
+        - \App\Tests\Helper\Factories\DaedalusFactory
+        - \App\Tests\Helper\Factories\PlayerFactory
+        - \App\Tests\Helper\Factories\RoomFactory
+        - \App\Tests\Helper\Factories\EquipmentFactory

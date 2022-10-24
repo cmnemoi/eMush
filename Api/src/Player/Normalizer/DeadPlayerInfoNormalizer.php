@@ -42,26 +42,40 @@ class DeadPlayerInfoNormalizer implements ContextAwareNormalizerInterface, Norma
 
         $endCause = $deadPlayerInfo->getEndStatus();
 
+        $player = $deadPlayerInfo->getPlayer();
+
         return [
-            'players' => $this->getOtherPlayers($deadPlayerInfo->getPlayer()),
-            'endCause' => $this->normalizeEndReason($endCause),
+            'players' => $this->getOtherPlayers($player),
+            'endCause' => $this->normalizeEndReason($endCause, $player->getDaedalus()->getGameConfig()->getLanguage()),
         ];
     }
 
     private function getOtherPlayers(Player $player): array
     {
+        $language = $player->getDaedalus()->getGameConfig()->getLanguage();
+
         $otherPlayers = [];
         foreach ($player->getDaedalus()->getPlayers() as $otherPlayer) {
             if ($otherPlayer !== $player) {
                 $character = $otherPlayer->getCharacterConfig()->getName();
 
-                //TODO add likes
+                // TODO add likes
                 $normalizedOtherPlayer = [
                     'id' => $player->getId(),
                     'character' => [
                         'key' => $character,
-                        'value' => $this->translationService->translate($character . '.name', [], 'characters'),
-                        'description' => $this->translationService->translate($character . '.abstract', [], 'characters'),
+                        'value' => $this->translationService->translate(
+                            $character . '.name',
+                            [],
+                            'characters',
+                            $language
+                        ),
+                        'description' => $this->translationService->translate(
+                            $character . '.abstract',
+                            [],
+                            'characters',
+                            $language
+                        ),
                     ],
                 ];
 
@@ -75,7 +89,7 @@ class DeadPlayerInfoNormalizer implements ContextAwareNormalizerInterface, Norma
                     $normalizedOtherPlayer['isDead'] = [
                         'day' => $deadPlayerInfo->getDayDeath(),
                         'cycle' => $deadPlayerInfo->getCycleDeath(),
-                        'cause' => $this->normalizeEndReason($endCause),
+                        'cause' => $this->normalizeEndReason($endCause, $language),
                     ];
                 } else {
                     $normalizedOtherPlayer['isDead'] = false;
@@ -87,12 +101,22 @@ class DeadPlayerInfoNormalizer implements ContextAwareNormalizerInterface, Norma
         return $otherPlayers;
     }
 
-    private function normalizeEndReason(string $endCause): array
+    private function normalizeEndReason(string $endCause, string $language): array
     {
         return [
             'key' => $endCause,
-            'name' => $this->translationService->translate($endCause . '.name', [], 'end_cause'),
-            'description' => $this->translationService->translate($endCause . '.description', [], 'end_cause'),
+            'name' => $this->translationService->translate(
+                $endCause . '.name',
+                [],
+                'end_cause',
+                $language
+            ),
+            'description' => $this->translationService->translate(
+                $endCause . '.description',
+                [],
+                'end_cause',
+                $language
+            ),
         ];
     }
 }

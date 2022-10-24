@@ -5,112 +5,73 @@ namespace Mush\Game\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
-/**
- * Class DifficultyConfig.
- *
- * @ORM\Entity()
- * @ORM\Table(name="config_difficulty")
- */
-class DifficultyConfig
+#[ORM\Entity]
+#[ORM\Table(name: 'config_difficulty')]
+class DifficultyConfig implements ConfigInterface
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Mush\Game\Entity\GameConfig", inversedBy="difficultyConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: GameConfig::class, inversedBy: 'difficultyConfig')]
     private GameConfig $gameConfig;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $equipmentBreakRate = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $doorBreakRate = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $equipmentFireBreakRate = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $startingFireRate = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $propagatingFireRate = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $hullFireDamageRate = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $tremorRate = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $electricArcRate = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $metalPlateRate = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $panicCrisisRate = 0;
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $firePlayerDamage = [];
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $fireHullDamage = [];
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $electricArcPlayerDamage = [];
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $tremorPlayerDamage = [];
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $metalPlatePlayerDamage = [];
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $panicCrisisPlayerDamage = [];
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $plantDiseaseRate = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $cycleDiseaseRate = 0;
 
     public function getId(): int
     {
@@ -122,10 +83,7 @@ class DifficultyConfig
         return $this->gameConfig;
     }
 
-    /**
-     * @return static
-     */
-    public function setGameConfig(GameConfig $gameConfig): DifficultyConfig
+    public function setGameConfig(GameConfig $gameConfig): static
     {
         $this->gameConfig = $gameConfig;
 
@@ -137,10 +95,7 @@ class DifficultyConfig
         return $this->equipmentBreakRate;
     }
 
-    /**
-     * @return static
-     */
-    public function setEquipmentBreakRate(int $equipmentBreakRate): DifficultyConfig
+    public function setEquipmentBreakRate(int $equipmentBreakRate): static
     {
         $this->equipmentBreakRate = $equipmentBreakRate;
 
@@ -152,10 +107,7 @@ class DifficultyConfig
         return $this->doorBreakRate;
     }
 
-    /**
-     * @return static
-     */
-    public function setDoorBreakRate(int $doorBreakRate): DifficultyConfig
+    public function setDoorBreakRate(int $doorBreakRate): static
     {
         $this->doorBreakRate = $doorBreakRate;
 
@@ -167,10 +119,7 @@ class DifficultyConfig
         return $this->equipmentFireBreakRate;
     }
 
-    /**
-     * @return static
-     */
-    public function setEquipmentFireBreakRate(int $equipmentFireBreakRate): DifficultyConfig
+    public function setEquipmentFireBreakRate(int $equipmentFireBreakRate): static
     {
         $this->equipmentFireBreakRate = $equipmentFireBreakRate;
 
@@ -182,10 +131,7 @@ class DifficultyConfig
         return $this->startingFireRate;
     }
 
-    /**
-     * @return static
-     */
-    public function setStartingFireRate(int $startingFireRate): DifficultyConfig
+    public function setStartingFireRate(int $startingFireRate): static
     {
         $this->startingFireRate = $startingFireRate;
 
@@ -197,10 +143,7 @@ class DifficultyConfig
         return $this->propagatingFireRate;
     }
 
-    /**
-     * @return static
-     */
-    public function setPropagatingFireRate(int $propagatingFireRate): DifficultyConfig
+    public function setPropagatingFireRate(int $propagatingFireRate): static
     {
         $this->propagatingFireRate = $propagatingFireRate;
 
@@ -212,10 +155,7 @@ class DifficultyConfig
         return $this->hullFireDamageRate;
     }
 
-    /**
-     * @return static
-     */
-    public function setHullFireDamageRate(int $hullFireDamageRate): DifficultyConfig
+    public function setHullFireDamageRate(int $hullFireDamageRate): static
     {
         $this->hullFireDamageRate = $hullFireDamageRate;
 
@@ -227,10 +167,7 @@ class DifficultyConfig
         return $this->tremorRate;
     }
 
-    /**
-     * @return static
-     */
-    public function setTremorRate(int $tremorRate): DifficultyConfig
+    public function setTremorRate(int $tremorRate): static
     {
         $this->tremorRate = $tremorRate;
 
@@ -242,10 +179,7 @@ class DifficultyConfig
         return $this->electricArcRate;
     }
 
-    /**
-     * @return static
-     */
-    public function setElectricArcRate(int $electricArcRate): DifficultyConfig
+    public function setElectricArcRate(int $electricArcRate): static
     {
         $this->electricArcRate = $electricArcRate;
 
@@ -257,10 +191,7 @@ class DifficultyConfig
         return $this->metalPlateRate;
     }
 
-    /**
-     * @return static
-     */
-    public function setMetalPlateRate(int $metalPlateRate): DifficultyConfig
+    public function setMetalPlateRate(int $metalPlateRate): static
     {
         $this->metalPlateRate = $metalPlateRate;
 
@@ -272,10 +203,7 @@ class DifficultyConfig
         return $this->panicCrisisRate;
     }
 
-    /**
-     * @return static
-     */
-    public function setPanicCrisisRate(int $panicCrisisRate): DifficultyConfig
+    public function setPanicCrisisRate(int $panicCrisisRate): static
     {
         $this->panicCrisisRate = $panicCrisisRate;
 
@@ -287,10 +215,7 @@ class DifficultyConfig
         return $this->firePlayerDamage;
     }
 
-    /**
-     * @return static
-     */
-    public function setFirePlayerDamage(array $firePlayerDamage): DifficultyConfig
+    public function setFirePlayerDamage(array $firePlayerDamage): static
     {
         $this->firePlayerDamage = $firePlayerDamage;
 
@@ -302,10 +227,7 @@ class DifficultyConfig
         return $this->fireHullDamage;
     }
 
-    /**
-     * @return static
-     */
-    public function setFireHullDamage(array $fireHullDamage): DifficultyConfig
+    public function setFireHullDamage(array $fireHullDamage): static
     {
         $this->fireHullDamage = $fireHullDamage;
 
@@ -317,10 +239,7 @@ class DifficultyConfig
         return $this->electricArcPlayerDamage;
     }
 
-    /**
-     * @return static
-     */
-    public function setElectricArcPlayerDamage(array $electricArcPlayerDamage): DifficultyConfig
+    public function setElectricArcPlayerDamage(array $electricArcPlayerDamage): static
     {
         $this->electricArcPlayerDamage = $electricArcPlayerDamage;
 
@@ -332,10 +251,7 @@ class DifficultyConfig
         return $this->tremorPlayerDamage;
     }
 
-    /**
-     * @return static
-     */
-    public function setTremorPlayerDamage(array $tremorPlayerDamage): DifficultyConfig
+    public function setTremorPlayerDamage(array $tremorPlayerDamage): static
     {
         $this->tremorPlayerDamage = $tremorPlayerDamage;
 
@@ -347,10 +263,7 @@ class DifficultyConfig
         return $this->metalPlatePlayerDamage;
     }
 
-    /**
-     * @return static
-     */
-    public function setMetalPlatePlayerDamage(array $metalPlatePlayerDamage): DifficultyConfig
+    public function setMetalPlatePlayerDamage(array $metalPlatePlayerDamage): static
     {
         $this->metalPlatePlayerDamage = $metalPlatePlayerDamage;
 
@@ -362,10 +275,7 @@ class DifficultyConfig
         return $this->panicCrisisPlayerDamage;
     }
 
-    /**
-     * @return static
-     */
-    public function setPanicCrisisPlayerDamage(array $panicCrisisPlayerDamage): DifficultyConfig
+    public function setPanicCrisisPlayerDamage(array $panicCrisisPlayerDamage): static
     {
         $this->panicCrisisPlayerDamage = $panicCrisisPlayerDamage;
 
@@ -377,12 +287,21 @@ class DifficultyConfig
         return $this->plantDiseaseRate;
     }
 
-    /**
-     * @return static
-     */
-    public function setPlantDiseaseRate(int $plantDiseaseRate): DifficultyConfig
+    public function setPlantDiseaseRate(int $plantDiseaseRate): static
     {
         $this->plantDiseaseRate = $plantDiseaseRate;
+
+        return $this;
+    }
+
+    public function getCycleDiseaseRate(): int
+    {
+        return $this->cycleDiseaseRate;
+    }
+
+    public function setCycleDiseaseRate(int $cycleDiseaseRate): static
+    {
+        $this->cycleDiseaseRate = $cycleDiseaseRate;
 
         return $this;
     }

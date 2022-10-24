@@ -3,6 +3,7 @@
 namespace Mush\Game\Service;
 
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TranslationService implements TranslationServiceInterface
@@ -15,63 +16,94 @@ class TranslationService implements TranslationServiceInterface
         $this->translator = $translator;
     }
 
-    private static array $conversionArray = [
-        'character' => 'character',
-        'target_character' => 'character',
-        'cause' => 'end_cause',
-        'title' => 'status',
-        'targetEquipment' => 'equipments',
-        'targetItem' => 'items',
-        'disease' => 'disease',
-        'place' => 'rooms',
-    ];
-
-    public function translate(string $key, array $parameters, string $domain): string
+    public function translate(string $key, array $parameters, string $domain, ?string $language = null): string
     {
-        //@TODO include methods getTranslateParameters for other languages than FR
-        return $this->translator->trans($key, $this->getFrenchTranslateParameters($parameters), $domain);
-    }
-
-    private function getFrenchTranslateParameters(array $parameters): array
-    {
-        $params = [];
-        foreach ($parameters as $key => $element) {
-            $params = array_merge($params, $this->getFrenchTranslateParameter($key, $element));
+        if ($language === null) {
+            $language = $this->translator->getLocale();
         }
 
-        return $params;
+        $parameters = $this->getTranslateParameters($parameters, $language);
+
+        return $this->translator->trans($key, $parameters, $domain, $language);
     }
 
-    private function getFrenchTranslateParameter(string $key, string $element): array
+    private function getTranslateParameters(array $parameters, string $language): array
     {
-        return match ($key) {
-            'character', 'target_character' => $this->getFrenchCharacterTranslateParameter($key, $element),
-            'targetEquipment', 'targetItem' => $this->getFrenchEquipmentTranslateParameter($element, self::$conversionArray[$key]),
-            'place' => [
-                'place' => $this->translator->trans($element . '.name', [], 'rooms'),
-                'loc_prep' => $this->translator->trans($element . '.loc_prep', [], 'rooms'),
-            ],
-            'cause', 'title', 'disease' => [$key => $this->translator->trans($element . '.name', [], self::$conversionArray[$key])],
-            default => [$key => $element],
-        };
+        if (array_key_exists($language, $translationMap = LanguageEnum::TRANSLATE_PARAMETERS)) {
+            $parameterTranslationMap = $translationMap[$language];
+        } else {
+            throw new \Error('No parameter translation map for this language');
+        }
+
+        foreach ($parameters as $paramKey => $element) {
+            $parameters = $this->getTranslateParameter(
+                $paramKey,
+                $element,
+                $parameters,
+                $parameterTranslationMap,
+                $language
+            );
+        }
+
+        return $parameters;
     }
 
-    private function getFrenchEquipmentTranslateParameter(string $element, string $domain): array
-    {
-        $params = [];
-        $params['target'] = $this->translator->trans($element . '.short_name', [], $domain);
-        $params['target_gender'] = $this->translator->trans($element . '.genre', [], $domain);
-        $params['target_first_letter'] = $this->translator->trans($element . '.first_Letter', [], $domain);
-        $params['target_plural'] = $this->translator->trans($element . '.plural_name', [], $domain);
+    private function getTranslateParameter(
+        string $initialKey,
+        string $parameterTranslationId,
+        array $parameters,
+        array $parameterTranslationMap,
+        string $language
+    ): array {
+        if (!array_key_exists($initialKey, LanguageEnum::PARAMETER_KEY_TO_DOMAIN)) {
+            return $parameters;
+        }
 
-        return $params;
+        $domain = LanguageEnum::PARAMETER_KEY_TO_DOMAIN[$initialKey];
+        $parameterKey = LanguageEnum::convertParameterKeyToTranslationKey($initialKey);
+
+        if (array_key_exists($parameterKey, $parameterTranslationMap)) {
+            foreach ($parameterTranslationMap[$parameterKey] as $additionalInfoKey) {
+                $keyInMainString = $this->getKeyInMainTranslation($parameterKey, $additionalInfoKey);
+
+                $translationId = $this->getParameterTranslationId($parameterKey, $additionalInfoKey, $parameterTranslationId);
+
+                $parameters[$keyInMainString] = $this->translator->trans(
+                    $translationId,
+                    $parameters,
+                    $domain,
+                    $language
+                );
+            }
+
+            if ($domain === LanguageEnum::CHARACTERS) {
+                $parameters[$parameterKey . '_gender'] = (CharacterEnum::isMale($parameterTranslationId) ? 'male' : 'female');
+            }
+        }
+
+        return $parameters;
     }
 
-    private function getFrenchCharacterTranslateParameter(string $key, string $element): array
+    private function getKeyInMainTranslation(string $parameterKey, string $additionalInfoKey): string
     {
-        return [
-            $key => $this->translator->trans($element . '.name', [], 'characters'),
-            $key . '_gender' => (CharacterEnum::isMale($element) ? 'male' : 'female'),
-        ];
+        if ($additionalInfoKey === 'name' || $additionalInfoKey === 'short_name') {
+            return $parameterKey;
+        } elseif (in_array($parameterKey, LanguageEnum::COPROLALIA_PARAMETERS)) {
+            return $additionalInfoKey;
+        } else {
+            return $parameterKey . '_' . $additionalInfoKey;
+        }
+    }
+
+    private function getParameterTranslationId(
+        string $parameterKey,
+        string $additionalInfoKey,
+        string $parameterTranslationId
+    ): string {
+        if (in_array($parameterKey, LanguageEnum::COPROLALIA_PARAMETERS)) {
+            return $additionalInfoKey;
+        } else {
+            return $parameterTranslationId . '.' . $additionalInfoKey;
+        }
     }
 }

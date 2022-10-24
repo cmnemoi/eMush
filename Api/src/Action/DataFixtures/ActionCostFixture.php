@@ -14,6 +14,7 @@ class ActionCostFixture extends Fixture
     public const ACTION_COST_THREE_ACTION = 'modifier.three.action';
     public const ACTION_COST_FOUR_ACTION = 'modifier.four.action';
     public const ACTION_COST_ONE_MOVEMENT = 'modifier.one.movement';
+    public const ACTION_COST_TWO_MOVEMENT = 'modifier.two.movement';
 
     public function load(ObjectManager $manager)
     {
@@ -32,8 +33,11 @@ class ActionCostFixture extends Fixture
         $fourActionPointCost = $this->buildActionCost(4);
         $manager->persist($fourActionPointCost);
 
-        $oneMovementPoint = $this->buildActionCost(null, 1);
+        $oneMovementPoint = $this->buildActionCost(0, 1);
         $manager->persist($oneMovementPoint);
+
+        $twoMovementPoint = $this->buildActionCost(0, 2);
+        $manager->persist($twoMovementPoint);
 
         $manager->flush();
 
@@ -43,9 +47,10 @@ class ActionCostFixture extends Fixture
         $this->addReference(self::ACTION_COST_THREE_ACTION, $threeActionPointCost);
         $this->addReference(self::ACTION_COST_FOUR_ACTION, $fourActionPointCost);
         $this->addReference(self::ACTION_COST_ONE_MOVEMENT, $oneMovementPoint);
+        $this->addReference(self::ACTION_COST_TWO_MOVEMENT, $twoMovementPoint);
     }
 
-    private function buildActionCost(?int $actionPoint, ?int $movementPoint = null, ?int $moralPoint = null): ActionCost
+    private function buildActionCost(?int $actionPoint, ?int $movementPoint = 0, ?int $moralPoint = 0): ActionCost
     {
         $actionCost = new ActionCost();
         $actionCost

@@ -2,44 +2,18 @@
 
 namespace Mush\Action\Actions;
 
-use Mush\Action\ActionResult\ActionResult;
-use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Oxygen;
 use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
-use Mush\RoomLog\Enum\VisibilityEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class InsertOxygen extends AbstractAction
+class InsertOxygen extends InsertAction
 {
     protected string $name = ActionEnum::INSERT_OXYGEN;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator
-        );
-    }
-
-    protected function support(?ActionParameter $parameter): bool
-    {
-        return $parameter instanceof GameItem;
-    }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -48,21 +22,8 @@ class InsertOxygen extends AbstractAction
         $metadata->addConstraint(new Oxygen(['retrieve' => false, 'groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function getDaedalusVariable(): string
     {
-        /** @var GameItem $parameter */
-        $parameter = $this->parameter;
-
-        //delete the item
-        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
-        $equipmentEvent->setPlayer($this->player);
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
-
-        //add Oxygen
-        $daedalusEvent = new DaedalusModifierEvent($this->player->getDaedalus(), new \DateTime());
-        $daedalusEvent->setQuantity(1);
-        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_OXYGEN);
-
-        return new Success();
+        return DaedalusVariableEnum::OXYGEN;
     }
 }

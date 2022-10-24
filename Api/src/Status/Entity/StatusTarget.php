@@ -7,41 +7,27 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class StatusTarget
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\Status", mappedBy="owner", cascade={"ALL"})
-     */
+    #[ORM\OneToOne(mappedBy: 'owner', targetEntity: Status::class, cascade: ['ALL'])]
     private ?Status $owner = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Mush\Status\Entity\Status", mappedBy="target", cascade={"ALL"})
-     */
+    #[ORM\OneToOne(mappedBy: 'target', targetEntity: Status::class, cascade: ['ALL'])]
     private ?Status $target = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player", inversedBy="statuses")
-     */
+    #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'statuses')]
     private ?Player $player = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\GameEquipment", inversedBy="statuses")
-     */
+    #[ORM\ManyToOne(targetEntity: GameEquipment::class, inversedBy: 'statuses')]
     private ?GameEquipment $gameEquipment = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Place\Entity\Place", inversedBy="statuses")
-     */
+    #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'statuses')]
     private ?Place $place = null;
 
     public function getId(): ?int
@@ -54,7 +40,7 @@ class StatusTarget
         return $this->owner;
     }
 
-    public function setOwner(Status $owner): StatusTarget
+    public function setOwner(Status $owner): self
     {
         $this->owner = $owner;
         $owner->setTargetOwner($this);
@@ -67,7 +53,7 @@ class StatusTarget
         return $this->target;
     }
 
-    public function setTarget(Status $target): StatusTarget
+    public function setTarget(Status $target): self
     {
         $this->target = $target;
         $target->setStatusTargetTarget($this);
@@ -80,7 +66,7 @@ class StatusTarget
         return $this->player;
     }
 
-    public function setPlayer(?Player $player): StatusTarget
+    public function setPlayer(?Player $player): self
     {
         $this->player = $player;
 
@@ -96,7 +82,7 @@ class StatusTarget
         return $this->gameEquipment;
     }
 
-    public function setGameEquipment(?GameEquipment $gameEquipment): StatusTarget
+    public function setGameEquipment(?GameEquipment $gameEquipment): self
     {
         $this->gameEquipment = $gameEquipment;
 
@@ -112,7 +98,7 @@ class StatusTarget
         return $this->place;
     }
 
-    public function setPlace(?Place $place): StatusTarget
+    public function setPlace(?Place $place): self
     {
         $this->place = $place;
 

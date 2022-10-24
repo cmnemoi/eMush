@@ -4,10 +4,11 @@ namespace Mush\Action\Event;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\Entity\Action;
+use Mush\Game\Event\AbstractGameEvent;
 use Mush\Player\Entity\Player;
-use Symfony\Contracts\EventDispatcher\Event;
+use Mush\RoomLog\Entity\LogParameterInterface;
 
-class ActionEvent extends Event
+class ActionEvent extends AbstractGameEvent
 {
     public const PRE_ACTION = 'pre.action';
     public const POST_ACTION = 'post.action';
@@ -15,12 +16,16 @@ class ActionEvent extends Event
 
     private Player $player;
     private Action $action;
+    private ?LogParameterInterface $actionParameter;
     private ?ActionResult $actionResult = null;
 
-    public function __construct(Action $action, Player $player)
+    public function __construct(Action $action, Player $player, ?LogParameterInterface $actionParameter)
     {
         $this->action = $action;
         $this->player = $player;
+        $this->actionParameter = $actionParameter;
+
+        parent::__construct($action->getName(), new \DateTime());
     }
 
     public function getPlayer(): Player
@@ -33,12 +38,17 @@ class ActionEvent extends Event
         return $this->action;
     }
 
+    public function getActionParameter(): ?LogParameterInterface
+    {
+        return $this->actionParameter;
+    }
+
     public function getActionResult(): ?ActionResult
     {
         return $this->actionResult;
     }
 
-    public function setActionResult(?ActionResult $actionResult): ActionEvent
+    public function setActionResult(?ActionResult $actionResult): self
     {
         $this->actionResult = $actionResult;
 

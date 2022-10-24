@@ -6,6 +6,7 @@
 parameters:
 
 imports:
+    - { resource: ./api_platform/api_filters.yaml }
     - { resource: ../src/Daedalus/config/services.yaml }
     - { resource: ../src/Game/config/services.yaml }
     - { resource: ../src/Equipment/config/services.yaml }
@@ -18,6 +19,7 @@ imports:
     - { resource: ../src/Communication/config/services.yaml }
     - { resource: ../src/Disease/config/services.yaml }
     - { resource: ../src/Alert/config/services.yaml }
+    - { resource: ../src/Modifier/config/services.yaml }
 
 services:
     # default configuration for services in *this* file

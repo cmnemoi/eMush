@@ -8,10 +8,10 @@ use Mush\Action\Actions\InsertOxygen;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
@@ -53,13 +53,12 @@ class InsertOxygenTest extends AbstractActionTest
 
         $item
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setIsHeavy(false)
         ;
 
         $player = $this->createPlayer($daedalus, $room);
         $gameItem
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
 
         $daedalus->setOxygen(10);
@@ -77,7 +76,7 @@ class InsertOxygenTest extends AbstractActionTest
         $gameTank
             ->setEquipment($tank)
             ->setName(EquipmentEnum::OXYGEN_TANK)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);

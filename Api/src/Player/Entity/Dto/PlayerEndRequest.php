@@ -17,7 +17,7 @@ class PlayerEndRequest
         return $this->message;
     }
 
-    public function setMessage(?string $message): PlayerEndRequest
+    public function setMessage(?string $message): self
     {
         $this->message = $message;
 

@@ -17,16 +17,19 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
 
 class AlertServiceTest extends TestCase
 {
     private AlertServiceInterface $alertService;
 
-    /** @var EntityManagerInterface | Mockery\Mock */
-    private EntityManagerInterface $entityManager;
-    /** @var AlertRepository | Mockery\Mock */
-    private AlertRepository $repository;
+    private EntityManagerInterface|Mockery\Mock $entityManager;
+
+    private AlertRepository|Mockery\Mock $repository;
 
     /**
      * @before
@@ -53,34 +56,34 @@ class AlertServiceTest extends TestCase
     public function testNoOxygenAlert()
     {
         $daedalus = new Daedalus();
-        $daedalus->setOxygen(20);
+        $daedalus->setOxygen(15);
 
-        //oxygen don't go bellow the threshold of 8 oxygen
+        // oxygen don't go bellow the threshold of 8 oxygen
         $this->entityManager->shouldReceive('persist')->never();
         $this->entityManager->shouldReceive('remove')->never();
         $this->entityManager->shouldReceive('flush')->never();
         $this->repository->shouldReceive('findOneBy')->once();
 
-        $this->alertService->oxygenAlert($daedalus, -5);
+        $this->alertService->oxygenAlert($daedalus);
     }
 
     public function testOxygenAlert()
     {
         $daedalus = new Daedalus();
-        $daedalus->setOxygen(9);
+        $daedalus->setOxygen(8);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('remove')->never();
         $this->entityManager->shouldReceive('flush')->once();
         $this->repository->shouldReceive('findOneBy')->once();
 
-        $this->alertService->oxygenAlert($daedalus, -1);
+        $this->alertService->oxygenAlert($daedalus);
     }
 
     public function testSolveOxygenAlert()
     {
         $daedalus = new Daedalus();
-        $daedalus->setOxygen(7);
+        $daedalus->setOxygen(9);
 
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::LOW_OXYGEN);
@@ -93,40 +96,40 @@ class AlertServiceTest extends TestCase
         $this->entityManager->shouldReceive('remove')->with($alert)->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->alertService->oxygenAlert($daedalus, 2);
+        $this->alertService->oxygenAlert($daedalus);
     }
 
     public function testNoHullAlert()
     {
         $daedalus = new Daedalus();
-        $daedalus->setHull(100);
+        $daedalus->setHull(95);
 
-        //oxygen don't go bellow the threshold of 8 oxygen
+        // oxygen don't go bellow the threshold of 8 oxygen
         $this->entityManager->shouldReceive('persist')->never();
         $this->entityManager->shouldReceive('remove')->never();
         $this->entityManager->shouldReceive('flush')->never();
         $this->repository->shouldReceive('findOneBy')->once();
 
-        $this->alertService->hullAlert($daedalus, -5);
+        $this->alertService->hullAlert($daedalus);
     }
 
     public function testHullAlert()
     {
         $daedalus = new Daedalus();
-        $daedalus->setHull(100);
+        $daedalus->setHull(20);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('remove')->never();
         $this->entityManager->shouldReceive('flush')->once();
         $this->repository->shouldReceive('findOneBy')->once();
 
-        $this->alertService->hullAlert($daedalus, -80);
+        $this->alertService->hullAlert($daedalus);
     }
 
     public function testSolveHullAlert()
     {
         $daedalus = new Daedalus();
-        $daedalus->setHull(10);
+        $daedalus->setHull(90);
 
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::LOW_HULL);
@@ -139,7 +142,7 @@ class AlertServiceTest extends TestCase
         $this->entityManager->shouldReceive('remove')->with($alert)->once();
         $this->entityManager->shouldReceive('flush')->once();
 
-        $this->alertService->hullAlert($daedalus, 80);
+        $this->alertService->hullAlert($daedalus);
     }
 
     public function testGravityAlert()
@@ -180,7 +183,7 @@ class AlertServiceTest extends TestCase
         $room = new Place();
         $room->setDaedalus($daedalus);
         $gameEquipment = new GameEquipment();
-        $gameEquipment->setPlace($room);
+        $gameEquipment->setHolder($room);
 
         $this->repository->shouldReceive('findOneBy')
             ->andReturn(null)
@@ -231,7 +234,7 @@ class AlertServiceTest extends TestCase
         $room = new Place();
         $room->setDaedalus($daedalus);
         $gameEquipment = new GameEquipment();
-        $gameEquipment->setPlace($room);
+        $gameEquipment->setHolder($room);
 
         $equipmentElement1 = new AlertElement();
         $equipmentElement1->setEquipment($gameEquipment);
@@ -266,7 +269,7 @@ class AlertServiceTest extends TestCase
         $room = new Place();
         $room->setDaedalus($daedalus);
         $gameEquipment = new GameEquipment();
-        $gameEquipment->setPlace($room);
+        $gameEquipment->setHolder($room);
 
         $equipmentElement1 = new AlertElement();
         $equipmentElement1->setEquipment($gameEquipment);
@@ -506,5 +509,133 @@ class AlertServiceTest extends TestCase
         $alerts = $this->alertService->getAlerts($daedalus);
 
         $this->assertEquals(new ArrayCollection([$alert, $alert2]), $alerts);
+    }
+
+    public function testFireNorReported()
+    {
+        $daedalus = new Daedalus();
+        $room = new Place();
+        $player = new Player();
+
+        $player
+            ->setDaedalus($daedalus)
+            ->setPlace($room)
+        ;
+        $room->setDaedalus($daedalus);
+
+        $fireConfig = new StatusConfig();
+        $fireConfig->setName(StatusEnum::FIRE);
+        $fireStatus = new Status($room, $fireConfig);
+
+        $alertElement = new AlertElement();
+        $alertElement->setPlace($room);
+
+        $alert = new Alert();
+        $alert->setDaedalus($daedalus)->setName(AlertEnum::FIRES)->addAlertElement($alertElement);
+
+        $this->repository->shouldReceive('findOneBy')
+            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::FIRES])
+            ->andReturn($alert)
+            ->once()
+        ;
+
+        $this->assertFalse($this->alertService->isFireReported($room));
+    }
+
+    public function testNotValidFire()
+    {
+        $daedalus = new Daedalus();
+        $room = new Place();
+        $player = new Player();
+
+        $player
+            ->setDaedalus($daedalus)
+            ->setPlace($room)
+        ;
+        $room->setDaedalus($daedalus);
+
+        $fireConfig = new StatusConfig();
+        $fireConfig->setName(StatusEnum::FIRE);
+        $fireStatus = new Status($room, $fireConfig);
+
+        $alertElement = new AlertElement();
+        $alertElement->setPlace($room)->setPlayer($player);
+
+        $alert = new Alert();
+        $alert->setDaedalus($daedalus)->setName(AlertEnum::FIRES)->addAlertElement($alertElement);
+
+        $this->repository->shouldReceive('findOneBy')
+            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::FIRES])
+            ->andReturn($alert)
+            ->once()
+        ;
+
+        $this->assertTrue($this->alertService->isFireReported($room));
+    }
+
+    public function testValidEquipment()
+    {
+        $daedalus = new Daedalus();
+        $room = new Place();
+        $player = new Player();
+
+        $player
+            ->setDaedalus($daedalus)
+            ->setPlace($room)
+        ;
+        $room->setDaedalus($daedalus);
+
+        $gameEquipment = new GameEquipment();
+        $gameEquipment->setHolder($room);
+        $brokenConfig = new StatusConfig();
+        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, $brokenConfig);
+
+        $alertElement = new AlertElement();
+        $alertElement->setEquipment($gameEquipment);
+
+        $alert = new Alert();
+        $alert->setDaedalus($daedalus)->setName(AlertEnum::BROKEN_EQUIPMENTS)->addAlertElement($alertElement);
+
+        $this->repository->shouldReceive('findOneBy')
+            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS])
+            ->andReturn($alert)
+            ->once()
+        ;
+
+        $this->assertFalse($this->alertService->isEquipmentReported($gameEquipment));
+    }
+
+    public function testNotValidEquipment()
+    {
+        $daedalus = new Daedalus();
+        $room = new Place();
+        $player = new Player();
+
+        $player
+            ->setDaedalus($daedalus)
+            ->setPlace($room)
+        ;
+        $room->setDaedalus($daedalus);
+
+        $gameEquipment = new GameEquipment();
+        $gameEquipment->setHolder($room);
+        $brokenConfig = new StatusConfig();
+        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, $brokenConfig);
+
+        $alertElement = new AlertElement();
+        $alertElement->setEquipment($gameEquipment)->setPlace($room)->setPlayer($player);
+
+        $alert = new Alert();
+        $alert->setDaedalus($daedalus)->setName(AlertEnum::BROKEN_EQUIPMENTS)->addAlertElement($alertElement);
+
+        $this->repository->shouldReceive('findOneBy')
+            ->with(['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS])
+            ->andReturn($alert)
+            ->once()
+        ;
+
+        $this->assertTrue($this->alertService->isEquipmentReported($gameEquipment));
     }
 }

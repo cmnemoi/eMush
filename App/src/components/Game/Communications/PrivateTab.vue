@@ -1,5 +1,5 @@
 <template>
-    <TabContainer id="private-discussion-tab" :channel="channel" new-message-allowed>
+    <TabContainer id="private-discussion-tab" :channel="channel" :new-message-allowed = "newMessagesAllowed">
         <ActionButtons
             class="action-buttons"
             :actions="['refresh', 'invite', 'report', 'leave']"
@@ -22,15 +22,16 @@
     </TabContainer>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions, mapGetters } from "vuex";
 import { Channel } from "@/entities/Channel";
-import TabContainer from "@/components/Game/Communications/TabContainer";
-import Message from "@/components/Game/Communications/Messages/Message";
+import TabContainer from "@/components/Game/Communications/TabContainer.vue";
+import Message from "@/components/Game/Communications/Messages/Message.vue";
 import { characterEnum } from "@/enums/character";
-import ActionButtons from "@/components/Game/Communications/ActionButtons";
+import ActionButtons from "@/components/Game/Communications/ActionButtons.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: "PrivateTab",
     components: {
         ActionButtons,
@@ -43,10 +44,14 @@ export default {
     computed: {
         ...mapGetters('communication', [
             'messages'
-        ])
+        ]),
+        newMessagesAllowed(): boolean | undefined
+        {
+            return this.channel?.newMessageAllowed;
+        }
     },
     methods: {
-        characterBody: function(character) {
+        characterBody: function(character : string): string {
             const images = characterEnum[character];
             return images.body;
         },
@@ -56,7 +61,7 @@ export default {
             'getInvitablePlayersToPrivateChannel'
         ])
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

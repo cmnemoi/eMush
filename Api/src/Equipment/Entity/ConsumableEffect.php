@@ -6,58 +6,36 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Mechanics\Ration;
 
-/**
- * Class ConsumableEffect.
- *
- * @ORM\Entity
- */
+#[ORM\Entity]
 class ConsumableEffect
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Daedalus\Entity\Daedalus")
-     */
+    #[ORM\ManyToOne(targetEntity: Daedalus::class)]
     private Daedalus $daedalus;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\Mechanics\Ration")
-     */
+    #[ORM\ManyToOne(targetEntity: Ration::class)]
     private Ration $ration;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $actionPoint = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $movementPoint = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $healthPoint = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $moralPoint = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     protected ?int $satiety = null;
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $extraEffects = [];
 
     public function getId(): int
@@ -70,10 +48,7 @@ class ConsumableEffect
         return $this->daedalus;
     }
 
-    /**
-     * @return static
-     */
-    public function setDaedalus(Daedalus $daedalus): ConsumableEffect
+    public function setDaedalus(Daedalus $daedalus): static
     {
         $this->daedalus = $daedalus;
 
@@ -85,10 +60,7 @@ class ConsumableEffect
         return $this->ration;
     }
 
-    /**
-     * @return static
-     */
-    public function setRation(Ration $ration): ConsumableEffect
+    public function setRation(Ration $ration): static
     {
         $this->ration = $ration;
 
@@ -100,10 +72,7 @@ class ConsumableEffect
         return $this->actionPoint;
     }
 
-    /**
-     * @return static
-     */
-    public function setActionPoint(?int $actionPoint): ConsumableEffect
+    public function setActionPoint(?int $actionPoint): static
     {
         $this->actionPoint = $actionPoint;
 
@@ -115,10 +84,7 @@ class ConsumableEffect
         return $this->movementPoint;
     }
 
-    /**
-     * @return static
-     */
-    public function setMovementPoint(?int $movementPoint): ConsumableEffect
+    public function setMovementPoint(?int $movementPoint): static
     {
         $this->movementPoint = $movementPoint;
 
@@ -130,10 +96,7 @@ class ConsumableEffect
         return $this->healthPoint;
     }
 
-    /**
-     * @return static
-     */
-    public function setHealthPoint(?int $healthPoint): ConsumableEffect
+    public function setHealthPoint(?int $healthPoint): static
     {
         $this->healthPoint = $healthPoint;
 
@@ -145,10 +108,7 @@ class ConsumableEffect
         return $this->moralPoint;
     }
 
-    /**
-     * @return static
-     */
-    public function setMoralPoint(?int $moralPoint): ConsumableEffect
+    public function setMoralPoint(?int $moralPoint): static
     {
         $this->moralPoint = $moralPoint;
 
@@ -160,10 +120,7 @@ class ConsumableEffect
         return $this->satiety;
     }
 
-    /**
-     * @return static
-     */
-    public function setSatiety(?int $satiety): ConsumableEffect
+    public function setSatiety(?int $satiety): static
     {
         $this->satiety = $satiety;
 
@@ -175,10 +132,7 @@ class ConsumableEffect
         return $this->extraEffects;
     }
 
-    /**
-     * @return static
-     */
-    public function setExtraEffects(array $extraEffects): ConsumableEffect
+    public function setExtraEffects(array $extraEffects): static
     {
         $this->extraEffects = $extraEffects;
 

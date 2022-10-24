@@ -9,7 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ExtraEffectEnum;
-use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\GameFruitEnum;
@@ -38,8 +38,10 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $treatAction = $this->getReference(ActionsFixtures::TREAT_PLANT);
         /** @var Action $waterAction */
         $waterAction = $this->getReference(ActionsFixtures::WATER_PLANT);
+        /** @var Action $examineAction */
+        $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
+        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
         $plantActions = new ArrayCollection([$treatAction, $waterAction]);
         $fruitActions = new ArrayCollection([$consumeRationAction, $transplantAction]);
 
@@ -50,6 +52,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setMovementPoints([0 => 1])
             ->setHealthPoints([1 => 1])
             ->setMoralPoints([1 => 1])
+            ->setSatiety(1)
             ->setActions($fruitActions)
         ;
 
@@ -57,7 +60,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $banana
             ->setGameConfig($gameConfig)
             ->setName(GameFruitEnum::BANANA)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -80,7 +82,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $bananaTree
             ->setGameConfig($gameConfig)
             ->setName(GamePlantEnum::BANANA_TREE)
-            ->setIsHeavy(false)
             ->setIsStackable(false)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -112,6 +113,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
                 ->setActionPoints([1 => 90, 2 => 9, 3 => 1])
                 ->setMoralPoints([0 => 30, 1 => 70])
                 ->setExtraEffects([ExtraEffectEnum::EXTRA_PA_GAIN => 50])
+                ->setSatiety(1)
                 ->setActions($fruitActions)
             ;
             $manager->persist($alienFruitMechanic);
@@ -120,7 +122,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             $alienFruit
                 ->setGameConfig($gameConfig)
                 ->setName($fruitName)
-                ->setIsHeavy(false)
                 ->setIsStackable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
@@ -141,7 +142,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             $alienPlant
                 ->setGameConfig($gameConfig)
                 ->setName($plantName)
-                ->setIsHeavy(false)
                 ->setIsStackable(false)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
@@ -166,7 +166,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $junkin
             ->setGameConfig($gameConfig)
             ->setName(GameFruitEnum::JUNKIN)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -188,7 +187,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $bumpjunkin
             ->setGameConfig($gameConfig)
             ->setName(GamePlantEnum::BUMPJUNKIN)
-            ->setIsHeavy(false)
             ->setIsStackable(false)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)

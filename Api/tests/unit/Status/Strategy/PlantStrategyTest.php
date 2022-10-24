@@ -3,18 +3,19 @@
 namespace Mush\Test\Status\Strategy;
 
 use Mockery;
-use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Enum\EventEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\ChargeStrategies\AbstractChargeStrategy;
 use Mush\Status\ChargeStrategies\PlantStrategy;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 class PlantStrategyTest extends TestCase
 {
-    /** @var StatusServiceInterface | Mockery\Mock */
+    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface $statusService;
     private AbstractChargeStrategy $strategy;
 
@@ -42,16 +43,19 @@ class PlantStrategyTest extends TestCase
 
         $this->statusService->shouldReceive('updateCharge')->with($status, 1)->once();
 
-        $this->strategy->execute($status, new Daedalus());
+        $this->strategy->execute($status, EventEnum::NEW_CYCLE);
     }
 
     private function createStatus(): ChargeStatus
     {
-        $status = new ChargeStatus(new Player());
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
+            ->setMaxCharge(10)
+        ;
+        $status = new ChargeStatus(new Player(), $statusConfig);
         $status
             ->setCharge(0)
-            ->setThreshold(10)
-            ->setStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
         ;
 
         return $status;

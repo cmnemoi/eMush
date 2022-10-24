@@ -8,13 +8,13 @@ use Mush\Action\Actions\Cook;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\GameRationEnum;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 
 class CookActionCest
@@ -49,7 +49,7 @@ class CookActionCest
 
         $I->assertFalse($this->cookAction->isVisible());
 
-        $gameEquipment->setPlace($room1);
+        $gameEquipment->setHolder($room1);
 
         $I->assertTrue($this->cookAction->isVisible());
     }
@@ -130,7 +130,7 @@ class CookActionCest
         $equipment->setName($name);
         $gameEquipment
             ->setEquipment($equipment)
-            ->setPlace($place)
+            ->setHolder($place)
             ->setName($name)
         ;
 

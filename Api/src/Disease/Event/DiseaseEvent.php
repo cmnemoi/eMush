@@ -2,27 +2,33 @@
 
 namespace Mush\Disease\Event;
 
-use Mush\Disease\Entity\DiseaseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\AbstractGameEvent;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Symfony\Contracts\EventDispatcher\Event;
+use Mush\RoomLog\Event\LoggableEventInterface;
 
-class DiseaseEvent extends Event
+class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
 {
     public const NEW_DISEASE = 'disease.new';
     public const APPEAR_DISEASE = 'disease.appear';
     public const TREAT_DISEASE = 'disease.treat';
     public const CURE_DISEASE = 'disease.cure';
 
-    private ?Player $author;
+    private ?Player $author = null;
     private PlayerDisease $playerDisease;
-    private \DateTime $time;
-    private string $cureReason;
+    private string $visibility = VisibilityEnum::PUBLIC;
 
-    public function __construct(PlayerDisease $playerDisease, \DateTime $time)
-    {
+    public function __construct(
+        PlayerDisease $playerDisease,
+        string $cureReason,
+        \DateTime $time
+    ) {
         $this->playerDisease = $playerDisease;
-        $this->time = $time;
+
+        parent::__construct($cureReason, $time);
     }
 
     public function getAuthor(): ?Player
@@ -30,7 +36,7 @@ class DiseaseEvent extends Event
         return $this->author;
     }
 
-    public function setAuthor(?Player $author): DiseaseEvent
+    public function setAuthor(?Player $author): self
     {
         $this->author = $author;
 
@@ -40,6 +46,11 @@ class DiseaseEvent extends Event
     public function getPlayer(): Player
     {
         return $this->playerDisease->getPlayer();
+    }
+
+    public function getPlace(): Place
+    {
+        return $this->playerDisease->getPlayer()->getPlace();
     }
 
     public function getDiseaseConfig(): DiseaseConfig
@@ -52,20 +63,29 @@ class DiseaseEvent extends Event
         return $this->playerDisease;
     }
 
-    public function getTime(): \DateTime
+    public function setVisibility(string $visibility): self
     {
-        return $this->time;
-    }
-
-    public function getCureReason(): string
-    {
-        return $this->cureReason;
-    }
-
-    public function setCureReason(string $cureReason): DiseaseEvent
-    {
-        $this->cureReason = $cureReason;
+        $this->visibility = $visibility;
 
         return $this;
+    }
+
+    public function getVisibility(): string
+    {
+        return $this->visibility;
+    }
+
+    public function getLogParameters(): array
+    {
+        $logParameters = [
+            $this->getPlayerDisease()->getDiseaseConfig()->getLogKey() => $this->getPlayerDisease()->getDiseaseConfig()->getLogName(),
+            'target_' . $this->playerDisease->getPlayer()->getLogKey() => $this->playerDisease->getPlayer()->getLogName(),
+        ];
+
+        if (($author = $this->author) !== null) {
+            $logParameters[$author->getLogKey()] = $author->getLogName();
+        }
+
+        return $logParameters;
     }
 }

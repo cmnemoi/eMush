@@ -10,7 +10,6 @@ class Error extends ActionResult
         string $message
     ) {
         $this->message = $message;
-        parent::__construct();
     }
 
     public function getMessage(): string

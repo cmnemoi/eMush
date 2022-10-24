@@ -10,7 +10,9 @@ use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Player\Service\PlayerVariableServiceInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -20,15 +22,18 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
     use NormalizerAwareTrait;
 
     private PlayerServiceInterface $playerService;
+    private PlayerVariableServiceInterface $playerVariableService;
     private TranslationServiceInterface $translationService;
     private GearToolServiceInterface $gearToolService;
 
     public function __construct(
         PlayerServiceInterface $playerService,
+        PlayerVariableServiceInterface $playerVariableService,
         TranslationServiceInterface $translationService,
         GearToolServiceInterface $gearToolService
     ) {
         $this->playerService = $playerService;
+        $this->playerVariableService = $playerVariableService;
         $this->translationService = $translationService;
         $this->gearToolService = $gearToolService;
     }
@@ -45,9 +50,11 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
         /** @var Player $player */
         $player = $object;
 
+        $language = $player->getDaedalus()->getGameConfig()->getLanguage();
+
         $items = [];
         /** @var GameItem $item */
-        foreach ($player->getItems() as $item) {
+        foreach ($player->getEquipments() as $item) {
             $items[] = $this->normalizer->normalize($item, $format, $context);
         }
 
@@ -57,7 +64,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
             'id' => $player->getId(),
             'character' => [
                 'key' => $character,
-                'value' => $this->translationService->translate($character . '.name', [], 'characters'),
+                'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
             ],
             'gameStatus' => $player->getGameStatus(),
             'triumph' => $player->getTriumph(),
@@ -88,27 +95,41 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
                 'items' => $items,
                 'statuses' => $statuses,
                 'diseases' => $diseases,
-                'actionPoint' => [
-                    'quantity' => $player->getActionPoint(),
-                    'name' => $this->translationService->translate('actionPoint.name', [], 'player'),
-                    'description' => $this->translationService->translate('actionPoint.description', [
-                        'quantityaction' => $player->getActionPoint(),
-                        'quantitymovement' => $player->getMovementPoint(),
-                    ], 'player'), ],
-                'movementPoint' => [
-                    'quantity' => $player->getMovementPoint(), ],
-                'healthPoint' => [
-                    'quantity' => $player->getHealthPoint(),
-                    'name' => $this->translationService->translate('healthPoint.name', ['quantity' => $player->getHealthPoint()], 'player'),
-                    'description' => $this->translationService->translate('healthPoint.description', [], 'player'), ],
-                'moralPoint' => [
-                    'quantity' => $player->getMoralPoint(),
-                    'name' => $this->translationService->translate('moralPoint.name', ['quantity' => $player->getMoralPoint()], 'player'),
-                    'description' => $this->translationService->translate('moralPoint.description', [], 'player'), ],
+                'actionPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::ACTION_POINT, $language),
+                'movementPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::MOVEMENT_POINT, $language),
+                'healthPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::HEALTH_POINT, $language),
+                'moralPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::MORAL_POINT, $language),
             ]);
         }
 
         return $playerData;
+    }
+
+    private function normalizePlayerParameter(Player $player, string $variable, string $language): array
+    {
+        if (in_array($variable, [PlayerVariableEnum::MOVEMENT_POINT, PlayerVariableEnum::ACTION_POINT])) {
+            $description = $this->translationService->translate(
+                'actionPoint.description', [
+                'quantityAction' => $player->getActionPoint(),
+                'quantityMovement' => $player->getMovementPoint(),
+            ], 'player',
+                $language
+            );
+        } else {
+            $description = $this->translationService->translate(
+                $variable . '.description',
+                [],
+                'player',
+                $language
+            );
+        }
+
+        return [
+                'quantity' => $player->getVariableFromName($variable),
+                'max' => $this->playerVariableService->getMaxPlayerVariable($player, $variable),
+                'name' => $this->translationService->translate($variable . '.name', [], 'player', $language),
+                'description' => $description,
+        ];
     }
 
     private function getActions(Player $player, ?string $format, array $context): array

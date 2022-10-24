@@ -4,48 +4,37 @@ namespace Mush\Place\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Game\Entity\ConfigInterface;
+use Mush\Game\Entity\GameConfig;
 use Mush\Place\Enum\PlaceTypeEnum;
 
 /**
  * @ORM\Entity()
  */
-class PlaceConfig
+#[ORM\Entity]
+class PlaceConfig implements ConfigInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Daedalus\Entity\DaedalusConfig", inversedBy="placeConfigs")
-     */
+    #[ORM\ManyToOne(targetEntity: DaedalusConfig::class, inversedBy: 'placeConfigs')]
     private DaedalusConfig $daedalusConfig;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $type = PlaceTypeEnum::ROOM;
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $doors = [];
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $items = [];
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $equipments = [];
 
     public function getId(): int
@@ -58,10 +47,12 @@ class PlaceConfig
         return $this->daedalusConfig;
     }
 
-    /**
-     * @return static
-     */
-    public function setDaedalusConfig(DaedalusConfig $daedalusConfig): PlaceConfig
+    public function getGameConfig(): GameConfig
+    {
+        return $this->daedalusConfig->getGameConfig();
+    }
+
+    public function setDaedalusConfig(DaedalusConfig $daedalusConfig): static
     {
         $this->daedalusConfig = $daedalusConfig;
 
@@ -73,10 +64,7 @@ class PlaceConfig
         return $this->name;
     }
 
-    /**
-     * @return static
-     */
-    public function setName(string $name): PlaceConfig
+    public function setName(string $name): static
     {
         $this->name = $name;
 
@@ -88,7 +76,7 @@ class PlaceConfig
         return $this->type;
     }
 
-    public function setType(string $type): PlaceConfig
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -100,10 +88,7 @@ class PlaceConfig
         return $this->doors;
     }
 
-    /**
-     * @return static
-     */
-    public function setDoors(array $doors): PlaceConfig
+    public function setDoors(array $doors): static
     {
         $this->doors = $doors;
 
@@ -115,10 +100,7 @@ class PlaceConfig
         return $this->items;
     }
 
-    /**
-     * @return static
-     */
-    public function setItems(array $items): PlaceConfig
+    public function setItems(array $items): static
     {
         $this->items = $items;
 
@@ -130,10 +112,7 @@ class PlaceConfig
         return $this->equipments;
     }
 
-    /**
-     * @return static
-     */
-    public function setEquipments(array $equipments): PlaceConfig
+    public function setEquipments(array $equipments): static
     {
         $this->equipments = $equipments;
 

@@ -13,18 +13,21 @@ use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 class NeronMessageServiceTest extends TestCase
 {
-    /** @var EntityManagerInterface | Mockery\mock */
+    /** @var EntityManagerInterface|Mockery\mock */
     private EntityManagerInterface $entityManager;
-    /** @var ChannelServiceInterface | Mockery\Mock */
+    /** @var ChannelServiceInterface|Mockery\Mock */
     private ChannelServiceInterface $channelService;
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var MessageRepository | Mockery\Mock */
+    /** @var MessageRepository|Mockery\Mock */
     private MessageRepository $repository;
+    /** @var TranslationServiceInterface|Mockery\Mock */
+    private TranslationServiceInterface $translationService;
 
     private NeronMessageServiceInterface $service;
 
@@ -37,6 +40,7 @@ class NeronMessageServiceTest extends TestCase
         $this->channelService = Mockery::mock(ChannelServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->repository = Mockery::mock(MessageRepository::class);
+        $this->translationService = Mockery::mock(TranslationServiceInterface::class);
 
         $this->entityManager->shouldReceive([
             'persist' => null,
@@ -47,7 +51,8 @@ class NeronMessageServiceTest extends TestCase
             $this->channelService,
             $this->entityManager,
             $this->randomService,
-            $this->repository
+            $this->repository,
+            $this->translationService
         );
     }
 

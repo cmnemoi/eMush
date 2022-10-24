@@ -4,25 +4,26 @@ namespace Mush\Equipment\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Error;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Entity\Mechanics\Charged;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Entity\ContentStatus;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class GameEquipmentService implements GameEquipmentServiceInterface
@@ -30,8 +31,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     private EntityManagerInterface $entityManager;
     private GameEquipmentRepository $repository;
     private EquipmentServiceInterface $equipmentService;
-    private StatusServiceInterface $statusService;
-    private EquipmentEffectServiceInterface $equipmentEffectService;
     private RandomServiceInterface $randomService;
     private EventDispatcherInterface $eventDispatcher;
 
@@ -39,16 +38,12 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         EntityManagerInterface $entityManager,
         GameEquipmentRepository $repository,
         EquipmentServiceInterface $equipmentService,
-        StatusServiceInterface $statusService,
-        EquipmentEffectServiceInterface $equipmentEffectService,
         RandomServiceInterface $randomService,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
         $this->equipmentService = $equipmentService;
-        $this->statusService = $statusService;
-        $this->equipmentEffectService = $equipmentEffectService;
         $this->randomService = $randomService;
         $this->eventDispatcher = $eventDispatcher;
     }
@@ -69,7 +64,9 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     public function findById(int $id): ?GameEquipment
     {
-        return $this->repository->find($id);
+        $equipment = $this->repository->find($id);
+
+        return $equipment instanceof GameEquipment ? $equipment : null;
     }
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ArrayCollection
@@ -77,49 +74,107 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return new ArrayCollection($this->repository->findByNameAndDaedalus($name, $daedalus));
     }
 
-    public function createGameEquipmentFromName(string $equipmentName, Daedalus $daedalus): GameEquipment
-    {
-        $equipment = $this->equipmentService->findByNameAndDaedalus($equipmentName, $daedalus);
+    public function createGameEquipmentFromName(
+        string $equipmentName,
+        EquipmentHolderInterface $equipmentHolder,
+        string $reason,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): GameEquipment {
+        $config = $this->equipmentService->findByNameAndDaedalus($equipmentName, $equipmentHolder->getPlace()->getDaedalus());
 
-        return $this->createGameEquipment($equipment, $daedalus);
+        return $this->createGameEquipment($config, $equipmentHolder, $reason, $visibility);
     }
 
-    public function createGameEquipment(EquipmentConfig $equipment, Daedalus $daedalus): GameEquipment
-    {
-        if ($equipment instanceof ItemConfig) {
-            $gameEquipment = $equipment->createGameItem();
+    public function createGameEquipment(
+        EquipmentConfig $equipmentConfig,
+        EquipmentHolderInterface $holder,
+        string $reason,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): GameEquipment {
+        $equipment = $this->getEquipmentFromConfig($equipmentConfig, $holder, $reason);
+
+        $event = new EquipmentEvent(
+            $equipment,
+            true,
+            $visibility,
+            $reason,
+            new \DateTime()
+        );
+        $this->eventDispatcher->dispatch($event, EquipmentEvent::EQUIPMENT_CREATED);
+
+        return $equipment;
+    }
+
+    private function getEquipmentFromConfig(
+        EquipmentConfig $config,
+        EquipmentHolderInterface $holder,
+        string $reason
+    ): GameEquipment {
+        if ($config instanceof ItemConfig) {
+            $gameEquipment = $config->createGameItem();
+            $gameEquipment->setHolder($holder);
         } else {
-            $gameEquipment = $equipment->createGameEquipment();
+            $gameEquipment = $config->createGameEquipment();
+            $gameEquipment->setHolder($holder->getPlace());
         }
 
-        if ($equipment->isAlienArtifact()) {
-            $this->initStatus($gameEquipment, EquipmentStatusEnum::ALIEN_ARTEFACT);
-        }
-        if ($equipment instanceof ItemConfig && $equipment->isHeavy()) {
-            $this->initStatus($gameEquipment, EquipmentStatusEnum::HEAVY);
+        $this->initMechanics($gameEquipment, $holder->getPlace()->getDaedalus(), $reason);
+
+        if ($config->isPersonal()) {
+            if (!($holder instanceof Player)) {
+                throw new Error('holder should be a player');
+            }
+            $gameEquipment->setOwner($holder);
         }
 
-        $gameEquipment = $this->initMechanics($gameEquipment, $daedalus);
+        $this->persist($gameEquipment);
 
-        return $this->persist($gameEquipment);
+        return $gameEquipment;
     }
 
-    private function initMechanics(GameEquipment $gameEquipment, Daedalus $daedalus): GameEquipment
+    public function transformGameEquipmentToEquipmentWithName(
+        string $resultName,
+        GameEquipment $input,
+        EquipmentHolderInterface $holder,
+        string $reason,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): GameEquipment {
+        $config = $this->equipmentService->findByNameAndDaedalus($resultName, $holder->getPlace()->getDaedalus());
+
+        return $this->transformGameEquipmentToEquipment($config, $input, $holder, $reason, $visibility);
+    }
+
+    public function transformGameEquipmentToEquipment(
+        EquipmentConfig $resultConfig,
+        GameEquipment $input,
+        EquipmentHolderInterface $holder,
+        string $reason,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): GameEquipment {
+        $result = $this->getEquipmentFromConfig($resultConfig, $holder, $reason);
+
+        $equipmentEvent = new TransformEquipmentEvent(
+            $result,
+            $input,
+            $visibility,
+            $reason,
+            new \DateTime()
+        );
+        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
+
+        return $result;
+    }
+
+    private function initMechanics(GameEquipment $gameEquipment, Daedalus $daedalus, string $reason): GameEquipment
     {
         /** @var EquipmentMechanic $mechanic */
         foreach ($gameEquipment->getEquipment()->getMechanics() as $mechanic) {
-            switch ($mechanic->getMechanic()) {
-                case EquipmentMechanicEnum::PLANT:
+            if ($mechanic instanceof Plant) {
+                if ($reason !== EventEnum::CREATE_DAEDALUS) {
                     $this->initPlant($gameEquipment, $mechanic, $daedalus);
-                    break;
-                case EquipmentMechanicEnum::CHARGED:
-                    $this->initCharged($gameEquipment, $mechanic);
-                    break;
-                case EquipmentMechanicEnum::DOCUMENT:
-                    if ($mechanic instanceof Document && $mechanic->getContent()) {
-                        $this->initDocument($gameEquipment, $mechanic);
-                    }
-                    break;
+                }
+            } elseif ($mechanic instanceof Document && $mechanic->getContent()) {
+                $this->initDocument($gameEquipment, $mechanic);
             }
         }
 
@@ -132,42 +187,14 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a plant');
         }
 
-        $this->statusService->createChargeStatus(
+        $statusEvent = new StatusEvent(
             EquipmentStatusEnum::PLANT_YOUNG,
             $gameEquipment,
-            ChargeStrategyTypeEnum::GROWING_PLANT,
-            null,
-            VisibilityEnum::PUBLIC,
-            VisibilityEnum::HIDDEN,
-            0,
-            $this->equipmentEffectService->getPlantEffect($plant, $daedalus)->getMaturationTime()
+            EquipmentEvent::EQUIPMENT_CREATED,
+            new \DateTime()
         );
 
-        return $gameEquipment;
-    }
-
-    private function initCharged(GameEquipment $gameEquipment, $charged): GameEquipment
-    {
-        if (!$charged instanceof Charged) {
-            throw new \LogicException('Parameter is not a charged mechanic');
-        }
-
-        $chargeStatus = $this->statusService->createChargeStatus(
-            EquipmentStatusEnum::CHARGES,
-            $gameEquipment,
-            $charged->getChargeStrategy(),
-            null,
-            VisibilityEnum::PUBLIC,
-            VisibilityEnum::PUBLIC,
-            $charged->getStartCharge(),
-            $charged->getMaxCharge()
-        );
-
-        if (!$charged->isVisible()) {
-            $chargeStatus
-                ->setVisibility(VisibilityEnum::HIDDEN)
-                ->setChargeVisibility(VisibilityEnum::HIDDEN);
-        }
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $gameEquipment;
     }
@@ -178,22 +205,14 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a document');
         }
 
-        $contentStatus = new ContentStatus($gameEquipment);
-        $contentStatus
-            ->setName(EquipmentStatusEnum::DOCUMENT_CONTENT)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setContent($document->getContent())
-        ;
-
-        return $gameEquipment;
-    }
-
-    private function initStatus(GameEquipment $gameEquipment, string $statusName): GameEquipment
-    {
-        $this->statusService->createCoreStatus(
-            $statusName,
-            $gameEquipment
+        $statusEvent = new StatusEvent(
+            EquipmentStatusEnum::DOCUMENT_CONTENT,
+            $gameEquipment,
+            EquipmentEvent::EQUIPMENT_CREATED,
+            new \DateTime()
         );
+
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
         return $gameEquipment;
     }
@@ -207,7 +226,13 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         if ($gameEquipment->getEquipment()->isFireDestroyable() &&
             $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
-            $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, $date);
+            $equipmentEvent = new EquipmentEvent(
+                $gameEquipment,
+                false,
+                VisibilityEnum::PUBLIC,
+                EventEnum::FIRE,
+                $date
+            );
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
 
@@ -215,12 +240,17 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN) &&
             $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
-            $equipmentEvent = new EquipmentEvent($gameEquipment, VisibilityEnum::PUBLIC, $date);
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_BROKEN);
+            $statusEvent = new StatusEvent(
+                EquipmentStatusEnum::BROKEN,
+                $gameEquipment,
+                EventEnum::FIRE,
+                $date
+            );
+            $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
+            $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+
             $this->persist($gameEquipment);
         }
-
-        return;
     }
 
     private function getGameConfig(GameEquipment $gameEquipment): GameConfig

@@ -6,9 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Action\Entity\ActionParameter;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
-use Mush\RoomLog\Entity\LogParameter;
+use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
@@ -16,57 +20,48 @@ use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- * Class GameEquipment.
- *
- * @ORM\Entity
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({
- *     "game_equipment" = "Mush\Equipment\Entity\GameEquipment",
- *     "door" = "Mush\Equipment\Entity\Door",
- *     "game_item" = "Mush\Equipment\Entity\GameItem"
- * })
- */
-class GameEquipment implements StatusHolderInterface, ActionParameter, LogParameter
+#[ORM\Entity]
+#[ORM\InheritanceType('SINGLE_TABLE')]
+#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
+#[ORM\DiscriminatorMap([
+    'game_equipment' => GameEquipment::class,
+    'door' => Door::class,
+    'game_item' => GameItem::class,
+])]
+class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolder
 {
     use TimestampableEntity;
     use TargetStatusTrait;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Mush\Status\Entity\StatusTarget", mappedBy="gameEquipment", cascade={"ALL"})
-     */
+    #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: StatusTarget::class, cascade: ['ALL'])]
     private Collection $statuses;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Place\Entity\Place", inversedBy="equipments")
-     */
-    private ?Place $place = null;
+    #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'equipments')]
+    protected ?Place $place = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="EquipmentConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: EquipmentConfig::class)]
     protected EquipmentConfig $equipment;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    /**
-     * GameEquipment constructor.
-     */
+    #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: Modifier::class)]
+    private Collection $modifiers;
+
+    #[ORM\ManyToOne(targetEntity: Player::class)]
+    private ?Player $owner = null;
+
     public function __construct()
     {
         $this->statuses = new ArrayCollection();
+        $this->modifiers = new ModifierCollection();
     }
 
     public function getId(): int
@@ -84,10 +79,7 @@ class GameEquipment implements StatusHolderInterface, ActionParameter, LogParame
         return $this->equipment->getActions();
     }
 
-    /**
-     * @return static
-     */
-    public function addStatus(Status $status): self
+    public function addStatus(Status $status): static
     {
         if (!$this->getStatuses()->contains($status)) {
             if (!$statusTarget = $status->getStatusTargetTarget()) {
@@ -101,48 +93,40 @@ class GameEquipment implements StatusHolderInterface, ActionParameter, LogParame
         return $this;
     }
 
-    public function getPlace(): ?Place
+    public function getPlace(): Place
+    {
+        if (($holder = $this->getHolder()) === null) {
+            throw new \LogicException('Cannot find place of the GameEquipment');
+        }
+
+        return $holder->getPlace();
+    }
+
+    public function getHolder(): ?EquipmentHolderInterface
     {
         return $this->place;
     }
 
-    /**
-     * @return static
-     */
-    public function setPlace(?Place $place): GameEquipment
+    public function setHolder(?EquipmentHolderInterface $holder): static
     {
-        if ($place !== $this->place) {
-            $oldPlace = $this->getPlace();
-            $this->place = $place;
+        if ($holder === null) {
+            $this->place = null;
 
+            return $this;
+        }
+
+        if (!$holder instanceof Place) {
+            throw new UnexpectedTypeException($holder, Place::class);
+        }
+
+        if ($holder !== ($oldPlace = $this->getHolder())) {
             if ($oldPlace !== null) {
                 $oldPlace->removeEquipment($this);
-                $this->place = $place;
             }
 
-            if ($place !== null) {
-                $place->addEquipment($this);
-            }
+            $this->place = $holder;
+            $holder->addEquipment($this);
         }
-
-        return $this;
-    }
-
-    public function getCurrentPlace(): Place
-    {
-        if ($this->place === null) {
-            throw new \LogicException('Cannot find room of game equipment');
-        }
-
-        return $this->place;
-    }
-
-    /**
-     * @return static
-     */
-    public function removeLocation(): GameEquipment
-    {
-        $this->setPlace(null);
 
         return $this;
     }
@@ -152,10 +136,7 @@ class GameEquipment implements StatusHolderInterface, ActionParameter, LogParame
         return $this->name;
     }
 
-    /**
-     * @return static
-     */
-    public function setName(string $name): GameEquipment
+    public function setName(string $name): static
     {
         $this->name = $name;
 
@@ -167,12 +148,45 @@ class GameEquipment implements StatusHolderInterface, ActionParameter, LogParame
         return $this->equipment;
     }
 
-    /**
-     * @return static
-     */
-    public function setEquipment(EquipmentConfig $equipment): GameEquipment
+    public function setEquipment(EquipmentConfig $equipment): static
     {
         $this->equipment = $equipment;
+
+        return $this;
+    }
+
+    public function getModifiers(): ModifierCollection
+    {
+        return new ModifierCollection($this->modifiers->toArray());
+    }
+
+    public function getAllModifiers(): ModifierCollection
+    {
+        $allModifiers = new ModifierCollection($this->modifiers->toArray());
+
+        if (($player = $this->getHolder()) instanceof Player) {
+            $allModifiers = $allModifiers->addModifiers($player->getModifiers());
+        }
+        $allModifiers = $allModifiers->addModifiers($this->getPlace()->getModifiers());
+
+        return $allModifiers->addModifiers($this->getPlace()->getDaedalus()->getModifiers());
+    }
+
+    public function addModifier(Modifier $modifier): static
+    {
+        $this->modifiers->add($modifier);
+
+        return $this;
+    }
+
+    public function getOwner(): ?Player
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(Player $owner): static
+    {
+        $this->owner = $owner;
 
         return $this;
     }
@@ -182,18 +196,25 @@ class GameEquipment implements StatusHolderInterface, ActionParameter, LogParame
         return $this
             ->getStatuses()
             ->exists(fn (int $key, Status $status) => ($status->getName() === EquipmentStatusEnum::BROKEN))
-            ;
+        ;
     }
 
     public function isOperational(): bool
     {
-        $chargeStatus = $this->getStatusByName(EquipmentStatusEnum::CHARGES);
-
-        if ($chargeStatus === null || !($chargeStatus instanceof ChargeStatus)) {
-            return !$this->isBroken();
+        /** @var Status $status */
+        foreach ($this->getStatuses() as $status) {
+            if (in_array($status->getStatusConfig()->getName(), EquipmentStatusEnum::getOutOfOrderStatuses())) {
+                return false;
+            }
+            if (($status->getStatusConfig()->getName() === EquipmentStatusEnum::ELECTRIC_CHARGES) &&
+                 $status instanceof ChargeStatus &&
+                 $status->getCharge() === 0
+            ) {
+                return false;
+            }
         }
 
-        return $chargeStatus->getCharge() > 0 && !$this->isBroken();
+        return true;
     }
 
     public function isBreakable(): bool

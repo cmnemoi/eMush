@@ -1,0 +1,26 @@
+Mush\Daedalus\Entity\DaedalusConfig:
+  attributes:
+    id:
+      groups: [ 'daedalus_config_read' ]
+    gameConfig:
+      groups: [ 'daedalus_config_read', 'daedalus_config_write' ]
+    initOxygen:
+      groups: [ 'daedalus_config_read', 'daedalus_config_write' ]
+    initFuel:
+      groups: [ 'daedalus_config_read', 'daedalus_config_write' ]
+    initHull:
+      groups: [ 'daedalus_config_read', 'daedalus_config_write' ]
+    initShield:
+      groups: [ 'daedalus_config_read', 'daedalus_config_write' ]
+    randomItemPlace:
+      groups: [ 'daedalus_config_read', 'daedalus_config_write' ]
+    placeConfigs:
+      groups: [ 'daedalus_config_read', 'daedalus_config_write' ]
+    dailySporeNb:
+      groups: [ 'daedalus_config_read', 'daedalus_config_write' ]
+    maxOxygen:
+      groups: [ 'daedalus_config_read', 'daedalus_config_write' ]
+    maxFuel:
+      groups: [ 'daedalus_config_read', 'daedalus_config_write' ]
+    maxHull:
+      groups: [ 'daedalus_config_read', 'daedalus_config_write' ]

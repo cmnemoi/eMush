@@ -10,44 +10,40 @@
 
             <div class="health-points">
                 <div class="life">
-                    <Tooltip>
-                        <template #tooltip-trigger>
-                            <ol style="align-items: center">
-                                <li>
-                                    <p><img src="@/assets/images/lp.png" alt="lp">{{ player.healthPoint.quantity }}</p>
-                                </li>
-                                <li>
-                                    <ul>
-                                        <li v-for="n in 14" :key="n" :class="isFull(n, player.healthPoint.quantity)" />
-                                    </ul>
-                                </li>
-                            </ol>
-                        </template>
-                        <template #tooltip-content="{ formatContent }">
+                    <Tippy tag="div">
+                        <ol>
+                            <li class="quantityLife">
+                                <ul>
+                                    <li v-for="n in 14" :key="n" :class="isFull(n, player.healthPoint.quantity)" />
+                                </ul>
+                            </li>
+                            <li class="iconLife">
+                                <p><img src="@/assets/images/lp.png" alt="lp">{{ player.healthPoint.quantity }}</p>
+                            </li>
+                        </ol>
+                        <template #content>
                             <h1 v-html="formatContent(player.healthPoint.name)" />
                             <p v-html="formatContent(player.healthPoint.description)" />
                         </template>
-                    </Tooltip>
+                    </Tippy>
                 </div>
                 <div class="morale">
-                    <Tooltip>
-                        <template #tooltip-trigger>
-                            <ol style="align-items: center">
-                                <li>
-                                    <p><img src="@/assets/images/moral.png" alt="mp">{{ player.moralPoint.quantity }}</p>
-                                </li>
-                                <li>
-                                    <ul>
-                                        <li v-for="n in 14" :key="n" :class="isFull(n, player.moralPoint.quantity)" />
-                                    </ul>
-                                </li>
-                            </ol>
-                        </template>
-                        <template #tooltip-content="{ formatContent }">
+                    <Tippy tag="div">
+                        <ol>
+                            <li class="quantityMorale">
+                                <ul>
+                                    <li v-for="n in 14" :key="n" :class="isFull(n, player.moralPoint.quantity)" />
+                                </ul>
+                            </li>
+                            <li class="iconMorale">
+                                <p><img src="@/assets/images/moral.png" alt="mp">{{ player.moralPoint.quantity }}</p>
+                            </li>
+                        </ol>
+                        <template #content>
                             <h1 v-html="formatContent(player.moralPoint.name)" />
                             <p v-html="formatContent(player.moralPoint.description)" />
                         </template>
-                    </Tooltip>
+                    </Tippy>
                 </div>
             </div>
             <div class="inventory">
@@ -76,77 +72,90 @@
         </div>
 
         <div class="column">
-            <ul class="skills">
-                <!--        <li><img src="@/assets/images/skills/cook.png" alt="cook"></li>-->
-                <!--        <li><img src="@/assets/images/skills/sturdy.png" alt="sturdy"></li>-->
-                <!--        <li><img src="@/assets/images/skills/opportunist.png" alt="opportunist"></li>-->
-                <!--        <li><img src="@/assets/images/skills/sturdy.png" alt="sturdy"></li>-->
-            </ul>
+            <div class="skills">
+                <!-- <ul class="taught">
+                    <li><img src="@/assets/images/skills/human/politician.png" alt="politician"></li>
+                </ul>
+                <ul class="innate">
+                    <li><img src="@/assets/images/skills/human/cook.png" alt="cook"></li>
+                    <li><img src="@/assets/images/skills/human/sturdy.png" alt="sturdy"></li>
+                    <li class="select"><button class="flashing"><img src="@/assets/images/comms/newtab.png" alt="Select your new skill"></button></li>
+                    <li class="locked"><button class="crossed"><img src="@/assets/images/comms/newtab.png" alt="Select your new skill"></button></li>
+                    <li class="genome"><button><img src="@/assets/images/comms/mush.png" alt="Access the Mush Genome"></button></li>
+                </ul> -->
+            </div>
 
             <div class="actions-sheet">
                 <img src="@/assets/images/pam.png" alt="pam">
-                <Tooltip>
-                    <template #tooltip-trigger>
-                        <div class="action-points">
-                            <div class="actions">
-                                <ul>
-                                    <li v-for="n in 12" :key="n" :class="isFull(n, player.actionPoint.quantity)" />
-                                </ul>
-                            </div>
-                            <div class="movements">
-                                <ul>
-                                    <li v-for="n in 12" :key="n" :class="isFull(n, player.movementPoint.quantity)" />
-                                </ul>
-                            </div>
+                <Tippy tag="div">
+                    <div class="action-points">
+                        <div class="actions">
+                            <ul>
+                                <li v-for="n in 12" :key="n" :class="isFull(n, player.actionPoint.quantity)" />
+                            </ul>
                         </div>
-                        <ul class="specials">
-                            <!--          <li><img src="@/assets/images/pa_cook.png">x6</li>-->
-                        </ul>
-                    </template>
-                    <template #tooltip-content="{ formatContent }">
+                        <div class="movements">
+                            <ul>
+                                <li v-for="n in 12" :key="n" :class="isFull(n, player.movementPoint.quantity)" />
+                            </ul>
+                        </div>
+                    </div>
+                    <ul class="specials">
+                        <!--          <li><img src="@/assets/images/pa_cook.png">x6</li>-->
+                    </ul>
+                    <template #content>
                         <h1 v-html="formatContent(player.actionPoint.name)" />
                         <p v-html="formatContent(player.actionPoint.description)" />
                     </template>
-                </Tooltip>
+                </Tippy>
             </div>
         </div>
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Player } from "@/entities/Player";
 import { characterEnum } from '@/enums/character';
-import Inventory from "@/components/Game/Inventory";
-import ActionButton from "@/components/Utils/ActionButton";
-import Statuses from "@/components/Utils/Statuses";
+import Inventory from "@/components/Game/Inventory.vue";
+import ActionButton from "@/components/Utils/ActionButton.vue";
+import Statuses from "@/components/Utils/Statuses.vue";
 import { mapActions, mapState } from "vuex";
-import Tooltip from "@/components/Utils/ToolTip";
+import { Item } from "@/entities/Item";
+import { Equipment } from "@/entities/Equipment";
+import { Action } from "@/entities/Action";
+import { Door } from "@/entities/Door";
+import { defineComponent } from "vue";
 
+interface CharPanelState {
+    selectedItem: Item | Player | null
+}
 
-export default {
+export default defineComponent ({
     name: "CharPanel",
     components: {
         ActionButton,
         Inventory,
-        Statuses,
-        Tooltip
+        Statuses
     },
     props: {
-        player: Player
+        player: {
+            type: Player,
+            required: true
+        }
     },
-    data() {
+    data(): CharPanelState {
         return {
             selectedItem: null
         };
     },
     computed: {
-        characterPortrait: function() {
-            return characterEnum[this.player.characterKey].portrait;
+        characterPortrait(): string {
+            return characterEnum[this.player.character.key].portrait ?? '';
         },
         ...mapState('player', [
             'loading'
         ]),
-        target() {
+        target(): Item | Player | null {
             return this.selectedItem || this.player;
         }
     },
@@ -154,42 +163,64 @@ export default {
         ...mapActions('action', [
             'executeAction'
         ]),
-        isFull (value, threshold) {
+        isFull (value: number, threshold: number): Record<string, boolean> {
             return {
                 "full": value <= threshold,
                 'empty': value > threshold
             };
         },
-        toggleItemSelection(item) {
+        toggleItemSelection(item: Item): void {
             if (this.selectedItem === item) {
                 this.selectedItem = null;
             } else {
                 this.selectedItem = item;
             }
         },
-        async executeTargetAction(target, action) {
+        async executeTargetAction(target: Door | Item | Equipment | Player | null, action: Action): Promise<void> {
             await this.executeAction({ target, action });
-            if (! this.player.items.includes(this.selectedItem)) {
+            if (this.selectedItem instanceof Item && ! this.player.items.includes(this.selectedItem)) {
                 this.selectedItem = null;
             }
         }
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>
+@keyframes popUpSlide {
+    0% {top: 17px; opacity: 0%;}
+    100% {top: 0; opacity: 100%;}
+}
+.iconLife{
+    position: relative;
+    opacity: 0;
+    top: 17px;
+}
+.quantityLife {
+    z-index: 10;
+    &:hover + .iconLife { animation: popUpSlide 0.7s linear 1; opacity: 1; top: 0; }
+}
+.iconMorale{
+    position: relative;
+    opacity: 0;
+    top: 17px;
+}
+.quantityMorale {
+    z-index: 10;
+    &:hover + .iconMorale { animation: popUpSlide 0.7s linear 1; opacity: 1; top: 0; }
+}
 
 .char-panel {
     flex-direction: row;
 
-    & .char-sheet {
+    .char-sheet {
         width: 176px;
         min-height: 459px;
         padding: 5px;
         border-top-left-radius: 4px;
         background: rgba(54, 76, 148, 0.35);
 
-        & .avatar {
+        .avatar {
             width: 166px;
             height: auto;
         }
@@ -200,192 +231,297 @@ export default {
             align-items: center;
             margin: 2px;
 
-            >>> .status {
+            &::v-deep .status {
                 margin-bottom: 3px;
             }
         }
+    }
+}
 
-        & .health-points {
-            flex-direction: row;
-            margin: 3px 0;
 
-            & .life,
-            & .morale {
-                flex-direction: row;
-                align-items: center;
-                margin-right: 3px;
+.health-points {
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: -.75em 0 .25em;
 
-                & p,
-                & ul {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    border: 1px solid #4077b5;
-                    border-radius: 3px;
-                    background: rgba(58, 106, 171, 1);
-                    box-shadow: 0 0 4px 1px inset rgba(28, 29, 56, 1);
-                }
+    .life,
+    .morale {
+        flex-direction: row;
+        align-items: center;
+        filter: drop-shadow(0 0 5px $deepBlue);
 
-                & p {
-                    min-width: 24px;
-                    height: 15px;
-                    margin: 1px;
-                    padding-right: 1px;
-                    font-size: 0.5em;
-                    letter-spacing: 0.03em;
-                    border-right-width: 0;
 
-                    & img {
-                        width: 11px;
-                        height: 13px;
-                        margin-right: 1px;
-                    }
-                }
+        ol {
+            align-items: center;
+            flex-direction: column-reverse;
 
-                & ul {
-                    /* min-width: 59px; */
-                    height: 11px;
-                    border-radius: 2px;
-                    margin-left: -2px;
-                    border-left-width: 0;
-
-                    & li {
-                        width: 3px;
-                        height: 5px;
-                        margin-right: 1px;
-                        background: rgba(138, 170, 44, 1);
-                        box-shadow: 1px 1px 0 0 inset rgba(255, 255, 255, 0.7);
-
-                        &.empty {
-                            background: rgba(37, 72, 137, 1);
-                            box-shadow: 1px 1px 0 0 inset rgba(78, 154, 255, 0.7);
-                        }
-                    }
-                }
-            }
+            li:first-child { z-index: 1; }
         }
 
-        & .inventory ul {
+        p,
+        ul {
             display: flex;
             flex-direction: row;
+            align-items: center;
+            border: 1px solid lighten($greyBlue, 3.2);
+            border-radius: 3px;
+            background: $greyBlue;
+            box-shadow: 0 0 4px 1px inset rgba(28, 29, 56, 1);
+        }
 
-            & li {
-                @include inventory-slot();
+        p {
+            margin: 0 0 -1px 0;
+            padding: .15em .4em .2em;
+            font-size: 0.8em;
+            letter-spacing: 0.03em;
+            border-bottom-width: 0;
+            text-shadow: 0 0 2px black, 0 0 2px black;
+
+            img {
+                width: 11px;
+                height: 13px;
+                margin-right: 1px;
             }
         }
 
-        & .interactions {
-            margin-top: 12px;
+        ul {
+            padding: .1em .2em;
+            border-radius: 2px;
 
-            .item-name {
-                margin: 0 0 4px 0;
-                font-size: 0.83em;
-                letter-spacing: 0.03em;
-                font-variant: small-caps;
+            li {
+                width: 4px;
+                height: 5px;
+                background: rgba(138, 170, 44, 1);
+                box-shadow: 1px 1px 0 0 inset rgba(255, 255, 255, 0.7);
 
-                >>> .status {
-                    vertical-align: middle;
-                    margin-left: 2px;
+                &:not(:last-child) { margin-right: 1px; }
+
+                &.empty {
+                    background: rgba(37, 72, 137, 1);
+                    box-shadow: 1px 1px 0 0 inset rgba(78, 154, 255, 0.7);
                 }
             }
         }
     }
+}
 
-    & .column {
-        justify-content: space-between;
 
-        & .skills {
+
+// Legacy hp styling
+/* .health-points {
+    flex-direction: row;
+    margin: 3px 0;
+
+    .life,
+    .morale {
+        flex-direction: row;
+        align-items: center;
+        margin-right: 3px;
+
+        p,
+        ul {
             display: flex;
-            flex-direction: column;
-            min-width: 32px;
-            float: right;
-
-            & li {
-                display: flex;
-                align-items: center;
-
-                /* justify-content: center; */
-                width: 30px;
-                height: 34px;
-                padding-right: 3px;
-                margin-bottom: 7px;
-                background: transparent url('~@/assets/images/skills/skillblock_gold.png') center left no-repeat;
-                border-left: 1px solid #191a53;
-
-                &:nth-child(1) {
-                    background: transparent url('~@/assets/images/skills/skillblock.png') center left no-repeat;
-                }
-
-                &:nth-child(2) {
-                    background: transparent url('~@/assets/images/skills/skillblock_once.png') center left no-repeat;
-                }
-            }
-        }
-
-        & .actions-sheet {
+            flex-direction: row;
             align-items: center;
-            justify-content: flex-start;
-            width: 28px;
-            min-height: 134px;
-            padding: 5px 5px 5px 0;
-            border-top-right-radius: 4px;
-            background: rgba(54, 76, 148, 0.35);
+            border: 1px solid lighten($greyBlue, 3.2);
+            border-radius: 3px;
+            background: $greyBlue;
+            box-shadow: 0 0 4px 1px inset rgba(28, 29, 56, 1);
+        }
 
-            & > img { margin: 3px; }
+        p {
+            min-width: 24px;
+            height: 15px;
+            margin: 1px;
+            padding-right: 1px;
+            font-size: 0.6em;
+            letter-spacing: 0.03em;
+            border-right-width: 0;
 
-            & .action-points {
-                flex-direction: row;
-
-                & > div {
-                    & ul {
-                        display: block;
-                        flex-direction: column;
-                        align-items: center;
-                        border: 3px solid transparent;
-                        border-image: url('~@/assets/images/actionpoints_bg.svg') 40% stretch;
-
-                        & li {
-                            width: 5px;
-                            height: 6px;
-                            border-bottom: 1px solid black;
-                            background: rgba(138, 170, 44, 1);
-                            box-shadow: 0 -1px 0 0 inset rgba(0, 0, 0, 0.4);
-                        }
-                    }
-                }
-
-                & .movements ul li {
-                    background: rgb(0, 255, 228);
-                    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(0, 255, 228, 1) 20%);
-
-                    &.empty {
-                        background: rgb(14, 62, 56);
-                        background: linear-gradient(135deg, rgba(18, 85, 106, 1) 5%, rgba(14, 62, 56, 1) 20%);
-                    }
-                }
-
-                & .actions ul li {
-                    background: rgb(255, 85, 153);
-                    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(255, 85, 153, 1) 20%);
-
-                    &.empty {
-                        background: rgb(64, 0, 0);
-                        background: linear-gradient(135deg, rgba(77, 17, 32, 1) 5%, rgba(64, 0, 0, 1) 20%);
-                    }
-                }
-            }
-
-            & .specials li {
-                display: flex;
-                flex-direction: row;
-                align-items: baseline;
-                margin: 2px 0;
-                font-size: 0.65em;
-                font-weight: 700;
-
-                & img { margin-right: -3px; }
+            img {
+                width: 11px;
+                height: 13px;
+                margin-right: 1px;
             }
         }
+
+        ul {
+            // min-width: 59px;
+            height: 11px;
+            border-radius: 2px;
+            margin-left: -2px;
+            border-left-width: 0;
+
+            li {
+                width: 3px;
+                height: 5px;
+                margin-right: 1px;
+                background: rgba(138, 170, 44, 1);
+                box-shadow: 1px 1px 0 0 inset rgba(255, 255, 255, 0.7);
+
+                &.empty {
+                    background: rgba(37, 72, 137, 1);
+                    box-shadow: 1px 1px 0 0 inset rgba(78, 154, 255, 0.7);
+                }
+            }
+        }
+    }
+} */
+
+
+
+.inventory ul {
+    display: flex;
+    flex-direction: row;
+
+    li {
+        @include inventory-slot();
+    }
+}
+
+.interactions {
+    margin-top: 12px;
+
+    .item-name {
+        margin: 0 0 4px 0;
+        letter-spacing: 0.03em;
+        font-variant: small-caps;
+
+        &::v-deep .status {
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+    }
+}
+
+.column {
+    justify-content: space-between;
+}
+
+.skills {
+    ul {
+        display: flex;
+        flex-direction: column;
+        float: right;
+        min-width: 32px;
+    }
+
+    li {
+        display: flex;
+        position: relative;
+        align-items: center;
+
+        /* justify-content: center; */
+        width: 30px;
+        height: 34px;
+        padding-right: 3px;
+        margin-bottom: 7px;
+        background: transparent url('~@/assets/images/skills/skillblock.png') center left no-repeat;
+        border-left: 1px solid #191a53;
+
+        button {
+            @include button-style();
+            width: 22px;
+            height: 22px;
+            padding: 0;
+
+            img {
+                top: 0;
+                padding: 0;
+            }
+        }
+
+        &.locked {
+            background: transparent url('~@/assets/images/skills/skillblock_gold.png') center left no-repeat;
+
+            &:before {
+                content: "";
+                position: absolute;
+                z-index: 1;
+                top: 14px;
+                left: 13px;
+                background: transparent url('~@/assets/images/skills/lock_gold.png') center no-repeat;
+                width: 20px;
+                height: 23px;
+                padding-top: 7px;
+                font-family: $font-days-one;
+                font-size: .9em;
+                text-align: center;
+            }
+        }
+
+        &:nth-child(2).locked:before { content:"2"; }
+        &:nth-child(3).locked:before { content:"3"; }
+        &:nth-child(4).locked:before { content:"4"; }
+
+        &.innate.locked { border: 1px solid red; }
+
+        &.genome { background-image: url('~@/assets/images/skills/skillblock_once.png'); }
+    }
+}
+
+.actions-sheet {
+    align-items: center;
+    justify-content: flex-start;
+    width: 28px;
+    min-height: 134px;
+    padding: 5px 5px 5px 0;
+    border-top-right-radius: 4px;
+    background: rgba(54, 76, 148, 0.35);
+
+    & > img { margin: 3px; }
+
+    .action-points {
+        flex-direction: row;
+
+        & > div {
+            ul {
+                display: block;
+                flex-direction: column;
+                align-items: center;
+                border: 3px solid transparent;
+                border-image: url('~@/assets/images/actionpoints_bg.svg') 40% stretch;
+
+                li {
+                    width: 5px;
+                    height: 6px;
+                    border-bottom: 1px solid black;
+                    background: rgba(138, 170, 44, 1);
+                    box-shadow: 0 -1px 0 0 inset rgba(0, 0, 0, 0.4);
+                }
+            }
+        }
+
+        .movements ul li {
+            background: rgb(0, 255, 228);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(0, 255, 228, 1) 20%);
+
+            &.empty {
+                background: rgb(14, 62, 56);
+                background: linear-gradient(135deg, rgba(18, 85, 106, 1) 5%, rgba(14, 62, 56, 1) 20%);
+            }
+        }
+
+        .actions ul li {
+            background: rgb(255, 85, 153);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(255, 85, 153, 1) 20%);
+
+            &.empty {
+                background: rgb(64, 0, 0);
+                background: linear-gradient(135deg, rgba(77, 17, 32, 1) 5%, rgba(64, 0, 0, 1) 20%);
+            }
+        }
+    }
+
+    .specials li {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        margin: 2px 0;
+        font-size: 0.75em;
+        font-weight: 700;
+
+        img { margin-right: -3px; }
     }
 }
 

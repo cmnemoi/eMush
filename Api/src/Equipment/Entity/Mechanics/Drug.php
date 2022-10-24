@@ -5,14 +5,16 @@ namespace Mush\Equipment\Entity\Mechanics;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
-/**
- * Class Equipment.
- *
- * @ORM\Entity
- */
+#[ORM\Entity]
 class Drug extends Ration
 {
-    protected string $mechanic = EquipmentMechanicEnum::DRUG;
-
     protected bool $isPerishable = false;
+
+    public function getMechanics(): array
+    {
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::DRUG;
+
+        return $mechanics;
+    }
 }

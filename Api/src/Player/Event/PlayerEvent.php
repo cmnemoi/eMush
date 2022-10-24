@@ -2,48 +2,58 @@
 
 namespace Mush\Player\Event;
 
-use Mush\Player\Entity\Player;
-use Symfony\Contracts\EventDispatcher\Event;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\RoomLog\Event\LoggableEventInterface;
 
-class PlayerEvent extends Event
+class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface
 {
     public const NEW_PLAYER = 'new.player';
     public const DEATH_PLAYER = 'death.player';
     public const METAL_PLATE = 'metal.plate';
     public const PANIC_CRISIS = 'panic.crisis';
+    public const CYCLE_DISEASE = 'cycle_disease';
     public const INFECTION_PLAYER = 'infection.player';
     public const CONVERSION_PLAYER = 'conversion.player';
     public const END_PLAYER = 'end.player';
 
-    private Player $player;
-    private ?string $reason = null;
-    private \DateTime $time;
+    protected string $visibility = VisibilityEnum::PRIVATE;
+    protected ?CharacterConfig $characterConfig = null;
 
-    public function __construct(Player $player, \DateTime $time)
+    public function getVisibility(): string
     {
-        $this->time = $time;
-        $this->player = $player;
+        return $this->visibility;
     }
 
-    public function getPlayer(): Player
+    public function setVisibility(string $visibility): self
     {
-        return $this->player;
-    }
-
-    public function getTime(): \DateTime
-    {
-        return $this->time;
-    }
-
-    public function getReason(): ?string
-    {
-        return $this->reason;
-    }
-
-    public function setReason(?string $reason): PlayerEvent
-    {
-        $this->reason = $reason;
+        $this->visibility = $visibility;
 
         return $this;
+    }
+
+    public function getPlace(): Place
+    {
+        return $this->player->getPlace();
+    }
+
+    public function getLogParameters(): array
+    {
+        return [
+            $this->player->getLogKey() => $this->player->getLogName(),
+        ];
+    }
+
+    public function setCharacterConfig(CharacterConfig $characterConfig): self
+    {
+        $this->characterConfig = $characterConfig;
+
+        return $this;
+    }
+
+    public function getCharacterConfig(): ?CharacterConfig
+    {
+        return $this->characterConfig;
     }
 }

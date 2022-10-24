@@ -6,20 +6,20 @@ use Codeception\PHPUnit\TestCase;
 use Mockery;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\PlayerStatusService;
 use Mush\Status\Service\PlayerStatusServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerStatusServiceTest extends TestCase
 {
-    /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusService;
+    private StatusServiceInterface|Mockery\Mock $statusService;
 
-    /** @var RoomLogServiceInterface | Mockery\Mock */
-    private RoomLogServiceInterface $roomLogService;
+    private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
 
     private PlayerStatusServiceInterface $playerStatusService;
 
@@ -29,10 +29,9 @@ class PlayerStatusServiceTest extends TestCase
     public function before()
     {
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
 
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-
-        $this->playerStatusService = new PlayerStatusService($this->statusService, $this->roomLogService);
+        $this->playerStatusService = new PlayerStatusService($this->statusService, $this->eventDispatcher);
     }
 
     /**
@@ -48,27 +47,29 @@ class PlayerStatusServiceTest extends TestCase
         $player = new Player();
         $player->setMoralPoint(10);
 
-        $this->playerStatusService->handleMoralStatus($player);
+        $this->playerStatusService->handleMoralStatus($player, new \DateTime());
 
-        //Player demoralized, improvement of mental
+        // Player demoralized, improvement of mental
         $player = new Player();
         $player->setMoralPoint(10);
 
-        $demoralizedStatus = new Status($player);
-        $demoralizedStatus->setName(PlayerStatusEnum::DEMORALIZED);
+        $demoralizedConfig = new StatusConfig();
+        $demoralizedConfig->setName(PlayerStatusEnum::DEMORALIZED);
+        $demoralizedStatus = new Status($player, $demoralizedConfig);
 
-        $this->playerStatusService->handleMoralStatus($player);
-        $this->assertEmpty($player->getStatuses());
+        $this->statusService->shouldReceive('delete')->with($demoralizedStatus)->once();
+        $this->playerStatusService->handleMoralStatus($player, new \DateTime());
 
-        //Player suicidal, improvement of mental
+        // Player suicidal, improvement of mental
         $player = new Player();
         $player->setMoralPoint(10);
 
-        $suicidalStatus = new Status($player);
-        $suicidalStatus->setName(PlayerStatusEnum::SUICIDAL);
+        $suicidalConfig = new StatusConfig();
+        $suicidalConfig->setName(PlayerStatusEnum::SUICIDAL);
+        $suicidalStatus = new Status($player, $suicidalConfig);
 
-        $this->playerStatusService->handleMoralStatus($player);
-        $this->assertEmpty($player->getStatuses());
+        $this->statusService->shouldReceive('delete')->with($suicidalStatus)->once();
+        $this->playerStatusService->handleMoralStatus($player, new \DateTime());
     }
 
     public function testHandleMoralDemoralized()
@@ -76,42 +77,43 @@ class PlayerStatusServiceTest extends TestCase
         $player = new Player();
         $player->setMoralPoint(3);
 
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::DEMORALIZED))
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::DEMORALIZED && $event->getStatusHolder() === $player)
             ->once()
         ;
 
-        $this->playerStatusService->handleMoralStatus($player);
+        $this->playerStatusService->handleMoralStatus($player, new \DateTime());
 
-        //Player Already demoralized
-        $demoralizedStatus = new Status($player);
-        $demoralizedStatus->setName(PlayerStatusEnum::DEMORALIZED);
+        // Player Already demoralized
+        $demoralizedConfig = new StatusConfig();
+        $demoralizedConfig->setName(PlayerStatusEnum::DEMORALIZED);
+        $demoralizedStatus = new Status($player, $demoralizedConfig);
 
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::DEMORALIZED))
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
             ->never()
         ;
 
-        $this->playerStatusService->handleMoralStatus($player);
+        $this->playerStatusService->handleMoralStatus($player, new \DateTime());
         $this->assertNotEmpty($player->getStatuses());
 
-        //Player Already suicidal, improvement of mental
+        // Player Already suicidal, improvement of mental
         $player = new Player();
         $player->setMoralPoint(3);
 
-        $suicidalStatus = new Status($player);
-        $suicidalStatus->setName(PlayerStatusEnum::SUICIDAL);
+        $suicidalConfig = new StatusConfig();
+        $suicidalConfig->setName(PlayerStatusEnum::SUICIDAL);
+        $suicidalStatus = new Status($player, $suicidalConfig);
 
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::DEMORALIZED))
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::DEMORALIZED && $event->getStatusHolder() === $player)
             ->once()
         ;
+        $this->statusService->shouldReceive('delete')->with($suicidalStatus)->once();
 
-        $this->playerStatusService->handleMoralStatus($player);
-        $this->assertEmpty($player->getStatuses());
+        $this->playerStatusService->handleMoralStatus($player, new \DateTime());
     }
 
     public function testHandleMoralSuicidal()
@@ -119,68 +121,68 @@ class PlayerStatusServiceTest extends TestCase
         $player = new Player();
         $player->setMoralPoint(1);
 
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::SUICIDAL))
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::SUICIDAL && $event->getStatusHolder() === $player)
             ->once()
         ;
 
-        $this->playerStatusService->handleMoralStatus($player);
+        $this->playerStatusService->handleMoralStatus($player, new \DateTime());
 
-        //Player Already suicidal
-        $demoralizedStatus = new Status($player);
-        $demoralizedStatus->setName(PlayerStatusEnum::SUICIDAL);
+        // Player Already suicidal
+        $suicidalConfig = new StatusConfig();
+        $suicidalConfig->setName(PlayerStatusEnum::SUICIDAL);
+        $suicidalStatus = new Status($player, $suicidalConfig);
 
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::SUICIDAL))
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
             ->never()
         ;
 
-        $this->playerStatusService->handleMoralStatus($player);
+        $this->playerStatusService->handleMoralStatus($player, new \DateTime());
         $this->assertCount(1, $player->getStatuses());
 
-        //Player was demoralized
+        // Player was demoralized
         $player = new Player();
         $player->setMoralPoint(1);
-        $suicidalStatus = new Status($player);
-        $suicidalStatus->setName(PlayerStatusEnum::DEMORALIZED);
+        $demoralizedConfig = new StatusConfig();
+        $demoralizedConfig->setName(PlayerStatusEnum::DEMORALIZED);
+        $demoralizedStatus = new Status($player, $demoralizedConfig);
 
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::SUICIDAL))
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::SUICIDAL && $event->getStatusHolder() === $player)
             ->once()
         ;
+        $this->statusService->shouldReceive('delete')->with($demoralizedStatus)->once();
 
-        $this->playerStatusService->handleMoralStatus($player);
-        $this->assertEmpty($player->getStatuses());
+        $this->playerStatusService->handleMoralStatus($player, new \DateTime());
     }
 
     public function testHandleHumanSatietyNoStatus()
     {
         $player = new Player();
         $player->setSatiety(0);
+        $starvingConfig = new StatusConfig();
+        $starvingConfig->setName(PlayerStatusEnum::STARVING);
+        $starvingStatus = new Status($player, $starvingConfig);
 
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->statusService->shouldReceive('createStatusFromName')->withSomeOfArgs($starvingStatus);
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
 
         $player = new Player();
         $player->setSatiety(0);
-        $starvingStatus = new Status($player);
-        $starvingStatus->setName(PlayerStatusEnum::STARVING);
+        $fullStomachConfig = new StatusConfig();
+        $fullStomachConfig->setName(PlayerStatusEnum::FULL_STOMACH);
+        $fullBellyStatus = new Status($player, $fullStomachConfig);
 
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->statusService->shouldReceive('delete')->with($fullBellyStatus);
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
-        $this->assertEmpty($player->getStatuses());
-
-        $player = new Player();
-        $player->setSatiety(0);
-        $fullBellyStatus = new Status($player);
-        $fullBellyStatus->setName(PlayerStatusEnum::FULL_STOMACH);
-
-        $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
-        $this->assertEmpty($player->getStatuses());
     }
 
-    public function testHandleStarvingStatus()
+    public function testHandleNegativeSatiety()
     {
         $player = new Player();
         $player
@@ -188,43 +190,58 @@ class PlayerStatusServiceTest extends TestCase
             ->setPlace(new Place())
         ;
 
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::STARVING))
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING &&
+                $event->getStatusHolder() === $player
+            )
             ->once()
         ;
-        $this->roomLogService->shouldReceive('createLog')->once();
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
+    }
 
+    public function testHandleNegativeSatietyWhenAlreadyStarved()
+    {
         $player = new Player();
         $player->setSatiety(-40);
-        $starvingStatus = new Status($player);
-        $starvingStatus->setName(PlayerStatusEnum::STARVING);
 
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::STARVING))
+        $starvingConfig = new StatusConfig();
+        $starvingConfig->setName(PlayerStatusEnum::STARVING);
+        new Status($player, $starvingConfig);
+
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
             ->never()
         ;
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
-        $this->assertCount(1, $player->getStatuses());
+    }
 
+    public function testHandleStarvingStatusWhenFullStomach()
+    {
         $player = new Player();
         $player
             ->setSatiety(-40)
             ->setPlace(new Place())
         ;
-        $fullBellyStatus = new Status($player);
-        $fullBellyStatus->setName(PlayerStatusEnum::FULL_STOMACH);
+        $fullStomachConfig = new StatusConfig();
+        $fullStomachConfig->setName(PlayerStatusEnum::FULL_STOMACH);
+        new Status($player, $fullStomachConfig);
 
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::STARVING))
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH &&
+                $event->getStatusHolder() === $player
+            )
             ->once()
         ;
-        $this->roomLogService->shouldReceive('createLog')->once();
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING &&
+                $event->getStatusHolder() === $player
+            )
+            ->once()
+        ;
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
-        $this->assertEmpty($player->getStatuses());
     }
 
     public function testHandleFullStomachStatus()
@@ -232,52 +249,68 @@ class PlayerStatusServiceTest extends TestCase
         $player = new Player();
         $player->setSatiety(40);
 
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::FULL_STOMACH))
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH &&
+                $event->getStatusHolder() === $player
+            )
             ->once()
         ;
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
+    }
 
+    public function testHandleFullStomachWhenStarving()
+    {
         $player = new Player();
         $player->setSatiety(40);
-        $starvingStatus = new Status($player);
-        $starvingStatus->setName(PlayerStatusEnum::STARVING);
+        $starvingConfig = new StatusConfig();
+        $starvingConfig->setName(PlayerStatusEnum::STARVING);
+        new Status($player, $starvingConfig);
 
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::FULL_STOMACH))
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH &&
+                $event->getStatusHolder() === $player
+            )
             ->once()
         ;
-
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::STARVING &&
+                $event->getStatusHolder() === $player
+            )
+            ->once()
+        ;
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
-        $this->assertEmpty($player->getStatuses());
+    }
 
+    public function testHandleFullStomachStatusWhenAlreadyFull()
+    {
         $player = new Player();
         $player->setSatiety(40);
-        $fullBellyStatus = new Status($player);
-        $fullBellyStatus->setName(PlayerStatusEnum::FULL_STOMACH);
 
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::FULL_STOMACH))
+        $fullStomachConfig = new StatusConfig();
+        $fullStomachConfig->setName(PlayerStatusEnum::FULL_STOMACH);
+        new Status($player, $fullStomachConfig);
+
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
             ->never()
         ;
-
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
-        $this->assertCount(1, $player->getStatuses());
     }
 
     public function testHandleSatietyStatusMush()
     {
         $player = new Player();
         $player->setSatiety(4);
-        $mushStatus = new Status($player);
-        $mushStatus->setName(PlayerStatusEnum::MUSH);
+        $mushConfig = new StatusConfig();
+        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mushStatus = new Status($player, $mushConfig);
 
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
-            ->withArgs(fn (string $name) => ($name === PlayerStatusEnum::FULL_STOMACH))
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
+            ->withArgs(fn (StatusEvent $event) => $event->getStatusName() === PlayerStatusEnum::FULL_STOMACH && $event->getStatusHolder() === $player)
             ->once()
         ;
 
@@ -286,11 +319,10 @@ class PlayerStatusServiceTest extends TestCase
 
         $player = new Player();
         $player->setSatiety(-26);
-        $mushStatus = new Status($player);
-        $mushStatus->setName(PlayerStatusEnum::MUSH);
+        $mushStatus = new Status($player, $mushConfig);
 
-        $this->statusService
-            ->shouldReceive('createCoreStatus')
+        $this->eventDispatcher
+            ->shouldReceive('dispatch')
             ->never()
         ;
 

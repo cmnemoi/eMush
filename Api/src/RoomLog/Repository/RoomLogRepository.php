@@ -4,9 +4,9 @@ namespace Mush\RoomLog\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Enum\VisibilityEnum;
 
 class RoomLogRepository extends ServiceEntityRepository
 {
@@ -40,7 +40,7 @@ class RoomLogRepository extends ServiceEntityRepository
             ->addOrderBy('roomLog.id', 'desc')
             ->setParameter('place', $player->getPlace())
             ->setParameter('publicArray', [VisibilityEnum::PUBLIC, VisibilityEnum::REVEALED])
-            ->setParameter('privateArray', [VisibilityEnum::PRIVATE])
+            ->setParameter('privateArray', [VisibilityEnum::PRIVATE, VisibilityEnum::SECRET, VisibilityEnum::COVERT])
             ->setParameter('player', $player)
             ->setParameter('date', $yesterday)
         ;

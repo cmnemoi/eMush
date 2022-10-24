@@ -1,5 +1,5 @@
 <template>
-    <TabContainer id="discussion-tab" :channel="channel" new-message-allowed>
+    <TabContainer id="discussion-tab" :channel="channel" :new-message-allowed = "newMessagesAllowed">
         <section v-for="(message, id) in messages" :key="id" class="unit">
             <Message :message="message" :is-root="true" @click="replyTo(message)" />
             <Message
@@ -13,14 +13,20 @@
     </TabContainer>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions, mapGetters } from "vuex";
 import { Channel } from "@/entities/Channel";
-import Message from "@/components/Game/Communications/Messages/Message";
-import MessageInput from "@/components/Game/Communications/Messages/MessageInput";
-import TabContainer from "@/components/Game/Communications/TabContainer";
+import MessageInput from "@/components/Game/Communications/Messages/MessageInput.vue";
+import TabContainer from "@/components/Game/Communications/TabContainer.vue";
+import { defineComponent } from "vue";
+import { Message as MessageEntity } from "@/entities/Message";
+import Message from "@/components/Game/Communications/Messages/Message.vue";
 
-export default {
+interface DiscussionTabState {
+    messageToReply: MessageEntity | null
+}
+
+export default defineComponent ({
     name: "DiscussionTab",
     components: {
         Message,
@@ -30,7 +36,7 @@ export default {
     props: {
         channel: Channel
     },
-    data: () => {
+    data: ():DiscussionTabState => {
         return {
             messageToReply: null
         };
@@ -38,10 +44,14 @@ export default {
     computed: {
         ...mapGetters('communication', [
             'messages'
-        ])
+        ]),
+        newMessagesAllowed(): boolean | undefined
+        {
+            return this.channel?.newMessageAllowed;
+        }
     },
     methods: {
-        replyTo: function (message) {
+        replyTo: function (message: MessageEntity): void {
             if (this.messageToReply === message) {
                 this.messageToReply = null;
             } else {
@@ -52,7 +62,7 @@ export default {
             'loadMessages'
         ])
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

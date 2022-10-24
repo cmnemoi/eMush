@@ -23,4 +23,8 @@ interface StatusHolderInterface
     public function removeStatus(Status $status): self;
 
     public function getClassName(): string;
+
+    public function getName(): string;
+
+    public function getId(): int;
 }

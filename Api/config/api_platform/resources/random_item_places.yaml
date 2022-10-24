@@ -1,0 +1,16 @@
+Mush\Daedalus\Entity\RandomItemPlaces:
+  shortName: 'RandomItemPlace'
+  description: 'eMush RandomItemPlace'
+  attributes:
+    pagination_items_per_page: 25
+    normalization_context:
+      groups: [ 'random_item_place_read' ]
+    denormalization_context:
+      groups: [ 'random_item_place_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+    post:
+      security: 'is_granted("ROLE_ADMIN")'
+  itemOperations:
+    get:

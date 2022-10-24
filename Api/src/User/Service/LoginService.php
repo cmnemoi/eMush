@@ -2,14 +2,15 @@
 
 namespace Mush\User\Service;
 
-use Etwin\Auth\AccessTokenAuthContext;
-use Etwin\Client\Auth;
-use Etwin\Client\HttpEtwinClient;
-use Etwin\OauthClient\RfcOauthClient;
+use Eternaltwin\Auth\AccessTokenAuthContext;
+use Eternaltwin\Client\Auth;
+use Eternaltwin\Client\HttpEtwinClient;
+use Eternaltwin\OauthClient\RfcOauthClient;
 use GuzzleHttp\Exception\GuzzleException;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTDecodeFailureException;
 use Mush\User\Entity\User;
+use Mush\User\Enum\RoleEnum;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class LoginService
@@ -18,6 +19,7 @@ class LoginService
     private RfcOauthClient $oauthClient;
     private JWTEncoderInterface $jwtEncoder;
     private string $etwinUri;
+    private string $appEnv;
 
     public function __construct(
         string $etwinUri,
@@ -26,13 +28,14 @@ class LoginService
         string $oauthCallback,
         string $clientId,
         string $clientSecret,
+        string $appEnv,
         UserServiceInterface $userService,
         JWTEncoderInterface $jwtEncoder
     ) {
         $this->userService = $userService;
-        $this->userService = $userService;
         $this->etwinUri = $etwinUri;
         $this->jwtEncoder = $jwtEncoder;
+        $this->appEnv = $appEnv;
         $this->oauthClient = new RfcOauthClient(
             $authorizeUri,
             $tokenUri,
@@ -64,6 +67,10 @@ class LoginService
             ->setNonceCode(null)
             ->setNonceExpiryDate(null)
         ;
+        if ('dev' === $this->appEnv) {
+            $user->setRoles([RoleEnum::SUPER_ADMIN]);
+        }
+
         $this->userService->persist($user);
 
         return $user;
@@ -90,7 +97,7 @@ class LoginService
         $user = $this->userService->findUserByUserId($userId);
 
         if ($user === null) {
-            $username = $apiUser->getUser()->getDisplayName()->getCurrent()->getInner()->toString();
+            $username = $apiUser->getUser()->getDisplayName()->getCurrent()->getValue()->toString();
             $user = $this->userService->createUser($userId, $username);
         }
 

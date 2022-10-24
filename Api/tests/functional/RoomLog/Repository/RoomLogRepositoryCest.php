@@ -3,10 +3,10 @@
 namespace Mush\Tests\functional\RoomLog\Repository;
 
 use App\Tests\FunctionalTester;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
 
 class RoomLogRepositoryCest

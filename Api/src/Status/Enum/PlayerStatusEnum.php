@@ -9,8 +9,11 @@ class PlayerStatusEnum
     public const BRAINSYNC = 'brainsync';
     public const BURDENED = 'burdened';
     public const DEMORALIZED = 'demoralized';
+    public const DID_THE_THING = 'did_the_thing';
+    public const DID_BORING_SPEECH = 'did_boring_speech';
     public const DIRTY = 'dirty';
     public const DISABLED = 'disabled';
+    public const DRUG_EATEN = 'drug_eaten';
     public const EUREKA_MOMENT = 'eureka_moment';
     public const FIRST_TIME = 'first_time';
     public const FOCUSED = 'focused';
@@ -33,5 +36,7 @@ class PlayerStatusEnum
     public const STARVING = 'starving';
     public const STUCK_IN_THE_SHIP = 'stuck_in_the_ship';
     public const SUICIDAL = 'suicidal';
-    public const DRUG_EATEN = 'drug_eaten';
+    public const WATCHED_PUBLIC_BROADCAST = 'WATCHED_PUBLIC_BROADCAST';
+    public const TALKIE_SCREWED = 'talkie_screwed';
+    public const ALREADY_WASHED_IN_THE_SINK = 'already_washed_in_the_sink';
 }

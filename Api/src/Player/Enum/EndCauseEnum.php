@@ -2,8 +2,16 @@
 
 namespace Mush\Player\Enum;
 
+use Mush\Action\Enum\ActionEnum;
+use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Player\Event\PlayerEvent;
+use Mush\Status\Enum\StatusEnum;
+
 class EndCauseEnum
 {
+    // admin only
+    public const SUICIDE = 'suicide';
+
     public const SOL_RETURN = 'sol_return';
     public const EDEN = 'eden';
     public const DAEDALUS_DESTROYED = 'daedalus_destroyed';
@@ -37,5 +45,15 @@ class EndCauseEnum
     public const INFECTION = 'infection';
     public const MANKAROG = 'mankarog';
 
-    public const NO_INFIRMERY = 'no_infirmerie'; //cause of death lost in a bug
+    public const NO_INFIRMERY = 'no_infirmerie'; // cause of death lost in a bug
+
+    public const DEATH_CAUSE_MAP = [
+        ActionEnum::HIT => self::ASSASSINATED,
+        ActionEnum::SHOOT => self::ASSASSINATED,
+        ActionEnum::ATTACK => self::ASSASSINATED,
+        PlayerEvent::METAL_PLATE => self::METAL_PLATE,
+        StatusEnum::FIRE => self::BURNT,
+        ActionEnum::REMOVE_SPORE => self::SELF_EXTRACTED,
+        ModifierScopeEnum::EVENT_CLUMSINESS => self::CLUMSINESS,
+    ];
 }

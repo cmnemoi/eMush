@@ -17,17 +17,21 @@ git checkout -b fix-some-fix
 ```
 2- Verify coding style before creating the merge request
 
-3- Merge go through a pipeline that check unit test and syntax. Be sure to run folloing commands before merging:
+3- Merge go through a pipeline that check unit test and syntax. Be sure to run following commands before merging:
 ```
 php vendor/bin/codecept run
 vendor/bin/php-cs-fixer fix
 vendor/bin/psalm
 . linters.sh 
 ```
-in case of trouble with test
+In case of trouble when running tests
 ```
 vendor/bin/codecept clean
-vendor/bin/psalm -no--cache
+vendor/bin/psalm --no-cache
+```
+Test should cover at least 70 % of the lines. To check test coverage run:
+```
+XDEBUG_MODE=coverage php vendor/bin/codecept run  --coverage
 ```
 
 4- Issue a Merge Request describing summarizing what you have done, wait a moment (ideally 24h) or the approval of an other developper before merging

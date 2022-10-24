@@ -45,7 +45,12 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
             'id' => $player->getId(),
             'character' => [
                 'key' => $character,
-                'value' => $this->translationService->translate($character . '.name', [], 'characters'),
+                'value' => $this->translationService->translate(
+                    $character . '.name',
+                    [],
+                    'characters',
+                    $player->getDaedalus()->getGameConfig()->getLanguage()
+                ),
             ],
         ];
 

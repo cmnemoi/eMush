@@ -3,39 +3,35 @@
 namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
-/**
- * Class Equipment.
- *
- * @ORM\Entity
- */
+#[ORM\Entity]
 class Blueprint extends Tool
 {
-    protected string $mechanic = EquipmentMechanicEnum::BLUEPRINT;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\EquipmentConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: EquipmentConfig::class)]
     private EquipmentConfig $equipment;
 
     /**
-     * @ORM\Column(type="array", nullable=false)
-     *
      * @var array<string, int>
      */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $ingredients = [];
+
+    public function getMechanics(): array
+    {
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::BLUEPRINT;
+
+        return $mechanics;
+    }
 
     public function getEquipment(): EquipmentConfig
     {
         return $this->equipment;
     }
 
-    /**
-     * @return static
-     */
-    public function setEquipment(EquipmentConfig $equipment): Blueprint
+    public function setEquipment(EquipmentConfig $equipment): static
     {
         $this->equipment = $equipment;
 
@@ -47,10 +43,7 @@ class Blueprint extends Tool
         return $this->ingredients;
     }
 
-    /**
-     * @return static
-     */
-    public function setIngredients(array $ingredients): Blueprint
+    public function setIngredients(array $ingredients): static
     {
         $this->ingredients = $ingredients;
 

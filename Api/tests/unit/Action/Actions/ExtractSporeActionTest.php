@@ -9,13 +9,13 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 class ExtractSporeActionTest extends AbstractActionTest
 {
-    /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusService;
+    private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
      * @before
@@ -53,15 +53,18 @@ class ExtractSporeActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $mushStatus = new ChargeStatus($player);
+        $mushConfig = new ChargeStatusConfig();
+        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mushStatus = new ChargeStatus($player, $mushConfig);
         $mushStatus
-            ->setCharge(0)
-            ->setName(PlayerStatusEnum::MUSH)
+            ->setCharge(1)
         ;
-        $sporeStatus = new ChargeStatus($player);
+
+        $sporeConfig = new ChargeStatusConfig();
+        $sporeConfig->setName(PlayerStatusEnum::SPORES);
+        $sporeStatus = new ChargeStatus($player, $sporeConfig);
         $sporeStatus
             ->setCharge(1)
-            ->setName(PlayerStatusEnum::SPORES)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player);

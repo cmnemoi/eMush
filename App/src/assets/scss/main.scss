@@ -1,5 +1,4 @@
 @import "~@/assets/css/normalize.css";
-@import "background.scss";
 
 @font-face {
     font-family: 'Days-One';
@@ -15,6 +14,35 @@
     src: url('~@/assets/fonts/Pixel_Square.ttf') format('truetype');
 }
 
+// Uncomment this to test the Kanit webfont
+// @font-face {
+//     font-family: 'eKanit';
+//     font-style: normal;
+//     font-weight: 400;
+//     src: url('~@/assets/fonts/eKanit-Light.ttf') format('truetype');
+// }
+
+// @font-face {
+//     font-family: 'eKanit';
+//     font-style: italic;
+//     font-weight: 400;
+//     src: url('~@/assets/fonts/eKanit-LightItalic.ttf') format('truetype');
+// }
+
+// @font-face {
+//     font-family: 'eKanit';
+//     font-style: normal;
+//     font-weight: 700;
+//     src: url('~@/assets/fonts/eKanit-SemiBold.ttf') format('truetype');
+// }
+
+// @font-face {
+//     font-family: 'eKanit';
+//     font-style: italic;
+//     font-weight: 700;
+//     src: url('~@/assets/fonts/eKanit-SemiBoldItalic.ttf') format('truetype');
+// }
+
 html {
     box-sizing: border-box;
 }
@@ -24,6 +52,8 @@ html {
 *::after {
     box-sizing: inherit;
 }
+
+:root { font-size: .85em; } // REDEFINES THE ROOT SIZE TO MATCH MUSH COMMON FONT SIZE (BLAME MT IF YOU DON'T LIKE IT)
 
 div,
 nav,
@@ -35,6 +65,12 @@ section {
     flex-direction: column;
 }
 
+p, span {
+    img {
+        vertical-align: middle;
+    }
+}
+
 body,
 html,
 #app {
@@ -42,7 +78,7 @@ html,
     margin: 0;
     width: 100%;
     height: 100%;
-    font-family: "Segoe UI", "Lucida Grande", "Trebuchet MS", Arial, "lucida sans unicode", sans-serif;
+    font-family: $font-default;
 }
 
 #app {
@@ -64,53 +100,22 @@ button {
     cursor: pointer;
 }
 
-* .popup {
-    display: none; /* WIP */
-    z-index: 20;
-    position: absolute;
-    top: 50px;
-    left: 50px;
-    width: 260px;
-    min-height: 40px;
-    padding: 6px;
-    border: 2px solid #3965fb;
-    border-radius: 2px;
-    background: rgba(35, 37, 100, 0.9);
-    box-shadow: 0 0 8px 1px inset #3965fb;
-
-    & h3 {
-        margin: 0;
-        margin-bottom: 3px;
-        padding: 0;
-        font-size: 0.9rem;
-        font-weight: 700;
-        font-variant: small-caps;
-        color: white;
-    }
-
-    & p {
-        margin: 0;
-        padding: 0;
-        font-size: 0.8rem;
-        line-height: 1.1rem;
-        font-weight: 400;
-        font-variant: initial;
-        color: white;
-    }
-}
-
 .flex-row {
     flex-direction: row;
 }
 
 .tippy-box[data-theme~='mush'] {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 	position: sticky;
 	pointer-events: none;
 	z-index: 10;
-	padding: 1em;
-	max-width: 270px;
+	padding: .75em;
+	max-width: 273px !important;
 	width: max-content;
 	background-color: rgba(35, 37, 100, .9);
+    font-size: 1rem;
 	color: #fff;
 	box-shadow: inset 0 0 12px 3px #3965fb, inset 0 0 0 2px #3965fb;
 		&::after {
@@ -127,29 +132,48 @@ button {
 
 	p {
         margin: 0;
-        font-size : .75rem;
+        font-size : .88em;
         line-height: 1.5em;
         font-weight: initial;
         font-variant: initial;
         letter-spacing: initial;
     };
 
+    em { color: lighten(#cf1830, 15); } // Makes italic text red
+
+
 	b, strong { color: #01c3df !important; };
 
 	h1 {
 		margin: 0 0 .4em;
 		padding-left: 16px;
-		font-size: .9rem;
+		font-size: 1.05em;
 		letter-spacing: .03em;
 		font-variant: small-caps;
 		background: transparent url('~@/assets/images/notes.gif') no-repeat center left;
 	};
-
-    em {
-        color: #cf1830; // Makes italic text red
-    };
 }
 
-span.tippy-tooltip {
-    font-size: initial !important;
+.tippy-content span {
+    display: flex;
+    flex-direction: column;
+}
+
+.box-container {
+    position: relative;
+    max-width: 1080px;
+    width: 100%;
+    margin: 36px auto;
+    padding: 12px 12px 42px 12px;
+
+    @include corner-bezel(18.5px);
+
+    box-shadow: inset 0 0 35px 25px rgba(15, 89, 171, 0.5);
+    background-color: rgba(34, 38, 102, 0.5);
+}
+
+button.action-button {
+    @include button-style();
+    display: block;
+    margin: 0.2rem;
 }

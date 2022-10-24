@@ -5,39 +5,32 @@ namespace Mush\Equipment\Entity\Mechanics;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
-/**
- * Class Equipment.
- *
- * @ORM\Entity
- */
+#[ORM\Entity]
 class Document extends Tool
 {
-    protected string $mechanic = EquipmentMechanicEnum::DOCUMENT;
-
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $content;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
+    #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isTranslated = false;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
+    #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $canShred = false;
+
+    public function getMechanics(): array
+    {
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::DOCUMENT;
+
+        return $mechanics;
+    }
 
     public function getContent(): string
     {
         return $this->content;
     }
 
-    /**
-     * @return static
-     */
-    public function setContent(string $content): Document
+    public function setContent(string $content): static
     {
         $this->content = $content;
 
@@ -49,10 +42,7 @@ class Document extends Tool
         return $this->isTranslated;
     }
 
-    /**
-     * @return static
-     */
-    public function setIsTranslated(bool $isTranslated): Document
+    public function setIsTranslated(bool $isTranslated): static
     {
         $this->isTranslated = $isTranslated;
 
@@ -64,10 +54,7 @@ class Document extends Tool
         return $this->canShred;
     }
 
-    /**
-     * @return static
-     */
-    public function setCanShred(bool $canShred): Document
+    public function setCanShred(bool $canShred): static
     {
         $this->canShred = $canShred;
 

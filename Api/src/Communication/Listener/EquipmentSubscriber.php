@@ -25,43 +25,40 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_BROKEN => 'onBrokenEquipment',
-            EquipmentEvent::EQUIPMENT_DESTROYED => 'onDestroyedEquipment',
+            EquipmentEvent::EQUIPMENT_DESTROYED => [
+                ['onEquipmentDestroyed'],
+            ],
         ];
     }
 
-    public function onBrokenEquipment(EquipmentEvent $event): void
+    public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        $this->neronMessageService->createBrokenEquipmentMessage($event->getEquipment(), $event->getVisibility(), $event->getTime());
-    }
+        $equipmentName = $event->getEquipment()->getName();
 
-    public function onDestroyedEquipment(EquipmentEvent $event): void
-    {
-        $equipment = $event->getEquipment();
+        if (in_array($equipmentName, [EquipmentEnum::SHOWER, EquipmentEnum::THALASSO])) {
+            $holder = $event->getEquipment()->getHolder();
 
-        if (in_array($equipment->getName(), [EquipmentEnum::SHOWER, EquipmentEnum::THALASSO])) {
-            $player = $event->getPlayer();
-
-            if ($player === null) {
-                throw new \LogicException('there should be a player in this event');
+            if ($holder === null) {
+                throw new \LogicException('no Daedalus found for the destroyed item');
             }
-            $daedalus = $player->getDaedalus();
 
-            $numberShowerLeft = ($this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::THALASSO, $daedalus)->count() +
+            $daedalus = $holder->getPlace()->getDaedalus();
+
+            $numberShowersLeft = ($this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::THALASSO, $daedalus)->count() +
                 $this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::SHOWER, $daedalus)->count());
 
-            if ($numberShowerLeft === 0) {
+            if ($numberShowersLeft <= 1) {
                 $this->neronMessageService->createNeronMessage(
                     NeronMessageEnum::NO_SHOWER,
                     $daedalus,
-                    ['character' => $player->getLogName()],
+                    $event->getLogParameters(),
                     $event->getTime(),
                 );
             } else {
                 $this->neronMessageService->createNeronMessage(
                     NeronMessageEnum::DISMANTLED_SHOWER,
                     $daedalus,
-                    ['character' => $player->getLogName()],
+                    $event->getLogParameters(),
                     $event->getTime(),
                 );
             }

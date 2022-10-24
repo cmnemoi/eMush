@@ -6,11 +6,12 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Game\Entity\CharacterConfig;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomService;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 
@@ -160,5 +161,24 @@ class RandomServiceTest extends TestCase
             $randomPlayer = $this->service->getRandomElementsFromProbaArray($players, 2);
             $this->assertNotContains('player5', $randomPlayer);
         }
+    }
+
+    public function testGetActionOutputWithCritical()
+    {
+        // critical Fail
+        $output = $this->service->outputCriticalChances(100, 100, 0);
+        $this->assertEquals($output, ActionOutputEnum::CRITICAL_FAIL);
+
+        // fail
+        $output = $this->service->outputCriticalChances(100, 0, 0);
+        $this->assertEquals($output, ActionOutputEnum::FAIL);
+
+        // success
+        $output = $this->service->outputCriticalChances(0, 0, 0);
+        $this->assertEquals($output, ActionOutputEnum::SUCCESS);
+
+        // critical success
+        $output = $this->service->outputCriticalChances(0, 0, 100);
+        $this->assertEquals($output, ActionOutputEnum::CRITICAL_SUCCESS);
     }
 }

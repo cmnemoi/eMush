@@ -6,32 +6,30 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Modifier\Entity\ModifierConfig;
 
-/**
- * Class Equipment.
- *
- * @ORM\Entity
- */
+#[ORM\Entity]
 class Gear extends EquipmentMechanic
 {
-    protected string $mechanic = EquipmentMechanicEnum::GEAR;
+    #[ORM\ManyToMany(targetEntity: ModifierConfig::class)]
+    private Collection $modifierConfigs;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Mush\Player\Entity\Modifier")
-     */
-    private Collection $modifiers;
-
-    public function getModifiers(): Collection
+    public function getMechanics(): array
     {
-        return $this->modifiers;
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::GEAR;
+
+        return $mechanics;
     }
 
-    /**
-     * @return static
-     */
-    public function setModifier(Collection $modifiers): Gear
+    public function getModifierConfigs(): Collection
     {
-        $this->modifiers = $modifiers;
+        return $this->modifierConfigs;
+    }
+
+    public function setModifierConfigs(Collection $modifierConfigs): static
+    {
+        $this->modifierConfigs = $modifierConfigs;
 
         return $this;
     }

@@ -4,45 +4,23 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus as StatusValidator;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
-use Mush\Status\Entity\Status;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class LieDown extends AbstractAction
 {
     protected string $name = ActionEnum::LIE_DOWN;
 
-    private StatusServiceInterface $statusService;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        StatusServiceInterface $statusService
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator
-        );
-
-        $this->statusService = $statusService;
-    }
-
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameEquipment;
     }
@@ -72,20 +50,19 @@ class LieDown extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
 
-        $lyingDownStatus = new Status($this->player);
-        $lyingDownStatus
-            ->setName(PlayerStatusEnum::LYING_DOWN)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setTarget($parameter)
-        ;
+        $statusEvent = new StatusEvent(PlayerStatusEnum::LYING_DOWN, $this->player, $this->getActionName(), new \DateTime());
+        $statusEvent->setStatusTarget($parameter);
 
-        $this->statusService->persist($lyingDownStatus);
-
-        return new Success();
+        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 }

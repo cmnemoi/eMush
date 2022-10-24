@@ -9,6 +9,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\LanguageEnum;
 
 class DaedalusFactory extends \Codeception\Module
 {
@@ -34,6 +35,7 @@ class DaedalusFactory extends \Codeception\Module
             'metalPlatePlayerDamage' => [6 => 1],
             'panicCrisisPlayerDamage' => [3 => 1],
             'plantDiseaseRate' => 0,
+            'cycleDiseaseRate' => 0,
         ]);
         $factory->_define(DaedalusConfig::class, [
             'maxOxygen' => 32,
@@ -54,7 +56,7 @@ class DaedalusFactory extends \Codeception\Module
             'cycleLength' => 3,
             'cyclePerGameDay' => 8,
             'timeZone' => 'Europe/Paris',
-            'language' => 'fr-FR',
+            'language' => LanguageEnum::FRENCH,
             'maxNumberPrivateChannel' => 3,
             'initHealthPoint' => 12,
             'maxHealthPoint' => 12,

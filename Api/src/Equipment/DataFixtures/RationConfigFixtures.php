@@ -9,7 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ExtraEffectEnum;
-use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -28,11 +28,13 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
         /** @var Action $buildAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+        /** @var Action $examineAction */
+        $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
         /** @var Action $consumeRationAction */
         $consumeRationAction = $this->getReference(ActionsFixtures::RATION_CONSUME);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
+        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
 
         $standardRationMechanic = new Ration();
         $standardRationMechanic
@@ -49,7 +51,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $standardRation
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::STANDARD_RATION)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -73,7 +74,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $cookedRation
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::COOKED_RATION)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -97,7 +97,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $alienSteack
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::ALIEN_STEAK)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -121,7 +120,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $coffee
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::COFFEE)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -145,7 +143,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $anabolic
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::ANABOLIC)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -170,7 +167,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $lombrickBar
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::LOMBRICK_BAR)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -196,7 +192,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $organicWaste
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::ORGANIC_WASTE)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -222,7 +217,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $proactivePuffedRice
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::PROACTIVE_PUFFED_RICE)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -247,7 +241,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $spacePotato
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::SPACE_POTATO)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -272,7 +265,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         $supervitaminBar
             ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::SUPERVITAMIN_BAR)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)

@@ -8,27 +8,22 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Dispense;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 
 class DispenseActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var RandomServiceInterface | Mockery\Mock */
-    private RandomServiceInterface $randomService;
-    /** @var StatusServiceInterface | Mockery\Mock */
-    private StatusServiceInterface $statusService;
+    private RandomServiceInterface|Mockery\Mock $randomService;
+
+    /* @var GameEquipmentServiceInterface|Mockery\Mock */
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -37,9 +32,8 @@ class DispenseActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
@@ -47,8 +41,8 @@ class DispenseActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService,
             $this->randomService,
+            $this->gameEquipmentService
         );
     }
 
@@ -70,14 +64,9 @@ class DispenseActionTest extends AbstractActionTest
         $gameDistillerMachine
             ->setEquipment($distillerMachine)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
-            ->setPlace($room);
+            ->setHolder($room);
 
         $distillerMachine->setActions(new ArrayCollection([$this->actionEntity]));
-
-        $chargeStatus = new ChargeStatus($gameDistillerMachine);
-        $chargeStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
-            ->setCharge(1);
 
         $daedalus = new Daedalus();
 
@@ -85,24 +74,18 @@ class DispenseActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $gameDistillerMachine);
 
-        $gameCoffee = new GameItem();
-        $coffee = new ItemConfig();
-        $coffee
+        $gameDrug = new GameItem();
+        $drug = new ItemConfig();
+        $drug
             ->setName(GameDrugEnum::PHUXX);
-        $gameCoffee
-            ->setEquipment($coffee)
+        $gameDrug
+            ->setEquipment($drug)
             ->setName(GameDrugEnum::PHUXX);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('getRandomElements')->andReturn([GameDrugEnum::PHUXX])->once();
-        $this->gameEquipmentService
-            ->shouldReceive('createGameEquipmentFromName')
-            ->with(GameDrugEnum::PHUXX, $daedalus)
-            ->andReturn($gameCoffee)
-            ->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->gameEquipmentService->shouldReceive('persist');
-        $this->statusService->shouldReceive('persist');
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
+
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);

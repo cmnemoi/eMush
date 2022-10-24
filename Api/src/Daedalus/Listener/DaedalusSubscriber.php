@@ -56,9 +56,9 @@ class DaedalusSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
 
-        //@TODO give titles
+        // @TODO give titles
 
-        //Chose alpha Mushs
+        // Chose alpha Mushs
         $this->daedalusService->selectAlphaMush($daedalus, $event->getTime());
 
         $daedalus->setFilledAt(new \DateTime());
@@ -71,6 +71,5 @@ class DaedalusSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
 
         $this->daedalusService->startDaedalus($daedalus);
-        $this->daedalusService->persist($daedalus);
     }
 }

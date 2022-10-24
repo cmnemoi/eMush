@@ -2,9 +2,9 @@
 
 namespace Mush\Status\Normalizer;
 
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
@@ -32,9 +32,9 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
         $status = $object;
         $statusName = $status->getName();
 
-        if (!($currentPlayer = $context['currentPlayer'] ?? null)) {
-            throw new \LogicException('Current player is missing from context');
-        }
+        /** @var Player $currentPlayer */
+        $currentPlayer = $context['currentPlayer'];
+        $language = $currentPlayer->getDaedalus()->getGameConfig()->getLanguage();
 
         if ($this->isVisibilityPublic($status) ||
             $this->isVisibilityPrivateForUser($status, $currentPlayer) ||
@@ -42,12 +42,16 @@ class StatusNormalizer implements ContextAwareNormalizerInterface
         ) {
             $normedStatus = [
                 'key' => $statusName,
-                'name' => $this->translationService->translate($statusName . '.name', [], 'status'),
-                'description' => $this->translationService->translate("{$statusName}.description", [], 'status'),
+                'name' => $this->translationService->translate($statusName . '.name', [], 'status', $language),
+                'description' => $this->translationService->translate("{$statusName}.description", [], 'status', $language),
             ];
 
             if ($status instanceof ChargeStatus && $status->getChargeVisibility() !== VisibilityEnum::HIDDEN) {
                 $normedStatus['charge'] = $status->getCharge();
+            }
+
+            if (($target = $status->getTarget()) !== null) {
+                $normedStatus['target'] = ['key' => $target->getName(), 'id' => $target->getId()];
             }
 
             return $normedStatus;

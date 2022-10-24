@@ -6,18 +6,19 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions } from "vuex";
 import router from "@/router";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     name: "Token",
     data: () => {
         return {
             errorMessage: ''
         };
     },
-    async beforeMount() {
+    async beforeMount(): Promise<void> {
         if (typeof this.$route.query.code !== 'undefined') {
             const logginSuccess = await this.login({ code: this.$route.query.code });
             if (logginSuccess) {
@@ -25,8 +26,8 @@ export default {
             }
         }
 
-        if (typeof this.$route.query.error !== 'undefined') {
-            this.errorMessage = this.$route.query.error;
+        if (typeof this.$route.query.error !== 'undefined' && this.$route.query.error !== null) {
+            this.errorMessage = this.$route.query.error.toString();
         }
     },
     methods: {
@@ -34,5 +35,5 @@ export default {
             'login'
         ])
     }
-};
+});
 </script>

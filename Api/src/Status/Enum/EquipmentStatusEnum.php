@@ -5,7 +5,7 @@ namespace Mush\Status\Enum;
 class EquipmentStatusEnum
 {
     public const ALIEN_ARTEFACT = 'alien_artefact';
-    public const CHARGES = 'charges';
+    public const ELECTRIC_CHARGES = 'electric_charges';
     public const HEAVY = 'heavy';
     public const MODULE_ACCESS = 'module_access';
     public const HIDDEN = 'hidden';
@@ -21,6 +21,9 @@ class EquipmentStatusEnum
     public const PLANT_DISEASED = 'plant_diseased';
     public const DOCUMENT_CONTENT = 'document_content';
     public const REINFORCED = 'reinforced';
+    public const FUEL_CHARGE = 'fuel_charge';
+
+    public const UPDATING = 'updating';
 
     public static function splitItemPileStatus(): array
     {
@@ -31,6 +34,14 @@ class EquipmentStatusEnum
             self::HAZARDOUS,
             self::DECOMPOSING,
             self::FROZEN,
+        ];
+    }
+
+    public static function getOutOfOrderStatuses(): array
+    {
+        return [
+            self::BROKEN,
+            self::UPDATING,
         ];
     }
 }

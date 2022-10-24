@@ -10,14 +10,15 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -71,10 +72,14 @@ class ForceGetUpCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $lyingDownStatus = new Status($player);
-        $lyingDownStatus
+        $statusConfig = new StatusConfig();
+        $statusConfig
             ->setName(PlayerStatusEnum::LYING_DOWN)
-            ->setVisibility(VisibilityEnum::PUBLIC);
+            ->setVisibility(VisibilityEnum::PUBLIC)
+        ;
+        $I->haveInRepository($statusConfig);
+        $lyingDownStatus = new Status($player, $statusConfig);
+        $I->haveInRepository($lyingDownStatus);
 
         $this->hitAction->loadParameters($action, $player2, $player);
 

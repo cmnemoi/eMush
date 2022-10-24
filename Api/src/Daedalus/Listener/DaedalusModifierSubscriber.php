@@ -2,8 +2,10 @@
 
 namespace Mush\Daedalus\Listener;
 
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusModifierSubscriber implements EventSubscriberInterface
@@ -11,7 +13,7 @@ class DaedalusModifierSubscriber implements EventSubscriberInterface
     private DaedalusServiceInterface $daedalusService;
 
     public function __construct(
-        DaedalusServiceInterface $daedalusService
+        DaedalusServiceInterface $daedalusService,
     ) {
         $this->daedalusService = $daedalusService;
     }
@@ -19,46 +21,33 @@ class DaedalusModifierSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DaedalusModifierEvent::CHANGE_HULL => 'onChangeHull',
-            DaedalusModifierEvent::CHANGE_OXYGEN => 'onChangeOxygen',
-            DaedalusModifierEvent::CHANGE_FUEL => 'onChangeFuel',
+            AbstractQuantityEvent::CHANGE_VARIABLE => 'onChangeVariable',
         ];
     }
 
-    public function onChangeHull(DaedalusModifierEvent $event): void
+    public function onChangeVariable(AbstractQuantityEvent $event): void
     {
+        if (!$event instanceof DaedalusModifierEvent) {
+            return;
+        }
+
         $daedalus = $event->getDaedalus();
         $date = $event->getTime();
-
         $change = $event->getQuantity();
-        if ($change === null) {
-            throw new \LogicException('quantity should be provided');
+
+        switch ($event->getModifiedVariable()) {
+            case DaedalusVariableEnum::HULL:
+                $this->daedalusService->changeHull($daedalus, $change, $date);
+
+                return;
+            case DaedalusVariableEnum::OXYGEN:
+                $this->daedalusService->changeOxygenLevel($daedalus, $change);
+
+                return;
+            case DaedalusVariableEnum::FUEL:
+                $this->daedalusService->changeFuelLevel($daedalus, $change);
+
+                return;
         }
-
-        $this->daedalusService->changeHull($daedalus, $change, $date);
-    }
-
-    public function onChangeOxygen(DaedalusModifierEvent $event): void
-    {
-        $daedalus = $event->getDaedalus();
-
-        $change = $event->getQuantity();
-        if ($change === null) {
-            throw new \LogicException('quantity should be provided');
-        }
-
-        $this->daedalusService->changeOxygenLevel($daedalus, $change);
-    }
-
-    public function onChangeFuel(DaedalusModifierEvent $event): void
-    {
-        $daedalus = $event->getDaedalus();
-
-        $change = $event->getQuantity();
-        if ($change === null) {
-            throw new \LogicException('quantity should be provided');
-        }
-
-        $this->daedalusService->changeFuelLevel($daedalus, $change);
     }
 }

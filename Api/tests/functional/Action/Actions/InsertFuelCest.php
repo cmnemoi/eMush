@@ -10,15 +10,16 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
@@ -77,7 +78,7 @@ class InsertFuelCest
         $gameEquipment
             ->setEquipment($tankConfig)
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -88,7 +89,7 @@ class InsertFuelCest
         $gameCapsule
             ->setEquipment($capsuleConfig)
             ->setName(ItemEnum::FUEL_CAPSULE)
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
         $I->haveInRepository($gameCapsule);
 
@@ -97,7 +98,7 @@ class InsertFuelCest
         $this->insertFuelAction->execute();
 
         $I->assertEquals(6, $daedalus->getFuel());
-        $I->assertEmpty($player->getItems());
+        $I->assertEmpty($player->getEquipments());
         $I->assertCount(1, $room->getEquipments());
     }
 
@@ -147,7 +148,7 @@ class InsertFuelCest
         $gameEquipment
             ->setEquipment($tankConfig)
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -158,15 +159,18 @@ class InsertFuelCest
         $gameCapsule
             ->setEquipment($capsuleConfig)
             ->setName(ItemEnum::FUEL_CAPSULE)
-            ->setPlayer($player)
+            ->setHolder($player)
         ;
         $I->haveInRepository($gameCapsule);
 
-        $status = new Status($gameEquipment);
-        $status
+        $statusConfig = new StatusConfig();
+        $statusConfig
             ->setName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
+        $I->haveInRepository($statusConfig);
+        $status = new Status($gameEquipment, $statusConfig);
+        $I->haveInRepository($status);
 
         $this->insertFuelAction->loadParameters($action, $player, $gameCapsule);
 

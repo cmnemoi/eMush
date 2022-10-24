@@ -8,10 +8,10 @@ use Mush\Action\Actions\InsertFuel;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
@@ -51,10 +51,10 @@ class InsertFuelTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
 
-        $item->setName(ItemEnum::FUEL_CAPSULE)->setIsHeavy(false);
+        $item->setName(ItemEnum::FUEL_CAPSULE);
 
         $player = $this->createPlayer($daedalus, $room);
-        $gameItem->setName(ItemEnum::FUEL_CAPSULE)->setPlayer($player);
+        $gameItem->setName(ItemEnum::FUEL_CAPSULE)->setHolder($player);
 
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setMaxFuel(32);
@@ -70,7 +70,7 @@ class InsertFuelTest extends AbstractActionTest
         $tank->setName(EquipmentEnum::FUEL_TANK);
 
         $gameTank = new GameEquipment();
-        $gameTank->setEquipment($tank)->setName(EquipmentEnum::FUEL_TANK)->setPlace($room);
+        $gameTank->setEquipment($tank)->setName(EquipmentEnum::FUEL_TANK)->setHolder($room);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventDispatcher->shouldReceive('dispatch')->once();

@@ -8,10 +8,10 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\OpenCapsule;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -20,11 +20,9 @@ use Mush\Place\Entity\Place;
 
 class OpenCapsuleActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    private RandomServiceInterface|Mockery\Mock $randomService;
 
-    /** @var RandomServiceInterface | Mockery\Mock */
-    private RandomServiceInterface $randomService;
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -33,9 +31,8 @@ class OpenCapsuleActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
@@ -43,8 +40,8 @@ class OpenCapsuleActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService,
-            $this->randomService
+            $this->randomService,
+            $this->gameEquipmentService
         );
     }
 
@@ -66,7 +63,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
         $gameSpaceCapsule
             ->setEquipment($spaceCapsule)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $spaceCapsule->setActions(new ArrayCollection([$this->actionEntity]));
@@ -91,15 +88,10 @@ class OpenCapsuleActionTest extends AbstractActionTest
             ->andReturn(ItemEnum::METAL_SCRAPS)
             ->once()
         ;
+
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->gameEquipmentService
-            ->shouldReceive('createGameEquipmentFromName')
-            ->with(ItemEnum::METAL_SCRAPS, $daedalus)
-            ->andReturn($gameMetalScrap)
-            ->once()
-        ;
-        $this->eventDispatcher->shouldReceive('dispatch')->twice();
-        $this->gameEquipmentService->shouldReceive('persist');
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $result = $this->action->execute();
 

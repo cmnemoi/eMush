@@ -2,8 +2,6 @@
 
 namespace Mush\Game\CycleHandler;
 
-use Mush\Daedalus\Entity\Daedalus;
-
 abstract class AbstractCycleHandler
 {
     protected string $name;
@@ -13,7 +11,7 @@ abstract class AbstractCycleHandler
         return $this->name;
     }
 
-    abstract public function handleNewCycle($object, Daedalus $daedalus, \DateTime $dateTime): void;
+    abstract public function handleNewCycle($object, \DateTime $dateTime): void;
 
-    abstract public function handleNewDay($object, Daedalus $daedalus, \DateTime $dateTime): void;
+    abstract public function handleNewDay($object, \DateTime $dateTime): void;
 }

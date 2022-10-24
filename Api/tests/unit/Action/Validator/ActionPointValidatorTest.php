@@ -94,7 +94,7 @@ class ActionPointValidatorTest extends TestCase
             ])
         ;
 
-        $action->shouldReceive('getActionPointCost')->andReturn(0);
+        $action->shouldReceive('getActionPointCost')->andReturn(1);
         $action->shouldReceive('getMoralPointCost')->andReturn(0);
         $action->shouldReceive('getMovementPointCost')->andReturn(1);
 

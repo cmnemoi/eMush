@@ -4,12 +4,12 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Player\Enum\ModifierTargetEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -37,17 +37,22 @@ class RejuvenateAlpha extends AbstractAction
         $this->playerVariableService = $playerVariableService;
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter === null;
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
     {
-        $maxActionPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MAX_ACTION_POINT);
-        $maxMovementPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MAX_MOVEMENT_POINT);
-        $maxMoralePoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MAX_MORAL_POINT);
-        $maxHealthPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, ModifierTargetEnum::MAX_HEALTH_POINT);
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
+    {
+        $maxActionPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, PlayerVariableEnum::ACTION_POINT);
+        $maxMovementPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, PlayerVariableEnum::MOVEMENT_POINT);
+        $maxMoralePoint = $this->playerVariableService->getMaxPlayerVariable($this->player, PlayerVariableEnum::MORAL_POINT);
+        $maxHealthPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, PlayerVariableEnum::HEALTH_POINT);
 
         $this->player
             ->setActionPoint($maxActionPoint)
@@ -57,7 +62,5 @@ class RejuvenateAlpha extends AbstractAction
         ;
 
         $this->playerService->persist($this->player);
-
-        return new Success();
     }
 }

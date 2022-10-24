@@ -9,8 +9,10 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent ({
     props: {
         isOpen: Boolean
     },
@@ -22,7 +24,7 @@ export default {
             this.$emit("close");
         }
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -43,6 +45,7 @@ export default {
         left: 50%;
         transform: translate(-50%, -50%);
         padding: 2em;
+        font-size: 1.1em;
         background-color: #191a4c;
         border-radius: 3px;
         border: 1px solid #3965fb;
@@ -60,7 +63,7 @@ export default {
     top: 0;
     padding: 12px;
     color: transparentize(white, 0.4);
-    font-size: 80%;
+    font-size: .85em;
     letter-spacing: 0.03em;
     text-decoration: none;
     font-variant: small-caps;

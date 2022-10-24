@@ -4,41 +4,34 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Event\ActionEffectEvent;
-use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Event\ApplyEffectEvent;
+use Mush\Action\Validator\AreMedicalSuppliesOnReach;
 use Mush\Action\Validator\FullHealth;
-use Mush\Player\Event\PlayerModifierEvent;
-use Mush\Player\Service\PlayerServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/**
+ * implement self heal action.
+ * For 3 Action Points, this action gives back 3 health points to the player which uses it.
+ *  - +1 health point if the Ultra-healing pommade research is active (@TODO)
+ *  - +2 health point if the player has the Medic skill (@TODO).
+ *
+ * Also weakens / heals diseases
+ *
+ * More info: http://www.mushpedia.com/wiki/Medikit
+ */
 class SelfHeal extends AbstractAction
 {
-    public const BASE_HEAL = 2;
+    public const BASE_HEAL = 3;
 
     protected string $name = ActionEnum::SELF_HEAL;
 
-    private PlayerServiceInterface $playerService;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        PlayerServiceInterface $playerService
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator
-        );
-
-        $this->playerService = $playerService;
-    }
-
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter === null;
     }
@@ -46,25 +39,44 @@ class SelfHeal extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new FullHealth(['target' => FullHealth::PLAYER, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new AreMedicalSuppliesOnReach([
+            'groups' => ['visibility'],
+        ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
     {
-        //@TODO remove diseases
+        $healedQuantity = self::BASE_HEAL;
+        $success = new Success();
 
-        $initialHealth = $this->player->getHealthPoint();
+        return $success->setQuantity($healedQuantity);
+    }
 
-        $playerModifierEvent = new PlayerModifierEvent($this->player, self::BASE_HEAL, new \DateTime());
-        $playerModifierEvent->setIsDisplayedRoomLog(false);
-        $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+    protected function applyEffect(ActionResult $result): void
+    {
+        $quantity = $result->getQuantity();
 
-        $healEvent = new ActionEffectEvent($this->player, $this->player);
-        $this->eventDispatcher->dispatch($healEvent, ActionEffectEvent::HEAL);
+        if ($quantity === null) {
+            throw new \LogicException('no healing quantity');
+        }
 
-        $this->playerService->persist($this->player);
+        $playerModifierEvent = new PlayerVariableEvent(
+            $this->player,
+            PlayerVariableEnum::HEALTH_POINT,
+            $quantity,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
-        $healedQuantity = $this->player->getHealthPoint() - $initialHealth;
-
-        return new Success(null, $healedQuantity);
+        $healEvent = new ApplyEffectEvent(
+            $this->player,
+            $this->player,
+            VisibilityEnum::PRIVATE,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $this->eventDispatcher->dispatch($healEvent, ApplyEffectEvent::HEAL);
     }
 }

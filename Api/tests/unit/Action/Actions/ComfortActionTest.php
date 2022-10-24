@@ -7,14 +7,12 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Comfort;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 
 class ComfortActionTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface | Mockery\Mock */
-    private PlayerServiceInterface $playerService;
+    private PlayerServiceInterface|Mockery\Mock $playerService;
 
     /**
      * @before
@@ -24,14 +22,12 @@ class ComfortActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::COMFORT);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Comfort(
             $this->eventDispatcher,
             $this->actionService,
-            $this->validator,
-            $this->playerService,
+            $this->validator
         );
     }
 

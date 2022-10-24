@@ -4,26 +4,18 @@ namespace Mush\Daedalus\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- */
+#[ORM\Entity]
 class Neron
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Mush\Daedalus\Entity\Daedalus", mappedBy="neron")
-     */
+    #[ORM\OneToOne(mappedBy: 'neron', targetEntity: Daedalus::class)]
     private Daedalus $daedalus;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
+    #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isInhibited = true;
 
     public function getId(): ?int
@@ -36,14 +28,14 @@ class Neron
         return $this->daedalus;
     }
 
-    public function setDaedalus(Daedalus $daedalus): Neron
+    public function setDaedalus(Daedalus $daedalus): self
     {
         $this->daedalus = $daedalus;
 
         return $this;
     }
 
-    public function setIsInhibited(bool $isInhibited): Neron
+    public function setIsInhibited(bool $isInhibited): self
     {
         $this->isInhibited = $isInhibited;
 

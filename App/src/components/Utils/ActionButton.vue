@@ -1,39 +1,34 @@
 <template>
-    <Tooltip>
-        <template #tooltip-trigger>
-            <a class="action-button" href="#">
-                <span v-if="action.movementPointCost > 0">{{ action.movementPointCost }}<img src="@/assets/images/pm.png" alt="mp"></span>
-                <span v-else-if="action.actionPointCost > 0">{{ action.actionPointCost }}<img src="@/assets/images/pa.png" alt="ap"></span>
-                <span v-if="action.canExecute">{{ action.name }}</span>
-                <span v-else><s>{{ action.name }}</s></span>
-                <span v-if="action.successRate < 100" class="success-rate"> ({{ action.successRate }}%)</span>
-            </a>
-        </template>
-        <template #tooltip-content="{ formatContent }">
-            <h1 v-html="formatContent(action.name)"> </h1>
-            <p v-html="formatContent(action.description)"> </p>
+    <Tippy tag="div">
+        <a :class="{ crossed: !action.canExecute }" class="action-button" href="#">
+            <span v-if="action.movementPointCost > 0" class="cost">{{ action.movementPointCost }}<img src="@/assets/images/pm.png" alt="mp"></span>
+            <span v-else-if="action.actionPointCost > 0" class="cost">{{ action.actionPointCost }}<img src="@/assets/images/pa.png" alt="ap"></span>
+            <span v-if="action.canExecute">{{ action.name }}</span>
+            <span v-else><s>{{ action.name }}</s></span>
+            <span v-if="action.successRate < 100" class="success-rate"> ({{ action.successRate }}%)</span>
+        </a>
+        <template #content>
+            <h1 v-html="formatContent(action.name)" /><br />
+            <p v-html="formatContent(action.description)" />
             <!--<p v-else v-html="formatContent(action_fail.description)"> </p>-->
         </template>
-        </Tooltip>
+    </Tippy>
 </template>
 
-<script>
-import Tooltip from "@/components/Utils/ToolTip";
+<script lang="ts">
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     props: {
         action: Object
-    },
-    components: {Tooltip},
-};
+    }
+});
 </script>
 
 <style lang="scss" scoped>
 .action-button {
     @include button-style();
-}
-
-.success-rate {
-    margin-left: 5px;
+    display: block;
+    margin: 0.2rem;
 }
 </style>

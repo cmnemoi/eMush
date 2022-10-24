@@ -3,43 +3,36 @@
 namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
-/**
- * Class Equipment.
- *
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class Plant extends EquipmentMechanic
 {
-    protected string $mechanic = EquipmentMechanicEnum::PLANT;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Mush\Equipment\Entity\EquipmentConfig", inversedBy=")
-     */
+    #[ORM\ManyToOne(targetEntity: EquipmentConfig::class)]
     private EquipmentConfig $fruit;
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $maturationTime = [];
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $oxygen;
+
+    public function getMechanics(): array
+    {
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::PLANT;
+
+        return $mechanics;
+    }
 
     public function getFruit(): EquipmentConfig
     {
         return $this->fruit;
     }
 
-    /**
-     * @return static
-     */
-    public function setFruit(EquipmentConfig $fruit): Plant
+    public function setFruit(EquipmentConfig $fruit): static
     {
         $this->fruit = $fruit;
 
@@ -51,10 +44,7 @@ class Plant extends EquipmentMechanic
         return $this->maturationTime;
     }
 
-    /**
-     * @return static
-     */
-    public function setMaturationTime(array $maturationTime): Plant
+    public function setMaturationTime(array $maturationTime): static
     {
         $this->maturationTime = $maturationTime;
 
@@ -66,10 +56,7 @@ class Plant extends EquipmentMechanic
         return $this->oxygen;
     }
 
-    /**
-     * @return static
-     */
-    public function setOxygen(array $oxygen): Plant
+    public function setOxygen(array $oxygen): static
     {
         $this->oxygen = $oxygen;
 

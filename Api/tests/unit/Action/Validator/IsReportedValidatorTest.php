@@ -14,6 +14,10 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -23,7 +27,7 @@ class IsReportedValidatorTest extends TestCase
     private IsReportedValidator $validator;
     private IsReported $constraint;
 
-    /** @var AlertServiceInterface | Mockery\Mock */
+    /** @var AlertServiceInterface|Mockery\Mock */
     private AlertServiceInterface $alertService;
 
     /**
@@ -57,6 +61,10 @@ class IsReportedValidatorTest extends TestCase
         ;
         $room->setDaedalus($daedalus);
 
+        $fireConfig = new StatusConfig();
+        $fireConfig->setName(StatusEnum::FIRE);
+        $fireStatus = new Status($room, $fireConfig);
+
         $alertElement = new AlertElement();
         $alertElement->setPlace($room);
 
@@ -72,16 +80,9 @@ class IsReportedValidatorTest extends TestCase
         ;
 
         $this->alertService
-            ->shouldReceive('findByNameAndDaedalus')
-            ->with(AlertEnum::FIRES, $daedalus)
-            ->andReturn($alert)
-            ->once()
-        ;
-
-        $this->alertService
-            ->shouldReceive('getAlertFireElement')
-            ->with($alert, $room)
-            ->andReturn($alertElement)
+            ->shouldReceive('isFireReported')
+            ->with($room)
+            ->andReturn(false)
             ->once()
         ;
 
@@ -101,6 +102,10 @@ class IsReportedValidatorTest extends TestCase
         ;
         $room->setDaedalus($daedalus);
 
+        $fireConfig = new StatusConfig();
+        $fireConfig->setName(StatusEnum::FIRE);
+        $fireStatus = new Status($room, $fireConfig);
+
         $alertElement = new AlertElement();
         $alertElement->setPlace($room)->setPlayer($player);
 
@@ -116,16 +121,9 @@ class IsReportedValidatorTest extends TestCase
         ;
 
         $this->alertService
-            ->shouldReceive('findByNameAndDaedalus')
-            ->with(AlertEnum::FIRES, $daedalus)
-            ->andReturn($alert)
-            ->once()
-        ;
-
-        $this->alertService
-            ->shouldReceive('getAlertFireElement')
-            ->with($alert, $room)
-            ->andReturn($alertElement)
+            ->shouldReceive('isFireReported')
+            ->with($room)
+            ->andReturn(true)
             ->once()
         ;
 
@@ -148,6 +146,9 @@ class IsReportedValidatorTest extends TestCase
         $room->setDaedalus($daedalus);
 
         $gameEquipment = new GameEquipment();
+        $brokenConfig = new StatusConfig();
+        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, $brokenConfig);
 
         $alertElement = new AlertElement();
         $alertElement->setEquipment($gameEquipment);
@@ -164,16 +165,9 @@ class IsReportedValidatorTest extends TestCase
         ;
 
         $this->alertService
-            ->shouldReceive('findByNameAndDaedalus')
-            ->with(AlertEnum::BROKEN_EQUIPMENTS, $daedalus)
-            ->andReturn($alert)
-            ->once()
-        ;
-
-        $this->alertService
-            ->shouldReceive('getAlertEquipmentElement')
-            ->with($alert, $gameEquipment)
-            ->andReturn($alertElement)
+            ->shouldReceive('isEquipmentReported')
+            ->with($gameEquipment)
+            ->andReturn(false)
             ->once()
         ;
 
@@ -194,6 +188,9 @@ class IsReportedValidatorTest extends TestCase
         $room->setDaedalus($daedalus);
 
         $gameEquipment = new GameEquipment();
+        $brokenConfig = new StatusConfig();
+        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $status = new Status($gameEquipment, $brokenConfig);
 
         $alertElement = new AlertElement();
         $alertElement->setEquipment($gameEquipment)->setPlace($room)->setPlayer($player);
@@ -210,16 +207,9 @@ class IsReportedValidatorTest extends TestCase
         ;
 
         $this->alertService
-            ->shouldReceive('findByNameAndDaedalus')
-            ->with(AlertEnum::BROKEN_EQUIPMENTS, $daedalus)
-            ->andReturn($alert)
-            ->once()
-        ;
-
-        $this->alertService
-            ->shouldReceive('getAlertEquipmentElement')
-            ->with($alert, $gameEquipment)
-            ->andReturn($alertElement)
+            ->shouldReceive('isEquipmentReported')
+            ->with($gameEquipment)
+            ->andReturn(true)
             ->once()
         ;
 

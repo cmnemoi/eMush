@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -32,8 +33,11 @@ class CycleService implements CycleServiceInterface
             return 0;
         }
 
-        if (($dateDaedalusLastCycle = $daedalus->getCycleStartedAt()) === null) {
+        $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
+        if ($dateDaedalusLastCycle === null) {
             throw new \LogicException('Daedalus should have a CycleStartedAt Value');
+        } else {
+            $dateDaedalusLastCycle = clone $dateDaedalusLastCycle;
         }
 
         $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $gameConfig);
@@ -46,10 +50,14 @@ class CycleService implements CycleServiceInterface
             try {
                 for ($i = 0; $i < $cycleElapsed; ++$i) {
                     $dateDaedalusLastCycle->add(new DateInterval('PT' . strval($gameConfig->getCycleLength()) . 'M'));
-                    $cycleEvent = new DaedalusCycleEvent($daedalus, $dateDaedalusLastCycle);
+                    $cycleEvent = new DaedalusCycleEvent(
+                        $daedalus,
+                        EventEnum::NEW_CYCLE,
+                        $dateDaedalusLastCycle
+                    );
                     $this->eventDispatcher->dispatch($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
-                    //Do not continue make cycle if Daedalus is finish
+                    // Do not continue make cycle if Daedalus is finish
                     if ($daedalus->getGameStatus() === GameStatusEnum::FINISHED) {
                         break;
                     }
@@ -79,7 +87,7 @@ class CycleService implements CycleServiceInterface
         return $nextCycleStartAt->add(new DateInterval('PT' . strval($gameConfig->getCycleLength()) . 'M'));
     }
 
-    //get day cycle from date (value between 1 and $gameConfig->getCyclePerGameDay())
+    // get day cycle from date (value between 1 and $gameConfig->getCyclePerGameDay())
     public function getInDayCycleFromDate(DateTime $date, GameConfig $gameConfig): int
     {
         $timeZoneDate = $date->setTimezone(new \DateTimeZone($gameConfig->getTimeZone()));
@@ -87,8 +95,8 @@ class CycleService implements CycleServiceInterface
         $hours = intval($timeZoneDate->format('H'));
 
         return (int) (floor(
-                    ($minutes + $hours * 60) / $gameConfig->getCycleLength() + 1
-                ) - 1) % $gameConfig->getCyclePerGameDay() + 1;
+            ($minutes + $hours * 60) / $gameConfig->getCycleLength() + 1
+        ) - 1) % $gameConfig->getCyclePerGameDay() + 1;
     }
 
     /**
@@ -107,7 +115,7 @@ class CycleService implements CycleServiceInterface
             ->setTimezone(new \DateTimeZone('UTC'))
         ;
 
-        $gameDayLength = intval($gameConfig->getCyclePerGameDay() * $gameConfig->getCycleLength()); //in min
+        $gameDayLength = intval($gameConfig->getCyclePerGameDay() * $gameConfig->getCycleLength()); // in min
         $numberOfCompleteDay = intval($this->getDateIntervalAsMinutes($firstCycleDate, $firstDayDate) / $gameDayLength);
         $minutesBetweenDayStartAndDaedalusFirstCycle = $numberOfCompleteDay * $gameDayLength + (($daedalus->getCycle() - 1) * $gameConfig->getCycleLength());
 

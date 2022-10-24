@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\EquipmentReachable;
@@ -15,11 +14,11 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
-use Mush\Player\Entity\Player;
-use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -28,17 +27,15 @@ class Transplant extends AbstractAction
 {
     protected string $name = ActionEnum::TRANSPLANT;
 
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    private PlayerServiceInterface $playerService;
-    private GearToolServiceInterface $gearToolService;
+    protected GearToolServiceInterface $gearToolService;
+    protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService,
-        PlayerServiceInterface $playerService,
-        GearToolServiceInterface $gearToolService
+        GearToolServiceInterface $gearToolService,
+        GameEquipmentServiceInterface $gameEquipmentService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -46,12 +43,11 @@ class Transplant extends AbstractAction
             $validator
         );
 
-        $this->gameEquipmentService = $gameEquipmentService;
-        $this->playerService = $playerService;
         $this->gearToolService = $gearToolService;
+        $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameItem;
     }
@@ -62,40 +58,47 @@ class Transplant extends AbstractAction
         $metadata->addConstraint(new EquipmentReachable(['name' => ItemEnum::HYDROPOT, 'groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
+        $time = new \DateTime();
 
-        //@TODO fail transplant
+        // @TODO fail transplant
         /** @var Fruit $fruitType */
         $fruitType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::FRUIT);
 
         /** @var GameItem $hydropot */
         $hydropot = $this->gearToolService->getEquipmentsOnReachByName($this->player, ItemEnum::HYDROPOT)->first();
 
-        $place = $hydropot->getPlace() ?? $hydropot->getPlayer();
-
-        /** @var GameItem $plantEquipment */
-        $plantEquipment = $this->gameEquipmentService
-                    ->createGameEquipmentFromName($fruitType->getPlantName(), $this->player->getDaedalus());
-
-        if ($place instanceof Player) {
-            $plantEquipment->setPlayer($place);
-        } else {
-            $plantEquipment->setPlace($place);
-        }
-
-        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
+        $equipmentEvent = new InteractWithEquipmentEvent(
+            $hydropot,
+            $this->player,
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            $time
+        );
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        $equipmentEvent = new EquipmentEvent($hydropot, VisibilityEnum::HIDDEN, new \DateTime());
+        $equipmentEvent = new InteractWithEquipmentEvent(
+            $parameter,
+            $this->player,
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            $time
+        );
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        $this->gameEquipmentService->persist($plantEquipment);
-
-        $this->playerService->persist($this->player);
-
-        return new Success($plantEquipment);
+        $plant = $this->gameEquipmentService->createGameEquipmentFromName(
+            $fruitType->getPlantName(),
+            $this->player,
+            $this->getActionName(),
+            VisibilityEnum::PUBLIC
+        );
     }
 }

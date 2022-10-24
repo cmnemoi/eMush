@@ -29,9 +29,18 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     public function onDeathPlayer(PlayerEvent $event): void
     {
+        $player = $event->getPlayer();
+        $time = $event->getTime();
+
         if (!($reason = $event->getReason())) {
             throw new \LogicException('Player should die with a reason');
         }
-        $this->neronMessageService->createPlayerDeathMessage($event->getPlayer(), $reason, $event->getTime());
+        $this->neronMessageService->createPlayerDeathMessage($player, $reason, $time);
+
+        $channels = $this->channelService->getPlayerChannels($player, true);
+
+        foreach ($channels as $channel) {
+            $this->channelService->exitChannel($player, $channel, $time, PlayerEvent::DEATH_PLAYER);
+        }
     }
 }

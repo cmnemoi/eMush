@@ -4,12 +4,14 @@ namespace Mush\Test\Action\Validator;
 
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Validator\Charged;
 use Mush\Action\Validator\ChargedValidator;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -44,16 +46,21 @@ class ChargedValidatorTest extends TestCase
         $target = new GameItem();
         $target->setEquipment($itemConfig);
 
-        $chargeStatus = new ChargeStatus($target);
-        $chargeStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
-            ->setCharge(1)
-        ;
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig->setName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategy(ActionEnum::EXPRESS_COOK);
+        $chargeStatus = new ChargeStatus($target, $statusConfig);
+
+        $chargeStatus->setCharge(1);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
+            ])
+        ;
+        $action
+            ->shouldReceive([
+                'getActionName' => ActionEnum::EXPRESS_COOK,
             ])
         ;
 
@@ -77,13 +84,16 @@ class ChargedValidatorTest extends TestCase
                 'getParameter' => $target,
             ])
         ;
+        $action
+            ->shouldReceive([
+                'getActionName' => ActionEnum::EXPRESS_COOK,
+            ])
+        ;
 
-        $this->initValidator($this->constraint->message);
-        $this->validator->validate($action, $this->constraint);
-
-        $chargeStatus = new ChargeStatus($target);
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig->setName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategy(ActionEnum::EXPRESS_COOK);
+        $chargeStatus = new ChargeStatus($target, $statusConfig);
         $chargeStatus
-            ->setName(EquipmentStatusEnum::CHARGES)
             ->setCharge(0)
         ;
 

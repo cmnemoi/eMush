@@ -6,6 +6,7 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Validator\MaxNestedParent;
 use Mush\Communication\Validator\MessageParent;
+use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -22,6 +23,8 @@ class CreateMessage
 
     private Channel $channel;
 
+    private ?Player $player;
+
     /**
      * @Assert\NotNull
      * @Assert\Type(type="string")
@@ -33,7 +36,7 @@ class CreateMessage
         return $this->parent;
     }
 
-    public function setParent(?Message $parent): CreateMessage
+    public function setParent(?Message $parent): self
     {
         $this->parent = $parent;
 
@@ -45,7 +48,7 @@ class CreateMessage
         return $this->channel;
     }
 
-    public function setChannel(Channel $channel): CreateMessage
+    public function setChannel(Channel $channel): self
     {
         $this->channel = $channel;
 
@@ -57,9 +60,21 @@ class CreateMessage
         return $this->message;
     }
 
-    public function setMessage(string $message): CreateMessage
+    public function setMessage(string $message): self
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(?Player $player): self
+    {
+        $this->player = $player;
 
         return $this;
     }

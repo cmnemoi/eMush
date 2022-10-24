@@ -1,26 +1,22 @@
 <template>
     <ActionPanel
         class="equipment-panel"
-        :actions="target.actions"
-        @clickOnAction="action => $emit('executeAction', action)"
     />
 </template>
 
-<script>
-import ActionPanel from "@/components/Game/Ship/ActionPanel";
+<script lang="ts">
+import ActionPanel from "@/components/Game/Ship/ActionPanel.vue";
 import { Equipment } from "@/entities/Equipment";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent ({
     components: {
         ActionPanel
     },
     props: {
         target: Equipment
-    },
-    emits: [
-        'executeAction'
-    ]
-};
+    }
+});
 </script>
 
 <style lang="scss" scoped>

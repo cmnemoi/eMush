@@ -9,10 +9,10 @@ use Mush\Action\Actions\RetrieveOxygen;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -21,8 +21,7 @@ use Mush\Place\Entity\Place;
 
 class RetrieveOxygenTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
      * @before
@@ -30,16 +29,14 @@ class RetrieveOxygenTest extends AbstractActionTest
     public function before()
     {
         parent::before();
-
-        $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_OXYGEN);
-
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_OXYGEN);
 
         $this->action = new RetrieveOxygen(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService,
+            $this->gameEquipmentService
         );
     }
 
@@ -61,7 +58,6 @@ class RetrieveOxygenTest extends AbstractActionTest
 
         $item
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setIsHeavy(false)
         ;
 
         $player = $this->createPlayer($daedalus, $room);
@@ -86,20 +82,18 @@ class RetrieveOxygenTest extends AbstractActionTest
         $gameTank
             ->setEquipment($tank)
             ->setName(EquipmentEnum::OXYGEN_TANK)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->gameEquipmentService->shouldReceive('persist');
         $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->andReturn($gameItem)->once();
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $this->action->loadParameters($this->actionEntity, $player, $gameTank);
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $player->getItems());
         $this->assertCount(1, $room->getEquipments());
         $this->assertEquals(10, $player->getActionPoint());
     }

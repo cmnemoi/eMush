@@ -9,7 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
-use Mush\Equipment\Entity\ItemConfig;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
@@ -27,8 +27,10 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
         /** @var Action $buildAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+        /** @var Action $examineAction */
+        $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
+        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
 
         /** @var Action $reportAction */
         $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
@@ -48,7 +50,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $compass
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::QUADRIMETRIC_COMPASS)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -60,7 +61,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $rope
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ROPE)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -78,7 +78,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $drill
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::DRILL)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -93,7 +92,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $babelModule
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::BABEL_MODULE)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -105,7 +103,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $echolocator
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ECHOLOCATOR)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -123,7 +120,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $thermosensor
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::THERMOSENSOR)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
@@ -137,7 +133,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $whiteFlag
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::WHITE_FLAG)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)

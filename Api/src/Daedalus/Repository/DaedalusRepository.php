@@ -15,7 +15,23 @@ class DaedalusRepository extends ServiceEntityRepository
         parent::__construct($registry, Daedalus::class);
     }
 
-    public function findAvailableDaedalus(): ?Daedalus
+    public function existAvailableDaedalus(): bool
+    {
+        $qb = $this->createQueryBuilder('daedalus');
+
+        $qb
+            ->select('daedalus')
+            ->leftJoin('daedalus.players', 'player')
+            ->groupBy('daedalus')
+            ->where($qb->expr()->in('daedalus.gameStatus', ':gameStatus'))
+            ->having('count(player) < ' . 16)
+            ->setParameter('gameStatus', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])
+        ;
+
+        return count($qb->getQuery()->getResult()) > 0;
+    }
+
+    public function findAvailableDaedalus(string $name): ?Daedalus
     {
         $qb = $this->createQueryBuilder('daedalus');
 
@@ -30,11 +46,13 @@ class DaedalusRepository extends ServiceEntityRepository
         $qb
             ->select('daedalus')
             ->leftJoin('daedalus.players', 'player')
-            ->andWhere($qb->expr()->eq('daedalus.gameStatus', ':gameStatus'))
+            ->andWhere($qb->expr()->in('daedalus.gameStatus', ':gameStatus'))
+            ->andWhere($qb->expr()->eq('daedalus.name', ':name'))
             ->groupBy('daedalus')
             ->having('count(player.id) < (' . $daedalusConfig->getDQL() . ')')
             ->setMaxResults(1)
-            ->setParameter('gameStatus', GameStatusEnum::STARTING)
+            ->setParameter('name', $name)
+            ->setParameter('gameStatus', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])
         ;
 
         return $qb->getQuery()->getOneOrNullResult();

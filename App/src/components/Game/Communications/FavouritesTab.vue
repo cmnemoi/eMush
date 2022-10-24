@@ -27,12 +27,13 @@
     </TabContainer>
 </template>
 
-<script>
+<script lang="ts">
 import { Channel } from "@/entities/Channel";
-import TabContainer from "@/components/Game/Communications/TabContainer";
+import TabContainer from "@/components/Game/Communications/TabContainer.vue";
+import { defineComponent } from "vue";
 
 
-export default {
+export default defineComponent ({
     name: "FavouritesTab",
     components: {
         TabContainer
@@ -40,7 +41,7 @@ export default {
     props: {
         channel: Channel
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -69,10 +70,10 @@ export default {
         background: white;
         word-break: break-word;
 
-        >>> em { color: #cf1830; } //Makes italic text red
+        &::v-deep em { color: $red; } //Makes italic text red
 
         .author {
-            color: #2081e2;
+            color: $blue;
             font-weight: 700;
             font-variant: small-caps;
             padding-right: 0.25em;
@@ -242,13 +243,13 @@ export default {
     padding: 4px;
     color: #67b000;
     border-radius: 3px;
-    font-size: 0.8em;
+    font-size: 0.95em;
     text-decoration: underline;
 
     &.active,
     &:hover,
     &:focus {
-        background: #a6eefb;
+        background: $lightCyan;
     }
 }
 

@@ -5,7 +5,6 @@ namespace Mush\RoomLog\Listener;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -29,28 +28,32 @@ class RoomSubscriber implements EventSubscriberInterface
 
     public function onTremor(RoomEvent $event): void
     {
-        $room = $event->getRoom();
+        $room = $event->getPlace();
 
         if ($room->getType() !== PlaceTypeEnum::ROOM) {
             throw new \LogicException('place should be a room');
         }
 
-        //@TODO add the log in case gravity is broken
+        if ($event->isGravity()) {
+            $logKey = LogEnum::TREMOR_GRAVITY;
+        } else {
+            $logKey = LogEnum::TREMOR_NO_GRAVITY;
+        }
+
         $this->roomLogService->createLog(
-            LogEnum::TREMOR_GRAVITY,
+            $logKey,
             $room,
-            VisibilityEnum::PUBLIC,
+            $event->getVisibility(),
             'event_log',
             null,
-            null,
-            null,
+            $event->getLogParameters(),
             $event->getTime()
         );
     }
 
     public function onElectricArc(RoomEvent $event): void
     {
-        $room = $event->getRoom();
+        $room = $event->getPlace();
 
         if ($room->getType() !== PlaceTypeEnum::ROOM) {
             throw new \LogicException('place should be a room');
@@ -59,11 +62,10 @@ class RoomSubscriber implements EventSubscriberInterface
         $this->roomLogService->createLog(
             LogEnum::ELECTRIC_ARC,
             $room,
-            VisibilityEnum::PUBLIC,
+            $event->getVisibility(),
             'event_log',
             null,
-            null,
-            null,
+            $event->getLogParameters(),
             $event->getTime()
         );
     }

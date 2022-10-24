@@ -11,13 +11,15 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
@@ -44,10 +46,10 @@ class AttemptActionChangeCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 2, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 10, 'characterConfig' => $characterConfig]);
 
         $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(0)
+        $actionCost->setActionPointCost(1)
             ->setMovementPointCost(0)
             ->setMoralPointCost(0);
         $I->haveInRepository($actionCost);
@@ -84,20 +86,32 @@ class AttemptActionChangeCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
-        $status = new Status($gameEquipment);
-        $status
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setName(StatusEnum::ATTEMPT)
+            ->setGameConfig($gameConfig)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+        ;
+        $I->haveInRepository($attemptConfig);
+
+        $statusConfig = new StatusConfig();
+        $statusConfig
             ->setName(EquipmentStatusEnum::BROKEN)
+            ->setGameConfig($gameConfig)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
+        $I->haveInRepository($statusConfig);
+
+        $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
         $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
 
-        //Execute repair
+        // Execute repair
         $this->repairAction->execute();
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(StatusEnum::ATTEMPT, $player->getStatuses()->first()->getName());
@@ -105,12 +119,13 @@ class AttemptActionChangeCest
         $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
 
         $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
-        //Execute repair a second time
+        // Execute repair a second time
         $this->repairAction->execute();
         $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
 
         $this->disassembleAction->loadParameters($actionDisassemble, $player, $gameEquipment);
-        //Now execute the other action
+
+        // Now execute the other action
         $this->disassembleAction->execute();
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(StatusEnum::ATTEMPT, $player->getStatuses()->first()->getName());
@@ -135,10 +150,10 @@ class AttemptActionChangeCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 2, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 10, 'characterConfig' => $characterConfig]);
 
         $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(0)
+        $actionCost->setActionPointCost(1)
             ->setMovementPointCost(0)
             ->setMoralPointCost(0);
         $I->haveInRepository($actionCost);
@@ -175,20 +190,32 @@ class AttemptActionChangeCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
-        $status = new Status($gameEquipment);
-        $status
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setName(StatusEnum::ATTEMPT)
+            ->setGameConfig($gameConfig)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+        ;
+        $I->haveInRepository($attemptConfig);
+
+        $statusConfig = new StatusConfig();
+        $statusConfig
             ->setName(EquipmentStatusEnum::BROKEN)
+            ->setGameConfig($gameConfig)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
+        $I->haveInRepository($statusConfig);
+
+        $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
         $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
 
-        //Execute repair
+        // Execute repair
         $this->repairAction->execute();
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(StatusEnum::ATTEMPT, $player->getStatuses()->first()->getName());
@@ -196,7 +223,7 @@ class AttemptActionChangeCest
         $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
 
         $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
-        //Execute repair a second time
+        // Execute repair a second time
         $this->repairAction->execute();
         $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Tests\Action\Actions;
+namespace functional\Action\Actions;
 
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -19,19 +19,20 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 
-class EquipmentSubscriberCest
+class ReportActionCest
 {
     private ReportFire $reportFire;
     private ReportEquipment $reportEquipment;
@@ -98,15 +99,15 @@ class EquipmentSubscriberCest
         $gameEquipment
             ->setName(EquipmentEnum::NARCOTIC_DISTILLER)
             ->setEquipment($equipmentConfig)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
-        $status = new Status($gameEquipment);
-        $status
-            ->setName(EquipmentStatusEnum::BROKEN)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-        ;
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(EquipmentStatusEnum::BROKEN)->setVisibility(VisibilityEnum::PUBLIC);
+        $I->haveInRepository($statusConfig);
+        $status = new Status($gameEquipment, $statusConfig);
+        $I->haveInRepository($status);
 
         $reportedAlert = new AlertElement();
         $reportedAlert->setEquipment($gameEquipment);
@@ -183,11 +184,11 @@ class EquipmentSubscriberCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $status = new Status($room);
-        $status
-            ->setName(StatusEnum::FIRE)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-        ;
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(StatusEnum::FIRE)->setVisibility(VisibilityEnum::PUBLIC)->setGameConfig($gameConfig);
+        $I->haveInRepository($statusConfig);
+        $status = new Status($room, $statusConfig);
+        $I->haveInRepository($status);
 
         $reportedAlert = new AlertElement();
         $reportedAlert->setPlace($room);

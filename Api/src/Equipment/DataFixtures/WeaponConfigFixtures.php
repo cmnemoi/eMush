@@ -9,13 +9,15 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
-use Mush\Equipment\Entity\ItemConfig;
-use Mush\Equipment\Entity\Mechanics\Charged;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\DataFixtures\ChargeStatusFixtures;
+use Mush\Status\DataFixtures\StatusFixtures;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 
 class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -32,8 +34,12 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
         /** @var Action $attackAction */
         $attackAction = $this->getReference(ActionsFixtures::ATTACK_DEFAULT);
+        /** @var Action $shootAction */
+        $shootAction = $this->getReference(ActionsFixtures::SHOOT);
+        /** @var Action $examineAction */
+        $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
-        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction]);
+        $actions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
 
         /** @var Action $reportAction */
         $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
@@ -52,55 +58,66 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var Action $dismantle25 */
         $dismantle25 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
 
+        /** @var StatusConfig $heavyStatus */
+        $heavyStatus = $this->getReference(StatusFixtures::HEAVY_STATUS);
+
         $actions25 = clone $actions;
         $actions25->add($dismantle25);
         $actions25->add($repair25);
         $actions25->add($sabotage25);
         $actions25->add($reportAction);
 
-        $chargedMechanic = new Charged();
-        $chargedMechanic
-            ->setMaxCharge(3)
-            ->setStartCharge(1)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
-            ->setIsVisible(true)
-        ;
-
         // @TODO more details are needed on the output of each weapon
         $blasterMechanic = new Weapon();
         $blasterMechanic
             ->setBaseAccuracy(50)
-            ->setBaseDamageRange([2 => 5])
-            ->setBaseInjuryNumber([0 => 1])
+            ->setBaseDamageRange([
+                2 => 45,
+                3 => 45,
+                4 => 5,
+                5 => 5,
+            ])
             ->setExpeditionBonus(1)
-            ->addAction($attackAction)
+            ->setCriticalSucessRate(5)
+            ->setCriticalFailRate(1)
+            ->setOneShotRate(1)
+            ->addAction($shootAction)
         ;
+
+        /** @var ChargeStatusConfig $blasterCharge */
+        $blasterCharge = $this->getReference(ChargeStatusFixtures::BLASTER_CHARGE);
 
         $blaster = new ItemConfig();
         $blaster
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::BLASTER)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$blasterMechanic, $chargedMechanic]))
+            ->setMechanics(new ArrayCollection([$blasterMechanic]))
+            ->setInitStatus(new ArrayCollection([$blasterCharge]))
             ->setActions($actions25)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
-        $manager->persist($chargedMechanic);
         $manager->persist($blasterMechanic);
         $manager->persist($blaster);
 
         $knifeMechanic = new Weapon();
         $knifeMechanic
-            ->setBaseAccuracy(50)
-            ->setBaseDamageRange([1 => 5])
-            ->setBaseInjuryNumber([0 => 1])
+            ->setBaseAccuracy(60)
+            ->setBaseDamageRange([
+                1 => 25,
+                2 => 25,
+                3 => 25,
+                4 => 12,
+                5 => 12,
+                ])
             ->setExpeditionBonus(1)
-            ->setCriticalSucessEvents([])
+            ->setCriticalSucessRate(25)
+            ->setCriticalFailRate(20)
+            ->setOneShotRate(2)
             ->addAction($attackAction)
         ;
 
@@ -108,7 +125,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $knife
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::KNIFE)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -125,7 +141,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $grenadeMechanic
             ->setBaseAccuracy(100)
             ->setBaseDamageRange([0 => 10])
-            ->setBaseInjuryNumber([0 => 1])
             ->setExpeditionBonus(3)
             ->addAction($attackAction)
         ;
@@ -134,7 +149,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $grenade
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::GRENADE)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -155,7 +169,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $natamyMechanic
             ->setBaseAccuracy(50)
             ->setBaseDamageRange([2 => 12])
-            ->setBaseInjuryNumber([1 => 3])
             ->setExpeditionBonus(1)
             ->addAction($attackAction)
         ;
@@ -164,12 +177,12 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $natamy
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::NATAMY_RIFLE)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$natamyMechanic, $chargedMechanic]))
+            ->setMechanics(new ArrayCollection([$natamyMechanic]))
+            ->setInitStatus(new ArrayCollection([$blasterCharge]))
             ->setActions($actions12)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
@@ -187,50 +200,37 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $oldFaithfulMechanic
             ->setBaseAccuracy(50)
             ->setBaseDamageRange([2 => 3])
-            ->setBaseInjuryNumber([0 => 3])
             ->setExpeditionBonus(2)
             ->addAction($attackAction)
         ;
 
-        $chargedMechanic = new Charged();
-        $chargedMechanic
-            ->setMaxCharge(12)
-            ->setStartCharge(12)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
-            ->setIsVisible(true)
-        ;
+        /** @var ChargeStatusConfig $oldFaithfulCharge */
+        $oldFaithfulCharge = $this->getReference(ChargeStatusFixtures::OLDFAITHFUL_CHARGE);
 
         $oldFaithful = new ItemConfig();
         $oldFaithful
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::OLD_FAITHFUL)
-            ->setIsHeavy(true)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$oldFaithfulMechanic, $chargedMechanic]))
+            ->setMechanics(new ArrayCollection([$oldFaithfulMechanic]))
             ->setActions($oldFaithfulActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
+            ->setInitStatus(new ArrayCollection([$heavyStatus, $oldFaithfulCharge]))
         ;
 
         $manager->persist($oldFaithful);
         $manager->persist($oldFaithfulMechanic);
-        $manager->persist($chargedMechanic);
 
-        $chargedMechanic = new Charged();
-        $chargedMechanic
-            ->setMaxCharge(1)
-            ->setStartCharge(1)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
-            ->setIsVisible(true)
-        ;
+        /** @var ChargeStatusConfig $bigWeaponCharge */
+        $bigWeaponCharge = $this->getReference(ChargeStatusFixtures::BIG_WEAPON_CHARGE);
 
         $lizaroJungleMechanic = new Weapon();
         $lizaroJungleMechanic
             ->setBaseAccuracy(99)
             ->setBaseDamageRange([3 => 5])
-            ->setBaseInjuryNumber([1 => 2])
             ->setExpeditionBonus(1)
             ->addAction($attackAction)
         ;
@@ -239,25 +239,23 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $lizaroJungle
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::LIZARO_JUNGLE)
-            ->setIsHeavy(false)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$lizaroJungleMechanic, $chargedMechanic]))
+            ->setMechanics(new ArrayCollection([$lizaroJungleMechanic]))
+            ->setInitStatus(new ArrayCollection([$bigWeaponCharge]))
             ->setActions($actions12)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
         $manager->persist($lizaroJungle);
         $manager->persist($lizaroJungleMechanic);
-        $manager->persist($chargedMechanic);
 
         $rocketLauncherMechanic = new Weapon();
         $rocketLauncherMechanic
             ->setBaseAccuracy(50)
             ->setBaseDamageRange([0 => 8])
-            ->setBaseInjuryNumber([0 => 2])
             ->setExpeditionBonus(3)
             ->addAction($attackAction)
         ;
@@ -266,7 +264,8 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $rocketLauncher
             ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ROCKET_LAUNCHER)
-            ->setIsHeavy(false)
+            ->setMechanics(new ArrayCollection([$rocketLauncherMechanic]))
+            ->setInitStatus(new ArrayCollection([$bigWeaponCharge]))
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
@@ -290,6 +289,8 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             GameConfigFixtures::class,
+            ChargeStatusFixtures::class,
+            StatusFixtures::class,
         ];
     }
 }

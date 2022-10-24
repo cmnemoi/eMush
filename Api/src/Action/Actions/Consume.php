@@ -4,43 +4,24 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Event\ActionEffectEvent;
-use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Consume extends AbstractAction
 {
     protected string $name = ActionEnum::CONSUME;
 
-    protected PlayerServiceInterface $playerService;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        PlayerServiceInterface $playerService
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator
-        );
-
-        $this->playerService = $playerService;
-    }
-
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameItem;
     }
@@ -57,22 +38,36 @@ class Consume extends AbstractAction
         ]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
     {
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
-
-        $rationType = $parameter->getEquipment()->getRationsMechanic();
+        $rationType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
 
         if (null === $rationType) {
             throw new \Exception('Cannot consume this equipment');
         }
 
-        $consumeEquipment = new ActionEffectEvent($this->player, $parameter);
-        $this->eventDispatcher->dispatch($consumeEquipment, ActionEffectEvent::CONSUME);
+        return new Success();
+    }
 
-        $this->playerService->persist($this->player);
+    protected function applyEffect(ActionResult $result): void
+    {
+        /** @var GameItem $parameter */
+        $parameter = $this->parameter;
+        $rationType = $parameter->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
 
-        return new Success($parameter);
+        if (null === $rationType) {
+            throw new \Exception('Cannot consume this equipment');
+        }
+
+        $consumeEquipment = new ApplyEffectEvent(
+            $this->player,
+            $parameter,
+            VisibilityEnum::PRIVATE,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $this->eventDispatcher->dispatch($consumeEquipment, ApplyEffectEvent::CONSUME);
     }
 }

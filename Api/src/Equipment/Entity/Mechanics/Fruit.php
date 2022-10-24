@@ -5,29 +5,26 @@ namespace Mush\Equipment\Entity\Mechanics;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
-/**
- * Class Equipment.
- *
- * @ORM\Entity
- */
+#[ORM\Entity]
 class Fruit extends Ration
 {
-    protected string $mechanic = EquipmentMechanicEnum::FRUIT;
-
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $plantName;
+
+    public function getMechanics(): array
+    {
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::FRUIT;
+
+        return $mechanics;
+    }
 
     public function getPlantName(): string
     {
         return $this->plantName;
     }
 
-    /**
-     * @return static
-     */
-    public function setPlantName(string $plantName): Fruit
+    public function setPlantName(string $plantName): static
     {
         $this->plantName = $plantName;
 

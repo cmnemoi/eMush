@@ -7,10 +7,10 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Validator\StartingDaedalus;
 use Mush\Daedalus\Validator\StartingDaedalusValidator;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\GameConfigService;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 class StartingDaedalusTest extends TestCase
 {
     private StartingDaedalusValidator $validator;
-    /** @var GameConfigService | Mockery\Mock */
+    /** @var GameConfigService|Mockery\Mock */
     private GameConfigService $gameConfigService;
 
     /**

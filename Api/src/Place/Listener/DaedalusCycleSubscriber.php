@@ -29,7 +29,11 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     public function onNewCycle(DaedalusCycleEvent $event): void
     {
         foreach ($event->getDaedalus()->getRooms() as $place) {
-            $newRoomCycle = new PlaceCycleEvent($place, $event->getTime());
+            $newRoomCycle = new PlaceCycleEvent(
+                $place,
+                $event->getReason(),
+                $event->getTime()
+            );
             $this->eventDispatcher->dispatch($newRoomCycle, PlaceCycleEvent::PLACE_NEW_CYCLE);
         }
     }
@@ -40,7 +44,11 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
         /** @var Place $place */
         foreach ($daedalus->getRooms() as $place) {
-            $newRoomDay = new PlaceCycleEvent($place, $event->getTime());
+            $newRoomDay = new PlaceCycleEvent(
+                $place,
+                $event->getReason(),
+                $event->getTime()
+            );
             $this->eventDispatcher->dispatch($newRoomDay, PlaceCycleEvent::PLACE_NEW_DAY);
         }
     }

@@ -17,7 +17,6 @@ class EquipmentEnum
     public const ICARUS = 'icarus';
     public const ANTENNA = 'antenna';
     public const CALCULATOR = 'calculator';
-    public const CAMERA = 'camera';
     public const COMMUNICATION_CENTER = 'communication_center';
     public const COMBUSTION_CHAMBER = 'combustion_chamber';
     public const NERON_CORE = 'neron_core';
@@ -30,12 +29,13 @@ class EquipmentEnum
     public const RESEARCH_LABORATORY = 'research_laboratory';
     public const BED = 'bed';
     public const MEDLAB_BED = 'medlab_bed';
+    public const SWEDISH_SOFA = 'swedish_sofa';
     public const COFFEE_MACHINE = 'coffee_machine';
     public const CRYO_MODULE = 'cryo_module';
     public const MYCOSCAN = 'mycoscan';
     public const PILGRED = 'pilgred';
     public const TURRET_COMMAND = 'turret_command';
-    public const SURGICAL_PLOT = 'surgical_plot';
+    public const SURGERY_PLOT = 'surgery_plot';
     public const EMERGENCY_REACTOR = 'emergency_reactor';
     public const REACTOR_LATERAL = 'reactor_lateral';
     public const REACTOR_LATERAL_ALPHA = 'reactor_lateral_alpha';
@@ -49,4 +49,14 @@ class EquipmentEnum
     public const THALASSO = 'thalasso';
     public const BIOS_TERMINAL = 'bios_terminal';
     public const AUXILIARY_TERMINAL = 'auxiliary_terminal';
+    public const CAMERA_EQUIPMENT = 'camera_equipment';
+
+    public static function getBeds(): array
+    {
+        return [
+            self::BED,
+            self::MEDLAB_BED,
+            self::SWEDISH_SOFA,
+        ];
+    }
 }

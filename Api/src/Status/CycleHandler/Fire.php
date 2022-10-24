@@ -2,22 +2,23 @@
 
 namespace Mush\Status\CycleHandler;
 
-use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEventEnum;
-use Mush\Place\Event\RoomEvent;
-use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\StatusEnum;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Mush\Status\Event\StatusEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Fire extends AbstractStatusCycleHandler
 {
@@ -40,7 +41,7 @@ class Fire extends AbstractStatusCycleHandler
         $this->daedalusService = $daedalusService;
     }
 
-    public function handleNewCycle(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime, array $context = []): void
+    public function handleNewCycle(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime, array $context = []): void
     {
         if (!$status instanceof ChargeStatus || $status->getName() !== StatusEnum::FIRE) {
             return;
@@ -50,7 +51,7 @@ class Fire extends AbstractStatusCycleHandler
             throw new \LogicException('Fire status does not have a room');
         }
 
-        //If fire is active
+        // If fire is active
         if ($status->getCharge() > 0) {
             $this->propagateFire($statusHolder, $dateTime);
             $this->fireDamage($statusHolder, $dateTime);
@@ -68,9 +69,13 @@ class Fire extends AbstractStatusCycleHandler
             if (!$adjacentRoom->hasStatus(StatusEnum::FIRE) &&
                 $this->randomService->isSuccessful($difficultyConfig->getPropagatingFireRate())
             ) {
-                $roomEvent = new RoomEvent($adjacentRoom, $date);
-                $roomEvent->setReason(RoomEventEnum::PROPAGATING_FIRE);
-                $this->eventDispatcher->dispatch($roomEvent, RoomEvent::STARTING_FIRE);
+                $statusEvent = new StatusEvent(
+                    StatusEnum::FIRE,
+                    $adjacentRoom,
+                    RoomEventEnum::PROPAGATING_FIRE,
+                    $date
+                );
+                $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
             }
         }
 
@@ -84,9 +89,14 @@ class Fire extends AbstractStatusCycleHandler
         foreach ($room->getPlayers()->getPlayerAlive() as $player) {
             $damage = (int) $this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getFirePlayerDamage());
 
-            $playerModifierEvent = new PlayerModifierEvent($player, -$damage, $date);
-            $playerModifierEvent->setReason(EndCauseEnum::BURNT);
-            $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+            $playerModifierEvent = new PlayerVariableEvent(
+                $player,
+                PlayerVariableEnum::HEALTH_POINT,
+                -$damage,
+                StatusEnum::FIRE,
+                $date
+            );
+            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
 
         foreach ($room->getEquipments() as $equipment) {
@@ -96,10 +106,15 @@ class Fire extends AbstractStatusCycleHandler
         if ($this->randomService->isSuccessful($difficultyConfig->getHullFireDamageRate())) {
             $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($difficultyConfig->getFireHullDamage()));
 
-            $daedalusEvent = new DaedalusModifierEvent($room->getDaedalus(), $date);
-            $daedalusEvent->setQuantity(-$damage);
+            $daedalusEvent = new DaedalusModifierEvent(
+                $room->getDaedalus(),
+                DaedalusVariableEnum::HULL,
+                -$damage,
+                RoomEventEnum::CYCLE_FIRE,
+                $date
+            );
 
-            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_HULL);
+            $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
             $this->daedalusService->persist($room->getDaedalus());
         }
@@ -107,7 +122,7 @@ class Fire extends AbstractStatusCycleHandler
         return $room;
     }
 
-    public function handleNewDay(Status $status, Daedalus $daedalus, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
+    public function handleNewDay(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
     {
         return;
     }

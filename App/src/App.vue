@@ -1,9 +1,13 @@
 <template>
     <div class="main-container">
-        <Spinner :loading="userLoading || playerLoading" />
+        <Title :title="$t('title')" />
+        <Spinner :loading="userLoading || playerLoading || configLoading" />
         <Banner />
         <router-view />
         <ErrorPopup />
+        <LocaleChange />
+        <Thanks />
+        <Version />
     </div>
 </template>
 
@@ -13,20 +17,42 @@ import Banner from "@/components/Banner";
 import ErrorPopup from "@/components/ErrorPopup";
 import Spinner from "@/components/Utils/Spinner";
 import { mapGetters } from "vuex";
+import LocaleChange from "@/components/Utils/LocaleChange.vue";
+import Title from "@/components/Utils/Title.vue";
+import Thanks from "@/components/Thanks.vue";
+import Version from "@/components/Version.vue";
 
 export default {
     name: 'App',
     components: {
         Spinner,
         Banner,
-        ErrorPopup
+        ErrorPopup,
+        LocaleChange,
+        Title,
+        Thanks,
+        Version
     },
     computed: {
         ...mapGetters({
             userLoading: 'auth/isLoading',
-            playerLoading: 'player/isLoading'
+            playerLoading: 'player/isLoading',
+            configLoading: 'gameConfig/isLoading'
         }
         )
     }
 };
 </script>
+
+<style lang="scss" scoped>
+
+.main-container {
+    color: #fff;
+    flex-grow: 1;
+    min-width: 100%;
+    min-height: 100%;
+    padding-bottom: 5em;
+    background: #0f0f43 url("~@/assets/images/bg.jpg") no-repeat center 0;
+}
+
+</style>

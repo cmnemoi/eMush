@@ -2,13 +2,16 @@
 
 namespace Mush\RoomLog\Listener;
 
-use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Game\Entity\GameConfig;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
+use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -24,106 +27,105 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentEvent::EQUIPMENT_CREATED => ['onEquipmentCreated', -100],
-            EquipmentEvent::EQUIPMENT_BROKEN => ['onEquipmentBroken', 10],
-            EquipmentEvent::EQUIPMENT_DESTROYED => ['onEquipmentDestroyed', 10],
-            EquipmentEvent::EQUIPMENT_TRANSFORM => ['onEquipmentTransform', -100],
+            EquipmentEvent::EQUIPMENT_CREATED => [
+                ['onEquipmentCreated', -1],
+            ],
+            EquipmentEvent::EQUIPMENT_DESTROYED => [
+                ['onEquipmentDestroyed'],
+            ],
+            EquipmentEvent::INVENTORY_OVERFLOW => [
+                ['onInventoryOverflow'],
+            ],
         ];
     }
 
     public function onEquipmentCreated(EquipmentEvent $event): void
     {
-        if (!$player = $event->getPlayer()) {
-            throw new \Error('Player should be provided');
+        switch ($event->getReason()) {
+            case EventEnum::PLANT_PRODUCTION:
+                $logKey = PlantLogEnum::PLANT_NEW_FRUIT;
+                break;
+
+            case ActionEnum::BUILD:
+                $logKey = ActionLogEnum::BUILD_SUCCESS;
+                break;
+
+            case ActionEnum::TRANSPLANT:
+                $logKey = ActionLogEnum::TRANSPLANT_SUCCESS;
+                break;
+
+            case ActionEnum::OPEN:
+                $logKey = ActionLogEnum::OPEN_SUCCESS;
+                break;
+            default:
+                return;
         }
 
-        $equipment = $event->getEquipment();
-
-        if ($equipment instanceof GameItem && $player->getItems()->count() >= $this->getGameConfig($equipment)->getMaxItemInInventory()) {
-            $this->roomLogService->createLog(
-                LogEnum::OBJECT_FELT,
-                $player->getPlace(),
-                VisibilityEnum::PUBLIC,
-                'event_log',
-                $player,
-                $equipment,
-                null,
-                $event->getTime()
-            );
-        }
-    }
-
-    public function onEquipmentBroken(EquipmentEvent $event): void
-    {
-        if ($event->getVisibility() !== VisibilityEnum::HIDDEN) {
-            $equipment = $event->getEquipment();
-            if ($equipment instanceof Door) {
-                $rooms = $equipment->getRooms()->toArray();
-            } else {
-                $rooms = [$equipment->getCurrentPlace()];
-            }
-
-            foreach ($rooms as $room) {
-                $this->roomLogService->createLog(
-                    LogEnum::EQUIPMENT_BROKEN,
-                    $room,
-                    $event->getVisibility(),
-                    'event_log',
-                    null,
-                    $equipment,
-                    null,
-                    $event->getTime()
-                );
-            }
-        }
+        $this->createEventLog($logKey, $event, $event->getVisibility());
     }
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        if ($event->getVisibility() !== VisibilityEnum::HIDDEN) {
-            $equipment = $event->getEquipment();
-            $place = $equipment->getCurrentPlace();
+        switch ($event->getReason()) {
+            case EventEnum::FIRE:
+                $this->createEventLog(LogEnum::EQUIPMENT_DESTROYED, $event, VisibilityEnum::PUBLIC);
 
-            $this->roomLogService->createLog(
-                LogEnum::EQUIPMENT_DESTROYED,
-                $place,
-                $event->getVisibility(),
-                'event_log',
-                null,
-                $equipment,
-                null,
-                $event->getTime()
-            );
+                return;
+            case PlantLogEnum::PLANT_DEATH:
+                $this->createEventLog(PlantLogEnum::PLANT_DEATH, $event, VisibilityEnum::PUBLIC);
+
+                return;
         }
     }
 
-    public function onEquipmentTransform(EquipmentEvent $event): void
+    public function onInventoryOverflow(EquipmentEvent $event): void
     {
-        $player = $event->getPlayer();
+        $holder = $event->getEquipment()->getHolder();
 
-        if (($newEquipment = $event->getReplacementEquipment()) === null) {
-            throw new \LogicException('Replacement equipment should be provided');
+        if ($holder === null) {
+            throw new \LogicException('item should have an holder on overflow');
         }
+
+        $gameConfig = $holder->getPlace()->getDaedalus()->getGameConfig();
+        $equipment = $event->getEquipment();
 
         if (
-            $newEquipment instanceof GameItem && $player !== null &&
-            $newEquipment->getPlayer() === null
+            $equipment instanceof GameItem &&
+            $holder->getEquipments()->count() > $gameConfig->getMaxItemInInventory()
         ) {
-            $this->roomLogService->createLog(
-                LogEnum::OBJECT_FELT,
-                $player->getPlace(),
-                VisibilityEnum::PUBLIC,
-                'event_log',
-                $player,
-                $newEquipment,
-                null,
-                $event->getTime()
-            );
+            $this->createEventLog(LogEnum::OBJECT_FELL, $event, VisibilityEnum::PUBLIC);
         }
     }
 
-    private function getGameConfig(GameEquipment $gameEquipment): GameConfig
+    private function createEventLog(string $logKey, EquipmentEvent $event, string $visibility): void
     {
-        return $gameEquipment->getEquipment()->getGameConfig();
+        /* @var Player|null $player */
+        if ($event instanceof InteractWithEquipmentEvent) {
+            $actor = $event->getActor();
+            if ($actor instanceof Player) {
+                $player = $actor;
+            } else {
+                $player = null;
+            }
+        } elseif ($event->isCreated()) {
+            $holder = $event->getEquipment()->getHolder();
+            if ($holder instanceof Player) {
+                $player = $holder;
+            } else {
+                $player = null;
+            }
+        } else {
+            $player = null;
+        }
+
+        $this->roomLogService->createLog(
+            $logKey,
+            $event->getPlace(),
+            $visibility,
+            'event_log',
+            $player,
+            $event->getLogParameters(),
+            $event->getTime()
+        );
     }
 }

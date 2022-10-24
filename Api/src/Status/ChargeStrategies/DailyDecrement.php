@@ -2,7 +2,7 @@
 
 namespace Mush\Status\ChargeStrategies;
 
-use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Enum\EventEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
@@ -10,10 +10,10 @@ class DailyDecrement extends AbstractChargeStrategy
 {
     protected string $name = ChargeStrategyTypeEnum::DAILY_DECREMENT;
 
-    public function apply(ChargeStatus $status, Daedalus $daedalus): ?ChargeStatus
+    public function apply(ChargeStatus $status, string $reason): ?ChargeStatus
     {
-        //Only applied on cycle 1
-        if ($daedalus->getCycle() !== 1) {
+        // Only applied on cycle 1
+        if ($reason !== EventEnum::NEW_DAY) {
             return $status;
         }
 

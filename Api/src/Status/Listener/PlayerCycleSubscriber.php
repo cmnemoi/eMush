@@ -29,7 +29,12 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
 
         foreach ($player->getStatuses() as $status) {
-            $statusNewCycle = new StatusCycleEvent($status, $player, $player->getDaedalus(), $event->getTime());
+            $statusNewCycle = new StatusCycleEvent(
+                $status,
+                $player,
+                $event->getReason(),
+                $event->getTime()
+            );
             $this->eventDispatcher->dispatch($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
         }
     }
@@ -39,7 +44,12 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
 
         foreach ($player->getStatuses() as $status) {
-            $statusNewCycle = new StatusCycleEvent($status, $player, $player->getDaedalus(), $event->getTime());
+            $statusNewCycle = new StatusCycleEvent(
+                $status,
+                $player,
+                $event->getReason(),
+                $event->getTime()
+            );
             $this->eventDispatcher->dispatch($statusNewCycle, StatusCycleEvent::STATUS_NEW_DAY);
         }
     }

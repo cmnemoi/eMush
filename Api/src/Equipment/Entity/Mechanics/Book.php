@@ -5,19 +5,19 @@ namespace Mush\Equipment\Entity\Mechanics;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
-/**
- * Class Equipment.
- *
- * @ORM\Entity
- */
+#[ORM\Entity]
 class Book extends Tool
 {
-    protected string $mechanic = EquipmentMechanicEnum::BOOK;
-
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $skill;
+
+    public function getMechanics(): array
+    {
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::BOOK;
+
+        return $mechanics;
+    }
 
     public function getSkill(): string
     {
@@ -27,7 +27,7 @@ class Book extends Tool
     /**
      * @return static
      */
-    public function setSkill(string $skill): Book
+    public function setSkill(string $skill): self
     {
         $this->skill = $skill;
 

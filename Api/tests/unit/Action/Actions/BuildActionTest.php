@@ -9,22 +9,19 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\Build;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Service\PlayerServiceInterface;
 
 class BuildActionTest extends AbstractActionTest
 {
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface | Mockery\Mock */
-    private PlayerServiceInterface $playerService;
-    /** @var GearToolServiceInterface | Mockery\Mock */
-    private GearToolServiceInterface $gearToolService;
+    private GearToolServiceInterface|Mockery\Mock $gearToolService;
+
+    /* @var GameEquipmentServiceInterface|Mockery\Mock */
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     protected AbstractAction $action;
 
@@ -35,9 +32,8 @@ class BuildActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
         $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
+        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
@@ -45,9 +41,8 @@ class BuildActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->gameEquipmentService,
-            $this->playerService,
-            $this->gearToolService
+            $this->gearToolService,
+            $this->gameEquipmentService
         );
     }
 
@@ -67,7 +62,7 @@ class BuildActionTest extends AbstractActionTest
         $item->setName('blueprint');
         $gameItem
             ->setEquipment($item)
-            ->setPlace($room)
+            ->setHolder($room)
             ->setName('blueprint')
         ;
 
@@ -89,7 +84,7 @@ class BuildActionTest extends AbstractActionTest
         $ingredient->setName('metal_scraps');
         $gameIngredient
             ->setEquipment($ingredient)
-            ->setPlace($room)
+            ->setHolder($room)
             ->setName('metal_scraps')
         ;
 
@@ -97,14 +92,11 @@ class BuildActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
-        $this->gameEquipmentService->shouldReceive('persist');
-        $this->playerService->shouldReceive('persist');
-
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameIngredient]))->once();
-        $this->gameEquipmentService->shouldReceive('createGameEquipment')->andReturn($gameProduct)->once();
 
-        $this->eventDispatcher->shouldReceive('dispatch')->times(3);
+        $this->gameEquipmentService->shouldReceive('createGameEquipment')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->times(2);
 
         $result = $this->action->execute();
 

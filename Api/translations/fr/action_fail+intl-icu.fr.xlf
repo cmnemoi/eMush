@@ -93,7 +93,7 @@
         <unit id="heal_no_injury">
             <segment id="description">
                 <source>heal_no_injury.description</source>
-                <target>Vous n'êtes pas blessé mais ça peut s'arranger...</target>
+                <target>Vous n'êtes pas blessé, mais ça peut s'arranger...</target>
             </segment>
         </unit>
 
@@ -179,7 +179,7 @@
         <unit id="do_the_thing_already_done">
             <segment id="description">
                 <source>do_the_thing_already_done.description</source>
-                <target>TODO.do_the_thing_already_done.description</target>
+                <target>Vous l'avez déjà fait aujourd'hui.</target>
             </segment>
         </unit>
 
@@ -218,17 +218,17 @@
             </segment>
         </unit>
 
-        <unit id="flirt_raluca">
+        <unit id="flirt_antisocial">
             <segment id="description">
-                <source>flirt_raluca.description</source>
-                <target>TODO.flirt_raluca.description</target>
+                <source>flirt_antisocial.description</source>
+                <target>Vous n'êtes pas intéressé(e) par ce genre d'interaction sociale...</target>
             </segment>
         </unit>
 
-        <unit id="flirt_gioele_paola">
+        <unit id="flirt_same_family">
             <segment id="description">
-                <source>flirt_gioele_paola.description</source>
-                <target>TODO.flirt_gioele_paola.description</target>
+                <source>flirt_same_family.description</source>
+                <target>Ce flirt est impossible.</target>
             </segment>
         </unit>
 
@@ -263,7 +263,7 @@
         <unit id="infect_immune">
             <segment id="description">
                 <source>infect_immune.description</source>
-                <target>TODO.infect_immune.description</target>
+                <target>Cette cible est immunisée au mush.</target>
             </segment>
         </unit>
 
@@ -277,14 +277,14 @@
         <unit id="infect_mush">
             <segment id="description">
                 <source>infect_mush.description</source>
-                <target>TODO.infect_mush.description</target>
+                <target>Cette cible est déjà agent du mush.</target>
             </segment>
         </unit>
 
         <unit id="infect_daily_limit">
             <segment id="description">
                 <source>infect_daily_limit.description</source>
-                <target>TODO.infect_daily_limit.description</target>
+                <target>Vous ne pouvez plus effectuer cette action aujourd'hui.</target>
             </segment>
         </unit>
 
@@ -292,6 +292,13 @@
             <segment id="description">
                 <source>transfer_no_spore.description</source>
                 <target>TODO.transfer_no_spore.description</target>
+            </segment>
+        </unit>
+
+        <unit id="phagocyte_no_spore">
+            <segment id="description">
+                <source>phagocyte_no_spore.description</source>
+                <target>Vous n'avez pas de spore à absorber.</target>
             </segment>
         </unit>
 
@@ -354,14 +361,14 @@
         <unit id="issue_mission_already_issued">
             <segment id="description">
                 <source>issue_mission_already_issued.description</source>
-                <target>TODO.issue_mission_already_issued.description</target>
+                <target>Vous avez déjà ordonné une mission, vous pourrez le refaire demain ou si votre subalterne la refuse.</target>
             </segment>
         </unit>
 
         <unit id="issue_mission_no_target">
             <segment id="description">
                 <source>issue_mission_no_target.description</source>
-                <target>TODO.issue_mission_no_target.description</target>
+                <target>Personne n'est actuellement accessible pour recevoir vos ordres.</target>
             </segment>
         </unit>
 
@@ -540,6 +547,13 @@
             </segment>
         </unit>
 
+        <unit id="already_washed_in_sink_today">
+            <segment id="description">
+                <source>already_washed_in_sink_today.description</source>
+                <target>Cette galère pour se nettoyer vous a assez suffi pour aujourd'hui.</target>
+            </segment>
+        </unit>
+
         <unit id="already_in_bed">
             <segment id="description">
                 <source>already_in_bed.description</source>
@@ -557,7 +571,7 @@
         <unit id="renovate_lack_ressources">
             <segment id="description">
                 <source>renovate_lack_ressources.description</source>
-                <target>TODO.renovate_lack_ressources.description</target>
+                <target>Remettre à neuf un patrouilleur nécessite un *Débris Métallique*</target>
             </segment>
         </unit>
 
@@ -568,6 +582,74 @@
             </segment>
         </unit>
 
+        <unit id="mush_remove_spore">
+            <segment id="description">
+                <source>mush_remove_spore.description</source>
+                <target>Pax Fungi: Le Mush ne tolère pas les actions violentes directes envers lui même.</target>
+            </segment>
+        </unit>
 
+        <unit id="already_did_boring_speech">
+            <segment id="description">
+                <source>already_did_boring_speech.description</source>
+                <target>Vous avez déjà donné un discours barbant aujourd'hui.</target>
+            </segment>
+        </unit>
+
+        <unit id="have_all_fake_diseases">
+            <segment id="description">
+                <source>have_all_fake_diseases.description</source>
+                <target>Buurrp, vous ne vous sentez pas très bien... Vous ne pouvez plus imiter d'autre maladie.</target>
+            </segment>
+        </unit>
+
+        <unit id="symptoms_are_preventing_action">
+            <segment id="description">
+                <source>symptoms_are_preventing_action.description</source>
+                <target>Votre état de santé vous empêche de faire cette action. Dommage.</target>
+            </segment>
+        </unit>
+
+        <unit id="gagged_prevent_spoken_action">
+            <segment id="description">
+                <source>gagged_prevent_spoken_action.description</source>
+                <target>Impossible de prononcer le moindre mot tant que vous ne vous serez pas débarrassés de ce fichu bout de scotch.</target>
+            </segment>
+        </unit>
+
+        <unit id="screwed_talkie_already_pirated">
+            <segment id="description">
+                <source>screwed_talkie_already_pirated.description</source>
+                <target>Impossible de pirater plus d'un talkie à la fois.</target>
+            </segment>
+        </unit>
+
+        <unit id="screwed_talkie_no_talkie">
+            <segment id="description">
+                <source>screwed_talkie_no_talkie.description</source>
+                <target>C'est dommage, votre coéquipier n'a pas son talkie sur lui.</target>
+            </segment>
+        </unit>
+
+        <unit id="update_talkie_require_neron">
+            <segment id="description">
+                <source>update_talkie_require_neron.description</source>
+                <target>Vous avez besoin de vous brancher au cœur de NERON pour effectuer cette mise à jour.</target>
+            </segment>
+        </unit>
+
+        <unit id="update_talkie_require_tracker">
+            <segment id="description">
+                <source>update_talkie_require_tracker.description</source>
+                <target>Pour une raison obscure, vous avez besoin de votre tracker pour mettre à jour votre talkie.</target>
+            </segment>
+        </unit>
+        
+        <unit id="immunized_remove_spore">
+            <segment id="description">
+                <source>immunized_remove_spore.description</source>
+                <target>Vous êtes immuisée contre le Mush, pourquoi vouloir vous faire du mal ?</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

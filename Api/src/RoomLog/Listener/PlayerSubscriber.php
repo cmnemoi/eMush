@@ -2,10 +2,10 @@
 
 namespace Mush\RoomLog\Listener;
 
-use Mush\Player\Entity\Player;
+use Mush\Game\Enum\LanguageEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -25,67 +25,45 @@ class PlayerSubscriber implements EventSubscriberInterface
             PlayerEvent::NEW_PLAYER => 'onNewPlayer',
             PlayerEvent::DEATH_PLAYER => ['onDeathPlayer', 10],
             PlayerEvent::METAL_PLATE => 'onMetalPlate',
-            PlayerEvent::PANIC_CRISIS => 'onPanicCrisis',
         ];
     }
 
     public function onNewPlayer(PlayerEvent $event): void
     {
-        $player = $event->getPlayer();
-
-        $this->roomLogService->createLog(
-            LogEnum::AWAKEN,
-            $player->getPlace(),
-            VisibilityEnum::PUBLIC,
-            'event_log',
-            $player,
-            null,
-            null,
-            $event->getTime()
-        );
+        $this->createEventLog(LogEnum::AWAKEN, $event);
     }
 
     public function onDeathPlayer(PlayerEvent $event): void
     {
-        $player = $event->getPlayer();
-
-        $this->createPublicLog($player, LogEnum::DEATH, $event->getTime());
+        $this->createEventLog(LogEnum::DEATH, $event);
     }
 
     public function onMetalPlate(PlayerEvent $event): void
     {
-        $player = $event->getPlayer();
-
-        $this->createPublicLog($player, LogEnum::METAL_PLATE, $event->getTime());
+        $this->createEventLog(LogEnum::METAL_PLATE, $event);
     }
 
-    public function onPanicCrisis(PlayerEvent $event): void
+    private function createEventLog(string $logKey, PlayerEvent $event): void
     {
         $player = $event->getPlayer();
+        $logParameters = $event->getLogParameters();
 
-        $this->roomLogService->createLog(
-            LogEnum::PANIC_CRISIS,
-            $player->getPlace(),
-            VisibilityEnum::PRIVATE,
-            'event_log',
-            $player,
-            null,
-            null,
-            $event->getTime()
-        );
-    }
+        if ($logKey == LogEnum::DEATH) {
+            if (!($reason = $event->getReason())) {
+                throw new \LogicException('Player should die with a reason');
+            }
 
-    private function createPublicLog(Player $player, string $logKey, \DateTime $time): void
-    {
+            $logParameters[LanguageEnum::END_CAUSE] = $reason;
+        }
+
         $this->roomLogService->createLog(
             $logKey,
-            $player->getPlace(),
+            $event->getPlace(),
             VisibilityEnum::PUBLIC,
             'event_log',
             $player,
-            null,
-            null,
-            $time
+            $logParameters,
+            $event->getTime()
         );
     }
 }

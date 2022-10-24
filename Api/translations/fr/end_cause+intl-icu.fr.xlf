@@ -556,7 +556,25 @@
             </segment>
             <segment id="description">
                 <source>no_infirmerie.description</source>
-                <target>TODO</target>
+                <target>La cause de votre mort a été perdue dans les limbes de l'Univers...</target>
+            </segment>
+        </unit>
+        <unit id="suicide">
+            <segment id="name">
+                <source>suicide.name</source>
+                <target>Suicide</target>
+            </segment>
+            <segment id="short_name">
+                <source>suicide.short_name</source>
+                <target>Suicidé avec panache !</target>
+            </segment>
+            <segment id="category">
+                <source>suicide.category</source>
+                <target>Vous êtes mort !</target>
+            </segment>
+            <segment id="description">
+                <source>suicide.description</source>
+                <target>Vous aviez des bugs à corriger dans d'autres univers !</target>
             </segment>
         </unit>
     </file>

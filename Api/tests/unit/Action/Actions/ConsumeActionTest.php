@@ -8,8 +8,8 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Consume;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\ConsumableEffect;
-use Mush\Equipment\Entity\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Place\Entity\Place;
@@ -17,8 +17,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 
 class ConsumeActionTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface | Mockery\Mock */
-    private PlayerServiceInterface $playerService;
+    private PlayerServiceInterface|Mockery\Mock $playerService;
 
     /**
      * @before
@@ -27,14 +26,13 @@ class ConsumeActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::HEAL);
+        $this->actionEntity = $this->createActionEntity(ActionEnum::CONSUME);
         $this->playerService = Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Consume(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->playerService,
         );
     }
 
@@ -69,7 +67,7 @@ class ConsumeActionTest extends AbstractActionTest
         $gameEquipment = new GameItem();
         $gameEquipment
             ->setEquipment($equipment)
-            ->setPlace($room)
+            ->setHolder($room)
         ;
 
         $this->playerService->shouldReceive('persist');

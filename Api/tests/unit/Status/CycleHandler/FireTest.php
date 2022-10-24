@@ -5,33 +5,35 @@ namespace Mush\Test\Status\CycleHandler;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerEvent;
-use Mush\Player\Event\PlayerModifierEvent;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\CycleHandler\Fire;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class FireTest extends TestCase
 {
-    /** @var RandomServiceInterface | Mockery\Mock */
-    private RandomServiceInterface $randomService;
-    /** @var EventDispatcherInterface | Mockery\Mock */
-    private EventDispatcherInterface $eventDispatcher;
-    /** @var GameEquipmentServiceInterface | Mockery\Mock */
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var DaedalusServiceInterface | Mockery\Mock */
-    private DaedalusServiceInterface $daedalusService;
+    private RandomServiceInterface|Mockery\Mock $randomService;
+
+    private Mockery\Mock|EventDispatcherInterface $eventDispatcher;
+
+    private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
+
+    private DaedalusServiceInterface|Mockery\Mock $daedalusService;
     private Fire $cycleHandler;
 
     /**
@@ -80,9 +82,10 @@ class FireTest extends TestCase
         $daedalusHull = 100;
         $daedalus->setHull($daedalusHull);
 
-        $status = new ChargeStatus($room);
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig->setName(StatusEnum::FIRE);
+        $status = new ChargeStatus($room, $statusConfig);
         $status
-            ->setName(StatusEnum::FIRE)
             ->setCharge(1)
         ;
 
@@ -96,19 +99,24 @@ class FireTest extends TestCase
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (PlayerEvent $playerEvent, string $eventName) => (
-                intval($playerEvent->getDelta()) === -2 && $eventName === PlayerModifierEvent::HEALTH_POINT_MODIFIER
+            ->withArgs(fn (PlayerVariableEvent $playerEvent, string $eventName) => (
+                intval($playerEvent->getQuantity()) === -2 &&
+                $eventName === AbstractQuantityEvent::CHANGE_VARIABLE &&
+                $playerEvent->getModifiedVariable() === PlayerVariableEnum::HEALTH_POINT
             ))
             ->once()
         ;
 
         $this->eventDispatcher
             ->shouldReceive('dispatch')
-            ->withArgs(fn (DaedalusModifierEvent $daedalusEvent, string $eventName) => ($eventName === DaedalusModifierEvent::CHANGE_HULL))
+            ->withArgs(fn (DaedalusModifierEvent $daedalusEvent, string $eventName) => (
+                $eventName === AbstractQuantityEvent::CHANGE_VARIABLE &&
+                $daedalusEvent->getModifiedVariable() === DaedalusVariableEnum::HULL
+            ))
             ->once()
         ;
 
-        $this->cycleHandler->handleNewCycle($status, $daedalus, $room, new \DateTime());
+        $this->cycleHandler->handleNewCycle($status, $room, new \DateTime());
 
         $this->assertEquals($daedalusHull, $daedalus->getHull());
     }

@@ -3,19 +3,21 @@
         <div class="spinner-container">
             <span>Loading...</span>
             <div class="spinner">
-                <img src="@/assets/images/floor-tile.gif" />
-                <img src="@/assets/images/floor-tile.gif" />
-                <img src="@/assets/images/floor-tile.gif" />
-                <img src="@/assets/images/floor-tile.gif" />
-                <img src="@/assets/images/floor-tile.gif" />
-                <img class="cat" src="@/assets/images/char/body/cat.png" />
+                <img src="@/assets/images/floor-tile.gif">
+                <img src="@/assets/images/floor-tile.gif">
+                <img src="@/assets/images/floor-tile.gif">
+                <img src="@/assets/images/floor-tile.gif">
+                <img src="@/assets/images/floor-tile.gif">
+                <img class="cat" src="@/assets/images/char/body/cat.png">
             </div>
         </div>
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent ({
     name: 'Spinner',
     props: {
         loading: {
@@ -23,13 +25,13 @@ export default {
             default: true
         }
     }
-};
+});
 </script>
 
 <style  lang="scss" scoped>
 
 .spinner_overlay { //dark background
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 0;
     width: 100%;
@@ -47,6 +49,7 @@ export default {
     span {
         text-align: center;
         margin-bottom: .4em;
+        font-size: 1.2em;
         font-variant: small-caps;
         font-weight: bold;
         letter-spacing: .02em;

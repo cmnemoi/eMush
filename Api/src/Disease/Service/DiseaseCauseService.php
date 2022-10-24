@@ -6,14 +6,15 @@ use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
 class DiseaseCauseService implements DiseaseCauseServiceInterface
 {
-    private const HAZARDOUS_RATE = 30;
-    private const DECOMPOSING_RATE = 50;
+    private const HAZARDOUS_RATE = 50;
+    private const DECOMPOSING_RATE = 90;
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private RandomServiceInterface $randomService;
@@ -48,7 +49,13 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
             /** @var ConsumableDiseaseAttribute $disease */
             foreach ($consumableEffect->getDiseases() as $disease) {
                 if ($this->randomService->isSuccessful($disease->getRate())) {
-                    $this->playerDiseaseService->createDiseaseFromName($disease->getDisease(), $player, $disease->getDelayMin(), $disease->getDelayLength());
+                    $this->playerDiseaseService->createDiseaseFromName(
+                        $disease->getDisease(),
+                        $player,
+                        DiseaseCauseEnum::CONSUMABLE_EFFECT,
+                        $disease->getDelayMin(),
+                        $disease->getDelayLength()
+                    );
                 }
             }
 
@@ -57,7 +64,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
                 if (($disease = $player->getMedicalConditionByName($cure->getDisease())) !== null &&
                     $this->randomService->isSuccessful($cure->getRate())
                 ) {
-                    $this->playerDiseaseService->removePlayerDisease($disease, DiseaseStatusEnum::DRUG_HEALED, new \DateTime());
+                    $this->playerDiseaseService->removePlayerDisease($disease, DiseaseStatusEnum::DRUG_HEALED, new \DateTime(), VisibilityEnum::PRIVATE);
                 }
             }
         }

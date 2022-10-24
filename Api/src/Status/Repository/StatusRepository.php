@@ -10,7 +10,9 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 
 class StatusRepository extends ServiceEntityRepository
@@ -47,13 +49,37 @@ class StatusRepository extends ServiceEntityRepository
 
         if ($name = $criteria->getName()) {
             if (is_array($name)) {
-                $queryBuilder->andWhere($queryBuilder->expr()->in('status.name', ':name'));
+                $queryBuilder
+                    ->join(StatusConfig::class, 'status_config', Join::WITH, 'status_config = status.statusConfig')
+                    ->andWhere($queryBuilder->expr()->in('status_config.name', ':name'));
             } else {
-                $queryBuilder->andWhere($queryBuilder->expr()->eq('status.name', ':name'));
+                $queryBuilder
+                    ->join(StatusConfig::class, 'status_config', Join::WITH, 'status_config = status.statusConfig')
+                    ->andWhere($queryBuilder->expr()->eq('status_config.name', ':name'));
             }
             $queryBuilder->setParameter('name', $name);
         }
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function findByTargetAndName(StatusHolderInterface $target, string $name): ?Status
+    {
+        $queryBuilder = $this->createQueryBuilder('status');
+
+        $queryBuilder
+            ->join(StatusConfig::class, 'status_config', Join::WITH, 'status_config = status.statusConfig')
+            ->leftJoin(StatusTarget::class, 'status_target', Join::WITH, 'status_target = status.target')
+            ->where($queryBuilder->expr()->orX(
+                $queryBuilder->expr()->eq('status_target.player', ':status_target'),
+                $queryBuilder->expr()->eq('status_target.place', ':status_target'),
+                $queryBuilder->expr()->eq('status_target.gameEquipment', ':status_target')
+            ))
+            ->andWhere($queryBuilder->expr()->eq('status_config.name', ':name'))
+            ->setParameter(':status_target', $target)
+            ->setParameter(':name', $name)
+        ;
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 }

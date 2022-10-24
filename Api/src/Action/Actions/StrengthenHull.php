@@ -4,49 +4,27 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\FullHull;
 use Mush\Action\Validator\Reach;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Enum\ModifierScopeEnum;
-use Mush\Player\Enum\ModifierTargetEnum;
-use Mush\Player\Service\ActionModifierServiceInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class StrengthenHull extends AttemptAction
 {
     protected string $name = ActionEnum::STRENGTHEN_HULL;
 
-    private ActionModifierServiceInterface $actionModifierService;
     private const BASE_REPAIR = 5;
 
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        RandomServiceInterface $randomService,
-        ActionModifierServiceInterface $actionModifierService,
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator,
-            $randomService,
-        );
-
-        $this->actionModifierService = $actionModifierService;
-    }
-
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameItem;
     }
@@ -57,32 +35,34 @@ class StrengthenHull extends AttemptAction
         $metadata->addConstraint(new FullHull(['groups' => ['execute']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameItem $parameter */
         $parameter = $this->parameter;
+        $time = new \DateTime();
 
-        $parameter->setPlayer(null);
+        if ($result instanceof Success) {
+            $quantity = self::BASE_REPAIR;
 
-        $response = $this->makeAttempt();
-
-        if ($response instanceof Success) {
-            $quantity = $this->actionModifierService->getModifiedValue(
-                self::BASE_REPAIR,
-                $this->player,
-                [ModifierScopeEnum::ACTION_STRENGTHEN],
-                ModifierTargetEnum::QUANTITY
+            $daedalusEvent = new DaedalusModifierEvent(
+                $this->player->getDaedalus(),
+                DaedalusVariableEnum::HULL,
+                $quantity,
+                $this->getActionName(),
+                $time
             );
 
-            $daedalusEvent = new DaedalusModifierEvent($this->player->getDaedalus(), new \DateTime());
-            $daedalusEvent->setQuantity($quantity);
-            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusModifierEvent::CHANGE_HULL);
+            $daedalusEvent->setPlayer($this->player);
+            $this->eventDispatcher->dispatch($daedalusEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
-            $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
-            $equipmentEvent->setPlayer($this->player);
+            $equipmentEvent = new InteractWithEquipmentEvent(
+                $parameter,
+                $this->player,
+                VisibilityEnum::HIDDEN,
+                $this->getActionName(),
+                $time
+            );
             $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
-
-        return $response;
     }
 }

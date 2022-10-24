@@ -19,7 +19,7 @@ class ChannelPlayerRepository extends ServiceEntityRepository
 
     public function findAvailablePlayerForPrivateChannel(Channel $channel, int $maxChannel): array
     {
-        //Sub-query that gets all players that have more than $maxChannel private channel open
+        // Sub-query that gets all players that have more than $maxChannel private channel open
         $subQuery = $this->createQueryBuilder('sub_query');
         $subQuery
             ->select('IDENTITY(sub_query.participant)')
@@ -29,7 +29,7 @@ class ChannelPlayerRepository extends ServiceEntityRepository
             ->groupBy('sub_query.participant')
         ;
 
-        //Sub-query2 that gets all players that are already in this channel
+        // Sub-query2 that gets all players that are already in this channel
         $subQuery2 = $this->createQueryBuilder('sub_query_2');
         $subQuery2
             ->select('sub_2_player.id')

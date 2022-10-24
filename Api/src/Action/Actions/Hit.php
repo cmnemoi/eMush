@@ -4,49 +4,26 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\SkillMushEnum;
-use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerModifierEvent;
-use Mush\Player\Service\PlayerServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Hit extends AttemptAction
 {
     protected string $name = ActionEnum::HIT;
 
-    private PlayerServiceInterface $playerService;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        PlayerServiceInterface $playerService,
-        RandomServiceInterface $randomService
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator,
-            $randomService
-        );
-
-        $this->playerService = $playerService;
-    }
-
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof Player;
     }
@@ -57,12 +34,10 @@ class Hit extends AttemptAction
         $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var Player $parameter */
         $parameter = $this->parameter;
-
-        $result = $this->makeAttempt();
 
         if ($result instanceof Success) {
             $damage = $this->randomService->random(1, 3);
@@ -76,22 +51,22 @@ class Hit extends AttemptAction
             if (in_array(SkillMushEnum::HARD_BOILED, $parameter->getSkills())) {
                 --$damage;
             }
-            if ($parameter->hasItemByName(GearItemEnum::PLASTENITE_ARMOR)) {
+            if ($parameter->hasEquipmentByName(GearItemEnum::PLASTENITE_ARMOR)) {
                 --$damage;
             }
             if ($damage <= 0) {
                 // TODO:
             } else {
-                $playerModifierEvent = new PlayerModifierEvent($parameter, -$damage, new \DateTime());
-                $playerModifierEvent->setReason(EndCauseEnum::ASSASSINATED);
-                $this->eventDispatcher->dispatch($playerModifierEvent, PlayerModifierEvent::HEALTH_POINT_MODIFIER);
+                $playerModifierEvent = new PlayerVariableEvent(
+                    $parameter,
+                    PlayerVariableEnum::HEALTH_POINT,
+                    -$damage,
+                    $this->getActionName(),
+                    new \DateTime()
+                );
 
-                $this->playerService->persist($parameter);
+                $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
             }
         }
-
-        $result->setActionParameter($parameter);
-
-        return $result;
     }
 }

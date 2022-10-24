@@ -16,7 +16,7 @@ class ItemEnum
     public const PLASTIC_SCRAPS = 'plastic_scraps';
     public const METAL_SCRAPS = 'metal_scraps';
     public const THICK_TUBE = 'thick_tube';
-    public const CAMERA = 'camera';
+    public const CAMERA_ITEM = 'camera_item';
     public const MUSH_GENOME_DISK = 'mush_genome_disk';
     public const MUSH_SAMPLE = 'mush_sample';
     public const MYCO_ALARM = 'myco_alarm';
@@ -31,7 +31,7 @@ class ItemEnum
     public const ROCKET_LAUNCHER = 'rocket_launcher';
     public const TRACKER = 'tracker';
     public const WALKIE_TALKIE = 'walkie_talkie';
-    public const ITRAKIE = 'itrakie';
+    public const ITRACKIE = 'itrackie';
     public const OXYGEN_CAPSULE = 'oxygen_capsule';
     public const FUEL_CAPSULE = 'fuel_capsule';
     public const APPRENTON = 'apprenton';
@@ -41,4 +41,5 @@ class ItemEnum
     public const MUSH_RESEARCH_REVIEW = 'mush_research_review';
     public const POST_IT = 'post_it';
     public const HYDROPOT = 'hydropot';
+    public const SCHRODINGER = 'schrodinger';
 }

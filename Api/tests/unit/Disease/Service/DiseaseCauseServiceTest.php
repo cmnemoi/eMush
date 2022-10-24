@@ -5,9 +5,9 @@ namespace Mush\Test\Disease\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
-use Mush\Disease\Entity\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
@@ -16,6 +16,7 @@ use Mush\Disease\Service\PlayerDiseaseService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
@@ -24,13 +25,13 @@ class DiseaseCauseServiceTest extends TestCase
 {
     private DiseaseCauseService $diseaseCauseService;
 
-    /** @var PlayerDiseaseService | Mockery\Mock */
+    /** @var PlayerDiseaseService|Mockery\Mock */
     private PlayerDiseaseService $playerDiseaseService;
 
-    /** @var RandomServiceInterface | Mockery\Mock */
+    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
-    /** @var ConsumableDiseaseServiceInterface | Mockery\Mock */
+    /** @var ConsumableDiseaseServiceInterface|Mockery\Mock */
     private ConsumableDiseaseServiceInterface $consumableDiseaseService;
 
     /**
@@ -73,8 +74,9 @@ class DiseaseCauseServiceTest extends TestCase
 
         $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
 
-        $hazardous = new Status($gameEquipment);
-        $hazardous->setName(EquipmentStatusEnum::HAZARDOUS);
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(EquipmentStatusEnum::HAZARDOUS);
+        $hazardous = new Status($gameEquipment, $statusConfig);
 
         $this->randomService
             ->shouldReceive('isSuccessful')
@@ -114,8 +116,9 @@ class DiseaseCauseServiceTest extends TestCase
 
         $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
 
-        $hazardous = new Status($gameEquipment);
-        $hazardous->setName(EquipmentStatusEnum::DECOMPOSING);
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(EquipmentStatusEnum::DECOMPOSING);
+        $hazardous = new Status($gameEquipment, $statusConfig);
 
         $this->randomService
             ->shouldReceive('isSuccessful')

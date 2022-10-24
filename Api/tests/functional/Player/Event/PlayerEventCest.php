@@ -8,34 +8,40 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Game\Entity\CharacterConfig;
+use Mush\Disease\Entity\Config\DiseaseCauseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
+use Mush\Disease\Enum\DiseaseCauseEnum;
+use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Enum\LanguageEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerEventCest
 {
-    private EventDispatcherInterface $eventDispatcherService;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function _before(FunctionalTester $I)
     {
-        $this->eventDispatcherService = $I->grabService(EventDispatcherInterface::class);
+        $this->eventDispatcher = $I->grabService(EventDispatcherInterface::class);
     }
 
     public function testDispatchPlayerDeath(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['language' => LanguageEnum::FRENCH]);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -68,10 +74,10 @@ class PlayerEventCest
             'characterConfig' => $characterConfig,
         ]);
 
-        $playerEvent = new PlayerEvent($player, new \DateTime());
-        $playerEvent->setReason(EndCauseEnum::CLUMSINESS);
+        $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
+        $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         $I->assertEquals(GameStatusEnum::FINISHED, $player->getGameStatus());
 
@@ -99,29 +105,54 @@ class PlayerEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'user' => $user]);
 
-        $mushStatus = new ChargeStatus($player);
-        $mushStatus
-            ->setName(PlayerStatusEnum::SPORES)
-            ->setVisibility(VisibilityEnum::MUSH)
+        $mushStatusConfig = new ChargeStatusConfig();
+        $mushStatusConfig
+            ->setName(PlayerStatusEnum::MUSH)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($mushStatusConfig);
+
+        $sporeConfig = new ChargeStatusConfig();
+        $sporeConfig->setName(PlayerStatusEnum::SPORES)->setVisibility(VisibilityEnum::MUSH);
+        $I->haveInRepository($sporeConfig);
+        $sporeStatus = new ChargeStatus($player, $sporeConfig);
+        $sporeStatus
             ->setCharge(0)
         ;
+        $I->haveInRepository($sporeStatus);
 
-        $playerEvent = new PlayerEvent($player, new \DateTime());
-        $playerEvent->setReason(ActionEnum::INFECT);
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setGameConfig($gameConfig)
+            ->setName(DiseaseEnum::FUNGIC_INFECTION)
+        ;
+        $I->haveInRepository($diseaseConfig);
 
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $diseaseCause = new DiseaseCauseConfig();
+        $diseaseCause
+            ->setName(DiseaseCauseEnum::INFECTION)
+            ->setDiseases([
+                DiseaseEnum::FUNGIC_INFECTION => 1,
+            ])
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($diseaseCause);
+
+        $playerEvent = new PlayerEvent($player, ActionEnum::INFECT, new \DateTime());
+
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
         $I->assertEquals($room, $player->getPlace());
 
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
         $I->assertEquals($room, $player->getPlace());
 
-        $this->eventDispatcherService->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
 
         $I->assertCount(2, $player->getStatuses());
         $I->assertEquals($room, $player->getPlace());

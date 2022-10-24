@@ -31,10 +31,11 @@ class ActionImpossibleCauseEnum
     public const DO_THE_THING_CAMERA = 'do_the_thing_camera';
     public const DO_THE_THING_WITNESS = 'do_the_thing_witness';
     public const DO_THE_THING_ASLEEP = 'do_the_thing_asleep';
+    public const DO_THE_THING_NO_BED = 'do_the_thing_no_bed';
     public const DO_THE_THING_NOT_INTERESTED = 'do_the_thing_not_interested';
     public const FLIRT_ALREADY_FLIRTED = 'flirt_already_flirted';
-    public const FLIRT_RALUCA = 'flirt_raluca';
-    public const FLIRT_GIOELE_PAOLA = 'flirt_gioele_paola';
+    public const FLIRT_ANTISOCIAL = 'flirt_antisocial';
+    public const FLIRT_SAME_FAMILY = 'flirt_same_family';
     public const DAILY_SPORE_LIMIT = 'daily_spore_limit';
     public const PERSONAL_SPORE_LIMIT = 'personal_spore_limit';
     public const BOOBYTRAP_ALREADY_DONE = 'boobytrap_already_done';
@@ -43,6 +44,7 @@ class ActionImpossibleCauseEnum
     public const INFECT_NO_SPORE = 'infect_no_spore';
     public const INFECT_MUSH = 'infect_mush';
     public const INFECT_DAILY_LIMIT = 'infect_daily_limit';
+    public const PHAGOCYTE_NO_SPORE = 'phagocyte_no_spore';
     public const TRANSFER_NO_SPORE = 'transfer_no_spore';
     public const MUTATED = 'mutated';
     public const WISPER_MUTE = 'wisper_mute';
@@ -84,4 +86,16 @@ class ActionImpossibleCauseEnum
     public const REINFORCE_LACK_RESSOURCES = 'reinforce_lack_ressources';
     public const RENOVATE_LACK_RESSOURCES = 'renovate_lack_ressources';
     public const SURGERY_NOT_LYING_DOWN = 'surgery_not_lying_down';
+    public const MUSH_REMOVE_SPORE = 'mush_remove_spore';
+    public const IMMUNIZED_REMOVE_SPORE = 'immunized_remove_spore';
+    public const ALREADY_DID_BORING_SPEECH = 'already_did_boring_speech';
+    public const HAVE_ALL_FAKE_DISEASES = 'have_all_fake_diseases';
+    public const SYMPTOMS_ARE_PREVENTING_ACTION = 'symptoms_are_preventing_action';
+    public const GAGGED_PREVENT_SPOKEN_ACTION = 'gagged_prevent_spoken_action';
+    public const SCREWED_TALKIE_ALREADY_PIRATED = 'screwed_talkie_already_pirated';
+    public const SCREWED_TALKIE_NO_TALKIE = 'screwed_talkie_no_talkie';
+    public const ALREADY_WASHED_IN_SINK_TODAY = 'already_washed_in_sink_today';
+
+    public const UPDATE_TALKIE_REQUIRE_NERON = 'update_talkie_require_neron';
+    public const UPDATE_TALKIE_REQUIRE_TRACKER = 'update_talkie_require_tracker';
 }

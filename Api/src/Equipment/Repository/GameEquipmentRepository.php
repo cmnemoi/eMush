@@ -7,7 +7,7 @@ use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
-use Mush\Equipment\Entity\EquipmentConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
@@ -44,7 +44,7 @@ class GameEquipmentRepository extends ServiceEntityRepository
                 ->leftJoin(EquipmentConfig::class, 'equipment_config', Join::WITH, 'equipment.equipment = equipment_config')
                 ->andWhere($queryBuilder->expr()->eq('equipment_config.isBreakable', ':isBreakable'))
                 ->setParameter('isBreakable', $criteria->isBreakable())
-                ;
+            ;
         }
 
         if (($instanceOfs = $criteria->getInstanceOf()) !== null) {

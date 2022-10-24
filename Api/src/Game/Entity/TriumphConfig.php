@@ -4,44 +4,28 @@ namespace Mush\Game\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Class TriumphConfig.
- *
- * @ORM\Entity()
- * @ORM\Table(name="triumph_config")
- */
-class TriumphConfig
+#[ORM\Entity]
+#[ORM\Table(name: 'triumph_config')]
+class TriumphConfig implements ConfigInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Game\Entity\GameConfig", inversedBy="triumphConfig")
-     */
+    #[ORM\ManyToOne(targetEntity: GameConfig::class, inversedBy: 'triumphConfig')]
     private GameConfig $gameConfig;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $triumph = 0;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */
+    #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isAllCrew = false;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $team;
 
     public function getId(): int
@@ -54,7 +38,7 @@ class TriumphConfig
         return $this->gameConfig;
     }
 
-    public function setGameConfig(GameConfig $gameConfig): TriumphConfig
+    public function setGameConfig(GameConfig $gameConfig): self
     {
         $this->gameConfig = $gameConfig;
 
@@ -66,7 +50,7 @@ class TriumphConfig
         return $this->name;
     }
 
-    public function setName(string $name): TriumphConfig
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -78,7 +62,7 @@ class TriumphConfig
         return $this->triumph;
     }
 
-    public function setTriumph(int $triumph): TriumphConfig
+    public function setTriumph(int $triumph): self
     {
         $this->triumph = $triumph;
 
@@ -90,7 +74,7 @@ class TriumphConfig
         return $this->isAllCrew;
     }
 
-    public function setIsAllCrew(bool $isAllCrew): TriumphConfig
+    public function setIsAllCrew(bool $isAllCrew): self
     {
         $this->isAllCrew = $isAllCrew;
 
@@ -102,7 +86,7 @@ class TriumphConfig
         return $this->team;
     }
 
-    public function setTeam(string $team): TriumphConfig
+    public function setTeam(string $team): self
     {
         $this->team = $team;
 

@@ -10,15 +10,16 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\EquipmentConfig;
-use Mush\Game\Entity\CharacterConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Enum\VisibilityEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -75,6 +76,13 @@ class NeronMessageCycleCest
             'healthPoint' => 99,
         ]);
 
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(StatusEnum::FIRE)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($statusConfig);
+
         /** @var EquipmentConfig $equipmentConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['isFireBreakable' => false, 'isFireDestroyable' => false, 'gameConfig' => $gameConfig]);
 
@@ -108,15 +116,16 @@ class NeronMessageCycleCest
         $room4->addDoor($door3);
 
         $time = new DateTime();
-        $status = new ChargeStatus($room);
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig->setName(StatusEnum::FIRE);
+        $I->haveInRepository($statusConfig);
+        $status = new ChargeStatus($room, $statusConfig);
         $status
-            ->setName(StatusEnum::FIRE)
-            ->setVisibility(VisibilityEnum::PUBLIC)
             ->setCharge(1);
 
         $room->addStatus($status);
 
-        $cycleEvent = new StatusCycleEvent($status, $room, $daedalus, $time);
+        $cycleEvent = new StatusCycleEvent($status, $room, EventEnum::NEW_CYCLE, $time);
 
         $I->haveInRepository($status);
         $I->refreshEntities($player, $daedalus);

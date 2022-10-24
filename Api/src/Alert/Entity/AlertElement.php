@@ -7,37 +7,25 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="alert_element")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'alert_element')]
 class AlertElement
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Alert\Entity\Alert", inversedBy="alertElements")
-     */
+    #[ORM\ManyToOne(targetEntity: Alert::class, inversedBy: 'alertElements')]
     private Alert $alert;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Player\Entity\Player")
-     */
+    #[ORM\ManyToOne(targetEntity: Player::class)]
     private ?Player $player = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Place\Entity\Place")
-     */
+    #[ORM\ManyToOne(targetEntity: Place::class)]
     private ?Place $place = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Mush\Equipment\Entity\GameEquipment")
-     */
+    #[ORM\ManyToOne(targetEntity: GameEquipment::class)]
     private ?GameEquipment $equipment = null;
 
     public function getId(): ?int
@@ -45,7 +33,7 @@ class AlertElement
         return $this->id;
     }
 
-    public function setAlert(Alert $alert): AlertElement
+    public function setAlert(Alert $alert): self
     {
         $this->alert = $alert;
 
@@ -57,7 +45,7 @@ class AlertElement
         return $this->alert;
     }
 
-    public function setPlayer(Player $player): AlertElement
+    public function setPlayer(Player $player): self
     {
         $this->player = $player;
 
@@ -69,7 +57,7 @@ class AlertElement
         return $this->player;
     }
 
-    public function setPlace(Place $place): AlertElement
+    public function setPlace(Place $place): self
     {
         $this->place = $place;
 
@@ -81,7 +69,7 @@ class AlertElement
         return $this->place;
     }
 
-    public function setEquipment(GameEquipment $equipment): AlertElement
+    public function setEquipment(GameEquipment $equipment): self
     {
         $this->equipment = $equipment;
 

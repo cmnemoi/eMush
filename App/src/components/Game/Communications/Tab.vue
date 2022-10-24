@@ -1,59 +1,56 @@
 <template>
-    <div class="tab" :class="selected ? 'checked' : ''" @click="$emit('select')">
-        <Tooltip>
-            <template #tooltip-trigger>
-                <img :src="icon">
-                <span v-if="numberOfNewMessages" class="new-messages-number">{{ numberOfNewMessagesDisplayed }}</span>
-            </template>
-            <template #tooltip-content="{ formatContent }">
-                <h1 v-html="formatContent(type)" />
-                <p v-html="formatContent(description)" />
-            </template>
-        </Tooltip>
+    <div class="tab" :class="[selected ? 'checked' : '', isPirated ? 'pirated' : '']" @click="$emit('select')">
+        <img :src="icon">
+        <span v-if="numberOfNewMessages" class="new-messages-number">{{ numberOfNewMessagesDisplayed }}</span>
     </div>
 </template>
 
-<script>
-import { PRIVATE, PUBLIC, ROOM_LOG, TIPS, MUSH, FAVORITES } from '@/enums/communication.enum';
+<script lang="ts">
+
+import { ChannelType } from "@/enums/communication.enum";
+import { defineComponent } from "vue";
 import Tooltip from "@/components/Utils/ToolTip";
 
-export default {
+export default defineComponent ({
     components: { Tooltip },
     props: {
         type: String,
         selected: Boolean,
-        numberOfNewMessages: Number,
-        name: String,
-        description: String
+        isPirated: Boolean,
+        numberOfNewMessages: {
+            type: Number,
+            required: false,
+            default: 0
+        }
     },
     emits: [
         'select'
     ],
     computed: {
-        icon() {
+        icon(): string {
             switch (this.type) {
-            case FAVORITES:
+            case ChannelType.FAVORITES:
                 return require('@/assets/images/comms/fav.png');
-            case MUSH:
+            case ChannelType.MUSH:
                 return require('@/assets/images/comms/mush.png');
-            case PRIVATE:
+            case ChannelType.PRIVATE:
                 return require('@/assets/images/comms/private.png');
-            case PUBLIC:
+            case ChannelType.PUBLIC:
                 return require('@/assets/images/comms/wall.png');
-            case ROOM_LOG:
+            case ChannelType.ROOM_LOG:
                 return require('@/assets/images/comms/local.png');
-            case TIPS:
+            case ChannelType.TIPS:
                 return require('@/assets/images/comms/tip.png');
             case "new":
             default:
                 return require('@/assets/images/comms/newtab.png');
             }
         },
-        numberOfNewMessagesDisplayed() {
+        numberOfNewMessagesDisplayed(): string|number {
             return this.numberOfNewMessages > 20 ? ">20" : this.numberOfNewMessages;
         }
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -82,6 +79,8 @@ export default {
         @include corner-bezel(4.5px, 4.5px, 0);
     }
 
+
+
     &.checked,
     &.active,
     &:hover,
@@ -90,12 +89,15 @@ export default {
             background: rgba(194, 243, 252, 1);
         }
     }
+    &.pirated::after{ // Background of the tab icons
+        background: red;
+    }
 
     .new-messages-number {
         position: absolute;
         top: -6px;
         right: 3px;
-        font-size: 0.82em;
+        font-size: 0.93em;
         font-weight: 600;
         text-shadow: 0 0 3px black, 0 0 3px black, 0 0 3px black;
     }

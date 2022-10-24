@@ -8,9 +8,11 @@ use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Normalizer\AlertNormalizer;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Entity\CharacterConfig;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationService;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 
@@ -18,7 +20,7 @@ class AlertNormalizerTest extends TestCase
 {
     private AlertNormalizer $normalizer;
 
-    /** @var TranslationService | Mockery\Mock */
+    /** @var TranslationService|Mockery\Mock */
     private TranslationService $translationService;
 
     /**
@@ -41,19 +43,24 @@ class AlertNormalizerTest extends TestCase
 
     public function testNormalize()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
         $alert = new Alert();
-        $alert->setName('outcast');
+        $alert->setName('outcast')->setDaedalus($daedalus);
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('outcast.name', [], 'alerts')
+            ->with('outcast.name', [], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated one')
             ->once()
         ;
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('outcast.description', [], 'alerts')
+            ->with('outcast.description', [], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated two')
             ->once()
         ;
@@ -69,8 +76,10 @@ class AlertNormalizerTest extends TestCase
 
     public function testNormalizeHullAlert()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
         $daedalus = new Daedalus();
-        $daedalus->setHull(5);
+        $daedalus->setHull(5)->setGameConfig($gameConfig);
 
         $alert = new Alert();
         $alert
@@ -80,14 +89,14 @@ class AlertNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('low_hull.name', ['quantity' => 5], 'alerts')
+            ->with('low_hull.name', ['quantity' => 5], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated one')
             ->once()
         ;
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('low_hull.description', ['quantity' => 5], 'alerts')
+            ->with('low_hull.description', ['quantity' => 5], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated two')
             ->once()
         ;
@@ -103,8 +112,10 @@ class AlertNormalizerTest extends TestCase
 
     public function testNormalizeFireAlert()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
         $daedalus = new Daedalus();
-        $daedalus->setHull(5);
+        $daedalus->setHull(5)->setGameConfig($gameConfig);
 
         $characterConfig = new CharacterConfig();
         $characterConfig->setName('andie');
@@ -137,21 +148,21 @@ class AlertNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('fire.name', ['quantity' => 2], 'alerts')
+            ->with('fire.name', ['quantity' => 2], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated one')
             ->once()
         ;
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('fire.description', ['quantity' => 2], 'alerts')
+            ->with('fire.description', ['quantity' => 2], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated two')
             ->once()
         ;
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('fire.report', ['character' => 'andie', 'place' => 'room1'], 'alerts')
+            ->with('fire.report', ['character' => 'andie', 'place' => 'room1'], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated three')
             ->once()
         ;

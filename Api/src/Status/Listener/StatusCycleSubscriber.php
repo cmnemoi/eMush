@@ -6,46 +6,56 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Service\ChargeStrategyServiceInterface;
 use Mush\Status\Service\StatusCycleHandlerService;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class StatusCycleSubscriber implements EventSubscriberInterface
 {
     private ChargeStrategyServiceInterface $chargeStrategyService;
     private StatusCycleHandlerService $cycleHandlerService;
-    private StatusServiceInterface $statusService;
 
     public function __construct(
         ChargeStrategyServiceInterface $chargeStrategy,
         StatusCycleHandlerService $cycleHandlerService,
-        StatusServiceInterface $statusService
     ) {
         $this->chargeStrategyService = $chargeStrategy;
         $this->cycleHandlerService = $cycleHandlerService;
-        $this->statusService = $statusService;
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
             StatusCycleEvent::STATUS_NEW_CYCLE => 'onNewCycle',
+            StatusCycleEvent::STATUS_NEW_DAY => 'onNewDay',
         ];
     }
 
     public function onNewCycle(StatusCycleEvent $event): void
     {
-        if (!($status = $event->getStatus())) {
-            return;
-        }
+        $status = $event->getStatus();
 
         if ($status instanceof ChargeStatus && ($strategyName = $status->getStrategy())) {
             if ($strategy = $this->chargeStrategyService->getStrategy($strategyName)) {
-                $strategy->execute($status, $event->getDaedalus());
+                $strategy->execute($status, $event->getReason());
             }
         }
 
         if ($cycleHandler = $this->cycleHandlerService->getStatusCycleHandler($status)) {
-            $cycleHandler->handleNewCycle($status, $event->getDaedalus(), $event->getHolder(), $event->getTime());
+            $cycleHandler->handleNewCycle($status, $event->getHolder(), $event->getTime());
+        }
+    }
+
+    public function onNewDay(StatusCycleEvent $event): void
+    {
+        $status = $event->getStatus();
+
+        if ($status instanceof ChargeStatus && ($strategyName = $status->getStrategy())) {
+            if ($strategy = $this->chargeStrategyService->getStrategy($strategyName)) {
+                $strategy->execute($status, $event->getReason());
+            }
+        }
+
+        if ($cycleHandler = $this->cycleHandlerService->getStatusCycleHandler($status)) {
+            $cycleHandler->handleNewCycle($status, $event->getHolder(), $event->getTime());
         }
     }
 }

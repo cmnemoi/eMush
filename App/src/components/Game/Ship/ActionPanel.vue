@@ -1,29 +1,61 @@
 <template>
     <div class="action-panel">
         <ActionButton
-            v-for="(action, key) in actions"
+            v-for="(action, key) in getActions"
             :key="key"
-            class="action-button"
+            class="action-buttons"
             :action="action"
-            @click="$emit('clickOnAction', action)"
+            @click="executeTargetAction(action)"
         />
     </div>
 </template>
 
-<script>
-import ActionButton from "@/components/Utils/ActionButton";
+<script lang="ts">
+import ActionButton from "@/components/Utils/ActionButton.vue";
+import { defineComponent } from "vue";
+import { mapActions, mapGetters } from "vuex";
+import { Player } from "@/entities/Player";
+import { Action } from "@/entities/Action";
+import { Equipment } from "@/entities/Equipment";
 
-export default {
+interface AlertsState {
+    loading: boolean,
+    selectedTarget: Equipment | Player
+}
+
+export default defineComponent ({
     components: {
         ActionButton
+    },
+    computed: {
+        ...mapGetters('room', [
+            'selectedTarget'
+        ]),
+        getActions(): Action[]
+        {
+            if (this.selectedTarget === null) { return [];}
+            return this.selectedTarget.actions;
+        },
+        ...mapGetters('player', [
+            'player'
+        ])
     },
     props: {
         actions: Array
     },
-    emits: [
-        "clickOnAction"
-    ]
-};
+    methods: {
+        ...mapActions({
+            'executeAction': 'action/executeAction'
+        }),
+        async executeTargetAction(action: Action) {
+            if (this.selectedTarget === this.player) {
+                await this.executeAction({ target: null, action });
+            } else {
+                await this.executeAction({ target: this.selectedTarget, action });
+            }
+        }
+    }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -52,7 +84,7 @@ export default {
         border-right: 8px solid transparent;
     }
 
-    .action-button {
+    .action-buttons {
         flex-basis: 48%;
         margin: 0;
         display: inline-block;

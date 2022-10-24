@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
-use Mush\Action\Entity\ActionParameter;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Reach;
@@ -12,9 +11,11 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\RoomLog\Enum\VisibilityEnum;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -30,15 +31,15 @@ class OpenCapsule extends AbstractAction
 
     protected string $name = ActionEnum::OPEN;
 
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    private RandomServiceInterface $randomService;
+    protected RandomServiceInterface $randomService;
+    protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
+        GameEquipmentServiceInterface $gameEquipmentService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -46,11 +47,11 @@ class OpenCapsule extends AbstractAction
             $validator
         );
 
-        $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
+        $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    protected function support(?ActionParameter $parameter): bool
+    protected function support(?LogParameterInterface $parameter): bool
     {
         return $parameter instanceof GameEquipment;
     }
@@ -60,28 +61,34 @@ class OpenCapsule extends AbstractAction
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
     }
 
-    protected function applyEffects(): ActionResult
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
     {
         /** @var GameEquipment $parameter */
         $parameter = $this->parameter;
+        $time = new \DateTime();
 
-        //remove the space capsule
-        $equipmentEvent = new EquipmentEvent($parameter, VisibilityEnum::HIDDEN, new \DateTime());
+        // remove the space capsule
+        $equipmentEvent = new InteractWithEquipmentEvent(
+            $parameter,
+            $this->player,
+            VisibilityEnum::HIDDEN,
+            $this->getActionName(),
+            $time
+        );
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        //Get the content
+        // Get the content
         $contentName = $this->randomService->getSingleRandomElementFromProbaArray(self::$capsuleContent);
-
-        $contentEquipment = $this
-            ->gameEquipmentService
-            ->createGameEquipmentFromName($contentName, $this->player->getDaedalus())
-        ;
-        $equipmentEvent = new EquipmentEvent($contentEquipment, VisibilityEnum::HIDDEN, new \DateTime());
-        $equipmentEvent->setPlayer($this->player)->setPlace($this->player->getPlace());
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
-
-        $this->gameEquipmentService->persist($contentEquipment);
-
-        return new Success($contentEquipment);
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            $contentName,
+            $this->player,
+            $this->getActionName(),
+            VisibilityEnum::PUBLIC
+        );
     }
 }

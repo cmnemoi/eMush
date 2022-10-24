@@ -6,66 +6,43 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Repository\RoomLogRepository;
 
-/**
- * Class RoomLog.
- *
- * @ORM\Entity(repositoryClass="Mush\RoomLog\Repository\RoomLogRepository")
- */
+#[ORM\Entity(repositoryClass: RoomLogRepository::class)]
 class RoomLog
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer", length=255, nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Place\Entity\Place")
-     */
+    #[ORM\ManyToOne(targetEntity: Place::class)]
     private Place $place;
 
-    /**
-     * @ORM\ManyToOne (targetEntity="Mush\Player\Entity\Player")
-     */
+    #[ORM\ManyToOne(targetEntity: Player::class)]
     private ?Player $player;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $visibility;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $log;
 
-    /**
-     * @ORM\Column(type="array", nullable=false)
-     */
+    #[ORM\Column(type: 'array', nullable: false)]
     private array $parameters;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $type;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=false)
-     */
+    #[ORM\Column(type: 'datetime', nullable: false)]
     private \DateTime $date;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $day;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $cycle;
 
     public function getId(): int
@@ -78,10 +55,7 @@ class RoomLog
         return $this->place;
     }
 
-    /**
-     * @return static
-     */
-    public function setPlace(Place $place): RoomLog
+    public function setPlace(Place $place): static
     {
         $this->place = $place;
 
@@ -93,10 +67,7 @@ class RoomLog
         return $this->player;
     }
 
-    /**
-     * @return static
-     */
-    public function setPlayer(?Player $player): RoomLog
+    public function setPlayer(?Player $player): static
     {
         $this->player = $player;
 
@@ -108,10 +79,7 @@ class RoomLog
         return $this->visibility;
     }
 
-    /**
-     * @return static
-     */
-    public function setVisibility(string $visibility): RoomLog
+    public function setVisibility(string $visibility): static
     {
         $this->visibility = $visibility;
 
@@ -123,10 +91,7 @@ class RoomLog
         return $this->log;
     }
 
-    /**
-     * @return static
-     */
-    public function setLog(string $log): RoomLog
+    public function setLog(string $log): static
     {
         $this->log = $log;
 
@@ -138,10 +103,7 @@ class RoomLog
         return $this->parameters;
     }
 
-    /**
-     * @return static
-     */
-    public function setParameters(array $parameters): RoomLog
+    public function setParameters(array $parameters): static
     {
         $this->parameters = $parameters;
 
@@ -153,7 +115,7 @@ class RoomLog
         return $this->type;
     }
 
-    public function setType(string $type): RoomLog
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -165,10 +127,7 @@ class RoomLog
         return $this->date;
     }
 
-    /**
-     * @return static
-     */
-    public function setDate(\DateTime $date): RoomLog
+    public function setDate(\DateTime $date): static
     {
         $this->date = $date;
 
@@ -180,10 +139,7 @@ class RoomLog
         return $this->day;
     }
 
-    /**
-     * @return static
-     */
-    public function setDay(int $day): RoomLog
+    public function setDay(int $day): static
     {
         $this->day = $day;
 
@@ -195,10 +151,7 @@ class RoomLog
         return $this->cycle;
     }
 
-    /**
-     * @return static
-     */
-    public function setCycle(int $cycle): RoomLog
+    public function setCycle(int $cycle): static
     {
         $this->cycle = $cycle;
 

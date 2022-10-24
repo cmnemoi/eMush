@@ -17,12 +17,14 @@ use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationService;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\LogDeclinationEnum;
 use PHPUnit\Framework\TestCase;
 
 class DiseaseMessageServiceTest extends TestCase
@@ -82,7 +84,13 @@ class DiseaseMessageServiceTest extends TestCase
 
     public function testCoprolaliaPlayerNoTrigger()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
         $player = new Player();
+        $player->setDaedalus($daedalus);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::COPROLALIA_MESSAGES);
         $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
@@ -110,7 +118,13 @@ class DiseaseMessageServiceTest extends TestCase
 
     public function testCoprolaliaPlayerTriggerReplace()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
         $player = new Player();
+        $player->setDaedalus($daedalus);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::COPROLALIA_MESSAGES);
         $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
@@ -137,14 +151,16 @@ class DiseaseMessageServiceTest extends TestCase
             ->shouldReceive('translate')
             ->with(
                 DiseaseMessagesEnum::REPLACE_COPROLALIA, [
-                    'version' => 1,
-                    'word' => 1,
-                    'animal' => 1,
-                    'prefix' => 1,
-                    'adjective' => 1,
-                    'balls' => 1,
+                    LogDeclinationEnum::VERSION => 1,
+                    LogDeclinationEnum::WORD_COPROLALIA => 1,
+                    LogDeclinationEnum::ANIMAL_COPROLALIA => 1,
+                    LogDeclinationEnum::PREFIX_COPROLALIA => 1,
+                    LogDeclinationEnum::ADJECTIVE_COPROLALIA => 1,
+                    LogDeclinationEnum::BALLS_COPROLALIA => 1,
                     ],
-                'disease_message')
+                'disease_message',
+                LanguageEnum::FRENCH
+            )
             ->andReturn('modified message')
             ->once()
         ;
@@ -157,7 +173,13 @@ class DiseaseMessageServiceTest extends TestCase
 
     public function testCoprolaliaPlayerTriggerPre()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
         $player = new Player();
+        $player->setDaedalus($daedalus);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::COPROLALIA_MESSAGES);
         $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
@@ -185,14 +207,16 @@ class DiseaseMessageServiceTest extends TestCase
             ->shouldReceive('translate')
             ->with(
                 DiseaseMessagesEnum::PRE_COPROLALIA, [
-                'version' => 1,
-                'word' => 1,
-                'animal' => 1,
-                'prefix' => 1,
-                'adjective' => 1,
-                'balls' => 1,
+                LogDeclinationEnum::VERSION => 1,
+                LogDeclinationEnum::WORD_COPROLALIA => 1,
+                LogDeclinationEnum::ANIMAL_COPROLALIA => 1,
+                LogDeclinationEnum::PREFIX_COPROLALIA => 1,
+                LogDeclinationEnum::ADJECTIVE_COPROLALIA => 1,
+                LogDeclinationEnum::BALLS_COPROLALIA => 1,
             ],
-                'disease_message')
+                'disease_message',
+                LanguageEnum::FRENCH
+            )
             ->andReturn('prefix, ')
             ->once()
         ;
@@ -205,7 +229,13 @@ class DiseaseMessageServiceTest extends TestCase
 
     public function testParanoiaPlayerTriggerReplaceAware()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
         $player = new Player();
+        $player->setDaedalus($daedalus);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
         $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
@@ -235,11 +265,13 @@ class DiseaseMessageServiceTest extends TestCase
             ->shouldReceive('translate')
             ->with(
                 DiseaseMessagesEnum::REPLACE_PARANOIA, [
-                'version' => 1,
-                'paranoia_version4' => 1,
-                'paranoia_version6' => 1,
+                LogDeclinationEnum::VERSION => 1,
+                LogDeclinationEnum::PARANOIA_VERSION_4 => 1,
+                LogDeclinationEnum::PARANOIA_VERSION_6 => 1,
             ],
-                'disease_message')
+                'disease_message',
+                LanguageEnum::FRENCH
+            )
             ->andReturn('modified message')
             ->once()
         ;
@@ -252,7 +284,13 @@ class DiseaseMessageServiceTest extends TestCase
 
     public function testParanoiaPlayerTriggerReplaceNotAware()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
         $player = new Player();
+        $player->setDaedalus($daedalus);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
         $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
@@ -282,11 +320,13 @@ class DiseaseMessageServiceTest extends TestCase
             ->shouldReceive('translate')
             ->with(
                 DiseaseMessagesEnum::REPLACE_PARANOIA, [
-                'version' => 1,
-                'paranoia_version4' => 1,
-                'paranoia_version6' => 1,
+                LogDeclinationEnum::VERSION => 1,
+                LogDeclinationEnum::PARANOIA_VERSION_4 => 1,
+                LogDeclinationEnum::PARANOIA_VERSION_6 => 1,
             ],
-                'disease_message')
+                'disease_message',
+                LanguageEnum::FRENCH
+            )
             ->andReturn('modified message')
             ->once()
         ;
@@ -310,7 +350,10 @@ class DiseaseMessageServiceTest extends TestCase
         $characterConfig2->setName(CharacterEnum::TERRENCE);
 
         $gameConfig = new GameConfig();
-        $gameConfig->setCharactersConfig(new CharacterConfigCollection([$characterConfig1, $characterConfig2]));
+        $gameConfig
+            ->setCharactersConfig(new CharacterConfigCollection([$characterConfig1, $characterConfig2]))
+            ->setLanguage(LanguageEnum::FRENCH)
+        ;
 
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
@@ -353,11 +396,13 @@ class DiseaseMessageServiceTest extends TestCase
             ->with(
                 DiseaseMessagesEnum::ACCUSE_PARANOIA, [
                 'character' => CharacterEnum::TERRENCE,
-                'version' => 1,
-                'paranoia_version4' => 1,
-                'paranoia_version6' => 1,
+                LogDeclinationEnum::VERSION => 1,
+                LogDeclinationEnum::PARANOIA_VERSION_4 => 1,
+                LogDeclinationEnum::PARANOIA_VERSION_6 => 1,
             ],
-                'disease_message')
+                'disease_message',
+                LanguageEnum::FRENCH
+            )
             ->andReturn('modified message')
             ->once()
         ;

@@ -31,22 +31,35 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
 
     public function normalize($object, string $format = null, array $context = [])
     {
+        /** @var DiseaseConfig $diseaseConfig */
         $diseaseConfig = $object->getDiseaseConfig();
 
-        $description = $this->translationService->translate("{$diseaseConfig->getName()}.description", [], 'disease');
+        $language = $diseaseConfig->getGameConfig()->getLanguage();
 
-        $description = $this->getSymptomEffects($diseaseConfig, $description);
-        $description = $this->getModifierEffects($diseaseConfig, $description);
+        $description = $this->translationService->translate(
+            "{$diseaseConfig->getName()}.description",
+            [],
+            'disease',
+            $language
+        );
+
+        $description = $this->getSymptomEffects($diseaseConfig, $description, $language);
+        $description = $this->getModifierEffects($diseaseConfig, $description, $language);
 
         return [
             'key' => $diseaseConfig->getName(),
-            'name' => $this->translationService->translate($diseaseConfig->getName() . '.name', [], 'disease'),
+            'name' => $this->translationService->translate(
+                $diseaseConfig->getName() . '.name',
+                [],
+                'disease',
+                $language
+            ),
             'type' => $diseaseConfig->getType(),
             'description' => $description,
        ];
     }
 
-    private function getSymptomEffects(DiseaseConfig $diseaseConfig, string $description): string
+    private function getSymptomEffects(DiseaseConfig $diseaseConfig, string $description, string $language): string
     {
         // first get symptom effects
         $symptomEffects = [];
@@ -62,7 +75,12 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
                 $chance = 100;
             }
 
-            $effect = $this->translationService->translate($name . '.description', ['chance' => $chance], 'modifiers');
+            $effect = $this->translationService->translate(
+                $name . '.description',
+                ['chance' => $chance],
+                'modifiers',
+                $language
+            );
 
             if (!in_array($effect, $symptomEffects)) {
                 array_push($symptomEffects, $effect);
@@ -79,7 +97,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         return $description;
     }
 
-    private function getModifierEffects(DiseaseConfig $diseaseConfig, string $description): string
+    private function getModifierEffects(DiseaseConfig $diseaseConfig, string $description, string $language): string
     {
         // Get Modifier effect description
         /** @var ModifierConfig $modifierConfig */
@@ -115,7 +133,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
 
             $chance = $this->getModifierChance($modifierConfig);
             $action = $this->getModifierAction($modifierConfig);
-            $action = $this->translateAction($action);
+            $action = $this->translateAction($action, $language);
 
             $parameters = [
                 'chance' => $chance,
@@ -124,7 +142,12 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
                 'quantity' => abs($delta),
             ];
 
-            $effect = $this->translationService->translate($key . '.description', $parameters, 'modifiers');
+            $effect = $this->translationService->translate(
+                $key . '.description',
+                $parameters,
+                'modifiers',
+                $language
+            );
 
             if ($effect) {
                 $description = $description . '//' . $effect;
@@ -156,10 +179,10 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         }
     }
 
-    private function translateAction(?string $action): string
+    private function translateAction(?string $action, $language): string
     {
         if ($action) {
-            return $this->translationService->translate($action . 'name', [], 'actions');
+            return $this->translationService->translate($action . 'name', [], 'actions', $language);
         } else {
             return '';
         }

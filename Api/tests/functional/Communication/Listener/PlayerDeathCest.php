@@ -9,6 +9,7 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -28,7 +29,7 @@ class PlayerDeathCest
     public function testDispatchPlayerDeath(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
+        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1, 'language' => LanguageEnum::FRENCH]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);

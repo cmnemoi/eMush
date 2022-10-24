@@ -7,6 +7,7 @@ use Mockery;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\DiseaseMessagesEnum;
 use Mush\Communication\Normalizer\MessageNormalizer;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
@@ -15,7 +16,9 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -51,11 +54,16 @@ class MessageNormalizerTest extends TestCase
 
     public function testNormalizePlayerMessage()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
 
         $player = new Player();
-        $player->setCharacterConfig($playerConfig);
+        $player->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
 
         $createdAt = new \DateTime();
 
@@ -68,7 +76,10 @@ class MessageNormalizerTest extends TestCase
 
         $this->translationService->shouldReceive('translate')->andReturn('translatedName');
 
-        $context = ['currentPlayer' => new Player()];
+        $currentPlayer = new Player();
+        $currentPlayer->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+
+        $context = ['currentPlayer' => $currentPlayer];
         $normalizedData = $this->normalizer->normalize($message, null, $context);
 
         $this->assertEquals([
@@ -82,10 +93,16 @@ class MessageNormalizerTest extends TestCase
 
     public function testNormalizeNeronMessage()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
 
         $neron = new Neron();
+        $neron->setDaedalus($daedalus);
 
         $createdAt = new \DateTime();
 
@@ -103,16 +120,19 @@ class MessageNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('message', $message->getTranslationParameters(), 'neron')
+            ->with('message', $message->getTranslationParameters(), 'neron', LanguageEnum::FRENCH)
             ->andReturn('translatedMessage')
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with(CharacterEnum::NERON . '.name', [], 'characters')
+            ->with(CharacterEnum::NERON . '.name', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translatedName')
         ;
 
-        $context = ['currentPlayer' => new Player()];
+        $currentPlayer = new Player();
+        $currentPlayer->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+
+        $context = ['currentPlayer' => $currentPlayer];
         $normalizedData = $this->normalizer->normalize($message, null, $context);
 
         $this->assertEquals([
@@ -126,16 +146,22 @@ class MessageNormalizerTest extends TestCase
 
     public function testNormalizeNeronMessageWithChild()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
 
         $neron = new Neron();
+        $neron->setDaedalus($daedalus);
 
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
 
         $player = new Player();
-        $player->setCharacterConfig($playerConfig);
+        $player->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
 
         $createdAt = new \DateTime();
 
@@ -156,24 +182,27 @@ class MessageNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with(CharacterEnum::NERON . '.name', [], 'characters')
+            ->with(CharacterEnum::NERON . '.name', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translatedName')
             ->once()
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('name' . '.name', [], 'characters')
+            ->with('name' . '.name', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translated player name')
             ->once()
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('message parent', [], 'neron')
+            ->with('message parent', [], 'neron', LanguageEnum::FRENCH)
             ->andReturn('translated message parent')
             ->once()
         ;
 
-        $context = ['currentPlayer' => new Player()];
+        $currentPlayer = new Player();
+        $currentPlayer->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+
+        $context = ['currentPlayer' => $currentPlayer];
         $normalizedData = $this->normalizer->normalize($neronMessage, null, $context);
 
         $this->assertEquals([
@@ -193,11 +222,16 @@ class MessageNormalizerTest extends TestCase
 
     public function testNormalizeDeafPlayerMessage()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
 
         $player = new Player();
-        $player->setCharacterConfig($playerConfig);
+        $player->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::DEAF);
         $diseaseConfig = new DiseaseConfig();
@@ -221,13 +255,13 @@ class MessageNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('name.name', [], 'characters')
+            ->with('name.name', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translatedName')
         ;
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with(DiseaseMessagesEnum::DEAF, [], 'disease_message')
+            ->with(DiseaseMessagesEnum::DEAF, [], 'disease_message', LanguageEnum::FRENCH)
             ->andReturn('...')
         ;
 
@@ -245,11 +279,16 @@ class MessageNormalizerTest extends TestCase
 
     public function testNormalizeParanoiacPlayerMessage()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
 
         $player = new Player();
-        $player->setCharacterConfig($playerConfig);
+        $player->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
 
         $otherPlayer = new Player();
         $otherPlayer->setCharacterConfig($playerConfig);
@@ -280,7 +319,7 @@ class MessageNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('name.name', [], 'characters')
+            ->with('name.name', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translatedName')
         ;
 
@@ -298,11 +337,16 @@ class MessageNormalizerTest extends TestCase
 
     public function testNormalizeParanoiacPlayerMessageSelf()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
 
         $player = new Player();
-        $player->setCharacterConfig($playerConfig);
+        $player->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
         $diseaseConfig = new DiseaseConfig();
@@ -330,7 +374,7 @@ class MessageNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('name.name', [], 'characters')
+            ->with('name.name', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translatedName')
         ;
 

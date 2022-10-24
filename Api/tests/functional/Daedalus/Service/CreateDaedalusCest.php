@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierReachEnum;
@@ -189,7 +190,7 @@ class CreateDaedalusCest
             ->setCyclePerGameDay(8)
             ->setCycleLength(60 * 3)
             ->setTimeZone('Europe/Paris')
-            ->setLanguage('Fr-fr')
+            ->setLanguage(LanguageEnum::FRENCH)
             ->setMaxNumberPrivateChannel(3)
             ->setInitHealthPoint(14)
             ->setMaxHealthPoint(14)

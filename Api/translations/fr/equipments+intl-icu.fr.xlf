@@ -10,12 +10,12 @@
                 <source>antenna.short_name</source>
                 <target>Antenne</target>
             </segment>
-            <segment id="plural_name">
-                <source>antenna.plural_name</source>
+            <segment id="plural">
+                <source>antenna.plural</source>
                 <target>Antennes</target>
             </segment>
-            <segment id="genre">
-                <source>antenna.genre</source>
+            <segment id="gender">
+                <source>antenna.gender</source>
                 <target>female</target>
             </segment>
             <segment id="first_letter">
@@ -36,12 +36,12 @@
                 <source>astro_terminal.short_name</source>
                 <target>Terminal Astro</target>
             </segment>
-            <segment id="plural_name">
-                <source>astro_terminal.plural_name</source>
+            <segment id="plural">
+                <source>astro_terminal.plural</source>
                 <target>Terminaux Astro</target>
             </segment>
-            <segment id="genre">
-                <source>astro_terminal.genre</source>
+            <segment id="gender">
+                <source>astro_terminal.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -62,12 +62,12 @@
                 <source>auxiliary_terminal.short_name</source>
                 <target>Terminal Auxiliaire</target>
             </segment>
-            <segment id="plural_name">
-                <source>auxiliary_terminal.plural_name</source>
+            <segment id="plural">
+                <source>auxiliary_terminal.plural</source>
                 <target>Terminaux Auxiliaires</target>
             </segment>
-            <segment id="genre">
-                <source>auxiliary_terminal.genre</source>
+            <segment id="gender">
+                <source>auxiliary_terminal.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -88,12 +88,12 @@
                 <source>bed.short_name</source>
                 <target>Lit</target>
             </segment>
-            <segment id="plural_name">
-                <source>bed.plural_name</source>
+            <segment id="plural">
+                <source>bed.plural</source>
                 <target>Lits</target>
             </segment>
-            <segment id="genre">
-                <source>bed.genre</source>
+            <segment id="gender">
+                <source>bed.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -114,12 +114,12 @@
                 <source>medlab_bed.short_name</source>
                 <target>Lit</target>
             </segment>
-            <segment id="plural_name">
-                <source>medlab_bed.plural_name</source>
+            <segment id="plural">
+                <source>medlab_bed.plural</source>
                 <target>Lits</target>
             </segment>
-            <segment id="genre">
-                <source>medlab_bed.genre</source>
+            <segment id="gender">
+                <source>medlab_bed.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -140,12 +140,12 @@
                 <source>bios_terminal.short_name</source>
                 <target>Terminal BIOS</target>
             </segment>
-            <segment id="plural_name">
-                <source>bios_terminal.plural_name</source>
+            <segment id="plural">
+                <source>bios_terminal.plural</source>
                 <target>Terminaux BIOS</target>
             </segment>
-            <segment id="genre">
-                <source>bios_terminal.genre</source>
+            <segment id="gender">
+                <source>bios_terminal.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -166,12 +166,12 @@
                 <source>calculator.short_name</source>
                 <target>Calculateur</target>
             </segment>
-            <segment id="plural_name">
-                <source>calculator.plural_name</source>
+            <segment id="plural">
+                <source>calculator.plural</source>
                 <target>Calculateurs</target>
             </segment>
-            <segment id="genre">
-                <source>calculator.genre</source>
+            <segment id="gender">
+                <source>calculator.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -192,12 +192,12 @@
                 <source>coffee_machine.short_name</source>
                 <target>Machine à café</target>
             </segment>
-            <segment id="plural_name">
-                <source>coffee_machine.plural_name</source>
+            <segment id="plural">
+                <source>coffee_machine.plural</source>
                 <target>Machines à café</target>
             </segment>
-            <segment id="genre">
-                <source>coffee_machine.genre</source>
+            <segment id="gender">
+                <source>coffee_machine.gender</source>
                 <target>female</target>
             </segment>
             <segment id="first_letter">
@@ -218,12 +218,12 @@
                 <source>combustion_chamber.short_name</source>
                 <target>Chambre de Combustion</target>
             </segment>
-            <segment id="plural_name">
-                <source>combustion_chamber.plural_name</source>
+            <segment id="plural">
+                <source>combustion_chamber.plural</source>
                 <target>Chambres de Combustion</target>
             </segment>
-            <segment id="genre">
-                <source>combustion_chamber.genre</source>
+            <segment id="gender">
+                <source>combustion_chamber.gender</source>
                 <target>female</target>
             </segment>
             <segment id="first_letter">
@@ -244,12 +244,12 @@
                 <source>command_terminal.short_name</source>
                 <target>Terminal de Commandement</target>
             </segment>
-            <segment id="plural_name">
-                <source>command_terminal.plural_name</source>
+            <segment id="plural">
+                <source>command_terminal.plural</source>
                 <target>Terminaux de Commandement</target>
             </segment>
-            <segment id="genre">
-                <source>command_terminal.genre</source>
+            <segment id="gender">
+                <source>command_terminal.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -270,12 +270,12 @@
                 <source>communication_center.short_name</source>
                 <target>Centre de Communication</target>
             </segment>
-            <segment id="plural_name">
-                <source>communication_center.plural_name</source>
+            <segment id="plural">
+                <source>communication_center.plural</source>
                 <target>Centres de Communication</target>
             </segment>
-            <segment id="genre">
-                <source>communication_center.genre</source>
+            <segment id="gender">
+                <source>communication_center.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -296,12 +296,12 @@
                 <source>cryo_module.short_name</source>
                 <target>Module Cryo®</target>
             </segment>
-            <segment id="plural_name">
-                <source>cryo_module.plural_name</source>
+            <segment id="plural">
+                <source>cryo_module.plural</source>
                 <target>Modules Cryo®</target>
             </segment>
-            <segment id="genre">
-                <source>cryo_module.genre</source>
+            <segment id="gender">
+                <source>cryo_module.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -322,12 +322,12 @@
                 <source>door.short_name</source>
                 <target>Porte</target>
             </segment>
-            <segment id="plural_name">
-                <source>door.plural_name</source>
+            <segment id="plural">
+                <source>door.plural</source>
                 <target>Portes</target>
             </segment>
-            <segment id="genre">
-                <source>door.genre</source>
+            <segment id="gender">
+                <source>door.gender</source>
                 <target>female</target>
             </segment>
             <segment id="first_letter">
@@ -348,12 +348,12 @@
                 <source>dynarcade.short_name</source>
                 <target>Dynacarde</target>
             </segment>
-            <segment id="plural_name">
-                <source>dynarcade.plural_name</source>
+            <segment id="plural">
+                <source>dynarcade.plural</source>
                 <target>Dynacardes</target>
             </segment>
-            <segment id="genre">
-                <source>dynarcade.genre</source>
+            <segment id="gender">
+                <source>dynarcade.gender</source>
                 <target>female</target>
             </segment>
             <segment id="first_letter">
@@ -374,12 +374,12 @@
                 <source>emergency_reactor.short_name</source>
                 <target>Réacteur d'urgence</target>
             </segment>
-            <segment id="plural_name">
-                <source>emergency_reactor.plural_name</source>
+            <segment id="plural">
+                <source>emergency_reactor.plural</source>
                 <target>Réacteurs d'urgence</target>
             </segment>
-            <segment id="genre">
-                <source>emergency_reactor.genre</source>
+            <segment id="gender">
+                <source>emergency_reactor.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -400,12 +400,12 @@
                 <source>fuel_tank.short_name</source>
                 <target>Réservoir de Fuel</target>
             </segment>
-            <segment id="plural_name">
-                <source>fuel_tank.plural_name</source>
+            <segment id="plural">
+                <source>fuel_tank.plural</source>
                 <target>Réservoirs de Fuel</target>
             </segment>
-            <segment id="genre">
-                <source>fuel_tank.genre</source>
+            <segment id="gender">
+                <source>fuel_tank.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -426,12 +426,12 @@
                 <source>gravity_simulator.short_name</source>
                 <target>Simulateur de Gravité</target>
             </segment>
-            <segment id="plural_name">
-                <source>gravity_simulator.plural_name</source>
+            <segment id="plural">
+                <source>gravity_simulator.plural</source>
                 <target>Simulateurs de Gravité</target>
             </segment>
-            <segment id="genre">
-                <source>gravity_simulator.genre</source>
+            <segment id="gender">
+                <source>gravity_simulator.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -452,12 +452,12 @@
                 <source>kitchen.short_name</source>
                 <target>Cuisine</target>
             </segment>
-            <segment id="plural_name">
-                <source>kitchen.plural_name</source>
+            <segment id="plural">
+                <source>kitchen.plural</source>
                 <target>Cuisines</target>
             </segment>
-            <segment id="genre">
-                <source>kitchen.genre</source>
+            <segment id="gender">
+                <source>kitchen.gender</source>
                 <target>female</target>
             </segment>
             <segment id="first_letter">
@@ -478,12 +478,12 @@
                 <source>reactor_lateral.short_name</source>
                 <target>Réacteur Latéral</target>
             </segment>
-            <segment id="plural_name">
-                <source>reactor_lateral.plural_name</source>
+            <segment id="plural">
+                <source>reactor_lateral.plural</source>
                 <target>Réacteurs Latéraux</target>
             </segment>
-            <segment id="genre">
-                <source>reactor_lateral.genre</source>
+            <segment id="gender">
+                <source>reactor_lateral.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -504,12 +504,12 @@
                 <source>mycoscan.short_name</source>
                 <target>Mycoscan</target>
             </segment>
-            <segment id="plural_name">
-                <source>mycoscan.plural_name</source>
+            <segment id="plural">
+                <source>mycoscan.plural</source>
                 <target>Mycoscans</target>
             </segment>
-            <segment id="genre">
-                <source>mycoscan.genre</source>
+            <segment id="gender">
+                <source>mycoscan.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -530,12 +530,12 @@
                 <source>narcotic_distiller.short_name</source>
                 <target>Distilateur de Stupéfiants</target>
             </segment>
-            <segment id="plural_name">
-                <source>narcotic_distiller.plural_name</source>
+            <segment id="plural">
+                <source>narcotic_distiller.plural</source>
                 <target>Distilateurs de Stupéfiants</target>
             </segment>
-            <segment id="genre">
-                <source>narcotic_distiller.genre</source>
+            <segment id="gender">
+                <source>narcotic_distiller.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -556,12 +556,12 @@
                 <source>neron_core.short_name</source>
                 <target>Cœur de NERON</target>
             </segment>
-            <segment id="plural_name">
-                <source>neron_core.plural_name</source>
+            <segment id="plural">
+                <source>neron_core.plural</source>
                 <target>Cœurs de NERON</target>
             </segment>
-            <segment id="genre">
-                <source>neron_core.genre</source>
+            <segment id="gender">
+                <source>neron_core.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -582,12 +582,12 @@
                 <source>oxygen_tank.short_name</source>
                 <target>Réservoir d'Oxygène</target>
             </segment>
-            <segment id="plural_name">
-                <source>oxygen_tank.plural_name</source>
+            <segment id="plural">
+                <source>oxygen_tank.plural</source>
                 <target>Réservoirs d'Oxygène</target>
             </segment>
-            <segment id="genre">
-                <source>oxygen_tank.genre</source>
+            <segment id="gender">
+                <source>oxygen_tank.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -608,12 +608,12 @@
                 <source>pasiphae.short_name</source>
                 <target>Pasiphae</target>
             </segment>
-            <segment id="plural_name">
-                <source>pasiphae.plural_name</source>
+            <segment id="plural">
+                <source>pasiphae.plural</source>
                 <target>Pasiphae</target>
             </segment>
-            <segment id="genre">
-                <source>pasiphae.genre</source>
+            <segment id="gender">
+                <source>pasiphae.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -634,12 +634,12 @@
                 <source>patrol_ship_alpha_2_wallis.short_name</source>
                 <target>Patrouilleur</target>
             </segment>
-            <segment id="plural_name">
-                <source>patrol_ship_alpha_2_wallis.plural_name</source>
+            <segment id="plural">
+                <source>patrol_ship_alpha_2_wallis.plural</source>
                 <target>Patrouilleurs</target>
             </segment>
-            <segment id="genre">
-                <source>patrol_ship_alpha_2_wallis.genre</source>
+            <segment id="gender">
+                <source>patrol_ship_alpha_2_wallis.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -660,12 +660,12 @@
                 <source>patrol_ship_alpha_epicure.short_name</source>
                 <target>Patrouilleur</target>
             </segment>
-            <segment id="plural_name">
-                <source>patrol_ship_alpha_epicure.plural_name</source>
+            <segment id="plural">
+                <source>patrol_ship_alpha_epicure.plural</source>
                 <target>Patrouilleurs</target>
             </segment>
-            <segment id="genre">
-                <source>patrol_ship_alpha_epicure.genre</source>
+            <segment id="gender">
+                <source>patrol_ship_alpha_epicure.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -686,12 +686,12 @@
                 <source>patrol_ship_alpha_jujube.short_name</source>
                 <target>Patrouilleur</target>
             </segment>
-            <segment id="plural_name">
-                <source>patrol_ship_alpha_jujube.plural_name</source>
+            <segment id="plural">
+                <source>patrol_ship_alpha_jujube.plural</source>
                 <target>Patrouilleurs</target>
             </segment>
-            <segment id="genre">
-                <source>patrol_ship_alpha_jujube.genre</source>
+            <segment id="gender">
+                <source>patrol_ship_alpha_jujube.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -712,12 +712,12 @@
                 <source>patrol_ship_alpha_longane.short_name</source>
                 <target>Patrouilleur</target>
             </segment>
-            <segment id="plural_name">
-                <source>patrol_ship_alpha_longane.plural_name</source>
+            <segment id="plural">
+                <source>patrol_ship_alpha_longane.plural</source>
                 <target>Patrouilleurs</target>
             </segment>
-            <segment id="genre">
-                <source>patrol_ship_alpha_longane.genre</source>
+            <segment id="gender">
+                <source>patrol_ship_alpha_longane.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -738,12 +738,12 @@
                 <source>patrol_ship_alpha_planton.short_name</source>
                 <target>Patrouilleur</target>
             </segment>
-            <segment id="plural_name">
-                <source>patrol_ship_alpha_planton.plural_name</source>
+            <segment id="plural">
+                <source>patrol_ship_alpha_planton.plural</source>
                 <target>Patrouilleurs</target>
             </segment>
-            <segment id="genre">
-                <source>patrol_ship_alpha_planton.genre</source>
+            <segment id="gender">
+                <source>patrol_ship_alpha_planton.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -764,12 +764,12 @@
                 <source>patrol_ship_alpha_socrate.short_name</source>
                 <target>Patrouilleur</target>
             </segment>
-            <segment id="plural_name">
-                <source>patrol_ship_alpha_socrate.plural_name</source>
+            <segment id="plural">
+                <source>patrol_ship_alpha_socrate.plural</source>
                 <target>Patrouilleurs</target>
             </segment>
-            <segment id="genre">
-                <source>patrol_ship_alpha_socrate.genre</source>
+            <segment id="gender">
+                <source>patrol_ship_alpha_socrate.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -790,12 +790,12 @@
                 <source>patrol_ship_alpha_tamarin.short_name</source>
                 <target>Patrouilleur</target>
             </segment>
-            <segment id="plural_name">
-                <source>patrol_ship_alpha_tamarin.plural_name</source>
+            <segment id="plural">
+                <source>patrol_ship_alpha_tamarin.plural</source>
                 <target>Patrouilleurs</target>
             </segment>
-            <segment id="genre">
-                <source>patrol_ship_alpha_tamarin.genre</source>
+            <segment id="gender">
+                <source>patrol_ship_alpha_tamarin.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -816,12 +816,12 @@
                 <source>pilgred.short_name</source>
                 <target>Pilgred</target>
             </segment>
-            <segment id="plural_name">
-                <source>pilgred.plural_name</source>
+            <segment id="plural">
+                <source>pilgred.plural</source>
                 <target>Pilgreds</target>
             </segment>
-            <segment id="genre">
-                <source>pilgred.genre</source>
+            <segment id="gender">
+                <source>pilgred.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -842,12 +842,12 @@
                 <source>planet_scanner.short_name</source>
                 <target>Scanner de Planète</target>
             </segment>
-            <segment id="plural_name">
-                <source>planet_scanner.plural_name</source>
+            <segment id="plural">
+                <source>planet_scanner.plural</source>
                 <target>Scanners de Planète</target>
             </segment>
-            <segment id="genre">
-                <source>planet_scanner.genre</source>
+            <segment id="gender">
+                <source>planet_scanner.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -868,12 +868,12 @@
                 <source>research_laboratory.short_name</source>
                 <target>Laboratoire de Recherche</target>
             </segment>
-            <segment id="plural_name">
-                <source>research_laboratory.plural_name</source>
+            <segment id="plural">
+                <source>research_laboratory.plural</source>
                 <target>Laboratoires de Recherche</target>
             </segment>
-            <segment id="genre">
-                <source>research_laboratory.genre</source>
+            <segment id="gender">
+                <source>research_laboratory.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -894,12 +894,12 @@
                 <source>shower.short_name</source>
                 <target>Douche</target>
             </segment>
-            <segment id="plural_name">
-                <source>shower.plural_name</source>
+            <segment id="plural">
+                <source>shower.plural</source>
                 <target>Douches</target>
             </segment>
-            <segment id="genre">
-                <source>shower.genre</source>
+            <segment id="gender">
+                <source>shower.gender</source>
                 <target>female</target>
             </segment>
             <segment id="first_letter">
@@ -920,12 +920,12 @@
                 <source>swedish_sofa.short_name</source>
                 <target>Sofa suédois</target>
             </segment>
-            <segment id="plural_name">
-                <source>swedish_sofa.plural_name</source>
+            <segment id="plural">
+                <source>swedish_sofa.plural</source>
                 <target>Sofas suédois</target>
             </segment>
-            <segment id="genre">
-                <source>swedish_sofa.genre</source>
+            <segment id="gender">
+                <source>swedish_sofa.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -946,12 +946,12 @@
                 <source>surgery_plot.short_name</source>
                 <target>Plot Chirurgical</target>
             </segment>
-            <segment id="plural_name">
-                <source>surgery_plot.plural_name</source>
+            <segment id="plural">
+                <source>surgery_plot.plural</source>
                 <target>Plots Chirurgicaux</target>
             </segment>
-            <segment id="genre">
-                <source>surgery_plot.genre</source>
+            <segment id="gender">
+                <source>surgery_plot.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -972,12 +972,12 @@
                 <source>thalasso.short_name</source>
                 <target>Thalasso</target>
             </segment>
-            <segment id="plural_name">
-                <source>thalasso.plural_name</source>
+            <segment id="plural">
+                <source>thalasso.plural</source>
                 <target>Thalasso</target>
             </segment>
-            <segment id="genre">
-                <source>thalasso.genre</source>
+            <segment id="gender">
+                <source>thalasso.gender</source>
                 <target>female</target>
             </segment>
             <segment id="first_letter">
@@ -998,12 +998,12 @@
                 <source>turret_command.short_name</source>
                 <target>Poste de Tir</target>
             </segment>
-            <segment id="plural_name">
-                <source>turret_command.plural_name</source>
+            <segment id="plural">
+                <source>turret_command.plural</source>
                 <target>Postes de Tir</target>
             </segment>
-            <segment id="genre">
-                <source>turret_command.genre</source>
+            <segment id="gender">
+                <source>turret_command.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -1024,12 +1024,12 @@
                 <source>icarus.short_name</source>
                 <target>Icarus</target>
             </segment>
-            <segment id="plural_name">
-                <source>icarus.plural_name</source>
+            <segment id="plural">
+                <source>icarus.plural</source>
                 <target>Icari</target>
             </segment>
-            <segment id="genre">
-                <source>icarus.genre</source>
+            <segment id="gender">
+                <source>icarus.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -1038,7 +1038,7 @@
             </segment>
             <segment id="examine">
                 <source>icarus.examine</source>
-                <target>Permet de mener l'Icarus vers de nouvelles aventures. L'Icarus était un vaisseau d'exploration d'élite... il y a quelques centaines d'années.</target>
+                <target>Permet de mener l'Icarus vers de nouvelles aventures. L'Icarus était un vaisseau d'exploration d'élite... Il y a quelques centaines d'années.</target>
             </segment>
         </unit>
         <unit id="jukebox">
@@ -1050,12 +1050,12 @@
                 <source>jukebox.short_name</source>
                 <target>Jukebox</target>
             </segment>
-            <segment id="plural_name">
-                <source>jukebox.plural_name</source>
+            <segment id="plural">
+                <source>jukebox.plural</source>
                 <target>Jukeboxes</target>
             </segment>
-            <segment id="genre">
-                <source>jukebox.genre</source>
+            <segment id="gender">
+                <source>jukebox.gender</source>
                 <target>male</target>
             </segment>
             <segment id="first_letter">
@@ -1064,7 +1064,7 @@
             </segment>
             <segment id="examine">
                 <source>jukebox.examine</source>
-                <target>Le jukebox permet de se faire une bonne petite séance de regression de temps à autre. Le jukebox des années folles par excellence. Et en plus chargé avec les tubes préféré de l'équipage !</target>
+                <target>Le jukebox permet de se faire une bonne petite séance de regression de temps à autre. Le jukebox des années folles par excellence. Et en plus chargée avec les tubes préférés de l'équipage !</target>
             </segment>
         </unit>
         <unit id="camera_equipment">
@@ -1076,12 +1076,12 @@
                 <source>camera_equipment.short_name</source>
                 <target>Caméra</target>
             </segment>
-            <segment id="plural_name">
-                <source>camera_equipment.plural_name</source>
+            <segment id="plural">
+                <source>camera_equipment.plural</source>
                 <target>Caméras</target>
             </segment>
-            <segment id="genre">
-                <source>camera_equipment.genre</source>
+            <segment id="gender">
+                <source>camera_equipment.gender</source>
                 <target>female</target>
             </segment>
             <segment id="first_letter">
@@ -1090,7 +1090,7 @@
             </segment>
             <segment id="examine">
                 <source>camera_equipment.examine</source>
-                <target>La caméra est un outils de surveillance bien pratique pour --espionner-- surveiller votre prochain. En sa présence, les actions **discrètes** et **furtives** effectuées sont révélées. Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. La caméra repère également les actions discrètes et furtives effectuées. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
+                <target>La caméra est un outil de surveillance bien pratique pour --espionner-- surveiller votre prochain. En sa présence, les actions **discrètes** et **furtives** effectuées sont révélées. Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. La caméra repère également les actions discrètes et furtives effectuées. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
             </segment>
         </unit>
     </file>

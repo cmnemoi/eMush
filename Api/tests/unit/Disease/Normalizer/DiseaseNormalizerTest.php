@@ -11,6 +11,8 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\SymptomConditionEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Disease\Normalizer\DiseaseNormalizer;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationService;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierConfig;
@@ -45,21 +47,24 @@ class DiseaseNormalizerTest extends TestCase
 
     public function testNormalize()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setName('name');
+        $diseaseConfig->setName('name')->setGameConfig($gameConfig);
 
         $playerDisease = new PlayerDisease();
         $playerDisease->setDiseaseConfig($diseaseConfig);
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('name.name', [], 'disease')
+            ->with('name.name', [], 'disease', LanguageEnum::FRENCH)
             ->andReturn('translated one')
             ->once()
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('name.description', [], 'disease')
+            ->with('name.description', [], 'disease', LanguageEnum::FRENCH)
             ->andReturn('translated two')
             ->once()
         ;
@@ -76,6 +81,9 @@ class DiseaseNormalizerTest extends TestCase
 
     public function testNormalizeWithEffectModifier()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+
         $modifierConfig = new ModifierConfig();
         $modifierConfig
             ->setDelta(-6)
@@ -86,6 +94,7 @@ class DiseaseNormalizerTest extends TestCase
         $diseaseConfig
             ->setName('name')
             ->setModifierConfigs(new ModifierCollection([$modifierConfig]))
+            ->setGameConfig($gameConfig)
         ;
 
         $playerDisease = new PlayerDisease();
@@ -93,13 +102,13 @@ class DiseaseNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('name.name', [], 'disease')
+            ->with('name.name', [], 'disease', LanguageEnum::FRENCH)
             ->andReturn('translated one')
             ->once()
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('name.description', [], 'disease')
+            ->with('name.description', [], 'disease', LanguageEnum::FRENCH)
             ->andReturn('translated two')
             ->once()
         ;
@@ -108,7 +117,8 @@ class DiseaseNormalizerTest extends TestCase
             ->with(
                 'injury_decrease.description',
                 ['chance' => 100,  'action_name' => '', 'emote' => ':pmo:', 'quantity' => 6],
-                'modifiers'
+                'modifiers',
+                LanguageEnum::FRENCH
             )
             ->andReturn('translated three')
             ->once()
@@ -126,6 +136,9 @@ class DiseaseNormalizerTest extends TestCase
 
     public function testNormalizeWithSymptom()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+
         $symptomCondition = new SymptomCondition(SymptomConditionEnum::RANDOM);
         $symptomCondition->setValue(15);
 
@@ -136,6 +149,7 @@ class DiseaseNormalizerTest extends TestCase
         $diseaseConfig
             ->setName('name')
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->setGameConfig($gameConfig)
         ;
 
         $playerDisease = new PlayerDisease();
@@ -143,13 +157,13 @@ class DiseaseNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('name.name', [], 'disease')
+            ->with('name.name', [], 'disease', LanguageEnum::FRENCH)
             ->andReturn('translated one')
             ->once()
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('name.description', [], 'disease')
+            ->with('name.description', [], 'disease', LanguageEnum::FRENCH)
             ->andReturn('translated two')
             ->once()
         ;
@@ -158,7 +172,8 @@ class DiseaseNormalizerTest extends TestCase
             ->with(
                 'biting.description',
                 ['chance' => 15],
-                'modifiers'
+                'modifiers',
+                LanguageEnum::FRENCH
             )
             ->andReturn('translated three')
             ->once()

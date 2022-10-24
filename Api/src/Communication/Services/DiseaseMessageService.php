@@ -49,7 +49,7 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
         ;
 
         if ($playerSymptoms->hasSymptomByName(SymptomEnum::COPROLALIA_MESSAGES)) {
-            $message = $this->applyCoprolaliaEffect($message);
+            $message = $this->applyCoprolaliaEffect($message, $player->getDaedalus()->getGameConfig()->getLanguage());
         }
 
         if ($playerSymptoms->hasSymptomByName(SymptomEnum::PARANOIA_MESSAGES)) {
@@ -68,7 +68,7 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
         return strtoupper($message);
     }
 
-    private function applyCoprolaliaEffect(Message $message): Message
+    private function applyCoprolaliaEffect(Message $message, string $language): Message
     {
         $messageContent = $message->getMessage();
 
@@ -79,19 +79,19 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
         if ($this->randomService->isSuccessful(self::COPROLALIA_REPLACE_CHANCE)) {
             $messageKey = DiseaseMessagesEnum::REPLACE_COPROLALIA;
 
-            $messageContent = $this->createCoprolaliaMessage($messageKey);
+            $messageContent = $this->createCoprolaliaMessage($messageKey, $language);
         } elseif ($this->randomService->isSuccessful(50)) {
             $messageKey = DiseaseMessagesEnum::PRE_COPROLALIA;
 
             $messageContent = lcfirst($messageContent);
 
-            $messageContent = $this->createCoprolaliaMessage($messageKey) . $messageContent;
+            $messageContent = $this->createCoprolaliaMessage($messageKey, $language) . $messageContent;
         } else {
             $messageKey = DiseaseMessagesEnum::POST_COPROLALIA;
 
             $messageContent = rtrim($messageContent, '.?!');
 
-            $messageContent = $messageContent . $this->createCoprolaliaMessage($messageKey);
+            $messageContent = $messageContent . $this->createCoprolaliaMessage($messageKey, $language);
         }
 
         $message
@@ -101,14 +101,19 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
         return $message;
     }
 
-    private function createCoprolaliaMessage(string $messageKey): string
+    private function createCoprolaliaMessage(string $messageKey, string $language): string
     {
         $parameters = [];
 
         // get message version
         $parameters = $this->getVersionParameter($parameters, $messageKey);
 
-        return $this->translationService->translate($messageKey, $parameters, 'disease_message');
+        return $this->translationService->translate(
+            $messageKey,
+            $parameters,
+            'disease_message',
+            $language
+        );
     }
 
     private function applyParanoiaEffect(Message $message, Player $player): Message
@@ -118,6 +123,8 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
         }
 
         $messageContent = $message->getMessage();
+
+        $language = $player->getDaedalus()->getGameConfig()->getLanguage();
 
         $parameters = [];
         if ($this->randomService->isSuccessful(self::PARANOIA_REPLACE_CHANCE)) {
@@ -131,7 +138,12 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
 
             $parameters = $this->getVersionParameter($parameters, $messageKey);
 
-            $messageContent = $this->translationService->translate($messageKey, $parameters, 'disease_message');
+            $messageContent = $this->translationService->translate(
+                $messageKey,
+                $parameters,
+                'disease_message',
+                $language
+            );
         } else {
             $messageKey = DiseaseMessagesEnum::PRE_PARANOIA;
 
@@ -139,7 +151,12 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
 
             $messageContent = lcfirst($messageContent);
 
-            $messageContent = $this->translationService->translate($messageKey, $parameters, 'disease_message') . $messageContent;
+            $messageContent = $this->translationService->translate(
+                $messageKey,
+                $parameters,
+                'disease_message',
+                $language
+            ) . $messageContent;
         }
 
         if (!$this->randomService->isSuccessful(self::PARANOIA_AWARENESS)) {

@@ -24,8 +24,10 @@ class AlertNormalizer implements ContextAwareNormalizerInterface
 
     public function normalize($object, string $format = null, array $context = []): array
     {
-        /** @var Alert $normalizedAlert */
+        /** @var Alert $alert */
         $alert = $object;
+
+        $language = $alert->getDaedalus()->getGameConfig()->getLanguage();
 
         $key = $alert->getName();
 
@@ -34,15 +36,35 @@ class AlertNormalizer implements ContextAwareNormalizerInterface
         ];
 
         if (($quantity = $this->getAlertQuantity($alert)) !== null) {
-            $normalizedAlert['name'] = $this->translationService->translate($alert->getName() . '.name', ['quantity' => $quantity], 'alerts');
-            $normalizedAlert['description'] = $this->translationService->translate("{$key}.description", ['quantity' => $quantity], 'alerts');
+            $normalizedAlert['name'] = $this->translationService->translate(
+                $alert->getName() . '.name',
+                ['quantity' => $quantity],
+                'alerts',
+                $language
+            );
+            $normalizedAlert['description'] = $this->translationService->translate(
+                "{$key}.description",
+                ['quantity' => $quantity],
+                'alerts',
+                $language
+            );
         } else {
-            $normalizedAlert['name'] = $this->translationService->translate($alert->getName() . '.name', [], 'alerts');
-            $normalizedAlert['description'] = $this->translationService->translate("{$key}.description", [], 'alerts');
+            $normalizedAlert['name'] = $this->translationService->translate(
+                $alert->getName() .
+                '.name', [],
+                'alerts',
+                $language
+            );
+            $normalizedAlert['description'] = $this->translationService->translate(
+                "{$key}.description",
+                [],
+                'alerts',
+                $language
+            );
         }
 
         if (!$alert->getAlertElements()->isEmpty()) {
-            $normalizedAlert['reports'] = $this->handleAlertReport($alert);
+            $normalizedAlert['reports'] = $this->handleAlertReport($alert, $language);
         }
 
         return $normalizedAlert;
@@ -61,14 +83,19 @@ class AlertNormalizer implements ContextAwareNormalizerInterface
         return null;
     }
 
-    private function handleAlertReport(Alert $alert): array
+    private function handleAlertReport(Alert $alert, string $language): array
     {
         $reports = [];
 
         foreach ($alert->getAlertElements() as $element) {
             if ($element->getPlayer() !== null) {
                 $parameters = ['character' => $element->getPlayer()->getCharacterConfig()->getName(), 'place' => $element->getPlace()->getName()];
-                $reports[] = $this->translationService->translate("{$alert->getName()}.report", $parameters, 'alerts');
+                $reports[] = $this->translationService->translate(
+                    "{$alert->getName()}.report",
+                    $parameters,
+                    'alerts',
+                    $language
+                );
             }
         }
 

@@ -13,6 +13,8 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -462,10 +464,16 @@ class RoomLogServiceTest extends TestCase
 
     public function testGetLogs()
     {
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
         $place = new Place();
 
         $player = new Player();
-        $player->setPlace($place);
+        $player->setPlace($place)->setDaedalus($daedalus);
 
         $date = new \DateTime();
 
@@ -500,13 +508,13 @@ class RoomLogServiceTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('logKey1', [], 'log')
+            ->with('logKey1', [], 'log', LanguageEnum::FRENCH)
             ->andReturn('translated log 1')
             ->once()
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('logKey2', ['player' => 'andie'], 'log')
+            ->with('logKey2', ['player' => 'andie'], 'log', LanguageEnum::FRENCH)
             ->andReturn('translated log 2')
             ->once()
         ;

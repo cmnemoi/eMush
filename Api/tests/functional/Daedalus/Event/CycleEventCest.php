@@ -17,6 +17,7 @@ use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -36,7 +37,7 @@ class CycleEventCest
         /** @var DaedalusConfig $gameConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig]);
+        $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig, 'language' => LanguageEnum::FRENCH]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);

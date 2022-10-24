@@ -4,7 +4,7 @@ import de from './locales/de.json';
 import es from './locales/es.json';
 
 export enum GameLocales {
-	EN = 'en-EN',
+	EN = 'en-GB',
 	FR = 'fr-FR',
     DE = 'de-DE',
     ES = 'es-ES',

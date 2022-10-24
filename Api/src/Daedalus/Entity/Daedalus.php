@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
@@ -403,5 +404,21 @@ class Daedalus implements ModifierHolder
     public function getClassName(): string
     {
         return get_class($this);
+    }
+
+    public function getVariableFromName(string $variableName): int
+    {
+        switch ($variableName) {
+            case DaedalusVariableEnum::OXYGEN:
+                return $this->oxygen;
+            case DaedalusVariableEnum::FUEL:
+                return $this->fuel;
+            case DaedalusVariableEnum::HULL:
+                return $this->hull;
+            case DaedalusVariableEnum::SHIELD:
+                return $this->shield;
+            default:
+                throw new \LogicException('this is not a valid daedalusVariable');
+        }
     }
 }

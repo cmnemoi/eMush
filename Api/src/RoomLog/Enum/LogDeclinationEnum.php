@@ -8,65 +8,80 @@ use Mush\Communication\Enum\NeronMessageEnum;
 
 class LogDeclinationEnum
 {
+    public const VERSION = 'version';
+    public const VERSION_1 = 'version_1';
+    public const VERSION_2 = 'version_2';
+    public const VERSION_CRAZY = 'version_crazy';
+    public const VERSION_UNINHIB = 'version_uninhib';
+
+    public const WORD_COPROLALIA = 'word_coprolalia';
+    public const ANIMAL_COPROLALIA = 'animal_coprolalia';
+    public const PREFIX_COPROLALIA = 'prefix_coprolalia';
+    public const ADJECTIVE_COPROLALIA = 'adjective_coprolalia';
+    public const BALLS_COPROLALIA = 'balls_coprolalia';
+
+    public const PARANOIA_VERSION_4 = 'paranoia_version_4';
+    public const PARANOIA_VERSION_6 = 'paranoia_version_6';
+
     public static function getVersionNumber(): array
     {
         return [
-            ActionLogEnum::CONSUME_SUCCESS => ['version' => 46],
-            ActionLogEnum::REPAIR_SUCCESS => ['version' => 7],
-            ActionLogEnum::REPAIR_FAIL => ['versionPart1' => 10, 'versionPart2' => 50],
-            ActionLogEnum::HIT_SUCCESS => ['version' => 5],
-            ActionLogEnum::HIT_FAIL => ['version' => 2],
-            ActionLogEnum::MOTIVATIONAL_SPEECH => ['version' => 19],
-            ActionLogEnum::BORING_SPEECH => ['version' => 3],
-            ActionLogEnum::ATTACK_SUCCESS => ['version' => 9],
-            ActionLogEnum::ATTACK_FAIL => ['version' => 5],
-            ActionLogEnum::ATTACK_CRITICAL_SUCCESS => ['version' => 2],
-            ActionLogEnum::ATTACK_CRITICAL_FAIL => ['version' => 2],
-            ActionLogEnum::SHOOT_SUCCESS => ['version' => 6],
-            ActionLogEnum::SHOOT_FAIL => ['version' => 4],
-            ActionLogEnum::SHOOT_CRITICAL_FAIL => ['version' => 2],
-            ActionEnum::SHRED => ['version' => 4],
-            ActionEnum::RETRIEVE_OXYGEN => ['version' => 10],
-            NeronMessageEnum::ASPHYXIA_DEATH => ['versionPart1' => 3, 'versionPart2' => 9],
-            NeronMessageEnum::BROKEN_EQUIPMENT => ['version' => 5],
-            NeronMessageEnum::HUNTER_ARRIVAL => ['versionPart1' => 4, 'versionPart2' => 5],
-            NeronMessageEnum::NEW_FIRE => ['versionPart1' => 3, 'versionPart2' => 3],
-            NeronMessageEnum::NEW_PROJECT => ['versionPart2' => 7, 'versionPart1Unhinib' => 7, 'versionPart1Crazy' => 12],
-            NeronMessageEnum::PLAYER_DEATH => ['version' => 7],
-            NeronMessageEnum::REBEL_SIGNAL => ['version' => 5],
-            NeronMessageEnum::REPORT_FIRE => ['version' => 5],
-            NeronMessageEnum::TITLE_ATTRIBUTION => ['version' => 8],
-            NeronMessageEnum::TRAVEL_ARRIVAL => ['version' => 11],
-            NeronMessageEnum::SHIELD_BREACH => ['version' => 4],
-            NeronMessageEnum::PATCHING_UP => ['versionPart1' => 10, 'versionPart2' => 4],
-            LogEnum::SELF_SURGERY_SUCCESS => ['version' => 2],
-            LogEnum::SURGERY_SUCCESS => ['version' => 2],
+            ActionLogEnum::CONSUME_SUCCESS => [self::VERSION => 46],
+            ActionLogEnum::REPAIR_SUCCESS => [self::VERSION => 7],
+            ActionLogEnum::REPAIR_FAIL => [self::VERSION_1 => 10, self::VERSION_2 => 50],
+            ActionLogEnum::HIT_SUCCESS => [self::VERSION => 5],
+            ActionLogEnum::HIT_FAIL => [self::VERSION => 2],
+            ActionLogEnum::MOTIVATIONAL_SPEECH => [self::VERSION => 19],
+            ActionLogEnum::BORING_SPEECH => [self::VERSION => 3],
+            ActionLogEnum::ATTACK_SUCCESS => [self::VERSION => 9],
+            ActionLogEnum::ATTACK_FAIL => [self::VERSION => 5],
+            ActionLogEnum::ATTACK_CRITICAL_SUCCESS => [self::VERSION => 2],
+            ActionLogEnum::ATTACK_CRITICAL_FAIL => [self::VERSION => 2],
+            ActionLogEnum::SHOOT_SUCCESS => [self::VERSION => 6],
+            ActionLogEnum::SHOOT_FAIL => [self::VERSION => 4],
+            ActionLogEnum::SHOOT_CRITICAL_FAIL => [self::VERSION => 2],
+            ActionEnum::SHRED => [self::VERSION => 4],
+            ActionEnum::RETRIEVE_OXYGEN => [self::VERSION => 10],
+            NeronMessageEnum::ASPHYXIA_DEATH => [self::VERSION_1 => 3, self::VERSION_2 => 9],
+            NeronMessageEnum::BROKEN_EQUIPMENT => [self::VERSION => 5],
+            NeronMessageEnum::HUNTER_ARRIVAL => [self::VERSION_1 => 4, self::VERSION_2 => 5],
+            NeronMessageEnum::NEW_FIRE => [self::VERSION_1 => 3, self::VERSION_2 => 3],
+            NeronMessageEnum::NEW_PROJECT => [self::VERSION_2 => 7, self::VERSION_UNINHIB => 7, self::VERSION_CRAZY => 12],
+            NeronMessageEnum::PLAYER_DEATH => [self::VERSION => 7],
+            NeronMessageEnum::REBEL_SIGNAL => [self::VERSION => 5],
+            NeronMessageEnum::REPORT_FIRE => [self::VERSION => 5],
+            NeronMessageEnum::TITLE_ATTRIBUTION => [self::VERSION => 8],
+            NeronMessageEnum::TRAVEL_ARRIVAL => [self::VERSION => 11],
+            NeronMessageEnum::SHIELD_BREACH => [self::VERSION => 4],
+            NeronMessageEnum::PATCHING_UP => [self::VERSION_1 => 10, self::VERSION_2 => 4],
+            LogEnum::SELF_SURGERY_SUCCESS => [self::VERSION => 2],
+            LogEnum::SURGERY_SUCCESS => [self::VERSION => 2],
             DiseaseMessagesEnum::REPLACE_COPROLALIA => [
-                'version' => 13,
-                'word' => 20,
-                'animal' => 14,
-                'prefix' => 4,
-                'adjective' => 6,
-                'balls' => 9,
+                self::VERSION => 13,
+                self::WORD_COPROLALIA => 20,
+                self::ANIMAL_COPROLALIA => 14,
+                self::PREFIX_COPROLALIA => 4,
+                self::ADJECTIVE_COPROLALIA => 6,
+                self::BALLS_COPROLALIA => 9,
             ],
             DiseaseMessagesEnum::PRE_COPROLALIA => [
-                'version' => 3,
-                'word' => 20,
-                'animal' => 14,
-                'prefix' => 4,
-                'adjective' => 6,
-                'balls' => 9,
+                self::VERSION => 3,
+                self::WORD_COPROLALIA => 20,
+                self::ANIMAL_COPROLALIA => 14,
+                self::PREFIX_COPROLALIA => 4,
+                self::ADJECTIVE_COPROLALIA => 6,
+                self::BALLS_COPROLALIA => 9,
             ],
             DiseaseMessagesEnum::POST_COPROLALIA => [
-                'version' => 3,
-                'word' => 20,
-                'animal' => 14,
-                'prefix' => 4,
-                'adjective' => 6,
-                'balls' => 9,
+                self::VERSION => 3,
+                self::BALLS_COPROLALIA => 9,
+                self::PREFIX_COPROLALIA => 4,
+                self::ADJECTIVE_COPROLALIA => 6,
+                self::ANIMAL_COPROLALIA => 14,
+                self::WORD_COPROLALIA => 20,
             ],
-            DiseaseMessagesEnum::REPLACE_PARANOIA => ['version' => 12, 'paranoia_version4' => 4, 'paranoia_version6' => 6],
-            DiseaseMessagesEnum::ACCUSE_PARANOIA => ['version' => 10, 'paranoia_version4' => 4, 'paranoia_version6' => 6],
+            DiseaseMessagesEnum::REPLACE_PARANOIA => [self::VERSION => 12, self::PARANOIA_VERSION_4 => 4, self::PARANOIA_VERSION_6 => 6],
+            DiseaseMessagesEnum::ACCUSE_PARANOIA => [self::VERSION => 10, self::PARANOIA_VERSION_4 => 4, self::PARANOIA_VERSION_6 => 6],
         ];
     }
 }

@@ -221,7 +221,8 @@ class RoomLogService implements RoomLogServiceInterface
                 'log' => $this->translationService->translate(
                     $roomLog->getLog(),
                     $roomLog->getParameters(),
-                    $roomLog->getType()
+                    $roomLog->getType(),
+                    $player->getDaedalus()->getGameConfig()->getLanguage()
                 ),
                 'visibility' => $roomLog->getVisibility(),
                 'date' => $roomLog->getDate(),

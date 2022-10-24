@@ -63,7 +63,12 @@ class DaedalusController extends AbstractFOSRestController
         foreach ($availableCharacters as $character) {
             $characters[] = [
                 'key' => $character->getName(),
-                'name' => $this->translationService->translate($character->getName() . '.name', [], 'characters'),
+                'name' => $this->translationService->translate(
+                    $character->getName() . '.name',
+                    [],
+                    'characters',
+                    $daedalus->getGameConfig()->getLanguage()
+                ),
             ];
         }
 

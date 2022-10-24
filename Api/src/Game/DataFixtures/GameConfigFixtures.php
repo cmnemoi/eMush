@@ -5,6 +5,7 @@ namespace Mush\Game\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\LanguageEnum;
 
 class GameConfigFixtures extends Fixture
 {
@@ -20,7 +21,7 @@ class GameConfigFixtures extends Fixture
             ->setCyclePerGameDay(8)
             ->setCycleLength(3 * 60)
             ->setTimeZone('Europe/Paris')
-            ->setLanguage('Fr-fr')
+            ->setLanguage(LanguageEnum::FRENCH)
             ->setMaxNumberPrivateChannel(3)
             ->setInitHealthPoint(14)
             ->setMaxHealthPoint(14)

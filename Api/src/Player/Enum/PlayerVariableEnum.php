@@ -4,10 +4,10 @@ namespace Mush\Player\Enum;
 
 class PlayerVariableEnum
 {
-    public const ACTION_POINT = 'action_point';
-    public const MOVEMENT_POINT = 'movement_point';
-    public const HEALTH_POINT = 'health_point';
-    public const MORAL_POINT = 'moral_point';
+    public const ACTION_POINT = 'actionPoint';
+    public const MOVEMENT_POINT = 'movementPoint';
+    public const HEALTH_POINT = 'healthPoint';
+    public const MORAL_POINT = 'moralPoint';
     public const SATIETY = 'satiety';
     public const TRIUMPH = 'triumph';
 

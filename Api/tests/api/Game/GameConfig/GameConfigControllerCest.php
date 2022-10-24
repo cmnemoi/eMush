@@ -4,6 +4,7 @@ namespace Mush\Tests\api\Game\GameConfig;
 
 use App\Tests\ApiTester;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\LanguageEnum;
 
 class GameConfigControllerCest
 {
@@ -67,7 +68,7 @@ class GameConfigControllerCest
             'cycleLength' => 180,
             'timeZone' => 'Europe/Paris',
             'maxNumberPrivateChannel' => 3,
-            'language' => 'Fr-fr',
+            'language' => LanguageEnum::FRENCH,
             'initHealthPoint' => 14,
             'maxHealthPoint' => 14,
             'initMoralPoint' => 14,
@@ -100,7 +101,7 @@ class GameConfigControllerCest
             ->setCyclePerGameDay(8)
             ->setCycleLength(60 * 3)
             ->setTimeZone('Europe/Paris')
-            ->setLanguage('Fr-fr')
+            ->setLanguage(LanguageEnum::FRENCH)
             ->setMaxNumberPrivateChannel(3)
             ->setInitHealthPoint(14)
             ->setMaxHealthPoint(14)

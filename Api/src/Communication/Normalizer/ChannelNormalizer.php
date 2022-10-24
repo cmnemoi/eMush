@@ -35,6 +35,8 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
 
+        $language = $currentPlayer->getDaedalus()->getGameConfig()->getLanguage();
+
         if (key_exists('piratedPlayer', $context)) {
             /** @var Player $piratedPlayer */
             $piratedPlayer = $context['piratedPlayer'];
@@ -52,7 +54,7 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
                 'id' => $player->getId(),
                 'character' => [
                     'key' => $character,
-                    'value' => $this->translationService->translate($character . '.name', [], 'characters'),
+                    'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
                 ],
                 'joinedAt' => $participant->getCreatedAt()->format(\DateTime::ATOM),
             ];

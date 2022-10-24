@@ -9,6 +9,7 @@ use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
 use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use PHPUnit\Framework\TestCase;
@@ -54,14 +55,18 @@ class DaedalusNormalizerTest extends TestCase
         $daedalus->setPlayers(new ArrayCollection());
         $daedalus->setPlaces(new ArrayCollection());
         $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+
         $daedalusConfig = new DaedalusConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
+
         $daedalus->setGameConfig($gameConfig);
 
         $daedalusConfig
             ->setMaxFuel(100)
             ->setMaxHull(100)
             ->setMaxOxygen(100)
+            ->setMaxShield(100)
         ;
         $daedalus
             ->setCycle(4)
@@ -74,67 +79,67 @@ class DaedalusNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('oxygen.name', ['quantity' => 24, 'maximum' => 100], 'daedalus')
+            ->with('oxygen.name', ['quantity' => 24, 'maximum' => 100], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated one')
             ->once()
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('oxygen.description', [], 'daedalus')
+            ->with('oxygen.description', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated two')
             ->once()
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('fuel.name', ['quantity' => 24, 'maximum' => 100], 'daedalus')
+            ->with('fuel.name', ['quantity' => 24, 'maximum' => 100], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated one')
             ->once()
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('fuel.description', [], 'daedalus')
+            ->with('fuel.description', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated two')
             ->once()
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('hull.name', ['quantity' => 100, 'maximum' => 100], 'daedalus')
+            ->with('hull.name', ['quantity' => 100, 'maximum' => 100], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated one')
             ->once()
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('hull.description', [], 'daedalus')
+            ->with('hull.description', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated two')
             ->once()
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('shield.name', ['quantity' => 100], 'daedalus')
+            ->with('shield.name', ['quantity' => 100, 'maximum' => 100], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated one')
             ->once()
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('shield.description', [], 'daedalus')
+            ->with('shield.description', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated two')
             ->once()
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('currentCycle.name', [], 'daedalus')
+            ->with('currentCycle.name', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated one')
             ->once()
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('currentCycle.description', [], 'daedalus')
+            ->with('currentCycle.description', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated two')
             ->once()
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('crewPlayer.name', [], 'daedalus')
+            ->with('crewPlayer.name', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated one')
             ->once()
         ;
@@ -146,7 +151,7 @@ class DaedalusNormalizerTest extends TestCase
                 'humanDead' => 0,
                 'mushAlive' => 0,
                 'mushDead' => 0, ],
-                'daedalus')
+                'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated two')
             ->once()
         ;

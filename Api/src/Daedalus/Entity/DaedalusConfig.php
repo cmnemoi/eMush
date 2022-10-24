@@ -4,6 +4,7 @@ namespace Mush\Daedalus\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\PlaceConfig;
 
@@ -39,6 +40,9 @@ class DaedalusConfig
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $maxHull = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $maxShield = 0;
 
     #[ORM\OneToOne(targetEntity: RandomItemPlaces::class, cascade: ['ALL'])]
     private ?RandomItemPlaces $randomItemPlace = null;
@@ -184,5 +188,33 @@ class DaedalusConfig
         $this->maxHull = $maxHull;
 
         return $this;
+    }
+
+    public function getMaxShield(): int
+    {
+        return $this->maxShield;
+    }
+
+    public function setMaxShield(int $maxShield): static
+    {
+        $this->maxShield = $maxShield;
+
+        return $this;
+    }
+
+    public function getVariableFromName(string $variableName): int
+    {
+        switch ($variableName) {
+            case DaedalusVariableEnum::OXYGEN:
+                return $this->maxOxygen;
+            case DaedalusVariableEnum::FUEL:
+                return $this->maxFuel;
+            case DaedalusVariableEnum::HULL:
+                return $this->maxHull;
+            case DaedalusVariableEnum::SHIELD:
+                return $this->maxShield;
+            default:
+                throw new \LogicException('this is not a valid daedalusVariable');
+        }
     }
 }

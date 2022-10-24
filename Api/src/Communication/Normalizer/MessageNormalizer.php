@@ -33,6 +33,7 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
 
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
+        $language = $currentPlayer->getDaedalus()->getGameConfig()->getLanguage();
 
         /** @var Message $children */
         foreach ($object->getChild() as $children) {
@@ -50,7 +51,12 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
 
         $translationParameters = $object->getTranslationParameters();
         if ($this->hasPlayerSymptom($currentPlayer, SymptomEnum::DEAF)) {
-            $message = $this->translationService->translate(DiseaseMessagesEnum::DEAF, [], 'disease_message');
+            $message = $this->translationService->translate(
+                DiseaseMessagesEnum::DEAF,
+                [],
+                'disease_message',
+                $language
+            );
         } elseif (
             $object->getAuthor() === $currentPlayer &&
             array_key_exists(DiseaseMessagesEnum::ORIGINAL_MESSAGE, $translationParameters) &&
@@ -63,7 +69,8 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
             $message = $this->translationService->translate(
                 $object->getMessage(),
                 $translationParameters,
-                'neron'
+                'neron',
+                $language
             );
         }
 
@@ -71,7 +78,12 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
             'id' => $object->getId(),
             'character' => [
                 'key' => $character,
-                'value' => $this->translationService->translate("{$character}.name", [], 'characters'),
+                'value' => $this->translationService->translate(
+                    "{$character}.name",
+                    [],
+                    'characters',
+                    $language
+                ),
             ],
             'message' => $message,
             'createdAt' => $object->getCreatedAt()->format(\DateTime::ATOM),

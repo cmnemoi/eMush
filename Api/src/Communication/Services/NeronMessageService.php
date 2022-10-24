@@ -118,7 +118,12 @@ class NeronMessageService implements NeronMessageServiceInterface
                 break;
         }
 
-        $cause = $this->translationService->translate($cause . '.name', [], 'end_cause');
+        $cause = $this->translationService->translate(
+            $cause . '.name',
+            [],
+            'end_cause',
+            $player->getDaedalus()->getGameConfig()->getLanguage()
+        );
         $parameters = ['character' => $playerName, 'cause' => $cause];
         $this->createNeronMessage($message, $player->getDaedalus(), $parameters, $time);
     }

@@ -29,7 +29,7 @@ C'est un capital précieux : pour le remonter rapidement, vous pouvez manger des
             </segment>
             <segment id="description">
                 <source>actionPoint.description</source>
-                <target>Vous gagnez des *Points d'Action* ( :pa: ) et des *Points de Mouvement* ( :pm: ) à chaque **nouveau cycle** et en **mangeant**. Actuellement vous avez {quantityaction}  :pa: et {quantitymovement}  :pm:</target>
+                <target>Vous gagnez des *Points d'Action* ( :pa: ) et des *Points de Mouvement* ( :pm: ) à chaque **nouveau cycle** et en **mangeant**. Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:</target>
             </segment>
         </unit>
     </file>

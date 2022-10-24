@@ -50,6 +50,8 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
         /** @var Player $player */
         $player = $object;
 
+        $language = $player->getDaedalus()->getGameConfig()->getLanguage();
+
         $items = [];
         /** @var GameItem $item */
         foreach ($player->getEquipments() as $item) {
@@ -62,7 +64,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
             'id' => $player->getId(),
             'character' => [
                 'key' => $character,
-                'value' => $this->translationService->translate($character . '.name', [], 'characters'),
+                'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
             ],
             'gameStatus' => $player->getGameStatus(),
             'triumph' => $player->getTriumph(),
@@ -93,32 +95,41 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
                 'items' => $items,
                 'statuses' => $statuses,
                 'diseases' => $diseases,
-                'actionPoint' => [
-                    'quantity' => $player->getActionPoint(),
-                    'max' => $this->playerVariableService->getMaxPlayerVariable($player, PlayerVariableEnum::ACTION_POINT),
-                    'name' => $this->translationService->translate('actionPoint.name', [], 'player'),
-                    'description' => $this->translationService->translate('actionPoint.description', [
-                        'quantityaction' => $player->getActionPoint(),
-                        'quantitymovement' => $player->getMovementPoint(),
-                    ], 'player'), ],
-                'movementPoint' => [
-                    'quantity' => $player->getMovementPoint(),
-                    'max' => $this->playerVariableService->getMaxPlayerVariable($player, PlayerVariableEnum::MOVEMENT_POINT),
-                    ],
-                'healthPoint' => [
-                    'quantity' => $player->getHealthPoint(),
-                    'max' => $this->playerVariableService->getMaxPlayerVariable($player, PlayerVariableEnum::HEALTH_POINT),
-                    'name' => $this->translationService->translate('healthPoint.name', ['quantity' => $player->getHealthPoint()], 'player'),
-                    'description' => $this->translationService->translate('healthPoint.description', [], 'player'), ],
-                'moralPoint' => [
-                    'quantity' => $player->getMoralPoint(),
-                    'max' => $this->playerVariableService->getMaxPlayerVariable($player, PlayerVariableEnum::MORAL_POINT),
-                    'name' => $this->translationService->translate('moralPoint.name', ['quantity' => $player->getMoralPoint()], 'player'),
-                    'description' => $this->translationService->translate('moralPoint.description', [], 'player'), ],
+                'actionPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::ACTION_POINT, $language),
+                'movementPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::MOVEMENT_POINT, $language),
+                'healthPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::HEALTH_POINT, $language),
+                'moralPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::MORAL_POINT, $language),
             ]);
         }
 
         return $playerData;
+    }
+
+    private function normalizePlayerParameter(Player $player, string $variable, string $language): array
+    {
+        if (in_array($variable, [PlayerVariableEnum::MOVEMENT_POINT, PlayerVariableEnum::ACTION_POINT])) {
+            $description = $this->translationService->translate(
+                'actionPoint.description', [
+                'quantityAction' => $player->getActionPoint(),
+                'quantityMovement' => $player->getMovementPoint(),
+            ], 'player',
+                $language
+            );
+        } else {
+            $description = $this->translationService->translate(
+                $variable . '.description',
+                [],
+                'player',
+                $language
+            );
+        }
+
+        return [
+                'quantity' => $player->getVariableFromName($variable),
+                'max' => $this->playerVariableService->getMaxPlayerVariable($player, $variable),
+                'name' => $this->translationService->translate($variable . '.name', [], 'player', $language),
+                'description' => $description,
+        ];
     }
 
     private function getActions(Player $player, ?string $format, array $context): array

@@ -2,6 +2,7 @@
 
 namespace Mush\RoomLog\Listener;
 
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Enum\LogEnum;
@@ -52,7 +53,7 @@ class PlayerSubscriber implements EventSubscriberInterface
                 throw new \LogicException('Player should die with a reason');
             }
 
-            $logParameters['reason'] = $reason;
+            $logParameters[LanguageEnum::END_CAUSE] = $reason;
         }
 
         $this->roomLogService->createLog(

@@ -17,12 +17,14 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationService;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 
-class DaedalusNormalizerTest extends TestCase
+class EquipmentNormalizerTest extends TestCase
 {
     private EquipmentNormalizer $normalizer;
 
@@ -70,9 +72,14 @@ class DaedalusNormalizerTest extends TestCase
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->makePartial();
 
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
         $place = new Place();
         $player = new Player();
-        $player->setDaedalus(new Daedalus());
+        $player->setDaedalus($daedalus);
 
         $equipment
             ->setEquipment($equipmentConfig)
@@ -82,14 +89,14 @@ class DaedalusNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('equipment.name', [], 'equipments')
+            ->with('equipment.name', [], 'equipments', LanguageEnum::FRENCH)
             ->andReturn('translated name')
             ->once()
         ;
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('equipment.description', [], 'equipments')
+            ->with('equipment.description', [], 'equipments', LanguageEnum::FRENCH)
             ->andReturn('translated description')
             ->once()
         ;
@@ -126,9 +133,14 @@ class DaedalusNormalizerTest extends TestCase
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->makePartial();
 
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
         $place = new Place();
         $player = new Player();
-        $player->setDaedalus(new Daedalus());
+        $player->setDaedalus($daedalus);
 
         $equipment
             ->setEquipment($equipmentConfig)
@@ -138,14 +150,14 @@ class DaedalusNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('equipment.name', [], 'items')
+            ->with('equipment.name', [], 'items', LanguageEnum::FRENCH)
             ->andReturn('translated name')
             ->once()
         ;
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('equipment.description', [], 'items')
+            ->with('equipment.description', [], 'items', LanguageEnum::FRENCH)
             ->andReturn('translated description')
             ->once()
         ;
@@ -191,9 +203,14 @@ class DaedalusNormalizerTest extends TestCase
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->makePartial();
 
+        $gameConfig = new GameConfig();
+        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+
         $place = new Place();
         $player = new Player();
-        $player->setDaedalus(new Daedalus());
+        $player->setDaedalus($daedalus);
 
         $equipment
             ->setEquipment($equipmentConfig)
@@ -203,28 +220,28 @@ class DaedalusNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('blueprint.name', ['equipment' => EquipmentEnum::ASTRO_TERMINAL], 'equipments')
+            ->with('blueprint.name', ['equipment' => EquipmentEnum::ASTRO_TERMINAL], 'equipments', LanguageEnum::FRENCH)
             ->andReturn('translated name')
             ->once()
         ;
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('blueprint.description', [], 'equipments')
+            ->with('blueprint.description', [], 'equipments', LanguageEnum::FRENCH)
             ->andReturn('translated description')
             ->once()
         ;
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('blueprint_ingredient.description', ['item' => ItemEnum::BLASTER, 'quantity' => 1], 'items')
+            ->with('blueprint_ingredient.description', ['item' => ItemEnum::BLASTER, 'quantity' => 1], 'items', LanguageEnum::FRENCH)
             ->andReturn('ingredient 1')
             ->once()
         ;
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('blueprint_ingredient.description', ['item' => ItemEnum::ECHOLOCATOR, 'quantity' => 2], 'items')
+            ->with('blueprint_ingredient.description', ['item' => ItemEnum::ECHOLOCATOR, 'quantity' => 2], 'items', LanguageEnum::FRENCH)
             ->andReturn('ingredient 2')
             ->once()
         ;

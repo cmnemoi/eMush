@@ -14,6 +14,7 @@ use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -40,7 +41,7 @@ class PlayerEventCest
     public function testDispatchPlayerDeath(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['language' => LanguageEnum::FRENCH]);
 
         /** @var User $user */
         $user = $I->have(User::class);

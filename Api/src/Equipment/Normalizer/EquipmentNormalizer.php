@@ -57,9 +57,10 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
      */
     public function normalize($object, string $format = null, array $context = []): array
     {
-        if (!($currentPlayer = $context['currentPlayer'] ?? null)) {
-            throw new \LogicException('Current player is missing from context');
-        }
+        /** @var Player $currentPlayer */
+        $currentPlayer = $context['currentPlayer'];
+
+        $language = $currentPlayer->getDaedalus()->getGameConfig()->getLanguage();
 
         $key = $object->getName();
         $nameParameters = [];
@@ -94,12 +95,12 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
             $nameParameters['skill'] = $book->getSkill();
         }
 
-        $definition = $this->getDefinition($object, $key, $type);
+        $definition = $this->getDefinition($object, $key, $type, $language);
 
         return [
             'id' => $object->getId(),
             'key' => $key,
-            'name' => $this->translationService->translate($key . '.name', $nameParameters, $type),
+            'name' => $this->translationService->translate($key . '.name', $nameParameters, $type, $language),
             'description' => $definition,
             'statuses' => $statuses,
             'actions' => $this->getActions($object, $currentPlayer, $format, $context),
@@ -152,6 +153,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
 
     private function getRationsEffect(GameEquipment $gameEquipment, Daedalus $daedalus): array
     {
+        $language = $daedalus->getGameConfig()->getLanguage();
         /** @var Ration $ration */
         $ration = $gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
         if ($ration === null) {
@@ -164,52 +166,52 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         if ($consumableDiseaseEffect !== null) {
             /** @var ConsumableDiseaseAttribute $disease */
             foreach ($consumableDiseaseEffect->getDiseases() as $disease) {
-                $effects[] = $this->createDiseaseLine($disease);
+                $effects[] = $this->createDiseaseLine($disease, $language);
             }
 
             /** @var ConsumableDiseaseAttribute $cure */
             foreach ($consumableDiseaseEffect->getCures() as $cure) {
-                $effects[] = $this->createCureLine($cure);
+                $effects[] = $this->createCureLine($cure, $language);
             }
         }
 
         return [
-            'title' => $this->translationService->translate('ration_data', [], 'misc'),
-            'effects' => array_merge($effects, $this->createConsummableLines($this->equipmentEffectService->getConsumableEffect($ration, $daedalus))),
+            'title' => $this->translationService->translate('ration_data', [], 'misc', $language),
+            'effects' => array_merge($effects, $this->createConsumableLines($this->equipmentEffectService->getConsumableEffect($ration, $daedalus), $language)),
         ];
     }
 
-    private function createConsummableLines(ConsumableEffect $consumableEffect): array
+    private function createConsumableLines(ConsumableEffect $consumableEffect, string $language): array
     {
         $effects = [];
 
         $satiety = $consumableEffect->getSatiety();
         if ($satiety) {
-            $effects[] = $this->createEffectLine($satiety, 'satiety_point');
+            $effects[] = $this->createEffectLine($satiety, 'satiety_point', $language);
         }
         $actionPoint = $consumableEffect->getActionPoint();
         if ($actionPoint) {
-            $effects[] = $this->createEffectLine($actionPoint, 'action_point');
+            $effects[] = $this->createEffectLine($actionPoint, 'action_point', $language);
         }
         $movementPoint = $consumableEffect->getMovementPoint();
         if ($movementPoint) {
-            $effects[] = $this->createEffectLine($movementPoint, 'movement_point');
+            $effects[] = $this->createEffectLine($movementPoint, 'movement_point', $language);
         }
         $healthPoint = $consumableEffect->getHealthPoint();
         if ($healthPoint) {
-            $effects[] = $this->createEffectLine($healthPoint, 'health_point');
+            $effects[] = $this->createEffectLine($healthPoint, 'health_point', $language);
         }
         $moralPoint = $consumableEffect->getMoralPoint();
         if ($moralPoint) {
-            $effects[] = $this->createEffectLine($moralPoint, 'moral_point');
+            $effects[] = $this->createEffectLine($moralPoint, 'moral_point', $language);
         }
 
         return $effects;
     }
 
-    private function createDiseaseLine(ConsumableDiseaseAttribute $disease): string
+    private function createDiseaseLine(ConsumableDiseaseAttribute $disease, string $language): string
     {
-        $diseaseName = $this->translationService->translate($disease->getDisease() . '.name', [], 'disease');
+        $diseaseName = $this->translationService->translate($disease->getDisease() . '.name', [], 'disease', $language);
 
         if ($disease->getDelayMin() > 0) {
             $key = 'delayed_disease_info';
@@ -227,12 +229,12 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
             ];
         }
 
-        return $this->translationService->translate($key, $params, 'misc');
+        return $this->translationService->translate($key, $params, 'misc', $language);
     }
 
-    private function createCureLine(ConsumableDiseaseAttribute $cure): string
+    private function createCureLine(ConsumableDiseaseAttribute $cure, string $language): string
     {
-        $cureName = $this->translationService->translate($cure->getDisease() . '.name', [], 'disease');
+        $cureName = $this->translationService->translate($cure->getDisease() . '.name', [], 'disease', $language);
 
         if ($cure->getDelayMin() > 0) {
             $key = 'delayed_cure_info';
@@ -248,26 +250,27 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
             ];
         }
 
-        return $this->translationService->translate($key, $params, 'misc');
+        return $this->translationService->translate($key, $params, 'misc', $language);
     }
 
-    private function createEffectLine(int $quantity, string $key): string
+    private function createEffectLine(int $quantity, string $key, string $language): string
     {
         $sign = $quantity > 0 ? '+' : '-';
 
-        return "{$sign} {$quantity} {$this->translationService->translate($key, [], 'misc')}";
+        return "{$sign} {$quantity} {$this->translationService->translate($key, [], 'misc', $language)}";
     }
 
-    private function getDefinition(GameEquipment $equipment, string $key, string $type): string
+    private function getDefinition(GameEquipment $equipment, string $key, string $type, string $language): string
     {
-        $description = $this->translationService->translate("{$key}.description", [], $type);
+        $description = $this->translationService->translate("{$key}.description", [], $type, $language);
 
         if (($blueprint = $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) instanceof Blueprint) {
             foreach ($blueprint->getIngredients() as $name => $number) {
                 $ingredientTranslation = $this->translationService->translate(
                     'blueprint_ingredient.description',
                     ['quantity' => $number, 'item' => $name],
-                    'items'
+                    'items',
+                    $language
                 );
                 $description = "$description//$ingredientTranslation";
             }

@@ -9,6 +9,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Service\ActionStrategyServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
@@ -49,9 +50,10 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
             return [];
         }
 
-        if (!($currentPlayer = $context['currentPlayer'] ?? null)) {
-            throw new \LogicException('Current player is missing from context');
-        }
+        /** @var Player $currentPlayer */
+        $currentPlayer = $context['currentPlayer'];
+
+        $language = $currentPlayer->getDaedalus()->getGameConfig()->getLanguage();
 
         $parameter = $this->loadParameters($context);
 
@@ -63,7 +65,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
             $normalizedAction = [
                 'id' => $object->getId(),
                 'key' => $object->getName(),
-                'name' => $this->translationService->translate("{$actionName}.name", [], 'actions'),
+                'name' => $this->translationService->translate("{$actionName}.name", [], 'actions', $language),
                 'actionPointCost' => $this->actionService->getTotalActionPointCost($currentPlayer, $object, $parameter),
                 'movementPointCost' => $this->actionService->getTotalMovementPointCost($currentPlayer, $object, $parameter),
                 'moralPointCost' => $this->actionService->getTotalMoralPointCost($currentPlayer, $object, $parameter),
@@ -76,11 +78,11 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
             }
 
             if ($reason = $actionClass->cannotExecuteReason()) {
-                $normalizedAction['description'] = $this->translationService->translate("{$reason}.description", [], 'action_fail');
+                $normalizedAction['description'] = $this->translationService->translate("{$reason}.description", [], 'action_fail', $language);
                 $normalizedAction['canExecute'] = false;
             } else {
-                $description = $this->translationService->translate("{$actionName}.description", [], 'actions');
-                $description = $this->getTypesDescriptions($description, $object->getTypes());
+                $description = $this->translationService->translate("{$actionName}.description", [], 'actions', $language);
+                $description = $this->getTypesDescriptions($description, $object->getTypes(), $language);
                 $normalizedAction['description'] = $description;
                 $normalizedAction['canExecute'] = true;
             }
@@ -110,12 +112,12 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
         return $parameter;
     }
 
-    private function getTypesDescriptions(string $description, array $types): string
+    private function getTypesDescriptions(string $description, array $types, ?string $language = null): string
     {
         foreach ($types as $type) {
             if (key_exists($type, self::ACTION_TYPE_DESCRIPTION_MAP)) {
                 $key = self::ACTION_TYPE_DESCRIPTION_MAP[$type];
-                $description = $description . '//' . $this->translationService->translate($key . '.description', [], 'actions');
+                $description = $description . '//' . $this->translationService->translate($key . '.description', [], 'actions', $language);
             }
         }
 

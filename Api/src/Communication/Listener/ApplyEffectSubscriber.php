@@ -6,6 +6,7 @@ use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Enum\LanguageEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ApplyEffectSubscriber implements EventSubscriberInterface
@@ -37,7 +38,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         $this->neronMessageService->createNeronMessage(
             NeronMessageEnum::REPORT_FIRE,
             $player->getDaedalus(),
-            ['character' => $player->getLogName(), 'place' => $place->getName()],
+            [LanguageEnum::CHARACTER => $player->getLogName(), LanguageEnum::ROOMS => $place->getName()],
             new \DateTime(),
             $parentMessage
         );

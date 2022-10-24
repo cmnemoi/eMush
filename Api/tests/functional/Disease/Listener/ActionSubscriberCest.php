@@ -36,6 +36,7 @@ use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -858,7 +859,7 @@ class ActionSubscriberCest
 
     public function testPostActionPsychoticAttackSymptom(FunctionalTester $I)
     {
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['language' => LanguageEnum::FRENCH]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);

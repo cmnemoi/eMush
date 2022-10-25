@@ -1,5 +1,16 @@
 module.exports = {
-    chainWebpack: config => {config.plugin('html');},
+    chainWebpack: config =>
+    {
+        config.plugin('html');
+        config.module
+            .rule('images')
+            .set('parser', {
+                dataUrlCondition: {
+                    maxSize: 0
+                }
+            });
+
+    },
     css: {
         loaderOptions: {
             // pass options to sass-loader

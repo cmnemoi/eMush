@@ -10,9 +10,9 @@ use Mush\RoomLog\Enum\LogDeclinationEnum;
 class LanguageEnum
 {
     // languages
-    public const FRENCH = 'fr-FR';
-    public const ENGLISH = 'en-GB';
-    public const SPANISH = 'es-ES';
+    public const FRENCH = 'fr';
+    public const ENGLISH = 'en';
+    public const SPANISH = 'es';
 
     // translation parameters keys
     public const CHARACTER = 'character';

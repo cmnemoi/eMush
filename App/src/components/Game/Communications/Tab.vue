@@ -1,18 +1,25 @@
 <template>
-    <div class="tab" :class="[selected ? 'checked' : '', isPirated ? 'pirated' : '']" @click="$emit('select')">
+    <Tippy
+        tag="div"
+        class="tab"
+        :class="[selected ? 'checked' : '', isPirated ? 'pirated' : '']"
+        @click="$emit('select')"
+    >
         <img :src="icon">
         <span v-if="numberOfNewMessages" class="new-messages-number">{{ numberOfNewMessagesDisplayed }}</span>
-    </div>
+        <template #content>
+            <h1 v-html="formatContent(name)" />
+            <p v-html="formatContent(description)" />
+        </template>
+    </Tippy>
 </template>
 
 <script lang="ts">
 
 import { ChannelType } from "@/enums/communication.enum";
 import { defineComponent } from "vue";
-import Tooltip from "@/components/Utils/ToolTip";
 
 export default defineComponent ({
-    components: { Tooltip },
     props: {
         type: String,
         selected: Boolean,
@@ -21,7 +28,9 @@ export default defineComponent ({
             type: Number,
             required: false,
             default: 0
-        }
+        },
+        name: String,
+        description: String
     },
     emits: [
         'select'

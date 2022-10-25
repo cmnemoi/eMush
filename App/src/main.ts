@@ -28,6 +28,7 @@ const i18n = createI18n({
     locale: navigator.language,
     fallbackLocale: defaultLocale
 });
+console.log(navigator.language);
 
 const vueTippyProps = {
     directive: 'tippy',

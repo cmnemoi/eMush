@@ -17,18 +17,14 @@
                 @select="createPrivateChannel"
             />
         </ul>
-        <Tooltip>
-            <template #tooltip-trigger>
-                <div class="cycle-time">
-                    <img src="@/assets/images/comms/calendar.png"><span>Jour {{ day }} - Cycle {{ cycle }}</span>
-                </div>
+        <Tippy tag="div" class="cycle-time" @click="test()">
+            <img src="@/assets/images/comms/calendar.png"><span>Jour {{ day }} - Cycle {{ cycle }}</span>
+            <template #content>
+                {{calendar.calendar}}
+                <!-- <h1 v-html="formatContent(calendar.name)" />
+                <p v-html="formatContent(calendar.description)" /> -->
             </template>
-            <template #tooltip-content="{ formatContent }">
-                <h1 v-html="formatContent(calendar.name)" />
-                <p v-html="formatContent(calendar.description)" />
-            </template>
-        </Tooltip>
-
+        </Tippy>
         <component :is="currentTabComponent" :channel="currentChannel" />
     </div>
 </template>
@@ -46,7 +42,6 @@ import { mapActions, mapState, mapGetters } from "vuex";
 import { Channel } from "@/entities/Channel";
 import { ChannelType } from "@/enums/communication.enum";
 import { Component, defineComponent } from "vue";
-import Tooltip from "@/components/Utils/ToolTip";
 
 
 const MAX_PRIVATE_TABS_NB = 3;
@@ -60,8 +55,7 @@ export default defineComponent ({
         PrivateTab,
         RoomEventsTab,
         MushTab,
-        Tab,
-        Tooltip
+        Tab
     },
     props: {
         day: Number,
@@ -109,6 +103,9 @@ export default defineComponent ({
         isChannelPirated(channel: Channel): boolean
         {
             return channel.piratedPlayer != null;
+        },
+        test(){
+            console.log(this.calendar);
         }
     }
 });

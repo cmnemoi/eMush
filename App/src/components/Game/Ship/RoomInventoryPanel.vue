@@ -8,7 +8,7 @@
         />
         <div class="item-details">
             <div class="name-container">
-                <p v-if="selectedItem" class="item-name">
+                <p v-if="getSelectedItem" class="item-name">
                     {{ getSelectedItem.name }}
                     <Statuses :statuses="getSelectedItem.statuses" type="item" />
                 </p>

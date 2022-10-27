@@ -184,6 +184,8 @@ class ActionEnum
     {
         return [
             self::HIT,
+            self::ATTACK,
+            self::SHOOT,
         ];
     }
 }

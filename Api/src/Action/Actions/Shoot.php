@@ -78,12 +78,19 @@ class Shoot extends AttemptAction
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::INVENTORY,
             'equipments' => [ItemEnum::BLASTER],
-            'contains' => false,
-            'checkIfOperational' => false,
+            'contains' => true,
+            'checkIfOperational' => true,
             'all' => false,
             'target' => HasEquipment::PLAYER,
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::UNLOADED_WEAPON,
+        ]));
+        $metadata->addConstraint(new HasEquipment([
+            'reach' => ReachEnum::SHELVE,
+            'equipments' => [ItemEnum::BLASTER],
+            'contains' => false,
+            'target' => HasEquipment::PLAYER,
+            'groups' => ['visibility'],
         ]));
     }
 

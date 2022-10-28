@@ -913,8 +913,8 @@
                     2 {Il n'y a qu'un battement de cil entre le coup de feu de **{character}** et l'impact sur **{target_character}**.}
                     3 {Prémédité ou pas, **{character}** sort son arme et tire abondamment sur **{target_character}**.}
                     4 {{target_character_gender, select,
-                        male **{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est désarçonné pour quelques minutes.}
-                        female **{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est désarçonnée pour quelques minutes.}
+                        male {**{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est désarçonné pour quelques minutes.}
+                        female {**{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est désarçonnée pour quelques minutes.}
                         other {invalid gender input}
                     }}
                     5 {**{character}** dégaine sans hésitation et fait feu sur **{target_character}**.}

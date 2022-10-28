@@ -284,7 +284,7 @@
         <unit id="disease_cured">
             <segment>
                 <source>disease_cured</source>
-                <target>Vous vous sentez mieux, votre {disease} a fini par guérir...</target>
+                <target>:ill: Vous vous sentez mieux, votre {disease} a fini par guérir...</target>
             </segment>
         </unit>
         <unit id="disorder_appear">

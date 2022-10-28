@@ -9,9 +9,11 @@ use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\OneShot;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasEquipment;
+use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
@@ -73,6 +75,7 @@ class Attack extends AttemptAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE]));
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::INVENTORY,
             'equipments' => [ItemEnum::KNIFE],

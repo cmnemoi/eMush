@@ -30,20 +30,29 @@ export default class PlayableCharacterObject extends CharacterObject {
         this.movement();
     }
 
-    //this function return an Array of direction to follow to get from character position to the pointed coordinates
-    updateMovement(pointer: Phaser.Input.Pointer, object : GameObject | null ): MushPath
+    //this function return an array of direction to follow to get from character position to the pointed coordinates
+    updateMovement(pointer: Phaser.Input.Pointer, object : GameObject | null ): MushPath | null
     {
-        const startingPoint = this.getFeetCartCoords().toIsometricCoordinates();
+        if (this.player.isLyingDown()) {
+            return null;
+        }
+
+        let startingPoint = this.getFeetCartCoords().toIsometricCoordinates();
         let finishPoint = (new CartesianCoordinates(pointer.worldX, pointer.worldY)).toIsometricCoordinates();
+
 
         let interactEquipment: InteractObject | null = null;
         if (object !== null && object instanceof InteractObject && !(object instanceof CharacterObject)) {
             interactEquipment = object.getInteractibleObject();
+            finishPoint = object.getInteractCoordinates(this.navMesh);
+        }
 
-            if (interactEquipment !== null) {
-                finishPoint = this.navMesh.getClosestPoint(interactEquipment.isoGeom.getIsoCoords());
-            } else {
-                finishPoint = this.navMesh.getClosestPoint(object.isoGeom.getIsoCoords());
+        if (this.interactedEquipment !== null) {
+            startingPoint = this.interactedEquipment.getInteractCoordinates(this.navMesh);
+            this.setPositionFromFeet(startingPoint.toCartesianCoordinates());
+
+            if (!this.player.isLyingDown()) {
+                this.interactedEquipment = null;
             }
         }
 
@@ -170,6 +179,36 @@ export default class PlayableCharacterObject extends CharacterObject {
                 this.anims.play('move_left');
             }
 
+        }
+    }
+
+    applyEquipmentInteraction(): void
+    {
+        const targetBed = this.player.isLyingDown();
+
+        if (targetBed !== null) {
+            const bed = (<DaedalusScene>this.scene).findObjectByNameAndId(targetBed.key, targetBed.id);
+
+            if (bed !== null) {
+                this.applyEquipmentInteractionInformation(bed);
+            }
+
+            //reset any ongoing movement
+            this.isoPath = [];
+            this.currentMove = -1;
+            (<Phaser.Physics.Arcade.Body >this.body).stop();
+        } else {
+            if (this.interactedEquipment !== null) {
+                const interactCoordinates = this.interactedEquipment.getInteractCoordinates(this.navMesh);
+                this.setPositionFromFeet(interactCoordinates.toCartesianCoordinates());
+                this.interactedEquipment = null;
+            }
+            //Set the initial sprite randomly such as it faces the screen
+            if (Math.random() > 0.5) {
+                this.flipX = true;
+            }
+            this.anims.play('right');
+            this.checkPositionDepth();
         }
     }
 }

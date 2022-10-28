@@ -687,14 +687,14 @@
                         {
                             "name": "isoSizeY",
                             "type": "int",
-                            "value": 18
+                            "value": 16
                         }
                     ],
                     "rotation": 0,
                     "type": "interact",
                     "visible": true,
                     "width": 32,
-                    "x": -4,
+                    "x": -2,
                     "y": 12
                 },
                 {
@@ -706,7 +706,7 @@
                         {
                             "name": "collides",
                             "type": "bool",
-                            "value": false
+                            "value": true
                         },
                         {
                             "name": "isoSizeX",

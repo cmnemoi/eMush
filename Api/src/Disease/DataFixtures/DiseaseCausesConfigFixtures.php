@@ -144,6 +144,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                     DiseaseEnum::EXTREME_TINNITUS => 1,
                 ]
             );
+        $manager->persist($diseaseCausesBacterialContact);
 
         $diseaseCausesFakeDisease = new DiseaseCauseConfig();
         $diseaseCausesFakeDisease

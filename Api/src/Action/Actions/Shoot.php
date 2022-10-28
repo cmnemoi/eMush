@@ -13,6 +13,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasEquipment;
+use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
@@ -74,15 +75,23 @@ class Shoot extends AttemptAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE]));
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::INVENTORY,
             'equipments' => [ItemEnum::BLASTER],
-            'contains' => false,
-            'checkIfOperational' => false,
+            'contains' => true,
+            'checkIfOperational' => true,
             'all' => false,
             'target' => HasEquipment::PLAYER,
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::UNLOADED_WEAPON,
+        ]));
+        $metadata->addConstraint(new HasEquipment([
+            'reach' => ReachEnum::SHELVE,
+            'equipments' => [ItemEnum::BLASTER],
+            'contains' => false,
+            'target' => HasEquipment::PLAYER,
+            'groups' => ['visibility'],
         ]));
     }
 

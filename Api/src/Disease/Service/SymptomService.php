@@ -317,9 +317,11 @@ class SymptomService implements SymptomServiceInterface
 
     private function getPlayerWeapon(Player $player, string $weapon): ?EquipmentConfig
     {
-        return $player->getEquipments()->filter(
+        $weapon = $player->getEquipments()->filter(
             fn (GameItem $gameItem) => $gameItem->getName() === $weapon && $gameItem->isOperational()
-        )->first()->getEquipment();
+        )->first();
+
+        return $weapon ? $weapon->getEquipment() : null;
     }
 
     /**

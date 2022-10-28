@@ -50,7 +50,7 @@ export class NavMeshGrid
         const path = this.phaserNavMesh.findPath({ x: startPoint.x, y: startPoint.y }, { x: finishPoint.x, y: finishPoint.y });
 
         if (path !== null) {
-            return (<DaedalusScene>this.scene).navMeshGrid.convertNavMeshPathToMushPath(path);
+            return this.convertNavMeshPathToMushPath(path);
         }
 
         return [];

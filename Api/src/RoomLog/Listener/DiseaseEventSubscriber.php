@@ -63,13 +63,15 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
             $key = LogEnum::DISEASE_CURED;
         }
 
+        $event->setVisibility(VisibilityEnum::PUBLIC);
+
         $privateCuredEvents = [
-            DiseaseCauseEnum::OVERRODE,
+            LogEnum::DISEASE_OVERRIDDEN,
             LogEnum::DISEASE_CURED,
         ];
 
-        if (!in_array($reason, $privateCuredEvents)) {
-            $event->setVisibility(VisibilityEnum::PUBLIC);
+        if (in_array($key, $privateCuredEvents)) {
+            $event->setVisibility(VisibilityEnum::PRIVATE);
         }
 
         $this->createEventLog($key, $event, $player);

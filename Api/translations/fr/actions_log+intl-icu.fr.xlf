@@ -681,7 +681,7 @@
         <unit id="default_fail">
             <segment id="default_fail">
                 <source>default_fail</source>
-                <target>Votre tentative a échouée.</target>
+                <target>Votre tentative a échoué.</target>
             </segment>
         </unit>
         <unit id="spread_fire_success">
@@ -867,7 +867,11 @@
                 <target>{version, select,
                     1 {**{character}** dégaine sa lame et tente de frapper **{target_character}** mais rate sa cible.}
                     2 {Zip, l'arme de **{character}** esquive fort élégamment **{target_character}** pour se heurter à un mur insolent.}
-                    3 {**{character}** se retourne vers **{character}** qui le menace de sa lame. Trop vif, trop rapide, trop précis, bref, trop...**{character}** fait un effort surhumain mais se trouve pris d'un malaise...}
+                    3 {{character_gender, select,
+                        male {**{target_character}** se retourne vers **{character}** qui le menace de sa lame. Trop vif, trop rapide, trop précis, bref, trop... **{character}** fait un effort surhumain mais se trouve pris d'un malaise...}
+                        female {**{target_character}** se retourne vers **{character}** qui la menace de sa lame. Trop vive, trop rapide, trop précise, bref, trop...**{character}** fait un effort surhumain mais se trouve prise d'un malaise...}
+                        other {invalid gender input}
+                    }}
                     4 {Au moment d'aggresser **{target_character}**, **{character}** se prend les pieds dans un tapis imaginaire et rate sa cible.}
                     5 {Qui eut crû que **{target_character}** aie de si bons réflèxes...**{character}** rate lamentablement son coup.}
                     other {invalid version input}
@@ -909,8 +913,8 @@
                     2 {Il n'y a qu'un battement de cil entre le coup de feu de **{character}** et l'impact sur **{target_character}**.}
                     3 {Prémédité ou pas, **{character}** sort son arme et tire abondamment sur **{target_character}**.}
                     4 {{target_character_gender, select,
-                        male **{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est désarçonné pour quelques minutes.}
-                        female **{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est désarçonnée pour quelques minutes.}
+                        male {**{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est désarçonné pour quelques minutes.}
+                        female {**{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est désarçonnée pour quelques minutes.}
                         other {invalid gender input}
                     }}
                     5 {**{character}** dégaine sans hésitation et fait feu sur **{target_character}**.}

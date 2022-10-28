@@ -465,7 +465,7 @@ export default class DaedalusScene extends Phaser.Scene
             const gameObject = sceneGameObjects[i];
 
             if (gameObject instanceof EquipmentObject) {
-                const updatedEquipment = room.equipments.filter((equipment: Equipment) => (equipment.key === gameObject.equipment.key))[0];
+                const updatedEquipment = room.equipments.filter((equipment: Equipment) => (equipment.id === gameObject.equipment.id))[0];
 
                 gameObject.updateEquipment(updatedEquipment);
                 if (gameObject.name === this.selectedGameObject?.name) {
@@ -787,6 +787,7 @@ export default class DaedalusScene extends Phaser.Scene
         let playerCoordinates = this.navMeshGrid.getRandomPoint();
         if (this.previousRoom !== undefined && this.previousRoom !== this.room.key) {
             playerCoordinates = this.findRoomEntryPoint();
+            this.playerSprite.interactedEquipment = null;
         }
 
         this.previousRoom = this.room.key;

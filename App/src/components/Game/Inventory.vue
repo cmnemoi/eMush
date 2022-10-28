@@ -5,7 +5,7 @@
             :key="item.id"
             tabindex="0"
             class="slot"
-            @click="$emit('select', item)"
+            @click.stop="$emit('select', item)"
         >
             <Tippy tag="div">
                 <img :src="itemImage(item)" :alt="item.name">

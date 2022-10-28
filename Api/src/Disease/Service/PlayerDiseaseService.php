@@ -192,10 +192,14 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             $this->removePlayerDisease($playerDisease, DiseaseStatusEnum::MUSH_CURE, $time, $visibility);
         }
 
-        $newDiseasePoint = $playerDisease->getDiseasePoint() - 1;
-        $playerDisease->setDiseasePoint($newDiseasePoint);
+        if ($playerDisease->getDiseaseConfig()->getType() === TypeEnum::DISEASE) {
+            $newDiseasePoint = $playerDisease->getDiseasePoint() - 1;
+            $playerDisease->setDiseasePoint($newDiseasePoint);
+        }
 
-        if ($newDiseasePoint <= 0) {
+        $diseasePoint = $playerDisease->getDiseasePoint();
+
+        if ($diseasePoint <= 0) {
             if ($playerDisease->getStatus() === DiseaseStatusEnum::INCUBATING) {
                 $diseaseConfig = $playerDisease->getDiseaseConfig();
                 $diseaseDurationMin = $diseaseConfig->getDiseasePointMin();

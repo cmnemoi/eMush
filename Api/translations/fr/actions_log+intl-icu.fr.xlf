@@ -681,7 +681,7 @@
         <unit id="default_fail">
             <segment id="default_fail">
                 <source>default_fail</source>
-                <target>Votre tentative a échouée.</target>
+                <target>Votre tentative a échoué.</target>
             </segment>
         </unit>
         <unit id="spread_fire_success">

@@ -55,12 +55,12 @@
         <unit id="biting">
             <segment id="description">
                 <source>biting.description</source>
-                <target>Fait subir le symptôme **Morsure**.</target>
+                <target>Fait subir le symptôme **Morsures**.</target>
             </segment>
         </unit>
         <unit id="breakouts">
             <segment id="description">
-                <source>biting.description</source>
+                <source>breakouts.description</source>
                 <target>Fait subir le symptôme **Éruptions**.</target>
             </segment>
         </unit>
@@ -160,9 +160,9 @@
                 <target>Impossible d'utiliser une arme à feu.</target>
             </segment>
         </unit>
-        <unit id="biting">
+        <unit id="psychotic_attacks">
             <segment id="description">
-                <source>biting.description</source>
+                <source>psychotic_attacks.description</source>
                 <target>Fait subir le symptôme **Accès psychotique**.</target>
             </segment>
         </unit>

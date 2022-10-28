@@ -787,6 +787,7 @@ export default class DaedalusScene extends Phaser.Scene
         let playerCoordinates = this.navMeshGrid.getRandomPoint();
         if (this.previousRoom !== undefined && this.previousRoom !== this.room.key) {
             playerCoordinates = this.findRoomEntryPoint();
+            this.playerSprite.interactedEquipment = null;
         }
 
         this.previousRoom = this.room.key;

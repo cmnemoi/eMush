@@ -1,9 +1,10 @@
 import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
-import { CartesianCoordinates } from "@/game/types";
+import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import DecorationObject from "@/game/objects/decorationObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import EquipmentObject from "@/game/objects/equipmentObject";
+import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 
 /*eslint no-unused-vars: "off"*/
 export default class InteractObject extends DecorationObject {
@@ -151,6 +152,18 @@ export default class InteractObject extends DecorationObject {
 
         return null;
     }
+
+    getInteractCoordinates(navMesh: NavMeshGrid): IsometricCoordinates
+    {
+        const interactEquipment = this.getInteractibleObject();
+
+        if (interactEquipment !== null) {
+            return navMesh.getClosestPoint(interactEquipment.isoGeom.getIsoCoords());
+        } else {
+            return navMesh.getClosestPoint(this.isoGeom.getIsoCoords());
+        }
+    }
+
 }
 
 

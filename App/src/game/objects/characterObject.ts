@@ -7,12 +7,19 @@ import InteractObject from "@/game/objects/interactObject";
 import Tileset = Phaser.Tilemaps.Tileset;
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
+import EquipmentObject from "@/game/objects/equipmentObject";
 
 export default class CharacterObject extends InteractObject {
     public player : Player;
     protected navMesh: NavMeshGrid;
+    public interactedEquipment: InteractObject | null;
 
-    constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, isoGeom: IsometricGeom, player: Player) {
+    constructor(
+        scene: DaedalusScene,
+        cart_coords: CartesianCoordinates,
+        isoGeom: IsometricGeom,
+        player: Player
+    ) {
         super(
             scene,
             cart_coords,
@@ -27,6 +34,7 @@ export default class CharacterObject extends InteractObject {
 
         this.player = player;
         this.navMesh = scene.navMeshGrid;
+        this.interactedEquipment = null;
 
         this.setPositionFromFeet(cart_coords);
 
@@ -62,11 +70,17 @@ export default class CharacterObject extends InteractObject {
                 this.applyEquipmentInteractionInformation(bed);
             }
         } else {
+            if (this.interactedEquipment !== null) {
+                const interactCoordinates = this.interactedEquipment.getInteractCoordinates(this.navMesh);
+                this.setPositionFromFeet(interactCoordinates.toCartesianCoordinates());
+                this.interactedEquipment = null;
+            }
             //Set the initial sprite randomly such as it faces the screen
             if (Math.random() > 0.5) {
                 this.flipX = true;
             }
             this.anims.play('right');
+            this.checkPositionDepth();
         }
     }
 
@@ -97,6 +111,8 @@ export default class CharacterObject extends InteractObject {
             this.depth = equipment.depth + interactionInformation.sitDepth;
 
             this.anims.play(interactionInformation.sitAnimation);
+
+            this.interactedEquipment = equipment;
         }
     }
 

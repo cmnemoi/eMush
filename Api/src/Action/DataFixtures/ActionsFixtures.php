@@ -697,7 +697,7 @@ class ActionsFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ActionEnum::SURGERY)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost($twoActionPointCost)
-            ->setDirtyRate(100)
+            ->setDirtyRate(80)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
         ;
 

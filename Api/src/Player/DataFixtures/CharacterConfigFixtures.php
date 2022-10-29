@@ -36,12 +36,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         // @TODO: remove when the game is ready
         /** @var Action $rejuvenateAlphaAction */
         $rejuvenateAlphaAction = $this->getReference(ActionsFixtures::REJUVENATE_ALPHA);
-        /** @var Action $comfortAction */
-        $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
-        /** @var Action $healAction */
-        $healAction = $this->getReference(ActionsFixtures::HEAL);
-        /** @var Action $selfHealAction */
-        $selfHealAction = $this->getReference(ActionsFixtures::SELF_HEAL);
         /** @var Action $fakeDiseaseAction */
         $fakeDiseaseAction = $this->getReference(MushActionFixtures::FAKE_DISEASE);
 
@@ -63,6 +57,10 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $doTheThingAction = $this->getReference(ActionsFixtures::DO_THE_THING);
         /** @var Action $ungag */
         $ungag = $this->getReference(ActionsFixtures::UNGAG_DEFAULT);
+        /** @var Action $healAction */
+        $healAction = $this->getReference(ActionsFixtures::HEAL);
+        /** @var Action $selfHealAction */
+        $selfHealAction = $this->getReference(ActionsFixtures::SELF_HEAL);
 
         /** @var Action $extractSporeAction */
         $extractSporeAction = $this->getReference(MushActionFixtures::EXTRACT_SPORE);
@@ -79,6 +77,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $boringSpeechAction = $this->getReference(ActionsFixtures::BORING_SPEECH);
         /** @var Action $extinguishManuallyAction */
         $extinguishManuallyAction = $this->getReference(ActionsFixtures::EXTINGUISH_MANUALLY);
+        /** @var Action $surgeryAction */
+        $surgeryAction = $this->getReference(ActionsFixtures::SURGERY);
 
         /** @var Action $makeSickAction */
         $makeSickAction = $this->getReference(MushActionFixtures::MAKE_SICK);
@@ -118,6 +118,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $screwTalkieAction,
             $ungag,
             $suicideAction,
+            $surgeryAction,
         ]);
 
         /** @var StatusConfig $sporeStatus */

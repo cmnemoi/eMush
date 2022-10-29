@@ -13,11 +13,8 @@ use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\AreMedicalSuppliesOnReach;
 use Mush\Action\Validator\HasDiseases;
-use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasStatus;
 use Mush\Disease\Enum\TypeEnum;
-use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -87,12 +84,6 @@ class Surgery extends AbstractAction
             'target' => HasDiseases::PARAMETER,
             'isEmpty' => false,
             'type' => TypeEnum::INJURY,
-        ]));
-        $metadata->addConstraint(new HasEquipment([
-            'groups' => ['visibility'],
-            'equipments' => [ToolItemEnum::MEDIKIT],
-            'reach' => ReachEnum::INVENTORY,
-            'contains' => true,
         ]));
     }
 

@@ -114,7 +114,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTarget(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.1)
             ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setMode(ModifierModeEnum::MULTIPLICATIVE)
         ;
         $manager->persist($aimModifier);
 

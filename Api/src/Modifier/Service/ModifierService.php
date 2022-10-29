@@ -5,6 +5,7 @@ namespace Mush\Modifier\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -17,6 +18,7 @@ use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Event\ModifierEvent;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
@@ -142,6 +144,13 @@ class ModifierService implements ModifierServiceInterface
             $initialValue = $action->getSuccessRate() * self::ATTEMPT_INCREASE ** $attemptNumber;
 
             return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $initialValue);
+        }
+
+        if ($target === PlayerVariableEnum::ACTION_POINT &&
+            in_array($action->getName(), ActionEnum::getActionPointModifierProtectedActions())) {
+            $actionPoints = $action->getActionCost()->getActionPointCost();
+
+            return $actionPoints ? $actionPoints : 0;
         }
 
         return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $action->getActionCost()->getVariableCost($target));

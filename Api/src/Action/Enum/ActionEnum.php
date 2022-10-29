@@ -188,4 +188,16 @@ class ActionEnum
             self::SHOOT,
         ];
     }
+
+    public static function getActionPointModifierProtectedActions(): array
+    {
+        return [
+            self::SURGERY,
+            self::SELF_SURGERY,
+            self::CONSUME,
+            self::CONSUME_DRUG,
+            self::REJUVENATE_ALPHA,
+            self::SUICIDE,
+        ];
+    }
 }

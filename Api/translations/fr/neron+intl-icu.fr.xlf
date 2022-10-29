@@ -44,9 +44,9 @@
             <segment id="cycle_failures">
                 <source>cycle_failures</source>
                 <target>{neronMood, select,
-                    neutral {Alerte : Défaillances détectées}
-                    crazy {Alerte : Défaillances détectées}
-                    uninhibited {Alerte : Défaillances détectées}
+                    neutral {**Alerte : Défaillances détectées** ! Vous ne voyez pas le TROU dans ma coque ?! **Dégâts critiques** subis, si vous ne voulez pas que je vous éjecte dans l'espace, réparez moi !}
+                    crazy {**Alerte : Défaillances détectées** ! Je détecte des altérations de certaines fonctions primaires, extincteur et clé sont dans l'étagère, vous savez quoi en faire [Hax!]}
+                    uninhibited {**Alerte : Défaillances détectées !**}
                     other {invalid mood input}
                 }</target>
             </segment>

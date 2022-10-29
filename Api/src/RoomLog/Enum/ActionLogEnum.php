@@ -25,6 +25,7 @@ class ActionLogEnum
     public const EXTINGUISH_FAIL = 'extinguish_fail';
     public const EXTRACT_SPORE_SUCCESS = 'extract_spore_success';
     public const FLIRT_SUCCESS = 'flirt_success';
+    public const GAG_SUCCESS = 'gag_success';
     public const GET_UP = 'get_up';
     public const HEAL_SUCCESS = 'heal_success';
     public const HIDE_SUCCESS = 'hide_success';
@@ -62,6 +63,7 @@ class ActionLogEnum
     public const TREAT_PLANT_SUCCESS = 'treat_plant_success';
     public const TRY_KUBE = 'try_kube';
     public const ULTRAHEAL_SUCCESS = 'ultraheal_success';
+    public const UNGAG_SUCCESS = 'ungag_success';
     public const SELF_HEAL = 'self_heal';
     public const WATER_PLANT_SUCCESS = 'water_plant_success';
     public const WRITE_SUCCESS = 'write_success';
@@ -304,6 +306,12 @@ class ActionLogEnum
         ],
         ActionEnum::SUICIDE => [
             ActionOutputEnum::SUCCESS => self::SUICIDE_SUCCESS,
+        ],
+        ActionEnum::GAG => [
+            ActionOutputEnum::SUCCESS => self::GAG_SUCCESS,
+        ],
+        ActionEnum::UNGAG => [
+            ActionOutputEnum::SUCCESS => self::UNGAG_SUCCESS,
         ],
     ];
 }

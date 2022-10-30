@@ -189,8 +189,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":287,
-                 "y":79
+                 "x":285,
+                 "y":45
                 }, 
                 {
                  "gid":265,

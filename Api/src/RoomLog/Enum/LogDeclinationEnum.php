@@ -67,6 +67,7 @@ class LogDeclinationEnum
             ],
             DiseaseMessagesEnum::REPLACE_PARANOIA => ['version' => 12, 'paranoia_version4' => 4, 'paranoia_version6' => 6],
             DiseaseMessagesEnum::ACCUSE_PARANOIA => ['version' => 10, 'paranoia_version4' => 4, 'paranoia_version6' => 6],
+            DiseaseMessagesEnum::PRE_PARANOIA => ['version' => 4],
         ];
     }
 }

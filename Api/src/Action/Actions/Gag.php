@@ -5,9 +5,11 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasStatus as StatusValidator;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -38,6 +40,14 @@ class Gag extends AbstractAction
             'status' => PlayerStatusEnum::GAGGED,
             'target' => StatusValidator::PARAMETER,
             'contain' => false,
+            'groups' => ['visibility'],
+        ]));
+        $metadata->addConstraint(new HasEquipment([
+            'reach' => ReachEnum::INVENTORY,
+            'equipments' => [ToolItemEnum::DUCT_TAPE],
+            'contains' => true,
+            'checkIfOperational' => true,
+            'target' => HasEquipment::PLAYER,
             'groups' => ['visibility'],
         ]));
     }

@@ -157,7 +157,7 @@ class Shoot extends AttemptAction
                     new \DateTime()
                 );
 
-                $this->eventDispatcher->dispatch($deathEvent, PlayerEvent::DEATH_PLAYER);
+                $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
 
                 return;
             }

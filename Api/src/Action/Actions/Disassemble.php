@@ -15,6 +15,7 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -28,13 +29,13 @@ class Disassemble extends AttemptAction
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
         GameEquipmentServiceInterface $gameEquipmentService
     ) {
-        parent::__construct($eventDispatcher, $actionService, $validator, $randomService);
+        parent::__construct($eventService, $actionService, $validator, $randomService);
 
         $this->gameEquipmentService = $gameEquipmentService;
     }

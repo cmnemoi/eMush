@@ -49,7 +49,11 @@ class ExtinguishManuallyActionCest
         $I->haveInRepository($neron);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'gameStatus' => GameStatusEnum::CURRENT, 'neron' => $neron]);
+        $daedalus = $I->have(Daedalus::class, [
+            'gameConfig' => $gameConfig,
+            'gameStatus' => GameStatusEnum::CURRENT,
+            'neron' => $neron
+        ]);
 
         $channel = new Channel();
         $channel

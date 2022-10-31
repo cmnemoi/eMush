@@ -8,19 +8,15 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Event\PlaceInitEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlaceInitSubscriber implements EventSubscriberInterface
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private EventDispatcherInterface $eventDispatcher;
 
-    public function __construct(GameEquipmentServiceInterface $gameEquipmentService,
-        EventDispatcherInterface $eventDispatcher)
+    public function __construct(GameEquipmentServiceInterface $gameEquipmentService)
     {
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array

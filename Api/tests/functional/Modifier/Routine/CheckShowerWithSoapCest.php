@@ -17,6 +17,7 @@ use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -34,11 +35,13 @@ class CheckShowerWithSoapCest
 {
     private Shower $showerAction;
     private EventServiceInterface $eventService;
+    private GameEquipmentServiceInterface $equipmentService;
 
     public function _before(FunctionalTester $I): void
     {
         $this->showerAction = $I->grabService(Shower::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->equipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
     public function createSoapAndShower(FunctionalTester $I): void
@@ -115,14 +118,12 @@ class CheckShowerWithSoapCest
         ;
         $I->haveInRepository($soapConfig);
 
-        $newEquipmentEvent = new EquipmentEvent(
+        $soap = $this->equipmentService->createGameEquipmentFromName(
             GearItemEnum::SOAP,
             $player,
-            VisibilityEnum::PRIVATE,
             'a random reason',
-            new \DateTime()
+            VisibilityEnum::PRIVATE,
         );
-        $this->eventService->callEvent($newEquipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         $this->showerAction->loadParameters($showerActionEntity, $player, $shower);
 

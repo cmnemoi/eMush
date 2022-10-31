@@ -149,7 +149,7 @@ class SymptomService implements SymptomServiceInterface
             $time
         );
 
-        $this->eventDispatcher->dispatch($damageEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        $this->eventService->callEvent($damageEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $this->playerDiseaseService->createDiseaseFromName(DiseaseEnum::QUINCKS_OEDEMA, $player, $symptomConfig->getName());
 
@@ -160,7 +160,7 @@ class SymptomService implements SymptomServiceInterface
             $symptomConfig->getName(),
             $time
         );
-        $this->eventDispatcher->dispatch($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
+        $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
     }
 
     private function handleDirtiness(SymptomConfig $symptomConfig, Player $player, DateTime $time): void
@@ -185,7 +185,7 @@ class SymptomService implements SymptomServiceInterface
             $time
         );
 
-        $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
     public function handleDrooling(SymptomConfig $symptomConfig, Player $player, DateTime $time): void

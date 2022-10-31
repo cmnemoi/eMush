@@ -5,7 +5,7 @@
                 <img :src="alertIcon(alerts[0])">{{ alerts[0].name }}
                 <template #content>
                     <h1>{{ alerts[0].name }}</h1>
-                    <p>{{ alerts[0].description }}</p>
+                    <p v-html="formatAlert(alerts[0].description)"/>
                 </template>
             </Tippy>
             <span v-else>{{ $t('alerts') }}</span>
@@ -16,10 +16,10 @@
                 >
                 <template #content>
                     <h1>{{ alert.name }}</h1>
-                    <p>{{ alert.description }}</p>
+                    <p v-html="formatAlert(alert.description)" />
                     <ul v-if="alert.reports.length > 0" style="flex-direction:column">
                         <li v-for="(report, reportKey) in alert.reports" :key="reportKey">
-                            {{ report }}
+                            <p v-html="formatAlert(report)"/>
                         </li>
                     </ul>
                 </template>
@@ -32,6 +32,7 @@
 import { Daedalus } from "@/entities/Daedalus";
 import DaedalusService from "@/services/daedalus.service";
 import { AlertsIcons, NO_ALERT } from "@/enums/alerts.enum";
+import { formatText } from "@/utils/formatText";
 import { defineComponent } from "vue";
 import { Alert } from "@/entities/Alerts";
 import { mapGetters } from "vuex";
@@ -62,6 +63,10 @@ export default defineComponent ({
     methods: {
         alertIcon: function (alert: Alert): string {
             return AlertsIcons[alert.key];
+        },
+        formatAlert(value: string): string {
+            if (! value) return '';
+            return formatText(value.toString());
         }
     }
 });
@@ -71,7 +76,7 @@ export default defineComponent ({
 
 $redAlert: #ff4e64;
 
-.daedalus-alarms p {
+.daedalus-alarms p{
     display: flex;
     align-items: center;
     flex-direction: row;

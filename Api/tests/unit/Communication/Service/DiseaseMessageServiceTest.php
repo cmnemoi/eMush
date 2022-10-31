@@ -387,7 +387,7 @@ class DiseaseMessageServiceTest extends TestCase
         $this->randomService->shouldReceive('random')->andReturn(1)->times(3);
         $this->randomService
             ->shouldReceive('getRandomElements')
-            ->with([CharacterEnum::TERRENCE])
+            ->with([CharacterEnum::TERRENCE], 1)
             ->andReturn([CharacterEnum::TERRENCE])
             ->once()
         ;

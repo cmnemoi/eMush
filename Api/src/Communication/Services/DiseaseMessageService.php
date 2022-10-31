@@ -184,7 +184,10 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
             }
         }
 
-        return $this->randomService->getRandomElements($characters)[0];
+        $characterDraw = $this->randomService->getRandomElements($characters, 1);
+        $character = reset($characterDraw);
+
+        return $character;
     }
 
     private function getVersionParameter(array $parameters, string $versionKey): array

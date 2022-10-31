@@ -87,7 +87,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
         $diseaseCausePerishedFood
             ->setGameConfig($gameConfig)
             ->setName(DiseaseCauseEnum::PERISHED_FOOD)
-            ->setDiseases([DiseaseEnum::FOOD_POISONING])
+            ->setDiseases([DiseaseEnum::FOOD_POISONING => 1])
         ;
         $manager->persist($diseaseCausePerishedFood);
 
@@ -215,7 +215,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
         $diseaseCauseFailedSurgery
             ->setGameConfig($gameConfig)
             ->setName(ActionEnum::SURGERY)
-            ->setDiseases([DiseaseEnum::SEPSIS])
+            ->setDiseases([DiseaseEnum::SEPSIS => 1])
         ;
         $manager->persist($diseaseCauseFailedSurgery);
 

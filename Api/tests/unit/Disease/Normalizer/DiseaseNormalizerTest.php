@@ -3,6 +3,7 @@
 namespace Mush\Tests\unit\Disease\Normalizer;
 
 use Mockery;
+use Mush\Disease\DataFixtures\DiseaseCausesConfigFixtures;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\Config\SymptomCondition;
@@ -13,9 +14,14 @@ use Mush\Disease\Enum\SymptomEnum;
 use Mush\Disease\Normalizer\DiseaseNormalizer;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\LanguageEnum;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationService;
-use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\DataFixtures\DiseaseModifierConfigFixtures;
+use Mush\Modifier\Entity\Config\ModifierConfig;
+use Mush\Modifier\Entity\ModifierCollection;
+use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +31,7 @@ class DiseaseNormalizerTest extends TestCase
     private DiseaseNormalizer $normalizer;
 
     /** @var TranslationService|Mockery\Mock */
-    private TranslationService $translationService;
+    private TranslationService|Mockery\Mock $translationService;
 
     /**
      * @before
@@ -84,12 +90,14 @@ class DiseaseNormalizerTest extends TestCase
         $gameConfig = new GameConfig();
         $gameConfig->setLanguage(LanguageEnum::FRENCH);
 
-        $modifierConfig = new ModifierConfig();
-        $modifierConfig
-            ->setDelta(-6)
-            ->setScope(ModifierScopeEnum::INJURY)
-            ->setTarget(PlayerVariableEnum::MORAL_POINT)
-        ;
+        $modifierConfig = new ModifierConfig(
+            'a random modifier name',
+            ModifierReachEnum::PLAYER,
+            -6,
+            ModifierModeEnum::ADDITIVE,
+            PlayerVariableEnum::MORAL_POINT
+        );
+
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setName('name')

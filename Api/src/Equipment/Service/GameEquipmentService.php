@@ -100,7 +100,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $reason,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($event, EquipmentEvent::EQUIPMENT_CREATED);
+        $this->eventService->callEvent($event, EquipmentEvent::EQUIPMENT_CREATED);
 
         return $equipment;
     }
@@ -160,7 +160,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $reason,
             new \DateTime()
         );
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
+        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_TRANSFORM);
 
         return $result;
     }

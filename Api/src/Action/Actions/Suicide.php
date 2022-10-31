@@ -37,6 +37,6 @@ class Suicide extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $deathEvent = new PlayerEvent($this->player, EndCauseEnum::SUICIDE, new \DateTime());
-        $this->eventDispatcher->dispatch($deathEvent, PlayerEvent::DEATH_PLAYER);
+        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
     }
 }

@@ -60,7 +60,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
-        $this->statusService->removeAllStatuses($equipment, $event->getReason(), $event->getTime());
+        $this->statusService->removeAllStatuses($equipment, $event->getReasons()[0], $event->getTime());
     }
 
     public function onNewEquipmentInInventory(EquipmentEvent $event): void

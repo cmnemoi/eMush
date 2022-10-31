@@ -282,7 +282,6 @@ class PlayerStatusServiceTest extends TestCase
             )
             ->once()
         ;
-        $this->eventService->shouldReceive('callEvent')->withSomeOfArgs(StatusEvent::STATUS_REMOVED)->once();
 
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
     }

@@ -8,6 +8,7 @@ use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -15,14 +16,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class EquipmentSubscriber implements EventSubscriberInterface
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private EventDispatcherInterface $eventDispatcher;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
-        EventDispatcherInterface $eventDispatcher
+        EventServiceInterface $eventService
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents(): array
@@ -66,12 +67,12 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $time
         );
 
-        $this->eventDispatcher->dispatch($equipmentEvent, EquipmentInitEvent::NEW_EQUIPMENT);
+        $this->eventService->callEvent($equipmentEvent, EquipmentInitEvent::NEW_EQUIPMENT);
     }
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        $this->eventDispatcher->dispatch($event, EquipmentEvent::EQUIPMENT_DELETE);
+        $this->eventService->callEvent($event, EquipmentEvent::EQUIPMENT_DELETE);
     }
 
     public function onEquipmentDelete(EquipmentEvent $event): void
@@ -113,7 +114,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
                 new \DateTime()
             );
 
-            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::INVENTORY_OVERFLOW);
+            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::INVENTORY_OVERFLOW);
         }
     }
 

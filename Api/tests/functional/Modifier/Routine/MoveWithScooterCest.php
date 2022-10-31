@@ -19,6 +19,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -40,11 +41,13 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 class MoveWithScooterCest
 {
     private EventServiceInterface $eventService;
+    private GameEquipmentServiceInterface $equipmentService;
     private Move $moveAction;
 
     public function _before(FunctionalTester $I): void
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->equipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->moveAction = $I->grabService(Move::class);
     }
 
@@ -145,14 +148,12 @@ class MoveWithScooterCest
         ;
         $I->haveInRepository($antiGravScooterConfig);
 
-        $newEquipmentEvent = new EquipmentEvent(
+        $scooter = $this->equipmentService->createGameEquipmentFromName(
             GearItemEnum::ANTIGRAV_SCOOTER,
             $player,
-            VisibilityEnum::PRIVATE,
             'a random reason',
-            new \DateTime()
+            VisibilityEnum::PRIVATE
         );
-        $this->eventService->callEvent($newEquipmentEvent, EquipmentEvent::EQUIPMENT_CREATED);
 
         /* @var GameItem $scooter */
         $scooter = $player->getEquipments()->getByName(GearItemEnum::ANTIGRAV_SCOOTER)->first();

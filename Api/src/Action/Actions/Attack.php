@@ -149,7 +149,7 @@ class Attack extends AttemptAction
                     new \DateTime()
                 );
 
-                $this->eventDispatcher->dispatch($deathEvent, PlayerEvent::DEATH_PLAYER);
+                $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
 
                 return;
             }
@@ -237,7 +237,7 @@ class Attack extends AttemptAction
             new \DateTime()
         );
 
-        $this->eventDispatcher->dispatch(
+        $this->eventService->callEvent(
             $damageEvent,
             AbstractQuantityEvent::CHANGE_VARIABLE
         );

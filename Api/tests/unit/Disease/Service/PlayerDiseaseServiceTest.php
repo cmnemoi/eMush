@@ -26,19 +26,19 @@ class PlayerDiseaseServiceTest extends TestCase
     private PlayerDiseaseService $playerDiseaseService;
 
     /** @var EntityManagerInterface|Mockery\Mock */
-    private EntityManagerInterface $entityManager;
+    private EntityManagerInterface|Mockery\Mock $entityManager;
 
     /** @var DiseaseCausesConfigRepository|Mockery\Mock */
-    private DiseaseCausesConfigRepository $diseaseCausesConfigRepository;
+    private DiseaseCausesConfigRepository|Mockery\Mock $diseaseCausesConfigRepository;
 
     /** @var DiseaseConfigRepository|Mockery\Mock */
-    private DiseaseConfigRepository $diseaseConfigRepository;
+    private DiseaseConfigRepository|Mockery\Mock $diseaseConfigRepository;
 
     /** @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface $randomService;
+    private RandomServiceInterface|Mockery\Mock $randomService;
 
     /** @var EventServiceInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
+    private EventServiceInterface|Mockery\Mock $eventService;
 
     /**
      * @before
@@ -338,22 +338,22 @@ class PlayerDiseaseServiceTest extends TestCase
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (DiseaseEvent $event) => (
                 $event->getPlayerDisease() === $diseasePlayer) &&
-                $event->getReason() === DiseaseCauseEnum::INCUBATING_END
+                $event->getReasons()[0] === DiseaseCauseEnum::INCUBATING_END
             )
             ->once()
         ;
 
         $this->randomService->shouldReceive('random')->andReturn(10);
 
-        $this->eventDispatcher
-            ->shouldReceive('dispatch')
+        $this->eventService
+            ->shouldReceive('callEvent')
             ->withArgs(fn (DiseaseEvent $event) => (
                 $event->getPlayerDisease() === $diseasePlayer2) &&
-                $event->getReason() === DiseaseCauseEnum::OVERRODE
+                $event->getReasons()[0] === DiseaseCauseEnum::OVERRODE
             )
             ->once()
         ;

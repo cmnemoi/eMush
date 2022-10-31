@@ -86,7 +86,7 @@ class GameEquipmentServiceTest extends TestCase
             ->shouldReceive('flush')
             ->once();
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $gameItem = $this->service->createGameEquipment(
             $itemConfig,
             $place,
@@ -119,7 +119,7 @@ class GameEquipmentServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $gameEquipment = $this->service->createGameEquipment(
             $equipmentConfig,
             $place,
@@ -164,7 +164,7 @@ class GameEquipmentServiceTest extends TestCase
             ->once()
         ;
 
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $gameItem = $this->service->createGameEquipment(
             $itemConfig,
             $place,
@@ -206,7 +206,7 @@ class GameEquipmentServiceTest extends TestCase
                 $event->getStatusName() === EquipmentStatusEnum::DOCUMENT_CONTENT))
             ->once()
         ;
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         $gameItem = $this->service->createGameEquipment(
             $itemConfig,

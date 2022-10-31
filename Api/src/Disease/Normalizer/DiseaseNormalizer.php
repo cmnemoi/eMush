@@ -14,11 +14,17 @@ use Mush\Disease\Enum\SymptomConditionEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Modifier\Entity\Condition\CycleEvenModifierCondition;
+use Mush\Modifier\Entity\Condition\MinimumPlayerInPlaceModifierCondition;
+use Mush\Modifier\Entity\Condition\ModifierCondition;
+use Mush\Modifier\Entity\Condition\PlayerHasStatusModifierCondition;
+use Mush\Modifier\Entity\Condition\RandomModifierCondition;
 use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\ResourceMaxPointEvent;
+use Mush\Player\Event\ResourcePointChangeEvent;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
 class DiseaseNormalizer implements ContextAwareNormalizerInterface
@@ -116,38 +122,14 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
 
             if ($mode == ModifierModeEnum::MULTIPLICATIVE) {
                 $subKey = $value < 1 ? '_decrease' : '_increase';
-                    if (array_key_exists(ResourceMaxPointEvent::CHECK_MAX_POINT, $scope)) {
-                        $key = 'max_point' . $subKey;
-                    } else if (array_key_exists(AbstractQuantityEvent::CHANGE_VARIABLE, $scope)) {
-                        if (in_array([EventEnum::NEW_CYCLE], $scope[AbstractQuantityEvent::CHANGE_VARIABLE])) {
-                            $key = 'new_cycle' . $subKey;
-                        } else if (in_array([PlayerEvent::INFECTION_PLAYER], $scope[AbstractQuantityEvent::CHANGE_VARIABLE])) {
-                            $key = 'infection.player' . $subKey;
-                        } else if (in_array([ActionEvent::POST_ACTION, ActionEnum::MOVE], $scope[AbstractQuantityEvent::CHANGE_VARIABLE])) {
-                            $key = 'move' . $subKey;
-                        } else {
-                            $key = 'post_action' . $subKey;
-                        }
-                    } else if (array_key_exists(PreparePercentageRollEvent::ACTION_ROLL_RATE, $scope)) {
-                        if (in_array([PlayerEvent::CYCLE_DISEASE], $scope[PreparePercentageRollEvent::ACTION_ROLL_RATE])) {
-                            $key = 'cycle_disease' . $subKey;
-                        } else {
-                            $key = 'action_shoot' . $subKey;
-                        }
-                    }
-
+                $key = $this->getKey($scope, $subKey);
                 $value = (1 - $value) * 100;
             } else {
-                if ($value < 0) {
-                    $key = $modifierConfig->getScope() . '_decrease';
-                } else {
-                    $key = $modifierConfig->getScope() . '_increase';
-                }
+                $subKey = $value < 0 ? '_decrease' : '_increase';
+                $key = $this->getKey($scope, $subKey);
             }
 
-            $emoteMap = PlayerVariableEnum::getEmoteMap();
-
-            $emote = $emoteMap[$target] ?? '';
+            $emote = PlayerVariableEnum::getEmoteMap()[$target] ?? '';
 
             $chance = $this->getModifierChance($modifierConfig);
             $action = $this->getModifierAction($modifierConfig);
@@ -175,10 +157,36 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         return $description;
     }
 
+    private function getKey($scope, $subKey) : string {
+        if (array_key_exists(ResourceMaxPointEvent::CHECK_MAX_POINT, $scope)) {
+            return 'max_point' . $subKey;
+        } else if (array_key_exists(AbstractQuantityEvent::CHANGE_VARIABLE, $scope)) {
+            if (in_array([EventEnum::NEW_CYCLE], $scope[AbstractQuantityEvent::CHANGE_VARIABLE])) {
+                return 'new_cycle' . $subKey;
+            } else if (in_array([PlayerEvent::INFECTION_PLAYER], $scope[AbstractQuantityEvent::CHANGE_VARIABLE])) {
+                return 'infection.player' . $subKey;
+            } else {
+                return 'post_action' . $subKey;
+            }
+        } else if (array_key_exists(PreparePercentageRollEvent::ACTION_ROLL_RATE, $scope)) {
+            if (in_array([PlayerEvent::CYCLE_DISEASE], $scope[PreparePercentageRollEvent::ACTION_ROLL_RATE])) {
+                return 'cycle_disease' . $subKey;
+            } else {
+                return 'action_shoot' . $subKey;
+            }
+        } else if (array_key_exists(ResourcePointChangeEvent::CHECK_CHANGE_ACTION_POINT, $scope)) {
+            return 'actions' . $subKey;
+        } else if (array_key_exists(ResourcePointChangeEvent::CHECK_CHANGE_MOVEMENT_POINT, $scope)) {
+            return 'move' . $subKey;
+        } else {
+            throw new \LogicException('No possible key found for this scope: ' . print_r($scope) . '.');
+        }
+    }
+
     private function getModifierChance(ModifierConfig $modifierConfig): int
     {
-        $randomCondition = $modifierConfig->getModifierConditions()
-                ->filter(fn (ModifierCondition $condition) => $condition->getName() === SymptomConditionEnum::RANDOM);
+        $randomCondition = $modifierConfig->getConditions()
+                ->filter(fn (ModifierCondition $condition) => $condition instanceof RandomModifierCondition);
         if (!$randomCondition->isEmpty()) {
             return $randomCondition->first()->getValue();
         } else {
@@ -188,10 +196,18 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
 
     private function getModifierAction(ModifierConfig $modifierConfig): ?string
     {
-        $reasonCondition = $modifierConfig->getModifierConditions()
-            ->filter(fn (ModifierCondition $condition) => $condition->getName() === SymptomConditionEnum::REASON);
-        if (!$reasonCondition->isEmpty()) {
-            return $reasonCondition->first()->getCondition();
+        $condition = $modifierConfig->getConditions()
+            ->filter(fn (ModifierCondition $condition) => !($condition instanceof RandomModifierCondition));
+        if (!$condition->isEmpty()) {
+            $reasonCondition = $condition->first();
+
+            if ($reasonCondition instanceof PlayerHasStatusModifierCondition) {
+                return SymptomConditionEnum::PLAYER_STATUS;
+            } else if ($reasonCondition instanceof MinimumPlayerInPlaceModifierCondition) {
+                return SymptomConditionEnum::THREE_OTHERS;
+            } else {
+                return null;
+            }
         } else {
             return null;
         }

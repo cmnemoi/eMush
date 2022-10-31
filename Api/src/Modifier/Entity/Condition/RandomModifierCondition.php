@@ -22,4 +22,10 @@ class RandomModifierCondition extends ModifierCondition
     {
         return $randomService->isSuccessful($this->value);
     }
+
+    public function getValue(): int
+    {
+        return $this->value;
+    }
+
 }

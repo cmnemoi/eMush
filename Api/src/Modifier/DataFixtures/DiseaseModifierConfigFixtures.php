@@ -25,6 +25,7 @@ use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\ResourceMaxPointEvent;
+use Mush\Player\Event\ResourcePointChangeEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -92,7 +93,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             PlayerVariableEnum::MOVEMENT_POINT
         );
         $moveIncreaseMovement
-            ->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE, [ActionEvent::POST_ACTION, ActionEnum::MOVE]);
+            ->addTargetEvent(ResourcePointChangeEvent::CHECK_CHANGE_MOVEMENT_POINT, [ActionEnum::MOVE]);
         $manager->persist($moveIncreaseMovement);
 
         $reduceMax1HealthPoint = new ModifierConfig(

@@ -48,10 +48,12 @@ export default defineComponent ({
             'executeAction': 'action/executeAction'
         }),
         async executeTargetAction(action: Action) {
-            if (this.selectedTarget === this.player) {
-                await this.executeAction({ target: null, action });
-            } else {
-                await this.executeAction({ target: this.selectedTarget, action });
+            if (action.canExecute){
+                if (this.selectedTarget === this.player) {
+                    await this.executeAction({ target: null, action });
+                } else {
+                    await this.executeAction({ target: this.selectedTarget, action });
+                }
             }
         }
     }

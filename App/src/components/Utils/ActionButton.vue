@@ -1,6 +1,9 @@
 <template>
     <Tippy tag="div">
-        <a :class="{ crossed: !action.canExecute }" class="action-button" href="#">
+        <a 
+            :class="isDisabled"
+            class="action-button"
+            href="#">
             <span v-if="action.movementPointCost > 0" class="cost">{{ action.movementPointCost }}<img src="@/assets/images/pm.png" alt="mp"></span>
             <span v-else-if="action.actionPointCost > 0" class="cost">{{ action.actionPointCost }}<img src="@/assets/images/pa.png" alt="ap"></span>
             <span v-if="action.canExecute">{{ action.name }}</span>
@@ -21,7 +24,14 @@ import { defineComponent } from "vue";
 export default defineComponent ({
     props: {
         action: Object
-    }
+    },
+    computed:
+        {
+            isDisabled(): string
+            {
+                return !this.action?.canExecute ? "disabled" : "";
+            },
+        }
 });
 </script>
 

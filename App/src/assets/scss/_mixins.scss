@@ -91,7 +91,7 @@ Adding the class ".flashing" to the element will will animate its border to incr
 
     s { text-decoration: inherit; }
     
-    &.crossed { opacity: 0.5; text-decoration: line-through; }
+    &.disabled { opacity: 0.5; text-decoration: line-through; cursor: not-allowed;}
 
     &.flashing {
         @keyframes flashing-effect {

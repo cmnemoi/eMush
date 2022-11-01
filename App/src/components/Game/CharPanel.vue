@@ -177,9 +177,11 @@ export default defineComponent ({
             }
         },
         async executeTargetAction(target: Door | Item | Equipment | Player | null, action: Action): Promise<void> {
-            await this.executeAction({ target, action });
-            if (this.selectedItem instanceof Item && ! this.player.items.includes(this.selectedItem)) {
-                this.selectedItem = null;
+            if(action.canExecute) {
+                await this.executeAction({ target, action });
+                if (this.selectedItem instanceof Item && ! this.player.items.includes(this.selectedItem)) {
+                    this.selectedItem = null;
+                }
             }
         }
     }

@@ -2,6 +2,7 @@
 
 namespace Mush\RoomLog\Controller;
 
+use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
@@ -58,6 +59,12 @@ class RoomLogController extends AbstractFOSRestController
 
         $logs = $this->roomLogService->getRoomLog($player);
 
-        return $this->view($logs);
+        $context = new Context();
+        $context->setAttribute('currentPlayer', $player);
+
+        $view = $this->view($logs, 200);
+        $view->setContext($context);
+
+        return $view;
     }
 }

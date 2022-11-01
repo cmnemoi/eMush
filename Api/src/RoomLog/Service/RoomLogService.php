@@ -17,23 +17,27 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
+use Mush\RoomLog\Normalizer\RoomLogNormalizer;
 use Mush\RoomLog\Repository\RoomLogRepository;
 
 class RoomLogService implements RoomLogServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private RandomServiceInterface $randomService;
+    private RoomLogNormalizer $roomLogNormalizer;
     private RoomLogRepository $repository;
     private TranslationServiceInterface $translationService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         RandomServiceInterface $randomService,
+        RoomLogNormalizer $roomLogNormalizer,
         RoomLogRepository $repository,
         TranslationServiceInterface $translationService,
     ) {
         $this->entityManager = $entityManager;
         $this->randomService = $randomService;
+        $this->roomLogNormalizer = $roomLogNormalizer;
         $this->repository = $repository;
         $this->translationService = $translationService;
     }
@@ -217,16 +221,7 @@ class RoomLogService implements RoomLogServiceInterface
         $logs = [];
         /** @var RoomLog $roomLog */
         foreach ($roomLogs as $roomLog) {
-            $logs[$roomLog->getDay()][$roomLog->getCycle()][] = [
-                'log' => $this->translationService->translate(
-                    $roomLog->getLog(),
-                    $roomLog->getParameters(),
-                    $roomLog->getType(),
-                    $player->getDaedalus()->getGameConfig()->getLanguage()
-                ),
-                'visibility' => $roomLog->getVisibility(),
-                'date' => $roomLog->getDate(),
-            ];
+            $logs[$roomLog->getDay()][$roomLog->getCycle()][] = $this->roomLogNormalizer->normalize($roomLog, null, ['currentPlayer' => $player]);
         }
 
         return $logs;

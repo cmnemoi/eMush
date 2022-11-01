@@ -17,16 +17,19 @@ class PlayerVariableEvent extends PlayerEvent implements LoggableEventInterface,
     private string $modifiedVariable;
     private bool $modified = true;
     private bool $artificial = false;
+    private bool $ignored;
 
     public function __construct(
         Player $player,
         string $modifiedVariable,
         int $quantity,
         string $reason,
-        \DateTime $time
+        \DateTime $time,
+        bool $ignored = false
     ) {
         $this->quantity = $quantity;
         $this->modifiedVariable = $modifiedVariable;
+        $this->ignored = $ignored;
 
         parent::__construct($player, $reason, $time);
     }
@@ -84,5 +87,10 @@ class PlayerVariableEvent extends PlayerEvent implements LoggableEventInterface,
     public function setArtificial(bool $artificial): void
     {
         $this->artificial = $artificial;
+    }
+
+    public function isIgnored(): bool
+    {
+        return $this->ignored;
     }
 }

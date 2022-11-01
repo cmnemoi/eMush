@@ -10,6 +10,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Alert\Entity\Alert;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
@@ -35,7 +36,7 @@ class AttemptActionChangeCest
         $this->disassembleAction = $I->grabService(Disassemble::class);
     }
 
-    public function testChangeAttemptAction(FunctionalTester $I)
+    public function testChangeAttemptAction(FunctionalTester $I) : void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -139,7 +140,7 @@ class AttemptActionChangeCest
         $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
     }
 
-    public function testNormalizeAnotherAction(FunctionalTester $I)
+    public function testNormalizeAnotherAction(FunctionalTester $I) : void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);

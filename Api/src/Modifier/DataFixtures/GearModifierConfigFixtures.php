@@ -13,6 +13,7 @@ use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Entity\Condition\CycleEvenModifierCondition;
@@ -75,7 +76,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         );
         foreach (ActionTypeEnum::getTechnicianActions() as $action) {
             $wrenchModifier
-                ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [$action]);
+                ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [ActionOutputEnum::SUCCESS, $action]);
         }
         $manager->persist($wrenchModifier);
 
@@ -110,7 +111,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         );
         foreach (ActionTypeEnum::getShootActions() as $action) {
             $aimModifier
-                ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [$action]);
+                ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [ActionOutputEnum::SUCCESS, $action]);
         }
         $manager->persist($aimModifier);
 

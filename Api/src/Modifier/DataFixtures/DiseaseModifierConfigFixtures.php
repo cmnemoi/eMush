@@ -14,6 +14,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Entity\Condition\PlayerHasStatusModifierCondition;
@@ -381,7 +382,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         );
         foreach (ActionTypeEnum::getShootActions() as $action) {
             $shootAction10PercentAccuracyLost
-                ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [$action]);
+                ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [ActionOutputEnum::SUCCESS, $action]);
         }
         $manager->persist($shootAction10PercentAccuracyLost);
 

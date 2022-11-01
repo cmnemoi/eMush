@@ -4,13 +4,11 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\CriticalSuccess;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Event\ApplyEffectEvent;
-use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasDiseases;
 use Mush\Action\Validator\HasStatus;
@@ -20,7 +18,6 @@ use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -35,31 +32,22 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  *
  * More info : http://mushpedia.com/wiki/Surgery_Pod
  */
-class SelfSurgery extends AbstractAction
+class SelfSurgery extends AbstractSurgery
 {
     protected string $name = ActionEnum::SELF_SURGERY;
-
-    public const FAIL_CHANCES = 10;
-    public const CRITICAL_SUCCESS_CHANCES = 5;
-
-    private RandomServiceInterface $randomService;
-    private ModifierServiceInterface $modifierService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        RandomServiceInterface $randomService,
-        ModifierServiceInterface $modifierService
+        RandomServiceInterface $randomService
     ) {
         parent::__construct(
             $eventService,
             $actionService,
-            $validator
+            $validator,
+            $randomService
         );
-
-        $this->randomService = $randomService;
-        $this->modifierService = $modifierService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -90,41 +78,14 @@ class SelfSurgery extends AbstractAction
         ]));
     }
 
-    protected function checkResult(): ActionResult
+    public function getFailChance(): int
     {
-        $date = new \DateTime();
+        return 10;
+    }
 
-        $failChanceEvent = new PreparePercentageRollEvent(
-            $this->player,
-            self::FAIL_CHANCES,
-            ActionEnum::SURGERY,
-            $date
-        );
-        $failChanceEvent->addReason(ActionOutputEnum::FAIL);
-        $this->eventService->callEvent($failChanceEvent, PreparePercentageRollEvent::TRIGGER_ROLL_RATE);
-        $failChances = $failChanceEvent->getRate();
-
-        $criticalSuccessChancesEvent = new PreparePercentageRollEvent(
-            $this->player,
-            self::CRITICAL_SUCCESS_CHANCES,
-            ActionEnum::SURGERY,
-            $date
-        );
-        $criticalSuccessChancesEvent->addReason(ActionOutputEnum::CRITICAL_SUCCESS);
-        $this->eventService->callEvent($failChanceEvent, PreparePercentageRollEvent::TRIGGER_ROLL_RATE);
-        $criticalSuccessChances = $failChanceEvent->getRate();
-
-        $result = $this->randomService->outputCriticalChances($failChances, 0, $criticalSuccessChances);
-
-        if ($result === ActionOutputEnum::FAIL) {
-            return new Fail();
-        } elseif ($result === ActionOutputEnum::CRITICAL_SUCCESS) {
-            return new CriticalSuccess();
-        } elseif ($result === ActionOutputEnum::SUCCESS) {
-            return new Success();
-        }
-
-        return new Error('this output should not exist');
+    public function getCriticalSuccessChance(): int
+    {
+        return 5;
     }
 
     protected function applyEffect(ActionResult $result): void

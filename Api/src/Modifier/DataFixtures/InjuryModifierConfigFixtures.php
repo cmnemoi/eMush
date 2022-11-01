@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -110,7 +111,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         );
         foreach (ActionTypeEnum::getShootActions() as $action) {
             $shootAction15PercentAccuracyLost
-                ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [$action]);
+                ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [ActionOutputEnum::SUCCESS, $action]);
         }
         $manager->persist($shootAction15PercentAccuracyLost);
 
@@ -122,7 +123,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         );
         foreach (ActionTypeEnum::getShootActions() as $action) {
             $shootAction20PercentAccuracyLost
-                ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [$action]);
+                ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [ActionOutputEnum::SUCCESS, $action]);
         }
         $manager->persist($shootAction20PercentAccuracyLost);
 
@@ -134,7 +135,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         );
         foreach (ActionTypeEnum::getShootActions() as $action) {
             $shootAction40PercentAccuracyLost
-                ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [$action]);
+                ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [ActionOutputEnum::SUCCESS, $action]);
         }
         $manager->persist($shootAction40PercentAccuracyLost);
 

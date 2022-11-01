@@ -18,9 +18,6 @@ export default defineComponent ({
         roomLog: RoomLog
     },
     methods: {
-        // formatDate: (date: Date): string => {
-        //     return formatDistanceToNow(date, { locale : fr });
-        // },
         formatLog(value: string): string {
             if (! value) return '';
             return formatText(value.toString());

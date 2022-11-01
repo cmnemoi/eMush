@@ -42,31 +42,15 @@ class Hit extends AttemptAction
         if ($result instanceof Success) {
             $damage = $this->randomService->random(1, 3);
 
-            if (in_array(SkillEnum::SOLID, $this->player->getSkills())) {
-                ++$damage;
-            }
-            if (in_array(SkillEnum::WRESTLER, $this->player->getSkills())) {
-                $damage += 2;
-            }
-            if (in_array(SkillMushEnum::HARD_BOILED, $parameter->getSkills())) {
-                --$damage;
-            }
-            if ($parameter->hasEquipmentByName(GearItemEnum::PLASTENITE_ARMOR)) {
-                --$damage;
-            }
-            if ($damage <= 0) {
-                // TODO:
-            } else {
-                $playerModifierEvent = new PlayerVariableEvent(
-                    $parameter,
-                    PlayerVariableEnum::HEALTH_POINT,
-                    -$damage,
-                    $this->getActionName(),
-                    new \DateTime()
-                );
+            $playerModifierEvent = new PlayerVariableEvent(
+                $parameter,
+                PlayerVariableEnum::HEALTH_POINT,
+                -$damage,
+                $this->getActionName(),
+                new \DateTime()
+            );
 
-                $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
-            }
+            $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 }

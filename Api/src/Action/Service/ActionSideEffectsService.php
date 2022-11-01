@@ -9,6 +9,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -140,7 +141,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             $player,
             PlayerVariableEnum::HEALTH_POINT,
             self::ACTION_INJURY_MODIFIER,
-            ModifierScopeEnum::EVENT_CLUMSINESS,
+            PreparePercentageRollEvent::CLUMSINESS_ROLL_RATE,
             $dateTime
         );
         $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);

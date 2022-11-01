@@ -10,7 +10,8 @@ use Mush\Action\ActionResult\OneShot;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Action\Event\EnhancePercentageRollEvent;
+use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\PreMush;
@@ -22,19 +23,16 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Enum\ModifierScopeEnum;
-use Mush\Modifier\Enum\ModifierTargetEnum;
-use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -45,7 +43,6 @@ class Shoot extends AttemptAction
 {
     protected string $name = ActionEnum::SHOOT;
 
-    private ModifierServiceInterface $modifierService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     protected RandomServiceInterface $randomService;
 
@@ -54,7 +51,6 @@ class Shoot extends AttemptAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        ModifierServiceInterface $modifierService,
         PlayerDiseaseServiceInterface $playerDiseaseService,
     ) {
         parent::__construct(
@@ -64,7 +60,6 @@ class Shoot extends AttemptAction
             $randomService
         );
 
-        $this->modifierService = $modifierService;
         $this->playerDiseaseService = $playerDiseaseService;
     }
 
@@ -114,17 +109,17 @@ class Shoot extends AttemptAction
         $result = parent::checkResult();
 
         if ($result instanceof Success) {
-            if ($this->isOneShot($player, $blasterWeapon)) {
+            if ($this->isOneShot($blasterWeapon)) {
                 return new OneShot();
             }
 
-            if ($this->isCriticalSuccess($player, $blasterWeapon)) {
+            if ($this->isCriticalSuccess($blasterWeapon)) {
                 return new CriticalSuccess();
             }
 
             return new Success();
         } else {
-            if ($this->isCriticalFail($player, $blasterWeapon)) {
+            if ($this->isCriticalFail($blasterWeapon)) {
                 return new CriticalFail();
             }
 
@@ -158,7 +153,6 @@ class Shoot extends AttemptAction
                 );
 
                 $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
-
                 return;
             }
 
@@ -166,19 +160,10 @@ class Shoot extends AttemptAction
 
             if ($result instanceof CriticalSuccess) {
                 $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_BLASTER, $target);
+                $this->inflictDamage($damage, $target, true);
             } else {
-                // handle modifiers on damage : armor, hard boiled, etc
-                $damage = $this->modifierService->getEventModifiedValue(
-                    $target,
-                    [ModifierScopeEnum::INJURY],
-                    PlayerVariableEnum::HEALTH_POINT,
-                    $damage,
-                    $this->getActionName(),
-                    new \DateTime()
-                );
+                $this->inflictDamage($damage, $target);
             }
-
-            $this->inflictDamage($damage, $target);
         } else {
             if ($result instanceof CriticalFail) {
                 $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_FAIL_BLASTER, $player);
@@ -193,61 +178,62 @@ class Shoot extends AttemptAction
         )->first()->getEquipment();
     }
 
-    private function isCriticalFail(Player $player, Weapon $blaster): bool
+    private function isCriticalFail(Weapon $blaster): bool
     {
-        $criticalFailRate = $this->modifierService->getEventModifiedValue(
-            $player,
-            [ActionTypeEnum::ACTION_SHOOT],
-            ModifierTargetEnum::CRITICAL_PERCENTAGE,
-            $blaster->getCriticalFailRate(),
+        return $this->isTriggered(ActionOutputEnum::CRITICAL_FAIL, $blaster->getCriticalFailRate());
+    }
+
+    private function isCriticalSuccess(Weapon $blaster): bool
+    {
+        return $this->isTriggered(ActionOutputEnum::CRITICAL_SUCCESS, $blaster->getCriticalSuccessRate());
+    }
+
+    private function isOneShot(Weapon $blaster): bool
+    {
+        return $this->isTriggered(ActionOutputEnum::ONE_SHOT, $blaster->getOneShotRate());
+    }
+
+    private function isTriggered(string $output, int $rate) : bool {
+        $event = new PreparePercentageRollEvent(
+            $this->player,
+            $rate,
             $this->getActionName(),
             new \DateTime()
         );
+        $event->addReason($output);
+        $this->eventService->callEvent($event, PreparePercentageRollEvent::ACTION_ROLL_RATE);
 
-        return $this->randomService->isSuccessful($criticalFailRate);
-    }
+        $threshold = $this->randomService->getSuccessThreshold();
 
-    private function isCriticalSuccess(Player $player, Weapon $blaster): bool
-    {
-        $criticalSuccessRate = $this->modifierService->getEventModifiedValue(
-            $player,
-            [ActionTypeEnum::ACTION_SHOOT],
-            ModifierTargetEnum::CRITICAL_PERCENTAGE,
-            $blaster->getCriticalSucessRate(),
+        if ($event->getRate() <= $threshold) {
+            return true;
+        }
+
+        $enhanceEvent = new EnhancePercentageRollEvent(
+            $this->player,
+            $event->getRate(),
+            $threshold,
+            true,
             $this->getActionName(),
             new \DateTime()
         );
+        $enhanceEvent->addReason($output);
+        $this->eventService->callEvent($enhanceEvent, EnhancePercentageRollEvent::ACTION_ROLL_RATE);
 
-        return $this->randomService->isSuccessful($criticalSuccessRate);
+        return $enhanceEvent->getRate() <= $enhanceEvent->getThresholdRate();
     }
 
-    private function isOneShot(Player $player, Weapon $blaster): bool
-    {
-        $oneShotRate = $this->modifierService->getEventModifiedValue(
-            $player,
-            [ActionTypeEnum::ACTION_SHOOT],
-            ModifierTargetEnum::CRITICAL_PERCENTAGE,
-            $blaster->getOneShotRate(),
-            $this->getActionName(),
-            new \DateTime()
-        );
-
-        return $this->randomService->isSuccessful($oneShotRate);
-    }
-
-    private function inflictDamage(int $damage, Player $target): void
+    private function inflictDamage(int $damage, Player $target, $trueDamage = false): void
     {
         $damageEvent = new PlayerVariableEvent(
             $target,
             PlayerVariableEnum::HEALTH_POINT,
             -$damage,
             $this->getActionName(),
-            new \DateTime()
+            new \DateTime(),
+            $trueDamage
         );
 
-        $this->eventService->callEvent(
-            $damageEvent,
-            AbstractQuantityEvent::CHANGE_VARIABLE
-        );
+        $this->eventService->callEvent($damageEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 }

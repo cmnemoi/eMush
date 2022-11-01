@@ -179,7 +179,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         } else if (array_key_exists(ResourcePointChangeEvent::CHECK_CHANGE_MOVEMENT_POINT, $scope)) {
             return 'move' . $subKey;
         } else {
-            throw new \LogicException('No possible key found for this scope: ' . print_r($scope) . '.');
+            throw new \LogicException('No possible key found.');
         }
     }
 

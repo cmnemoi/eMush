@@ -4,13 +4,11 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\CriticalSuccess;
-use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Event\ApplyEffectEvent;
-use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\AreMedicalSuppliesOnReach;
 use Mush\Action\Validator\HasDiseases;
@@ -20,7 +18,6 @@ use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -36,31 +33,32 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  *
  * More info : http://mushpedia.com/wiki/Medic
  */
-class Surgery extends AbstractAction
+class Surgery extends AbstractSurgery
 {
     protected string $name = ActionEnum::SURGERY;
-
-    private const FAIL_CHANCES = 10;
-    private const CRITICAL_SUCCESS_CHANCES = 15;
-
-    private RandomServiceInterface $randomService;
-    private ModifierServiceInterface $modifierService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        RandomServiceInterface $randomService,
-        ModifierServiceInterface $modifierService
+        RandomServiceInterface $randomService
     ) {
         parent::__construct(
             $eventService,
             $actionService,
-            $validator
+            $validator,
+            $randomService
         );
+    }
 
-        $this->randomService = $randomService;
-        $this->modifierService = $modifierService;
+    public function getCriticalSuccessChance(): int
+    {
+        return 15;
+    }
+
+    public function getFailChance(): int
+    {
+        return 10;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -85,43 +83,6 @@ class Surgery extends AbstractAction
             'isEmpty' => false,
             'type' => TypeEnum::INJURY,
         ]));
-    }
-
-    protected function checkResult(): ActionResult
-    {
-        $date = new \DateTime();
-
-        $failChanceEvent = new PreparePercentageRollEvent(
-            $this->player,
-            self::FAIL_CHANCES,
-            ActionEnum::SURGERY,
-            $date
-        );
-        $failChanceEvent->addReason(ActionOutputEnum::FAIL);
-        $this->eventService->callEvent($failChanceEvent, PreparePercentageRollEvent::TRIGGER_ROLL_RATE);
-        $failChances = $failChanceEvent->getRate();
-
-        $criticalSuccessChancesEvent = new PreparePercentageRollEvent(
-            $this->player,
-            self::CRITICAL_SUCCESS_CHANCES,
-            ActionEnum::SURGERY,
-            $date
-        );
-        $criticalSuccessChancesEvent->addReason(ActionOutputEnum::CRITICAL_SUCCESS);
-        $this->eventService->callEvent($failChanceEvent, PreparePercentageRollEvent::TRIGGER_ROLL_RATE);
-        $criticalSuccessChances = $failChanceEvent->getRate();
-
-        $result = $this->randomService->outputCriticalChances($failChances, 0, $criticalSuccessChances);
-
-        if ($result === ActionOutputEnum::FAIL) {
-            return new Fail();
-        } elseif ($result === ActionOutputEnum::CRITICAL_SUCCESS) {
-            return new CriticalSuccess();
-        } elseif ($result === ActionOutputEnum::SUCCESS) {
-            return new Success();
-        }
-
-        return new Error('this output should not exist');
     }
 
     protected function applyEffect(ActionResult $result): void
@@ -152,7 +113,7 @@ class Surgery extends AbstractAction
         $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_CURE_INJURY);
     }
 
-    private function failedSurgery(Player $targetPlayer, \DateTime $time): ActionResult
+    private function failedSurgery(Player $targetPlayer, \DateTime $time): void
     {
         $diseaseEvent = new ApplyEffectEvent(
             $this->player,
@@ -162,7 +123,5 @@ class Surgery extends AbstractAction
             $time
         );
         $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
-
-        return new Fail();
     }
 }

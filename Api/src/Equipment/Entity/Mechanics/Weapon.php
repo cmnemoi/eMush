@@ -68,7 +68,7 @@ class Weapon extends Tool
         return $this;
     }
 
-    public function getCriticalSucessRate(): int
+    public function getCriticalSuccessRate(): int
     {
         return $this->criticalSucessRate;
     }

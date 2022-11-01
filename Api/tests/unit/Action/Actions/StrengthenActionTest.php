@@ -17,10 +17,9 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 
 class StrengthenActionTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
 
     /** @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface $randomService;
+    private RandomServiceInterface|Mockery\Mock $randomService;
 
     /**
      * @before
@@ -64,13 +63,11 @@ class StrengthenActionTest extends AbstractActionTest
         $player = $this->createPlayer($daedalus, $room);
 
         $attempt = new Attempt($player, new ChargeStatusConfig());
-        $attempt
-            ->setAction($this->action->getActionName())
-        ;
-        $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
+        $attempt->setAction($this->action->getActionName());
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
+        $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();

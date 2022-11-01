@@ -5,6 +5,7 @@ namespace Mush\Action\Service;
 use LogicException;
 use Mush\Action\Entity\Action;
 use Mush\Action\Event\PreparePercentageRollEvent;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\EventServiceInterface;
@@ -140,6 +141,7 @@ class ActionService implements ActionServiceInterface
             $action->getName(),
             new \DateTime()
         );
+        $event->addReason(ActionOutputEnum::SUCCESS);
         $this->eventService->callEvent($event, PreparePercentageRollEvent::ACTION_ROLL_RATE);
 
         return min($this::MAX_PERCENT, $event->getRate());

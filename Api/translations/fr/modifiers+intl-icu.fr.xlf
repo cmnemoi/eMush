@@ -17,7 +17,7 @@
             <segment id="description">
                 <source>new_cycle_decrease.description</source>
                 <target>{chance, select,
-                    100 {Chaque cycle, fait perdre **{quantity}** {emote}.}
+                    100 {Chaque cycle fait perdre **{quantity}** {emote}.}
                     other {Chaque cycle, **{chance}%** de chances de perdre **{quantity}** {emote}.}
                 }</target>
             </segment>
@@ -37,13 +37,13 @@
         <unit id="move_increase">
             <segment id="description">
                 <source>move_increase.description</source>
-                <target>Chaque déplacement, coûte **{quantity}** :pm: de plus.</target>
+                <target>Chaque déplacement coûte **{quantity}** :pm: de plus.</target>
             </segment>
         </unit>
         <unit id="actions_increase">
             <segment id="description">
                 <source>actions_increase.description</source>
-                <target>Chaque action, coûte **{quantity}** {emote} de plus.</target>
+                <target>Chaque action coûte **{quantity}** {emote} de plus.</target>
             </segment>
         </unit>
         <unit id="action_shoot_decrease">

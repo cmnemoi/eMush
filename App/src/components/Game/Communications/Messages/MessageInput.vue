@@ -4,7 +4,9 @@
             v-model="text"
             class="text-input"
             placeholder="Type your message here!"
-            @keyup.enter="sendNewMessage"
+            @keydown.enter.exact.prevent="sendNewMessage"
+            @keydown.enter.ctrl.exact.prevent="breakLine"
+            @keydown.enter.shift.exact.prevent="breakLine"
         />
         <a class="submit-button" @click="sendNewMessage">
             <img src="@/assets/images/comms/submit.gif" alt="submit">
@@ -41,6 +43,9 @@ export default defineComponent ({
                 this.sendMessage({ text: this.text, parent: this.parent, channel: this.channel });
                 this.text = "";
             }
+        },
+        breakLine (): void {
+            this.text += "\n//\n";
         },
         ...mapActions('communication', [
             'sendMessage'

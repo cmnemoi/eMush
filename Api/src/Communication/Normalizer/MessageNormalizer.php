@@ -74,6 +74,9 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
             );
         }
 
+        // compute message age
+        $messageAge = time() - strtotime($object->getCreatedAt()->format('Y-m-d H:i:s'));
+
         return [
             'id' => $object->getId(),
             'character' => [
@@ -86,7 +89,7 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
                 ),
             ],
             'message' => $message,
-            'createdAt' => $object->getCreatedAt()->format(\DateTime::ATOM),
+            'age' => $this->translateMessageAge($messageAge, $language),
             'child' => $child,
         ];
     }
@@ -94,5 +97,36 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
     private function hasPlayerSymptom(Player $player, string $symptom): bool
     {
         return $player->getMedicalConditions()->getActiveDiseases()->getAllSymptoms()->hasSymptomByName($symptom);
+    }
+
+    private function translateMessageAge(int $messageAge, string $language): string
+    {
+        if ($messageAge < 60) {
+            return $this->translationService->translate(
+                'instant',
+                [],
+                'misc',
+                $language
+            );
+        }
+
+        $minutes = floor($messageAge / 60);
+        if ($minutes < 60) {
+            return "{$minutes}min";
+        }
+
+        $hours = floor($minutes / 60);
+        if ($hours < 24) {
+            return "~{$hours}h";
+        }
+
+        $days = floor($hours / 24);
+
+        return $days . $this->translationService->translate(
+            'day',
+            [],
+            'misc',
+            $language
+        );
     }
 }

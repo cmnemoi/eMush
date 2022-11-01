@@ -11,7 +11,7 @@
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
         </p>
         <ActionButtons class="actions" :actions="['reply', 'favorite', 'report']" />
-        <span class="timestamp" style="position: absolute">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
+        <span class="timestamp" style="position: absolute">{{ message.age }}</span>
     </div>
     <div
         v-if="isRoot && isSystemMessage"
@@ -21,7 +21,8 @@
         <p class="text">
             <span v-html="formatMessage(message.message)" />
         </p>
-        <span class="timestamp" style="position: absolute">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
+        <span class="timestamp" style="position: absolute">{{ message.age }}</span>
+
     </div>
     <div v-else-if="!isRoot" class="message child-message" @click="$emit('click')">
         <p class="text">
@@ -29,15 +30,13 @@
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
         </p>
         <ActionButtons class="actions" :actions="['reply', 'report']" />
-        <span class="timestamp" style="position: absolute">{{ formatDate(message.date, {local: "fr-FR"}) }}</span>
+        <span class="timestamp" style="position: absolute">{{ message.age }}</span>
     </div>
 </template>
 
 <script lang="ts">
 import ActionButtons from "@/components/Game/Communications/ActionButtons.vue";
 import { formatText } from "@/utils/formatText";
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import { fr } from 'date-fns/locale';
 import { Message } from "@/entities/Message";
 import { CharacterEnum, characterEnum } from "@/enums/character";
 import { defineComponent } from "vue";
@@ -77,9 +76,6 @@ export default defineComponent ({
         }
     },
     methods: {
-        formatDate: (date: Date): string => {
-            return formatDistanceToNow(date, { locale : fr });
-        },
         formatMessage(value: string): string {
             if (! value) return '';
             return formatText(value.toString());

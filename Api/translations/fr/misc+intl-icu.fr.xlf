@@ -42,6 +42,14 @@
                 <source>cure_info</source>
                 <target>Guérie la maladie {diseaseName}</target>
             </segment>
+            <segment id="instant">
+                <source>instant</source>
+                <target>à l'instant</target>
+            </segment>
+            <segment id="day">
+                <source>day</source>
+                <target>j</target>
+            </segment>
         </unit>
     </file>
 </xliff>

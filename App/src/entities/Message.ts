@@ -5,14 +5,14 @@ export class Message {
     public message : string|null;
     public character : Character;
     public child : Array<Message>;
-    public date : Date|null;
+    public age : string|null;
 
     constructor() {
         this.id = null;
         this.message = null;
         this.character = new Character();
         this.child = [];
-        this.date = null;
+        this.age = null;
     }
 
     load(object: any): Message {
@@ -25,7 +25,7 @@ export class Message {
                 const childMessage = (new Message()).load(childMessageData);
                 this.child.push(childMessage);
             });
-            this.date = new Date(object.createdAt);
+            this.age = object.age;
         }
         return this;
     }

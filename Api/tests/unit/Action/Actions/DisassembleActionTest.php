@@ -75,8 +75,9 @@ class DisassembleActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
+        $this->actionService->shouldReceive('getSuccessRate')->andReturn(0)->once();
+        $this->randomService->shouldReceive('getSuccessThreshold')->andReturn(100)->once();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->never();
 
         // Fail try
@@ -107,8 +108,8 @@ class DisassembleActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
+        $this->actionService->shouldReceive('getSuccessRate')->andReturn(100)->once();
+        $this->randomService->shouldReceive('getSuccessThreshold')->andReturn(0)->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $scrap = new GameItem();

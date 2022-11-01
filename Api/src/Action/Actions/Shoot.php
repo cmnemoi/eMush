@@ -205,7 +205,7 @@ class Shoot extends AttemptAction
 
         $threshold = $this->randomService->getSuccessThreshold();
 
-        if ($event->getRate() <= $threshold) {
+        if ($event->getRate() > $threshold) {
             return true;
         }
 
@@ -220,7 +220,7 @@ class Shoot extends AttemptAction
         $enhanceEvent->addReason($output);
         $this->eventService->callEvent($enhanceEvent, EnhancePercentageRollEvent::ACTION_ROLL_RATE);
 
-        return $enhanceEvent->getRate() <= $enhanceEvent->getThresholdRate();
+        return $enhanceEvent->getRate() > $enhanceEvent->getThresholdRate();
     }
 
     private function inflictDamage(int $damage, Player $target, $trueDamage = false): void

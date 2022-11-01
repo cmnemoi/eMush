@@ -14,8 +14,7 @@ use Mush\Disease\Enum\SymptomEnum;
 use Mush\Disease\Normalizer\DiseaseNormalizer;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\LanguageEnum;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\LanguageEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\TranslationService;
 use Mush\Modifier\DataFixtures\DiseaseModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\ModifierConfig;
@@ -97,6 +96,7 @@ class DiseaseNormalizerTest extends TestCase
             ModifierModeEnum::ADDITIVE,
             PlayerVariableEnum::MORAL_POINT
         );
+        $modifierConfig->addTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
@@ -123,7 +123,7 @@ class DiseaseNormalizerTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                'injury_decrease.description',
+                'post_action_decrease.description',
                 ['chance' => 100,  'action_name' => '', 'emote' => ':pmo:', 'quantity' => 6],
                 'modifiers',
                 LanguageEnum::FRENCH

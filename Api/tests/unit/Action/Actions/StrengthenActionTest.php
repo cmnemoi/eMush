@@ -69,8 +69,9 @@ class StrengthenActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
+        $this->actionService->shouldReceive('getSuccessRate')->andReturn(0)->once();
+        $this->randomService->shouldReceive('getSuccessThreshold')->andReturn(100)->once();
+        $this->eventService->shouldReceive('callEvent')->once();
 
         // Fail try
         $result = $this->action->execute();
@@ -103,7 +104,7 @@ class StrengthenActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
+        $this->randomService->shouldReceive('getSuccessThreshold')->andReturn(0)->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
         $this->eventService->shouldReceive('callEvent')->once();

@@ -18,6 +18,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Entity\Modifier;
@@ -109,7 +110,7 @@ class RepairActionCest
             ModifierModeEnum::MULTIPLICATIVE
         );
         $modifierConfig
-            ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [ActionEnum::REPAIR]);
+            ->addTargetEvent(PreparePercentageRollEvent::ACTION_ROLL_RATE, [ActionOutputEnum::SUCCESS, ActionEnum::REPAIR]);
 
         $I->haveInRepository($modifierConfig);
 

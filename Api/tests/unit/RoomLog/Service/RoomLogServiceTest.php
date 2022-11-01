@@ -23,6 +23,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\RoomLog\Normalizer\RoomLogNormalizer;
 use Mush\RoomLog\Repository\RoomLogRepository;
 use Mush\RoomLog\Service\RoomLogService;
 use PHPUnit\Framework\TestCase;
@@ -32,6 +33,8 @@ class RoomLogServiceTest extends TestCase
     private EntityManagerInterface|Mockery\Mock $entityManager;
 
     private RandomServiceInterface|Mockery\Mock $randomService;
+
+    private RoomLogNormalizer|Mockery\Mock $roomLogNormalizer;
 
     private RoomLogRepository|Mockery\Mock $repository;
 
@@ -46,12 +49,14 @@ class RoomLogServiceTest extends TestCase
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->roomLogNormalizer = Mockery::mock(RoomLogNormalizer::class);
         $this->repository = Mockery::mock(RoomLogRepository::class);
         $this->translationService = Mockery::mock(TranslationServiceInterface::class);
 
         $this->service = new RoomLogService(
             $this->entityManager,
             $this->randomService,
+            $this->roomLogNormalizer,
             $this->repository,
             $this->translationService,
         );
@@ -506,24 +511,27 @@ class RoomLogServiceTest extends TestCase
             ->once()
         ;
 
-        $this->translationService
-            ->shouldReceive('translate')
-            ->with('logKey1', [], 'log', LanguageEnum::FRENCH)
-            ->andReturn('translated log 1')
+        $context = ['currentPlayer' => $player];
+
+        $this->roomLogNormalizer
+            ->shouldReceive('normalize')
+            ->with($roomLog1, null, $context)
+            ->andReturn(['log' => 'translated log 1', 'age' => "à l'instant", 'visibility' => VisibilityEnum::PUBLIC])
             ->once()
         ;
-        $this->translationService
-            ->shouldReceive('translate')
-            ->with('logKey2', ['player' => 'andie'], 'log', LanguageEnum::FRENCH)
-            ->andReturn('translated log 2')
+
+        $this->roomLogNormalizer
+            ->shouldReceive('normalize')
+            ->with($roomLog2, null, $context)
+            ->andReturn(['log' => 'translated log 2', 'age' => "à l'instant", 'visibility' => VisibilityEnum::PUBLIC])
             ->once()
         ;
 
         $logs = $this->service->getRoomLog($player);
 
         $expectedLogs = [1 => [
-            3 => [['log' => 'translated log 1', 'visibility' => VisibilityEnum::PUBLIC, 'date' => $date]],
-            4 => [['log' => 'translated log 2', 'visibility' => VisibilityEnum::PUBLIC, 'date' => $date]],
+            3 => [['log' => 'translated log 1', 'visibility' => VisibilityEnum::PUBLIC, 'age' => "à l'instant"]],
+            4 => [['log' => 'translated log 2', 'visibility' => VisibilityEnum::PUBLIC, 'age' => "à l'instant"]],
             ]];
 
         $this->assertEquals($expectedLogs, $logs);

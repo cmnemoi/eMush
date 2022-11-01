@@ -17,14 +17,11 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
 
 class AttackActionTest extends AbstractActionTest
 {
     private RandomServiceInterface|Mockery\Mock $randomService;
-
-    private ModifierServiceInterface|Mockery\Mock $modifierService;
 
     private PlayerDiseaseServiceInterface|Mockery\Mock $playerDiseaseService;
 
@@ -38,7 +35,6 @@ class AttackActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::ATTACK);
 
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
         $this->playerDiseaseService = Mockery::mock(PlayerDiseaseServiceInterface::class);
 
         $this->action = new Attack(
@@ -46,7 +42,6 @@ class AttackActionTest extends AbstractActionTest
             $this->actionService,
             $this->validator,
             $this->randomService,
-            $this->modifierService,
             $this->playerDiseaseService,
         );
     }
@@ -73,29 +68,42 @@ class AttackActionTest extends AbstractActionTest
             ->setCriticalFailRate(0)
             ->setCriticalSucessRate(0)
             ->setBaseDamageRange([1 => 100])
-            ->setOneShotRate(0)
-        ;
+            ->setOneShotRate(0);
+
+        $item = new ItemConfig();
+        $item
+            ->setMechanics(new ArrayCollection([$mechanic]))
+            ->setActions(new ArrayCollection([$this->actionEntity]));
 
         $gameItem = new GameItem();
-        $item = new ItemConfig();
-        $item->setMechanics(new ArrayCollection([$mechanic]));
-        $gameItem->setEquipment($item);
         $gameItem
+            ->setEquipment($item)
             ->setName(ItemEnum::KNIFE)
-            ->setHolder($player)
-        ;
-
-        $item->setActions(new ArrayCollection([$this->actionEntity]));
+            ->setHolder($player);
 
         $this->action->loadParameters($this->actionEntity, $player, $otherPlayer);
 
+        // Check Success
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(100)->once();
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->twice(); // critical events
-        $this->modifierService->shouldReceive('getEventModifiedValue')->andReturn(0);
-        $this->randomService->shouldReceive('getSingleRandomElementFromProbaArray')->andReturn(1)->once();
-        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->randomService->shouldReceive('getSuccessThreshold')->andReturn(0)->once();
+
+        // One Shot Check
         $this->eventService->shouldReceive('callEvent')->once();
+        $this->randomService->shouldReceive('getSuccessThreshold')->andReturn(200)->once();
+        $this->eventService->shouldReceive('callEvent')->once();
+
+        // Critical Success Check
+        $this->eventService->shouldReceive('callEvent')->once();
+        $this->randomService->shouldReceive('getSuccessThreshold')->andReturn(200)->once();
+        $this->eventService->shouldReceive('callEvent')->once();
+
+        // Apply Effect
+        $this->randomService->shouldReceive('getSingleRandomElementFromProbaArray')->andReturn(1)->once();
+        $this->eventService->shouldReceive('callEvent')->once();
+
+        // Post Action
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
@@ -131,10 +139,19 @@ class AttackActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $otherPlayer);
 
+        // Check Success
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(0)->once();
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->twice();
-        $this->modifierService->shouldReceive('getEventModifiedValue')->andReturn(0);
+        $this->randomService->shouldReceive('getSuccessThreshold')->andReturn(100)->once();
+        $this->eventService->shouldReceive('callEvent')->once();
+
+        // Critical Fail Check
+        $this->eventService->shouldReceive('callEvent')->once();
+        $this->randomService->shouldReceive('getSuccessThreshold')->andReturn(200)->once();
+        $this->eventService->shouldReceive('callEvent')->once();
+
+        // Post Action
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Fail::class, $result);
@@ -170,11 +187,20 @@ class AttackActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $otherPlayer);
 
+        // Check Success
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(100)->once();
-        $this->randomService->shouldReceive('isSuccessful')->with(100)->andReturn(true)->twice();
-        $this->modifierService->shouldReceive('getEventModifiedValue')->andReturn(100)->once();
-        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->randomService->shouldReceive('getSuccessThreshold')->andReturn(0)->once();
+
+        // One Shot Check
         $this->eventService->shouldReceive('callEvent')->once();
+        $this->randomService->shouldReceive('getSuccessThreshold')->andReturn(0)->once();
+
+        // Apply Effect
+        $this->eventService->shouldReceive('callEvent')->once();
+
+        // Post Action
+        $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+
         $result = $this->action->execute();
 
         $this->assertInstanceOf(OneShot::class, $result);
@@ -210,12 +236,21 @@ class AttackActionTest extends AbstractActionTest
 
         $this->action->loadParameters($this->actionEntity, $player, $otherPlayer);
 
+        // Check Success
         $this->actionService->shouldReceive('getSuccessRate')->andReturn(0)->once();
-        $this->randomService->shouldReceive('isSuccessful')->with(0)->andReturn(false)->once();
-        $this->randomService->shouldReceive('isSuccessful')->with(100)->andReturn(true)->once();
-        $this->modifierService->shouldReceive('getEventModifiedValue')->andReturn(100)->once();
+        $this->randomService->shouldReceive('getSuccessThreshold')->andReturn(100)->once();
+        $this->eventService->shouldReceive('callEvent')->once();
+
+        // Critical Fail Check
+        $this->eventService->shouldReceive('callEvent')->once();
+        $this->randomService->shouldReceive('getSuccessThreshold')->andReturn(0)->once();
+
+        // Apply Effect
         $this->playerDiseaseService->shouldReceive('handleDiseaseForCause')->once();
+
+        // Post Action
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+
         $result = $this->action->execute();
 
         $this->assertInstanceOf(CriticalFail::class, $result);

@@ -156,10 +156,8 @@ class Attack extends AttemptAction
                 $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE, $target);
                 $this->inflictDamage($damage, $target,true);
             } else {
-                // handle modifiers on damage : armor, hard boiled, etc
                 $this->inflictDamage($damage, $target);
             }
-
         } else {
             if ($result instanceof CriticalFail) {
                 $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_FAIL_KNIFE, $player);
@@ -201,7 +199,7 @@ class Attack extends AttemptAction
 
         $threshold = $this->randomService->getSuccessThreshold();
 
-        if ($event->getRate() <= $threshold) {
+        if ($event->getRate() > $threshold) {
             return true;
         }
 
@@ -216,7 +214,7 @@ class Attack extends AttemptAction
         $enhanceEvent->addReason($output);
         $this->eventService->callEvent($enhanceEvent, EnhancePercentageRollEvent::ACTION_ROLL_RATE);
 
-        return $enhanceEvent->getRate() <= $enhanceEvent->getThresholdRate();
+        return $enhanceEvent->getRate() > $enhanceEvent->getThresholdRate();
     }
 
     private function inflictDamage(int $damage, Player $target, $trueDamage = false): void

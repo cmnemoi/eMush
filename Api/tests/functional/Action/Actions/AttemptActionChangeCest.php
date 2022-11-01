@@ -11,14 +11,18 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Alert\Entity\Alert;
+use Mush\Alert\Entity\AlertElement;
+use Mush\Alert\Enum\AlertEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
@@ -29,11 +33,13 @@ class AttemptActionChangeCest
 {
     private Repair $repairAction;
     private Disassemble $disassembleAction;
+    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I)
     {
         $this->repairAction = $I->grabService(Repair::class);
         $this->disassembleAction = $I->grabService(Disassemble::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
     public function testChangeAttemptAction(FunctionalTester $I) : void
@@ -50,9 +56,8 @@ class AttemptActionChangeCest
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 10, 'characterConfig' => $characterConfig]);
 
         $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(1)
-            ->setMovementPointCost(0)
-            ->setMoralPointCost(0);
+        $actionCost
+            ->setActionPointCost(1);
         $I->haveInRepository($actionCost);
 
         $actionRepair = new Action();
@@ -79,11 +84,9 @@ class AttemptActionChangeCest
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true]);
-
         $equipmentConfig->setActions(new ArrayCollection([$actionDisassemble, $actionRepair]));
 
         $gameEquipment = new GameItem();
-
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
@@ -107,37 +110,63 @@ class AttemptActionChangeCest
         ;
         $I->haveInRepository($statusConfig);
 
+        $reportedAlert = new AlertElement();
+        $reportedAlert->setEquipment($gameEquipment);
+        $I->haveInRepository($reportedAlert);
+
+        $alert = new Alert();
+        $alert
+            ->setDaedalus($daedalus)
+            ->setName(AlertEnum::BROKEN_EQUIPMENTS)
+            ->addAlertElement($reportedAlert);
+        $I->haveInRepository($alert);
+
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
-        $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
-
         // Execute repair
-        $this->repairAction->execute();
-        $I->assertCount(1, $player->getStatuses());
-        $I->assertEquals(StatusEnum::ATTEMPT, $player->getStatuses()->first()->getName());
-        $I->assertEquals(ActionEnum::REPAIR, $player->getStatuses()->first()->getAction());
-        $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
-
         $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
-        // Execute repair a second time
         $this->repairAction->execute();
-        $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
 
-        $this->disassembleAction->loadParameters($actionDisassemble, $player, $gameEquipment);
+        codecept_debug($player->getStatuses());
+        $I->assertCount(1, $player->getStatuses());
+        /* @var Attempt $attempt */
+        $attempt = $player->getStatuses()->first();
+        $I->assertEquals(StatusEnum::ATTEMPT, $attempt->getName());
+        $I->assertEquals(ActionEnum::REPAIR, $attempt->getAction());
+        $I->assertEquals(1, $attempt->getCharge());
+
+        // Execute repair a second time
+        $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
+        $this->repairAction->execute();
+
+        $I->assertCount(1, $player->getStatuses());
+        /* @var Attempt $attempt */
+        $attempt = $player->getStatuses()->first();
+        $I->assertEquals(StatusEnum::ATTEMPT, $attempt->getName());
+        $I->assertEquals(ActionEnum::REPAIR, $attempt->getAction());
+        $I->assertEquals(2, $attempt->getCharge());
 
         // Now execute the other action
+        $this->disassembleAction->loadParameters($actionDisassemble, $player, $gameEquipment);
         $this->disassembleAction->execute();
+
         $I->assertCount(1, $player->getStatuses());
-        $I->assertEquals(StatusEnum::ATTEMPT, $player->getStatuses()->first()->getName());
-        $I->assertEquals(ActionEnum::DISASSEMBLE, $player->getStatuses()->first()->getAction());
-        $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
+        /* @var Attempt $attempt */
+        $attempt = $player->getStatuses()->first();
+        $I->assertEquals(StatusEnum::ATTEMPT, $attempt->getName());
+        $I->assertEquals(ActionEnum::DISASSEMBLE, $attempt->getAction());
+        $I->assertEquals(1, $attempt->getCharge());
 
         $this->disassembleAction->loadParameters($actionDisassemble, $player, $gameEquipment);
         $this->disassembleAction->execute();
-        $I->assertEquals(ActionEnum::DISASSEMBLE, $player->getStatuses()->first()->getAction());
+
         $I->assertCount(1, $player->getStatuses());
-        $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
+        /* @var Attempt $attempt */
+        $attempt = $player->getStatuses()->first();
+        $I->assertEquals(StatusEnum::ATTEMPT, $attempt->getName());
+        $I->assertEquals(ActionEnum::DISASSEMBLE, $attempt->getAction());
+        $I->assertEquals(2, $attempt->getCharge());
     }
 
     public function testNormalizeAnotherAction(FunctionalTester $I) : void

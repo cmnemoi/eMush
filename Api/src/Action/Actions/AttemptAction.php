@@ -37,7 +37,7 @@ abstract class AttemptAction extends AbstractAction
         $successChance = $this->getSuccessRate();
         $threshold = $this->randomService->getSuccessThreshold();
 
-        if ($successChance <= $threshold) {
+        if ($successChance > $threshold) {
             return new Success();
         }
 
@@ -52,7 +52,7 @@ abstract class AttemptAction extends AbstractAction
         $event->addReason(ActionOutputEnum::SUCCESS);
         $this->eventService->callEvent($event, EnhancePercentageRollEvent::ACTION_ROLL_RATE);
 
-        if ($event->getRate() <= $event->getThresholdRate()) {
+        if ($event->getRate() > $event->getThresholdRate()) {
             return new Success();
         } else {
             return new Fail();

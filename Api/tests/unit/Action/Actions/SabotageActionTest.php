@@ -75,8 +75,9 @@ class SabotageActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
+        $this->actionService->shouldReceive('getSuccessRate')->andReturn(0)->once();
+        $this->randomService->shouldReceive('getSuccessThreshold')->andReturn(100)->once();
+        $this->eventService->shouldReceive('callEvent');
 
         // Fail try
         $result = $this->action->execute();
@@ -87,8 +88,8 @@ class SabotageActionTest extends AbstractActionTest
         $this->assertEquals(0, $attempt->getCharge());
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->actionService->shouldReceive('getSuccessRate')->andReturn(10)->once();
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
+        $this->actionService->shouldReceive('getSuccessRate')->andReturn(100)->once();
+        $this->randomService->shouldReceive('getSuccessThreshold')->andReturn(0)->once();
         $this->eventService->shouldReceive('callEvent');
 
         // Success

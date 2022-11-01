@@ -74,7 +74,7 @@ class Disassemble extends AttemptAction
         // add the item produced by disassembling
         foreach ($gameEquipment->getEquipment()->getDismountedProducts() as $productString => $number) {
             for ($i = 0; $i < $number; ++$i) {
-                $product = $this->gameEquipmentService->createGameEquipmentFromName(
+                $this->gameEquipmentService->createGameEquipmentFromName(
                     $productString,
                     $this->player,
                     $this->getActionName(),

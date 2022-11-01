@@ -58,7 +58,6 @@ class StatusSubscriber implements EventSubscriberInterface
             return;
         }
 
-        codecept_debug('oui');
         // If a talkie or itrackie is repaired, check if it was screwed.
         // If so, remove the screwed talkie status from the owner of the talkie and the pirate
         if ($holder instanceof GameItem &&
@@ -80,7 +79,6 @@ class StatusSubscriber implements EventSubscriberInterface
             }
         }
 
-        codecept_debug('lalalala');
         $this->statusService->delete($status);
     }
 

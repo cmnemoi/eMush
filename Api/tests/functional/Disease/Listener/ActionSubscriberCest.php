@@ -859,12 +859,14 @@ class ActionSubscriberCest
 
     public function testPostActionPsychoticAttackSymptom(FunctionalTester $I)
     {
+        /* @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['language' => LanguageEnum::FRENCH]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);
 
+        /* @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
 
         $channel = new Channel();
@@ -912,7 +914,7 @@ class ActionSubscriberCest
 
         $otherPlayer = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
+            'characterConfig' => $otherCharacterConfig,
             'place' => $place,
             'healthPoint' => 14,
         ]);

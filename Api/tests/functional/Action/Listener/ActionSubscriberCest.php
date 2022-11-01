@@ -70,6 +70,7 @@ class ActionSubscriberCest
 
         $I->assertEquals(8, $player->getHealthPoint());
         $I->assertCount(0, $player->getStatuses());
+        codecept_debug($I->grabEntitiesFromRepository(RoomLog::class));
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
             'player' => $player->getId(),

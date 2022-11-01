@@ -61,15 +61,16 @@ class RoomLogNormalizerTest extends TestCase
         $this
             ->translationService
             ->shouldReceive('translate')
-            ->with('log', [], '', LanguageEnum::FRENCH)
+            ->with('log', [], 'event_log', LanguageEnum::FRENCH)
             ->andReturn('translatedLog')
         ;
 
         $this
             ->translationService
             ->shouldReceive('translate')
-            ->with('instant', [], '', LanguageEnum::FRENCH)
+            ->with('instant', [], 'misc', LanguageEnum::FRENCH)
             ->andReturn("à l'instant")
+        ;
         ;
 
         $data = $this->normalizer->normalize($roomLog, null, ['currentPlayer' => $player]);

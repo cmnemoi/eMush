@@ -141,7 +141,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             $player,
             PlayerVariableEnum::HEALTH_POINT,
             self::ACTION_INJURY_MODIFIER,
-            PreparePercentageRollEvent::CLUMSINESS_ROLL_RATE,
+            ModifierScopeEnum::EVENT_CLUMSINESS,
             $dateTime
         );
         $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);

@@ -78,7 +78,7 @@
                     <ul>
                         <li><img class="casio-img" src="@/assets/images/casio.png"></li>
                         <li>
-                            <countdown-timer :end-date="daedalus.nextCycle">
+                            <countdown-timer :end-date="daedalus.timer.timerCycle">
                                 <template #default="slotProps">
                                     <div class="flex-row">
                                         <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour }}h</span>
@@ -90,8 +90,8 @@
                         </li>
                     </ul>
                     <template #content>
-                        <h1 v-html="formatContent(daedalus.currentCycle.name)" />
-                        <p v-html="formatContent(daedalus.currentCycle.description)" />
+                        <h1 v-html="formatContent(daedalus.timer.name)" />
+                        <p v-html="formatContent(daedalus.timer.description)" />
                     </template>
                 </Tippy>
             </div>

@@ -5,6 +5,7 @@ namespace Mush\RoomLog\Service;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\Collection\RoomLogCollection;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Entity\RoomLog;
 
@@ -32,5 +33,5 @@ interface RoomLogServiceInterface
 
     public function findById(int $id): ?RoomLog;
 
-    public function getRoomLog(Player $player): array;
+    public function getRoomLog(Player $player): RoomLogCollection;
 }

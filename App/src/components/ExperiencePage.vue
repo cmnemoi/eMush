@@ -61,7 +61,7 @@
             <p><em>{{ $t('deathpage.notyet') }}</em></p>
             <a href="#" class="validate" @click="endGame">{{ $t('deathpage.endgame') }}</a>
         </div>
-        <CommsPanel :day="player.daedalus.day" :cycle="player.daedalus.cycle" />
+        <CommsPanel :calendar="player.daedalus.calendar" />
     </div>
 </template>
 

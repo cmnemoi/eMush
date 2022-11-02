@@ -2,10 +2,13 @@
 
 namespace Mush\RoomLog\Controller;
 
+use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Game\Service\CycleServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\User\Entity\User;
 use Mush\User\Voter\UserVoter;
@@ -25,11 +28,16 @@ class RoomLogController extends AbstractFOSRestController
 {
     private RoomLogServiceInterface $roomLogService;
     private CycleServiceInterface $cycleService;
+    private TranslationServiceInterface $translationService;
 
-    public function __construct(RoomLogServiceInterface $roomLogService, CycleServiceInterface $cycleService)
-    {
+    public function __construct(
+        RoomLogServiceInterface $roomLogService,
+        CycleServiceInterface $cycleService,
+        TranslationServiceInterface $translationService
+    ) {
         $this->roomLogService = $roomLogService;
         $this->cycleService = $cycleService;
+        $this->translationService = $translationService;
     }
 
     /**
@@ -58,6 +66,47 @@ class RoomLogController extends AbstractFOSRestController
 
         $logs = $this->roomLogService->getRoomLog($player);
 
-        return $this->view($logs);
+        $context = new Context();
+        $context
+            ->setAttribute('currentPlayer', $player)
+        ;
+
+        $view = $this->view($logs);
+        $view->setContext($context);
+
+        return $view;
+    }
+
+    /**
+     * Perform an action.
+     *
+     * @OA\Tag(name="RoomLog")
+     * @Security(name="Bearer")
+     * @Rest\GET(path="/channel")
+     */
+    public function getRoomLogChannel(): View
+    {
+        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME);
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if (!$player = $user->getCurrentGame()) {
+            throw new AccessDeniedException();
+        }
+
+        $daedalus = $player->getDaedalus();
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
+        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
+
+        $language = $daedalus->getGameConfig()->getLanguage();
+
+        return $this->view([
+            'name' => $this->translationService->translate('room_log.name', [], 'chat', $language),
+            'description' => $this->translationService->translate('room_log.description', [], 'chat', $language),
+            'scope' => ChannelScopeEnum::ROOM_LOG,
+        ]);
     }
 }

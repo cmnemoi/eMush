@@ -60,9 +60,9 @@ Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
                 <source>message_date.less_minute</source>
                 <target>à l'instant</target>
             </segment>
-            <segment id="message_date.less_hour">
-                <source>message_date.less_hour</source>
-                <target>{quantity} min</target>
+            <segment id="message_date.more_minute">
+                <source>message_date.more_minute</source>
+                <target>{quantity}min</target>
             </segment>
             <segment id="message_date.more_hour">
                 <source>message_date.more_hour</source>

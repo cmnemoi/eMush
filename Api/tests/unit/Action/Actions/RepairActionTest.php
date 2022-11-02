@@ -16,7 +16,6 @@ use Mush\Place\Entity\Place;
 
 class RepairActionTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
 
     /**

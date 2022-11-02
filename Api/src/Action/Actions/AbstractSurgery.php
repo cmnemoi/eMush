@@ -8,9 +8,9 @@ use Mush\Action\ActionResult\Error;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Game\Event\PreparePercentageRollEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -92,7 +92,7 @@ abstract class AbstractSurgery extends AbstractAction
         return new Error('this output should not exist');
     }
 
-    public abstract function getFailChance() : int;
-    public abstract function getCriticalSuccessChance() : int;
+    abstract public function getFailChance(): int;
 
+    abstract public function getCriticalSuccessChance(): int;
 }

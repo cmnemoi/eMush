@@ -5,7 +5,6 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Validator\Fuel;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;

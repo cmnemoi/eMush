@@ -17,8 +17,6 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 
 class StrengthenActionTest extends AbstractActionTest
 {
-
-    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
 
     /**

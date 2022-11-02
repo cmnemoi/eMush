@@ -10,8 +10,6 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
@@ -63,7 +61,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             $player,
             PlayerVariableEnum::HEALTH_POINT,
             -$damage,
-            $event->getReason(),
+            $event->getReasons()[0],
             $event->getTime()
         );
         $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);

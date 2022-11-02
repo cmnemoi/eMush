@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Action\Event;
+namespace Mush\Game\Event;
 
 class PreparePercentageRollEvent extends PercentageRollEvent
 {

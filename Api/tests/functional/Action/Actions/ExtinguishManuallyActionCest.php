@@ -52,7 +52,7 @@ class ExtinguishManuallyActionCest
         $daedalus = $I->have(Daedalus::class, [
             'gameConfig' => $gameConfig,
             'gameStatus' => GameStatusEnum::CURRENT,
-            'neron' => $neron
+            'neron' => $neron,
         ]);
 
         $channel = new Channel();

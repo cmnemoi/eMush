@@ -11,7 +11,7 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
 #[ORM\Entity]
-class EquipmentRemainChargesModifierCondition extends ModifierCondition
+class EquipmentHasChargesModifierCondition extends ModifierCondition
 {
     #[ORM\Column(type: 'string', nullable: false)]
     private string $equipmentName;

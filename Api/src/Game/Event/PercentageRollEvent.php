@@ -1,8 +1,7 @@
 <?php
 
-namespace Mush\Action\Event;
+namespace Mush\Game\Event;
 
-use Mush\Game\Event\AbstractModifierHolderEvent;
 use Mush\Modifier\Entity\ModifierHolder;
 
 class PercentageRollEvent extends AbstractModifierHolderEvent

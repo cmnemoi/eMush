@@ -3,10 +3,10 @@
 namespace Mush\Modifier\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Action\Event\EnhancePercentageRollEvent;
-use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Event\EnhancePercentageRollEvent;
+use Mush\Game\Event\PreparePercentageRollEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Config\ModifierConfig;

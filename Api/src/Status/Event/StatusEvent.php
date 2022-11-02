@@ -34,7 +34,7 @@ class StatusEvent extends AbstractModifierHolderEvent implements LoggableEventIn
         if ($holder instanceof ModifierHolder) {
             parent::__construct($holder, $reason, $time);
         } else {
-            throw new \LogicException('The holder isn\' a modifier holder too.');
+            throw new \LogicException('The holder is not a modifier holder.');
         }
 
         $this->statusName = $statusName;

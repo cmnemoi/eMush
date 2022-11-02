@@ -42,7 +42,7 @@ class AttemptActionChangeCest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
-    public function testChangeAttemptAction(FunctionalTester $I) : void
+    public function testChangeAttemptAction(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -169,7 +169,7 @@ class AttemptActionChangeCest
         $I->assertEquals(2, $attempt->getCharge());
     }
 
-    public function testNormalizeAnotherAction(FunctionalTester $I) : void
+    public function testNormalizeAnotherAction(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);

@@ -26,15 +26,14 @@ use PHPUnit\Framework\TestCase;
 
 class GameEquipmentServiceTest extends TestCase
 {
-    /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface|Mockery\Mock $eventService;
-    /** @var EntityManagerInterface|Mockery\Mock */
+
     private EntityManagerInterface|Mockery\Mock $entityManager;
-    /** @var GameEquipmentRepository|Mockery\Mock */
+
     private GameEquipmentRepository|Mockery\Mock $repository;
-    /** @var RandomServiceInterface|Mockery\Mock */
+
     private RandomServiceInterface|Mockery\Mock $randomService;
-    /** @var EquipmentServiceInterface|Mockery\Mock */
+
     private EquipmentServiceInterface|Mockery\Mock $equipmentService;
 
     private GameEquipmentService $service;

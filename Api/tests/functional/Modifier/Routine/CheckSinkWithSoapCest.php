@@ -16,7 +16,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
-use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;

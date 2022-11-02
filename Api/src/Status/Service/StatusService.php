@@ -172,8 +172,7 @@ class StatusService implements StatusServiceInterface
                 ->setAction($actionName)
                 ->setCharge(0)
             ;
-        } else if ($attempt === null) { // Create Attempt
-
+        } elseif ($attempt === null) { // Create Attempt
             $attempt = $this->createAttemptStatus(
                 $actionName,
                 $player

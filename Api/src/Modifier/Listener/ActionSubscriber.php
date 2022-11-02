@@ -7,9 +7,8 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Service\EquipmentModifierServiceInterface;
-use Mush\Player\Entity\Player;
-use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Player\Entity\Player;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ActionSubscriber implements EventSubscriberInterface

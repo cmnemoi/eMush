@@ -4,6 +4,7 @@ namespace Mush\Action\Service;
 
 use LogicException;
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
@@ -96,6 +97,10 @@ class ActionService implements ActionServiceInterface
             $actionPointsCost = $numberOfConversions * $this->getMovementPointConversionCost($player, $action, $consumed);
         }
 
+        if (in_array($action->getName(), ActionEnum::getActionPointModifierProtectedActions())) {
+            return $action->getActionCost()->getActionPointCost() + $actionPointsCost;
+        }
+
         return $this->getPointFromResourceChange(
             $player,
             PlayerVariableEnum::ACTION_POINT,
@@ -108,6 +113,10 @@ class ActionService implements ActionServiceInterface
 
     public function getTotalMovementPointCost(Player $player, Action $action, bool $consumed = false): int
     {
+        if (in_array($action->getName(), ActionEnum::getActionPointModifierProtectedActions())) {
+            return $action->getActionCost()->getMovementPointCost();
+        }
+
         return $this->getPointFromResourceChange(
             $player,
             PlayerVariableEnum::MOVEMENT_POINT,

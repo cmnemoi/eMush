@@ -3,7 +3,6 @@
 namespace Mush\Tests\unit\Disease\Normalizer;
 
 use Mockery;
-use Mush\Disease\DataFixtures\DiseaseCausesConfigFixtures;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\Config\SymptomCondition;
@@ -16,12 +15,10 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\TranslationService;
-use Mush\Modifier\DataFixtures\DiseaseModifierConfigFixtures;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Config\ModifierConfig;
-use Mush\Modifier\Entity\ModifierCollection;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
-use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use PHPUnit\Framework\TestCase;
 
@@ -29,7 +26,6 @@ class DiseaseNormalizerTest extends TestCase
 {
     private DiseaseNormalizer $normalizer;
 
-    /** @var TranslationService|Mockery\Mock */
     private TranslationService|Mockery\Mock $translationService;
 
     /**

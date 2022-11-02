@@ -18,12 +18,11 @@ use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Modifier\Entity\Condition\EquipmentRemainChargesModifierCondition;
+use Mush\Modifier\Entity\Condition\EquipmentHasChargesModifierCondition;
 use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -102,7 +101,7 @@ class MoveWithScooterCest
 
         $I->haveInRepository($door);
 
-        $antiGravScooterRemainChargeCondition = new EquipmentRemainChargesModifierCondition(GearItemEnum::ANTIGRAV_SCOOTER);
+        $antiGravScooterRemainChargeCondition = new EquipmentHasChargesModifierCondition(GearItemEnum::ANTIGRAV_SCOOTER);
         $I->haveInRepository($antiGravScooterRemainChargeCondition);
 
         $antiGravScooterModifier = new ModifierConfig(

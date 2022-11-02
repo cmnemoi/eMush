@@ -8,8 +8,6 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Actions\Consume;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
-use Mush\Action\Event\ActionEvent;
-use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -17,7 +15,8 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Modifier\Entity\Condition\PlayerHasStatusModifierCondition;
+use Mush\Game\Event\PreparePercentageRollEvent;
+use Mush\Modifier\Entity\Condition\HolderHasStatusModifierCondition;
 use Mush\Modifier\Entity\Condition\RandomModifierCondition;
 use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
@@ -83,7 +82,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $randCondition50 = new RandomModifierCondition(50);
         $manager->persist($randCondition50);
 
-        $lyingDownCondition = new PlayerHasStatusModifierCondition(PlayerStatusEnum::LYING_DOWN);
+        $lyingDownCondition = new HolderHasStatusModifierCondition(PlayerStatusEnum::LYING_DOWN);
         $manager->persist($lyingDownCondition);
 
         $moveIncreaseMovement = new ModifierConfig(

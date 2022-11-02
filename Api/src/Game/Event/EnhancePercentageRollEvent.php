@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Action\Event;
+namespace Mush\Game\Event;
 
 use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;

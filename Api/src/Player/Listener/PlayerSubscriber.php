@@ -63,7 +63,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             $player,
             PlayerVariableEnum::HEALTH_POINT,
             -$damage,
-            $event->getReason(),
+            $event->getReasons()[0],
             $event->getTime()
         );
         $this->eventService->callEvent($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);

@@ -21,9 +21,9 @@ use Mush\Player\Entity\Player;
     'minimum_player_in_place' => MinimumPlayerInPlaceModifierCondition::class,
     'maximum_player_in_place' => MaximumPlayerInPlaceModifierCondition::class,
     'random' => RandomModifierCondition::class,
-    'player_has_status' => PlayerHasStatusModifierCondition::class,
+    'player_has_status' => HolderHasStatusModifierCondition::class,
     'equipment_in_place' => EquipmentInPlaceModifierCondition::class,
-    'equipment_remain_charges' => EquipmentRemainChargesModifierCondition::class,
+    'equipment_has_charges' => EquipmentHasChargesModifierCondition::class,
     'cycle_even' => CycleEvenModifierCondition::class,
 ])]
 abstract class ModifierCondition

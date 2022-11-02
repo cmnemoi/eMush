@@ -4,10 +4,8 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DaedalusInitEventSubscriber implements EventSubscriberInterface

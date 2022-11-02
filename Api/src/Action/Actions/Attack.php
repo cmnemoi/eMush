@@ -9,8 +9,6 @@ use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\OneShot;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Event\EnhancePercentageRollEvent;
-use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -26,9 +24,10 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\EnhancePercentageRollEvent;
+use Mush\Game\Event\PreparePercentageRollEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -147,6 +146,7 @@ class Attack extends AttemptAction
                 );
 
                 $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
+
                 return;
             }
 
@@ -154,7 +154,7 @@ class Attack extends AttemptAction
 
             if ($result instanceof CriticalSuccess) {
                 $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE, $target);
-                $this->inflictDamage($damage, $target,true);
+                $this->inflictDamage($damage, $target, true);
             } else {
                 $this->inflictDamage($damage, $target);
             }
@@ -187,7 +187,8 @@ class Attack extends AttemptAction
         return $this->isTriggered(ActionOutputEnum::ONE_SHOT, $knife->getOneShotRate());
     }
 
-    private function isTriggered(string $output, int $rate) : bool {
+    private function isTriggered(string $output, int $rate): bool
+    {
         $event = new PreparePercentageRollEvent(
             $this->player,
             $rate,
@@ -230,5 +231,4 @@ class Attack extends AttemptAction
 
         $this->eventService->callEvent($damageEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
-
 }

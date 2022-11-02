@@ -27,5 +27,4 @@ class RandomModifierCondition extends ModifierCondition
     {
         return $this->value;
     }
-
 }

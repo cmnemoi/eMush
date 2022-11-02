@@ -8,16 +8,16 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Event\ActionEvent;
-use Mush\Action\Event\EnhancePercentageRollEvent;
-use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\EnhancePercentageRollEvent;
+use Mush\Game\Event\PreparePercentageRollEvent;
 use Mush\Modifier\Entity\Condition\CycleEvenModifierCondition;
-use Mush\Modifier\Entity\Condition\EquipmentRemainChargesModifierCondition;
+use Mush\Modifier\Entity\Condition\EquipmentHasChargesModifierCondition;
 use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -115,7 +115,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         }
         $manager->persist($aimModifier);
 
-        $antiGravScooterRemainChargeCondition = new EquipmentRemainChargesModifierCondition(GearItemEnum::ANTIGRAV_SCOOTER);
+        $antiGravScooterRemainChargeCondition = new EquipmentHasChargesModifierCondition(GearItemEnum::ANTIGRAV_SCOOTER);
         $manager->persist($antiGravScooterRemainChargeCondition);
 
         $antiGravScooterModifier = new ModifierConfig(

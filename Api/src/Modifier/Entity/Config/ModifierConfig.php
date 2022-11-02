@@ -185,9 +185,11 @@ class ModifierConfig
         return $this->value;
     }
 
-    public function setLogKeyWhenApplied(?string $logKeyWhenApplied): void
+    public function setLogKeyWhenApplied(?string $logKeyWhenApplied): self
     {
         $this->logKeyWhenApplied = $logKeyWhenApplied;
+
+        return $this;
     }
 
     public function getLogKeyWhenApplied(): ?string

@@ -2,10 +2,6 @@
 
 namespace Mush\Disease\Normalizer;
 
-use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Event\ActionEvent;
-use Mush\Action\Event\PercentageRollEvent;
-use Mush\Action\Event\PreparePercentageRollEvent;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\Config\SymptomCondition;
 use Mush\Disease\Entity\Config\SymptomConfig;
@@ -13,11 +9,11 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\SymptomConditionEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Game\Event\PreparePercentageRollEvent;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Modifier\Entity\Condition\CycleEvenModifierCondition;
+use Mush\Modifier\Entity\Condition\HolderHasStatusModifierCondition;
 use Mush\Modifier\Entity\Condition\MinimumPlayerInPlaceModifierCondition;
 use Mush\Modifier\Entity\Condition\ModifierCondition;
-use Mush\Modifier\Entity\Condition\PlayerHasStatusModifierCondition;
 use Mush\Modifier\Entity\Condition\RandomModifierCondition;
 use Mush\Modifier\Entity\Config\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
@@ -157,26 +153,27 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         return $description;
     }
 
-    private function getKey($scope, $subKey) : string {
+    private function getKey($scope, $subKey): string
+    {
         if (array_key_exists(ResourceMaxPointEvent::CHECK_MAX_POINT, $scope)) {
             return 'max_point' . $subKey;
-        } else if (array_key_exists(AbstractQuantityEvent::CHANGE_VARIABLE, $scope)) {
+        } elseif (array_key_exists(AbstractQuantityEvent::CHANGE_VARIABLE, $scope)) {
             if (in_array([EventEnum::NEW_CYCLE], $scope[AbstractQuantityEvent::CHANGE_VARIABLE])) {
                 return 'new_cycle' . $subKey;
-            } else if (in_array([PlayerEvent::INFECTION_PLAYER], $scope[AbstractQuantityEvent::CHANGE_VARIABLE])) {
+            } elseif (in_array([PlayerEvent::INFECTION_PLAYER], $scope[AbstractQuantityEvent::CHANGE_VARIABLE])) {
                 return 'infection.player' . $subKey;
             } else {
                 return 'post_action' . $subKey;
             }
-        } else if (array_key_exists(PreparePercentageRollEvent::ACTION_ROLL_RATE, $scope)) {
+        } elseif (array_key_exists(PreparePercentageRollEvent::ACTION_ROLL_RATE, $scope)) {
             if (in_array([PlayerEvent::CYCLE_DISEASE], $scope[PreparePercentageRollEvent::ACTION_ROLL_RATE])) {
                 return 'cycle_disease' . $subKey;
             } else {
                 return 'action_shoot' . $subKey;
             }
-        } else if (array_key_exists(ResourcePointChangeEvent::CHECK_CHANGE_ACTION_POINT, $scope)) {
+        } elseif (array_key_exists(ResourcePointChangeEvent::CHECK_CHANGE_ACTION_POINT, $scope)) {
             return 'actions' . $subKey;
-        } else if (array_key_exists(ResourcePointChangeEvent::CHECK_CHANGE_MOVEMENT_POINT, $scope)) {
+        } elseif (array_key_exists(ResourcePointChangeEvent::CHECK_CHANGE_MOVEMENT_POINT, $scope)) {
             return 'move' . $subKey;
         } else {
             throw new \LogicException('No possible key found.');
@@ -201,9 +198,9 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         if (!$condition->isEmpty()) {
             $reasonCondition = $condition->first();
 
-            if ($reasonCondition instanceof PlayerHasStatusModifierCondition) {
+            if ($reasonCondition instanceof HolderHasStatusModifierCondition) {
                 return SymptomConditionEnum::PLAYER_STATUS;
-            } else if ($reasonCondition instanceof MinimumPlayerInPlaceModifierCondition) {
+            } elseif ($reasonCondition instanceof MinimumPlayerInPlaceModifierCondition) {
                 return SymptomConditionEnum::THREE_OTHERS;
             } else {
                 return null;

@@ -22,7 +22,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractActionTest extends TestCase
 {
-    /** @var EventServiceInterface|Mockery\Mock */
     protected EventServiceInterface|Mockery\Mock $eventService;
 
     protected ActionServiceInterface|Mockery\Mock $actionService;

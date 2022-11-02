@@ -27,13 +27,12 @@ use PHPUnit\Framework\TestCase;
 
 class FireTest extends TestCase
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
-    /** @var EventServiceInterface|Mockery\Mock */
+
     private EventServiceInterface|Mockery\Mock $eventService;
-    /** @var GameEquipmentServiceInterface|Mockery\Mock */
+
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
-    /** @var DaedalusServiceInterface|Mockery\Mock */
+
     private DaedalusServiceInterface|Mockery\Mock $daedalusService;
 
     private Fire $cycleHandler;

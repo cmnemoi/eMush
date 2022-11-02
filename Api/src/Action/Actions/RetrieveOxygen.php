@@ -9,7 +9,6 @@ use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\Oxygen;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;

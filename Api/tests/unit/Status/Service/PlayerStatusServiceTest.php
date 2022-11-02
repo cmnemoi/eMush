@@ -17,9 +17,8 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class PlayerStatusServiceTest extends TestCase
 {
-    /** @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
-    /** @var EventServiceInterface|Mockery\Mock */
+
     private EventServiceInterface|Mockery\Mock $eventService;
 
     private PlayerStatusServiceInterface $playerStatusService;

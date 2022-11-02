@@ -6,7 +6,6 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
@@ -15,7 +14,6 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class RetrieveAction extends AbstractAction

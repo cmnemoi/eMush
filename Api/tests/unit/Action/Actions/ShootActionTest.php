@@ -17,7 +17,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
 
 class ShootActionTest extends AbstractActionTest

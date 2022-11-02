@@ -55,5 +55,23 @@ Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
 **Attention les canaux privés sont des éléments de jeux et sont donc soumis à la même politique de confidentialité que Mush.**</target>
             </segment>
         </unit>
+        <unit id="message_date">
+            <segment id="message_date.less_minute">
+                <source>message_date.less_minute</source>
+                <target>à l'instant</target>
+            </segment>
+            <segment id="message_date.less_hour">
+                <source>message_date.less_hour</source>
+                <target>{quantity} min</target>
+            </segment>
+            <segment id="message_date.more_hour">
+                <source>message_date.more_hour</source>
+                <target>~{quantity}h</target>
+            </segment>
+            <segment id="message_date.more_day">
+                <source>message_date.more_day</source>
+                <target>~{quantity}j</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

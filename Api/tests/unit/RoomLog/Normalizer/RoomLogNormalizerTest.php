@@ -89,14 +89,20 @@ class RoomLogNormalizerTest extends TestCase
             ->andReturn('translated log 2')
             ->once()
         ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
+            ->andReturn('translated date')
+            ->twice()
+        ;
 
         $logCollection = new RoomLogCollection([$roomLog1, $roomLog2]);
 
         $normalizeLogs = $this->normalizer->normalize($logCollection, null, ['currentPlayer' => $player]);
 
         $expectedLogs = [1 => [
-            3 => [['log' => 'translated log 1', 'visibility' => VisibilityEnum::PUBLIC, 'date' => $date->format(\DateTime::ATOM)]],
-            4 => [['log' => 'translated log 2', 'visibility' => VisibilityEnum::PUBLIC, 'date' => $date->format(\DateTime::ATOM)]],
+            3 => [['log' => 'translated log 1', 'visibility' => VisibilityEnum::PUBLIC, 'date' => 'translated date']],
+            4 => [['log' => 'translated log 2', 'visibility' => VisibilityEnum::PUBLIC, 'date' => 'translated date']],
         ]];
 
         $this->assertEquals($expectedLogs, $normalizeLogs);

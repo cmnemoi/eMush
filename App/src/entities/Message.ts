@@ -5,7 +5,7 @@ export class Message {
     public message : string|null;
     public character : Character;
     public child : Array<Message>;
-    public date : Date|null;
+    public date : string|null;
 
     constructor() {
         this.id = null;
@@ -25,7 +25,7 @@ export class Message {
                 const childMessage = (new Message()).load(childMessageData);
                 this.child.push(childMessage);
             });
-            this.date = new Date(object.createdAt);
+            this.date = object.date;
         }
         return this;
     }

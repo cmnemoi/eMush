@@ -74,7 +74,18 @@ class MessageNormalizerTest extends TestCase
             ->setCreatedAt($createdAt)
         ;
 
-        $this->translationService->shouldReceive('translate')->andReturn('translatedName');
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('name.name', [], 'characters', LanguageEnum::FRENCH)
+            ->andReturn('translatedName')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
+            ->andReturn('translated date')
+            ->once()
+        ;
 
         $currentPlayer = new Player();
         $currentPlayer->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
@@ -86,7 +97,7 @@ class MessageNormalizerTest extends TestCase
             'id' => null,
             'character' => ['key' => 'name', 'value' => 'translatedName'],
             'message' => 'message',
-            'createdAt' => $createdAt->format(\DateTime::ATOM),
+            'date' => 'translated date',
             'child' => [],
         ], $normalizedData);
     }
@@ -128,6 +139,12 @@ class MessageNormalizerTest extends TestCase
             ->with(CharacterEnum::NERON . '.name', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translatedName')
         ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
+            ->andReturn('translated date')
+            ->once()
+        ;
 
         $currentPlayer = new Player();
         $currentPlayer->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
@@ -139,7 +156,7 @@ class MessageNormalizerTest extends TestCase
             'id' => null,
             'character' => ['key' => CharacterEnum::NERON, 'value' => 'translatedName'],
             'message' => 'translatedMessage',
-            'createdAt' => $createdAt->format(\DateTime::ATOM),
+            'date' => 'translated date',
             'child' => [],
         ], $normalizedData);
     }
@@ -198,6 +215,12 @@ class MessageNormalizerTest extends TestCase
             ->andReturn('translated message parent')
             ->once()
         ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
+            ->andReturn('translated date')
+            ->twice()
+        ;
 
         $currentPlayer = new Player();
         $currentPlayer->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
@@ -209,12 +232,12 @@ class MessageNormalizerTest extends TestCase
             'id' => null,
             'character' => ['key' => CharacterEnum::NERON, 'value' => 'translatedName'],
             'message' => 'translated message parent',
-            'createdAt' => $createdAt->format(\DateTime::ATOM),
+            'date' => 'translated date',
             'child' => [[
                 'id' => null,
                 'character' => ['key' => 'name', 'value' => 'translated player name'],
                 'message' => 'message child',
-                'createdAt' => $createdAt->format(\DateTime::ATOM),
+                'date' => 'translated date',
                 'child' => [],
             ]],
         ], $normalizedData);
@@ -264,6 +287,12 @@ class MessageNormalizerTest extends TestCase
             ->with(DiseaseMessagesEnum::DEAF, [], 'disease_message', LanguageEnum::FRENCH)
             ->andReturn('...')
         ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
+            ->andReturn('translated date')
+            ->once()
+        ;
 
         $context = ['currentPlayer' => $player];
         $normalizedData = $this->normalizer->normalize($message, null, $context);
@@ -272,7 +301,7 @@ class MessageNormalizerTest extends TestCase
             'id' => null,
             'character' => ['key' => 'name', 'value' => 'translatedName'],
             'message' => '...',
-            'createdAt' => $createdAt->format(\DateTime::ATOM),
+            'date' => 'translated date',
             'child' => [],
         ], $normalizedData);
     }
@@ -322,6 +351,12 @@ class MessageNormalizerTest extends TestCase
             ->with('name.name', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translatedName')
         ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
+            ->andReturn('translated date')
+            ->once()
+        ;
 
         $context = ['currentPlayer' => $player];
         $normalizedData = $this->normalizer->normalize($message, null, $context);
@@ -330,7 +365,7 @@ class MessageNormalizerTest extends TestCase
             'id' => null,
             'character' => ['key' => 'name', 'value' => 'translatedName'],
             'message' => 'modified message',
-            'createdAt' => $createdAt->format(\DateTime::ATOM),
+            'date' => 'translated date',
             'child' => [],
         ], $normalizedData);
     }
@@ -377,6 +412,12 @@ class MessageNormalizerTest extends TestCase
             ->with('name.name', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translatedName')
         ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
+            ->andReturn('translated date')
+            ->once()
+        ;
 
         $context = ['currentPlayer' => $player];
         $normalizedData = $this->normalizer->normalize($message, null, $context);
@@ -385,7 +426,7 @@ class MessageNormalizerTest extends TestCase
             'id' => null,
             'character' => ['key' => 'name', 'value' => 'translatedName'],
             'message' => 'original message',
-            'createdAt' => $createdAt->format(\DateTime::ATOM),
+            'date' => 'translated date',
             'child' => [],
         ], $normalizedData);
     }

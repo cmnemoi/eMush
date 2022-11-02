@@ -47,10 +47,29 @@ class RoomLogNormalizer implements ContextAwareNormalizerInterface
                     $language
                 ),
                 'visibility' => $roomLog->getVisibility(),
-                'date' => $roomLog->getDate()->format(\DateTime::ATOM),
+                'date' => $this->getLogDate($roomLog->getDate(), $language),
             ];
         }
 
         return $logs;
+    }
+
+    private function getLogDate(\DateTime $dateTime, string $language): string
+    {
+        $dateInterval = $dateTime->diff(new \DateTime());
+
+        $days = intval($dateInterval->format('%a'));
+        $hours = intval($dateInterval->format('%H'));
+        $minutes = intval($dateInterval->format('%i'));
+
+        if ($days > 0) {
+            return $this->translationService->translate('message_date.more_day', ['quantity' => $days], 'chat', $language);
+        } elseif ($hours > 0) {
+            return $this->translationService->translate('message_date.more_hour', ['quantity' => $hours], 'chat', $language);
+        } elseif ($minutes > 0) {
+            return $this->translationService->translate('message_date.more_minute', ['quantity' => $minutes], 'chat', $language);
+        } else {
+            return $this->translationService->translate('message_date.less_minute', [], 'chat', $language);
+        }
     }
 }

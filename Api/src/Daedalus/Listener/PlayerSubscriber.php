@@ -23,7 +23,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         return [
             PlayerEvent::NEW_PLAYER => 'onNewPlayer',
-            PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
+            PlayerEvent::DEATH_PLAYER => ['onDeathPlayer', -10],
         ];
     }
 

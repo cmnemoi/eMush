@@ -15,33 +15,34 @@
 }
 
 // Uncomment this to test the Kanit webfont
-// @font-face {
-//     font-family: 'eKanit';
-//     font-style: normal;
-//     font-weight: 400;
-//     src: url('~@/assets/fonts/eKanit-Light.ttf') format('truetype');
-// }
+@font-face {
+    font-family: 'eKanit';
+    font-style: normal;
+    font-weight: 400;
+    src: url('~@/assets/fonts/eKanit-Light.ttf') format('truetype');
+}
 
-// @font-face {
-//     font-family: 'eKanit';
-//     font-style: italic;
-//     font-weight: 400;
-//     src: url('~@/assets/fonts/eKanit-LightItalic.ttf') format('truetype');
-// }
+@font-face {
+    font-family: 'eKanit';
+    font-style: italic;
+    font-weight: 400;
+    src: url('~@/assets/fonts/eKanit-LightItalic.ttf') format('truetype');
+}
 
-// @font-face {
-//     font-family: 'eKanit';
-//     font-style: normal;
-//     font-weight: 700;
-//     src: url('~@/assets/fonts/eKanit-SemiBold.ttf') format('truetype');
-// }
+@font-face {
+    font-family: 'eKanit';
+    font-style: normal;
+    font-weight: 700;
+    src: url('~@/assets/fonts/eKanit-SemiBold.ttf') format('truetype');
+}
 
-// @font-face {
-//     font-family: 'eKanit';
-//     font-style: italic;
-//     font-weight: 700;
-//     src: url('~@/assets/fonts/eKanit-SemiBoldItalic.ttf') format('truetype');
-// }
+@font-face {
+    font-family: 'eKanit';
+    font-style: italic;
+    font-weight: 700;
+    src: url('~@/assets/fonts/eKanit-SemiBoldItalic.ttf') format('truetype');
+}
+
 
 html {
     box-sizing: border-box;

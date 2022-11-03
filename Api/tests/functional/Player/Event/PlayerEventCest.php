@@ -195,7 +195,7 @@ class PlayerEventCest
 
         $playerEvent = new PlayerEvent($player, ActionEnum::INFECT, new \DateTime());
 
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
 
         $I->assertCount(2, $player->getStatuses());
         $I->assertEquals(0, $player->getStatuses()->first()->getCharge());

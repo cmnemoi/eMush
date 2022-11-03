@@ -72,7 +72,8 @@ class EventService implements EventServiceInterface
         }
     }
 
-    private function handle(AbstractModifierHolderEvent $event) {
+    private function handle(AbstractModifierHolderEvent $event)
+    {
         if (!($event instanceof PlayerVariableEvent) || !$event->isIgnored()) {
             if ($this->modifierListenerService->applyModifiers($event)) {
                 $modifiers = $this->modifierListenerService->harvestAppliedModifier($event);

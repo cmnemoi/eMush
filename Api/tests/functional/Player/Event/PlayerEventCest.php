@@ -155,4 +155,51 @@ class PlayerEventCest
         $I->assertCount(2, $player->getStatuses());
         $I->assertEquals($room, $player->getPlace());
     }
+
+    public function testDispatchConversion(FunctionalTester $I)
+    {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var Player $player */
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+            'user' => $user,
+            'moralPoint' => 8,
+        ]);
+
+        $mushStatusConfig = new ChargeStatusConfig();
+        $mushStatusConfig
+            ->setName(PlayerStatusEnum::MUSH)
+            ->setGameConfig($gameConfig)
+        ;
+        $I->haveInRepository($mushStatusConfig);
+
+        $sporeConfig = new ChargeStatusConfig();
+        $sporeConfig->setName(PlayerStatusEnum::SPORES)->setVisibility(VisibilityEnum::MUSH);
+        $I->haveInRepository($sporeConfig);
+        $sporeStatus = new ChargeStatus($player, $sporeConfig);
+        $sporeStatus
+            ->setCharge(3)
+        ;
+        $I->haveInRepository($sporeStatus);
+
+        $playerEvent = new PlayerEvent($player, ActionEnum::INFECT, new \DateTime());
+
+        $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+
+        $I->assertCount(2, $player->getStatuses());
+        $I->assertEquals(0, $player->getStatuses()->first()->getCharge());
+        $I->assertEquals($room, $player->getPlace());
+        $I->assertEquals(12, $player->getMoralPoint());
+    }
 }

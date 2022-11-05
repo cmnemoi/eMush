@@ -6,6 +6,8 @@
                 :key="id"
                 :type="channel.scope"
                 :is-pirated="isChannelPirated(channel)"
+                :name="channel.name"
+                :description="channel.description"
                 :selected="currentChannel === channel"
                 @select="changeChannel({ channel })"
             />
@@ -16,10 +18,13 @@
                 @select="createPrivateChannel"
             />
         </ul>
-        <div class="cycle-time">
-            <img src="@/assets/images/comms/calendar.png"><span>Jour {{ day }} - Cycle {{ cycle }}</span>
-        </div>
-
+        <Tippy tag="div" class="cycle-time">
+            <img src="@/assets/images/comms/calendar.png"><span>Jour {{ calendar.day }} - Cycle {{ calendar.cycle }}</span>
+            <template #content>
+                <h1 v-html="formatContent(calendar.name)" />
+                <p v-html="formatContent(calendar.description)" />
+            </template>
+        </Tippy>
         <component :is="currentTabComponent" :channel="currentChannel" />
     </div>
 </template>
@@ -37,6 +42,8 @@ import { mapActions, mapState, mapGetters } from "vuex";
 import { Channel } from "@/entities/Channel";
 import { ChannelType } from "@/enums/communication.enum";
 import { Component, defineComponent } from "vue";
+import { GameCalendar } from "@/entities/GameCalendar";
+
 
 const MAX_PRIVATE_TABS_NB = 3;
 
@@ -52,9 +59,8 @@ export default defineComponent ({
         Tab
     },
     props: {
-        day: Number,
-        cycle: Number,
-        room: Room
+        room: Room,
+        calendar: GameCalendar,
     },
     computed: {
         ...mapState('communication', [
@@ -96,7 +102,7 @@ export default defineComponent ({
         isChannelPirated(channel: Channel): boolean
         {
             return channel.piratedPlayer != null;
-        }
+        },
     }
 });
 </script>

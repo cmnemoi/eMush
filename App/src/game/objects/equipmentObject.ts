@@ -70,7 +70,7 @@ export default class EquipmentObject extends InteractObject {
                 quantity: 1,
                 frequency: 100000/(this.width * this.height ),
                 //@ts-ignore
-                emitZone: { type: 'random', source: this }
+                emitZone: { type: 'random', source: this.isoGeom }
             });
         } else if (this.particles !== null && !this.equipment.isBroken) {
             this.particles.destroy();

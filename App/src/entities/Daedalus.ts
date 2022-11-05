@@ -1,15 +1,15 @@
 import { QuantityPoint } from "@/entities/QuantityPoint";
+import { TimerCycle } from "@/entities/TimerCycle";
+import { GameCalendar } from "@/entities/GameCalendar";
 
 export class Daedalus {
     public id: number|null;
-    public day: number|null;
-    public cycle: number|null;
     public oxygen: QuantityPoint|null;
     public fuel: QuantityPoint|null;
     public hull: QuantityPoint|null;
     public shield: QuantityPoint|null;
-    public currentCycle: QuantityPoint|null;
-    public nextCycle: Date|null;
+    public timer: TimerCycle|null;
+    public calendar: GameCalendar|null;
     public cryogenizedPlayers: number;
     public humanPlayerAlive: number;
     public humanPlayerDead: number;
@@ -20,14 +20,12 @@ export class Daedalus {
 
     constructor() {
         this.id = null;
-        this.day = null;
-        this.cycle = null;
         this.oxygen = null;
         this.fuel = null;
         this.hull = null;
         this.shield = null;
-        this.currentCycle = null;
-        this.nextCycle = null;
+        this.timer = null;
+        this.calendar = null;
         this.cryogenizedPlayers = 0;
         this.humanPlayerAlive = 0;
         this.humanPlayerDead = 0;
@@ -39,8 +37,6 @@ export class Daedalus {
     load(object :any): Daedalus {
         if (typeof object !== "undefined") {
             this.id = object.id;
-            this.day = object.day;
-            this.cycle = object.cycle;
             if (typeof object.oxygen !== 'undefined') {
                 this.oxygen = (new QuantityPoint()).load(object.oxygen);
             }
@@ -53,10 +49,12 @@ export class Daedalus {
             if (typeof object.shield !== 'undefined') {
                 this.shield = (new QuantityPoint()).load(object.shield);
             }
-            if (typeof object.currentCycle !== 'undefined') {
-                this.currentCycle = (new QuantityPoint()).load(object.currentCycle);
+            if (typeof object.timer !== 'undefined') {
+                this.timer = (new TimerCycle()).load(object.timer);
             }
-            this.nextCycle = new Date(object.nextCycle);
+            if (typeof object.calendar !== 'undefined') {
+                this.calendar = (new GameCalendar()).load(object.calendar);
+            }
             this.cryogenizedPlayers = object.cryogenizedPlayers;
             this.humanPlayerAlive = object.humanPlayerAlive;
             this.humanPlayerDead = object.humanPlayerDead;
@@ -75,8 +73,8 @@ export class Daedalus {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.id = object.id;
-            this.day = object.day;
-            this.cycle = object.cycle;
+            this.calendar = object.calendar;
+            this.timer = object.timer;
             this.oxygen = object.oxygen;
             this.fuel = object.fuel;
             this.hull = object.hull;
@@ -85,4 +83,6 @@ export class Daedalus {
 
         return this;
     }
+
+
 }

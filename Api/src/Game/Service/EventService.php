@@ -39,11 +39,8 @@ class EventService implements EventServiceInterface
         if ($this->modifierListenerService->canHandle($event)) {
             $handled = true;
 
-            if ($event instanceof AbstractModifierHolderEvent && (!($event instanceof PlayerVariableEvent) || !$event->isIgnored())) {
-                if ($this->modifierListenerService->applyModifiers($event)) {
-                    $modifiers = $this->modifierListenerService->harvestAppliedModifier($event);
-                    $this->applyModifiers($event, $modifiers);
-                }
+            if ($event instanceof AbstractModifierHolderEvent) {
+                $this->handle($event);
             }
         }
 
@@ -71,6 +68,16 @@ class EventService implements EventServiceInterface
                 $variableEvent->setModified(false);
 
                 $this->callEvent($variableEvent, AbstractQuantityEvent::CHANGE_VARIABLE, $event);
+            }
+        }
+    }
+
+    private function handle(AbstractModifierHolderEvent $event)
+    {
+        if (!($event instanceof PlayerVariableEvent) || !$event->isIgnored()) {
+            if ($this->modifierListenerService->applyModifiers($event)) {
+                $modifiers = $this->modifierListenerService->harvestAppliedModifier($event);
+                $this->applyModifiers($event, $modifiers);
             }
         }
     }

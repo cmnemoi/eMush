@@ -1,7 +1,7 @@
 <template>
     <section :class="'log ' + roomLog.visibility">
         <p class="text-log" v-html="formatLog(roomLog.message)" />
-        <span class="timestamp">{{ formatDate(roomLog.date, {local: "fr-FR"}) }}</span>
+        <span class="timestamp">{{ roomLog.date }}</span>
     </section>
 </template>
 
@@ -18,9 +18,6 @@ export default defineComponent ({
         roomLog: RoomLog
     },
     methods: {
-        formatDate: (date: Date): string => {
-            return formatDistanceToNow(date, { locale : fr });
-        },
         formatLog(value: string): string {
             if (! value) return '';
             return formatText(value.toString());

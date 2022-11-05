@@ -1,8 +1,17 @@
 <template>
-    <div class="tab" :class="[selected ? 'checked' : '', isPirated ? 'pirated' : '']" @click="$emit('select')">
+    <Tippy
+        tag="div"
+        class="tab"
+        :class="[selected ? 'checked' : '', isPirated ? 'pirated' : '']"
+        @click="$emit('select')"
+    >
         <img :src="icon">
         <span v-if="numberOfNewMessages" class="new-messages-number">{{ numberOfNewMessagesDisplayed }}</span>
-    </div>
+        <template #content>
+            <h1 v-html="formatContent(name)" />
+            <p v-html="formatContent(description)" />
+        </template>
+    </Tippy>
 </template>
 
 <script lang="ts">
@@ -19,7 +28,9 @@ export default defineComponent ({
             type: Number,
             required: false,
             default: 0
-        }
+        },
+        name: String,
+        description: String
     },
     emits: [
         'select'
@@ -76,7 +87,7 @@ export default defineComponent ({
 
         @include corner-bezel(4.5px, 4.5px, 0);
     }
-    
+
 
 
     &.checked,

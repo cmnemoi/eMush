@@ -2,7 +2,7 @@
 export class RoomLog {
     public message : string|null;
     public visibility : string|null;
-    public date : Date|null;
+    public date : string|null;
 
     constructor() {
         this.message = null;
@@ -13,7 +13,7 @@ export class RoomLog {
         if (typeof object !== "undefined") {
             this.message = object.log;
             this.visibility = object.visibility;
-            this.date = new Date(object.date);
+            this.date = object.date;
         }
         return this;
     }
@@ -25,7 +25,7 @@ export class RoomLog {
             const object = JSON.parse(jsonString);
             this.message = object.key;
             this.visibility = object.visibility;
-            this.date = new Date(object.date);
+            this.date = object.date;
         }
 
         return this;

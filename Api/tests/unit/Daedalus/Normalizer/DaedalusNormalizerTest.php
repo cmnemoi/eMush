@@ -134,13 +134,25 @@ class DaedalusNormalizerTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with('currentCycle.description', [], 'daedalus', LanguageEnum::FRENCH)
-            ->andReturn('translated two')
+            ->andReturn('translated current cycle description')
             ->once()
         ;
         $this->translationService
             ->shouldReceive('translate')
             ->with('crewPlayer.name', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated one')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('calendar.name', [], 'daedalus', LanguageEnum::FRENCH)
+            ->andReturn('translated calendar name')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('calendar.description', [], 'daedalus', LanguageEnum::FRENCH)
+            ->andReturn('translated calendar description')
             ->once()
         ;
         $this->translationService
@@ -161,8 +173,12 @@ class DaedalusNormalizerTest extends TestCase
         $expected = [
             'id' => 2,
             'game_config' => null,
-            'cycle' => 4,
-            'day' => 4,
+            'calendar' => [
+                'name' => 'translated calendar name',
+                'description' => 'translated calendar description',
+                'cycle' => 4,
+                'day' => 4,
+            ],
             'oxygen' => [
                 'quantity' => 24,
                 'name' => 'translated one',
@@ -179,15 +195,15 @@ class DaedalusNormalizerTest extends TestCase
                 'quantity' => 100,
                 'name' => 'translated one',
                 'description' => 'translated two', ],
-            'nextCycle' => $nextCycle->format(\DateTime::ATOM),
             'cryogenizedPlayers' => 0,
             'humanPlayerAlive' => 0,
             'humanPlayerDead' => 0,
             'mushPlayerAlive' => 0,
             'mushPlayerDead' => 0,
-            'currentCycle' => [
+            'timer' => [
+                'timerCycle' => $nextCycle->format(\DateTime::ATOM),
                 'name' => 'translated one',
-                'description' => 'translated two', ],
+                'description' => 'translated current cycle description', ],
             'crewPlayer' => [
                 'name' => 'translated one',
                 'description' => 'translated two', ],

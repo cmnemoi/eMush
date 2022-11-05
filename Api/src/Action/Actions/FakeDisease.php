@@ -28,6 +28,7 @@ class FakeDisease extends AbstractAction
         return $parameter === null;
     }
 
+    /* This may be latter used
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new HasDiseases([
@@ -37,7 +38,7 @@ class FakeDisease extends AbstractAction
             'isEmpty' => true,
             'message' => ActionImpossibleCauseEnum::HAVE_ALL_FAKE_DISEASES,
         ]));
-    }
+    }*/
 
     protected function checkResult(): ActionResult
     {

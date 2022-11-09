@@ -60,7 +60,7 @@ export default defineComponent ({
         formatDescription(value: string): string {
             if (! value) return '';
             return formatText(value.toString());
-        }
+        },
     }
 });
 </script>

@@ -1,11 +1,13 @@
 import PlayerService from "@/services/player.service";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { Player } from "@/entities/Player";
+import { Item } from "@/entities/Item";
 
 
 const state =  {
     loading: false,
-    player: null
+    player: null,
+    selectedItem: null
 };
 
 const getters: GetterTree<any, any> = {
@@ -14,6 +16,9 @@ const getters: GetterTree<any, any> = {
     },
     player: (state: any): Player|null => {
         return state.player;
+    },
+    selectedItem: (state: any): Item|null => {
+        return state.selectedItem;
     }
 };
 
@@ -27,6 +32,7 @@ const actions: ActionTree<any, any> = {
             const player = await PlayerService.loadPlayer(playerId);
 
             commit('updatePlayer', player);
+            commit('updateSelectedItem');
             this.dispatch("daedalus/loadAlerts", { player: player });
             this.dispatch("daedalus/loadMinimap", { player: player });
             this.dispatch("room/setRoom", { room: player?.room });
@@ -41,7 +47,10 @@ const actions: ActionTree<any, any> = {
     },
     setLoading({ commit }, { loading }) {
         commit('setLoading', loading);
-    }
+    },
+    selectTarget({ commit }, { target }) {
+        commit('setSelectedItem', target);
+    },
 };
 
 const mutations : MutationTree<any> = {
@@ -54,6 +63,23 @@ const mutations : MutationTree<any> = {
     },
     errorUpdatePlayer(state: any): void {
         state.loading = false;
+    },
+    setSelectedItem(state, target: Item | null) {
+        state.selectedItem = target;
+    },
+    updateSelectedItem(state) {
+        const oldTarget = state.selectedItem;
+
+        const targetList = (<Player>state.player).items;
+        if (oldTarget !== null) {
+            for (let i = 0; i < targetList.length; i++) {
+                const target = targetList[i];
+                if (oldTarget.id === target.id) {
+                    return state.selectedItem = target;
+                }
+            }
+            return state.selectedItem = null;
+        }
     }
 };
 

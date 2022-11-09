@@ -143,26 +143,22 @@ export default defineComponent ({
             required: true
         }
     },
-    data(): CharPanelState {
-        return {
-            selectedItem: null
-        };
-    },
     computed: {
         characterPortrait(): string {
             return characterEnum[this.player.character.key].portrait ?? '';
         },
         ...mapState('player', [
-            'loading'
+            'loading', 'selectedItem'
         ]),
         target(): Item | Player | null {
             return this.selectedItem || this.player;
         }
     },
     methods: {
-        ...mapActions('action', [
-            'executeAction'
-        ]),
+        ...mapActions({
+            'executeAction': 'action/executeAction',
+            'selectTarget': 'player/selectTarget'
+        }),
         isFull (value: number, threshold: number): Record<string, boolean> {
             return {
                 "full": value <= threshold,
@@ -171,9 +167,9 @@ export default defineComponent ({
         },
         toggleItemSelection(item: Item): void {
             if (this.selectedItem === item) {
-                this.selectedItem = null;
+                this.selectTarget({ target: null });
             } else {
-                this.selectedItem = item;
+                this.selectTarget({ target: item });
             }
         },
         async executeTargetAction(target: Door | Item | Equipment | Player | null, action: Action): Promise<void> {
@@ -181,7 +177,7 @@ export default defineComponent ({
             if (this.selectedItem instanceof Item && ! this.player.items.includes(this.selectedItem)) {
                 this.selectedItem = null;
             }
-        }
+        },
     }
 });
 </script>

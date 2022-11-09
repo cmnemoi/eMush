@@ -67,9 +67,34 @@ const mutations : MutationTree<any> = {
     },
     updateSelectedItemPile(state) {
         const oldTarget = state.selectedTarget;
-        if (oldTarget instanceof Item) {
-            state.selectedTarget = null;
+        console.log(state.selectedTarget);
+
+        if (oldTarget instanceof Item && state.inventoryOpen) {
+            const targetList = (<Room> state.room).items;
+            for (let i = 0; i < targetList.length; i++) {
+                const target = targetList[i];
+                if (oldTarget.key === target.key) {
+                    return state.selectedTarget = target;
+                }
+            }
+        } else if (oldTarget instanceof Player) {
+            const targetList = (<Room> state.room).players;
+            for (let i = 0; i < targetList.length; i++) {
+                const target = targetList[i];
+                if (oldTarget.id === target.id) {
+                    return state.selectedTarget = target;
+                }
+            }
+        } else if (oldTarget instanceof Equipment) {
+            const targetList = (<Room> state.room).equipments;
+            for (let i = 0; i < targetList.length; i++) {
+                const target = targetList[i];
+                if (oldTarget.id === target.id) {
+                    return state.selectedTarget = target;
+                }
+            }
         }
+        state.selectedTarget = null;
     }
 };
 

@@ -40,8 +40,8 @@ Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
             </segment>
             <segment id="description">
                 <source>private.description</source>
-                <target>Votre talkie dispose d'un canal privé libre. Cliquez ici pour ouvrir une conversation privée avec un ou plusieurs camarades qui possèdent un :talkie: **talkie-walkie**.
-**Attention les canaux privés sont des éléments de jeux et sont donc soumis à la même politique de confidentialité que Mush.**</target>
+                <target>Les canaux de navigation privés permettent de manigancer à l'abri des oreilles indiscrètes.
+                    **Attention les canaux privés sont des éléments de jeux et sont donc soumis à la même politique de confidentialité que Mush.**</target>
             </segment>
         </unit>
         <unit id="new">

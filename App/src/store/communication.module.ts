@@ -40,9 +40,21 @@ const getters: GetterTree<any, any> = {
 };
 
 const actions: ActionTree<any, any> = {
-    async changeChannel({ commit, dispatch }, { channel }) {
-        commit('setCurrentChannel', channel);
-        dispatch('loadMessages', { channel });
+    async changeChannel({ commit, dispatch, state }, { channel }) {
+        if (state.loadingChannels) { return; }
+
+        try {
+            if (channel.scope === ChannelType.NEW_CHANNEL) {
+                const newChannel = await CommunicationService.createPrivateChannel();
+                commit('setCurrentChannel', newChannel);
+                await dispatch('loadChannels');
+            } else {
+                commit('setCurrentChannel', channel);
+                await dispatch('loadMessages', { channel });
+            }
+        } catch (e) {
+            return false;
+        }
     },
     async loadChannels({ getters, dispatch, commit, rootState }) {
         commit('setLoadingOfChannels', true);
@@ -50,12 +62,16 @@ const actions: ActionTree<any, any> = {
         try {
             const channels = await CommunicationService.loadChannels();
 
-            const currentPlayerKey = rootState.player.player.characterKey;
+            const currentPlayerKey = rootState.player.player.character.key;
             const sortedChannels = sortChannels(channels, currentPlayerKey);
 
             commit('setChannels', sortedChannels);
-            commit('setCurrentChannel', getters.roomChannel);
-            dispatch('loadMessages', { channel: getters.roomChannel });
+
+            if (state.currentChannel.scope === undefined) {
+                commit('setCurrentChannel', getters.roomChannel);
+            }
+
+            await dispatch('loadMessages', { channel: state.currentChannel });
             commit('setLoadingOfChannels', false);
             return true;
         } catch (e) {
@@ -63,7 +79,6 @@ const actions: ActionTree<any, any> = {
             return false;
         }
     },
-
     async loadMessages({ commit }, { channel }) {
         commit('setLoadingForChannel', { channel, newStatus: true });
         try {
@@ -79,7 +94,6 @@ const actions: ActionTree<any, any> = {
 
     async sendMessage({ commit }, { channel, text, parent }) {
         commit('setLoadingForChannel', { channel, newStatus: true });
-
         try {
             const messages = await CommunicationService.sendMessage(channel, text, parent);
             commit('setChannelMessages', { channel, messages });
@@ -90,33 +104,18 @@ const actions: ActionTree<any, any> = {
             return false;
         }
     },
-
-    async createPrivateChannel({ state, commit }) {
-        if (state.loadingChannels) { return; }
-        commit('setLoadingOfChannels', true);
-
-        try {
-            const newChannel = await CommunicationService.createPrivateChannel();
-            commit('addChannel', newChannel);
-            commit('setCurrentChannel', newChannel);
-            commit('setLoadingOfChannels', false);
-        } catch (e) {
-            commit('setLoadingOfChannels', false);
-        }
-    },
-
-    async leavePrivateChannel({ getters, commit }, channel) {
+    async leavePrivateChannel({ getters, commit, dispatch }, channel) {
         commit('setLoadingOfChannels', true);
         try {
             await CommunicationService.leaveChannel(channel);
             commit('removeChannel', channel);
             commit('setCurrentChannel', getters.roomChannel);
+            await dispatch('loadChannels');
             commit('setLoadingOfChannels', false);
         } catch (e) {
             commit('setLoadingOfChannels', false);
         }
     },
-
     async getInvitablePlayersToPrivateChannel({ commit }, channel) {
         commit('invitablePlayerMenu', { isOpen: true, channel: channel });
         commit("player/setLoading", true, { root: true });
@@ -161,10 +160,6 @@ const mutations: MutationTree<any> = {
         state.channels = channels;
     },
 
-    addChannel(state: any, channel: Channel): void {
-        state.channels.push(channel);
-    },
-
     removeChannel(state: any, channel: Channel): void {
         state.channels = state.channels.filter(({ id }: {id: number}) => id !== channel.id);
         delete state.loadingByChannelId[channel.id];
@@ -192,7 +187,8 @@ export function sortChannels(channels: Channel[], currentPlayerKey: string): Cha
         [ChannelType.MUSH] : 2,
         [ChannelType.ROOM_LOG] : 3,
         [ChannelType.PUBLIC] : 4,
-        [ChannelType.PRIVATE] : 5
+        [ChannelType.PRIVATE] : 5,
+        [ChannelType.NEW_CHANNEL] : 6
     };
 
     return channels.sort(function (a: Channel, b: Channel) : number {

@@ -41,6 +41,8 @@ export class Channel {
             this.id = object.id;
             this.scope = object.scope;
             this.participants = object.participants;
+            this.name = object.name;
+            this.description = object.description;
         }
 
         return this;

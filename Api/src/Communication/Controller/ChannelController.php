@@ -14,6 +14,7 @@ use Mush\Communication\Specification\SpecificationInterface;
 use Mush\Communication\Voter\ChannelVoter;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -39,6 +40,7 @@ class ChannelController extends AbstractFOSRestController
     private PlayerServiceInterface $playerService;
     private ValidatorInterface $validator;
     private CycleServiceInterface $cycleService;
+    private TranslationServiceInterface $translationService;
 
     public function __construct(
         SpecificationInterface $canCreateChannel,
@@ -47,6 +49,7 @@ class ChannelController extends AbstractFOSRestController
         PlayerServiceInterface $playerService,
         ValidatorInterface $validator,
         CycleServiceInterface $cycleService,
+        TranslationServiceInterface $translationService,
     ) {
         $this->canCreateChannel = $canCreateChannel;
         $this->channelService = $channelService;
@@ -54,6 +57,7 @@ class ChannelController extends AbstractFOSRestController
         $this->playerService = $playerService;
         $this->validator = $validator;
         $this->cycleService = $cycleService;
+        $this->translationService = $translationService;
     }
 
     /**
@@ -97,6 +101,47 @@ class ChannelController extends AbstractFOSRestController
         $view->setContext($context);
 
         return $view;
+    }
+
+    /**
+     * Create a channel.
+     *
+     * @OA\Tag(name="Channel")
+     * @Security(name="Bearer")
+     * @Rest\GET(path="/canCreatePrivate")
+     */
+    public function canCreateChannelAction(): View
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $player = $user->getCurrentGame();
+        if (!$player) {
+            throw new AccessDeniedException('User should be in game');
+        }
+
+        if ($player->getGameStatus() !== GameStatusEnum::CURRENT) {
+            throw new AccessDeniedException('Player is dead');
+        }
+
+        $daedalus = $player->getDaedalus();
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
+        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
+
+        if (!$this->canCreateChannel->isSatisfied($player)) {
+            $canCreate = [
+                'canCreate' => false,
+            ];
+        } else {
+            $canCreate = [
+                'canCreate' => true,
+                'name' => $this->translationService->translate('new.name', [], 'chat', $daedalus->getGameConfig()->getLanguage()),
+                'description' => $this->translationService->translate('new.description', [], 'chat', $daedalus->getGameConfig()->getLanguage()),
+            ];
+        }
+
+        return $this->view($canCreate, 201);
     }
 
     /**

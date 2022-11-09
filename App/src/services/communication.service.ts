@@ -8,6 +8,8 @@ import { AxiosResponse } from "axios";
 import urlJoin from "url-join";
 
 // @ts-ignore
+const CAN_CREATE_CHANNEL_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "channel/canCreatePrivate");
+// @ts-ignore
 const CHANNELS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "channel");
 // @ts-ignore
 const PIRATED_CHANNELS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "channel/pirated");
@@ -40,6 +42,16 @@ const CommunicationService = {
             Object.values(piratedChannelsData.data).forEach((data: any) => {
                 channels.push((new Channel()).load(data));
             });
+        }
+
+        const newChannelData = await ApiService.get(CAN_CREATE_CHANNEL_ENDPOINT);
+        if (newChannelData.data && newChannelData.data['canCreate']) {
+            channels.push((new Channel()).load({
+                scope: ChannelType.NEW_CHANNEL,
+                id: ChannelType.NEW_CHANNEL,
+                name: newChannelData.data['name'],
+                description: newChannelData.data['description']
+            }));
         }
 
         return channels;

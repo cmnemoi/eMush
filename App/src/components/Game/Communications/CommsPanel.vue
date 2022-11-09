@@ -8,14 +8,8 @@
                 :is-pirated="isChannelPirated(channel)"
                 :name="channel.name"
                 :description="channel.description"
-                :selected="currentChannel === channel"
+                :selected="isChannelSelected(channel)"
                 @select="changeChannel({ channel })"
-            />
-            <Tab
-                v-if="displayNewTab"
-                type="new"
-                class="new-tab"
-                @select="createPrivateChannel"
             />
         </ul>
         <Tippy tag="div" class="cycle-time">
@@ -38,14 +32,12 @@ import PrivateTab from "@/components/Game/Communications/PrivateTab.vue";
 import MushTab from "@/components/Game/Communications/MushTab.vue";
 import Tab from "@/components/Game/Communications/Tab.vue";
 import { Room } from "@/entities/Room";
-import { mapActions, mapState, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import { Channel } from "@/entities/Channel";
 import { ChannelType } from "@/enums/communication.enum";
 import { Component, defineComponent } from "vue";
 import { GameCalendar } from "@/entities/GameCalendar";
 
-
-const MAX_PRIVATE_TABS_NB = 3;
 
 export default defineComponent ({
     name: "CommsPanel",
@@ -69,10 +61,6 @@ export default defineComponent ({
         ...mapGetters('communication', [
             'channels'
         ]),
-        displayNewTab(): boolean {
-            if (! this.channels || ! this.channels.length) { return false; }
-            return this.channels.filter((channel: Channel) => channel.scope === ChannelType.PRIVATE).length < MAX_PRIVATE_TABS_NB;
-        },
         currentTabComponent(): Component {
             if (this.currentChannel instanceof Channel) {
                 switch (this.currentChannel.scope) {
@@ -97,12 +85,16 @@ export default defineComponent ({
         ...mapActions('communication', [
             'loadChannels',
             'changeChannel',
-            'createPrivateChannel'
         ]),
         isChannelPirated(channel: Channel): boolean
         {
             return channel.piratedPlayer != null;
         },
+        isChannelSelected(channel: Channel): boolean
+        {
+            return (this.currentChannel.scope === channel.scope &&
+                this.currentChannel.id === channel.id);
+        }
     }
 });
 </script>

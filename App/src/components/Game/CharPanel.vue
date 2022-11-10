@@ -47,7 +47,12 @@
                 </div>
             </div>
             <div class="inventory">
-                <inventory :items="player.items" :min-slot="3" @select="toggleItemSelection" />
+                <inventory
+                    :items="player.items"
+                    :min-slot="3"
+                    :selectedItem="getTargetItem"
+                    @select="toggleItemSelection"
+                />
             </div>
             <div v-if="! loading && target" class="interactions">
                 <p v-if="selectedItem" class="item-name">
@@ -152,6 +157,9 @@ export default defineComponent ({
         ]),
         target(): Item | Player | null {
             return this.selectedItem || this.player;
+        },
+        getTargetItem(): Item | null {
+            return this.selectedItem;
         }
     },
     methods: {
@@ -165,7 +173,7 @@ export default defineComponent ({
                 'empty': value > threshold
             };
         },
-        toggleItemSelection(item: Item): void {
+        toggleItemSelection(item: Item | null): void {
             if (this.selectedItem === item) {
                 this.selectTarget({ target: null });
             } else {

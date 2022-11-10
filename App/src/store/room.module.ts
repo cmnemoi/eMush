@@ -67,13 +67,13 @@ const mutations : MutationTree<any> = {
     },
     updateSelectedItemPile(state) {
         const oldTarget = state.selectedTarget;
-        console.log(state.selectedTarget);
-
         if (oldTarget instanceof Item && state.inventoryOpen) {
             const targetList = (<Room> state.room).items;
             for (let i = 0; i < targetList.length; i++) {
                 const target = targetList[i];
-                if (oldTarget.key === target.key) {
+                if ((oldTarget.key === target.key && oldTarget.number > 0) ||
+                    oldTarget.id === target.id
+                ) {
                     return state.selectedTarget = target;
                 }
             }

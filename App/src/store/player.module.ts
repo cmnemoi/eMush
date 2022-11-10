@@ -35,7 +35,9 @@ const actions: ActionTree<any, any> = {
             commit('updateSelectedItem');
             this.dispatch("daedalus/loadAlerts", { player: player });
             this.dispatch("daedalus/loadMinimap", { player: player });
-            this.dispatch("room/setRoom", { room: player?.room });
+            this.dispatch("room/loadRoom", { room: player?.room });
+            this.dispatch("room/updateSelectedItemPile");
+
             return true;
         } catch (e) {
             commit('errorUpdatePlayer');

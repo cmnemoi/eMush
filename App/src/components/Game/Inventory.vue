@@ -5,6 +5,7 @@
             :key="item.id"
             tabindex="0"
             class="slot"
+            :class="getSelectedItem?.name === item.name ? 'highlight' : ''"
             @click="$emit('select', item)"
         >
             <Tippy tag="div">
@@ -28,6 +29,7 @@
 
 <script lang="ts">
 import { itemEnum } from "@/enums/item";
+import { mapGetters } from "vuex";
 import { Item } from "@/entities/Item";
 import { formatText } from "@/utils/formatText";
 import { defineComponent } from "vue";
@@ -48,6 +50,14 @@ export default defineComponent ({
         'select'
     ],
     computed: {
+        ...mapGetters('room', [
+            'selectedTarget'
+        ]),
+        getSelectedItem(): Item | null
+        {
+            if (this.selectedTarget instanceof Item) { return this.selectedTarget;}
+            return null;
+        },
         emptySlots: function (): number {
             const emptySlots = (this.minSlot - this.items.length);
             return emptySlots < 0 ? 0 : emptySlots;
@@ -60,6 +70,9 @@ export default defineComponent ({
         formatDescription(value: string): string {
             if (! value) return '';
             return formatText(value.toString());
+        },
+        test(item: Item | null): void {
+            console.log('pouet',item?.name);
         }
     }
 });
@@ -73,6 +86,18 @@ export default defineComponent ({
     .slot {
         @include inventory-slot();
     }
+    .highlight::before {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+        z-index: 5;
+        width: 54px;
+        height: 54px;
+        border: 1px solid rgb(153, 255, 153);
+        box-shadow: 0 0 0 2px inset rgb(153, 255, 153), 0 0 8px 2px inset rgb(17, 56, 128);
+    }
+    
+        
 }
 
 .effect_list {

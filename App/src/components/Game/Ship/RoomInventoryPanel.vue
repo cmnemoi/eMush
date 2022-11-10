@@ -46,7 +46,10 @@ export default defineComponent ({
         }
     },
     props: {
-        items: Array
+        items: {
+            type: Array,
+            required: true
+        }
     },
     methods: {
         ...mapActions({

@@ -181,7 +181,7 @@ export default class DaedalusScene extends Phaser.Scene
     public navMeshGrid: NavMeshGrid;
     private roomBasicSceneGrid: SceneGrid;
 
-    private isScreenSliding = false;
+    private isScreenSliding = { x: false, y: false };
     private cameraTarget: CartesianCoordinates = new CartesianCoordinates(0,0);
     private cameraDirection: CartesianCoordinates = new CartesianCoordinates(0,0);
     private previousRoom: string | undefined = undefined;
@@ -585,10 +585,13 @@ export default class DaedalusScene extends Phaser.Scene
         const sceneCartesianSize = new CartesianCoordinates(this.sceneIsoSize.x + this.sceneIsoSize.y, (this.sceneIsoSize.x + this.sceneIsoSize.y)/2);
         //this.cameras.main.setBounds(-this.sceneIsoSize.y, 0, sceneCartesianSize.x, sceneCartesianSize.y);
 
-        if (sceneCartesianSize.x -32 < this.game.scale.gameSize.width && sceneCartesianSize.y - 32 < this.game.scale.gameSize.height) {
-            this.cameras.main.setBounds(-this.game.scale.gameSize.width/2, -this.game.scale.gameSize.height/2 +72, sceneCartesianSize.x, sceneCartesianSize.y);
-        } else {
-            this.isScreenSliding = true;
+
+        if (sceneCartesianSize.x -32 > this.game.scale.gameSize.width) {
+            this.isScreenSliding.x = true;
+            this.cameras.main.setBounds(-this.sceneIsoSize.y, -72, sceneCartesianSize.x, sceneCartesianSize.y + 72);
+        }
+        if (sceneCartesianSize.y - 32 > this.game.scale.gameSize.height) {
+            this.isScreenSliding.y = true;
             this.cameras.main.setBounds(-this.sceneIsoSize.y, -72, sceneCartesianSize.x, sceneCartesianSize.y + 72);
         }
 
@@ -861,23 +864,26 @@ export default class DaedalusScene extends Phaser.Scene
 
 
             // screen sliding
-            const requiredScroll = this.cameras.main.getScroll(pointer.worldX, pointer.worldY);
+            const playerTargetCoordinates = this.playerSprite.getMovementTarget();
 
-            if (this.isScreenSliding &&
-                (requiredScroll.x !== this.cameras.main.scrollX ||
-                    requiredScroll.y !== this.cameras.main.scrollY)
-            ) {
-                this.cameraTarget.setTo(requiredScroll.x, requiredScroll.y);
+            if (playerTargetCoordinates !== null) {
+                const requiredScroll = this.cameras.main.getScroll(playerTargetCoordinates.x, playerTargetCoordinates.y);
 
-                const norm = Math.pow(
-                    Math.pow((requiredScroll.x - this.cameras.main.scrollX), 2)+
-                    Math.pow((requiredScroll.y - this.cameras.main.scrollY), 2),
-                    1/2
-                );
-                this.cameraDirection.setTo(
-                    (requiredScroll.x  - this.cameras.main.scrollX)/norm,
-                    (requiredScroll.y  - this.cameras.main.scrollY)/norm
-                );
+                if (!this.isScreenSliding.x) {requiredScroll.x = this.cameras.main.scrollX;}
+                if (!this.isScreenSliding.y) {requiredScroll.y = this.cameras.main.scrollY;}
+                if (requiredScroll.x !== this.cameras.main.scrollX || requiredScroll.y !== this.cameras.main.scrollY) {
+                    this.cameraTarget.setTo(requiredScroll.x, requiredScroll.y);
+
+                    const norm = Math.pow(
+                        Math.pow((requiredScroll.x - this.cameras.main.scrollX), 2)+
+                        Math.pow((requiredScroll.y - this.cameras.main.scrollY), 2),
+                        1/2
+                    );
+                    this.cameraDirection.setTo(
+                        (requiredScroll.x  - this.cameras.main.scrollX)/norm,
+                        (requiredScroll.y  - this.cameras.main.scrollY)/norm
+                    );
+                }
             }
         });
 

@@ -14,6 +14,7 @@ export default class PlayableCharacterObject extends CharacterObject {
     private currentMove : number;
     private indexDepthArray: number;
     private lastMove: InteractObject | null;
+    private moveObjective: CartesianCoordinates | null;
 
     constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, isoGeom: IsometricGeom, player: Player)
     {
@@ -23,6 +24,7 @@ export default class PlayableCharacterObject extends CharacterObject {
         this.currentMove = -1;
         this.indexDepthArray = 0;
         this.lastMove = null;
+        this.moveObjective = null;
     }
 
     update(): void
@@ -63,6 +65,8 @@ export default class PlayableCharacterObject extends CharacterObject {
             this.isoPath = newPath;
             this.currentMove = 1;
             this.lastMove = null;
+
+            this.moveObjective = finishPoint.toCartesianCoordinates();
 
             this.setPositionFromFeet(new CartesianCoordinates(newPath[0].cartX, newPath[0].cartY));
 
@@ -112,8 +116,8 @@ export default class PlayableCharacterObject extends CharacterObject {
                 this.checkPositionDepth();
             }
 
-            this.isoPath = [];
-            return this.currentMove = -1;
+            this.resetMove();
+            return this.currentMove;
         }
     }
 
@@ -182,6 +186,19 @@ export default class PlayableCharacterObject extends CharacterObject {
         }
     }
 
+    getMovementTarget(): CartesianCoordinates | null
+    {
+        return this.moveObjective;
+    }
+
+    resetMove(): void
+    {
+        this.isoPath = [];
+        this.currentMove = -1;
+        this.moveObjective = null;
+        (<Phaser.Physics.Arcade.Body >this.body).stop();
+    }
+
     applyEquipmentInteraction(): void
     {
         const targetBed = this.player.isLyingDown();
@@ -194,9 +211,7 @@ export default class PlayableCharacterObject extends CharacterObject {
             }
 
             //reset any ongoing movement
-            this.isoPath = [];
-            this.currentMove = -1;
-            (<Phaser.Physics.Arcade.Body >this.body).stop();
+            this.resetMove();
         } else {
             if (this.interactedEquipment !== null) {
                 const interactCoordinates = this.interactedEquipment.getInteractCoordinates(this.navMesh);

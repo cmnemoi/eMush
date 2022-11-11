@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="misc.ext">
+    <unit id="delayed_disease_info">
+      <segment id="satiety_point" state="initial">
+        <source>satiety_point</source>
+        <target>satiety_point</target>
+      </segment>
+      <segment id="action_point" state="initial">
+        <source>action_point</source>
+        <target>action_point</target>
+      </segment>
+      <segment id="movement_point" state="initial">
+        <source>movement_point</source>
+        <target>movement_point</target>
+      </segment>
+      <segment id="health_point" state="initial">
+        <source>health_point</source>
+        <target>health_point</target>
+      </segment>
+      <segment id="moral_point" state="initial">
+        <source>moral_point</source>
+        <target>moral_point</target>
+      </segment>
+      <segment id="ration_data" state="initial">
+        <source>ration_data</source>
+        <target>ration_data</target>
+      </segment>
+      <segment id="delayed_disease_info" state="initial">
+        <source>delayed_disease_info</source>
+        <target>delayed_disease_info</target>
+      </segment>
+      <segment id="disease_info" state="initial">
+        <source>disease_info</source>
+        <target>disease_info</target>
+      </segment>
+      <segment id="delayed_cure_info" state="initial">
+        <source>delayed_cure_info</source>
+        <target>delayed_cure_info</target>
+      </segment>
+      <segment id="cure_info" state="initial">
+        <source>cure_info</source>
+        <target>cure_info</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

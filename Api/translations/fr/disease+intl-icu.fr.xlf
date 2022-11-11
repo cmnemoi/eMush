@@ -52,9 +52,9 @@
       </segment>
     </unit>
     <unit id="cat_allergy">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>cat_allergy.name</source>
-        <target>Fait subir le symptôme **Allergie au chat**.</target>
+        <target>Allergie au chat</target>
       </segment>
       <segment id="description" state="translated">
         <source>cat_allergy.description</source>
@@ -284,31 +284,11 @@
     <unit id="coprolalia">
       <segment id="name" state="translated">
         <source>coprolalia.name</source>
-        <target>{version, select,
-                        1 {Hey bande {word, select,
-                        1 {d''} 4 {d''} 8 {d''}
-                        19 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
-                        21 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
-                        other {de }
-                    }{word_plural_coprolalia}, }
-                    2 {Hé les {word_plural_coprolalia}, }
-                    3 {Dis donc {word_coprolalia}, }
-                    other {invalid version}
-                }</target>
+        <target>Coprolalie</target>
       </segment>
       <segment id="description" state="translated">
         <source>coprolalia.description</source>
-        <target>{version, select,
-                    1 {, tous des {word_plural_coprolalia} de tte façon.}
-                    2 {, vraiment des {word_plural_coprolalia}...}
-                    3 {, si c'est pas une belle bande de {prefix_coprolalia} {word, select,
-                        1 {d''} 4 {d''} 8 {d''}
-                        19 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
-                        20 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
-                        other {de }
-                    }{word_plural_coprolalia}...}
-                    other {invalid version}
-                }</target>
+        <target>Vous lancez des chapelets d'insultes de façon impromptu. Au début ça choque un peu.</target>
       </segment>
     </unit>
     <unit id="crabism">
@@ -334,93 +314,11 @@
     <unit id="paranoia">
       <segment id="name" state="translated">
         <source>paranoia.name</source>
-        <target>{version, select,
-                    1 {Cette partie est vraiment nulle…}
-                    2 {Je ne sais {paranoia_version4, select,
-                        1 {pas trop}
-                        2 {pas bien}
-                        3 {pas du tout}
-                        other {pas}
-                    } comment on va s'en sortir…}
-                    3 {Je {paranoia_version4, select,
-                        1 {ne vois pas trop}
-                        2 {vois mal}
-                        3 {ne vois pas du tout}
-                        other {ne vois pas bien}
-                    } comment on va s'en sortir…}
-                    4 {L'équipage du Pacific Princess aurait fait mieux que nous.}
-                    5 {Les Mush sont partout…}
-                    6 {On est tous foutus…}
-                    7 {Quel jeu de merde…}
-                    8 {Je {paranoia_version4, select,
-                        1 {pense}
-                        2 {crois}
-                        3 {vous jure}
-                        other {kroa}
-                    } qu'il y a un admin qui nous matte…}
-                    9 {Je {paranoia_version4, select,
-                        1 {pense}
-                        2 {crois}
-                        3 {vous jure}
-                        other {kroa}
-                    } qu'on veut ma peau…}
-                    10 {Je suis sûr que c'est cheaté…}
-                    11 {Je {paranoia_version4, select,
-                        1 {pense}
-                        2 {crois}
-                        3 {vous jure}
-                        other {kroa}
-                    } qu'il y a un admin qui nous plombe…}
-                    12 {{paranoia_version4, select,
-                        1 {NERON}
-                        2 {L'équipe de recherche}
-                        3 {L'admin NERON}
-                        other {Le commandant}
-                    } {paranoia_version6, select,
-                        1 {nimp.}
-                        2 {nawak.}
-                        3 {n'importe quoi.}
-                        4 {que des conneries.}
-                        5 {ke de la daube.}
-                        other {que des trucs pourris.}
-                    }}
-                    other {invalid version}
-                    }</target>
+        <target>Crise Paranoïaque</target>
       </segment>
       <segment id="description" state="translated">
         <source>paranoia.description</source>
-        <target>{version, select,
-                    1 {Tu sais, {character} est du Mush…}
-                    2 {Je {paranoia_version4, select,
-                        1 {pense}
-                        2 {crois}
-                        3 {vous jure}
-                        other {kroa}
-                    } que je vais {paranoia_version6, select,
-                        1 {fumer}
-                        2 {tuer}
-                        3 {me débarrasser de}
-                        4 {buter}
-                        5 {crever}
-                        other {planter}
-                    } {character}.}
-                    3 {Il y a quand même toutes les raisons de croire que {character} est mush.}
-                    4 {{character} c'est un mush en fait, j'en suis sûr…}
-                    5 {{character} c'est un mush en vrai.}
-                    6 {{character} est Mush…}
-                    7 {{character} est un danger pour nous tous.}
-                    8 {{character} est une menace pour nous tous.}
-                    9 {{character} n'a pas arrosé les plantes, à mon avis, c'est un mush…}
-                    10 {{character} fait {paranoia_version6, select,
-                        1 {nimp.}
-                        2 {nawak.}
-                        3 {n'importe quoi.}
-                        4 {que des conneries.}
-                        5 {ke de la daube.}
-                        other {que des trucs pourris.}
-                    }}
-                    other {invalid version}
-                    }</target>
+        <target>Vous avez peur pour votre vie et éventuellement le faites savoir.</target>
       </segment>
     </unit>
     <unit id="psychotic_episodes">
@@ -761,6 +659,12 @@
       <segment id="description" state="translated">
         <source>torn_tongue.description</source>
         <target>Votre langue est réduite à un amas flasque sans vie.</target>
+      </segment>
+    </unit>
+    <unit id="mashed_leg.description">
+      <segment state="translated">
+        <source>mashed_leg.description</source>
+        <target>Vous n'avez plus l'usage de vos jambes, dommage, ça peut servir.</target>
       </segment>
     </unit>
   </file>

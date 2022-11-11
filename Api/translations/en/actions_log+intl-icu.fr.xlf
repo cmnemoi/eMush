@@ -115,9 +115,9 @@
       </segment>
     </unit>
     <unit id="get_up">
-      <segment id="get_up" state="final">
+      <segment id="get_up" state="translated">
         <source>get_up</source>
-        <target>**{character}** wakes up calmly...</target>
+        <target>**{character}**  wakes up calmly...</target>
       </segment>
     </unit>
     <unit id="hide_success">

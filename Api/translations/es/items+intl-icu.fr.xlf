@@ -3357,5 +3357,11 @@
         <target>post_it.examine</target>
       </segment>
     </unit>
+    <unit id="camera_item.examine">
+      <segment state="initial">
+        <source>camera_item.examine</source>
+        <target>camera_item.examine</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

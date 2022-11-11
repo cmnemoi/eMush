@@ -3533,5 +3533,13 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
 Ces insupportables petits feuillets traînent partout... Et puis qui peut-en avoir réellement besoin?</target>
       </segment>
     </unit>
+    <unit id="camera_item.examine">
+      <segment state="translated">
+        <source>camera_item.examine</source>
+        <target>La caméra est un outils de surveillance bien pratique pour --espionner-- surveiller votre prochain.
+En sa présence, les actions *discrètes* et *furtives* effectuées sont révélées.
+Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. La caméra repère également les actions discrètes et furtives effectuées. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

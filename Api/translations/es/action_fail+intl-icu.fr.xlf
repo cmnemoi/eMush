@@ -109,12 +109,6 @@
         <target>¡Advertencia, no te acerques! ¡Acceso a la terminal estrictamente prohibido! Nota: « ¡¿Tú, asqueroso patán, cómo te atreves?! *Regresa una vez que estés limpio.* »</target>
       </segment>
     </unit>
-    <unit id="dirty_restriction_female">
-      <segment id="description" state="translated">
-        <source>dirty_restriction_female.description</source>
-        <target>¡Alerta, no acsercarse! ¡El accesso a los terminales está prohibido! Nota: « Pfff, mira cómo vienes. **Vuelve cuando estés limpia.** »</target>
-      </segment>
-    </unit>
     <unit id="terminal_role_restricted">
       <segment id="description" state="translated">
         <source>terminal_role_restricted.description</source>
@@ -557,6 +551,12 @@
       <segment id="description" state="initial">
         <source>immunized_remove_spore.description</source>
         <target>immunized_remove_spore.description</target>
+      </segment>
+    </unit>
+    <unit id="daedalus_already_full_hull.description">
+      <segment state="final">
+        <source>daedalus_already_full_hull.description</source>
+        <target>El casco de la nave no necesita reparación.</target>
       </segment>
     </unit>
   </file>

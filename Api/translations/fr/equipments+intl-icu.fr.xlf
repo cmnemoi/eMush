@@ -15,7 +15,7 @@
         <target>Antennes</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>antenna.genre</source>
+        <source>antenna.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -41,7 +41,7 @@
         <target>Terminaux Astro</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>astro_terminal.genre</source>
+        <source>astro_terminal.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -67,7 +67,7 @@
         <target>Terminaux Auxiliaires</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>auxiliary_terminal.genre</source>
+        <source>auxiliary_terminal.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -93,7 +93,7 @@
         <target>Lits</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>bed.genre</source>
+        <source>bed.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -119,7 +119,7 @@
         <target>Lits</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>medlab_bed.genre</source>
+        <source>medlab_bed.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -145,7 +145,7 @@
         <target>Terminaux BIOS</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>bios_terminal.genre</source>
+        <source>bios_terminal.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -171,7 +171,7 @@
         <target>Calculateurs</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>calculator.genre</source>
+        <source>calculator.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -197,7 +197,7 @@
         <target>Machines à café</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>coffee_machine.genre</source>
+        <source>coffee_machine.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -223,7 +223,7 @@
         <target>Chambres de Combustion</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>combustion_chamber.genre</source>
+        <source>combustion_chamber.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -249,7 +249,7 @@
         <target>Terminaux de Commandement</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>command_terminal.genre</source>
+        <source>command_terminal.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -275,7 +275,7 @@
         <target>Centres de Communication</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>communication_center.genre</source>
+        <source>communication_center.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -301,7 +301,7 @@
         <target>Modules Cryo®</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>cryo_module.genre</source>
+        <source>cryo_module.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -327,7 +327,7 @@
         <target>Portes</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>door.genre</source>
+        <source>door.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -353,7 +353,7 @@
         <target>Dynacardes</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>dynarcade.genre</source>
+        <source>dynarcade.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -379,7 +379,7 @@
         <target>Réacteurs d'urgence</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>emergency_reactor.genre</source>
+        <source>emergency_reactor.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -405,7 +405,7 @@
         <target>Réservoirs de Fuel</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>fuel_tank.genre</source>
+        <source>fuel_tank.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -431,7 +431,7 @@
         <target>Simulateurs de Gravité</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>gravity_simulator.genre</source>
+        <source>gravity_simulator.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -457,7 +457,7 @@
         <target>Cuisines</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>kitchen.genre</source>
+        <source>kitchen.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -483,7 +483,7 @@
         <target>Réacteurs Latéraux</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>reactor_lateral.genre</source>
+        <source>reactor_lateral.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -509,7 +509,7 @@
         <target>Mycoscans</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>mycoscan.genre</source>
+        <source>mycoscan.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -535,7 +535,7 @@
         <target>Distilateurs de Stupéfiants</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>narcotic_distiller.genre</source>
+        <source>narcotic_distiller.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -561,7 +561,7 @@
         <target>Cœurs de NERON</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>neron_core.genre</source>
+        <source>neron_core.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -587,7 +587,7 @@
         <target>Réservoirs d'Oxygène</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>oxygen_tank.genre</source>
+        <source>oxygen_tank.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -613,7 +613,7 @@
         <target>Pasiphae</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>pasiphae.genre</source>
+        <source>pasiphae.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -639,7 +639,7 @@
         <target>Patrouilleurs</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>patrol_ship_alpha_2_wallis.genre</source>
+        <source>patrol_ship_alpha_2_wallis.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -665,7 +665,7 @@
         <target>Patrouilleurs</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>patrol_ship_alpha_epicure.genre</source>
+        <source>patrol_ship_alpha_epicure.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -691,7 +691,7 @@
         <target>Patrouilleurs</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>patrol_ship_alpha_jujube.genre</source>
+        <source>patrol_ship_alpha_jujube.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -717,7 +717,7 @@
         <target>Patrouilleurs</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>patrol_ship_alpha_longane.genre</source>
+        <source>patrol_ship_alpha_longane.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -743,7 +743,7 @@
         <target>Patrouilleurs</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>patrol_ship_alpha_planton.genre</source>
+        <source>patrol_ship_alpha_planton.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -769,7 +769,7 @@
         <target>Patrouilleurs</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>patrol_ship_alpha_socrate.genre</source>
+        <source>patrol_ship_alpha_socrate.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -795,7 +795,7 @@
         <target>Patrouilleurs</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>patrol_ship_alpha_tamarin.genre</source>
+        <source>patrol_ship_alpha_tamarin.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -821,7 +821,7 @@
         <target>Pilgreds</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>pilgred.genre</source>
+        <source>pilgred.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -847,7 +847,7 @@
         <target>Scanners de Planète</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>planet_scanner.genre</source>
+        <source>planet_scanner.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -873,7 +873,7 @@
         <target>Laboratoires de Recherche</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>research_laboratory.genre</source>
+        <source>research_laboratory.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -899,7 +899,7 @@
         <target>Douches</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>shower.genre</source>
+        <source>shower.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -925,7 +925,7 @@
         <target>Sofas suédois</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>swedish_sofa.genre</source>
+        <source>swedish_sofa.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -951,7 +951,7 @@
         <target>Plots Chirurgicaux</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>surgery_plot.genre</source>
+        <source>surgery_plot.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -977,7 +977,7 @@
         <target>Thalasso</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>thalasso.genre</source>
+        <source>thalasso.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1003,7 +1003,7 @@
         <target>Postes de Tir</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>turret_command.genre</source>
+        <source>turret_command.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1029,7 +1029,7 @@
         <target>Icari</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>icarus.genre</source>
+        <source>icarus.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1055,7 +1055,7 @@
         <target>Jukeboxes</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>jukebox.genre</source>
+        <source>jukebox.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1081,7 +1081,7 @@
         <target>Caméras</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>camera_equipment.genre</source>
+        <source>camera_equipment.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">

@@ -9,7 +9,6 @@ const actions: ActionTree<any, any> = {
         await dispatch("player/reloadPlayer", null, { root: true });
         await dispatch("communication/loadRoomLogs", null, { root: true });
         await dispatch("communication/loadChannels", null, { root: true });
-        dispatch("room/updateSelectedItemPile", null, { root: true });
     }
 };
 

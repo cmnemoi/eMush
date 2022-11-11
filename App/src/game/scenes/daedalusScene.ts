@@ -468,17 +468,11 @@ export default class DaedalusScene extends Phaser.Scene
                 const updatedEquipment = room.equipments.filter((equipment: Equipment) => (equipment.id === gameObject.equipment.id))[0];
 
                 gameObject.updateEquipment(updatedEquipment);
-                if (gameObject.name === this.selectedGameObject?.name) {
-                    store.dispatch('room/selectTarget', { target: gameObject.equipment });
-                }
 
             } else if (gameObject instanceof DoorObject || gameObject instanceof DoorGroundObject) {
                 const updatedDoor = room.doors.filter((door: Door) => (door.key === gameObject.door.key))[0];
 
                 gameObject.updateDoor(updatedDoor);
-                if (gameObject.name === this.selectedGameObject?.name) {
-                    store.dispatch('room/selectTarget', { target: gameObject.door });
-                }
             }
         }
     }

@@ -218,7 +218,7 @@
       </segment>
       <segment id="description" state="final">
         <source>read_book.description</source>
-        <target>La curiosité est certes un vilain défaut mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
+        <target>La curiosité est certes un vilain défaut, mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
       </segment>
     </unit>
     <unit id="read_document">
@@ -228,7 +228,7 @@
       </segment>
       <segment id="description" state="final">
         <source>read_document.description</source>
-        <target>La curiosité est certes un vilain défaut mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
+        <target>La curiosité est certes un vilain défaut, mais bon... Un document, secret, inutile ou indispensable, qui sait ce qu'il contient...</target>
       </segment>
     </unit>
     <unit id="repair">
@@ -258,9 +258,9 @@
       </segment>
       <segment id="description" state="final">
         <source>rejuvenate_alpha.description</source>
-        <target>Permet de retrouver tout ses :pa:, :pm:, :hp: et :pmo:. 
+        <target>Permet de retrouver tout ses :pa:, :pm:, :hp: et :pmo:.
 //
-Uniquement valable pendant l'alpha. 
+Uniquement valable pendant l'alpha.
 //
 Merci de nous aider !</target>
       </segment>

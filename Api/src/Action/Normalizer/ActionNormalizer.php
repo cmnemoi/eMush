@@ -4,6 +4,7 @@ namespace Mush\Action\Normalizer;
 
 use Mush\Action\Actions\AttemptAction;
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Service\ActionStrategyServiceInterface;
@@ -50,6 +51,8 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
             return [];
         }
 
+        $actionName = $object->getName();
+
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
 
@@ -59,13 +62,25 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
 
         $actionClass->loadParameters($object, $currentPlayer, $parameter);
 
-        if ($actionClass->isVisible()) {
-            $actionName = $object->getName();
+        // translation parameters
+        $translationParameters = [$currentPlayer->getLogKey() => $currentPlayer->getLogName()];
+        if ($actionName === ActionEnum::EXTRACT_SPORE) {
+            $translationParameters['quantity'] = $currentPlayer->getDaedalus()->getDailySpores();
+        }
+        if ($parameter instanceof Player) {
+            $translationParameters['target.' . $parameter->getLogKey()] = $parameter->getLogName();
+        }
 
+        if ($actionClass->isVisible()) {
             $normalizedAction = [
                 'id' => $object->getId(),
                 'key' => $object->getName(),
-                'name' => $this->translationService->translate("{$actionName}.name", [], 'actions', $language),
+                'name' => $this->translationService->translate(
+                    "{$actionName}.name",
+                    $translationParameters,
+                    'actions',
+                    $language
+                ),
                 'actionPointCost' => $this->actionService->getTotalActionPointCost($currentPlayer, $object, $parameter),
                 'movementPointCost' => $this->actionService->getTotalMovementPointCost($currentPlayer, $object, $parameter),
                 'moralPointCost' => $this->actionService->getTotalMoralPointCost($currentPlayer, $object, $parameter),
@@ -78,10 +93,20 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
             }
 
             if ($reason = $actionClass->cannotExecuteReason()) {
-                $normalizedAction['description'] = $this->translationService->translate("{$reason}.description", [], 'action_fail', $language);
+                $normalizedAction['description'] = $this->translationService->translate(
+                    "{$reason}.description",
+                    $translationParameters,
+                    'action_fail',
+                    $language
+                );
                 $normalizedAction['canExecute'] = false;
             } else {
-                $description = $this->translationService->translate("{$actionName}.description", [], 'actions', $language);
+                $description = $this->translationService->translate(
+                    "{$actionName}.description",
+                    $translationParameters,
+                    'actions',
+                    $language
+                );
                 $description = $this->getTypesDescriptions($description, $object->getTypes(), $language);
                 $normalizedAction['description'] = $description;
                 $normalizedAction['canExecute'] = true;

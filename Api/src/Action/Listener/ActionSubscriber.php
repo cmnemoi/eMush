@@ -30,7 +30,7 @@ class ActionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ActionEvent::PRE_ACTION => 'onPreAction',
+            ActionEvent::PRE_ACTION => ['onPreAction', 1],
             ActionEvent::POST_ACTION => 'onPostAction',
         ];
     }

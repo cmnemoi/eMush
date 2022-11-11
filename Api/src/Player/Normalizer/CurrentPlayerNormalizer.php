@@ -107,27 +107,26 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
 
     private function normalizePlayerParameter(Player $player, string $variable, string $language): array
     {
-        if (in_array($variable, [PlayerVariableEnum::MOVEMENT_POINT, PlayerVariableEnum::ACTION_POINT])) {
-            $description = $this->translationService->translate(
-                'actionPoint.description', [
-                'quantityAction' => $player->getActionPoint(),
-                'quantityMovement' => $player->getMovementPoint(),
-            ], 'player',
-                $language
-            );
-        } else {
-            $description = $this->translationService->translate(
-                $variable . '.description',
-                [],
-                'player',
-                $language
-            );
-        }
+        $name = $this->translationService->translate(
+            $variable . '.name', [
+            'quantityHealth' => $player->getHealthPoint(),
+            'quantityMoral' => $player->getMoralPoint(),
+        ], 'player',
+            $language
+        );
+
+        $description = $this->translationService->translate(
+            'actionPoint.description', [
+            'quantityAction' => $player->getActionPoint(),
+            'quantityMovement' => $player->getMovementPoint(),
+        ], 'player',
+            $language
+        );
 
         return [
                 'quantity' => $player->getVariableFromName($variable),
                 'max' => $this->playerVariableService->getMaxPlayerVariable($player, $variable),
-                'name' => $this->translationService->translate($variable . '.name', [], 'player', $language),
+                'name' => $name,
                 'description' => $description,
         ];
     }

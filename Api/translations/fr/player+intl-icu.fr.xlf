@@ -4,7 +4,7 @@
     <unit id="healthPoint">
       <segment id="name" state="translated">
         <source>healthPoint.name</source>
-        <target>{quantity} points de Vie</target>
+        <target>{quantityHealth} points de Vie</target>
       </segment>
       <segment id="description" state="translated">
         <source>healthPoint.description</source>
@@ -14,7 +14,7 @@
     <unit id="moralPoint">
       <segment id="name" state="translated">
         <source>moralPoint.name</source>
-        <target>{quantity} points de Moral</target>
+        <target>{quantityMoral} points de Moral</target>
       </segment>
       <segment id="description" state="translated">
         <source>moralPoint.description</source>
@@ -32,7 +32,7 @@ C'est un capital précieux : pour le remonter rapidement, vous pouvez manger des
         <source>actionPoint.description</source>
         <target>Vous gagnez des *Points d'Action* (:pa:) et des *Points de Mouvement* (:pm:) à chaque **nouveau cycle** et en **mangeant**. 
 //
-Actuellement vous avez {quantityaction}  :pa: et {quantitymovement}  :pm:</target>
+Actuellement vous avez {quantityAction}  :pa: et {quantityMovement}  :pm:</target>
       </segment>
     </unit>
   </file>

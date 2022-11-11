@@ -102,9 +102,9 @@
       </segment>
     </unit>
     <unit id="drop">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>drop.name</source>
-        <target>drop</target>
+        <target>drop.name</target>
       </segment>
       <segment id="description" state="translated">
         <source>drop.description</source>

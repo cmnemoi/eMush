@@ -11,7 +11,7 @@
         <target>Bacta</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>bacta.genre</source>
+        <source>bacta.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -38,7 +38,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Betapropyl</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>betapropyl.genre</source>
+        <source>betapropyl.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -65,7 +65,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Eufurysant</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>eufurylate.genre</source>
+        <source>eufurylate.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -92,7 +92,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Nuke</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>newke.genre</source>
+        <source>newke.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -119,7 +119,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Phuxx</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>phuxx.genre</source>
+        <source>phuxx.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -146,7 +146,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Ponay</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>pinq.genre</source>
+        <source>pinq.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -173,7 +173,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Pymp</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>pymp.genre</source>
+        <source>pymp.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -200,7 +200,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Rosebud</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>rosebud.genre</source>
+        <source>rosebud.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -227,7 +227,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Soma</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>soma.genre</source>
+        <source>soma.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -254,7 +254,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Épice</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>spyce.genre</source>
+        <source>spyce.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -281,7 +281,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Twinoid</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>twinoid.genre</source>
+        <source>twinoid.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -308,7 +308,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Xenox</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>xenox.genre</source>
+        <source>xenox.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -335,7 +335,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Banane</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>banana.genre</source>
+        <source>banana.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -361,7 +361,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Lianube</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>creepnut.genre</source>
+        <source>creepnut.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -387,7 +387,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Balargine</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>meztine.genre</source>
+        <source>meztine.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -413,7 +413,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Goustiflon</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>guntiflop.genre</source>
+        <source>guntiflop.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -439,7 +439,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Toupimino</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>ploshmina.genre</source>
+        <source>ploshmina.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -465,7 +465,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Precati</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>precati.genre</source>
+        <source>precati.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -491,7 +491,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Bottine</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>bottine.genre</source>
+        <source>bottine.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -517,7 +517,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Fragilane</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>fragilane.genre</source>
+        <source>fragilane.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -543,7 +543,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Anémole</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>anemole.genre</source>
+        <source>anemole.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -569,7 +569,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Kubinus</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>kubinus.genre</source>
+        <source>kubinus.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -595,7 +595,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Calebotte</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>caleboot.genre</source>
+        <source>caleboot.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -625,7 +625,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Traqueurs</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>tracker.genre</source>
+        <source>tracker.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -661,7 +661,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Talkies-walkies</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>walkie_talkie.genre</source>
+        <source>walkie_talkie.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -697,7 +697,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>iTrackies®©</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>itrackie.genre</source>
+        <source>itrackie.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -727,7 +727,7 @@ Permet d'avoir accès à la mini-carte augmentée du Daedalus</target>
         <target>Clé à Molette</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>adjustable_wrench.genre</source>
+        <source>adjustable_wrench.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -758,7 +758,7 @@ Une clé à molette, peut servir pour faciliter la réparation des valves, toure
         <target>Décapsuleurs Alien</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>alien_bottle_opener.genre</source>
+        <source>alien_bottle_opener.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -790,7 +790,7 @@ Augmente les chances de réparation de 50%</target>
         <target>Trottinettes anti-gravité</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>antigrav_scooter.genre</source>
+        <source>antigrav_scooter.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -822,7 +822,7 @@ Ajoute 2 Points de Mouvement lors des transferts pa-pm (sauf si vous avez déjà
         <target>Montures rocheuse</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>rolling_boulder.genre</source>
+        <source>rolling_boulder.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -855,7 +855,7 @@ Les câlins de la bête sont littérallement insupportable, le pire ce sont les 
         <target>Casques de visée</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>sniper_helmet.genre</source>
+        <source>sniper_helmet.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -886,7 +886,7 @@ Le casque de visée est une aide précieuse par temps de brouillard, dans le noi
         <target>Lentilles NCC</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>lenses.genre</source>
+        <source>lenses.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -919,7 +919,7 @@ Ces lentilles ultra sophistiquées élaborées à partir d'une technologie féli
         <target>Vaguoscopes</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>oscilloscope.genre</source>
+        <source>oscilloscope.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -952,7 +952,7 @@ Vous n'avez jamais vraiment compris l'utilité du vaguoscope mais de toute faço
         <target>Armures de plastenite</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>plastenite_armor.genre</source>
+        <source>plastenite_armor.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -985,7 +985,7 @@ L'armure de plastenite est faite en latex bio-sensibilisé et en matière ultra 
         <target>Gants de protection</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>protective_gloves.genre</source>
+        <source>protective_gloves.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1016,7 +1016,7 @@ Perdre une main. C'est désagréable.</target>
         <target>Combinaisons</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>spacesuit.genre</source>
+        <source>spacesuit.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1049,7 +1049,7 @@ Le joueur peut sortir dans l'espace depuis une baie de lancement pour une missio
         <target>Tabliers intachables</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>stainproof_apron.genre</source>
+        <source>stainproof_apron.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1076,7 +1076,7 @@ Un vieux tablier fatigué avec écrit dessus : "Meilleur ingénieur de mon coeur
         <target>Savon</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>soap.genre</source>
+        <source>soap.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1102,7 +1102,7 @@ Un vieux tablier fatigué avec écrit dessus : "Meilleur ingénieur de mon coeur
         <target>Super Savon</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>super_soaper.genre</source>
+        <source>super_soaper.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1134,7 +1134,7 @@ L'avenir de l'Humanité sera propre ou ne sera pas.</target>
         <target>Modules Babel</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>babel_module.genre</source>
+        <source>babel_module.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1167,7 +1167,7 @@ Le module Babel a été mis au point il y a de nombreuses années par un piscicu
         <target>Foreuses</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>drill.genre</source>
+        <source>drill.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1201,7 +1201,7 @@ La foreuse permet aux corps expéditionnaires de traverser certaines embûches u
         <target>Écholocateurs</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>echolocator.genre</source>
+        <source>echolocator.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1230,7 +1230,7 @@ L' ÉchoLocateur est un outils puissant pour les corps expéditionnaire en milie
         <target>Boussole Quadrimetric</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>quadrimetric_compass.genre</source>
+        <source>quadrimetric_compass.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1260,7 +1260,7 @@ Expédition : Vous protège des évènements "Perdu"</target>
         <target>Corde</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>rope.genre</source>
+        <source>rope.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1293,7 +1293,7 @@ Parmi les analyses probabilistes de ce qui serait sur le Daedalus, la Corde avai
         <target>Thermosenseurs</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>thermosensor.genre</source>
+        <source>thermosensor.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1321,7 +1321,7 @@ Expédition : Chance de parcourir une des sections restantes "Ruminant","Prédat
         <target>Drapeau blanc</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>white_flag.genre</source>
+        <source>white_flag.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1354,7 +1354,7 @@ Le drapeau blanc a été institué symbole international des peuples en demande 
         <target>Télés holographiques aliens</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>alien_holographic_tv.genre</source>
+        <source>alien_holographic_tv.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1381,7 +1381,7 @@ Unique : Permet de donner +3 :pmo: à chaque téléspectateur.</target>
         <target>Bloc de pense-bête(s)</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>block_of_post_it.genre</source>
+        <source>block_of_post_it.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1408,7 +1408,7 @@ Il manque pas mal de feuilles mais il pourra encore vous servir quelque temps.</
         <target>Ruban adhésif</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>duct_tape.genre</source>
+        <source>duct_tape.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1439,7 +1439,7 @@ Le rouleau de ruban adhésif a de nombreux usages pas toujours avouables.</targe
         <target>Extincteurs</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>extinguisher.genre</source>
+        <source>extinguisher.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1470,7 +1470,7 @@ L'extincteur est un dispositif de sécurité de taille standard désigné pour p
         <target>Bidouilleurs</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>hacker_kit.genre</source>
+        <source>hacker_kit.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1497,7 +1497,7 @@ Le bidouilleur est objet étrange, son utilité reste à prouver et à vrai dire
         <target>MAD Kube</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>mad_kube.genre</source>
+        <source>mad_kube.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1528,7 +1528,7 @@ Le MAD Kube, prisé par tous. Bien peu arrivent à le résoudre en moins de 26 m
         <target>Micro-ondes</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>microwave.genre</source>
+        <source>microwave.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1559,7 +1559,7 @@ Outil moderne pour cuisiner rapidement les rations.</target>
         <target>Supergélateurs</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>superfreezer.genre</source>
+        <source>superfreezer.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1590,7 +1590,7 @@ Outil moderne qui permet de conditionner de la nourriture.</target>
         <target>Tabulatrices</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>tabulatrix.genre</source>
+        <source>tabulatrix.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1617,7 +1617,7 @@ Tout droit sortie des plus grandes imaginations de la science fiction, une machi
         <target>Vieux T-shirt</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>old_t_shirt.genre</source>
+        <source>old_t_shirt.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1644,7 +1644,7 @@ Répugnant... Vous devriez le brûler.</target>
         <target>Débris plastique</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>plastic_scraps.genre</source>
+        <source>plastic_scraps.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1671,7 +1671,7 @@ Avec quelques outils et de la patience, c'est fou ce à quoi l'on peut arriver.<
         <target>Débris métallique</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>metal_scraps.genre</source>
+        <source>metal_scraps.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1698,7 +1698,7 @@ Il est parfois surprenant de voir ce que certains savent faire avec quelques mor
         <target>Tube épais</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>thick_tube.genre</source>
+        <source>thick_tube.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1725,7 +1725,7 @@ Un tube épais... qu'est-ce que vous pourriez en faire...</target>
         <target>Schrödinger</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>schrodinger.genre</source>
+        <source>schrodinger.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1756,7 +1756,7 @@ Un tube épais... qu'est-ce que vous pourriez en faire...</target>
         <target>Drones</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>support_drone.genre</source>
+        <source>support_drone.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1787,7 +1787,7 @@ Le drone de Soutien permet d'achever l'objectif de maintenance automatique de Ma
         <target>Lubrifiant Alien</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>jar_of_alien_oil.genre</source>
+        <source>jar_of_alien_oil.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1818,7 +1818,7 @@ Ni vraiment fluide, ni vraiment solide, sa viscosité n'a d'égal que la puissan
         <target>Bandage</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>bandage.genre</source>
+        <source>bandage.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1845,7 +1845,7 @@ Dans l'espace, la première sangsue spatiale venue peut faire de gros dégâts. 
         <target>Médikit</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>medikit.genre</source>
+        <source>medikit.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1872,7 +1872,7 @@ Après les terribles guerres du Mush, il a été décidé par les états majors,
         <target>Sérum Rétro-Fongique</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>retro_fungal_serum.genre</source>
+        <source>retro_fungal_serum.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1903,7 +1903,7 @@ Le sérum retro-fongique est conçu pour anéantir le mécanisme de parthénogen
         <target>Suceurs de Spore</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>spore_sucker.genre</source>
+        <source>spore_sucker.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1936,7 +1936,7 @@ Malgré son aspect, il ne fait presque aucun mal.</target>
         <target>Gelées à Circuits Imprimés</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>printed_circuit_jelly.genre</source>
+        <source>printed_circuit_jelly.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1964,7 +1964,7 @@ On aurrait pu s'en servir en cuisine mais le chef n'en voulait pas...</target>
         <target>Cartouche invertébrée</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>invertebrate_shell.genre</source>
+        <source>invertebrate_shell.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -1997,7 +1997,7 @@ Il n'a pas l'air tout à fait mort.</target>
         <target>Cartes Liquides de Magellan</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>magellan_liquid_map.genre</source>
+        <source>magellan_liquid_map.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2030,7 +2030,7 @@ Vous avez l'impression que cette chose essaie de vous parler. Vous devez sûreme
         <target>Caméras</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>camera_item.genre</source>
+        <source>camera_item.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2063,7 +2063,7 @@ Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'hi
         <target>Disquettes du Gênome Mush</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>mush_genome_disk.genre</source>
+        <source>mush_genome_disk.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2090,7 +2090,7 @@ Ce disque contient le génome du Mush décrypté. En soit il ne peut pas vous se
         <target>Souche de test Mush</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>mush_sample.genre</source>
+        <source>mush_sample.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2121,7 +2121,7 @@ Une dendrite de Mush adulte, c'est en faite une des terminaisons pseudo-nerveuse
         <target>Myco-Alarmes</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>myco_alarm.genre</source>
+        <source>myco_alarm.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2148,7 +2148,7 @@ La Myco-Alarme détecte les fortes concentrations de mycotoxine. Si le Mush déc
         <target>Morceau de carte stellaire</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>starmap_fragment.genre</source>
+        <source>starmap_fragment.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2175,7 +2175,7 @@ Les extra-terrestres qui ont laissé ça là devait s'en servir pour quelque cho
         <target>Bâtonnet aqueux</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>water_stick.genre</source>
+        <source>water_stick.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2206,7 +2206,7 @@ Quelle idée de rapporter cette chose à bord... Ca vous rappelle des souvenirs 
         <target>Sulfateuses</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>old_faithful.genre</source>
+        <source>old_faithful.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2236,7 +2236,7 @@ Quelle idée de rapporter cette chose à bord... Ca vous rappelle des souvenirs 
         <target>Lizaros Jungle</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>lizaro_jungle.genre</source>
+        <source>lizaro_jungle.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2269,7 +2269,7 @@ Depuis la nuit des temps, le tireur isolé et son arme sont une pierre angulaire
         <target>Couteaux</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>knife.genre</source>
+        <source>knife.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2302,7 +2302,7 @@ Expédition : + 1 à la force de votre équipe en cas de combat.
         <target>Blasters</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>blaster.genre</source>
+        <source>blaster.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2335,7 +2335,7 @@ Arme à faisceau d'énergie dirigée. Dernière née de la gamme BrizHotFire. Pe
         <target>Fusils Natamy</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>natamy_rifle.genre</source>
+        <source>natamy_rifle.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2368,7 +2368,7 @@ Le fusil bien particulier mis au point par l'équipage. Ses munitions au bicarbo
         <target>Grenades</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>grenade.genre</source>
+        <source>grenade.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2401,7 +2401,7 @@ Dessus est écrit: "Explosez votre potentiel".</target>
         <target>Lance-roquettes</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>rocket_launcher.genre</source>
+        <source>rocket_launcher.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2430,7 +2430,7 @@ Le Lance-Roquette fait partie de l'arsenal classique des corps expéditionnaires
         <target>Kit de survie</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>survival_kit.genre</source>
+        <source>survival_kit.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2461,7 +2461,7 @@ L'archétype de ces objets stellaires qui sont toujours rangés exactement là o
         <target>Capsule de fuel</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>fuel_capsule.genre</source>
+        <source>fuel_capsule.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2490,7 +2490,7 @@ Permet de charger du carburant pour le déplacer dans le module de combustion.</
         <target>Hydropot</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>hydropot.genre</source>
+        <source>hydropot.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2517,7 +2517,7 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
         <target>Panier repas</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>lunchbox.genre</source>
+        <source>lunchbox.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2546,7 +2546,7 @@ L'équivalent galactique de la soupe chaude quand le zéro absolu vous guette.</
         <target>Capsule d'oxygène</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>oxygen_capsule.genre</source>
+        <source>oxygen_capsule.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2573,7 +2573,7 @@ La capsule OxyTron de la société AirGaz Permet de déplacer de l'oxygène sous
         <target>Capsule spatiale</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>space_capsule.genre</source>
+        <source>space_capsule.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2604,7 +2604,7 @@ Une capsule contient quelque chose. Vous ne pourrez savoir ce que c'est qu'en l'
         <target>Sofas suédois</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>swedish_sofa.genre</source>
+        <source>swedish_sofa.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2631,7 +2631,7 @@ Qui eu crû que quelques coussins et une structure de contre-plaqué puissent au
         <target>Thermos de café</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>thermos_of_coffee.genre</source>
+        <source>thermos_of_coffee.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2660,7 +2660,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Bananier</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>banana_tree.genre</source>
+        <source>banana_tree.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2686,7 +2686,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Lianiste</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>creepist.genre</source>
+        <source>creepist.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2712,7 +2712,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Cactuor</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>cactax.genre</source>
+        <source>cactax.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2738,7 +2738,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Bifalon</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>bifflon.genre</source>
+        <source>bifflon.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2764,7 +2764,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Poulmino</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>pulminagro.genre</source>
+        <source>pulminagro.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2790,7 +2790,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Precatus</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>precatus.genre</source>
+        <source>precatus.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2816,7 +2816,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Buitalien</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>buttalien.genre</source>
+        <source>buttalien.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2842,7 +2842,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Platacia</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>platacia.genre</source>
+        <source>platacia.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2868,7 +2868,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Tubiliscus</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>tubiliscus.genre</source>
+        <source>tubiliscus.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2894,7 +2894,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Peuplimoune</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>graapshoot.genre</source>
+        <source>graapshoot.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2920,7 +2920,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Pénicule</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>peniraft.genre</source>
+        <source>peniraft.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2946,7 +2946,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Fiboniccus</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>fiboniccus.genre</source>
+        <source>fiboniccus.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2972,7 +2972,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Mycopia</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>mycopia.genre</source>
+        <source>mycopia.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -2998,7 +2998,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Asperginulk</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>asperagunk.genre</source>
+        <source>asperagunk.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3024,7 +3024,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Filandru</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>filandra.genre</source>
+        <source>filandra.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3050,7 +3050,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Cucurbitatrouille</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>bumpjunkin.genre</source>
+        <source>bumpjunkin.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3076,7 +3076,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Citrouïd</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>jumpkin.genre</source>
+        <source>jumpkin.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3102,7 +3102,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Barre de lombrics</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>lombrick_bar.genre</source>
+        <source>lombrick_bar.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3128,7 +3128,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Déchets organiques</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>organic_waste.genre</source>
+        <source>organic_waste.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3154,7 +3154,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Riz soufflé proactif</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>proactive_puffed_rice.genre</source>
+        <source>proactive_puffed_rice.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3184,7 +3184,7 @@ Imperissable
         <target>Steak alien</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>alien_steak.genre</source>
+        <source>alien_steak.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3210,7 +3210,7 @@ Imperissable
         <target>Anabolisant</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>anabolic.genre</source>
+        <source>anabolic.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3236,7 +3236,7 @@ Imperissable
         <target>Café</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>coffee.genre</source>
+        <source>coffee.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3262,7 +3262,7 @@ Imperissable
         <target>Ration cuisinée</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>cooked_ration.genre</source>
+        <source>cooked_ration.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3288,7 +3288,7 @@ Imperissable
         <target>Patate spatiale</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>space_potato.genre</source>
+        <source>space_potato.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3314,7 +3314,7 @@ Imperissable
         <target>Ration standard</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>standard_ration.genre</source>
+        <source>standard_ration.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3340,7 +3340,7 @@ Imperissable
         <target>Barre supravitaminée</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>supervitamin_bar.genre</source>
+        <source>supervitamin_bar.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3373,7 +3373,7 @@ Imperissable
         <target>Plan</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>blueprint.genre</source>
+        <source>blueprint.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3408,7 +3408,7 @@ Imperissable
         <target>Apprentron</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>apprenton.genre</source>
+        <source>apprenton.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3435,7 +3435,7 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
         <target>Document</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>document.genre</source>
+        <source>document.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3462,7 +3462,7 @@ La curiosité est certes un vilain défaut mais bon... C'est un document, secret
         <target>Manuel du commandant</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>commanders_manual.genre</source>
+        <source>commanders_manual.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3489,7 +3489,7 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
         <target>De la Recherche sur le Mush</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>mush_research_review.genre</source>
+        <source>mush_research_review.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
@@ -3516,7 +3516,7 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
         <target>Pense-Bête</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>post_it.genre</source>
+        <source>post_it.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">

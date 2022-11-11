@@ -102,13 +102,9 @@
       </segment>
     </unit>
     <unit id="drop">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>drop.name</source>
-        <target>{target_equipment_gender, select,
-                        male {**{character}** a lâché un **{target_equipment}**.}
-                        female {**{character}** a lâché une **{target_equipment}**.}
-                        other {invalid gender input}
-                }</target>
+        <target>Lâcher</target>
       </segment>
       <segment id="description" state="translated">
         <source>drop.description</source>

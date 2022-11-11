@@ -11,8 +11,8 @@
         <target>bacta.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>bacta.genre</source>
-        <target>bacta.genre</target>
+        <source>bacta.gender</source>
+        <target>bacta.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>bacta.first_letter</source>
@@ -37,8 +37,8 @@
         <target>betapropyl.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>betapropyl.genre</source>
-        <target>betapropyl.genre</target>
+        <source>betapropyl.gender</source>
+        <target>betapropyl.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>betapropyl.first_letter</source>
@@ -63,8 +63,8 @@
         <target>eufurylate.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>eufurylate.genre</source>
-        <target>eufurylate.genre</target>
+        <source>eufurylate.gender</source>
+        <target>eufurylate.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>eufurylate.first_letter</source>
@@ -89,8 +89,8 @@
         <target>newke.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>newke.genre</source>
-        <target>newke.genre</target>
+        <source>newke.gender</source>
+        <target>newke.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>newke.first_letter</source>
@@ -115,8 +115,8 @@
         <target>phuxx.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>phuxx.genre</source>
-        <target>phuxx.genre</target>
+        <source>phuxx.gender</source>
+        <target>phuxx.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>phuxx.first_letter</source>
@@ -141,8 +141,8 @@
         <target>pinq.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>pinq.genre</source>
-        <target>pinq.genre</target>
+        <source>pinq.gender</source>
+        <target>pinq.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>pinq.first_letter</source>
@@ -167,8 +167,8 @@
         <target>pymp.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>pymp.genre</source>
-        <target>pymp.genre</target>
+        <source>pymp.gender</source>
+        <target>pymp.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>pymp.first_letter</source>
@@ -193,8 +193,8 @@
         <target>rosebud.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>rosebud.genre</source>
-        <target>rosebud.genre</target>
+        <source>rosebud.gender</source>
+        <target>rosebud.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>rosebud.first_letter</source>
@@ -219,8 +219,8 @@
         <target>soma.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>soma.genre</source>
-        <target>soma.genre</target>
+        <source>soma.gender</source>
+        <target>soma.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>soma.first_letter</source>
@@ -245,8 +245,8 @@
         <target>spyce.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>spyce.genre</source>
-        <target>spyce.genre</target>
+        <source>spyce.gender</source>
+        <target>spyce.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>spyce.first_letter</source>
@@ -271,8 +271,8 @@
         <target>twinoid.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>twinoid.genre</source>
-        <target>twinoid.genre</target>
+        <source>twinoid.gender</source>
+        <target>twinoid.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>twinoid.first_letter</source>
@@ -297,8 +297,8 @@
         <target>xenox.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>xenox.genre</source>
-        <target>xenox.genre</target>
+        <source>xenox.gender</source>
+        <target>xenox.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>xenox.first_letter</source>
@@ -323,8 +323,8 @@
         <target>banana.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>banana.genre</source>
-        <target>banana.genre</target>
+        <source>banana.gender</source>
+        <target>banana.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>banana.first_letter</source>
@@ -349,8 +349,8 @@
         <target>creepnut.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>creepnut.genre</source>
-        <target>creepnut.genre</target>
+        <source>creepnut.gender</source>
+        <target>creepnut.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>creepnut.first_letter</source>
@@ -375,8 +375,8 @@
         <target>meztine.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>meztine.genre</source>
-        <target>meztine.genre</target>
+        <source>meztine.gender</source>
+        <target>meztine.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>metzine.first_letter</source>
@@ -401,8 +401,8 @@
         <target>guntiflop.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>guntiflop.genre</source>
-        <target>guntiflop.genre</target>
+        <source>guntiflop.gender</source>
+        <target>guntiflop.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>guntiflop.first_letter</source>
@@ -427,8 +427,8 @@
         <target>ploshmina.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>ploshmina.genre</source>
-        <target>ploshmina.genre</target>
+        <source>ploshmina.gender</source>
+        <target>ploshmina.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>ploshima.first_letter</source>
@@ -453,8 +453,8 @@
         <target>precati.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>precati.genre</source>
-        <target>precati.genre</target>
+        <source>precati.gender</source>
+        <target>precati.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>precati.first_letter</source>
@@ -479,8 +479,8 @@
         <target>bottine.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>bottine.genre</source>
-        <target>bottine.genre</target>
+        <source>bottine.gender</source>
+        <target>bottine.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>bottine.first_letter</source>
@@ -505,8 +505,8 @@
         <target>fragilane.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>fragilane.genre</source>
-        <target>fragilane.genre</target>
+        <source>fragilane.gender</source>
+        <target>fragilane.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>fragilane.first_letter</source>
@@ -531,8 +531,8 @@
         <target>anemole.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>anemole.genre</source>
-        <target>anemole.genre</target>
+        <source>anemole.gender</source>
+        <target>anemole.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>anemole.first_letter</source>
@@ -557,8 +557,8 @@
         <target>kubinus.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>kubinus.genre</source>
-        <target>kubinus.genre</target>
+        <source>kubinus.gender</source>
+        <target>kubinus.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>kubinus.first_letter</source>
@@ -583,8 +583,8 @@
         <target>caleboot.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>caleboot.genre</source>
-        <target>caleboot.genre</target>
+        <source>caleboot.gender</source>
+        <target>caleboot.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>caleboot.first_letter</source>
@@ -613,8 +613,8 @@
         <target>tracker.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>tracker.genre</source>
-        <target>tracker.genre</target>
+        <source>tracker.gender</source>
+        <target>tracker.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>tracker.first_letter</source>
@@ -643,8 +643,8 @@
         <target>walkie_talkie.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>walkie_talkie.genre</source>
-        <target>walkie_talkie.genre</target>
+        <source>walkie_talkie.gender</source>
+        <target>walkie_talkie.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>walkie_talkie.first_letter</source>
@@ -673,8 +673,8 @@
         <target>itrackie.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>itrackie.genre</source>
-        <target>itrackie.genre</target>
+        <source>itrackie.gender</source>
+        <target>itrackie.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>itrackie.first_letter</source>
@@ -699,8 +699,8 @@
         <target>adjustable_wrench.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>adjustable_wrench.genre</source>
-        <target>adjustable_wrench.genre</target>
+        <source>adjustable_wrench.gender</source>
+        <target>adjustable_wrench.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>adjustable_wrench.first_letter</source>
@@ -729,8 +729,8 @@
         <target>alien_bottle_opener.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>alien_bottle_opener.genre</source>
-        <target>alien_bottle_opener.genre</target>
+        <source>alien_bottle_opener.gender</source>
+        <target>alien_bottle_opener.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>alien_bottle_opener.first_letter</source>
@@ -759,8 +759,8 @@
         <target>antigrav_scooter.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>antigrav_scooter.genre</source>
-        <target>antigrav_scooter.genre</target>
+        <source>antigrav_scooter.gender</source>
+        <target>antigrav_scooter.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>antigrav_scooter..first_letter</source>
@@ -789,8 +789,8 @@
         <target>rolling_boulder.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>rolling_boulder.genre</source>
-        <target>rolling_boulder.genre</target>
+        <source>rolling_boulder.gender</source>
+        <target>rolling_boulder.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>rolling_boulder.first_letter</source>
@@ -819,8 +819,8 @@
         <target>sniper_helmet.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>sniper_helmet.genre</source>
-        <target>sniper_helmet.genre</target>
+        <source>sniper_helmet.gender</source>
+        <target>sniper_helmet.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>sniper_helmet.first_letter</source>
@@ -849,8 +849,8 @@
         <target>lenses.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>lenses.genre</source>
-        <target>lenses.genre</target>
+        <source>lenses.gender</source>
+        <target>lenses.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>lenses.first_letter</source>
@@ -879,8 +879,8 @@
         <target>oscilloscope.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>oscilloscope.genre</source>
-        <target>oscilloscope.genre</target>
+        <source>oscilloscope.gender</source>
+        <target>oscilloscope.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>oscilloscope.first_letter</source>
@@ -909,8 +909,8 @@
         <target>plastenite_armor.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>plastenite_armor.genre</source>
-        <target>plastenite_armor.genre</target>
+        <source>plastenite_armor.gender</source>
+        <target>plastenite_armor.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>plastenite_armor.first_letter</source>
@@ -939,8 +939,8 @@
         <target>protective_gloves.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>protective_gloves.genre</source>
-        <target>protective_gloves.genre</target>
+        <source>protective_gloves.gender</source>
+        <target>protective_gloves.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>protective_gloves.first_letter</source>
@@ -969,8 +969,8 @@
         <target>spacesuit.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>spacesuit.genre</source>
-        <target>spacesuit.genre</target>
+        <source>spacesuit.gender</source>
+        <target>spacesuit.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>spacesuit.first_letter</source>
@@ -999,8 +999,8 @@
         <target>stainproof_apron.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>stainproof_apron.genre</source>
-        <target>stainproof_apron.genre</target>
+        <source>stainproof_apron.gender</source>
+        <target>stainproof_apron.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>stainproof_apron.first_letter</source>
@@ -1025,8 +1025,8 @@
         <target>soap.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>soap.genre</source>
-        <target>soap.genre</target>
+        <source>soap.gender</source>
+        <target>soap.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>soap.first_letter</source>
@@ -1051,8 +1051,8 @@
         <target>super_soaper.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>super_soaper.genre</source>
-        <target>super_soaper.genre</target>
+        <source>super_soaper.gender</source>
+        <target>super_soaper.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>super_soaper.first_letter</source>
@@ -1081,8 +1081,8 @@
         <target>babel_module.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>babel_module.genre</source>
-        <target>babel_module.genre</target>
+        <source>babel_module.gender</source>
+        <target>babel_module.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>babel_module.first_letter</source>
@@ -1111,8 +1111,8 @@
         <target>drill.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>drill.genre</source>
-        <target>drill.genre</target>
+        <source>drill.gender</source>
+        <target>drill.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>drill.first_letter</source>
@@ -1141,8 +1141,8 @@
         <target>echolocator.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>echolocator.genre</source>
-        <target>echolocator.genre</target>
+        <source>echolocator.gender</source>
+        <target>echolocator.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>echolocator.first_letter</source>
@@ -1167,8 +1167,8 @@
         <target>quadrimetric_compass.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>quadrimetric_compass.genre</source>
-        <target>quadrimetric_compass.genre</target>
+        <source>quadrimetric_compass.gender</source>
+        <target>quadrimetric_compass.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>quadrimetric_compass.first_letter</source>
@@ -1193,8 +1193,8 @@
         <target>rope.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>rope.genre</source>
-        <target>rope.genre</target>
+        <source>rope.gender</source>
+        <target>rope.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>rope.first_letter</source>
@@ -1223,8 +1223,8 @@
         <target>thermosensor.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>thermosensor.genre</source>
-        <target>thermosensor.genre</target>
+        <source>thermosensor.gender</source>
+        <target>thermosensor.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>thermosensor.first_letter</source>
@@ -1249,8 +1249,8 @@
         <target>white_flag.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>white_flag.genre</source>
-        <target>white_flag.genre</target>
+        <source>white_flag.gender</source>
+        <target>white_flag.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>white_flag.first_letter</source>
@@ -1279,8 +1279,8 @@
         <target>alien_holographic_tv.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>alien_holographic_tv.genre</source>
-        <target>alien_holographic_tv.genre</target>
+        <source>alien_holographic_tv.gender</source>
+        <target>alien_holographic_tv.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>alien_holographic_tv.first_letter</source>
@@ -1305,8 +1305,8 @@
         <target>block_of_post_it.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>block_of_post_it.genre</source>
-        <target>block_of_post_it.genre</target>
+        <source>block_of_post_it.gender</source>
+        <target>block_of_post_it.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>block_of_post_it.first_letter</source>
@@ -1331,8 +1331,8 @@
         <target>duct_tape.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>duct_tape.genre</source>
-        <target>duct_tape.genre</target>
+        <source>duct_tape.gender</source>
+        <target>duct_tape.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>duct_tape.first_letter</source>
@@ -1361,8 +1361,8 @@
         <target>extinguisher.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>extinguisher.genre</source>
-        <target>extinguisher.genre</target>
+        <source>extinguisher.gender</source>
+        <target>extinguisher.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>extinguisher.first_letter</source>
@@ -1391,8 +1391,8 @@
         <target>hacker_kit.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>hacker_kit.genre</source>
-        <target>hacker_kit.genre</target>
+        <source>hacker_kit.gender</source>
+        <target>hacker_kit.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>hacker_kit.first_letter</source>
@@ -1417,8 +1417,8 @@
         <target>mad_kube.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>mad_kube.genre</source>
-        <target>mad_kube.genre</target>
+        <source>mad_kube.gender</source>
+        <target>mad_kube.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>mad_kube.first_letter</source>
@@ -1447,8 +1447,8 @@
         <target>microwave.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>microwave.genre</source>
-        <target>microwave.genre</target>
+        <source>microwave.gender</source>
+        <target>microwave.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>microwave.first_letter</source>
@@ -1477,8 +1477,8 @@
         <target>superfreezer.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>superfreezer.genre</source>
-        <target>superfreezer.genre</target>
+        <source>superfreezer.gender</source>
+        <target>superfreezer.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>superfreezer.first_letter</source>
@@ -1507,8 +1507,8 @@
         <target>tabulatrix.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>tabulatrix.genre</source>
-        <target>tabulatrix.genre</target>
+        <source>tabulatrix.gender</source>
+        <target>tabulatrix.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>tabulatrix.first_letter</source>
@@ -1533,8 +1533,8 @@
         <target>old_t_shirt.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>old_t_shirt.genre</source>
-        <target>old_t_shirt.genre</target>
+        <source>old_t_shirt.gender</source>
+        <target>old_t_shirt.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>old_t_shirt.first_letter</source>
@@ -1559,8 +1559,8 @@
         <target>plastic_scraps.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>plastic_scraps.genre</source>
-        <target>plastic_scraps.genre</target>
+        <source>plastic_scraps.gender</source>
+        <target>plastic_scraps.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>plastic_scraps.first_letter</source>
@@ -1585,8 +1585,8 @@
         <target>metal_scraps.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>metal_scraps.genre</source>
-        <target>metal_scraps.genre</target>
+        <source>metal_scraps.gender</source>
+        <target>metal_scraps.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>metal_scraps.first_letter</source>
@@ -1611,8 +1611,8 @@
         <target>thick_tube.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>thick_tube.genre</source>
-        <target>thick_tube.genre</target>
+        <source>thick_tube.gender</source>
+        <target>thick_tube.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>thick_tube.first_letter</source>
@@ -1637,8 +1637,8 @@
         <target>schrodinger.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>schrodinger.genre</source>
-        <target>schrodinger.genre</target>
+        <source>schrodinger.gender</source>
+        <target>schrodinger.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>schrodinger.first_letter</source>
@@ -1667,8 +1667,8 @@
         <target>support_drone.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>support_drone.genre</source>
-        <target>support_drone.genre</target>
+        <source>support_drone.gender</source>
+        <target>support_drone.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>support_drone.first_letter</source>
@@ -1693,8 +1693,8 @@
         <target>jar_of_alien_oil.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>jar_of_alien_oil.genre</source>
-        <target>jar_of_alien_oil.genre</target>
+        <source>jar_of_alien_oil.gender</source>
+        <target>jar_of_alien_oil.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>jar_of_alien_oil.first_letter</source>
@@ -1719,8 +1719,8 @@
         <target>bandage.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>bandage.genre</source>
-        <target>bandage.genre</target>
+        <source>bandage.gender</source>
+        <target>bandage.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>bandage.first_letter</source>
@@ -1745,8 +1745,8 @@
         <target>medikit.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>medikit.genre</source>
-        <target>medikit.genre</target>
+        <source>medikit.gender</source>
+        <target>medikit.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>medikit.first_letter</source>
@@ -1771,8 +1771,8 @@
         <target>retro_fungal_serum.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>retro_fungal_serum.genre</source>
-        <target>retro_fungal_serum.genre</target>
+        <source>retro_fungal_serum.gender</source>
+        <target>retro_fungal_serum.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>retro_fungal_serum.first_letter</source>
@@ -1801,8 +1801,8 @@
         <target>spore_sucker.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>spore_sucker.genre</source>
-        <target>spore_sucker.genre</target>
+        <source>spore_sucker.gender</source>
+        <target>spore_sucker.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>spore_sucker.first_letter</source>
@@ -1831,8 +1831,8 @@
         <target>printed_circuit_jelly.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>printed_circuit_jelly.genre</source>
-        <target>printed_circuit_jelly.genre</target>
+        <source>printed_circuit_jelly.gender</source>
+        <target>printed_circuit_jelly.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>printed_circuit_jelly.first_letter</source>
@@ -1857,8 +1857,8 @@
         <target>invertebrate_shell.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>invertebrate_shell.genre</source>
-        <target>invertebrate_shell.genre</target>
+        <source>invertebrate_shell.gender</source>
+        <target>invertebrate_shell.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>invertebrate_shell.first_letter</source>
@@ -1887,8 +1887,8 @@
         <target>magellan_liquid_map.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>magellan_liquid_map.genre</source>
-        <target>magellan_liquid_map.genre</target>
+        <source>magellan_liquid_map.gender</source>
+        <target>magellan_liquid_map.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>magellan_liquid_map.first_letter</source>
@@ -1917,8 +1917,8 @@
         <target>camera_item.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>camera_item.genre</source>
-        <target>camera_item.genre</target>
+        <source>camera_item.gender</source>
+        <target>camera_item.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>camera_item.first_letter</source>
@@ -1947,8 +1947,8 @@
         <target>mush_genome_disk.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>mush_genome_disk.genre</source>
-        <target>mush_genome_disk.genre</target>
+        <source>mush_genome_disk.gender</source>
+        <target>mush_genome_disk.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>mush_genome_disk.first_letter</source>
@@ -1973,8 +1973,8 @@
         <target>mush_sample.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>mush_sample.genre</source>
-        <target>mush_sample.genre</target>
+        <source>mush_sample.gender</source>
+        <target>mush_sample.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>mush_sample.first_letter</source>
@@ -2003,8 +2003,8 @@
         <target>myco_alarm.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>myco_alarm.genre</source>
-        <target>myco_alarm.genre</target>
+        <source>myco_alarm.gender</source>
+        <target>myco_alarm.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>myco_alarm.first_letter</source>
@@ -2029,8 +2029,8 @@
         <target>starmap_fragment.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>starmap_fragment.genre</source>
-        <target>starmap_fragment.genre</target>
+        <source>starmap_fragment.gender</source>
+        <target>starmap_fragment.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>starmap_fragment.first_letter</source>
@@ -2055,8 +2055,8 @@
         <target>water_stick.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>water_stick.genre</source>
-        <target>water_stick.genre</target>
+        <source>water_stick.gender</source>
+        <target>water_stick.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>water_stick.first_letter</source>
@@ -2085,8 +2085,8 @@
         <target>old_faithful.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>old_faithful.genre</source>
-        <target>old_faithful.genre</target>
+        <source>old_faithful.gender</source>
+        <target>old_faithful.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>old_faithful.first_letter</source>
@@ -2115,8 +2115,8 @@
         <target>lizaro_jungle.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>lizaro_jungle.genre</source>
-        <target>lizaro_jungle.genre</target>
+        <source>lizaro_jungle.gender</source>
+        <target>lizaro_jungle.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>lizaro_jungle.first_letter</source>
@@ -2145,8 +2145,8 @@
         <target>knife.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>knife.genre</source>
-        <target>knife.genre</target>
+        <source>knife.gender</source>
+        <target>knife.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>knife.first_letter</source>
@@ -2175,8 +2175,8 @@
         <target>blaster.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>blaster.genre</source>
-        <target>blaster.genre</target>
+        <source>blaster.gender</source>
+        <target>blaster.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>blaster.first_letter</source>
@@ -2205,8 +2205,8 @@
         <target>natamy_rifle.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>natamy_rifle.genre</source>
-        <target>natamy_rifle.genre</target>
+        <source>natamy_rifle.gender</source>
+        <target>natamy_rifle.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>natamy_rifle.first_letter</source>
@@ -2235,8 +2235,8 @@
         <target>grenade.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>grenade.genre</source>
-        <target>grenade.genre</target>
+        <source>grenade.gender</source>
+        <target>grenade.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>grenade.first_letter</source>
@@ -2265,8 +2265,8 @@
         <target>rocket_launcher.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>rocket_launcher.genre</source>
-        <target>rocket_launcher.genre</target>
+        <source>rocket_launcher.gender</source>
+        <target>rocket_launcher.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>rocket_launcher.first_letter</source>
@@ -2291,8 +2291,8 @@
         <target>survival_kit.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>survival_kit.genre</source>
-        <target>survival_kit.genre</target>
+        <source>survival_kit.gender</source>
+        <target>survival_kit.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>survival_kit.first_letter</source>
@@ -2317,8 +2317,8 @@
         <target>fuel_capsule.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>fuel_capsule.genre</source>
-        <target>fuel_capsule.genre</target>
+        <source>fuel_capsule.gender</source>
+        <target>fuel_capsule.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>fuel_capsule.first_letter</source>
@@ -2343,8 +2343,8 @@
         <target>hydropot.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>hydropot.genre</source>
-        <target>hydropot.genre</target>
+        <source>hydropot.gender</source>
+        <target>hydropot.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>hydropot.first_letter</source>
@@ -2369,8 +2369,8 @@
         <target>lunchbox.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>lunchbox.genre</source>
-        <target>lunchbox.genre</target>
+        <source>lunchbox.gender</source>
+        <target>lunchbox.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>lunchbox.first_letter</source>
@@ -2395,8 +2395,8 @@
         <target>oxygen_capsule.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>oxygen_capsule.genre</source>
-        <target>oxygen_capsule.genre</target>
+        <source>oxygen_capsule.gender</source>
+        <target>oxygen_capsule.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>oxygen_capsule.first_letter</source>
@@ -2421,8 +2421,8 @@
         <target>space_capsule.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>space_capsule.genre</source>
-        <target>space_capsule.genre</target>
+        <source>space_capsule.gender</source>
+        <target>space_capsule.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>space_capsule.first_letter</source>
@@ -2451,8 +2451,8 @@
         <target>swedish_sofa.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>swedish_sofa.genre</source>
-        <target>swedish_sofa.genre</target>
+        <source>swedish_sofa.gender</source>
+        <target>swedish_sofa.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>swedish_sofa.first_letter</source>
@@ -2477,8 +2477,8 @@
         <target>thermos_of_coffee.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>thermos_of_coffee.genre</source>
-        <target>thermos_of_coffee.genre</target>
+        <source>thermos_of_coffee.gender</source>
+        <target>thermos_of_coffee.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>thermos_of_coffee.first_letter</source>
@@ -2503,8 +2503,8 @@
         <target>banana_tree.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>banana_tree.genre</source>
-        <target>banana_tree.genre</target>
+        <source>banana_tree.gender</source>
+        <target>banana_tree.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>banana_tree.first_letter</source>
@@ -2529,8 +2529,8 @@
         <target>creepist.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>creepist.genre</source>
-        <target>creepist.genre</target>
+        <source>creepist.gender</source>
+        <target>creepist.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>creepist.first_letter</source>
@@ -2555,8 +2555,8 @@
         <target>cactax.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>cactax.genre</source>
-        <target>cactax.genre</target>
+        <source>cactax.gender</source>
+        <target>cactax.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>cactax.first_letter</source>
@@ -2581,8 +2581,8 @@
         <target>bifflon.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>bifflon.genre</source>
-        <target>bifflon.genre</target>
+        <source>bifflon.gender</source>
+        <target>bifflon.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>bifflon.first_letter</source>
@@ -2607,8 +2607,8 @@
         <target>pulminagro.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>pulminagro.genre</source>
-        <target>pulminagro.genre</target>
+        <source>pulminagro.gender</source>
+        <target>pulminagro.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>pulminagro.first_letter</source>
@@ -2633,8 +2633,8 @@
         <target>precatus.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>precatus.genre</source>
-        <target>precatus.genre</target>
+        <source>precatus.gender</source>
+        <target>precatus.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>precatus.first_letter</source>
@@ -2659,8 +2659,8 @@
         <target>buttalien.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>buttalien.genre</source>
-        <target>buttalien.genre</target>
+        <source>buttalien.gender</source>
+        <target>buttalien.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>buttalien.first_letter</source>
@@ -2685,8 +2685,8 @@
         <target>platacia.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>platacia.genre</source>
-        <target>platacia.genre</target>
+        <source>platacia.gender</source>
+        <target>platacia.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>platacia.first_letter</source>
@@ -2711,8 +2711,8 @@
         <target>tubiliscus.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>tubiliscus.genre</source>
-        <target>tubiliscus.genre</target>
+        <source>tubiliscus.gender</source>
+        <target>tubiliscus.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>tubiliscus.first_letter</source>
@@ -2737,8 +2737,8 @@
         <target>graapshoot.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>graapshoot.genre</source>
-        <target>graapshoot.genre</target>
+        <source>graapshoot.gender</source>
+        <target>graapshoot.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>graapshoot.first_letter</source>
@@ -2763,8 +2763,8 @@
         <target>peniraft.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>peniraft.genre</source>
-        <target>peniraft.genre</target>
+        <source>peniraft.gender</source>
+        <target>peniraft.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>peniraft.first_letter</source>
@@ -2789,8 +2789,8 @@
         <target>fiboniccus.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>fiboniccus.genre</source>
-        <target>fiboniccus.genre</target>
+        <source>fiboniccus.gender</source>
+        <target>fiboniccus.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>fiboniccus.first_letter</source>
@@ -2815,8 +2815,8 @@
         <target>mycopia.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>mycopia.genre</source>
-        <target>mycopia.genre</target>
+        <source>mycopia.gender</source>
+        <target>mycopia.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>mycopia.first_letter</source>
@@ -2841,8 +2841,8 @@
         <target>asperagunk.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>asperagunk.genre</source>
-        <target>asperagunk.genre</target>
+        <source>asperagunk.gender</source>
+        <target>asperagunk.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>asperagunk.first_letter</source>
@@ -2867,8 +2867,8 @@
         <target>filandra.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>filandra.genre</source>
-        <target>filandra.genre</target>
+        <source>filandra.gender</source>
+        <target>filandra.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>filandra.first_letter</source>
@@ -2893,8 +2893,8 @@
         <target>bumpjunkin.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>bumpjunkin.genre</source>
-        <target>bumpjunkin.genre</target>
+        <source>bumpjunkin.gender</source>
+        <target>bumpjunkin.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>bumpjunkin.first_letter</source>
@@ -2919,8 +2919,8 @@
         <target>jumpkin.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>jumpkin.genre</source>
-        <target>jumpkin.genre</target>
+        <source>jumpkin.gender</source>
+        <target>jumpkin.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>jumpkin.first_letter</source>
@@ -2945,8 +2945,8 @@
         <target>lombrick_bar.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>lombrick_bar.genre</source>
-        <target>lombrick_bar.genre</target>
+        <source>lombrick_bar.gender</source>
+        <target>lombrick_bar.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>lombrick_bar.first_letter</source>
@@ -2971,8 +2971,8 @@
         <target>organic_waste.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>organic_waste.genre</source>
-        <target>organic_waste.genre</target>
+        <source>organic_waste.gender</source>
+        <target>organic_waste.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>organic_waste.first_letter</source>
@@ -2997,8 +2997,8 @@
         <target>proactive_puffed_rice.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>proactive_puffed_rice.genre</source>
-        <target>proactive_puffed_rice.genre</target>
+        <source>proactive_puffed_rice.gender</source>
+        <target>proactive_puffed_rice.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>proactive_puffed_rice.first_letter</source>
@@ -3023,8 +3023,8 @@
         <target>alien_steak.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>alien_steak.genre</source>
-        <target>alien_steak.genre</target>
+        <source>alien_steak.gender</source>
+        <target>alien_steak.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>alien_steak.first_letter</source>
@@ -3049,8 +3049,8 @@
         <target>anabolic.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>anabolic.genre</source>
-        <target>anabolic.genre</target>
+        <source>anabolic.gender</source>
+        <target>anabolic.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>anabolic.first_letter</source>
@@ -3075,8 +3075,8 @@
         <target>coffee.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>coffee.genre</source>
-        <target>coffee.genre</target>
+        <source>coffee.gender</source>
+        <target>coffee.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>coffee.first_letter</source>
@@ -3101,8 +3101,8 @@
         <target>cooked_ration.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>cooked_ration.genre</source>
-        <target>cooked_ration.genre</target>
+        <source>cooked_ration.gender</source>
+        <target>cooked_ration.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>cooked_ration.first_letter</source>
@@ -3127,8 +3127,8 @@
         <target>space_potato.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>space_potato.genre</source>
-        <target>space_potato.genre</target>
+        <source>space_potato.gender</source>
+        <target>space_potato.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>space_potato.first_letter</source>
@@ -3153,8 +3153,8 @@
         <target>standard_ration.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>standard_ration.genre</source>
-        <target>standard_ration.genre</target>
+        <source>standard_ration.gender</source>
+        <target>standard_ration.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>standard_ration.first_letter</source>
@@ -3179,8 +3179,8 @@
         <target>supervitamin_bar.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>supervitamin_bar.genre</source>
-        <target>supervitamin_bar.genre</target>
+        <source>supervitamin_bar.gender</source>
+        <target>supervitamin_bar.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>supervitamin_bar.first_letter</source>
@@ -3205,8 +3205,8 @@
         <target>blueprint.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>blueprint.genre</source>
-        <target>blueprint.genre</target>
+        <source>blueprint.gender</source>
+        <target>blueprint.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>blueprint.first_letter</source>
@@ -3237,8 +3237,8 @@
         <target>apprenton.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>apprenton.genre</source>
-        <target>apprenton.genre</target>
+        <source>apprenton.gender</source>
+        <target>apprenton.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>apprenton.first_letter</source>
@@ -3263,8 +3263,8 @@
         <target>document.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>document.genre</source>
-        <target>document.genre</target>
+        <source>document.gender</source>
+        <target>document.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>document.first_letter</source>
@@ -3289,8 +3289,8 @@
         <target>commanders_manual.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>commanders_manual.genre</source>
-        <target>commanders_manual.genre</target>
+        <source>commanders_manual.gender</source>
+        <target>commanders_manual.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>commanders_manual.first_letter</source>
@@ -3315,8 +3315,8 @@
         <target>mush_research_review.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>mush_research_review.genre</source>
-        <target>mush_research_review.genre</target>
+        <source>mush_research_review.gender</source>
+        <target>mush_research_review.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>mush_research_review.first_letter</source>
@@ -3341,8 +3341,8 @@
         <target>post_it.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>post_it.genre</source>
-        <target>post_it.genre</target>
+        <source>post_it.gender</source>
+        <target>post_it.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>post_it.first_letter</source>

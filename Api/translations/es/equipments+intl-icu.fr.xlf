@@ -15,8 +15,8 @@
         <target>antenna.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>antenna.genre</source>
-        <target>antenna.genre</target>
+        <source>antenna.gender</source>
+        <target>antenna.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>antenna.first_letter</source>
@@ -41,8 +41,8 @@
         <target>astro_terminal.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>astro_terminal.genre</source>
-        <target>astro_terminal.genre</target>
+        <source>astro_terminal.gender</source>
+        <target>astro_terminal.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>astro_terminal.first_letter</source>
@@ -67,8 +67,8 @@
         <target>auxiliary_terminal.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>auxiliary_terminal.genre</source>
-        <target>auxiliary_terminal.genre</target>
+        <source>auxiliary_terminal.gender</source>
+        <target>auxiliary_terminal.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>auxiliary_terminal.first_letter</source>
@@ -93,8 +93,8 @@
         <target>bed.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>bed.genre</source>
-        <target>bed.genre</target>
+        <source>bed.gender</source>
+        <target>bed.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>bed.first_letter</source>
@@ -119,8 +119,8 @@
         <target>medlab_bed.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>medlab_bed.genre</source>
-        <target>medlab_bed.genre</target>
+        <source>medlab_bed.gender</source>
+        <target>medlab_bed.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>medlab_bed.first_letter</source>
@@ -145,8 +145,8 @@
         <target>bios_terminal.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>bios_terminal.genre</source>
-        <target>bios_terminal.genre</target>
+        <source>bios_terminal.gender</source>
+        <target>bios_terminal.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>bios_terminal.first_letter</source>
@@ -171,8 +171,8 @@
         <target>calculator.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>calculator.genre</source>
-        <target>calculator.genre</target>
+        <source>calculator.gender</source>
+        <target>calculator.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>calculator.first_letter</source>
@@ -197,8 +197,8 @@
         <target>coffee_machine.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>coffee_machine.genre</source>
-        <target>coffee_machine.genre</target>
+        <source>coffee_machine.gender</source>
+        <target>coffee_machine.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>coffee_machine.first_letter</source>
@@ -223,8 +223,8 @@
         <target>combustion_chamber.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>combustion_chamber.genre</source>
-        <target>combustion_chamber.genre</target>
+        <source>combustion_chamber.gender</source>
+        <target>combustion_chamber.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>combustion_chamber.first_letter</source>
@@ -249,8 +249,8 @@
         <target>command_terminal.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>command_terminal.genre</source>
-        <target>command_terminal.genre</target>
+        <source>command_terminal.gender</source>
+        <target>command_terminal.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>command_terminal.first_letter</source>
@@ -275,8 +275,8 @@
         <target>communication_center.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>communication_center.genre</source>
-        <target>communication_center.genre</target>
+        <source>communication_center.gender</source>
+        <target>communication_center.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>communication_center.first_letter</source>
@@ -301,8 +301,8 @@
         <target>cryo_module.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>cryo_module.genre</source>
-        <target>cryo_module.genre</target>
+        <source>cryo_module.gender</source>
+        <target>cryo_module.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>cryo_module.first_letter</source>
@@ -327,8 +327,8 @@
         <target>door.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>door.genre</source>
-        <target>door.genre</target>
+        <source>door.gender</source>
+        <target>door.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>door.first_letter</source>
@@ -353,8 +353,8 @@
         <target>dynarcade.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>dynarcade.genre</source>
-        <target>dynarcade.genre</target>
+        <source>dynarcade.gender</source>
+        <target>dynarcade.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>dynarcade.first_letter</source>
@@ -379,8 +379,8 @@
         <target>emergency_reactor.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>emergency_reactor.genre</source>
-        <target>emergency_reactor.genre</target>
+        <source>emergency_reactor.gender</source>
+        <target>emergency_reactor.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>emergency_reactor.first_letter</source>
@@ -405,8 +405,8 @@
         <target>fuel_tank.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>fuel_tank.genre</source>
-        <target>fuel_tank.genre</target>
+        <source>fuel_tank.gender</source>
+        <target>fuel_tank.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>fuel_tank.first_letter</source>
@@ -431,8 +431,8 @@
         <target>gravity_simulator.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>gravity_simulator.genre</source>
-        <target>gravity_simulator.genre</target>
+        <source>gravity_simulator.gender</source>
+        <target>gravity_simulator.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>gravity_simulator.first_letter</source>
@@ -457,8 +457,8 @@
         <target>kitchen.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>kitchen.genre</source>
-        <target>kitchen.genre</target>
+        <source>kitchen.gender</source>
+        <target>kitchen.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>kitchen.first_letter</source>
@@ -483,8 +483,8 @@
         <target>reactor_lateral.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>reactor_lateral.genre</source>
-        <target>reactor_lateral.genre</target>
+        <source>reactor_lateral.gender</source>
+        <target>reactor_lateral.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>reactor_lateral.first_letter</source>
@@ -509,8 +509,8 @@
         <target>mycoscan.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>mycoscan.genre</source>
-        <target>mycoscan.genre</target>
+        <source>mycoscan.gender</source>
+        <target>mycoscan.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>mycoscan.first_letter</source>
@@ -535,8 +535,8 @@
         <target>narcotic_distiller.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>narcotic_distiller.genre</source>
-        <target>narcotic_distiller.genre</target>
+        <source>narcotic_distiller.gender</source>
+        <target>narcotic_distiller.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>narcotic_distiller.first_letter</source>
@@ -561,8 +561,8 @@
         <target>neron_core.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>neron_core.genre</source>
-        <target>neron_core.genre</target>
+        <source>neron_core.gender</source>
+        <target>neron_core.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>neron_core.first_letter</source>
@@ -587,8 +587,8 @@
         <target>oxygen_tank.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>oxygen_tank.genre</source>
-        <target>oxygen_tank.genre</target>
+        <source>oxygen_tank.gender</source>
+        <target>oxygen_tank.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>oxygen_tank.first_letter</source>
@@ -613,8 +613,8 @@
         <target>pasiphae.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>pasiphae.genre</source>
-        <target>pasiphae.genre</target>
+        <source>pasiphae.gender</source>
+        <target>pasiphae.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>pasiphae.first_letter</source>
@@ -639,8 +639,8 @@
         <target>patrol_ship_alpha_2_wallis.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>patrol_ship_alpha_2_wallis.genre</source>
-        <target>patrol_ship_alpha_2_wallis.genre</target>
+        <source>patrol_ship_alpha_2_wallis.gender</source>
+        <target>patrol_ship_alpha_2_wallis.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>patrol_ship_alpha_2_wallis.first_letter</source>
@@ -665,8 +665,8 @@
         <target>patrol_ship_alpha_epicure.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>patrol_ship_alpha_epicure.genre</source>
-        <target>patrol_ship_alpha_epicure.genre</target>
+        <source>patrol_ship_alpha_epicure.gender</source>
+        <target>patrol_ship_alpha_epicure.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>patrol_ship_alpha_epicure.first_letter</source>
@@ -691,8 +691,8 @@
         <target>patrol_ship_alpha_jujube.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>patrol_ship_alpha_jujube.genre</source>
-        <target>patrol_ship_alpha_jujube.genre</target>
+        <source>patrol_ship_alpha_jujube.gender</source>
+        <target>patrol_ship_alpha_jujube.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>patrol_ship_alpha_jujube.first_letter</source>
@@ -717,8 +717,8 @@
         <target>patrol_ship_alpha_longane.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>patrol_ship_alpha_longane.genre</source>
-        <target>patrol_ship_alpha_longane.genre</target>
+        <source>patrol_ship_alpha_longane.gender</source>
+        <target>patrol_ship_alpha_longane.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>patrol_ship_alpha_longane.first_letter</source>
@@ -743,8 +743,8 @@
         <target>patrol_ship_alpha_planton.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>patrol_ship_alpha_planton.genre</source>
-        <target>patrol_ship_alpha_planton.genre</target>
+        <source>patrol_ship_alpha_planton.gender</source>
+        <target>patrol_ship_alpha_planton.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>patrol_ship_alpha_planton.first_letter</source>
@@ -769,8 +769,8 @@
         <target>patrol_ship_alpha_socrate.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>patrol_ship_alpha_socrate.genre</source>
-        <target>patrol_ship_alpha_socrate.genre</target>
+        <source>patrol_ship_alpha_socrate.gender</source>
+        <target>patrol_ship_alpha_socrate.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>patrol_ship_alpha_socrate.first_letter</source>
@@ -795,8 +795,8 @@
         <target>patrol_ship_alpha_tamarin.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>patrol_ship_alpha_tamarin.genre</source>
-        <target>patrol_ship_alpha_tamarin.genre</target>
+        <source>patrol_ship_alpha_tamarin.gender</source>
+        <target>patrol_ship_alpha_tamarin.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>patrol_ship_alpha_tamarin.first_letter</source>
@@ -821,8 +821,8 @@
         <target>pilgred.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>pilgred.genre</source>
-        <target>pilgred.genre</target>
+        <source>pilgred.gender</source>
+        <target>pilgred.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>pilgred.first_letter</source>
@@ -847,8 +847,8 @@
         <target>planet_scanner.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>planet_scanner.genre</source>
-        <target>planet_scanner.genre</target>
+        <source>planet_scanner.gender</source>
+        <target>planet_scanner.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>planet_scanner.first_letter</source>
@@ -873,8 +873,8 @@
         <target>research_laboratory.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>research_laboratory.genre</source>
-        <target>research_laboratory.genre</target>
+        <source>research_laboratory.gender</source>
+        <target>research_laboratory.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>research_laboratory.first_letter</source>
@@ -899,8 +899,8 @@
         <target>shower.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>shower.genre</source>
-        <target>shower.genre</target>
+        <source>shower.gender</source>
+        <target>shower.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>shower.first_letter</source>
@@ -925,8 +925,8 @@
         <target>swedish_sofa.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>swedish_sofa.genre</source>
-        <target>swedish_sofa.genre</target>
+        <source>swedish_sofa.gender</source>
+        <target>swedish_sofa.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>swedish_sofa.first_letter</source>
@@ -951,8 +951,8 @@
         <target>surgery_plot.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>surgery_plot.genre</source>
-        <target>surgery_plot.genre</target>
+        <source>surgery_plot.gender</source>
+        <target>surgery_plot.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>surgery_plot.first_letter</source>
@@ -977,8 +977,8 @@
         <target>thalasso.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>thalasso.genre</source>
-        <target>thalasso.genre</target>
+        <source>thalasso.gender</source>
+        <target>thalasso.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>thalasso.first_letter</source>
@@ -1003,8 +1003,8 @@
         <target>turret_command.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>turret_command.genre</source>
-        <target>turret_command.genre</target>
+        <source>turret_command.gender</source>
+        <target>turret_command.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>turret_command.first_letter</source>
@@ -1029,8 +1029,8 @@
         <target>icarus.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>icarus.genre</source>
-        <target>icarus.genre</target>
+        <source>icarus.gender</source>
+        <target>icarus.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>icarus.first_letter</source>
@@ -1055,8 +1055,8 @@
         <target>jukebox.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>jukebox.genre</source>
-        <target>jukebox.genre</target>
+        <source>jukebox.gender</source>
+        <target>jukebox.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>jukebox.first_letter</source>
@@ -1081,8 +1081,8 @@
         <target>camera_equipment.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>camera_equipment.genre</source>
-        <target>camera_equipment.genre</target>
+        <source>camera_equipment.gender</source>
+        <target>camera_equipment.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
         <source>camera_equipment.first_letter</source>

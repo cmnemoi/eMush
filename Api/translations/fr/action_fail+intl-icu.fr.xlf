@@ -29,7 +29,7 @@
     <unit id="not_a_room">
       <segment id="description" state="final">
         <source>not_a_room.description</source>
-        <target>Vous ne pouvez pas effectuer cette action ici... A quoi bon ?</target>
+        <target>Vous ne pouvez pas effectuer cette action ici... À quoi bon ?</target>
       </segment>
     </unit>
     <unit id="on_planet">
@@ -59,7 +59,12 @@
     <unit id="in_space_capsule">
       <segment id="description" state="final">
         <source>in_space_capsule.description</source>
-        <target>Vous ne pouvez pas agir car vous êtes enfermé dans une capsule spatiale.</target>
+        <target>{character_gender, select,
+            male {Vous ne pouvez pas agir car vous êtes enfermé dans une capsule spatiale.}
+            female {Vous ne pouvez pas agir car vous êtes enfermée dans une capsule spatiale.}
+            other {invalid gender input}
+            }
+        </target>
       </segment>
     </unit>
     <unit id="in_patroller">
@@ -83,7 +88,12 @@
     <unit id="heal_no_injury">
       <segment id="description" state="final">
         <source>heal_no_injury.description</source>
-        <target>Vous n'êtes pas blessé, mais ça peut s'arranger...</target>
+        <target>{character_gender, select,
+            male {Vous n'êtes pas blessé, mais ça peut s'arranger...}
+            female {Vous n'êtes pas blessée, mais ça peut s'arranger...}
+            other {invalid gender input}
+            }
+        </target>
       </segment>
     </unit>
     <unit id="dmz_core_peace">
@@ -107,15 +117,14 @@
     <unit id="dirty_restriction">
       <segment id="description" state="final">
         <source>dirty_restriction.description</source>
-        <target>Alerte, ne pas approcher ! Accès aux terminaux strictement interdit !
-                        Note : « Muffle, comment osez vous !? *Revenez quand vous serez propre*.»</target>
-      </segment>
-    </unit>
-    <unit id="dirty_restriction_female">
-      <segment id="description" state="final">
-        <source>dirty_restriction_female.description</source>
-        <target>Alerte, ne pas approcher ! Accès aux terminaux strictement interdit !
-Note : "Muffle, comment osez-vous !? *Revenez quand vous serez propre*."</target>
+        <target>{character_gender, select,
+            male {Alerte, ne pas approcher ! Accès aux terminaux strictement interdit !
+            Note : « Muffle, comment osez vous !? *Revenez quand vous serez propre*.»}
+            female {Alerte, ne pas approcher ! Accès aux terminaux strictement interdit !
+            Note : « Muffle, comment osez vous !? *Revenez quand vous serez propre*.»}
+            other {invalid gender input}
+            }
+        </target>
       </segment>
     </unit>
     <unit id="terminal_role_restricted">
@@ -133,7 +142,7 @@ Note : "Muffle, comment osez-vous !? *Revenez quand vous serez propre*."</target
     <unit id="explore_nothing_left">
       <segment id="description" state="translated">
         <source>explore_nothing_left.description</source>
-        <target>Cette planète a été entièrement visitée, une exploration suplémentaire ne vous apporterait plus rien.</target>
+        <target>Cette planète a été entièrement visitée, une exploration supplémentaire ne vous apporterait plus rien.</target>
       </segment>
     </unit>
     <unit id="explore_not_in_orbit">
@@ -169,7 +178,7 @@ Note : "Muffle, comment osez-vous !? *Revenez quand vous serez propre*."</target
     <unit id="do_the_thing_witness">
       <segment id="description" state="final">
         <source>do_the_thing_witness.description</source>
-        <target>Pas besoin qu'on vous observe dans ces moments là...</target>
+        <target>Pas besoin qu'on vous observe dans ces moments-là...</target>
       </segment>
     </unit>
     <unit id="do_the_thing_asleep">
@@ -187,13 +196,23 @@ Note : "Muffle, comment osez-vous !? *Revenez quand vous serez propre*."</target
     <unit id="flirt_already_flirted">
       <segment id="description" state="translated">
         <source>flirt_already_flirted.description</source>
-        <target>Vous êtes déjà très lié(e) à cette personne.</target>
+        <target>{character_gender, select,
+            male {Vous êtes déjà très lié à cette personne.}
+            female {Vous êtes déjà très liée à cette personne.}
+            other {invalid gender input}
+            }
+        </target>
       </segment>
     </unit>
     <unit id="flirt_antisocial">
       <segment id="description" state="translated">
         <source>flirt_antisocial.description</source>
-        <target>Vous n'êtes pas intéressée par ce genre d'interaction sociale...</target>
+        <target>{character_gender, select,
+            male {Vous n'êtes pas intéressé par ce genre d'interaction sociale...}
+            female {Vous n'êtes pas intéressée par ce genre d'interaction sociale...}
+            other {invalid gender input}
+            }
+        </target>
       </segment>
     </unit>
     <unit id="flirt_same_family">
@@ -205,7 +224,7 @@ Note : "Muffle, comment osez-vous !? *Revenez quand vous serez propre*."</target
     <unit id="daily_spore_limit">
       <segment id="description" state="translated">
         <source>daily_spore_limit.description</source>
-        <target>L'ensemble des *Mush* ne peuvent produire plus de *4 spores* par jour.</target>
+        <target>L'ensemble des *Mush* ne peuvent produire plus de *{quantity} spores* par jour.</target>
       </segment>
     </unit>
     <unit id="personal_spore_limit">
@@ -223,7 +242,7 @@ Note : "Muffle, comment osez-vous !? *Revenez quand vous serez propre*."</target
     <unit id="slime_already_done">
       <segment id="description" state="final">
         <source>slime_already_done.description</source>
-        <target>Cet objet est déjà piége.</target>
+        <target>Cet objet est déjà piégé.</target>
       </segment>
     </unit>
     <unit id="infect_immune">
@@ -284,9 +303,11 @@ Note : "Muffle, comment osez-vous !? *Revenez quand vous serez propre*."</target
       <segment id="description" state="final">
         <source>target_already_outcast.description</source>
         <target>{target_character_gender, select,
-male {Cet équipier est un paria, il a déjà reçu sa peine !}
-female {Cette équipière est une paria, elle a déjà reçu sa peine !}
-}</target>
+            male {Cet équipier est un paria, il a déjà reçu sa peine !}
+            female {Cette équipière est une paria, elle a déjà reçu sa peine !}
+            other {invalid target gender}
+            }
+        </target>
       </segment>
     </unit>
     <unit id="already_outcast_onboard">
@@ -352,7 +373,12 @@ female {Cette équipière est une paria, elle a déjà reçu sa peine !}
     <unit id="consume_full_belly">
       <segment id="description" state="translated">
         <source>consume_full_belly.description</source>
-        <target>Vous êtes rassasié.</target>
+        <target>{character_gender, select,
+            male {Vous êtes rassasié.}
+            female {Vous êtes rassasiée.}
+            other {invalid gender input}
+            }
+        </target>
       </segment>
     </unit>
     <unit id="reinforce_full_hull">
@@ -484,7 +510,12 @@ female {Cette équipière est une paria, elle a déjà reçu sa peine !}
     <unit id="already_in_bed">
       <segment id="description" state="translated">
         <source>already_in_bed.description</source>
-        <target>Vous êtes déjà couché.</target>
+        <target>{character_gender, select,
+            male {Vous êtes déjà couché.}
+            female {Vous êtes déjà couché.}
+            other {invalid gender input}
+            }
+        </target>
       </segment>
     </unit>
     <unit id="reinforce_lack_ressources">
@@ -502,13 +533,18 @@ female {Cette équipière est une paria, elle a déjà reçu sa peine !}
     <unit id="surgery_not_lying_down">
       <segment id="description" state="translated">
         <source>surgery_not_lying_down.description</source>
-        <target>Cette action nécessite que vous soyez allongé.</target>
+        <target>{character_gender, select,
+            male {Cette action nécessite que vous soyez allongé.}
+            female {Cette action nécessite que vous soyez allongée.}
+            other {invalid gender input}
+            }
+        </target>
       </segment>
     </unit>
     <unit id="mush_remove_spore">
       <segment id="description" state="translated">
         <source>mush_remove_spore.description</source>
-        <target>Pax Fungi : Le Mush ne tolère pas les actions violentes directes envers lui même.</target>
+        <target>Pax Fungi : Le Mush ne tolère pas les actions violentes directes envers lui-même.</target>
       </segment>
     </unit>
     <unit id="already_did_boring_speech">
@@ -532,7 +568,12 @@ female {Cette équipière est une paria, elle a déjà reçu sa peine !}
     <unit id="gagged_prevent_spoken_action">
       <segment id="description" state="translated">
         <source>gagged_prevent_spoken_action.description</source>
-        <target>Impossible de prononcer le moindre mot tant que vous ne vous serez pas débarrassé de ce fichu bout de scotch.</target>
+        <target>{character_gender, select,
+            male {Impossible de prononcer le moindre mot tant que vous ne vous serez pas débarrassé de ce fichu bout de scotch.}
+            female {Impossible de prononcer le moindre mot tant que vous ne vous serez pas débarrassée de ce fichu bout de scotch.}
+            other {invalid gender input}
+            }
+        </target>
       </segment>
     </unit>
     <unit id="screwed_talkie_already_pirated">
@@ -562,7 +603,12 @@ female {Cette équipière est une paria, elle a déjà reçu sa peine !}
     <unit id="immunized_remove_spore">
       <segment id="description" state="translated">
         <source>immunized_remove_spore.description</source>
-        <target>Vous êtes immunisée contre le Mush, pourquoi vouloir vous faire du mal ?</target>
+        <target>{character_gender, select,
+            male {Vous êtes immunisé contre le Mush, pourquoi vouloir vous faire du mal ?}
+            female {Vous êtes immunisée contre le Mush, pourquoi vouloir vous faire du mal ?}
+            other {invalid gender input}
+            }
+        </target>
       </segment>
     </unit>
   </file>

@@ -305,10 +305,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $fuelRetrieveAction = $this->getReference(ActionsFixtures::FUEL_RETRIEVE);
 
         // Tools
-        $combustionChamberMechanic = new Tool();
-        $combustionChamberMechanic->addAction($fuelInjectAction);
-        $combustionChamberMechanic->addAction($fuelRetrieveAction);
-
         /** @var ChargeStatusConfig $combustionChargeStatus */
         $combustionChargeStatus = $this->getReference(ChargeStatusFixtures::COMBUSTION_CHAMBER);
 
@@ -319,12 +315,10 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setMechanics(new ArrayCollection([$combustionChamberMechanic]))
             ->setInitStatus(new ArrayCollection([$combustionChargeStatus]))
             ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
         ;
         $manager->persist($combustionChamber);
-        $manager->persist($combustionChamberMechanic);
 
         /** @var Action $cookAction */
         $cookAction = $this->getReference(ActionsFixtures::COOK_DEFAULT);

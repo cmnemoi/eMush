@@ -152,11 +152,5 @@ Inventory slots with .empty class will have no interactive styling. */
         &:hover::before {
             border: 1px solid white;
         }
-
-        &:focus::before,
-        &:active::before {
-            border: 1px solid $active-color;
-            box-shadow: 0 0 0 2px inset $active-color, $box-shadow;
-        }
     }
 }

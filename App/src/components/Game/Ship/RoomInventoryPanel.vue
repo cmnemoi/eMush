@@ -4,6 +4,7 @@
             class="inventory"
             :items="items"
             :min-slot="7"
+            :selectedItem="getSelectedItem"
             @select="selectItem"
         />
         <div class="item-details">

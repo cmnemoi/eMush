@@ -47,7 +47,12 @@
                 </div>
             </div>
             <div class="inventory">
-                <inventory :items="player.items" :min-slot="3" @select="toggleItemSelection" />
+                <inventory
+                    :items="player.items"
+                    :min-slot="3"
+                    :selectedItem="getTargetItem"
+                    @select="toggleItemSelection"
+                />
             </div>
             <div v-if="! loading && target" class="interactions">
                 <p v-if="selectedItem" class="item-name">
@@ -143,37 +148,36 @@ export default defineComponent ({
             required: true
         }
     },
-    data(): CharPanelState {
-        return {
-            selectedItem: null
-        };
-    },
     computed: {
         characterPortrait(): string {
             return characterEnum[this.player.character.key].portrait ?? '';
         },
         ...mapState('player', [
-            'loading'
+            'loading', 'selectedItem'
         ]),
         target(): Item | Player | null {
             return this.selectedItem || this.player;
+        },
+        getTargetItem(): Item | null {
+            return this.selectedItem;
         }
     },
     methods: {
-        ...mapActions('action', [
-            'executeAction'
-        ]),
+        ...mapActions({
+            'executeAction': 'action/executeAction',
+            'selectTarget': 'player/selectTarget'
+        }),
         isFull (value: number, threshold: number): Record<string, boolean> {
             return {
                 "full": value <= threshold,
                 'empty': value > threshold
             };
         },
-        toggleItemSelection(item: Item): void {
+        toggleItemSelection(item: Item | null): void {
             if (this.selectedItem === item) {
-                this.selectedItem = null;
+                this.selectTarget({ target: null });
             } else {
-                this.selectedItem = item;
+                this.selectTarget({ target: item });
             }
         },
         async executeTargetAction(target: Door | Item | Equipment | Player | null, action: Action): Promise<void> {
@@ -183,7 +187,7 @@ export default defineComponent ({
                     this.selectedItem = null;
                 }
             }
-        }
+        },
     }
 });
 </script>

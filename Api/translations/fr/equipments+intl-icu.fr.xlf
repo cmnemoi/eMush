@@ -1093,5 +1093,17 @@
         <target>La caméra est un outils de surveillance bien pratique pour --espionner-- surveiller votre prochain. En sa présence, les actions **discrètes** et **furtives** effectuées sont révélées. Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. La caméra repère également les actions discrètes et furtives effectuées. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
       </segment>
     </unit>
+    <unit id="patrol_ship.examine">
+      <segment state="translated">
+        <source>patrol_ship.examine</source>
+        <target>Patrouilleur
+//
+Charges de l'appareil : 0.
+//
+Armure de l'appareil : 10.
+//
+Il n'est plus tout jeune mais il fera l'affaire.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

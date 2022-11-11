@@ -286,9 +286,9 @@
         <source>coprolalia.name</source>
         <target>pre_coprolalia</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>coprolalia.description</source>
-        <target>post_coprolalia</target>
+        <target>coprolalia.description</target>
       </segment>
     </unit>
     <unit id="crabism">
@@ -312,13 +312,13 @@
       </segment>
     </unit>
     <unit id="paranoia">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>paranoia.name</source>
-        <target>replace_paranoia</target>
+        <target>paranoia.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>paranoia.description</source>
-        <target>accuse_paranoia</target>
+        <target>paranoia.description</target>
       </segment>
     </unit>
     <unit id="psychotic_episodes">
@@ -659,6 +659,12 @@
       <segment id="description" state="initial">
         <source>torn_tongue.description</source>
         <target>torn_tongue.description</target>
+      </segment>
+    </unit>
+    <unit id="mashed_leg.description">
+      <segment state="initial">
+        <source>mashed_leg.description</source>
+        <target>mashed_leg.description</target>
       </segment>
     </unit>
   </file>

@@ -63,8 +63,7 @@
             male {Vous ne pouvez pas agir car vous êtes enfermé dans une capsule spatiale.}
             female {Vous ne pouvez pas agir car vous êtes enfermée dans une capsule spatiale.}
             other {invalid gender input}
-            }
-        </target>
+            }</target>
       </segment>
     </unit>
     <unit id="in_patroller">
@@ -92,8 +91,7 @@
             male {Vous n'êtes pas blessé, mais ça peut s'arranger...}
             female {Vous n'êtes pas blessée, mais ça peut s'arranger...}
             other {invalid gender input}
-            }
-        </target>
+            }</target>
       </segment>
     </unit>
     <unit id="dmz_core_peace">
@@ -123,8 +121,7 @@
             female {Alerte, ne pas approcher ! Accès aux terminaux strictement interdit !
             Note : « Muffle, comment osez vous !? *Revenez quand vous serez propre*.»}
             other {invalid gender input}
-            }
-        </target>
+            }</target>
       </segment>
     </unit>
     <unit id="terminal_role_restricted">
@@ -200,8 +197,7 @@
             male {Vous êtes déjà très lié à cette personne.}
             female {Vous êtes déjà très liée à cette personne.}
             other {invalid gender input}
-            }
-        </target>
+            }</target>
       </segment>
     </unit>
     <unit id="flirt_antisocial">
@@ -211,8 +207,7 @@
             male {Vous n'êtes pas intéressé par ce genre d'interaction sociale...}
             female {Vous n'êtes pas intéressée par ce genre d'interaction sociale...}
             other {invalid gender input}
-            }
-        </target>
+            }</target>
       </segment>
     </unit>
     <unit id="flirt_same_family">
@@ -306,8 +301,7 @@
             male {Cet équipier est un paria, il a déjà reçu sa peine !}
             female {Cette équipière est une paria, elle a déjà reçu sa peine !}
             other {invalid target gender}
-            }
-        </target>
+            }</target>
       </segment>
     </unit>
     <unit id="already_outcast_onboard">
@@ -377,8 +371,7 @@
             male {Vous êtes rassasié.}
             female {Vous êtes rassasiée.}
             other {invalid gender input}
-            }
-        </target>
+            }</target>
       </segment>
     </unit>
     <unit id="reinforce_full_hull">
@@ -514,8 +507,7 @@
             male {Vous êtes déjà couché.}
             female {Vous êtes déjà couché.}
             other {invalid gender input}
-            }
-        </target>
+            }</target>
       </segment>
     </unit>
     <unit id="reinforce_lack_ressources">
@@ -537,8 +529,7 @@
             male {Cette action nécessite que vous soyez allongé.}
             female {Cette action nécessite que vous soyez allongée.}
             other {invalid gender input}
-            }
-        </target>
+            }</target>
       </segment>
     </unit>
     <unit id="mush_remove_spore">
@@ -572,8 +563,7 @@
             male {Impossible de prononcer le moindre mot tant que vous ne vous serez pas débarrassé de ce fichu bout de scotch.}
             female {Impossible de prononcer le moindre mot tant que vous ne vous serez pas débarrassée de ce fichu bout de scotch.}
             other {invalid gender input}
-            }
-        </target>
+            }</target>
       </segment>
     </unit>
     <unit id="screwed_talkie_already_pirated">
@@ -607,8 +597,13 @@
             male {Vous êtes immunisé contre le Mush, pourquoi vouloir vous faire du mal ?}
             female {Vous êtes immunisée contre le Mush, pourquoi vouloir vous faire du mal ?}
             other {invalid gender input}
-            }
-        </target>
+            }</target>
+      </segment>
+    </unit>
+    <unit id="daedalus_already_full_hull.description">
+      <segment state="final">
+        <source>daedalus_already_full_hull.description</source>
+        <target>La coque n'a pas besoin de réparations.</target>
       </segment>
     </unit>
   </file>

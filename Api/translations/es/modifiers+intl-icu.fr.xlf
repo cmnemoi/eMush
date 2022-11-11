@@ -181,5 +181,14 @@
         <target>paranoia_messages.description</target>
       </segment>
     </unit>
+    <unit id="new_cycle_increase">
+      <notes>
+        <note>new_cycle_increase</note>
+      </notes>
+      <segment state="initial">
+        <source>new_cycle_increase.description</source>
+        <target>new_cycle_increase.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

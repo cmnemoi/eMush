@@ -142,9 +142,9 @@
       </segment>
     </unit>
     <unit id="get_up">
-      <segment id="get_up" state="translated">
+      <segment id="get_up" state="initial">
         <source>get_up.name</source>
-        <target>get_up</target>
+        <target>get_up.name</target>
       </segment>
       <segment id="description" state="initial">
         <source>get_up.description</source>

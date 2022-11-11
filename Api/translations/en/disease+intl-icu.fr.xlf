@@ -318,7 +318,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>paranoia.description</source>
-        <target>You are in fear for you life and eventually make it known</target>
+        <target>You are in fear for your life and eventually make it known.</target>
       </segment>
     </unit>
     <unit id="psychotic_episodes">
@@ -659,6 +659,12 @@
       <segment id="description" state="initial">
         <source>torn_tongue.description</source>
         <target>torn_tongue.description</target>
+      </segment>
+    </unit>
+    <unit id="mashed_leg.description">
+      <segment state="initial">
+        <source>mashed_leg.description</source>
+        <target>mashed_leg.description</target>
       </segment>
     </unit>
   </file>

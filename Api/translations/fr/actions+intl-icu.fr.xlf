@@ -142,9 +142,9 @@
       </segment>
     </unit>
     <unit id="get_up">
-      <segment id="get_up" state="final">
+      <segment id="get_up" state="translated">
         <source>get_up.name</source>
-        <target>**{character}**  se lève doucement...</target>
+        <target>Se lever</target>
       </segment>
       <segment id="description" state="final">
         <source>get_up.description</source>

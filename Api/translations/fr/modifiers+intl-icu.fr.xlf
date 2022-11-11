@@ -190,5 +190,17 @@
         <target>Vos messages sont parfois modifiés.</target>
       </segment>
     </unit>
+    <unit id="new_cycle_increase">
+      <notes>
+        <note>new_cycle_increase</note>
+      </notes>
+      <segment state="translated">
+        <source>new_cycle_increase.description</source>
+        <target>{chance, select,
+                    100 {Chaque cycle, fait gagner **{quantity}** {emote}.}
+                    other {Chaque cycle, **{chance}%** de chances de gagner **{quantity}** {emote}.}
+                }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

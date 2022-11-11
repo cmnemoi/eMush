@@ -1093,5 +1093,11 @@
         <target>camera_equipment.examine</target>
       </segment>
     </unit>
+    <unit id="patrol_ship.examine">
+      <segment state="initial">
+        <source>patrol_ship.examine</source>
+        <target>patrol_ship.examine</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

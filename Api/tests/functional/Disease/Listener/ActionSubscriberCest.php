@@ -36,12 +36,14 @@ use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\User\Entity\User;
 
 class ActionSubscriberCest
 {
@@ -901,7 +903,7 @@ class ActionSubscriberCest
             'daedalus' => $daedalus,
         ]);
         $characterConfig = $I->have(CharacterConfig::class);
-        $otherCharacterConfig = $I->have(CharacterConfig::class);
+        $otherCharacterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::TERRENCE]);
 
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -910,11 +912,15 @@ class ActionSubscriberCest
             'healthPoint' => 14,
         ]);
 
+        /** @var User $user */
+        $user = $I->have(User::class);
+
         $otherPlayer = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
+            'characterConfig' => $otherCharacterConfig,
             'place' => $place,
-            'healthPoint' => 14,
+            'healthPoint' => 1,
+            'user' => $user,
         ]);
 
         $knifeMechanic = new Weapon();

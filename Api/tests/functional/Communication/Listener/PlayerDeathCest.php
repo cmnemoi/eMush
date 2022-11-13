@@ -15,6 +15,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
+use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerDeathCest
@@ -31,6 +32,9 @@ class PlayerDeathCest
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1, 'language' => LanguageEnum::FRENCH]);
 
+        /** @var User $user */
+        $user = $I->have(User::class);
+
         $neron = new Neron();
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);
@@ -41,9 +45,14 @@ class PlayerDeathCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
+        $characterConfig = $I->have(CharacterConfig::class, ['name' => 'andie']);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+            'characterConfig' => $characterConfig,
+            'user' => $user,
+        ]);
 
         $privateChannel = new Channel();
         $privateChannel

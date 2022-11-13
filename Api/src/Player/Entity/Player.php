@@ -98,6 +98,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $satiety = 0;
 
+    #[ORM\ManyToOne(targetEntity: DeadPlayerInfo::class)]
+    private ?DeadPlayerInfo $deadPlayerInfo = null;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -573,5 +576,17 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function getLogKey(): string
     {
         return LogParameterKeyEnum::CHARACTER;
+    }
+
+    public function setDeadPlayerInfo(DeadPlayerInfo $deadPlayerInfo): self
+    {
+        $this->deadPlayerInfo = $deadPlayerInfo;
+
+        return $this;
+    }
+
+    public function getDeadPlayerInfo(): ?DeadPlayerInfo
+    {
+        return $this->deadPlayerInfo;
     }
 }

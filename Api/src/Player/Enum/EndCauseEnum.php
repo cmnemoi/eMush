@@ -9,6 +9,8 @@ use Mush\Status\Enum\StatusEnum;
 
 class EndCauseEnum
 {
+    public const STILL_LIVING = 'still_living';
+
     // admin only
     public const SUICIDE = 'suicide';
 
@@ -18,13 +20,13 @@ class EndCauseEnum
     public const KILLED_BY_NERON = 'killed_by_neron';
     public const SUPER_NOVA = 'super_nova';
 
-    public const ALIEN_OBDUCTED = 'alien_obducted';
+    public const ALIEN_ABDUCTED = 'alien_abducted';
 
     public const ASSASSINATED = 'assassinated';
     public const DEPRESSION = 'depression';
     public const ASPHYXIA = 'asphyxia';
     public const ABANDONED = 'abandoned';
-    public const ALERGY = 'alergy';
+    public const ALLERGY = 'allergy';
     public const SELF_EXTRACTED = 'self_extracted';
     public const EXPLORATION = 'exploration';
     public const EXPLORATION_COMBAT = 'exploration_combat';
@@ -34,7 +36,7 @@ class EndCauseEnum
     public const BURNT = 'burnt';
     public const CLUMSINESS = 'clumsiness';
     public const SPACE_BATTLE = 'space_battle';
-    public const SPACE_ASPHYXIED = 'space_asphyxied';
+    public const SPACE_ASPHYXIATED = 'space_asphyxiated';
     public const BEHEADED = 'beheaded';
     public const STARVATION = 'starvation';
     public const QUARANTINE = 'quarantine';

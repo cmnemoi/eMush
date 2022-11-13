@@ -4,7 +4,10 @@ namespace Mush\Player\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Daedalus\Entity\ClosedDaedalus;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\User\Entity\User;
 
 #[ORM\Entity]
 class DeadPlayerInfo
@@ -16,14 +19,20 @@ class DeadPlayerInfo
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    #[ORM\OneToOne(targetEntity: Player::class)]
-    private Player $player;
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private User $user;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $character;
+
+    #[ORM\ManyToOne(targetEntity: ClosedDaedalus::class, inversedBy: 'players')]
+    private ClosedDaedalus $daedalus;
 
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $message = null;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    private string $endStatus = EndCauseEnum::NO_INFIRMERY;
+    private string $endCause = EndCauseEnum::NO_INFIRMERY;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $dayDeath;
@@ -32,23 +41,29 @@ class DeadPlayerInfo
     private int $cycleDeath;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private ?array $likes;
+    private array $likes = [];
+
+    public function __construct(Player $player)
+    {
+        $this->user = $player->getUser();
+        $this->character = $player->getCharacterConfig()->getName();
+    }
+
+    public function getClosedDaedalus(): ClosedDaedalus
+    {
+        return $this->daedalus;
+    }
+
+    public function setClosedDaedalus(ClosedDaedalus $closedDaedalus): self
+    {
+        $this->daedalus = $closedDaedalus;
+
+        return $this;
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getPlayer(): Player
-    {
-        return $this->player;
-    }
-
-    public function setPlayer(Player $player): static
-    {
-        $this->player = $player;
-
-        return $this;
     }
 
     public function getMessage(): ?string
@@ -68,46 +83,50 @@ class DeadPlayerInfo
         return $this->dayDeath;
     }
 
-    public function setDayDeath(int $dayDeath): static
-    {
-        $this->dayDeath = $dayDeath;
-
-        return $this;
-    }
-
     public function getCycleDeath(): int
     {
         return $this->cycleDeath;
     }
 
-    public function setCycleDeath(int $cycleDeath): static
+    public function setDayCycleDeath(Daedalus $daedalus): static
     {
-        $this->cycleDeath = $cycleDeath;
+        $this->dayDeath = $daedalus->getDay();
+        $this->cycleDeath = $daedalus->getCycle();
 
         return $this;
     }
 
-    public function getLikes(): ?array
+    public function getLikes(): array
     {
         return $this->likes;
     }
 
-    public function setLikes(array $likes): static
+    public function addLike(DeadPlayerInfo $like): static
     {
-        $this->likes = $likes;
+        $this->likes[] = $like;
 
         return $this;
     }
 
-    public function getEndStatus(): string
+    public function getEndCause(): string
     {
-        return $this->endStatus;
+        return $this->endCause;
     }
 
-    public function setEndStatus(string $endStatus): static
+    public function setEndCause(string $endCause): static
     {
-        $this->endStatus = $endStatus;
+        $this->endCause = $endCause;
 
         return $this;
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function getCharacter(): string
+    {
+        return $this->character;
     }
 }

@@ -3,7 +3,6 @@
 namespace Mush\Player\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
 
@@ -14,8 +13,6 @@ interface PlayerServiceInterface
     public function findById(int $id): ?Player;
 
     public function findOneByCharacter(string $character, Daedalus $daedalus): ?Player;
-
-    public function findDeadPlayerInfo(Player $player): ?DeadPlayerInfo;
 
     public function createPlayer(Daedalus $daedalus, User $user, string $character): Player;
 

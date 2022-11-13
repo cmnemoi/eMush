@@ -21,6 +21,7 @@ use Mush\Game\Enum\LanguageEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class CycleEventCest
@@ -73,18 +74,31 @@ class CycleEventCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
+        /** @var User $user */
+        $user = $I->have(User::class);
+
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
+        $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
 
         $I->have(
-            Player::class,
-            ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig, 'healthPoint' => 99]
+            Player::class, [
+                'daedalus' => $daedalus,
+                'place' => $room,
+                'characterConfig' => $characterConfig,
+                'healthPoint' => 99,
+                'user' => $user,
+            ]
         );
         $I->have(
-            Player::class,
-            ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig2, 'healthPoint' => 99]
+            Player::class, [
+                'daedalus' => $daedalus,
+                'place' => $room,
+                'characterConfig' => $characterConfig2,
+                'healthPoint' => 99,
+                'user' => $user,
+            ]
         );
 
         $event = new DaedalusCycleEvent(

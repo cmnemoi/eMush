@@ -89,11 +89,6 @@ class PlayerService implements PlayerServiceInterface
         return $player instanceof Player ? $player : null;
     }
 
-    public function findDeadPlayerInfo(Player $player): ?DeadPlayerInfo
-    {
-        return $this->deadPlayerRepository->findOneByPlayer($player);
-    }
-
     public function createPlayer(Daedalus $daedalus, User $user, string $character): Player
     {
         $player = new Player();
@@ -155,12 +150,15 @@ class PlayerService implements PlayerServiceInterface
 
     public function endPlayer(Player $player, string $message): Player
     {
-        $deadPlayerInfo = $this->findDeadPlayerInfo($player);
+        $deadPlayerInfo = $player->getDeadPlayerInfo();
         if ($deadPlayerInfo === null) {
             throw new \LogicException('unable to find deadPlayerInfo');
         }
 
-        $deadPlayerInfo->setMessage($message);
+        $deadPlayerInfo
+            ->setMessage($message)
+            ->setEndCause(GameStatusEnum::CLOSED)
+        ;
 
         $player->setGameStatus(GameStatusEnum::CLOSED);
 
@@ -286,14 +284,12 @@ class PlayerService implements PlayerServiceInterface
             $reason = 'missing end reason';
         }
 
-        $deadPlayerInfo = new DeadPlayerInfo();
+        $deadPlayerInfo = new DeadPlayerInfo($player);
         $deadPlayerInfo
-            ->setPlayer($player)
-            ->setDayDeath($player->getDaedalus()->getDay())
-            ->setCycleDeath($player->getDaedalus()->getCycle())
-            ->setEndStatus($reason)
+            ->setDayCycleDeath($player->getDaedalus())
+            ->setEndCause($reason)
         ;
-
+        $player->setDeadPlayerInfo($deadPlayerInfo);
         $this->entityManager->persist($deadPlayerInfo);
 
         if ($reason !== EndCauseEnum::DEPRESSION) {
@@ -324,7 +320,6 @@ class PlayerService implements PlayerServiceInterface
         }
 
         // @TODO in case of assassination chance of disorder for roommates
-
         $player->setGameStatus(GameStatusEnum::FINISHED);
 
         $this->persist($player);

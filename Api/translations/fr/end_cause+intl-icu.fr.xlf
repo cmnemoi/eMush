@@ -91,21 +91,21 @@
         <target>TODO</target>
       </segment>
     </unit>
-    <unit id="alien_obducted">
+    <unit id="alien_abducted">
       <segment id="name" state="translated">
-        <source>alien_obducted.name</source>
+        <source>alien_abducted.name</source>
         <target>Enlevé par des races supérieures</target>
       </segment>
       <segment id="short_name" state="translated">
-        <source>alien_obducted.short_name</source>
+        <source>alien_abducted.short_name</source>
         <target>Vous avez été enlevé.</target>
       </segment>
       <segment id="category" state="translated">
-        <source>alien_obducted.category</source>
+        <source>alien_abducted.category</source>
         <target>Fin de l'aventure !</target>
       </segment>
       <segment id="description" state="translated">
-        <source>alien_obducted.description</source>
+        <source>alien_abducted.description</source>
         <target>Vous allez contribuer aux progrès de la science d'une autre civililisation. Bravo !</target>
       </segment>
     </unit>
@@ -181,21 +181,21 @@
         <target>Le Daedalus est parti sans vous, mais que leur avez vous donc fait ?</target>
       </segment>
     </unit>
-    <unit id="alergy">
+    <unit id="allergy">
       <segment id="name" state="translated">
-        <source>alergy.name</source>
+        <source>allergy.name</source>
         <target>Allergie</target>
       </segment>
       <segment id="short_name" state="translated">
-        <source>alergy.short_name</source>
-        <target>Calin avec un allergène</target>
+        <source>allergy.short_name</source>
+        <target>Câlin avec un allergène</target>
       </segment>
       <segment id="category" state="translated">
-        <source>alergy.category</source>
+        <source>allergy.category</source>
         <target>Vous êtes mort !</target>
       </segment>
       <segment id="description" state="translated">
-        <source>alergy.description</source>
+        <source>allergy.description</source>
         <target>TODO</target>
       </segment>
     </unit>
@@ -274,11 +274,11 @@
     <unit id="electrocuted">
       <segment id="name" state="translated">
         <source>electrocuted.name</source>
-        <target>Electrocuté</target>
+        <target>Électrocuté</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>electrocuted.short_name</source>
-        <target>Electrocuté par ce vieux tas de féraille !</target>
+        <target>Électrocuté par ce vieux tas de ferraille !</target>
       </segment>
       <segment id="category" state="translated">
         <source>electrocuted.category</source>
@@ -361,21 +361,21 @@
         <target>Vous êtes tombé au champs d'honneur, il s'en est fallu de peu mais ce dernier Hunter était vraiment trop habile.</target>
       </segment>
     </unit>
-    <unit id="space_asphyxied">
+    <unit id="space_asphyxiated">
       <segment id="name" state="translated">
-        <source>space_asphyxied.name</source>
+        <source>space_asphyxiated.name</source>
         <target>Dans l'espace sans pouvoir respirer</target>
       </segment>
       <segment id="short_name" state="translated">
-        <source>space_asphyxied.short_name</source>
+        <source>space_asphyxiated.short_name</source>
         <target>Mort abandonné dans l'espace inter sidéral !</target>
       </segment>
       <segment id="category" state="translated">
-        <source>space_asphyxied.category</source>
+        <source>space_asphyxiated.category</source>
         <target>Vous êtes mort !</target>
       </segment>
       <segment id="description" state="translated">
-        <source>space_asphyxied.description</source>
+        <source>space_asphyxiated.description</source>
         <target>Par on ne sait quel hasard, vous vous êtes retrouvé dans l'espace sans moyen de respirer. La prochaine fois, sortez couvert. C'est ballot.</target>
       </segment>
     </unit>
@@ -386,7 +386,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>beheaded.short_name</source>
-        <target>Décapité par un facheux !</target>
+        <target>Décapité par un fâcheux !</target>
       </segment>
       <segment id="category" state="translated">
         <source>beheaded.category</source>
@@ -476,7 +476,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>rocketed.short_name</source>
-        <target>Eparpillé par un missile inquisiteur !</target>
+        <target>Éparpillé par un missile inquisiteur !</target>
       </segment>
       <segment id="category" state="translated">
         <source>rocketed.category</source>
@@ -484,7 +484,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>rocketed.description</source>
-        <target>Non vous n'êtes pas mort étouffé par de la salade. Vous avez été heurté par un projectile à haut rapport énergie/ vélocité. Rempli d'explosif qui plus est. Et plein de technologie. En clair, vos restes sont éparpillés un peu partout.</target>
+        <target>Non vous n'êtes pas mort étouffé par de la salade. Vous avez été heurté par un projectile à haut rapport énergie/vélocité. Rempli d'explosifs qui plus est. Et plein de technologie. En clair, vos restes sont éparpillés un peu partout.</target>
       </segment>
     </unit>
     <unit id="bled">
@@ -575,6 +575,16 @@
       <segment id="description" state="translated">
         <source>suicide.description</source>
         <target>Vous aviez des bugs à corriger dans d'autres univers !</target>
+      </segment>
+    </unit>
+    <unit id="still_living">
+      <segment id="name">
+          <source>still_living.name</source>
+          <target>Pas encore</target>
+      </segment>
+      <segment id="description">
+          <source>still_living.description</source>
+          <target>Ce joueur est toujours en vie.</target>
       </segment>
     </unit>
   </file>

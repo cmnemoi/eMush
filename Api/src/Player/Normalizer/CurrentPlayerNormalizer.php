@@ -42,7 +42,10 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
     {
         $currentPlayer = $context['currentPlayer'] ?? null;
 
-        return $data instanceof Player && $data === $currentPlayer;
+        return $data instanceof Player &&
+            $data === $currentPlayer &&
+            $data->getGameStatus() === GameStatusEnum::CURRENT
+        ;
     }
 
     public function normalize($object, string $format = null, array $context = []): array
@@ -68,39 +71,37 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
             ],
             'gameStatus' => $player->getGameStatus(),
             'triumph' => $player->getTriumph(),
-            'daedalus' => $this->normalizer->normalize($object->getDaedalus(), $format, $context),
+            'daedalus' => $this->normalizer->normalize($player->getDaedalus(), $format, $context),
         ];
 
-        if ($player->getGameStatus() === GameStatusEnum::CURRENT) {
-            $statuses = [];
-            foreach ($player->getStatuses() as $status) {
-                $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['player' => $player]));
-                if (is_array($normedStatus) && count($normedStatus) > 0) {
-                    $statuses[] = $normedStatus;
-                }
+        $statuses = [];
+        foreach ($player->getStatuses() as $status) {
+            $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['player' => $player]));
+            if (is_array($normedStatus) && count($normedStatus) > 0) {
+                $statuses[] = $normedStatus;
             }
-
-            $diseases = [];
-            foreach ($player->getMedicalConditions()->getActiveDiseases() as $disease) {
-                $normedDisease = $this->normalizer->normalize($disease, $format, array_merge($context, ['player' => $player]));
-                if (is_array($normedDisease) && count($normedDisease) > 0) {
-                    $diseases[] = $normedDisease;
-                }
-            }
-
-            $playerData = array_merge($playerData, [
-                'room' => $this->normalizer->normalize($object->getPlace(), $format, $context),
-                'skills' => $player->getSkills(),
-                'actions' => $this->getActions($object, $format, $context),
-                'items' => $items,
-                'statuses' => $statuses,
-                'diseases' => $diseases,
-                'actionPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::ACTION_POINT, $language),
-                'movementPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::MOVEMENT_POINT, $language),
-                'healthPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::HEALTH_POINT, $language),
-                'moralPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::MORAL_POINT, $language),
-            ]);
         }
+
+        $diseases = [];
+        foreach ($player->getMedicalConditions()->getActiveDiseases() as $disease) {
+            $normedDisease = $this->normalizer->normalize($disease, $format, array_merge($context, ['player' => $player]));
+            if (is_array($normedDisease) && count($normedDisease) > 0) {
+                $diseases[] = $normedDisease;
+            }
+        }
+
+        $playerData = array_merge($playerData, [
+            'room' => $this->normalizer->normalize($object->getPlace(), $format, $context),
+            'skills' => $player->getSkills(),
+            'actions' => $this->getActions($object, $format, $context),
+            'items' => $items,
+            'statuses' => $statuses,
+            'diseases' => $diseases,
+            'actionPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::ACTION_POINT, $language),
+            'movementPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::MOVEMENT_POINT, $language),
+            'healthPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::HEALTH_POINT, $language),
+            'moralPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::MORAL_POINT, $language),
+        ]);
 
         return $playerData;
     }

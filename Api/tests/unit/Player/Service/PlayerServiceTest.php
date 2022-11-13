@@ -150,17 +150,23 @@ class PlayerServiceTest extends TestCase
             ->addPlace($room)
         ;
 
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setName('name');
+
         $player = new Player();
         $player
             ->setDaedalus($daedalus)
             ->addEquipment($gameItem)
             ->setPlace($room)
             ->setGameStatus(GameStatusEnum::CURRENT)
+            ->setUser(new User())
+            ->setCharacterConfig($characterConfig)
         ;
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager
             ->shouldReceive('persist')
+            ->with($player)
             ->once()
         ;
         $this->entityManager
@@ -185,14 +191,21 @@ class PlayerServiceTest extends TestCase
     public function testEndPlayer()
     {
         $user = new User();
-        $deadPlayerInfo = new DeadPlayerInfo();
+
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setName('name');
+
         $player = new Player();
         $player
             ->setUser($user)
+            ->setCharacterConfig($characterConfig)
         ;
+
+        $deadPlayerInfo = new DeadPlayerInfo($player);
+        $player->setDeadPlayerInfo($deadPlayerInfo);
+
         $message = 'message';
 
-        $this->deadPlayerInfoRepository->shouldReceive('findOneByPlayer')->andReturn($deadPlayerInfo)->once();
         $this->entityManager->shouldReceive([
             'persist' => null,
             'flush' => null,

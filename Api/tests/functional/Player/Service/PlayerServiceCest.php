@@ -6,6 +6,7 @@ use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -19,6 +20,7 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 
 class PlayerServiceCest
 {
@@ -31,6 +33,12 @@ class PlayerServiceCest
 
     public function testDeathHumanPlayer(FunctionalTester $I)
     {
+        /** @var User $user */
+        $user = $I->have(User::class);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class, ['name' => 'andie']);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['day' => 5, 'cycle' => '3']);
 
@@ -38,7 +46,12 @@ class PlayerServiceCest
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
         /** @var Player $player */
-        $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
+        $player = $I->have(Player::class, [
+            'place' => $room,
+            'daedalus' => $daedalus,
+            'user' => $user,
+            'characterConfig' => $characterConfig,
+        ]);
 
         $statusConfig = new StatusConfig();
         $statusConfig->setName(PlayerStatusEnum::FULL_STOMACH);
@@ -49,7 +62,7 @@ class PlayerServiceCest
         $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
 
         $I->seeInRepository(DeadPlayerInfo::class, [
-            'endStatus' => EndCauseEnum::INJURY,
+            'endCause' => EndCauseEnum::INJURY,
             'dayDeath' => 5,
             'cycleDeath' => 3,
         ]);
@@ -62,6 +75,12 @@ class PlayerServiceCest
 
     public function testDeathMushPlayer(FunctionalTester $I)
     {
+        /** @var User $user */
+        $user = $I->have(User::class);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class, ['name' => 'andie']);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
 
@@ -69,7 +88,12 @@ class PlayerServiceCest
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
         /** @var Player $player */
-        $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
+        $player = $I->have(Player::class, [
+            'place' => $room,
+            'daedalus' => $daedalus,
+            'user' => $user,
+            'characterConfig' => $characterConfig,
+        ]);
 
         $mushConfig = new ChargeStatusConfig();
         $mushConfig->setName(PlayerStatusEnum::MUSH);
@@ -94,6 +118,9 @@ class PlayerServiceCest
 
     public function testDeathEffectOnOtherPlayer(FunctionalTester $I)
     {
+        /** @var User $user */
+        $user = $I->have(User::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
 
@@ -101,20 +128,29 @@ class PlayerServiceCest
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
+        $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHAO]);
 
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
             'characterConfig' => $characterConfig,
+            'user' => $user,
         ]);
 
         /** @var Player $player2 */
-        $player2 = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus, 'characterConfig' => $characterConfig]);
+        $player2 = $I->have(Player::class, [
+            'place' => $room,
+            'daedalus' => $daedalus,
+            'characterConfig' => $characterConfig,
+        ]);
 
         /** @var Player $mushPlayer */
-        $mushPlayer = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus, 'characterConfig' => $characterConfig]);
+        $mushPlayer = $I->have(Player::class, [
+            'place' => $room,
+            'daedalus' => $daedalus,
+            'characterConfig' => $characterConfig,
+        ]);
 
         $mushConfig = new ChargeStatusConfig();
         $mushConfig->setName(PlayerStatusEnum::MUSH);
@@ -133,6 +169,12 @@ class PlayerServiceCest
 
     public function testDeathEffectOnItems(FunctionalTester $I)
     {
+        /** @var User $user */
+        $user = $I->have(User::class);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class, ['name' => 'andie']);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
 
@@ -140,7 +182,12 @@ class PlayerServiceCest
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
         /** @var Player $player */
-        $player = $I->have(Player::class, ['place' => $room, 'daedalus' => $daedalus]);
+        $player = $I->have(Player::class, [
+            'place' => $room,
+            'daedalus' => $daedalus,
+            'characterConfig' => $characterConfig,
+            'user' => $user,
+        ]);
 
         $item = $I->have(ItemConfig::class);
         $gameItem = new GameItem();

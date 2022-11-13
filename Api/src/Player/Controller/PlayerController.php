@@ -176,35 +176,8 @@ class PlayerController extends AbstractFOSRestController
 
         /** @var string $message */
         $message = $request->getMessage();
-        $player = $this->playerService->endPlayer($player, $message);
+        $this->playerService->endPlayer($player, $message);
 
-        $context = new Context();
-        $context->setAttribute('currentPlayer', $player);
-
-        $view = $this->view($player, Response::HTTP_CREATED);
-        $view->setContext($context);
-
-        return $view;
-    }
-
-    /**
-     * Get the end game informations for a player.
-     *
-     * @OA\Tag(name="Player")
-     * @Security(name="Bearer")
-     * @Rest\GET(path="/{player}/end")
-     * @Rest\View()
-     */
-    public function fetchEndPlayerAction(Player $player): View
-    {
-        $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_END, $player);
-
-        if ($player->getGameStatus() !== GameStatusEnum::FINISHED) {
-            return $this->view(['message' => 'Player cannot end game'], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        $endGamePlayerInfo = $this->playerService->findDeadPlayerInfo($player);
-
-        return $this->view($endGamePlayerInfo, Response::HTTP_OK);
+        return $this->view(null, 200);
     }
 }

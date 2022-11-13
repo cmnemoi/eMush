@@ -32,12 +32,13 @@ const actions: ActionTree<any, any> = {
             const player = await PlayerService.loadPlayer(playerId);
 
             commit('updatePlayer', player);
-            commit('updateSelectedItem');
-            this.dispatch("daedalus/loadAlerts", { player: player });
-            this.dispatch("daedalus/loadMinimap", { player: player });
-            this.dispatch("room/loadRoom", { room: player?.room });
-            this.dispatch("room/updateSelectedItemPile");
-
+            if (player?.gameStatus === 'in_game') {
+                commit('updateSelectedItem');
+                this.dispatch("daedalus/loadAlerts", { player: player });
+                this.dispatch("daedalus/loadMinimap", { player: player });
+                this.dispatch("room/loadRoom", { room: player?.room });
+                this.dispatch("room/updateSelectedItemPile");
+            }
             return true;
         } catch (e) {
             commit('errorUpdatePlayer');

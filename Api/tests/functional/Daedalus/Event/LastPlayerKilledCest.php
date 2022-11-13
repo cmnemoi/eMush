@@ -7,6 +7,7 @@ use DateTime;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\Neron;
@@ -16,6 +17,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
+use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class LastPlayerKilledCest
@@ -33,6 +35,9 @@ class LastPlayerKilledCest
         $daedalusConfig = $I->have(DaedalusConfig::class);
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig]);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
@@ -62,7 +67,12 @@ class LastPlayerKilledCest
         /** @var Player $player */
         $player = $I->have(
             Player::class,
-            ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig, 'healthPoint' => 99]
+            [
+                'daedalus' => $daedalus,
+                'place' => $room,
+                'characterConfig' => $characterConfig,
+                'user' => $user,
+            ]
         );
 
         $event = new PlayerEvent($player, ActionEnum::HIT, new DateTime());
@@ -70,5 +80,6 @@ class LastPlayerKilledCest
 
         $I->assertEquals(GameStatusEnum::FINISHED, $daedalus->getGameStatus());
         $I->assertCount(0, $daedalus->getPlayers()->getPlayerAlive());
+        $I->seeInRepository(ClosedDaedalus::class);
     }
 }

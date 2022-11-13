@@ -21,7 +21,7 @@ const PlayerService = {
 
     loadDeadPlayerInfo: async(playerId: number): Promise<DeadPlayerInfo | null> => {
         store.dispatch('player/setLoading', { loading: true });
-        const deadPlayerData = await ApiService.get(ACTION_ENDPOINT + '/' + playerId + '/end');
+        const deadPlayerData = await ApiService.get(ACTION_ENDPOINT + '/' + playerId);
 
         let deadPlayer = null;
         if (deadPlayerData.data) {

@@ -104,7 +104,7 @@ class ChannelController extends AbstractFOSRestController
     }
 
     /**
-     * Create a channel.
+     * Check if a new private channel can be created.
      *
      * @OA\Tag(name="Channel")
      * @Security(name="Bearer")
@@ -119,7 +119,7 @@ class ChannelController extends AbstractFOSRestController
             throw new AccessDeniedException('User should be in game');
         }
 
-        if ($player->getGameStatus() !== GameStatusEnum::CURRENT) {
+        if ($player->getGameStatus() === GameStatusEnum::CLOSED) {
             throw new AccessDeniedException('Player is dead');
         }
 

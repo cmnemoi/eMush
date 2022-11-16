@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="alerts.ext">
+    <unit id="broken_doors">
+      <segment id="name" state="translated">
+        <source>broken_doors.name</source>
+        <target>{quantity, plural, one {# Door broken} other {# Doors broken}}</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>broken_doors.description</source>
+        <target>Contact a technician or get to work!</target>
+      </segment>
+      <segment id="report" state="translated">
+        <source>broken_doors.report</source>
+        <target>**{character}** has reported a locked door {loc_prep} **{place}**.</target>
+      </segment>
+    </unit>
+    <unit id="fires">
+      <segment id="name" state="translated">
+        <source>fires.name</source>
+        <target>{quantity, plural, one {# Fire in progress} other {# Fires in progress}}</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>fires.description</source>
+        <target>Tell a responsible person or grab an extinguisher!</target>
+      </segment>
+      <segment id="report" state="translated">
+        <source>fires.report</source>
+        <target>**{character}** has reported a fire {loc_prep} **{place}**.</target>
+      </segment>
+    </unit>
+    <unit id="broken_equipments">
+      <segment id="name" state="translated">
+        <source>broken_equipments.name</source>
+        <target>{quantity, plural, one {# piece of equipment broken} other {# pieces of equipment broken}}</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>broken_equipments.description</source>
+        <target>Contact a technician or get to work!</target>
+      </segment>
+      <segment id="report" state="translated">
+        <source>broken_equipments.report</source>
+        <target>**{character}** has reported a broken piece of equipment {loc_prep}**{place}**.</target>
+      </segment>
+    </unit>
+    <unit id="no_gravity">
+      <segment id="name" state="translated">
+        <source>no_gravity.name</source>
+        <target>No Gravity Simulator</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>no_gravity.description</source>
+        <target>The Gravity Simulator hasn't been started up. Every Movement Point gains are reduced by 1 :pm:! Fix it so that NERON can re-establish gravity for the next cycle. </target>
+      </segment>
+    </unit>
+    <unit id="low_oxygen">
+      <segment id="name" state="translated">
+        <source>low_oxygen.name</source>
+        <target>Asphyxia</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>low_oxygen.description</source>
+        <target>**Less than 1 day**'s supply of oxygen remaining! If this situation doesn\t change soon, the crew will die.</target>
+      </segment>
+    </unit>
+    <unit id="outcast">
+      <segment id="name" state="translated">
+        <source>outcast.name</source>
+        <target>Outcast</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>outcast.description</source>
+        <target>{character} is an outcast, you should consult the crew to find out what should be done.</target>
+      </segment>
+    </unit>
+    <unit id="lost_crewmate">
+      <segment id="name" state="translated">
+        <source>lost_crewmate.name</source>
+        <target>Lost crewmate</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>lost_crewmate.description</source>
+        <target>One of your teammates is lost on a planet, you should organize an expedition to get them back!</target>
+      </segment>
+    </unit>
+    <unit id="low_hull">
+      <segment id="name" state="translated">
+        <source>low_hull.name</source>
+        <target>{quantity}% Armor</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>low_hull.description</source>
+        <target>The ship's structure needs attention. Contact a technician or get to work!</target>
+      </segment>
+    </unit>
+    <unit id="hunger">
+      <segment id="name" state="translated">
+        <source>hunger.name</source>
+        <target>Hunger</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>hunger.description</source>
+        <target>The crew is seriously **hungry**. You must find something to eat.</target>
+      </segment>
+    </unit>
+    <unit id="communication_down">
+      <segment id="name" state="translated">
+        <source>communication_down.name</source>
+        <target>No Link</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>communication_down.description</source>
+        <target>The Daedalus has no **communication link** with Sol! Maintaining a link with Sol is important for the morale of the group and essential for survival.</target>
+      </segment>
+    </unit>
+    <unit id="hunter">
+      <segment id="name" state="translated">
+        <source>hunter.name</source>
+        <target>{quantity, plural, one {# Hunter is attacking us!} other {# Hunters are attacking us!}}</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>hunter.description</source>
+        <target>Warn the assault team or get involved!</target>
+      </segment>
+    </unit>
+    <unit id="no_alert">
+      <segment id="name" state="translated">
+        <source>no_alert.name</source>
+        <target>Calm</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>no_alert.description</source>
+        <target>No alerts in progress: the crew can relax.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

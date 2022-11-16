@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="player.ext">
+    <unit id="healthPoint">
+      <segment id="name" state="translated">
+        <source>healthPoint.name</source>
+        <target>{quantity} Health Points</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>healthPoint.description</source>
+        <target>*Health Points* (:hp:) represent your health. When the bar is empty, you're finished.</target>
+      </segment>
+    </unit>
+    <unit id="moralPoint">
+      <segment id="name" state="translated">
+        <source>moralPoint.name</source>
+        <target>{quantity} Morale Points</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>moralPoint.description</source>
+        <target>**Morale Points* (:pmo:) represent your level of hope and your ability to deal with the toughest tests of your spirit.
+//
+It is a precious resource: to regain it quickly, you can eat some fruit or consult your crewmates.</target>
+      </segment>
+    </unit>
+    <unit id="actionPoint">
+      <segment id="name" state="translated">
+        <source>actionPoint.name</source>
+        <target>Action and Movement Points</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>actionPoint.description</source>
+        <target>You earn *Action Points* (:pa:) and *Movement Points* (:pm:) every *new cycle* and by eating *cooked rations*.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

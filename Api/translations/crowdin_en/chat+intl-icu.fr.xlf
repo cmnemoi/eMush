@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="chat.ext">
+    <unit id="tips">
+      <segment id="name" state="translated">
+        <source>tips.name</source>
+        <target>Tips</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>tips.description</source>
+        <target>Here you can find **practical tips** for daily life (sponsored by letsmove.gov).</target>
+      </segment>
+    </unit>
+    <unit id="room_log">
+      <segment id="name" state="translated">
+        <source>room_log.name</source>
+        <target>Room events</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>room_log.description</source>
+        <target>Here is the log of **all events occurring in the room you are currently in** since you arrived.
+If there is a camera, covert and secret actions will also be logged.</target>
+      </segment>
+    </unit>
+    <unit id="public">
+      <segment id="name" state="translated">
+        <source>public.name</source>
+        <target>Discussion</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>public.description</source>
+        <target>The Discussion Channel is essential for the organization of the team.
+To participate you must have a :talkie: walkie-talkie.</target>
+      </segment>
+    </unit>
+    <unit id="private">
+      <segment id="name" state="translated">
+        <source>private.name</source>
+        <target>Private Channel</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>private.description</source>
+        <target>Your walkie-talkie has an open private channel. Click here to start a conversation with one or more crewmates who also have a :talkie: **walkie-talkie**.
+**Please note that private channels are a part of the game and are therefore subject to the same confidentiality constraints as eMush.**</target>
+      </segment>
+    </unit>
+    <unit id="new">
+      <segment id="name" state="translated">
+        <source>new.name</source>
+        <target>Private channel</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>new.description</source>
+        <target>Your walkie-talkie has an open private channel. Click here to start a conversation with one or more crewmates who also have a :talkie: **walkie-talkie**.
+**Please note that private channels are a part of the game and are therefore subject to the same confidentiality constraints as eMush.**</target>
+      </segment>
+    </unit>
+    <unit id="message_date">
+      <segment id="message_date.less_minute" state="translated">
+        <source>message_date.less_minute</source>
+        <target>just now</target>
+      </segment>
+      <segment id="message_date.more_minute" state="translated">
+        <source>message_date.more_minute</source>
+        <target>{quantity}min</target>
+      </segment>
+      <segment id="message_date.more_hour" state="translated">
+        <source>message_date.more_hour</source>
+        <target>~{quantity}h</target>
+      </segment>
+      <segment id="message_date.more_day" state="translated">
+        <source>message_date.more_day</source>
+        <target>~{quantity}d</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

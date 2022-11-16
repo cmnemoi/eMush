@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+  <file id="disease_message.ext">
+    <unit id="coprolalia">
+      <segment id="pre" state="translated">
+        <source>pre_coprolalia</source>
+        <target>{version, select,
+                        1 {Hey bande {word, select,
+                        1 {d''} 4 {d''} 8 {d''}
+                        19 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
+                        21 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
+                        other {de }
+                    }{word_plural_coprolalia}, }
+                    2 {Hé les {word_plural_coprolalia}, }
+                    3 {Dis donc {word_coprolalia}, }
+                    other {invalid version}
+                }</target>
+      </segment>
+      <segment id="post" state="translated">
+        <source>post_coprolalia</source>
+        <target>{version, select,
+                    1 {, tous des {word_plural_coprolalia} de tte façon.}
+                    2 {, vraiment des {word_plural_coprolalia}...}
+                    3 {, si c'est pas une belle bande de {prefix_coprolalia} {word, select,
+                        1 {d''} 4 {d''} 8 {d''}
+                        19 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
+                        20 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
+                        other {de }
+                    }{word_plural_coprolalia}...}
+                    other {invalid version}
+                }</target>
+      </segment>
+      <segment id="replace" state="translated">
+        <source>replace_coprolalia</source>
+        <target>{version, select,
+                    1 {Tous des {word_plural_coprolalia}.}
+                    2 {Bande {word, select,
+                        1 {d''} 4 {d''} 8 {d''}
+                        19 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
+                        20 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
+                        other {de }
+                    }{word_plural_coprolalia}, où vous cachez vos {balls_coprolalia}}
+                    3 {Une vrai ribambelles {word, select,
+                        1 {d''} 4 {d''} 8 {d''}
+                        19 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
+                        20 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}}
+                        other {de }
+                        }{word_plural_coprolalia}.
+                    }
+                    4 {Vous allez vous remuer les {balls_coprolalia}, oui ?}
+                    5 {Vous êtes tous des {word_plural_coprolalia}.}
+                    6 {Vous rempotez des {balls_coprolalia}, nan ?}
+                    7 {Vous n'avez rien dans les {balls_coprolalia}, hein !}
+                    8 {Les admins, ce sont vraiment des {word_plural_coprolalia}.}
+                    9 {{prefix_coprolalia} d'admins de daube}
+                    10 {{prefix_coprolalia} de {word_plural_coprolalia}.}
+                    11 {Vous et votre courage de {prefix_coprolalia} de daube}
+                    12 {{prefix_coprolalia} de daube}
+                    13 {Tu sais ce qu'il te dit le sac à {balls_coprolalia} ? bonjouurrrrrrrr !}
+                    other {invalid version}
+                    }</target>
+      </segment>
+      <segment id="word" state="translated">
+        <source>word_coprolalia</source>
+        <target>{word, select,
+                    1 {analphabète}
+                    2 {barbapapa}
+                    3 {blair}
+                    4 {enflure purulente}
+                    5 {fesse de cactus}
+                    6 {furoncle}
+                    7 {giclure de pustules}
+                    8 {hétérozygote}
+                    9 {mister freeze}
+                    10 {mou du jnou}
+                    11 {pleutre}
+                    12 {raclure {adjective_female_single_coprolalia}}
+                    13 {raclure {preposition_coprolalia}}
+                    14 {rature}
+                    15 {burne {adjective_female_single_coprolalia}}
+                    16 {burne {preposition_coprolalia}}
+                    17 {peau {preposition_coprolalia}}
+                    18 {queue de {animal_coprolalia}}
+                    19 {{animal_coprolalia}{animal, select,
+                        1 {{adjective_female_single_coprolalia}}
+                        8 {{adjective_female_single_coprolalia}}
+                        9 {{adjective_female_single_coprolalia}}
+                        other {{adjective_male_single_coprolalia}}
+                    }}
+                    20 {{animal_coprolalia}}
+                    21 {youpi banane}
+                    other {invalid version}
+                    }</target>
+      </segment>
+      <segment id="word_plural" state="translated">
+        <source>word_plural_coprolalia</source>
+        <target>{word, select,
+                    1 {analphabètes}
+                    2 {barbapapas}
+                    3 {blairs}
+                    4 {enflures purulentes}
+                    5 {fesses de cactus}
+                    6 {furoncles}
+                    7 {giclures de pustules}
+                    8 {hétérozygotes}
+                    9 {misters freeze}
+                    10 {mous du jnou}
+                    11 {pleutres}
+                    12 {raclures {adjective_female_plural_coprolalia}}
+                    13 {raclures {preposition_coprolalia}}
+                    14 {ratures}
+                    15 {burnes {adjective_female_plural_coprolalia}}
+                    16 {burnes {preposition_coprolalia}}
+                    17 {peaux {preposition_coprolalia}}
+                    18 {queues de {animal_coprolalia}}
+                    19 {{animal_plural_coprolalia} {animal, select,
+                        1 {{adjective_female_plural_coprolalia}}
+                        8 {{adjective_female_plural_coprolalia}}
+                        9 {{adjective_female_plural_coprolalia}}
+                        other {{adjective_male_plural_coprolalia}}
+                    }}
+                    20 {{animal_plural_coprolalia}}
+                    21 {youpi bananes}
+                    other {invalid version}
+                    }</target>
+      </segment>
+      <segment id="animal" state="translated">
+        <source>animal_coprolalia</source>
+        <target>{animal, select,
+                    1 {loutre}
+                    2 {marsouin}
+                    3 {ornithorynque}
+                    4 {canari}
+                    5 {mammouth laineux}
+                    6 {chancre}
+                    7 {gnou}
+                    8 {moule}
+                    9 {huitre}
+                    10 {macaque}
+                    11 {oursin}
+                    12 {scolopendre}
+                    13 {poulpe}
+                    14 {zèbre}
+                    other {invalid version}
+                }</target>
+      </segment>
+      <segment id="animal_plural" state="translated">
+        <source>animal_plural_coprolalia</source>
+        <target>{animal, select,
+                    1 {loutres}
+                    2 {marsouins}
+                    3 {ornithorynques}
+                    4 {canaris}
+                    5 {mammouths laineux}
+                    6 {chancres}
+                    7 {gnous}
+                    8 {moules}
+                    9 {huitres}
+                    10 {macaques}
+                    11 {oursins}
+                    12 {scolopendres}
+                    13 {poulpes}
+                    14 {zèbres}
+                    other {invalid version}
+                    }</target>
+      </segment>
+      <segment id="balls" state="translated">
+        <source>balls_coprolalia</source>
+        <target>{balls, select,
+                    1 {bouloches}
+                    2 {roubignettes}
+                    3 {sacs à poutre}
+                    4 {tromboches}
+                    5 {trombones}
+                    6 {sifflets}
+                    7 {flutiaux}
+                    8 {pipeaux}
+                    9 {balls}
+                    other {invalid version}
+                }</target>
+      </segment>
+      <segment id="adjective_male_single" state="translated">
+        <source>adjective_male_single_coprolalia</source>
+        <target>{adjective, select,
+                    1 {bourré}
+                    2 {coprophage}
+                    3 {mou}
+                    4 {fripé}
+                    5 {drogué}
+                    6 {décapité}
+                    other {invalid adjective}
+                }</target>
+      </segment>
+      <segment id="adjective_male_plural" state="translated">
+        <source>adjective_male_plural_coprolalia</source>
+        <target>{adjective, select,
+                    1 {bourrés}
+                    2 {coprophages}
+                    3 {mous}
+                    4 {fripés}
+                    5 {drogués}
+                    6 {décapités}
+                    other {invalid adjective}
+                    }</target>
+      </segment>
+      <segment id="adjective_female_single" state="translated">
+        <source>adjective_female_single_coprolalia</source>
+        <target>{adjective, select,
+                    1 {bourrée}
+                    2 {coprophage}
+                    3 {molle}
+                    4 {fripée}
+                    5 {droguée}
+                    6 {décapitée}
+                    other {invalid adjective}
+                    }</target>
+      </segment>
+      <segment id="adjective_female_plural" state="translated">
+        <source>adjective_female_plural_coprolalia</source>
+        <target>{adjective, select,
+                    1 {bourrées}
+                    2 { coprophages}
+                    3 { molles}
+                    4 { fripées}
+                    5 { droguées}
+                    6 { décapitées}
+                    other {invalid adjective}
+                    }</target>
+      </segment>
+      <segment id="preposition" state="translated">
+        <source>preposition_coprolalia</source>
+        <target>{adjective, select,
+                    1 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}{animal_coprolalia}}
+                    2 {de derrière {animal, select, 3{d''} 9{d''} 11{d''} other {de }}{animal_coprolalia}}
+                    3 {de laine {animal, select, 3{d''} 9{d''} 11{d''} other {de }}{animal_coprolalia}}
+                    4 {de vessie {animal, select, 3{d''} 9{d''} 11{d''} other {de }}{animal_coprolalia}}
+                    5 {de {balls_coprolalia} {animal, select, 3{d''} 9{d''} 11{d''} other {de }}{animal_coprolalia}}
+                    6 {de rate {animal, select, 3{d''} 9{d''} 11{d''} other {de }}{animal_coprolalia}}
+                    other {invalid version}
+                }</target>
+      </segment>
+      <segment id="prefix" state="translated">
+        <source>prefix_coprolalia</source>
+        <target>{prefix, select,
+                    1 {purée}
+                    2 {punaise}
+                    3 {bordel}
+                    4 {giclée}
+                    other {invalid version}
+                    }</target>
+      </segment>
+    </unit>
+    <unit id="paranoia">
+      <segment id="replace" state="translated">
+        <source>replace_paranoia</source>
+        <target>{version, select,
+                    1 {Cette partie est vraiment nulle…}
+                    2 {Je ne sais {paranoia_version4, select,
+                        1 {pas trop}
+                        2 {pas bien}
+                        3 {pas du tout}
+                        other {pas}
+                    } comment on va s'en sortir…}
+                    3 {Je {paranoia_version4, select,
+                        1 {ne vois pas trop}
+                        2 {vois mal}
+                        3 {ne vois pas du tout}
+                        other {ne vois pas bien}
+                    } comment on va s'en sortir…}
+                    4 {L'équipage du Pacific Princess aurait fait mieux que nous.}
+                    5 {Les Mush sont partout…}
+                    6 {On est tous foutus…}
+                    7 {Quel jeu de merde…}
+                    8 {Je {paranoia_version4, select,
+                        1 {pense}
+                        2 {crois}
+                        3 {vous jure}
+                        other {kroa}
+                    } qu'il y a un admin qui nous matte…}
+                    9 {Je {paranoia_version4, select,
+                        1 {pense}
+                        2 {crois}
+                        3 {vous jure}
+                        other {kroa}
+                    } qu'on veut ma peau…}
+                    10 {Je suis sûr que c'est cheaté…}
+                    11 {Je {paranoia_version4, select,
+                        1 {pense}
+                        2 {crois}
+                        3 {vous jure}
+                        other {kroa}
+                    } qu'il y a un admin qui nous plombe…}
+                    12 {{paranoia_version4, select,
+                        1 {NERON}
+                        2 {L'équipe de recherche}
+                        3 {L'admin NERON}
+                        other {Le commandant}
+                    } {paranoia_version6, select,
+                        1 {nimp.}
+                        2 {nawak.}
+                        3 {n'importe quoi.}
+                        4 {que des conneries.}
+                        5 {ke de la daube.}
+                        other {que des trucs pourris.}
+                    }}
+                    other {invalid version}
+                    }</target>
+      </segment>
+      <segment id="accuse" state="translated">
+        <source>accuse_paranoia</source>
+        <target>{version, select,
+                    1 {Tu sais, {character} est du Mush…}
+                    2 {Je {paranoia_version4, select,
+                        1 {pense}
+                        2 {crois}
+                        3 {vous jure}
+                        other {kroa}
+                    } que je vais {paranoia_version6, select,
+                        1 {fumer}
+                        2 {tuer}
+                        3 {me débarrasser de}
+                        4 {buter}
+                        5 {crever}
+                        other {planter}
+                    } {character}.}
+                    3 {Il y a quand même toutes les raisons de croire que {character} est mush.}
+                    4 {{character} c'est un mush en fait, j'en suis sûr…}
+                    5 {{character} c'est un mush en vrai.}
+                    6 {{character} est Mush…}
+                    7 {{character} est un danger pour nous tous.}
+                    8 {{character} est une menace pour nous tous.}
+                    9 {{character} n'a pas arrosé les plantes, à mon avis, c'est un mush…}
+                    10 {{character} fait {paranoia_version6, select,
+                        1 {nimp.}
+                        2 {nawak.}
+                        3 {n'importe quoi.}
+                        4 {que des conneries.}
+                        5 {ke de la daube.}
+                        other {que des trucs pourris.}
+                    }}
+                    other {invalid version}
+                    }</target>
+      </segment>
+      <segment id="pre" state="translated">
+        <source>pre_paranoia</source>
+        <target>{version, select,
+                    {Ptain, }
+                    {Bordel, }
+                    {Fait iech, }
+                    {Iech, }
+                    other {invalid version}
+                    }</target>
+      </segment>
+    </unit>
+    <unit id="deaf">
+      <segment id="deaf" state="translated">
+        <source>deaf</source>
+        <target>...</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

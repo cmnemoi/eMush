@@ -20,7 +20,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+        $gameConfig = $this->getReference(GameConfigFixtures::FRENCH_DEFAULT_GAME_CONFIG);
 
         /** @var ModifierConfig $reduceMax1HealthPoint */
         $reduceMax1HealthPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_1_HEALTH_POINT);

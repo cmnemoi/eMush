@@ -33,7 +33,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+        $gameConfig = $this->getReference(GameConfigFixtures::FRENCH_DEFAULT_GAME_CONFIG);
 
         $notMoveActionCondition = new ModifierCondition(ModifierConditionEnum::NOT_REASON);
         $notMoveActionCondition->setCondition(ActionEnum::MOVE);

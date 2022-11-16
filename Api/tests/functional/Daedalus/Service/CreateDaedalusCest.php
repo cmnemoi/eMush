@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\ModifierConfig;
@@ -185,7 +186,7 @@ class CreateDaedalusCest
         $gameConfig = new GameConfig();
 
         $gameConfig
-            ->setName('default')
+            ->setName(GameConfigEnum::FRENCH_DEFAULT)
             ->setNbMush(3)
             ->setCyclePerGameDay(8)
             ->setCycleLength(60 * 3)

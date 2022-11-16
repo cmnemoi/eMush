@@ -22,7 +22,7 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
     public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+        $gameConfig = $this->getReference(GameConfigFixtures::FRENCH_DEFAULT_GAME_CONFIG);
 
         /** @var DiseaseCauseConfig $diseaseCausesConfig */
         $diseaseCausesConfig = $this->getReference(DiseaseCausesConfigFixtures::ALIEN_FRUIT_DISEASE_CAUSE_CONFIG);

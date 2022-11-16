@@ -16,7 +16,7 @@ class TriumphConfigFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+        $gameConfig = $this->getReference(GameConfigFixtures::FRENCH_DEFAULT_GAME_CONFIG);
 
         $alienScience = new TriumphConfig();
         $alienScience

@@ -9,6 +9,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 
 class DaedalusFactory extends \Codeception\Module
@@ -49,7 +50,7 @@ class DaedalusFactory extends \Codeception\Module
         ]);
 
         $factory->_define(GameConfig::class, [
-            'name' => 'default',
+            'name' => GameConfigEnum::FRENCH_DEFAULT,
             'difficultyConfig' => 'entity|' . DifficultyConfig::class,
             'daedalusConfig' => 'entity|' . DaedalusConfig::class,
             'nbMush' => 2,

@@ -36,7 +36,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
     public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+        $gameConfig = $this->getReference(GameConfigFixtures::FRENCH_DEFAULT_GAME_CONFIG);
 
         $catInRoomCondition = new ModifierCondition(ModifierConditionEnum::ITEM_IN_ROOM);
         $catInRoomCondition->setCondition(ItemEnum::SCHRODINGER);

@@ -7,6 +7,7 @@ use Mush\Game\Entity\Collection\TriumphConfigCollection;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Repository\GameConfigRepository;
+use Mush\Game\Enum\GameConfigEnum;
 
 class GameConfigService implements GameConfigServiceInterface
 {
@@ -30,7 +31,7 @@ class GameConfigService implements GameConfigServiceInterface
 
     public function getConfig(): GameConfig
     {
-        return $this->repository->findOneByName('default');
+        return $this->repository->findOneByName(GameConfigEnum::FRENCH_DEFAULT);
     }
 
     public function getDifficultyConfig(): DifficultyConfig

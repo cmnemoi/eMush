@@ -58,7 +58,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
     public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+        $gameConfig = $this->getReference(GameConfigFixtures::FRENCH_DEFAULT_GAME_CONFIG);
 
         $randCondition10 = new ModifierCondition(ModifierConditionEnum::RANDOM);
         $randCondition10->setValue(10);

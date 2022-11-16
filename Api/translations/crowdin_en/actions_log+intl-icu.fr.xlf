@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="actions_log.ext">
+    <unit id="check_spore_level">
+      <segment id="check_spore_level" state="final">
+        <source>check_spore_level</source>
+        <target>You start seeking traces of Mush... Pre-fungal level {quantity, select, 0 {nul} other {{quantity}}}.</target>
+      </segment>
+    </unit>
+    <unit id="coffee_success">
+      <segment id="coffee_success" state="final">
+        <source>coffee_success</source>
+        <target>**{character}** primes the machine. In a fit of crashing and banging, the mechanics kick in, the cogs grind and the aromas fill the room. It smells like a warm morning on a terrace on Venus. Coffee!</target>
+      </segment>
+    </unit>
+    <unit id="dispense_success">
+      <segment id="dispense_success" state="final">
+        <source>dispense_success</source>
+        <target>**{character}** hits up the dispenser with a strange glow in their eyes.</target>
+      </segment>
+    </unit>
+    <unit id="phagocyte_success">
+      <segment id="phagocyte_success" state="translated">
+        <source>phagocyte_success</source>
+        <target>**{character}** has absorbed a spore to reinvigorate themself.</target>
+      </segment>
+    </unit>
+    <unit id="consume_success">
+      <segment id="consume_success" state="final">
+        <source>consume_success</source>
+        <target>{version, select,
+    1 {**{character}** devoured their small meal, burp.}
+    2 {**{character}** devoured their big meal.}
+    3 {**{character}** devoured their nice little meal.} 
+    4 {**{character}** ate their nice little meal, hic.}
+    5 {**{character}** ate their big meal.} 
+    6 {**{character}** ate their little snack.} 
+    7 {**{character}** has filled their belly.} 
+    8 {**{character}** has filled their belly, burp.}
+    9 {**{character}** has filled their paunch.}  
+    10 {**{character}** has filled their paunch, burp.} 
+    11 {**{character}** has filled their stomach.}
+    12 {**{character}** has filled their stomach, burp.}
+    13 {**{character}** has filled their stomach, hic.}
+    14 {**{character}** has devoured their ration.} 
+    15 {**{character}** munched their little snack.} 
+    16 {**{character}** munched their little snack, burp.}
+    17 {**{character}** munched their little snack, hic.}
+    18 {**{character}** munched their small meal, burp.} 
+}</target>
+      </segment>
+    </unit>
+    <unit id="consume_drug">
+      <segment id="consume_drug" state="translated">
+        <source>consume_drug</source>
+        <target>**{character}** takes a pill.</target>
+      </segment>
+    </unit>
+    <unit id="consume_mush">
+      <segment id="consume_mush" state="final">
+        <source>consume_mush</source>
+        <target>You eat this pathetic morsel to pull the wool over their eyes, but it doesn't give you any energy...</target>
+      </segment>
+    </unit>
+    <unit id="cook_success">
+      <segment id="cook_success" state="final">
+        <source>cook_success</source>
+        <target>**{character}** cooked a little something for later on.</target>
+      </segment>
+    </unit>
+    <unit id="disassemble_fail">
+      <segment id="disassemble_fail" state="final">
+        <source>disassemble_fail</source>
+        <target>This thing isn't as badly made as you thought... you can't seem to manage to dismantle it...</target>
+      </segment>
+    </unit>
+    <unit id="disassemble_success">
+      <segment id="disassemble_success" state="final">
+        <source>disassemble_success</source>
+        <target>**{character}** has dismantled the **{target_equipment}**.</target>
+      </segment>
+    </unit>
+    <unit id="do_the_thing_success">
+      <segment id="do_the_thing_success" state="final">
+        <source>do_the_thing_success</source>
+        <target>**{character}** and **{target_character}** killed the lights and then the strange noises started... A few minutes later, the lights went back on. They seemed in great spirits afterwards.</target>
+      </segment>
+    </unit>
+    <unit id="drop">
+      <segment id="drop" state="final">
+        <source>drop</source>
+        <target>**{character}** has dropped a **{target_equipment}**.</target>
+      </segment>
+    </unit>
+    <unit id="express_cook_success">
+      <segment id="express_cook_success" state="final">
+        <source>express_cook_success</source>
+        <target>**{character}** put something in the microwave.</target>
+      </segment>
+    </unit>
+    <unit id="extract_spore_success">
+      <segment id="extract_spore_success" state="final">
+        <source>extract_spore_success</source>
+        <target>:mush: **{character}** has removed a spore. It's truly repulsive. And the smell...</target>
+      </segment>
+    </unit>
+    <unit id="flirt_success">
+      <segment id="flirt_success" state="final">
+        <source>flirt_success</source>
+        <target>{character_gender, select,
+    male {**{character}** seems interested in **{target_character}**. The way he looks at her leaves nobody in any doubt of his intentions.}
+    female {**{character}** seems interested in **{target_character}**, the fluttering of their eyelashes is a good indicator of their most intimate thoughts.}
+    other {invalid gender input}
+}</target>
+      </segment>
+    </unit>
+    <unit id="get_up">
+      <segment id="get_up" state="translated">
+        <source>get_up</source>
+        <target>**{character}**  wakes up calmly...</target>
+      </segment>
+    </unit>
+    <unit id="hide_success">
+      <segment id="hide_success" state="final">
+        <source>hide_success</source>
+        <target>**{character}** has hidden a **{target_equipment}**.</target>
+      </segment>
+    </unit>
+    <unit id="hit_success">
+      <segment id="hit_success" state="final">
+        <source>hit_success</source>
+        <target>{version, select,
+    1 {**{character}** hits **{target_character}** with a right...}
+    2 {**{character}** caught **{target_character}** with a majestic uppercut...}
+    3 {**{character}** caught **{target_character}** with a big right hook... who then repainted the wall with their nose...}
+    other {"invalid version number"}
+}</target>
+      </segment>
+    </unit>
+    <unit id="hit_fail">
+      <segment id="hit_fail" state="final">
+        <source>hit_fail</source>
+        <target>{version, select,
+    1 {**{character}* tried to hit **{target_character}**, alas their feeble attempt missed and hit the wall... Ouch...}
+    2 {**{character}** misses their hit on **{target_character}**.}
+    other {"invalid version number"}
+}</target>
+      </segment>
+    </unit>
+    <unit id="hyperfreeze_success">
+      <segment id="hyperfreeze_success" state="final">
+        <source>hyperfreeze_success</source>
+        <target>You have successfully hyperfrozen and repacked the food.</target>
+      </segment>
+    </unit>
+    <unit id="infect_success">
+      <segment id="infect_success" state="final">
+        <source>infect_success</source>
+        <target>:mush: **{character}** approached **{target_equipment}** in a predatory manner... and spiked them discretely!</target>
+      </segment>
+    </unit>
+    <unit id="lie_down">
+      <segment id="lie_down" state="final">
+        <source>lie_down</source>
+        <target>**{character}** is lying down... It's good to just stop and take a break. Destination : the land of dreams!</target>
+      </segment>
+    </unit>
+    <unit id="enter_room">
+      <segment id="enter_room" state="final">
+        <source>enter_room</source>
+        <target>**{character}** entered the room.</target>
+      </segment>
+    </unit>
+    <unit id="exit_room">
+      <segment id="exit_room" state="final">
+        <source>exit_room</source>
+        <target>**{character}** left the room.</target>
+      </segment>
+    </unit>
+    <unit id="read_book">
+      <segment id="read_book" state="final">
+        <source>read_book</source>
+        <target>**{character}** starts reading enthusiastically...</target>
+      </segment>
+    </unit>
+    <unit id="read_document">
+      <segment id="read_document" state="final">
+        <source>read_document</source>
+        <target>**{character}** starts reading enthusiastically...</target>
+      </segment>
+    </unit>
+    <unit id="repair_fail">
+      <segment id="repair_fail" state="translated">
+        <source>repair_fail</source>
+        <target>{versionPart1, select,
+    1 {Who would have thought that this **{target_equipment}** would turn out to be such a head wreck. Repair attempt fail.}
+    2 {The condition of the **{target_equipment}** is deteriorating... With a little luck you'll get it right next time.}
+    3 {This **{target_equipment}** has still not been fixed. You weren't so far away either...}
+    4 {The **{target_equipment}** is still broken. What was the problem...}
+    5 {You have failed to repair the **{target_equipment}**.}
+    6 {Despite your determination, your attempts to repair the **{target_equipment}** have been in vain.}
+    7 {The **{target_equipment}** smells of burning. Do or do not. There is no try.}
+    8 {The **{target_equipment}** is still broken. Maybe if you tried again with a more suitable tool.}
+    9 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. This room is spectacularly ugly...}
+    10 {The **{target_equipment}** is still broken. You weren't so far away either...}
+    11 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. You had the right idea...}
+    12 {The condition of the **{target_equipment}** is deteriorating... Maybe a second opinion is merited.}
+    13 {Despite your determination, your attempts to repair the **{target_equipment}** have been in vain.}
+    14 {The **{target_equipment}** smells of burning. You had the right idea...}
+    15 {The condition of the **{target_equipment}** is deteriorating... You knew you shouldn't have skipped that dressmaking class...}
+    16 {This **{target_equipment}** has still not been fixed. Try something else...}
+    17 {The **{target_equipment}** is still broken. What was the problem...}
+    18 {The condition of the **{target_equipment}** is deteriorating... Take a minute... consider the lily.}
+    19 {You have failed to repair the **{target_equipment}**.}
+    20 {This **{target_equipment}** has still not been fixed. This old alien equipment has let you down again.}
+    21 {The condition of the **{target_equipment}** is deteriorating... You look more competent using chopsticks with your feet...}
+    22 {The **{target_equipment}** smells of burning. Try to look at things from the other side and change your profession.}
+    23 {The **{target_equipment}** is still broken. What didn't work...}
+    24 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. You should do something else.}
+    25 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. Have you tried knitting...}
+    26 {The **{target_equipment}** is still broken. You weren't so far away either...}
+    27 {Your attempt to repair the **{target_equipment}** has failed... You should do something else.}
+    28 {Your attempt to repair the **{target_equipment}** has failed... You look more competent using chopsticks with your feet...}
+    29 {The **{target_equipment}** is still broken. Maybe you're just not cut out for this.}
+    30 {**{target_equipment}** or not to **{target_equipment}**... That is the question... yet another question is how to fix this damn thing.}
+    31 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. Have you tried knitting...}
+    32 {Your attempt to repair the **{target_equipment}** has failed... Maybe you should sit down and have a little something to eat.}
+    33 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. Forget the others and concentrate.}
+    34 {The **{target_equipment}** smells of burning. You should have tried using the zygocompressor.}
+    35 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. Maybe you should sit down and have a little something to eat.}
+    36 {Your attempt to repair the **{target_equipment}** has failed... You look more competent using chopsticks with your feet...}
+    37 {**{target_equipment}** or not to **{target_equipment}**... That is the question... yet another question is how to fix this damn thing.}
+    38 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. You should do something else.}
+    39 {The **{target_equipment}** is still broken. Maybe if you tried again with a more suitable tool.}
+    40 {The **{target_equipment}** smells of burning. You had the right idea...}
+    41 {The **{target_equipment}** is still broken. Maybe you're just not cut out for this.}
+    42 {The **{target_equipment}** is still broken. Maybe if you tried again with a more suitable tool.}
+    43 {The condition of the **{target_equipment}** is deteriorating... You weren't so far away either...}
+    44 {Another vain attempt to repair the wretched **{target_equipment}**.}
+    other {invalid version number}
+}</target>
+      </segment>
+    </unit>
+    <unit id="repair_success">
+      <segment id="repair_success" state="final">
+        <source>repair_success</source>
+        <target>{versionPart1, select,
+    1 {Who would have thought that this **{target_equipment}** would turn out to be such a head wreck. Repair attempt fail.}
+    2 {The condition of the **{target_equipment}** is deteriorating... With a little luck you'll get it right next time.}
+    3 {This **{target_equipment}** has still not been fixed. You weren't so far away either...}
+    4 {The **{target_equipment}** is still broken. What was the problem...}
+    5 {You have failed to repair the **{target_equipment}**.}
+    6 {Despite your determination, your attempts to repair the **{target_equipment}** have been in vain.}
+    7 {The **{target_equipment}** smells of burning. Do or do not. There is no try.}
+    8 {The **{target_equipment}** is still broken. Maybe if you tried again with a more suitable tool.}
+    9 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. This room is spectacularly ugly...}
+    10 {The **{target_equipment}** is still broken. You weren't so far away either...}
+    11 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. You had the right idea...}
+    12 {The condition of the **{target_equipment}** is deteriorating... Maybe a second opinion is merited.}
+    13 {Despite your determination, your attempts to repair the **{target_equipment}** have been in vain.}
+    14 {The **{target_equipment}** smells of burning. You had the right idea...}
+    15 {The condition of the **{target_equipment}** is deteriorating... You knew you shouldn't have skipped that dressmaking class...}
+    16 {This **{target_equipment}** has still not been fixed. Try something else...}
+    17 {The **{target_equipment}** is still broken. What was the problem...}
+    18 {The condition of the **{target_equipment}** is deteriorating... Take a minute... consider the lily.}
+    19 {You have failed to repair the **{target_equipment}**.}
+    20 {This **{target_equipment}** has still not been fixed. This old alien equipment has let you down again.}
+    21 {The condition of the **{target_equipment}** is deteriorating... You look more competent using chopsticks with your feet...}
+    22 {The **{target_equipment}** smells of burning. Try to look at things from the other side and change your profession.}
+    23 {The **{target_equipment}** is still broken. What didn't work...}
+    24 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. You should do something else.}
+    25 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. Have you tried knitting...}
+    26 {The **{target_equipment}** is still broken. You weren't so far away either...}
+    27 {Your attempt to repair the **{target_equipment}** has failed... You should do something else.}
+    28 {Your attempt to repair the **{target_equipment}** has failed... You look more competent using chopsticks with your feet...}
+    29 {The **{target_equipment}** is still broken. Maybe you're just not cut out for this.}
+    30 {**{target_equipment}** or not to **{target_equipment}**... That is the question... yet another question is how to fix this damn thing.}
+    31 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. Have you tried knitting...}
+    32 {Your attempt to repair the **{target_equipment}** has failed... Maybe you should sit down and have a little something to eat.}
+    33 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. Forget the others and concentrate.}
+    34 {The **{target_equipment}** smells of burning. You should have tried using the zygocompressor.}
+    35 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. Maybe you should sit down and have a little something to eat.}
+    36 {Your attempt to repair the **{target_equipment}** has failed... You look more competent using chopsticks with your feet...}
+    37 {**{target_equipment}** or not to **{target_equipment}**... That is the question... yet another question is how to fix this damn thing.}
+    38 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. You should do something else.}
+    39 {The **{target_equipment}** is still broken. Maybe if you tried again with a more suitable tool.}
+    40 {The **{target_equipment}** smells of burning. You had the right idea...}
+    41 {The **{target_equipment}** is still broken. Maybe you're just not cut out for this.}
+    42 {The **{target_equipment}** is still broken. Maybe if you tried again with a more suitable tool.}
+    43 {The condition of the **{target_equipment}** is deteriorating... You weren't so far away either...}
+    44 {Another vain attempt to repair the wretched **{target_equipment}**.}
+}</target>
+      </segment>
+    </unit>
+    <unit id="search_success">
+      <segment id="search_success" state="translated">
+        <source>search_success</source>
+        <target>**{character}** has discovered a hidden **{equipment}**.</target>
+      </segment>
+    </unit>
+    <unit id="search_fail">
+      <segment id="search_fail" state="final">
+        <source>search_fail</source>
+        <target>You have found nothing.</target>
+      </segment>
+    </unit>
+    <unit id="shower_human">
+      <segment id="shower_human" state="final">
+        <source>shower_human</source>
+        <target>You wash yourself slowly under the shower, enjoying this rare moment of serenity...</target>
+      </segment>
+    </unit>
+    <unit id="shower_mush">
+      <segment id="shower_mush" state="final">
+        <source>shower_mush</source>
+        <target>While washing you feel yourself burning, like the water is slowly killing you... What you wouldn't do to switch places with one of them...</target>
+      </segment>
+    </unit>
+    <unit id="wash_in_sink_human">
+      <segment id="wash_in_sink_human" state="final">
+        <source>wash_in_sink_human</source>
+        <target>You wash yourself painfully, wondering if dismantling the showers was a good idea...</target>
+      </segment>
+    </unit>
+    <unit id="wash_in_sink_mush">
+      <segment id="wash_in_sink_mush" state="final">
+        <source>wash_in_sink_mush</source>
+        <target>While washing you feel yourself burning, like the water is slowly killing you... What you wouldn't do to switch places with one of them...</target>
+      </segment>
+    </unit>
+    <unit id="shred_success">
+      <segment id="shred_success" state="translated">
+        <source>shred_success</source>
+        <target>{version, select,
+    1 {**{character}** is tearing up a piece of paper but looks very determined.}
+    2 {**{character}** is tearing up a piece of paper but looks very satisfied.}
+    3 {**{character}** is tearing up a piece of paper but looks very worried.}
+    4 {**{character}** is tearing up a piece of paper but looks very relieved.}
+    other {"invalid version number"}
+}</target>
+      </segment>
+    </unit>
+    <unit id="take">
+      <segment id="take" state="translated">
+        <source>take</source>
+        <target>**{character}** has picked up the **{target_equipment}**.</target>
+      </segment>
+    </unit>
+    <unit id="hybridize_success">
+      <segment id="hybridize_success" state="final">
+        <source>hybridize_success</source>
+        <target>What a relief, **{character}** has successfully created a crossbreed of the **{target_equipment}**. The little plant is doing great!</target>
+      </segment>
+    </unit>
+    <unit id="hybridize_fail">
+      <segment id="hybridize_fail" state="final">
+        <source>hybridize_fail</source>
+        <target>What a relief... oh wait... **{character}** has not succeeded in their attempt to crossbreed a **{target_equipment}**. The little plant didn't grow and eventually died... Something must have contaminated the procedure.</target>
+      </segment>
+    </unit>
+    <unit id="treat_plant_success">
+      <segment id="treat_plant_success" state="final">
+        <source>treat_plant_success</source>
+        <target>You take a moment to wonder about the ventilation in the room as you apply the pink MT brand fungosecticide to your dear plant. After all it was used as successful biological and chemical warfare agent, but hey, the future of humankind is at stake.</target>
+      </segment>
+    </unit>
+    <unit id="water_plant_success">
+      <segment id="water_plant_success" state="final">
+        <source>water_plant_success</source>
+        <target>You water the plants lovingly.</target>
+      </segment>
+    </unit>
+    <unit id="write_success">
+      <segment id="write_success" state="initial">
+        <source>write_success</source>
+        <target>write_success</target>
+      </segment>
+    </unit>
+    <unit id="insert_oxygen">
+      <segment id="insert_oxygen" state="final">
+        <source>insert_oxygen</source>
+        <target>Pscchhhht... And there we go, a little extra oxygen!</target>
+      </segment>
+    </unit>
+    <unit id="retrieve_oxygen">
+      <segment id="retrieve_oxygen" state="final">
+        <source>retrieve_oxygen</source>
+        <target>{version, select,
+    **{character}** took some oxygen out of the reservoir very cautiously. They looks shady. 
+    **{character}** took some oxygen out of the reservoir very cautiously. They looks so peaceful.
+    **{character}** took some oxygen out of the reservoir very cautiously. That grin is unsettling. 
+    **{character}** took some oxygen out of the reservoir very cautiously. Is that really necessary? 
+    **{character}** took some oxygen out of the reservoir very cautiously. But why? 
+    **{character}** took some oxygen out of the reservoir very cautiously. It's all for charity... probably. 
+    **{character}** took some oxygen out of the reservoir very cautiously. Their goal is almost certainly commendable.
+    **{character}** took some oxygen out of the reservoir very cautiously. their smile reminds you of something. 
+    **{character}** took some oxygen out of the reservoir very cautiously. You recognize that laugh... 
+    **{character}** took some oxygen out of the reservoir very cautiously. Maybe you should keep a closer eye on them.
+    other {"invalid version number"}
+}</target>
+      </segment>
+    </unit>
+    <unit id="retrieve_fuel">
+      <segment id="retrieve_fuel" state="final">
+        <source>retrieve_fuel</source>
+        <target>**{character}** has removed a fuel capsule from the tank.</target>
+      </segment>
+    </unit>
+    <unit id="insert_fuel">
+      <segment id="insert_fuel" state="final">
+        <source>insert_fuel</source>
+        <target>**{character}** has inserted a *fuel capsule* into the tank.</target>
+      </segment>
+    </unit>
+    <unit id="sabotage_success">
+      <segment id="sabotage_success" state="final">
+        <source>sabotage_success</source>
+        <target>Strange, **{character}** is busying around their **{target_equipment}** which is giving off smoke...</target>
+      </segment>
+    </unit>
+    <unit id="sabotage_fail">
+      <segment id="sabotage_fail" state="final">
+        <source>sabotage_fail</source>
+        <target>Your sabotage attempt failed... it's trickier than it seems.</target>
+      </segment>
+    </unit>
+    <unit id="extinguish_success">
+      <segment id="extinguish_success" state="final">
+        <source>extinguish_success</source>
+        <target>**{character}** put out the fire!</target>
+      </segment>
+    </unit>
+    <unit id="extinguish_fail">
+      <segment id="extinguish_fail" state="final">
+        <source>extinguish_fail</source>
+        <target>You failed to extinguish the fire...</target>
+      </segment>
+    </unit>
+    <unit id="comfort_success">
+      <segment id="comfort_success" state="final">
+        <source>comfort_success</source>
+        <target>**{character}** comforts **{target_character}**, it'll be better tomorrow, just you wait and see...</target>
+      </segment>
+    </unit>
+    <unit id="heal_success">
+      <segment id="heal_success" state="final">
+        <source>heal_success</source>
+        <target>**{character}**  has healed {quantity} :hp: for **{target_character}**.</target>
+      </segment>
+    </unit>
+    <unit id="self_heal">
+      <segment id="self_heal" state="final">
+        <source>self_heal</source>
+        <target>You have healed yourself and in doing so, have restored {quantity} :hp:.</target>
+      </segment>
+    </unit>
+    <unit id="ultraheal_success">
+      <segment id="ultraheal_success" state="final">
+        <source>ultraheal_success</source>
+        <target>**{character}** is surrounded by a glowing halo. Horrible iridescent blue tentacles run along their body. The light they emit is blinding. Their wounds are perfectly healed!</target>
+      </segment>
+    </unit>
+    <unit id="strengthen_success">
+      <segment id="strengthen_success" state="final">
+        <source>strengthen_success</source>
+        <target>**{character}**'s attempt to repair the hull has succeeded. It was high time that somebody took care of that...</target>
+      </segment>
+    </unit>
+    <unit id="default_fail">
+      <segment id="default_fail" state="final">
+        <source>default_fail</source>
+        <target>Your attempt failed.</target>
+      </segment>
+    </unit>
+    <unit id="spread_fire_success">
+      <segment id="spread_fire_success" state="final">
+        <source>spread_fire_success</source>
+        <target>:mush: Well... it's getting hot in here... **{character}** has set fire to the room...</target>
+      </segment>
+    </unit>
+    <unit id="install_camera">
+      <segment id="install_camera" state="final">
+        <source>install_camera</source>
+        <target>**{character}** installed their little **Camera** with care.</target>
+      </segment>
+    </unit>
+    <unit id="remove_camera">
+      <segment id="remove_camera" state="translated">
+        <source>remove_camera</source>
+        <target>**{character}** has removed the Camera. It couldn't have been of any further use.</target>
+      </segment>
+    </unit>
+    <unit id="try_kube">
+      <segment id="try_kube" state="translated">
+        <source>try_kube</source>
+        <target>**{character}**  is trying to resolve the infernal kube.</target>
+      </segment>
+    </unit>
+    <unit id="remove_spore_success">
+      <segment id="remove_spore_fail" state="translated">
+        <source>remove_spore_success</source>
+        <target>You use your extractor on this wretched boil. The noise is somewhat terrifying as is the amount of blood... Hang on, what the hell is that?</target>
+      </segment>
+    </unit>
+    <unit id="remove_spore_fail">
+      <segment id="remove_spore_fail" state="final">
+        <source>remove_spore_fail</source>
+        <target>You use your extractor on this wretched boil. The noise is somewhat terrifying as is the amount of blood... Fortunately there is no spore there to recover.</target>
+      </segment>
+    </unit>
+    <unit id="public_broadcast">
+      <segment id="public_broadcast" state="final">
+        <source>public_broadcast</source>
+        <target>Everyone looks focused on the small screen. 
+Blouzorg appears on the screen, he looks proud and you can't understand anything he says. 
+But it doesn't matter! [...] You applaud when Blouzorg beats his mother-in-law [...]. 
+Who would have thought that Blouzorg and his space dog could danse the jerk! [...] 
+Will Blouzorg marry Blourka? [...] The lights go out. These alien series are really incredible...</target>
+      </segment>
+    </unit>
+    <unit id="motivational_speech">
+      <segment id="motivational_speech" state="translated">
+        <source>motivational_speech</source>
+        <target>{version, select,
+    1 {OK guys this isn't working at all. You seem convinced that the Mush will commit suicide from despair. I remind you that we must study it first, so a little pessimism is ok, yeah?}
+    2 {Comrades! Our destiny is to save humanity... We are the hope that the last Martyrs of Sol were waiting for and we will show that we are worthy of their memoirs! We are the future and we will fight until the end of time!}
+    other {invalid version input}
+}
+</target>
+      </segment>
+    </unit>
+    <unit id="boring_speech">
+      <segment id="boring_speech" state="translated">
+        <source>boring_speech</source>
+        <target>{version, select, 
+    1 {Remember that day when... blablabla blablabla blabla blablabla... and 
+then I... blablabla blablabla blablabla... and that's when the... 
+blablabla blablabla blablabla... which meant that... blablabla blablabla
+ blablabla... blablabla blablabla blabla... and ever since that day... 
+blablabla blablabla blablabla}                        
+    2 {Following your misbehavior, we were thinking it'd be a good time to remind you of the golden rules of being a good crewmate, which you were informed of before your cryogenization... Let's begin... "I swear to never occupy a bed for more than five consecutive cycles, and I'll do so in order to allow my crewmates to rest adequately, in compliance with the SDF Treatment regulations"... Next...}
+    other {invalid version input}
+}
+</target>
+      </segment>
+    </unit>
+    <unit id="make_sick">
+      <segment id="make_sick" state="translated">
+        <source>make_sick</source>
+        <target>:mush: **{character}** blows on **{target_character}** a strange cloud...</target>
+      </segment>
+    </unit>
+    <unit id="fake_disease">
+      <segment id="fake_disease" state="translated">
+        <source>fake_disease</source>
+        <target>{character_gender, select,
+    male {That's strange **{character}** takes out a powder case and daubs himself with white and black. He doesn't look good at all.}
+    female {That's strange **{character}** takes out a compact and daubs herself with black and white. She doesn't look good at all.}
+    other {invalid gender input}
+}</target>
+      </segment>
+    </unit>
+    <unit id="fail_surgery">
+      <segment id="fail_surgery" state="translated">
+        <source>fail_surgery</source>
+        <target>The operation seems to last forever, **{character}** finally gives his verdict with a defeated look... **{target_character}** does a septic shock...</target>
+      </segment>
+    </unit>
+    <unit id="fail_self_surgery">
+      <segment id="fail_self_surgery" state="translated">
+        <source>fail_self_surgery</source>
+        <target>The operation seems to last forever, **{character}** does a septic shock...</target>
+      </segment>
+    </unit>
+    <unit id="gag_success">
+      <segment id="gag_success" state="final">
+        <source>gag_success</source>
+        <target>**{character}** gagged **{target_character}**.</target>
+      </segment>
+    </unit>
+    <unit id="ungag_success">
+      <segment id="ungag_success" state="final">
+        <source>ungag_success</source>
+        <target>{character_gender, select,
+                    male {**{character}** ungagged himself.}
+                    female {**{character}** ungagged herself.}
+                    other {invalid gender input}
+                    }</target>
+      </segment>
+    </unit>
+    <unit id="screw_talkie_success">
+      <segment id="screw_talkie_success" state="translated">
+        <source>screw_talkie_success</source>
+        <target>:mush: **{character}** approached **{target_character}** and appeared to slip something into their walkie-talkie...</target>
+      </segment>
+    </unit>
+    <unit id="update_talkie_success">
+      <segment id="update_talkie_success" state="translated">
+        <source>update_talkie_success</source>
+        <target>A piece of tape here, a weld there... and to think that this is all it takes to have a state-of-the-art iTrackie®©. All that's left to do is install the updates.</target>
+      </segment>
+    </unit>
+    <unit id="attack_success">
+      <segment id="attack_success" state="translated">
+        <source>attack_success</source>
+        <target>{version, select,
+    1 {**{character}** thrusts at **{target_character}** with flair.}
+    2 {**{character}** plunges their blade into one of **{target_character}**'s joints.}
+    3 {**{character}** carves a chunk out of **{target_character}**, it's gross...}
+    4 {Despite a good dodge, **{character}** has lost a little blood.}
+    5 {**{character}**'s adeptly wielded blade makes a huge gash in **{target_character}**.}
+    other {invalid version input}
+}
+</target>
+      </segment>
+    </unit>
+    <unit id="attack_fail">
+      <segment id="attack_fail" state="translated">
+        <source>attack_fail</source>
+        <target>**{character}** unsheathed their blade and tried to attack **{target_character}** but missed the target.</target>
+      </segment>
+    </unit>
+    <unit id="attack_critical_success">
+      <segment id="attack_critical_success" state="translated">
+        <source>attack_critical_success</source>
+        <target>{version, select,
+    1 {Crash ! **{character}**'s weapon elegantly avoids **{target_character}** and instead crashes against a concrete bystander.} 
+    2 {**{character}** unsheathed their blade and tried to attack **{target_character}** but missed the target.}
+    other {invalid version input}
+}</target>
+      </segment>
+    </unit>
+    <unit id="attack_critical_fail">
+      <segment id="attack_critical_fail" state="translated">
+        <source>attack_critical_fail</source>
+        <target>{version, select,
+    1 {**{character}** missed their target by a good distance and the clash against a nearby wall made them bite their tongue...} 
+    2 {In their great impressive movement, **{character}** snaps a back muscle. Too bad.}
+    other {invalid version input}
+}</target>
+      </segment>
+    </unit>
+    <unit id="shoot_success">
+      <segment id="shoot_success" state="translated">
+        <source>shoot_success</source>
+        <target>Premeditated or not, **{character}** took out their weapon and opened fire on **{target_character}**.</target>
+      </segment>
+    </unit>
+    <unit id="shoot_fail">
+      <segment id="shoot_fail" state="translated">
+        <source>shoot_fail</source>
+        <target>**{character}** shot at **{target_character}** but they're clearly incapable of aiming properly...</target>
+      </segment>
+    </unit>
+    <unit id="shoot_critical_success">
+      <segment id="shoot_critical_success" state="translated">
+        <source>shoot_critical_success</source>
+        <target>**{character}** shots directly at **{target_character}**'s head which rolls on the ground.</target>
+      </segment>
+    </unit>
+    <unit id="shoot_critical_fail">
+      <segment id="shoot_critical_fail" state="translated">
+        <source>shoot_critical_fail</source>
+        <target>When firing at **{target_character}**, **{character}** got burnt with their weapon. Spectacular work. </target>
+      </segment>
+    </unit>
+    <unit id="suicide_success">
+      <segment id="suicide_success" state="translated">
+        <source>suicide_success</source>
+        <target>{character_gender, select,
+                male {**{character}** was obviously in a hurry, he opens a space-time portal and jumps in with both feet. We shouldn't see him again soon.}
+                female {**{character}** was obviously in a hurry, she opens a space-time portal and jumps in with both feet. We should not see her again soon.}
+                other {invalid character_gender input}
+                }</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

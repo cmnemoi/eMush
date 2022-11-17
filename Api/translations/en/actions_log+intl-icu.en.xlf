@@ -22,7 +22,7 @@
     <unit id="phagocyte_success">
       <segment id="phagocyte_success" state="translated">
         <source>phagocyte_success</source>
-        <target>**{character}** has absorbed a spore to reinvigorate themself.</target>
+        <target>:mush: **{character}** has absorbed a spore to reinvigorate themself.</target>
       </segment>
     </unit>
     <unit id="consume_success">
@@ -487,7 +487,7 @@
     <unit id="remove_camera">
       <segment id="remove_camera" state="translated">
         <source>remove_camera</source>
-        <target>**{character}** has removed the Camera. It couldn't have been of any further use.</target>
+        <target>**{character}** has removed the **Camera**. It couldn't have been of any further use.</target>
       </segment>
     </unit>
     <unit id="try_kube">
@@ -525,8 +525,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     1 {OK guys this isn't working at all. You seem convinced that the Mush will commit suicide from despair. I remind you that we must study it first, so a little pessimism is ok, yeah?}
     2 {Comrades! Our destiny is to save humanity... We are the hope that the last Martyrs of Sol were waiting for and we will show that we are worthy of their memoirs! We are the future and we will fight until the end of time!}
     other {invalid version input}
-}
-</target>
+}</target>
       </segment>
     </unit>
     <unit id="boring_speech">
@@ -540,8 +539,7 @@ blablabla blablabla blablabla... which meant that... blablabla blablabla
 blablabla blablabla blablabla}                        
     2 {Following your misbehavior, we were thinking it'd be a good time to remind you of the golden rules of being a good crewmate, which you were informed of before your cryogenization... Let's begin... "I swear to never occupy a bed for more than five consecutive cycles, and I'll do so in order to allow my crewmates to rest adequately, in compliance with the SDF Treatment regulations"... Next...}
     other {invalid version input}
-}
-</target>
+}</target>
       </segment>
     </unit>
     <unit id="make_sick">
@@ -610,22 +608,25 @@ blablabla blablabla blablabla}
     4 {Despite a good dodge, **{character}** has lost a little blood.}
     5 {**{character}**'s adeptly wielded blade makes a huge gash in **{target_character}**.}
     other {invalid version input}
-}
-</target>
+}</target>
       </segment>
     </unit>
     <unit id="attack_fail">
       <segment id="attack_fail" state="translated">
         <source>attack_fail</source>
-        <target>**{character}** unsheathed their blade and tried to attack **{target_character}** but missed the target.</target>
+        <target>{version, select,
+    1 {Crash ! **{character}**'s weapon elegantly avoids **{target_character}** and instead crashes against a concrete bystander.} 
+    2 {**{character}** unsheathed their blade and tried to attack **{target_character}** but missed the target.}
+    other {invalid version input}
+}</target>
       </segment>
     </unit>
     <unit id="attack_critical_success">
       <segment id="attack_critical_success" state="translated">
         <source>attack_critical_success</source>
         <target>{version, select,
-    1 {Crash ! **{character}**'s weapon elegantly avoids **{target_character}** and instead crashes against a concrete bystander.} 
-    2 {**{character}** unsheathed their blade and tried to attack **{target_character}** but missed the target.}
+    1 {With an evil eye, **{character}** sneaks up behind **{target_character}** and cuts his carotid artery.}
+    2 {The last words of **{target_character}** could have been "You too **{character}**..." who dies stabbed in the heart.}
     other {invalid version input}
 }</target>
       </segment>
@@ -649,7 +650,9 @@ blablabla blablabla blablabla}
     <unit id="shoot_fail">
       <segment id="shoot_fail" state="translated">
         <source>shoot_fail</source>
-        <target>**{character}** shot at **{target_character}** but they're clearly incapable of aiming properly...</target>
+        <target>{version, select,
+    other {**{character}** shot at **{target_character}** but they're clearly incapable of aiming properly...}
+}</target>
       </segment>
     </unit>
     <unit id="shoot_critical_success">
@@ -661,7 +664,9 @@ blablabla blablabla blablabla}
     <unit id="shoot_critical_fail">
       <segment id="shoot_critical_fail" state="translated">
         <source>shoot_critical_fail</source>
-        <target>When firing at **{target_character}**, **{character}** got burnt with their weapon. Spectacular work. </target>
+        <target>{version, select,
+    other {When firing at **{target_character}**, **{character}** got burnt with their weapon. Spectacular work.}
+}</target>
       </segment>
     </unit>
     <unit id="suicide_success">

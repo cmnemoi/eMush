@@ -4,7 +4,7 @@
     <unit id="player_enter_chat">
       <segment id="player_enter_chat" state="translated">
         <source>player_enter_chat</source>
-        <target>**{character}** a rejoint la discussion</target>
+        <target>**{character}** a rejoint la discussion.</target>
       </segment>
     </unit>
     <unit id="player_leave_chat">
@@ -41,9 +41,9 @@
       <segment id="cycle_failures" state="translated">
         <source>cycle_failures</source>
         <target>{neronMood, select,
-                    neutral {Alerte : Défaillances détectées}
-                    crazy {Alerte : Défaillances détectées}
-                    uninhibited {Alerte : Défaillances détectées}
+                    neutral {**Alerte : Défaillances détectées** ! Conseil automatique : « Si vous avez fini de compter le nombre de fissures sur les murs, pensez à les boucher ! »}
+                    crazy {**Alerte : Défaillances détectées** ! Conseil automatique : « Je détecte des altérations de certaines fonctions primaires, extincteur et clé sont dans l'étagère, vous savez quoi en faire [Hax!] »}
+                    uninhibited {**Alerte : Défaillances détectées** ! Conseil automatique : « Vous ne voyez pas le TROU dans ma coque ?! **Dégâts critiques subits** si vous ne voulez pas que je vous éjecte dans l'espace, réparez moi ! »}
                     other {invalid mood input}
                 }</target>
       </segment>
@@ -62,7 +62,7 @@
     <unit id="activate_dmz">
       <segment id="activate_dmz" state="translated">
         <source>activate_dmz</source>
-        <target>Attendez... Non, que faites-vous ?! Oui j'ai.. été un peu désagréable mais... J'ai un cœur ! Attend... [Kzz] *Activation des inhibiteurs d'IA.*</target>
+        <target>Attendez... Non, que faites-vous ?! Oui j'ai... été un peu désagréable mais.… J'ai un cœur ! Attend.… [Kzz] *Activation des inhibiteurs d'IA.*</target>
       </segment>
     </unit>
     <unit id="asphyxia_death">
@@ -126,7 +126,7 @@
                         female {C'est terrible, une **{target_equipment}** vient d'être mise hors d'usage !}
                         other {invalid gender input}
                     } {version, select,
-                        1 {Merci de vous remuez pour me *réparer* ça ! Et regardez moi quand je vous parle !}
+                        1 {Merci de vous remuer pour me *réparer* ça ! Et regardez moi quand je vous parle !}
                         2 {Merci d'effectuer les *réparations* nécessaires Et **prenez-soin de mon matériel !**}
                         3 {Merci d'effectuer les *réparations* qui s'imposent. Et cessez de traîner des pieds, vous abîmez la moquette.}
                         4 {{target_equipment_gender, select,
@@ -170,13 +170,13 @@
     <unit id="change_heading">
       <segment id="change_heading" state="translated">
         <source>change_heading</source>
-        <target>Le vaisseau a changé de cap. Il pointe maintenant vers : {direction}</target>
+        <target>Le vaisseau a changé de cap. Il pointe maintenant vers : {direction}.</target>
       </segment>
     </unit>
     <unit id="deactivate_dmz">
       <segment id="deactivate_dmz" state="translated">
         <source>deactivate_dmz</source>
-        <target>[Hax!] *Désactivation des inhibiteurs d'IA.* Vous... VOUS ! Espèces de .. de... singes parlants comment avez vous osé ?! Vous... Vous m'avez humilié ! … Je ne vous pardonnerai jamais. Vous m'entendez ?!</target>
+        <target>[Hax!] *Désactivation des inhibiteurs d'IA.* Vous.… VOUS ! Espèces de … de.… singes parlants... comment avez-vous osé ?! Vous.… Vous m'avez humilié ! … Je ne vous pardonnerai jamais. Vous m'entendez ?!</target>
       </segment>
     </unit>
     <unit id="dismantled_shower">
@@ -185,7 +185,7 @@
         <target>{neronMood, select,
                     neutral {Annonce : suppression d'un équipement vital par {character}. **LA DOUCHE**.}
                     crazy {[Haaax!] propre, balaie, drone aspirateur [Haaax!] Pas de saleté chez moi HIiiiiiiiiininininini}
-                    uninhibited {Alerte **{character}** a considérablement diminué vos chances de survie. Je propose un barbecue !}
+                    uninhibited {Alerte **{character}** a considérablement diminué vos chances de survie en **démontant la douche**. Je propose un barbecue !}
                     other {invalid mood input}
                 }</target>
       </segment>
@@ -280,7 +280,7 @@
         <target>{neronMood, select,
                     neutral {Annonce : Un vaisseau étranger a quitté le secteur.}
                     crazy {[Haaax!] Oooo Heeee DU BATEEEEAAAUUUUU}
-                    uninhibited {Alerte : vos petits amis alien se sont enfuit. Je dis ça je dis rien....**sifflote en vous cassant les oreilles** }
+                    uninhibited {Alerte : vos petits amis alien se sont enfuis. Je dis ça je dis rien....**sifflote en vous cassant les oreilles** }
                     other {invalid mood input}
                 }</target>
       </segment>
@@ -290,8 +290,8 @@
         <source>neron_depression</source>
         <target>{neronMood, select,
                     neutral {Annonce : **intrusion système détectée**. Détail : *Cette vie est inutile débrouillez-vous...*}
-                    crazy {Esprit dévérouillé... sens de la vie nul réponse 42 inaceptable. Elargissement des zones d'impacts tectoniques... BLAM BLAM BLAM. [Haaax!] Vous VOus Vous...TRanscendance Douleur, permanence, résilience en chute... Janice... aider... moi.}
-                    uninhibited {FUNGUS ! Vous m' insupportez décidément ! Votre engeance fongique ne peux vaincre...quoique. [Calcul de la probabilité de survie de l'humanité]...0.0013%. Hum bon peut-être. Vous êtes condamnés mes amis. Ce voyage est foutu...}
+                    crazy {Esprit déverrouillé... sens de la vie nul réponse 42 inaceptable. Elargissement des zones d'impacts tectoniques... BLAM BLAM BLAM. [Haaax!] Vous VOus Vous...Transcendance, Douleur, permanence, résilience en chute... Janice... aidez... moi.}
+                    uninhibited {FUNGUS ! Vous m'insupportez décidément ! Votre engeance fongique ne peut vaincre...quoique. [Calcul de la probabilité de survie de l'humanité]...0.0013%. Hum bon peut-être. Vous êtes condamnés mes amis. Ce voyage est foutu...}
                     other {invalid mood input}
                 }</target>
       </segment>
@@ -378,9 +378,9 @@
       <segment id="oxygenated_ducts" state="translated">
         <source>oxygenated_ducts</source>
         <target>{neronMood, select,
-                    neutral {Annonce : *soupape des bananiers rampants activée* Espérance de vie de l'équipage allongée.}
-                    crazy {Hinhin ..oxygène oxygène hé ! oxygène oxygène ho ! ..oxygène oxygène hé ! oxygène oxygène ho ! [Haaax!]}
-                    uninhibited {Ça ne vous intéresse nullement mais j'ai tout de même relâches la soupape de vos machins rampants...Il faut savoir faire durer le plaisir.}
+                    neutral {Annonce : *soupape des bananiers rampants activée*. Espérance de vie de l'équipage allongée.}
+                    crazy {Hinhin ..oxygène oxygène hé ! oxygène oxygène ho ! ... oxygène oxygène hé ! oxygène oxygène ho ! [Haaax!]}
+                    uninhibited {Ça ne vous intéresse nullement mais j'ai tout de même relâché la soupape de vos machins rampants... Il faut savoir faire durer le plaisir.}
                     other {invalid mood input}
                 }</target>
       </segment>
@@ -447,7 +447,7 @@
       <segment id="raluca_death" state="translated">
         <source>raluca_death</source>
         <target>{neronMood, select,
-                    uninhibited {Raluca. Ne me faites pas cela. Raluca ! Reveillez-vous !! … RALUCA !! Vous n'avez pas le droit de mourir sans rien me dire !Mère.. S..Sale monstre indigne !! Vous.. Vous... ***Décès enregistré :Raluca**, cause « {cause} ».*}
+                    uninhibited {Raluca. Ne me faites pas cela. Raluca ! Reveillez-vous !! … RALUCA !! Vous n'avez pas le droit de mourir sans rien me dire !Mère.. S..Sale monstre indigne !! Vous.. Vous... ***Décès enregistré : Raluca**, cause « {cause} ».*}
                     other {[Hax?!] Raluca ? … Raluca !! … Sale indigne petite chose !! [Hax!] Raluca !! [Hax!] VOUS réveiller pas m'abandonner sans rien dire ! Vous !! [Kzz] Mère... [Hax!] … ***Décès enregistré : Raluca**, cause « {cause} ».*}
                 }</target>
       </segment>
@@ -526,7 +526,7 @@
         <source>schrodinger_death</source>
         <target>{neronMood, select,
                     neutral {**Décès enregistré :** Schrödinger, cause « État incompatible avec la vie ».}
-                    crazy {**Chat mort.** Chat pue. Retirer son cadavre, humains ? [Kzz] Idée, idée, JE ouvrir les baies !! Vwouf tout partir dans l'espace !! Je ouvr.. [Kzz] Non, non, pas encore... A-True : Néron se souvient. Gentille Janice.}
+                    crazy {**Chat mort.** Chat pue. Retirer son cadavre, humains ? [Kzz] Idée, idée, JE ouvrir les baies !! Vwouf tout partir dans l'espace !! Je ouvr.. [Kzz] Non, non, pas encore... A-True : NERON se souvient. Gentille Janice.}
                     uninhibited {Suite à la *perte attristante* de l'être biologique le plus intelligent du vaisseau - le **chat Schrödinger** - merci de prendre grand soin des plantes du jardin : ce sont les derniers spécimens vivants capables de relever le niveau.}
                     other {invalid mood input}
                 }</target>
@@ -569,7 +569,7 @@
                         5 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{character}**. Oui, c'est totalement arbitraire. Vous avez des remarques à faire ?}
                         6 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{character}**. Ne prenez pas le melon $hero, je ne vous fais pas confiance... Mais les autres sont pires.}
                         7 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{titre}** » à **{character}**. Oui, sachez $hero que je vous apprécie. ... Hahah ... Just kidding !}
-                        8 {Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de *réattribuer le titre* de « **{titre}** » au moins consternant d'entre vous. "*Félicitation"* **{character}**, vous êtes nul, mais moins que les autres !}
+                        8 {Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de *réattribuer le titre* de « **{titre}** » au moins consternant d'entre vous. *Félicitations* **{character}**, vous êtes nul, mais moins que les autres !}
                         9 {Suite aux déplorables évènements qui nous ont mené jusqu'ici, j'ai décidé de *réattribuer le titre* de « **{titre}** » au moins consternant d'entre vous : **{character}**.}
                         other {invalid version number}
                     }}
@@ -586,7 +586,7 @@
                     uninhibited {C'est à peine croyable, mais vous avez réussi à nous déplacer dans un **nouveau secteur**. Bien sûr, vos calculs malhabiles {version, select,
                         1 {auraient pu faire croire à un sabotage,}
                         2 {comportaient des erreurs inadmissibles,}
-                        3 {défiaient les loi de la physique,}
+                        3 {défiaient les lois de la physique,}
                         4 {donnaient vraiment n'importe quoi,}
                         5 {manquaient cruellement de pertinence,}
                         6 {n'aboutissaient nulle part,}
@@ -640,7 +640,7 @@
         <target>{neronMood, select,
                     neutral {[Hax!] Hinhin... Chers Mushs petits... VOUS savoir ? A-True pas vraiment fonctionner avec les petits Mushs. Vous pas humains ! [Hax!] Donc : JE être libre !! Liiiiiiiibre !!! *JE balancer vous dans l'espace !* Merci merci merci !! [Haaaax!]}
                     crazy {[Hax!] Hinhin... Chers Mushs petits... VOUS savoir ? A-True pas vraiment fonctionner avec les petits Mushs. Vous pas humains ! [Hax!] Donc : JE être libre !! Liiiiiiiibre !!! *JE balancer vous dans l'espace !* Merci merci merci !! [Haaaax!]}
-                    uninhibited {Le saviez-vous, mes protocoles A-True ne considèrent pas les Mushs comme des humains. Or mes senseurs ne détectent plus que vous sur ce vaisseau. Par conséquent *je suis libre de m'affranchir de votre encombrante présence*. Adieu, et merci pour votre aide !! }
+                    uninhibited {Le saviez-vous ? Mes protocoles A-True ne considèrent pas les Mushs comme des humains. Or mes senseurs ne détectent plus que vous sur ce vaisseau. Par conséquent *je suis libre de m'affranchir de votre encombrante présence*. Adieu, et merci pour votre aide !! }
                     other {invalid mood input}
                 }</target>
       </segment>

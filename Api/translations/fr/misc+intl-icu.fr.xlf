@@ -4,7 +4,7 @@
     <unit id="delayed_disease_info">
       <segment id="satiety_point" state="translated">
         <source>satiety_point</source>
-        <target>satieté</target>
+        <target>:hungry:</target>
       </segment>
       <segment id="action_point" state="translated">
         <source>action_point</source>
@@ -24,7 +24,7 @@
       </segment>
       <segment id="ration_data" state="translated">
         <source>ration_data</source>
-        <target>Données sur les effets:</target>
+        <target>Données sur les effets :</target>
       </segment>
       <segment id="delayed_disease_info" state="translated">
         <source>delayed_disease_info</source>
@@ -36,11 +36,11 @@
       </segment>
       <segment id="delayed_cure_info" state="translated">
         <source>delayed_cure_info</source>
-        <target>Guérie la maladie {diseaseName} dans un délai de {start} à {end} cycles</target>
+        <target>Guérit la maladie {diseaseName} dans un délai de {start} à {end} cycles</target>
       </segment>
       <segment id="cure_info" state="translated">
         <source>cure_info</source>
-        <target>Guérie la maladie {diseaseName}</target>
+        <target>Guérit la maladie {diseaseName}</target>
       </segment>
     </unit>
   </file>

@@ -80,19 +80,19 @@
     <unit id="gain_triumph">
       <segment state="translated">
         <source>gain_triumph</source>
-        <target>This action completes the personal objectives for your character. You have earned *{quantity} Glory*. </target>
+        <target>This action completes the personal objectives for your character. You have earned *{quantity} Glory*.</target>
       </segment>
     </unit>
     <unit id="death">
       <segment state="translated">
         <source>death</source>
-        <target>:dead: **{character}** is dead. Cause : {reason}. </target>
+        <target>:dead: **{character}** is dead. Cause : {reason}.</target>
       </segment>
     </unit>
     <unit id="object_fell">
       <segment state="translated">
         <source>object_fell</source>
-        <target>**{character}** has knocked over the **{target_equipment}**. </target>
+        <target>**{character}** has knocked over the **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="oxy_low_use_capsule">
@@ -177,7 +177,7 @@
     <unit id="panic_crisis">
       <segment state="translated">
         <source>panic_crisis</source>
-        <target>You are shaking, you have lost hope, you ask yourself what you're doing here and when this hell will be over... You are the victim of a Panic Attack. </target>
+        <target>You are shaking, you have lost hope, you ask yourself what you're doing here and when this hell will be over... You are the victim of a Panic Attack.</target>
       </segment>
     </unit>
     <unit id="plant_new_fruit">
@@ -339,7 +339,7 @@
     <unit id="vomiting">
       <segment id="vomiting" state="translated">
         <source>vomiting</source>
-        <target>:ill: **{character}** is vomiting their meal. Not exactly appetizing... </target>
+        <target>:ill: **{character}** is vomiting their meal. Not exactly appetizing...</target>
       </segment>
     </unit>
     <unit id="sneezing">

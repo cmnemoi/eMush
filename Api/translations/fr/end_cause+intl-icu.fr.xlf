@@ -16,7 +16,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>sol_return.description</source>
-        <target>Vous avez décidez d'essayer de rentrer sur Sol. La folle course du Daedalus s'arrête ici. Mais votre destin est-il maintenant une légende ?</target>
+        <target>Vous avez décidé d'essayer de rentrer sur Sol. La folle course du Daedalus s'arrête ici. Mais votre destin est-il maintenant une légende ?</target>
       </segment>
     </unit>
     <unit id="eden">
@@ -26,11 +26,11 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>eden.short_name</source>
-        <target>Le Daedalus s'est rentré sur Eden !</target>
+        <target>Le Daedalus s'est installé sur Eden !</target>
       </segment>
       <segment id="category" state="translated">
         <source>eden.category</source>
-        <target>Après toutes ces errances, vous avez mis le cap vers EDEN… mais la suite est une autre histoire !</target>
+        <target>Après toutes ces errances, vous avez mis le cap vers Eden… mais la suite est une autre histoire !</target>
       </segment>
       <segment id="description" state="translated">
         <source>eden.description</source>
@@ -58,7 +58,7 @@
     <unit id="killed_by_neron">
       <segment id="name" state="translated">
         <source>killed_by_neron.name</source>
-        <target>Assassinés par NERON</target>
+        <target>Assassiné par NERON</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>killed_by_neron.short_name</source>
@@ -70,7 +70,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>killed_by_neron.description</source>
-        <target>L'équipage a été totalement converti par le Mush. Le protocol A-TRUE étant ainsi caduque, NERON a décidé de se débarrasser de vous. Bon voyage vers l'infini !</target>
+        <target>L'équipage a été totalement converti par le Mush. Le protocole A-TRUE étant ainsi caduque, NERON a décidé de se débarrasser de vous. Bon voyage vers l'infini !</target>
       </segment>
     </unit>
     <unit id="super_nova">
@@ -88,7 +88,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>super_nova.description</source>
-        <target>TODO</target>
+        <target>Vous avez été tué lors d'une réinitialisation de l'univers.</target>
       </segment>
     </unit>
     <unit id="alien_abducted">
@@ -102,7 +102,7 @@
       </segment>
       <segment id="category" state="translated">
         <source>alien_abducted.category</source>
-        <target>Fin de l'aventure !</target>
+        <target>Vous êtes mort !</target>
       </segment>
       <segment id="description" state="translated">
         <source>alien_abducted.description</source>
@@ -160,7 +160,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>asphyxia.description</source>
-        <target>Il n'y a plus d'oxygène. Vous étouffez par manque d'oxygène. C'est long et douleureux et puis c'est frustrant aussi.</target>
+        <target>Vous étouffez par manque d'oxygène. C'est long et douleureux et puis c'est frustrant aussi.</target>
       </segment>
     </unit>
     <unit id="abandoned">
@@ -196,7 +196,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>allergy.description</source>
-        <target>TODO</target>
+        <target>Ce maudit chat vous a encore blessé, mais pas de la façon habituelle et pas avec la même intensité.</target>
       </segment>
     </unit>
     <unit id="self_extracted">
@@ -214,7 +214,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>self_extracted.description</source>
-        <target>Vous avez un tantinet abusé de l'auto-extracteur et vous en êtes mort…</target>
+        <target>Vous avez un tantinet abusé du suceur de spore et vous en êtes mort…</target>
       </segment>
     </unit>
     <unit id="exploration">
@@ -232,7 +232,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>exploration.description</source>
-        <target>Parfois l'histoire est sordide, parfois elle est cruelle, parfois elle est triste. Et parfois glorieuse. Le récit de vos aventures fera peut être date ou pas… Quoiqu'il en soit vous avez trépassé, c'est officiel !</target>
+        <target>Parfois l'histoire est sordide, parfois elle est cruelle, parfois elle est triste. Et parfois glorieuse. Le récit de vos aventures fera peut-être date ou pas… Quoiqu'il en soit vous avez trépassé, c'est officiel !</target>
       </segment>
     </unit>
     <unit id="exploration_combat">
@@ -268,7 +268,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>exploration_lost.description</source>
-        <target>On ne va pas se mentir. Vous êtes perdu. Et malheureusement, vos coéquipier ne dispose d'aucun moyen pour vous retrouver. Donc en fait vous êtes mort, oublié de tous.</target>
+        <target>On ne va pas se mentir. Vous vous êtes perdu. Et malheureusement, vos coéquipiers ne disposaient d'aucun moyen pour vous retrouver. Donc en fait vous êtes mort, oublié de tous.</target>
       </segment>
     </unit>
     <unit id="electrocuted">
@@ -322,7 +322,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>burnt.description</source>
-        <target>Vous êtes mort calciné, brûlé. Les incendies sont monnaies courante sur le Daedalus même si NERON fait de son mieux pour les contenir.</target>
+        <target>Vous êtes mort calciné, brûlé. Les incendies sont monnaie courante sur le Daedalus même si NERON fait de son mieux pour les contenir.</target>
       </segment>
     </unit>
     <unit id="clumsiness">
@@ -332,7 +332,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>clumsiness.short_name</source>
-        <target>Tellement mal en point qu'un rien vous a achevé</target>
+        <target>Tellement mal en point qu'un rien vous a achevé...</target>
       </segment>
       <segment id="category" state="translated">
         <source>clumsiness.category</source>
@@ -350,7 +350,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>space_battle.short_name</source>
-        <target>Mort présent dans un appareil annihilé.</target>
+        <target>Mort présent dans un appareil annihilé !</target>
       </segment>
       <segment id="category" state="translated">
         <source>space_battle.category</source>
@@ -358,17 +358,17 @@
       </segment>
       <segment id="description" state="translated">
         <source>space_battle.description</source>
-        <target>Vous êtes tombé au champs d'honneur, il s'en est fallu de peu mais ce dernier Hunter était vraiment trop habile.</target>
+        <target>Vous êtes tombé au champ d'honneur, il s'en est fallu de peu mais ce dernier hunter était vraiment trop habile.</target>
       </segment>
     </unit>
     <unit id="space_asphyxiated">
       <segment id="name" state="translated">
         <source>space_asphyxiated.name</source>
-        <target>Dans l'espace sans pouvoir respirer</target>
+        <target>Dans l'espace sans pouvoir respirer...</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>space_asphyxiated.short_name</source>
-        <target>Mort abandonné dans l'espace inter sidéral !</target>
+        <target>Mort abandonné dans l'espace intersidéral !</target>
       </segment>
       <segment id="category" state="translated">
         <source>space_asphyxiated.category</source>
@@ -466,7 +466,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>metal_plate.description</source>
-        <target>Le Daedalus est une poubelle volante…Vous saviez que vous n'auriez pas dû trainer sous cette plaque branlante…</target>
+        <target>Le Daedalus est une poubelle volante… Vous saviez que  Vous n'auriez pas dû trainer sous cette plaque branlante…</target>
       </segment>
     </unit>
     <unit id="rocketed">
@@ -526,11 +526,11 @@
     <unit id="mankarog">
       <segment id="name" state="translated">
         <source>mankarog.name</source>
-        <target>Aventurier malchanceux</target>
+        <target>Aventurier trop curieux</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>mankarog.short_name</source>
-        <target>Tué par un accident dans un monde alien !</target>
+        <target>Tué par un Mankarog chafouin !</target>
       </segment>
       <segment id="category" state="translated">
         <source>mankarog.category</source>
@@ -538,7 +538,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>mankarog.description</source>
-        <target>TODO</target>
+        <target>Parfois l'histoire est sordide, parfois elle est cruelle, parfois elle est triste. Et parfois glorieuse. Le récit de vos aventures fera peut-être date ou pas… Quoiqu'il en soit vous avez trépassé, c'est officiel !</target>
       </segment>
     </unit>
     <unit id="no_infirmerie">
@@ -578,13 +578,13 @@
       </segment>
     </unit>
     <unit id="still_living">
-      <segment id="name">
-          <source>still_living.name</source>
-          <target>Pas encore</target>
+      <segment id="name" state="translated">
+        <source>still_living.name</source>
+        <target>Pas encore</target>
       </segment>
-      <segment id="description">
-          <source>still_living.description</source>
-          <target>Ce joueur est toujours en vie.</target>
+      <segment id="description" state="translated">
+        <source>still_living.description</source>
+        <target>Ce joueur est toujours en vie.</target>
       </segment>
     </unit>
   </file>

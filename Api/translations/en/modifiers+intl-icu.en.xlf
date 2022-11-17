@@ -4,7 +4,7 @@
     <unit id="cycle_disease_increase">
       <segment id="description" state="translated">
         <source>cycle_disease_increase.description</source>
-        <target>Increased chances of falling ill. </target>
+        <target>Increased chances of falling ill.</target>
       </segment>
     </unit>
     <unit id="max_point_decrease">

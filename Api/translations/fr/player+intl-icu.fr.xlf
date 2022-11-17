@@ -8,7 +8,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>healthPoint.description</source>
-        <target>Les *Points de Vie* ( :hp: ) représentent votre forme actuelle. Quand la barre est vide, c'est la mort.</target>
+        <target>Les *Points de Vie* (:hp:) représentent votre forme actuelle. Quand la barre est vide, c'est la mort.</target>
       </segment>
     </unit>
     <unit id="moralPoint">
@@ -32,7 +32,7 @@ C'est un capital précieux : pour le remonter rapidement, vous pouvez manger des
         <source>actionPoint.description</source>
         <target>Vous gagnez des *Points d'Action* (:pa:) et des *Points de Mouvement* (:pm:) à chaque **nouveau cycle** et en **mangeant**. 
 //
-Actuellement vous avez {quantityAction}  :pa: et {quantityMovement}  :pm:</target>
+Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target>
       </segment>
     </unit>
   </file>

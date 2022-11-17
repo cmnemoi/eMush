@@ -107,6 +107,30 @@
 			"dischargeStrategy": "Discharge Mode",
 			"maxCharge": "Maximum charges amount",
 			"startCharge": "Initial charges amount"
-		}
+		},
+		"actionConfig": {
+			"name": "Name",
+			"target": "Target",
+			"types": "Types",
+			"scope": "Scope",
+			"successRate": "Success rate",
+			"injuryRate": "Clumsiness rate",
+			"dirtyRate": "Dirty rate"
+		},
+		"actionCost": {
+			"actionPointCost": "Action point cost",
+			"movementPointCost": "Movement point cost",
+			"moralPointCost": "Morale point cost"
+		},
+		"daedalus": {
+			"createDaedalus": "Create a Daedalus",
+			"name": "Daedalus name :",
+			"create": "Create a Daedalus"
+		},
+		"save": "Save",
+		"show": "Show",
+		"search": "Search",
+		"edit": "Edit",
+		"updatedAt": "Updated at"
 	}
 }

@@ -58,7 +58,7 @@
             </template>
         </ChildCollectionManager>
         <button class="action-button" type="submit" @click="update">
-            {{ $t('save') }}
+            {{ $t('admin.save') }}
         </button>
     </div>
 </template>

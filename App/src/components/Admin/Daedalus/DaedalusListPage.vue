@@ -1,7 +1,7 @@
 <template>
     <div class="daedalus_list_container">
         <div class="daedalus_filter_options">
-            <label>Show
+            <label>{{$t("admin.show")}}
                 <select v-model="pagination.pageSize" @change="updateFilter">
                     <option
                         v-for="option in pageSizeOptions"
@@ -12,7 +12,7 @@
                     </option>
                 </select>
             </label>
-            <label>Search:
+            <label>{{$t("admin.search")}}
                 <input
                     v-model="filter"
                     type="search"
@@ -22,7 +22,7 @@
                     @change="updateFilter"
                 >
             </label>
-            <router-link :to="{ name: 'AdminDaedalusCreate' }">Create</router-link>
+            <router-link :to="{ name: 'AdminDaedalusCreate' }">{{$t("admin.daedalus.create")}}</router-link>
         </div>
         <Datatable
             :headers='fields'
@@ -38,7 +38,7 @@
                 Cycle/Day
             </template>
             <template #row-cycle="slotProps">
-                {{ slotProps.cycle }} / {{ slotProps.day }} (updated at: {{formatDate(slotProps.updatedAt)}})
+                {{ slotProps.cycle }} / {{ slotProps.day }} ( {{ $t('admin.updatedAt') }} {{formatDate(slotProps.updatedAt)}})
             </template>
         </Datatable>
     </div>
@@ -50,8 +50,8 @@ import urlJoin from "url-join";
 import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 import qs from "qs";
 import ApiService from "@/services/api.service";
-import { fr } from "date-fns/locale";
 import { format } from "date-fns";
+import { fr } from "date-fns/locale";
 
 export default defineComponent({
     name: "DeadalusListPage",
@@ -104,7 +104,7 @@ export default defineComponent({
     methods: {
         formatDate: (date: string): string => {
             const dateObject = new Date(date);
-            return format(dateObject, 'PPPPpp', { locale : fr });
+            return format(dateObject, 'PPPPpp', { locale: fr });  
         },
         loadData() {
             this.loading = true;

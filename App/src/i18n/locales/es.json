@@ -107,6 +107,30 @@
 			"dischargeStrategy": "Decharge Strategie",
 			"maxCharge": "Max Charge",
 			"startCharge": "Init Charge"
-		}
+		},
+		"actionConfig": {
+			"name": "Nom de l'action",
+			"target": "Cible de l'action",
+			"types": "Types de l'action",
+			"scope": "Source (scope) de l'action",
+			"successRate": "Probabilité de succès de l'action",
+			"injuryRate": "Probabilité de maladresse",
+			"dirtyRate": "Probabilité de salissure"
+		},
+		"actionCost": {
+			"actionPointCost": "Coût en points d'action",
+			"movementPointCost": "Coût en points de mouvement",
+			"moralPointCost": "Coût en points de moral"
+		},
+		"daedalus": {
+			"createDaedalus": "Créer un Daedalus :",
+			"name": "Nom du Daedalus :",
+			"create": "Créer un Daedalus"
+		},
+		"save": "Sauvegarder",
+		"show": "Montrer",
+		"search": "Chercher",
+		"edit": "Éditer",
+		"updatedAt": "Mis à jour le"
 	}
 }

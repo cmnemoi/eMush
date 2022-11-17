@@ -1,7 +1,7 @@
 <template>
     <div class="user_list_container">
         <div class="user_filter_options">
-            <label>Show
+            <label>{{ $t('admin.show') }}
                 <select v-model="pagination.pageSize" @change="updateFilter">
                     <option
                         v-for="option in pageSizeOptions"
@@ -12,7 +12,7 @@
                     </option>
                 </select>
             </label>
-            <label>Search:
+            <label>{{ $t('admin.search') }}:
                 <input
                     v-model="filter"
                     type="search"
@@ -37,7 +37,7 @@
                 Actions
             </template>
             <template #row-actions="slotProps">
-                <router-link :to="{ name: 'AdminModifierConfigDetail', params: { modifierConfigId : slotProps.id } }">Edit</router-link>
+                <router-link :to="{ name: 'AdminModifierConfigDetail', params: { modifierConfigId : slotProps.id } }">{{ $t('admin.edit') }}</router-link>
             </template>
         </Datatable>
     </div>

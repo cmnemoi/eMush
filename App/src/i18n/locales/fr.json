@@ -107,6 +107,30 @@
 			"dischargeStrategy": "Mode de décharge",
 			"maxCharge": "Nombre de charges maximum",
 			"startCharge": "Nombre de charges initiales"
-		}
+		},
+		"actionConfig": {
+			"name": "Nom",
+			"target": "Cible",
+			"types": "Types",
+			"scope": "Portée",
+			"successRate": "Taux de succès",
+			"injuryRate": "Taux de maladresse",
+			"dirtyRate": "Taux de salissure"
+		},
+		"actionCost": {
+			"actionPointCost": "Coût en points d'action",
+			"movementPointCost": "Coût en points de mouvement",
+			"moralPointCost": "Coût en points de moral"
+		},
+		"daedalus": {
+			"createDaedalus": "Créer un Daedalus",
+			"name": "Nom du Daedalus :",
+			"create": "Créer un Daedalus"
+		},
+		"save": "Sauvegarder",
+		"show": "Montrer",
+		"search": "Rechercher",
+		"edit": "Modifier",
+		"updatedAt": "Mis à jour le"
 	}
 }

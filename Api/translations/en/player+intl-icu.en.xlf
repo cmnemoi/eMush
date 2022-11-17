@@ -4,7 +4,7 @@
     <unit id="healthPoint">
       <segment id="name" state="translated">
         <source>healthPoint.name</source>
-        <target>{quantity} Health Points</target>
+        <target>{quantityHealth} Health Points</target>
       </segment>
       <segment id="description" state="translated">
         <source>healthPoint.description</source>
@@ -14,7 +14,7 @@
     <unit id="moralPoint">
       <segment id="name" state="translated">
         <source>moralPoint.name</source>
-        <target>{quantity} Morale Points</target>
+        <target>{quantityMoral} Morale Points</target>
       </segment>
       <segment id="description" state="translated">
         <source>moralPoint.description</source>
@@ -30,7 +30,8 @@ It is a precious resource: to regain it quickly, you can eat some fruit or consu
       </segment>
       <segment id="description" state="translated">
         <source>actionPoint.description</source>
-        <target>You earn *Action Points* (:pa:) and *Movement Points* (:pm:) every *new cycle* and by eating *cooked rations*.</target>
+        <target>You earn *Action Points* (:pa:) and *Movement Points* (:pm:) every *new cycle* and by eating *cooked rations*.
+Currently you have {quantityAction} :pa: and {quantityMovement} :pm:.</target>
       </segment>
     </unit>
   </file>

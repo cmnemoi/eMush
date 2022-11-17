@@ -138,7 +138,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>quincks_oedema.description</source>
-        <target>Vous avez dû frôler de trop près un de vos alergènes...</target>
+        <target>Vous avez dû frôler de trop près un de vos allergènes...</target>
       </segment>
     </unit>
     <unit id="rejuvenation">
@@ -178,7 +178,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>sinus_storm.description</source>
-        <target>Vos sinus sont en feu, de glace, puis lui déchirent la tête... C'est lourd et ça ne passe pas...</target>
+        <target>Vos sinus sont en feu, de glace, puis vous déchirent la tête... C'est lourd et ça ne passe pas...</target>
       </segment>
     </unit>
     <unit id="skin_inflammation">
@@ -188,7 +188,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>skin_inflammation.description</source>
-        <target>Quelqu'en soit la source, vous n'en avez cure, ça démange là et c'est très pénible</target>
+        <target>Quelqu'en soit la source, vous n'en avez cure, ça démange là et c'est très pénible.</target>
       </segment>
     </unit>
     <unit id="slight_nausea">
@@ -228,7 +228,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>syphilis.description</source>
-        <target>Maladie vénérienne par excellence, votre aspect effroyable et les rumeurs qui vous entoureront vous lasserons vite. Quel Dom Juan quand même...</target>
+        <target>Maladie vénérienne par excellence, votre aspect effroyable et les rumeurs qui vous entoureront vous lasseront vite. Quel Dom Juan quand même...</target>
       </segment>
     </unit>
     <unit id="vitamin_deficiency">
@@ -508,7 +508,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>damaged_ears.description</source>
-        <target>Vos oreilles ne vous sont plus d'aucune utilité et de toute façon vous ne pouvez plus les utiliser.</target>
+        <target>Vos oreilles ne vous sont plus d'aucune utilité.</target>
       </segment>
     </unit>
     <unit id="destroyed_ears">
@@ -538,7 +538,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>haemorrhage.description</source>
-        <target>Vous avez une hémorragie il vous faut une chirurgie.</target>
+        <target>Vous avez une hémorragie : il vous faut une chirurgie.</target>
       </segment>
     </unit>
     <unit id="head_trauma">

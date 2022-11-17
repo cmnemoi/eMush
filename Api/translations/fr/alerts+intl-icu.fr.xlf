@@ -12,7 +12,7 @@
       </segment>
       <segment id="report" state="translated">
         <source>broken_doors.report</source>
-        <target>**{character}** a reporté une porte bloquée {loc_prep}**{place}**.</target>
+        <target>**{character}** a reporté une porte bloquée {loc_prep} **{place}**.</target>
       </segment>
     </unit>
     <unit id="fires">
@@ -26,7 +26,7 @@
       </segment>
       <segment id="report" state="translated">
         <source>fires.report</source>
-        <target>**{character}** a reporté un incendie {loc_prep}**{place}**.</target>
+        <target>**{character}** a reporté un incendie {loc_prep} **{place}**.</target>
       </segment>
     </unit>
     <unit id="broken_equipments">
@@ -40,7 +40,7 @@
       </segment>
       <segment id="report" state="translated">
         <source>broken_equipments.report</source>
-        <target>**{character}** a reporté un équipement endommagé {loc_prep}**{place}**.</target>
+        <target>**{character}** a reporté un équipement endommagé {loc_prep} **{place}**.</target>
       </segment>
     </unit>
     <unit id="no_gravity">
@@ -50,7 +50,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>no_gravity.description</source>
-        <target>Le Simulateur de gravité n'est pas démarré. Chaque gain de Points de mouvement est réduit de 1 ! Réparez-le pour que NERON puisse rétablir la gravité au cycle d'après.</target>
+        <target>Le Simulateur de gravité n'est pas démarré. Chaque gain de Points de mouvement est réduit de 1 :pm: ! Réparez-le pour que NERON puisse rétablir la gravité au cycle d'après.</target>
       </segment>
     </unit>
     <unit id="low_oxygen">
@@ -97,7 +97,7 @@
     <unit id="hunger">
       <segment id="name" state="translated">
         <source>hunger.name</source>
-        <target>Vous avez faim. Si vous n'y remédiez pas, votre santé va se détériorer à chaque changement de cycle.</target>
+        <target>Famine</target>
       </segment>
       <segment id="description" state="translated">
         <source>hunger.description</source>

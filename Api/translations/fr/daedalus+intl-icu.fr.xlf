@@ -56,11 +56,13 @@ L'état de l'armure vous indique l'état global de la coque du vaisseau. À **0 
     <unit id="currentCycle">
       <segment id="name" state="translated">
         <source>currentCycle.name</source>
-        <target>Le temps du jeu</target>
+        <target>Prochain cycle</target>
       </segment>
       <segment id="description" state="translated">
         <source>currentCycle.description</source>
-        <target>Les jours du jeu correspondent aux jours de la vie réelle. Un **cycle dure 3 heures**. À chaque cycle vous cumulez plus de :pa::pm:, indispensables pour pouvoir réaliser des actions !</target>
+        <target>Votre montre incassable affiche le temps qu'il reste avant le prochain **Cycle**. 
+//
+Vous gagnerez alors quelques précieux :pa::pm: selon votre état de santé.</target>
       </segment>
     </unit>
     <unit id="triumph">

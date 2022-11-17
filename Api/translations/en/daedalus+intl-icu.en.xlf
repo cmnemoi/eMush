@@ -56,12 +56,13 @@ The armor indicator shows you the overall state of the hull of the vessel. When 
     <unit id="currentCycle">
       <segment id="name" state="translated">
         <source>currentCycle.name</source>
-        <target>Game time</target>
+        <target>Next cycle</target>
       </segment>
       <segment id="description" state="translated">
         <source>currentCycle.description</source>
-        <target>Days in the game correspond to days in real life.
-One **Cycle lasts for 3 hours**. Every new cycle, you receive :pa:, which are extremely useful for doing things!</target>
+        <target>Your unbreakable watch tells you the time remaining until the next **Cycle**. 
+//
+At the changeover you earn some precious :pa::pm:, depending on your health.</target>
       </segment>
     </unit>
     <unit id="triumph">

@@ -145,7 +145,7 @@
     <unit id="no_attack_actions">
       <segment id="description" state="translated">
         <source>no_attack_actions.description</source>
-        <target>Impossible de s'en prendre à un coéquipier.</target>
+        <target>Interdit l'action **Attaquer**.</target>
       </segment>
     </unit>
     <unit id="no_piloting_actions">
@@ -157,7 +157,7 @@
     <unit id="no_shoot_actions">
       <segment id="description" state="translated">
         <source>no_shoot_actions.description</source>
-        <target>Impossible d'utiliser une arme à feu.</target>
+        <target>Interdit l'action **Tirer**.</target>
       </segment>
     </unit>
     <unit id="psychotic_attacks">

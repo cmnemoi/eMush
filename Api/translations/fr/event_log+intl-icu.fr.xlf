@@ -5,8 +5,8 @@
       <segment id="build_success" state="translated">
         <source>build_success</source>
         <target>{target_equipment_gender, select,
-                        male {Vous avez assemblé un {target_equipment}.}
-                        female {Vous avez assemblé une {target_equipment}.}
+                        male {Vous avez assemblé un *{target_equipment}*.}
+                        female {Vous avez assemblé une *{target_equipment}*.}
                         other {invalid gender input}
                 }</target>
       </segment>
@@ -25,8 +25,8 @@
       <segment id="transplant_success" state="translated">
         <source>transplant_success</source>
         <target>{target_equipment_first_letter, select,
-                    vowel {**{character}** entreprend de reproduire un plant d'**{target_equipment}**. Félicitation ! Le jeune plant est en parfaite santé.}
-                    other {**{character}** entreprend de reproduire un plant de **{target_equipment}**. Félicitation ! Le jeune plant est en parfaite santé.}
+                    vowel {**{character}** entreprend de reproduire un plant d'**{target_equipment}**. Félicitations ! Le jeune plant est en parfaite santé.}
+                    other {**{character}** entreprend de reproduire un plant de **{target_equipment}**. Félicitations ! Le jeune plant est en parfaite santé.}
                 }</target>
       </segment>
     </unit>
@@ -43,49 +43,49 @@
     <unit id="gain_action_point">
       <segment state="translated">
         <source>gain_action_point</source>
-        <target>Vous avez gagné {quantity} :pa:</target>
+        <target>Vous avez gagné {quantity} :pa:.</target>
       </segment>
     </unit>
     <unit id="gain_movement_point">
       <segment state="translated">
         <source>gain_movement_point</source>
-        <target>Vous avez gagné {quantity} :pm:</target>
+        <target>Vous avez gagné {quantity} :pm:.</target>
       </segment>
     </unit>
     <unit id="gain_health_point">
       <segment state="translated">
         <source>gain_health_point</source>
-        <target>Vous avez gagné {quantity} :hp:</target>
+        <target>Vous avez gagné {quantity} :hp:.</target>
       </segment>
     </unit>
     <unit id="loss_health_point">
       <segment state="translated">
         <source>loss_health_point</source>
-        <target>Vous perdez {quantity} :hp:</target>
+        <target>Vous perdez {quantity} :hp:.</target>
       </segment>
     </unit>
     <unit id="gain_moral_point">
       <segment state="translated">
         <source>gain_moral_point</source>
-        <target>Vous avez gagné {quantity} :pmo:</target>
+        <target>Vous avez gagné {quantity} :pmo:.</target>
       </segment>
     </unit>
     <unit id="loss_moral_point">
       <segment state="translated">
         <source>loss_moral_point</source>
-        <target>Vous perdez {quantity} :pmo:</target>
+        <target>Vous perdez {quantity} :pmo:.</target>
       </segment>
     </unit>
     <unit id="loss_action_point">
       <segment state="translated">
         <source>loss_action_point</source>
-        <target>Vous perdez {quantity} :pa:</target>
+        <target>Vous perdez {quantity} :pa:.</target>
       </segment>
     </unit>
     <unit id="loss_movement_point">
       <segment state="translated">
         <source>loss_movement_point</source>
-        <target>Vous perdez {quantity} :pm:</target>
+        <target>Vous perdez {quantity} :pm:.</target>
       </segment>
     </unit>
     <unit id="gain_triumph">
@@ -108,8 +108,8 @@
       <segment state="translated">
         <source>object_fell</source>
         <target>{target_equipment_gender, select,
-                        male {Étrange, **{character}** a fait tomber un **{target_equipment}**.}
-                        female {Étrange, **{character}** a fait tomber une **{target_equipment}**.}
+                        male {**{character}** a fait tomber un **{target_equipment}**.}
+                        female {**{character}** a fait tomber une **{target_equipment}**.}
                         other {invalid gender input}
                 }</target>
       </segment>
@@ -161,13 +161,13 @@
     <unit id="tremor_gravity">
       <segment state="translated">
         <source>tremor_gravity</source>
-        <target>La salle est soudain prise de fortes secousses. Les membres d'équipage présents se retrouvent par terre et le plafond s'effondre par endroit. Quelle épave...</target>
+        <target>La salle est soudainement prise de fortes secousses. Les membres d'équipage présents se retrouvent par terre et le plafond s'effondre par endroit. Quelle épave...</target>
       </segment>
     </unit>
     <unit id="tremor_no_gravity">
       <segment state="translated">
         <source>tremor_no_gravity</source>
-        <target>La salle est soudain prise de fortes secousses. Les objets volent à travers la pièce et heurtent les membres d'équipage présents.</target>
+        <target>La salle est soudainement prise de fortes secousses. Les objets volent à travers la pièce et heurtent les membres d'équipage présents.</target>
       </segment>
     </unit>
     <unit id="electric_arc">
@@ -227,13 +227,13 @@
         <source>plant_death</source>
         <target>{equipment_first_letter, select,
                     vowel {{equipment_gender, select,
-                        male {L'**{equipment}** est mort...snif !}
-                        female {L'**{equipment}** est morte...snif !}
+                        male {L'**{equipment}** est mort... snif !}
+                        female {L'**{equipment}** est morte... snif !}
                         other {invalid gender input}
                     }}
                     other {{equipment_gender, select,
-                        male {Le **{equipment}** est mort...snif !}
-                        female {La **{equipment}** est morte...snif !}
+                        male {Le **{equipment}** est mort... snif !}
+                        female {La **{equipment}** est morte... snif !}
                         other {invalid gender input}
                     }}
                 }</target>
@@ -288,19 +288,23 @@
     <unit id="disorder_appear">
       <segment state="translated">
         <source>disorder_appear</source>
-        <target>:psy_disease: Vous ne vous sentez pas très très bien... Votre tête tourne, vous vous sentez confus, stressé, angoissé. Vous devriez voir un *Psy*. Vous avez développé une maladie mentale : {disease}.</target>
+        <target>:psy_disease: Vous ne vous sentez pas très très bien... Votre tête tourne, vous vous sentez confus, 
+{character_gender, select,
+male {stressé, angoissé}
+female {stressée, angoisée}
+}. Vous devriez voir un *Psy*. Vous avez développé une maladie mentale : {disease}.</target>
       </segment>
     </unit>
     <unit id="disease_curred_player">
       <segment state="translated">
         <source>disease_cured_player</source>
-        <target>**{character}** a réussi a soigner **{target_character}** de sa maladie ({disease}).</target>
+        <target>**{character}** a réussi à soigner **{target_character}** de sa maladie ({disease}).</target>
       </segment>
     </unit>
     <unit id="disease_healed_player">
       <segment state="translated">
         <source>disease_healed_player</source>
-        <target>**{character}** a progressé sur les soins de la maladie de *{target_character}* mais il faudra continuer le traitement.</target>
+        <target>**{character}** a progressé sur les soins de la maladie de **{target_character}** mais il faudra continuer le traitement.</target>
       </segment>
     </unit>
     <unit id="disease_curred_drug">
@@ -327,8 +331,8 @@
       <segment state="translated">
         <source>disorder_cured_player</source>
         <target>{character_gender, select,
-                    male {**{character}** est satisfait. La séance de *{target_character}* s'est bien passée, mais il en faudra d'autres.}
-                    female {**{character}** est satisfaite. La séance de *{target_character}* s'est bien passée, mais il en faudra d'autres.}
+                    male {**{character}** est satisfait. La séance de **{target_character}** s'est bien passée, mais il en faudra d'autres.}
+                    female {**{character}** est satisfaite. La séance de **{target_character}** s'est bien passée, mais il en faudra d'autres.}
                     other {invalid gender input}
                 }</target>
       </segment>
@@ -337,12 +341,12 @@
       <segment state="translated">
         <source>disorder_treated_player</source>
         <target>{target_character_gender, select,
-                    male {La séance est une réussite, *{target_character_gender}* est guéri de sa maladie ({disease}).}
-                    female {La séance est une réussite, *{target_character_gender}* est guérie de sa maladie ({disease}).}
+                    male {La séance est une réussite, **{target_character_gender}** est guéri de sa maladie ({disease}).}
+                    female {La séance est une réussite, **{target_character_gender}** est guérie de sa maladie ({disease}).}
                     other {invalid gender input}
                 } {character_gender, select,
-                     male {*{character}* est très satisfait.}
-                     female {*{character}* est très satisfaite.}
+                     male {**{character}** est très satisfait.}
+                     female {**{character}** est très satisfaite.}
                      other {invalid gender input}
                  }</target>
       </segment>
@@ -408,7 +412,7 @@
     <unit id="foaming_mouth">
       <segment id="foaming_mouth" state="translated">
         <source>foaming_mouth</source>
-        <target>:pill: **{character}** laisse échapper un petit filet de mousse du coin de sa bouche… C'est dégoûtant..</target>
+        <target>:pill: **{character}** laisse échapper un petit filet de mousse du coin de sa bouche… C'est dégoûtant...</target>
       </segment>
     </unit>
     <unit id="drooling">
@@ -441,7 +445,7 @@
     <unit id="fitfull_sleep">
       <segment id="fitfull_sleep" state="translated">
         <source>fitfull_sleep</source>
-        <target>Votre sommeil est agité, impossible de vous reposer...</target>
+        <target>Votre sommeil est agité, impossible de vous reposer correctement...</target>
       </segment>
     </unit>
     <unit id="surgery_success">
@@ -450,7 +454,7 @@
         <target>L'opération semble durer une éternité, **{character}** rend enfin son verdict la mine souriante... {version, select,
                     1 {l'opération s'est déroulé avec succès. **{target_character}** va bien et sera bientôt sur pied.}
                     2 {**{target_character}** s'en sort admirablement.}
-                    other {invalid gender input}
+                    other {invalid version input}
                     } La blessure ({disease}) de **{target_character}** est guérie.</target>
       </segment>
     </unit>

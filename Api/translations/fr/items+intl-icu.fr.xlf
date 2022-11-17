@@ -819,7 +819,7 @@ Ajoute 2 Points de Mouvement lors des transferts pa-pm (sauf si vous avez déjà
       </segment>
       <segment id="plural_name" state="translated">
         <source>rolling_boulder.plural_name</source>
-        <target>Montures rocheuse</target>
+        <target>Montures rocheuses</target>
       </segment>
       <segment id="genre" state="translated">
         <source>rolling_boulder.gender</source>
@@ -1979,7 +1979,9 @@ On aurrait pu s'en servir en cuisine mais le chef n'en voulait pas...</target>
       <segment id="examine" state="translated">
         <source>invertebrate_shell.examine</source>
         <target>Incroyable, ce paisible crustacé alien en forme de tube a exactement le même diamètre que les obus tesla des tourelles du Daedalus !
-+100% aux dégats de la tourelles où il est placé. Si détruit provoque un incendie dans la pièce.
+//
++100% aux dégâts de la tourelle où il est placé. Si détruit provoque un incendie dans la pièce.
+//
 Il n'a pas l'air tout à fait mort.</target>
       </segment>
     </unit>
@@ -3537,7 +3539,9 @@ Ces insupportables petits feuillets traînent partout... Et puis qui peut-en avo
       <segment state="translated">
         <source>camera_item.examine</source>
         <target>La caméra est un outils de surveillance bien pratique pour --espionner-- surveiller votre prochain.
+//
 En sa présence, les actions *discrètes* et *furtives* effectuées sont révélées.
+//
 Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. La caméra repère également les actions discrètes et furtives effectuées. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
       </segment>
     </unit>

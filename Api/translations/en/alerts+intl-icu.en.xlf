@@ -50,7 +50,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>no_gravity.description</source>
-        <target>The Gravity Simulator hasn't been started up. Every Movement Point gains are reduced by 1 :pm:! Fix it so that NERON can re-establish gravity for the next cycle. </target>
+        <target>The Gravity Simulator hasn't been started up. Every Movement Point gains are reduced by 1 :pm:! Fix it so that NERON can re-establish gravity for the next cycle.</target>
       </segment>
     </unit>
     <unit id="low_oxygen">

@@ -22,7 +22,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>electric_charges.description</source>
-        <target>Les charges sont le nombre d'utilisation que vous pouvez faire de cet objet. Les objets chargés regagnent une charge par cycle.</target>
+        <target>Les charges sont le nombre d'utilisations que vous pouvez faire de cet objet. Les objets chargés regagnent une charge par cycle.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>electric_charges.examine</source>
@@ -186,7 +186,7 @@
     <unit id="plant_dry">
       <segment id="name" state="translated">
         <source>plant_dry.name</source>
-        <target>Désséché</target>
+        <target>Desséchée</target>
       </segment>
       <segment id="description" state="translated">
         <source>plant_dry.description</source>

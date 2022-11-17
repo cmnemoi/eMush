@@ -94,7 +94,7 @@
     <unit id="alien_abducted">
       <segment id="name" state="translated">
         <source>alien_abducted.name</source>
-        <target> Kidnapped by a superior race</target>
+        <target>Kidnapped by a superior race</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>alien_abducted.short_name</source>
@@ -454,11 +454,11 @@
     <unit id="metal_plate">
       <segment id="name" state="translated">
         <source>metal_plate.name</source>
-        <target> Steel Plated</target>
+        <target>Steel Plated</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>metal_plate.short_name</source>
-        <target> Another victim claimed by the old Daed-shed </target>
+        <target>Another victim claimed by the old Daed-shed</target>
       </segment>
       <segment id="category" state="translated">
         <source>metal_plate.category</source>
@@ -490,11 +490,11 @@
     <unit id="bled">
       <segment id="name" state="translated">
         <source>bled.name</source>
-        <target> Bled Out</target>
+        <target>Bled Out</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>bled.short_name</source>
-        <target> Drained of blood!</target>
+        <target>Drained of blood!</target>
       </segment>
       <segment id="category" state="translated">
         <source>bled.category</source>

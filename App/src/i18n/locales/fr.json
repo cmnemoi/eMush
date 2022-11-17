@@ -1,16 +1,16 @@
 {
 	"title": "Mush - Jeu de survie dans l'espace : Vous êtes le seul espoir de l'humanité !",
 	"alpha": {
-		"homepage": "<em>eMush</em> n'est actuellement pas ouvert au public car le jeu n'est pas terminé et est infesté de <em class='red'>Mush</em> <em>!!!</em><br><br>Si vous êtes intéressés par le projet, n'hésitez pas à nous rejoindre sur <a href='https://discord.gg/ERc3svy'>Discord</a> et sur les <a href='https://eternal-twin.net/forum'>forums d'Eternal-Twin</a>. Toutes les informations sont disponibles sur <a href='https://eternal-twin.net'>Eternal-Twin</a>.<br><br>Concernant eMush alpha, des vaisseaux privés sont lancés régulièrement avec des volontaires sur <a href='https://discord.gg/ERc3svy'>Discord</a>. Pour faire partie d'un vaisseau alpha, vous aurez besoin d'un compte <a href='https://eternal-twin.net/'>Eternal-Twin</a> et de rejoindre la liste de volontaires sur <a href='https://discord.gg/ERc3svy'>Discord</a>.<br><br><em>Si vous n'êtes pas sélectionnés pour un vaisseau alpha , pas d'inquiétude !</em> La liste des personnes sélectionnées change pour chaque vaisseau afin de fournir une chance à tous.",
+		"homepage": "<em>eMush</em> n'est actuellement pas ouvert au public car le jeu n'est pas terminé et est infesté de <em class='red'>Mushs</em> <em>!!!</em><br><br>Si vous êtes intéressés par le projet, n'hésitez pas à nous rejoindre sur <a href='https://discord.gg/ERc3svy'>Discord</a> et sur les <a href='https://eternal-twin.net/forum'>forums d'Eternaltwin</a>. Toutes les informations sont disponibles sur <a href='https://eternal-twin.net'>Eternaltwin</a>.<br><br>Concernant eMush alpha, des vaisseaux privés sont lancés régulièrement avec des volontaires sur <a href='https://discord.gg/ERc3svy'>Discord</a>. Pour faire partie d'un vaisseau alpha, vous aurez besoin d'un compte <a href='https://eternal-twin.net/'>Eternaltwin</a> et de rejoindre la liste de volontaires sur <a href='https://discord.gg/ERc3svy'>Discord</a>.<br><br><em>Si vous n'êtes pas sélectionnés pour un vaisseau alpha , pas d'inquiétude !</em> La liste des personnes sélectionnées change pour chaque vaisseau afin de fournir une chance à tous.",
 		"valide": "Valider",
 		"passphrase": "Mot de passe de l'alpha",
 		"description": "Ceci est une alpha reservée aux testeurs",
 		"doors": "Portes",
 		"inventory": "Inventaire",
 		"inventoryDescription": "Cliquez ici pour ouvrir l'inventaire de la pièce.",
-		"equipement": "Equipement",
+		"equipement": "Équipement",
 		"player": "Joueurs",
-		"issue": "Merci de signaler les bugs rencontrés sur "
+		"issue": "Merci de signaler les bugs rencontrés sur"
 	},
 	"footer": {
 		"developpers": "Développement",
@@ -20,19 +20,19 @@
 		"eternaltwin": "eMush est un site web non-commercial géré par des amateurs. Il fait partie du projet Eternaltwin dont le but est d'archiver les jeux de Motion Twin, c'est à dire les garder accessibles même en cas de fermeture du site officiel. <strong>Nous ne sommes pas liés à Motion Twin</strong>."
 	},
 	"login": "Connexion",
-	"logout": "Deconnexion",
+	"logout": "Déconnexion",
 	"deathpage": {
 		"title": "Vous êtes mort !",
-		"name": "nom",
-		"death": "mort",
-		"reason": "cause",
-		"like": "j'aime",
+		"name": "Nom",
+		"death": "Mort",
+		"reason": "Cause",
+		"like": "J'aime",
 		"notyet": "Vous serez notifié quand le classement de fin de partie sera publié.",
 		"endgame": "Valider et continuer"
 	},
 	"alerts": "Alertes :",
-	"downloading": "Téléchargement ...",
-	"loading": "Chargement ...",
+	"downloading": "Téléchargement...",
+	"loading": "Chargement...",
 	"room": {
 		"bridge": "Pont",
 		"alphaBay": "Baie Alpha",
@@ -56,7 +56,7 @@
 		"icarusBay": "Baie Icarus",
 		"alphaDorm": "Dortoir Alpha",
 		"bravoDorm": "Dortoir Beta",
-		"frontStorage": "Stockage Avant",
+		"frontStorage": "Stockage avant",
 		"centerAlphaStorage": "Stockage Alpha Centre",
 		"centerBravoStorage": "Stockage Beta Centre",
 		"rearAlphaStorage": "Stockage Alpha Arrière",
@@ -64,35 +64,35 @@
 	},
 	"admin": {
 		"user": {
-			"username": "Username",
+			"username": "Pseudonyme",
 			"roles": "Rôles"
 		},
 		"gameConfig": {
 			"name": "Nom",
-			"language": "Language",
-			"timeZone": "TimeZone",
-			"nbMush": "Nombre de Mushs",
+			"language": "Langue",
+			"timeZone": "Fuseau horaire",
+			"nbMush": "Nombre de Mushs de départ",
 			"cyclePerGameDay": "Cycles par jour",
 			"cycleLength": "Durée du cycle",
-			"maxNumberPrivateChannel": "Max. Cannaux privées",
-			"maxItemInInventory": "Max Item en inventaire",
-			"initSatiety": "Init Satiété",
-			"initHealthPoint": "Init Point de Vie",
-			"maxHealthPoint": "Max Point de Vie",
-			"initMoralPoint": "Init Morale Point",
-			"maxMoralPoint": "Max Moral Point",
-			"initActionPoint": "Init Action Point",
-			"maxActionPoint": "Max Action Point",
-			"initMovementPoint": "Init Mouvement Point",
-			"maxMovementPoint": "Max Mouvement Point"
+			"maxNumberPrivateChannel": "Nombre maximum de canaux privés",
+			"maxItemInInventory": "Nombre maximum d'objets en inventaire",
+			"initSatiety": "Satiété de départ",
+			"initHealthPoint": "Points de Vie de départ",
+			"maxHealthPoint": "Points de Vie Maximum",
+			"initMoralPoint": "Points de Moral de départ",
+			"maxMoralPoint": "Points de Moral Maximum",
+			"initActionPoint": "Points d'Action de départ",
+			"maxActionPoint": "Points d'Action maximum",
+			"initMovementPoint": "Points de Mouvement de départ",
+			"maxMovementPoint": "Points de Mouvement maximum"
 		},
 		"modifierConfig": {
 			"name": "Nom",
 			"delta": "Delta",
-			"target": "Cible",
-			"scope": "Scope",
+			"target": "Variable cible",
+			"scope": "Déclencheur",
 			"reach": "Portée",
-			"mode": "Mode"
+			"mode": "Mode de calcul"
 		},
 		"modifierCondition": {
 			"name": "Nom",
@@ -101,12 +101,12 @@
 		},
 		"statusConfig": {
 			"name": "Nom",
-			"visibility": "Visibilite",
-			"chargeVisibility": "Charge Visibilite",
-			"chargeStrategy": "Charge Strategie",
-			"dischargeStrategy": "Decharge Strategie",
-			"maxCharge": "Max Charge",
-			"startCharge": "Init Charge"
+			"visibility": "Visibilité",
+			"chargeVisibility": "Visibilité des charges",
+			"chargeStrategy": "Mode de chargement",
+			"dischargeStrategy": "Mode de décharge",
+			"maxCharge": "Nombre de charges maximum",
+			"startCharge": "Nombre de charges initiales"
 		}
 	}
 }

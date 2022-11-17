@@ -305,7 +305,7 @@
     <unit id="new_project">
       <segment id="new_project" state="translated">
         <source>new_project</source>
-        <target>*Module installation* "**{project}**"... (!valid) protocols validated. [Haax!] Installation : success. </target>
+        <target>*Module installation* "**{project}**"... (!valid) protocols validated. [Haax!] Installation : success.</target>
       </segment>
     </unit>
     <unit id="no_shower">

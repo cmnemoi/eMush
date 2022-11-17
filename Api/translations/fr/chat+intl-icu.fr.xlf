@@ -29,7 +29,7 @@ S'il y a une caméra, les actions discrètes et furtives seront révélées.</ta
       </segment>
       <segment id="description" state="translated">
         <source>public.description</source>
-        <target>Le canal de Discussion est indispensable pour s'organiser avec l'équipage.
+        <target>Le canal de discussion est indispensable pour s'organiser avec l'équipage.
 Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
       </segment>
     </unit>
@@ -40,8 +40,8 @@ Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
       </segment>
       <segment id="description" state="translated">
         <source>private.description</source>
-        <target>Les canaux de navigation privés permettent de manigancer à l'abri des oreilles indiscrètes.
-                    **Attention les canaux privés sont des éléments de jeux et sont donc soumis à la même politique de confidentialité que Mush.**</target>
+        <target>Les canaux de discussion privés permettent de manigancer à l'abri des oreilles indiscrètes.
+                    **Attention les canaux privés sont des éléments de jeu et sont donc soumis à la même politique de confidentialité que eMush.**</target>
       </segment>
     </unit>
     <unit id="new">
@@ -52,7 +52,7 @@ Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
       <segment id="description" state="translated">
         <source>new.description</source>
         <target>Votre talkie dispose d'un canal privé libre. Cliquez ici pour ouvrir une conversation privée avec un ou plusieurs camarades qui possèdent un :talkie: **talkie-walkie**.
-**Attention les canaux privés sont des éléments de jeux et sont donc soumis à la même politique de confidentialité que Mush.**</target>
+**Attention les canaux privés sont des éléments de jeu et sont donc soumis à la même politique de confidentialité que eMush.**</target>
       </segment>
     </unit>
     <unit id="message_date">

@@ -196,7 +196,7 @@
     <unit id="daily_spore_limit">
       <segment id="description" state="translated">
         <source>daily_spore_limit.description</source>
-        <target>The entire *Mush* crew cannot create more than *$amount spores* per day.</target>
+        <target>The entire *Mush* crew cannot create more than *{quantity} spores* per day.</target>
       </segment>
     </unit>
     <unit id="personal_spore_limit">

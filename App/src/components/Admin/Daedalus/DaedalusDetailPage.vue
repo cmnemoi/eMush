@@ -1,10 +1,10 @@
 <template>
     <div class="daedalus_detail">
         <h1 class="daedalus_detail_title">
-            Daedalus:
+            {{$t('admin.daedalus.createDaedalus')}}
         </h1>
         <div class="daedalus_detail_content">
-            <label for="daedalus_name">{{ $t('daedalus.name') }}</label>
+            <label for="daedalus_name">{{ $t('admin.daedalus.name') }}</label>
             <input
                 id="daedalus_name"
                 ref="daedalus_name"
@@ -14,7 +14,7 @@
             <ErrorList v-if="errors.name" :errors="errors.name"></ErrorList>
         </div>
         <button class="action-button" type="submit" @click="save">
-            {{ $t('save') }}
+            {{ $t('admin.save') }}
         </button>
     </div>
 </template>

@@ -54,7 +54,7 @@
     <unit id="consume">
       <segment id="consume" state="translated">
         <source>consume.name</source>
-        <target>Eat</target>
+        <target>Consume</target>
       </segment>
       <segment id="description" state="translated">
         <source>consume.description</source>

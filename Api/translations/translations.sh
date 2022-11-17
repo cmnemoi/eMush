@@ -5,25 +5,20 @@ function install_perl_rename(){
     echo 'Rename command installed.'
 }
 
-function delete_old_translation_folders(){
-    rm -r en es fr
-    echo 'Deleted old translation folders.'
-}
-
-function create_new_translation_folders(){
-    cp -r crowdin_fr fr
-    cp -r crowdin_en en
-    cp -r crowdin_es es
-    echo 'Created new translation folders.'
-}
-
 function rename_translation_files(){
-    cd en
+    cd crowdin_en
     rename "s/.fr.xlf$/.en.xlf/" *.xlf
-    cd ../es
+    cd ../crowdin_es
     rename "s/.fr.xlf$/.es.xlf/" *.xlf
     cd ..
     echo 'Renamed translation files.'
+}
+
+function move_new_translation_files(){
+    cp -r crowdin_fr/. fr
+    cp -r crowdin_en/. en
+    cp -r crowdin_es/. es
+    echo 'Created new translation folders.'
 }
 
 function remove_crowdin_translation_folders(){
@@ -33,9 +28,8 @@ function remove_crowdin_translation_folders(){
 
 function main(){
    install_perl_rename
-   delete_old_translation_folders
-   create_new_translation_folders
    rename_translation_files
+   move_new_translation_files
    remove_crowdin_translation_folders
 }
 

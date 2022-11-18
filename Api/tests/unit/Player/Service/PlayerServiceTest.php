@@ -115,6 +115,10 @@ class PlayerServiceTest extends TestCase
             ->once()
         ;
         $this->entityManager
+            ->shouldReceive('persist')
+            ->once()
+        ;
+        $this->entityManager
             ->shouldReceive('flush')
             ->once()
         ;
@@ -162,6 +166,9 @@ class PlayerServiceTest extends TestCase
             ->setUser(new User())
             ->setCharacterConfig($characterConfig)
         ;
+
+        $deadPlayerInfo = new DeadPlayerInfo();
+        $player->setDeadPlayerInfo($deadPlayerInfo);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager

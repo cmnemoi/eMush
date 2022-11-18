@@ -45,12 +45,19 @@ class PlayerServiceCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
+        $tempPlayer = new Player();
+        $tempPlayer->setUser($user)->setCharacterConfig($characterConfig);
+        $deadPlayerInfo = new DeadPlayerInfo();
+        $deadPlayerInfo->updateFromPlayer($tempPlayer);
+        $I->haveInRepository($deadPlayerInfo);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
             'user' => $user,
             'characterConfig' => $characterConfig,
+            'deadPlayerInfo' => $deadPlayerInfo,
         ]);
 
         $statusConfig = new StatusConfig();
@@ -65,6 +72,7 @@ class PlayerServiceCest
             'endCause' => EndCauseEnum::INJURY,
             'dayDeath' => 5,
             'cycleDeath' => 3,
+            'user' => $user,
         ]);
 
         $I->assertEquals(GameStatusEnum::FINISHED, $deadPlayer->getGameStatus());
@@ -87,12 +95,19 @@ class PlayerServiceCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
+        $tempPlayer = new Player();
+        $tempPlayer->setUser($user)->setCharacterConfig($characterConfig);
+        $deadPlayerInfo = new DeadPlayerInfo();
+        $deadPlayerInfo->updateFromPlayer($tempPlayer);
+        $I->haveInRepository($deadPlayerInfo);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
             'user' => $user,
             'characterConfig' => $characterConfig,
+            'deadPlayerInfo' => $deadPlayerInfo,
         ]);
 
         $mushConfig = new ChargeStatusConfig();
@@ -130,12 +145,19 @@ class PlayerServiceCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHAO]);
 
+        $tempPlayer = new Player();
+        $tempPlayer->setUser($user)->setCharacterConfig($characterConfig);
+        $deadPlayerInfo = new DeadPlayerInfo();
+        $deadPlayerInfo->updateFromPlayer($tempPlayer);
+        $I->haveInRepository($deadPlayerInfo);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
             'characterConfig' => $characterConfig,
             'user' => $user,
+            'deadPlayerInfo' => $deadPlayerInfo,
         ]);
 
         /** @var Player $player2 */
@@ -181,12 +203,19 @@ class PlayerServiceCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
+        $tempPlayer = new Player();
+        $tempPlayer->setUser($user)->setCharacterConfig($characterConfig);
+        $deadPlayerInfo = new DeadPlayerInfo();
+        $deadPlayerInfo->updateFromPlayer($tempPlayer);
+        $I->haveInRepository($deadPlayerInfo);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
             'characterConfig' => $characterConfig,
             'user' => $user,
+            'deadPlayerInfo' => $deadPlayerInfo,
         ]);
 
         $item = $I->have(ItemConfig::class);

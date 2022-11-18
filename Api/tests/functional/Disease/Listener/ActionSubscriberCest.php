@@ -40,6 +40,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -863,6 +864,9 @@ class ActionSubscriberCest
     {
         $gameConfig = $I->have(GameConfig::class, ['language' => LanguageEnum::FRENCH]);
 
+        /** @var User $user */
+        $user = $I->have(User::class);
+
         $neron = new Neron();
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);
@@ -902,8 +906,16 @@ class ActionSubscriberCest
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         $otherCharacterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::TERRENCE]);
+
+        $tempPlayer = new Player();
+        $tempPlayer->setUser($user)->setCharacterConfig($characterConfig);
+        $deadPlayerInfo = new DeadPlayerInfo();
+        $deadPlayerInfo->updateFromPlayer($tempPlayer);
+        $I->haveInRepository($deadPlayerInfo);
 
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -912,15 +924,13 @@ class ActionSubscriberCest
             'healthPoint' => 14,
         ]);
 
-        /** @var User $user */
-        $user = $I->have(User::class);
-
         $otherPlayer = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'characterConfig' => $otherCharacterConfig,
             'place' => $place,
             'healthPoint' => 1,
             'user' => $user,
+            'deadPlayerInfo' => $deadPlayerInfo,
         ]);
 
         $knifeMechanic = new Weapon();

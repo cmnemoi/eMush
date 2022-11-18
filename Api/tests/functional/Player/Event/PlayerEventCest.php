@@ -18,6 +18,7 @@ use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -51,7 +52,12 @@ class PlayerEventCest
         $I->haveInRepository($neron);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+        $daedalus = $I->have(Daedalus::class, [
+            'gameConfig' => $gameConfig,
+            'neron' => $neron,
+            'cycle' => 5,
+            'day' => 89,
+        ]);
 
         $channel = new Channel();
         $channel
@@ -66,12 +72,19 @@ class PlayerEventCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
+        $tempPlayer = new Player();
+        $tempPlayer->setUser($user)->setCharacterConfig($characterConfig);
+        $deadPlayerInfo = new DeadPlayerInfo();
+        $deadPlayerInfo->updateFromPlayer($tempPlayer);
+        $I->haveInRepository($deadPlayerInfo);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
             'user' => $user,
             'characterConfig' => $characterConfig,
+            'deadPlayerInfo' => $deadPlayerInfo,
         ]);
 
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());

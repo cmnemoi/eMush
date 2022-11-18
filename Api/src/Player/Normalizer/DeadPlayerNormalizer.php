@@ -107,7 +107,13 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
 
                 $deadPlayerInfo = $otherPlayer->getDeadPlayerInfo();
 
-                if ($deadPlayerInfo !== null) {
+                if ($deadPlayerInfo === null) {
+                    throw new Error('player should have a deadPlayerInfo property');
+                }
+
+                $normalizedOtherPlayer['likes'] = $deadPlayerInfo->getLikes();
+
+                if ($otherPlayer->getGameStatus() !== GameStatusEnum::CURRENT) {
                     $endCause = $deadPlayerInfo->getEndCause();
                     $normalizedOtherPlayer['isDead'] = [
                         'day' => $deadPlayerInfo->getDayDeath(),

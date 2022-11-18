@@ -22,8 +22,8 @@ class DeadPlayerInfo
     #[ORM\ManyToOne(targetEntity: User::class)]
     private User $user;
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private string $character;
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $character = null;
 
     #[ORM\ManyToOne(targetEntity: ClosedDaedalus::class, inversedBy: 'players')]
     private ClosedDaedalus $daedalus;
@@ -35,15 +35,15 @@ class DeadPlayerInfo
     private string $endCause = EndCauseEnum::NO_INFIRMERY;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private int $dayDeath;
+    private int $dayDeath = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private int $cycleDeath;
+    private int $cycleDeath = 0;
 
-    #[ORM\Column(type: 'array', nullable: false)]
-    private array $likes = [];
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $likes = 0;
 
-    public function __construct(Player $player)
+    public function updateFromPlayer(Player $player)
     {
         $this->user = $player->getUser();
         $this->character = $player->getCharacterConfig()->getName();
@@ -96,14 +96,14 @@ class DeadPlayerInfo
         return $this;
     }
 
-    public function getLikes(): array
+    public function getLikes(): int
     {
         return $this->likes;
     }
 
-    public function addLike(DeadPlayerInfo $like): static
+    public function addLike(): static
     {
-        $this->likes[] = $like;
+        $this->likes = +1;
 
         return $this;
     }
@@ -125,7 +125,7 @@ class DeadPlayerInfo
         return $this->user;
     }
 
-    public function getCharacter(): string
+    public function getCharacter(): ?string
     {
         return $this->character;
     }

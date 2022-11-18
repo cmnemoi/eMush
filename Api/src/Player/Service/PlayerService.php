@@ -3,6 +3,7 @@
 namespace Mush\Player\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Error;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
@@ -119,6 +120,11 @@ class PlayerService implements PlayerServiceInterface
             ->setSatiety($gameConfig->getInitSatiety())
             ->setSatiety($gameConfig->getInitSatiety())
         ;
+
+        $deadPlayerInfo = new DeadPlayerInfo();
+        $deadPlayerInfo->updateFromPlayer($player);
+        $player->setDeadPlayerInfo($deadPlayerInfo);
+        $this->entityManager->persist($deadPlayerInfo);
 
         $user->setCurrentGame($player);
 
@@ -284,7 +290,11 @@ class PlayerService implements PlayerServiceInterface
             $reason = 'missing end reason';
         }
 
-        $deadPlayerInfo = new DeadPlayerInfo($player);
+        $deadPlayerInfo = $player->getDeadPlayerInfo();
+        if ($deadPlayerInfo === null) {
+            throw new Error('player should have a deadPlayerInfo property');
+        }
+
         $deadPlayerInfo
             ->setDayCycleDeath($player->getDaedalus())
             ->setEndCause($reason)

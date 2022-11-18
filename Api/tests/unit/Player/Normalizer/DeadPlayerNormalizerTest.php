@@ -63,11 +63,13 @@ class DeadPlayerNormalizerTest extends TestCase
         $otherPlayerDead->method('getId')->willReturn(3);
         $otherPlayerDead->method('getCharacterConfig')->willReturn($characterConfig);
         $otherPlayerDead->method('getUser')->willReturn(new User());
-        $deadPlayerInfo = new DeadPlayerInfo($otherPlayerDead);
+        $otherPlayerDead->method('getGameStatus')->willReturn(GameStatusEnum::FINISHED);
+        $deadPlayerInfo = new DeadPlayerInfo();
         $deadPlayerInfo
             ->setMessage('yoyoyo')
             ->setDayCycleDeath($daedalus)
             ->setEndCause(EndCauseEnum::ALLERGY)
+            ->addLike()
         ;
         $otherPlayerDead->method('getDeadPlayerInfo')->willReturn($deadPlayerInfo);
 
@@ -75,7 +77,8 @@ class DeadPlayerNormalizerTest extends TestCase
         $otherPlayerAlive->method('getId')->willReturn(4);
         $otherPlayerAlive->method('getCharacterConfig')->willReturn($characterConfig);
         $otherPlayerAlive->method('getUser')->willReturn(new User());
-        $otherPlayerAlive->method('getDeadPlayerInfo')->willReturn(null);
+        $otherPlayerAlive->method('getDeadPlayerInfo')->willReturn(new DeadPlayerInfo());
+        $otherPlayerAlive->method('getGameStatus')->willReturn(GameStatusEnum::CURRENT);
 
         $player = $this->createMock(Player::class);
 
@@ -85,7 +88,7 @@ class DeadPlayerNormalizerTest extends TestCase
         $player->method('getGameStatus')->willReturn(GameStatusEnum::FINISHED);
         $player->method('getSkills')->willReturn([]);
         $player->method('getTargetActions')->willReturn(new ArrayCollection());
-        $deadCurrentPlayerInfo = new DeadPlayerInfo($otherPlayerDead);
+        $deadCurrentPlayerInfo = new DeadPlayerInfo();
         $deadCurrentPlayerInfo
             ->setDayCycleDeath($daedalus)
             ->setEndCause(EndCauseEnum::INJURY)
@@ -198,6 +201,7 @@ class DeadPlayerNormalizerTest extends TestCase
                             'description' => 'translated end cause description',
                         ],
                     ],
+                    'likes' => 1,
                 ],
                 1 => [
                     'id' => 4,
@@ -214,6 +218,7 @@ class DeadPlayerNormalizerTest extends TestCase
                             'description' => 'translated still living description',
                         ],
                     ],
+                    'likes' => 0,
                 ],
             ],
         ];

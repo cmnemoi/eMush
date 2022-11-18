@@ -13,6 +13,7 @@ use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\User\Entity\User;
@@ -46,12 +47,20 @@ class PlayerDeathCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, ['name' => 'andie']);
+
+        $tempPlayer = new Player();
+        $tempPlayer->setUser($user)->setCharacterConfig($characterConfig);
+        $deadPlayerInfo = new DeadPlayerInfo();
+        $deadPlayerInfo->updateFromPlayer($tempPlayer);
+        $I->haveInRepository($deadPlayerInfo);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
             'characterConfig' => $characterConfig,
             'user' => $user,
+            'deadPlayerInfo' => $deadPlayerInfo,
         ]);
 
         $privateChannel = new Channel();

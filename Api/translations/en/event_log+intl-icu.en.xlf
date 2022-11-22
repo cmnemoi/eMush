@@ -86,7 +86,7 @@
     <unit id="death">
       <segment state="translated">
         <source>death</source>
-        <target>:dead: **{character}** is dead. Cause : {reason}.</target>
+        <target>:dead: **{character}** is dead. Cause : {end_cause}.</target>
       </segment>
     </unit>
     <unit id="object_fell">

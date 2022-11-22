@@ -127,13 +127,13 @@
       </segment>
     </unit>
     <unit id="hit_success">
-      <segment id="hit_success" state="final">
+      <segment id="hit_success" state="translated">
         <source>hit_success</source>
         <target>{version, select,
     1 {**{character}** hits **{target_character}** with a right...}
     2 {**{character}** caught **{target_character}** with a majestic uppercut...}
     3 {**{character}** caught **{target_character}** with a big right hook... who then repainted the wall with their nose...}
-    other {"invalid version number"}
+    other {**{character}** hits **{target_character}** with a right...}
 }</target>
       </segment>
     </unit>
@@ -193,6 +193,10 @@
       <segment id="repair_fail" state="translated">
         <source>repair_fail</source>
         <target>{versionPart1, select,
+    1 {}
+    other {}
+}
+{versionPart2, select,
     1 {Who would have thought that this **{target_equipment}** would turn out to be such a head wreck. Repair attempt fail.}
     2 {The condition of the **{target_equipment}** is deteriorating... With a little luck you'll get it right next time.}
     3 {This **{target_equipment}** has still not been fixed. You weren't so far away either...}
@@ -237,58 +241,16 @@
     42 {The **{target_equipment}** is still broken. Maybe if you tried again with a more suitable tool.}
     43 {The condition of the **{target_equipment}** is deteriorating... You weren't so far away either...}
     44 {Another vain attempt to repair the wretched **{target_equipment}**.}
-    other {invalid version number}
+    other {The condition of the **{target_equipment}** is deteriorating... You weren't so far away either...}
 }</target>
       </segment>
     </unit>
     <unit id="repair_success">
-      <segment id="repair_success" state="final">
+      <segment id="repair_success" state="translated">
         <source>repair_success</source>
-        <target>{versionPart1, select,
-    1 {Who would have thought that this **{target_equipment}** would turn out to be such a head wreck. Repair attempt fail.}
-    2 {The condition of the **{target_equipment}** is deteriorating... With a little luck you'll get it right next time.}
-    3 {This **{target_equipment}** has still not been fixed. You weren't so far away either...}
-    4 {The **{target_equipment}** is still broken. What was the problem...}
-    5 {You have failed to repair the **{target_equipment}**.}
-    6 {Despite your determination, your attempts to repair the **{target_equipment}** have been in vain.}
-    7 {The **{target_equipment}** smells of burning. Do or do not. There is no try.}
-    8 {The **{target_equipment}** is still broken. Maybe if you tried again with a more suitable tool.}
-    9 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. This room is spectacularly ugly...}
-    10 {The **{target_equipment}** is still broken. You weren't so far away either...}
-    11 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. You had the right idea...}
-    12 {The condition of the **{target_equipment}** is deteriorating... Maybe a second opinion is merited.}
-    13 {Despite your determination, your attempts to repair the **{target_equipment}** have been in vain.}
-    14 {The **{target_equipment}** smells of burning. You had the right idea...}
-    15 {The condition of the **{target_equipment}** is deteriorating... You knew you shouldn't have skipped that dressmaking class...}
-    16 {This **{target_equipment}** has still not been fixed. Try something else...}
-    17 {The **{target_equipment}** is still broken. What was the problem...}
-    18 {The condition of the **{target_equipment}** is deteriorating... Take a minute... consider the lily.}
-    19 {You have failed to repair the **{target_equipment}**.}
-    20 {This **{target_equipment}** has still not been fixed. This old alien equipment has let you down again.}
-    21 {The condition of the **{target_equipment}** is deteriorating... You look more competent using chopsticks with your feet...}
-    22 {The **{target_equipment}** smells of burning. Try to look at things from the other side and change your profession.}
-    23 {The **{target_equipment}** is still broken. What didn't work...}
-    24 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. You should do something else.}
-    25 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. Have you tried knitting...}
-    26 {The **{target_equipment}** is still broken. You weren't so far away either...}
-    27 {Your attempt to repair the **{target_equipment}** has failed... You should do something else.}
-    28 {Your attempt to repair the **{target_equipment}** has failed... You look more competent using chopsticks with your feet...}
-    29 {The **{target_equipment}** is still broken. Maybe you're just not cut out for this.}
-    30 {**{target_equipment}** or not to **{target_equipment}**... That is the question... yet another question is how to fix this damn thing.}
-    31 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. Have you tried knitting...}
-    32 {Your attempt to repair the **{target_equipment}** has failed... Maybe you should sit down and have a little something to eat.}
-    33 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. Forget the others and concentrate.}
-    34 {The **{target_equipment}** smells of burning. You should have tried using the zygocompressor.}
-    35 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. Maybe you should sit down and have a little something to eat.}
-    36 {Your attempt to repair the **{target_equipment}** has failed... You look more competent using chopsticks with your feet...}
-    37 {**{target_equipment}** or not to **{target_equipment}**... That is the question... yet another question is how to fix this damn thing.}
-    38 {The **{target_equipment}** still doesn't seem to be working any better and is now giving off a burning smell. You should do something else.}
-    39 {The **{target_equipment}** is still broken. Maybe if you tried again with a more suitable tool.}
-    40 {The **{target_equipment}** smells of burning. You had the right idea...}
-    41 {The **{target_equipment}** is still broken. Maybe you're just not cut out for this.}
-    42 {The **{target_equipment}** is still broken. Maybe if you tried again with a more suitable tool.}
-    43 {The condition of the **{target_equipment}** is deteriorating... You weren't so far away either...}
-    44 {Another vain attempt to repair the wretched **{target_equipment}**.}
+        <target>{version, select,
+    1 {Congratulations **{character}**. The **{target_equipment}** works again.}
+    other {The **{target_equipment}** is working again, thanks to **{character}**.}
 }</target>
       </segment>
     </unit>
@@ -383,20 +345,20 @@
       </segment>
     </unit>
     <unit id="retrieve_oxygen">
-      <segment id="retrieve_oxygen" state="final">
+      <segment id="retrieve_oxygen" state="translated">
         <source>retrieve_oxygen</source>
         <target>{version, select,
-    **{character}** took some oxygen out of the reservoir very cautiously. They looks shady. 
-    **{character}** took some oxygen out of the reservoir very cautiously. They looks so peaceful.
-    **{character}** took some oxygen out of the reservoir very cautiously. That grin is unsettling. 
-    **{character}** took some oxygen out of the reservoir very cautiously. Is that really necessary? 
-    **{character}** took some oxygen out of the reservoir very cautiously. But why? 
-    **{character}** took some oxygen out of the reservoir very cautiously. It's all for charity... probably. 
-    **{character}** took some oxygen out of the reservoir very cautiously. Their goal is almost certainly commendable.
-    **{character}** took some oxygen out of the reservoir very cautiously. their smile reminds you of something. 
-    **{character}** took some oxygen out of the reservoir very cautiously. You recognize that laugh... 
-    **{character}** took some oxygen out of the reservoir very cautiously. Maybe you should keep a closer eye on them.
-    other {"invalid version number"}
+    1 {**{character}** took some oxygen out of the reservoir very cautiously. They looks shady.}
+    2 {**{character}** took some oxygen out of the reservoir very cautiously. They looks so peaceful.}
+    3 {**{character}** took some oxygen out of the reservoir very cautiously. That grin is unsettling.}
+    4 {**{character}** took some oxygen out of the reservoir very cautiously. Is that really necessary?}
+    5 {**{character}** took some oxygen out of the reservoir very cautiously. But why?}
+    6 {**{character}** took some oxygen out of the reservoir very cautiously. It's all for charity... probably.}
+    7 {**{character}** took some oxygen out of the reservoir very cautiously. Their goal is almost certainly commendable.}
+    8 {**{character}** took some oxygen out of the reservoir very cautiously. their smile reminds you of something. }
+    9 {**{character}** took some oxygen out of the reservoir very cautiously. You recognize that laugh... }
+    10 {**{character}** took some oxygen out of the reservoir very cautiously. Maybe you should keep a closer eye on them.}
+    other {invalid version number}
 }</target>
       </segment>
     </unit>
@@ -524,7 +486,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>{version, select,
     1 {OK guys this isn't working at all. You seem convinced that the Mush will commit suicide from despair. I remind you that we must study it first, so a little pessimism is ok, yeah?}
     2 {Comrades! Our destiny is to save humanity... We are the hope that the last Martyrs of Sol were waiting for and we will show that we are worthy of their memoirs! We are the future and we will fight until the end of time!}
-    other {invalid version input}
+    other {Comrades! Our destiny is to save humanity... We are the hope that the last Martyrs of Sol were waiting for and we will show that we are worthy of their memoirs! We are the future and we will fight until the end of time!}
 }</target>
       </segment>
     </unit>
@@ -538,7 +500,11 @@ blablabla blablabla blablabla... which meant that... blablabla blablabla
  blablabla... blablabla blablabla blabla... and ever since that day... 
 blablabla blablabla blablabla}                        
     2 {Following your misbehavior, we were thinking it'd be a good time to remind you of the golden rules of being a good crewmate, which you were informed of before your cryogenization... Let's begin... "I swear to never occupy a bed for more than five consecutive cycles, and I'll do so in order to allow my crewmates to rest adequately, in compliance with the SDF Treatment regulations"... Next...}
-    other {invalid version input}
+    other {Remember that day when... blablabla blablabla blabla blablabla... and 
+then I... blablabla blablabla blablabla... and that's when the... 
+blablabla blablabla blablabla... which meant that... blablabla blablabla
+ blablabla... blablabla blablabla blabla... and ever since that day... 
+blablabla blablabla blablabla}
 }</target>
       </segment>
     </unit>
@@ -607,7 +573,7 @@ blablabla blablabla blablabla}
     3 {**{character}** carves a chunk out of **{target_character}**, it's gross...}
     4 {Despite a good dodge, **{character}** has lost a little blood.}
     5 {**{character}**'s adeptly wielded blade makes a huge gash in **{target_character}**.}
-    other {invalid version input}
+    other {**{character}** thrusts at **{target_character}** with flair.}
 }</target>
       </segment>
     </unit>
@@ -617,7 +583,7 @@ blablabla blablabla blablabla}
         <target>{version, select,
     1 {Crash ! **{character}**'s weapon elegantly avoids **{target_character}** and instead crashes against a concrete bystander.} 
     2 {**{character}** unsheathed their blade and tried to attack **{target_character}** but missed the target.}
-    other {invalid version input}
+    other {**{character}** unsheathed their blade and tried to attack **{target_character}** but missed the target.}
 }</target>
       </segment>
     </unit>
@@ -644,13 +610,17 @@ blablabla blablabla blablabla}
     <unit id="shoot_success">
       <segment id="shoot_success" state="translated">
         <source>shoot_success</source>
-        <target>Premeditated or not, **{character}** took out their weapon and opened fire on **{target_character}**.</target>
+        <target>{version, select,
+    1 {Premeditated or not, **{character}** took out their weapon and opened fire on **{target_character}**.}
+    other {Premeditated or not, **{character}** took out their weapon and opened fire on **{target_character}**.}
+}</target>
       </segment>
     </unit>
     <unit id="shoot_fail">
       <segment id="shoot_fail" state="translated">
         <source>shoot_fail</source>
         <target>{version, select,
+    1 {**{character}** shot at **{target_character}** but they're clearly incapable of aiming properly...}
     other {**{character}** shot at **{target_character}** but they're clearly incapable of aiming properly...}
 }</target>
       </segment>
@@ -665,6 +635,7 @@ blablabla blablabla blablabla}
       <segment id="shoot_critical_fail" state="translated">
         <source>shoot_critical_fail</source>
         <target>{version, select,
+    1 {When firing at **{target_character}**, **{character}** got burnt with their weapon. Spectacular work.}
     other {When firing at **{target_character}**, **{character}** got burnt with their weapon. Spectacular work.}
 }</target>
       </segment>

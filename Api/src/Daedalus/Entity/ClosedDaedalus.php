@@ -12,6 +12,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\DeadPlayerInfo;
+use Mush\Player\Enum\EndCauseEnum;
 
 #[ORM\Entity(repositoryClass: DaedalusRepository::class)]
 #[ORM\Table(name: 'daedalus_closed')]
@@ -33,6 +34,9 @@ class ClosedDaedalus
     #[ORM\Column(type: 'string', nullable: false)]
     private string $gameStatus = GameStatusEnum::FINISHED;
 
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $endCause = EndCauseEnum::DAEDALUS_DESTROYED;
+
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $endDay;
 
@@ -51,7 +55,9 @@ class ClosedDaedalus
         $this->endDay = $daedalus->getDay();
         $this->gameConfig = $daedalus->getGameConfig();
         $this->filledAt = $daedalus->getFilledAt();
-        $this->finishedAt = $daedalus->getFilledAt();
+        $this->finishedAt = $daedalus->getFinishedAt();
+
+        $this->players = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -87,18 +93,6 @@ class ClosedDaedalus
         return $this;
     }
 
-    public function getGameStatus(): string
-    {
-        return $this->gameStatus;
-    }
-
-    public function setGameStatus(string $gameStatus): static
-    {
-        $this->gameStatus = $gameStatus;
-
-        return $this;
-    }
-
     public function getEndCycle(): int
     {
         return $this->endCycle;
@@ -117,5 +111,29 @@ class ClosedDaedalus
     public function getFinishedAt(): ?DateTime
     {
         return $this->finishedAt;
+    }
+
+    public function getGameStatus(): string
+    {
+        return $this->gameStatus;
+    }
+
+    public function setGameStatus(string $gameStatus): static
+    {
+        $this->gameStatus = $gameStatus;
+
+        return $this;
+    }
+
+    public function getEndCause(): string
+    {
+        return $this->endCause;
+    }
+
+    public function setEndCause(string $endCause): static
+    {
+        $this->endCause = $endCause;
+
+        return $this;
     }
 }

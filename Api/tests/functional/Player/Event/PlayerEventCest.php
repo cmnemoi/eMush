@@ -57,6 +57,7 @@ class PlayerEventCest
             'neron' => $neron,
             'cycle' => 5,
             'day' => 89,
+            'filledAt' => new \DateTime(),
         ]);
 
         $channel = new Channel();

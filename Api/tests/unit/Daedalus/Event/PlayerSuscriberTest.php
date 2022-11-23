@@ -57,12 +57,12 @@ class PlayerSuscriberTest extends TestCase
 
         $event = new PlayerEvent(
             $player,
-            DaedalusEvent::END_DAEDALUS,
+            DaedalusEvent::FINISH_DAEDALUS,
             $date
         );
 
         $this->eventDispatcher->shouldReceive('dispatch')
-            ->withArgs(fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::END_DAEDALUS))
+            ->withArgs(fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::FINISH_DAEDALUS))
             ->once();
 
         $this->playerSubscriber->onDeathPlayer($event);

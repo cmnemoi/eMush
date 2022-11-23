@@ -71,10 +71,10 @@ class DaedalusCycleEventTest extends TestCase
 
         $date = new \DateTime('tomorrow');
 
-        $event = new DaedalusCycleEvent($daedalus, DaedalusEvent::END_DAEDALUS, $date);
+        $event = new DaedalusCycleEvent($daedalus, DaedalusEvent::FINISH_DAEDALUS, $date);
 
         $this->eventDispatcher->shouldReceive('dispatch')
-            ->withArgs(fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::END_DAEDALUS))
+            ->withArgs(fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::FINISH_DAEDALUS))
             ->once();
 
         $this->daedalusCycleSubscriber->onNewCycle($event);

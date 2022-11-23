@@ -337,7 +337,7 @@ class DaedalusServiceTest extends TestCase
         $time = new \DateTime('yesterday');
 
         $this->eventDispatcher->shouldReceive('dispatch')
-            ->withArgs(fn (DaedalusEvent $daedalusEvent, $eventName) => ($daedalusEvent->getTime() === $time && $eventName === DaedalusEvent::END_DAEDALUS))
+            ->withArgs(fn (DaedalusEvent $daedalusEvent, $eventName) => ($daedalusEvent->getTime() === $time && $eventName === DaedalusEvent::FINISH_DAEDALUS))
             ->once()
         ;
 

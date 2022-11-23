@@ -25,28 +25,9 @@ class ActionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ActionEvent::PRE_ACTION => 'onPreAction',
             ActionEvent::RESULT_ACTION => 'onResultAction',
             ActionEvent::POST_ACTION => 'onPostAction',
         ];
-    }
-
-    public function onPreAction(ActionEvent $event): void
-    {
-        $player = $event->getPlayer();
-        $action = $event->getAction();
-
-        if ($action->getName() === ActionEnum::MOVE) {
-            $this->roomLogService->createLog(
-                ActionLogEnum::EXIT_ROOM,
-                $player->getPlace(),
-                VisibilityEnum::PUBLIC,
-                'actions_log',
-                $player,
-                [$player->getLogKey() => $player->getLogName()],
-                new \DateTime('now')
-            );
-        }
     }
 
     public function onResultAction(ActionEvent $event): void
@@ -68,6 +49,7 @@ class ActionSubscriber implements EventSubscriberInterface
     {
         $action = $event->getAction();
         $actionParameter = $event->getActionParameter();
+        $player = $event->getPlayer();
 
         if ($actionParameter instanceof Player &&
             in_array($action->getName(), ActionEnum::getForceGetUpActions()) &&
@@ -86,6 +68,18 @@ class ActionSubscriber implements EventSubscriberInterface
                 $actionParameter,
                 $logParameters,
                 new \DateTime()
+            );
+        }
+
+        if ($action->getName() === ActionEnum::MOVE) {
+            $this->roomLogService->createLog(
+                ActionLogEnum::ENTER_ROOM,
+                $player->getPlace(),
+                VisibilityEnum::PUBLIC,
+                'actions_log',
+                $player,
+                [$player->getLogKey() => $player->getLogName()],
+                new \DateTime('now')
             );
         }
     }

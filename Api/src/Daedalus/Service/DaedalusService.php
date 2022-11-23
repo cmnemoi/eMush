@@ -4,6 +4,7 @@ namespace Mush\Daedalus\Service;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Collection\DaedalusCollection;
 use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
@@ -21,6 +22,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -137,6 +139,39 @@ class DaedalusService implements DaedalusServiceInterface
         $this->eventDispatcher->dispatch($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
 
         return $daedalus;
+    }
+
+    public function endDaedalus(Daedalus $daedalus, string $reason, \DateTime $date): ClosedDaedalus
+    {
+        $this->killRemainingPlayers($daedalus, $reason, $date);
+
+        $daedalus->setFinishedAt(new \DateTime());
+        $daedalus->setGameStatus(GameStatusEnum::FINISHED);
+
+        $this->persist($daedalus);
+
+        // create closedDaedalus entity
+        $closedDaedalus = new ClosedDaedalus($daedalus);
+        $closedDaedalus->setEndCause($reason);
+        $this->entityManager->persist($closedDaedalus);
+        $this->entityManager->flush();
+
+        /** @var Player $player */
+        foreach ($daedalus->getPlayers() as $player) {
+            /** @var DeadPlayerInfo $deadPlayerInfo */
+            $deadPlayerInfo = $player->getDeadPlayerInfo();
+
+            $deadPlayerInfo->setClosedDaedalus($closedDaedalus);
+            $closedDaedalus->addPlayer($deadPlayerInfo);
+
+            $this->entityManager->persist($deadPlayerInfo);
+            $this->entityManager->flush();
+        }
+
+        $this->entityManager->persist($closedDaedalus);
+        $this->entityManager->flush();
+
+        return $closedDaedalus;
     }
 
     public function startDaedalus(Daedalus $daedalus): Daedalus
@@ -307,7 +342,7 @@ class DaedalusService implements DaedalusServiceInterface
                 $date
             );
 
-            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::END_DAEDALUS);
+            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
         } else {
             $daedalus->setHull(min($newHull, $maxHull));
         }

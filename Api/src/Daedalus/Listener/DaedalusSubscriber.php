@@ -22,11 +22,12 @@ class DaedalusSubscriber implements EventSubscriberInterface
         return [
             DaedalusEvent::START_DAEDALUS => 'onDaedalusStart',
             DaedalusEvent::FULL_DAEDALUS => 'onDaedalusFull',
-            DaedalusEvent::END_DAEDALUS => 'onDaedalusEnd',
+            DaedalusEvent::FINISH_DAEDALUS => 'onDaedalusFinish',
+            DaedalusEvent::CLOSE_DAEDALUS => 'onCloseDaedalus',
         ];
     }
 
-    public function onDaedalusEnd(DaedalusEvent $event): void
+    public function onDaedalusFinish(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
         $reason = $event->getReason();
@@ -35,21 +36,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
             throw new \LogicException('daedalus should end with a reason');
         }
 
-        $this->daedalusService->killRemainingPlayers($daedalus, $reason, $event->getTime());
-
-        // @TODO: create logs
-        // @TODO: remove all fire and charged statuses
-
-        $daedalus->getPlaces()->map(static function ($room) {
-            /** @var \Mush\Place\Entity\Place $room */
-            foreach ($room->getStatuses() as $status) {
-                $room->removeStatus($status);
-            }
-        });
-
-        $daedalus->setFinishedAt(new \DateTime());
-        $daedalus->setGameStatus(GameStatusEnum::FINISHED);
-        $this->daedalusService->persist($daedalus);
+        $this->daedalusService->endDaedalus($daedalus, $reason, $event->getTime());
     }
 
     public function onDaedalusFull(DaedalusEvent $event): void

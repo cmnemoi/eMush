@@ -50,6 +50,9 @@ class LastPlayerKilledCest
             'oxygen' => 1,
             'neron' => $neron,
             'game_status' => GameStatusEnum::CURRENT,
+            'cycle' => 5,
+            'day' => 10,
+            'filledAt' => new DateTime(),
         ]);
 
         $channel = new Channel();

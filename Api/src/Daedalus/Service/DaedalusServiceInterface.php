@@ -3,6 +3,7 @@
 namespace Mush\Daedalus\Service;
 
 use Doctrine\Common\Collections\Collection;
+use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Collection\DaedalusCollection;
 use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
@@ -23,6 +24,8 @@ interface DaedalusServiceInterface
     public function existAvailableDaedalus(): bool;
 
     public function createDaedalus(GameConfig $gameConfig, string $name): Daedalus;
+
+    public function endDaedalus(Daedalus $daedalus, string $reason, \DateTime $date): ClosedDaedalus;
 
     public function startDaedalus(Daedalus $daedalus): Daedalus;
 

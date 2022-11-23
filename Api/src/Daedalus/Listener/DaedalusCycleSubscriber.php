@@ -77,7 +77,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
                 EnumEndCauseEnum::KILLED_BY_NERON,
                 $time
             );
-            $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
+            $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
 
             return true;
         }

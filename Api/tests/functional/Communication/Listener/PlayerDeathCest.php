@@ -9,6 +9,7 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -41,7 +42,14 @@ class PlayerDeathCest
         $I->haveInRepository($neron);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+        $daedalus = $I->have(Daedalus::class, [
+            'gameConfig' => $gameConfig,
+            'neron' => $neron,
+            'game_status' => GameStatusEnum::CURRENT,
+            'cycle' => 5,
+            'day' => 10,
+            'filledAt' => new \DateTime(),
+        ]);
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 

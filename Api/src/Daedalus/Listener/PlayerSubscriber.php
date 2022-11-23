@@ -4,6 +4,8 @@ namespace Mush\Daedalus\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Player\Entity\DeadPlayerInfo;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -24,6 +26,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         return [
             PlayerEvent::NEW_PLAYER => 'onNewPlayer',
             PlayerEvent::DEATH_PLAYER => ['onDeathPlayer', -10],
+            PlayerEvent::END_PLAYER => ['onEndPlayer', -10],
         ];
     }
 
@@ -64,7 +67,22 @@ class PlayerSubscriber implements EventSubscriberInterface
                 $event->getTime()
             );
 
-            $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::END_DAEDALUS);
+            $this->eventDispatcher->dispatch($endDaedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
+        }
+    }
+
+    public function onEndPlayer(PlayerEvent $event): void
+    {
+        $player = $event->getPlayer();
+
+        if ($player->getDaedalus()->getPlayers()->filter(fn (Player $player) => $player->getGameStatus() !== GameStatusEnum::CLOSED)->isEmpty() &&
+            $player->getDaedalus()->getGameStatus() === GameStatusEnum::FINISHED
+        ) {
+            /** @var DeadPlayerInfo $deadPlayerInfo */
+            $deadPlayerInfo = $player->getDeadPlayerInfo();
+
+            $closedDaedalus = $deadPlayerInfo->getClosedDaedalus();
+            $closedDaedalus->setGameStatus(GameStatusEnum::CLOSED);
         }
     }
 }

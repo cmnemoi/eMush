@@ -156,10 +156,8 @@ class PlayerService implements PlayerServiceInterface
 
     public function endPlayer(Player $player, string $message): Player
     {
+        /** @var DeadPlayerInfo $deadPlayerInfo */
         $deadPlayerInfo = $player->getDeadPlayerInfo();
-        if ($deadPlayerInfo === null) {
-            throw new \LogicException('unable to find deadPlayerInfo');
-        }
 
         $deadPlayerInfo
             ->setMessage($message)

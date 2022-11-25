@@ -19,6 +19,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -96,6 +97,7 @@ class ChannelServiceTest extends TestCase
     public function testCreatePrivateChannel()
     {
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $daedalus = new Daedalus();
         $player->setDaedalus($daedalus);
 
@@ -122,6 +124,7 @@ class ChannelServiceTest extends TestCase
     public function testInvitePlayerToChannel()
     {
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $channel = new Channel();
 
         $this->eventDispatcher
@@ -136,6 +139,7 @@ class ChannelServiceTest extends TestCase
     public function testExitChannel()
     {
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $channel = new Channel();
 
         $this->eventDispatcher
@@ -150,6 +154,7 @@ class ChannelServiceTest extends TestCase
     public function testCanPlayerCommunicateWithTalkie()
     {
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $place = new Place();
 
         $talkie = new GameItem();
@@ -165,6 +170,7 @@ class ChannelServiceTest extends TestCase
     public function testPlayerCannotCommunicate()
     {
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $place = new Place();
 
         $talkie = new GameItem();
@@ -181,6 +187,7 @@ class ChannelServiceTest extends TestCase
     public function testPlayerCanCommunicateWithCommCenter()
     {
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $place = new Place();
 
         $commCenter = new GameEquipment();
@@ -197,6 +204,7 @@ class ChannelServiceTest extends TestCase
     public function testPlayerCanCommunicateWithBrainSync()
     {
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $place = new Place();
 
         $statusConfig = new StatusConfig();
@@ -217,6 +225,7 @@ class ChannelServiceTest extends TestCase
         $place = new Place();
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
         $channelPlayer->setChannel($channel)->setParticipant($player);
@@ -244,6 +253,7 @@ class ChannelServiceTest extends TestCase
         $item3->setName(ItemEnum::ITRACKIE);
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
         $channelPlayer->setChannel($channel)->setParticipant($player);
@@ -271,6 +281,7 @@ class ChannelServiceTest extends TestCase
         $place = new Place();
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
         $channelPlayer->setChannel($channel)->setParticipant($player);
@@ -297,6 +308,7 @@ class ChannelServiceTest extends TestCase
         $place = new Place();
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlace($place);
 
         $player2 = new Player();
@@ -327,6 +339,7 @@ class ChannelServiceTest extends TestCase
         $item2->setName(ItemEnum::ITRACKIE);
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlace($place)->addEquipment($item);
         $channelPlayer = new ChannelPlayer();
         $channelPlayer->setChannel($channel)->setParticipant($player);
@@ -374,6 +387,7 @@ class ChannelServiceTest extends TestCase
         $item2->setName(ItemEnum::ITRACKIE);
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
         $channelPlayer->setChannel($channel)->setParticipant($player);
@@ -421,6 +435,7 @@ class ChannelServiceTest extends TestCase
         $item2->setName(ItemEnum::ITRACKIE);
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
         $channelPlayer->setChannel($channel)->setParticipant($player);
@@ -471,6 +486,7 @@ class ChannelServiceTest extends TestCase
         $item3->setName(ItemEnum::ITRACKIE);
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
         $channelPlayer->setChannel($channel)->setParticipant($player);
@@ -519,6 +535,7 @@ class ChannelServiceTest extends TestCase
         $reason = ActionEnum::CONSUME;
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlace($place);
 
         $this->channelRepository
@@ -540,6 +557,7 @@ class ChannelServiceTest extends TestCase
         $place = new Place();
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlace($place);
 
         $this->channelRepository
@@ -563,6 +581,7 @@ class ChannelServiceTest extends TestCase
         $place = new Place();
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlace($place);
 
         $this->channelRepository
@@ -589,6 +608,7 @@ class ChannelServiceTest extends TestCase
         $item->setName(ItemEnum::ITRACKIE);
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlace($place)->addEquipment($item);
 
         $this->channelRepository
@@ -605,6 +625,7 @@ class ChannelServiceTest extends TestCase
     public function testGetPiratePlayer()
     {
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
 
         $player2 = new Player();
         $piratedStatusConfig = new StatusConfig();
@@ -633,6 +654,7 @@ class ChannelServiceTest extends TestCase
     public function testGetPiratedPlayer()
     {
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
 
         $player2 = new Player();
 
@@ -656,6 +678,7 @@ class ChannelServiceTest extends TestCase
         $place = new Place();
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlace($place);
 
         $playerParticipant = new ChannelPlayer();
@@ -681,6 +704,7 @@ class ChannelServiceTest extends TestCase
         $place = new Place();
 
         $player = new Player();
+        $player->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlace($place);
 
         $playerParticipant = new ChannelPlayer();

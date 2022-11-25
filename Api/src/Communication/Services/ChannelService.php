@@ -221,7 +221,7 @@ class ChannelService implements ChannelServiceInterface
     {
         $channels = $this->channelRepository->findByPlayer($player, $privateOnly);
 
-        if (!$this->canPlayerCommunicate($player) && !$privateOnly) {
+        if ($player->isAlive() && !$this->canPlayerCommunicate($player) && !$privateOnly) {
             $publicChannel = $channels->filter(fn (Channel $channel) => $channel->isPublic())->first();
             $channels->removeElement($publicChannel);
         }

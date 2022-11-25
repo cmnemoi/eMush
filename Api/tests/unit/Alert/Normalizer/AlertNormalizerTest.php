@@ -162,8 +162,22 @@ class AlertNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('fire.report', ['character' => 'andie', 'place' => 'room1'], 'alerts', LanguageEnum::FRENCH)
+            ->with('room1.name', [], 'rooms', LanguageEnum::FRENCH)
             ->andReturn('translated three')
+            ->once()
+        ;
+
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('room1.loc_prep', [], 'rooms', LanguageEnum::FRENCH)
+            ->andReturn('translated four')
+            ->once()
+        ;
+
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('fire.report', ['character' => 'andie', 'place' => 'translated three', 'loc_prep' => 'translated four'], 'alerts', LanguageEnum::FRENCH)
+            ->andReturn('translated five')
             ->once()
         ;
 
@@ -173,7 +187,7 @@ class AlertNormalizerTest extends TestCase
             'key' => 'fire',
             'name' => 'translated one',
             'description' => 'translated two',
-            'reports' => ['translated three'],
+            'reports' => ['translated five'],
         ], $normalized);
     }
 }

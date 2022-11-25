@@ -89,7 +89,24 @@ class AlertNormalizer implements ContextAwareNormalizerInterface
 
         foreach ($alert->getAlertElements() as $element) {
             if ($element->getPlayer() !== null) {
-                $parameters = ['character' => $element->getPlayer()->getCharacterConfig()->getName(), 'place' => $element->getPlace()->getName()];
+                $place = $this->translationService->translate(
+                    $element->getPlace()->getName() . '.name',
+                    [],
+                    'rooms',
+                    $language
+                );
+                $loc_prep = $this->translationService->translate(
+                    $element->getPlace()->getName() . '.loc_prep',
+                    [],
+                    'rooms',
+                    $language
+                );
+                $parameters = [
+                    'character' => $element->getPlayer()->getCharacterConfig()->getName(),
+                    'place' => $place,
+                    'loc_prep' => $loc_prep,
+                ];
+
                 $reports[] = $this->translationService->translate(
                     "{$alert->getName()}.report",
                     $parameters,

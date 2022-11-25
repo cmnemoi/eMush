@@ -70,6 +70,12 @@ class SelfSurgery extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new HasStatus([
+            'status' => EquipmentStatusEnum::BROKEN,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+        ]));
+        $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::LYING_DOWN,
             'target' => HasStatus::PLAYER,
             'groups' => ['execute'],
@@ -81,12 +87,6 @@ class SelfSurgery extends AbstractAction
             'isEmpty' => false,
             'type' => TypeEnum::INJURY,
             'message' => ActionImpossibleCauseEnum::HEAL_NO_INJURY,
-        ]));
-        $metadata->addConstraint(new HasStatus([
-            'status' => EquipmentStatusEnum::BROKEN,
-            'contain' => false,
-            'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));
     }
 

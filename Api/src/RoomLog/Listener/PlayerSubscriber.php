@@ -59,7 +59,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             }
 
             $logParameters[LanguageEnum::END_CAUSE] = $this->translationService->translate(
-                $reason . '.name',
+                $reason,
                 [],
                 'end_cause',
                 $language

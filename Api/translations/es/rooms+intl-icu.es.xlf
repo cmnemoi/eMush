@@ -4,41 +4,41 @@
     <unit id="bridge">
       <segment id="name" state="translated">
         <source>bridge.name</source>
-        <target>Puente de mando</target>
+        <target>Pont</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>bridge.loc_prep</source>
-        <target>on el</target>
+        <target>on el </target>
       </segment>
     </unit>
     <unit id="alpha_bay">
       <segment id="name" state="translated">
         <source>alpha_bay.name</source>
-        <target>Plataforma Alpha</target>
+        <target>Baie Alpha</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>alpha_bay.loc_prep</source>
-        <target>en la</target>
+        <target>en la </target>
       </segment>
     </unit>
     <unit id="bravo_bay">
       <segment id="name" state="translated">
         <source>bravo_bay.name</source>
-        <target>Plataforma Beta</target>
+        <target>Baie Beta</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>bravo_bay.loc_prep</source>
-        <target>en la</target>
+        <target>en la </target>
       </segment>
     </unit>
     <unit id="alpha_bay_2">
       <segment id="name" state="translated">
         <source>alpha_bay_2.name</source>
-        <target>Plataforma Alpha 2</target>
+        <target>Baie Alpha 2</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>alpha_bay_2.loc_prep</source>
-        <target>en la</target>
+        <target>en la </target>
       </segment>
     </unit>
     <unit id="nexus">
@@ -48,227 +48,227 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>nexus.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="medlab">
       <segment id="name" state="translated">
         <source>medlab.name</source>
-        <target>Enfermería</target>
+        <target>Infirmerie</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>medlab.loc_prep</source>
-        <target>en la</target>
+        <target>en la </target>
       </segment>
     </unit>
     <unit id="laboratory">
       <segment id="name" state="translated">
         <source>laboratory.name</source>
-        <target>Laboratorio</target>
+        <target>Laboratoire</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>laboratory.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="refectory">
       <segment id="name" state="translated">
         <source>refectory.name</source>
-        <target>Comedor</target>
+        <target>Réfectoire</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>refectory.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="hydroponic_garden">
       <segment id="name" state="translated">
         <source>hydroponic_garden.name</source>
-        <target>Jardín Hidropónico</target>
+        <target>Jardin Hydroponique</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>hydroponic_garden.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="engine_room">
       <segment id="name" state="translated">
         <source>engine_room.name</source>
-        <target>Sala de motores</target>
+        <target>Salle des moteurs</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>engine_room.loc_prep</source>
-        <target>en la</target>
+        <target>en la </target>
       </segment>
     </unit>
     <unit id="front_alpha_turret">
       <segment id="name" state="translated">
         <source>front_alpha_turret.name</source>
-        <target>Cañón Alpha delantero</target>
+        <target>Tourelle Alpha Avant</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>front_alpha_turret.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="centre_alpha_turret">
       <segment id="name" state="translated">
         <source>centre_alpha_turret.name</source>
-        <target>Cañón Alpha central</target>
+        <target>Tourelle Alpha Centre</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>centre_alpha_turret.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="rear_alpha_turret">
       <segment id="name" state="translated">
         <source>rear_alpha_turret.name</source>
-        <target>Cañón Alpha trasero</target>
+        <target>Tourelle Alpha Arrière</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_alpha_turret.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="front_bravo_turret">
       <segment id="name" state="translated">
         <source>front_bravo_turret.name</source>
-        <target>Cañón Beta delantero</target>
+        <target>Tourelle Beta Avant</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>front_bravo_turret.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="centre_bravo_turret">
       <segment id="name" state="translated">
         <source>centre_bravo_turret.name</source>
-        <target>Cañón Beta central</target>
+        <target>Tourelle Beta Centre</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>center_bravo_turret.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="rear_bravo_turret">
       <segment id="name" state="translated">
         <source>rear_bravo_turret.name</source>
-        <target>Cañón Beta trasero</target>
+        <target>Tourelle Beta Arrière</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_bravo_turret.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="front_corridor">
       <segment id="name" state="translated">
         <source>front_corridor.name</source>
-        <target>Pasillo delantero</target>
+        <target>Couloir Avant</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>front_corridor.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="central_corridor">
       <segment id="name" state="translated">
         <source>central_corridor.name</source>
-        <target>Pasillo central</target>
+        <target>Couloir Central</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>central_corridor.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="rear_corridor">
       <segment id="name" state="translated">
         <source>rear_corridor.name</source>
-        <target>Pasillo trasero</target>
+        <target>Couloir Arrière</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_corridor.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="icarus_bay">
       <segment id="name" state="translated">
         <source>icarus_bay.name</source>
-        <target>Icarus</target>
+        <target>Baie Icarus</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>icarus_bay.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="alpha_dorm">
       <segment id="name" state="translated">
         <source>alpha_dorm.name</source>
-        <target>Dormitorio Alpha</target>
+        <target>Dortoir Alpha</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>alpha_dorm.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="bravo_dorm">
       <segment id="name" state="translated">
         <source>bravo_dorm.name</source>
-        <target>Dormitorio Beta</target>
+        <target>Dortoir Beta</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>bravo_dorm.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="front_storage">
       <segment id="name" state="translated">
         <source>front_storage.name</source>
-        <target>Almacén delantero</target>
+        <target>Stockage Avant</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>front_storage.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="center_alpha_storage">
       <segment id="name" state="translated">
         <source>center_alpha_storage.name</source>
-        <target>Almacén Alpha central</target>
+        <target>Stockage Alpha Centre</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>center_alpha_storage.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="center_bravo_storage">
       <segment id="name" state="translated">
         <source>center_bravo_storage.name</source>
-        <target>Almacén Beta central</target>
+        <target>Stockage Beta Centre</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>center_bravo_storage.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="rear_alpha_storage">
       <segment id="name" state="translated">
         <source>rear_alpha_storage.name</source>
-        <target>Almacén Alpha trasero</target>
+        <target>Stockage Alpha Arrière</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_alpha_storage.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
     <unit id="rear_bravo_storage">
       <segment id="name" state="translated">
         <source>rear_bravo_storage.name</source>
-        <target>Almacén Beta trasero</target>
+        <target>Stockage Beta Arrière</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_bravo_storage.loc_prep</source>
-        <target>en el</target>
+        <target>en el </target>
       </segment>
     </unit>
   </file>

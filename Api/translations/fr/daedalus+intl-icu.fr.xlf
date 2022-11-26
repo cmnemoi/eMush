@@ -76,5 +76,19 @@ Vous gagnerez alors quelques précieux :pa::pm: selon votre état de santé.</ta
 La valeur sera finalisée après la fin du voyage. Elle déterminera votre classement dans le palmarès du vaisseau.</target>
       </segment>
     </unit>
+    <unit id="calendar.name">
+      <segment state="translated">
+        <source>calendar.name</source>
+        <target>Le temps du jeu</target>
+      </segment>
+    </unit>
+    <unit id="calendar.description">
+      <segment state="translated">
+        <source>calendar.description</source>
+        <target>Les jours du jeu correspondent aux jours de la vie réelle.
+//
+Un **Cycle dure 3 heures**. À chaque Cycle vous cumulez plus de :pa::pm:, indispensables pour pouvoir réaliser des actions !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

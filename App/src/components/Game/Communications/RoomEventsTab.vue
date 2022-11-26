@@ -3,7 +3,7 @@
         <section v-for="(cycleRoomLog, id) in roomLogs.slice().reverse()" :key="id" class="unit">
             <div class="banner cycle-banner">
                 <img class="expand" src="@/assets/images/comms/less.png">
-                <span>Jour {{ cycleRoomLog.day }} Cycle {{ cycleRoomLog.cycle }}</span>
+                <span>{{ $t('game.communications.day') }} {{ cycleRoomLog.day }} {{ $t('game.communications.cycle') }}  {{cycleRoomLog.cycle }}</span>
             </div>
             <div class="cycle-events">
                 <Log v-for="(roomLog, id) in cycleRoomLog.roomLogs" :key="id" :room-log="roomLog" />

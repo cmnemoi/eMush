@@ -74,5 +74,17 @@ Un **ciclo dura 3 horas**. ¡En cada Ciclo acumulas más :pm::pa:, indispensable
         <target>Gloria acumulada durante el viaje. Esta puntuación será calculada al final de la aventura y determina tu posición en la clasificación de la nave.</target>
       </segment>
     </unit>
+    <unit id="calendar.name">
+      <segment state="initial">
+        <source>calendar.name</source>
+        <target>calendar.name</target>
+      </segment>
+    </unit>
+    <unit id="calendar.description">
+      <segment state="initial">
+        <source>calendar.description</source>
+        <target>calendar.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

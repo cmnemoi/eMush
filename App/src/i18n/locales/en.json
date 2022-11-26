@@ -137,5 +137,11 @@
 		"findShip": "Find a ship:",
 		"select": "Select",
 		"shipNotFound": "No ship was found under this name. Please check and input the name again."
+	},
+	"game": {
+		"communications": {
+			"day": "Day",
+			"cycle": "Cycle"
+		}
 	}
 }

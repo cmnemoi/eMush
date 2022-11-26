@@ -623,12 +623,16 @@
       <segment id="description" state="translated">
         <source>tracker.description</source>
         <target>The tracker is like an on-board GPS, it gives you general information on the ship!
-&lt;li&gt;Displays the minimap&lt;/li&gt;</target>
+//
+Displays the minimap.
+</target>
       </segment>
       <segment id="examine" state="translated">
         <source>tracker.examine</source>
         <target>The tracker is like an on-board GPS, it gives you general information on the ship!
-&lt;li&gt;Displays the minimap&lt;/li&gt;
+//
+Displays the minimap.
+//
 Lost in space, in the jungle, in the good old Daedalus ? We've got exactly what you need. Now you can get lost in the mini map..</target>
       </segment>
     </unit>
@@ -656,13 +660,16 @@ Lost in space, in the jungle, in the good old Daedalus ? We've got exactly what 
       <segment id="description" state="translated">
         <source>walkie_talkie.description</source>
         <target>The Walkie-Talkie is a dated means of communication, but it works.
-&lt;li&gt;Allows you to communicate remotely with other crewmembers&lt;/li&gt;</target>
+//
+Allows you to communicate remotely with other crewmembers.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>walkie_talkie.examine</source>
         <target>The Walkie-Talkie is a dated means of communication, but it works.
-&lt;li&gt;Allows you to communicate remotely with other crewmembers&lt;/li&gt;
-Lets you communicate on the General Channel</target>
+//
+Allows you to communicate remotely with other crewmembers.
+//
+Lets you communicate on the General Channel.</target>
       </segment>
     </unit>
     <unit id="itrackie">
@@ -1807,8 +1814,10 @@ The support drone fulfils the automatic maintenance objective planned for the Ma
       <segment id="description" state="translated">
         <source>jar_of_alien_oil.description</source>
         <target>This fan-bloody-tastic oil is not content just to heal your injuries, it can also be used to fuel the Daedalus reactor!
-&lt;li&gt;Heals 100% of injuries.&lt;/li&gt;
-&lt;li&gt;Can be inserted into a reservoir to gain 5 fuel units.&lt;/li&gt;</target>
+//
+Heals 100% of injuries.
+//
+Can be inserted into a reservoir to gain 5 fuel units.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>jar_of_alien_oil.examine</source>
@@ -3394,7 +3403,7 @@ The most fashionable SNC product, which in certain South American tribes, has co
     <unit id="blueprint">
       <segment id="name" state="translated">
         <source>blueprint.name</source>
-        <target>Blueprint</target>
+        <target>Blueprint : {equipment}</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>blueprint.short_name</source>
@@ -3412,8 +3421,7 @@ The most fashionable SNC product, which in certain South American tribes, has co
         <source>blueprint.description</source>
         <target>To construct something, a solid blueprint beats a speech hands down. This plan requires some components to be completed.      
 //
-This plan requires: 
-//</target>
+This plan requires: </target>
       </segment>
       <segment id="examine" state="translated">
         <source>blueprint.examine</source>
@@ -3432,11 +3440,11 @@ This plan requires:
     <unit id="apprenton">
       <segment id="name" state="translated">
         <source>apprenton.name</source>
-        <target>Apprenton</target>
+        <target>Mage book: {skill}</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>apprenton.short_name</source>
-        <target>Apprenton</target>
+        <target>Mage book</target>
       </segment>
       <segment id="genre" state="translated">
         <source>apprenton.gender</source>
@@ -3453,6 +3461,7 @@ This plan requires:
       <segment id="examine" state="translated">
         <source>apprenton.examine</source>
         <target>Books. A practical, if antiquated invention. Maybe you'll find the solutions to your life's problems within. In any case, reading won't do you any harm.
+//
 A stack of cellulose with which it might be able to knock Raluca out, and more besides...</target>
       </segment>
     </unit>

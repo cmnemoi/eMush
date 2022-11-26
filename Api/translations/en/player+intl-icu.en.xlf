@@ -18,7 +18,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>moralPoint.description</source>
-        <target>**Morale Points* (:pmo:) represent your level of hope and your ability to deal with the toughest tests of your spirit.
+        <target>*Morale Points* (:pmo:) represent your level of hope and your ability to deal with the toughest tests of your spirit.
 //
 It is a precious resource: to regain it quickly, you can eat some fruit or consult your crewmates.</target>
       </segment>

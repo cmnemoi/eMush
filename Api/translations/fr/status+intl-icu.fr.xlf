@@ -1537,5 +1537,17 @@
         <target>NERON installe des mises à jour. NE PAS ÉTEINDRE L'APPAREIL !!! 30%</target>
       </segment>
     </unit>
+    <unit id="fire.name">
+      <segment state="translated">
+        <source>fire.name</source>
+        <target>Incendie en cours</target>
+      </segment>
+    </unit>
+    <unit id="fire.description">
+      <segment state="translated">
+        <source>fire.description</source>
+        <target>Cette pièce est en flammes !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -132,5 +132,10 @@
 		"search": "Chercher",
 		"edit": "Éditer",
 		"updatedAt": "Mis à jour le"
+	},
+	"charselection": {
+		"findShip": "Trouver un vaisseau :",
+		"select": "Sélectionner",
+		"shipNotFound": "Aucun vaisseau avec ce nom n'a été trouvé. Vérifiez son orthographe et réessayez."
 	}
 }

@@ -636,13 +636,13 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <source>tracker.description</source>
         <target>Le Traqueur est l'équivalent à bord du GPS, il vous donne des informations globales sur le vaisseau ! 
                 //
-                Affiche la minimap</target>
+                Affiche la minimap.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>tracker.examine</source>
         <target>Le Traqueur est l'équivalent à bord du GPS, il vous donne des informations globales sur le vaisseau !
                 //
-                Affiche la minimap
+                Affiche la minimap.
                 //
                 Perdu dans l'espace, dans la jungle, dans ce bon vieux Daedalus ? Nous avons exactement ce qu'il vous faut. Maintenant vous pourrez vous perdre dans la mini carte.</target>
       </segment>
@@ -1797,8 +1797,10 @@ Le drone de Soutien permet d'achever l'objectif de maintenance automatique de Ma
       <segment id="description" state="translated">
         <source>jar_of_alien_oil.description</source>
         <target>Cette huile mi-ra-cu-leuse ne se contente pas de guérir vos blessures, elle peut également alimenter le réacteur du Daedalus !
+//
 Guérit 100% des blessures.
-Peut être inséré dans un reservoir pour gagner 5 unités de fuel.</target>
+//
+Peut être inséré dans un réservoir pour gagner 5 unités de fuel.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>jar_of_alien_oil.examine</source>
@@ -3423,7 +3425,8 @@ Imperissable
       </segment>
       <segment id="examine" state="translated">
         <source>apprenton.examine</source>
-        <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal.
+        <target>Les Livres. Un média antique mais pratique. Vous trouverez peut-être une solution à vos problèmes en lisant. De toute façon, ça ne fait pas de mal. 
+//
 Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et encore...</target>
       </segment>
     </unit>

@@ -3,7 +3,7 @@
         <Spinner :loading="loading"></Spinner>
         <form class="daedalus-selection" onsubmit="return false">
             <div>
-                <label>Find your ship:</label>
+                <label>{{ $t('charselection.findShip') }}</label>
                 <input
                     v-model="daedalusName"
                     type="search"
@@ -12,9 +12,9 @@
                     aria-controls="example"
                     @keyup.enter="loadAvailableCharacters"
                 >
-                <button type="button" @click="loadAvailableCharacters">Select</button>
+                <button type="button" @click="loadAvailableCharacters">{{ $t('charselection.select') }}</button>
             </div>
-            <span v-if="error" class="error">No ship was found under this name. Please check and input the name again.</span>
+            <span v-if="error" class="error">{{ $t('charselection.shipNotFound') }}</span>
         </form>
         <div class="char-selection">
             <section

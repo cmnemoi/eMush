@@ -73,5 +73,19 @@ To participate you must have a :talkie: walkie-talkie.</target>
         <target>~{quantity}d</target>
       </segment>
     </unit>
+    <unit id="calendar.name">
+      <segment state="translated">
+        <source>calendar.name</source>
+        <target>Game time</target>
+      </segment>
+    </unit>
+    <unit id="calendar.description">
+      <segment state="translated">
+        <source>calendar.description</source>
+        <target>Days in the game correspond to days in real life.
+//
+One **Cycle lasts for 3 hours**. Every new cycle, you receive :pa: and :pm:, which are extremely useful for doing things!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

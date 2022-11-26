@@ -647,8 +647,8 @@
         <target>mashed_legs.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>smashed_legs.description</source>
-        <target>smashed_legs.description</target>
+        <source>mashed_legs.description</source>
+        <target>mashed_legs.description</target>
       </segment>
     </unit>
     <unit id="torn_tongue">

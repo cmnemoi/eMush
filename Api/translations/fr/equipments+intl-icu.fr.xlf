@@ -102,7 +102,7 @@
       </segment>
       <segment id="examine" state="translated">
         <source>bed.examine</source>
-        <target>Le lit vous permet de dormir pour régénérer des pa. Faites de beaux rêves !</target>
+        <target>Le lit vous permet de dormir pour régénérer des :pa:. Faites de beaux rêves !</target>
       </segment>
     </unit>
     <unit id="medlab_bed">
@@ -128,7 +128,7 @@
       </segment>
       <segment id="examine" state="translated">
         <source>medlab_bed.examine</source>
-        <target>Le lit vous permet de dormir pour régénérer des pa. Faites de beaux rêves !</target>
+        <target>Le lit vous permet de dormir pour régénérer des :pa:. Faites de beaux rêves !</target>
       </segment>
     </unit>
     <unit id="bios_terminal">
@@ -882,7 +882,9 @@
       </segment>
       <segment id="examine" state="translated">
         <source>research_laboratory.examine</source>
-        <target>Le laboratoire permet de rassembler les recherches les plus pointues sur le Mush. Un laboratoire super ultra moderne avec de vrais ordinateurs à lampe fluo compacte et des cartes perforées haute densité.</target>
+        <target>Le laboratoire permet de rassembler les recherches les plus pointues sur le Mush.
+//
+Un laboratoire super ultra moderne avec de vrais ordinateurs à lampe fluo compacte et des cartes perforées haute densité.</target>
       </segment>
     </unit>
     <unit id="shower">

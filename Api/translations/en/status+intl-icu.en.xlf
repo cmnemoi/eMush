@@ -1537,5 +1537,17 @@
         <target>updating.description</target>
       </segment>
     </unit>
+    <unit id="fire.name">
+      <segment state="translated">
+        <source>fire.name</source>
+        <target>Fire in progress</target>
+      </segment>
+    </unit>
+    <unit id="fire.description">
+      <segment state="translated">
+        <source>fire.description</source>
+        <target>This room is on fire !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

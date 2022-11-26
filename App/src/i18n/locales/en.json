@@ -132,5 +132,10 @@
 		"search": "Search",
 		"edit": "Edit",
 		"updatedAt": "Updated at"
+	},
+	"charselection": {
+		"findShip": "Find a ship:",
+		"select": "Select",
+		"shipNotFound": "No ship was found under this name. Please check and input the name again."
 	}
 }

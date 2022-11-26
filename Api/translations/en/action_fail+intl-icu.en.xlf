@@ -490,7 +490,7 @@
     <unit id="surgery_not_lying_down">
       <segment id="description" state="translated">
         <source>surgery_not_lying_down.description</source>
-        <target>This action require you to be lying down.</target>
+        <target>This action requires you to be lying down.</target>
       </segment>
     </unit>
     <unit id="mush_remove_spore">

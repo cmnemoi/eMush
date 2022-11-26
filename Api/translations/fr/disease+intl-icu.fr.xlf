@@ -647,7 +647,7 @@
         <target>Jambes inutilisables</target>
       </segment>
       <segment id="description" state="translated">
-        <source>smashed_legs.description</source>
+        <source>mashed_legs.description</source>
         <target>Vous n'avez plus l'usage de vos jambes, dommage, ça peut servir.</target>
       </segment>
     </unit>

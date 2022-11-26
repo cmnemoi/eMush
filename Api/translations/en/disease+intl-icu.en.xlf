@@ -647,7 +647,7 @@
         <target>Smashed Legs</target>
       </segment>
       <segment id="description" state="translated">
-        <source>smashed_legs.description</source>
+        <source>mashed_legs.description</source>
         <target>You no longer have the use of your legs, too bad, it can be useful.</target>
       </segment>
     </unit>

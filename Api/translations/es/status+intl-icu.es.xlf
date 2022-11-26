@@ -1537,5 +1537,17 @@
         <target>updating.description</target>
       </segment>
     </unit>
+    <unit id="fire.name">
+      <segment state="initial">
+        <source>fire.name</source>
+        <target>fire.name</target>
+      </segment>
+    </unit>
+    <unit id="fire.description">
+      <segment state="initial">
+        <source>fire.description</source>
+        <target>fire.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

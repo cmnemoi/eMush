@@ -117,7 +117,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
         );
 
         $description = $this->translationService->translate(
-            'actionPoint.description', [
+            $variable . '.description', [
             'quantityAction' => $player->getActionPoint(),
             'quantityMovement' => $player->getMovementPoint(),
         ], 'player',

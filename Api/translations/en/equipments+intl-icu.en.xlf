@@ -108,7 +108,7 @@ NERON's core is where it is possible to modify programs to improve functionality
       </segment>
       <segment id="examine" state="translated">
         <source>bed.examine</source>
-        <target>The bed allows you to sleep to restore pa.
+        <target>The bed allows you to sleep to restore :pa:.
 Sweet dreams!</target>
       </segment>
     </unit>
@@ -906,17 +906,19 @@ Music plays when you start it up. The engineers responsible for this were eccent
         <source>research_laboratory.plural_name</source>
         <target>Research Labs</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>research_laboratory.gender</source>
-        <target>research_laboratory.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>research_laboratory.first_letter</source>
-        <target>research_laboratory.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>research_laboratory.examine</source>
-        <target>research_laboratory.examine</target>
+        <target>The laboratory allows the crew to carry out the most ground-breaking research on Mush.
+//
+A super ultra modern lab with computers with compact fluorescent lights and high density perforated cards.</target>
       </segment>
     </unit>
     <unit id="shower">

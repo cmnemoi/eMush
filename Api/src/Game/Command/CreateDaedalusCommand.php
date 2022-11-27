@@ -6,9 +6,9 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Uid\Uuid;
 
 #[AsCommand(
     name: 'mush:create-daedalus',
@@ -28,15 +28,22 @@ class CreateDaedalusCommand extends Command
         $this->gameConfigService = $gameConfigService;
     }
 
+    protected function configure(): void
+    {
+        $this
+            ->addArgument('daedalusName', InputArgument::OPTIONAL, 'The name of the Daedalus to create.')
+        ;
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (!$this->service->existAvailableDaedalus()) {
             $output->writeln('Creating Daedalus...');
 
-            $name = Uuid::v4()->toRfc4122();
+            $name = $input->getArgument('daedalusName') ? $input->getArgument('daedalusName') : 'test';
             $config = $this->gameConfigService->getConfig();
             $this->service->createDaedalus($config, $name);
-            $output->writeln("Daedalus {$name} created.");
+            $output->writeln("Daedalus '{$name}' created.");
 
             return Command::SUCCESS;
         } else {

@@ -7,7 +7,6 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GearToolServiceInterface;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -44,7 +43,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
 
         return $data instanceof Player &&
             $data === $currentPlayer &&
-            $data->getGameStatus() === GameStatusEnum::CURRENT
+            $data->isAlive()
         ;
     }
 
@@ -61,7 +60,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
             $items[] = $this->normalizer->normalize($item, $format, $context);
         }
 
-        $character = $player->getCharacterConfig()->getName();
+        $character = $player->getName();
 
         $playerData = [
             'id' => $player->getId(),
@@ -69,7 +68,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
                 'key' => $character,
                 'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
             ],
-            'gameStatus' => $player->getGameStatus(),
+            'gameStatus' => $player->getPlayerInfo()->getGameStatus(),
             'triumph' => $player->getTriumph(),
             'daedalus' => $this->normalizer->normalize($player->getDaedalus(), $format, $context),
         ];

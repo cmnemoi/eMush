@@ -13,10 +13,11 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 
 class BuildActionCest
 {
@@ -86,9 +87,10 @@ class BuildActionCest
             ->setMoralPoint(10)
             ->setDaedalus($daedalus)
             ->setPlace($room)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-            ->setCharacterConfig($characterConfig)
         ;
+
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
+        $player->setPlayerInfo($playerInfo);
 
         return $player;
     }

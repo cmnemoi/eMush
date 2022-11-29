@@ -5,9 +5,12 @@ namespace Mush\Tests\functional\RoomLog\Repository;
 use App\Tests\FunctionalTester;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Repository\RoomLogRepository;
+use Mush\User\Entity\User;
 
 class RoomLogRepositoryCest
 {
@@ -20,11 +23,21 @@ class RoomLogRepositoryCest
 
     public function testRoomLogVisibility(FunctionalTester $I)
     {
+        /** @var Place $place */
         $place = $I->have(Place::class);
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $place,
         ]);
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $roomLog = new RoomLog();
         $roomLog
@@ -39,7 +52,7 @@ class RoomLogRepositoryCest
 
         $I->haveInRepository($roomLog);
 
-        $logs = $this->repository->getPlayerRoomLog($player);
+        $logs = $this->repository->getPlayerRoomLog($playerInfo);
 
         $I->assertCount(1, $logs);
 
@@ -47,26 +60,37 @@ class RoomLogRepositoryCest
 
         $I->haveInRepository($roomLog);
 
-        $logs = $this->repository->getPlayerRoomLog($player);
+        $logs = $this->repository->getPlayerRoomLog($playerInfo);
 
         $I->assertEmpty($logs);
 
-        $roomLog->setPlayer($player);
+        $roomLog->setPlayerInfo($playerInfo);
 
         $I->haveInRepository($roomLog);
 
-        $logs = $this->repository->getPlayerRoomLog($player);
+        $logs = $this->repository->getPlayerRoomLog($playerInfo);
 
         $I->assertCount(1, $logs);
     }
 
     public function testRoomLogPlace(FunctionalTester $I)
     {
+        /** @var Place $place */
         $place = $I->have(Place::class);
 
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $place,
         ]);
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $roomLog = new RoomLog();
         $roomLog
@@ -80,7 +104,7 @@ class RoomLogRepositoryCest
 
         $I->haveInRepository($roomLog);
 
-        $logs = $this->repository->getPlayerRoomLog($player);
+        $logs = $this->repository->getPlayerRoomLog($playerInfo);
 
         $I->assertEmpty($logs);
 
@@ -88,18 +112,28 @@ class RoomLogRepositoryCest
 
         $I->haveInRepository($roomLog);
 
-        $logs = $this->repository->getPlayerRoomLog($player);
+        $logs = $this->repository->getPlayerRoomLog($playerInfo);
 
         $I->assertCount(1, $logs);
     }
 
     public function testRoomLogAge(FunctionalTester $I)
     {
+        /** @var Place $place */
         $place = $I->have(Place::class);
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $place,
         ]);
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $roomLog = new RoomLog();
         $roomLog
@@ -114,7 +148,7 @@ class RoomLogRepositoryCest
 
         $I->haveInRepository($roomLog);
 
-        $logs = $this->repository->getPlayerRoomLog($player);
+        $logs = $this->repository->getPlayerRoomLog($playerInfo);
 
         $I->assertCount(1, $logs);
 
@@ -122,7 +156,7 @@ class RoomLogRepositoryCest
 
         $I->haveInRepository($roomLog);
 
-        $logs = $this->repository->getPlayerRoomLog($player);
+        $logs = $this->repository->getPlayerRoomLog($playerInfo);
 
         $I->assertEmpty($logs);
 
@@ -130,7 +164,7 @@ class RoomLogRepositoryCest
 
         $I->haveInRepository($roomLog);
 
-        $logs = $this->repository->getPlayerRoomLog($player);
+        $logs = $this->repository->getPlayerRoomLog($playerInfo);
 
         $I->assertCount(1, $logs);
     }

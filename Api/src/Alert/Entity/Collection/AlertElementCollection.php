@@ -25,6 +25,6 @@ class AlertElementCollection extends ArrayCollection
 
     public function getReportedAlert(): AlertElementCollection
     {
-        return $this->filter(fn (AlertElement $alert) => $alert->getPlayer() !== null);
+        return $this->filter(fn (AlertElement $alert) => $alert->getPlayerInfo() !== null);
     }
 }

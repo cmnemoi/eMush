@@ -51,7 +51,6 @@ class AreShowersDismantledValidatorTest extends TestCase
 
         $characterConfig = new CharacterConfig();
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
         $player->setDaedalus($daedalus);
 
         $action = Mockery::mock(AbstractAction::class);
@@ -72,7 +71,6 @@ class AreShowersDismantledValidatorTest extends TestCase
 
         $characterConfig = new CharacterConfig();
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
         $player->setDaedalus($daedalus);
 
         $action = Mockery::mock(AbstractAction::class);

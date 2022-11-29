@@ -70,6 +70,7 @@ class CreatePlayerServiceCest
         $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
 
         $daedalus->addPlace($room);
+        $I->refreshEntities($daedalus);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -81,19 +82,17 @@ class CreatePlayerServiceCest
         $gameConfig->setCharactersConfig($charactersConfig);
         $daedalus->setGameConfig($gameConfig);
 
-        $I->refreshEntities($daedalus);
-
         $I->expectThrowable(\LogicException::class, fn () => $this->playerService->createPlayer($daedalus, $user, 'non_existent_player')
         );
 
         $playerGioele = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::GIOELE);
 
-        $I->assertEquals($gioeleCharacterConfig, $playerGioele->getCharacterConfig());
+        $I->assertEquals($gioeleCharacterConfig, $playerGioele->getPlayerInfo()->getCharacterConfig());
         $I->assertEquals($daedalus->getGameConfig()->getInitActionPoint(), $playerGioele->getActionPoint());
 
         $playerAndie = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::ANDIE);
 
-        $I->assertEquals($andieCharacterConfig, $playerAndie->getCharacterConfig());
+        $I->assertEquals($andieCharacterConfig, $playerAndie->getPlayerInfo()->getCharacterConfig());
         $I->assertEquals($daedalus->getGameConfig()->getInitActionPoint(), $playerAndie->getActionPoint());
 
         $I->assertTrue($playerAndie->isMush());

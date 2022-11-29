@@ -39,7 +39,7 @@ class OtherPlayerNormalizer implements ContextAwareNormalizerInterface, Normaliz
         /** @var Player $player */
         $player = $object;
 
-        $character = $player->getCharacterConfig()->getName();
+        $character = $player->getName();
 
         $playerData = [
             'id' => $player->getId(),

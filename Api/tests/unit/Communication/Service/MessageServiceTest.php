@@ -12,10 +12,13 @@ use Mush\Communication\Services\MessageService;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class MessageServiceTest extends TestCase
@@ -61,7 +64,9 @@ class MessageServiceTest extends TestCase
         $channel = new Channel();
         $player = new Player();
         $daedalus = new Daedalus();
-        $player->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+
+        $player->setDaedalus($daedalus)->setPlayerInfo($playerInfo);
 
         $playerMessageDto = new CreateMessage();
         $playerMessageDto
@@ -93,7 +98,9 @@ class MessageServiceTest extends TestCase
         $channel = new Channel();
         $player = new Player();
         $daedalus = new Daedalus();
-        $player->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+
+        $player->setDaedalus($daedalus)->setPlayerInfo($playerInfo);
 
         $playerMessageDto = new CreateMessage();
         $playerMessageDto
@@ -126,10 +133,14 @@ class MessageServiceTest extends TestCase
         $player = new Player();
         $channel = new Channel();
 
-        $player->setGameStatus(GameStatusEnum::FINISHED);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
+        $player->setPlayerInfo($playerInfo);
         $this->assertFalse($this->service->canPlayerPostMessage($player, $channel));
 
-        $player->setGameStatus(GameStatusEnum::CURRENT);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
+        $player->setPlayerInfo($playerInfo);
         $this->assertTrue($this->service->canPlayerPostMessage($player, $channel));
 
         $statusConfig = new StatusConfig();

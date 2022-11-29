@@ -17,11 +17,13 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 
 class BoringSpeechActionCest
 {
@@ -67,32 +69,41 @@ class BoringSpeechActionCest
 
         $I->haveInRepository($didBoringSpeechStatus);
 
-        /** @var CharacterConfig $characterConfig */
+        /** @var CharacterConfig $speakerConfig */
         $speakerConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::DEREK,
             'actions' => new ArrayCollection([$action]),
         ]);
 
+        /** @var CharacterConfig $listenerConfig */
         $listenerConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::CHUN,
             'actions' => new ArrayCollection([$action]),
         ]);
 
-        /** @var Player $player */
+        /** @var Player $speaker */
         $speaker = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 10,
             'movementPoint' => 6,
-            'characterConfig' => $speakerConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $speakerInfo = new PlayerInfo($speaker, $user, $speakerConfig);
+        $I->haveInRepository($speakerInfo);
+        $speaker->setPlayerInfo($speakerInfo);
+        $I->refreshEntities($speaker);
 
-        /** @var Player $targetPlayer */
+        /** @var Player $listener */
         $listener = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 10,
             'movementPoint' => 6,
-            'characterConfig' => $listenerConfig,
         ]);
+        $listenerInfo = new PlayerInfo($listener, $user, $listenerConfig);
+        $I->haveInRepository($listenerInfo);
+        $listener->setPlayerInfo($listenerInfo);
+        $I->refreshEntities($listener);
 
         $this->BoringSpeechAction->loadParameters($action, $speaker);
 
@@ -109,7 +120,7 @@ class BoringSpeechActionCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $speaker->getId(),
+            'playerInfo' => $speaker->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::BORING_SPEECH,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);

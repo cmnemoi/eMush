@@ -22,6 +22,8 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 
 class ActionEffectSubscriberCest
 {
@@ -38,21 +40,31 @@ class ActionEffectSubscriberCest
 
     public function testOnConsumeDelayedDisease(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, [
             'gameConfig' => $gameConfig,
         ]);
 
+        /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $place,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
 
         $I->refreshEntities($player);
 
@@ -78,21 +90,31 @@ class ActionEffectSubscriberCest
 
     public function testOnConsumeImmediatDisease(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, [
             'gameConfig' => $gameConfig,
         ]);
 
+        /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $place,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
 
         $I->refreshEntities($player);
 
@@ -118,22 +140,33 @@ class ActionEffectSubscriberCest
 
     public function testOnHealNonResistantDisease(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, [
             'gameConfig' => $gameConfig,
         ]);
 
+        /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
             'name' => RoomEnum::MEDLAB,
         ]);
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'characterConfig' => $characterConfig,
             'place' => $place,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
 
         $I->refreshEntities($player);
 
@@ -167,22 +200,32 @@ class ActionEffectSubscriberCest
 
     public function testOnHealResistantDisease(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, [
             'gameConfig' => $gameConfig,
         ]);
 
+        /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
             'name' => RoomEnum::MEDLAB,
         ]);
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $place,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
 
         $I->refreshEntities($player);
 

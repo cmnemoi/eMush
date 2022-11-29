@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'communication_channel')]
@@ -85,9 +85,9 @@ class Channel
         return $this;
     }
 
-    public function isPlayerParticipant(Player $player): bool
+    public function isPlayerParticipant(PlayerInfo $playerInfo): bool
     {
-        return !$this->getParticipants()->filter(fn (ChannelPlayer $channelPlayer) => ($channelPlayer->getParticipant() === $player))->isEmpty();
+        return !$this->getParticipants()->filter(fn (ChannelPlayer $channelPlayer) => ($channelPlayer->getParticipant() === $playerInfo))->isEmpty();
     }
 
     public function getMessages(): Collection

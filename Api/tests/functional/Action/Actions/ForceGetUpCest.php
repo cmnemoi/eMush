@@ -16,11 +16,13 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 
 class ForceGetUpCest
 {
@@ -59,18 +61,28 @@ class ForceGetUpCest
             'place' => $room,
             'actionPoint' => 2,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$action])]);
-        /** @var Player $player */
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        /** @var CharacterConfig $characterConfig2 */
+        $characterConfig2 = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$action])]);
+        /** @var Player $player2 */
         $player2 = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 2,
             'healthPoint' => 6,
             'characterConfig' => $characterConfig,
         ]);
+        $playerInfo2 = new PlayerInfo($player2, $user, $characterConfig2);
+        $I->haveInRepository($playerInfo2);
+        $player2->setPlayerInfo($playerInfo2);
+        $I->refreshEntities($player2);
 
         $statusConfig = new StatusConfig();
         $statusConfig
@@ -92,7 +104,7 @@ class ForceGetUpCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $player->getId(),
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => LogEnum::FORCE_GET_UP,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);

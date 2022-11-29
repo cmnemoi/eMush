@@ -40,7 +40,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
 
         $alertElement = $this->alertService->getAlertFireElement($alert, $place);
 
-        $alertElement->setPlayer($player);
+        $alertElement->setPlayerInfo($player->getPlayerInfo());
         $this->alertService->persistAlertElement($alertElement);
     }
 
@@ -65,7 +65,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
 
         $alertElement = $this->alertService->getAlertEquipmentElement($alert, $equipment);
 
-        $alertElement->setPlayer($player)->setPlace($player->getPlace());
+        $alertElement->setPlayerInfo($player->getPlayerInfo())->setPlace($player->getPlace());
 
         $this->alertService->persistAlertElement($alertElement);
     }

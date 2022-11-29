@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class FromSameFamilyValidator extends ConstraintValidator
+class ForbiddenLoveValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint): void
     {
@@ -17,8 +17,8 @@ class FromSameFamilyValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, AbstractAction::class);
         }
 
-        if (!$constraint instanceof FromSameFamily) {
-            throw new UnexpectedTypeException($constraint, FromSameFamily::class);
+        if (!$constraint instanceof ForbiddenLove) {
+            throw new UnexpectedTypeException($constraint, ForbiddenLove::class);
         }
 
         $parameter = $value->getParameter();
@@ -26,8 +26,8 @@ class FromSameFamilyValidator extends ConstraintValidator
             throw new UnexpectedTypeException($parameter, Player::class);
         }
 
-        $targetPlayer = $parameter->getCharacterConfig()->getName();
-        $player = $value->getPlayer()->getCharacterConfig()->getName();
+        $targetPlayer = $parameter->getName();
+        $player = $value->getPlayer()->getName();
 
         if (CharacterEnum::isFromRinaldoFamily($player) && CharacterEnum::isFromRinaldoFamily($targetPlayer)) {
             $this->context->buildViolation($constraint->message)

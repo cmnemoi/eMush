@@ -19,8 +19,10 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\User\Entity\User;
 
 class TryKubeCest
 {
@@ -60,8 +62,14 @@ class TryKubeCest
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 10,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class);
@@ -91,7 +99,7 @@ class TryKubeCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $player->getId(),
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::TRY_KUBE,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);

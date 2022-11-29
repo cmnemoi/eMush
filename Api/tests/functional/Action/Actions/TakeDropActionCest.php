@@ -20,12 +20,14 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 
 class TakeDropActionCest
 {
@@ -56,8 +58,14 @@ class TakeDropActionCest
             'place' => $room,
             'actionPoint' => 2,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $actionCost = new ActionCost();
         $actionCost
@@ -112,7 +120,7 @@ class TakeDropActionCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $player->getId(),
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::TAKE,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -133,7 +141,7 @@ class TakeDropActionCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $player->getId(),
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::DROP,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -155,8 +163,14 @@ class TakeDropActionCest
             'place' => $room,
             'actionPoint' => 2,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $burdenedStatusConfig = new StatusConfig();
         $burdenedStatusConfig->setName(PlayerStatusEnum::BURDENED)->setGameConfig($gameConfig);
@@ -222,7 +236,7 @@ class TakeDropActionCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $player->getId(),
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::TAKE,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -244,7 +258,7 @@ class TakeDropActionCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $player->getId(),
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::DROP,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -266,8 +280,14 @@ class TakeDropActionCest
             'place' => $room,
             'actionPoint' => 2,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $actionCost = new ActionCost();
         $actionCost
@@ -320,7 +340,7 @@ class TakeDropActionCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $player->getId(),
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::TAKE,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -342,8 +362,14 @@ class TakeDropActionCest
             'place' => $room,
             'actionPoint' => 2,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $hideStatusConfig = new StatusConfig();
         $hideStatusConfig->setName(EquipmentStatusEnum::HIDDEN)->setGameConfig($gameConfig);

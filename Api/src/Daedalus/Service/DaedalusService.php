@@ -21,8 +21,8 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -103,7 +103,7 @@ class DaedalusService implements DaedalusServiceInterface
     {
         return $daedalus->getGameConfig()->getCharactersConfig()->filter(
             fn (CharacterConfig $characterConfig) => !$daedalus->getPlayers()->exists(
-                fn (int $key, Player $player) => ($player->getCharacterConfig()->getName() === $characterConfig->getName())
+                fn (int $key, Player $player) => ($player->getName() === $characterConfig->getName())
             )
         );
     }
@@ -158,8 +158,8 @@ class DaedalusService implements DaedalusServiceInterface
 
         /** @var Player $player */
         foreach ($daedalus->getPlayers() as $player) {
-            /** @var DeadPlayerInfo $deadPlayerInfo */
-            $deadPlayerInfo = $player->getDeadPlayerInfo();
+            /** @var ClosedPlayer $deadPlayerInfo */
+            $deadPlayerInfo = $player->getPlayerInfo()->getClosedPlayer();
 
             $deadPlayerInfo->setClosedDaedalus($closedDaedalus);
             $closedDaedalus->addPlayer($deadPlayerInfo);
@@ -216,7 +216,7 @@ class DaedalusService implements DaedalusServiceInterface
         foreach ($mushPlayerName as $playerName) {
             $mushPlayers = $daedalus
                 ->getPlayers()
-                ->filter(fn (Player $player) => $player->getCharacterConfig()->getName() === $playerName)
+                ->filter(fn (Player $player) => $player->getName() === $playerName)
             ;
 
             if (!$mushPlayers->isEmpty()) {

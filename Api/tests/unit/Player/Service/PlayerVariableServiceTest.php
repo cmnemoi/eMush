@@ -7,7 +7,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableService;
@@ -88,15 +87,12 @@ class PlayerVariableServiceTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
         $room = new Place();
-        $characterConfig = new CharacterConfig();
-        $characterConfig->setName('Toto');
 
         $player = new Player();
         $player
             ->setMoralPoint(5)
             ->setDaedalus($daedalus)
             ->setPlace($room)
-            ->setCharacterConfig($characterConfig)
         ;
 
         // go below 4 moral
@@ -149,14 +145,12 @@ class PlayerVariableServiceTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
         $room = new Place();
-        $characterConfig = new CharacterConfig();
-        $characterConfig->setName('Toto');
+
         $player = new Player();
         $player
             ->setActionPoint(5)
             ->setDaedalus($daedalus)
             ->setPlace($room)
-            ->setCharacterConfig($characterConfig)
         ;
 
         $this->playerService->shouldReceive('persist')->once();
@@ -196,14 +190,12 @@ class PlayerVariableServiceTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
         $room = new Place();
-        $characterConfig = new CharacterConfig();
-        $characterConfig->setName('Toto');
+
         $player = new Player();
         $player
             ->setHealthPoint(5)
             ->setDaedalus($daedalus)
             ->setPlace($room)
-            ->setCharacterConfig($characterConfig)
         ;
 
         $this->modifierService->shouldReceive('getEventModifiedValue')

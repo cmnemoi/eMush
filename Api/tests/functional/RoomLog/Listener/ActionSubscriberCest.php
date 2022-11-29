@@ -12,9 +12,11 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Listener\ActionSubscriber;
+use Mush\User\Entity\User;
 
 class ActionSubscriberCest
 {
@@ -36,7 +38,14 @@ class ActionSubscriberCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $action = new Action();
         $action->setName(ActionEnum::GET_UP);
@@ -48,13 +57,13 @@ class ActionSubscriberCest
 
         $this->actionSubscriber->onResultAction($actionEvent);
 
-        $I->dontSeeInRepository(RoomLog::class, ['player' => $player]);
+        $I->dontSeeInRepository(RoomLog::class, ['playerInfo' => $playerInfo]);
 
         $actionResult = new Success();
         $actionEvent->setActionResult($actionResult);
 
         $this->actionSubscriber->onResultAction($actionEvent);
 
-        $I->seeInRepository(RoomLog::class, ['player' => $player, 'log' => ActionLogEnum::GET_UP]);
+        $I->seeInRepository(RoomLog::class, ['playerInfo' => $playerInfo, 'log' => ActionLogEnum::GET_UP]);
     }
 }

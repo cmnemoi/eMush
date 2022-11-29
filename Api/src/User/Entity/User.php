@@ -5,7 +5,7 @@ namespace Mush\User\Entity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Enum\RoleEnum;
 use Mush\User\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -27,8 +27,8 @@ class User implements UserInterface
     #[ORM\Column(type: 'string', nullable: false)]
     private string $username;
 
-    #[ORM\OneToOne(targetEntity: Player::class)]
-    private ?Player $currentGame = null;
+    #[ORM\OneToOne(mappedBy: 'user', targetEntity: PlayerInfo::class)]
+    private ?PlayerInfo $playerInfo = null;
 
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $nonceCode = null;
@@ -95,14 +95,14 @@ class User implements UserInterface
         return null;
     }
 
-    public function getCurrentGame(): ?Player
+    public function getPlayerInfo(): ?PlayerInfo
     {
-        return $this->currentGame;
+        return $this->playerInfo;
     }
 
-    public function setCurrentGame(?Player $currentGame): self
+    public function setPlayerInfo(?PlayerInfo $playerInfo): self
     {
-        $this->currentGame = $currentGame;
+        $this->playerInfo = $playerInfo;
 
         return $this;
     }

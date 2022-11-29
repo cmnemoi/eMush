@@ -17,15 +17,16 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\Collection\RoomLogCollection;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
 use Mush\RoomLog\Service\RoomLogService;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class RoomLogServiceTest extends TestCase
@@ -35,8 +36,6 @@ class RoomLogServiceTest extends TestCase
     private RandomServiceInterface|Mockery\Mock $randomService;
 
     private RoomLogRepository|Mockery\Mock $repository;
-
-    private TranslationServiceInterface|Mockery\Mock $translationService;
 
     private RoomLogService $service;
 
@@ -48,13 +47,11 @@ class RoomLogServiceTest extends TestCase
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->repository = Mockery::mock(RoomLogRepository::class);
-        $this->translationService = Mockery::mock(TranslationServiceInterface::class);
 
         $this->service = new RoomLogService(
             $this->entityManager,
             $this->randomService,
             $this->repository,
-            $this->translationService,
         );
     }
 
@@ -115,7 +112,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals([], $test->getParameters());
         $this->assertEquals('log', $test->getType());
         $this->assertEquals($place, $test->getPlace());
-        $this->assertEquals($player, $test->getPlayer());
+        $this->assertEquals($player, $test->getPlayerInfo());
         $this->assertEquals($visibility, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
         $this->assertEquals(2, $test->getDay());
@@ -138,7 +135,11 @@ class RoomLogServiceTest extends TestCase
         $visibility = VisibilityEnum::PUBLIC;
         $type = 'log';
         $player = new Player();
-        $player->setCharacterConfig($characterConfig1)->setPlace($place);
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
+        $player
+            ->setPlayerInfo($playerInfo)
+            ->setPlace($place)
+        ;
 
         $parameters = ['character' => 'andie', 'quantity' => 5, 'target_character' => 'gioele'];
         $dateTime = new \DateTime();
@@ -160,7 +161,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals($parameters, $test->getParameters());
         $this->assertEquals('log', $test->getType());
         $this->assertEquals($place, $test->getPlace());
-        $this->assertEquals($player, $test->getPlayer());
+        $this->assertEquals($playerInfo, $test->getPlayerInfo());
         $this->assertEquals($visibility, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
         $this->assertEquals(2, $test->getDay());
@@ -181,7 +182,12 @@ class RoomLogServiceTest extends TestCase
         $visibility = VisibilityEnum::SECRET;
         $type = 'log';
         $player = new Player();
-        $player->setCharacterConfig($characterConfig1)->setPlace($place);
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
+        $player
+            ->setPlayerInfo($playerInfo)
+            ->setPlace($place)
+        ;
+
         $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
 
@@ -202,7 +208,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals($parameters, $test->getParameters());
         $this->assertEquals('log', $test->getType());
         $this->assertEquals($place, $test->getPlace());
-        $this->assertEquals($player, $test->getPlayer());
+        $this->assertEquals($playerInfo, $test->getPlayerInfo());
         $this->assertEquals($visibility, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
         $this->assertEquals(2, $test->getDay());
@@ -223,7 +229,12 @@ class RoomLogServiceTest extends TestCase
         $visibility = VisibilityEnum::SECRET;
         $type = 'log';
         $player = new Player();
-        $player->setCharacterConfig($characterConfig1)->setPlace($place);
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
+        $player
+            ->setPlayerInfo($playerInfo)
+            ->setPlace($place)
+        ;
+
         $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
 
@@ -248,7 +259,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals($parameters, $test->getParameters());
         $this->assertEquals('log', $test->getType());
         $this->assertEquals($place, $test->getPlace());
-        $this->assertEquals($player, $test->getPlayer());
+        $this->assertEquals($playerInfo, $test->getPlayerInfo());
         $this->assertEquals(VisibilityEnum::REVEALED, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
         $this->assertEquals(2, $test->getDay());
@@ -269,7 +280,12 @@ class RoomLogServiceTest extends TestCase
         $visibility = VisibilityEnum::COVERT;
         $type = 'log';
         $player = new Player();
-        $player->setCharacterConfig($characterConfig1)->setPlace($place);
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
+        $player
+            ->setPlayerInfo($playerInfo)
+            ->setPlace($place)
+        ;
+
         $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
 
@@ -294,7 +310,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals($parameters, $test->getParameters());
         $this->assertEquals('log', $test->getType());
         $this->assertEquals($place, $test->getPlace());
-        $this->assertEquals($player, $test->getPlayer());
+        $this->assertEquals($playerInfo, $test->getPlayerInfo());
         $this->assertEquals(VisibilityEnum::REVEALED, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
         $this->assertEquals(2, $test->getDay());
@@ -315,7 +331,11 @@ class RoomLogServiceTest extends TestCase
         $visibility = VisibilityEnum::COVERT;
         $type = 'log';
         $player = new Player();
-        $player->setCharacterConfig($characterConfig1)->setPlace($place);
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
+        $player
+            ->setPlayerInfo($playerInfo)
+            ->setPlace($place)
+        ;
         $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
 
@@ -339,7 +359,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals($parameters, $test->getParameters());
         $this->assertEquals('log', $test->getType());
         $this->assertEquals($place, $test->getPlace());
-        $this->assertEquals($player, $test->getPlayer());
+        $this->assertEquals($playerInfo, $test->getPlayerInfo());
         $this->assertEquals($visibility, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
         $this->assertEquals(2, $test->getDay());
@@ -357,7 +377,11 @@ class RoomLogServiceTest extends TestCase
         $characterConfig1 = new CharacterConfig();
         $characterConfig1->setName('andie');
         $player = new Player();
-        $player->setCharacterConfig($characterConfig1)->setPlace($place);
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
+        $player
+            ->setPlayerInfo($playerInfo)
+            ->setPlace($place)
+        ;
 
         $actionResult = new Success();
         $actionResult->setVisibility(VisibilityEnum::PUBLIC);
@@ -377,7 +401,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals(['character' => 'andie'], $test->getParameters());
         $this->assertEquals('actions_log', $test->getType());
         $this->assertEquals($place, $test->getPlace());
-        $this->assertEquals($player, $test->getPlayer());
+        $this->assertEquals($playerInfo, $test->getPlayerInfo());
         $this->assertEquals(VisibilityEnum::PUBLIC, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
         $this->assertEquals(2, $test->getDay());
@@ -395,7 +419,11 @@ class RoomLogServiceTest extends TestCase
         $characterConfig1 = new CharacterConfig();
         $characterConfig1->setName('andie');
         $player = new Player();
-        $player->setCharacterConfig($characterConfig1)->setPlace($place);
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
+        $player
+            ->setPlayerInfo($playerInfo)
+            ->setPlace($place)
+        ;
 
         $actionResult = new Fail();
         $actionResult->setVisibility(VisibilityEnum::PRIVATE);
@@ -415,7 +443,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals(['character' => 'andie'], $test->getParameters());
         $this->assertEquals('actions_log', $test->getType());
         $this->assertEquals($place, $test->getPlace());
-        $this->assertEquals($player, $test->getPlayer());
+        $this->assertEquals($playerInfo, $test->getPlayerInfo());
         $this->assertEquals(VisibilityEnum::PRIVATE, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
         $this->assertEquals(2, $test->getDay());
@@ -433,7 +461,11 @@ class RoomLogServiceTest extends TestCase
         $characterConfig1 = new CharacterConfig();
         $characterConfig1->setName('andie');
         $player = new Player();
-        $player->setCharacterConfig($characterConfig1)->setPlace($place);
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
+        $player
+            ->setPlayerInfo($playerInfo)
+            ->setPlace($place)
+        ;
 
         $equipmentConfig = new EquipmentConfig();
         $gameEquipment = new GameEquipment();
@@ -457,7 +489,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals(['character' => 'andie', 'target_equipment' => 'equipment'], $test->getParameters());
         $this->assertEquals('actions_log', $test->getType());
         $this->assertEquals($place, $test->getPlace());
-        $this->assertEquals($player, $test->getPlayer());
+        $this->assertEquals($playerInfo, $test->getPlayerInfo());
         $this->assertEquals(VisibilityEnum::PRIVATE, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
         $this->assertEquals(2, $test->getDay());
@@ -475,6 +507,8 @@ class RoomLogServiceTest extends TestCase
 
         $player = new Player();
         $player->setPlace($place)->setDaedalus($daedalus);
+
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $date = new \DateTime();
 
@@ -502,7 +536,7 @@ class RoomLogServiceTest extends TestCase
 
         $this->repository
             ->shouldReceive('getPlayerRoomLog')
-            ->with($player)
+            ->with($playerInfo)
             ->andReturn([$roomLog1, $roomLog2])
             ->once()
         ;

@@ -22,11 +22,13 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 
 class MakeSickActionCest
 {
@@ -70,8 +72,14 @@ class MakeSickActionCest
         $mushPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 2,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $mushPlayerInfo = new PlayerInfo($mushPlayer, $user, $characterConfig);
+
+        $I->haveInRepository($mushPlayerInfo);
+        $mushPlayer->setPlayerInfo($mushPlayerInfo);
+        $I->refreshEntities($mushPlayer);
 
         $mushConfig = new StatusConfig();
         $mushConfig
@@ -82,15 +90,16 @@ class MakeSickActionCest
         $mushStatus = new Status($mushPlayer, $mushConfig);
         $I->haveInRepository($mushStatus);
 
-        $characterConfig = $I->have(CharacterConfig::class, [
-            'actions' => new ArrayCollection([$action]),
-        ]);
-
         /** @var Player $targetPlayer */
-        $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
+        $targetPlayer = $I->have(Player::class, [
+            'daedalus' => $daedalus,
             'place' => $room,
-            'characterConfig' => $characterConfig,
         ]);
+        $playerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $targetPlayer->setPlayerInfo($playerInfo);
+        $I->refreshEntities($targetPlayer);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
@@ -117,7 +126,7 @@ class MakeSickActionCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $mushPlayer->getId(),
+            'playerInfo' => $mushPlayer->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::MAKE_SICK,
             'visibility' => VisibilityEnum::COVERT,
         ]);

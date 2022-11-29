@@ -8,6 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 
 class PlayerRepository extends ServiceEntityRepository
 {
@@ -18,12 +19,13 @@ class PlayerRepository extends ServiceEntityRepository
 
     public function findOneByName(string $name, Daedalus $daedalus): ?Player
     {
-        $qb = $this->createQueryBuilder('user');
+        $qb = $this->createQueryBuilder('player');
 
         $qb
-            ->leftJoin(CharacterConfig::class, 'character_config', Join::WITH, 'user.characterConfig = character_config')
+            ->leftJoin(PlayerInfo::class, 'player_info', Join::WITH, 'player.playerInfo = player_info')
+            ->leftJoin(CharacterConfig::class, 'character_config', Join::WITH, 'playerInfo.characterConfig = character_config')
             ->where($qb->expr()->eq('character_config.name', ':name'))
-            ->andWhere($qb->expr()->eq('user.daedalus', ':daedalus'))
+            ->andWhere($qb->expr()->eq('player.daedalus', ':daedalus'))
             ->setParameter('name', $name)
             ->setParameter('daedalus', $daedalus)
         ;

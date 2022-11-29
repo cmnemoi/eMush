@@ -4,7 +4,7 @@ namespace Mush\Player\Normalizer;
 
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Player\Entity\DeadPlayerInfo;
+use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -30,16 +30,16 @@ class DeadPlayerInfoNormalizer implements ContextAwareNormalizerInterface, Norma
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        return $data instanceof DeadPlayerInfo;
+        return $data instanceof ClosedPlayer;
     }
 
     public function normalize($object, string $format = null, array $context = []): array
     {
-        /** @var DeadPlayerInfo $deadPlayerInfo */
+        /** @var ClosedPlayer $deadPlayerInfo */
         $deadPlayerInfo = $object;
 
         return [
-            'player' => $deadPlayerInfo->getCharacter(),
+            'player' => $deadPlayerInfo->getPlayerInfo()->getName(),
         ];
     }
 }

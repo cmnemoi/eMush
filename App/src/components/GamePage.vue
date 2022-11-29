@@ -1,7 +1,7 @@
 <template>
     <div v-if="loggedIn">
-        <div v-if="getUserInfo && getUserInfo.currentGame !== null">
-            <GameContent :player-id="getUserInfo.currentGame" />
+        <div v-if="getUserInfo && getUserInfo.playerInfo !== null">
+            <GameContent :player-id="getUserInfo.playerInfo" />
         </div>
         <div v-else>
             <CharSelection />

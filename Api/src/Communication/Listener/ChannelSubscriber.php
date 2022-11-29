@@ -53,12 +53,12 @@ class ChannelSubscriber implements EventSubscriberInterface
         $channel = $event->getChannel();
 
         if ($player = $event->getPlayer()) {
-            $this->channelPlayerService->addPlayer($player, $channel);
+            $this->channelPlayerService->addPlayer($player->getPlayerInfo(), $channel);
 
             $this->messageService->createSystemMessage(
                 NeronMessageEnum::PLAYER_ENTER_CHAT,
                 $channel,
-                ['character' => $player->getCharacterConfig()->getName()],
+                ['character' => $player->getName()],
                 new \DateTime()
             );
         }
@@ -69,14 +69,14 @@ class ChannelSubscriber implements EventSubscriberInterface
         $channel = $event->getChannel();
 
         if ($player = $event->getPlayer()) {
-            $this->channelPlayerService->removePlayer($player, $channel);
+            $this->channelPlayerService->removePlayer($player->getPlayerInfo(), $channel);
 
             $key = $this->createPlayerLeaveMessage($event->getReason());
 
             $this->messageService->createSystemMessage(
                 $key,
                 $channel,
-                ['character' => $player->getCharacterConfig()->getName()],
+                ['character' => $player->getName()],
                 new \DateTime()
             );
         }

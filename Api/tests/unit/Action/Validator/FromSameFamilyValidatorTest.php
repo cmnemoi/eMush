@@ -4,27 +4,29 @@ namespace Mush\Test\Action\Validator;
 
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Validator\FromSameFamily;
-use Mush\Action\Validator\FromSameFamilyValidator;
+use Mush\Action\Validator\ForbiddenLove;
+use Mush\Action\Validator\ForbiddenLoveValidator;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 class FromSameFamilyValidatorTest extends TestCase
 {
-    private FromSameFamilyValidator $validator;
-    private FromSameFamily $constraint;
+    private ForbiddenLoveValidator $validator;
+    private ForbiddenLove $constraint;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new FromSameFamilyValidator();
-        $this->constraint = new FromSameFamily();
+        $this->validator = new ForbiddenLoveValidator();
+        $this->constraint = new ForbiddenLove();
     }
 
     /**
@@ -40,12 +42,23 @@ class FromSameFamilyValidatorTest extends TestCase
         $characterConfig = new CharacterConfig();
         $characterConfig->setName(CharacterEnum::DEREK);
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
+
+        $playerInfo = new PlayerInfo(
+            $player,
+            new User(),
+            $characterConfig
+        );
+        $player->setPlayerInfo($playerInfo);
 
         $targetPlayerConfig = new CharacterConfig();
         $targetPlayerConfig->setName(CharacterEnum::CHUN);
         $target = new Player();
-        $target->setCharacterConfig($targetPlayerConfig);
+        $targetPlayerInfo = new PlayerInfo(
+            $target,
+            new User(),
+            $targetPlayerConfig
+        );
+        $target->setPlayerInfo($targetPlayerInfo);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -64,12 +77,22 @@ class FromSameFamilyValidatorTest extends TestCase
         $characterConfig = new CharacterConfig();
         $characterConfig->setName(CharacterEnum::PAOLA);
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
+        $playerInfo = new PlayerInfo(
+            $player,
+            new User(),
+            $characterConfig
+        );
+        $player->setPlayerInfo($playerInfo);
 
         $targetPlayerConfig = new CharacterConfig();
         $targetPlayerConfig->setName(CharacterEnum::GIOELE);
         $target = new Player();
-        $target->setCharacterConfig($targetPlayerConfig);
+        $targetPlayerInfo = new PlayerInfo(
+            $target,
+            new User(),
+            $targetPlayerConfig
+        );
+        $target->setPlayerInfo($targetPlayerInfo);
 
         $action = Mockery::mock(AbstractAction::class);
         $action

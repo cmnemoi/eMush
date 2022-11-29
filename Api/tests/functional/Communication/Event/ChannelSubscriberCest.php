@@ -14,6 +14,8 @@ use Mush\Communication\Listener\ChannelSubscriber;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 
 class ChannelSubscriberCest
 {
@@ -26,12 +28,21 @@ class ChannelSubscriberCest
 
     public function testInvite(FunctionalTester $I)
     {
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $privateChannel = new Channel();
         $privateChannel
@@ -45,7 +56,7 @@ class ChannelSubscriberCest
 
         $I->seeInRepository(ChannelPlayer::class, [
             'channel' => $privateChannel->getId(),
-            'participant' => $player->getId(),
+            'participant' => $playerInfo->getId(),
         ]);
 
         $I->seeInRepository(Message::class, [
@@ -56,12 +67,21 @@ class ChannelSubscriberCest
 
     public function testLeave(FunctionalTester $I)
     {
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $privateChannel = new Channel();
         $privateChannel
@@ -73,7 +93,7 @@ class ChannelSubscriberCest
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
             ->setChannel($privateChannel)
-            ->setParticipant($player)
+            ->setParticipant($playerInfo)
         ;
         $I->haveInRepository($channelPlayer);
 

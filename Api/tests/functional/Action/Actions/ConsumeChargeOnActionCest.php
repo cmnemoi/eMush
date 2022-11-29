@@ -29,11 +29,13 @@ use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\User\Entity\User;
 
 class ConsumeChargeOnActionCest
 {
@@ -62,8 +64,15 @@ class ConsumeChargeOnActionCest
             'place' => $room,
             'actionPoint' => 10,
             'healthPoint' => 10,
-            'characterConfig' => $characterConfig,
         ]);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $equipmentCoffee = new EquipmentConfig();
         $equipmentCoffee
@@ -156,8 +165,14 @@ class ConsumeChargeOnActionCest
             'place' => $room,
             'actionPoint' => 10,
             'healthPoint' => 10,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $equipmentCoffee = new EquipmentConfig();
         $equipmentCoffee
@@ -282,8 +297,14 @@ class ConsumeChargeOnActionCest
             'movementPoint' => 0,
             'actionPoint' => 10,
             'healthPoint' => 10,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $equipmentCoffee = new EquipmentConfig();
         $equipmentCoffee

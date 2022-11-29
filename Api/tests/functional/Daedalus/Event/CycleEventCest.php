@@ -20,8 +20,8 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -83,32 +83,33 @@ class CycleEventCest
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
 
-        $tempPlayer = new Player();
-        $tempPlayer->setUser($user)->setCharacterConfig($characterConfig);
-        $deadPlayerInfo = new DeadPlayerInfo();
-        $deadPlayerInfo->updateFromPlayer($tempPlayer);
-        $I->haveInRepository($deadPlayerInfo);
+        /** @var Player $player */
+        $player = $I->have(
+            Player::class, [
+                'daedalus' => $daedalus,
+                'place' => $room,
+                'healthPoint' => 99,
+            ]
+        );
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        $I->have(
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        /** @var Player $player2 */
+        $player2 = $I->have(
             Player::class, [
                 'daedalus' => $daedalus,
                 'place' => $room,
-                'characterConfig' => $characterConfig,
                 'healthPoint' => 99,
-                'user' => $user,
-                'deadPlayerInfo' => $deadPlayerInfo,
             ]
         );
-        $I->have(
-            Player::class, [
-                'daedalus' => $daedalus,
-                'place' => $room,
-                'characterConfig' => $characterConfig2,
-                'healthPoint' => 99,
-                'user' => $user,
-                'deadPlayerInfo' => $deadPlayerInfo,
-            ]
-        );
+        $player2Info = new PlayerInfo($player2, $user, $characterConfig2);
+
+        $I->haveInRepository($player2Info);
+        $player2->setPlayerInfo($player2Info);
+        $I->refreshEntities($player2);
 
         $event = new DaedalusCycleEvent(
             $daedalus,

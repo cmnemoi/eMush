@@ -8,7 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\FlirtedAlready;
-use Mush\Action\Validator\FromSameFamily;
+use Mush\Action\Validator\ForbiddenLove;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\IsSameGender;
 use Mush\Action\Validator\Reach;
@@ -58,7 +58,7 @@ class Flirt extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::FLIRT_ANTISOCIAL,
         ]));
-        $metadata->addConstraint(new FromSameFamily(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FLIRT_SAME_FAMILY]));
+        $metadata->addConstraint(new ForbiddenLove(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FLIRT_SAME_FAMILY]));
         $metadata->addConstraint(new FlirtedAlready(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FLIRT_ALREADY_FLIRTED]));
     }
 

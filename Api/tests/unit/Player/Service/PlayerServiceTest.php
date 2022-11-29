@@ -16,8 +16,8 @@ use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Config\CharacterConfigCollection;
-use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Repository\DeadPlayerInfoRepository;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\Service\PlayerService;
@@ -112,15 +112,11 @@ class PlayerServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->once()
-        ;
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->once()
+            ->times(2)
         ;
         $this->entityManager
             ->shouldReceive('flush')
-            ->once()
+            ->times(2)
         ;
         $this->eventDispatcher
             ->shouldReceive('dispatch')
@@ -130,7 +126,7 @@ class PlayerServiceTest extends TestCase
         $player = $this->service->createPlayer($daedalus, $user, 'character');
 
         $this->assertInstanceOf(Player::class, $player);
-        $this->assertEquals('character', $player->getCharacterConfig()->getName());
+        $this->assertEquals('character', $player->getPlayerInfo()->getCharacterConfig()->getName());
         $this->assertEquals($gameConfig->getInitActionPoint(), $player->getActionPoint());
         $this->assertEquals($gameConfig->getInitMovementPoint(), $player->getMovementPoint());
         $this->assertEquals($gameConfig->getInitHealthPoint(), $player->getHealthPoint());
@@ -162,20 +158,13 @@ class PlayerServiceTest extends TestCase
             ->setDaedalus($daedalus)
             ->addEquipment($gameItem)
             ->setPlace($room)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-            ->setUser(new User())
-            ->setCharacterConfig($characterConfig)
         ;
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
+        $player->setPlayerInfo($playerInfo);
 
-        $deadPlayerInfo = new DeadPlayerInfo();
-        $player->setDeadPlayerInfo($deadPlayerInfo);
+        $closedPlayer = $playerInfo->getClosedPlayer();
 
         $this->entityManager->shouldReceive('persist')->once();
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->with($player)
-            ->once()
-        ;
         $this->entityManager
             ->shouldReceive('flush')
             ->once()
@@ -189,7 +178,7 @@ class PlayerServiceTest extends TestCase
 
         $player = $this->service->playerDeath($player, $reason, new \DateTime());
 
-        $this->assertEquals(GameStatusEnum::FINISHED, $player->getGameStatus());
+        $this->assertEquals(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
         $this->assertCount(0, $player->getEquipments());
         $this->assertCount(1, $room->getEquipments());
         $this->assertCount(1, $room->getPlayers());
@@ -203,13 +192,10 @@ class PlayerServiceTest extends TestCase
         $characterConfig->setName('name');
 
         $player = new Player();
-        $player
-            ->setUser($user)
-            ->setCharacterConfig($characterConfig)
-        ;
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $player->setPlayerInfo($playerInfo);
 
-        $deadPlayerInfo = new DeadPlayerInfo($player);
-        $player->setDeadPlayerInfo($deadPlayerInfo);
+        $closedPlayer = $playerInfo->getClosedPlayer();
 
         $message = 'message';
 
@@ -222,8 +208,8 @@ class PlayerServiceTest extends TestCase
 
         $player = $this->service->endPlayer($player, $message);
 
-        $this->assertEquals(GameStatusEnum::CLOSED, $player->getGameStatus());
-        $this->assertNull($user->getCurrentGame());
-        $this->assertEquals($deadPlayerInfo->getMessage(), $message);
+        $this->assertEquals(GameStatusEnum::CLOSED, $playerInfo->getGameStatus());
+        $this->assertNull($user->getPlayerInfo());
+        $this->assertEquals($closedPlayer->getMessage(), $message);
     }
 }

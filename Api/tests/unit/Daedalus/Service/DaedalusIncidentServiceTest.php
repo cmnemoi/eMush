@@ -13,11 +13,12 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Event\RoomEvent;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
@@ -25,6 +26,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -325,7 +327,9 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $daedalus = new Daedalus();
         $player = new Player();
-        $player->setGameStatus(GameStatusEnum::CURRENT);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
+
         $daedalus->addPlayer($player);
         $this->eventDispatcher
             ->shouldReceive('dispatch')
@@ -350,13 +354,17 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $daedalus = new Daedalus();
         $player = new Player();
-        $player->setGameStatus(GameStatusEnum::CURRENT);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
+
         $mushPlayer = new Player();
-        $mushPlayer->setGameStatus(GameStatusEnum::CURRENT);
+        $mushPlayerInfo = new PlayerInfo($mushPlayer, new User(), new CharacterConfig());
+        $mushPlayer->setPlayerInfo($mushPlayerInfo);
 
         $mushConfig = new StatusConfig();
         $mushConfig->setName(PlayerStatusEnum::MUSH);
         $mush = new Status($mushPlayer, $mushConfig);
+
         $daedalus->addPlayer($mushPlayer);
         $daedalus->addPlayer($player);
 
@@ -368,7 +376,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->randomService
             ->shouldReceive('getRandomElements')
-            ->withArgs(fn (array $humans, int $pick) => count($humans) === 1 && !in_array($mushPlayer, $humans))
+            ->withArgs(fn (array $humans, int $pick) => count($humans) === 1 && in_array($player, $humans))
             ->andReturn([$player])
             ->once()
         ;
@@ -388,7 +396,9 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $daedalus = new Daedalus();
         $player = new Player();
-        $player->setGameStatus(GameStatusEnum::CURRENT);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
+
         $daedalus->addPlayer($player);
         $this->eventDispatcher
             ->shouldReceive('dispatch')

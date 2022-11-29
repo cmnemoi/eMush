@@ -14,9 +14,11 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\User\Entity\User;
 
 class PlayerCycleSubscriberCest
 {
@@ -29,18 +31,26 @@ class PlayerCycleSubscriberCest
 
     public function testOnPlayerCycle(FunctionalTester $I)
     {
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
-
+        /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $place,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
@@ -77,18 +87,26 @@ class PlayerCycleSubscriberCest
 
     public function testOnPlayerCycleSpontaneousCure(FunctionalTester $I)
     {
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
-
+        /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $place,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
@@ -118,7 +136,7 @@ class PlayerCycleSubscriberCest
         ]);
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player->getId(),
+            'playerInfo' => $playerInfo->getId(),
             'place' => $place->getId(),
             'log' => LogEnum::DISEASE_CURED,
         ]);
@@ -126,18 +144,26 @@ class PlayerCycleSubscriberCest
 
     public function testOnPlayerCycleDiseaseAppear(FunctionalTester $I)
     {
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
-
+        /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $place,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
@@ -171,7 +197,7 @@ class PlayerCycleSubscriberCest
         ]);
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
+            'playerInfo' => $playerInfo,
             'place' => $place,
             'log' => LogEnum::DISEASE_APPEAR,
         ]);
@@ -179,25 +205,42 @@ class PlayerCycleSubscriberCest
 
     public function testOnPlayerCycleBitingSymptom(FunctionalTester $I)
     {
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
-
+        /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+        /** @var CharacterConfig $otherCharacterConfig */
         $otherCharacterConfig = $I->have(CharacterConfig::class);
 
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'characterConfig' => $characterConfig,
             'place' => $place,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        /** @var Player $otherPlayer */
         $otherPlayer = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'characterConfig' => $characterConfig,
             'place' => $place,
         ]);
+        $otherPlayerInfo = new PlayerInfo($otherPlayer, $user, $characterConfig);
+
+        $I->haveInRepository($otherPlayerInfo);
+        $otherPlayer->setPlayerInfo($otherPlayerInfo);
+        $I->refreshEntities($otherPlayer);
 
         $symptomConfig = new SymptomConfig('biting');
         $symptomConfig
@@ -231,7 +274,7 @@ class PlayerCycleSubscriberCest
         $this->subscriber->onPlayerNewCycle($event);
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
+            'playerInfo' => $playerInfo,
             'place' => $place,
             'log' => 'biting',
         ]);

@@ -4,7 +4,7 @@ namespace Mush\Communication\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'communication_channel_player')]
@@ -20,8 +20,8 @@ class ChannelPlayer
     #[ORM\ManyToOne(targetEntity: Channel::class, inversedBy: 'participants')]
     private Channel $channel;
 
-    #[ORM\ManyToOne(targetEntity: Player::class)]
-    private Player $participant;
+    #[ORM\ManyToOne(targetEntity: PlayerInfo::class)]
+    private PlayerInfo $participant;
 
     public function getId(): ?int
     {
@@ -40,12 +40,12 @@ class ChannelPlayer
         return $this;
     }
 
-    public function getParticipant(): Player
+    public function getParticipant(): PlayerInfo
     {
         return $this->participant;
     }
 
-    public function setParticipant(Player $participant): self
+    public function setParticipant(PlayerInfo $participant): self
     {
         $this->participant = $participant;
 

@@ -54,7 +54,9 @@ class RoomLogController extends AbstractFOSRestController
         /** @var User $user */
         $user = $this->getUser();
 
-        if (!$player = $user->getCurrentGame()) {
+        if (!($playerInfo = $user->getPlayerInfo()) ||
+            !($player = $playerInfo->getPlayer())
+        ) {
             throw new AccessDeniedException();
         }
 
@@ -91,7 +93,9 @@ class RoomLogController extends AbstractFOSRestController
         /** @var User $user */
         $user = $this->getUser();
 
-        if (!$player = $user->getCurrentGame()) {
+        if (!($playerInfo = $user->getPlayerInfo()) ||
+            !($player = $playerInfo->getPlayer())
+        ) {
             throw new AccessDeniedException();
         }
 

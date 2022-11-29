@@ -23,6 +23,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
@@ -32,6 +33,7 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
+use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DoTheThingCest
@@ -77,12 +79,13 @@ class DoTheThingCest
             ->setActionCost($actionCost);
         $I->haveInRepository($action);
 
-        /** @var CharacterConfig $characterConfig */
+        /** @var CharacterConfig $femaleCharacterConfig */
         $femaleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::CHUN,
             'actions' => new ArrayCollection([$action]),
         ]);
 
+        /** @var CharacterConfig $maleCharacterConfig */
         $maleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::DEREK,
             'actions' => new ArrayCollection([$action]),
@@ -93,16 +96,26 @@ class DoTheThingCest
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $femaleCharacterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $maleCharacterConfig,
         ]);
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
@@ -168,7 +181,7 @@ class DoTheThingCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $player->getId(),
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::DO_THE_THING_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -215,12 +228,13 @@ class DoTheThingCest
             ->setActionCost($actionCost);
         $I->haveInRepository($action);
 
-        /** @var CharacterConfig $characterConfig */
+        /** @var CharacterConfig $femaleCharacterConfig */
         $femaleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::CHUN,
             'actions' => new ArrayCollection([$action]),
         ]);
 
+        /** @var CharacterConfig $maleCharacterConfig */
         $maleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::DEREK,
             'actions' => new ArrayCollection([$action]),
@@ -231,16 +245,26 @@ class DoTheThingCest
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $femaleCharacterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $maleCharacterConfig,
         ]);
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
@@ -287,12 +311,13 @@ class DoTheThingCest
             ->setActionCost($actionCost);
         $I->haveInRepository($action);
 
-        /** @var CharacterConfig $characterConfig */
+        /** @var CharacterConfig $femaleCharacterConfig */
         $femaleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::CHUN,
             'actions' => new ArrayCollection([$action]),
         ]);
 
+        /** @var CharacterConfig $maleCharacterConfig */
         $maleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::DEREK,
             'actions' => new ArrayCollection([$action]),
@@ -303,16 +328,26 @@ class DoTheThingCest
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $femaleCharacterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $maleCharacterConfig,
         ]);
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
@@ -334,7 +369,6 @@ class DoTheThingCest
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $femaleCharacterConfig,
         ]);
 
         $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
@@ -369,12 +403,13 @@ class DoTheThingCest
             ->setActionCost($actionCost);
         $I->haveInRepository($action);
 
-        /** @var CharacterConfig $characterConfig */
+        /** @var CharacterConfig $femaleCharacterConfig */
         $femaleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::CHUN,
             'actions' => new ArrayCollection([$action]),
         ]);
 
+        /** @var CharacterConfig $maleCharacterConfig */
         $maleCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::DEREK,
             'actions' => new ArrayCollection([$action]),
@@ -385,16 +420,26 @@ class DoTheThingCest
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $femaleCharacterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $maleCharacterConfig,
         ]);
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
 
         $targetPlayer->setFlirts(new ArrayCollection([$player]));
 

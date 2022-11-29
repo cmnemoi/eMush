@@ -4,7 +4,6 @@ namespace Mush\Daedalus\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -74,12 +73,13 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onEndPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
+        $playerInfo = $player->getPlayerInfo();
+        $daedalus = $player->getDaedalus();
 
-        if ($player->getDaedalus()->getPlayers()->filter(fn (Player $player) => $player->getGameStatus() !== GameStatusEnum::CLOSED)->isEmpty() &&
-            $player->getDaedalus()->getGameStatus() === GameStatusEnum::FINISHED
+        if ($daedalus->getPlayers()->filter(fn (Player $player) => $playerInfo->getGameStatus() !== GameStatusEnum::CLOSED)->isEmpty() &&
+            $daedalus->getGameStatus() === GameStatusEnum::FINISHED
         ) {
-            /** @var DeadPlayerInfo $deadPlayerInfo */
-            $deadPlayerInfo = $player->getDeadPlayerInfo();
+            $deadPlayerInfo = $playerInfo->getClosedPlayer();
 
             $closedDaedalus = $deadPlayerInfo->getClosedDaedalus();
             $closedDaedalus->setGameStatus(GameStatusEnum::CLOSED);

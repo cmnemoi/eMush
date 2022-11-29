@@ -17,6 +17,8 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 
 class MovementPointConversionCest
 {
@@ -71,10 +73,16 @@ class MovementPointConversionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'characterConfig' => $characterConfig,
             'movementPoint' => 0,
             'actionPoint' => 2,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $this->moveAction->loadParameters($moveActionEntity, $player, $door);
 
@@ -133,10 +141,16 @@ class MovementPointConversionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'characterConfig' => $characterConfig,
             'movementPoint' => 1,
             'actionPoint' => 10,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $this->moveAction->loadParameters($moveActionEntity, $player, $door);
 
@@ -195,10 +209,16 @@ class MovementPointConversionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'characterConfig' => $characterConfig,
             'movementPoint' => 1,
             'actionPoint' => 10,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $this->moveAction->loadParameters($moveActionEntity, $player, $door);
 

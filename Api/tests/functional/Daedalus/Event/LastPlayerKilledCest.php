@@ -15,8 +15,8 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerEvent;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -68,23 +68,20 @@ class LastPlayerKilledCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
-        $tempPlayer = new Player();
-        $tempPlayer->setUser($user)->setCharacterConfig($characterConfig);
-        $deadPlayerInfo = new DeadPlayerInfo();
-        $deadPlayerInfo->updateFromPlayer($tempPlayer);
-        $I->haveInRepository($deadPlayerInfo);
-
         /** @var Player $player */
         $player = $I->have(
             Player::class,
             [
                 'daedalus' => $daedalus,
                 'place' => $room,
-                'characterConfig' => $characterConfig,
                 'user' => $user,
-                'deadPlayerInfo' => $deadPlayerInfo,
             ]
         );
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $event = new PlayerEvent($player, ActionEnum::HIT, new DateTime());
         $this->eventDispatcher->dispatch($event, PlayerEvent::DEATH_PLAYER);

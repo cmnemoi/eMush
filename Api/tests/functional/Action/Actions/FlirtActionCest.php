@@ -17,10 +17,12 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
+use Mush\User\Entity\User;
 
 class FlirtActionCest
 {
@@ -73,18 +75,28 @@ class FlirtActionCest
             'place' => $room,
             'actionPoint' => 2,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHUN, 'actions' => new ArrayCollection([$action])]);
-        /** @var Player $player */
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        /** @var CharacterConfig $characterConfig2 */
+        $characterConfig2 = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHUN, 'actions' => new ArrayCollection([$action])]);
+        /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 2,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
 
         $this->flirtAction->loadParameters($action, $player, $targetPlayer);
 
@@ -97,7 +109,7 @@ class FlirtActionCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $player->getId(),
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::FLIRT_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -148,18 +160,28 @@ class FlirtActionCest
             'place' => $room,
             'actionPoint' => 2,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::DEREK, 'actions' => new ArrayCollection([$action])]);
-        /** @var Player $player */
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        /** @var CharacterConfig $characterConfig2 */
+        $characterConfig2 = $I->have(CharacterConfig::class, ['name' => CharacterEnum::DEREK, 'actions' => new ArrayCollection([$action])]);
+        /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 2,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
 
         $this->flirtAction->loadParameters($action, $player, $targetPlayer);
 
@@ -208,18 +230,28 @@ class FlirtActionCest
             'place' => $room,
             'actionPoint' => 2,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::PAOLA, 'actions' => new ArrayCollection([$action])]);
-        /** @var Player $player */
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        /** @var CharacterConfig $characterConfig2 */
+        $characterConfig2 = $I->have(CharacterConfig::class, ['name' => CharacterEnum::PAOLA, 'actions' => new ArrayCollection([$action])]);
+        /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 2,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
 
         $this->flirtAction->loadParameters($action, $player, $targetPlayer);
 
@@ -268,18 +300,28 @@ class FlirtActionCest
             'place' => $room,
             'actionPoint' => 2,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHUN, 'actions' => new ArrayCollection([$action])]);
-        /** @var Player $player */
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        /** @var CharacterConfig $characterConfig2 */
+        $characterConfig2 = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHUN, 'actions' => new ArrayCollection([$action])]);
+        /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 2,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
 
         $this->flirtAction->loadParameters($action, $player, $targetPlayer);
 
@@ -292,7 +334,7 @@ class FlirtActionCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $player->getId(),
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::FLIRT_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -343,18 +385,28 @@ class FlirtActionCest
             'place' => $room,
             'actionPoint' => 2,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::DEREK, 'actions' => new ArrayCollection([$action])]);
-        /** @var Player $player */
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        /** @var CharacterConfig $characterConfig2 */
+        $characterConfig2 = $I->have(CharacterConfig::class, ['name' => CharacterEnum::DEREK, 'actions' => new ArrayCollection([$action])]);
+        /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 2,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
 
         $this->flirtAction->loadParameters($action, $player, $targetPlayer);
 
@@ -367,7 +419,7 @@ class FlirtActionCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $player->getId(),
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::FLIRT_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);

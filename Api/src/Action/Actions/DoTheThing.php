@@ -225,8 +225,9 @@ class DoTheThing extends AbstractAction
 
     private function addPregnantStatus(Player $player, Player $parameter): void
     {
+        $characterName = $player->getPlayerInfo()->getCharacterConfig()->getName();
         /** @var StatusHolderInterface $femalePlayer */
-        $femalePlayer = CharacterEnum::isMale($player->getCharacterConfig()->getName()) ? $parameter : $player;
+        $femalePlayer = CharacterEnum::isMale($characterName) ? $parameter : $player;
         $pregnantStatus = new StatusEvent(
             PlayerStatusEnum::PREGNANT,
             $femalePlayer,

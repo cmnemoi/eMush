@@ -88,11 +88,11 @@ class DaedalusController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $player = $user->getCurrentGame();
-        if (!$player) {
+        $playerInfo = $user->getPlayerInfo();
+        if (!$playerInfo) {
             throw new AccessDeniedException('User should be in game');
         }
 
-        return $this->view($this->daedalusWidgetService->getMinimap($daedalus, $player), 200);
+        return $this->view($this->daedalusWidgetService->getMinimap($daedalus, $playerInfo->getPlayer()), 200);
     }
 }

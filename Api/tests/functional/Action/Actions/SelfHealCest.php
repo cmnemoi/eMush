@@ -18,8 +18,10 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\User\Entity\User;
 
 class SelfHealCest
 {
@@ -63,8 +65,14 @@ class SelfHealCest
             'place' => $medlab,
             'actionPoint' => 3,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($healerPlayer, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $healerPlayer->setPlayerInfo($playerInfo);
+        $I->refreshEntities($healerPlayer);
 
         $this->selfHealAction->loadParameters($action, $healerPlayer);
 
@@ -78,7 +86,7 @@ class SelfHealCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $medlab->getId(),
-            'player' => $healerPlayer->getId(),
+            'playerInfo' => $healerPlayer->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::SELF_HEAL,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);

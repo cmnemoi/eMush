@@ -25,9 +25,11 @@ use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -190,7 +192,8 @@ class DaedalusServiceTest extends TestCase
         $this->assertEquals($characterConfig, $result->first());
 
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
+        $player->setPlayerInfo($playerInfo);
         $daedalus->addPlayer($player);
 
         $result = $this->service->findAvailableCharacterForDaedalus($daedalus);
@@ -294,22 +297,22 @@ class DaedalusServiceTest extends TestCase
         $gameConfig->setCharactersConfig($characterConfigCollection);
 
         $player1 = $this->createPlayer($daedalus, 'player1');
-        $characterConfig1 = $player1->getCharacterConfig();
+        $characterConfig1 = $player1->getPlayerInfo()->getCharacterConfig();
         $characterConfigCollection->add($characterConfig1);
 
         $player2 = $this->createPlayer($daedalus, 'player2');
-        $characterConfig2 = $player2->getCharacterConfig();
+        $characterConfig2 = $player2->getPlayerInfo()->getCharacterConfig();
         $characterConfigCollection->add($characterConfig2);
 
         $player3 = $this->createPlayer($daedalus, 'player3');
-        $characterConfig3 = $player3->getCharacterConfig();
+        $characterConfig3 = $player3->getPlayerInfo()->getCharacterConfig();
         $characterConfigCollection->add($characterConfig3);
 
         $imunizedPlayer = $this->createPlayer($daedalus, 'imunizedPlayer');
 
         $statusConfig = new StatusConfig();
         $statusConfig->setName(PlayerStatusEnum::IMMUNIZED);
-        $characterConfigImunized = $imunizedPlayer->getCharacterConfig();
+        $characterConfigImunized = $imunizedPlayer->getPlayerInfo()->getCharacterConfig();
         $characterConfigImunized->setInitStatuses(new ArrayCollection([$statusConfig]));
         $characterConfigCollection->add($characterConfigImunized);
 
@@ -364,9 +367,10 @@ class DaedalusServiceTest extends TestCase
             ->setMovementPoint(10)
             ->setMoralPoint(10)
             ->setDaedalus($daedalus)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-            ->setCharacterConfig($characterConfig)
         ;
+
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
+        $player->setPlayerInfo($playerInfo);
 
         return $player;
     }

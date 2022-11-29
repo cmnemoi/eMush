@@ -3,7 +3,6 @@
 namespace Mush\Communication\Specification;
 
 use Mush\Communication\Services\ChannelServiceInterface;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Player\Entity\Player;
 
@@ -21,7 +20,7 @@ class canCreateChannel implements SpecificationInterface
     public function isSatisfied($candidate): bool
     {
         if ($candidate instanceof Player) {
-            if ($candidate->getGameStatus() !== GameStatusEnum::CURRENT) {
+            if (!$candidate->isAlive()) {
                 return false;
             }
             $channels = $this->channelService->getPlayerChannels($candidate, true);

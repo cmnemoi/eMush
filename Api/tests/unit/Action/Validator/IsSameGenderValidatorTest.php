@@ -9,6 +9,8 @@ use Mush\Action\Validator\IsSameGenderValidator;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -40,12 +42,22 @@ class IsSameGenderValidatorTest extends TestCase
         $characterConfig = new CharacterConfig();
         $characterConfig->setName(CharacterEnum::DEREK);
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
+        $playerInfo = new PlayerInfo(
+            $player,
+            new User(),
+            $characterConfig
+        );
+        $player->setPlayerInfo($playerInfo);
 
         $targetPlayerConfig = new CharacterConfig();
         $targetPlayerConfig->setName(CharacterEnum::CHUN);
         $target = new Player();
-        $target->setCharacterConfig($targetPlayerConfig);
+        $targetPlayerInfo = new PlayerInfo(
+            $target,
+            new User(),
+            $targetPlayerConfig
+        );
+        $target->setPlayerInfo($targetPlayerInfo);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -64,12 +76,22 @@ class IsSameGenderValidatorTest extends TestCase
         $characterConfig = new CharacterConfig();
         $characterConfig->setName(CharacterEnum::PAOLA);
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
+        $playerInfo = new PlayerInfo(
+            $player,
+            new User(),
+            $characterConfig
+        );
+        $player->setPlayerInfo($playerInfo);
 
         $targetPlayerConfig = new CharacterConfig();
         $targetPlayerConfig->setName(CharacterEnum::CHUN);
         $target = new Player();
-        $target->setCharacterConfig($targetPlayerConfig);
+        $targetPlayerInfo = new PlayerInfo(
+            $target,
+            new User(),
+            $targetPlayerConfig
+        );
+        $target->setPlayerInfo($targetPlayerInfo);
 
         $action = Mockery::mock(AbstractAction::class);
         $action

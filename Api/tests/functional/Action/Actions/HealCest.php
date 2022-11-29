@@ -19,8 +19,10 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class HealCest
@@ -73,19 +75,23 @@ class HealCest
         $healerPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $medlab,
             'actionPoint' => 2,
-            'characterConfig' => $characterConfig,
         ]);
-
-        $characterConfig = $I->have(CharacterConfig::class, [
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $healerPlayerInfo = new PlayerInfo($healerPlayer, $user, $characterConfig);
+        $I->haveInRepository($healerPlayerInfo);
+        $healerPlayer->setPlayerInfo($healerPlayerInfo);
+        $I->refreshEntities($healerPlayer);
 
         /** @var Player $healedPlayer */
         $healedPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $medlab,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        $healedPlayerInfo = new PlayerInfo($healedPlayer, $user, $characterConfig);
+        $I->haveInRepository($healedPlayerInfo);
+        $healedPlayer->setPlayerInfo($healedPlayerInfo);
+        $I->refreshEntities($healedPlayer);
 
         $this->healAction->loadParameters($action, $healerPlayer, $healedPlayer);
 
@@ -99,7 +105,7 @@ class HealCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $medlab->getId(),
-            'player' => $healerPlayer->getId(),
+            'playerInfo' => $healerPlayer->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::HEAL_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -145,19 +151,23 @@ class HealCest
         $healerPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $laboratory,
             'actionPoint' => 2,
-            'characterConfig' => $characterConfig,
         ]);
-
-        $characterConfig = $I->have(CharacterConfig::class, [
-            'actions' => new ArrayCollection([$action]),
-        ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $healerPlayerInfo = new PlayerInfo($healerPlayer, $user, $characterConfig);
+        $I->haveInRepository($healerPlayerInfo);
+        $healerPlayer->setPlayerInfo($healerPlayerInfo);
+        $I->refreshEntities($healerPlayer);
 
         /** @var Player $healedPlayer */
         $healedPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $laboratory,
             'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        $healedPlayerInfo = new PlayerInfo($healedPlayer, $user, $characterConfig);
+        $I->haveInRepository($healedPlayerInfo);
+        $healedPlayer->setPlayerInfo($healedPlayerInfo);
+        $I->refreshEntities($healedPlayer);
 
         $this->healAction->loadParameters($action, $healerPlayer, $healedPlayer);
 

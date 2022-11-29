@@ -9,13 +9,15 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Service\DaedalusWidgetService;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\StatusEnum;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class DaedalusWidgetServiceTest extends TestCase
@@ -57,12 +59,12 @@ class DaedalusWidgetServiceTest extends TestCase
         ;
 
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
 
         $tracker = new GameItem();
         $tracker->setName(ItemEnum::TRACKER);
         $player->addEquipment($tracker);
-
-        $player->setGameStatus(GameStatusEnum::CURRENT); // player is alive
 
         $room2->addPlayer($player);
 
@@ -101,8 +103,8 @@ class DaedalusWidgetServiceTest extends TestCase
         ;
 
         $player = new Player();
-
-        $player->setGameStatus(GameStatusEnum::CURRENT); // player is alive
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
 
         $room2->addPlayer($player);
 

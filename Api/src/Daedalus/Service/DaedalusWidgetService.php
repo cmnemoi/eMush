@@ -90,7 +90,7 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
         /** @var AlertElement $alertElement */
         foreach ($brokenAlert->getAlertElements() as $alertElement) {
             // if there is no project only gather reported elements
-            if (($isProject || $alertElement->getPlayer() !== null) && ($equipment = $alertElement->getEquipment()) !== null) {
+            if (($isProject || $alertElement->getPlayerInfo() !== null) && ($equipment = $alertElement->getEquipment()) !== null) {
                 $roomName = $equipment->getPlace()->getName();
                 $equipmentName = $equipment->getName();
 

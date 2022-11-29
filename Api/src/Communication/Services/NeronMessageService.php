@@ -100,7 +100,7 @@ class NeronMessageService implements NeronMessageServiceInterface
 
     public function createPlayerDeathMessage(Player $player, string $cause, \DateTime $time): void
     {
-        $playerName = $player->getCharacterConfig()->getName();
+        $playerName = $player->getName();
 
         switch ($playerName) {
             case CharacterEnum::RALUCA:

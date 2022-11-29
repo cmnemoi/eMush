@@ -9,6 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 
 class ChannelRepository extends ServiceEntityRepository
 {
@@ -17,22 +18,25 @@ class ChannelRepository extends ServiceEntityRepository
         parent::__construct($registry, Channel::class);
     }
 
-    public function findByPlayer(Player $player, bool $privateOnly = false): Collection
+    public function findByPlayer(PlayerInfo $playerInfo, bool $privateOnly = false): Collection
     {
+        /** @var Player $player */
+        $player = $playerInfo->getPlayer();
+
         $queryBuilder = $this->createQueryBuilder('channel');
         $queryBuilder
             ->leftJoin('channel.participants', 'channelPlayer')
-            ->where($queryBuilder->expr()->eq('channelPlayer.participant', ':player'))
-            ->setParameter('player', $player->getId())
+            ->where($queryBuilder->expr()->eq('channelPlayer.participant', ':playerInfo'))
+            ->setParameter('playerInfo', $playerInfo->getId())
         ;
 
         if (!$privateOnly) {
             $queryBuilder
                 ->orWhere(
                     $queryBuilder->expr()->andX(
-                        $queryBuilder->expr()->eq('channel.daedalus', ':daedalus'),
                         $queryBuilder->expr()->eq('channel.scope', ':public')
                     ))
+                ->andWhere($queryBuilder->expr()->eq('channel.daedalus', ':daedalus'))
                 ->setParameter('public', ChannelScopeEnum::PUBLIC)
                 ->setParameter('daedalus', $player->getDaedalus())
             ;

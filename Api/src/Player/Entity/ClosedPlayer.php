@@ -7,10 +7,9 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\User\Entity\User;
 
 #[ORM\Entity]
-class DeadPlayerInfo
+class ClosedPlayer
 {
     use TimestampableEntity;
 
@@ -19,11 +18,8 @@ class DeadPlayerInfo
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
-    private User $user;
-
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $character = null;
+    #[ORM\OneToOne(mappedBy: 'closedPlayer', targetEntity: PlayerInfo::class)]
+    private PlayerInfo $playerInfo;
 
     #[ORM\ManyToOne(targetEntity: ClosedDaedalus::class, inversedBy: 'players')]
     private ClosedDaedalus $daedalus;
@@ -43,10 +39,21 @@ class DeadPlayerInfo
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $likes = 0;
 
-    public function updateFromPlayer(Player $player)
+    public function getId(): ?int
     {
-        $this->user = $player->getUser();
-        $this->character = $player->getCharacterConfig()->getName();
+        return $this->id;
+    }
+
+    public function getPlayerInfo(): PlayerInfo
+    {
+        return $this->playerInfo;
+    }
+
+    public function setPlayerInfo(PlayerInfo $playerInfo): static
+    {
+        $this->playerInfo = $playerInfo;
+
+        return $this;
     }
 
     public function getClosedDaedalus(): ClosedDaedalus
@@ -59,11 +66,6 @@ class DeadPlayerInfo
         $this->daedalus = $closedDaedalus;
 
         return $this;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getMessage(): ?string
@@ -118,15 +120,5 @@ class DeadPlayerInfo
         $this->endCause = $endCause;
 
         return $this;
-    }
-
-    public function getUser(): User
-    {
-        return $this->user;
-    }
-
-    public function getCharacter(): ?string
-    {
-        return $this->character;
     }
 }

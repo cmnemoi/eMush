@@ -10,11 +10,13 @@ use Mush\Daedalus\Listener\DaedalusCycleSubscriber;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\GameStatusEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -62,8 +64,9 @@ class DaedalusCycleEventTest extends TestCase
         $daedalus->setHull(0);
 
         $player = new Player();
-        $player->setGameStatus(GameStatusEnum::CURRENT);
-        $player->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+
+        $player->setDaedalus($daedalus)->setPlayerInfo($playerInfo);
 
         $mushConfig = new StatusConfig();
         $mushConfig->setName(PlayerStatusEnum::MUSH);

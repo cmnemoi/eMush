@@ -5,7 +5,7 @@ namespace Mush\Alert\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'alert_element')]
@@ -19,8 +19,8 @@ class AlertElement
     #[ORM\ManyToOne(targetEntity: Alert::class, inversedBy: 'alertElements')]
     private Alert $alert;
 
-    #[ORM\ManyToOne(targetEntity: Player::class)]
-    private ?Player $player = null;
+    #[ORM\ManyToOne(targetEntity: PlayerInfo::class)]
+    private ?PlayerInfo $playerInfo = null;
 
     #[ORM\ManyToOne(targetEntity: Place::class)]
     private ?Place $place = null;
@@ -45,16 +45,16 @@ class AlertElement
         return $this->alert;
     }
 
-    public function setPlayer(Player $player): self
+    public function setPlayerInfo(PlayerInfo $playerInfo): self
     {
-        $this->player = $player;
+        $this->playerInfo = $playerInfo;
 
         return $this;
     }
 
-    public function getPlayer(): ?Player
+    public function getPlayerInfo(): ?PlayerInfo
     {
-        return $this->player;
+        return $this->playerInfo;
     }
 
     public function setPlace(Place $place): self

@@ -20,11 +20,13 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 
 class WashInSinkActionCest
 {
@@ -53,8 +55,14 @@ class WashInSinkActionCest
             'daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 3,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $actionCost = new ActionCost();
         $actionCost->setActionPointCost(3);
@@ -102,7 +110,7 @@ class WashInSinkActionCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $player->getId(),
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::WASH_IN_SINK_HUMAN,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);

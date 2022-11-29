@@ -14,6 +14,8 @@ use Mush\Game\Service\TranslationService;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class AlertNormalizerTest extends TestCase
@@ -120,7 +122,11 @@ class AlertNormalizerTest extends TestCase
         $characterConfig = new CharacterConfig();
         $characterConfig->setName('andie');
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
+        $playerInfo = new PlayerInfo(
+            $player,
+            new User(),
+            $characterConfig
+        );
 
         $room1 = new Place();
         $room1->setName('room1');
@@ -130,7 +136,7 @@ class AlertNormalizerTest extends TestCase
         $fireElement1 = new AlertElement();
         $fireElement1
             ->setPlace($room1)
-            ->setPlayer($player)
+            ->setPlayerInfo($playerInfo)
         ;
 
         $fireElement2 = new AlertElement();

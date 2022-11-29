@@ -27,10 +27,12 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\User\Entity\User;
 
 class ReportActionCest
 {
@@ -72,8 +74,14 @@ class ReportActionCest
             'daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 2,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $actionCost = new ActionCost();
         $actionCost
@@ -129,7 +137,7 @@ class ReportActionCest
         $this->reportEquipment->execute();
 
         $I->SeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS]);
-        $I->SeeInRepository(AlertElement::class, ['place' => $room, 'equipment' => $gameEquipment, 'player' => $player]);
+        $I->SeeInRepository(AlertElement::class, ['place' => $room, 'equipment' => $gameEquipment, 'playerInfo' => $player->getPlayerInfo()]);
         $I->SeeInRepository(Message::class, [
             'author' => null,
             'neron' => $neron,
@@ -181,8 +189,14 @@ class ReportActionCest
             'daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 2,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $statusConfig = new StatusConfig();
         $statusConfig->setName(StatusEnum::FIRE)->setVisibility(VisibilityEnum::PUBLIC)->setGameConfig($gameConfig);
@@ -210,7 +224,7 @@ class ReportActionCest
         $this->reportFire->execute();
 
         $I->SeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::FIRES]);
-        $I->SeeInRepository(AlertElement::class, ['place' => $room, 'player' => $player]);
+        $I->SeeInRepository(AlertElement::class, ['place' => $room, 'playerInfo' => $player->getPlayerInfo()]);
         $I->SeeInRepository(Message::class, [
             'author' => null,
             'neron' => $neron,

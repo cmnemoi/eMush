@@ -10,6 +10,7 @@ use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\ChargeStatus;
@@ -50,10 +51,13 @@ class PlayerModifierEventCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'user' => $user,
-            'characterConfig' => $characterConfig,
             'moralPoint' => 5,
         ]);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $suicidalStatusConfig = new StatusConfig();
         $suicidalStatusConfig
@@ -159,10 +163,13 @@ class PlayerModifierEventCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'user' => $user,
-            'characterConfig' => $characterConfig,
             'satiety' => 0,
         ]);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $fullStatusConfig = new StatusConfig();
         $fullStatusConfig
@@ -254,10 +261,13 @@ class PlayerModifierEventCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'user' => $user,
-            'characterConfig' => $characterConfig,
             'satiety' => 0,
         ]);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $fullStatusConfig = new StatusConfig();
         $fullStatusConfig

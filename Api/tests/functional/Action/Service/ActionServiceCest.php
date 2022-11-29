@@ -18,8 +18,10 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\User\Entity\User;
 
 class ActionServiceCest
 {
@@ -45,8 +47,14 @@ class ActionServiceCest
             'place' => $room,
             'daedalus' => $daedalus,
             'actionPoint' => 10,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $actionCost = new ActionCost();
         $actionCost->setActionPointCost(5);
@@ -61,7 +69,7 @@ class ActionServiceCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $player->getPlace(),
-            'player' => $player,
+            'playerInfo' => $player->getPlayerInfo(),
             'visibility' => VisibilityEnum::HIDDEN,
         ]);
     }
@@ -82,8 +90,14 @@ class ActionServiceCest
             'daedalus' => $daedalus,
             'actionPoint' => 10,
             'movementPoint' => 0,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $actionCost = new ActionCost();
         $actionCost->setMovementPointCost(1);
@@ -114,8 +128,14 @@ class ActionServiceCest
             'daedalus' => $daedalus,
             'actionPoint' => 10,
             'movementPoint' => 0,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig

@@ -14,13 +14,15 @@ use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class AlertServiceTest extends TestCase
@@ -385,14 +387,17 @@ class AlertServiceTest extends TestCase
         $player1
             ->setDaedalus($daedalus)
             ->setSatiety(-24)
-            ->setGameStatus(GameStatusEnum::CURRENT)
         ;
+        $playerInfo1 = new PlayerInfo($player1, new User(), new CharacterConfig());
+        $player1->setPlayerInfo($playerInfo1);
+
         $player2 = new Player();
         $player2
             ->setDaedalus($daedalus)
             ->setSatiety(-24)
-            ->setGameStatus(GameStatusEnum::CURRENT)
         ;
+        $playerInfo2 = new PlayerInfo($player2, new User(), new CharacterConfig());
+        $player2->setPlayerInfo($playerInfo2);
 
         $this->repository->shouldReceive('findOneBy')
             ->with(['daedalus' => $daedalus, 'name' => AlertEnum::HUNGER])
@@ -415,14 +420,17 @@ class AlertServiceTest extends TestCase
         $player1
             ->setDaedalus($daedalus)
             ->setSatiety(-24)
-            ->setGameStatus(GameStatusEnum::CURRENT)
         ;
+        $playerInfo1 = new PlayerInfo($player1, new User(), new CharacterConfig());
+        $player1->setPlayerInfo($playerInfo1);
+
         $player2 = new Player();
         $player2
             ->setDaedalus($daedalus)
             ->setSatiety(-24)
-            ->setGameStatus(GameStatusEnum::CURRENT)
         ;
+        $playerInfo2 = new PlayerInfo($player1, new User(), new CharacterConfig());
+        $player2->setPlayerInfo($playerInfo2);
 
         $alert = new Alert();
         $alert->setName(AlertEnum::HUNGER)->setDaedalus($daedalus);
@@ -448,14 +456,17 @@ class AlertServiceTest extends TestCase
         $player1
             ->setDaedalus($daedalus)
             ->setSatiety(-22)
-            ->setGameStatus(GameStatusEnum::CURRENT)
         ;
+        $playerInfo1 = new PlayerInfo($player1, new User(), new CharacterConfig());
+        $player1->setPlayerInfo($playerInfo1);
+
         $player2 = new Player();
         $player2
             ->setDaedalus($daedalus)
             ->setSatiety(-24)
-            ->setGameStatus(GameStatusEnum::CURRENT)
         ;
+        $playerInfo2 = new PlayerInfo($player2, new User(), new CharacterConfig());
+        $player2->setPlayerInfo($playerInfo2);
 
         $alert = new Alert();
         $alert->setName(AlertEnum::HUNGER)->setDaedalus($daedalus);
@@ -552,6 +563,9 @@ class AlertServiceTest extends TestCase
             ->setDaedalus($daedalus)
             ->setPlace($room)
         ;
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
+
         $room->setDaedalus($daedalus);
 
         $fireConfig = new StatusConfig();
@@ -559,7 +573,7 @@ class AlertServiceTest extends TestCase
         $fireStatus = new Status($room, $fireConfig);
 
         $alertElement = new AlertElement();
-        $alertElement->setPlace($room)->setPlayer($player);
+        $alertElement->setPlace($room)->setPlayerInfo($playerInfo);
 
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::FIRES)->addAlertElement($alertElement);
@@ -616,6 +630,9 @@ class AlertServiceTest extends TestCase
             ->setDaedalus($daedalus)
             ->setPlace($room)
         ;
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
+
         $room->setDaedalus($daedalus);
 
         $gameEquipment = new GameEquipment();
@@ -625,7 +642,7 @@ class AlertServiceTest extends TestCase
         $status = new Status($gameEquipment, $brokenConfig);
 
         $alertElement = new AlertElement();
-        $alertElement->setEquipment($gameEquipment)->setPlace($room)->setPlayer($player);
+        $alertElement->setEquipment($gameEquipment)->setPlace($room)->setPlayerInfo($playerInfo);
 
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::BROKEN_EQUIPMENTS)->addAlertElement($alertElement);

@@ -6,6 +6,7 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -42,7 +43,9 @@ class MessageVoter extends Voter
         $user = $token->getUser();
 
         // User must be logged in and have a current game
-        if (!$user instanceof User || !($player = $user->getCurrentGame())) {
+        if (!$user instanceof User ||
+            !($playerInfo = $user->getPlayerInfo())
+        ) {
             return false;
         }
 
@@ -51,32 +54,38 @@ class MessageVoter extends Voter
 
         switch ($attribute) {
             case self::VIEW:
-                return $this->canView($channel, $player);
+                return $this->canView($channel, $playerInfo);
             case self::CREATE:
-                return $this->canCreate($channel, $player);
+                return $this->canCreate($channel, $playerInfo);
         }
 
         throw new \LogicException('This code should not be reached!');
     }
 
-    private function canView(Channel $channel, Player $player): bool
+    private function canView(Channel $channel, PlayerInfo $playerInfo): bool
     {
+        /** @var Player $player */
+        $player = $playerInfo->getPlayer();
+
         // check for pirated channels
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
 
-        return $channel->isPublic() || $channel->isPlayerParticipant($player) ||
-            ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer));
+        return $channel->isPublic() || $channel->isPlayerParticipant($playerInfo) ||
+            ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()));
     }
 
-    private function canCreate(Channel $channel, Player $player): bool
+    private function canCreate(Channel $channel, PlayerInfo $playerInfo): bool
     {
+        /** @var Player $player */
+        $player = $playerInfo->getPlayer();
+
         // check for pirated channels
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
 
-        return $this->channelService->canPlayerCommunicate($player) && $player->isAlive() &&
+        return $this->channelService->canPlayerCommunicate($player) && $playerInfo->isAlive() &&
             ($channel->isPublic() ||
-                $channel->isPlayerParticipant($player) ||
-                ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer))
+                $channel->isPlayerParticipant($playerInfo) ||
+                ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()))
             );
     }
 }

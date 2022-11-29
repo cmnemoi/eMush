@@ -19,9 +19,11 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 
 class ConsumeActionCest
 {
@@ -51,8 +53,15 @@ class ConsumeActionCest
             'moralPoint' => 5,
             'movementPoint' => 5,
             'satiety' => 0,
-            'characterConfig' => $characterConfig,
         ]);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $actionCost = new ActionCost();
         $I->haveInRepository($actionCost);
@@ -140,8 +149,14 @@ class ConsumeActionCest
             'moralPoint' => 5,
             'movementPoint' => 5,
             'satiety' => -7,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $actionCost = new ActionCost();
         $I->haveInRepository($actionCost);
@@ -229,8 +244,14 @@ class ConsumeActionCest
             'moralPoint' => 5,
             'movementPoint' => 5,
             'satiety' => 0,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $mushConfig = new StatusConfig();
         $mushConfig

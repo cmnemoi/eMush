@@ -45,12 +45,10 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
 
         $characterConfig = new CharacterConfig();
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
         $player->setPlace($medlab);
 
         $targetPlayerConfig = new CharacterConfig();
         $target = new Player();
-        $target->setCharacterConfig($targetPlayerConfig);
         $target->setPlace($medlab);
 
         $action = Mockery::mock(AbstractAction::class);
@@ -72,7 +70,6 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
 
         $characterConfig = new CharacterConfig();
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
         $player->setPlace($room);
 
         $equipment = new GameItem();
@@ -81,7 +78,6 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
 
         $targetPlayerConfig = new CharacterConfig();
         $target = new Player();
-        $target->setCharacterConfig($targetPlayerConfig);
         $target->setPlace($room);
 
         $action = Mockery::mock(AbstractAction::class);
@@ -103,7 +99,6 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
 
         $characterConfig = new CharacterConfig();
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
         $player->setPlace($room);
 
         $equipment = new GameItem();
@@ -112,7 +107,6 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
 
         $targetPlayerConfig = new CharacterConfig();
         $target = new Player();
-        $target->setCharacterConfig($targetPlayerConfig);
         $target->setPlace($room);
 
         $action = Mockery::mock(AbstractAction::class);
@@ -137,12 +131,10 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
 
         $characterConfig = new CharacterConfig();
         $player = new Player();
-        $player->setCharacterConfig($characterConfig);
         $player->setPlace($laboratory);
 
         $targetPlayerConfig = new CharacterConfig();
         $target = new Player();
-        $target->setCharacterConfig($targetPlayerConfig);
         $target->setPlace($medlab);
 
         $action = Mockery::mock(AbstractAction::class);

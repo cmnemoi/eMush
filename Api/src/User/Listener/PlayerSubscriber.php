@@ -25,7 +25,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onEndPlayer(PlayerEvent $event): void
     {
         $user = $event->getPlayer()->getUser();
-        $user->setCurrentGame(null);
+        $user->setPlayerInfo(null);
 
         $this->userService->persist($user);
     }

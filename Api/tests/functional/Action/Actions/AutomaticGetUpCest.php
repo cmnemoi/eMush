@@ -18,11 +18,13 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 
 class AutomaticGetUpCest
 {
@@ -61,8 +63,15 @@ class AutomaticGetUpCest
                                             'place' => $room,
                                             'actionPoint' => 2,
                                             'healthPoint' => 6,
-                                            'characterConfig' => $characterConfig,
                                         ]);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $statusConfig = new StatusConfig();
         $statusConfig
@@ -111,14 +120,14 @@ class AutomaticGetUpCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $player->getId(),
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::GET_UP,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $player->getId(),
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::SHOWER_HUMAN,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);

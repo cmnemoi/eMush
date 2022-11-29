@@ -17,10 +17,13 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class SymptomConditionServiceTest extends TestCase
@@ -169,14 +172,20 @@ class SymptomConditionServiceTest extends TestCase
         $otherRoom = new Place();
 
         $human = new Player();
-        $human->setDaedalus($daedalus);
-        $human->setPlace($room);
-        $human->setGameStatus('in_game');
+        $playerInfo = new PlayerInfo($human, new User(), new CharacterConfig());
+        $human
+            ->setDaedalus($daedalus)
+            ->setPlace($room)
+            ->setPlayerInfo($playerInfo)
+        ;
 
         $mush = new Player();
-        $mush->setDaedalus($daedalus);
-        $mush->setPlace($room);
-        $mush->setGameStatus('in_game');
+        $mushPlayerInfo = new PlayerInfo($mush, new User(), new CharacterConfig());
+        $mush
+            ->setDaedalus($daedalus)
+            ->setPlace($room)
+            ->setPlayerInfo($mushPlayerInfo)
+        ;
 
         $statusConfig = new StatusConfig();
         $statusConfig->setName(PlayerStatusEnum::MUSH);
@@ -210,14 +219,20 @@ class SymptomConditionServiceTest extends TestCase
         $otherRoom = new Place();
 
         $player = new Player();
-        $player->setDaedalus($daedalus);
-        $player->setPlace($room);
-        $player->setGameStatus('in_game');
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player
+            ->setDaedalus($daedalus)
+            ->setPlace($room)
+            ->setPlayerInfo($playerInfo)
+        ;
 
         $otherPlayer = new Player();
-        $otherPlayer->setDaedalus($daedalus);
-        $otherPlayer->setPlace($room);
-        $otherPlayer->setGameStatus('in_game');
+        $otherPlayerInfo = new PlayerInfo($otherPlayer, new User(), new CharacterConfig());
+        $otherPlayer
+            ->setDaedalus($daedalus)
+            ->setPlace($room)
+            ->setPlayerInfo($otherPlayerInfo)
+        ;
 
         $symptomCondtion = new SymptomCondition(SymptomConditionEnum::PLAYER_IN_ROOM);
         $symptomCondtion->setCondition(SymptomConditionEnum::NOT_ALONE);

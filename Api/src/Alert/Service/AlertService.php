@@ -304,7 +304,7 @@ class AlertService implements AlertServiceInterface
             return false;
         }
 
-        return $this->getAlertFireElement($alert, $room)->getPlayer() !== null;
+        return $this->getAlertFireElement($alert, $room)->getPlayerInfo() !== null;
     }
 
     public function isEquipmentReported(GameEquipment $equipment): bool
@@ -324,6 +324,6 @@ class AlertService implements AlertServiceInterface
             return false;
         }
 
-        return $this->getAlertEquipmentElement($alert, $equipment)->getPlayer() !== null;
+        return $this->getAlertEquipmentElement($alert, $equipment)->getPlayerInfo() !== null;
     }
 }

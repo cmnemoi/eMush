@@ -2,7 +2,6 @@
 
 namespace Mush\Player\Normalizer;
 
-use Error;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -30,7 +29,7 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
 
         return $data instanceof Player &&
             $data === $currentPlayer &&
-            $data->getGameStatus() === GameStatusEnum::FINISHED
+            $data->getPlayerInfo()->getGameStatus() === GameStatusEnum::FINISHED
         ;
     }
 
@@ -41,12 +40,9 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
 
         $daedalus = $player->getDaedalus();
         $language = $daedalus->getGameConfig()->getLanguage();
-        $character = $player->getCharacterConfig()->getName();
-        $deadPlayerInfo = $player->getDeadPlayerInfo();
-
-        if ($deadPlayerInfo === null) {
-            throw new Error('a dead player info should have been created');
-        }
+        $character = $player->getName();
+        $playerInfo = $player->getPlayerInfo();
+        $deadPlayerInfo = $playerInfo->getClosedPlayer();
 
         $endCause = $deadPlayerInfo->getEndCause();
 
@@ -67,7 +63,7 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
                 ],
             ],
             'skills' => $player->getSkills(),
-            'gameStatus' => $player->getGameStatus(),
+            'gameStatus' => $playerInfo->getGameStatus(),
             'endCause' => $this->normalizeEndReason($endCause, $player->getDaedalus()->getGameConfig()->getLanguage()),
         ];
 
@@ -83,7 +79,7 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
         /** @var Player $otherPlayer */
         foreach ($player->getDaedalus()->getPlayers() as $otherPlayer) {
             if ($otherPlayer !== $player) {
-                $character = $otherPlayer->getCharacterConfig()->getName();
+                $character = $otherPlayer->getName();
 
                 // TODO add likes
                 $normalizedOtherPlayer = [
@@ -105,19 +101,16 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
                     ],
                 ];
 
-                $deadPlayerInfo = $otherPlayer->getDeadPlayerInfo();
+                $otherPlayerInfo = $otherPlayer->getPlayerInfo();
+                $otherClosedPlayer = $otherPlayerInfo->getClosedPlayer();
 
-                if ($deadPlayerInfo === null) {
-                    throw new Error('player should have a deadPlayerInfo property');
-                }
+                $normalizedOtherPlayer['likes'] = $otherClosedPlayer->getLikes();
 
-                $normalizedOtherPlayer['likes'] = $deadPlayerInfo->getLikes();
-
-                if ($otherPlayer->getGameStatus() !== GameStatusEnum::CURRENT) {
-                    $endCause = $deadPlayerInfo->getEndCause();
+                if ($otherPlayerInfo->getGameStatus() !== GameStatusEnum::CURRENT) {
+                    $endCause = $otherClosedPlayer->getEndCause();
                     $normalizedOtherPlayer['isDead'] = [
-                        'day' => $deadPlayerInfo->getDayDeath(),
-                        'cycle' => $deadPlayerInfo->getCycleDeath(),
+                        'day' => $otherClosedPlayer->getDayDeath(),
+                        'cycle' => $otherClosedPlayer->getCycleDeath(),
                         'cause' => $this->normalizeEndReason($endCause, $language),
                     ];
                 } else {

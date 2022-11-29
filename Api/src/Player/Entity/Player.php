@@ -15,13 +15,11 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
-use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -46,14 +44,8 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
-    private User $user;
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private string $gameStatus;
-
-    #[ORM\ManyToOne(targetEntity: CharacterConfig::class)]
-    private CharacterConfig $characterConfig;
+    #[ORM\OneToOne(mappedBy: 'player', targetEntity: PlayerInfo::class)]
+    private PlayerInfo $playerInfo;
 
     #[ORM\ManyToOne(targetEntity: Daedalus::class, inversedBy: 'players')]
     private Daedalus $daedalus;
@@ -98,9 +90,6 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $satiety = 0;
 
-    #[ORM\ManyToOne(targetEntity: DeadPlayerInfo::class)]
-    private ?DeadPlayerInfo $deadPlayerInfo = null;
-
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -115,50 +104,31 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->id;
     }
 
+    public function getPlayerInfo(): PlayerInfo
+    {
+        return $this->playerInfo;
+    }
+
+    public function setPlayerInfo(PlayerInfo $playerInfo): static
+    {
+        $this->playerInfo = $playerInfo;
+
+        return $this;
+    }
+
     public function getUser(): User
     {
-        return $this->user;
+        return $this->playerInfo->getUser();
     }
 
     public function getName(): string
     {
-        return $this->characterConfig->getName();
-    }
-
-    public function setUser(User $user): static
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    public function getGameStatus(): string
-    {
-        return $this->gameStatus;
-    }
-
-    public function setGameStatus(string $gameStatus): static
-    {
-        $this->gameStatus = $gameStatus;
-
-        return $this;
+        return $this->playerInfo->getName();
     }
 
     public function isAlive(): bool
     {
-        return $this->gameStatus === GameStatusEnum::CURRENT;
-    }
-
-    public function getCharacterConfig(): CharacterConfig
-    {
-        return $this->characterConfig;
-    }
-
-    public function setCharacterConfig(CharacterConfig $characterConfig): static
-    {
-        $this->characterConfig = $characterConfig;
-
-        return $this;
+        return $this->playerInfo->isAlive();
     }
 
     public function getDaedalus(): Daedalus
@@ -558,35 +528,23 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function getSelfActions(): Collection
     {
-        return $this->characterConfig->getActions()
+        return $this->playerInfo->getCharacterConfig()->getActions()
             ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::SELF);
     }
 
     public function getTargetActions(): Collection
     {
-        return $this->characterConfig->getActions()
+        return $this->playerInfo->getCharacterConfig()->getActions()
             ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::OTHER_PLAYER);
     }
 
     public function getLogName(): string
     {
-        return $this->getCharacterConfig()->getName();
+        return $this->playerInfo->getName();
     }
 
     public function getLogKey(): string
     {
         return LogParameterKeyEnum::CHARACTER;
-    }
-
-    public function setDeadPlayerInfo(DeadPlayerInfo $deadPlayerInfo): self
-    {
-        $this->deadPlayerInfo = $deadPlayerInfo;
-
-        return $this;
-    }
-
-    public function getDeadPlayerInfo(): ?DeadPlayerInfo
-    {
-        return $this->deadPlayerInfo;
     }
 }

@@ -22,7 +22,9 @@ use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class MessageNormalizerTest extends TestCase
@@ -63,13 +65,13 @@ class MessageNormalizerTest extends TestCase
         $playerConfig->setName('name');
 
         $player = new Player();
-        $player->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), $playerConfig);
 
         $createdAt = new \DateTime();
 
         $message = new Message();
         $message
-            ->setAuthor($player)
+            ->setAuthor($playerInfo)
             ->setMessage('message')
             ->setCreatedAt($createdAt)
         ;
@@ -88,7 +90,10 @@ class MessageNormalizerTest extends TestCase
         ;
 
         $currentPlayer = new Player();
-        $currentPlayer->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+        $currentPlayer
+            ->setDaedalus($daedalus)
+            ->setPlayerInfo(new PlayerInfo($currentPlayer, new User(), new CharacterConfig()))
+        ;
 
         $context = ['currentPlayer' => $currentPlayer];
         $normalizedData = $this->normalizer->normalize($message, null, $context);
@@ -147,7 +152,10 @@ class MessageNormalizerTest extends TestCase
         ;
 
         $currentPlayer = new Player();
-        $currentPlayer->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+        $currentPlayer
+            ->setDaedalus($daedalus)
+            ->setPlayerInfo(new PlayerInfo($currentPlayer, new User(), new CharacterConfig()))
+        ;
 
         $context = ['currentPlayer' => $currentPlayer];
         $normalizedData = $this->normalizer->normalize($message, null, $context);
@@ -178,13 +186,13 @@ class MessageNormalizerTest extends TestCase
         $playerConfig->setName('name');
 
         $player = new Player();
-        $player->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), $playerConfig);
 
         $createdAt = new \DateTime();
 
         $playerMessage = new Message();
         $playerMessage
-            ->setAuthor($player)
+            ->setAuthor($playerInfo)
             ->setMessage('message child')
             ->setCreatedAt($createdAt)
         ;
@@ -223,7 +231,10 @@ class MessageNormalizerTest extends TestCase
         ;
 
         $currentPlayer = new Player();
-        $currentPlayer->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+        $currentPlayer
+            ->setDaedalus($daedalus)
+            ->setPlayerInfo(new PlayerInfo($currentPlayer, new User(), new CharacterConfig()))
+        ;
 
         $context = ['currentPlayer' => $currentPlayer];
         $normalizedData = $this->normalizer->normalize($neronMessage, null, $context);
@@ -254,7 +265,8 @@ class MessageNormalizerTest extends TestCase
         $playerConfig->setName('name');
 
         $player = new Player();
-        $player->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), $playerConfig);
+        $player->setDaedalus($daedalus);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::DEAF);
         $diseaseConfig = new DiseaseConfig();
@@ -271,7 +283,7 @@ class MessageNormalizerTest extends TestCase
 
         $message = new Message();
         $message
-            ->setAuthor($player)
+            ->setAuthor($playerInfo)
             ->setMessage('message')
             ->setCreatedAt($createdAt)
         ;
@@ -317,10 +329,13 @@ class MessageNormalizerTest extends TestCase
         $playerConfig->setName('name');
 
         $player = new Player();
-        $player->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+        $player
+            ->setDaedalus($daedalus)
+            ->setPlayerInfo(new PlayerInfo($player, new User(), new CharacterConfig()))
+        ;
 
         $otherPlayer = new Player();
-        $otherPlayer->setCharacterConfig($playerConfig);
+        $otherPlayerInfo = new PlayerInfo($otherPlayer, new User(), $playerConfig);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
         $diseaseConfig = new DiseaseConfig();
@@ -337,7 +352,7 @@ class MessageNormalizerTest extends TestCase
 
         $message = new Message();
         $message
-            ->setAuthor($otherPlayer)
+            ->setAuthor($otherPlayerInfo)
             ->setMessage('modified message')
             ->setCreatedAt($createdAt)
             ->setTranslationParameters([
@@ -381,7 +396,8 @@ class MessageNormalizerTest extends TestCase
         $playerConfig->setName('name');
 
         $player = new Player();
-        $player->setCharacterConfig($playerConfig)->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), $playerConfig);
+        $player->setDaedalus($daedalus)->setPlayerInfo($playerInfo);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
         $diseaseConfig = new DiseaseConfig();
@@ -398,7 +414,7 @@ class MessageNormalizerTest extends TestCase
 
         $message = new Message();
         $message
-            ->setAuthor($player)
+            ->setAuthor($playerInfo)
             ->setMessage('modified message')
             ->setCreatedAt($createdAt)
             ->setTranslationParameters([

@@ -3,8 +3,10 @@
 namespace Mush\Alert\Normalizer;
 
 use Mush\Alert\Entity\Alert;
+use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Place\Entity\Place;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
 class AlertNormalizer implements ContextAwareNormalizerInterface
@@ -87,23 +89,29 @@ class AlertNormalizer implements ContextAwareNormalizerInterface
     {
         $reports = [];
 
+        /** @var AlertElement $element */
         foreach ($alert->getAlertElements() as $element) {
-            if ($element->getPlayer() !== null) {
-                $place = $this->translationService->translate(
-                    $element->getPlace()->getName() . '.name',
+            $playerInfo = $element->getPlayerInfo();
+
+            if ($playerInfo !== null) {
+                /** @var Place $place */
+                $place = $element->getPlace();
+
+                $placeName = $this->translationService->translate(
+                    $place->getName() . '.name',
                     [],
                     'rooms',
                     $language
                 );
                 $loc_prep = $this->translationService->translate(
-                    $element->getPlace()->getName() . '.loc_prep',
+                    $place->getName() . '.loc_prep',
                     [],
                     'rooms',
                     $language
                 );
                 $parameters = [
-                    'character' => $element->getPlayer()->getCharacterConfig()->getName(),
-                    'place' => $place,
+                    'character' => $playerInfo->getName(),
+                    'place' => $placeName,
                     'loc_prep' => $loc_prep,
                 ];
 

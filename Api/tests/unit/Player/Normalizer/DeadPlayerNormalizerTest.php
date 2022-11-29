@@ -12,8 +12,8 @@ use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Normalizer\DeadPlayerNormalizer;
 use Mush\User\Entity\User;
@@ -60,40 +60,42 @@ class DeadPlayerNormalizerTest extends TestCase
         ;
 
         $otherPlayerDead = $this->createMock(Player::class);
-        $otherPlayerDead->method('getId')->willReturn(3);
-        $otherPlayerDead->method('getCharacterConfig')->willReturn($characterConfig);
-        $otherPlayerDead->method('getUser')->willReturn(new User());
-        $otherPlayerDead->method('getGameStatus')->willReturn(GameStatusEnum::FINISHED);
-        $deadPlayerInfo = new DeadPlayerInfo();
-        $deadPlayerInfo
+        $playerInformationDead = new PlayerInfo($otherPlayerDead, new User(), $characterConfig);
+        $closedPlayerDead = $playerInformationDead->getClosedPlayer();
+        $closedPlayerDead
             ->setMessage('yoyoyo')
             ->setDayCycleDeath($daedalus)
             ->setEndCause(EndCauseEnum::ALLERGY)
             ->addLike()
         ;
-        $otherPlayerDead->method('getDeadPlayerInfo')->willReturn($deadPlayerInfo);
+
+        $playerInformationDead->setGameStatus(GameStatusEnum::FINISHED);
+        $otherPlayerDead->method('getId')->willReturn(3);
+        $otherPlayerDead->method('getName')->willReturn(CharacterEnum::ELEESHA);
+        $otherPlayerDead->method('getPlayerInfo')->willReturn($playerInformationDead);
 
         $otherPlayerAlive = $this->createMock(Player::class);
+        $playerInformationAlive = new PlayerInfo($otherPlayerAlive, new User(), $characterConfig);
+
         $otherPlayerAlive->method('getId')->willReturn(4);
-        $otherPlayerAlive->method('getCharacterConfig')->willReturn($characterConfig);
-        $otherPlayerAlive->method('getUser')->willReturn(new User());
-        $otherPlayerAlive->method('getDeadPlayerInfo')->willReturn(new DeadPlayerInfo());
-        $otherPlayerAlive->method('getGameStatus')->willReturn(GameStatusEnum::CURRENT);
+        $otherPlayerAlive->method('getName')->willReturn(CharacterEnum::ELEESHA);
+        $otherPlayerAlive->method('getPlayerInfo')->willReturn($playerInformationAlive);
 
         $player = $this->createMock(Player::class);
-
-        $player->method('getCharacterConfig')->willReturn($characterConfig);
-        $player->method('getId')->willReturn(2);
-        $player->method('getTriumph')->willReturn(33);
-        $player->method('getGameStatus')->willReturn(GameStatusEnum::FINISHED);
-        $player->method('getSkills')->willReturn([]);
-        $player->method('getTargetActions')->willReturn(new ArrayCollection());
-        $deadCurrentPlayerInfo = new DeadPlayerInfo();
-        $deadCurrentPlayerInfo
+        $playerInformation = new PlayerInfo($player, new User(), $characterConfig);
+        $playerInformation->setGameStatus(GameStatusEnum::FINISHED);
+        $closedPlayer = $playerInformation->getClosedPlayer();
+        $closedPlayer
             ->setDayCycleDeath($daedalus)
             ->setEndCause(EndCauseEnum::INJURY)
         ;
-        $player->method('getDeadPlayerInfo')->willReturn($deadCurrentPlayerInfo);
+
+        $player->method('getName')->willReturn(CharacterEnum::ELEESHA);
+        $player->method('getId')->willReturn(2);
+        $player->method('getTriumph')->willReturn(33);
+        $player->method('getPlayerInfo')->willReturn($playerInformation);
+        $player->method('getSkills')->willReturn([]);
+        $player->method('getTargetActions')->willReturn(new ArrayCollection());
 
         $this->translationService
             ->shouldReceive('translate')

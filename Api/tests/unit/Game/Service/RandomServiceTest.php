@@ -13,6 +13,8 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class RandomServiceTest extends TestCase
@@ -68,9 +70,6 @@ class RandomServiceTest extends TestCase
         $playerConfig1 = new CharacterConfig();
         $playerConfig1->setName('player1');
         $player1 = new Player();
-        $player1
-            ->setCharacterConfig($playerConfig1)
-        ;
 
         $playerCollection->add($player1);
 
@@ -81,9 +80,13 @@ class RandomServiceTest extends TestCase
     {
         $room = new Place();
         $player1 = new Player();
-        $player1->setGameStatus(GameStatusEnum::CURRENT);
+        $player1Info = new PlayerInfo($player1, new User(), new CharacterConfig());
+        $player1->setPlayerInfo($player1Info);
+
         $player2 = new Player();
-        $player2->setGameStatus(GameStatusEnum::CURRENT);
+        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
+        $player2->setPlayerInfo($player2Info);
+
         $room
             ->addPlayer($player1)
             ->addPlayer($player2)
@@ -95,13 +98,13 @@ class RandomServiceTest extends TestCase
     public function testGetAlivePlayerInDaedalus()
     {
         $player1 = new Player();
+        $player1Info = new PlayerInfo($player1, new User(), new CharacterConfig());
+        $player1->setPlayerInfo($player1Info);
+
         $player2 = new Player();
-        $player1
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
-        $player2
-            ->setGameStatus(GameStatusEnum::FINISHED)
-        ;
+        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
+        $player2Info->setGameStatus(GameStatusEnum::FINISHED);
+        $player2->setPlayerInfo($player2Info);
 
         $daedalus = new Daedalus();
         $daedalus

@@ -35,9 +35,12 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
     public function applyDiseaseEffects(Message $message): Message
     {
         $messageContent = $message->getMessage();
-        $player = $message->getAuthor();
 
-        if ($player === null) {
+        $playerInfo = $message->getAuthor();
+
+        if ($playerInfo === null ||
+            ($player = $playerInfo->getPlayer()) === null
+        ) {
             return $message;
         }
 

@@ -113,7 +113,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onNewPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
-        $characterConfig = $player->getCharacterConfig();
+        $characterConfig = $player->getPlayerInfo()->getCharacterConfig();
         $reason = $event->getReason();
 
         $initDiseases = $characterConfig->getInitDiseases();

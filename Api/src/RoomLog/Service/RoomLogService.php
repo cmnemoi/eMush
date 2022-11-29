@@ -158,13 +158,19 @@ class RoomLogService implements RoomLogServiceInterface
             }
         }
 
+        if ($player === null) {
+            $author = null;
+        } else {
+            $author = $player->getPlayerInfo();
+        }
+
         $roomLog = new RoomLog();
         $roomLog
             ->setLog($logKey)
             ->setParameters($parameters)
             ->setType($type)
             ->setPlace($place)
-            ->setPlayer($player)
+            ->setPlayerInfo($author)
             ->setVisibility($this->getVisibility($player, $visibility))
             ->setDate($dateTime ?? new \DateTime('now'))
             ->setCycle($place->getDaedalus()->getCycle())
@@ -209,6 +215,6 @@ class RoomLogService implements RoomLogServiceInterface
 
     public function getRoomLog(Player $player): RoomLogCollection
     {
-        return new RoomLogCollection($this->repository->getPlayerRoomLog($player));
+        return new RoomLogCollection($this->repository->getPlayerRoomLog($player->getPlayerInfo()));
     }
 }

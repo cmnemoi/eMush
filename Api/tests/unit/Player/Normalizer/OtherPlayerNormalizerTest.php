@@ -10,7 +10,6 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Normalizer\OtherPlayerNormalizer;
 use PHPUnit\Framework\TestCase;
@@ -50,14 +49,9 @@ class OtherPlayerNormalizerTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
-        $characterConfig = new CharacterConfig();
-        $characterConfig
-            ->setName(CharacterEnum::ELEESHA)
-        ;
-
         $player = $this->createMock(Player::class);
 
-        $player->method('getCharacterConfig')->willReturn($characterConfig);
+        $player->method('getName')->willReturn(CharacterEnum::ELEESHA);
         $player->method('getId')->willReturn(2);
         $player->method('getStatuses')->willReturn(new ArrayCollection());
         $player->method('getSkills')->willReturn([]);

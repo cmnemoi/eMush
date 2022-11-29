@@ -19,12 +19,14 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\User\Entity\User;
 
 class RemoveSporeActionCest
 {
@@ -54,8 +56,14 @@ class RemoveSporeActionCest
             'place' => $room,
             'actionPoint' => 2,
             'healthPoint' => 9,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $sporeStatusConfig = new ChargeStatusConfig();
         $sporeStatusConfig
@@ -115,7 +123,7 @@ class RemoveSporeActionCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room,
-            'player' => $player,
+            'playerInfo' => $player->getPlayerInfo(),
             'visibility' => VisibilityEnum::PRIVATE,
             'log' => ActionLogEnum::REMOVE_SPORE_SUCCESS,
         ]);
@@ -136,7 +144,7 @@ class RemoveSporeActionCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room,
-            'player' => $player,
+            'playerInfo' => $player->getPlayerInfo(),
             'visibility' => VisibilityEnum::PRIVATE,
             'log' => ActionLogEnum::REMOVE_SPORE_FAIL,
         ]);

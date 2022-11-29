@@ -24,7 +24,9 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class DiseaseMessageServiceTest extends TestCase
@@ -61,6 +63,7 @@ class DiseaseMessageServiceTest extends TestCase
     public function testDeafPlayer()
     {
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $symptomConfig = new SymptomConfig(SymptomEnum::DEAF);
         $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
@@ -75,7 +78,7 @@ class DiseaseMessageServiceTest extends TestCase
         $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
-        $message->setAuthor($player)->setMessage('some message');
+        $message->setAuthor($playerInfo)->setMessage('some message');
 
         $modifiedMessage = $this->service->applyDiseaseEffects($message);
 
@@ -90,6 +93,7 @@ class DiseaseMessageServiceTest extends TestCase
         $daedalus->setGameConfig($gameConfig);
 
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setDaedalus($daedalus);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::COPROLALIA_MESSAGES);
@@ -107,7 +111,7 @@ class DiseaseMessageServiceTest extends TestCase
         $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
-        $message->setAuthor($player)->setMessage('some message');
+        $message->setAuthor($playerInfo)->setMessage('some message');
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
@@ -125,6 +129,7 @@ class DiseaseMessageServiceTest extends TestCase
 
         $player = new Player();
         $player->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $symptomConfig = new SymptomConfig(SymptomEnum::COPROLALIA_MESSAGES);
         $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
@@ -141,7 +146,7 @@ class DiseaseMessageServiceTest extends TestCase
         $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
-        $message->setAuthor($player)->setMessage('some message');
+        $message->setAuthor($playerInfo)->setMessage('some message');
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
@@ -181,6 +186,8 @@ class DiseaseMessageServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
 
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+
         $symptomConfig = new SymptomConfig(SymptomEnum::COPROLALIA_MESSAGES);
         $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
 
@@ -196,7 +203,7 @@ class DiseaseMessageServiceTest extends TestCase
         $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
-        $message->setAuthor($player)->setMessage('Some message');
+        $message->setAuthor($playerInfo)->setMessage('Some message');
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
@@ -237,6 +244,8 @@ class DiseaseMessageServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
 
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+
         $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
         $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
 
@@ -252,7 +261,7 @@ class DiseaseMessageServiceTest extends TestCase
         $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
-        $message->setAuthor($player)->setMessage('some message');
+        $message->setAuthor($playerInfo)->setMessage('some message');
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
@@ -291,6 +300,7 @@ class DiseaseMessageServiceTest extends TestCase
 
         $player = new Player();
         $player->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
         $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
@@ -307,7 +317,7 @@ class DiseaseMessageServiceTest extends TestCase
         $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
-        $message->setAuthor($player)->setMessage('Some message');
+        $message->setAuthor($playerInfo)->setMessage('Some message');
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
@@ -359,7 +369,10 @@ class DiseaseMessageServiceTest extends TestCase
         $daedalus->setGameConfig($gameConfig);
 
         $player = new Player();
-        $player->setCharacterConfig($characterConfig1)->setDaedalus($daedalus);
+
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
+
+        $player->setDaedalus($daedalus)->setPlayerInfo($playerInfo);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
         $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
@@ -376,7 +389,7 @@ class DiseaseMessageServiceTest extends TestCase
         $player->addMedicalCondition($playerDisease);
 
         $message = new Message();
-        $message->setAuthor($player)->setMessage('Some message');
+        $message->setAuthor($playerInfo)->setMessage('Some message');
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();

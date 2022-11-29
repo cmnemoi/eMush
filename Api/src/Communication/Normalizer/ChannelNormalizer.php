@@ -49,7 +49,7 @@ class ChannelNormalizer implements ContextAwareNormalizerInterface
         /** @var ChannelPlayer $participant */
         foreach ($object->getParticipants() as $participant) {
             $player = $participant->getParticipant();
-            $character = $player->getCharacterConfig()->getName();
+            $character = $player->getName();
             $participants[] = [
                 'id' => $player->getId(),
                 'character' => [

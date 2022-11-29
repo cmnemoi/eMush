@@ -16,6 +16,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -23,6 +24,7 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 
 class PhagocyteActionCest
 {
@@ -42,15 +44,36 @@ class PhagocyteActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
+        $actionCost = new ActionCost();
+        $I->haveInRepository($actionCost);
+
+        $phagocyteActionEntity = new Action();
+        $phagocyteActionEntity
+            ->setName(ActionEnum::PHAGOCYTE)
+            ->setScope(ActionScopeEnum::SELF)
+            ->setDirtyRate(0)
+            ->setInjuryRate(0)
+            ->setActionCost($actionCost)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
+        $I->haveInRepository($phagocyteActionEntity);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+        $characterConfig->setActions(new ArrayCollection([$phagocyteActionEntity]));
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 1,
             'healthPoint' => 1,
-            'characterConfig' => $characterConfig,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $mushConfig = new StatusConfig();
         $mushConfig
@@ -74,22 +97,6 @@ class PhagocyteActionCest
         $sporeStatus->setCharge(1);
         $I->haveInRepository($sporeStatus);
 
-        $actionCost = new ActionCost();
-        $I->haveInRepository($actionCost);
-
-        $phagocyteActionEntity = new Action();
-        $phagocyteActionEntity
-            ->setName(ActionEnum::PHAGOCYTE)
-            ->setScope(ActionScopeEnum::SELF)
-            ->setDirtyRate(0)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
-        $I->haveInRepository($phagocyteActionEntity);
-
-        $characterConfig->setActions(new ArrayCollection([$phagocyteActionEntity]));
-        $player->setCharacterConfig($characterConfig);
-
         $this->phagocyteAction->loadParameters($phagocyteActionEntity, $player);
         $this->phagocyteAction->execute();
 
@@ -101,7 +108,7 @@ class PhagocyteActionCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room,
-            'player' => $player,
+            'playerInfo' => $player->getPlayerInfo(),
             'visibility' => VisibilityEnum::PRIVATE,
             'log' => ActionLogEnum::PHAGOCYTE_SUCCESS,
         ]);

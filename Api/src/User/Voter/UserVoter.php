@@ -50,7 +50,7 @@ class UserVoter extends Voter
 
     private function isPlayerInGame(User $user): bool
     {
-        return null !== $user->getCurrentGame();
+        return null !== $user->getPlayerInfo();
     }
 
     private function canEditUserRole(User $editedUser, TokenInterface $token): bool

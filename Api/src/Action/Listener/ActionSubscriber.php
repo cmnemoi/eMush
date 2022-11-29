@@ -43,7 +43,7 @@ class ActionSubscriber implements EventSubscriberInterface
         if ($action->getName() !== $this->getUpAction->getActionName() &&
             $lyingDownStatus = $player->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
-            $getUpAction = $player->getCharacterConfig()->getActionByName(ActionEnum::GET_UP);
+            $getUpAction = $player->getPlayerInfo()->getCharacterConfig()->getActionByName(ActionEnum::GET_UP);
 
             if ($getUpAction === null) {
                 throw new \LogicException('character do not have get up action');

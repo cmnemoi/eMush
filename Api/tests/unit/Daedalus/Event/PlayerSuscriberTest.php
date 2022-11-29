@@ -8,8 +8,11 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Listener\PlayerSubscriber;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerEvent;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -50,8 +53,12 @@ class PlayerSuscriberTest extends TestCase
         $daedalus->setHull(0);
 
         $player = new Player();
-        $player->setGameStatus(GameStatusEnum::FINISHED);
-        $player->setDaedalus($daedalus);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
+        $player
+            ->setDaedalus($daedalus)
+            ->setPlayerInfo($playerInfo)
+        ;
 
         $date = new \DateTime('tomorrow');
 

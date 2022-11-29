@@ -4,7 +4,9 @@ namespace unit\Player\Voter;
 
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Voter\MessageVoter;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Voter\PlayerVoter;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
@@ -27,7 +29,9 @@ class PlayerVoterTest extends TestCase
     {
         $user = new User();
         $player = new Player();
-        $user->setCurrentGame($player);
+        $playerInfo = new PlayerInfo($player, $user, new CharacterConfig());
+
+        $user->setPlayerInfo($playerInfo);
 
         yield 'anonymous cannot edit' => [
             MessageVoter::VIEW,
@@ -43,10 +47,11 @@ class PlayerVoterTest extends TestCase
     {
         $user = new User();
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, $user, new CharacterConfig());
 
         $this->testVote(PlayerVoter::PLAYER_CREATE, null, $user, Voter::ACCESS_GRANTED);
 
-        $user->setCurrentGame($player);
+        $user->setPlayerInfo($playerInfo);
         $this->testVote(PlayerVoter::PLAYER_CREATE, null, $user, Voter::ACCESS_DENIED);
     }
 
@@ -54,10 +59,12 @@ class PlayerVoterTest extends TestCase
     {
         $user = new User();
         $player = new Player();
+        $playerInfo = new PlayerInfo($player, $user, new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
 
         $this->testVote(PlayerVoter::PLAYER_END, $player, $user, Voter::ACCESS_DENIED);
 
-        $user->setCurrentGame($player);
+        $user->setPlayerInfo($playerInfo);
         $this->testVote(PlayerVoter::PLAYER_END, $player, $user, Voter::ACCESS_GRANTED);
     }
 

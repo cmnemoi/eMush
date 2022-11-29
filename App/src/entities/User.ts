@@ -4,14 +4,14 @@ export class User {
     public id : number|null;
     public userId : string|null;
     public username : string|null;
-    public currentGame : number|null;
+    public playerInfo : number|null;
     public roles : UserRole[];
 
     constructor() {
         this.id = null;
         this.userId = null;
         this.username = null;
-        this.currentGame = null;
+        this.playerInfo = null;
         this.roles = [];
     }
     load(object: any): User {
@@ -19,7 +19,7 @@ export class User {
             this.id = object.id;
             this.userId = object.userId;
             this.username = object.username;
-            this.currentGame = object.currentGame ? object.currentGame.id : null;
+            this.playerInfo = object.playerInfo ? object.playerInfo : null;
             this.roles = object.roles;
         }
         return this;
@@ -33,7 +33,7 @@ export class User {
             this.id = object.id;
             this.userId = object.userId;
             this.username = object.username;
-            this.currentGame = object.currentGame ?? null;
+            this.playerInfo = object.playerInfo ?? null;
             this.roles = object.roles;
         }
 

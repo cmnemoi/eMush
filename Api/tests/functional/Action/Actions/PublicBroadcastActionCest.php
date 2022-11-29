@@ -19,14 +19,16 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\User\Entity\User;
 
-class PublicBroadcastCest
+class PublicBroadcastActionCest
 {
     private PublicBroadcast $PublicBroadcastAction;
 
@@ -93,32 +95,40 @@ class PublicBroadcastCest
         ;
         $I->haveInRepository($attemptConfig);
 
-        /** @var CharacterConfig $characterConfig */
+        /** @var CharacterConfig $player1Config */
         $player1Config = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::CHUN,
             'actions' => new ArrayCollection([$action]),
         ]);
-
+        /** @var CharacterConfig $player2Config */
         $player2Config = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::DEREK,
             'actions' => new ArrayCollection([$action]),
         ]);
 
-        /** @var Player $player */
+        /** @var Player $player1 */
         $player1 = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $player1Config,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $player1Info = new PlayerInfo($player1, $user, $player1Config);
+        $I->haveInRepository($player1Info);
+        $player1->setPlayerInfo($player1Info);
+        $I->refreshEntities($player1);
 
-        /** @var Player $targetPlayer */
+        /** @var Player $player2 */
         $player2 = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $player2Config,
         ]);
+        $player2Info = new PlayerInfo($player2, $user, $player2Config);
+        $I->haveInRepository($player2Info);
+        $player2->setPlayerInfo($player2Info);
+        $I->refreshEntities($player2);
 
         $this->PublicBroadcastAction->loadParameters($action, $player1, $gameItem);
 
@@ -135,7 +145,7 @@ class PublicBroadcastCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $player1->getId(),
+            'playerInfo' => $player1->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::PUBLIC_BROADCAST,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -199,32 +209,40 @@ class PublicBroadcastCest
         ;
         $I->haveInRepository($attemptConfig);
 
-        /** @var CharacterConfig $characterConfig */
+        /** @var CharacterConfig $player1Config */
         $player1Config = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::CHUN,
             'actions' => new ArrayCollection([$action]),
         ]);
-
+        /** @var CharacterConfig $player2Config */
         $player2Config = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::DEREK,
             'actions' => new ArrayCollection([$action]),
         ]);
 
-        /** @var Player $player */
+        /** @var Player $player1 */
         $player1 = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $player1Config,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $player1Info = new PlayerInfo($player1, $user, $player1Config);
+        $I->haveInRepository($player1Info);
+        $player1->setPlayerInfo($player1Info);
+        $I->refreshEntities($player1);
 
-        /** @var Player $targetPlayer */
+        /** @var Player $player2 */
         $player2 = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
             'actionPoint' => 10,
             'moralPoint' => 6,
-            'characterConfig' => $player2Config,
         ]);
+        $player2Info = new PlayerInfo($player2, $user, $player2Config);
+        $I->haveInRepository($player2Info);
+        $player2->setPlayerInfo($player2Info);
+        $I->refreshEntities($player2);
 
         $this->PublicBroadcastAction->loadParameters($action, $player1, $gameItem);
 
@@ -242,7 +260,7 @@ class PublicBroadcastCest
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $player1->getId(),
+            'playerInfo' => $player1->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::PUBLIC_BROADCAST,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);

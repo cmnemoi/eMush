@@ -40,8 +40,8 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\User\Entity\User;
@@ -60,6 +60,7 @@ class ActionSubscriberCest
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
 
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
 
         /** @var Place $room */
@@ -98,13 +99,20 @@ class ActionSubscriberCest
 
         $I->refreshEntities($room, $room2, $door);
 
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $room,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
         $moveActionSymptomCondition
@@ -147,7 +155,7 @@ class ActionSubscriberCest
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
+            'playerInfo' => $playerInfo,
             'place' => $room2,
             'log' => SymptomEnum::BREAKOUTS,
         ]);
@@ -157,7 +165,7 @@ class ActionSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
-
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
 
         /** @var Place $room */
@@ -177,13 +185,20 @@ class ActionSubscriberCest
         ;
         $I->haveInRepository($takeActionEntity);
 
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $room,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         /** @var EquipmentConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['actions' => new ArrayCollection([$takeActionEntity])]);
@@ -257,7 +272,7 @@ class ActionSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
-
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
 
         /** @var Place $room */
@@ -296,13 +311,20 @@ class ActionSubscriberCest
 
         $I->refreshEntities($room, $room2, $door);
 
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $room,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
         $moveActionSymptomCondition
@@ -345,7 +367,7 @@ class ActionSubscriberCest
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
+            'playerInfo' => $playerInfo,
             'place' => $room2,
             'log' => SymptomEnum::DROOLING,
         ]);
@@ -355,7 +377,7 @@ class ActionSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
-
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
 
         /** @var Place $room */
@@ -394,13 +416,20 @@ class ActionSubscriberCest
 
         $I->refreshEntities($room, $room2, $door);
 
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $room,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
         $moveActionSymptomCondition
@@ -443,7 +472,7 @@ class ActionSubscriberCest
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
+            'playerInfo' => $playerInfo,
             'place' => $room2,
             'log' => SymptomEnum::FOAMING_MOUTH,
         ]);
@@ -453,7 +482,7 @@ class ActionSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
-
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
 
         /** @var Place $room */
@@ -492,13 +521,20 @@ class ActionSubscriberCest
 
         $I->refreshEntities($room, $room2, $door);
 
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $room,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
         $moveActionSymptomCondition
@@ -541,7 +577,7 @@ class ActionSubscriberCest
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
+            'playerInfo' => $playerInfo,
             'place' => $room2,
             'log' => SymptomEnum::SNEEZING,
         ]);
@@ -654,15 +690,22 @@ class ActionSubscriberCest
         ;
         $I->haveInRepository($gameItem);
 
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         $characterConfig->setActions(new ArrayCollection([$moveActionEntity]));
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $room,
             'satiety' => 0,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
         $moveActionSymptomCondition
@@ -720,7 +763,7 @@ class ActionSubscriberCest
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
+            'playerInfo' => $playerInfo,
             'place' => $room2,
             'log' => SymptomEnum::VOMITING,
         ]);
@@ -731,7 +774,7 @@ class ActionSubscriberCest
         $consumeAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
+            'playerInfo' => $playerInfo,
             'place' => $room2,
             'log' => SymptomEnum::VOMITING,
         ]);
@@ -741,7 +784,7 @@ class ActionSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
-
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
 
         /** @var Place $room */
@@ -797,14 +840,21 @@ class ActionSubscriberCest
 
         $I->refreshEntities($room, $room2, $door);
 
+        /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         $characterConfig->setActions(new ArrayCollection([$moveActionEntity]));
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $room2,
         ]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
         $moveActionSymptomCondition
@@ -854,7 +904,7 @@ class ActionSubscriberCest
         $moveAction->execute();
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
+            'playerInfo' => $playerInfo,
             'place' => $room,
             'log' => SymptomEnum::FEAR_OF_CATS,
         ]);
@@ -862,6 +912,7 @@ class ActionSubscriberCest
 
     public function testPostActionPsychoticAttackSymptom(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['language' => LanguageEnum::FRENCH]);
 
         /** @var User $user */
@@ -871,6 +922,7 @@ class ActionSubscriberCest
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);
 
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
 
         $channel = new Channel();
@@ -909,29 +961,32 @@ class ActionSubscriberCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+        /** @var CharacterConfig $otherCharacterConfig */
         $otherCharacterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::TERRENCE]);
 
-        $tempPlayer = new Player();
-        $tempPlayer->setUser($user)->setCharacterConfig($characterConfig);
-        $deadPlayerInfo = new DeadPlayerInfo();
-        $deadPlayerInfo->updateFromPlayer($tempPlayer);
-        $I->haveInRepository($deadPlayerInfo);
-
+        /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $place,
             'healthPoint' => 14,
         ]);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        /** @var Player $otherPlayer */
         $otherPlayer = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $otherCharacterConfig,
             'place' => $place,
             'healthPoint' => 1,
-            'user' => $user,
-            'deadPlayerInfo' => $deadPlayerInfo,
         ]);
+        $otherPlayerInfo = new PlayerInfo($otherPlayer, $user, $otherCharacterConfig);
+
+        $I->haveInRepository($otherPlayerInfo);
+        $otherPlayer->setPlayerInfo($otherPlayerInfo);
+        $I->refreshEntities($otherPlayer);
 
         $knifeMechanic = new Weapon();
         $knifeMechanic
@@ -940,6 +995,7 @@ class ActionSubscriberCest
         ;
         $I->haveInRepository($knifeMechanic);
 
+        /** @var ItemConfig $knifeItemConfig */
         $knifeItemConfig = $I->have(ItemConfig::class, [
             'gameConfig' => $gameConfig,
             'name' => ItemEnum::KNIFE,
@@ -993,7 +1049,7 @@ class ActionSubscriberCest
         $this->subscriber->onPostAction($event);
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
+            'playerInfo' => $playerInfo,
             'place' => $place,
             'log' => 'attack_success',
         ]);

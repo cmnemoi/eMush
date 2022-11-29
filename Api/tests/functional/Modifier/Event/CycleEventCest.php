@@ -18,6 +18,7 @@ use Mush\Modifier\Listener\CycleEventSubscriber;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\RoomLog\Entity\RoomLog;
@@ -25,6 +26,7 @@ use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\User\Entity\User;
 
 class CycleEventCest
 {
@@ -44,7 +46,14 @@ class CycleEventCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $actionPointBefore = $player->getActionPoint();
 
@@ -87,9 +96,22 @@ class CycleEventCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
         /** @var Player $player2 */
-        $player2 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $player2 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player2Info = new PlayerInfo($player2, $user, $characterConfig);
+
+        $I->haveInRepository($player2Info);
+        $player2->setPlayerInfo($player2Info);
+        $I->refreshEntities($player2);
 
         $moralePointBefore = $player->getMoralPoint();
 
@@ -130,7 +152,7 @@ class CycleEventCest
         $I->assertEquals($moralePointBefore, $player2->getMoralPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
+            'playerInfo' => $playerInfo,
             'log' => PlayerModifierLogEnum::ANTISOCIAL_MORALE_LOSS,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
@@ -145,7 +167,14 @@ class CycleEventCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $actionPointBefore = $player->getActionPoint();
 
@@ -193,7 +222,7 @@ class CycleEventCest
         $I->assertEquals($actionPointBefore, $player->getActionPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'player' => $player,
+            'playerInfo' => $playerInfo,
             'log' => PlayerModifierLogEnum::FITFULL_SLEEP,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);

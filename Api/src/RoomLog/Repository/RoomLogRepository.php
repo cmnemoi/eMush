@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 
 class RoomLogRepository extends ServiceEntityRepository
@@ -18,9 +19,12 @@ class RoomLogRepository extends ServiceEntityRepository
     /**
      * @psalm-suppress TooManyArguments
      */
-    public function getPlayerRoomLog(Player $player): array
+    public function getPlayerRoomLog(PlayerInfo $playerInfo): array
     {
         $yesterday = new \DateTime('1 day ago');
+
+        /** @var Player $player */
+        $player = $playerInfo->getPlayer();
 
         $queryBuilder = $this->createQueryBuilder('roomLog');
 
@@ -31,7 +35,7 @@ class RoomLogRepository extends ServiceEntityRepository
                 $queryBuilder->expr()->orX(
                     $queryBuilder->expr()->in('roomLog.visibility', ':publicArray'),
                     $queryBuilder->expr()->andX(
-                        $queryBuilder->expr()->eq('roomLog.player', ':player'),
+                        $queryBuilder->expr()->eq('roomLog.playerInfo', ':player'),
                         $queryBuilder->expr()->in('roomLog.visibility', ':privateArray'),
                     ),
                 )
@@ -41,7 +45,7 @@ class RoomLogRepository extends ServiceEntityRepository
             ->setParameter('place', $player->getPlace())
             ->setParameter('publicArray', [VisibilityEnum::PUBLIC, VisibilityEnum::REVEALED])
             ->setParameter('privateArray', [VisibilityEnum::PRIVATE, VisibilityEnum::SECRET, VisibilityEnum::COVERT])
-            ->setParameter('player', $player)
+            ->setParameter('player', $playerInfo)
             ->setParameter('date', $yesterday)
         ;
 

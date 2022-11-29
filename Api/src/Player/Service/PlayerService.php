@@ -3,7 +3,6 @@
 namespace Mush\Player\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Error;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
@@ -13,8 +12,9 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\DeadPlayerInfo;
+use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -71,6 +71,22 @@ class PlayerService implements PlayerServiceInterface
         return $player;
     }
 
+    public function persistPlayerInfo(PlayerInfo $player): PlayerInfo
+    {
+        $this->entityManager->persist($player);
+        $this->entityManager->flush();
+
+        return $player;
+    }
+
+    public function persistClosedPlayer(ClosedPlayer $player): ClosedPlayer
+    {
+        $this->entityManager->persist($player);
+        $this->entityManager->flush();
+
+        return $player;
+    }
+
     public function findById(int $id): ?Player
     {
         $player = $this->repository->find($id);
@@ -85,9 +101,9 @@ class PlayerService implements PlayerServiceInterface
 
     public function findUserCurrentGame(User $user): ?Player
     {
-        $player = $this->repository->findOneBy(['user' => $user, 'gameStatus' => GameStatusEnum::CURRENT]);
+        $playerInfo = $this->repository->findOneBy(['user' => $user, 'gameStatus' => GameStatusEnum::CURRENT]);
 
-        return $player instanceof Player ? $player : null;
+        return $playerInfo instanceof PlayerInfo ? $playerInfo->getPlayer() : null;
     }
 
     public function createPlayer(Daedalus $daedalus, User $user, string $character): Player
@@ -103,15 +119,12 @@ class PlayerService implements PlayerServiceInterface
         }
 
         $player
-            ->setUser($user)
-            ->setGameStatus(GameStatusEnum::CURRENT)
             ->setDaedalus($daedalus)
             ->setPlace(
                 $daedalus->getRooms()
                     ->filter(fn (Place $room) => RoomEnum::LABORATORY === $room->getName())
                     ->first()
             )
-            ->setCharacterConfig($characterConfig)
             ->setSkills([])
             ->setHealthPoint($gameConfig->getInitHealthPoint())
             ->setMoralPoint($gameConfig->getInitMoralPoint())
@@ -121,14 +134,17 @@ class PlayerService implements PlayerServiceInterface
             ->setSatiety($gameConfig->getInitSatiety())
         ;
 
-        $deadPlayerInfo = new DeadPlayerInfo();
-        $deadPlayerInfo->updateFromPlayer($player);
-        $player->setDeadPlayerInfo($deadPlayerInfo);
-        $this->entityManager->persist($deadPlayerInfo);
+        $playerInfo = new PlayerInfo(
+            $player,
+            $user,
+            $characterConfig
+        );
 
-        $user->setCurrentGame($player);
+        $this->persistPlayerInfo($playerInfo);
 
-        $this->persist($player);
+        $user->setPlayerInfo($playerInfo);
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
 
         $playerEvent = new PlayerEvent(
             $player,
@@ -156,15 +172,17 @@ class PlayerService implements PlayerServiceInterface
 
     public function endPlayer(Player $player, string $message): Player
     {
-        /** @var DeadPlayerInfo $deadPlayerInfo */
-        $deadPlayerInfo = $player->getDeadPlayerInfo();
+        $playerInfo = $player->getPlayerInfo();
 
-        $deadPlayerInfo
+        /** @var ClosedPlayer $closedPlayer */
+        $closedPlayer = $playerInfo->getClosedPlayer();
+
+        $closedPlayer
             ->setMessage($message)
             ->setEndCause(GameStatusEnum::CLOSED)
         ;
 
-        $player->setGameStatus(GameStatusEnum::CLOSED);
+        $playerInfo->setGameStatus(GameStatusEnum::CLOSED);
 
         $playerEvent = new PlayerEvent(
             $player,
@@ -173,7 +191,7 @@ class PlayerService implements PlayerServiceInterface
         );
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::END_PLAYER);
 
-        $this->entityManager->persist($deadPlayerInfo);
+        $this->entityManager->persist($closedPlayer);
         $this->persist($player);
 
         return $player;
@@ -288,17 +306,20 @@ class PlayerService implements PlayerServiceInterface
             $reason = 'missing end reason';
         }
 
-        $deadPlayerInfo = $player->getDeadPlayerInfo();
-        if ($deadPlayerInfo === null) {
-            throw new Error('player should have a deadPlayerInfo property');
+        $currentRoom = $player->getPlace();
+        foreach ($player->getEquipments() as $item) {
+            $item->setHolder($currentRoom);
+            $this->gameEquipmentService->persist($item);
         }
 
-        $deadPlayerInfo
+        $playerInfo = $player->getPlayerInfo();
+        $closedPlayer = $playerInfo->getClosedPlayer();
+        $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
+        $closedPlayer
             ->setDayCycleDeath($player->getDaedalus())
             ->setEndCause($reason)
         ;
-        $player->setDeadPlayerInfo($deadPlayerInfo);
-        $this->entityManager->persist($deadPlayerInfo);
+        $this->persistPlayerInfo($playerInfo);
 
         if ($reason !== EndCauseEnum::DEPRESSION) {
             $moraleLoss = -1;
@@ -321,17 +342,7 @@ class PlayerService implements PlayerServiceInterface
             }
         }
 
-        $currentRoom = $player->getPlace();
-        foreach ($player->getEquipments() as $item) {
-            $item->setHolder($currentRoom);
-            $this->gameEquipmentService->persist($item);
-        }
-
         // @TODO in case of assassination chance of disorder for roommates
-        $player->setGameStatus(GameStatusEnum::FINISHED);
-
-        $this->persist($player);
-
         return $player;
     }
 }

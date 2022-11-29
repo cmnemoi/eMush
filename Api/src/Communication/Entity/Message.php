@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 
 #[ORM\Entity]
 class Message
@@ -19,8 +19,8 @@ class Message
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: Player::class)]
-    private ?Player $author = null;
+    #[ORM\ManyToOne(targetEntity: PlayerInfo::class)]
+    private ?PlayerInfo $author = null;
 
     #[ORM\ManyToOne(targetEntity: Neron::class)]
     private ?Neron $neron = null;
@@ -51,12 +51,12 @@ class Message
         return $this->id;
     }
 
-    public function getAuthor(): ?Player
+    public function getAuthor(): ?PlayerInfo
     {
         return $this->author;
     }
 
-    public function setAuthor(?Player $author): static
+    public function setAuthor(?PlayerInfo $author): static
     {
         $this->author = $author;
 

@@ -18,8 +18,8 @@ use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Entity\RoomLog;
@@ -73,31 +73,27 @@ class PlayerEventCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
-        $tempPlayer = new Player();
-        $tempPlayer->setUser($user)->setCharacterConfig($characterConfig);
-        $deadPlayerInfo = new DeadPlayerInfo();
-        $deadPlayerInfo->updateFromPlayer($tempPlayer);
-        $I->haveInRepository($deadPlayerInfo);
-
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'user' => $user,
-            'characterConfig' => $characterConfig,
-            'deadPlayerInfo' => $deadPlayerInfo,
         ]);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
 
-        $I->assertEquals(GameStatusEnum::FINISHED, $player->getGameStatus());
+        $I->assertEquals(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getId(),
-            'player' => $player->getId(),
+            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => LogEnum::DEATH,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -110,6 +106,8 @@ class PlayerEventCest
 
         /** @var User $user */
         $user = $I->have(User::class);
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
@@ -117,7 +115,12 @@ class PlayerEventCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'user' => $user]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $mushStatusConfig = new ChargeStatusConfig();
         $mushStatusConfig
@@ -179,6 +182,8 @@ class PlayerEventCest
 
         /** @var User $user */
         $user = $I->have(User::class);
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
@@ -189,9 +194,13 @@ class PlayerEventCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'user' => $user,
             'moralPoint' => 8,
         ]);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $mushStatusConfig = new ChargeStatusConfig();
         $mushStatusConfig

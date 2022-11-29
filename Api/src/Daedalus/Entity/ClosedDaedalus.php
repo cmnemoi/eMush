@@ -10,8 +10,8 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
-use Mush\Player\Entity\DeadPlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
 
 #[ORM\Entity(repositoryClass: DaedalusRepository::class)]
@@ -25,7 +25,7 @@ class ClosedDaedalus
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: DeadPlayerInfo::class)]
+    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: ClosedPlayer::class)]
     private Collection $players;
 
     #[ORM\ManyToOne(targetEntity: GameConfig::class)]
@@ -70,7 +70,7 @@ class ClosedDaedalus
         return new PlayerCollection($this->players->toArray());
     }
 
-    public function addPlayer(DeadPlayerInfo $player): static
+    public function addPlayer(ClosedPlayer $player): static
     {
         if (!$this->getPlayers()->contains($player)) {
             $this->players->add($player);

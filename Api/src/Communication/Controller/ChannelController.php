@@ -15,6 +15,8 @@ use Mush\Communication\Voter\ChannelVoter;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -71,12 +73,14 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $player = $user->getCurrentGame();
-        if (!$player) {
+        $playerInfo = $user->getPlayerInfo();
+        if (
+            $playerInfo === null ||
+            ($player = $playerInfo->getPlayer()) === null
+        ) {
             throw new AccessDeniedException('User should be in game');
         }
-
-        if ($player->getGameStatus() !== GameStatusEnum::CURRENT) {
+        if ($playerInfo->getGameStatus() !== GameStatusEnum::CURRENT) {
             throw new AccessDeniedException('Player is dead');
         }
 
@@ -114,12 +118,15 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $player = $user->getCurrentGame();
-        if (!$player) {
+        $playerInfo = $user->getPlayerInfo();
+        if (
+            $playerInfo === null ||
+            ($player = $playerInfo->getPlayer()) === null
+        ) {
             throw new AccessDeniedException('User should be in game');
         }
 
-        if ($player->getGameStatus() === GameStatusEnum::CLOSED) {
+        if ($playerInfo->getGameStatus() === GameStatusEnum::CLOSED) {
             throw new AccessDeniedException('Player is dead');
         }
 
@@ -155,8 +162,11 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $player = $user->getCurrentGame();
-        if (!$player) {
+        $playerInfo = $user->getPlayerInfo();
+        if (
+            $playerInfo === null ||
+            ($player = $playerInfo->getPlayer()) === null
+        ) {
             throw new AccessDeniedException('User should be in game');
         }
 
@@ -188,8 +198,11 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $player = $user->getCurrentGame();
-        if (!$player) {
+        $playerInfo = $user->getPlayerInfo();
+        if (
+            $playerInfo === null ||
+            ($player = $playerInfo->getPlayer()) === null
+        ) {
             throw new AccessDeniedException('User should be in game');
         }
 
@@ -244,7 +257,7 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $currentPlayer = $user->getCurrentGame();
+        $currentPlayer = $user->getPlayerInfo();
 
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
@@ -290,7 +303,7 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $player = $user->getCurrentGame();
+        $player = $user->getPlayerInfo();
 
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
@@ -301,7 +314,7 @@ class ChannelController extends AbstractFOSRestController
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         return $this->view(
-            $this->channelService->getInvitablePlayersToPrivateChannel($channel, $player),
+            $this->channelService->getInvitablePlayersToPrivateChannel($channel, $player->getPlayer()),
             200
         );
     }
@@ -319,9 +332,11 @@ class ChannelController extends AbstractFOSRestController
 
         /** @var User $user */
         $user = $this->getUser();
-        $player = $user->getCurrentGame();
-
-        if (!$player) {
+        $playerInfo = $user->getPlayerInfo();
+        if (
+            $playerInfo === null ||
+            ($player = $playerInfo->getPlayer()) === null
+        ) {
             throw new AccessDeniedException('User should be in game');
         }
 
@@ -392,7 +407,10 @@ class ChannelController extends AbstractFOSRestController
 
         /** @var User $user */
         $user = $this->getUser();
-        $currentPlayer = $user->getCurrentGame();
+        /** @var PlayerInfo $currentPlayerInfo */
+        $currentPlayerInfo = $user->getPlayerInfo();
+        /** @var Player $currentPlayer */
+        $currentPlayer = $currentPlayerInfo->getPlayer();
 
         // in case of a pirated talkie, the message can be sent under the name of another player
         $playerMessage = $messageCreate->getPlayer();
@@ -440,9 +458,12 @@ class ChannelController extends AbstractFOSRestController
 
         /** @var User $user */
         $user = $this->getUser();
-        $player = $user->getCurrentGame();
+        $playerInfo = $user->getPlayerInfo();
 
-        if (!$player) {
+        if (
+            $playerInfo === null ||
+            ($player = $playerInfo->getPlayer()) === null
+        ) {
             throw new AccessDeniedException('User should be in game');
         }
 

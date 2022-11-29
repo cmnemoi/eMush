@@ -5,10 +5,10 @@ const REFRESH_TOKEN_KEY = 'refresh_token';
 const USER_INFO = 'user_info';
 
 /**
- * Manage the how Access Tokens are being stored and retreived from storage.
+ * Manage how Access Tokens are being stored and retrieved from storage.
  *
  * Current implementation stores to localStorage. Local Storage should always be
- * accessed through this instace.
+ * accessed through this instance.
  **/
 const TokenService = {
     getToken(): string | null {

@@ -209,7 +209,6 @@ class PlayerServiceTest extends TestCase
         $player = $this->service->endPlayer($player, $message);
 
         $this->assertEquals(GameStatusEnum::CLOSED, $playerInfo->getGameStatus());
-        $this->assertNull($user->getPlayerInfo());
         $this->assertEquals($closedPlayer->getMessage(), $message);
     }
 }

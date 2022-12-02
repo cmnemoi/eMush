@@ -7,6 +7,7 @@ use Mush\Communication\Entity\Message;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -17,10 +18,14 @@ class MessageVoter extends Voter
     public const CREATE = 'create';
 
     private ChannelServiceInterface $channelService;
+    private PlayerInfoRepository $playerInfoRepository;
 
-    public function __construct(ChannelServiceInterface $channelService)
-    {
+    public function __construct(
+        ChannelServiceInterface $channelService,
+        PlayerInfoRepository $playerInfoRepository
+    ) {
         $this->channelService = $channelService;
+        $this->playerInfoRepository = $playerInfoRepository;
     }
 
     protected function supports(string $attribute, $subject): bool
@@ -41,11 +46,10 @@ class MessageVoter extends Voter
     {
         /** @var User $user */
         $user = $token->getUser();
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
 
         // User must be logged in and have a current game
-        if (!$user instanceof User ||
-            !($playerInfo = $user->getPlayerInfo())
-        ) {
+        if ($playerInfo === null) {
             return false;
         }
 

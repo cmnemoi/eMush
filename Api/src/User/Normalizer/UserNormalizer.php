@@ -2,6 +2,9 @@
 
 namespace Mush\User\Normalizer;
 
+use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\User\Entity\User;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -10,6 +13,14 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 class UserNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
+
+    private PlayerInfoRepository $playerInfoRepository;
+
+    public function __construct(
+        PlayerInfoRepository $playerInfoRepository
+    ) {
+        $this->playerInfoRepository = $playerInfoRepository;
+    }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
@@ -21,9 +32,12 @@ class UserNormalizer implements ContextAwareNormalizerInterface, NormalizerAware
         /** @var User $user */
         $user = $object;
 
-        if (($playerInfo = $user->getPlayerInfo()) !== null &&
-            ($player = $playerInfo->getPlayer()) !== null
-        ) {
+        if ($user->isInGame()) {
+            /** @var PlayerInfo $playerInfo */
+            $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+            /** @var Player $player */
+            $player = $playerInfo->getPlayer();
+
             $currentPlayer = $player->getId();
         } else {
             $currentPlayer = null;

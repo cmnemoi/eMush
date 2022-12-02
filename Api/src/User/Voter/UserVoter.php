@@ -40,17 +40,12 @@ class UserVoter extends Voter
 
         switch ($attribute) {
             case self::USER_IN_GAME:
-                return $this->isPlayerInGame($user);
+                return $user->isInGame();
             case self::EDIT_USER_ROLE:
                 return $this->canEditUserRole($subject, $token);
         }
 
         throw new \LogicException('This code should not be reached!');
-    }
-
-    private function isPlayerInGame(User $user): bool
-    {
-        return null !== $user->getPlayerInfo();
     }
 
     private function canEditUserRole(User $editedUser, TokenInterface $token): bool

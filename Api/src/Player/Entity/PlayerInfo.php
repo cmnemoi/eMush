@@ -22,7 +22,7 @@ class PlayerInfo
     #[ORM\OneToOne(inversedBy: 'playerInfo', targetEntity: Player::class, cascade: ['ALL'])]
     private ?Player $player;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'playerInfo')]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     private User $user;
 
     #[ORM\Column(type: 'string', nullable: false)]

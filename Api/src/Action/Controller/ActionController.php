@@ -76,7 +76,7 @@ class ActionController extends AbstractFOSRestController
         $user = $this->getUser();
 
         // @TODO: use voter
-        if ($player->getPlayerInfo() !== $user->getPlayerInfo()) {
+        if ($player->getPlayerInfo()->getUser() !== $user) {
             throw new AccessDeniedException('player must be the same as user');
         }
 

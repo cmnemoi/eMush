@@ -17,6 +17,7 @@ use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -43,6 +44,7 @@ class ChannelController extends AbstractFOSRestController
     private ValidatorInterface $validator;
     private CycleServiceInterface $cycleService;
     private TranslationServiceInterface $translationService;
+    private PlayerInfoRepository $playerInfoRepository;
 
     public function __construct(
         SpecificationInterface $canCreateChannel,
@@ -52,6 +54,7 @@ class ChannelController extends AbstractFOSRestController
         ValidatorInterface $validator,
         CycleServiceInterface $cycleService,
         TranslationServiceInterface $translationService,
+        PlayerInfoRepository $playerInfoRepository
     ) {
         $this->canCreateChannel = $canCreateChannel;
         $this->channelService = $channelService;
@@ -60,6 +63,7 @@ class ChannelController extends AbstractFOSRestController
         $this->validator = $validator;
         $this->cycleService = $cycleService;
         $this->translationService = $translationService;
+        $this->playerInfoRepository = $playerInfoRepository;
     }
 
     /**
@@ -73,7 +77,7 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $playerInfo = $user->getPlayerInfo();
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         if (
             $playerInfo === null ||
             ($player = $playerInfo->getPlayer()) === null
@@ -118,7 +122,7 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $playerInfo = $user->getPlayerInfo();
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         if (
             $playerInfo === null ||
             ($player = $playerInfo->getPlayer()) === null
@@ -162,7 +166,7 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $playerInfo = $user->getPlayerInfo();
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         if (
             $playerInfo === null ||
             ($player = $playerInfo->getPlayer()) === null
@@ -198,7 +202,7 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $playerInfo = $user->getPlayerInfo();
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         if (
             $playerInfo === null ||
             ($player = $playerInfo->getPlayer()) === null
@@ -257,7 +261,7 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $currentPlayer = $user->getPlayerInfo();
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
 
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
@@ -303,7 +307,7 @@ class ChannelController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $player = $user->getPlayerInfo();
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
 
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
@@ -332,7 +336,7 @@ class ChannelController extends AbstractFOSRestController
 
         /** @var User $user */
         $user = $this->getUser();
-        $playerInfo = $user->getPlayerInfo();
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         if (
             $playerInfo === null ||
             ($player = $playerInfo->getPlayer()) === null
@@ -408,7 +412,8 @@ class ChannelController extends AbstractFOSRestController
         /** @var User $user */
         $user = $this->getUser();
         /** @var PlayerInfo $currentPlayerInfo */
-        $currentPlayerInfo = $user->getPlayerInfo();
+        $currentPlayerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+
         /** @var Player $currentPlayer */
         $currentPlayer = $currentPlayerInfo->getPlayer();
 
@@ -458,7 +463,7 @@ class ChannelController extends AbstractFOSRestController
 
         /** @var User $user */
         $user = $this->getUser();
-        $playerInfo = $user->getPlayerInfo();
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
 
         if (
             $playerInfo === null ||

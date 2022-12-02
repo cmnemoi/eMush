@@ -10,6 +10,7 @@ use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -27,15 +28,18 @@ class DaedalusController extends AbstractFOSRestController
     private DaedalusServiceInterface $daedalusService;
     private DaedalusWidgetServiceInterface $daedalusWidgetService;
     private TranslationServiceInterface $translationService;
+    private PlayerInfoRepository $playerInfoRepository;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         DaedalusWidgetServiceInterface $daedalusWidgetService,
-        TranslationServiceInterface $translationService
+        TranslationServiceInterface $translationService,
+        PlayerInfoRepository $playerInfoRepository,
     ) {
         $this->daedalusService = $daedalusService;
         $this->daedalusWidgetService = $daedalusWidgetService;
         $this->translationService = $translationService;
+        $this->playerInfoRepository = $playerInfoRepository;
     }
 
     /**
@@ -88,7 +92,8 @@ class DaedalusController extends AbstractFOSRestController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $playerInfo = $user->getPlayerInfo();
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+
         if (!$playerInfo) {
             throw new AccessDeniedException('User should be in game');
         }

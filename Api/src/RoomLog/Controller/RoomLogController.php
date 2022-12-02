@@ -9,6 +9,7 @@ use FOS\RestBundle\View\View;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\User\Entity\User;
 use Mush\User\Voter\UserVoter;
@@ -29,15 +30,18 @@ class RoomLogController extends AbstractFOSRestController
     private RoomLogServiceInterface $roomLogService;
     private CycleServiceInterface $cycleService;
     private TranslationServiceInterface $translationService;
+    private PlayerInfoRepository $playerInfoRepository;
 
     public function __construct(
         RoomLogServiceInterface $roomLogService,
         CycleServiceInterface $cycleService,
-        TranslationServiceInterface $translationService
+        TranslationServiceInterface $translationService,
+        PlayerInfoRepository $playerInfoRepository
     ) {
         $this->roomLogService = $roomLogService;
         $this->cycleService = $cycleService;
         $this->translationService = $translationService;
+        $this->playerInfoRepository = $playerInfoRepository;
     }
 
     /**
@@ -54,7 +58,9 @@ class RoomLogController extends AbstractFOSRestController
         /** @var User $user */
         $user = $this->getUser();
 
-        if (!($playerInfo = $user->getPlayerInfo()) ||
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+
+        if ($playerInfo === null ||
             !($player = $playerInfo->getPlayer())
         ) {
             throw new AccessDeniedException();
@@ -93,7 +99,9 @@ class RoomLogController extends AbstractFOSRestController
         /** @var User $user */
         $user = $this->getUser();
 
-        if (!($playerInfo = $user->getPlayerInfo()) ||
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+
+        if ($playerInfo === null ||
             !($player = $playerInfo->getPlayer())
         ) {
             throw new AccessDeniedException();

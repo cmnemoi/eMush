@@ -31,8 +31,6 @@ class PlayerVoterTest extends TestCase
         $player = new Player();
         $playerInfo = new PlayerInfo($player, $user, new CharacterConfig());
 
-        $user->setPlayerInfo($playerInfo);
-
         yield 'anonymous cannot edit' => [
             MessageVoter::VIEW,
             new Message(),
@@ -47,11 +45,10 @@ class PlayerVoterTest extends TestCase
     {
         $user = new User();
         $player = new Player();
-        $playerInfo = new PlayerInfo($player, $user, new CharacterConfig());
 
         $this->testVote(PlayerVoter::PLAYER_CREATE, null, $user, Voter::ACCESS_GRANTED);
 
-        $user->setPlayerInfo($playerInfo);
+        $user->startGame();
         $this->testVote(PlayerVoter::PLAYER_CREATE, null, $user, Voter::ACCESS_DENIED);
     }
 
@@ -59,12 +56,15 @@ class PlayerVoterTest extends TestCase
     {
         $user = new User();
         $player = new Player();
-        $playerInfo = new PlayerInfo($player, $user, new CharacterConfig());
+
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setPlayerInfo($playerInfo);
 
         $this->testVote(PlayerVoter::PLAYER_END, $player, $user, Voter::ACCESS_DENIED);
 
-        $user->setPlayerInfo($playerInfo);
+        $playerInfo = new PlayerInfo($player, $user, new CharacterConfig());
+        $player->setPlayerInfo($playerInfo);
+
         $this->testVote(PlayerVoter::PLAYER_END, $player, $user, Voter::ACCESS_GRANTED);
     }
 

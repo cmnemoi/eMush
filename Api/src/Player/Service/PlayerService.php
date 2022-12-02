@@ -142,7 +142,7 @@ class PlayerService implements PlayerServiceInterface
 
         $this->persistPlayerInfo($playerInfo);
 
-        $user->setPlayerInfo($playerInfo);
+        $user->startGame();
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
@@ -183,6 +183,7 @@ class PlayerService implements PlayerServiceInterface
         ;
 
         $playerInfo->setGameStatus(GameStatusEnum::CLOSED);
+        $this->persistPlayerInfo($playerInfo);
 
         $playerEvent = new PlayerEvent(
             $player,
@@ -191,7 +192,6 @@ class PlayerService implements PlayerServiceInterface
         );
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::END_PLAYER);
 
-        $this->entityManager->persist($closedPlayer);
         $this->persist($player);
 
         return $player;

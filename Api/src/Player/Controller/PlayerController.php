@@ -170,7 +170,7 @@ class PlayerController extends AbstractFOSRestController
 
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_END, $player);
 
-        if ($player->getGameStatus() !== GameStatusEnum::FINISHED) {
+        if ($player->getPlayerInfo()->getGameStatus() !== GameStatusEnum::FINISHED) {
             return $this->view(['message' => 'Player cannot end game'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 

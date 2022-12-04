@@ -3,6 +3,7 @@
 namespace Mush\Tests\unit\Disease\Normalizer;
 
 use Mockery;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\Config\SymptomCondition;
@@ -12,11 +13,13 @@ use Mush\Disease\Enum\SymptomConditionEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Disease\Normalizer\DiseaseNormalizer;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationService;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierScopeEnum;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use PHPUnit\Framework\TestCase;
 
@@ -48,10 +51,17 @@ class DiseaseNormalizerTest extends TestCase
     public function testNormalize()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
+
+        $player = new Player();
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+        $player->setDaedalus($daedalus);
 
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setName('name')->setGameConfig($gameConfig);
+        $diseaseConfig->setName('name');
 
         $playerDisease = new PlayerDisease();
         $playerDisease->setDiseaseConfig($diseaseConfig);
@@ -69,7 +79,7 @@ class DiseaseNormalizerTest extends TestCase
             ->once()
         ;
 
-        $normalized = $this->normalizer->normalize($playerDisease);
+        $normalized = $this->normalizer->normalize($playerDisease, null, ['currentPlayer' => $player]);
 
         $this->assertEquals([
             'key' => 'name',
@@ -82,7 +92,14 @@ class DiseaseNormalizerTest extends TestCase
     public function testNormalizeWithEffectModifier()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
+
+        $player = new Player();
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+        $player->setDaedalus($daedalus);
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
@@ -94,7 +111,6 @@ class DiseaseNormalizerTest extends TestCase
         $diseaseConfig
             ->setName('name')
             ->setModifierConfigs(new ModifierCollection([$modifierConfig]))
-            ->setGameConfig($gameConfig)
         ;
 
         $playerDisease = new PlayerDisease();
@@ -124,7 +140,7 @@ class DiseaseNormalizerTest extends TestCase
             ->once()
         ;
 
-        $normalized = $this->normalizer->normalize($playerDisease);
+        $normalized = $this->normalizer->normalize($playerDisease, null, ['currentPlayer' => $player]);
 
         $this->assertEquals([
             'key' => 'name',
@@ -137,7 +153,14 @@ class DiseaseNormalizerTest extends TestCase
     public function testNormalizeWithSymptom()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
+
+        $player = new Player();
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+        $player->setDaedalus($daedalus);
 
         $symptomCondition = new SymptomCondition(SymptomConditionEnum::RANDOM);
         $symptomCondition->setValue(15);
@@ -149,7 +172,6 @@ class DiseaseNormalizerTest extends TestCase
         $diseaseConfig
             ->setName('name')
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
-            ->setGameConfig($gameConfig)
         ;
 
         $playerDisease = new PlayerDisease();
@@ -179,7 +201,7 @@ class DiseaseNormalizerTest extends TestCase
             ->once()
         ;
 
-        $normalized = $this->normalizer->normalize($playerDisease);
+        $normalized = $this->normalizer->normalize($playerDisease, null, ['currentPlayer' => $player]);
 
         $this->assertEquals([
             'key' => 'name',

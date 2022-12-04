@@ -16,9 +16,8 @@ use Mush\Action\Validator\IsSameGender;
 use Mush\Action\Validator\NumberPlayersInRoom;
 use Mush\Action\Validator\Reach;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
-use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Enum\DiseaseCauseEnum;
-use Mush\Disease\Repository\DiseaseCausesConfigRepository;
+use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -50,7 +49,7 @@ class DoTheThing extends AbstractAction
 
     protected string $name = ActionEnum::DO_THE_THING;
 
-    private DiseaseCausesConfigRepository $diseaseCausesConfigRepository;
+    private DiseaseCauseServiceInterface $diseaseCauseService;
     private StatusServiceInterface $statusService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private PlayerVariableServiceInterface $playerVariableService;
@@ -61,7 +60,7 @@ class DoTheThing extends AbstractAction
         EventDispatcherInterface $eventDispatcher,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        DiseaseCausesConfigRepository $diseaseCausesConfigRepository,
+        DiseaseCauseServiceInterface $diseaseCauseService,
         PlayerDiseaseServiceInterface $playerDiseaseService,
         PlayerVariableServiceInterface $playerVariableService,
         RandomServiceInterface $randomService,
@@ -73,7 +72,7 @@ class DoTheThing extends AbstractAction
             $actionService,
             $validator
         );
-        $this->diseaseCausesConfigRepository = $diseaseCausesConfigRepository;
+        $this->diseaseCauseService = $diseaseCauseService;
         $this->playerDiseaseService = $playerDiseaseService;
         $this->playerVariableService = $playerVariableService;
         $this->randomService = $randomService;
@@ -241,10 +240,7 @@ class DoTheThing extends AbstractAction
 
     private function getPlayerStds(Player $player): PlayerDiseaseCollection
     {
-        /** @var DiseaseCauseConfig $sexDiseaseCauseConfig */
-        $sexDiseaseCauseConfig = $this->diseaseCausesConfigRepository->findBy([
-            'causeName' => DiseaseCauseEnum::SEX,
-        ])[0];
+        $sexDiseaseCauseConfig = $this->diseaseCauseService->findCauseConfigByDaedalus(DiseaseCauseEnum::SEX, $player->getDaedalus());
 
         $stds = array_keys($sexDiseaseCauseConfig->getDiseases());
 

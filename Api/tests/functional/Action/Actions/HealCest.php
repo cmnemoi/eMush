@@ -60,7 +60,6 @@ class HealCest
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class);
         $itemConfig
-            ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::MEDIKIT)
             ->setActions(new ArrayCollection([$action]));
 
@@ -136,7 +135,6 @@ class HealCest
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class);
         $itemConfig
-            ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::MEDIKIT)
             ->setActions(new ArrayCollection([$action]));
 

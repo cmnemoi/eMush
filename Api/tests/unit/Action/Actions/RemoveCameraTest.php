@@ -52,16 +52,15 @@ class RemoveCameraActionTest extends AbstractActionTest
     {
         $room = new Place();
 
-        $cameraItem = new GameItem();
+        $cameraItem = new GameItem($room);
         $cameraItemConfig = new ItemConfig();
         $cameraItemConfig->setName(EquipmentEnum::COFFEE_MACHINE);
         $cameraItem
             ->setEquipment($cameraItemConfig)
             ->setName(ItemEnum::CAMERA_ITEM)
-            ->setHolder($room)
         ;
 
-        $cameraEquipment = new GameEquipment();
+        $cameraEquipment = new GameEquipment($room);
         $cameraEquipmentConfig = new ItemConfig();
         $cameraEquipmentConfig
             ->setName(GameRationEnum::COFFEE)

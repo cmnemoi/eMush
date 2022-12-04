@@ -9,6 +9,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\LanguageEnum;
 
 class DaedalusFactory extends \Codeception\Module
@@ -46,28 +47,20 @@ class DaedalusFactory extends \Codeception\Module
             'initHull' => 100,
             'initShield' => -2,
             'dailySporeNb' => 4,
+            'nbMush' => 2,
+            'cycleLength' => 3 * 60,
+            'cyclePerGameDay' => 8,
         ]);
 
         $factory->_define(GameConfig::class, [
             'name' => 'default',
             'difficultyConfig' => 'entity|' . DifficultyConfig::class,
             'daedalusConfig' => 'entity|' . DaedalusConfig::class,
-            'nbMush' => 2,
-            'cycleLength' => 3,
-            'cyclePerGameDay' => 8,
+        ]);
+
+        $factory->_define(LocalizationConfig::class, [
             'timeZone' => 'Europe/Paris',
             'language' => LanguageEnum::FRENCH,
-            'maxNumberPrivateChannel' => 3,
-            'initHealthPoint' => 12,
-            'maxHealthPoint' => 12,
-            'initMoralPoint' => 12,
-            'maxMoralPoint' => 12,
-            'initSatiety' => 0,
-            'initActionPoint' => 12,
-            'maxActionPoint' => 12,
-            'initMovementPoint' => 12,
-            'maxMovementPoint' => 12,
-            'maxItemInInventory' => 12,
         ]);
 
         $factory->_define(Daedalus::class, [

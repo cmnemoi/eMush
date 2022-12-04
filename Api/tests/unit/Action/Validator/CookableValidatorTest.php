@@ -9,6 +9,7 @@ use Mush\Action\Validator\CookableValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
+use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -43,7 +44,7 @@ class CookableValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setName(GameRationEnum::STANDARD_RATION);
 
-        $target = new GameItem();
+        $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
@@ -73,7 +74,7 @@ class CookableValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setName('toto');
 
-        $target = new GameItem();
+        $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);

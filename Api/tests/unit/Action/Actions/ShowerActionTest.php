@@ -53,11 +53,10 @@ class ShowerActionTest extends AbstractActionTest
     {
         $room = new Place();
 
-        $gameItem = new GameEquipment();
+        $gameItem = new GameEquipment($room);
         $item = new EquipmentConfig();
         $gameItem
             ->setEquipment($item)
-            ->setHolder($room)
         ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));

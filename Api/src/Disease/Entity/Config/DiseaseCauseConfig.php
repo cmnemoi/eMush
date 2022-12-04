@@ -3,7 +3,6 @@
 namespace Mush\Disease\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Game\Entity\GameConfig;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_cause_config')]
@@ -14,9 +13,6 @@ class DiseaseCauseConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: GameConfig::class)]
-    private GameConfig $gameConfig;
-
     #[ORM\Column(type: 'string', nullable: false)]
     private string $causeName;
 
@@ -26,18 +22,6 @@ class DiseaseCauseConfig
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getGameConfig(): GameConfig
-    {
-        return $this->gameConfig;
-    }
-
-    public function setGameConfig(GameConfig $gameConfig): self
-    {
-        $this->gameConfig = $gameConfig;
-
-        return $this;
     }
 
     public function getName(): string

@@ -169,8 +169,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
-        $equipment = new GameEquipment();
-        $equipment->setHolder(new Place());
+        $equipment = new GameEquipment(new Place());
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByCriteria')
@@ -202,7 +201,7 @@ class DaedalusIncidentServiceTest extends TestCase
     {
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
-        $equipment = new GameEquipment();
+        $equipment = new GameEquipment(new Place());
         $brokenConfig = new StatusConfig();
         $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
         $brokenStatus = new Status($equipment, $brokenConfig);
@@ -243,11 +242,8 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
-        $item = new GameItem();
-        $item->setHolder(new Place());
-
-        $equipment = new GameEquipment();
-        $equipment->setHolder(new Place());
+        $item = new GameItem(new Place());
+        $equipment = new GameEquipment(new Place());
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByCriteria')
@@ -285,7 +281,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
-        $door = new Door();
+        $door = new Door(new Place());
         $door->setRooms(new ArrayCollection([new Place(), new Place()]));
         $door->setName('Door');
 

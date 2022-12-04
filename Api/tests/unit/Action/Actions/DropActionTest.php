@@ -41,7 +41,7 @@ class DropActionTest extends AbstractActionTest
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
 
         $item = new ItemConfig();
         $item->setActions(new ArrayCollection([$this->actionEntity]));

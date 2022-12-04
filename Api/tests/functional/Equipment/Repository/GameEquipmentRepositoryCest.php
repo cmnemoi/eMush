@@ -44,10 +44,9 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName('equipment 1')
-            ->setHolder($room)
             ->setEquipment($equipmentConfig)
         ;
         $I->haveInRepository($gameEquipment);
@@ -55,10 +54,9 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        $door = new Door();
+        $door = new Door($room);
         $door
             ->setName('equipment 1')
-            ->setHolder($room)
             ->setEquipment($doorConfig)
         ;
         $I->haveInRepository($door);
@@ -66,10 +64,9 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
 
-        $gameEquipment2 = new GameItem();
+        $gameEquipment2 = new GameItem($player);
         $gameEquipment2
             ->setName('item 2')
-            ->setHolder($player)
             ->setEquipment($equipmentConfig2)
         ;
         $I->haveInRepository($gameEquipment2);
@@ -77,10 +74,9 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $equipmentConfig3 */
         $equipmentConfig3 = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        $gameEquipment3 = new GameEquipment();
+        $gameEquipment3 = new GameEquipment($room2);
         $gameEquipment3
             ->setName('equipment 3')
-            ->setHolder($room2)
             ->setEquipment($equipmentConfig3)
         ;
         $I->haveInRepository($gameEquipment3);
@@ -127,18 +123,16 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $unbreakableConfig */
         $unbreakableConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'isBreakable' => false]);
 
-        $breakableEquipment = new GameEquipment();
+        $breakableEquipment = new GameEquipment($room);
         $breakableEquipment
             ->setName('equipment 1')
-            ->setHolder($room)
             ->setEquipment($breakableConfig)
         ;
         $I->haveInRepository($breakableEquipment);
 
-        $unbreakableItem = new GameItem();
+        $unbreakableItem = new GameItem($player);
         $unbreakableItem
             ->setName('item 2')
-            ->setHolder($player)
             ->setEquipment($unbreakableConfig)
         ;
         $I->haveInRepository($unbreakableItem);
@@ -173,10 +167,9 @@ class GameEquipmentRepositoryCest
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName('equipment 1')
-            ->setHolder($room)
             ->setEquipment($equipmentConfig)
         ;
         $I->haveInRepository($gameEquipment);
@@ -184,10 +177,9 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        $door = new Door();
+        $door = new Door($room);
         $door
             ->setName('door 1')
-            ->setHolder($room)
             ->setEquipment($doorConfig)
         ;
         $I->haveInRepository($door);
@@ -195,10 +187,9 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
 
-        $item = new GameItem();
+        $item = new GameItem($room);
         $item
             ->setName('item 2')
-            ->setHolder($room)
             ->setEquipment($equipmentConfig2)
         ;
         $I->haveInRepository($item);
@@ -243,10 +234,9 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName('equipment 1')
-            ->setHolder($room)
             ->setEquipment($equipmentConfig)
         ;
         $I->haveInRepository($gameEquipment);
@@ -255,10 +245,9 @@ class GameEquipmentRepositoryCest
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
         // Case of a game Equipment
-        $door = new Door();
+        $door = new Door($room);
         $door
             ->setName('door 1')
-            ->setHolder($room)
             ->setEquipment($doorConfig)
         ;
         $I->haveInRepository($door);
@@ -266,10 +255,9 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
 
-        $item = new GameItem();
+        $item = new GameItem($room);
         $item
             ->setName('item 2')
-            ->setHolder($room)
             ->setEquipment($equipmentConfig2)
         ;
         $I->haveInRepository($item);
@@ -322,10 +310,9 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName('equipment1')
-            ->setHolder($room)
             ->setEquipment($equipmentConfig)
         ;
         $I->haveInRepository($gameEquipment);
@@ -333,10 +320,9 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        $door = new Door();
+        $door = new Door($room);
         $door
             ->setName('equipment1')
-            ->setHolder($room)
             ->setEquipment($doorConfig)
         ;
         $I->haveInRepository($door);
@@ -344,10 +330,9 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
 
-        $gameEquipment2 = new GameItem();
+        $gameEquipment2 = new GameItem($player);
         $gameEquipment2
             ->setName('equipment2')
-            ->setHolder($player)
             ->setEquipment($equipmentConfig2)
         ;
         $I->haveInRepository($gameEquipment2);
@@ -355,10 +340,9 @@ class GameEquipmentRepositoryCest
         /** @var EquipmentConfig $equipmentConfig3 */
         $equipmentConfig3 = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
-        $gameEquipment3 = new GameEquipment();
+        $gameEquipment3 = new GameEquipment($room2);
         $gameEquipment3
             ->setName('equipment1')
-            ->setHolder($room2)
             ->setEquipment($equipmentConfig3)
         ;
         $I->haveInRepository($gameEquipment3);

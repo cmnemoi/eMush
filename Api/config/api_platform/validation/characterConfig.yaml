@@ -1,0 +1,50 @@
+Mush\Player\Entity\Config\CharacterConfig:
+  properties:
+    name:
+      - NotBlank: ~
+      - Length:
+          max: 48
+      - Type: string
+    maxNumberPrivateChannel:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    initHealthPoint:
+      - NotBlank: ~
+      - Positive: ~
+      - Type: integer
+    maxHealthPoint:
+      - NotBlank: ~
+      - Positive: ~
+      - Type: integer
+    initMoralPoint:
+      - NotBlank: ~
+      - Positive: ~
+      - Type: integer
+    maxMoralPoint:
+      - NotBlank: ~
+      - Positive: ~
+      - Type: integer
+    initSatiety:
+      - NotBlank: ~
+      - Type: integer
+    initActionPoint:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    maxActionPoint:
+      - NotBlank: ~
+      - Positive: ~
+      - Type: integer
+    initMovementPoint:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    maxMovementPoint:
+      - NotBlank: ~
+      - Positive: ~
+      - Type: integer
+    maxItemInInventory:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer

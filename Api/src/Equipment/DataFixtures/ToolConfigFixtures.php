@@ -68,7 +68,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $hackerKit = new ItemConfig();
         $hackerKit
-            ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::HACKER_KIT)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
@@ -96,7 +95,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $blockOfPostIt = new ItemConfig();
         $blockOfPostIt
-            ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::BLOCK_OF_POST_IT)
             ->setIsStackable(false)
             ->setIsFireDestroyable(true)
@@ -123,7 +121,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $camera = new ItemConfig();
         $camera
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::CAMERA_ITEM)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -151,7 +148,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $extinguisher = new ItemConfig();
         $extinguisher
-            ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::EXTINGUISHER)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
@@ -173,7 +169,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $ductTape = new ItemConfig();
         $ductTape
-            ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::DUCT_TAPE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -193,7 +188,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $madKube = new ItemConfig();
         $madKube
-            ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::MAD_KUBE)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
@@ -222,7 +216,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $microwave = new ItemConfig();
         $microwave
-            ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::MICROWAVE)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
@@ -251,7 +244,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $superFreezer = new ItemConfig();
         $superFreezer
-            ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::SUPERFREEZER)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -274,7 +266,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $alienHolographicTV = new ItemConfig();
         $alienHolographicTV
-            ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -290,7 +281,6 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $medikit = new ItemConfig();
         $medikit
-            ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::MEDIKIT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -307,7 +297,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $sporeSuckerMechanic->addAction($removeSporeAction);
 
         $sporeSucker = new ItemConfig();
-        $sporeSucker->setGameConfig($gameConfig)
+        $sporeSucker
             ->setName(ToolItemEnum::SPORE_SUCKER)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -326,7 +316,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $jarOfAlienOilMechanic->addAction($ultraHealAction);
 
         $jarOfAlienOil = new ItemConfig();
-        $jarOfAlienOil->setGameConfig($gameConfig)
+        $jarOfAlienOil
             ->setName(ToolItemEnum::JAR_OF_ALIEN_OIL)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -346,7 +336,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $bandageMechanic->addAction($bandageAction);
 
         $bandage = new ItemConfig();
-        $bandage->setGameConfig($gameConfig)
+        $bandage
             ->setName(ToolItemEnum::BANDAGE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -365,7 +355,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $retroFungalSerumMechanic->addAction($serumAction);
 
         $retroFungalSerum = new ItemConfig();
-        $retroFungalSerum->setGameConfig($gameConfig)
+        $retroFungalSerum
             ->setName(ToolItemEnum::RETRO_FUNGAL_SERUM)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -384,7 +374,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $spaceCapsuleMechanic->addAction($spaceCapsuleAction);
 
         $spaceCapsule = new ItemConfig();
-        $spaceCapsule->setGameConfig($gameConfig)
+        $spaceCapsule
             ->setName(ToolItemEnum::SPACE_CAPSULE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -397,6 +387,25 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($spaceCapsuleMechanic);
 
         $this->addReference(ToolItemEnum::EXTINGUISHER, $extinguisher);
+
+        $gameConfig
+            ->addEquipmentConfig($hackerKit)
+            ->addEquipmentConfig($blockOfPostIt)
+            ->addEquipmentConfig($camera)
+            ->addEquipmentConfig($extinguisher)
+            ->addEquipmentConfig($ductTape)
+            ->addEquipmentConfig($madKube)
+            ->addEquipmentConfig($microwave)
+            ->addEquipmentConfig($superFreezer)
+            ->addEquipmentConfig($alienHolographicTV)
+            ->addEquipmentConfig($medikit)
+            ->addEquipmentConfig($sporeSucker)
+            ->addEquipmentConfig($jarOfAlienOil)
+            ->addEquipmentConfig($bandage)
+            ->addEquipmentConfig($retroFungalSerum)
+            ->addEquipmentConfig($spaceCapsule)
+        ;
+        $manager->persist($gameConfig);
 
         $manager->flush();
     }

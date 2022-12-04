@@ -97,12 +97,11 @@ class BuildActionCest
 
     private function createEquipment(string $name, Place $place): GameEquipment
     {
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($place);
         $equipment = new EquipmentConfig();
         $equipment->setName($name);
         $gameEquipment
             ->setEquipment($equipment)
-            ->setHolder($place)
             ->setName($name)
         ;
 
@@ -114,7 +113,7 @@ class BuildActionCest
         if ($product === null) {
             $product = new ItemConfig();
             $product->setName('product');
-            $gameProduct = new GameItem();
+            $gameProduct = new GameItem(new Place());
             $gameProduct
                 ->setEquipment($product)
                 ->setName('product')

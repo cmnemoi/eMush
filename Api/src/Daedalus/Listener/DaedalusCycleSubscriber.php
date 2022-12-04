@@ -110,9 +110,9 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     {
         $newDay = false;
 
-        $gameConfig = $daedalus->getGameConfig();
+        $daedalusConfig = $daedalus->getGameConfig()->getDaedalusConfig();
 
-        if ($daedalus->getCycle() === $gameConfig->getCyclePerGameDay() + 1) {
+        if ($daedalus->getCycle() === $daedalusConfig->getCyclePerGameDay() + 1) {
             $newDay = true;
             $daedalus->setCycle(1);
             $daedalus->setDay($daedalus->getDay() + 1);
@@ -128,7 +128,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
         $daedalus = $this->handleOxygen($daedalus, $time);
 
-        $timeElapsedSinceStart = ($daedalus->getCycle() + ($daedalus->getDay() - 1) * $gameConfig->getCyclePerGameDay()) * $gameConfig->getCycleLength();
+        $timeElapsedSinceStart = ($daedalus->getCycle() + ($daedalus->getDay() - 1) * $daedalusConfig->getCyclePerGameDay()) * $daedalusConfig->getCycleLength();
 
         if ($timeElapsedSinceStart >= self::LOBBY_TIME_LIMIT && $daedalus->getGameStatus() === GameStatusEnum::STARTING) {
             $daedalusEvent = new DaedalusEvent(

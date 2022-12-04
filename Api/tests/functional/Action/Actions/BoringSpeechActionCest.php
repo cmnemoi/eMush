@@ -36,8 +36,20 @@ class BoringSpeechActionCest
 
     public function testBoringSpeech(FunctionalTester $I)
     {
+        $didBoringSpeechStatus = new ChargeStatusConfig();
+        $didBoringSpeechStatus
+            ->setName(PlayerStatusEnum::DID_BORING_SPEECH)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
+            ->setStartCharge(1)
+            ->setAutoRemove(true)
+        ;
+
+        $I->haveInRepository($didBoringSpeechStatus);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$didBoringSpeechStatus])]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
         /** @var Place $room */
@@ -55,19 +67,6 @@ class BoringSpeechActionCest
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($actionCost);
         $I->haveInRepository($action);
-
-        $didBoringSpeechStatus = new ChargeStatusConfig();
-        $didBoringSpeechStatus
-            ->setName(PlayerStatusEnum::DID_BORING_SPEECH)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
-            ->setStartCharge(1)
-            ->setAutoRemove(true)
-            ->setGameConfig($gameConfig)
-        ;
-
-        $I->haveInRepository($didBoringSpeechStatus);
 
         /** @var CharacterConfig $speakerConfig */
         $speakerConfig = $I->have(CharacterConfig::class, [

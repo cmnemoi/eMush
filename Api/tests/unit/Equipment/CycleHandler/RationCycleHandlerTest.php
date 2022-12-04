@@ -10,6 +10,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -51,11 +52,13 @@ class RationCycleHandlerTest extends TestCase
     {
         $fruit = new ItemConfig();
 
+        $place = new Place();
+
         $fruitType = new Fruit();
         $fruit->setMechanics(new ArrayCollection([$fruitType]));
 
         $daedalus = new Daedalus();
-        $gameFruit = new GameItem();
+        $gameFruit = new GameItem($place);
         $gameFruit
             ->setEquipment($fruit)
         ;
@@ -66,13 +69,13 @@ class RationCycleHandlerTest extends TestCase
 
         $unstableConfig = new StatusConfig();
         $unstableConfig->setName(EquipmentStatusEnum::UNSTABLE);
-        $unstable = new Status(new GameItem(), $unstableConfig);
+        $unstable = new Status(new GameItem($place), $unstableConfig);
         $hazardousConfig = new StatusConfig();
         $hazardousConfig->setName(EquipmentStatusEnum::HAZARDOUS);
-        $hazardous = new Status(new GameItem(), $hazardousConfig);
+        $hazardous = new Status(new GameItem($place), $hazardousConfig);
         $decomposingConfig = new StatusConfig();
         $decomposingConfig->setName(EquipmentStatusEnum::DECOMPOSING);
-        $decomposing = new Status(new GameItem(), $decomposingConfig);
+        $decomposing = new Status(new GameItem($place), $decomposingConfig);
 
         // frozen
         $this->gameEquipmentService->shouldReceive('persist')->once();

@@ -10,7 +10,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 
 class TakeActionTest extends AbstractActionTest
@@ -42,7 +41,7 @@ class TakeActionTest extends AbstractActionTest
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
 
         $item = new ItemConfig();
         $item->setActions(new ArrayCollection([$this->actionEntity]));
@@ -50,14 +49,9 @@ class TakeActionTest extends AbstractActionTest
         $gameItem->setEquipment($item);
         $gameItem
             ->setName('itemName')
-            ->setHolder($room)
         ;
 
-        $gameConfig = new GameConfig();
-        $gameConfig->setMaxItemInInventory(3);
-
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
 
         $player = $this->createPlayer($daedalus, $room);
 
@@ -74,7 +68,7 @@ class TakeActionTest extends AbstractActionTest
     public function testTakeHeavyObject()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
 
         $item = new ItemConfig();
         $item->setActions(new ArrayCollection([$this->actionEntity]));
@@ -82,14 +76,9 @@ class TakeActionTest extends AbstractActionTest
         $gameItem->setEquipment($item);
         $gameItem
             ->setName('itemName')
-            ->setHolder($room)
         ;
 
-        $gameConfig = new GameConfig();
-        $gameConfig->setMaxItemInInventory(3);
-
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
 
         $player = $this->createPlayer($daedalus, $room);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);

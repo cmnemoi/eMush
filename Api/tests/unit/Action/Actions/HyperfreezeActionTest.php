@@ -59,7 +59,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $rationType = new Ration();
         $rationType->setIsPerishable(true);
 
-        $gameRation = new GameItem();
+        $gameRation = new GameItem($room);
         $ration = new ItemConfig();
         $ration
              ->setMechanics(new ArrayCollection([$rationType]))
@@ -67,11 +67,10 @@ class HyperfreezeActionTest extends AbstractActionTest
         ;
         $gameRation
             ->setEquipment($ration)
-            ->setHolder($room)
             ->setName('fruit')
         ;
 
-        $gameSuperfreezer = new GameItem();
+        $gameSuperfreezer = new GameItem($room);
         $superfreezer = new ItemConfig();
         $superfreezer->setName(ToolItemEnum::SUPERFREEZER);
         $gameSuperfreezer
@@ -110,7 +109,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $rationType = new Ration();
         $rationType->setIsPerishable(true);
 
-        $gameRation = new GameItem();
+        $gameRation = new GameItem($room);
         $ration = new ItemConfig();
         $ration
              ->setMechanics(new ArrayCollection([$rationType]))
@@ -118,22 +117,20 @@ class HyperfreezeActionTest extends AbstractActionTest
         ;
         $gameRation
             ->setEquipment($ration)
-            ->setHolder($room)
             ->setName(GameRationEnum::ALIEN_STEAK)
         ;
 
-        $gameSuperfreezer = new GameItem();
+        $gameSuperfreezer = new GameItem($room);
         $superfreezer = new ItemConfig();
         $superfreezer->setName(ToolItemEnum::SUPERFREEZER);
         $gameSuperfreezer
             ->setEquipment($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER)
-            ->setHolder($room)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
-        $gameStandardRation = new GameItem();
+        $gameStandardRation = new GameItem(new Place());
         $standardRation = new ItemConfig();
         $standardRation
              ->setName(GameRationEnum::STANDARD_RATION)

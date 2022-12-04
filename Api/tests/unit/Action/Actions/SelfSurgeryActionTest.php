@@ -64,7 +64,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
         $room = new Place();
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$this->actionEntity]));
         $item = new EquipmentConfig();
@@ -75,7 +75,6 @@ class SelfSurgeryActionTest extends AbstractActionTest
 
         $gameEquipment
             ->setEquipment($item)
-            ->setHolder($room)
             ->setName(EquipmentEnum::SURGERY_PLOT)
         ;
 
@@ -127,7 +126,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
         $room = new Place();
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$this->actionEntity]));
         $item = new EquipmentConfig();
@@ -138,7 +137,6 @@ class SelfSurgeryActionTest extends AbstractActionTest
 
         $gameEquipment
             ->setEquipment($item)
-            ->setHolder($room)
             ->setName(EquipmentEnum::SURGERY_PLOT)
         ;
 
@@ -191,7 +189,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
         $room = new Place();
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$this->actionEntity]));
         $item = new EquipmentConfig();
@@ -202,7 +200,6 @@ class SelfSurgeryActionTest extends AbstractActionTest
 
         $gameEquipment
             ->setEquipment($item)
-            ->setHolder($room)
             ->setName(EquipmentEnum::SURGERY_PLOT)
         ;
 

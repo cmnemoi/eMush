@@ -80,7 +80,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $apronGear = $this->createGear([GearModifierConfigFixtures::APRON_MODIFIER]);
         $apron = new ItemConfig();
         $apron
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::STAINPROOF_APRON)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
@@ -100,7 +99,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $plasteniteArmor = new ItemConfig();
         $plasteniteArmor
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::PLASTENITE_ARMOR)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
@@ -115,7 +113,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $wrenchGear = $this->createGear([GearModifierConfigFixtures::WRENCH_MODIFIER]);
         $wrench = new ItemConfig();
         $wrench
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::ADJUSTABLE_WRENCH)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
@@ -128,7 +125,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $glovesGear = $this->createGear([GearModifierConfigFixtures::GLOVES_MODIFIER]);
         $gloves = new ItemConfig();
         $gloves
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::PROTECTIVE_GLOVES)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
@@ -142,7 +138,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $soapGear = $this->createGear([GearModifierConfigFixtures::SOAP_MODIFIER, GearModifierConfigFixtures::SOAP_SINK_MODIFIER]);
         $soap = new ItemConfig();
         $soap
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::SOAP)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -161,7 +156,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $sniperHelmetGear = $this->createGear([GearModifierConfigFixtures::AIM_MODIFIER]);
         $sniperHelmet = new ItemConfig();
         $sniperHelmet
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::SNIPER_HELMET)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -176,7 +170,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $alienBottleOpenerGear = $this->createGear([GearModifierConfigFixtures::WRENCH_MODIFIER]);
         $alienBottleOpener = new ItemConfig();
         $alienBottleOpener
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::ALIEN_BOTTLE_OPENER)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -200,7 +193,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $antiGravScooter = new ItemConfig();
         $antiGravScooter
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::ANTIGRAV_SCOOTER)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -216,7 +208,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $rollingBoulderGear = $this->createGear([GearModifierConfigFixtures::ROLLING_BOULDER]);
         $rollingBoulder = new ItemConfig();
         $rollingBoulder
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::ROLLING_BOULDER)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -237,7 +228,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $lenses = new ItemConfig();
         $lenses
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::NCC_LENS)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -265,7 +255,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $oscilloscope = new ItemConfig();
         $oscilloscope
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::OSCILLOSCOPE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -285,7 +274,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $spacesuit = new ItemConfig();
         $spacesuit
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::SPACESUIT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -298,7 +286,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $superSoaper = new ItemConfig();
         $superSoaper
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::SUPER_SOAPER)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -309,7 +296,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $printedCircuitJelly = new ItemConfig();
         $printedCircuitJelly
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::PRINTED_CIRCUIT_JELLY)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -321,7 +307,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $invertebrateShell = new ItemConfig();
         $invertebrateShell
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::INVERTEBRATE_SHELL)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -338,7 +323,6 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $liquidMap = new ItemConfig();
         $liquidMap
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::MAGELLAN_LIQUID_MAP)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -352,6 +336,25 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(GearItemEnum::OSCILLOSCOPE, $oscilloscope);
         $this->addReference(GearItemEnum::SNIPER_HELMET, $sniperHelmet);
 
+        $gameConfig
+            ->addEquipmentConfig($wrench)
+            ->addEquipmentConfig($plasteniteArmor)
+            ->addEquipmentConfig($apron)
+            ->addEquipmentConfig($gloves)
+            ->addEquipmentConfig($soap)
+            ->addEquipmentConfig($alienBottleOpener)
+            ->addEquipmentConfig($antiGravScooter)
+            ->addEquipmentConfig($sniperHelmet)
+            ->addEquipmentConfig($lenses)
+            ->addEquipmentConfig($rollingBoulder)
+            ->addEquipmentConfig($oscilloscope)
+            ->addEquipmentConfig($spacesuit)
+            ->addEquipmentConfig($superSoaper)
+            ->addEquipmentConfig($printedCircuitJelly)
+            ->addEquipmentConfig($invertebrateShell)
+            ->addEquipmentConfig($liquidMap)
+        ;
+        $manager->persist($gameConfig);
         $manager->flush();
     }
 

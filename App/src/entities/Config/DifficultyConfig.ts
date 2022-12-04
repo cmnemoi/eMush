@@ -3,7 +3,6 @@ import { GameConfig } from "@/entities/Config/GameConfig";
 export class DifficultyConfig {
     public iri: string|null;
     public id: number|null;
-    public gameConfig: GameConfig|null;
     public equipmentBreakRate: number|null;
     public doorBreakRate: number|null;
     public equipmentFireBreakRate: number|null;
@@ -26,7 +25,6 @@ export class DifficultyConfig {
     constructor() {
         this.iri = null;
         this.id = null;
-        this.gameConfig = null;
         this.equipmentBreakRate = null;
         this.doorBreakRate = null;
         this.equipmentFireBreakRate = null;
@@ -50,7 +48,6 @@ export class DifficultyConfig {
         if (typeof object !== "undefined") {
             this.iri = object.iri;
             this.id = object.id;
-            this.gameConfig = object.gameConfig;
             this.equipmentBreakRate = object.equipmentBreakRate;
             this.doorBreakRate = object.doorBreakRate;
             this.equipmentFireBreakRate = object.equipmentFireBreakRate;
@@ -75,7 +72,6 @@ export class DifficultyConfig {
     jsonEncode() : object {
         return {
             'id': this.id,
-            'gameConfig': this.gameConfig?.iri,
             'equipmentBreakRate': this.equipmentBreakRate,
             'doorBreakRate': this.doorBreakRate,
             'equipmentFireBreakRate': this.equipmentFireBreakRate,
@@ -101,7 +97,6 @@ export class DifficultyConfig {
             const object = JSON.parse(jsonString);
             this.iri = object.iri;
             this.id = object.id;
-            this.gameConfig = object.gameConfig;
             this.equipmentBreakRate = object.equipmentBreakRate;
             this.doorBreakRate = object.doorBreakRate;
             this.equipmentFireBreakRate = object.equipmentFireBreakRate;

@@ -46,14 +46,13 @@ class ReadBookActionTest extends AbstractActionTest
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $book = new Book();
         $book->setSkill(SkillEnum::PILOT);
         $item->setMechanics(new ArrayCollection([$book]));
         $gameItem
             ->setEquipment($item)
-            ->setHolder($room)
             ->setName('name')
         ;
 

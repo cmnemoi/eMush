@@ -5,6 +5,7 @@ namespace Mush\Tests\functional\Game\Service;
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleService;
 
@@ -22,11 +23,15 @@ class CycleServiceCest
         $daedalusCreatedAt = new \DateTime('01-01-2000');
         $daedalusNewCycleAt = new \DateTime('02-01-2000');
 
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['timezone' => 'UTC']);
+
+        /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'timezone' => 'UTC',
-            'cycleLength' => 60 * 3,
+            'localizationConfig' => $localizationConfig,
         ]);
 
+        /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, [
             'cycle' => 1,
             'day' => 1,
@@ -45,12 +50,15 @@ class CycleServiceCest
 
     public function testDateLastCycleIsUpdated(FunctionalTester $I)
     {
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['timezone' => 'UTC']);
+
         $daedalusCreatedAt = new \DateTime('01-01-2000');
         $daedalusNewCycleAt = new \DateTime('02-01-2000');
 
+        /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'timezone' => 'UTC',
-            'cycleLength' => 60 * 3,
+            'localizationConfig' => $localizationConfig,
         ]);
 
         /** @var Daedalus $daedalus */

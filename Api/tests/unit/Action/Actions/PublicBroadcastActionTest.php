@@ -49,12 +49,9 @@ class PublicBroadcastActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
-        $gameItem
-            ->setHolder($room)
-        ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 

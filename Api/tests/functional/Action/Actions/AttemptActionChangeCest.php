@@ -39,8 +39,22 @@ class AttemptActionChangeCest
 
     public function testChangeAttemptAction(FunctionalTester $I)
     {
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setName(StatusEnum::ATTEMPT)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+        ;
+        $I->haveInRepository($attemptConfig);
+
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+        ;
+        $I->haveInRepository($statusConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$attemptConfig, $statusConfig])]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
         /** @var Place $room */
@@ -48,7 +62,11 @@ class AttemptActionChangeCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 10]);
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+            'actionPoint' => 10,
+        ]);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -90,30 +108,13 @@ class AttemptActionChangeCest
 
         $equipmentConfig->setActions(new ArrayCollection([$actionDisassemble, $actionRepair]));
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem($room);
 
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
-
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
-            ->setGameConfig($gameConfig)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-        ;
-        $I->haveInRepository($attemptConfig);
-
-        $statusConfig = new StatusConfig();
-        $statusConfig
-            ->setName(EquipmentStatusEnum::BROKEN)
-            ->setGameConfig($gameConfig)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-        ;
-        $I->haveInRepository($statusConfig);
 
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
@@ -128,8 +129,10 @@ class AttemptActionChangeCest
         $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
 
         $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
+
         // Execute repair a second time
         $this->repairAction->execute();
+
         $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
 
         $this->disassembleAction->loadParameters($actionDisassemble, $player, $gameEquipment);
@@ -150,8 +153,22 @@ class AttemptActionChangeCest
 
     public function testNormalizeAnotherAction(FunctionalTester $I)
     {
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setName(StatusEnum::ATTEMPT)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+        ;
+        $I->haveInRepository($attemptConfig);
+
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+        ;
+        $I->haveInRepository($statusConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$attemptConfig, $statusConfig])]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
         /** @var Place $room */
@@ -202,19 +219,17 @@ class AttemptActionChangeCest
 
         $equipmentConfig->setActions(new ArrayCollection([$actionDisassemble, $actionRepair]));
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem($room);
 
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
             ->setName(StatusEnum::ATTEMPT)
-            ->setGameConfig($gameConfig)
             ->setVisibility(VisibilityEnum::HIDDEN)
         ;
         $I->haveInRepository($attemptConfig);
@@ -222,10 +237,12 @@ class AttemptActionChangeCest
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setName(EquipmentStatusEnum::BROKEN)
-            ->setGameConfig($gameConfig)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
         $I->haveInRepository($statusConfig);
+
+        $gameConfig->addStatusConfig($attemptConfig)->addStatusConfig($statusConfig);
+        $I->refreshEntities($gameConfig);
 
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);

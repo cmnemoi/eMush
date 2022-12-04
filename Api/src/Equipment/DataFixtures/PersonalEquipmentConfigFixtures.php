@@ -46,7 +46,6 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
 
         $walkieTalkie = new ItemConfig();
         $walkieTalkie
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::WALKIE_TALKIE)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
@@ -59,7 +58,6 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
 
         $iTrackie = new ItemConfig();
         $iTrackie
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ITRACKIE)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
@@ -72,7 +70,6 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
 
         $tracker = new ItemConfig();
         $tracker
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::TRACKER)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
@@ -81,6 +78,9 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
             ->setIsPersonal(true)
         ;
         $manager->persist($tracker);
+
+        $gameConfig->addEquipmentConfig($iTrackie)->addEquipmentConfig($tracker)->addEquipmentConfig($walkieTalkie);
+        $manager->persist($gameConfig);
 
         $manager->flush();
 

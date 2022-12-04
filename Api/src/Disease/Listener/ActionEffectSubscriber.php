@@ -80,7 +80,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
 
         $actionName = $event->getReason();
         if ($actionName === ActionEnum::MAKE_SICK) {
-            $this->playerDiseaseService->handleDiseaseForCause(
+            $this->diseaseCauseService->handleDiseaseForCause(
                 $event->getReason(),
                 $player,
                 self::MAKE_SICK_DELAY_MIN,
@@ -90,7 +90,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->playerDiseaseService->handleDiseaseForCause($event->getReason(), $player);
+        $this->diseaseCauseService->handleDiseaseForCause($event->getReason(), $player);
     }
 
     public function onPlayerCureInjury(ApplyEffectEvent $event)

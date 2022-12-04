@@ -2,7 +2,10 @@
 
 namespace Mush\Disease\Service;
 
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
+use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Equipment\Entity\GameEquipment;
@@ -37,7 +40,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
             || ($gameEquipment->hasStatus(EquipmentStatusEnum::DECOMPOSING) &&
                 $this->randomService->isSuccessful(self::DECOMPOSING_RATE))
         ) {
-            $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::PERISHED_FOOD, $player);
+            $this->handleDiseaseForCause(DiseaseCauseEnum::PERISHED_FOOD, $player);
         }
     }
 
@@ -68,5 +71,41 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
                 }
             }
         }
+    }
+
+    public function findCauseConfigByDaedalus(string $causeName, Daedalus $daedalus): DiseaseCauseConfig
+    {
+        $causesConfigs = $daedalus->getGameConfig()->getDiseaseCauseConfig()->filter(fn (DiseaseCauseConfig $causeConfig) => $causeConfig->getName() === $causeName);
+
+        if ($causesConfigs->count() !== 1) {
+            throw new \Error('there should be exactly 1 diseaseCauseConfig for this cause');
+        }
+
+        return $causesConfigs->first();
+    }
+
+    public function handleDiseaseForCause(string $cause, Player $player, int $delayMin = null, int $delayLength = null): void
+    {
+        $diseasesProbaArray = $this->findCauseConfigByDaedalus($cause, $player->getDaedalus())->getDiseases();
+
+        $playerDiseases = $player->getMedicalConditions()->toArray();
+        $playerDiseasesNames = array_map(function (PlayerDisease $playerDisease) {
+            return $playerDisease->getDiseaseConfig()->getName();
+        }, $playerDiseases);
+
+        $diseasesNames = array_diff(array_keys($diseasesProbaArray), $playerDiseasesNames);
+
+        $newDiseaseProbaArray = [];
+        foreach ($diseasesNames as $diseaseName) {
+            $newDiseaseProbaArray[$diseaseName] = $diseasesProbaArray[$diseaseName];
+        }
+
+        if (count($newDiseaseProbaArray) === 0) {
+            return;
+        }
+
+        $diseaseName = $this->randomService->getSingleRandomElementFromProbaArray($newDiseaseProbaArray);
+
+        $this->playerDiseaseService->createDiseaseFromName($diseaseName, $player, $cause, $delayMin, $delayLength);
     }
 }

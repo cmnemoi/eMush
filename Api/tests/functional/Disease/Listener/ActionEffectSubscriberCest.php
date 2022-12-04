@@ -71,6 +71,8 @@ class ActionEffectSubscriberCest
         $gameItem = $this->createRation($I);
         $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getName(), 'diseaseName', true);
 
+        $gameConfig->addDiseaseConfig($diseaseConfig);
+
         $event = new ApplyEffectEvent(
             $player,
             $gameItem,
@@ -120,6 +122,8 @@ class ActionEffectSubscriberCest
 
         $gameItem = $this->createRation($I);
         $diseaseConfig = $this->createDiseaseForRation($daedalus, $gameItem->getName(), 'diseaseName', false);
+
+        $gameConfig->addDiseaseConfig($diseaseConfig);
 
         $event = new ApplyEffectEvent(
             $player,
@@ -263,14 +267,12 @@ class ActionEffectSubscriberCest
         Daedalus $daedalus,
         string $rationName,
         string $diseaseName,
-        bool $delayed = false
+        bool $delayed = false,
     ): DiseaseConfig {
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setGameConfig($daedalus->getGameConfig())
             ->setName($diseaseName)
         ;
-
         $this->tester->haveInRepository($diseaseConfig);
 
         $consumableDisease = new ConsumableDisease();
@@ -313,7 +315,7 @@ class ActionEffectSubscriberCest
 
         $I->haveInRepository($itemConfig);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem(new Place());
         $gameItem
             ->setName('itemName')
             ->setEquipment($itemConfig)

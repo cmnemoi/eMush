@@ -4,6 +4,7 @@ namespace Mush\Tests\Communication\Event;
 
 use App\Tests\FunctionalTester;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -37,6 +38,12 @@ class NeronMessageCycleCest
 
     public function testNewFire(FunctionalTester $I)
     {
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(StatusEnum::FIRE)
+        ;
+        $I->haveInRepository($statusConfig);
+
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class, [
             'propagatingFireRate' => 100,
@@ -44,7 +51,10 @@ class NeronMessageCycleCest
             ]);
 
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig]);
+        $gameConfig = $I->have(GameConfig::class, [
+            'difficultyConfig' => $difficultyConfig,
+            'statusConfigs' => new ArrayCollection([$statusConfig]),
+        ]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
@@ -84,22 +94,14 @@ class NeronMessageCycleCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $statusConfig = new ChargeStatusConfig();
-        $statusConfig
-            ->setName(StatusEnum::FIRE)
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($statusConfig);
-
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['isFireBreakable' => false, 'isFireDestroyable' => false, 'gameConfig' => $gameConfig]);
 
         $doorConfig
-            ->setGameConfig($daedalus->getGameConfig())
             ->setIsFireBreakable(false)
             ->setIsFireDestroyable(false);
 
-        $door1 = new Door();
+        $door1 = new Door($room);
         $door1
             ->setName('door name')
             ->setEquipment($doorConfig);
@@ -107,7 +109,7 @@ class NeronMessageCycleCest
         $room->addDoor($door1);
         $room2->addDoor($door1);
 
-        $door2 = new Door();
+        $door2 = new Door($room);
         $door2
             ->setName('door name')
             ->setEquipment($doorConfig);
@@ -115,7 +117,7 @@ class NeronMessageCycleCest
         $room->addDoor($door2);
         $room3->addDoor($door2);
 
-        $door3 = new Door();
+        $door3 = new Door($room4);
         $door3
             ->setName('door name')
             ->setEquipment($doorConfig);

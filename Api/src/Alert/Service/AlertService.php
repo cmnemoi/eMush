@@ -145,10 +145,10 @@ class AlertService implements AlertServiceInterface
     public function handleEquipmentBreak(GameEquipment $equipment): void
     {
         if ($equipment instanceof Door) {
-            $daedalus = $equipment->getRooms()->first()->getDaedalus();
+            $daedalus = $equipment->getDaedalus();
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_DOORS);
         } else {
-            $daedalus = $equipment->getPlace()->getDaedalus();
+            $daedalus = $equipment->getDaedalus();
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_EQUIPMENTS);
         }
 
@@ -170,7 +170,7 @@ class AlertService implements AlertServiceInterface
             $daedalus = $equipment->getRooms()->first()->getDaedalus();
             $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_DOORS, $daedalus);
         } else {
-            $daedalus = $equipment->getPlace()->getDaedalus();
+            $daedalus = $equipment->getDaedalus();
             $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_EQUIPMENTS, $daedalus);
         }
 
@@ -309,7 +309,7 @@ class AlertService implements AlertServiceInterface
 
     public function isEquipmentReported(GameEquipment $equipment): bool
     {
-        $daedalus = $equipment->getPlace()->getDaedalus();
+        $daedalus = $equipment->getDaedalus();
         if (!$equipment->isBroken()) {
             return false;
         }

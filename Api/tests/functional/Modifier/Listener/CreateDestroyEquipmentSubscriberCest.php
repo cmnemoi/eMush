@@ -41,26 +41,6 @@ class CreateDestroyEquipmentSubscriberCest
 
     public function testCreateGearPlayerScope(FunctionalTester $I): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-        /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
         $modifierConfig = new ModifierConfig();
         $modifierConfig
             ->setScope(ActionEnum::SHOWER)
@@ -78,11 +58,32 @@ class CreateDestroyEquipmentSubscriberCest
         $name = 'test item';
 
         /* @var EquipmentConfig $equipmentConfig */
-        $I->have(ItemConfig::class, [
-            'gameConfig' => $gameConfig,
+        $equipmentConfig = $I->have(ItemConfig::class, [
             'mechanics' => new ArrayCollection([$gear]),
             'name' => $name,
         ]);
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, [
+            'equipmentsConfig' => new ArrayCollection([$equipmentConfig]),
+        ]);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class, ['maxItemInInventory' => 1]);
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $this->gameEquipmentService->createGameEquipmentFromName(
             $name,
@@ -100,26 +101,6 @@ class CreateDestroyEquipmentSubscriberCest
 
     public function testCreateGearPlayerScopeInventoryFull(FunctionalTester $I): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 0]);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-        /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
         $modifierConfig = new ModifierConfig();
         $modifierConfig
             ->setScope(ActionEnum::SHOWER)
@@ -136,11 +117,31 @@ class CreateDestroyEquipmentSubscriberCest
 
         $name = 'test item';
 
-        $I->have(ItemConfig::class, [
+        /** @var ItemConfig $itemConfig */
+        $itemConfig = $I->have(ItemConfig::class, [
             'name' => $name,
-            'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
         ]);
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, ['equipmentsConfig' => new ArrayCollection([$itemConfig])]);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class, ['maxItemInInventory' => 0]);
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
         $this->gameEquipmentService->createGameEquipmentFromName(
             $name,
@@ -157,19 +158,6 @@ class CreateDestroyEquipmentSubscriberCest
 
     public function testCreateGearPlaceReach(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-        /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
-
         $modifierConfig = new ModifierConfig();
         $modifierConfig
             ->setScope(ActionEnum::SHOWER)
@@ -185,11 +173,31 @@ class CreateDestroyEquipmentSubscriberCest
         $I->haveInRepository($gear);
 
         $name = 'test name';
-        $I->have(ItemConfig::class, [
-            'gameConfig' => $gameConfig,
+        /** @var ItemConfig $itemConfig */
+        $itemConfig = $I->have(ItemConfig::class, [
             'mechanics' => new ArrayCollection([$gear]),
             'name' => $name,
         ]);
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, [
+            'equipmentsConfig' => new ArrayCollection([$itemConfig]),
+        ]);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class, ['maxItemInInventory' => 1]);
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $I->haveInRepository($playerInfo);
 
         $this->gameEquipmentService->createGameEquipmentFromName(
             $name,
@@ -207,19 +215,6 @@ class CreateDestroyEquipmentSubscriberCest
 
     public function testDestroyGear(FunctionalTester $I): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-        /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
-
         $actionCost = new ActionCost();
         $I->haveInRepository($actionCost);
 
@@ -250,11 +245,25 @@ class CreateDestroyEquipmentSubscriberCest
         $name = 'test name';
 
         /* @var EquipmentConfig $equipmentConfig */
-        $I->have(EquipmentConfig::class, [
-            'gameConfig' => $gameConfig,
+        $equipmentConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$gear]),
             'name' => $name,
         ]);
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, [
+            'equipmentsConfig' => new ArrayCollection([$equipmentConfig]),
+        ]);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
 
         $equipment = $this->gameEquipmentService->createGameEquipmentFromName(
             $name,
@@ -280,25 +289,6 @@ class CreateDestroyEquipmentSubscriberCest
 
     public function testDestroyOneOfTwoGear(FunctionalTester $I): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'maxItemInInventory' => 2,
-        ]);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
-            'characterConfig' => $characterConfig,
-        ]);
-
         $actionCost = new ActionCost();
         $I->haveInRepository($actionCost);
 
@@ -328,11 +318,35 @@ class CreateDestroyEquipmentSubscriberCest
 
         $name = 'test name';
 
-        $I->have(ItemConfig::class, [
-            'gameConfig' => $gameConfig,
+        /** @var ItemConfig $itemConfig */
+        $itemConfig = $I->have(ItemConfig::class, [
             'mechanics' => new ArrayCollection([$gear]),
             'name' => $name,
         ]);
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, [
+            'equipmentsConfig' => new ArrayCollection([$itemConfig]),
+        ]);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+            'characterConfig' => $characterConfig,
+        ]);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $I->haveInRepository($playerInfo);
 
         // Case of a game Equipment
         $gameEquipment = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -368,23 +382,6 @@ class CreateDestroyEquipmentSubscriberCest
 
     public function testTransformGear(FunctionalTester $I): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
-            'characterConfig' => $characterConfig,
-        ]);
-
         $actionCost = new ActionCost();
         $I->haveInRepository($actionCost);
 
@@ -428,16 +425,37 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var ItemConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, [
-            'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear]),
             'name' => ItemEnum::OXYGEN_CAPSULE,
         ]);
         /** @var ItemConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(ItemConfig::class, [
-            'gameConfig' => $gameConfig,
             'mechanics' => new ArrayCollection([$gear2]),
             'name' => ItemEnum::APPRENTON,
         ]);
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, [
+            'equipmentsConfig' => new ArrayCollection([$equipmentConfig, $equipmentConfig2]),
+        ]);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $I->haveInRepository($playerInfo);
 
         // Case of a game Equipment
         $gameEquipment = $this->gameEquipmentService->createGameEquipmentFromName(

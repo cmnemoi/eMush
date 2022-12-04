@@ -20,8 +20,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Enum\StatusEnum;
 use Mush\User\Entity\User;
 
 class FlirtActionCest
@@ -49,14 +47,6 @@ class FlirtActionCest
             ->setActionPointCost(1)
         ;
         $I->haveInRepository($actionCost);
-
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
-            ->setGameConfig($gameConfig)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-        ;
-        $I->haveInRepository($attemptConfig);
 
         $action = new Action();
         $action
@@ -135,14 +125,6 @@ class FlirtActionCest
         ;
         $I->haveInRepository($actionCost);
 
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
-            ->setGameConfig($gameConfig)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-        ;
-        $I->haveInRepository($attemptConfig);
-
         $action = new Action();
         $action
             ->setName(ActionEnum::FLIRT)
@@ -205,14 +187,6 @@ class FlirtActionCest
         ;
         $I->haveInRepository($actionCost);
 
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
-            ->setGameConfig($gameConfig)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-        ;
-        $I->haveInRepository($attemptConfig);
-
         $action = new Action();
         $action
             ->setName(ActionEnum::FLIRT)
@@ -274,14 +248,6 @@ class FlirtActionCest
             ->setActionPointCost(1)
         ;
         $I->haveInRepository($actionCost);
-
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
-            ->setGameConfig($gameConfig)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-        ;
-        $I->haveInRepository($attemptConfig);
 
         $action = new Action();
         $action
@@ -359,14 +325,6 @@ class FlirtActionCest
             ->setActionPointCost(1)
         ;
         $I->haveInRepository($actionCost);
-
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
-            ->setGameConfig($gameConfig)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-        ;
-        $I->haveInRepository($attemptConfig);
 
         $action = new Action();
         $action

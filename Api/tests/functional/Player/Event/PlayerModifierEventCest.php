@@ -3,6 +3,7 @@
 namespace functional\Player\Event;
 
 use App\Tests\FunctionalTester;
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
@@ -32,8 +33,21 @@ class PlayerModifierEventCest
 
     public function testDispatchMoralChange(FunctionalTester $I)
     {
+        $suicidalStatusConfig = new StatusConfig();
+        $suicidalStatusConfig
+            ->setName(PlayerStatusEnum::SUICIDAL)
+        ;
+        $demoralizedStatusConfig = new StatusConfig();
+        $demoralizedStatusConfig
+            ->setName(PlayerStatusEnum::DEMORALIZED)
+        ;
+        $I->haveInRepository($suicidalStatusConfig);
+        $I->haveInRepository($demoralizedStatusConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, [
+            'statusConfigs' => new ArrayCollection([$demoralizedStatusConfig, $suicidalStatusConfig]),
+        ]);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -58,19 +72,6 @@ class PlayerModifierEventCest
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
-
-        $suicidalStatusConfig = new StatusConfig();
-        $suicidalStatusConfig
-            ->setName(PlayerStatusEnum::SUICIDAL)
-            ->setGameConfig($gameConfig)
-        ;
-        $demoralizedStatusConfig = new StatusConfig();
-        $demoralizedStatusConfig
-            ->setName(PlayerStatusEnum::DEMORALIZED)
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($suicidalStatusConfig);
-        $I->haveInRepository($demoralizedStatusConfig);
 
         $playerEvent = new PlayerVariableEvent(
             $player,
@@ -144,8 +145,21 @@ class PlayerModifierEventCest
 
     public function testDispatchSatietyChange(FunctionalTester $I)
     {
+        $fullStatusConfig = new StatusConfig();
+        $fullStatusConfig
+            ->setName(PlayerStatusEnum::FULL_STOMACH)
+        ;
+        $starvingStatusConfig = new StatusConfig();
+        $starvingStatusConfig
+            ->setName(PlayerStatusEnum::STARVING)
+        ;
+        $I->haveInRepository($fullStatusConfig);
+        $I->haveInRepository($starvingStatusConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, [
+            'statusConfigs' => new ArrayCollection([$starvingStatusConfig, $fullStatusConfig]),
+        ]);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -170,19 +184,6 @@ class PlayerModifierEventCest
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
-
-        $fullStatusConfig = new StatusConfig();
-        $fullStatusConfig
-            ->setName(PlayerStatusEnum::FULL_STOMACH)
-            ->setGameConfig($gameConfig)
-        ;
-        $starvingStatusConfig = new StatusConfig();
-        $starvingStatusConfig
-            ->setName(PlayerStatusEnum::STARVING)
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($fullStatusConfig);
-        $I->haveInRepository($starvingStatusConfig);
 
         $playerEvent = new PlayerVariableEvent(
             $player,
@@ -242,8 +243,14 @@ class PlayerModifierEventCest
 
     public function testDispatchMushSatietyChange(FunctionalTester $I)
     {
+        $fullStatusConfig = new StatusConfig();
+        $fullStatusConfig
+            ->setName(PlayerStatusEnum::FULL_STOMACH)
+        ;
+        $I->haveInRepository($fullStatusConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$fullStatusConfig])]);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -268,13 +275,6 @@ class PlayerModifierEventCest
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
-
-        $fullStatusConfig = new StatusConfig();
-        $fullStatusConfig
-            ->setName(PlayerStatusEnum::FULL_STOMACH)
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($fullStatusConfig);
 
         $mushConfig = new ChargeStatusConfig();
         $mushConfig->setName(PlayerStatusEnum::MUSH);

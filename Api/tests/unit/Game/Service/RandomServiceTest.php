@@ -120,8 +120,8 @@ class RandomServiceTest extends TestCase
     public function testGetItemInRoom()
     {
         $room = new Place();
-        $equipment = new GameEquipment();
-        $item = new GameItem();
+        $equipment = new GameEquipment($room);
+        $item = new GameItem($room);
         $room
             ->addEquipment($equipment)
             ->addEquipment($item)

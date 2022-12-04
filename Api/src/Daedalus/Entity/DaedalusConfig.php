@@ -5,7 +5,6 @@ namespace Mush\Daedalus\Entity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\PlaceConfig;
 
 #[ORM\Entity]
@@ -16,9 +15,6 @@ class DaedalusConfig
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
-
-    #[ORM\OneToOne(inversedBy: 'daedalusConfig', targetEntity: GameConfig::class)]
-    private GameConfig $gameConfig;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $initOxygen;
@@ -47,27 +43,24 @@ class DaedalusConfig
     #[ORM\OneToOne(targetEntity: RandomItemPlaces::class, cascade: ['ALL'])]
     private ?RandomItemPlaces $randomItemPlace = null;
 
-    #[ORM\OneToMany(targetEntity: PlaceConfig::class, mappedBy: 'daedalusConfig')]
+    #[ORM\ManyToMany(targetEntity: PlaceConfig::class)]
     private Collection $placeConfigs;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $dailySporeNb = 4;
 
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $nbMush = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $cyclePerGameDay = 8;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $cycleLength = 0; // in minutes
+
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function getGameConfig(): GameConfig
-    {
-        return $this->gameConfig;
-    }
-
-    public function setGameConfig(GameConfig $gameConfig): static
-    {
-        $this->gameConfig = $gameConfig;
-
-        return $this;
     }
 
     public function getInitOxygen(): int
@@ -216,5 +209,41 @@ class DaedalusConfig
             default:
                 throw new \LogicException('this is not a valid daedalusVariable');
         }
+    }
+
+    public function getNbMush(): int
+    {
+        return $this->nbMush;
+    }
+
+    public function setNbMush(int $nbMush): static
+    {
+        $this->nbMush = $nbMush;
+
+        return $this;
+    }
+
+    public function getCyclePerGameDay(): int
+    {
+        return $this->cyclePerGameDay;
+    }
+
+    public function setCyclePerGameDay(int $cyclePerGameDay): static
+    {
+        $this->cyclePerGameDay = $cyclePerGameDay;
+
+        return $this;
+    }
+
+    public function getCycleLength(): int
+    {
+        return $this->cycleLength;
+    }
+
+    public function setCycleLength(int $cycleLength): static
+    {
+        $this->cycleLength = $cycleLength;
+
+        return $this;
     }
 }

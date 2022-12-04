@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -289,8 +290,8 @@ class RoomLogServiceTest extends TestCase
         $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
 
-        $cameraEquipment = new GameEquipment();
-        $cameraEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT)->setHolder($place);
+        $cameraEquipment = new GameEquipment($place);
+        $cameraEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT);
 
         $this->entityManager->shouldReceive('flush')->once();
 
@@ -339,8 +340,8 @@ class RoomLogServiceTest extends TestCase
         $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
 
-        $cameraEquipment = new GameItem();
-        $cameraEquipment->setName(ItemEnum::CAMERA_ITEM)->setHolder($place);
+        $cameraEquipment = new GameItem($place);
+        $cameraEquipment->setName(ItemEnum::CAMERA_ITEM);
 
         $this->entityManager->shouldReceive('flush')->once();
         $this->entityManager->shouldReceive('persist')->once();
@@ -468,7 +469,7 @@ class RoomLogServiceTest extends TestCase
         ;
 
         $equipmentConfig = new EquipmentConfig();
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment(new Place());
         $gameEquipment->setName('equipment')->setEquipment($equipmentConfig);
 
         $actionResult = new Fail($gameEquipment);
@@ -497,8 +498,10 @@ class RoomLogServiceTest extends TestCase
 
     public function testGetLogs()
     {
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
 
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);

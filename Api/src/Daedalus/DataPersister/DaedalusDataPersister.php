@@ -25,7 +25,7 @@ class DaedalusDataPersister implements ContextAwareDataPersisterInterface
 
     public function persist($data, array $context = [])
     {
-        $config = $this->gameConfigService->getConfig();
+        $config = $this->gameConfigService->getConfigByName('default');
 
         return $this->daedalusService->createDaedalus($config, $data->getName());
     }

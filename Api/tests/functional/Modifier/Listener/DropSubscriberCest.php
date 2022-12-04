@@ -98,11 +98,10 @@ class DropSubscriberCest
         ]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem($player);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setHolder($player)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -173,11 +172,10 @@ class DropSubscriberCest
             'actions' => new ArrayCollection([$takeActionEntity]),
         ]);
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -263,11 +261,10 @@ class DropSubscriberCest
         ]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -377,20 +374,18 @@ class DropSubscriberCest
         ]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem($player);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setHolder($player)
         ;
         $I->haveInRepository($gameEquipment);
 
         // Case of a game Equipment
-        $gameEquipment2 = new GameItem();
+        $gameEquipment2 = new GameItem($player);
         $gameEquipment2
             ->setEquipment($equipmentConfig2)
             ->setName('some name')
-            ->setHolder($player)
         ;
         $I->haveInRepository($gameEquipment2);
 
@@ -468,20 +463,18 @@ class DropSubscriberCest
         ]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem($player);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setHolder($player)
         ;
         $I->haveInRepository($gameEquipment);
 
         // Case of a game Equipment
-        $gameEquipment2 = new GameItem();
+        $gameEquipment2 = new GameItem($player);
         $gameEquipment2
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setHolder($player)
         ;
         $I->haveInRepository($gameEquipment2);
 

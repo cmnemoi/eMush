@@ -4,6 +4,7 @@ namespace Mush\Tests\Disease\Event;
 
 use App\Tests\FunctionalTester;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
@@ -36,11 +37,37 @@ class NewDiseaseOnCycleCest
 
     public function testNewCycleDisease(FunctionalTester $I)
     {
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setName(DiseaseEnum::FOOD_POISONING)
+        ;
+        $I->haveInRepository($diseaseConfig);
+        $diseaseCause = new DiseaseCauseConfig();
+        $diseaseCause
+            ->setName(DiseaseCauseEnum::CYCLE)
+            ->setDiseases([
+                DiseaseEnum::FOOD_POISONING => 2,
+            ])
+        ;
+        $I->haveInRepository($diseaseCause);
+        $diseaseCauseLowMorale = new DiseaseCauseConfig();
+        $diseaseCauseLowMorale
+            ->setName(DiseaseCauseEnum::CYCLE_LOW_MORALE)
+            ->setDiseases([
+                DiseaseEnum::FLU => 2,
+            ])
+        ;
+        $I->haveInRepository($diseaseCauseLowMorale);
+
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class, ['cycleDiseaseRate' => 100]);
 
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig]);
+        $gameConfig = $I->have(GameConfig::class, [
+            'difficultyConfig' => $difficultyConfig,
+            'diseaseCauseConfig' => new ArrayCollection([$diseaseCauseLowMorale, $diseaseCause]),
+            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
+        ]);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
@@ -62,33 +89,6 @@ class NewDiseaseOnCycleCest
 
         $time = new DateTime();
 
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::FOOD_POISONING)
-        ;
-        $I->haveInRepository($diseaseConfig);
-
-        $diseaseCause = new DiseaseCauseConfig();
-        $diseaseCause
-            ->setName(DiseaseCauseEnum::CYCLE)
-            ->setDiseases([
-                DiseaseEnum::FOOD_POISONING => 2,
-            ])
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($diseaseCause);
-
-        $diseaseCauseLowMorale = new DiseaseCauseConfig();
-        $diseaseCauseLowMorale
-            ->setName(DiseaseCauseEnum::CYCLE_LOW_MORALE)
-            ->setDiseases([
-                DiseaseEnum::FLU => 2,
-            ])
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($diseaseCauseLowMorale);
-
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
@@ -102,11 +102,37 @@ class NewDiseaseOnCycleCest
 
     public function testNewCycleDiseaseLowMorale(FunctionalTester $I)
     {
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setName(DiseaseEnum::FLU)
+        ;
+        $I->haveInRepository($diseaseConfig);
+        $diseaseCause = new DiseaseCauseConfig();
+        $diseaseCause
+            ->setName(DiseaseCauseEnum::CYCLE)
+            ->setDiseases([
+                DiseaseEnum::FOOD_POISONING => 2,
+            ])
+        ;
+        $I->haveInRepository($diseaseCause);
+        $diseaseCauseLowMorale = new DiseaseCauseConfig();
+        $diseaseCauseLowMorale
+            ->setName(DiseaseCauseEnum::CYCLE_LOW_MORALE)
+            ->setDiseases([
+                DiseaseEnum::FLU => 2,
+            ])
+        ;
+        $I->haveInRepository($diseaseCauseLowMorale);
+
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class, ['cycleDiseaseRate' => 100]);
 
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig]);
+        $gameConfig = $I->have(GameConfig::class, [
+            'difficultyConfig' => $difficultyConfig,
+            'diseaseCauseConfig' => new ArrayCollection([$diseaseCauseLowMorale, $diseaseCause]),
+            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
+        ]);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
@@ -134,33 +160,6 @@ class NewDiseaseOnCycleCest
         $I->haveInRepository($statusConfig);
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::FLU)
-        ;
-        $I->haveInRepository($diseaseConfig);
-
-        $diseaseCause = new DiseaseCauseConfig();
-        $diseaseCause
-            ->setName(DiseaseCauseEnum::CYCLE)
-            ->setDiseases([
-                DiseaseEnum::FOOD_POISONING => 2,
-            ])
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($diseaseCause);
-
-        $diseaseCauseLowMorale = new DiseaseCauseConfig();
-        $diseaseCauseLowMorale
-            ->setName(DiseaseCauseEnum::CYCLE_LOW_MORALE)
-            ->setDiseases([
-                DiseaseEnum::FLU => 2,
-            ])
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($diseaseCauseLowMorale);
 
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);

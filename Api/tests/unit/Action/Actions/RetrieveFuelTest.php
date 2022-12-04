@@ -16,7 +16,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 
 class RetrieveFuelTest extends AbstractActionTest
@@ -54,7 +53,7 @@ class RetrieveFuelTest extends AbstractActionTest
         $room = new Place();
         $item = new ItemConfig();
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem(new Place());
         $gameItem->setEquipment($item);
         $gameItem->setName(ItemEnum::FUEL_CAPSULE);
 
@@ -65,17 +64,12 @@ class RetrieveFuelTest extends AbstractActionTest
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setMaxFuel(32);
 
-        $gameConfig = new GameConfig();
-        $gameConfig->setMaxItemInInventory(3);
-        $gameConfig->setDaedalusConfig($daedalusConfig);
-        $daedalus->setGameConfig($gameConfig);
-
         $daedalus->setFuel(10);
 
         $tank = new EquipmentConfig();
         $tank->setActions(new ArrayCollection([$this->actionEntity]));
 
-        $gameTank = new GameEquipment();
+        $gameTank = new GameEquipment($room);
         $gameTank->setEquipment($tank)->setName(EquipmentEnum::FUEL_TANK)->setHolder($room);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);

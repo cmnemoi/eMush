@@ -80,18 +80,15 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onInventoryOverflow(EquipmentEvent $event): void
     {
+        /** @var Player $holder */
         $holder = $event->getEquipment()->getHolder();
 
-        if ($holder === null) {
-            throw new \LogicException('item should have an holder on overflow');
-        }
-
-        $gameConfig = $holder->getPlace()->getDaedalus()->getGameConfig();
+        $characterConfig = $holder->getPlayerInfo()->getCharacterConfig();
         $equipment = $event->getEquipment();
 
         if (
             $equipment instanceof GameItem &&
-            $holder->getEquipments()->count() > $gameConfig->getMaxItemInInventory()
+            $holder->getEquipments()->count() > $characterConfig->getMaxItemInInventory()
         ) {
             $this->createEventLog(LogEnum::OBJECT_FELL, $event, VisibilityEnum::PUBLIC);
         }

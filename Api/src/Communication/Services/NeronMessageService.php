@@ -132,7 +132,7 @@ class NeronMessageService implements NeronMessageServiceInterface
     {
         $equipmentName = $equipment->getName();
 
-        $daedalus = $equipment->getPlace()->getDaedalus();
+        $daedalus = $equipment->getDaedalus();
 
         switch ($equipmentName) {
             case EquipmentEnum::OXYGEN_TANK:

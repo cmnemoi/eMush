@@ -40,8 +40,19 @@ class WashInSinkActionCest
 
     public function testHumanWashInSink(FunctionalTester $I)
     {
+        $alreadyWashedInTheSink = new ChargeStatusConfig();
+        $alreadyWashedInTheSink
+            ->setName(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
+            ->setStartCharge(1)
+            ->setAutoRemove(true)
+        ;
+        $I->haveInRepository($alreadyWashedInTheSink);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$alreadyWashedInTheSink])]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
         /** @var Place $room */
@@ -78,28 +89,15 @@ class WashInSinkActionCest
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
         $I->haveInRepository($action);
 
-        $alreadyWashedInTheSink = new ChargeStatusConfig();
-        $alreadyWashedInTheSink
-            ->setName(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
-            ->setStartCharge(1)
-            ->setAutoRemove(true)
-            ->setGameConfig($gameConfig)
-        ;
-
-        $I->haveInRepository($alreadyWashedInTheSink);
-
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['actions' => new ArrayCollection([$action])]);
         $I->haveInRepository($equipmentConfig);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName(EquipmentEnum::KITCHEN)
-            ->setHolder($room);
+        ;
         $I->haveInRepository($gameEquipment);
 
         $this->washInSinkAction->loadParameters($action, $player, $gameEquipment);

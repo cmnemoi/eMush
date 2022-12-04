@@ -45,7 +45,6 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
         foreach (GameDrugEnum::getAll() as $drugName) {
             $drug = new ItemConfig();
             $drug
-                ->setGameConfig($gameConfig)
                 ->setName($drugName)
                 ->setIsStackable(true)
                 ->setIsFireDestroyable(true)
@@ -54,9 +53,10 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setActions($actions)
             ;
             $manager->persist($drug);
+            $gameConfig->addEquipmentConfig($drug);
         }
         $manager->persist($drugMechanic);
-
+        $manager->persist($gameConfig);
         $manager->flush();
     }
 

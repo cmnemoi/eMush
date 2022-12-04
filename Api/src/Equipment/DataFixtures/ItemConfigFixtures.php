@@ -57,7 +57,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $mycoAlarm = new ItemConfig();
         $mycoAlarm
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::MYCO_ALARM)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -78,7 +77,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $tabulatrix = new ItemConfig();
         $tabulatrix
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::TABULATRIX)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
@@ -96,7 +94,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $metalScraps = new ItemConfig();
         $metalScraps
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::METAL_SCRAPS)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -108,7 +105,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $plasticScraps = new ItemConfig();
         $plasticScraps
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::PLASTIC_SCRAPS)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -119,7 +115,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $oldTShirt = new ItemConfig();
         $oldTShirt
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::OLD_T_SHIRT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -133,7 +128,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $thickTube = new ItemConfig();
         $thickTube
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::THICK_TUBE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -150,7 +144,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $mushDisk = new ItemConfig();
         $mushDisk
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::MUSH_GENOME_DISK)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -163,7 +156,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $mushSample = new ItemConfig();
         $mushSample
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::MUSH_SAMPLE)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -173,7 +165,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $starmapFragment = new ItemConfig();
         $starmapFragment
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::STARMAP_FRAGMENT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -187,7 +178,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $waterStick = new ItemConfig();
         $waterStick
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::WATER_STICK)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -199,7 +189,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $hydropot = new ItemConfig();
         $hydropot
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::HYDROPOT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -210,7 +199,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $oxygenCapsule = new ItemConfig();
         $oxygenCapsule
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::OXYGEN_CAPSULE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -221,7 +209,6 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $fuelCapsule = new ItemConfig();
         $fuelCapsule
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::FUEL_CAPSULE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -231,6 +218,24 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($fuelCapsule);
 
         // @TODO add drones, cat, coffee thermos, lunchbox, survival kit
+
+        $gameConfig
+            ->addEquipmentConfig($tabulatrix)
+            ->addEquipmentConfig($mycoAlarm)
+            ->addEquipmentConfig($plasticScraps)
+            ->addEquipmentConfig($metalScraps)
+            ->addEquipmentConfig($oldTShirt)
+            ->addEquipmentConfig($thickTube)
+            ->addEquipmentConfig($mushSample)
+            ->addEquipmentConfig($mushDisk)
+            ->addEquipmentConfig($starmapFragment)
+            ->addEquipmentConfig($waterStick)
+            ->addEquipmentConfig($hydropot)
+            ->addEquipmentConfig($oxygenCapsule)
+            ->addEquipmentConfig($fuelCapsule)
+        ;
+        $manager->persist($gameConfig);
+
         $manager->flush();
     }
 

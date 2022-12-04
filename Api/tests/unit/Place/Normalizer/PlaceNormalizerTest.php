@@ -82,7 +82,7 @@ class PlaceNormalizerTest extends TestCase
         $room = $this->createMock(Place::class);
         $room->setName(RoomEnum::BRIDGE);
 
-        $door = new Door();
+        $door = new Door($room);
         $door->addRoom($room);
         $door->addRoom($otherRoom);
 
@@ -245,7 +245,7 @@ class PlaceNormalizerTest extends TestCase
 
     private function createGameItem(string $name, $isStackable = false): GameItem
     {
-        $gameItem = new GameItem();
+        $gameItem = new GameItem(new Place());
         $itemConfig = new ItemConfig();
 
         $gameItem

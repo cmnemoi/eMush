@@ -56,12 +56,11 @@ class CookActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $gameRation = new GameItem();
+        $gameRation = new GameItem($player);
         $ration = new EquipmentConfig();
         $ration->setName('ration');
         $gameRation
             ->setEquipment($ration)
-            ->setHolder($player)
             ->setName('ration')
         ;
 
@@ -69,13 +68,12 @@ class CookActionTest extends AbstractActionTest
         $statusConfig->setName(EquipmentStatusEnum::FROZEN);
         $frozenStatus = new Status($gameRation, $statusConfig);
 
-        $gameKitchen = new GameEquipment();
+        $gameKitchen = new GameEquipment($room);
         $kitchen = new ItemConfig();
         $kitchen->setName(EquipmentEnum::KITCHEN);
         $gameKitchen
             ->setEquipment($kitchen)
             ->setName(EquipmentEnum::KITCHEN)
-            ->setHolder($room)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
@@ -100,28 +98,26 @@ class CookActionTest extends AbstractActionTest
         $room = new Place();
 
         // Standard Ration
-        $gameRation = new GameItem();
+        $gameRation = new GameItem($room);
         $ration = new ItemConfig();
         $ration->setName(GameRationEnum::STANDARD_RATION);
         $gameRation
             ->setEquipment($ration)
-            ->setHolder($room)
             ->setName(GameRationEnum::STANDARD_RATION)
         ;
 
-        $gameKitchen = new GameEquipment();
+        $gameKitchen = new GameEquipment($room);
         $kitchen = new EquipmentConfig();
         $kitchen->setName(EquipmentEnum::KITCHEN);
         $gameKitchen
             ->setEquipment($kitchen)
             ->setName(EquipmentEnum::KITCHEN)
-            ->setHolder($room)
         ;
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
-        $gameCookedRation = new GameItem();
+        $gameCookedRation = new GameItem(new Place());
         $cookedRation = new ItemConfig();
         $cookedRation
              ->setName(GameRationEnum::COOKED_RATION)

@@ -144,7 +144,7 @@ class StatusSubscriber implements EventSubscriberInterface
             case $statusHolder instanceof Place:
                 return $statusHolder->getDaedalus();
             case $statusHolder instanceof GameEquipment:
-                return $statusHolder->getPlace()->getDaedalus();
+                return $statusHolder->getDaedalus();
             default:
                 throw new \LogicException('unknown statusholder type');
         }

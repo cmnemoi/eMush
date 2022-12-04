@@ -52,8 +52,15 @@ class ShowerActionCest
 
     public function testMushShower(FunctionalTester $I)
     {
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setName(StatusEnum::ATTEMPT)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+        ;
+        $I->haveInRepository($attemptConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$attemptConfig])]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
         /** @var Place $room */
@@ -76,14 +83,6 @@ class ShowerActionCest
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
-
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
-            ->setGameConfig($gameConfig)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-        ;
-        $I->haveInRepository($attemptConfig);
 
         $showerActionCondition = new ModifierCondition(ModifierConditionEnum::REASON);
         $showerActionCondition->setCondition(ActionEnum::SHOWER);
@@ -132,12 +131,10 @@ class ShowerActionCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['actions' => new ArrayCollection([$action])]);
 
-        $gameEquipment = new GameEquipment();
-
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('shower')
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -203,7 +200,7 @@ class ShowerActionCest
             ->setMechanics(new ArrayCollection([$soapGear]))
         ;
 
-        $gameSoap = new GameItem();
+        $gameSoap = new GameItem(new Place());
         $gameSoap
             ->setName(GearItemEnum::SOAP)
             ->setEquipment($soap)

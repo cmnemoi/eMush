@@ -103,7 +103,6 @@ class PlaceServiceTest extends TestCase
         $roomConfig = new PlaceConfig();
 
         $roomConfig
-            ->setDaedalusConfig($daedalusConfig)
             ->setName($name)
             ->setDoors([
                 DoorEnum::BRIDGE_FRONT_ALPHA_TURRET,

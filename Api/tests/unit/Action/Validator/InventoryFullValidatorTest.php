@@ -6,10 +6,11 @@ use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\InventoryFullValidator;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Game\Entity\GameConfig;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -38,15 +39,14 @@ class InventoryFullValidatorTest extends TestCase
 
     public function testValid()
     {
-        $gameConfig = new GameConfig();
-        $gameConfig->setMaxItemInInventory(2);
-
-        $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setMaxItemInInventory(2);
 
         $player = new Player();
-        $player->setDaedalus($daedalus);
-        $player->addEquipment(new GameItem());
+
+        new PlayerInfo($player, new User(), $characterConfig);
+
+        $player->addEquipment(new GameItem($player));
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -63,15 +63,14 @@ class InventoryFullValidatorTest extends TestCase
 
     public function testNotValid()
     {
-        $gameConfig = new GameConfig();
-        $gameConfig->setMaxItemInInventory(1);
-
-        $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setMaxItemInInventory(1);
 
         $player = new Player();
-        $player->setDaedalus($daedalus);
-        $player->addEquipment(new GameItem());
+
+        new PlayerInfo($player, new User(), $characterConfig);
+
+        $player->addEquipment(new GameItem($player));
 
         $action = Mockery::mock(AbstractAction::class);
         $action

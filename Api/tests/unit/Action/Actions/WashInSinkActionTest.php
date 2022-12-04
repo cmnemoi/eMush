@@ -46,11 +46,11 @@ class WashInSinkActionTest extends AbstractActionTest
     {
         $room = new Place();
 
-        $sinkEquipment = new GameEquipment();
+        $sinkEquipment = new GameEquipment($room);
         $sinkConfig = new EquipmentConfig();
         $sinkEquipment
             ->setEquipment($sinkConfig)
-            ->setHolder($room);
+        ;
         $sinkConfig->setActions(new ArrayCollection([$this->actionEntity]));
 
         $player = $this->createPlayer(new Daedalus(), $room);

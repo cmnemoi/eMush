@@ -56,12 +56,11 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $gameRation = new GameItem();
+        $gameRation = new GameItem($player);
         $ration = new ItemConfig();
         $ration->setName('ration');
         $gameRation
             ->setEquipment($ration)
-            ->setHolder($player)
             ->setName('ration')
         ;
 
@@ -69,13 +68,12 @@ class ExpressCookActionTest extends AbstractActionTest
         $statusConfig->setName(EquipmentStatusEnum::FROZEN);
         $frozenStatus = new Status($gameRation, $statusConfig);
 
-        $gameMicrowave = new GameItem();
+        $gameMicrowave = new GameItem($room);
         $microwave = new ItemConfig();
         $microwave->setName(ToolItemEnum::MICROWAVE);
         $gameMicrowave
             ->setEquipment($microwave)
             ->setName(ToolItemEnum::MICROWAVE)
-            ->setHolder($room)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
@@ -99,29 +97,27 @@ class ExpressCookActionTest extends AbstractActionTest
         $daedalus = new Daedalus();
         $room = new Place();
 
-        $gameRation = new GameItem();
+        $gameRation = new GameItem($room);
         $ration = new ItemConfig();
         $ration->setName(GameRationEnum::STANDARD_RATION);
         $gameRation
             ->setEquipment($ration)
-            ->setHolder($room)
             ->setName(GameRationEnum::STANDARD_RATION)
         ;
 
-        $gameMicrowave = new GameItem();
+        $gameMicrowave = new GameItem($room);
         $microwave = new ItemConfig();
         $microwave->setName(ToolItemEnum::MICROWAVE);
         $gameMicrowave
             ->setEquipment($microwave)
             ->setName(ToolItemEnum::MICROWAVE)
-            ->setHolder($room)
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
-        $gameCookedRation = new GameItem();
+        $gameCookedRation = new GameItem(new Place());
         $cookedRation = new ItemConfig();
         $cookedRation
              ->setName(GameRationEnum::COOKED_RATION)

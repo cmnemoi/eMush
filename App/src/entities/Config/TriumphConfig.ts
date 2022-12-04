@@ -3,7 +3,6 @@ import { GameConfig } from "@/entities/Config/GameConfig";
 export class TriumphConfig {
     public iri: string|null;
     public id: number|null;
-    public gameConfig: GameConfig|null;
     public name: string|null;
     public triumph: number|null;
     public isAllCrew: boolean|null;
@@ -12,7 +11,6 @@ export class TriumphConfig {
     constructor() {
         this.iri = null;
         this.id = null;
-        this.gameConfig = null;
         this.name = null;
         this.triumph = null;
         this.isAllCrew = null;
@@ -22,7 +20,6 @@ export class TriumphConfig {
         if (typeof object !== "undefined") {
             this.iri = object.iri;
             this.id = object.id;
-            this.gameConfig = object.gameConfig;
             this.name = object.name;
             this.triumph = object.triumph;
             this.isAllCrew = object.isAllCrew;
@@ -33,7 +30,6 @@ export class TriumphConfig {
     jsonEncode() : object {
         return {
             'id': this.id,
-            'gameConfig': this.gameConfig?.iri,
             'name': this.name,
             'triumph': this.triumph,
             'isAllCrew': this.isAllCrew,
@@ -45,7 +41,6 @@ export class TriumphConfig {
             const object = JSON.parse(jsonString);
             this.iri = object.iri;
             this.id = object.id;
-            this.gameConfig = object.gameConfig;
             this.name = object.name;
             this.triumph = object.triumph;
             this.isAllCrew = object.isAllCrew;

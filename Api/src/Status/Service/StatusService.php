@@ -21,7 +21,6 @@ use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Mush\Status\Repository\StatusConfigRepository;
 use Mush\Status\Repository\StatusRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -29,19 +28,16 @@ class StatusService implements StatusServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private StatusRepository $statusRepository;
-    private StatusConfigRepository $statusConfigRepository;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher,
         StatusRepository $statusRepository,
-        StatusConfigRepository $statusConfigRepository,
     ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
         $this->statusRepository = $statusRepository;
-        $this->statusConfigRepository = $statusConfigRepository;
     }
 
     public function persist(Status $status): Status
@@ -84,13 +80,13 @@ class StatusService implements StatusServiceInterface
 
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
     {
-        $statusConfig = $this->statusConfigRepository->findByNameAndDaedalus($name, $daedalus);
+        $statusConfigs = $daedalus->getGameConfig()->getStatusConfigs()->filter(fn (StatusConfig $statusConfig) => $statusConfig->getName() === $name);
 
-        if ($statusConfig === null) {
-            throw new \LogicException('No status config found');
+        if ($statusConfigs->count() < 1) {
+            throw new \LogicException("there should be at least 1 statusConfig with this name ({$name}). There are currently {$statusConfigs->count()}");
         }
 
-        return $statusConfig;
+        return $statusConfigs->first();
     }
 
     public function createStatusFromConfig(

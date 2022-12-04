@@ -34,7 +34,7 @@ class EquipmentEventCest
     public function testDispatchEquipmentCreated(FunctionalTester $I)
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
+        $gameConfig = $I->have(GameConfig::class);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
@@ -42,7 +42,7 @@ class EquipmentEventCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
+        $characterConfig = $I->have(CharacterConfig::class, ['maxItemInInventory' => 1]);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         /** @var User $user */
@@ -56,9 +56,8 @@ class EquipmentEventCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'name' => 'equipment_name']);
 
-        $equipment = new GameItem();
+        $equipment = new GameItem($room);
         $equipment
-            ->setHolder($room)
             ->setEquipment($equipmentConfig)
             ->setName($equipmentConfig->getName());
         $I->haveInRepository($equipment);
@@ -79,9 +78,7 @@ class EquipmentEventCest
         /** @var ItemConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'name' => 'item_name']);
 
-        $equipment = $equipmentConfig
-            ->createGameItem()
-            ->setHolder($player);
+        $equipment = $equipmentConfig->createGameItem($player);
         $I->haveInRepository($equipment);
 
         $equipmentEvent = new EquipmentEvent(
@@ -99,8 +96,7 @@ class EquipmentEventCest
         /** @var ItemConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'name' => 'item_name']);
 
-        $equipment = $equipmentConfig->createGameItem()
-            ->setHolder($player);
+        $equipment = $equipmentConfig->createGameItem($player);
         $I->haveInRepository($equipment);
 
         // Case of a game Item full inventory
@@ -138,11 +134,10 @@ class EquipmentEventCest
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 

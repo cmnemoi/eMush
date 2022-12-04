@@ -24,8 +24,6 @@ interface PlayerDiseaseServiceInterface
         int $delayLength = null
     ): ?PlayerDisease;
 
-    public function handleDiseaseForCause(string $cause, Player $player, int $delayMin = null, int $delayLength = null): void;
-
     public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void;
 
     public function healDisease(Player $author, PlayerDisease $playerDisease, string $reason, \DateTime $time): void;

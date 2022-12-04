@@ -9,6 +9,7 @@ use Mush\Action\Validator\EquipmentReachable;
 use Mush\Action\Validator\EquipmentReachableValidator;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -51,7 +52,7 @@ class EquipmentReachableValidatorTest extends TestCase
             ])
         ;
 
-        $collection = new ArrayCollection([new GameEquipment()]);
+        $collection = new ArrayCollection([new GameEquipment(new Place())]);
 
         $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn($collection);
 

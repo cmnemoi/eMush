@@ -43,6 +43,7 @@ class CycleEventCest
         // Cycle Increment
         $daedalus = new Daedalus();
         $time = new DateTime();
+        /** @var Player $player */
         $player = $I->have(Player::class);
 
         $statusConfig = new ChargeStatusConfig();
@@ -71,13 +72,23 @@ class CycleEventCest
 
     public function testFireStatusCycleSubscriber(FunctionalTester $I)
     {
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(StatusEnum::FIRE)
+            ->setModifierConfigs(new ArrayCollection([]))
+        ;
+        $I->haveInRepository($statusConfig);
+
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class, [
             'propagatingFireRate' => 100,
             'hullFireDamageRate' => 100, ]);
 
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig]);
+        $gameConfig = $I->have(GameConfig::class, [
+            'difficultyConfig' => $difficultyConfig,
+            'statusConfigs' => new ArrayCollection([$statusConfig]),
+        ]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
@@ -115,20 +126,11 @@ class CycleEventCest
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['isFireBreakable' => false, 'isFireDestroyable' => false, 'gameConfig' => $gameConfig]);
 
-        $statusConfig = new ChargeStatusConfig();
-        $statusConfig
-            ->setName(StatusEnum::FIRE)
-            ->setGameConfig($gameConfig)
-            ->setModifierConfigs(new ArrayCollection([]))
-        ;
-        $I->haveInRepository($statusConfig);
-
         $doorConfig
-            ->setGameConfig($daedalus->getGameConfig())
             ->setIsFireBreakable(false)
             ->setIsFireDestroyable(false);
 
-        $door = new Door();
+        $door = new Door($room);
         $door
              ->setName('door name')
              ->setEquipment($doorConfig)

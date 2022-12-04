@@ -40,6 +40,7 @@ class SymptomService implements SymptomServiceInterface
     private EventDispatcherInterface $eventDispatcher;
     private ModifierServiceInterface $modifierService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
+    private DiseaseCauseServiceInterface $diseaseCauseService;
     private PlayerServiceInterface $playerService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
@@ -50,6 +51,7 @@ class SymptomService implements SymptomServiceInterface
         EventDispatcherInterface $eventDispatcher,
         ModifierServiceInterface $modifierService,
         PlayerDiseaseServiceInterface $playerDiseaseService,
+        DiseaseCauseServiceInterface $diseaseCauseService,
         PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
@@ -59,6 +61,7 @@ class SymptomService implements SymptomServiceInterface
         $this->eventDispatcher = $eventDispatcher;
         $this->modifierService = $modifierService;
         $this->playerDiseaseService = $playerDiseaseService;
+        $this->diseaseCauseService = $diseaseCauseService;
         $this->playerService = $playerService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
@@ -355,7 +358,7 @@ class SymptomService implements SymptomServiceInterface
             $this->validator,
             $this->randomService,
             $this->modifierService,
-            $this->playerDiseaseService
+            $this->diseaseCauseService
         );
 
         $attackAction->loadParameters($attackActionEntity, $player, $victim);
@@ -393,7 +396,7 @@ class SymptomService implements SymptomServiceInterface
             $this->validator,
             $this->randomService,
             $this->modifierService,
-            $this->playerDiseaseService
+            $this->diseaseCauseService
         );
 
         $shootAction->loadParameters($shootActionEntity, $player, $victim);

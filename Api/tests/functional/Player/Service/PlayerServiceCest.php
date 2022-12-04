@@ -209,11 +209,10 @@ class PlayerServiceCest
 
         /** @var ItemConfig $item */
         $item = $I->have(ItemConfig::class);
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($player);
         $gameItem
             ->setName('item')
             ->setEquipment($item)
-            ->setHolder($player)
         ;
 
         $player->addEquipment($gameItem);

@@ -70,7 +70,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintEcholocator = new ItemConfig();
         $blueprintEcholocator
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ECHOLOCATOR . '_' . ItemEnum::BLUEPRINT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -90,7 +89,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintWhiteFlag = new ItemConfig();
         $blueprintWhiteFlag
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::WHITE_FLAG . '_' . ItemEnum::BLUEPRINT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -110,7 +108,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintThermosensor = new ItemConfig();
         $blueprintThermosensor
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::THERMOSENSOR . '_' . ItemEnum::BLUEPRINT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -130,7 +127,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintBabelModule = new ItemConfig();
         $blueprintBabelModule
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::BABEL_MODULE . '_' . ItemEnum::BLUEPRINT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -150,7 +146,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintGrenade = new ItemConfig();
         $blueprintGrenade
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::GRENADE . '_' . ItemEnum::BLUEPRINT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -170,7 +165,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintOldFaithful = new ItemConfig();
         $blueprintOldFaithful
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::OLD_FAITHFUL . '_' . ItemEnum::BLUEPRINT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -190,7 +184,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintLizaroJungle = new ItemConfig();
         $blueprintLizaroJungle
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::LIZARO_JUNGLE . '_' . ItemEnum::BLUEPRINT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -210,7 +203,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintRocketLauncher = new ItemConfig();
         $blueprintRocketLauncher
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ROCKET_LAUNCHER . '_' . ItemEnum::BLUEPRINT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -230,7 +222,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintExtinguisher = new ItemConfig();
         $blueprintExtinguisher
-            ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::EXTINGUISHER . '_' . ItemEnum::BLUEPRINT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -250,7 +241,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintOscilloscope = new ItemConfig();
         $blueprintOscilloscope
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::OSCILLOSCOPE . '_' . ItemEnum::BLUEPRINT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -270,7 +260,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $blueprintSniperHelmet = new ItemConfig();
         $blueprintSniperHelmet
-            ->setGameConfig($gameConfig)
             ->setName(GearItemEnum::SNIPER_HELMET . '_' . ItemEnum::BLUEPRINT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -280,6 +269,21 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($blueprintSniperHelmetMechanic);
         $manager->persist($blueprintSniperHelmet);
+
+        $gameConfig
+            ->addEquipmentConfig($blueprintEcholocator)
+            ->addEquipmentConfig($blueprintWhiteFlag)
+            ->addEquipmentConfig($blueprintBabelModule)
+            ->addEquipmentConfig($blueprintThermosensor)
+            ->addEquipmentConfig($blueprintGrenade)
+            ->addEquipmentConfig($blueprintOldFaithful)
+            ->addEquipmentConfig($blueprintLizaroJungle)
+            ->addEquipmentConfig($blueprintRocketLauncher)
+            ->addEquipmentConfig($blueprintExtinguisher)
+            ->addEquipmentConfig($blueprintOscilloscope)
+            ->addEquipmentConfig($blueprintSniperHelmet)
+        ;
+        $manager->persist($gameConfig);
 
         $manager->flush();
     }

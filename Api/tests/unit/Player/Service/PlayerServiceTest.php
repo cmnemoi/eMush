@@ -81,13 +81,6 @@ class PlayerServiceTest extends TestCase
     {
         $user = new User();
         $gameConfig = new GameConfig();
-        $gameConfig
-            ->setInitMovementPoint(0)
-            ->setInitActionPoint(1)
-            ->setInitSatiety(2)
-            ->setInitMoralPoint(3)
-            ->setInitHealthPoint(4)
-        ;
 
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
@@ -103,6 +96,11 @@ class PlayerServiceTest extends TestCase
             ->setName('character')
             ->setInitStatuses(new ArrayCollection([$statusConfig]))
             ->setSkills(['some skills'])
+            ->setInitMovementPoint(0)
+            ->setInitActionPoint(1)
+            ->setInitSatiety(2)
+            ->setInitMoralPoint(3)
+            ->setInitHealthPoint(4)
         ;
         $this->charactersConfigs->add($characterConfig);
 
@@ -127,11 +125,11 @@ class PlayerServiceTest extends TestCase
 
         $this->assertInstanceOf(Player::class, $player);
         $this->assertEquals('character', $player->getPlayerInfo()->getCharacterConfig()->getName());
-        $this->assertEquals($gameConfig->getInitActionPoint(), $player->getActionPoint());
-        $this->assertEquals($gameConfig->getInitMovementPoint(), $player->getMovementPoint());
-        $this->assertEquals($gameConfig->getInitHealthPoint(), $player->getHealthPoint());
-        $this->assertEquals($gameConfig->getInitMoralPoint(), $player->getMoralPoint());
-        $this->assertEquals($gameConfig->getInitSatiety(), $player->getSatiety());
+        $this->assertEquals($characterConfig->getInitActionPoint(), $player->getActionPoint());
+        $this->assertEquals($characterConfig->getInitMovementPoint(), $player->getMovementPoint());
+        $this->assertEquals($characterConfig->getInitHealthPoint(), $player->getHealthPoint());
+        $this->assertEquals($characterConfig->getInitMoralPoint(), $player->getMoralPoint());
+        $this->assertEquals($characterConfig->getInitSatiety(), $player->getSatiety());
         $this->assertCount(0, $player->getEquipments());
         $this->assertCount(0, $player->getSkills());
     }
@@ -140,8 +138,6 @@ class PlayerServiceTest extends TestCase
     {
         $room = new Place();
         $room->setType(PlaceTypeEnum::ROOM)->setName('randomRoom');
-
-        $gameItem = new GameItem();
 
         $daedalus = new Daedalus();
         $daedalus
@@ -156,9 +152,11 @@ class PlayerServiceTest extends TestCase
         $player = new Player();
         $player
             ->setDaedalus($daedalus)
-            ->addEquipment($gameItem)
             ->setPlace($room)
         ;
+
+        $gameItem = new GameItem($player);
+
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
         $player->setPlayerInfo($playerInfo);
 

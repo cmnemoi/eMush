@@ -7,7 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\DoTheThing;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Disease\Repository\DiseaseCausesConfigRepository;
+use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -17,8 +17,8 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class DoTheThingActionTest extends AbstractActionTest
 {
-    /* @var DiseaseCausesConfigRepository|Mockery\Mock */
-    private DiseaseCausesConfigRepository|Mockery\Mock $diseaseCausesConfigRepository;
+    /* @var DiseaseCauseServiceInterface|Mockery\Mock */
+    private DiseaseCauseServiceInterface|Mockery\Mock $diseaseCauseService;
     /* @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
     /* @var PlayerDiseaseServiceInterface|Mockery\Mock */
@@ -39,7 +39,7 @@ class DoTheThingActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::DO_THE_THING);
 
-        $this->diseaseCausesConfigRepository = Mockery::mock(DiseaseCausesConfigRepository::class);
+        $this->diseaseCauseService = Mockery::mock(DiseaseCauseServiceInterface::class);
         $this->statusService = Mockery::mock(StatusServiceInterface::class);
         $this->playerDiseaseService = Mockery::mock(PlayerDiseaseServiceInterface::class);
         $this->playerVariableService = Mockery::mock(PlayerVariableServiceInterface::class);
@@ -50,7 +50,7 @@ class DoTheThingActionTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->diseaseCausesConfigRepository,
+            $this->diseaseCauseService,
             $this->playerDiseaseService,
             $this->playerVariableService,
             $this->randomService,

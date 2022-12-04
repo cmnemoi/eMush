@@ -5,16 +5,20 @@ namespace Mush\Test\Disease\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Entity\PlayerDisease;
+use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Disease\Service\DiseaseCauseService;
 use Mush\Disease\Service\PlayerDiseaseService;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
@@ -60,15 +64,27 @@ class DiseaseCauseServiceTest extends TestCase
 
     public function testSpoiledFoodHazardous()
     {
+        $diseaseName = 'name';
+
+        $diseaseCauseConfig = new DiseaseCauseConfig();
+        $diseaseCauseConfig
+            ->setDiseases([$diseaseName => 1])
+            ->setName(DiseaseCauseEnum::PERISHED_FOOD)
+        ;
+
+        $gameConfig = new GameConfig();
+        $gameConfig->addDiseaseCauseConfig($diseaseCauseConfig);
+
         $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment(new Place());
 
         $this->playerDiseaseService
-            ->shouldReceive('handleDiseaseForCause')
+            ->shouldReceive('createDiseaseFromName')
             ->never()
         ;
 
@@ -92,8 +108,16 @@ class DiseaseCauseServiceTest extends TestCase
             ->once()
         ;
 
+        $this->randomService
+            ->shouldReceive('getSingleRandomElementFromProbaArray')
+            ->with([$diseaseName => 1])
+            ->andReturn($diseaseName)
+            ->once()
+        ;
+
         $this->playerDiseaseService
-            ->shouldReceive('handleDiseaseForCause')
+            ->shouldReceive('createDiseaseFromName')
+            ->with($diseaseName, $player, DiseaseCauseEnum::PERISHED_FOOD, null, null)
             ->once()
         ;
 
@@ -102,15 +126,27 @@ class DiseaseCauseServiceTest extends TestCase
 
     public function testSpoiledFoodDecomposing()
     {
+        $diseaseName = 'name';
+
+        $diseaseCauseConfig = new DiseaseCauseConfig();
+        $diseaseCauseConfig
+            ->setDiseases([$diseaseName => 1])
+            ->setName(DiseaseCauseEnum::PERISHED_FOOD)
+        ;
+
+        $gameConfig = new GameConfig();
+        $gameConfig->addDiseaseCauseConfig($diseaseCauseConfig);
+
         $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment(new Place());
 
         $this->playerDiseaseService
-            ->shouldReceive('handleDiseaseForCause')
+            ->shouldReceive('createDiseaseFromName')
             ->never()
         ;
 
@@ -134,8 +170,16 @@ class DiseaseCauseServiceTest extends TestCase
             ->once()
         ;
 
+        $this->randomService
+            ->shouldReceive('getSingleRandomElementFromProbaArray')
+            ->with([$diseaseName => 1])
+            ->andReturn($diseaseName)
+            ->once()
+        ;
+
         $this->playerDiseaseService
-            ->shouldReceive('handleDiseaseForCause')
+            ->shouldReceive('createDiseaseFromName')
+            ->with($diseaseName, $player, DiseaseCauseEnum::PERISHED_FOOD, null, null)
             ->once()
         ;
 
@@ -149,7 +193,7 @@ class DiseaseCauseServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment(new Place());
         $gameEquipment->setName('someName');
 
         $this->consumableDiseaseService
@@ -211,7 +255,7 @@ class DiseaseCauseServiceTest extends TestCase
         $player->setDaedalus($daedalus);
 
         $diseaseName = 'someName';
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment(new Place());
         $gameEquipment->setName($diseaseName);
 
         $this->consumableDiseaseService
@@ -264,5 +308,39 @@ class DiseaseCauseServiceTest extends TestCase
         ;
 
         $this->diseaseCauseService->handleConsumable($player, $gameEquipment);
+    }
+
+    public function testHandleDiseaseForCause()
+    {
+        $diseaseName = 'name';
+
+        $diseaseCauseConfig = new DiseaseCauseConfig();
+        $diseaseCauseConfig
+            ->setDiseases([$diseaseName => 1])
+            ->setName(DiseaseCauseEnum::PERISHED_FOOD)
+        ;
+
+        $gameConfig = new GameConfig();
+        $gameConfig->addDiseaseCauseConfig($diseaseCauseConfig);
+
+        $daedalus = new Daedalus();
+        $daedalus->setGameConfig($gameConfig);
+        $player = new Player();
+        $player->setDaedalus($daedalus);
+
+        $this->randomService
+            ->shouldReceive('getSingleRandomElementFromProbaArray')
+            ->with([$diseaseName => 1])
+            ->andReturn($diseaseName)
+            ->once()
+        ;
+
+        $this->playerDiseaseService
+            ->shouldReceive('createDiseaseFromName')
+            ->with($diseaseName, $player, DiseaseCauseEnum::PERISHED_FOOD, null, null)
+            ->once()
+        ;
+
+        $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::PERISHED_FOOD, $player);
     }
 }

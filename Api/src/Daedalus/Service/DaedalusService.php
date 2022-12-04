@@ -22,6 +22,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -210,7 +211,7 @@ class DaedalusService implements DaedalusServiceInterface
             $chancesArray[$characterConfig->getName()] = $mushChance;
         }
 
-        $mushNumber = $gameConfig->getNbMush();
+        $mushNumber = $gameConfig->getDaedalusConfig()->getNbMush();
 
         $mushPlayerName = $this->randomService->getRandomElementsFromProbaArray($chancesArray, $mushNumber);
         foreach ($mushPlayerName as $playerName) {
@@ -266,14 +267,22 @@ class DaedalusService implements DaedalusServiceInterface
     private function getRandomPlayersWithLessOxygen(Daedalus $daedalus): Player
     {
         $playersAlive = $daedalus->getPlayers()->getPlayerAlive();
-        for ($i = 0; $i <= $daedalus->getGameConfig()->getMaxItemInInventory(); ++$i) {
-            $players = $playersAlive->filter(fn (Player $player) => $this->getOxygenCapsuleCount($player) === $i);
-            if ($players && !$players->isEmpty()) {
-                return $this->randomService->getRandomPlayer($players);
+
+        $playersWithLessOxygen = new PlayerCollection();
+        $lessOxygenCount = 0;
+        foreach ($playersAlive as $player) {
+            $playerOxygenCount = $this->getOxygenCapsuleCount($player);
+            if ($playersWithLessOxygen->isEmpty()) {
+                $playersWithLessOxygen->add($player);
+                $lessOxygenCount = $playerOxygenCount;
+            } elseif ($playerOxygenCount === $lessOxygenCount) {
+                $playersWithLessOxygen->add($player);
+            } elseif ($playerOxygenCount < $lessOxygenCount) {
+                $playersWithLessOxygen = new PlayerCollection([$player]);
             }
         }
 
-        throw new \LogicException('this Daedalus is already empty');
+        return $this->randomService->getRandomPlayer($playersWithLessOxygen);
     }
 
     private function getOxygenCapsuleCount(Player $player): int

@@ -4,6 +4,7 @@ namespace functional\Daedalus\Event;
 
 use App\Tests\FunctionalTester;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -15,9 +16,9 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Enum\LanguageEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -36,10 +37,31 @@ class CycleEventCest
 
     public function testOxygenCycleSubscriber(FunctionalTester $I)
     {
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setName(DiseaseEnum::FOOD_POISONING)
+        ;
+        $I->haveInRepository($diseaseConfig);
+        $diseaseCause = new DiseaseCauseConfig();
+        $diseaseCause
+            ->setName(DiseaseCauseEnum::TRAUMA)
+            ->setDiseases([
+                DiseaseEnum::FOOD_POISONING => 2,
+            ])
+        ;
+        $I->haveInRepository($diseaseCause);
+
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
         /** @var DaedalusConfig $gameConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig, 'language' => LanguageEnum::FRENCH]);
+        $gameConfig = $I->have(GameConfig::class, [
+            'daedalusConfig' => $daedalusConfig,
+            'localizationConfig' => $localizationConfig,
+            'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
+            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
+        ]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
@@ -54,23 +76,6 @@ class CycleEventCest
             ->setScope(ChannelScopeEnum::PUBLIC)
         ;
         $I->haveInRepository($channel);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::FOOD_POISONING)
-        ;
-        $I->haveInRepository($diseaseConfig);
-
-        $diseaseCause = new DiseaseCauseConfig();
-        $diseaseCause
-            ->setName(DiseaseCauseEnum::TRAUMA)
-            ->setDiseases([
-               DiseaseEnum::FOOD_POISONING => 2,
-            ])
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($diseaseCause);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);

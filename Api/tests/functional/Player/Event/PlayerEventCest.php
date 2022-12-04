@@ -3,6 +3,7 @@
 namespace functional\Player\Event;
 
 use App\Tests\FunctionalTester;
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -13,8 +14,8 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -41,8 +42,10 @@ class PlayerEventCest
 
     public function testDispatchPlayerDeath(FunctionalTester $I)
     {
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['language' => LanguageEnum::FRENCH]);
+        $gameConfig = $I->have(GameConfig::class, ['localizationConfig' => $localizationConfig]);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -101,8 +104,40 @@ class PlayerEventCest
 
     public function testDispatchInfection(FunctionalTester $I)
     {
+        $mushStatusConfig = new ChargeStatusConfig();
+        $mushStatusConfig
+            ->setName(PlayerStatusEnum::MUSH)
+        ;
+        $I->haveInRepository($mushStatusConfig);
+
+        $sporeConfig = new ChargeStatusConfig();
+        $sporeConfig->setName(PlayerStatusEnum::SPORES)->setVisibility(VisibilityEnum::MUSH);
+        $I->haveInRepository($sporeConfig);
+
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setName(DiseaseEnum::FUNGIC_INFECTION)
+        ;
+        $I->haveInRepository($diseaseConfig);
+
+        $diseaseCause = new DiseaseCauseConfig();
+        $diseaseCause
+            ->setName(DiseaseCauseEnum::INFECTION)
+            ->setDiseases([
+                DiseaseEnum::FUNGIC_INFECTION => 1,
+            ])
+        ;
+        $I->haveInRepository($diseaseCause);
+
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, [
+            'statusConfigs' => new ArrayCollection([$mushStatusConfig, $sporeConfig]),
+            'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
+            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
+            'localizationConfig' => $localizationConfig,
+        ]);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -122,38 +157,12 @@ class PlayerEventCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $mushStatusConfig = new ChargeStatusConfig();
-        $mushStatusConfig
-            ->setName(PlayerStatusEnum::MUSH)
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($mushStatusConfig);
-
-        $sporeConfig = new ChargeStatusConfig();
-        $sporeConfig->setName(PlayerStatusEnum::SPORES)->setVisibility(VisibilityEnum::MUSH);
         $I->haveInRepository($sporeConfig);
         $sporeStatus = new ChargeStatus($player, $sporeConfig);
         $sporeStatus
             ->setCharge(0)
         ;
         $I->haveInRepository($sporeStatus);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::FUNGIC_INFECTION)
-        ;
-        $I->haveInRepository($diseaseConfig);
-
-        $diseaseCause = new DiseaseCauseConfig();
-        $diseaseCause
-            ->setName(DiseaseCauseEnum::INFECTION)
-            ->setDiseases([
-                DiseaseEnum::FUNGIC_INFECTION => 1,
-            ])
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($diseaseCause);
 
         $playerEvent = new PlayerEvent($player, ActionEnum::INFECT, new \DateTime());
 
@@ -177,8 +186,19 @@ class PlayerEventCest
 
     public function testDispatchConversion(FunctionalTester $I)
     {
+        $mushStatusConfig = new ChargeStatusConfig();
+        $mushStatusConfig
+            ->setName(PlayerStatusEnum::MUSH)
+        ;
+        $I->haveInRepository($mushStatusConfig);
+
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, [
+            'localizationConfig' => $localizationConfig,
+            'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
+        ]);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -201,13 +221,6 @@ class PlayerEventCest
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
-
-        $mushStatusConfig = new ChargeStatusConfig();
-        $mushStatusConfig
-            ->setName(PlayerStatusEnum::MUSH)
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($mushStatusConfig);
 
         $sporeConfig = new ChargeStatusConfig();
         $sporeConfig->setName(PlayerStatusEnum::SPORES)->setVisibility(VisibilityEnum::MUSH);

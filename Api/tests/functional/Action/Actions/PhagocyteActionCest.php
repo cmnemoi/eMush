@@ -79,7 +79,7 @@ class PhagocyteActionCest
         $mushConfig
             ->setName(PlayerStatusEnum::MUSH)
             ->setVisibility(VisibilityEnum::MUSH)
-            ->setGameConfig($gameConfig);
+        ;
         $I->haveInRepository($mushConfig);
 
         $mushStatus = new Status($player, $mushConfig);
@@ -90,7 +90,7 @@ class PhagocyteActionCest
             ->setName(PlayerStatusEnum::SPORES)
             ->setVisibility(VisibilityEnum::MUSH)
             ->setChargeVisibility(VisibilityEnum::MUSH)
-            ->setGameConfig($gameConfig);
+        ;
         $I->haveInRepository($sporeStatusConfig);
 
         $sporeStatus = new ChargeStatus($player, $sporeStatusConfig);

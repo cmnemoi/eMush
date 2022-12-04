@@ -87,8 +87,8 @@ class ReachValidatorTest extends TestCase
         $player->setPlace($room);
 
         $targetConfig = new ItemConfig();
-        $target = new GameItem();
-        $target->setHolder($room)->setEquipment($targetConfig);
+        $target = new GameItem($room);
+        $target->setEquipment($targetConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -149,8 +149,8 @@ class ReachValidatorTest extends TestCase
         $player->setPlace(new Place());
 
         $itemConfig = new ItemConfig();
-        $target = new GameItem();
-        $target->setHolder(new Place())->setEquipment($itemConfig);
+        $target = new GameItem(new Place());
+        $target->setEquipment($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -175,7 +175,7 @@ class ReachValidatorTest extends TestCase
     {
         $this->constraint->reach = ReachEnum::INVENTORY;
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem(new Place());
 
         $player = new Player();
         $player->addEquipment($gameItem);
@@ -198,7 +198,7 @@ class ReachValidatorTest extends TestCase
     {
         $this->constraint->reach = ReachEnum::INVENTORY;
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem(new Place());
 
         $player = new Player();
 
@@ -225,8 +225,7 @@ class ReachValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
 
-        $gameItem = new GameItem();
-        $gameItem->setHolder($room);
+        $gameItem = new GameItem($room);
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -251,8 +250,7 @@ class ReachValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
 
-        $gameItem = new GameItem();
-        $gameItem->setHolder(new Place());
+        $gameItem = new GameItem(new Place());
 
         $action = Mockery::mock(AbstractAction::class);
         $action

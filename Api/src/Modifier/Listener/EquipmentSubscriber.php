@@ -50,16 +50,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $equipment = $event->getEquipment();
         $holder = $equipment->getHolder();
 
-        if ($holder === null) {
-            throw new \LogicException('should have an holder on item overflow');
-        }
-
-        $gameConfig = $holder->getPlace()->getDaedalus()->getGameConfig();
-
         if (
             $equipment instanceof GameItem &&
             $holder instanceof Player &&
-            $holder->getEquipments()->count() > $gameConfig->getMaxItemInInventory()
+            $holder->getEquipments()->count() > $holder->getPlayerInfo()->getCharacterConfig()->getMaxItemInInventory()
         ) {
             $this->gearModifierService->dropEquipment($equipment, $holder);
         }

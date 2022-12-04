@@ -25,7 +25,6 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Enum\StatusEnum;
 use Mush\User\Entity\User;
 
 class PublicBroadcastActionCest
@@ -39,13 +38,6 @@ class PublicBroadcastActionCest
 
     public function testPublicBroadcast(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
-
         $watchedPublicBroadcastStatus = new ChargeStatusConfig();
         $watchedPublicBroadcastStatus
             ->setName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST)
@@ -53,10 +45,15 @@ class PublicBroadcastActionCest
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::NONE)
             ->setStartCharge(1)
-            ->setGameConfig($gameConfig)
         ;
-
         $I->haveInRepository($watchedPublicBroadcastStatus);
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$watchedPublicBroadcastStatus])]);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
 
         $actionCost = new ActionCost();
         $actionCost
@@ -74,26 +71,16 @@ class PublicBroadcastActionCest
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class);
         $itemConfig
-            ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
             ->setActions(new ArrayCollection([$action]))
         ;
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $gameItem
             ->setName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
             ->setEquipment($itemConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameItem);
-
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
-            ->setGameConfig($gameConfig)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-        ;
-        $I->haveInRepository($attemptConfig);
 
         /** @var CharacterConfig $player1Config */
         $player1Config = $I->have(CharacterConfig::class, [
@@ -153,13 +140,6 @@ class PublicBroadcastActionCest
 
     public function testPublicBroadcastAlreadyWatched(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
-
         $watchedPublicBroadcastStatus = new ChargeStatusConfig();
         $watchedPublicBroadcastStatus
             ->setName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST)
@@ -167,10 +147,15 @@ class PublicBroadcastActionCest
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::NONE)
             ->setStartCharge(1)
-            ->setGameConfig($gameConfig)
         ;
-
         $I->haveInRepository($watchedPublicBroadcastStatus);
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$watchedPublicBroadcastStatus])]);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
 
         $actionCost = new ActionCost();
         $actionCost
@@ -188,26 +173,16 @@ class PublicBroadcastActionCest
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class);
         $itemConfig
-            ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
             ->setActions(new ArrayCollection([$action]))
         ;
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $gameItem
             ->setName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
             ->setEquipment($itemConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameItem);
-
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
-            ->setGameConfig($gameConfig)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-        ;
-        $I->haveInRepository($attemptConfig);
 
         /** @var CharacterConfig $player1Config */
         $player1Config = $I->have(CharacterConfig::class, [

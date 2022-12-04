@@ -47,14 +47,13 @@ class GetUpActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $gameItem = new GameEquipment();
+        $gameItem = new GameEquipment($room);
         $item = new EquipmentConfig();
         $item
             ->setName(EquipmentEnum::BED)
         ;
         $gameItem
             ->setEquipment($item)
-            ->setHolder($room)
             ->setName(EquipmentEnum::BED)
         ;
 

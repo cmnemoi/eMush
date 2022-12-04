@@ -41,7 +41,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 $this->alertService->handleEquipmentBreak($holder);
 
                 if ($holder->getName() === EquipmentEnum::GRAVITY_SIMULATOR) {
-                    $this->alertService->gravityAlert($holder->getPlace()->getDaedalus(), true);
+                    $this->alertService->gravityAlert($holder->getDaedalus(), true);
                 }
 
                 return;
@@ -65,7 +65,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 $this->alertService->handleEquipmentRepair($holder);
 
                 if ($holder->getName() === EquipmentEnum::GRAVITY_SIMULATOR) {
-                    $this->alertService->gravityAlert($holder->getPlace()->getDaedalus(), false);
+                    $this->alertService->gravityAlert($holder->getDaedalus(), false);
                 }
 
                 return;

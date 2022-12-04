@@ -52,12 +52,11 @@ class SabotageActionTest extends AbstractActionTest
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $item->setIsBreakable(true);
         $gameItem
             ->setEquipment($item)
-            ->setHolder($room)
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);

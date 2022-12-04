@@ -7,11 +7,15 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
+use Mush\Disease\Entity\Config\DiseaseCauseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Game\Entity\Collection\TriumphConfigCollection;
 use Mush\Game\Repository\GameConfigRepository;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Config\CharacterConfigCollection;
+use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity(repositoryClass: GameConfigRepository::class)]
 #[ORM\Table(name: 'config_game')]
@@ -24,77 +28,48 @@ class GameConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    #[ORM\OneToOne(mappedBy: 'gameConfig', targetEntity: DaedalusConfig::class)]
+    #[ORM\ManyToOne(targetEntity: DaedalusConfig::class)]
     private DaedalusConfig $daedalusConfig;
 
-    #[ORM\OneToMany(mappedBy: 'gameConfig', targetEntity: CharacterConfig::class)]
+    #[ORM\ManyToMany(targetEntity: CharacterConfig::class)]
     private Collection $charactersConfig;
 
-    #[ORM\OneToMany(mappedBy: 'gameConfig', targetEntity: EquipmentConfig::class)]
+    #[ORM\ManyToMany(targetEntity: EquipmentConfig::class)]
     private Collection $equipmentsConfig;
 
-    #[ORM\OneToMany(mappedBy: 'gameConfig', targetEntity: TriumphConfig::class)]
+    #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
+    private Collection $statusConfigs;
+
+    #[ORM\ManyToMany(targetEntity: TriumphConfig::class)]
     private Collection $triumphConfig;
 
-    #[ORM\OneToOne(mappedBy: 'gameConfig', targetEntity: DifficultyConfig::class)]
+    #[ORM\ManyToMany(targetEntity: DiseaseCauseConfig::class)]
+    private Collection $diseaseCauseConfig;
+
+    #[ORM\ManyToMany(targetEntity: DiseaseConfig::class)]
+    private Collection $diseaseConfig;
+
+    #[ORM\ManyToMany(targetEntity: ConsumableDiseaseConfig::class)]
+    private Collection $consumableDiseaseConfig;
+
+    #[ORM\ManyToOne(targetEntity: DifficultyConfig::class)]
     private DifficultyConfig $difficultyConfig;
+
+    #[ORM\ManyToOne(targetEntity: LocalizationConfig::class)]
+    private LocalizationConfig $localizationConfig;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $name;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $nbMush = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $cyclePerGameDay = 8;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $cycleLength = 0; // in m
-
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
-    private string $timeZone;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
-    private string $language;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $maxNumberPrivateChannel = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $initHealthPoint = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $maxHealthPoint = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $initMoralPoint = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $maxMoralPoint = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $initSatiety = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $initActionPoint = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $maxActionPoint = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $initMovementPoint = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $maxMovementPoint = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $maxItemInInventory = 0;
 
     public function __construct()
     {
         $this->charactersConfig = new ArrayCollection();
         $this->equipmentsConfig = new ArrayCollection();
         $this->triumphConfig = new ArrayCollection();
+        $this->diseaseCauseConfig = new ArrayCollection();
+        $this->diseaseConfig = new ArrayCollection();
+        $this->consumableDiseaseConfig = new ArrayCollection();
+        $this->statusConfigs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,6 +101,13 @@ class GameConfig
         return $this;
     }
 
+    public function addCharactersConfig(CharacterConfig $charactersConfig): static
+    {
+        $this->charactersConfig->add($charactersConfig);
+
+        return $this;
+    }
+
     public function getTriumphConfig(): TriumphConfigCollection
     {
         return new TriumphConfigCollection($this->triumphConfig->toArray());
@@ -134,6 +116,13 @@ class GameConfig
     public function setTriumphConfig(Collection $triumphConfig): self
     {
         $this->triumphConfig = $triumphConfig;
+
+        return $this;
+    }
+
+    public function addTriumphConfig(TriumphConfig $triumphConfig): self
+    {
+        $this->triumphConfig->add($triumphConfig);
 
         return $this;
     }
@@ -150,6 +139,70 @@ class GameConfig
         return $this;
     }
 
+    public function addEquipmentConfig(EquipmentConfig $equipmentsConfig): static
+    {
+        $this->equipmentsConfig->add($equipmentsConfig);
+
+        return $this;
+    }
+
+    public function getDiseaseCauseConfig(): Collection
+    {
+        return $this->diseaseCauseConfig;
+    }
+
+    public function setDiseaseCauseConfig(Collection $diseaseCauseConfig): static
+    {
+        $this->diseaseCauseConfig = $diseaseCauseConfig;
+
+        return $this;
+    }
+
+    public function addDiseaseCauseConfig(DiseaseCauseConfig $diseaseCauseConfig): static
+    {
+        $this->diseaseCauseConfig->add($diseaseCauseConfig);
+
+        return $this;
+    }
+
+    public function getDiseaseConfig(): Collection
+    {
+        return $this->diseaseConfig;
+    }
+
+    public function setDiseaseConfig(Collection $diseaseConfig): static
+    {
+        $this->diseaseConfig = $diseaseConfig;
+
+        return $this;
+    }
+
+    public function addDiseaseConfig(DiseaseConfig $diseaseConfig): static
+    {
+        $this->diseaseConfig->add($diseaseConfig);
+
+        return $this;
+    }
+
+    public function getConsumableDiseaseConfig(): Collection
+    {
+        return $this->consumableDiseaseConfig;
+    }
+
+    public function setConsumableDiseaseConfig(Collection $consumableDiseaseConfig): static
+    {
+        $this->consumableDiseaseConfig = $consumableDiseaseConfig;
+
+        return $this;
+    }
+
+    public function addConsumableDiseaseConfig(ConsumableDiseaseConfig $consumableDiseaseConfig): static
+    {
+        $this->consumableDiseaseConfig->add($consumableDiseaseConfig);
+
+        return $this;
+    }
+
     public function getDifficultyConfig(): DifficultyConfig
     {
         return $this->difficultyConfig;
@@ -158,6 +211,25 @@ class GameConfig
     public function setDifficultyConfig(DifficultyConfig $difficultyConfig): static
     {
         $this->difficultyConfig = $difficultyConfig;
+
+        return $this;
+    }
+
+    public function addStatusConfig(StatusConfig $statusConfig): static
+    {
+        $this->statusConfigs->add($statusConfig);
+
+        return $this;
+    }
+
+    public function getStatusConfigs(): Collection
+    {
+        return $this->statusConfigs;
+    }
+
+    public function setStatusConfigs(Collection $statusConfigs): static
+    {
+        $this->statusConfigs = $statusConfigs;
 
         return $this;
     }
@@ -179,195 +251,25 @@ class GameConfig
         return $this->charactersConfig->count();
     }
 
-    public function getNbMush(): int
+    public function setLocalizationConfig(LocalizationConfig $localizationConfig): self
     {
-        return $this->nbMush;
-    }
-
-    public function setNbMush(int $nbMush): static
-    {
-        $this->nbMush = $nbMush;
+        $this->localizationConfig = $localizationConfig;
 
         return $this;
     }
 
-    public function getCyclePerGameDay(): int
+    public function getLocalizationConfig(): LocalizationConfig
     {
-        return $this->cyclePerGameDay;
-    }
-
-    public function setCyclePerGameDay(int $cyclePerGameDay): static
-    {
-        $this->cyclePerGameDay = $cyclePerGameDay;
-
-        return $this;
-    }
-
-    public function getCycleLength(): int
-    {
-        return $this->cycleLength;
-    }
-
-    public function setCycleLength(int $cycleLength): static
-    {
-        $this->cycleLength = $cycleLength;
-
-        return $this;
+        return $this->localizationConfig;
     }
 
     public function getTimeZone(): string
     {
-        return $this->timeZone;
-    }
-
-    public function setTimeZone(string $timeZone): static
-    {
-        $this->timeZone = $timeZone;
-
-        return $this;
-    }
-
-    public function getMaxNumberPrivateChannel(): int
-    {
-        return $this->maxNumberPrivateChannel;
-    }
-
-    public function setMaxNumberPrivateChannel(int $maxNumberPrivateChannel): static
-    {
-        $this->maxNumberPrivateChannel = $maxNumberPrivateChannel;
-
-        return $this;
+        return $this->localizationConfig->getTimeZone();
     }
 
     public function getLanguage(): string
     {
-        return $this->language;
-    }
-
-    public function setLanguage(string $language): static
-    {
-        $this->language = $language;
-
-        return $this;
-    }
-
-    public function getInitHealthPoint(): int
-    {
-        return $this->initHealthPoint;
-    }
-
-    public function setInitHealthPoint(int $initHealthPoint): static
-    {
-        $this->initHealthPoint = $initHealthPoint;
-
-        return $this;
-    }
-
-    public function getMaxHealthPoint(): int
-    {
-        return $this->maxHealthPoint;
-    }
-
-    public function setMaxHealthPoint(int $maxHealthPoint): static
-    {
-        $this->maxHealthPoint = $maxHealthPoint;
-
-        return $this;
-    }
-
-    public function getInitMoralPoint(): int
-    {
-        return $this->initMoralPoint;
-    }
-
-    public function setInitMoralPoint(int $initMoralPoint): static
-    {
-        $this->initMoralPoint = $initMoralPoint;
-
-        return $this;
-    }
-
-    public function getMaxMoralPoint(): int
-    {
-        return $this->maxMoralPoint;
-    }
-
-    public function setMaxMoralPoint(int $maxMoralPoint): static
-    {
-        $this->maxMoralPoint = $maxMoralPoint;
-
-        return $this;
-    }
-
-    public function getInitSatiety(): int
-    {
-        return $this->initSatiety;
-    }
-
-    public function setInitSatiety(int $initSatiety): static
-    {
-        $this->initSatiety = $initSatiety;
-
-        return $this;
-    }
-
-    public function getInitActionPoint(): int
-    {
-        return $this->initActionPoint;
-    }
-
-    public function setInitActionPoint(int $initActionPoint): static
-    {
-        $this->initActionPoint = $initActionPoint;
-
-        return $this;
-    }
-
-    public function getMaxActionPoint(): int
-    {
-        return $this->maxActionPoint;
-    }
-
-    public function setMaxActionPoint(int $maxActionPoint): static
-    {
-        $this->maxActionPoint = $maxActionPoint;
-
-        return $this;
-    }
-
-    public function getInitMovementPoint(): int
-    {
-        return $this->initMovementPoint;
-    }
-
-    public function setInitMovementPoint(int $initMovementPoint): static
-    {
-        $this->initMovementPoint = $initMovementPoint;
-
-        return $this;
-    }
-
-    public function getMaxMovementPoint(): int
-    {
-        return $this->maxMovementPoint;
-    }
-
-    public function setMaxMovementPoint(int $maxMovementPoint): static
-    {
-        $this->maxMovementPoint = $maxMovementPoint;
-
-        return $this;
-    }
-
-    public function getMaxItemInInventory(): int
-    {
-        return $this->maxItemInInventory;
-    }
-
-    public function setMaxItemInInventory(int $maxItemInInventory): static
-    {
-        $this->maxItemInInventory = $maxItemInInventory;
-
-        return $this;
+        return $this->localizationConfig->getLanguage();
     }
 }

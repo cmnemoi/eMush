@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -97,20 +98,16 @@ class ConsumeActionCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$ration]),
-            'place' => $room,
-            'name' => 'ration',
+            'name' => GameRationEnum::STANDARD_RATION,
         ]);
-
-        $equipmentConfig
-            ->setMechanics(new ArrayCollection([$ration]))
-            ->setName('ration')
-        ;
 
         $I->haveInRepository($equipmentConfig);
 
-        $gameItem = new GameItem();
+        $gameConfig->addEquipmentConfig($equipmentConfig);
+        $I->refreshEntities($gameConfig);
+
+        $gameItem = new GameItem($room);
         $gameItem
-            ->setHolder($room)
             ->setEquipment($equipmentConfig)
             ->setName('ration')
         ;
@@ -203,9 +200,8 @@ class ConsumeActionCest
 
         $I->haveInRepository($equipmentConfig);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $gameItem
-            ->setHolder($room)
             ->setEquipment($equipmentConfig)
             ->setName('ration')
         ;
@@ -227,8 +223,21 @@ class ConsumeActionCest
 
     public function testMushConsume(FunctionalTester $I)
     {
+        $mushConfig = new StatusConfig();
+        $mushConfig
+            ->setName(PlayerStatusEnum::MUSH)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+        ;
+        $I->haveInRepository($mushConfig);
+
+        $fullStomach = new StatusConfig();
+        $fullStomach
+            ->setName(PlayerStatusEnum::FULL_STOMACH)
+        ;
+        $I->haveInRepository($fullStomach);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$mushConfig, $fullStomach])]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
         /** @var Place $room */
@@ -253,13 +262,6 @@ class ConsumeActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $mushConfig = new StatusConfig();
-        $mushConfig
-            ->setName(PlayerStatusEnum::MUSH)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($mushConfig);
         $mushStatus = new Status($player, $mushConfig);
         $I->haveInRepository($mushStatus);
 
@@ -290,13 +292,6 @@ class ConsumeActionCest
         ;
         $I->haveInRepository($effect);
 
-        $statusDirty = new StatusConfig();
-        $statusDirty
-            ->setName(PlayerStatusEnum::FULL_STOMACH)
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($statusDirty);
-
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$ration]),
@@ -311,9 +306,8 @@ class ConsumeActionCest
 
         $I->haveInRepository($equipmentConfig);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $gameItem
-            ->setHolder($room)
             ->setEquipment($equipmentConfig)
             ->setName('ration')
         ;

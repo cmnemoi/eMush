@@ -57,21 +57,21 @@ class BuildActionTest extends AbstractActionTest
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $item->setName('blueprint');
         $gameItem
             ->setEquipment($item)
-            ->setHolder($room)
             ->setName('blueprint')
         ;
 
         $product = new ItemConfig();
         $product->setName('product');
-        $gameProduct = new GameItem();
+        $gameProduct = new GameItem(new Place());
         $gameProduct
             ->setEquipment($product)
-            ->setName('product');
+            ->setName('product')
+        ;
 
         $blueprint = new Blueprint();
         $blueprint
@@ -79,12 +79,11 @@ class BuildActionTest extends AbstractActionTest
             ->setEquipment($product);
         $item->setMechanics(new ArrayCollection([$blueprint]));
 
-        $gameIngredient = new GameItem();
+        $gameIngredient = new GameItem($room);
         $ingredient = new ItemConfig();
         $ingredient->setName('metal_scraps');
         $gameIngredient
             ->setEquipment($ingredient)
-            ->setHolder($room)
             ->setName('metal_scraps')
         ;
 

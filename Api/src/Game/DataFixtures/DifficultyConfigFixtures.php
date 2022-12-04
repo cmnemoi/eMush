@@ -18,7 +18,6 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
         $difficultyConfig = new DifficultyConfig();
 
         $difficultyConfig
-            ->setGameConfig($gameConfig)
             ->setEquipmentBreakRate(30)
             ->setDoorBreakRate(40)
             ->setEquipmentFireBreakRate(30)
@@ -40,6 +39,9 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
         ;
 
         $manager->persist($difficultyConfig);
+
+        $gameConfig->setDifficultyConfig($difficultyConfig);
+        $manager->persist($gameConfig);
 
         $manager->flush();
     }

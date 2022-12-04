@@ -3,7 +3,6 @@ import { GameConfig } from "@/entities/Config/GameConfig";
 export class DaedalusConfig {
     public iri: string|null;
     public id: number|null;
-    public gameConfig: GameConfig|null;
     public initOxygen: number|null;
     public initFuel: number|null;
     public initHull: number|null;
@@ -14,11 +13,11 @@ export class DaedalusConfig {
     public maxOxygen: number|null;
     public maxFuel: number|null;
     public maxHull: number|null;
+    public nbMush: number|null;
 
     constructor() {
         this.iri = null;
         this.id = null;
-        this.gameConfig = null;
         this.initOxygen = null;
         this.initFuel = null;
         this.initHull = null;
@@ -29,12 +28,12 @@ export class DaedalusConfig {
         this.maxOxygen = null;
         this.maxFuel = null;
         this.maxHull = null;
+        this.nbMush = null;
     }
     load(object:any) : DaedalusConfig {
         if (typeof object !== "undefined") {
             this.iri = object.iri;
             this.id = object.id;
-            this.gameConfig = object.gameConfig;
             this.initOxygen = object.initOxygen;
             this.initFuel = object.initFuel;
             this.initHull = object.initHull;
@@ -45,13 +44,13 @@ export class DaedalusConfig {
             this.maxOxygen = object.maxOxygen;
             this.maxFuel = object.maxFuel;
             this.maxHull = object.maxHull;
+            this.nbMush = object.nbMush;
         }
         return this;
     }
     jsonEncode() : object {
         return {
             'id': this.id,
-            'gameConfig': this.gameConfig?.iri,
             'initOxygen': this.initOxygen,
             'initFuel': this.initFuel,
             'initHull': this.initHull,
@@ -61,7 +60,8 @@ export class DaedalusConfig {
             'dailySporeNb': this.dailySporeNb,
             'maxOxygen': this.maxOxygen,
             'maxFuel': this.maxFuel,
-            'maxHull': this.maxHull
+            'maxHull': this.maxHull,
+            'nbMush': this.nbMush
         };
     }
     decode(jsonString : string): DaedalusConfig {
@@ -69,7 +69,6 @@ export class DaedalusConfig {
             const object = JSON.parse(jsonString);
             this.iri = object.iri;
             this.id = object.id;
-            this.gameConfig = object.gameConfig;
             this.initOxygen = object.initOxygen;
             this.initFuel = object.initFuel;
             this.initHull = object.initHull;
@@ -80,6 +79,7 @@ export class DaedalusConfig {
             this.maxOxygen = object.maxOxygen;
             this.maxFuel = object.maxFuel;
             this.maxHull = object.maxHull;
+            this.nbMush = object.nbMush;
         }
 
         return this;

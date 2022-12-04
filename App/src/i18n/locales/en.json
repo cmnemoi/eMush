@@ -131,7 +131,22 @@
 		"show": "Show",
 		"search": "Search",
 		"edit": "Edit",
-		"updatedAt": "Updated at"
+		"updatedAt": "Updated at",
+		"daedalusConfig": {
+			"name": "Name",
+			"initOxygen": "Initial Oxygen",
+			"initFuel": "Initial Fuel",
+			"initHull": "Initial Hull",
+			"initShield": "Initial Shield",
+			"dailySporeNb": "Daily amount of Spores",
+			"maxOxygen": "Maximal Oxygen",
+			"maxFuel": "Maximal Fuel",
+			"maxHull": "Maximal Armor",
+			"maxShield": "Maximal Shield",
+			"nbMush": "Initial number of Mushs",
+			"cyclePerGameDay": "Number of cycles per day",
+			"cycleLength": "Cycle length (in minutes)"
+		}
 	},
 	"charselection": {
 		"findShip": "Find a ship:",

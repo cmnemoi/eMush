@@ -39,6 +39,7 @@ class DaedalusFactory extends \Codeception\Module
             'cycleDiseaseRate' => 0,
         ]);
         $factory->_define(DaedalusConfig::class, [
+            'name' => 'testDaedalusConfig',
             'maxOxygen' => 32,
             'maxFuel' => 32,
             'maxHull' => 100,
@@ -53,7 +54,7 @@ class DaedalusFactory extends \Codeception\Module
         ]);
 
         $factory->_define(GameConfig::class, [
-            'name' => 'default',
+            'name' => 'testGameConfig',
             'difficultyConfig' => 'entity|' . DifficultyConfig::class,
             'daedalusConfig' => 'entity|' . DaedalusConfig::class,
         ]);

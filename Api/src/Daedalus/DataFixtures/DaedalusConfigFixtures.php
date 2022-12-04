@@ -31,6 +31,7 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
         $daedalusConfig = new DaedalusConfig();
 
         $daedalusConfig
+            ->setName('default')
             ->setInitOxygen(32)
             ->setInitFuel(20)
             ->setInitHull(100)

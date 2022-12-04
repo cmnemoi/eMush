@@ -10,6 +10,8 @@ import ActionCostListPage from "@/components/Admin/Config/ActionCost/ActionCostL
 import ActionCostDetailPage from "@/components/Admin/Config/ActionCost/ActionCostDetailPage.vue";
 import ActionConfigListPage from "@/components/Admin/Config/ActionConfig/ActionConfigListPage.vue";
 import ActionConfigDetailPage from "@/components/Admin/Config/ActionConfig/ActionConfigDetailPage.vue";
+import DaedalusConfigListPage from "@/components/Admin/Config/DaedalusConfig/DaedalusConfigListPage.vue";
+import DaedalusConfigDetailPage from "@/components/Admin/Config/DaedalusConfig/DaedalusConfigDetailPage.vue";
 
 export const adminConfigRoutes = [
     {
@@ -71,5 +73,15 @@ export const adminConfigRoutes = [
         name: "AdminActionConfigDetail",
         path: 'action-config/:actionConfigId',
         component: ActionConfigDetailPage
+    },
+    {
+        name: "AdminDaedalusConfigList",
+        path: 'daedalus-config-list',
+        component: DaedalusConfigListPage
+    },
+    {
+        name: "AdminDaedalusConfigDetail",
+        path: 'daedalus-config/:daedalusConfigId',
+        component: DaedalusConfigDetailPage
     }
 ];

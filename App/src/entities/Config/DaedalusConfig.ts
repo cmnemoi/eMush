@@ -3,6 +3,7 @@ import { GameConfig } from "@/entities/Config/GameConfig";
 export class DaedalusConfig {
     public iri: string|null;
     public id: number|null;
+    public name: string|null;
     public initOxygen: number|null;
     public initFuel: number|null;
     public initHull: number|null;
@@ -13,11 +14,15 @@ export class DaedalusConfig {
     public maxOxygen: number|null;
     public maxFuel: number|null;
     public maxHull: number|null;
+    public maxShield: number|null;
     public nbMush: number|null;
+    public cyclePerGameDay: number|null;
+    public cycleLength: number|null;
 
     constructor() {
         this.iri = null;
         this.id = null;
+        this.name = null;
         this.initOxygen = null;
         this.initFuel = null;
         this.initHull = null;
@@ -28,12 +33,16 @@ export class DaedalusConfig {
         this.maxOxygen = null;
         this.maxFuel = null;
         this.maxHull = null;
+        this.maxShield = null;
         this.nbMush = null;
+        this.cyclePerGameDay = null;
+        this.cycleLength = null;
     }
     load(object:any) : DaedalusConfig {
         if (typeof object !== "undefined") {
             this.iri = object.iri;
             this.id = object.id;
+            this.name = object.name;
             this.initOxygen = object.initOxygen;
             this.initFuel = object.initFuel;
             this.initHull = object.initHull;
@@ -44,13 +53,17 @@ export class DaedalusConfig {
             this.maxOxygen = object.maxOxygen;
             this.maxFuel = object.maxFuel;
             this.maxHull = object.maxHull;
+            this.maxShield = object.maxShield;
             this.nbMush = object.nbMush;
+            this.cyclePerGameDay = object.cyclePerGameDay;
+            this.cycleLength = object.cycleLength;
         }
         return this;
     }
     jsonEncode() : object {
         return {
             'id': this.id,
+            'name': this.name,
             'initOxygen': this.initOxygen,
             'initFuel': this.initFuel,
             'initHull': this.initHull,
@@ -61,7 +74,10 @@ export class DaedalusConfig {
             'maxOxygen': this.maxOxygen,
             'maxFuel': this.maxFuel,
             'maxHull': this.maxHull,
-            'nbMush': this.nbMush
+            'maxShield': this.maxShield,
+            'nbMush': this.nbMush,
+            'cyclePerGameDay': this.cyclePerGameDay,
+            'cycleLength': this.cycleLength,
         };
     }
     decode(jsonString : string): DaedalusConfig {
@@ -69,6 +85,7 @@ export class DaedalusConfig {
             const object = JSON.parse(jsonString);
             this.iri = object.iri;
             this.id = object.id;
+            this.name = object.name;
             this.initOxygen = object.initOxygen;
             this.initFuel = object.initFuel;
             this.initHull = object.initHull;
@@ -79,7 +96,10 @@ export class DaedalusConfig {
             this.maxOxygen = object.maxOxygen;
             this.maxFuel = object.maxFuel;
             this.maxHull = object.maxHull;
+            this.maxShield = object.maxShield;
             this.nbMush = object.nbMush;
+            this.cyclePerGameDay = object.cyclePerGameDay;
+            this.cycleLength = object.cycleLength;
         }
 
         return this;

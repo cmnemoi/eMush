@@ -11,6 +11,7 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\GameConfig;
@@ -53,8 +54,14 @@ class AttemptActionChangeCest
         ;
         $I->haveInRepository($statusConfig);
 
+        /** @var DaedalusConfig $daedalusConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$attemptConfig, $statusConfig])]);
+        $gameConfig = $I->have(GameConfig::class, [
+             'daedalusConfig' => $daedalusConfig,
+             'statusConfigs' => new ArrayCollection([$attemptConfig, $statusConfig]),
+        ]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
         /** @var Place $room */

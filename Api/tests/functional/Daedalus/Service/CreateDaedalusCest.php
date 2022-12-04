@@ -162,6 +162,7 @@ class CreateDaedalusCest
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig
+            ->setName('default')
             ->setInitOxygen(15)
             ->setInitFuel(25)
             ->setInitHull(80)

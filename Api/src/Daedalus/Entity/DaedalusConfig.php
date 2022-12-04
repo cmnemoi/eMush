@@ -16,6 +16,10 @@ class DaedalusConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
+    #[ORM\Column(type: 'string', nullable: false)]
+    // TODO: add unique constraint and fix tests accordingly
+    private string $name;
+
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $initOxygen;
 
@@ -61,6 +65,18 @@ class DaedalusConfig
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     public function getInitOxygen(): int

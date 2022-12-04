@@ -8,6 +8,8 @@ use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Repository\ChannelRepository;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Game\Entity\GameConfig;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -125,10 +127,20 @@ class ChannelRepositoryCest
 
     public function testFindPlayerChannelsMultipleDaedalus(FunctionalTester $I)
     {
+        /** @var DaedalusConfig $daedalusConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class, [
+            'name' => 'default',
+        ]);
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, [
+            'daedalusConfig' => $daedalusConfig,
+        ]);
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['name' => 'daedalus_1']);
+        $daedalus = $I->have(Daedalus::class, ['name' => 'daedalus_1', 'gameConfig' => $gameConfig]);
         /** @var Daedalus $daedalus2 */
-        $daedalus2 = $I->have(Daedalus::class, ['name' => 'daedalus_']);
+        $daedalus2 = $I->have(Daedalus::class, ['name' => 'daedalus_', 'gameConfig' => $gameConfig]);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);

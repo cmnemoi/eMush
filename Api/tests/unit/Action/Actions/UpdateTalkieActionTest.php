@@ -52,19 +52,17 @@ class UpdateTalkieActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $talkie = new GameItem();
+        $talkie = new GameItem($player);
         $talkie
-            ->setHolder($player)
             ->setName(ItemEnum::WALKIE_TALKIE)
         ;
 
-        $tracker = new GameItem();
+        $tracker = new GameItem($player);
         $tracker
-            ->setHolder($player)
             ->setName(ItemEnum::TRACKER)
         ;
 
-        $neronCore = new GameEquipment();
+        $neronCore = new GameEquipment($room);
         $neronCore
             ->setName(EquipmentEnum::NERON_CORE)
             ->setHolder($room)

@@ -12,6 +12,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -32,10 +33,12 @@ class LastPlayerKilledCest
 
     public function testLastPlayerKilled(FunctionalTester $I)
     {
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
         /** @var DaedalusConfig $gameConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig]);
+        $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig, 'localizationConfig' => $localizationConfig]);
 
         /** @var User $user */
         $user = $I->have(User::class);

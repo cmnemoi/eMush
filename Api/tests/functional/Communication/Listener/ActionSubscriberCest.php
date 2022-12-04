@@ -70,19 +70,17 @@ class ActionSubscriberCest
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie = new GameItem();
+        $iTrackie = new GameItem($room);
         $iTrackie
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($iTrackie);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new GameItem($player2);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($player2)
         ;
         $I->haveInRepository($iTrackie2);
 
@@ -170,19 +168,17 @@ class ActionSubscriberCest
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie = new GameItem();
+        $iTrackie = new GameItem($room);
         $iTrackie
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($iTrackie);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new GameItem($player2);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($player2)
         ;
         $I->haveInRepository($iTrackie2);
 
@@ -271,19 +267,17 @@ class ActionSubscriberCest
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie = new GameItem();
+        $iTrackie = new GameItem($room);
         $iTrackie
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($iTrackie);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new GameItem($player2);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($player2)
         ;
         $I->haveInRepository($iTrackie2);
 
@@ -365,19 +359,17 @@ class ActionSubscriberCest
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie = new GameItem();
+        $iTrackie = new GameItem($player);
         $iTrackie
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($player)
         ;
         $I->haveInRepository($iTrackie);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new GameItem($player2);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($player2)
         ;
         $I->haveInRepository($iTrackie2);
 
@@ -459,11 +451,10 @@ class ActionSubscriberCest
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new GameItem($player2);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($player2)
         ;
         $I->haveInRepository($iTrackie2);
 
@@ -546,11 +537,10 @@ class ActionSubscriberCest
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new GameItem($player);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($player)
         ;
         $I->haveInRepository($iTrackie2);
 

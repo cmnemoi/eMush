@@ -52,7 +52,7 @@ class HideActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($player);
 
         $item = new ItemConfig();
         $item
@@ -61,7 +61,6 @@ class HideActionTest extends AbstractActionTest
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setHolder($player)
         ;
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);

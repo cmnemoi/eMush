@@ -3,6 +3,7 @@
 namespace Mush\Disease\Listener;
 
 use Mush\Disease\Enum\DiseaseCauseEnum;
+use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
@@ -24,17 +25,20 @@ class PlayerSubscriber implements EventSubscriberInterface
     private const TRAUMA_PROBABILTY = 33;
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
+    private DiseaseCauseServiceInterface $diseaseCauseService;
     private ModifierServiceInterface $modifierService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
         PlayerDiseaseServiceInterface $playerDiseaseService,
+        DiseaseCauseServiceInterface $diseaseCauseService,
         ModifierServiceInterface $modifierService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService
     ) {
         $this->playerDiseaseService = $playerDiseaseService;
+        $this->diseaseCauseService = $diseaseCauseService;
         $this->modifierService = $modifierService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
@@ -71,7 +75,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             } else {
                 $cause = DiseaseCauseEnum::CYCLE;
             }
-            $this->playerDiseaseService->handleDiseaseForCause($cause, $player);
+            $this->diseaseCauseService->handleDiseaseForCause($cause, $player);
         }
     }
 
@@ -91,7 +95,7 @@ class PlayerSubscriber implements EventSubscriberInterface
                     ['character_gender' => $characterGender],
                     $event->getTime()
                 );
-                $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::TRAUMA, $player);
+                $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::TRAUMA, $player);
             }
         }
     }
@@ -101,7 +105,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
 
         if ($this->randomService->isSuccessful(self::INFECTION_DISEASE_RATE)) {
-            $this->playerDiseaseService->handleDiseaseForCause(
+            $this->diseaseCauseService->handleDiseaseForCause(
                 DiseaseCauseEnum::INFECTION,
                 $player,
                 self::INFECTION_DISEASES_INCUBATING_DELAY,

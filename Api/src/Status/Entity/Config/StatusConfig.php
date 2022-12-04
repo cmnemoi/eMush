@@ -5,7 +5,6 @@ namespace Mush\Status\Entity\Config;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\ModifierConfig;
 
@@ -22,9 +21,6 @@ class StatusConfig
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     protected int $id;
-
-    #[ORM\ManyToOne(targetEntity: GameConfig::class)]
-    private GameConfig $gameConfig;
 
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $name;
@@ -43,18 +39,6 @@ class StatusConfig
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function getGameConfig(): GameConfig
-    {
-        return $this->gameConfig;
-    }
-
-    public function setGameConfig(GameConfig $gameConfig): self
-    {
-        $this->gameConfig = $gameConfig;
-
-        return $this;
     }
 
     public function getName(): string

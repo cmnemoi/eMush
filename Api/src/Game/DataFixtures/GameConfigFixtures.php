@@ -5,6 +5,7 @@ namespace Mush\Game\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\LanguageEnum;
 
 class GameConfigFixtures extends Fixture
@@ -13,26 +14,19 @@ class GameConfigFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig
+            ->setTimeZone('Europe/Paris')
+            ->setLanguage(LanguageEnum::FRENCH)
+        ;
+
+        $manager->persist($localizationConfig);
+
         $gameConfig = new GameConfig();
 
         $gameConfig
             ->setName('default')
-            ->setNbMush(3)
-            ->setCyclePerGameDay(8)
-            ->setCycleLength(3 * 60)
-            ->setTimeZone('Europe/Paris')
-            ->setLanguage(LanguageEnum::FRENCH)
-            ->setMaxNumberPrivateChannel(3)
-            ->setInitHealthPoint(14)
-            ->setMaxHealthPoint(14)
-            ->setInitMoralPoint(14)
-            ->setMaxMoralPoint(14)
-            ->setInitSatiety(0)
-            ->setInitActionPoint(8)
-            ->setMaxActionPoint(12)
-            ->setInitMovementPoint(12)
-            ->setMaxMovementPoint(12)
-            ->setMaxItemInInventory(3)
+            ->setLocalizationConfig($localizationConfig)
         ;
 
         $manager->persist($gameConfig);

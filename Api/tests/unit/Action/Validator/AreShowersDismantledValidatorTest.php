@@ -43,7 +43,7 @@ class AreShowersDismantledValidatorTest extends TestCase
         $daedalus = new Daedalus();
         $place = new Place();
 
-        $equipment = new GameEquipment();
+        $equipment = new GameEquipment($place);
         $equipment->setName(EquipmentEnum::SHOWER);
         $place->addEquipment($equipment);
 

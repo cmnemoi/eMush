@@ -11,6 +11,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Place\Entity\Place;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -44,7 +45,7 @@ class MechanicValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setMechanics(new ArrayCollection([$documentMechanic]));
 
-        $target = new GameItem();
+        $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);
@@ -66,7 +67,7 @@ class MechanicValidatorTest extends TestCase
     {
         $itemConfig = new ItemConfig();
 
-        $target = new GameItem();
+        $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);

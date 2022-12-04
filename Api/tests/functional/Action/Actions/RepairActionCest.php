@@ -87,12 +87,11 @@ class RepairActionCest
 
         $equipmentConfig->setActions(new ArrayCollection([$action]));
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem($room);
 
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 

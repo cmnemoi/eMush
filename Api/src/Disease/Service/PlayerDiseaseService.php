@@ -3,14 +3,13 @@
 namespace Mush\Disease\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
-use Mush\Disease\Repository\DiseaseCausesConfigRepository;
-use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -19,21 +18,15 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 {
     private EntityManagerInterface $entityManager;
-    private DiseaseCausesConfigRepository $diseaseCauseConfigRepository;
-    private DiseaseConfigRepository $diseaseConfigRepository;
     private RandomServiceInterface $randomService;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        DiseaseCausesConfigRepository $diseaseCauseConfigRepository,
-        DiseaseConfigRepository $diseaseConfigRepository,
         RandomServiceInterface $randomService,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->entityManager = $entityManager;
-        $this->diseaseCauseConfigRepository = $diseaseCauseConfigRepository;
-        $this->diseaseConfigRepository = $diseaseConfigRepository;
         $this->randomService = $randomService;
         $this->eventDispatcher = $eventDispatcher;
     }
@@ -76,12 +69,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         int $delayMin = null,
         int $delayLength = null
     ): ?PlayerDisease {
-        /** @var DiseaseConfig $diseaseConfig */
-        $diseaseConfig = $this->diseaseConfigRepository->findByNameAndDaedalus($diseaseName, $player->getDaedalus());
-
-        if ($diseaseConfig === null) {
-            throw new \LogicException("{$diseaseName} do not have any disease config for the daedalus {$player->getDaedalus()->getId()}");
-        }
+        $diseaseConfig = $this->findDiseaseConfigByNameAndDaedalus($diseaseName, $player->getDaedalus());
 
         if ($player->isMush() && $diseaseConfig->getType() !== TypeEnum::INJURY) {
             return null;
@@ -127,6 +115,17 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         return $disease;
     }
 
+    private function findDiseaseConfigByNameAndDaedalus(string $diseaseName, Daedalus $daedalus): DiseaseConfig
+    {
+        $diseaseConfigs = $daedalus->getGameConfig()->getDiseaseConfig()->filter(fn (DiseaseConfig $diseaseConfig) => $diseaseConfig->getName() === $diseaseName);
+
+        if ($diseaseConfigs->count() !== 1) {
+            throw new \Error('there should be exactly 1 diseaseConfig with this name');
+        }
+
+        return $diseaseConfigs->first();
+    }
+
     private function activateDisease(PlayerDisease $disease, string $cause, \DateTime $time): void
     {
         $event = new DiseaseEvent(
@@ -157,31 +156,6 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
                 );
             }
         }
-    }
-
-    public function handleDiseaseForCause(string $cause, Player $player, int $delayMin = null, int $delayLength = null): void
-    {
-        $diseasesProbaArray = $this->diseaseCauseConfigRepository->findCausesByDaedalus($cause, $player->getDaedalus())->getDiseases();
-
-        $playerDiseases = $player->getMedicalConditions()->toArray();
-        $playerDiseasesNames = array_map(function (PlayerDisease $playerDisease) {
-            return $playerDisease->getDiseaseConfig()->getName();
-        }, $playerDiseases);
-
-        $diseasesNames = array_diff(array_keys($diseasesProbaArray), $playerDiseasesNames);
-
-        $newDiseaseProbaArray = [];
-        foreach ($diseasesNames as $diseaseName) {
-            $newDiseaseProbaArray[$diseaseName] = $diseasesProbaArray[$diseaseName];
-        }
-
-        if (count($newDiseaseProbaArray) === 0) {
-            return;
-        }
-
-        $diseaseName = $this->randomService->getSingleRandomElementFromProbaArray($newDiseaseProbaArray);
-
-        $this->createDiseaseFromName($diseaseName, $player, $cause, $delayMin, $delayLength);
     }
 
     public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void

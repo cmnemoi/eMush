@@ -89,7 +89,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $blaster = new ItemConfig();
         $blaster
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::BLASTER)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -123,7 +122,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $knife = new ItemConfig();
         $knife
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::KNIFE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -147,7 +145,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $grenade = new ItemConfig();
         $grenade
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::GRENADE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -175,7 +172,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $natamy = new ItemConfig();
         $natamy
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::NATAMY_RIFLE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -209,7 +205,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $oldFaithful = new ItemConfig();
         $oldFaithful
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::OLD_FAITHFUL)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -237,7 +232,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $lizaroJungle = new ItemConfig();
         $lizaroJungle
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::LIZARO_JUNGLE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -262,7 +256,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $rocketLauncher = new ItemConfig();
         $rocketLauncher
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ROCKET_LAUNCHER)
             ->setMechanics(new ArrayCollection([$rocketLauncherMechanic]))
             ->setInitStatus(new ArrayCollection([$bigWeaponCharge]))
@@ -281,6 +274,17 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(ItemEnum::OLD_FAITHFUL, $oldFaithful);
         $this->addReference(ItemEnum::LIZARO_JUNGLE, $lizaroJungle);
         $this->addReference(ItemEnum::ROCKET_LAUNCHER, $rocketLauncher);
+
+        $gameConfig
+            ->addEquipmentConfig($blaster)
+            ->addEquipmentConfig($knife)
+            ->addEquipmentConfig($lizaroJungle)
+            ->addEquipmentConfig($grenade)
+            ->addEquipmentConfig($oldFaithful)
+            ->addEquipmentConfig($rocketLauncher)
+            ->addEquipmentConfig($natamy)
+        ;
+        $manager->persist($gameConfig);
 
         $manager->flush();
     }

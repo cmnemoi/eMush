@@ -72,7 +72,7 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
 
-        $equipment = new GameItem();
+        $equipment = new GameItem($player);
         $equipment->setName(ToolItemEnum::MEDIKIT);
         $player->addEquipment($equipment);
 
@@ -101,7 +101,7 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
 
-        $equipment = new GameItem();
+        $equipment = new GameItem($room);
         $equipment->setName(ToolItemEnum::MEDIKIT);
         $room->addEquipment($equipment);
 

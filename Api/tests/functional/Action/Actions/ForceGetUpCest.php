@@ -35,8 +35,15 @@ class ForceGetUpCest
 
     public function testForceGetUp(FunctionalTester $I)
     {
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(PlayerStatusEnum::LYING_DOWN)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+        ;
+        $I->haveInRepository($statusConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$statusConfig])]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'gameStatus' => GameStatusEnum::CURRENT]);
         /** @var Place $room */
@@ -84,12 +91,6 @@ class ForceGetUpCest
         $player2->setPlayerInfo($playerInfo2);
         $I->refreshEntities($player2);
 
-        $statusConfig = new StatusConfig();
-        $statusConfig
-            ->setName(PlayerStatusEnum::LYING_DOWN)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-        ;
-        $I->haveInRepository($statusConfig);
         $lyingDownStatus = new Status($player, $statusConfig);
         $I->haveInRepository($lyingDownStatus);
 

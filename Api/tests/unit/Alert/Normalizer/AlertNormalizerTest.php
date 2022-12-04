@@ -9,6 +9,7 @@ use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Normalizer\AlertNormalizer;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationService;
 use Mush\Place\Entity\Place;
@@ -46,7 +47,10 @@ class AlertNormalizerTest extends TestCase
     public function testNormalize()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
+
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
@@ -79,7 +83,10 @@ class AlertNormalizerTest extends TestCase
     public function testNormalizeHullAlert()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
+
         $daedalus = new Daedalus();
         $daedalus->setHull(5)->setGameConfig($gameConfig);
 
@@ -115,7 +122,10 @@ class AlertNormalizerTest extends TestCase
     public function testNormalizeFireAlert()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
+
         $daedalus = new Daedalus();
         $daedalus->setHull(5)->setGameConfig($gameConfig);
 

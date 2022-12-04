@@ -64,9 +64,8 @@ class SymptomConditionServiceTest extends TestCase
 
         $room = new Place();
 
-        $document = new GameItem();
+        $document = new GameItem($room);
         $document->setName(ItemEnum::DOCUMENT);
-        $document->setHolder($room);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
@@ -142,9 +141,8 @@ class SymptomConditionServiceTest extends TestCase
         $player->setDaedalus($daedalus);
         $player->setPlace($room);
 
-        $document = new GameItem();
+        $document = new GameItem($player);
         $document->setName(ItemEnum::DOCUMENT);
-        $document->setHolder($player);
 
         $symptomCondtion = new SymptomCondition(SymptomConditionEnum::PLAYER_EQUIPMENT);
         $symptomCondtion->setCondition(ItemEnum::DOCUMENT);

@@ -3,6 +3,7 @@
 namespace functional\Status\Event;
 
 use App\Tests\FunctionalTester;
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -31,15 +32,14 @@ class AddBrokenStatusEventCest
 
     public function testDispatchEquipmentBroken(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
-
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setName(EquipmentStatusEnum::BROKEN)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($statusConfig);
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$statusConfig])]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
@@ -62,11 +62,10 @@ class AddBrokenStatusEventCest
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 

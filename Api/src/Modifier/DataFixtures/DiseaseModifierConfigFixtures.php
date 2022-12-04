@@ -10,7 +10,6 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Modifier\Entity\ModifierCondition;
 use Mush\Modifier\Entity\ModifierConfig;
@@ -57,9 +56,6 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
 
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         $randCondition10 = new ModifierCondition(ModifierConditionEnum::RANDOM);
         $randCondition10->setValue(10);
         $manager->persist($randCondition10);

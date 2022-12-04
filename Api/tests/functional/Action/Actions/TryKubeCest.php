@@ -75,16 +75,14 @@ class TryKubeCest
         $itemConfig = $I->have(ItemConfig::class);
 
         $itemConfig
-            ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::MAD_KUBE)
             ->setActions(new ArrayCollection([$action]))
         ;
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $gameItem
             ->setName(ToolItemEnum::MAD_KUBE)
             ->setEquipment($itemConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameItem);
 

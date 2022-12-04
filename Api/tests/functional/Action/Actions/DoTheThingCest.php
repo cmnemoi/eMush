@@ -49,8 +49,47 @@ class DoTheThingCest
 
     public function testDoTheThing(FunctionalTester $I)
     {
+        $didTheThingStatus = new ChargeStatusConfig();
+        $didTheThingStatus
+            ->setName(PlayerStatusEnum::DID_THE_THING)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
+            ->setStartCharge(1)
+            ->setAutoRemove(true)
+        ;
+        $I->haveInRepository($didTheThingStatus);
+        $pregnantStatus = new StatusConfig();
+        $pregnantStatus
+            ->setName(PlayerStatusEnum::PREGNANT)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+        ;
+        $I->haveInRepository($pregnantStatus);
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setName(StatusEnum::ATTEMPT)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+        ;
+        $I->haveInRepository($attemptConfig);
+
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setName('disease')
+        ;
+        $I->haveInRepository($diseaseConfig);
+        $diseaseCauseConfig = new DiseaseCauseConfig();
+        $diseaseCauseConfig
+            ->setName('sex')
+            ->setDiseases(['disease'])
+        ;
+        $I->haveInRepository($diseaseCauseConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, [
+            'statusConfigs' => new ArrayCollection([$attemptConfig, $pregnantStatus, $didTheThingStatus]),
+            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
+            'diseaseCauseConfig' => new ArrayCollection([$diseaseCauseConfig]),
+        ]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'gameStatus' => GameStatusEnum::CURRENT]);
         /** @var Place $room */
@@ -61,14 +100,6 @@ class DoTheThingCest
             ->setActionPointCost(1)
         ;
         $I->haveInRepository($actionCost);
-
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
-            ->setGameConfig($gameConfig)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-        ;
-        $I->haveInRepository($attemptConfig);
 
         $action = new Action();
         $action
@@ -122,50 +153,12 @@ class DoTheThingCest
             'name' => EquipmentEnum::BED,
         ]);
 
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setName('disease')
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($diseaseConfig);
-
-        $diseaseCauseConfig = new DiseaseCauseConfig();
-        $diseaseCauseConfig
-            ->setGameConfig($gameConfig)
-            ->setName('sex')
-            ->setDiseases(['disease'])
-        ;
-        $I->haveInRepository($diseaseCauseConfig);
-
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::BED)
             ->setEquipment($equipmentConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
-
-        $didTheThingStatus = new ChargeStatusConfig();
-        $didTheThingStatus
-            ->setName(PlayerStatusEnum::DID_THE_THING)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
-            ->setStartCharge(1)
-            ->setAutoRemove(true)
-            ->setGameConfig($gameConfig)
-        ;
-
-        $I->haveInRepository($didTheThingStatus);
-
-        $pregnantStatus = new StatusConfig();
-        $pregnantStatus
-            ->setName(PlayerStatusEnum::PREGNANT)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setGameConfig($gameConfig)
-        ;
-
-        $I->haveInRepository($pregnantStatus);
 
         $targetPlayer->setFlirts(new ArrayCollection([$player]));
 
@@ -271,11 +264,10 @@ class DoTheThingCest
             'name' => EquipmentEnum::BED,
         ]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::BED)
             ->setEquipment($equipmentConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -354,11 +346,10 @@ class DoTheThingCest
             'name' => EquipmentEnum::BED,
         ]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::BED)
             ->setEquipment($equipmentConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 

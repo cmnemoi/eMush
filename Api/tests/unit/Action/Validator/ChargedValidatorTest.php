@@ -9,6 +9,7 @@ use Mush\Action\Validator\Charged;
 use Mush\Action\Validator\ChargedValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -43,7 +44,7 @@ class ChargedValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setIsBreakable(true);
 
-        $target = new GameItem();
+        $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);
 
         $statusConfig = new ChargeStatusConfig();
@@ -75,7 +76,7 @@ class ChargedValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setIsBreakable(false);
 
-        $target = new GameItem();
+        $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);
 
         $action = Mockery::mock(AbstractAction::class);

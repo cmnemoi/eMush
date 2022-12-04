@@ -41,8 +41,10 @@ class CreateDaedalusCommand extends Command
             $output->writeln('Creating Daedalus...');
 
             $name = $input->getArgument('daedalusName') ? $input->getArgument('daedalusName') : 'test';
-            $config = $this->gameConfigService->getConfig();
+            $config = $this->gameConfigService->getConfigByName('default');
+
             $this->service->createDaedalus($config, $name);
+
             $output->writeln("Daedalus '{$name}' created.");
 
             return Command::SUCCESS;

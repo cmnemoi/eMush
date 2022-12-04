@@ -7,7 +7,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'config_difficulty')]
-class DifficultyConfig implements ConfigInterface
+class DifficultyConfig
 {
     use TimestampableEntity;
 
@@ -15,9 +15,6 @@ class DifficultyConfig implements ConfigInterface
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
-
-    #[ORM\ManyToOne(targetEntity: GameConfig::class, inversedBy: 'difficultyConfig')]
-    private GameConfig $gameConfig;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $equipmentBreakRate = 0;
@@ -76,18 +73,6 @@ class DifficultyConfig implements ConfigInterface
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function getGameConfig(): GameConfig
-    {
-        return $this->gameConfig;
-    }
-
-    public function setGameConfig(GameConfig $gameConfig): static
-    {
-        $this->gameConfig = $gameConfig;
-
-        return $this;
     }
 
     public function getEquipmentBreakRate(): int

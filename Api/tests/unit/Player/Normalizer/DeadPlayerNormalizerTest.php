@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\LanguageEnum;
@@ -47,7 +48,10 @@ class DeadPlayerNormalizerTest extends TestCase
     public function testNormalizer()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
+
         $daedalus = $this->createMock(Daedalus::class);
         $daedalus->method('getId')->willReturn(19);
         $daedalus->method('getGameConfig')->willReturn($gameConfig);

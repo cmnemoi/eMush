@@ -111,11 +111,9 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         string $reason
     ): GameEquipment {
         if ($config instanceof ItemConfig) {
-            $gameEquipment = $config->createGameItem();
-            $gameEquipment->setHolder($holder);
+            $gameEquipment = $config->createGameItem($holder);
         } else {
-            $gameEquipment = $config->createGameEquipment();
-            $gameEquipment->setHolder($holder->getPlace());
+            $gameEquipment = $config->createGameEquipment($holder->getPlace());
         }
 
         $this->initMechanics($gameEquipment, $holder->getPlace()->getDaedalus(), $reason);
@@ -255,6 +253,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     private function getGameConfig(GameEquipment $gameEquipment): GameConfig
     {
-        return $gameEquipment->getEquipment()->getGameConfig();
+        return $gameEquipment->getHolder()->getDaedalus()->getGameConfig();
     }
 }

@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Enum\TypeEnum;
-use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -20,9 +19,6 @@ class DiseaseConfig implements LogParameterInterface
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
-
-    #[ORM\ManyToOne(targetEntity: GameConfig::class)]
-    private GameConfig $gameConfig;
 
     #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
@@ -63,18 +59,6 @@ class DiseaseConfig implements LogParameterInterface
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getGameConfig(): GameConfig
-    {
-        return $this->gameConfig;
-    }
-
-    public function setGameConfig(GameConfig $gameConfig): self
-    {
-        $this->gameConfig = $gameConfig;
-
-        return $this;
     }
 
     public function getName(): string

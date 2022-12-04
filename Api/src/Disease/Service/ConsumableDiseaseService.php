@@ -46,12 +46,23 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
         return $consumableDisease;
     }
 
+    private function findConsumableDiseaseConfigByNameAndDaedalus(string $name, Daedalus $daedalus): ?ConsumableDiseaseConfig
+    {
+        $consumableDiseaseConfigs = $daedalus->getGameConfig()
+            ->getConsumableDiseaseConfig()->filter(fn (ConsumableDiseaseConfig $consumableDiseaseConfig) => $consumableDiseaseConfig->getName() === $name);
+
+        if ($consumableDiseaseConfigs->count() === 0) {
+            return null;
+        }
+
+        return $consumableDiseaseConfigs->first();
+    }
+
     public function createConsumableDiseases(string $name, Daedalus $daedalus): ?ConsumableDisease
     {
-        /** @var ConsumableDiseaseConfig $consumableDiseaseConfig */
-        $consumableDiseaseConfig = $this->consumableDiseaseConfigRepository->findOneBy(['name' => $name, 'gameConfig' => $daedalus->getGameConfig()]);
+        $consumableDiseaseConfig = $this->findConsumableDiseaseConfigByNameAndDaedalus($name, $daedalus);
 
-        if (!$consumableDiseaseConfig instanceof ConsumableDiseaseConfig) {
+        if ($consumableDiseaseConfig === null) {
             return null;
         }
 

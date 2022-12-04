@@ -67,7 +67,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
 
             $apprenton = new ItemConfig();
             $apprenton
-                ->setGameConfig($gameConfig)
                 ->setName(ItemEnum::APPRENTON . '_' . $skillName)
                 ->setIsStackable(true)
                 ->setIsFireDestroyable(true)
@@ -78,6 +77,8 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
 
             $manager->persist($apprentonMechanic);
             $manager->persist($apprenton);
+
+            $gameConfig->addEquipmentConfig($apprenton);
         }
 
         // Then Documents
@@ -90,7 +91,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $document = new ItemConfig();
         $document
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::DOCUMENT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -111,7 +111,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $commandersManual = new ItemConfig();
         $commandersManual
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::COMMANDERS_MANUAL)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -132,7 +131,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $mushResearch = new ItemConfig();
         $mushResearch
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::MUSH_RESEARCH_REVIEW)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -153,7 +151,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $postIt = new ItemConfig();
         $postIt
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::POST_IT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -164,6 +161,14 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($postItMechanic);
         $manager->persist($postIt);
+
+        $gameConfig
+            ->addEquipmentConfig($document)
+            ->addEquipmentConfig($mushResearch)
+            ->addEquipmentConfig($commandersManual)
+            ->addEquipmentConfig($postIt)
+        ;
+        $manager->persist($gameConfig);
 
         $manager->flush();
     }

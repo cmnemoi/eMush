@@ -43,7 +43,7 @@ class StatusValidatorTest extends TestCase
     {
         $this->constraint->target = HasStatus::PARAMETER;
 
-        $target = new GameItem();
+        $target = new GameItem(new Place());
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -73,7 +73,7 @@ class StatusValidatorTest extends TestCase
     {
         $this->constraint->target = HasStatus::PARAMETER;
 
-        $target = new GameItem();
+        $target = new GameItem(new Place());
 
         $action = Mockery::mock(AbstractAction::class);
         $action
@@ -235,7 +235,7 @@ class StatusValidatorTest extends TestCase
 
         $player = new Player();
 
-        $target = new GameEquipment();
+        $target = new GameEquipment(new Place());
 
         $action = Mockery::mock(AbstractAction::class);
         $action

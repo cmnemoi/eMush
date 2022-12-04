@@ -127,7 +127,7 @@ class CookActionCest
 
     private function createEquipment(string $name, Place $place): GameEquipment
     {
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($place);
         $equipment = new EquipmentConfig();
         $equipment->setName($name);
         $gameEquipment

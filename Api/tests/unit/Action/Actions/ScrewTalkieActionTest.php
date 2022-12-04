@@ -47,16 +47,16 @@ class ScrewTalkieActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
 
         $player = $this->createPlayer($daedalus, $room);
 
         $targetPlayer = $this->createPlayer($daedalus, $room);
+
+        $gameItem = new GameItem($targetPlayer);
         $item = new ItemConfig();
         $gameItem
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($item)
-            ->setHolder($targetPlayer)
         ;
 
         $mushStatus = new ChargeStatus($player, new ChargeStatusConfig());
@@ -77,11 +77,12 @@ class ScrewTalkieActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
 
         $player = $this->createPlayer($daedalus, $room);
 
         $targetPlayer = $this->createPlayer($daedalus, $room);
+
+        $gameItem = new GameItem($targetPlayer);
         $item = new ItemConfig();
         $gameItem
             ->setName(ItemEnum::ITRACKIE)

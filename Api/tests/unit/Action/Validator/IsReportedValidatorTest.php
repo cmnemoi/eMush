@@ -153,7 +153,7 @@ class IsReportedValidatorTest extends TestCase
         ;
         $room->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $brokenConfig = new StatusConfig();
         $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
         $status = new Status($gameEquipment, $brokenConfig);
@@ -200,7 +200,7 @@ class IsReportedValidatorTest extends TestCase
         );
         $room->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $brokenConfig = new StatusConfig();
         $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
         $status = new Status($gameEquipment, $brokenConfig);

@@ -103,11 +103,10 @@ class ReportActionCest
             'actions' => new ArrayCollection([$action]),
         ]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::NARCOTIC_DISTILLER)
             ->setEquipment($equipmentConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
@@ -199,7 +198,7 @@ class ReportActionCest
         $I->refreshEntities($player);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(StatusEnum::FIRE)->setVisibility(VisibilityEnum::PUBLIC)->setGameConfig($gameConfig);
+        $statusConfig->setName(StatusEnum::FIRE)->setVisibility(VisibilityEnum::PUBLIC);
         $I->haveInRepository($statusConfig);
         $status = new Status($room, $statusConfig);
         $I->haveInRepository($status);

@@ -69,8 +69,14 @@ class RoomEventCest
 
     public function testNewFire(FunctionalTester $I)
     {
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(StatusEnum::FIRE)
+        ;
+        $I->haveInRepository($statusConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$statusConfig])]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
@@ -78,13 +84,6 @@ class RoomEventCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
-
-        $statusConfig = new ChargeStatusConfig();
-        $statusConfig
-            ->setName(StatusEnum::FIRE)
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($statusConfig);
 
         $channel = new Channel();
         $channel
@@ -165,18 +164,20 @@ class RoomEventCest
 
     public function testElectricArc(FunctionalTester $I)
     {
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::BROKEN)
+        ;
+        $I->haveInRepository($statusConfig);
+
         $time = new DateTime();
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig]);
-
-        $statusConfig = new StatusConfig();
-        $statusConfig
-            ->setName(EquipmentStatusEnum::BROKEN)
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($statusConfig);
+        $gameConfig = $I->have(GameConfig::class, [
+            'difficultyConfig' => $difficultyConfig,
+            'statusConfigs' => new ArrayCollection([$statusConfig]),
+        ]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
@@ -210,11 +211,10 @@ class RoomEventCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'gameConfig' => $gameConfig]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 

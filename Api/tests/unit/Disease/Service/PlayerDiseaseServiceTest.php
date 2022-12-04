@@ -5,15 +5,12 @@ namespace Mush\Tests\unit\Disease\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\InjuryEnum;
 use Mush\Disease\Event\DiseaseEvent;
-use Mush\Disease\Repository\DiseaseCausesConfigRepository;
-use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Disease\Service\PlayerDiseaseService;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
@@ -28,12 +25,6 @@ class PlayerDiseaseServiceTest extends TestCase
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
 
-    /** @var DiseaseCausesConfigRepository|Mockery\Mock */
-    private DiseaseCausesConfigRepository $diseaseCausesConfigRepository;
-
-    /** @var DiseaseConfigRepository|Mockery\Mock */
-    private DiseaseConfigRepository $diseaseConfigRepository;
-
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
@@ -46,15 +37,11 @@ class PlayerDiseaseServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->diseaseCausesConfigRepository = Mockery::mock(DiseaseCausesConfigRepository::class);
-        $this->diseaseConfigRepository = Mockery::mock(DiseaseConfigRepository::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
 
         $this->playerDiseaseService = new PlayerDiseaseService(
             $this->entityManager,
-            $this->diseaseCausesConfigRepository,
-            $this->diseaseConfigRepository,
             $this->randomService,
             $this->eventDispatcher,
         );
@@ -70,23 +57,22 @@ class PlayerDiseaseServiceTest extends TestCase
 
     public function testCreateDiseaseFromNameAndWithDiseaseConfigDelay()
     {
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setDelayMin(4)->setDelayLength(4)
+            ->setName('name')
+        ;
+
         $gameConfig = new GameConfig();
+        $gameConfig->addDiseaseConfig($diseaseConfig);
+
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
+
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setDelayMin(4)->setDelayLength(4);
-
         $this->entityManager->shouldReceive(['persist' => null, 'flush' => null]);
-
-        $this->diseaseConfigRepository
-            ->shouldReceive('findByNameAndDaedalus')
-            ->with('name', $daedalus)
-            ->andReturn($diseaseConfig)
-            ->once()
-        ;
 
         $this
             ->randomService
@@ -108,22 +94,17 @@ class PlayerDiseaseServiceTest extends TestCase
 
     public function testCreateDiseaseFromNameAndWithArgumentsDelay()
     {
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig->setName('name');
+
         $gameConfig = new GameConfig();
+        $gameConfig->addDiseaseConfig($diseaseConfig);
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $diseaseConfig = new DiseaseConfig();
-
         $this->entityManager->shouldReceive(['persist' => null, 'flush' => null]);
-
-        $this->diseaseConfigRepository
-            ->shouldReceive('findByNameAndDaedalus')
-            ->with('name', $daedalus)
-            ->andReturn($diseaseConfig)
-            ->once()
-        ;
 
         $this->randomService
             ->shouldReceive('random')
@@ -143,22 +124,18 @@ class PlayerDiseaseServiceTest extends TestCase
 
     public function testCreateDiseaseFromNameAndWithoutDelay()
     {
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig->setName('name');
+
         $gameConfig = new GameConfig();
+        $gameConfig->addDiseaseConfig($diseaseConfig);
+
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $diseaseConfig = new DiseaseConfig();
-
         $this->entityManager->shouldReceive(['persist' => null, 'flush' => null]);
-
-        $this->diseaseConfigRepository
-            ->shouldReceive('findByNameAndDaedalus')
-            ->with('name', $daedalus)
-            ->andReturn($diseaseConfig)
-            ->once()
-        ;
 
         $this->randomService
             ->shouldReceive('random')
@@ -174,65 +151,6 @@ class PlayerDiseaseServiceTest extends TestCase
         $this->assertEquals($player, $disease->getPlayer());
         $this->assertEquals(4, $disease->getDiseasePoint());
         $this->assertEquals(DiseaseStatusEnum::ACTIVE, $disease->getStatus());
-    }
-
-    public function testHandleDiseaseForCause()
-    {
-        $daedalus = new Daedalus();
-        $daedalus->setGameConfig(new GameConfig());
-        $player = new Player();
-        $player->setDaedalus($daedalus);
-
-        $diseaseName = 'name';
-
-        $diseaseCauseConfig = new DiseaseCauseConfig();
-        $diseaseCauseConfig
-            ->setDiseases([$diseaseName => 1])
-            ->setName(DiseaseCauseEnum::PERISHED_FOOD)
-        ;
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setName($diseaseName)
-            ->setDelayMin(4)
-            ->setDelayLength(4)
-        ;
-
-        $this->diseaseCausesConfigRepository
-            ->shouldReceive('findCausesByDaedalus')
-            ->with(DiseaseCauseEnum::PERISHED_FOOD, $daedalus)
-            ->andReturn($diseaseCauseConfig)
-            ->once()
-        ;
-
-        $this->randomService
-            ->shouldReceive('getSingleRandomElementFromProbaArray')
-            ->with([$diseaseName => 1])
-            ->andReturn($diseaseName)
-            ->once()
-        ;
-
-        $this->diseaseConfigRepository
-            ->shouldReceive('findByNameAndDaedalus')
-            ->with($diseaseName, $daedalus)
-            ->andReturn($diseaseConfig)
-            ->once()
-        ;
-
-        $this->randomService
-            ->shouldReceive('random')
-            ->andReturn(1)
-            ->once()
-        ;
-
-        $this->entityManager->shouldReceive([
-            'persist' => null,
-            'flush' => null,
-        ])->once();
-
-        $this->eventDispatcher->shouldReceive('dispatch')->once();
-
-        $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::PERISHED_FOOD, $player);
     }
 
     public function testHandleNewCycle()

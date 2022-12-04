@@ -7,6 +7,7 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -45,7 +46,10 @@ class OtherPlayerNormalizerTest extends TestCase
     public function testNormalizer()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
+
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 

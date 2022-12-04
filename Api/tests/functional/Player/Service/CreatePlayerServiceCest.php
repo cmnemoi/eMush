@@ -9,6 +9,7 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -33,21 +34,24 @@ class CreatePlayerServiceCest
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);
 
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
-
         $mushStatusConfig = new ChargeStatusConfig();
         $mushStatusConfig
             ->setName(PlayerStatusEnum::MUSH)
-            ->setGameConfig($gameConfig)
         ;
         $sporeStatusConfig = new ChargeStatusConfig();
         $sporeStatusConfig
             ->setName(PlayerStatusEnum::SPORES)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($mushStatusConfig);
         $I->haveInRepository($sporeStatusConfig);
+
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, [
+            'localizationConfig' => $localizationConfig,
+            'statusConfigs' => new ArrayCollection([$sporeStatusConfig, $mushStatusConfig]),
+        ]);
 
         /** @var CharacterConfig $gioeleCharacterConfig */
         $gioeleCharacterConfig = $I->have(CharacterConfig::class);
@@ -88,12 +92,12 @@ class CreatePlayerServiceCest
         $playerGioele = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::GIOELE);
 
         $I->assertEquals($gioeleCharacterConfig, $playerGioele->getPlayerInfo()->getCharacterConfig());
-        $I->assertEquals($daedalus->getGameConfig()->getInitActionPoint(), $playerGioele->getActionPoint());
+        $I->assertEquals($gioeleCharacterConfig->getInitActionPoint(), $playerGioele->getActionPoint());
 
         $playerAndie = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::ANDIE);
 
         $I->assertEquals($andieCharacterConfig, $playerAndie->getPlayerInfo()->getCharacterConfig());
-        $I->assertEquals($daedalus->getGameConfig()->getInitActionPoint(), $playerAndie->getActionPoint());
+        $I->assertEquals($andieCharacterConfig->getInitActionPoint(), $playerAndie->getActionPoint());
 
         $I->assertTrue($playerAndie->isMush());
         $I->assertTrue($playerGioele->isMush());

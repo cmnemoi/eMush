@@ -21,7 +21,10 @@ class PlayerInfoRepository extends ServiceEntityRepository
 
         $qb
             ->where($qb->expr()->eq('player_info.user', ':user'))
-            ->andWhere($qb->expr()->in('player_info.gameStatus', [':game_status_current', ':game_status_finished']))
+            ->andWhere($qb->expr()->orX(
+                $qb->expr()->eq('player_info.gameStatus', ':game_status_current'),
+                $qb->expr()->eq('player_info.gameStatus', ':game_status_finished')
+            ))
             ->setParameter('user', $user)
             ->setParameter('game_status_current', GameStatusEnum::CURRENT)
             ->setParameter('game_status_finished', GameStatusEnum::FINISHED)

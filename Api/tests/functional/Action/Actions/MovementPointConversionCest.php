@@ -56,11 +56,10 @@ class MovementPointConversionCest
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
         ;
         $I->haveInRepository($door);
         $room->addDoor($door);
@@ -124,11 +123,11 @@ class MovementPointConversionCest
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
+
         ;
         $I->haveInRepository($door);
         $room->addDoor($door);
@@ -192,11 +191,10 @@ class MovementPointConversionCest
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
         ;
         $I->haveInRepository($door);
         $room->addDoor($door);

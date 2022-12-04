@@ -39,8 +39,15 @@ class RemoveSporeActionCest
 
     public function testRemoveSpore(FunctionalTester $I)
     {
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setName(StatusEnum::ATTEMPT)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+        ;
+        $I->haveInRepository($attemptConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$attemptConfig])]);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
@@ -70,7 +77,6 @@ class RemoveSporeActionCest
             ->setName(PlayerStatusEnum::SPORES)
             ->setVisibility(VisibilityEnum::MUSH)
             ->setChargeVisibility(VisibilityEnum::MUSH)
-            ->setGameConfig($gameConfig)
         ;
 
         $I->haveInRepository($sporeStatusConfig);
@@ -99,12 +105,11 @@ class RemoveSporeActionCest
         $itemConfig = $I->have(ItemConfig::class);
 
         $itemConfig
-            ->setGameConfig($gameConfig)
             ->setName(ToolItemEnum::SPORE_SUCKER)
             ->setActions(new ArrayCollection([$action]))
         ;
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $gameItem
             ->setName(ToolItemEnum::SPORE_SUCKER)
             ->setEquipment($itemConfig)
@@ -127,14 +132,6 @@ class RemoveSporeActionCest
             'visibility' => VisibilityEnum::PRIVATE,
             'log' => ActionLogEnum::REMOVE_SPORE_SUCCESS,
         ]);
-
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
-            ->setGameConfig($gameConfig)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-        ;
-        $I->haveInRepository($attemptConfig);
 
         // Check that we get a fail if we execute when there are no spores
         $this->removeSpore->execute();

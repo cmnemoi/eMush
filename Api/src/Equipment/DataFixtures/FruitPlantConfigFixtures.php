@@ -58,7 +58,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
 
         $banana = new ItemConfig();
         $banana
-            ->setGameConfig($gameConfig)
             ->setName(GameFruitEnum::BANANA)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -68,6 +67,8 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         ;
         $manager->persist($bananaMechanic);
         $manager->persist($banana);
+
+        $gameConfig->addEquipmentConfig($banana);
 
         $bananaTreeMechanic = new Plant();
         //  possibilities are stored as key, array value represent the probability to get the key value
@@ -80,7 +81,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
 
         $bananaTree = new ItemConfig();
         $bananaTree
-            ->setGameConfig($gameConfig)
             ->setName(GamePlantEnum::BANANA_TREE)
             ->setIsStackable(false)
             ->setIsFireDestroyable(true)
@@ -90,6 +90,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         ;
         $manager->persist($bananaTreeMechanic);
         $manager->persist($bananaTree);
+        $gameConfig->addEquipmentConfig($bananaTree);
 
         $alienFruitPlant = [
             GameFruitEnum::CREEPNUT => GamePlantEnum::CREEPIST,
@@ -120,7 +121,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
 
             $alienFruit = new ItemConfig();
             $alienFruit
-                ->setGameConfig($gameConfig)
                 ->setName($fruitName)
                 ->setIsStackable(true)
                 ->setIsFireDestroyable(true)
@@ -140,7 +140,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
 
             $alienPlant = new ItemConfig();
             $alienPlant
-                ->setGameConfig($gameConfig)
                 ->setName($plantName)
                 ->setIsStackable(false)
                 ->setIsFireDestroyable(true)
@@ -150,6 +149,8 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             ;
             $manager->persist($alienPlantMechanic);
             $manager->persist($alienPlant);
+
+            $gameConfig->addEquipmentConfig($alienFruit)->addEquipmentConfig($alienPlant);
         }
 
         $junkinMechanic = new Fruit();
@@ -164,7 +165,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
 
         $junkin = new ItemConfig();
         $junkin
-            ->setGameConfig($gameConfig)
             ->setName(GameFruitEnum::JUNKIN)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -174,6 +174,7 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         ;
         $manager->persist($junkinMechanic);
         $manager->persist($junkin);
+        $gameConfig->addEquipmentConfig($junkin);
 
         $bumpjunkinMechanic = new Plant();
         $bumpjunkinMechanic
@@ -185,7 +186,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
 
         $bumpjunkin = new ItemConfig();
         $bumpjunkin
-            ->setGameConfig($gameConfig)
             ->setName(GamePlantEnum::BUMPJUNKIN)
             ->setIsStackable(false)
             ->setIsFireDestroyable(true)
@@ -195,6 +195,9 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         ;
         $manager->persist($bumpjunkinMechanic);
         $manager->persist($bumpjunkin);
+        $gameConfig->addEquipmentConfig($bumpjunkin);
+
+        $manager->persist($gameConfig);
 
         $manager->flush();
     }

@@ -50,7 +50,7 @@ class LieDownActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$this->actionEntity]));
         $item = new EquipmentConfig();
@@ -61,7 +61,6 @@ class LieDownActionTest extends AbstractActionTest
 
         $gameEquipment
             ->setEquipment($item)
-            ->setHolder($room)
             ->setName(EquipmentEnum::BED)
         ;
 

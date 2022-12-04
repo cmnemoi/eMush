@@ -49,7 +49,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $standardRation = new ItemConfig();
         $standardRation
-            ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::STANDARD_RATION)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -72,7 +71,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $cookedRation = new ItemConfig();
         $cookedRation
-            ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::COOKED_RATION)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -95,7 +93,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $alienSteack = new ItemConfig();
         $alienSteack
-            ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::ALIEN_STEAK)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -118,7 +115,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $coffee = new ItemConfig();
         $coffee
-            ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::COFFEE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -141,7 +137,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $anabolic = new ItemConfig();
         $anabolic
-            ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::ANABOLIC)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -165,7 +160,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $lombrickBar = new ItemConfig();
         $lombrickBar
-            ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::LOMBRICK_BAR)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -190,7 +184,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $organicWaste = new ItemConfig();
         $organicWaste
-            ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::ORGANIC_WASTE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -215,7 +208,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $proactivePuffedRice = new ItemConfig();
         $proactivePuffedRice
-            ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::PROACTIVE_PUFFED_RICE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -239,7 +231,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $spacePotato = new ItemConfig();
         $spacePotato
-            ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::SPACE_POTATO)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -263,7 +254,6 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $supervitaminBar = new ItemConfig();
         $supervitaminBar
-            ->setGameConfig($gameConfig)
             ->setName(GameRationEnum::SUPERVITAMIN_BAR)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
@@ -273,6 +263,20 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($supervitaminBarMechanic);
         $manager->persist($supervitaminBar);
+
+        $gameConfig
+            ->addEquipmentConfig($standardRation)
+            ->addEquipmentConfig($cookedRation)
+            ->addEquipmentConfig($coffee)
+            ->addEquipmentConfig($anabolic)
+            ->addEquipmentConfig($alienSteack)
+            ->addEquipmentConfig($spacePotato)
+            ->addEquipmentConfig($proactivePuffedRice)
+            ->addEquipmentConfig($lombrickBar)
+            ->addEquipmentConfig($supervitaminBar)
+            ->addEquipmentConfig($organicWaste)
+        ;
+        $manager->persist($gameConfig);
 
         $manager->flush();
     }

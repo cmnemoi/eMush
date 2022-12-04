@@ -31,15 +31,24 @@ class EquipmentEventCest
 
     public function testHeavyStatusOverflowingInventory(FunctionalTester $I)
     {
+        $heavyStatusConfig = new StatusConfig();
+        $heavyStatusConfig->setName(EquipmentStatusEnum::HEAVY);
+        $I->haveInRepository($heavyStatusConfig);
+        $burdenedStatusConfig = new StatusConfig();
+        $burdenedStatusConfig->setName(PlayerStatusEnum::BURDENED);
+        $I->haveInRepository($burdenedStatusConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 0]);
+        $gameConfig = $I->have(GameConfig::class,
+            ['statusConfigs' => new ArrayCollection([$burdenedStatusConfig, $heavyStatusConfig])]
+        );
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
+        $characterConfig = $I->have(CharacterConfig::class, ['maxItemInInventory' => 0]);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         /** @var User $user */
@@ -50,14 +59,6 @@ class EquipmentEventCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $heavyStatusConfig = new StatusConfig();
-        $heavyStatusConfig->setName(EquipmentStatusEnum::HEAVY)->setGameConfig($gameConfig);
-        $I->haveInRepository($heavyStatusConfig);
-
-        $burdenedStatusConfig = new StatusConfig();
-        $burdenedStatusConfig->setName(PlayerStatusEnum::BURDENED)->setGameConfig($gameConfig);
-        $I->haveInRepository($burdenedStatusConfig);
-
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, [
             'gameConfig' => $gameConfig,
@@ -65,8 +66,7 @@ class EquipmentEventCest
             'initStatus' => new ArrayCollection([$heavyStatusConfig]),
         ]);
 
-        $equipment = $itemConfig->createGameItem();
-        $equipment->setHolder($player);
+        $equipment = $itemConfig->createGameItem($player);
         $I->haveInRepository($equipment);
 
         $equipmentEvent = new EquipmentEvent(

@@ -58,11 +58,10 @@ class StatusSubscriberCest
         /** @var EquipmentConfig $gravitySimulatorConfig */
         $gravitySimulatorConfig = $I->have(EquipmentConfig::class, ['name' => EquipmentEnum::GRAVITY_SIMULATOR, 'gameConfig' => $gameConfig]);
 
-        $gravitySimulator = new GameEquipment();
+        $gravitySimulator = new GameEquipment($room);
         $gravitySimulator
             ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
             ->setEquipment($gravitySimulatorConfig)
-            ->setHolder($room)
         ;
 
         $I->haveInRepository($gravitySimulator);
@@ -103,11 +102,10 @@ class StatusSubscriberCest
         /** @var EquipmentConfig $gravitySimulatorConfig */
         $gravitySimulatorConfig = $I->have(EquipmentConfig::class, ['name' => EquipmentEnum::GRAVITY_SIMULATOR, 'gameConfig' => $gameConfig]);
 
-        $gravitySimulator = new GameEquipment();
+        $gravitySimulator = new GameEquipment($room);
         $gravitySimulator
             ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
             ->setEquipment($gravitySimulatorConfig)
-            ->setHolder($room)
         ;
 
         $I->haveInRepository($gravitySimulator);
@@ -166,11 +164,10 @@ class StatusSubscriberCest
         /** @var EquipmentConfig $gravitySimulatorConfig */
         $gravitySimulatorConfig = $I->have(EquipmentConfig::class, ['name' => EquipmentEnum::GRAVITY_SIMULATOR, 'gameConfig' => $gameConfig]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::BED)
             ->setEquipment($gravitySimulatorConfig)
-            ->setHolder($room)
         ;
 
         $I->haveInRepository($gameEquipment);
@@ -214,11 +211,10 @@ class StatusSubscriberCest
         /** @var EquipmentConfig $gravitySimulatorConfig */
         $gravitySimulatorConfig = $I->have(EquipmentConfig::class, ['name' => EquipmentEnum::GRAVITY_SIMULATOR, 'gameConfig' => $gameConfig]);
 
-        $gameEquipment = new Door();
+        $gameEquipment = new Door($room);
         $gameEquipment
             ->setName(EquipmentEnum::BED)
             ->setEquipment($gravitySimulatorConfig)
-            ->addRoom($room)
         ;
 
         $I->haveInRepository($gameEquipment);
@@ -262,11 +258,10 @@ class StatusSubscriberCest
         /** @var EquipmentConfig $gravitySimulatorConfig */
         $gravitySimulatorConfig = $I->have(EquipmentConfig::class, ['name' => EquipmentEnum::GRAVITY_SIMULATOR, 'gameConfig' => $gameConfig]);
 
-        $gravitySimulator = new GameEquipment();
+        $gravitySimulator = new GameEquipment($room);
         $gravitySimulator
             ->setName(EquipmentEnum::BED)
             ->setEquipment($gravitySimulatorConfig)
-            ->setHolder($room)
         ;
 
         $I->haveInRepository($gravitySimulator);

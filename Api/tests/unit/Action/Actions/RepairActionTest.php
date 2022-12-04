@@ -50,7 +50,7 @@ class RepairActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $item
             ->setIsBreakable(true)
@@ -58,7 +58,6 @@ class RepairActionTest extends AbstractActionTest
 
         $gameItem
             ->setEquipment($item)
-            ->setHolder($room)
         ;
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
@@ -79,7 +78,7 @@ class RepairActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $item
             ->setIsBreakable(true)
@@ -87,7 +86,6 @@ class RepairActionTest extends AbstractActionTest
 
         $gameItem
             ->setEquipment($item)
-            ->setHolder($room)
         ;
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);

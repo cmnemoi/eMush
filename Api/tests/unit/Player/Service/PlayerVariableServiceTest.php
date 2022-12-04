@@ -4,12 +4,14 @@ namespace Mush\Test\Player\Service;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableService;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class PlayerVariableServiceTest extends TestCase
@@ -82,10 +84,10 @@ class PlayerVariableServiceTest extends TestCase
 
     public function testMoraleModifier()
     {
-        $gameConfig = new GameConfig();
-        $gameConfig->setMaxMoralPoint(16);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setMaxMoralPoint(16);
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+
         $room = new Place();
 
         $player = new Player();
@@ -94,6 +96,8 @@ class PlayerVariableServiceTest extends TestCase
             ->setDaedalus($daedalus)
             ->setPlace($room)
         ;
+
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
 
         // go below 4 moral
         $this->playerService->shouldReceive('persist')->once();
@@ -140,10 +144,10 @@ class PlayerVariableServiceTest extends TestCase
 
     public function testActionPointModifier()
     {
-        $gameConfig = new GameConfig();
-        $gameConfig->setMaxActionPoint(16);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setMaxActionPoint(16);
+
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
         $room = new Place();
 
         $player = new Player();
@@ -152,6 +156,7 @@ class PlayerVariableServiceTest extends TestCase
             ->setDaedalus($daedalus)
             ->setPlace($room)
         ;
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
 
         $this->playerService->shouldReceive('persist')->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')
@@ -185,10 +190,10 @@ class PlayerVariableServiceTest extends TestCase
 
     public function testHealthPointModifier()
     {
-        $gameConfig = new GameConfig();
-        $gameConfig->setMaxHealthPoint(16);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setMaxHealthPoint(16);
+
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
         $room = new Place();
 
         $player = new Player();
@@ -197,6 +202,7 @@ class PlayerVariableServiceTest extends TestCase
             ->setDaedalus($daedalus)
             ->setPlace($room)
         ;
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
 
         $this->modifierService->shouldReceive('getEventModifiedValue')
             ->andReturn(16)

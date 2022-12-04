@@ -3,6 +3,7 @@
 namespace functional\Communication\Listener;
 
 use App\Tests\FunctionalTester;
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Channel;
@@ -39,19 +40,18 @@ class StatusSubscriberCest
 
     public function testCommunicationCenterBreak(FunctionalTester $I)
     {
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::BROKEN)
+        ;
+        $I->haveInRepository($statusConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$statusConfig])]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);
-
-        $statusConfig = new StatusConfig();
-        $statusConfig
-            ->setName(EquipmentStatusEnum::BROKEN)
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($statusConfig);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
@@ -85,19 +85,17 @@ class StatusSubscriberCest
         /** @var EquipmentConfig $commsCenterConfig */
         $commsCenterConfig = $I->have(EquipmentConfig::class, ['name' => EquipmentEnum::COMMUNICATION_CENTER, 'gameConfig' => $gameConfig]);
 
-        $communicationCenter = new GameEquipment();
+        $communicationCenter = new GameEquipment($room);
         $communicationCenter
             ->setName(EquipmentEnum::COMMUNICATION_CENTER)
             ->setEquipment($commsCenterConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($communicationCenter);
 
-        $iTrackie2 = new GameItem();
+        $iTrackie2 = new GameItem($player2);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig)
-            ->setHolder($player2)
         ;
         $I->haveInRepository($iTrackie2);
 

@@ -3,7 +3,6 @@ import { GameConfig } from "@/entities/Config/GameConfig";
 export class ConsumableDiseaseConfig {
     public iri: string|null;
     public id: number|null;
-    public gameConfig: GameConfig|null;
     public name: string|null;
     public diseasesName: Array<any>|null;
     public curesName: Array<any>|null;
@@ -17,7 +16,6 @@ export class ConsumableDiseaseConfig {
     constructor() {
         this.iri = null;
         this.id = null;
-        this.gameConfig = null;
         this.name = null;
         this.diseasesName = [];
         this.curesName = [];
@@ -32,7 +30,6 @@ export class ConsumableDiseaseConfig {
         if (typeof object !== "undefined") {
             this.iri = object.iri;
             this.id = object.id;
-            this.gameConfig = object.gameConfig;
             this.name = object.name;
             this.diseasesName = object.diseasesName;
             this.curesName = object.curesName;
@@ -48,7 +45,6 @@ export class ConsumableDiseaseConfig {
     jsonEncode() : object {
         return {
             'id': this.id,
-            'gameConfig': this.gameConfig?.iri,
             'name': this.name,
             'diseasesName': this.diseasesName,
             'curesName': this.curesName,
@@ -65,7 +61,6 @@ export class ConsumableDiseaseConfig {
             const object = JSON.parse(jsonString);
             this.iri = object.iri;
             this.id = object.id;
-            this.gameConfig = object.gameConfig;
             this.name = object.name;
             this.diseasesName = object.diseasesName;
             this.curesName = object.curesName;

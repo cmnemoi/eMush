@@ -66,11 +66,10 @@ class MoveSubscriberCest
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
         ;
         $I->haveInRepository($door);
         $room->addDoor($door);
@@ -115,11 +114,10 @@ class MoveSubscriberCest
             'mechanics' => new ArrayCollection([$gear]),
         ]);
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem($player);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setHolder($player)
         ;
         $I->haveInRepository($gameEquipment);
         $I->refreshEntities($player);
@@ -148,9 +146,7 @@ class MoveSubscriberCest
             'mechanics' => new ArrayCollection([$gear2]),
         ]);
 
-        $gameEquipment2 = $equipmentConfig2
-            ->createGameItem()
-            ->setHolder($player);
+        $gameEquipment2 = $equipmentConfig2->createGameItem($player);
 
         $I->haveInRepository($gameEquipment2);
         $I->refreshEntities($player);
@@ -165,7 +161,6 @@ class MoveSubscriberCest
         $statusConfig
             ->setName(PlayerStatusEnum::MUSH)
             ->setModifierConfigs(new ArrayCollection([$modifierConfig2]))
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($statusConfig);
         $statusPlayer = new Status($player, $statusConfig);

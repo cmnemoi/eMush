@@ -97,22 +97,6 @@ class GameConfigControllerCest
 
         $gameConfig
             ->setName('default')
-            ->setNbMush(3)
-            ->setCyclePerGameDay(8)
-            ->setCycleLength(60 * 3)
-            ->setTimeZone('Europe/Paris')
-            ->setLanguage(LanguageEnum::FRENCH)
-            ->setMaxNumberPrivateChannel(3)
-            ->setInitHealthPoint(14)
-            ->setMaxHealthPoint(14)
-            ->setInitMoralPoint(14)
-            ->setMaxMoralPoint(14)
-            ->setInitSatiety(0)
-            ->setInitActionPoint(8)
-            ->setMaxActionPoint(12)
-            ->setInitMovementPoint(12)
-            ->setMaxMovementPoint(12)
-            ->setMaxItemInInventory(3)
         ;
 
         return $gameConfig;

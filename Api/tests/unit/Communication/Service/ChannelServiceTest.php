@@ -163,7 +163,7 @@ class ChannelServiceTest extends TestCase
         $player->setPlayerInfo($playerInfo);
         $place = new Place();
 
-        $talkie = new GameItem();
+        $talkie = new GameItem($player);
         $talkie->setName(ItemEnum::WALKIE_TALKIE);
 
         $player->setPlace($place)->addEquipment($talkie);
@@ -180,11 +180,10 @@ class ChannelServiceTest extends TestCase
         $player->setPlayerInfo($playerInfo);
         $place = new Place();
 
-        $talkie = new GameItem();
+        $talkie = new GameItem($place);
         $talkie->setName(ItemEnum::WALKIE_TALKIE);
 
         $player->setPlace($place);
-        $place->addEquipment($talkie);
 
         $canPlayerCommunicate = $this->service->canPlayerCommunicate($player);
 
@@ -198,11 +197,10 @@ class ChannelServiceTest extends TestCase
         $player->setPlayerInfo($playerInfo);
         $place = new Place();
 
-        $commCenter = new GameEquipment();
+        $commCenter = new GameEquipment($place);
         $commCenter->setName(EquipmentEnum::COMMUNICATION_CENTER);
 
         $player->setPlace($place);
-        $place->addEquipment($commCenter);
 
         $canPlayerCommunicate = $this->service->canPlayerCommunicate($player);
 
@@ -258,11 +256,6 @@ class ChannelServiceTest extends TestCase
         $channel = new Channel();
         $place = new Place();
 
-        $item2 = new GameItem();
-        $item2->setName(ItemEnum::ITRACKIE);
-        $item3 = new GameItem();
-        $item3->setName(ItemEnum::ITRACKIE);
-
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setPlayerInfo($playerInfo);
@@ -272,13 +265,17 @@ class ChannelServiceTest extends TestCase
 
         $player2 = new Player();
         $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
-        $player2->setPlace($place)->addEquipment($item2);
+        $item2 = new GameItem($player2);
+        $item2->setName(ItemEnum::ITRACKIE);
+        $player2->setPlace($place);
         $channelPlayer2 = new ChannelPlayer();
         $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
 
         $player3 = new Player();
         $player3Info = new PlayerInfo($player3, new User(), new CharacterConfig());
-        $player3->setPlace(new Place())->addEquipment($item3);
+        $item3 = new GameItem($player3);
+        $item3->setName(ItemEnum::ITRACKIE);
+        $player3->setPlace(new Place());
         $channelPlayer3 = new ChannelPlayer();
         $channelPlayer3->setChannel($channel)->setParticipant($player3Info);
 
@@ -350,22 +347,20 @@ class ChannelServiceTest extends TestCase
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME;
 
-        $item = new GameItem();
-        $item->setName(ItemEnum::ITRACKIE);
-
-        $item2 = new GameItem();
-        $item2->setName(ItemEnum::ITRACKIE);
-
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setPlayerInfo($playerInfo);
-        $player->setPlace($place)->addEquipment($item);
+        $item = new GameItem($player);
+        $item->setName(ItemEnum::ITRACKIE);
+        $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
         $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
 
         $player2 = new Player();
         $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
-        $player2->setPlace($place2)->addEquipment($item2);
+        $item2 = new GameItem($player2);
+        $item2->setName(ItemEnum::ITRACKIE);
+        $player2->setPlace($place2);
         $channelPlayer2 = new ChannelPlayer();
         $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
 
@@ -403,9 +398,6 @@ class ChannelServiceTest extends TestCase
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME;
 
-        $item2 = new GameItem();
-        $item2->setName(ItemEnum::ITRACKIE);
-
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setPlayerInfo($playerInfo);
@@ -415,7 +407,9 @@ class ChannelServiceTest extends TestCase
 
         $player2 = new Player();
         $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
-        $player2->setPlace($place)->addEquipment($item2);
+        $item2 = new GameItem($player2);
+        $item2->setName(ItemEnum::ITRACKIE);
+        $player2->setPlace($place);
         $channelPlayer2 = new ChannelPlayer();
         $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
 
@@ -453,9 +447,6 @@ class ChannelServiceTest extends TestCase
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME;
 
-        $item2 = new GameItem();
-        $item2->setName(ItemEnum::ITRACKIE);
-
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setPlayerInfo($playerInfo);
@@ -465,7 +456,9 @@ class ChannelServiceTest extends TestCase
 
         $player2 = new Player();
         $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
-        $player2->setPlace($place2)->addEquipment($item2);
+        $item2 = new GameItem($player2);
+        $item2->setName(ItemEnum::ITRACKIE);
+        $player2->setPlace($place2);
         $channelPlayer2 = new ChannelPlayer();
         $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
 
@@ -503,12 +496,6 @@ class ChannelServiceTest extends TestCase
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME;
 
-        $item2 = new GameItem();
-        $item2->setName(ItemEnum::ITRACKIE);
-
-        $item3 = new GameItem();
-        $item3->setName(ItemEnum::ITRACKIE);
-
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setPlayerInfo($playerInfo);
@@ -518,14 +505,18 @@ class ChannelServiceTest extends TestCase
 
         $player2 = new Player();
         $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
-        $player2->setPlace($place2)->addEquipment($item2);
+        $item2 = new GameItem($player2);
+        $item2->setName(ItemEnum::ITRACKIE);
+        $player2->setPlace($place2);
         $channelPlayer2 = new ChannelPlayer();
         $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
 
         $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);
 
         $player3 = new Player();
-        $player3->setPlace($place)->addEquipment($item3);
+        $item3 = new GameItem($player3);
+        $item3->setName(ItemEnum::ITRACKIE);
+        $player3->setPlace($place);
         $piratedStatusConfig = new StatusConfig();
         $piratedStatusConfig->setName(PlayerStatusEnum::TALKIE_SCREWED);
         $piratedStatus = new Status($player3, $piratedStatusConfig);
@@ -633,13 +624,12 @@ class ChannelServiceTest extends TestCase
 
         $place = new Place();
 
-        $item = new GameItem();
-        $item->setName(ItemEnum::ITRACKIE);
-
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setPlayerInfo($playerInfo);
-        $player->setPlace($place)->addEquipment($item);
+        $item = new GameItem($player);
+        $item->setName(ItemEnum::ITRACKIE);
+        $player->setPlace($place);
 
         $this->channelRepository
             ->shouldReceive('findByPlayer')

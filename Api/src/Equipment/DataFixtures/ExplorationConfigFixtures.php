@@ -48,7 +48,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
         $compass = new ItemConfig();
         $compass
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::QUADRIMETRIC_COMPASS)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -59,7 +58,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
         $rope = new ItemConfig();
         $rope
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ROPE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -76,7 +74,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
         $drill = new ItemConfig();
         $drill
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::DRILL)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -90,7 +87,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
         $babelModule = new ItemConfig();
         $babelModule
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::BABEL_MODULE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -101,7 +97,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
         $echolocator = new ItemConfig();
         $echolocator
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::ECHOLOCATOR)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -118,7 +113,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
         $thermosensor = new ItemConfig();
         $thermosensor
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::THERMOSENSOR)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -131,7 +125,6 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
         $whiteFlag = new ItemConfig();
         $whiteFlag
-            ->setGameConfig($gameConfig)
             ->setName(ItemEnum::WHITE_FLAG)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
@@ -139,6 +132,17 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setActions($actions)
         ;
         $manager->persist($whiteFlag);
+
+        $gameConfig
+            ->addEquipmentConfig($compass)
+            ->addEquipmentConfig($rope)
+            ->addEquipmentConfig($drill)
+            ->addEquipmentConfig($babelModule)
+            ->addEquipmentConfig($echolocator)
+            ->addEquipmentConfig($thermosensor)
+            ->addEquipmentConfig($whiteFlag)
+        ;
+        $manager->persist($gameConfig);
 
         $manager->flush();
 

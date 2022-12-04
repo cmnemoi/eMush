@@ -16,7 +16,7 @@ use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Disease\Enum\DiseaseCauseEnum;
-use Mush\Disease\Service\PlayerDiseaseServiceInterface;
+use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
@@ -45,7 +45,7 @@ class Attack extends AttemptAction
     protected string $name = ActionEnum::ATTACK;
 
     private ModifierServiceInterface $modifierService;
-    private PlayerDiseaseServiceInterface $playerDiseaseService;
+    private DiseaseCauseServiceInterface $diseaseCauseService;
     protected RandomServiceInterface $randomService;
 
     public function __construct(
@@ -54,7 +54,7 @@ class Attack extends AttemptAction
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
         ModifierServiceInterface $modifierService,
-        PlayerDiseaseServiceInterface $playerDiseaseService,
+        DiseaseCauseServiceInterface $diseaseCauseService,
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -64,7 +64,7 @@ class Attack extends AttemptAction
         );
 
         $this->modifierService = $modifierService;
-        $this->playerDiseaseService = $playerDiseaseService;
+        $this->diseaseCauseService = $diseaseCauseService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -156,7 +156,7 @@ class Attack extends AttemptAction
             $damage = intval($this->randomService->getSingleRandomElementFromProbaArray($knifeWeapon->getBaseDamageRange()));
 
             if ($result instanceof CriticalSuccess) {
-                $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE, $target);
+                $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE, $target);
             } else {
                 // handle modifiers on damage : armor, hard boiled, etc
                 $damage = $this->modifierService->getEventModifiedValue(
@@ -172,7 +172,7 @@ class Attack extends AttemptAction
             $this->inflictDamage($damage, $target);
         } else {
             if ($result instanceof CriticalFail) {
-                $this->playerDiseaseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_FAIL_KNIFE, $player);
+                $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_FAIL_KNIFE, $player);
             }
         }
     }

@@ -7,7 +7,6 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\FullHealth;
 use Mush\Action\Validator\FullHealthValidator;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Entity\GameConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerVariableServiceInterface;
@@ -44,10 +43,7 @@ class FullHealthValidatorTest extends TestCase
 
     public function testValid()
     {
-        $gameConfig = new GameConfig();
-        $gameConfig->setMaxHealthPoint(16);
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
         $player = new Player();
         $player
             ->setHealthPoint(5)
@@ -74,10 +70,7 @@ class FullHealthValidatorTest extends TestCase
     {
         $this->constraint->target = FullHealth::PARAMETER;
 
-        $gameConfig = new GameConfig();
-        $gameConfig->setMaxHealthPoint(16);
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
         $player = new Player();
         $player
             ->setHealthPoint(12)

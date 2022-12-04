@@ -13,7 +13,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentCycleEvent;
-use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -39,23 +38,30 @@ class PlantCycleEventCest
 
     public function testPlantGrowing(FunctionalTester $I)
     {
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::PLANT_YOUNG)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
+            ->setMaxCharge(8)
+        ;
+        $I->haveInRepository($statusConfig);
+
         /** @var DaedalusConfig $gameConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
 
-        /** @var DifficultyConfig $difficultyConfig */
-        $difficultyConfig = $I->have(DifficultyConfig::class, [
-            'plantDiseaseRate' => 0,
-        ]);
-
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig]);
+        $gameConfig = $I->have(GameConfig::class, [
+            'daedalusConfig' => $daedalusConfig,
+            'statusConfigs' => new ArrayCollection([$statusConfig]),
+        ]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        /** @var EquipmentConfig $equipmentConfig */
+        /** @var EquipmentConfig $fruitConfig */
         $fruitConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'name' => 'fruit']);
 
         $plantMechanic = new Plant();
@@ -69,24 +75,14 @@ class PlantCycleEventCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$plantMechanic])]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('plant name')
-            ->setHolder($room)
         ;
 
         $I->haveInRepository($gameEquipment);
 
-        $statusConfig = new ChargeStatusConfig();
-        $statusConfig
-            ->setGameConfig($gameConfig)
-            ->setName(EquipmentStatusEnum::PLANT_YOUNG)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
-            ->setMaxCharge(8)
-        ;
-        $I->haveInRepository($statusConfig);
         $youngStatus = new ChargeStatus($gameEquipment, $statusConfig);
         $youngStatus
             ->setCharge(6)
@@ -120,43 +116,41 @@ class PlantCycleEventCest
 
     public function testPlantChangeDay(FunctionalTester $I)
     {
-        /** @var DaedalusConfig $gameConfig */
-        $daedalusConfig = $I->have(DaedalusConfig::class);
-
-        /** @var DifficultyConfig $difficultyConfig */
-        $difficultyConfig = $I->have(DifficultyConfig::class, [
-            'plantDiseaseRate' => 0,
-        ]);
-
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig]);
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'cycle' => 8, 'oxygen' => 10]);
-
         $thirstyStatusConfig = new StatusConfig();
         $thirstyStatusConfig
             ->setName(EquipmentStatusEnum::PLANT_THIRSTY)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($thirstyStatusConfig);
         $dryStatusConfig = new StatusConfig();
         $dryStatusConfig
             ->setName(EquipmentStatusEnum::PLANT_DRY)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($dryStatusConfig);
         $diseasedStatusConfig = new StatusConfig();
         $diseasedStatusConfig
             ->setName(EquipmentStatusEnum::PLANT_DISEASED)
-            ->setGameConfig($gameConfig)
         ;
         $I->haveInRepository($diseasedStatusConfig);
 
+        /** @var EquipmentConfig $fruitConfig */
+        $fruitConfig = $I->have(EquipmentConfig::class, ['name' => 'fruit']);
+        /* @var EquipmentConfig $equipmentConfig */
+        $hydropotConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::HYDROPOT]);
+
+        /** @var DaedalusConfig $gameConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class);
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, [
+            'daedalusConfig' => $daedalusConfig,
+            'statusConfigs' => new ArrayCollection([$thirstyStatusConfig, $dryStatusConfig, $diseasedStatusConfig]),
+            'equipmentsConfig' => new ArrayCollection([$fruitConfig, $hydropotConfig]),
+        ]);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'cycle' => 8, 'oxygen' => 10]);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var EquipmentConfig $equipmentConfig */
-        $fruitConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'name' => 'fruit']);
 
         $plantMechanic = new Plant();
         $plantMechanic
@@ -168,16 +162,12 @@ class PlantCycleEventCest
         $I->haveInRepository($plantMechanic);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$plantMechanic])]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['mechanics' => new ArrayCollection([$plantMechanic])]);
 
-        /* @var EquipmentConfig $equipmentConfig */
-        $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'name' => ItemEnum::HYDROPOT]);
-
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('plant name')
-            ->setHolder($room)
         ;
 
         $I->haveInRepository($gameEquipment);
@@ -255,11 +245,10 @@ class PlantCycleEventCest
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'corridor']);
 
-        $gameEquipment2 = new GameItem();
+        $gameEquipment2 = new GameItem($room2);
         $gameEquipment2
             ->setEquipment($equipmentConfig)
             ->setName('plant name')
-            ->setHolder($room2)
         ;
 
         $I->haveInRepository($gameEquipment2);

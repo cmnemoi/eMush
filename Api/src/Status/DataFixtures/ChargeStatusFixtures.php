@@ -58,7 +58,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::NONE)
             ->setStartCharge(0)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($attemptConfig);
 
@@ -71,7 +70,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxCharge(4)
             ->setStartCharge(1)
             ->setDischargeStrategy(ActionEnum::EXPRESS_COOK)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($microwaveCharge);
 
@@ -84,7 +82,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxCharge(8)
             ->setStartCharge(2)
             ->setDischargeStrategy(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($scooterCharge);
 
@@ -97,7 +94,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxCharge(3)
             ->setStartCharge(1)
             ->setDischargeStrategy(ActionEnum::SHOOT)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($blasterCharge);
 
@@ -110,7 +106,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxCharge(12)
             ->setStartCharge(12)
             ->setDischargeStrategy(ActionEnum::SHOOT)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($oldFaithfulCharge);
 
@@ -123,7 +118,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxCharge(1)
             ->setStartCharge(1)
             ->setDischargeStrategy(ActionEnum::SHOOT)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($bigWeaponCharge);
 
@@ -136,7 +130,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxCharge(1)
             ->setStartCharge(1)
             ->setDischargeStrategy(ActionEnum::DISPENSE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($dispenserCharge);
 
@@ -149,7 +142,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxCharge(1)
             ->setStartCharge(1)
             ->setDischargeStrategy(ActionEnum::COFFEE)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($coffeeCharge);
 
@@ -162,7 +154,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxCharge(4)
             ->setStartCharge(4)
             ->setDischargeStrategy(ActionEnum::SHOOT_HUNTER)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($turretCharge);
 
@@ -172,7 +163,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
-            ->setGameConfig($gameConfig)
         ;
 
         $manager->persist($fireStatus);
@@ -183,7 +173,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($plantYoung);
 
@@ -193,7 +182,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setAutoRemove(true)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($eurekaMoment);
 
@@ -204,7 +192,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setStartCharge(1)
             ->setAutoRemove(true)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($firstTime);
 
@@ -213,7 +200,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setName(PlayerStatusEnum::SPORES)
             ->setVisibility(VisibilityEnum::MUSH)
             ->setChargeVisibility(VisibilityEnum::MUSH)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($spores);
 
@@ -246,7 +232,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
                 $consumeMovementModifier,
                 $consumeSatietyModifier,
             ]))
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($mushStatus);
 
@@ -255,7 +240,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setName(EquipmentStatusEnum::CONTAMINATED)
             ->setVisibility(VisibilityEnum::MUSH)
             ->setChargeVisibility(VisibilityEnum::MUSH)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($contaminated);
 
@@ -264,7 +248,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setName(EquipmentStatusEnum::FUEL_CHARGE)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($combustionChamber);
 
@@ -276,7 +259,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
             ->setStartCharge(2)
             ->setAutoRemove(true)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($drug_eaten);
 
@@ -288,7 +270,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
             ->setStartCharge(1)
             ->setAutoRemove(true)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($did_the_thing);
 
@@ -300,7 +281,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
             ->setStartCharge(1)
             ->setAutoRemove(true)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($did_boring_speech);
 
@@ -312,9 +292,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
             ->setStartCharge(1)
             ->setAutoRemove(true)
-            ->setGameConfig($gameConfig)
         ;
-        $manager->persist($did_boring_speech);
+        $manager->persist($already_washed_in_the_sink);
 
         $updatingTrackie = new ChargeStatusConfig();
         $updatingTrackie
@@ -324,9 +303,33 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStartCharge(4)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
             ->setAutoRemove(true)
-            ->setGameConfig($gameConfig)
         ;
         $manager->persist($updatingTrackie);
+
+        $gameConfig
+            ->addStatusConfig($scooterCharge)
+            ->addStatusConfig($oldFaithfulCharge)
+            ->addStatusConfig($bigWeaponCharge)
+            ->addStatusConfig($turretCharge)
+            ->addStatusConfig($microwaveCharge)
+            ->addStatusConfig($coffeeCharge)
+            ->addStatusConfig($dispenserCharge)
+            ->addStatusConfig($blasterCharge)
+            ->addStatusConfig($fireStatus)
+            ->addStatusConfig($plantYoung)
+            ->addStatusConfig($eurekaMoment)
+            ->addStatusConfig($firstTime)
+            ->addStatusConfig($spores)
+            ->addStatusConfig($mushStatus)
+            ->addStatusConfig($contaminated)
+            ->addStatusConfig($combustionChamber)
+            ->addStatusConfig($drug_eaten)
+            ->addStatusConfig($did_the_thing)
+            ->addStatusConfig($did_boring_speech)
+            ->addStatusConfig($updatingTrackie)
+            ->addStatusConfig($already_washed_in_the_sink)
+        ;
+        $manager->persist($gameConfig);
 
         $manager->flush();
 

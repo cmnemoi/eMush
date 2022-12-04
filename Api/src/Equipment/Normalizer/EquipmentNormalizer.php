@@ -20,7 +20,6 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -140,7 +139,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
     private function getContextActions(GameEquipment $gameEquipment, Player $currentPlayer): Collection
     {
         $scopes = [ActionScopeEnum::ROOM];
-        $scopes[] = ($gameEquipment->getPlace() instanceof Place) ? ActionScopeEnum::SHELVE : ActionScopeEnum::INVENTORY;
+        $scopes[] = ($gameEquipment->isInShelf()) ? ActionScopeEnum::SHELVE : ActionScopeEnum::INVENTORY;
 
         if ($gameEquipment instanceof GameItem) {
             $target = GameItem::class;

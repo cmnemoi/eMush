@@ -38,8 +38,17 @@ class CheckSporeLevelActionCest
 
     public function testCheckSporeLevel(FunctionalTester $I)
     {
+        $sporeStatusConfig = new ChargeStatusConfig();
+        $sporeStatusConfig
+            ->setName(PlayerStatusEnum::SPORES)
+            ->setVisibility(VisibilityEnum::MUSH)
+            ->setChargeVisibility(VisibilityEnum::MUSH)
+        ;
+
+        $I->haveInRepository($sporeStatusConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$sporeStatusConfig])]);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
@@ -63,16 +72,6 @@ class CheckSporeLevelActionCest
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
-
-        $sporeStatusConfig = new ChargeStatusConfig();
-        $sporeStatusConfig
-            ->setName(PlayerStatusEnum::SPORES)
-            ->setVisibility(VisibilityEnum::MUSH)
-            ->setChargeVisibility(VisibilityEnum::MUSH)
-            ->setGameConfig($gameConfig)
-        ;
-
-        $I->haveInRepository($sporeStatusConfig);
 
         $sporeStatus = new ChargeStatus($player, $sporeStatusConfig);
         $sporeStatus
@@ -100,11 +99,10 @@ class CheckSporeLevelActionCest
             'actions' => new ArrayCollection([$action]),
         ]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::MYCOSCAN)
             ->setEquipment($equipmentConfig)
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 

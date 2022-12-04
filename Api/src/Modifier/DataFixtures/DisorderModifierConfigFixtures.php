@@ -8,7 +8,6 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Modifier\Entity\ModifierCondition;
 use Mush\Modifier\Entity\ModifierConfig;
@@ -35,9 +34,6 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
 
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
         $catInRoomCondition = new ModifierCondition(ModifierConditionEnum::ITEM_IN_ROOM);
         $catInRoomCondition->setCondition(ItemEnum::SCHRODINGER);
         $manager->persist($catInRoomCondition);

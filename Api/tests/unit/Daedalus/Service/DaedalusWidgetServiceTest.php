@@ -62,9 +62,8 @@ class DaedalusWidgetServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setPlayerInfo($playerInfo);
 
-        $tracker = new GameItem();
+        $tracker = new GameItem($player);
         $tracker->setName(ItemEnum::TRACKER);
-        $player->addEquipment($tracker);
 
         $room2->addPlayer($player);
 
@@ -137,9 +136,8 @@ class DaedalusWidgetServiceTest extends TestCase
 
         $player = new Player();
 
-        $tracker = new GameItem();
+        $tracker = new GameItem($player);
         $tracker->setName(ItemEnum::TRACKER);
-        $player->addEquipment($tracker);
 
         $daedalus = new Daedalus();
         $daedalus

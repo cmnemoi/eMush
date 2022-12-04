@@ -88,7 +88,6 @@ class DaedalusServiceTest extends TestCase
         $roomConfig = new PlaceConfig();
 
         $gameConfig = new GameConfig();
-        $gameConfig->setCyclePerGameDay(8)->setCycleLength(3 * 60);
         $daedalusConfig = new DaedalusConfig();
 
         $item = new ItemConfig();
@@ -147,7 +146,10 @@ class DaedalusServiceTest extends TestCase
     public function testStartDaedalus()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setCyclePerGameDay(8)->setCycleLength(3 * 60);
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setCyclePerGameDay(8)->setCycleLength(3 * 60);
+        $gameConfig->setDaedalusConfig($daedalusConfig);
+
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
@@ -175,7 +177,6 @@ class DaedalusServiceTest extends TestCase
     {
         $daedalus = new Daedalus();
         $gameConfig = new GameConfig();
-        $gameConfig->setCyclePerGameDay(8)->setCycleLength(3 * 60);
 
         $daedalus->setGameConfig($gameConfig);
 
@@ -205,7 +206,6 @@ class DaedalusServiceTest extends TestCase
     {
         $daedalus = new Daedalus();
         $gameConfig = new GameConfig();
-        $gameConfig->setMaxItemInInventory(3);
 
         $daedalus->setGameConfig($gameConfig);
 
@@ -224,37 +224,31 @@ class DaedalusServiceTest extends TestCase
         $oxCapsuleConfig = new ItemConfig();
         $oxCapsuleConfig->setName(ItemEnum::OXYGEN_CAPSULE);
 
-        $oxCapsule1 = new GameItem();
-        $oxCapsule2 = new GameItem();
-        $oxCapsule3 = new GameItem();
-        $oxCapsule4 = new GameItem();
-        $oxCapsule5 = new GameItem();
+        $oxCapsule1 = new GameItem($twoCapsulePlayer);
+        $oxCapsule2 = new GameItem($twoCapsulePlayer);
+        $oxCapsule3 = new GameItem($threeCapsulePlayer);
+        $oxCapsule4 = new GameItem($threeCapsulePlayer);
+        $oxCapsule5 = new GameItem($threeCapsulePlayer);
 
         $oxCapsule1
             ->setEquipment($oxCapsuleConfig)
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setHolder($twoCapsulePlayer)
         ;
         $oxCapsule2
             ->setEquipment($oxCapsuleConfig)
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setHolder($twoCapsulePlayer)
         ;
-
         $oxCapsule3
             ->setEquipment($oxCapsuleConfig)
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setHolder($threeCapsulePlayer)
         ;
         $oxCapsule4
             ->setEquipment($oxCapsuleConfig)
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setHolder($threeCapsulePlayer)
         ;
         $oxCapsule5
             ->setEquipment($oxCapsuleConfig)
             ->setName(ItemEnum::OXYGEN_CAPSULE)
-            ->setHolder($threeCapsulePlayer)
         ;
 
         // one player with no capsule
@@ -287,9 +281,12 @@ class DaedalusServiceTest extends TestCase
     {
         $daedalus = new Daedalus();
         $gameConfig = new GameConfig();
-        $gameConfig
-            ->setMaxItemInInventory(3)
-            ->setNbMush(2);
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig
+            ->setNbMush(2)
+        ;
+
+        $gameConfig->setDaedalusConfig($daedalusConfig);
 
         $daedalus->setGameConfig($gameConfig);
 

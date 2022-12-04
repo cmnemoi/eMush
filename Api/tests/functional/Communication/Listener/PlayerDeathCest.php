@@ -9,8 +9,8 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -31,8 +31,10 @@ class PlayerDeathCest
 
     public function testDispatchPlayerDeath(FunctionalTester $I)
     {
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1, 'language' => LanguageEnum::FRENCH]);
+        $gameConfig = $I->have(GameConfig::class, ['localizationConfig' => $localizationConfig]);
 
         /** @var User $user */
         $user = $I->have(User::class);

@@ -11,6 +11,7 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Modifier\Entity\ModifierCondition;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
@@ -31,10 +32,13 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
 
     public function normalize($object, string $format = null, array $context = [])
     {
+        /** @var Player $currentPlayer */
+        $currentPlayer = $context['currentPlayer'];
+
         /** @var DiseaseConfig $diseaseConfig */
         $diseaseConfig = $object->getDiseaseConfig();
 
-        $language = $diseaseConfig->getGameConfig()->getLanguage();
+        $language = $currentPlayer->getDaedalus()->getGameConfig()->getLanguage();
 
         $description = $this->translationService->translate(
             "{$diseaseConfig->getName()}.description",

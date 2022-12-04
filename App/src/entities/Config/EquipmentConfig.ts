@@ -3,7 +3,6 @@ import { GameConfig } from "@/entities/Config/GameConfig";
 export class EquipmentConfig {
     public iri: string|null;
     public id: number|null;
-    public gameConfig: GameConfig|null;
     public name: string|null;
     public initStatus: string|null;
     public mechanics: Array<any>|null;
@@ -17,7 +16,6 @@ export class EquipmentConfig {
     constructor() {
         this.iri = null;
         this.id = null;
-        this.gameConfig = null;
         this.name = null;
         this.initStatus = null;
         this.mechanics = [];
@@ -32,7 +30,6 @@ export class EquipmentConfig {
         if (typeof object !== "undefined") {
             this.iri = object.iri;
             this.id = object.id;
-            this.gameConfig = object.gameConfig;
             this.name = object.name;
             this.initStatus = object.initStatus;
             this.mechanics = object.mechanics;
@@ -48,7 +45,6 @@ export class EquipmentConfig {
     jsonEncode() : object {
         return {
             'id': this.id,
-            'gameConfig': this.gameConfig?.iri,
             'name': this.name,
             'initStatus': this.initStatus,
             'mechanics': this.mechanics,
@@ -65,7 +61,6 @@ export class EquipmentConfig {
             const object = JSON.parse(jsonString);
             this.iri = object.iri;
             this.id = object.id;
-            this.gameConfig = object.gameConfig;
             this.name = object.name;
             this.initStatus = object.initStatus;
             this.mechanics = object.mechanics;

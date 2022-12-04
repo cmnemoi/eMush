@@ -20,37 +20,6 @@ use Mush\Modifier\Entity\ModifierConfig;
 
 class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const BROKEN_FINGER = 'broken_finger';
-    public const BROKEN_FOOT = 'broken_foot';
-    public const BROKEN_LEG = 'broken_leg';
-    public const BROKEN_RIBS = 'broken_ribs';
-    public const BRUISED_SHOULDER = 'bruised_shoulder';
-    public const BURNS_50_OF_BODY = 'burns_50_of_body';
-    public const BURNS_90_OF_BODY = 'burns_90_of_body';
-    public const BURNT_ARMS = 'burnt_arms';
-    public const BURNT_HAND = 'burnt_hand';
-    public const BURST_NOSE = 'burst_nose';
-    public const BUSTED_ARM_JOINT = 'busted_arm_joint';
-    public const BUSTED_SHOULDER = 'busted_shoulder';
-    public const CRITICAL_HAEMORRHAGE = 'critical_haemorrhage';
-    public const HAEMORRHAGE = 'haemorrhage';
-    public const MINOR_HAEMORRHAGE = 'minor_haemorrhage';
-    public const DAMAGED_EARS = 'damaged_ears';
-    public const DESTROYED_EARS = 'destroyed_ears';
-    public const DISFUNCTIONAL_LIVER = 'disfunctional_liver';
-    public const HEAD_TRAUMA = 'head_trauma';
-    public const IMPLANTED_BULLET = 'implanted_bullet';
-    public const INNER_EAR_DAMAGED = 'inner_ear_damaged';
-    public const MASHED_FOOT = 'mashed_foot';
-    public const MASHED_HAND = 'mashed_hand';
-    public const MISSING_FINGER = 'missing_finger';
-    public const OPEN_AIR_BRAIN = 'open_air_brain';
-    public const PUNCTURED_LUNG = 'punctured_lung';
-    public const SMASHED_ARMS = 'smashed_arms';
-    public const SMASHED_LEGS = 'smashed_legs';
-    public const TORN_TONGUE = 'torn_tongue';
-    public const BROKEN_SHOULDER = 'broken_shoulder';
-
     public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
@@ -121,7 +90,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         // burn
         $burns50OfBody = new DiseaseConfig();
         $burns50OfBody
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::BURNS_50_OF_BODY)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -133,7 +101,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $burns90OfBody = new DiseaseConfig();
         $burns90OfBody
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::BURNS_90_OF_BODY)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -150,7 +117,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $burstNose = new DiseaseConfig();
         $burstNose
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::BURST_NOSE)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -162,7 +128,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         // Haemorrhage
         $criticalHaemorrhage = new DiseaseConfig();
         $criticalHaemorrhage
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::CRITICAL_HAEMORRHAGE)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -174,7 +139,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $haemorrhage = new DiseaseConfig();
         $haemorrhage
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::HAEMORRHAGE)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -186,7 +150,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $minorHaemorrhage = new DiseaseConfig();
         $minorHaemorrhage
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::MINOR_HAEMORRHAGE)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -198,7 +161,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         // Ears
         $damagedEars = new DiseaseConfig();
         $damagedEars
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::DAMAGED_EARS)
             ->setType(TypeEnum::INJURY)
             ->setSymptomConfigs(new SymptomConfigCollection([
@@ -209,7 +171,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $destroyedEars = new DiseaseConfig();
         $destroyedEars
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::DESTROYED_EARS)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -224,7 +185,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $headTrauma = new DiseaseConfig();
         $headTrauma
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::HEAD_TRAUMA)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -240,7 +200,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $openAirBrain = new DiseaseConfig();
         $openAirBrain
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::OPEN_AIR_BRAIN)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -257,7 +216,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $implantedBullet = new DiseaseConfig();
         $implantedBullet
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::IMPLANTED_BULLET)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -268,7 +226,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $innerEarDamaged = new DiseaseConfig();
         $innerEarDamaged
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::INNER_EAR_DAMAGED)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -283,7 +240,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $tornTongue = new DiseaseConfig();
         $tornTongue
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::TORN_TONGUE)
             ->setType(TypeEnum::INJURY)
             ->setSymptomConfigs(new SymptomConfigCollection([
@@ -295,7 +251,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         // foot and leg
         $brokenFoot = new DiseaseConfig();
         $brokenFoot
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::BROKEN_FOOT)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -306,7 +261,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $mashedFoot = new DiseaseConfig();
         $mashedFoot
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::MASHED_FOOT)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -319,7 +273,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $brokenLeg = new DiseaseConfig();
         $brokenLeg
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::BROKEN_LEG)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -331,7 +284,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $mashedLegs = new DiseaseConfig();
         $mashedLegs
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::MASHED_LEGS)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -347,7 +299,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         // Torso
         $disfunctionalLiver = new DiseaseConfig();
         $disfunctionalLiver
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::DISFUNCTIONAL_LIVER)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -364,7 +315,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $puncturedLung = new DiseaseConfig();
         $puncturedLung
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::PUNCTURED_LUNG)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -379,7 +329,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $brokenRibs = new DiseaseConfig();
         $brokenRibs
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::BROKEN_RIBS)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -391,7 +340,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         // finger, arm and shoulder
         $brokenFinger = new DiseaseConfig();
         $brokenFinger
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::BROKEN_FINGER)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -402,7 +350,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $missingFinger = new DiseaseConfig();
         $missingFinger
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::MISSING_FINGER)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -414,7 +361,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $burntHand = new DiseaseConfig();
         $burntHand
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::BURNT_HAND)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -426,7 +372,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $mashedHand = new DiseaseConfig();
         $mashedHand
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::MASHED_HAND)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -439,7 +384,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $burntArms = new DiseaseConfig();
         $burntArms
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::BURNT_ARMS)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -452,7 +396,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $bustedArmJoint = new DiseaseConfig();
         $bustedArmJoint
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::BUSTED_ARM_JOINT)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -465,7 +408,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $mashedArms = new DiseaseConfig();
         $mashedArms
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::MASHED_ARMS)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -484,7 +426,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $bruisedShoulder = new DiseaseConfig();
         $bruisedShoulder
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::BRUISED_SHOULDER)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -496,7 +437,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $brokenShoulder = new DiseaseConfig();
         $brokenShoulder
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::BROKEN_SHOULDER)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -510,7 +450,6 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $bustedShoulder = new DiseaseConfig();
         $bustedShoulder
-            ->setGameConfig($gameConfig)
             ->setName(InjuryEnum::BUSTED_SHOULDER)
             ->setType(TypeEnum::INJURY)
             ->setModifierConfigs(new ArrayCollection([
@@ -533,38 +472,41 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($bustedShoulder);
 
-        $manager->flush();
+        $gameConfig
+            ->addDiseaseConfig($brokenFinger)
+            ->addDiseaseConfig($brokenFoot)
+            ->addDiseaseConfig($brokenLeg)
+            ->addDiseaseConfig($brokenRibs)
+            ->addDiseaseConfig($bruisedShoulder)
+            ->addDiseaseConfig($burns50OfBody)
+            ->addDiseaseConfig($burns90OfBody)
+            ->addDiseaseConfig($burntArms)
+            ->addDiseaseConfig($burntHand)
+            ->addDiseaseConfig($burstNose)
+            ->addDiseaseConfig($bustedArmJoint)
+            ->addDiseaseConfig($bustedShoulder)
+            ->addDiseaseConfig($criticalHaemorrhage)
+            ->addDiseaseConfig($haemorrhage)
+            ->addDiseaseConfig($minorHaemorrhage)
+            ->addDiseaseConfig($damagedEars)
+            ->addDiseaseConfig($destroyedEars)
+            ->addDiseaseConfig($disfunctionalLiver)
+            ->addDiseaseConfig($headTrauma)
+            ->addDiseaseConfig($implantedBullet)
+            ->addDiseaseConfig($innerEarDamaged)
+            ->addDiseaseConfig($mashedFoot)
+            ->addDiseaseConfig($mashedHand)
+            ->addDiseaseConfig($missingFinger)
+            ->addDiseaseConfig($openAirBrain)
+            ->addDiseaseConfig($puncturedLung)
+            ->addDiseaseConfig($mashedArms)
+            ->addDiseaseConfig($mashedLegs)
+            ->addDiseaseConfig($tornTongue)
+            ->addDiseaseConfig($brokenShoulder)
+        ;
+        $manager->persist($gameConfig);
 
-        $this->addReference(self::BROKEN_FINGER, $brokenFinger);
-        $this->addReference(self::BROKEN_FOOT, $brokenFoot);
-        $this->addReference(self::BROKEN_LEG, $brokenLeg);
-        $this->addReference(self::BROKEN_RIBS, $brokenRibs);
-        $this->addReference(self::BRUISED_SHOULDER, $bruisedShoulder);
-        $this->addReference(self::BURNS_50_OF_BODY, $burns50OfBody);
-        $this->addReference(self::BURNS_90_OF_BODY, $burns90OfBody);
-        $this->addReference(self::BURNT_ARMS, $burntArms);
-        $this->addReference(self::BURNT_HAND, $burntHand);
-        $this->addReference(self::BURST_NOSE, $burstNose);
-        $this->addReference(self::BUSTED_ARM_JOINT, $bustedArmJoint);
-        $this->addReference(self::BUSTED_SHOULDER, $bustedShoulder);
-        $this->addReference(self::CRITICAL_HAEMORRHAGE, $criticalHaemorrhage);
-        $this->addReference(self::HAEMORRHAGE, $haemorrhage);
-        $this->addReference(self::MINOR_HAEMORRHAGE, $minorHaemorrhage);
-        $this->addReference(self::DAMAGED_EARS, $damagedEars);
-        $this->addReference(self::DESTROYED_EARS, $destroyedEars);
-        $this->addReference(self::DISFUNCTIONAL_LIVER, $disfunctionalLiver);
-        $this->addReference(self::HEAD_TRAUMA, $headTrauma);
-        $this->addReference(self::IMPLANTED_BULLET, $implantedBullet);
-        $this->addReference(self::INNER_EAR_DAMAGED, $innerEarDamaged);
-        $this->addReference(self::MASHED_FOOT, $mashedFoot);
-        $this->addReference(self::MASHED_HAND, $mashedHand);
-        $this->addReference(self::MISSING_FINGER, $missingFinger);
-        $this->addReference(self::OPEN_AIR_BRAIN, $openAirBrain);
-        $this->addReference(self::PUNCTURED_LUNG, $puncturedLung);
-        $this->addReference(self::SMASHED_ARMS, $mashedArms);
-        $this->addReference(self::SMASHED_LEGS, $mashedLegs);
-        $this->addReference(self::TORN_TONGUE, $tornTongue);
-        $this->addReference(self::BROKEN_SHOULDER, $brokenShoulder);
+        $manager->flush();
     }
 
     public function getDependencies()

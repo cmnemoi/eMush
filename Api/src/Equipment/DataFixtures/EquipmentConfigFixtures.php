@@ -55,7 +55,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         // @TODO terminals
         $icarus = new EquipmentConfig();
         $icarus
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::ICARUS)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -68,7 +67,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         // @TODO terminals
         $door = new EquipmentConfig();
         $door
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::DOOR)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -79,7 +77,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $comsCenter = new EquipmentConfig();
         $comsCenter
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::COMMUNICATION_CENTER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -90,7 +87,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $neronCore = new EquipmentConfig();
         $neronCore
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::NERON_CORE)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -101,7 +97,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $astroTerminal = new EquipmentConfig();
         $astroTerminal
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::ASTRO_TERMINAL)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -112,7 +107,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $researchLab = new EquipmentConfig();
         $researchLab
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::RESEARCH_LABORATORY)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -123,7 +117,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $pilgred = new EquipmentConfig();
         $pilgred
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::PILGRED)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -133,7 +126,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $calculator = new EquipmentConfig();
         $calculator
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::CALCULATOR)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -144,7 +136,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $biosTerminal = new EquipmentConfig();
         $biosTerminal
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::BIOS_TERMINAL)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -155,7 +146,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $commandTerminal = new EquipmentConfig();
         $commandTerminal
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::COMMAND_TERMINAL)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -167,7 +157,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         // @TODO gears
         $planetScanner = new EquipmentConfig();
         $planetScanner
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::PLANET_SCANNER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -178,7 +167,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $jukebox = new EquipmentConfig();
         $jukebox
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::JUKEBOX)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -189,7 +177,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $emergencyReactor = new EquipmentConfig();
         $emergencyReactor
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::EMERGENCY_REACTOR)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -200,7 +187,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $reactorLateral = new EquipmentConfig();
         $reactorLateral
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::REACTOR_LATERAL)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -213,7 +199,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $antenna = new EquipmentConfig();
         $antenna
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::ANTENNA)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -227,7 +212,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $gravitySimulatorGear = $this->createGear([GearModifierConfigFixtures::GRAVITY_CONVERSION_MODIFIER, GearModifierConfigFixtures::GRAVITY_CYCLE_MODIFIER]);
         $gravitySimulator = new EquipmentConfig();
         $gravitySimulator
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
             ->setMechanics(new ArrayCollection([$gravitySimulatorGear]))
             ->setIsFireDestroyable(false)
@@ -246,7 +230,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $thalasso = new EquipmentConfig();
         $thalasso
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::THALASSO)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -261,7 +244,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         // @TODO ships
         $patrolShip = new EquipmentConfig();
         $patrolShip
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::PATROL_SHIP)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -271,7 +253,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $pasiphae = new EquipmentConfig();
         $pasiphae
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::PASIPHAE)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -286,7 +267,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $cameraMechanic->addAction($removeCamera);
         $camera = new EquipmentConfig();
         $camera
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::CAMERA_EQUIPMENT)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
@@ -310,7 +290,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $combustionChamber = new EquipmentConfig();
         $combustionChamber
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::COMBUSTION_CHAMBER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -331,7 +310,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $kitchen = new EquipmentConfig();
         $kitchen
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::KITCHEN)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -352,7 +330,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $narcoticDistiller = new EquipmentConfig();
         $narcoticDistiller
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::NARCOTIC_DISTILLER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -367,7 +344,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $shower = new EquipmentConfig();
         $shower
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::SHOWER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -381,7 +357,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $dynarcadeMechanic = new Tool();
         $dynarcade = new EquipmentConfig();
         $dynarcade
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::DYNARCADE)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -399,7 +374,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $bedMechanic->addAction($lieDownAction);
         $bed = new EquipmentConfig();
         $bed
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::BED)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -411,7 +385,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $medlabBed = new EquipmentConfig();
         $medlabBed
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::MEDLAB_BED)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -431,7 +404,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $coffeMachine = new EquipmentConfig();
         $coffeMachine
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -447,7 +419,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 //        $cryoModuleMechanic->setActions([ActionEnum::CHECK_ROSTER]);
         $cryoModule = new EquipmentConfig();
         $cryoModule
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::CRYO_MODULE)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -463,7 +434,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $mycoscanMechanic = new Tool();
         $mycoscan = new EquipmentConfig();
         $mycoscan
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::MYCOSCAN)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -481,7 +451,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 //        $turretCommandMechanic->setActions([ActionEnum::SHOOT_HUNTER]);
         $turretCommand = new EquipmentConfig();
         $turretCommand
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::TURRET_COMMAND)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -501,7 +470,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $surgicalPlot = new EquipmentConfig();
         $surgicalPlot
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::SURGERY_PLOT)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -519,7 +487,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $fuelTank = new EquipmentConfig();
         $fuelTank
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::FUEL_TANK)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -547,7 +514,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $oxygenTank = new EquipmentConfig();
         $oxygenTank
-            ->setGameConfig($gameConfig)
             ->setName(EquipmentEnum::OXYGEN_TANK)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
@@ -561,16 +527,43 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $gravityGear = $this->createGear([GearModifierConfigFixtures::GRAVITY_CYCLE_MODIFIER, GearModifierConfigFixtures::GRAVITY_CONVERSION_MODIFIER]);
 
-        $gravitySimulator = new EquipmentConfig();
-        $gravitySimulator
-            ->setGameConfig($gameConfig)
-            ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(true)
-            ->setIsBreakable(true)
-            ->setActions(new ArrayCollection([$repair6, $sabotage6, $reportAction, $examineAction]))
-            ->setMechanics(new ArrayCollection([$gravityGear]))
+        $gameConfig
+            ->addEquipmentConfig($icarus)
+            ->addEquipmentConfig($door)
+            ->addEquipmentConfig($comsCenter)
+            ->addEquipmentConfig($neronCore)
+            ->addEquipmentConfig($astroTerminal)
+            ->addEquipmentConfig($researchLab)
+            ->addEquipmentConfig($pilgred)
+            ->addEquipmentConfig($calculator)
+            ->addEquipmentConfig($biosTerminal)
+            ->addEquipmentConfig($commandTerminal)
+            ->addEquipmentConfig($planetScanner)
+            ->addEquipmentConfig($jukebox)
+            ->addEquipmentConfig($emergencyReactor)
+            ->addEquipmentConfig($reactorLateral)
+            ->addEquipmentConfig($antenna)
+            ->addEquipmentConfig($gravitySimulator)
+            ->addEquipmentConfig($thalasso)
+            ->addEquipmentConfig($patrolShip)
+            ->addEquipmentConfig($pasiphae)
+            ->addEquipmentConfig($camera)
+            ->addEquipmentConfig($combustionChamber)
+            ->addEquipmentConfig($kitchen)
+            ->addEquipmentConfig($narcoticDistiller)
+            ->addEquipmentConfig($shower)
+            ->addEquipmentConfig($dynarcade)
+            ->addEquipmentConfig($bed)
+            ->addEquipmentConfig($medlabBed)
+            ->addEquipmentConfig($coffeMachine)
+            ->addEquipmentConfig($cryoModule)
+            ->addEquipmentConfig($mycoscan)
+            ->addEquipmentConfig($turretCommand)
+            ->addEquipmentConfig($surgicalPlot)
+            ->addEquipmentConfig($fuelTank)
+            ->addEquipmentConfig($oxygenTank)
         ;
+        $manager->persist($gameConfig);
 
         $manager->flush();
     }

@@ -74,12 +74,11 @@ class SearchActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player);
 
         // No hidden item in the room
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setHolder($room)
         ;
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
@@ -90,12 +89,11 @@ class SearchActionTest extends AbstractActionTest
     {
         // Success find
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setHolder($room)
         ;
 
         $hiddenConfig = new StatusConfig();
@@ -128,12 +126,11 @@ class SearchActionTest extends AbstractActionTest
     {
         // 2 hidden items
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem
             ->setName('itemName')
             ->setEquipment($item)
-            ->setHolder($room)
         ;
 
         $hiddenBy = $this->createPlayer(new Daedalus(), new Place());
@@ -145,10 +142,9 @@ class SearchActionTest extends AbstractActionTest
             ->setTarget($hiddenBy)
         ;
 
-        $gameItem2 = new GameItem();
+        $gameItem2 = new GameItem($room);
         $gameItem2
             ->setEquipment($item)
-            ->setHolder($room)
         ;
 
         $hidden2 = new Status($gameItem2, $hiddenConfig);

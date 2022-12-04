@@ -23,20 +23,20 @@ class PlayerVariableService implements PlayerVariableServiceInterface
 
     public function getMaxPlayerVariable(Player $player, string $target): int
     {
-        $gameConfig = $player->getDaedalus()->getGameConfig();
+        $characterConfig = $player->getPlayerInfo()->getCharacterConfig();
 
         switch ($target) {
             case PlayerVariableEnum::ACTION_POINT:
-                $maxValue = $gameConfig->getMaxActionPoint();
+                $maxValue = $characterConfig->getMaxActionPoint();
                 break;
             case PlayerVariableEnum::MOVEMENT_POINT:
-                $maxValue = $gameConfig->getMaxMovementPoint();
+                $maxValue = $characterConfig->getMaxMovementPoint();
                 break;
             case PlayerVariableEnum::HEALTH_POINT:
-                $maxValue = $gameConfig->getMaxHealthPoint();
+                $maxValue = $characterConfig->getMaxHealthPoint();
                 break;
             case PlayerVariableEnum::MORAL_POINT:
-                $maxValue = $gameConfig->getMaxMoralPoint();
+                $maxValue = $characterConfig->getMaxMoralPoint();
                 break;
             default:
                 throw new Error('getMaxPlayerVariable : invalid target string');

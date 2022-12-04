@@ -71,7 +71,6 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
 
         $agoraphobia = new DiseaseConfig();
         $agoraphobia
-            ->setGameConfig($gameConfig)
             ->setName(DisorderEnum::AGORAPHOBIA)
             ->setType(TypeEnum::DISORDER)
             ->setModifierConfigs(new ArrayCollection([
@@ -86,7 +85,6 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
 
         $ailurophobia = new DiseaseConfig();
         $ailurophobia
-            ->setGameConfig($gameConfig)
             ->setName(DisorderEnum::AILUROPHOBIA)
             ->setType(TypeEnum::DISORDER)
             ->setModifierConfigs(new ArrayCollection([
@@ -101,7 +99,6 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
 
         $chronicMigraine = new DiseaseConfig();
         $chronicMigraine
-            ->setGameConfig($gameConfig)
             ->setName(DisorderEnum::CHRONIC_MIGRAINE)
             ->setType(TypeEnum::DISORDER)
             ->setModifierConfigs(new ArrayCollection([
@@ -115,7 +112,6 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
 
         $chronicVertigo = new DiseaseConfig();
         $chronicVertigo
-            ->setGameConfig($gameConfig)
             ->setName(DisorderEnum::CHRONIC_VERTIGO)
             ->setType(TypeEnum::DISORDER)
             ->setSymptomConfigs(new SymptomConfigCollection([
@@ -127,7 +123,6 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
 
         $coprolalia = new DiseaseConfig();
         $coprolalia
-            ->setGameConfig($gameConfig)
             ->setName(DisorderEnum::COPROLALIA)
             ->setType(TypeEnum::DISORDER)
             ->setModifierConfigs(new ArrayCollection([
@@ -140,7 +135,6 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
 
         $crabism = new DiseaseConfig();
         $crabism
-            ->setGameConfig($gameConfig)
             ->setName(DisorderEnum::CRABISM)
             ->setType(TypeEnum::DISORDER)
             ->setModifierConfigs(new ArrayCollection([
@@ -154,7 +148,6 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
 
         $depression = new DiseaseConfig();
         $depression
-            ->setGameConfig($gameConfig)
             ->setName(DisorderEnum::DEPRESSION)
             ->setType(TypeEnum::DISORDER)
             ->setModifierConfigs(new ArrayCollection([
@@ -166,7 +159,6 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
 
         $paranoia = new DiseaseConfig();
         $paranoia
-            ->setGameConfig($gameConfig)
             ->setName(DisorderEnum::PARANOIA)
             ->setType(TypeEnum::DISORDER)
             ->setModifierConfigs(new ArrayCollection([
@@ -179,7 +171,6 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
 
         $psychoticEpisode = new DiseaseConfig();
         $psychoticEpisode
-            ->setGameConfig($gameConfig)
             ->setName(DisorderEnum::PSYCHOTIC_EPISODE)
             ->setType(TypeEnum::DISORDER)
             ->setSymptomConfigs(new SymptomConfigCollection([
@@ -191,7 +182,6 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
 
         $spleen = new DiseaseConfig();
         $spleen
-            ->setGameConfig($gameConfig)
             ->setName(DisorderEnum::SPLEEN)
             ->setType(TypeEnum::DISORDER)
             ->setModifierConfigs(new ArrayCollection([
@@ -202,26 +192,38 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
 
         $vertigo = new DiseaseConfig();
         $vertigo
-            ->setGameConfig($gameConfig)
             ->setName(DisorderEnum::VERTIGO)
             ->setType(TypeEnum::DISORDER)
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $noPilotingActions,
             ]));
-
         $manager->persist($vertigo);
 
         $weaponPhobia = new DiseaseConfig();
         $weaponPhobia
-            ->setGameConfig($gameConfig)
             ->setName(DisorderEnum::WEAPON_PHOBIA)
             ->setType(TypeEnum::DISORDER)
             ->setSymptomConfigs(new SymptomConfigCollection([
                 $noAttackActions,
                 $noShootActions,
             ]));
-
         $manager->persist($weaponPhobia);
+
+        $gameConfig
+            ->addDiseaseConfig($agoraphobia)
+            ->addDiseaseConfig($ailurophobia)
+            ->addDiseaseConfig($chronicMigraine)
+            ->addDiseaseConfig($chronicVertigo)
+            ->addDiseaseConfig($coprolalia)
+            ->addDiseaseConfig($crabism)
+            ->addDiseaseConfig($depression)
+            ->addDiseaseConfig($paranoia)
+            ->addDiseaseConfig($psychoticEpisode)
+            ->addDiseaseConfig($spleen)
+            ->addDiseaseConfig($vertigo)
+            ->addDiseaseConfig($weaponPhobia)
+        ;
+        $manager->persist($gameConfig);
 
         $manager->flush();
 

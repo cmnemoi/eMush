@@ -214,7 +214,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
     {
         switch ($modifierConfig->getReach()) {
             case ModifierReachEnum::DAEDALUS:
-                return $gameEquipment->getPlace()->getDaedalus();
+                return $gameEquipment->getDaedalus();
             case ModifierReachEnum::PLACE:
                 return $gameEquipment->getPlace();
             case ModifierReachEnum::EQUIPMENT:

@@ -36,8 +36,8 @@ use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Enum\LanguageEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -85,11 +85,10 @@ class ActionSubscriberCest
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
 
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
         ;
 
         $I->haveInRepository($door);
@@ -203,11 +202,10 @@ class ActionSubscriberCest
         /** @var EquipmentConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['actions' => new ArrayCollection([$takeActionEntity])]);
 
-        $cat = new GameItem();
+        $cat = new GameItem($room);
         $cat
             ->setName(ItemEnum::SCHRODINGER)
             ->setEquipment($itemConfig)
-            ->setHolder($room)
         ;
 
         $I->haveInRepository($cat);
@@ -297,11 +295,10 @@ class ActionSubscriberCest
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
 
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
         ;
 
         $I->haveInRepository($door);
@@ -402,11 +399,10 @@ class ActionSubscriberCest
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
 
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
         ;
 
         $I->haveInRepository($door);
@@ -507,11 +503,10 @@ class ActionSubscriberCest
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
 
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
         ;
 
         $I->haveInRepository($door);
@@ -585,8 +580,14 @@ class ActionSubscriberCest
 
     public function testOnPostActionVomitingSymptom(FunctionalTester $I)
     {
+        $dirtyStatusConfig = new StatusConfig();
+        $dirtyStatusConfig
+            ->setName('dirty')
+        ;
+        $I->haveInRepository($dirtyStatusConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$dirtyStatusConfig])]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
         /** @var Place $room */
@@ -628,17 +629,10 @@ class ActionSubscriberCest
         ;
         $I->haveInRepository($consumeDrugActionEntity);
 
-        $dirtyStatusConfig = new StatusConfig();
-        $dirtyStatusConfig
-            ->setName('dirty')
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($dirtyStatusConfig);
-
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'actions' => new ArrayCollection([$moveActionEntity])]);
 
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
@@ -682,9 +676,8 @@ class ActionSubscriberCest
 
         $I->haveInRepository($equipmentConfig);
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $gameItem
-            ->setHolder($room)
             ->setEquipment($equipmentConfig)
             ->setName('ration')
         ;
@@ -795,11 +788,10 @@ class ActionSubscriberCest
         /** @var EquipmentConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class);
 
-        $cat = new GameItem();
+        $cat = new GameItem($room);
         $cat
             ->setName(ItemEnum::SCHRODINGER)
             ->setEquipment($itemConfig)
-            ->setHolder($room)
         ;
 
         $I->haveInRepository($cat);
@@ -826,11 +818,10 @@ class ActionSubscriberCest
         ;
         $I->haveInRepository($doorConfig);
 
-        $door = new Door();
+        $door = new Door($room2);
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
         ;
 
         $I->haveInRepository($door);
@@ -912,8 +903,34 @@ class ActionSubscriberCest
 
     public function testPostActionPsychoticAttackSymptom(FunctionalTester $I)
     {
+        $symptomConfig = new SymptomConfig('psychotic_attacks');
+        $symptomConfig
+            ->setTrigger(ActionEvent::POST_ACTION)
+        ;
+        $I->haveInRepository($symptomConfig);
+
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setName('Name')
+            ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+        ;
+        $I->haveInRepository($diseaseConfig);
+        $diseaseCauseConfig = new DiseaseCauseConfig();
+        $diseaseCauseConfig
+            ->setDiseases(['Name' => 1])
+            ->setName(DiseaseCauseEnum::TRAUMA)
+        ;
+        $I->haveInRepository($diseaseCauseConfig);
+
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['language' => LanguageEnum::FRENCH]);
+        $gameConfig = $I->have(GameConfig::class, [
+            'localizationConfig' => $localizationConfig,
+            'diseaseCauseConfig' => new ArrayCollection([$diseaseCauseConfig]),
+            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
+        ]);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -1002,35 +1019,12 @@ class ActionSubscriberCest
             'mechanics' => new ArrayCollection([$knifeMechanic]),
         ]);
 
-        $knife = new GameItem();
+        $knife = new GameItem($player);
         $knife
             ->setName(ItemEnum::KNIFE)
             ->setEquipment($knifeItemConfig)
-            ->setHolder($player)
         ;
         $I->haveInRepository($knife);
-
-        $symptomConfig = new SymptomConfig('psychotic_attacks');
-        $symptomConfig
-            ->setTrigger(ActionEvent::POST_ACTION)
-        ;
-
-        $I->haveInRepository($symptomConfig);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setName('Name')
-            ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
-        ;
-        $I->haveInRepository($diseaseConfig);
-
-        $diseaseCauseConfig = new DiseaseCauseConfig();
-        $diseaseCauseConfig
-            ->setDiseases(['Name' => 1])
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseCauseEnum::TRAUMA)
-        ;
-        $I->haveInRepository($diseaseCauseConfig);
 
         $playerDisease = new PlayerDisease();
         $playerDisease

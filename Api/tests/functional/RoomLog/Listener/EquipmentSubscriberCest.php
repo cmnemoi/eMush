@@ -44,11 +44,11 @@ class EquipmentSubscriberCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'name' => 'equipment_name']);
 
-        $equipment = new GameItem();
+        $equipment = new GameItem($room);
         $equipment
             ->setName($equipmentConfig->getName())
             ->setEquipment($equipmentConfig)
-            ->setHolder($room);
+        ;
         $I->haveInRepository($equipment);
 
         $equipmentEvent = new EquipmentEvent(

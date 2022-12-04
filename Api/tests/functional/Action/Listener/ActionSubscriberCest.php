@@ -3,6 +3,7 @@
 namespace functional\Action\Listener;
 
 use App\Tests\FunctionalTester;
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
@@ -85,8 +86,14 @@ class ActionSubscriberCest
 
     public function testOnPostActionSubscriberDirty(FunctionalTester $I)
     {
+        $dirtyConfig = new StatusConfig();
+        $dirtyConfig
+            ->setName(PlayerStatusEnum::DIRTY)
+        ;
+        $I->haveInRepository($dirtyConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$dirtyConfig])]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
         /** @var Place $room */
@@ -113,12 +120,6 @@ class ActionSubscriberCest
             ->setInjuryRate(0)
             ->setName(ActionEnum::TAKE)
         ;
-
-        $statusDirty = new StatusConfig();
-        $statusDirty
-            ->setName(PlayerStatusEnum::DIRTY)
-            ->setGameConfig($gameConfig);
-        $I->haveInRepository($statusDirty);
 
         $actionEvent = new ActionEvent($action, $player, null);
 
@@ -138,8 +139,14 @@ class ActionSubscriberCest
 
     public function testOnPostActionSubscriberAlreadyDirty(FunctionalTester $I)
     {
+        $dirtyConfig = new StatusConfig();
+        $dirtyConfig
+            ->setName(PlayerStatusEnum::DIRTY)
+        ;
+        $I->haveInRepository($dirtyConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$dirtyConfig])]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
         /** @var Place $room */
@@ -168,9 +175,6 @@ class ActionSubscriberCest
             ->setName(ActionEnum::TAKE)
         ;
 
-        $dirtyConfig = new StatusConfig();
-        $dirtyConfig->setGameConfig($gameConfig)->setName(PlayerStatusEnum::DIRTY);
-        $I->haveInRepository($dirtyConfig);
         $dirty = new Status($player, $dirtyConfig);
         $I->haveInRepository($dirty);
 

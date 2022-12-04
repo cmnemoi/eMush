@@ -43,8 +43,20 @@ class ExtinguishManuallyActionCest
 
     public function testExtinguishManually(FunctionalTester $I)
     {
+        $attemptConfig = new ChargeStatusConfig();
+        $attemptConfig
+            ->setName(StatusEnum::ATTEMPT)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+        ;
+        $I->haveInRepository($attemptConfig);
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setName(StatusEnum::FIRE)
+        ;
+        $I->haveInRepository($statusConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$attemptConfig, $statusConfig])]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
@@ -59,23 +71,8 @@ class ExtinguishManuallyActionCest
             ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
-            ->setGameConfig($gameConfig)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-        ;
-        $I->haveInRepository($attemptConfig);
-
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        $statusConfig = new ChargeStatusConfig();
-        $statusConfig
-            ->setName(StatusEnum::FIRE)
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($statusConfig);
 
         $statusEvent = new StatusEvent(StatusEnum::FIRE, $room, EventEnum::NEW_CYCLE, new DateTime());
 

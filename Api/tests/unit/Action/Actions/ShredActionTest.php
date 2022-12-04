@@ -42,7 +42,7 @@ class ShredActionTest extends AbstractActionTest
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $document = new Document();
         $document->setCanShred(true);
@@ -50,7 +50,6 @@ class ShredActionTest extends AbstractActionTest
         $gameItem
             ->setName('item')
             ->setEquipment($item)
-            ->setHolder($room)
         ;
 
         $this->eventDispatcher->shouldReceive('dispatch');

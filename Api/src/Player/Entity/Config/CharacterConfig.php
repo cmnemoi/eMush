@@ -7,21 +7,16 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Game\Entity\ConfigInterface;
-use Mush\Game\Entity\GameConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'character_config')]
-class CharacterConfig implements ConfigInterface
+class CharacterConfig
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
-
-    #[ORM\ManyToOne(targetEntity: GameConfig::class, inversedBy: 'charactersConfig')]
-    private GameConfig $gameConfig;
 
     #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
@@ -41,6 +36,39 @@ class CharacterConfig implements ConfigInterface
     #[ORM\Column(type: 'array', nullable: false)]
     private array $initDiseases;
 
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $maxNumberPrivateChannel = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $maxHealthPoint = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $maxMoralPoint = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $maxActionPoint = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $maxMovementPoint = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $maxItemInInventory = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $initHealthPoint = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $initMoralPoint = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $initSatiety = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $initActionPoint = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $initMovementPoint = 0;
+
     public function __construct()
     {
         $this->initStatuses = new ArrayCollection();
@@ -53,18 +81,6 @@ class CharacterConfig implements ConfigInterface
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function getGameConfig(): GameConfig
-    {
-        return $this->gameConfig;
-    }
-
-    public function setGameConfig(GameConfig $gameConfig): static
-    {
-        $this->gameConfig = $gameConfig;
-
-        return $this;
     }
 
     public function getName(): string
@@ -142,6 +158,138 @@ class CharacterConfig implements ConfigInterface
     public function setInitDiseases(array $initDiseases): static
     {
         $this->initDiseases = $initDiseases;
+
+        return $this;
+    }
+
+    public function getInitHealthPoint(): int
+    {
+        return $this->initHealthPoint;
+    }
+
+    public function setInitHealthPoint(int $initHealthPoint): static
+    {
+        $this->initHealthPoint = $initHealthPoint;
+
+        return $this;
+    }
+
+    public function getInitMoralPoint(): int
+    {
+        return $this->initMoralPoint;
+    }
+
+    public function setInitMoralPoint(int $initMoralPoint): static
+    {
+        $this->initMoralPoint = $initMoralPoint;
+
+        return $this;
+    }
+
+    public function getInitSatiety(): int
+    {
+        return $this->initSatiety;
+    }
+
+    public function setInitSatiety(int $initSatiety): static
+    {
+        $this->initSatiety = $initSatiety;
+
+        return $this;
+    }
+
+    public function getInitActionPoint(): int
+    {
+        return $this->initActionPoint;
+    }
+
+    public function setInitActionPoint(int $initActionPoint): static
+    {
+        $this->initActionPoint = $initActionPoint;
+
+        return $this;
+    }
+
+    public function getInitMovementPoint(): int
+    {
+        return $this->initMovementPoint;
+    }
+
+    public function setInitMovementPoint(int $initMovementPoint): static
+    {
+        $this->initMovementPoint = $initMovementPoint;
+
+        return $this;
+    }
+
+    public function getMaxNumberPrivateChannel(): int
+    {
+        return $this->maxNumberPrivateChannel;
+    }
+
+    public function setMaxNumberPrivateChannel(int $maxNumberPrivateChannel): static
+    {
+        $this->maxNumberPrivateChannel = $maxNumberPrivateChannel;
+
+        return $this;
+    }
+
+    public function getMaxHealthPoint(): int
+    {
+        return $this->maxHealthPoint;
+    }
+
+    public function setMaxHealthPoint(int $maxHealthPoint): static
+    {
+        $this->maxHealthPoint = $maxHealthPoint;
+
+        return $this;
+    }
+
+    public function getMaxMoralPoint(): int
+    {
+        return $this->maxMoralPoint;
+    }
+
+    public function setMaxMoralPoint(int $maxMoralPoint): static
+    {
+        $this->maxMoralPoint = $maxMoralPoint;
+
+        return $this;
+    }
+
+    public function getMaxActionPoint(): int
+    {
+        return $this->maxActionPoint;
+    }
+
+    public function setMaxActionPoint(int $maxActionPoint): static
+    {
+        $this->maxActionPoint = $maxActionPoint;
+
+        return $this;
+    }
+
+    public function getMaxMovementPoint(): int
+    {
+        return $this->maxMovementPoint;
+    }
+
+    public function setMaxMovementPoint(int $maxMovementPoint): static
+    {
+        $this->maxMovementPoint = $maxMovementPoint;
+
+        return $this;
+    }
+
+    public function getMaxItemInInventory(): int
+    {
+        return $this->maxItemInInventory;
+    }
+
+    public function setMaxItemInInventory(int $maxItemInInventory): static
+    {
+        $this->maxItemInInventory = $maxItemInInventory;
 
         return $this;
     }

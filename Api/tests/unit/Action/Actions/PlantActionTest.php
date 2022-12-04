@@ -53,11 +53,10 @@ class PlantActionTest extends AbstractActionTest
     public function testExecute()
     {
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem
                     ->setEquipment($item)
-                    ->setHolder($room)
                     ->setName('toto')
         ;
 
@@ -69,18 +68,17 @@ class PlantActionTest extends AbstractActionTest
 
         $plant = new ItemConfig();
         $plant->setName('banana_tree');
-        $gamePlant = new GameItem();
+        $gamePlant = new GameItem(new Place());
         $gamePlant
             ->setEquipment($plant)
             ->setName('banana_tree')
         ;
 
-        $gameHydropot = new GameItem();
+        $gameHydropot = new GameItem($room);
         $hydropot = new ItemConfig();
         $hydropot->setName(ItemEnum::HYDROPOT);
         $gameHydropot
                     ->setEquipment($hydropot)
-                    ->setHolder($room)
                     ->setName(ItemEnum::HYDROPOT)
         ;
 

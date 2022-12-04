@@ -13,35 +13,67 @@ class GameItem extends GameEquipment
     #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'items')]
     private ?Player $player = null;
 
-    public function getHolder(): ?EquipmentHolderInterface
+    public function __construct(EquipmentHolderInterface $equipmentHolder)
     {
-        return $this->player ?: $this->place;
+        parent::__construct($equipmentHolder);
+
+        if ($equipmentHolder instanceof Player) {
+            $this->player = $equipmentHolder;
+            $equipmentHolder->addEquipment($this);
+        }
     }
 
-    public function setHolder(?EquipmentHolderInterface $holder): static
+    public function getHolder(): EquipmentHolderInterface
     {
-        if ($holder === null) {
-            $this->place = null;
-            $this->player = null;
+        $player = $this->player;
+        $place = $this->place;
 
-            return $this;
+        if ($player === null && $place === null) {
+            throw new \Error('equipment should have a holder');
+        } elseif ($player === null) {
+            return $place;
+        } else {
+            return $player;
         }
+    }
 
-        if ($holder !== ($oldHolder = $this->getHolder())) {
-            if ($oldHolder !== null) {
-                $oldHolder->removeEquipment($this);
-            }
+    public function setHolder(EquipmentHolderInterface $holder): static
+    {
+        $oldHolder = $this->getHolder();
+
+        if ($holder !== $oldHolder) {
+            $oldHolder->removeEquipment($this);
 
             if ($holder instanceof Place) {
                 $this->place = $holder;
+                $this->player = null;
             } elseif ($holder instanceof Player) {
                 $this->player = $holder;
+                $this->place = null;
             }
 
             $holder->addEquipment($this);
         }
 
         return $this;
+    }
+
+    public function getPlace(): Place
+    {
+        $holder = $this->getHolder();
+
+        if ($holder instanceof Place) {
+            return $holder;
+        } elseif ($holder instanceof Player) {
+            return $holder->getPlace();
+        }
+
+        throw new \LogicException('Cannot find a holder');
+    }
+
+    public function isInShelf(): bool
+    {
+        return $this->getHolder() instanceof Place;
     }
 
     public function getLogKey(): string

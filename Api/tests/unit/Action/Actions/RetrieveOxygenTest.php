@@ -16,7 +16,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 
 class RetrieveOxygenTest extends AbstractActionTest
@@ -52,7 +51,7 @@ class RetrieveOxygenTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem(new Place());
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
 
@@ -68,17 +67,12 @@ class RetrieveOxygenTest extends AbstractActionTest
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setMaxOxygen(32);
 
-        $gameConfig = new GameConfig();
-        $gameConfig->setMaxItemInInventory(3);
-        $gameConfig->setDaedalusConfig($daedalusConfig);
-        $daedalus->setGameConfig($gameConfig);
-
         $daedalus->setOxygen(10);
 
         $tank = new EquipmentConfig();
         $tank->setActions(new ArrayCollection([$this->actionEntity]));
 
-        $gameTank = new GameEquipment();
+        $gameTank = new GameEquipment($room);
         $gameTank
             ->setEquipment($tank)
             ->setName(EquipmentEnum::OXYGEN_TANK)

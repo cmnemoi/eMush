@@ -15,6 +15,7 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\LanguageEnum;
@@ -88,7 +89,10 @@ class DiseaseMessageServiceTest extends TestCase
     public function testCoprolaliaPlayerNoTrigger()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
+
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
@@ -123,7 +127,10 @@ class DiseaseMessageServiceTest extends TestCase
     public function testCoprolaliaPlayerTriggerReplace()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
+
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
@@ -179,7 +186,9 @@ class DiseaseMessageServiceTest extends TestCase
     public function testCoprolaliaPlayerTriggerPre()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
@@ -237,7 +246,9 @@ class DiseaseMessageServiceTest extends TestCase
     public function testParanoiaPlayerTriggerReplaceAware()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
@@ -294,7 +305,9 @@ class DiseaseMessageServiceTest extends TestCase
     public function testParanoiaPlayerTriggerReplaceNotAware()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
@@ -360,9 +373,12 @@ class DiseaseMessageServiceTest extends TestCase
         $characterConfig2->setName(CharacterEnum::TERRENCE);
 
         $gameConfig = new GameConfig();
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+
         $gameConfig
             ->setCharactersConfig(new CharacterConfigCollection([$characterConfig1, $characterConfig2]))
-            ->setLanguage(LanguageEnum::FRENCH)
+            ->setLocalizationConfig($localizationConfig)
         ;
 
         $daedalus = new Daedalus();

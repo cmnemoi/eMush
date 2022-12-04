@@ -82,7 +82,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $equipment = $event->getEquipment();
         }
 
-        $equipment->setHolder(null);
         $this->gameEquipmentService->delete($equipment);
     }
 
@@ -98,13 +97,9 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $equipment = $event->getEquipment();
         $holder = $equipment->getHolder();
 
-        if ($holder === null) {
-            throw new \LogicException('no equipment holder');
-        }
-
-        $gameConfig = $holder->getPlace()->getDaedalus()->getGameConfig();
-
-        if ($holder instanceof Player && $holder->getEquipments()->count() > $gameConfig->getMaxItemInInventory()) {
+        if ($holder instanceof Player &&
+            $holder->getEquipments()->count() > $holder->getPlayerInfo()->getCharacterConfig()->getMaxItemInInventory()
+        ) {
             $equipmentEvent = new InteractWithEquipmentEvent(
                 $equipment,
                 $holder,

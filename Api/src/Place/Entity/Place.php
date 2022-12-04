@@ -184,7 +184,6 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
     {
         if ($this->equipments->contains($gameEquipment)) {
             $this->equipments->removeElement($gameEquipment);
-            $gameEquipment->setHolder(null);
         }
 
         return $this;

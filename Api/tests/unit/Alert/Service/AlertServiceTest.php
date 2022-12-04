@@ -184,8 +184,7 @@ class AlertServiceTest extends TestCase
 
         $room = new Place();
         $room->setDaedalus($daedalus);
-        $gameEquipment = new GameEquipment();
-        $gameEquipment->setHolder($room);
+        $gameEquipment = new GameEquipment($room);
 
         $this->repository->shouldReceive('findOneBy')
             ->andReturn(null)
@@ -205,7 +204,7 @@ class AlertServiceTest extends TestCase
 
         $room = new Place();
         $room->setDaedalus($daedalus);
-        $gameEquipment = new Door();
+        $gameEquipment = new Door($room);
         $gameEquipment->addRoom($room);
 
         $doorElement = new AlertElement();
@@ -235,8 +234,7 @@ class AlertServiceTest extends TestCase
         $daedalus = new Daedalus();
         $room = new Place();
         $room->setDaedalus($daedalus);
-        $gameEquipment = new GameEquipment();
-        $gameEquipment->setHolder($room);
+        $gameEquipment = new GameEquipment($room);
 
         $equipmentElement1 = new AlertElement();
         $equipmentElement1->setEquipment($gameEquipment);
@@ -270,8 +268,7 @@ class AlertServiceTest extends TestCase
         $daedalus = new Daedalus();
         $room = new Place();
         $room->setDaedalus($daedalus);
-        $gameEquipment = new GameEquipment();
-        $gameEquipment->setHolder($room);
+        $gameEquipment = new GameEquipment($room);
 
         $equipmentElement1 = new AlertElement();
         $equipmentElement1->setEquipment($gameEquipment);
@@ -599,8 +596,7 @@ class AlertServiceTest extends TestCase
         ;
         $room->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment();
-        $gameEquipment->setHolder($room);
+        $gameEquipment = new GameEquipment($room);
         $brokenConfig = new StatusConfig();
         $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
         $status = new Status($gameEquipment, $brokenConfig);
@@ -635,8 +631,7 @@ class AlertServiceTest extends TestCase
 
         $room->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment();
-        $gameEquipment->setHolder($room);
+        $gameEquipment = new GameEquipment($room);
         $brokenConfig = new StatusConfig();
         $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
         $status = new Status($gameEquipment, $brokenConfig);

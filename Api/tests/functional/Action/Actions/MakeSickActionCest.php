@@ -41,8 +41,26 @@ class MakeSickActionCest
 
     public function testMakeSick(FunctionalTester $I)
     {
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setName(DiseaseEnum::FOOD_POISONING)
+        ;
+        $I->haveInRepository($diseaseConfig);
+
+        $diseaseCause = new DiseaseCauseConfig();
+        $diseaseCause
+            ->setName(ActionEnum::MAKE_SICK)
+            ->setDiseases([
+                DiseaseEnum::FOOD_POISONING => 2,
+            ])
+        ;
+        $I->haveInRepository($diseaseCause);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, [
+            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
+            'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
+        ]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'gameStatus' => GameStatusEnum::CURRENT]);
         /** @var Place $room */
@@ -100,23 +118,6 @@ class MakeSickActionCest
         $I->haveInRepository($playerInfo);
         $targetPlayer->setPlayerInfo($playerInfo);
         $I->refreshEntities($targetPlayer);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setGameConfig($gameConfig)
-            ->setName(DiseaseEnum::FOOD_POISONING)
-        ;
-        $I->haveInRepository($diseaseConfig);
-
-        $diseaseCause = new DiseaseCauseConfig();
-        $diseaseCause
-            ->setName(ActionEnum::MAKE_SICK)
-            ->setDiseases([
-                DiseaseEnum::FOOD_POISONING => 2,
-            ])
-            ->setGameConfig($gameConfig)
-        ;
-        $I->haveInRepository($diseaseCause);
 
         $this->makeSickAction->loadParameters($action, $mushPlayer, $targetPlayer);
 

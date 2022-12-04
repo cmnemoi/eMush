@@ -3,6 +3,7 @@
 namespace Mush\Tests\Alert\Listener;
 
 use App\Tests\FunctionalTester;
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
@@ -34,8 +35,15 @@ class EquipmentSubscriberCest
 
     public function testDestroyBrokenEquipment(FunctionalTester $I)
     {
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setVisibility(VisibilityEnum::PUBLIC);
+
+        $I->haveInRepository($statusConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$statusConfig])]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
@@ -60,22 +68,13 @@ class EquipmentSubscriberCest
             'gameConfig' => $gameConfig,
         ]);
 
-        $gravitySimulator = new GameEquipment();
+        $gravitySimulator = new GameEquipment($room);
         $gravitySimulator
             ->setName($gravitySimulatorConfig->getName())
             ->setEquipment($gravitySimulatorConfig)
-            ->setHolder($room)
         ;
 
         $I->haveInRepository($gravitySimulator);
-
-        $statusConfig = new StatusConfig();
-        $statusConfig
-            ->setGameConfig($gameConfig)
-            ->setName(EquipmentStatusEnum::BROKEN)
-            ->setVisibility(VisibilityEnum::PUBLIC);
-
-        $I->haveInRepository($statusConfig);
 
         $broken = new Status($gravitySimulator, $statusConfig);
         $I->haveInRepository($broken);

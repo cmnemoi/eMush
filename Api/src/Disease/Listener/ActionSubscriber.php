@@ -6,7 +6,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Enum\DiseaseCauseEnum;
-use Mush\Disease\Repository\DiseaseCausesConfigRepository;
+use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Disease\Service\SymptomConditionServiceInterface;
 use Mush\Disease\Service\SymptomServiceInterface;
@@ -18,20 +18,20 @@ class ActionSubscriber implements EventSubscriberInterface
 {
     private const CONTACT_DISEASE_RATE = 1;
 
-    private DiseaseCausesConfigRepository $diseaseCausesConfigRepository;
+    private DiseaseCauseServiceInterface $diseaseCauseService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private RandomServiceInterface $randomService;
     private SymptomServiceInterface $symptomService;
     private SymptomConditionServiceInterface $symptomConditionService;
 
     public function __construct(
-        DiseaseCausesConfigRepository $diseaseCausesConfigRepository,
+        DiseaseCauseServiceInterface $diseaseCauseService,
         RandomServiceInterface $randomService,
         PlayerDiseaseServiceInterface $playerDiseaseService,
         SymptomServiceInterface $symptomService,
         SymptomConditionServiceInterface $symptomConditionService)
     {
-        $this->diseaseCausesConfigRepository = $diseaseCausesConfigRepository;
+        $this->diseaseCauseService = $diseaseCauseService;
         $this->randomService = $randomService;
         $this->playerDiseaseService = $playerDiseaseService;
         $this->symptomService = $symptomService;
@@ -92,7 +92,7 @@ class ActionSubscriber implements EventSubscriberInterface
         }
 
         $contactDiseases = array_keys(
-            $this->diseaseCausesConfigRepository->findCausesByDaedalus(
+            $this->diseaseCauseService->findCauseConfigByDaedalus(
                 DiseaseCauseEnum::CONTACT,
                 $player->getDaedalus())
                 ->getDiseases());

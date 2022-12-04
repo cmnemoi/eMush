@@ -115,7 +115,7 @@ class ModifierConditionService implements ModifierConditionServiceInterface
         if ($holder instanceof Place || $holder instanceof Player) {
             $daedalus = $holder->getDaedalus();
         } elseif ($holder instanceof GameEquipment) {
-            $daedalus = $holder->getPlace()->getDaedalus();
+            $daedalus = $holder->getDaedalus();
         } elseif ($holder instanceof Daedalus) {
             $daedalus = $holder;
         } else {

@@ -31,6 +31,17 @@ class PlayerFactory extends \Codeception\Module
         ]);
         $factory->_define(CharacterConfig::class, [
             'name' => CharacterEnum::GIOELE,
+            'maxNumberPrivateChannel' => 3,
+            'initHealthPoint' => 12,
+            'maxHealthPoint' => 12,
+            'initMoralPoint' => 12,
+            'maxMoralPoint' => 12,
+            'initSatiety' => 0,
+            'initActionPoint' => 12,
+            'maxActionPoint' => 12,
+            'initMovementPoint' => 12,
+            'maxMovementPoint' => 12,
+            'maxItemInInventory' => 12,
         ]);
     }
 }

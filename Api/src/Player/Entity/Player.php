@@ -221,7 +221,6 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     {
         if ($this->items->contains($gameEquipment)) {
             $this->items->removeElement($gameEquipment);
-            $gameEquipment->setHolder(null);
         }
 
         return $this;

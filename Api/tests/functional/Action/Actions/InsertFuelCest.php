@@ -82,22 +82,20 @@ class InsertFuelCest
         /** @var EquipmentConfig $tankConfig */
         $tankConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'mechanics' => new ArrayCollection([$tankTool])]);
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($tankConfig)
             ->setName('some name')
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
         /** @var EquipmentConfig $capsuleConfig */
         $capsuleConfig = $I->have(EquipmentConfig::class, ['isBreakable' => false, 'name' => ItemEnum::FUEL_CAPSULE]);
 
-        $gameCapsule = new GameItem();
+        $gameCapsule = new GameItem($player);
         $gameCapsule
             ->setEquipment($capsuleConfig)
             ->setName(ItemEnum::FUEL_CAPSULE)
-            ->setHolder($player)
         ;
         $I->haveInRepository($gameCapsule);
 
@@ -158,22 +156,20 @@ class InsertFuelCest
         /** @var EquipmentConfig $tankConfig */
         $tankConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'mechanics' => new ArrayCollection([$tankTool])]);
 
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($tankConfig)
             ->setName('some name')
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 
         /** @var EquipmentConfig $capsuleConfig */
         $capsuleConfig = $I->have(EquipmentConfig::class, ['isBreakable' => false, 'name' => ItemEnum::FUEL_CAPSULE]);
 
-        $gameCapsule = new GameItem();
+        $gameCapsule = new GameItem($player);
         $gameCapsule
             ->setEquipment($capsuleConfig)
             ->setName(ItemEnum::FUEL_CAPSULE)
-            ->setHolder($player)
         ;
         $I->haveInRepository($gameCapsule);
 

@@ -25,7 +25,6 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Validator\Exception\LogicException;
 
 class PlantCycleHandler extends AbstractCycleHandler
 {
@@ -56,7 +55,7 @@ class PlantCycleHandler extends AbstractCycleHandler
             return;
         }
 
-        $daedalus = $plant->getPlace()->getDaedalus();
+        $daedalus = $plant->getDaedalus();
 
         $plantType = $plant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
         if (!$plantType instanceof Plant) {
@@ -100,7 +99,7 @@ class PlantCycleHandler extends AbstractCycleHandler
             return;
         }
 
-        $daedalus = $plant->getPlace()->getDaedalus();
+        $daedalus = $plant->getDaedalus();
 
         $plantType = $plant->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
         if (!$plantType instanceof Plant) {
@@ -160,10 +159,6 @@ class PlantCycleHandler extends AbstractCycleHandler
         $place = $gamePlant->getPlace();
         $holder = $gamePlant->getHolder();
 
-        if ($holder === null) {
-            throw new LogicException('Equipment holder is empty');
-        }
-
         // Create a new hydropot
         $equipmentEvent = new InteractWithEquipmentEvent(
             $gamePlant,
@@ -215,7 +210,7 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     private function addOxygen(GameItem $gamePlant, PlantEffect $plantEffect, \DateTime $date): void
     {
-        $daedalus = $gamePlant->getPlace()->getDaedalus();
+        $daedalus = $gamePlant->getDaedalus();
         // Add Oxygen
         if ($oxygen = $plantEffect->getOxygen()) {
             $daedalusEvent = new DaedalusModifierEvent(

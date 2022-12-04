@@ -126,12 +126,11 @@ class PlayerService implements PlayerServiceInterface
                     ->first()
             )
             ->setSkills([])
-            ->setHealthPoint($gameConfig->getInitHealthPoint())
-            ->setMoralPoint($gameConfig->getInitMoralPoint())
-            ->setActionPoint($gameConfig->getInitActionPoint())
-            ->setMovementPoint($gameConfig->getInitMovementPoint())
-            ->setSatiety($gameConfig->getInitSatiety())
-            ->setSatiety($gameConfig->getInitSatiety())
+            ->setHealthPoint($characterConfig->getInitHealthPoint())
+            ->setMoralPoint($characterConfig->getInitMoralPoint())
+            ->setActionPoint($characterConfig->getInitActionPoint())
+            ->setMovementPoint($characterConfig->getInitMovementPoint())
+            ->setSatiety($characterConfig->getInitSatiety())
         ;
 
         $playerInfo = new PlayerInfo(

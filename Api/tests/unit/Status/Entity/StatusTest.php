@@ -37,7 +37,7 @@ class StatusTest extends TestCase
 
     public function testAddStatusWithTarget()
     {
-        $equipment = new GameEquipment();
+        $equipment = new GameEquipment(new Place());
 
         $statusConfig = new StatusConfig();
         $status = new Status($equipment, $statusConfig);

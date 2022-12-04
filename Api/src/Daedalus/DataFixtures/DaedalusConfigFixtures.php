@@ -25,13 +25,12 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
 
     public function load(ObjectManager $manager): void
     {
-        $daedalusConfig = new DaedalusConfig();
-
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
+        $daedalusConfig = new DaedalusConfig();
+
         $daedalusConfig
-            ->setGameConfig($gameConfig)
             ->setInitOxygen(32)
             ->setInitFuel(20)
             ->setInitHull(100)
@@ -41,6 +40,9 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setMaxFuel(32)
             ->setMaxHull(100)
             ->setMaxShield(100)
+            ->setNbMush(3)
+            ->setCyclePerGameDay(8)
+            ->setCycleLength(3 * 60)
         ;
 
         $randomStorageItemPlaces = new RandomItemPlaces();
@@ -78,6 +80,9 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
         $daedalusConfig->setRandomItemPlace($randomStorageItemPlaces);
 
         $manager->persist($daedalusConfig);
+
+        $gameConfig->setDaedalusConfig($daedalusConfig);
+        $manager->persist($gameConfig);
 
         $manager->flush();
 

@@ -38,8 +38,12 @@ class BreakRepairEquipmentSubscriberCest
 
     public function testRepairGearPlaceReach(FunctionalTester $I)
     {
+        $statusConfig = new StatusConfig();
+        $statusConfig->setName(EquipmentStatusEnum::BROKEN);
+        $I->haveInRepository($statusConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$statusConfig])]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
@@ -83,17 +87,12 @@ class BreakRepairEquipmentSubscriberCest
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
 
         // Case of a game Equipment
-        $gameEquipment = new GameItem();
+        $gameEquipment = new GameItem($player);
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('some name')
-            ->setholder($player)
         ;
         $I->haveInRepository($gameEquipment);
-
-        $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::BROKEN)->setGameConfig($gameConfig);
-        $I->haveInRepository($statusConfig);
 
         $statusEvent = new StatusEvent(
             EquipmentStatusEnum::BROKEN,

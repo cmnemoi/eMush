@@ -53,12 +53,9 @@ class ExtinguishActionTest extends AbstractActionTest
         $room = new Place();
         $fire = new Status($room, new StatusConfig());
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
-        $gameItem
-            ->setHolder($room)
-        ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
@@ -86,12 +83,9 @@ class ExtinguishActionTest extends AbstractActionTest
         $room = new Place();
         $fire = new Status($room, new StatusConfig());
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
-        $gameItem
-            ->setHolder($room)
-        ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 

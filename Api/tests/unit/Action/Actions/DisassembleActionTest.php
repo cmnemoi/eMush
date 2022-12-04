@@ -57,12 +57,11 @@ class DisassembleActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
         $gameItem
             ->setName('some name')
-            ->setHolder($room)
         ;
 
         $item
@@ -90,12 +89,11 @@ class DisassembleActionTest extends AbstractActionTest
     {
         $daedalus = new Daedalus();
         $room = new Place();
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
         $gameItem
             ->setName('some name')
-            ->setHolder($room)
         ;
 
         $item
@@ -111,7 +109,7 @@ class DisassembleActionTest extends AbstractActionTest
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
-        $scrap = new GameItem();
+        $scrap = new GameItem(new Place());
 
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 

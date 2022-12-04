@@ -150,7 +150,7 @@ class ModifierServiceTest extends TestCase
         $this->service->createModifier($modifierConfig, $player, $charge);
 
         // create an equipment Modifier
-        $equipment = new GameEquipment();
+        $equipment = new GameEquipment(new Place());
         $modifierConfig = new ModifierConfig();
         $modifierConfig->setReach(ModifierReachEnum::EQUIPMENT);
 
@@ -272,7 +272,7 @@ class ModifierServiceTest extends TestCase
         $room->setDaedalus($daedalus);
         $player = new Player();
         $player->setDaedalus($daedalus)->setPlace($room);
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
 
         $actionCost = new ActionCost();
         $actionCost

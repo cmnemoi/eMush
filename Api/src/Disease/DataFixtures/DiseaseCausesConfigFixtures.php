@@ -17,21 +17,6 @@ use Mush\Game\Entity\GameConfig;
 class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public const ALIEN_FRUIT_DISEASE_CAUSE_CONFIG = 'alien.fruit.disease.cause.config';
-    public const PERISHED_FOOD_DISEASE_CAUSE_CONFIG = 'perished.food.disease.cause.config';
-    public const CYCLE_DISEASE_CAUSE_CONFIG = 'cycle.disease.cause.config';
-    public const LOW_MORALE_DISEASE_CAUSE_CONFIG = 'cycle.low.morale.disease.cause.config';
-    public const MAKE_SICK_DISEASE_CAUSE_CONFIG = 'make.sick.disease.cause.config';
-    public const FAKE_DISEASE_DISEASE_CAUSE_CONFIG = 'fake.disease.disease.cause.config';
-    public const FAILED_SURGERY_DISEASE_CAUSE_CONFIG = 'failed.surgery.disease.cause.config';
-    public const CAT_ALLERGY_DISEASE_CAUSE_CONFIG = 'cat.allergy.disease.cause.config';
-    public const INFECTION_DISEASE_CAUSE_CONFIG = 'infection.disease.cause.config';
-    public const SEX_DISEASE_CAUSE_CONFIG = 'sex.disease.cause.config';
-    public const TRAUMA_DISEASE_CAUSE_CONFIG = 'trauma.disease.cause.config';
-    public const CONTACT_DISEASE_CAUSE_CONFIG = 'contact.disease.cause.config';
-    public const CRITICAL_FAIL_KNIFE_DISEASE_CAUSE_CONFIG = 'critical.fail.knife.disease.cause.config';
-    public const CRITICAL_SUCCESS_KNIFE_DISEASE_CAUSE_CONFIG = 'critical.success.knife.disease.cause.config';
-    public const CRITICAL_FAIL_BLASTER_DISEASE_CAUSE_CONFIG = 'critical.fail.blaster.disease.cause.config';
-    public const CRITICAL_SUCCESS_BLASTER_DISEASE_CAUSE_CONFIG = 'critical.success.blaster.disease.cause.config';
 
     public function load(ObjectManager $manager): void
     {
@@ -40,7 +25,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCauseAlienFruit = new DiseaseCauseConfig();
         $diseaseCauseAlienFruit
-            ->setGameConfig($gameConfig)
             ->setName(DiseaseCauseEnum::ALIEN_FRUIT)
             ->setDiseases(
                 [
@@ -85,7 +69,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCausePerishedFood = new DiseaseCauseConfig();
         $diseaseCausePerishedFood
-            ->setGameConfig($gameConfig)
             ->setName(DiseaseCauseEnum::PERISHED_FOOD)
             ->setDiseases([DiseaseEnum::FOOD_POISONING => 1])
         ;
@@ -93,7 +76,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCauseCycle = new DiseaseCauseConfig();
         $diseaseCauseCycle
-            ->setGameConfig($gameConfig)
             ->setName(DiseaseCauseEnum::CYCLE)
             ->setDiseases(
                 [
@@ -112,7 +94,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCauseCycleDepressed = new DiseaseCauseConfig();
         $diseaseCauseCycleDepressed
-            ->setGameConfig($gameConfig)
             ->setName(DiseaseCauseEnum::CYCLE_LOW_MORALE)
             ->setDiseases(
                 [
@@ -134,7 +115,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCausesBacterialContact = new DiseaseCauseConfig();
         $diseaseCausesBacterialContact
-            ->setGameConfig($gameConfig)
             ->setName(ActionEnum::MAKE_SICK)
             ->setDiseases(
                 [
@@ -148,7 +128,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCausesFakeDisease = new DiseaseCauseConfig();
         $diseaseCausesFakeDisease
-            ->setGameConfig($gameConfig)
             ->setName(ActionEnum::FAKE_DISEASE)
             ->setDiseases(
                 [
@@ -213,7 +192,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCauseFailedSurgery = new DiseaseCauseConfig();
         $diseaseCauseFailedSurgery
-            ->setGameConfig($gameConfig)
             ->setName(ActionEnum::SURGERY)
             ->setDiseases([DiseaseEnum::SEPSIS => 1])
         ;
@@ -221,7 +199,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCauseCatAllergy = new DiseaseCauseConfig();
         $diseaseCauseCatAllergy
-            ->setGameConfig($gameConfig)
             ->setName(DiseaseEnum::CAT_ALLERGY)
             ->setDiseases([
                 InjuryEnum::BURNT_ARMS => 1,
@@ -232,7 +209,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCauseInfection = new DiseaseCauseConfig();
         $diseaseCauseInfection
-            ->setGameConfig($gameConfig)
             ->setName(DiseaseCauseEnum::INFECTION)
             ->setDiseases([
                 DiseaseEnum::FLU => 50,
@@ -246,7 +222,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCauseSex = new DiseaseCauseConfig();
         $diseaseCauseSex
-            ->setGameConfig($gameConfig)
             ->setName(DiseaseCauseEnum::SEX)
             ->setDiseases([
                 DiseaseEnum::FLU => 1,
@@ -258,7 +233,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCauseTrauma = new DiseaseCauseConfig();
         $diseaseCauseTrauma
-            ->setGameConfig($gameConfig)
             ->setName(DiseaseCauseEnum::TRAUMA)
             ->setDiseases(
                 [
@@ -280,7 +254,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCauseContact = new DiseaseCauseConfig();
         $diseaseCauseContact
-            ->setGameConfig($gameConfig)
             ->setName(DiseaseCauseEnum::CONTACT)
             ->setDiseases(
                 [
@@ -293,7 +266,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCauseCriticalFailKnife = new DiseaseCauseConfig();
         $diseaseCauseCriticalFailKnife
-            ->setGameConfig($gameConfig)
             ->setName(DiseaseCauseEnum::CRITICAL_FAIL_KNIFE)
             ->setDiseases(
                 [
@@ -305,7 +277,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCauseCriticalSuccessKnife = new DiseaseCauseConfig();
         $diseaseCauseCriticalSuccessKnife
-            ->setGameConfig($gameConfig)
             ->setName(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE)
             ->setDiseases(
                 [
@@ -338,7 +309,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCauseCriticalFailBlaster = new DiseaseCauseConfig();
         $diseaseCauseCriticalFailBlaster
-            ->setGameConfig($gameConfig)
             ->setName(DiseaseCauseEnum::CRITICAL_FAIL_BLASTER)
             ->setDiseases(
                 [
@@ -350,7 +320,6 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCauseCriticalSuccessBlaster = new DiseaseCauseConfig();
         $diseaseCauseCriticalSuccessBlaster
-            ->setGameConfig($gameConfig)
             ->setName(DiseaseCauseEnum::CRITICAL_SUCCESS_BLASTER)
             ->setDiseases(
                 [
@@ -368,24 +337,29 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
             );
         $manager->persist($diseaseCauseCriticalSuccessBlaster);
 
+        $gameConfig
+            ->addDiseaseCauseConfig($diseaseCauseAlienFruit)
+            ->addDiseaseCauseConfig($diseaseCausePerishedFood)
+            ->addDiseaseCauseConfig($diseaseCauseCycle)
+            ->addDiseaseCauseConfig($diseaseCauseCycleDepressed)
+            ->addDiseaseCauseConfig($diseaseCausesBacterialContact)
+            ->addDiseaseCauseConfig($diseaseCausesFakeDisease)
+            ->addDiseaseCauseConfig($diseaseCauseFailedSurgery)
+            ->addDiseaseCauseConfig($diseaseCauseInfection)
+            ->addDiseaseCauseConfig($diseaseCauseSex)
+            ->addDiseaseCauseConfig($diseaseCauseTrauma)
+            ->addDiseaseCauseConfig($diseaseCauseContact)
+            ->addDiseaseCauseConfig($diseaseCauseCriticalFailKnife)
+            ->addDiseaseCauseConfig($diseaseCauseCriticalSuccessKnife)
+            ->addDiseaseCauseConfig($diseaseCauseCriticalFailBlaster)
+            ->addDiseaseCauseConfig($diseaseCauseCriticalSuccessBlaster)
+        ;
+
+        $manager->persist($gameConfig);
+
         $manager->flush();
 
         $this->addReference(self::ALIEN_FRUIT_DISEASE_CAUSE_CONFIG, $diseaseCauseAlienFruit);
-        $this->addReference(self::PERISHED_FOOD_DISEASE_CAUSE_CONFIG, $diseaseCausePerishedFood);
-        $this->addReference(self::CYCLE_DISEASE_CAUSE_CONFIG, $diseaseCauseCycle);
-        $this->addReference(self::LOW_MORALE_DISEASE_CAUSE_CONFIG, $diseaseCauseCycleDepressed);
-        $this->addReference(self::MAKE_SICK_DISEASE_CAUSE_CONFIG, $diseaseCausesBacterialContact);
-        $this->addReference(self::FAKE_DISEASE_DISEASE_CAUSE_CONFIG, $diseaseCausesFakeDisease);
-        $this->addReference(self::FAILED_SURGERY_DISEASE_CAUSE_CONFIG, $diseaseCausesFakeDisease);
-        $this->addReference(self::CAT_ALLERGY_DISEASE_CAUSE_CONFIG, $diseaseCauseCatAllergy);
-        $this->addReference(self::INFECTION_DISEASE_CAUSE_CONFIG, $diseaseCauseInfection);
-        $this->addReference(self::SEX_DISEASE_CAUSE_CONFIG, $diseaseCauseSex);
-        $this->addReference(self::TRAUMA_DISEASE_CAUSE_CONFIG, $diseaseCauseTrauma);
-        $this->addReference(self::CONTACT_DISEASE_CAUSE_CONFIG, $diseaseCauseContact);
-        $this->addReference(self::CRITICAL_FAIL_KNIFE_DISEASE_CAUSE_CONFIG, $diseaseCauseCriticalFailKnife);
-        $this->addReference(self::CRITICAL_SUCCESS_KNIFE_DISEASE_CAUSE_CONFIG, $diseaseCauseCriticalSuccessKnife);
-        $this->addReference(self::CRITICAL_FAIL_BLASTER_DISEASE_CAUSE_CONFIG, $diseaseCauseCriticalFailBlaster);
-        $this->addReference(self::CRITICAL_SUCCESS_BLASTER_DISEASE_CAUSE_CONFIG, $diseaseCauseCriticalSuccessBlaster);
     }
 
     public function getDependencies()

@@ -11,7 +11,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Attack;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Disease\Service\PlayerDiseaseServiceInterface;
+use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
@@ -26,7 +26,7 @@ class AttackActionTest extends AbstractActionTest
 
     private ModifierServiceInterface|Mockery\Mock $modifierService;
 
-    private PlayerDiseaseServiceInterface|Mockery\Mock $playerDiseaseService;
+    private DiseaseCauseServiceInterface|Mockery\Mock $diseaseCauseService;
 
     /**
      * @before
@@ -39,7 +39,7 @@ class AttackActionTest extends AbstractActionTest
 
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
-        $this->playerDiseaseService = Mockery::mock(PlayerDiseaseServiceInterface::class);
+        $this->diseaseCauseService = Mockery::mock(DiseaseCauseServiceInterface::class);
 
         $this->action = new Attack(
             $this->eventDispatcher,
@@ -47,7 +47,7 @@ class AttackActionTest extends AbstractActionTest
             $this->validator,
             $this->randomService,
             $this->modifierService,
-            $this->playerDiseaseService,
+            $this->diseaseCauseService,
         );
     }
 
@@ -76,13 +76,12 @@ class AttackActionTest extends AbstractActionTest
             ->setOneShotRate(0)
         ;
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($player);
         $item = new ItemConfig();
         $item->setMechanics(new ArrayCollection([$mechanic]));
         $gameItem->setEquipment($item);
         $gameItem
             ->setName(ItemEnum::KNIFE)
-            ->setHolder($player)
         ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
@@ -118,13 +117,12 @@ class AttackActionTest extends AbstractActionTest
             ->setOneShotRate(0)
         ;
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($player);
         $item = new ItemConfig();
         $item->setMechanics(new ArrayCollection([$mechanic]));
         $gameItem->setEquipment($item);
         $gameItem
             ->setName(ItemEnum::KNIFE)
-            ->setHolder($player)
         ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
@@ -157,13 +155,12 @@ class AttackActionTest extends AbstractActionTest
             ->setOneShotRate(100)
         ;
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($player);
         $item = new ItemConfig();
         $item->setMechanics(new ArrayCollection([$mechanic]));
         $gameItem->setEquipment($item);
         $gameItem
             ->setName(ItemEnum::KNIFE)
-            ->setHolder($player)
         ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
@@ -197,13 +194,12 @@ class AttackActionTest extends AbstractActionTest
             ->setOneShotRate(0)
         ;
 
-        $gameItem = new GameItem();
+        $gameItem = new GameItem($player);
         $item = new ItemConfig();
         $item->setMechanics(new ArrayCollection([$mechanic]));
         $gameItem->setEquipment($item);
         $gameItem
             ->setName(ItemEnum::KNIFE)
-            ->setHolder($player)
         ;
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
@@ -214,7 +210,7 @@ class AttackActionTest extends AbstractActionTest
         $this->randomService->shouldReceive('isSuccessful')->with(0)->andReturn(false)->once();
         $this->randomService->shouldReceive('isSuccessful')->with(100)->andReturn(true)->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')->andReturn(100)->once();
-        $this->playerDiseaseService->shouldReceive('handleDiseaseForCause')->once();
+        $this->diseaseCauseService->shouldReceive('handleDiseaseForCause')->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 

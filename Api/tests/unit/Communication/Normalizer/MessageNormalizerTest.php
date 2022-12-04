@@ -17,6 +17,7 @@ use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -57,7 +58,10 @@ class MessageNormalizerTest extends TestCase
     public function testNormalizePlayerMessage()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
+
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
@@ -110,7 +114,10 @@ class MessageNormalizerTest extends TestCase
     public function testNormalizeNeronMessage()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
+
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
@@ -172,7 +179,10 @@ class MessageNormalizerTest extends TestCase
     public function testNormalizeNeronMessageWithChild()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
+
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
@@ -257,7 +267,10 @@ class MessageNormalizerTest extends TestCase
     public function testNormalizeDeafPlayerMessage()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
+
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
@@ -321,7 +334,10 @@ class MessageNormalizerTest extends TestCase
     public function testNormalizeParanoiacPlayerMessage()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
+
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 
@@ -388,7 +404,10 @@ class MessageNormalizerTest extends TestCase
     public function testNormalizeParanoiacPlayerMessageSelf()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
+
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);
 

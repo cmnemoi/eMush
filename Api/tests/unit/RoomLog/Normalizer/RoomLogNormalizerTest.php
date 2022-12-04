@@ -5,6 +5,7 @@ namespace Mush\Tests\unit\RoomLog\Normalizer;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationService;
@@ -43,7 +44,9 @@ class RoomLogNormalizerTest extends TestCase
     public function testNormalizeRoomLogCollection()
     {
         $gameConfig = new GameConfig();
-        $gameConfig->setLanguage(LanguageEnum::FRENCH);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig->setLocalizationConfig($localizationConfig);
 
         $daedalus = new Daedalus();
         $daedalus->setGameConfig($gameConfig);

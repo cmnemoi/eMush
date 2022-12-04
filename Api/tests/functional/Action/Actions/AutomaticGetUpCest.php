@@ -37,8 +37,15 @@ class AutomaticGetUpCest
 
     public function testAutomaticGetUp(FunctionalTester $I)
     {
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setName(PlayerStatusEnum::LYING_DOWN)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+        ;
+        $I->haveInRepository($statusConfig);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$statusConfig])]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
         /** @var Place $room */
@@ -73,13 +80,6 @@ class AutomaticGetUpCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $statusConfig = new StatusConfig();
-        $statusConfig
-            ->setName(PlayerStatusEnum::LYING_DOWN)
-            ->setGameConfig($gameConfig)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-        ;
-        $I->haveInRepository($statusConfig);
         $lyingDownStatus = new Status($player, $statusConfig);
         $I->haveInRepository($lyingDownStatus);
 
@@ -100,12 +100,11 @@ class AutomaticGetUpCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['actions' => new ArrayCollection([$action])]);
 
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($room);
 
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('shower')
-            ->setHolder($room)
         ;
         $I->haveInRepository($gameEquipment);
 

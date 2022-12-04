@@ -6,12 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\Action;
+use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Entity\ConfigInterface;
-use Mush\Game\Entity\GameConfig;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 
@@ -22,15 +21,12 @@ use Mush\Status\Entity\Config\StatusConfig;
     'equipment_config' => EquipmentConfig::class,
     'item_config' => ItemConfig::class,
 ])]
-class EquipmentConfig implements ConfigInterface
+class EquipmentConfig
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
-
-    #[ORM\ManyToOne(targetEntity: GameConfig::class, inversedBy: 'equipmentsConfig')]
-    private GameConfig $gameConfig;
 
     #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
@@ -66,9 +62,9 @@ class EquipmentConfig implements ConfigInterface
         $this->initStatus = new ArrayCollection();
     }
 
-    public function createGameEquipment(): GameEquipment
+    public function createGameEquipment(EquipmentHolderInterface $holder): GameEquipment
     {
-        $gameEquipment = new GameEquipment();
+        $gameEquipment = new GameEquipment($holder);
         $gameEquipment
             ->setName($this->getShortName())
             ->setEquipment($this)
@@ -80,18 +76,6 @@ class EquipmentConfig implements ConfigInterface
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function getGameConfig(): GameConfig
-    {
-        return $this->gameConfig;
-    }
-
-    public function setGameConfig(GameConfig $gameConfig): static
-    {
-        $this->gameConfig = $gameConfig;
-
-        return $this;
     }
 
     public function getName(): string

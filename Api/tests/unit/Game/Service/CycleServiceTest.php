@@ -6,7 +6,9 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleService;
 use PHPUnit\Framework\TestCase;
@@ -47,16 +49,21 @@ class CycleServiceTest extends TestCase
     {
         $timeZone = 'Europe/Paris';
 
-        $gameConfig = new GameConfig();
+        $localizationConfig = new LocalizationConfig();
 
         // shorter cycles
         $timeZone = 'Europe/Paris';
-        $gameConfig = new GameConfig();
-        $gameConfig
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setTimeZone($timeZone);
+
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig
             ->setCyclePerGameDay(8)
             ->setCycleLength(30)
-            ->setTimeZone($timeZone)
         ;
+
+        $gameConfig = new GameConfig();
+        $gameConfig->setLocalizationConfig($localizationConfig)->setDaedalusConfig($daedalusConfig);
 
         $this->assertEquals(4, $this->service->getInDayCycleFromDate(new \DateTime('2020-10-10 01:45:00.0 Europe/Paris'), $gameConfig));
     }
@@ -69,13 +76,19 @@ class CycleServiceTest extends TestCase
             ->shouldReceive('dispatch')
         ;
 
-        $gameConfig = new GameConfig();
-
-        $gameConfig
-            ->setCyclePerGameDay(8)
-            ->setCycleLength(3 * 60)
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig
             ->setTimeZone($timeZone)
         ;
+
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig
+            ->setCyclePerGameDay(8)
+            ->setCycleLength(3 * 60)
+        ;
+
+        $gameConfig = new GameConfig();
+        $gameConfig->setLocalizationConfig($localizationConfig)->setDaedalusConfig($daedalusConfig);
 
         $daedalus = new Daedalus();
         $daedalus
@@ -104,7 +117,7 @@ class CycleServiceTest extends TestCase
         $this->assertEquals(8, $this->service->handleCycleChange(new DateTime("2020-10-10 00:30:00.0 {$timeZone}"), $daedalus));
 
         // 1 hours cycles => 24 cycle elapsed
-        $gameConfig
+        $daedalusConfig
             ->setCyclePerGameDay(24)
             ->setCycleLength(1 * 60)
         ;
@@ -113,7 +126,7 @@ class CycleServiceTest extends TestCase
         $this->assertEquals(24, $this->service->handleCycleChange(new DateTime("2020-10-10 00:30:00.0 {$timeZone}"), $daedalus));
 
         // 12 hours cycles => 2 cycle elapsed
-        $gameConfig
+        $daedalusConfig
             ->setCyclePerGameDay(2)
             ->setCycleLength(12 * 60)
         ;
@@ -122,7 +135,7 @@ class CycleServiceTest extends TestCase
         $this->assertEquals(2, $this->service->handleCycleChange(new DateTime("2020-10-10 00:30:00.0 {$timeZone}"), $daedalus));
 
         // 24 hours cycles
-        $gameConfig
+        $daedalusConfig
             ->setCyclePerGameDay(2)
             ->setCycleLength(24 * 60)
         ;
@@ -140,13 +153,15 @@ class CycleServiceTest extends TestCase
             ->shouldReceive('dispatch')
         ;
 
-        $gameConfig = new GameConfig();
-
-        $gameConfig
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setTimeZone($timeZone);
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig
             ->setCyclePerGameDay(8)
             ->setCycleLength(3 * 60)
-            ->setTimeZone($timeZone)
         ;
+        $gameConfig = new GameConfig();
+        $gameConfig->setLocalizationConfig($localizationConfig)->setDaedalusConfig($daedalusConfig);
 
         $daedalus = new Daedalus();
         $daedalus
@@ -217,13 +232,16 @@ class CycleServiceTest extends TestCase
             ->shouldReceive('dispatch')
         ;
 
-        $gameConfig = new GameConfig();
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setTimeZone($timeZone);
 
-        $gameConfig
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig
             ->setCyclePerGameDay(8)
             ->setCycleLength(3 * 60)
-            ->setTimeZone($timeZone)
         ;
+        $gameConfig = new GameConfig();
+        $gameConfig->setLocalizationConfig($localizationConfig)->setDaedalusConfig($daedalusConfig);
 
         $daedalus = new Daedalus();
         $daedalus
@@ -240,12 +258,15 @@ class CycleServiceTest extends TestCase
     {
         $timeZone = 'Europe/Paris';
         // Simple ship
-        $gameConfig = new GameConfig();
-        $gameConfig
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setTimeZone($timeZone);
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig
             ->setCyclePerGameDay(8)
             ->setCycleLength(3 * 60)
-            ->setTimeZone($timeZone)
         ;
+        $gameConfig = new GameConfig();
+        $gameConfig->setLocalizationConfig($localizationConfig)->setDaedalusConfig($daedalusConfig);
 
         $daedalus = new Daedalus();
         $daedalus
@@ -264,12 +285,13 @@ class CycleServiceTest extends TestCase
         $this->assertEquals($this->service->getDaedalusStartingCycleDate($daedalus), new DateTime("2020-08-09 21:00:00.0 {$timeZone}"));
 
         // Change cycle length
-        $gameConfig = new GameConfig();
-        $gameConfig
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig
             ->setCyclePerGameDay(8)
-            ->setCycleLength(1 * 60)
-            ->setTimeZone($timeZone)
+            ->setCycleLength(60)
         ;
+        $gameConfig->setDaedalusConfig($daedalusConfig);
+
         $daedalus = new Daedalus();
         $daedalus
             ->setGameConfig($gameConfig)

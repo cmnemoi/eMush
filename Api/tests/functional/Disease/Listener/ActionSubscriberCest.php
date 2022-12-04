@@ -14,6 +14,7 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
@@ -57,11 +58,16 @@ class ActionSubscriberCest
 
     public function testOnPostActionBreakoutsSymptom(FunctionalTester $I)
     {
+        /** @var DaedalusConfig $daedalusConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class, ['name' => 'default']);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, [
+            'daedalusConfig' => $daedalusConfig,
+        ]);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -162,10 +168,16 @@ class ActionSubscriberCest
 
     public function testOnPostActionCatAllergySymptom(FunctionalTester $I)
     {
+        /** @var DaedalusConfig $daedalusConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class, ['name' => 'default']);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, [
+            'daedalusConfig' => $daedalusConfig,
+        ]);
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -268,10 +280,16 @@ class ActionSubscriberCest
 
     public function testOnPostActionDroolingSymptom(FunctionalTester $I)
     {
+        /** @var DaedalusConfig $daedalusConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class, ['name' => 'default']);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, [
+            'daedalusConfig' => $daedalusConfig,
+        ]);
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -372,10 +390,16 @@ class ActionSubscriberCest
 
     public function testOnPostActionFoamingMouthSymptom(FunctionalTester $I)
     {
+        /** @var DaedalusConfig $daedalusConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class, ['name' => 'default']);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, [
+            'daedalusConfig' => $daedalusConfig,
+        ]);
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -476,10 +500,16 @@ class ActionSubscriberCest
 
     public function testOnPostActionSneezingSymptom(FunctionalTester $I)
     {
+        /** @var DaedalusConfig $daedalusConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class, ['name' => 'default']);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, [
+            'daedalusConfig' => $daedalusConfig,
+        ]);
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -586,8 +616,15 @@ class ActionSubscriberCest
         ;
         $I->haveInRepository($dirtyStatusConfig);
 
+        /** @var DaedalusConfig $daedalusConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class, ['name' => 'default']);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$dirtyStatusConfig])]);
+        $gameConfig = $I->have(GameConfig::class, [
+            'daedalusConfig' => $daedalusConfig,
+            'statusConfigs' => new ArrayCollection([$dirtyStatusConfig]),
+        ]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
         /** @var Place $room */
@@ -775,10 +812,16 @@ class ActionSubscriberCest
 
     public function testOnPostActionFearOfCatsSymptom(FunctionalTester $I)
     {
+        /** @var DaedalusConfig $daedalusConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class, ['name' => 'default']);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, [
+            'daedalusConfig' => $daedalusConfig,
+        ]);
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
+        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -925,11 +968,15 @@ class ActionSubscriberCest
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class);
 
+        /** @var DaedalusConfig $daedalusConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class, ['name' => 'default']);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'localizationConfig' => $localizationConfig,
             'diseaseCauseConfig' => new ArrayCollection([$diseaseCauseConfig]),
             'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
+            'daedalusConfig' => $daedalusConfig,
         ]);
 
         /** @var User $user */

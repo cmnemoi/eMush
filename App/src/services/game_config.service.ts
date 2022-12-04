@@ -1,6 +1,7 @@
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
 import { GameConfig } from "@/entities/Config/GameConfig";
+import { DaedalusConfig } from "@/entities/Config/DaedalusConfig";
 import { ModifierCondition } from "@/entities/Config/ModifierCondition";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import { StatusConfig } from "@/entities/Config/StatusConfig";
@@ -20,6 +21,8 @@ const CONFIG_STATUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "status_conf
 const CONFIG_ACTION_COST_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "action_costs");
 // @ts-ignore
 const CONFIG_ACTION_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "actions");
+// @ts-ignore
+const CONFIG_DAEDALUS_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "daedalus_configs");
 
 const GameConfigService = {
     loadGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {
@@ -200,6 +203,36 @@ const GameConfigService = {
         }
 
         return actionCost;
+    },
+
+    loadDaedalusConfig: async(daedalusConfigId: number): Promise<DaedalusConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const daedalusConfigData = await ApiService.get(CONFIG_DAEDALUS_CONFIG_ENDPOINT + '/' + daedalusConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        let daedalusConfig = null;
+        if (daedalusConfigData.data) {
+            daedalusConfig = (new DaedalusConfig()).load(daedalusConfigData.data);
+        }
+
+        return daedalusConfig;
+    },
+
+    updateDaedalusConfig: async(daedalusConfig: DaedalusConfig): Promise<DaedalusConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const daedalusConfigData = await ApiService.put(CONFIG_DAEDALUS_CONFIG_ENDPOINT + '/' + daedalusConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', daedalusConfig.jsonEncode())
+            .catch((e) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw e;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        if (daedalusConfigData.data) {
+            daedalusConfig = (new DaedalusConfig()).load(daedalusConfigData.data);
+        }
+
+        return daedalusConfig;
     }
 };
 export default GameConfigService;

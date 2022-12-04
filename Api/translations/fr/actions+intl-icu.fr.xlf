@@ -62,9 +62,9 @@
       </segment>
     </unit>
     <unit id="consume_drug">
-      <segment id="consume_drug" state="final">
+      <segment id="consume_drug" state="translated">
         <source>consume_drug.name</source>
-        <target>**{character}**  s'envoie un cachet.</target>
+        <target>Consommer</target>
       </segment>
       <segment id="description" state="translated">
         <source>consume_drug.description</source>

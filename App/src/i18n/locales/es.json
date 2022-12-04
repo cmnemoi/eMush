@@ -131,7 +131,22 @@
 		"show": "Montrer",
 		"search": "Chercher",
 		"edit": "Éditer",
-		"updatedAt": "Mis à jour le"
+		"updatedAt": "Mis à jour le",
+		"daedalusConfig": {
+			"name": "Nom",
+			"initOxygen": "Oxygène de départ",
+			"initFuel": "Fuel de départ",
+			"initHull": "Armure de départ",
+			"initShield": "Bouclier de départ",
+			"dailySporeNb": "Nombre de spores quotidiens",
+			"maxOxygen": "Oxygène maximal",
+			"maxFuel": "Fuel maximal",
+			"maxHull": "Armure maximale",
+			"maxShield": "Bouclier maximal",
+			"nbMush": "Nombre de Mushs de départ",
+			"cyclePerGameDay": "Nombre de cycles par jour",
+			"cycleLength": "Durée du cycle (en minutes)"
+		}
 	},
 	"charselection": {
 		"findShip": "Trouver un vaisseau :",

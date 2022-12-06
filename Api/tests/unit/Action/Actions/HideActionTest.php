@@ -8,9 +8,12 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\Hide;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
@@ -48,7 +51,9 @@ class HideActionTest extends AbstractActionTest
         $room = new Place();
 
         $daedalus = new Daedalus();
-        $daedalus->setGameStatus(GameStatusEnum::CURRENT);
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
+
+        $daedalusInfo->setGameStatus(GameStatusEnum::CURRENT);
 
         $player = $this->createPlayer($daedalus, $room);
 

@@ -5,7 +5,9 @@ namespace functional\Player\Event;
 use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Place\Entity\Place;
@@ -53,7 +55,12 @@ class PlayerModifierEventCest
         $user = $I->have(User::class);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+
+        /** @var LocalizationConfig $localisationConfig */
+        $localisationConfig = $I->have(LocalizationConfig::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localisationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -165,7 +172,12 @@ class PlayerModifierEventCest
         $user = $I->have(User::class);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+
+        /** @var LocalizationConfig $localisationConfig */
+        $localisationConfig = $I->have(LocalizationConfig::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localisationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -256,7 +268,12 @@ class PlayerModifierEventCest
         $user = $I->have(User::class);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+
+        /** @var LocalizationConfig $localisationConfig */
+        $localisationConfig = $I->have(LocalizationConfig::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localisationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);

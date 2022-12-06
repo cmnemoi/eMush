@@ -50,12 +50,13 @@ class NeronMessageService implements NeronMessageServiceInterface
         \DateTime $dateTime,
         ?Message $parent = null
     ): Message {
-        $publicChannel = $this->channelService->getPublicChannel($daedalus);
+        $daedalusInfo = $daedalus->getDaedalusInfo();
+        $publicChannel = $this->channelService->getPublicChannel($daedalusInfo);
         if ($publicChannel === null) {
             throw new \LogicException('Daedalus do not have a public channel');
         }
 
-        $neron = $daedalus->getNeron();
+        $neron = $daedalusInfo->getNeron();
         // Get Neron personality
         if (!$neron->isInhibited()) {
             $parameters['neronMood'] = NeronPersonalitiesEnum::UNINHIBITED;
@@ -122,7 +123,7 @@ class NeronMessageService implements NeronMessageServiceInterface
             $cause . '.name',
             [],
             'end_cause',
-            $player->getDaedalus()->getGameConfig()->getLanguage()
+            $player->getDaedalus()->getLanguage()
         );
         $parameters = ['character' => $playerName, 'cause' => $cause];
         $this->createNeronMessage($message, $player->getDaedalus(), $parameters, $time);

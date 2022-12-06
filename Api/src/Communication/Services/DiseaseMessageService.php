@@ -52,7 +52,7 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
         ;
 
         if ($playerSymptoms->hasSymptomByName(SymptomEnum::COPROLALIA_MESSAGES)) {
-            $message = $this->applyCoprolaliaEffect($message, $player->getDaedalus()->getGameConfig()->getLanguage());
+            $message = $this->applyCoprolaliaEffect($message, $player->getDaedalus()->getLanguage());
         }
 
         if ($playerSymptoms->hasSymptomByName(SymptomEnum::PARANOIA_MESSAGES)) {
@@ -127,7 +127,7 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
 
         $messageContent = $message->getMessage();
 
-        $language = $player->getDaedalus()->getGameConfig()->getLanguage();
+        $language = $player->getDaedalus()->getLanguage();
 
         $parameters = [];
         if ($this->randomService->isSuccessful(self::PARANOIA_REPLACE_CHANCE)) {

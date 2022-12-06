@@ -8,6 +8,7 @@ use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\DiseaseMessagesEnum;
 use Mush\Communication\Normalizer\MessageNormalizer;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
@@ -60,10 +61,9 @@ class MessageNormalizerTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $gameConfig->setLocalizationConfig($localizationConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
@@ -116,16 +116,15 @@ class MessageNormalizerTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $gameConfig->setLocalizationConfig($localizationConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
 
         $neron = new Neron();
-        $neron->setDaedalus($daedalus);
+        $neron->setDaedalusInfo($daedalusInfo);
 
         $createdAt = new \DateTime();
 
@@ -181,16 +180,15 @@ class MessageNormalizerTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $gameConfig->setLocalizationConfig($localizationConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
 
         $neron = new Neron();
-        $neron->setDaedalus($daedalus);
+        $neron->setDaedalusInfo($daedalusInfo);
 
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
@@ -269,10 +267,9 @@ class MessageNormalizerTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $gameConfig->setLocalizationConfig($localizationConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
@@ -336,10 +333,9 @@ class MessageNormalizerTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $gameConfig->setLocalizationConfig($localizationConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');
@@ -406,10 +402,9 @@ class MessageNormalizerTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $gameConfig->setLocalizationConfig($localizationConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $playerConfig = new CharacterConfig();
         $playerConfig->setName('name');

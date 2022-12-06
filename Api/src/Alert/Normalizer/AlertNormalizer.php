@@ -29,7 +29,7 @@ class AlertNormalizer implements ContextAwareNormalizerInterface
         /** @var Alert $alert */
         $alert = $object;
 
-        $language = $alert->getDaedalus()->getGameConfig()->getLanguage();
+        $language = $alert->getDaedalus()->getLanguage();
 
         $key = $alert->getName();
 

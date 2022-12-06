@@ -3,6 +3,7 @@
 namespace Mush\Game\Command;
 
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\GameConfigServiceInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -32,6 +33,7 @@ class CreateDaedalusCommand extends Command
     {
         $this
             ->addArgument('daedalusName', InputArgument::OPTIONAL, 'The name of the Daedalus to create.')
+            ->addArgument('language', InputArgument::OPTIONAL, 'The language of the Daedalus to create.')
         ;
     }
 
@@ -41,15 +43,16 @@ class CreateDaedalusCommand extends Command
             $output->writeln('Creating Daedalus...');
 
             $name = $input->getArgument('daedalusName') ? $input->getArgument('daedalusName') : 'test';
+            $language = $input->getArgument('language') ? $input->getArgument('language') : LanguageEnum::FRENCH;
             $config = $this->gameConfigService->getConfigByName('default');
 
-            $this->service->createDaedalus($config, $name);
+            $this->service->createDaedalus($config, $name, $language);
 
             $output->writeln("Daedalus '{$name}' created.");
 
             return Command::SUCCESS;
         } else {
-            $output->writeln('Their is an available Daedalus.');
+            $output->writeln('There is an available Daedalus.');
 
             return Command::FAILURE;
         }

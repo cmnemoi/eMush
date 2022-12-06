@@ -6,9 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -83,7 +85,8 @@ class PlayerServiceTest extends TestCase
         $gameConfig = new GameConfig();
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+
         $laboratory = new Place();
         $laboratory->setName(RoomEnum::LABORATORY); // @FIXME: should we move the starting room in the config
         $daedalus->addPlace($laboratory);

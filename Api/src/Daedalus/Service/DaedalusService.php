@@ -8,9 +8,11 @@ use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Collection\DaedalusCollection;
 use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusInitEvent;
+use Mush\Daedalus\Repository\DaedalusInfoRepository;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
@@ -19,6 +21,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Repository\LocalizationConfigRepository;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
@@ -42,6 +45,8 @@ class DaedalusService implements DaedalusServiceInterface
     private GameEquipmentServiceInterface $gameEquipmentService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
+    private LocalizationConfigRepository $localizationConfigRepository;
+    private DaedalusInfoRepository $daedalusInfoRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -50,7 +55,9 @@ class DaedalusService implements DaedalusServiceInterface
         CycleServiceInterface $cycleService,
         GameEquipmentServiceInterface $gameEquipmentService,
         RandomServiceInterface $randomService,
-        RoomLogServiceInterface $roomLogService
+        RoomLogServiceInterface $roomLogService,
+        LocalizationConfigRepository $localizationConfigRepository,
+        DaedalusInfoRepository $daedalusInfoRepository
     ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
@@ -59,6 +66,8 @@ class DaedalusService implements DaedalusServiceInterface
         $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
+        $this->localizationConfigRepository = $localizationConfigRepository;
+        $this->daedalusInfoRepository = $daedalusInfoRepository;
     }
 
     /**
@@ -70,6 +79,14 @@ class DaedalusService implements DaedalusServiceInterface
         $this->entityManager->flush();
 
         return $daedalus;
+    }
+
+    public function persistDaedalusInfo(DaedalusInfo $daedalusInfo): DaedalusInfo
+    {
+        $this->entityManager->persist($daedalusInfo);
+        $this->entityManager->flush();
+
+        return $daedalusInfo;
     }
 
     /**
@@ -92,12 +109,18 @@ class DaedalusService implements DaedalusServiceInterface
 
     public function findAvailableDaedalus(string $name): ?Daedalus
     {
-        return $this->repository->findAvailableDaedalus($name);
+        $daedalusInfo = $this->daedalusInfoRepository->findAvailableDaedalus($name);
+
+        if ($daedalusInfo === null) {
+            return null;
+        }
+
+        return $daedalusInfo->getDaedalus();
     }
 
     public function existAvailableDaedalus(): bool
     {
-        return $this->repository->existAvailableDaedalus();
+        return $this->daedalusInfoRepository->existAvailableDaedalus();
     }
 
     public function findAvailableCharacterForDaedalus(Daedalus $daedalus): Collection
@@ -109,15 +132,13 @@ class DaedalusService implements DaedalusServiceInterface
         );
     }
 
-    public function createDaedalus(GameConfig $gameConfig, string $name): Daedalus
+    public function createDaedalus(GameConfig $gameConfig, string $name, string $language): Daedalus
     {
         $daedalus = new Daedalus();
 
         $daedalusConfig = $gameConfig->getDaedalusConfig();
 
         $daedalus
-            ->setName($name)
-            ->setGameConfig($gameConfig)
             ->setCycle(0)
             ->setOxygen($daedalusConfig->getInitOxygen())
             ->setFuel($daedalusConfig->getInitFuel())
@@ -127,9 +148,18 @@ class DaedalusService implements DaedalusServiceInterface
             ->setDailySpores($daedalusConfig->getDailySporeNb())
         ;
 
-        $this->createNeron($daedalus);
+        $localizationConfig = $this->localizationConfigRepository->findByLanguage($language);
+        if ($localizationConfig === null) {
+            throw new \Error('there is no localizationConfig for this language');
+        }
 
-        $this->persist($daedalus);
+        $neron = new Neron();
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo
+            ->setName($name)
+            ->setNeron($neron)
+        ;
+        $this->persistDaedalusInfo($daedalusInfo);
 
         $daedalusEvent = new DaedalusInitEvent(
             $daedalus,
@@ -147,15 +177,17 @@ class DaedalusService implements DaedalusServiceInterface
         $this->killRemainingPlayers($daedalus, $reason, $date);
 
         $daedalus->setFinishedAt(new \DateTime());
-        $daedalus->setGameStatus(GameStatusEnum::FINISHED);
 
-        $this->persist($daedalus);
+        $daedalusInfo = $daedalus->getDaedalusInfo();
+        $daedalusInfo->setGameStatus(GameStatusEnum::FINISHED);
 
-        // create closedDaedalus entity
-        $closedDaedalus = new ClosedDaedalus($daedalus);
-        $closedDaedalus->setEndCause($reason);
-        $this->entityManager->persist($closedDaedalus);
-        $this->entityManager->flush();
+        $this->persistDaedalusInfo($daedalusInfo);
+
+        // update closedDaedalus entity
+        $closedDaedalus = $daedalusInfo->getClosedDaedalus();
+        $closedDaedalus->updateEnd($daedalus, $reason);
+        $daedalusInfo->setClosedDaedalus($closedDaedalus);
+        $this->persistDaedalusInfo($daedalusInfo);
 
         /** @var Player $player */
         foreach ($daedalus->getPlayers() as $player) {
@@ -181,12 +213,13 @@ class DaedalusService implements DaedalusServiceInterface
 
         $time = new \DateTime();
         $daedalus->setCreatedAt($time);
-        $daedalus->setCycle($this->cycleService->getInDayCycleFromDate($time, $gameConfig));
+        $daedalus->setCycle($this->cycleService->getInDayCycleFromDate($time, $daedalus));
         $daedalus->setCycleStartedAt($this->cycleService->getDaedalusStartingCycleDate($daedalus));
 
-        $daedalus->setGameStatus(GameStatusEnum::STARTING);
+        $daedalusInfo = $daedalus->getDaedalusInfo();
+        $daedalusInfo->setGameStatus(GameStatusEnum::STARTING);
 
-        $this->persist($daedalus);
+        $this->persistDaedalusInfo($daedalusInfo);
 
         return $daedalus;
     }
@@ -359,14 +392,5 @@ class DaedalusService implements DaedalusServiceInterface
         $this->persist($daedalus);
 
         return $daedalus;
-    }
-
-    private function createNeron(Daedalus $daedalus): void
-    {
-        $neron = new Neron();
-        $neron->setDaedalus($daedalus);
-        $daedalus->setNeron($neron);
-
-        $this->entityManager->persist($neron);
     }
 }

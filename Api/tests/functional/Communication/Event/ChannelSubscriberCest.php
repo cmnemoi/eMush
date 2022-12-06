@@ -12,6 +12,9 @@ use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Event\ChannelEvent;
 use Mush\Communication\Listener\ChannelSubscriber;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -28,8 +31,15 @@ class ChannelSubscriberCest
 
     public function testInvite(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
@@ -46,7 +56,7 @@ class ChannelSubscriberCest
 
         $privateChannel = new Channel();
         $privateChannel
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PRIVATE)
         ;
         $I->haveInRepository($privateChannel);
@@ -67,8 +77,15 @@ class ChannelSubscriberCest
 
     public function testLeave(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
@@ -85,7 +102,7 @@ class ChannelSubscriberCest
 
         $privateChannel = new Channel();
         $privateChannel
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::class)
         ;
         $I->haveInRepository($privateChannel);

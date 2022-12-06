@@ -10,6 +10,7 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -49,18 +50,24 @@ class LastPlayerKilledCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, [
-            'gameConfig' => $gameConfig,
             'oxygen' => 1,
-            'neron' => $neron,
-            'game_status' => GameStatusEnum::CURRENT,
             'cycle' => 5,
             'day' => 10,
             'filledAt' => new DateTime(),
+            'cycleStartedAt' => new DateTime(),
         ]);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo
+            ->setNeron($neron)
+            ->setGameStatus(GameStatusEnum::CURRENT)
+        ;
+        $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PUBLIC)
         ;
         $I->haveInRepository($channel);

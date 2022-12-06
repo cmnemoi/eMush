@@ -39,7 +39,7 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
         $player = $object;
 
         $daedalus = $player->getDaedalus();
-        $language = $daedalus->getGameConfig()->getLanguage();
+        $language = $daedalus->getLanguage();
         $character = $player->getName();
         $playerInfo = $player->getPlayerInfo();
         $deadPlayerInfo = $playerInfo->getClosedPlayer();
@@ -64,7 +64,7 @@ class DeadPlayerNormalizer implements ContextAwareNormalizerInterface, Normalize
             ],
             'skills' => $player->getSkills(),
             'gameStatus' => $playerInfo->getGameStatus(),
-            'endCause' => $this->normalizeEndReason($endCause, $player->getDaedalus()->getGameConfig()->getLanguage()),
+            'endCause' => $this->normalizeEndReason($endCause, $language),
         ];
 
         $playerData['players'] = $this->getOtherPlayers($player, $language);

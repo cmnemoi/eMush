@@ -56,7 +56,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
 
-        $language = $currentPlayer->getDaedalus()->getGameConfig()->getLanguage();
+        $language = $currentPlayer->getDaedalus()->getLanguage();
 
         $parameter = $this->loadParameters($context);
 

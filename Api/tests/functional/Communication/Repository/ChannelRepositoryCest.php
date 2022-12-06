@@ -8,8 +8,9 @@ use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Repository\ChannelRepository;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -26,8 +27,15 @@ class ChannelRepositoryCest
 
     public function testFindPlayerChannels(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus]);
 
@@ -47,7 +55,7 @@ class ChannelRepositoryCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($publicChannel);
 
@@ -57,7 +65,7 @@ class ChannelRepositoryCest
 
         $privateChannel = new Channel();
         $privateChannel
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::class)
         ;
         $I->haveInRepository($privateChannel);
@@ -81,8 +89,16 @@ class ChannelRepositoryCest
 
     public function testFindPlayerChannelsPrivateOnly(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus]);
 
@@ -99,7 +115,7 @@ class ChannelRepositoryCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($publicChannel);
 
@@ -108,7 +124,7 @@ class ChannelRepositoryCest
 
         $privateChannel = new Channel();
         $privateChannel
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::class)
         ;
         $I->haveInRepository($privateChannel);
@@ -127,20 +143,23 @@ class ChannelRepositoryCest
 
     public function testFindPlayerChannelsMultipleDaedalus(FunctionalTester $I)
     {
-        /** @var DaedalusConfig $daedalusConfig */
-        $daedalusConfig = $I->have(DaedalusConfig::class, [
-            'name' => 'default',
-        ]);
-
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'daedalusConfig' => $daedalusConfig,
-        ]);
-
+        $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['name' => 'daedalus_1', 'gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setName('daedalus');
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Daedalus $daedalus2 */
-        $daedalus2 = $I->have(Daedalus::class, ['name' => 'daedalus_', 'gameConfig' => $gameConfig]);
+        $daedalus2 = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
+        $daedalus2Info = new DaedalusInfo($daedalus2, $gameConfig, $localizationConfig);
+        $daedalusInfo->setName('daedalus2');
+        $I->haveInRepository($daedalus2Info);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
@@ -166,7 +185,7 @@ class ChannelRepositoryCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($publicChannel);
 
@@ -179,7 +198,7 @@ class ChannelRepositoryCest
 
         $privateChannel = new Channel();
         $privateChannel
-            ->setDaedalus($daedalus2)
+            ->setDaedalus($daedalus2Info)
             ->setScope(ChannelScopeEnum::class)
         ;
         $I->haveInRepository($privateChannel);

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
 use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
 use Mush\Game\Entity\GameConfig;
@@ -59,12 +60,9 @@ class DaedalusNormalizerTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $gameConfig->setLocalizationConfig($localizationConfig);
 
         $daedalusConfig = new DaedalusConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
-
-        $daedalus->setGameConfig($gameConfig);
 
         $daedalusConfig
             ->setMaxFuel(100)
@@ -72,6 +70,9 @@ class DaedalusNormalizerTest extends TestCase
             ->setMaxOxygen(100)
             ->setMaxShield(100)
         ;
+
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+
         $daedalus
             ->setCycle(4)
             ->setDay(4)

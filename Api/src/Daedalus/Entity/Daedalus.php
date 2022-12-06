@@ -10,7 +10,6 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -30,26 +29,17 @@ class Daedalus implements ModifierHolder
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
+    #[ORM\OneToOne(mappedBy: 'daedalus', targetEntity: DaedalusInfo::class)]
+    private DaedalusInfo $daedalusInfo;
+
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Player::class)]
     private Collection $players;
-
-    #[ORM\ManyToOne(targetEntity: GameConfig::class)]
-    private GameConfig $gameConfig;
-
-    #[ORM\OneToOne(inversedBy: 'daedalus', targetEntity: Neron::class)]
-    private Neron $neron;
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private string $gameStatus = GameStatusEnum::STANDBY;
 
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Place::class)]
     private Collection $places;
 
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Modifier::class)]
     private Collection $modifiers;
-
-    #[ORM\Column(type: 'string', nullable: false, unique: true)]
-    private string $name = 'default';
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $oxygen = 0;
@@ -99,6 +89,18 @@ class Daedalus implements ModifierHolder
         return $this->id;
     }
 
+    public function getDaedalusInfo(): DaedalusInfo
+    {
+        return $this->daedalusInfo;
+    }
+
+    public function setDaedalusInfo(DaedalusInfo $daedalusInfo): static
+    {
+        $this->daedalusInfo = $daedalusInfo;
+
+        return $this;
+    }
+
     public function getPlayers(): PlayerCollection
     {
         return new PlayerCollection($this->players->toArray());
@@ -125,54 +127,6 @@ class Daedalus implements ModifierHolder
     public function removePlayer(Player $player): static
     {
         $this->players->removeElement($player);
-
-        return $this;
-    }
-
-    public function getGameConfig(): GameConfig
-    {
-        return $this->gameConfig;
-    }
-
-    public function setGameConfig(GameConfig $gameConfig): static
-    {
-        $this->gameConfig = $gameConfig;
-
-        return $this;
-    }
-
-    public function getNeron(): Neron
-    {
-        return $this->neron;
-    }
-
-    public function setNeron(Neron $neron): static
-    {
-        $this->neron = $neron;
-
-        return $this;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getGameStatus(): string
-    {
-        return $this->gameStatus;
-    }
-
-    public function setGameStatus(string $gameStatus): static
-    {
-        $this->gameStatus = $gameStatus;
 
         return $this;
     }
@@ -420,5 +374,25 @@ class Daedalus implements ModifierHolder
             default:
                 throw new \LogicException('this is not a valid daedalusVariable');
         }
+    }
+
+    public function getLanguage(): string
+    {
+        return $this->daedalusInfo->getLocalizationConfig()->getLanguage();
+    }
+
+    public function getGameConfig(): GameConfig
+    {
+        return $this->daedalusInfo->getGameConfig();
+    }
+
+    public function getGameStatus(): string
+    {
+        return $this->daedalusInfo->getGameStatus();
+    }
+
+    public function getName(): string
+    {
+        return $this->daedalusInfo->getName();
     }
 }

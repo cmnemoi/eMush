@@ -59,7 +59,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
 
-        $language = $currentPlayer->getDaedalus()->getGameConfig()->getLanguage();
+        $language = $currentPlayer->getDaedalus()->getLanguage();
 
         $key = $object->getName();
         $nameParameters = [];
@@ -152,7 +152,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
 
     private function getRationsEffect(GameEquipment $gameEquipment, Daedalus $daedalus): array
     {
-        $language = $daedalus->getGameConfig()->getLanguage();
+        $language = $daedalus->getLanguage();
         /** @var Ration $ration */
         $ration = $gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
         if ($ration === null) {

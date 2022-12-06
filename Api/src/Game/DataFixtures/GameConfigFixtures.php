@@ -11,6 +11,7 @@ use Mush\Game\Enum\LanguageEnum;
 class GameConfigFixtures extends Fixture
 {
     public const DEFAULT_GAME_CONFIG = 'default.game.config';
+    public const FRENCH_LOCALIZATION_CONFIG = 'french.localization.config';
 
     public function load(ObjectManager $manager): void
     {
@@ -26,7 +27,6 @@ class GameConfigFixtures extends Fixture
 
         $gameConfig
             ->setName('default')
-            ->setLocalizationConfig($localizationConfig)
         ;
 
         $manager->persist($gameConfig);
@@ -34,5 +34,6 @@ class GameConfigFixtures extends Fixture
         $manager->flush();
 
         $this->addReference(self::DEFAULT_GAME_CONFIG, $gameConfig);
+        $this->addReference(self::FRENCH_LOCALIZATION_CONFIG, $localizationConfig);
     }
 }

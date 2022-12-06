@@ -55,9 +55,6 @@ class GameConfig
     #[ORM\ManyToOne(targetEntity: DifficultyConfig::class)]
     private DifficultyConfig $difficultyConfig;
 
-    #[ORM\ManyToOne(targetEntity: LocalizationConfig::class)]
-    private LocalizationConfig $localizationConfig;
-
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $name;
 
@@ -249,27 +246,5 @@ class GameConfig
     public function getMaxPlayer(): int
     {
         return $this->charactersConfig->count();
-    }
-
-    public function setLocalizationConfig(LocalizationConfig $localizationConfig): self
-    {
-        $this->localizationConfig = $localizationConfig;
-
-        return $this;
-    }
-
-    public function getLocalizationConfig(): LocalizationConfig
-    {
-        return $this->localizationConfig;
-    }
-
-    public function getTimeZone(): string
-    {
-        return $this->localizationConfig->getTimeZone();
-    }
-
-    public function getLanguage(): string
-    {
-        return $this->localizationConfig->getLanguage();
     }
 }

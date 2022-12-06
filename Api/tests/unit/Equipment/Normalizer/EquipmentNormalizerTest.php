@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -69,9 +70,8 @@ class EquipmentNormalizerTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $gameConfig->setLocalizationConfig($localizationConfig);
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $place = new Place();
         $player = new Player();
@@ -132,9 +132,8 @@ class EquipmentNormalizerTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $gameConfig->setLocalizationConfig($localizationConfig);
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $place = new Place();
         $player = new Player();
@@ -195,9 +194,8 @@ class EquipmentNormalizerTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $gameConfig->setLocalizationConfig($localizationConfig);
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $place = new Place();
         $player = new Player();

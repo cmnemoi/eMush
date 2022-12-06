@@ -8,6 +8,7 @@ use Mush\Action\Actions\InsertOxygen;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -15,6 +16,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Place\Entity\Place;
 
 class InsertOxygenTest extends AbstractActionTest
@@ -66,7 +68,7 @@ class InsertOxygenTest extends AbstractActionTest
 
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $tank = new EquipmentConfig();
         $tank->setName(EquipmentEnum::OXYGEN_TANK);

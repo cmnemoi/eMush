@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
@@ -63,9 +64,11 @@ class CycleServiceTest extends TestCase
         ;
 
         $gameConfig = new GameConfig();
-        $gameConfig->setLocalizationConfig($localizationConfig)->setDaedalusConfig($daedalusConfig);
+        $daedalus = new Daedalus();
+        $gameConfig->setDaedalusConfig($daedalusConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
-        $this->assertEquals(4, $this->service->getInDayCycleFromDate(new \DateTime('2020-10-10 01:45:00.0 Europe/Paris'), $gameConfig));
+        $this->assertEquals(4, $this->service->getInDayCycleFromDate(new \DateTime('2020-10-10 01:45:00.0 Europe/Paris'), $daedalus));
     }
 
     public function testHandleCycleChange()
@@ -88,26 +91,25 @@ class CycleServiceTest extends TestCase
         ;
 
         $gameConfig = new GameConfig();
-        $gameConfig->setLocalizationConfig($localizationConfig)->setDaedalusConfig($daedalusConfig);
-
+        $gameConfig->setDaedalusConfig($daedalusConfig);
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setGameStatus(GameStatusEnum::STARTING);
         $daedalus
-            ->setGameConfig($gameConfig)
             ->setCreatedAt(new DateTime("2020-10-09 23:30:00.0 {$timeZone}"))
             ->setCycleStartedAt(new DateTime("2020-10-09 21:00:00.0 {$timeZone}"))
             ->setCycle(8)
-            ->setGameStatus(GameStatusEnum::STARTING)
         ;
 
         $this->assertEquals(0, $this->service->handleCycleChange(new DateTime("2020-10-09 23:31:00.0 {$timeZone}"), $daedalus));
 
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setGameStatus(GameStatusEnum::STARTING);
         $daedalus
-            ->setGameConfig($gameConfig)
             ->setCreatedAt(new DateTime("2020-10-09 00:30:00.0 {$timeZone}"))
             ->setCycleStartedAt(new DateTime("2020-10-09 00:00:00.0 {$timeZone}"))
             ->setCycle(1)
-            ->setGameStatus(GameStatusEnum::STARTING)
         ;
 
         $this->assertEquals(2, $this->service->handleCycleChange(new DateTime("2020-10-09 06:30:00.0 {$timeZone}"), $daedalus));
@@ -161,16 +163,16 @@ class CycleServiceTest extends TestCase
             ->setCycleLength(3 * 60)
         ;
         $gameConfig = new GameConfig();
-        $gameConfig->setLocalizationConfig($localizationConfig)->setDaedalusConfig($daedalusConfig);
+        $gameConfig->setDaedalusConfig($daedalusConfig);
 
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setGameStatus(GameStatusEnum::STARTING);
         $daedalus
-            ->setGameConfig($gameConfig)
             ->setCreatedAt(new DateTime("2020-10-08 00:30:00.0 {$timeZone}"))
             ->setCycleStartedAt(new DateTime("2020-10-09 00:00:00.0 {$timeZone}"))
             ->setDay(2)
             ->setCycle(1)
-            ->setGameStatus(GameStatusEnum::STARTING)
         ;
 
         $this->assertEquals(0, $this->service->handleCycleChange(new DateTime("2020-10-09 00:31:00.0 {$timeZone}"), $daedalus));
@@ -180,13 +182,13 @@ class CycleServiceTest extends TestCase
         $this->assertEquals(0, $this->service->handleCycleChange(new DateTime("2020-10-08 23:31:00.0 {$timeZone}"), $daedalus));
 
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setGameStatus(GameStatusEnum::STARTING);
         $daedalus
-            ->setGameConfig($gameConfig)
             ->setCreatedAt(new DateTime("2020-10-08 02:30:00.0 {$timeZone}"))
             ->setCycleStartedAt(new DateTime("2020-10-09 03:00:00.0 {$timeZone}"))
             ->setDay(2)
             ->setCycle(2)
-            ->setGameStatus(GameStatusEnum::STARTING)
         ;
 
         $this->assertEquals(0, $this->service->handleCycleChange(new DateTime("2020-10-09 02:31:00.0 {$timeZone}"), $daedalus));
@@ -194,13 +196,13 @@ class CycleServiceTest extends TestCase
 
         // in case entering DST in between
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setGameStatus(GameStatusEnum::STARTING);
         $daedalus
-            ->setGameConfig($gameConfig)
             ->setCreatedAt(new DateTime("2021-03-27 00:00:00.0 {$timeZone}"))
             ->setCycleStartedAt(new DateTime("2021-03-28 00:00:00.0 {$timeZone}"))
             ->setDay(2)
             ->setCycle(1)
-            ->setGameStatus(GameStatusEnum::STARTING)
         ;
 
         $this->assertEquals(0, $this->service->handleCycleChange(new DateTime("2021-03-28 03:31:00.0 {$timeZone}"), $daedalus));
@@ -209,13 +211,13 @@ class CycleServiceTest extends TestCase
 
         // in case exiting DST in between
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setGameStatus(GameStatusEnum::STARTING);
         $daedalus
-            ->setGameConfig($gameConfig)
             ->setCreatedAt(new DateTime("2020-10-24 00:00:00.0 {$timeZone}"))
             ->setCycleStartedAt(new DateTime("2020-10-25 00:00:00.0 {$timeZone}"))
             ->setDay(2)
             ->setCycle(1)
-            ->setGameStatus(GameStatusEnum::STARTING)
         ;
 
         $this->assertEquals(1, $this->service->handleCycleChange(new DateTime("2020-10-25 03:31:00.0 {$timeZone}"), $daedalus));
@@ -241,11 +243,11 @@ class CycleServiceTest extends TestCase
             ->setCycleLength(3 * 60)
         ;
         $gameConfig = new GameConfig();
-        $gameConfig->setLocalizationConfig($localizationConfig)->setDaedalusConfig($daedalusConfig);
+        $gameConfig->setDaedalusConfig($daedalusConfig);
 
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalus
-            ->setGameConfig($gameConfig)
             ->setCreatedAt(new DateTime("2020-10-09 00:30:00.0 {$timeZone}"))
             ->setCycleStartedAt(new DateTime("2020-09-09 24:00:00.0 {$timeZone}"))
             ->setCycle(0)
@@ -266,19 +268,19 @@ class CycleServiceTest extends TestCase
             ->setCycleLength(3 * 60)
         ;
         $gameConfig = new GameConfig();
-        $gameConfig->setLocalizationConfig($localizationConfig)->setDaedalusConfig($daedalusConfig);
+        $gameConfig->setDaedalusConfig($daedalusConfig);
 
         $daedalus = new Daedalus();
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalus
-            ->setGameConfig($gameConfig)
             ->setCreatedAt(new DateTime("2020-08-09 00:30:00.0 {$timeZone}"))
             ->setCycle(1)
         ;
         $this->assertEquals($this->service->getDaedalusStartingCycleDate($daedalus), new DateTime("2020-08-09 00:00:00.0 {$timeZone}"));
 
         $daedalus = new Daedalus();
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalus
-            ->setGameConfig($gameConfig)
             ->setCreatedAt(new DateTime("2020-08-09 23:30:00.0 {$timeZone}"))
             ->setCycle(8)
         ;
@@ -293,16 +295,16 @@ class CycleServiceTest extends TestCase
         $gameConfig->setDaedalusConfig($daedalusConfig);
 
         $daedalus = new Daedalus();
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalus
-            ->setGameConfig($gameConfig)
             ->setCreatedAt(new DateTime("2020-09-09 23:30:00.0 {$timeZone}"))
             ->setCycle(8)
         ;
         $this->assertEquals($this->service->getDaedalusStartingCycleDate($daedalus), new DateTime("2020-09-09 23:00:00.0 {$timeZone}"));
 
         $daedalus = new Daedalus();
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalus
-            ->setGameConfig($gameConfig)
             ->setCreatedAt(new DateTime("2020-09-09 11:30:00.0 {$timeZone}"))
             ->setCycle(4)
         ;

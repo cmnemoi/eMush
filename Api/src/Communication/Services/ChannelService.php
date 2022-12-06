@@ -11,7 +11,7 @@ use Mush\Communication\Enum\CommunicationActionEnum;
 use Mush\Communication\Event\ChannelEvent;
 use Mush\Communication\Repository\ChannelPlayerRepository;
 use Mush\Communication\Repository\ChannelRepository;
-use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Entity\Place;
@@ -45,21 +45,21 @@ class ChannelService implements ChannelServiceInterface
         $this->statusService = $statusService;
     }
 
-    public function getPublicChannel(Daedalus $daedalus): ?Channel
+    public function getPublicChannel(DaedalusInfo $daedalusInfo): ?Channel
     {
         $channel = $this->channelRepository->findOneBy([
-            'daedalus' => $daedalus,
+            'daedalusInfo' => $daedalusInfo,
             'scope' => ChannelScopeEnum::PUBLIC,
         ]);
 
         return $channel instanceof Channel ? $channel : null;
     }
 
-    public function createPublicChannel(Daedalus $daedalus): Channel
+    public function createPublicChannel(DaedalusInfo $daedalusInfo): Channel
     {
         $channel = new Channel();
         $channel
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PUBLIC)
         ;
 
@@ -73,7 +73,7 @@ class ChannelService implements ChannelServiceInterface
     {
         $channel = new Channel();
         $channel
-            ->setDaedalus($player->getDaedalus())
+            ->setDaedalus($player->getDaedalus()->getDaedalusInfo())
             ->setScope(ChannelScopeEnum::PRIVATE)
         ;
 

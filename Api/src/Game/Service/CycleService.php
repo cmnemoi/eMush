@@ -7,7 +7,6 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -27,11 +26,10 @@ class CycleService implements CycleServiceInterface
 
     public function handleCycleChange(DateTime $dateTime, Daedalus $daedalus): int
     {
-        $gameConfig = $daedalus->getGameConfig();
-        $localizationConfig = $gameConfig->getLocalizationConfig();
-        $daedalusConfig = $gameConfig->getDaedalusConfig();
+        $daedalusInfo = $daedalus->getDaedalusInfo();
+        $daedalusConfig = $daedalusInfo->getGameConfig()->getDaedalusConfig();
 
-        if (!in_array($daedalus->getGameStatus(), [GameStatusEnum::STARTING, GameStatusEnum::CURRENT])) {
+        if (!in_array($daedalusInfo->getGameStatus(), [GameStatusEnum::STARTING, GameStatusEnum::CURRENT])) {
             return 0;
         }
 
@@ -42,7 +40,7 @@ class CycleService implements CycleServiceInterface
             $dateDaedalusLastCycle = clone $dateDaedalusLastCycle;
         }
 
-        $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $gameConfig);
+        $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $daedalus);
 
         if ($cycleElapsed > 0) {
             $daedalus->setIsCycleChange(true);
@@ -60,7 +58,7 @@ class CycleService implements CycleServiceInterface
                     $this->eventDispatcher->dispatch($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
                     // Do not continue make cycle if Daedalus is finish
-                    if ($daedalus->getGameStatus() === GameStatusEnum::FINISHED) {
+                    if ($daedalusInfo->getGameStatus() === GameStatusEnum::FINISHED) {
                         break;
                     }
                 }
@@ -90,9 +88,12 @@ class CycleService implements CycleServiceInterface
     }
 
     // get day cycle from date (value between 1 and $gameConfig->getCyclePerGameDay())
-    public function getInDayCycleFromDate(DateTime $date, GameConfig $gameConfig): int
+    public function getInDayCycleFromDate(DateTime $date, Daedalus $daedalus): int
     {
-        $localizationConfig = $gameConfig->getLocalizationConfig();
+        $daedalusInfo = $daedalus->getDaedalusInfo();
+
+        $gameConfig = $daedalusInfo->getGameConfig();
+        $localizationConfig = $daedalusInfo->getLocalizationConfig();
         $daedalusConfig = $gameConfig->getDaedalusConfig();
 
         $timeZoneDate = $date->setTimezone(new \DateTimeZone($localizationConfig->getTimeZone()));
@@ -110,9 +111,10 @@ class CycleService implements CycleServiceInterface
      */
     public function getDaedalusStartingCycleDate(Daedalus $daedalus): DateTime
     {
-        $gameConfig = $daedalus->getGameConfig();
-        $timeConfig = $gameConfig->getLocalizationConfig();
-        $daedalusConfig = $gameConfig->getDaedalusConfig();
+        $daedalusInfo = $daedalus->getDaedalusInfo();
+
+        $timeConfig = $daedalusInfo->getLocalizationConfig();
+        $daedalusConfig = $daedalusInfo->getGameConfig()->getDaedalusConfig();
 
         $firstCycleDate = $daedalus->getCreatedAt() ?? new DateTime();
 
@@ -130,10 +132,11 @@ class CycleService implements CycleServiceInterface
         return $firstDayDate->add(new DateInterval('PT' . strval($minutesBetweenDayStartAndDaedalusFirstCycle) . 'M'));
     }
 
-    private function getNumberOfCycleElapsed(DateTime $start, DateTime $end, GameConfig $gameConfig): int
+    private function getNumberOfCycleElapsed(DateTime $start, DateTime $end, Daedalus $daedalus): int
     {
-        $localizationConfig = $gameConfig->getLocalizationConfig();
-        $daedalusConfig = $gameConfig->getDaedalusConfig();
+        $daedalusInfo = $daedalus->getDaedalusInfo();
+        $localizationConfig = $daedalusInfo->getLocalizationConfig();
+        $daedalusConfig = $daedalusInfo->getGameConfig()->getDaedalusConfig();
         $start = clone $start;
         $end = clone $end;
         $end->setTimezone(new \DateTimeZone($localizationConfig->getTimeZone()));

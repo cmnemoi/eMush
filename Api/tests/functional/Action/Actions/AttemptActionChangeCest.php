@@ -11,10 +11,11 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -54,16 +55,15 @@ class AttemptActionChangeCest
         ;
         $I->haveInRepository($statusConfig);
 
-        /** @var DaedalusConfig $daedalusConfig */
-        $daedalusConfig = $I->have(DaedalusConfig::class);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-             'daedalusConfig' => $daedalusConfig,
-             'statusConfigs' => new ArrayCollection([$attemptConfig, $statusConfig]),
-        ]);
-
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$attemptConfig, $statusConfig])]);
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localisationConfig */
+        $localisationConfig = $I->have(LocalizationConfig::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localisationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var CharacterConfig $characterConfig */
@@ -177,7 +177,12 @@ class AttemptActionChangeCest
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$attemptConfig, $statusConfig])]);
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var CharacterConfig $characterConfig */

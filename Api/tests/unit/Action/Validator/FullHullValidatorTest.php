@@ -8,7 +8,9 @@ use Mush\Action\Validator\FullHull;
 use Mush\Action\Validator\FullHullValidator;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -45,7 +47,7 @@ class FullHullValidatorTest extends TestCase
         $gameConfig->setDaedalusConfig($daedalusConfig);
         $daedalus = new Daedalus();
         $daedalus->setHull(99);
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
         $player = new Player();
         $player
             ->setDaedalus($daedalus)
@@ -71,7 +73,7 @@ class FullHullValidatorTest extends TestCase
         $gameConfig->setDaedalusConfig($daedalusConfig);
         $daedalus = new Daedalus();
         $daedalus->setHull(100);
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
         $player = new Player();
         $player
             ->setDaedalus($daedalus)

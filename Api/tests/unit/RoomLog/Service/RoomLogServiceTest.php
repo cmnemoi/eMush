@@ -8,6 +8,7 @@ use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -501,10 +502,9 @@ class RoomLogServiceTest extends TestCase
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
         $gameConfig = new GameConfig();
-        $gameConfig->setLocalizationConfig($localizationConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $place = new Place();
 

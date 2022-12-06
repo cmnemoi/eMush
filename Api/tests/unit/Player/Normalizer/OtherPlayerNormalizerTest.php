@@ -5,6 +5,7 @@ namespace Mush\Test\Player\Normalizer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -48,10 +49,9 @@ class OtherPlayerNormalizerTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $gameConfig->setLocalizationConfig($localizationConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $player = $this->createMock(Player::class);
 

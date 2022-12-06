@@ -42,6 +42,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
     public function onDaedalusFull(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
+        $daedalusInfo = $daedalus->getDaedalusInfo();
 
         // @TODO give titles
 
@@ -49,7 +50,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
         $this->daedalusService->selectAlphaMush($daedalus, $event->getTime());
 
         $daedalus->setFilledAt(new \DateTime());
-        $daedalus->setGameStatus(GameStatusEnum::CURRENT);
+        $daedalusInfo->setGameStatus(GameStatusEnum::CURRENT);
         $this->daedalusService->persist($daedalus);
     }
 

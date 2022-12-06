@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -61,11 +62,17 @@ class CreatePlayerServiceCest
         $andieCharacterConfig->setInitStatuses(new ArrayCollection([$sporeStatusConfig]));
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['neron' => $neron, 'gameConfig' => $gameConfig]);
+        $daedalus = $I->have(Daedalus::class);
+
+        /** @var LocalizationConfig $localisationConfig */
+        $localisationConfig = $I->have(LocalizationConfig::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localisationConfig);
+        $daedalusInfo->setNeron($neron);
+        $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PUBLIC)
         ;
         $I->haveInRepository($channel);
@@ -84,7 +91,7 @@ class CreatePlayerServiceCest
         $charactersConfig->add($andieCharacterConfig);
 
         $gameConfig->setCharactersConfig($charactersConfig);
-        $daedalus->setGameConfig($gameConfig);
+        $daedalusInfo->setGameConfig($gameConfig);
 
         $I->expectThrowable(\LogicException::class, fn () => $this->playerService->createPlayer($daedalus, $user, 'non_existent_player')
         );

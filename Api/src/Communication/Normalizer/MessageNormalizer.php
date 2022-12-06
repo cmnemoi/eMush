@@ -33,7 +33,7 @@ class MessageNormalizer implements ContextAwareNormalizerInterface
 
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
-        $language = $currentPlayer->getDaedalus()->getGameConfig()->getLanguage();
+        $language = $currentPlayer->getDaedalus()->getLanguage();
 
         /** @var Message $children */
         foreach ($object->getChild() as $children) {

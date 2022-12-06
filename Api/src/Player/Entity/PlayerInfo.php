@@ -6,10 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Repository\PlayerRepository;
+use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\User\Entity\User;
 
-#[ORM\Entity(repositoryClass: PlayerRepository::class)]
+#[ORM\Entity(repositoryClass: PlayerInfoRepository::class)]
 class PlayerInfo
 {
     use TimestampableEntity;

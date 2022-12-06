@@ -5,6 +5,7 @@ namespace Mush\Unit\Equipment\CycleHandler;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\CycleHandler\PlantCycleHandler;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -16,6 +17,7 @@ use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -81,7 +83,7 @@ class PlantCycleHandlerTest extends TestCase
         $gameConfig = new GameConfig();
         $gameConfig->setDifficultyConfig($difficultyConfig);
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $place = new Place();
         $place->setDaedalus($daedalus);
@@ -129,7 +131,7 @@ class PlantCycleHandlerTest extends TestCase
         $gameConfig = new GameConfig();
         $gameConfig->setDifficultyConfig($difficultyConfig);
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $place = new Place();
         $place->setDaedalus($daedalus);
@@ -181,7 +183,7 @@ class PlantCycleHandlerTest extends TestCase
         $gameConfig = new GameConfig();
         $gameConfig->setDifficultyConfig($difficultyConfig);
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $place = new Place();
         $place->setDaedalus($daedalus);

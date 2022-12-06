@@ -87,7 +87,7 @@ class PlaceNormalizer implements ContextAwareNormalizerInterface, NormalizerAwar
 
         $normalizedItems = $this->normalizeItems($items, $currentPlayer, $format, $context);
 
-        $language = $room->getDaedalus()->getGameConfig()->getLanguage();
+        $language = $room->getDaedalus()->getLanguage();
 
         return [
             'id' => $room->getId(),

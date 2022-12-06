@@ -9,7 +9,10 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\NeronMessageService;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 
 class NeronMessageServiceCest
 {
@@ -26,19 +29,28 @@ class NeronMessageServiceCest
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['neron' => $neron]);
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
 
-        $daedalus->setCycleStartedAt(new \DateTime('2020-10-10 00:00:00.0 Europe/Paris'));
+        $time = new \DateTime();
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => $time]);
+
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo
+            ->setNeron($neron)
+        ;
+        $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
             ->setScope(ChannelScopeEnum::PUBLIC)
         ;
         $I->haveInRepository($channel);
 
-        $time = new \DateTime('2020-10-10 00:30:00.0 Europe/Paris');
         $this->neronMessageService->createNewFireMessage($daedalus, $time);
 
         $message = $I->grabEntityFromRepository(Message::class, [
@@ -60,7 +72,7 @@ class NeronMessageServiceCest
         $I->assertInstanceOf(Message::class, $answer);
         $I->assertEquals($answer->getParent(), $message);
 
-        $time2 = new \DateTime('2020-10-10 00:50:00.0 Europe/Paris');
+        $time2 = $time->add(new \DateInterval('PT1H'));
         $this->neronMessageService->createNewFireMessage($daedalus, $time2);
 
         $answer2 = $I->grabEntityFromRepository(Message::class, [
@@ -74,9 +86,9 @@ class NeronMessageServiceCest
         $I->assertEquals($answer2->getParent(), $message);
 
         // new cycle
-        $daedalus->setCycleStartedAt(new \DateTime('2020-10-10 03:00:00.0 Europe/Paris'));
+        $time3 = $time2->add(new \DateInterval('PT3H'));
+        $daedalus->setCycleStartedAt($time3)->setCycle($daedalus->getCycle() + 1);
 
-        $time3 = new \DateTime('2020-10-10 03:50:00.0 Europe/Paris');
         $this->neronMessageService->createNewFireMessage($daedalus, $time3);
 
         $message3 = $I->grabEntityFromRepository(Message::class, [

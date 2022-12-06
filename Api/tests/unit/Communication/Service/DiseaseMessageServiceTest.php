@@ -8,6 +8,7 @@ use Mush\Communication\Enum\DiseaseMessagesEnum;
 use Mush\Communication\Services\DiseaseMessageService;
 use Mush\Communication\Services\DiseaseMessageServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\Config\SymptomConfig;
@@ -91,10 +92,9 @@ class DiseaseMessageServiceTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $gameConfig->setLocalizationConfig($localizationConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -129,10 +129,9 @@ class DiseaseMessageServiceTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $gameConfig->setLocalizationConfig($localizationConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
@@ -188,9 +187,8 @@ class DiseaseMessageServiceTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $gameConfig->setLocalizationConfig($localizationConfig);
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
@@ -248,9 +246,8 @@ class DiseaseMessageServiceTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $gameConfig->setLocalizationConfig($localizationConfig);
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
@@ -307,9 +304,8 @@ class DiseaseMessageServiceTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $gameConfig->setLocalizationConfig($localizationConfig);
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
@@ -378,11 +374,10 @@ class DiseaseMessageServiceTest extends TestCase
 
         $gameConfig
             ->setCharactersConfig(new CharacterConfigCollection([$characterConfig1, $characterConfig2]))
-            ->setLocalizationConfig($localizationConfig)
         ;
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $player = new Player();
 

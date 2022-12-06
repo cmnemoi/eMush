@@ -7,9 +7,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusInitEvent;
+use Mush\Daedalus\Repository\DaedalusInfoRepository;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\Service\DaedalusService;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -17,7 +19,10 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Enum\LanguageEnum;
+use Mush\Game\Repository\LocalizationConfigRepository;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -49,6 +54,11 @@ class DaedalusServiceTest extends TestCase
     private RandomServiceInterface $randomService;
     /** @var RoomLogServiceInterface|Mockery\Mock */
     private RoomLogServiceInterface $roomLogService;
+    /** @var LocalizationConfigRepository|Mockery\Mock */
+    private LocalizationConfigRepository $localizationConfigRepository;
+    /** @var DaedalusInfoRepository|Mockery\Mock */
+    private DaedalusInfoRepository $daedalusInfoRepository;
+
     private DaedalusService $service;
 
     /**
@@ -63,6 +73,8 @@ class DaedalusServiceTest extends TestCase
         $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
         $this->randomService = Mockery::mock(RandomServiceInterface::class);
         $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
+        $this->localizationConfigRepository = Mockery::mock(LocalizationConfigRepository::class);
+        $this->daedalusInfoRepository = Mockery::mock(DaedalusInfoRepository::class);
 
         $this->service = new DaedalusService(
             $this->entityManager,
@@ -71,7 +83,9 @@ class DaedalusServiceTest extends TestCase
             $this->cycleService,
             $this->gameEquipmentService,
             $this->randomService,
-            $this->roomLogService
+            $this->roomLogService,
+            $this->localizationConfigRepository,
+            $this->daedalusInfoRepository
         );
     }
 
@@ -113,6 +127,12 @@ class DaedalusServiceTest extends TestCase
             ->setEquipmentsConfig(new ArrayCollection([$item]))
         ;
 
+        $this->localizationConfigRepository
+            ->shouldReceive('findByLanguage')
+            ->with(LanguageEnum::FRENCH)
+            ->once()
+            ->andReturn(new LocalizationConfig())
+        ;
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (DaedalusInitEvent $event) => (
@@ -120,17 +140,15 @@ class DaedalusServiceTest extends TestCase
             )
             ->once()
         ;
-
         $this->entityManager
             ->shouldReceive('persist')
-            ->twice();
-
+            ->once();
         $this->entityManager
             ->shouldReceive('flush')
             ->once()
         ;
 
-        $daedalus = $this->service->createDaedalus($gameConfig, 'name');
+        $daedalus = $this->service->createDaedalus($gameConfig, 'name', LanguageEnum::FRENCH);
 
         $this->assertInstanceOf(Daedalus::class, $daedalus);
         $this->assertEquals($daedalusConfig->getInitFuel(), $daedalus->getFuel());
@@ -140,7 +158,7 @@ class DaedalusServiceTest extends TestCase
         $this->assertEquals(0, $daedalus->getCycle());
         $this->assertEquals(GameStatusEnum::STANDBY, $daedalus->getGameStatus());
         $this->assertNull($daedalus->getCycleStartedAt());
-        $this->assertEquals('name', $daedalus->getName());
+        $this->assertEquals('name', $daedalus->getDaedalusInfo()->getName());
     }
 
     public function testStartDaedalus()
@@ -151,7 +169,7 @@ class DaedalusServiceTest extends TestCase
         $gameConfig->setDaedalusConfig($daedalusConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $this->cycleService
             ->shouldReceive('getInDayCycleFromDate')
@@ -178,7 +196,7 @@ class DaedalusServiceTest extends TestCase
         $daedalus = new Daedalus();
         $gameConfig = new GameConfig();
 
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $characterConfigCollection = new ArrayCollection();
         $gameConfig->setCharactersConfig($characterConfigCollection);
@@ -207,7 +225,7 @@ class DaedalusServiceTest extends TestCase
         $daedalus = new Daedalus();
         $gameConfig = new GameConfig();
 
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $room1 = new Place();
         $room2 = new Place();
@@ -288,7 +306,7 @@ class DaedalusServiceTest extends TestCase
 
         $gameConfig->setDaedalusConfig($daedalusConfig);
 
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $characterConfigCollection = new ArrayCollection();
         $gameConfig->setCharactersConfig($characterConfigCollection);
@@ -332,7 +350,7 @@ class DaedalusServiceTest extends TestCase
 
         $daedalus = new Daedalus();
         $daedalus->setHull(10);
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $time = new \DateTime('yesterday');
 

@@ -12,6 +12,7 @@ use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Communication\Specification\SpecificationInterface;
 use Mush\Communication\Voter\ChannelVoter;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -147,8 +148,8 @@ class ChannelController extends AbstractFOSRestController
         } else {
             $canCreate = [
                 'canCreate' => true,
-                'name' => $this->translationService->translate('new.name', [], 'chat', $daedalus->getGameConfig()->getLanguage()),
-                'description' => $this->translationService->translate('new.description', [], 'chat', $daedalus->getGameConfig()->getLanguage()),
+                'name' => $this->translationService->translate('new.name', [], 'chat', $daedalus->getLanguage()),
+                'description' => $this->translationService->translate('new.description', [], 'chat', $daedalus->getLanguage()),
             ];
         }
 
@@ -267,7 +268,8 @@ class ChannelController extends AbstractFOSRestController
 
         $invited = $request->get('player');
 
-        $daedalus = $channel->getDaedalus();
+        /** @var Daedalus $daedalus */
+        $daedalus = $channel->getDaedalusInfo()->getDaedalus();
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
@@ -277,7 +279,7 @@ class ChannelController extends AbstractFOSRestController
             return $this->view(['error' => 'player not found'], 404);
         }
 
-        if ($invitedPlayer->getDaedalus() !== $channel->getDaedalus()) {
+        if ($invitedPlayer->getDaedalus() !== $daedalus) {
             return $this->view(['error' => 'player is not from this daedalus'], 422);
         }
 
@@ -288,7 +290,7 @@ class ChannelController extends AbstractFOSRestController
         $channel = $this->channelService->invitePlayer($invitedPlayer, $channel);
 
         $context = new Context();
-        $context->setAttribute('currentPlayer', $currentPlayer);
+        $context->setAttribute('currentPlayer', $playerInfo->getPlayer());
 
         $view = $this->view($channel, 200);
         $view->setContext($context);
@@ -311,14 +313,15 @@ class ChannelController extends AbstractFOSRestController
 
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
-        $daedalus = $channel->getDaedalus();
+        /** @var Daedalus $daedalus */
+        $daedalus = $channel->getDaedalusInfo()->getDaedalus();
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
         return $this->view(
-            $this->channelService->getInvitablePlayersToPrivateChannel($channel, $player->getPlayer()),
+            $this->channelService->getInvitablePlayersToPrivateChannel($channel, $playerInfo->getPlayer()),
             200
         );
     }
@@ -389,7 +392,8 @@ class ChannelController extends AbstractFOSRestController
      */
     public function createMessageAction(CreateMessage $messageCreate, Channel $channel): View
     {
-        $daedalus = $channel->getDaedalus();
+        /** @var Daedalus $daedalus */
+        $daedalus = $channel->getDaedalusInfo()->getDaedalus();
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
@@ -455,7 +459,8 @@ class ChannelController extends AbstractFOSRestController
     {
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
-        $daedalus = $channel->getDaedalus();
+        /** @var Daedalus $daedalus */
+        $daedalus = $channel->getDaedalusInfo()->getDaedalus();
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }

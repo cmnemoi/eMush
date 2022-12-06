@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
@@ -14,6 +15,7 @@ use Mush\Disease\Repository\ConsumableDiseaseConfigRepository;
 use Mush\Disease\Repository\ConsumableDiseaseRepository;
 use Mush\Disease\Service\ConsumableDiseaseService;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -63,7 +65,7 @@ class ConsumableDiseaseServiceTest extends TestCase
     {
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $disease1 = new ConsumableDiseaseAttribute();
         $disease1->setDisease('Disease 1');
@@ -98,7 +100,7 @@ class ConsumableDiseaseServiceTest extends TestCase
     {
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $consumableDiseaseConfig = new ConsumableDiseaseConfig();
         $consumableDiseaseConfig
@@ -183,7 +185,7 @@ class ConsumableDiseaseServiceTest extends TestCase
     {
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $consumableDiseaseConfig = new ConsumableDiseaseConfig();
         $consumableDiseaseConfig
@@ -264,7 +266,7 @@ class ConsumableDiseaseServiceTest extends TestCase
     {
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $consumableDiseaseConfig = new ConsumableDiseaseConfig();
         $consumableDiseaseConfig
@@ -340,7 +342,7 @@ class ConsumableDiseaseServiceTest extends TestCase
     {
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $consumableDiseaseConfig = new ConsumableDiseaseConfig();
         $consumableDiseaseConfig

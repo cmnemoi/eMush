@@ -50,13 +50,13 @@ class DeadPlayerNormalizerTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $gameConfig->setLocalizationConfig($localizationConfig);
 
         $daedalus = $this->createMock(Daedalus::class);
         $daedalus->method('getId')->willReturn(19);
         $daedalus->method('getGameConfig')->willReturn($gameConfig);
         $daedalus->method('getCycle')->willReturn(3);
         $daedalus->method('getDay')->willReturn(56);
+        $daedalus->method('getLanguage')->willReturn(LanguageEnum::FRENCH);
 
         $characterConfig = new CharacterConfig();
         $characterConfig

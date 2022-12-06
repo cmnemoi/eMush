@@ -1,4 +1,4 @@
-Mush\Daedalus\Entity\Daedalus:
+Mush\Daedalus\Entity\DaedalusInfo:
   constraints:
     - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
   properties:

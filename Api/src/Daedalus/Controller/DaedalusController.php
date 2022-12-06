@@ -71,7 +71,7 @@ class DaedalusController extends AbstractFOSRestController
                     $character->getName() . '.name',
                     [],
                     'characters',
-                    $daedalus->getGameConfig()->getLanguage()
+                    $daedalus->getLanguage()
                 ),
             ];
         }

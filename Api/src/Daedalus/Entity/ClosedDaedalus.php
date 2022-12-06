@@ -2,14 +2,11 @@
 
 namespace Mush\Daedalus\Entity;
 
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Repository\DaedalusRepository;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Enum\EndCauseEnum;
@@ -25,40 +22,20 @@ class ClosedDaedalus
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
+    #[ORM\OneToOne(inversedBy: 'closedDaedalus', targetEntity: DaedalusInfo::class)]
+    private DaedalusInfo $daedalusInfo;
+
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: ClosedPlayer::class)]
     private Collection $players;
-
-    #[ORM\ManyToOne(targetEntity: GameConfig::class)]
-    private GameConfig $gameConfig;
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private string $gameStatus = GameStatusEnum::FINISHED;
 
     #[ORM\Column(type: 'string', nullable: false)]
     private string $endCause = EndCauseEnum::DAEDALUS_DESTROYED;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private int $endDay;
+    private int $endDay = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private int $endCycle;
-
-    #[ORM\Column(type: 'datetime', nullable: false)]
-    private ?DateTime $filledAt;
-
-    #[ORM\Column(type: 'datetime', nullable: false)]
-    private ?DateTime $finishedAt;
-
-    public function __construct(Daedalus $daedalus)
-    {
-        $this->endCycle = $daedalus->getCycle();
-        $this->endDay = $daedalus->getDay();
-        $this->gameConfig = $daedalus->getGameConfig();
-        $this->filledAt = $daedalus->getFilledAt();
-        $this->finishedAt = $daedalus->getFinishedAt();
-
-        $this->players = new ArrayCollection();
-    }
+    private int $endCycle = 0;
 
     public function getId(): ?int
     {
@@ -81,14 +58,14 @@ class ClosedDaedalus
         return $this;
     }
 
-    public function getGameConfig(): GameConfig
+    public function getDaedalusInfo(): DaedalusInfo
     {
-        return $this->gameConfig;
+        return $this->daedalusInfo;
     }
 
-    public function setGameConfig(GameConfig $gameConfig): static
+    public function setDaedalusInfo(DaedalusInfo $daedalusInfo): static
     {
-        $this->gameConfig = $gameConfig;
+        $this->daedalusInfo = $daedalusInfo;
 
         return $this;
     }
@@ -103,31 +80,18 @@ class ClosedDaedalus
         return $this->endDay;
     }
 
-    public function getFilledAt(): ?DateTime
-    {
-        return $this->filledAt;
-    }
-
-    public function getFinishedAt(): ?DateTime
-    {
-        return $this->finishedAt;
-    }
-
-    public function getGameStatus(): string
-    {
-        return $this->gameStatus;
-    }
-
-    public function setGameStatus(string $gameStatus): static
-    {
-        $this->gameStatus = $gameStatus;
-
-        return $this;
-    }
-
     public function getEndCause(): string
     {
         return $this->endCause;
+    }
+
+    public function updateEnd(Daedalus $daedalus, string $cause): static
+    {
+        $this->endDay = $daedalus->getDay();
+        $this->endCycle = $daedalus->getCycle();
+        $this->endCause = $cause;
+
+        return $this;
     }
 
     public function setEndCause(string $endCause): static

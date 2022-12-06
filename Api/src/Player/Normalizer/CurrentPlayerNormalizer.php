@@ -52,7 +52,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
         /** @var Player $player */
         $player = $object;
 
-        $language = $player->getDaedalus()->getGameConfig()->getLanguage();
+        $language = $player->getDaedalus()->getLanguage();
 
         $items = [];
         /** @var GameItem $item */

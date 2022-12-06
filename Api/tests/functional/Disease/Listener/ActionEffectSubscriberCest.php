@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
@@ -17,6 +18,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -43,9 +45,11 @@ class ActionEffectSubscriberCest
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, [
-            'gameConfig' => $gameConfig,
-        ]);
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $place */
         $place = $I->have(Place::class, [
@@ -95,9 +99,11 @@ class ActionEffectSubscriberCest
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, [
-            'gameConfig' => $gameConfig,
-        ]);
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $place */
         $place = $I->have(Place::class, [
@@ -147,9 +153,11 @@ class ActionEffectSubscriberCest
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, [
-            'gameConfig' => $gameConfig,
-        ]);
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $place */
         $place = $I->have(Place::class, [
@@ -207,9 +215,11 @@ class ActionEffectSubscriberCest
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, [
-            'gameConfig' => $gameConfig,
-        ]);
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $place */
         $place = $I->have(Place::class, [

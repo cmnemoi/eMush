@@ -7,11 +7,14 @@ use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Collection\DaedalusCollection;
 use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
 
 interface DaedalusServiceInterface
 {
     public function persist(Daedalus $daedalus): Daedalus;
+
+    public function persistDaedalusInfo(DaedalusInfo $daedalusInfo): DaedalusInfo;
 
     public function findById(int $id): ?Daedalus;
 
@@ -23,7 +26,7 @@ interface DaedalusServiceInterface
 
     public function existAvailableDaedalus(): bool;
 
-    public function createDaedalus(GameConfig $gameConfig, string $name): Daedalus;
+    public function createDaedalus(GameConfig $gameConfig, string $name, string $language): Daedalus;
 
     public function endDaedalus(Daedalus $daedalus, string $reason, \DateTime $date): ClosedDaedalus;
 

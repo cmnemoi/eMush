@@ -7,6 +7,7 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -34,7 +35,7 @@ class PlayerDeathCest
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['localizationConfig' => $localizationConfig]);
+        $gameConfig = $I->have(GameConfig::class);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -45,13 +46,15 @@ class PlayerDeathCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, [
-            'gameConfig' => $gameConfig,
-            'neron' => $neron,
-            'game_status' => GameStatusEnum::CURRENT,
             'cycle' => 5,
             'day' => 10,
             'filledAt' => new \DateTime(),
+            'cycleStartedAt' => new \DateTime(),
         ]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setNeron($neron)->setGameStatus(GameStatusEnum::CURRENT);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -72,7 +75,7 @@ class PlayerDeathCest
         $privateChannel = new Channel();
         $privateChannel
             ->setScope(ChannelScopeEnum::PRIVATE)
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($privateChannel);
 
@@ -86,7 +89,7 @@ class PlayerDeathCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalus)
+            ->setDaedalus($daedalusInfo)
         ;
         $I->haveInRepository($publicChannel);
 

@@ -41,7 +41,7 @@ class DaedalusNormalizer implements NormalizerInterface
         $mushAlive = $daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count();
         $mushDead = $daedalus->getPlayers()->getMushPlayer()->getPlayerDead()->count();
 
-        $language = $gameConfig->getLanguage();
+        $language = $daedalus->getLanguage();
 
         return [
                 'id' => $object->getId(),

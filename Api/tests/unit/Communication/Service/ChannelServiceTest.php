@@ -15,10 +15,13 @@ use Mush\Communication\Repository\ChannelRepository;
 use Mush\Communication\Services\ChannelService;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -80,7 +83,7 @@ class ChannelServiceTest extends TestCase
 
     public function testCreatePublicChannel()
     {
-        $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo(new Daedalus(), new GameConfig(), new LocalizationConfig());
 
         $this->entityManager
             ->shouldReceive([
@@ -90,10 +93,10 @@ class ChannelServiceTest extends TestCase
             ->once()
         ;
 
-        $publicChannel = $this->service->createPublicChannel($daedalus);
+        $publicChannel = $this->service->createPublicChannel($daedalusInfo);
 
         $this->assertEquals(ChannelScopeEnum::PUBLIC, $publicChannel->getScope());
-        $this->assertEquals($daedalus, $publicChannel->getDaedalus());
+        $this->assertEquals($daedalusInfo, $publicChannel->getDaedalusInfo());
     }
 
     public function testCreatePrivateChannel()
@@ -102,6 +105,7 @@ class ChannelServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setPlayerInfo($playerInfo);
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $player->setDaedalus($daedalus);
 
         $this->entityManager
@@ -121,7 +125,7 @@ class ChannelServiceTest extends TestCase
         $privateChannel = $this->service->createPrivateChannel($player);
 
         $this->assertEquals(ChannelScopeEnum::PRIVATE, $privateChannel->getScope());
-        $this->assertEquals($daedalus, $privateChannel->getDaedalus());
+        $this->assertEquals($daedalusInfo, $privateChannel->getDaedalusInfo());
     }
 
     public function testInvitePlayerToChannel()

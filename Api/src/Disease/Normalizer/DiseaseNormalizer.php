@@ -38,7 +38,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         /** @var DiseaseConfig $diseaseConfig */
         $diseaseConfig = $object->getDiseaseConfig();
 
-        $language = $currentPlayer->getDaedalus()->getGameConfig()->getLanguage();
+        $language = $currentPlayer->getDaedalus()->getLanguage();
 
         $description = $this->translationService->translate(
             "{$diseaseConfig->getName()}.description",

@@ -4,6 +4,8 @@ namespace Mush\Tests\functional\Game\Service;
 
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
@@ -23,12 +25,15 @@ class CycleServiceCest
         $daedalusCreatedAt = new \DateTime('01-01-2000');
         $daedalusNewCycleAt = new \DateTime('02-01-2000');
 
+        /** @var DaedalusConfig $daedalusConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['timezone' => 'UTC']);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'localizationConfig' => $localizationConfig,
+            'daedalusConfig' => $daedalusConfig,
         ]);
 
         /** @var Daedalus $daedalus */
@@ -36,11 +41,13 @@ class CycleServiceCest
             'cycle' => 1,
             'day' => 1,
             'oxygen' => 32,
-            'gameConfig' => $gameConfig,
             'createdAt' => $daedalusCreatedAt,
             'cycleStartedAt' => $daedalusCreatedAt,
-            'gameStatus' => GameStatusEnum::STARTING,
         ]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+        $daedalusInfo->setGameStatus(GameStatusEnum::STARTING);
 
         $this->cycleService->handleCycleChange($daedalusNewCycleAt, $daedalus);
 
@@ -56,9 +63,12 @@ class CycleServiceCest
         $daedalusCreatedAt = new \DateTime('01-01-2000');
         $daedalusNewCycleAt = new \DateTime('02-01-2000');
 
+        /** @var DaedalusConfig $daedalusConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'localizationConfig' => $localizationConfig,
+            'daedalusConfig' => $daedalusConfig,
         ]);
 
         /** @var Daedalus $daedalus */
@@ -66,11 +76,13 @@ class CycleServiceCest
             'cycle' => 1,
             'day' => 1,
             'oxygen' => 32,
-            'gameConfig' => $gameConfig,
             'createdAt' => $daedalusCreatedAt,
             'cycleStartedAt' => $daedalusCreatedAt,
-            'gameStatus' => GameStatusEnum::STARTING,
         ]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+        $daedalusInfo->setGameStatus(GameStatusEnum::STARTING);
 
         $this->cycleService->handleCycleChange($daedalusNewCycleAt, $daedalus);
 

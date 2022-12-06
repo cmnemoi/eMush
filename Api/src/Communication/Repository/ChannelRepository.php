@@ -36,9 +36,9 @@ class ChannelRepository extends ServiceEntityRepository
                     $queryBuilder->expr()->andX(
                         $queryBuilder->expr()->eq('channel.scope', ':public')
                     ))
-                ->andWhere($queryBuilder->expr()->eq('channel.daedalus', ':daedalus'))
+                ->andWhere($queryBuilder->expr()->eq('channel.daedalusInfo', ':daedalus'))
                 ->setParameter('public', ChannelScopeEnum::PUBLIC)
-                ->setParameter('daedalus', $player->getDaedalus())
+                ->setParameter('daedalus', $player->getDaedalus()->getDaedalusInfo())
             ;
         }
 

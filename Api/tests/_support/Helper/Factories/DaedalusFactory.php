@@ -60,7 +60,7 @@ class DaedalusFactory extends \Codeception\Module
         ]);
 
         $factory->_define(LocalizationConfig::class, [
-            'timeZone' => 'Europe/Paris',
+            'timeZone' => 'UTC',
             'language' => LanguageEnum::FRENCH,
         ]);
 

@@ -3,7 +3,7 @@ framework:
         email_validation_mode: html5
         mapping:
             paths:
-                - '%kernel.project_dir%/config/api_platform/validation/daedalus.yaml'
+                - '%kernel.project_dir%/config/api_platform/validation/daedalusInfo.yaml'
                 - '%kernel.project_dir%/config/api_platform/validation/gameConfig.yaml'
                 - '%kernel.project_dir%/config/api_platform/validation/modifierCondition.yaml'
                 - '%kernel.project_dir%/config/api_platform/validation/modifierConfig.yaml'

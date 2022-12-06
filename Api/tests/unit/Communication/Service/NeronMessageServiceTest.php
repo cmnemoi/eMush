@@ -11,7 +11,10 @@ use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\NeronMessageService;
 use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use PHPUnit\Framework\TestCase;
@@ -62,7 +65,8 @@ class NeronMessageServiceTest extends TestCase
         $channel = new Channel();
         $neron = new Neron();
         $neron->setIsInhibited(false);
-        $daedalus->setNeron($neron);
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
+        $daedalusInfo->setNeron($neron);
 
         $this->channelService->shouldReceive('getPublicChannel')->andReturn($channel)->once();
 

@@ -3,6 +3,7 @@
 namespace Mush\Daedalus\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -13,10 +14,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class PlayerSubscriber implements EventSubscriberInterface
 {
     private EventDispatcherInterface $eventDispatcher;
+    private DaedalusServiceInterface $daedalusService;
 
     public function __construct(
+        DaedalusServiceInterface $daedalusService,
         EventDispatcherInterface $eventDispatcher
     ) {
+        $this->daedalusService = $daedalusService;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -79,10 +83,11 @@ class PlayerSubscriber implements EventSubscriberInterface
         if ($daedalus->getPlayers()->filter(fn (Player $player) => $playerInfo->getGameStatus() !== GameStatusEnum::CLOSED)->isEmpty() &&
             $daedalus->getGameStatus() === GameStatusEnum::FINISHED
         ) {
-            $deadPlayerInfo = $playerInfo->getClosedPlayer();
+            $daedalusInfo = $daedalus->getDaedalusInfo();
 
-            $closedDaedalus = $deadPlayerInfo->getClosedDaedalus();
-            $closedDaedalus->setGameStatus(GameStatusEnum::CLOSED);
+            $daedalusInfo->setGameStatus(GameStatusEnum::CLOSED);
+
+            $this->daedalusService->persistDaedalusInfo($daedalusInfo);
         }
     }
 }

@@ -8,7 +8,9 @@ use Mush\Action\Validator\Oxygen;
 use Mush\Action\Validator\OxygenValidator;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -93,7 +95,7 @@ class OxygenValidatorTest extends TestCase
         $gameConfig->setDaedalusConfig($daedalusConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
         $daedalus->setOxygen(10);
 
         $player = new Player();
@@ -123,7 +125,7 @@ class OxygenValidatorTest extends TestCase
         $gameConfig->setDaedalusConfig($daedalusConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
         $daedalus->setOxygen(12);
 
         $player = new Player();

@@ -113,7 +113,7 @@ class RoomLogController extends AbstractFOSRestController
         }
         $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
 
-        $language = $daedalus->getGameConfig()->getLanguage();
+        $language = $daedalus->getLanguage();
 
         return $this->view([
             'name' => $this->translationService->translate('room_log.name', [], 'chat', $language),

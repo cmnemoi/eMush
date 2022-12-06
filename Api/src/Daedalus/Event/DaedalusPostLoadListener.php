@@ -20,7 +20,7 @@ class DaedalusPostLoadListener
 
     public function postLoad(Daedalus $daedalus, LifecycleEventArgs $event): void
     {
-        if ($daedalus->getGameStatus() === GameStatusEnum::FINISHED) {
+        if (!in_array($daedalus->getGameStatus(), [GameStatusEnum::STARTING, GameStatusEnum::CURRENT])) {
             return;
         }
 

@@ -5,6 +5,7 @@ namespace Mush\Test\Disease\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\ConsumableDisease;
@@ -17,6 +18,7 @@ use Mush\Disease\Service\DiseaseCauseService;
 use Mush\Disease\Service\PlayerDiseaseService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -76,7 +78,7 @@ class DiseaseCauseServiceTest extends TestCase
         $gameConfig->addDiseaseCauseConfig($diseaseCauseConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $player = new Player();
         $player->setDaedalus($daedalus);
@@ -138,7 +140,7 @@ class DiseaseCauseServiceTest extends TestCase
         $gameConfig->addDiseaseCauseConfig($diseaseCauseConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $player = new Player();
         $player->setDaedalus($daedalus);
@@ -324,7 +326,7 @@ class DiseaseCauseServiceTest extends TestCase
         $gameConfig->addDiseaseCauseConfig($diseaseCauseConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setGameConfig($gameConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
         $player = new Player();
         $player->setDaedalus($daedalus);
 

@@ -33,7 +33,7 @@ class PlayerDeathCest
     public function testDispatchPlayerDeath(FunctionalTester $I)
     {
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
 

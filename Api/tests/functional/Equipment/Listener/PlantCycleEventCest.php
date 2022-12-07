@@ -60,7 +60,7 @@ class PlantCycleEventCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
@@ -155,7 +155,7 @@ class PlantCycleEventCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['cycle' => 8, 'oxygen' => 10]);
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 

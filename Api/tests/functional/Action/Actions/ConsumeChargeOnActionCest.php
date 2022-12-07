@@ -21,8 +21,11 @@ use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
@@ -50,6 +53,8 @@ class ConsumeChargeOnActionCest
 
     public function testToolCharge(FunctionalTester $I)
     {
+        $I->loadFixtures([GameConfigFixtures::class]);
+
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
             ->setName(StatusEnum::ATTEMPT)
@@ -91,15 +96,17 @@ class ConsumeChargeOnActionCest
         ;
         $I->haveInRepository($equipmentCoffee);
 
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'statusConfigs' => new ArrayCollection([$attemptConfig, $statusConfig]),
-            'equipmentsConfig' => new ArrayCollection([$equipment, $equipmentCoffee]),
-        ]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig
+            ->setStatusConfigs(new ArrayCollection([$attemptConfig, $statusConfig]))
+            ->setEquipmentsConfig(new ArrayCollection([$equipment, $equipmentCoffee]))
+        ;
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
@@ -151,6 +158,8 @@ class ConsumeChargeOnActionCest
 
     public function testGearCharge(FunctionalTester $I)
     {
+        $I->loadFixtures([GameConfigFixtures::class]);
+
         $equipmentCoffee = new EquipmentConfig();
         $equipmentCoffee
             ->setName(GameRationEnum::COFFEE)
@@ -200,15 +209,17 @@ class ConsumeChargeOnActionCest
         $I->haveInRepository($gearMechanic);
         $I->haveInRepository($gearConfig);
 
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'statusConfigs' => new ArrayCollection([$attemptConfig]),
-            'equipmentsConfig' => new ArrayCollection([$equipment, $equipmentCoffee, $gearConfig]),
-        ]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig
+            ->setStatusConfigs(new ArrayCollection([$attemptConfig]))
+            ->setEquipmentsConfig(new ArrayCollection([$equipment, $equipmentCoffee, $gearConfig]))
+        ;
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
@@ -283,6 +294,8 @@ class ConsumeChargeOnActionCest
 
     public function testGearMovementActionConversionCharge(FunctionalTester $I)
     {
+        $I->loadFixtures([GameConfigFixtures::class]);
+
         $actionCost = new ActionCost();
         $actionCost->setMovementPointCost(1);
         $actionEntity = new Action();
@@ -333,15 +346,17 @@ class ConsumeChargeOnActionCest
         ;
         $I->haveInRepository($statusConfig);
 
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'equipmentsConfig' => new ArrayCollection([$equipmentCoffee, $equipment, $gearConfig]),
-            'statusConfigs' => new ArrayCollection([$statusConfig]),
-        ]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig
+            ->setStatusConfigs(new ArrayCollection([$statusConfig]))
+            ->setEquipmentsConfig(new ArrayCollection([$equipment, $equipmentCoffee, $gearConfig]))
+        ;
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 

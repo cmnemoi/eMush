@@ -54,7 +54,7 @@ class CycleEventCest
         $I->haveInRepository($diseaseCause);
 
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         /** @var DaedalusConfig $gameConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
         /** @var GameConfig $gameConfig */
@@ -71,8 +71,6 @@ class CycleEventCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['oxygen' => 1, 'cycleStartedAt' => new DateTime()]);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)

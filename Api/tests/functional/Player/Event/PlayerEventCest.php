@@ -44,9 +44,9 @@ class PlayerEventCest
     public function testDispatchPlayerDeath(FunctionalTester $I)
     {
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['localizationConfig' => $localizationConfig]);
+        $gameConfig = $I->have(GameConfig::class);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -62,9 +62,7 @@ class PlayerEventCest
             'filledAt' => new \DateTime(),
         ]);
 
-        /** @var LocalizationConfig $localisationConfig */
-        $localisationConfig = $I->have(LocalizationConfig::class);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localisationConfig);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
@@ -135,13 +133,12 @@ class PlayerEventCest
         $I->haveInRepository($diseaseCause);
 
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'statusConfigs' => new ArrayCollection([$mushStatusConfig, $sporeConfig]),
             'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
             'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
-            'localizationConfig' => $localizationConfig,
         ]);
 
         /** @var User $user */
@@ -151,9 +148,8 @@ class PlayerEventCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
-        /** @var LocalizationConfig $localisationConfig */
-        $localisationConfig = $I->have(LocalizationConfig::class);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localisationConfig);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
@@ -203,10 +199,9 @@ class PlayerEventCest
         $I->haveInRepository($mushStatusConfig);
 
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'localizationConfig' => $localizationConfig,
             'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
         ]);
 
@@ -217,9 +212,7 @@ class PlayerEventCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
-        /** @var LocalizationConfig $localisationConfig */
-        $localisationConfig = $I->have(LocalizationConfig::class);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localisationConfig);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */

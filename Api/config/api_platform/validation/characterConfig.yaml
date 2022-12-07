@@ -5,6 +5,11 @@ Mush\Player\Entity\Config\CharacterConfig:
       - Length:
           max: 48
       - Type: string
+    characterName:
+      - NotBlank: ~
+      - Length:
+          max: 48
+      - Type: string
     maxNumberPrivateChannel:
       - NotBlank: ~
       - PositiveOrZero: ~

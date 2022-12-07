@@ -55,7 +55,7 @@ class GameConfig
     #[ORM\ManyToOne(targetEntity: DifficultyConfig::class)]
     private DifficultyConfig $difficultyConfig;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     private string $name;
 
     public function __construct()

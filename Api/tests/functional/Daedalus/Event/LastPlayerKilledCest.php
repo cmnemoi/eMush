@@ -35,7 +35,7 @@ class LastPlayerKilledCest
     public function testLastPlayerKilled(FunctionalTester $I)
     {
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         /** @var DaedalusConfig $gameConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
         /** @var GameConfig $gameConfig */
@@ -56,8 +56,7 @@ class LastPlayerKilledCest
             'filledAt' => new DateTime(),
             'cycleStartedAt' => new DateTime(),
         ]);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)

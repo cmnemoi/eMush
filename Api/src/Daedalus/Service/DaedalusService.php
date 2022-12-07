@@ -127,7 +127,7 @@ class DaedalusService implements DaedalusServiceInterface
     {
         return $daedalus->getGameConfig()->getCharactersConfig()->filter(
             fn (CharacterConfig $characterConfig) => !$daedalus->getPlayers()->exists(
-                fn (int $key, Player $player) => ($player->getName() === $characterConfig->getName())
+                fn (int $key, Player $player) => ($player->getName() === $characterConfig->getCharacterName())
             )
         );
     }
@@ -241,7 +241,7 @@ class DaedalusService implements DaedalusServiceInterface
             ) {
                 $mushChance = 0;
             }
-            $chancesArray[$characterConfig->getName()] = $mushChance;
+            $chancesArray[$characterConfig->getCharacterName()] = $mushChance;
         }
 
         $mushNumber = $gameConfig->getDaedalusConfig()->getNbMush();

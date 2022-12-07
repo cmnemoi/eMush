@@ -127,9 +127,9 @@ class RoomLogServiceTest extends TestCase
         $daedalus->setDay(2);
 
         $characterConfig1 = new CharacterConfig();
-        $characterConfig1->setName('andie');
+        $characterConfig1->setCharacterName('andie');
         $characterConfig2 = new CharacterConfig();
-        $characterConfig2->setName('gioele');
+        $characterConfig2->setCharacterName('gioele');
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
         $place = new Place();
@@ -176,7 +176,7 @@ class RoomLogServiceTest extends TestCase
         $daedalus->setDay(2);
 
         $characterConfig1 = new CharacterConfig();
-        $characterConfig1->setName('andie');
+        $characterConfig1->setCharacterName('andie');
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
         $place = new Place();
@@ -223,7 +223,7 @@ class RoomLogServiceTest extends TestCase
         $daedalus->setDay(2);
 
         $characterConfig1 = new CharacterConfig();
-        $characterConfig1->setName('andie');
+        $characterConfig1->setCharacterName('andie');
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
         $place = new Place();
@@ -274,7 +274,7 @@ class RoomLogServiceTest extends TestCase
         $daedalus->setDay(2);
 
         $characterConfig1 = new CharacterConfig();
-        $characterConfig1->setName('andie');
+        $characterConfig1->setCharacterName('andie');
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
         $place = new Place();
@@ -325,7 +325,7 @@ class RoomLogServiceTest extends TestCase
         $daedalus->setDay(2);
 
         $characterConfig1 = new CharacterConfig();
-        $characterConfig1->setName('andie');
+        $characterConfig1->setCharacterName('andie');
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
         $place = new Place();
@@ -377,7 +377,7 @@ class RoomLogServiceTest extends TestCase
         $place->setDaedalus($daedalus);
 
         $characterConfig1 = new CharacterConfig();
-        $characterConfig1->setName('andie');
+        $characterConfig1->setCharacterName('andie');
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player
@@ -419,7 +419,7 @@ class RoomLogServiceTest extends TestCase
         $place->setDaedalus($daedalus);
 
         $characterConfig1 = new CharacterConfig();
-        $characterConfig1->setName('andie');
+        $characterConfig1->setCharacterName('andie');
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player
@@ -461,7 +461,7 @@ class RoomLogServiceTest extends TestCase
         $place->setDaedalus($daedalus);
 
         $characterConfig1 = new CharacterConfig();
-        $characterConfig1->setName('andie');
+        $characterConfig1->setCharacterName('andie');
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player

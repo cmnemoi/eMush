@@ -29,7 +29,7 @@ class CycleServiceCest
         $daedalusConfig = $I->have(DaedalusConfig::class);
 
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['timezone' => 'UTC']);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test', 'timezone' => 'UTC']);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
@@ -58,7 +58,7 @@ class CycleServiceCest
     public function testDateLastCycleIsUpdated(FunctionalTester $I)
     {
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['timezone' => 'UTC']);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test', 'timezone' => 'UTC']);
 
         $daedalusCreatedAt = new \DateTime('01-01-2000');
         $daedalusNewCycleAt = new \DateTime('02-01-2000');

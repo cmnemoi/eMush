@@ -202,7 +202,7 @@ class DaedalusServiceTest extends TestCase
         $gameConfig->setCharactersConfig($characterConfigCollection);
 
         $characterConfig = new CharacterConfig();
-        $characterConfig->setName('character_1');
+        $characterConfig->setCharacterName('character_1');
         $characterConfigCollection->add($characterConfig);
 
         $result = $this->service->findAvailableCharacterForDaedalus($daedalus);
@@ -374,7 +374,7 @@ class DaedalusServiceTest extends TestCase
     protected function createPlayer(Daedalus $daedalus, string $name): Player
     {
         $characterConfig = new CharacterConfig();
-        $characterConfig->setName($name)->setInitStatuses(new ArrayCollection([]));
+        $characterConfig->setCharacterName($name)->setInitStatuses(new ArrayCollection([]));
 
         $player = new Player();
         $player

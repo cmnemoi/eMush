@@ -16,6 +16,9 @@ class DifficultyConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
+    #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
+    private string $name;
+
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $equipmentBreakRate = 0;
 
@@ -73,6 +76,18 @@ class DifficultyConfig
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     public function getEquipmentBreakRate(): int

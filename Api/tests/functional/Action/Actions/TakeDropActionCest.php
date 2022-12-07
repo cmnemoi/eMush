@@ -16,8 +16,11 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -46,12 +49,15 @@ class TakeDropActionCest
 
     public function testTakeDropItem(FunctionalTester $I)
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $I->loadFixtures([GameConfigFixtures::class]);
+
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
@@ -155,18 +161,24 @@ class TakeDropActionCest
 
     public function TakeDropHeavyItem(FunctionalTester $I)
     {
+        $I->loadFixtures([GameConfigFixtures::class]);
+
         $burdenedStatusConfig = new StatusConfig();
         $burdenedStatusConfig
             ->setName(PlayerStatusEnum::BURDENED)
         ;
         $I->haveInRepository($burdenedStatusConfig);
 
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$burdenedStatusConfig])]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig
+            ->setStatusConfigs(new ArrayCollection([$burdenedStatusConfig]))
+        ;
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
@@ -278,16 +290,22 @@ class TakeDropActionCest
 
     public function TakeHiddenItem(FunctionalTester $I)
     {
+        $I->loadFixtures([GameConfigFixtures::class]);
+
         $hiddenConfig = new StatusConfig();
         $hiddenConfig->setName(EquipmentStatusEnum::HIDDEN);
         $I->haveInRepository($hiddenConfig);
 
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$hiddenConfig])]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig
+            ->setStatusConfigs(new ArrayCollection([$hiddenConfig]))
+        ;
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
@@ -365,6 +383,8 @@ class TakeDropActionCest
 
     public function HideHeavyItemInInventory(FunctionalTester $I)
     {
+        $I->loadFixtures([GameConfigFixtures::class]);
+
         $hiddenStatusConfig = new StatusConfig();
         $hiddenStatusConfig->setName(EquipmentStatusEnum::HIDDEN);
         $I->haveInRepository($hiddenStatusConfig);
@@ -372,12 +392,16 @@ class TakeDropActionCest
         $burdenedStatusConfig->setName(PlayerStatusEnum::BURDENED);
         $I->haveInRepository($burdenedStatusConfig);
 
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$hiddenStatusConfig, $burdenedStatusConfig])]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig
+            ->setStatusConfigs(new ArrayCollection([$hiddenStatusConfig, $burdenedStatusConfig]))
+        ;
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 

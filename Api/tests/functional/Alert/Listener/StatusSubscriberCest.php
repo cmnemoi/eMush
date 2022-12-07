@@ -21,6 +21,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEventEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -47,7 +48,7 @@ class StatusSubscriberCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
@@ -98,7 +99,7 @@ class StatusSubscriberCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
@@ -167,7 +168,7 @@ class StatusSubscriberCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
@@ -221,7 +222,7 @@ class StatusSubscriberCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
@@ -275,7 +276,7 @@ class StatusSubscriberCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)

@@ -12,6 +12,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Enum\RoomEnum;
 
 /**
@@ -31,7 +32,7 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
         $daedalusConfig = new DaedalusConfig();
 
         $daedalusConfig
-            ->setName('default')
+            ->setName(GameConfigEnum::DEFAULT)
             ->setInitOxygen(32)
             ->setInitFuel(20)
             ->setInitHull(100)

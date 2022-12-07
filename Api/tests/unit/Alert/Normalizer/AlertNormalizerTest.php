@@ -132,7 +132,7 @@ class AlertNormalizerTest extends TestCase
         $daedalus->setHull(5);
 
         $characterConfig = new CharacterConfig();
-        $characterConfig->setName('andie');
+        $characterConfig->setCharacterName('andie');
         $player = new Player();
         $playerInfo = new PlayerInfo(
             $player,

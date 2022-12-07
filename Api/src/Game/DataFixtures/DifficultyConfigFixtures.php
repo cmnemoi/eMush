@@ -7,6 +7,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 
 class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -18,6 +19,7 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
         $difficultyConfig = new DifficultyConfig();
 
         $difficultyConfig
+            ->setName(GameConfigEnum::DEFAULT)
             ->setEquipmentBreakRate(30)
             ->setDoorBreakRate(40)
             ->setEquipmentFireBreakRate(30)

@@ -66,7 +66,7 @@ class PlayerInfo
 
     public function getName(): string
     {
-        return $this->characterConfig->getName();
+        return $this->characterConfig->getCharacterName();
     }
 
     public function getGameStatus(): string

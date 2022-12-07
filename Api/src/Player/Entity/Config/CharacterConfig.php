@@ -18,8 +18,11 @@ class CharacterConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $characterName;
 
     #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
     private Collection $initStatuses;
@@ -91,6 +94,18 @@ class CharacterConfig
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getCharacterName(): string
+    {
+        return $this->characterName;
+    }
+
+    public function setCharacterName(string $characterName): static
+    {
+        $this->characterName = $characterName;
 
         return $this;
     }

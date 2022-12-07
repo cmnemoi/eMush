@@ -364,9 +364,9 @@ class DiseaseMessageServiceTest extends TestCase
     public function testParanoiaPlayerTriggerAccuse()
     {
         $characterConfig1 = new CharacterConfig();
-        $characterConfig1->setName(CharacterEnum::ANDIE);
+        $characterConfig1->setCharacterName(CharacterEnum::ANDIE);
         $characterConfig2 = new CharacterConfig();
-        $characterConfig2->setName(CharacterEnum::TERRENCE);
+        $characterConfig2->setCharacterName(CharacterEnum::TERRENCE);
 
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();

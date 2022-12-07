@@ -16,8 +16,7 @@ class DaedalusConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    // TODO: add unique constraint and fix tests accordingly
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name;
 
     #[ORM\Column(type: 'integer', nullable: false)]

@@ -9,11 +9,16 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -37,6 +42,8 @@ class ForceGetUpCest
 
     public function testForceGetUp(FunctionalTester $I)
     {
+        $I->loadFixtures([GameConfigFixtures::class, DaedalusConfigFixtures::class]);
+
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setName(PlayerStatusEnum::LYING_DOWN)
@@ -44,12 +51,19 @@ class ForceGetUpCest
         ;
         $I->haveInRepository($statusConfig);
 
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$statusConfig])]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig
+            ->setStatusConfigs(new ArrayCollection([$statusConfig]))
+            ->setDaedalusConfig($daedalusConfig)
+        ;
+
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
@@ -70,7 +84,10 @@ class ForceGetUpCest
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$action])]);
+        $characterConfig = $I->have(CharacterConfig::class, [
+            'name' => 'testForceGetUp',
+            'actions' => new ArrayCollection([$action]),
+        ]);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,

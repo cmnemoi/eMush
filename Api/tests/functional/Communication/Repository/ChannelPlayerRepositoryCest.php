@@ -39,15 +39,13 @@ class ChannelPlayerRepositoryCest
         $daedalus = $I->have(Daedalus::class);
 
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo->setName('daedalus');
         $I->haveInRepository($daedalusInfo);
 
         /** @var Daedalus $daedalus2 */
         $daedalus2 = $I->have(Daedalus::class, ['name' => 'daedalus_']);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
         $daedalus2Info = new DaedalusInfo($daedalus2, $gameConfig, $localizationConfig);
         $daedalusInfo->setName('daedalus2');
         $I->haveInRepository($daedalus2Info);
@@ -93,7 +91,7 @@ class ChannelPlayerRepositoryCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
@@ -138,7 +136,7 @@ class ChannelPlayerRepositoryCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
@@ -189,7 +187,7 @@ class ChannelPlayerRepositoryCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 

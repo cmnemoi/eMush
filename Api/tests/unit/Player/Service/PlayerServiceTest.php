@@ -96,7 +96,7 @@ class PlayerServiceTest extends TestCase
 
         $characterConfig = new CharacterConfig();
         $characterConfig
-            ->setName('character')
+            ->setCharacterName('character')
             ->setInitStatuses(new ArrayCollection([$statusConfig]))
             ->setSkills(['some skills'])
             ->setInitMovementPoint(0)
@@ -127,7 +127,7 @@ class PlayerServiceTest extends TestCase
         $player = $this->service->createPlayer($daedalus, $user, 'character');
 
         $this->assertInstanceOf(Player::class, $player);
-        $this->assertEquals('character', $player->getPlayerInfo()->getCharacterConfig()->getName());
+        $this->assertEquals('character', $player->getPlayerInfo()->getCharacterConfig()->getCharacterName());
         $this->assertEquals($characterConfig->getInitActionPoint(), $player->getActionPoint());
         $this->assertEquals($characterConfig->getInitMovementPoint(), $player->getMovementPoint());
         $this->assertEquals($characterConfig->getInitHealthPoint(), $player->getHealthPoint());
@@ -150,7 +150,7 @@ class PlayerServiceTest extends TestCase
         ;
 
         $characterConfig = new CharacterConfig();
-        $characterConfig->setName('name');
+        $characterConfig->setCharacterName('name');
 
         $player = new Player();
         $player
@@ -190,7 +190,7 @@ class PlayerServiceTest extends TestCase
         $user = new User();
 
         $characterConfig = new CharacterConfig();
-        $characterConfig->setName('name');
+        $characterConfig->setCharacterName('name');
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

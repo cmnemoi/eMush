@@ -6,6 +6,7 @@ namespace App\Tests\Helper\Factories;
 // all public methods declared in helper class will be available in $I
 
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
@@ -30,7 +31,8 @@ class PlayerFactory extends \Codeception\Module
             'satiety' => 0,
         ]);
         $factory->_define(CharacterConfig::class, [
-            'name' => CharacterEnum::GIOELE,
+            'name' => CharacterEnum::GIOELE . '_' . GameConfigEnum::TEST,
+            'characterName' => CharacterEnum::GIOELE,
             'maxNumberPrivateChannel' => 3,
             'initHealthPoint' => 12,
             'maxHealthPoint' => 12,

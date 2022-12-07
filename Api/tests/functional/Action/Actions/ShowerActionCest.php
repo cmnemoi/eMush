@@ -19,8 +19,11 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierCondition;
@@ -54,6 +57,8 @@ class ShowerActionCest
 
     public function testMushShower(FunctionalTester $I)
     {
+        $I->loadFixtures([GameConfigFixtures::class]);
+
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
             ->setName(StatusEnum::ATTEMPT)
@@ -61,12 +66,16 @@ class ShowerActionCest
         ;
         $I->haveInRepository($attemptConfig);
 
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$attemptConfig])]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig
+            ->setStatusConfigs(new ArrayCollection([$attemptConfig]))
+        ;
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 

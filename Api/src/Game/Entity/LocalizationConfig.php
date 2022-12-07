@@ -16,6 +16,9 @@ class LocalizationConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
+    #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
+    private string $name;
+
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $timeZone;
 
@@ -25,6 +28,18 @@ class LocalizationConfig
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     public function getTimeZone(): string

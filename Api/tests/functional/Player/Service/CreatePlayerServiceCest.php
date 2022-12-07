@@ -47,10 +47,9 @@ class CreatePlayerServiceCest
         $I->haveInRepository($sporeStatusConfig);
 
         /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'localizationConfig' => $localizationConfig,
             'statusConfigs' => new ArrayCollection([$sporeStatusConfig, $mushStatusConfig]),
         ]);
 
@@ -58,15 +57,16 @@ class CreatePlayerServiceCest
         $gioeleCharacterConfig = $I->have(CharacterConfig::class);
         $gioeleCharacterConfig->setInitStatuses(new ArrayCollection([$sporeStatusConfig]));
         /** @var $andieCharacterConfig $characterConfig */
-        $andieCharacterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
+        $andieCharacterConfig = $I->have(CharacterConfig::class, [
+            'name' => CharacterEnum::ANDIE,
+            'characterName' => CharacterEnum::ANDIE,
+        ]);
         $andieCharacterConfig->setInitStatuses(new ArrayCollection([$sporeStatusConfig]));
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
 
-        /** @var LocalizationConfig $localisationConfig */
-        $localisationConfig = $I->have(LocalizationConfig::class);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localisationConfig);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 

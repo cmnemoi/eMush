@@ -10,6 +10,7 @@ use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 
 class DaedalusFactory extends \Codeception\Module
@@ -19,6 +20,7 @@ class DaedalusFactory extends \Codeception\Module
         $factory = $this->getModule('DataFactory');
 
         $factory->_define(DifficultyConfig::class, [
+            'name' => GameConfigEnum::TEST,
             'equipmentBreakRate' => 0,
             'doorBreakRate' => 0,
             'equipmentFireBreakRate' => 0,
@@ -54,7 +56,7 @@ class DaedalusFactory extends \Codeception\Module
         ]);
 
         $factory->_define(GameConfig::class, [
-            'name' => 'testGameConfig',
+            'name' => GameConfigEnum::TEST,
             'difficultyConfig' => 'entity|' . DifficultyConfig::class,
             'daedalusConfig' => 'entity|' . DaedalusConfig::class,
         ]);
@@ -65,7 +67,6 @@ class DaedalusFactory extends \Codeception\Module
         ]);
 
         $factory->_define(Daedalus::class, [
-            'gameConfig' => 'entity|' . GameConfig::class,
             'oxygen' => 10,
             'fuel' => 10,
             'hull' => 100,

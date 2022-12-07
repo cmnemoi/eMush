@@ -40,7 +40,7 @@ class FromSameFamilyValidatorTest extends TestCase
     public function testValid()
     {
         $characterConfig = new CharacterConfig();
-        $characterConfig->setName(CharacterEnum::DEREK);
+        $characterConfig->setCharacterName(CharacterEnum::DEREK);
         $player = new Player();
 
         $playerInfo = new PlayerInfo(
@@ -51,7 +51,7 @@ class FromSameFamilyValidatorTest extends TestCase
         $player->setPlayerInfo($playerInfo);
 
         $targetPlayerConfig = new CharacterConfig();
-        $targetPlayerConfig->setName(CharacterEnum::CHUN);
+        $targetPlayerConfig->setCharacterName(CharacterEnum::CHUN);
         $target = new Player();
         $targetPlayerInfo = new PlayerInfo(
             $target,
@@ -75,7 +75,7 @@ class FromSameFamilyValidatorTest extends TestCase
     public function testNotValid()
     {
         $characterConfig = new CharacterConfig();
-        $characterConfig->setName(CharacterEnum::PAOLA);
+        $characterConfig->setCharacterName(CharacterEnum::PAOLA);
         $player = new Player();
         $playerInfo = new PlayerInfo(
             $player,
@@ -85,7 +85,7 @@ class FromSameFamilyValidatorTest extends TestCase
         $player->setPlayerInfo($playerInfo);
 
         $targetPlayerConfig = new CharacterConfig();
-        $targetPlayerConfig->setName(CharacterEnum::GIOELE);
+        $targetPlayerConfig->setCharacterName(CharacterEnum::GIOELE);
         $target = new Player();
         $targetPlayerInfo = new PlayerInfo(
             $target,

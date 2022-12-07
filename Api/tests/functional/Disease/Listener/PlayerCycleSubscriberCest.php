@@ -10,6 +10,7 @@ use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Listener\PlayerCycleSubscriber;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -214,7 +215,7 @@ class PlayerCycleSubscriberCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var CharacterConfig $otherCharacterConfig */
-        $otherCharacterConfig = $I->have(CharacterConfig::class);
+        $otherCharacterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
 
         /** @var Player $player */
         $player = $I->have(Player::class, [

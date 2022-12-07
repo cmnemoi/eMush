@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 
 class GameConfigFixtures extends Fixture
@@ -17,6 +18,7 @@ class GameConfigFixtures extends Fixture
     {
         $localizationConfig = new LocalizationConfig();
         $localizationConfig
+            ->setName(LanguageEnum::FRENCH)
             ->setTimeZone('Europe/Paris')
             ->setLanguage(LanguageEnum::FRENCH)
         ;
@@ -26,7 +28,7 @@ class GameConfigFixtures extends Fixture
         $gameConfig = new GameConfig();
 
         $gameConfig
-            ->setName('default')
+            ->setName(GameConfigEnum::DEFAULT)
         ;
 
         $manager->persist($gameConfig);

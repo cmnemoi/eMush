@@ -13,7 +13,7 @@ class TriumphConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name;
 
     #[ORM\Column(type: 'integer', nullable: false)]

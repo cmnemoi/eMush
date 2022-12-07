@@ -8,6 +8,7 @@ use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 
@@ -180,10 +181,11 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
         $characterConfigs = $player->getDaedalus()->getGameConfig()->getCharactersConfig();
 
         $characters = [];
+        /** @var CharacterConfig $characterConfig */
         foreach ($characterConfigs as $characterConfig) {
-            $characterName = $characterConfig->getName();
+            $characterName = $characterConfig->getCharacterName();
             if ($characterName !== $player->getName()) {
-                $characters[] = $characterConfig->getName();
+                $characters[] = $characterConfig->getCharacterName();
             }
         }
 

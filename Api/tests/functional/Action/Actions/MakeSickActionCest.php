@@ -9,17 +9,22 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
+use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -43,6 +48,8 @@ class MakeSickActionCest
 
     public function testMakeSick(FunctionalTester $I)
     {
+        $I->loadFixtures([GameConfigFixtures::class, DaedalusConfigFixtures::class]);
+
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setName(DiseaseEnum::FOOD_POISONING)
@@ -58,15 +65,19 @@ class MakeSickActionCest
         ;
         $I->haveInRepository($diseaseCause);
 
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
-            'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
-        ]);
+        $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig
+            ->setDiseaseCauseConfig(new ArrayCollection([$diseaseCause]))
+            ->setDiseaseConfig(new ArrayCollection([$diseaseConfig]))
+            ->setDaedalusConfig($daedalusConfig)
+        ;
+        $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);

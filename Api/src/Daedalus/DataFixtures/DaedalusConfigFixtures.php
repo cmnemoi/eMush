@@ -23,15 +23,17 @@ use Mush\Place\Enum\RoomEnum;
 class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public const DEFAULT_DAEDALUS = 'default.daedalus';
+    public const ALPHA_DAEDALUS = 'alpha.daedalus';
 
     public function load(ObjectManager $manager): void
     {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
-
-        $daedalusConfig = new DaedalusConfig();
-
-        $daedalusConfig
+        /** @var GameConfig $defaultGameConfig */
+        $defaultGameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+        /** @var GameConfig $alphaGameConfig */
+        $alphaGameConfig = $this->getReference(GameConfigFixtures::ALPHA_GAME_CONFIG);
+        
+        $defaultDaedalusConfig = new DaedalusConfig();
+        $defaultDaedalusConfig
             ->setName(GameConfigEnum::DEFAULT)
             ->setInitOxygen(32)
             ->setInitFuel(20)
@@ -42,13 +44,12 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setMaxFuel(32)
             ->setMaxHull(100)
             ->setMaxShield(100)
-            ->setNbMush(3)
+            ->setNbMush(2)
             ->setCyclePerGameDay(8)
             ->setCycleLength(3 * 60)
         ;
-
-        $randomStorageItemPlaces = new RandomItemPlaces();
-        $randomStorageItemPlaces
+        $defaultRandomStorageItemPlaces = new RandomItemPlaces();
+        $defaultRandomStorageItemPlaces
             ->setItems([
                 GearItemEnum::PLASTENITE_ARMOR,
                 ToolItemEnum::HACKER_KIT,
@@ -78,17 +79,26 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
             ])
             ->setPlaces(RoomEnum::getStorages())
         ;
+        $defaultDaedalusConfig->setRandomItemPlace($defaultRandomStorageItemPlaces);
+        $manager->persist($defaultDaedalusConfig);
+        $defaultGameConfig->setDaedalusConfig($defaultDaedalusConfig);
+        $manager->persist($defaultGameConfig);
 
-        $daedalusConfig->setRandomItemPlace($randomStorageItemPlaces);
-
-        $manager->persist($daedalusConfig);
-
-        $gameConfig->setDaedalusConfig($daedalusConfig);
-        $manager->persist($gameConfig);
+        $alphaDaedalusConfig = clone $defaultDaedalusConfig;
+        $alphaDaedalusConfig
+            ->setName(GameConfigEnum::ALPHA)
+            ->setNbMush(3)
+        ;
+        $alphaDaedalusConfig->setRandomItemPlace(clone $defaultRandomStorageItemPlaces);
+        $manager->persist($alphaDaedalusConfig);
+        $alphaGameConfig->setDaedalusConfig($alphaDaedalusConfig);
+        $manager->persist($alphaGameConfig);
 
         $manager->flush();
 
-        $this->addReference(self::DEFAULT_DAEDALUS, $daedalusConfig);
+        $this->addReference(self::ALPHA_DAEDALUS, $alphaDaedalusConfig);
+        $this->addReference(self::DEFAULT_DAEDALUS, $defaultDaedalusConfig);
+
     }
 
     public function getDependencies()

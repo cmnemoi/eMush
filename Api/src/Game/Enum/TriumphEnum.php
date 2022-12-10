@@ -54,7 +54,12 @@ class TriumphEnum
     public const MUSH_VACCINATED = 'mush_vaccinated';
     public const ALIEN_KILLED = 'alien_killed';
 
-    public static function getMushTriumph()
+    /**
+     * @return string[]
+     *
+     * @psalm-return list{'cycle_mush', 'starting_mush', 'cycle_mush_late', 'conversion', 'infection', 'humanocide', 'chun_dead', 'sol_return_mush', 'eden_mush'}
+     */
+    public static function getMushTriumph(): array
     {
         return [
             self::CYCLE_MUSH,
@@ -69,7 +74,12 @@ class TriumphEnum
         ];
     }
 
-    public static function getHumanTriumph()
+    /**
+     * @return string[]
+     *
+     * @psalm-return list{'cycle_human', 'cycle_inactive', 'new_planet_orbit', 'sol_contact', 'small_research', 'standard_research', 'brilliant_research', 'sol_return', 'sol_mush_intruder', 'hunter_killed', 'mushicide', 'rebel_wolf', 'nice_surgery', 'eden_crew_alive', 'eden_alien_plant', 'eden_gender', 'eden', 'eden_cat', 'eden_cat_dead', 'eden_cat_mush', 'eden_disease', 'eden_engineers', 'eden_biologist', 'eden_mush_intruder', 'eden_by_pregnant', 'eden_computed', 'anathem', 'pregnancy', 'all_pregnant', 'success_repair', 'success_repair_hull', 'success_fire', 'mush_vaccinated', 'alien_killed'}
+     */
+    public static function getHumanTriumph(): array
     {
         return [
             self::CYCLE_HUMAN,
@@ -109,7 +119,12 @@ class TriumphEnum
         ];
     }
 
-    public static function getReachingEden()
+    /**
+     * @return string[]
+     *
+     * @psalm-return list{'eden_crew_alive', 'eden_alien_plant', 'eden_gender', 'eden', 'eden_cat', 'eden_cat_dead', 'eden_cat_mush', 'eden_disease', 'eden_engineers', 'eden_biologist', 'eden_mush_intruder', 'eden_by_pregnant', 'eden_computed', 'eden_mush'}
+     */
+    public static function getReachingEden(): array
     {
         return [
             self::EDEN_CREW_ALIVE,

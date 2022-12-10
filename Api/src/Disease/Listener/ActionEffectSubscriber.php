@@ -41,6 +41,9 @@ class ActionEffectSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * @return void
+     */
     public function onConsume(ApplyEffectEvent $event)
     {
         $equipment = $event->getParameter();
@@ -53,6 +56,9 @@ class ActionEffectSubscriber implements EventSubscriberInterface
         $this->diseaseCauseService->handleConsumable($event->getPlayer(), $equipment);
     }
 
+    /**
+     * @return void
+     */
     public function onHeal(ApplyEffectEvent $event)
     {
         $player = $event->getParameter();
@@ -70,6 +76,9 @@ class ActionEffectSubscriber implements EventSubscriberInterface
         $this->playerDiseaseService->healDisease($event->getPlayer(), $diseaseToHeal, $event->getReason(), $event->getTime());
     }
 
+    /**
+     * @return void
+     */
     public function onPlayerGetSick(ApplyEffectEvent $event)
     {
         $player = $event->getParameter();
@@ -93,6 +102,9 @@ class ActionEffectSubscriber implements EventSubscriberInterface
         $this->diseaseCauseService->handleDiseaseForCause($event->getReason(), $player);
     }
 
+    /**
+     * @return void
+     */
     public function onPlayerCureInjury(ApplyEffectEvent $event)
     {
         // Get a random injury on target player

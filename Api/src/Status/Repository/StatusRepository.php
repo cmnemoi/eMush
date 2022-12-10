@@ -15,6 +15,9 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 
+/**
+ * @template-extends ServiceEntityRepository<Status>
+ */
 class StatusRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

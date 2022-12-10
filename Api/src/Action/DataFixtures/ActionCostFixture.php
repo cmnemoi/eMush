@@ -16,6 +16,9 @@ class ActionCostFixture extends Fixture
     public const ACTION_COST_ONE_MOVEMENT = 'modifier.one.movement';
     public const ACTION_COST_TWO_MOVEMENT = 'modifier.two.movement';
 
+    /**
+     * @return void
+     */
     public function load(ObjectManager $manager)
     {
         $freeCost = $this->buildActionCost(0);

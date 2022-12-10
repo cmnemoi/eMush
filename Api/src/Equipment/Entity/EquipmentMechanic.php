@@ -73,6 +73,9 @@ abstract class EquipmentMechanic
         return $this->actions;
     }
 
+    /**
+     * @param Collection<int, Action> $actions
+     */
     public function setActions(Collection $actions): static
     {
         $this->actions = $actions;

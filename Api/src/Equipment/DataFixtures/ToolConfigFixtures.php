@@ -29,9 +29,9 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
-        /** @var Action $takeAction */
+        /** @var Action $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
-        /** @var Action $buildAction */
+        /** @var Action $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
@@ -62,6 +62,11 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $alienArtifactStatus = $this->getReference(StatusFixtures::ALIEN_ARTEFACT_STATUS);
         /** @var StatusConfig $heavyStatus */
         $heavyStatus = $this->getReference(StatusFixtures::HEAVY_STATUS);
+
+        /** @var Action $dismantle325 */
+        $dismantle325 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
+        /** @var Action $dismantle425 */
+        $dismantle425 = $this->getReference(TechnicianFixtures::DISMANTLE_4_25);
 
         // @TODO
         $hackerKitMechanic = new Tool();
@@ -113,7 +118,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $cameraActions = new ArrayCollection([
             $takeAction,
-            $this->getReference(TechnicianFixtures::DISMANTLE_3_25),
+            $dismantle325,
             $repair25,
             $reportAction,
             $examineAction,
@@ -135,7 +140,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($cameraMechanics);
 
         $extinguisherActions = clone $actions;
-        $extinguisherActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
+        $extinguisherActions->add($dismantle325);
         $extinguisherActions->add($repair25);
         $extinguisherActions->add($sabotage25);
         $extinguisherActions->add($reportAction);
@@ -200,7 +205,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($madKubeMechanic);
 
         $microwaveActions = clone $actions;
-        $microwaveActions->add($this->getReference(TechnicianFixtures::DISMANTLE_4_25));
+        $microwaveActions->add($dismantle425);
         $microwaveActions->add($repair50);
         $microwaveActions->add($sabotage50);
         $microwaveActions->add($reportAction);
@@ -237,7 +242,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $superFreezerMechanic->addAction($hyperfreezeAction);
 
         $superfreezerActions = clone $actions;
-        $superfreezerActions->add($this->getReference(TechnicianFixtures::DISMANTLE_4_25));
+        $superfreezerActions->add($dismantle425);
         $superfreezerActions->add($repair25);
         $superfreezerActions->add($sabotage25);
         $superfreezerActions->add($reportAction);

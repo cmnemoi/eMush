@@ -196,7 +196,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return $gameEquipment;
     }
 
-    private function initDocument(GameEquipment $gameEquipment, $document): GameEquipment
+    private function initDocument(GameEquipment $gameEquipment, Document $document): GameEquipment
     {
         if (!$document instanceof Document) {
             throw new \LogicException('Parameter is not a document');

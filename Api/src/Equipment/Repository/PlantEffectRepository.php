@@ -6,6 +6,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Equipment\Entity\PlantEffect;
 
+/**
+ * @template-extends ServiceEntityRepository<PlantEffect>
+ */
 class PlantEffectRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

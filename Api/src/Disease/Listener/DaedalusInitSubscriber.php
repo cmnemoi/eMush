@@ -24,7 +24,7 @@ class DaedalusInitSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onNewDaedalus(DaedalusInitEvent $event)
+    public function onNewDaedalus(DaedalusInitEvent $event): void
     {
         $daedalus = $event->getDaedalus();
 

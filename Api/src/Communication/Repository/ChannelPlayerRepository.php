@@ -12,6 +12,9 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 
+/**
+ * @template-extends ServiceEntityRepository<ChannelPlayer>
+ */
 class ChannelPlayerRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

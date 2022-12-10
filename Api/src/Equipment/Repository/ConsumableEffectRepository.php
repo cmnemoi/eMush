@@ -6,6 +6,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Equipment\Entity\ConsumableEffect;
 
+/**
+ * @template-extends ServiceEntityRepository<ConsumableEffect>
+ */
 class ConsumableEffectRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

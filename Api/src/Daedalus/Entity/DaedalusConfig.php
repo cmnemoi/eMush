@@ -143,6 +143,9 @@ class DaedalusConfig
         return $this->placeConfigs;
     }
 
+    /**
+     * @param Collection<int, PlaceConfig> $placeConfigs
+     */
     public function setPlaceConfigs(Collection $placeConfigs): static
     {
         $this->placeConfigs = $placeConfigs;

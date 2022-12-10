@@ -190,9 +190,9 @@ class RoomLogService implements RoomLogServiceInterface
 
         $placeEquipements = $place->getEquipments();
 
-        $equipmentIsACamera = fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT;
+        $equipmentIsACamera = fn (GameEquipment $gameEquipment): bool => $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT;
 
-        $equipementIsNotBroken = fn (GameEquipment $gameEquipment) => $gameEquipment->isBroken() === false;
+        $equipementIsNotBroken = fn (GameEquipment $gameEquipment): bool => $gameEquipment->isBroken() === false;
 
         $placeHasAFunctionalCamera = $placeEquipements->filter($equipmentIsACamera)->filter($equipementIsNotBroken)->count() > 0;
         $placeHasAWitness = $place->getNumberPlayers() > 1;

@@ -26,9 +26,9 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
-        /** @var Action $takeAction */
+        /** @var Action $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
-        /** @var Action $buildAction */
+        /** @var Action $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
@@ -50,8 +50,14 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var Action $dismantle50 */
         $dismantle50 = $this->getReference(TechnicianFixtures::DISMANTLE_3_50);
 
+        /** @var Action $dismantle12 */
+        $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
+
+        /** @var Action $dismantle25 */
+        $dismantle25 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
+
         $mycoAlarmeActions = clone $hideableActions;
-        $mycoAlarmeActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
+        $mycoAlarmeActions->add($dismantle25);
         $mycoAlarmeActions->add($repair25);
         $mycoAlarmeActions->add($sabotage25);
 
@@ -68,7 +74,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($mycoAlarm);
 
         $tabulatrixActions = new ArrayCollection([
-            $this->getReference(TechnicianFixtures::DISMANTLE_3_12),
+            $dismantle12,
             $repair12,
             $sabotage12,
             $reportAction,
@@ -124,7 +130,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($oldTShirt);
 
         $thickTubeActions = clone $hideableActions;
-        $thickTubeActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_50));
+        $thickTubeActions->add($dismantle50);
 
         $thickTube = new ItemConfig();
         $thickTube

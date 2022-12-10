@@ -1,4 +1,4 @@
-FROM php:8.1-fpm
+FROM php:8.2-fpm
 
 #For mac and windows
 ARG HOST_IP=host.docker.internal

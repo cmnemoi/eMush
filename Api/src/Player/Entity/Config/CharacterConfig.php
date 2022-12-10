@@ -115,6 +115,9 @@ class CharacterConfig
         return $this->initStatuses;
     }
 
+    /**
+     * @param Collection<int, StatusConfig> $initStatuses
+     */
     public function setInitStatuses(Collection $initStatuses): static
     {
         $this->initStatuses = $initStatuses;
@@ -134,6 +137,9 @@ class CharacterConfig
         return $actions->isEmpty() ? null : $actions->first();
     }
 
+    /**
+     * @param Collection<int, Action> $actions
+     */
     public function setActions(Collection $actions): static
     {
         $this->actions = $actions;
@@ -158,6 +164,9 @@ class CharacterConfig
         return $this->startingItems;
     }
 
+    /**
+     * @param Collection<int, ItemConfig> $items
+     */
     public function setStartingItem(Collection $items): static
     {
         $this->startingItems = $items;

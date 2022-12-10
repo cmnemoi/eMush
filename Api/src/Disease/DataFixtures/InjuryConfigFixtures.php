@@ -27,9 +27,9 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var ModifierConfig $consume2ActionLoss */
         $consume2ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_2_ACTION_LOSS);
-        /** @var ModifierConfig $cycle1HealthLoss */
+        /** @var ModifierConfig $cycle1HealthLost */
         $cycle1HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_HEALTH_LOST);
-        /** @var ModifierConfig $cycle2HealthLoss */
+        /** @var ModifierConfig $cycle2HealthLost */
         $cycle2HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_2_HEALTH_LOST);
         /** @var ModifierConfig $increaseCycleDiseaseChances10 */
         $increaseCycleDiseaseChances10 = $this->getReference(DiseaseModifierConfigFixtures::INCREASE_CYCLE_DISEASE_CHANCES_10);
@@ -51,11 +51,11 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $reduceMax2MoralPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_2_MORAL_POINT);
         /** @var ModifierConfig $reduceMax3MoralPoint */
         $reduceMax3MoralPoint = $this->getReference(DisorderModifierConfigFixtures::REDUCE_MAX_3_MORAL_POINT);
-        /** @var ModifierConfig $reduce3MaxMovementPoint */
+        /** @var ModifierConfig $reduceMax3MovementPoint */
         $reduceMax3MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_3_MOVEMENT_POINT);
-        /** @var ModifierConfig $reduce5MaxMovementPoint */
+        /** @var ModifierConfig $reduceMax5MovementPoint */
         $reduceMax5MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_5_MOVEMENT_POINT);
-        /** @var ModifierConfig $reduce12MaxMovementPoint */
+        /** @var ModifierConfig $reduceMax12MovementPoint */
         $reduceMax12MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_12_MOVEMENT_POINT);
         /** @var ModifierConfig $shootAction10PercentAccuracyLost */
         $shootAction10PercentAccuracyLost = $this->getReference(DiseaseModifierConfigFixtures::SHOOT_ACTION_10_PERCENT_ACCURACY_LOST);

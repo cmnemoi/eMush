@@ -35,9 +35,9 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
-        /** @var Action $takeAction */
+        /** @var Action $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
-        /** @var Action $buildAction */
+        /** @var Action $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
@@ -66,7 +66,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var Action $dismantle12 */
         $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
-
+        /** @var Action $dismantle25 */
+        $dismantle25 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
         /** @var StatusConfig $alienArtifactStatus */
         $alienArtifactStatus = $this->getReference(StatusFixtures::ALIEN_ARTEFACT_STATUS);
         /** @var StatusConfig $heavyStatus */
@@ -181,7 +182,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($alienBottleOpener);
 
         $antiGravScooterActions = clone $actions;
-        $antiGravScooterActions->add($this->getReference(TechnicianFixtures::DISMANTLE_3_25));
+        $antiGravScooterActions->add($dismantle25);
         $antiGravScooterActions->add($repair6);
         $antiGravScooterActions->add($sabotage6);
         $antiGravScooterActions->add($reportAction);
@@ -245,7 +246,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ]
         );
 
-        /** @var Action $dismantle12 */
+        /** @var Action $dismantle6 */
         $dismantle6 = $this->getReference(TechnicianFixtures::DISMANTLE_4_6);
 
         $oscilloscopeActions = clone $actions;
@@ -374,13 +375,16 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         $gear = new Gear();
 
-        $modifierConfigs = [];
+        /** @var ArrayCollection<int, ModifierConfig> */
+        $modifierConfigs = new ArrayCollection();
         foreach ($modifierConfigNames as $modifierConfigName) {
-            /* @var ModifierConfig $modifierConfig */
-            $modifierConfigs[] = $this->getReference($modifierConfigName);
+            $currentModifierConfig = $this->getReference($modifierConfigName);
+            if ($currentModifierConfig instanceof ModifierConfig) {
+                $modifierConfigs->add($currentModifierConfig);
+            }
         }
 
-        $gear->setModifierConfigs(new ArrayCollection($modifierConfigs));
+        $gear->setModifierConfigs($modifierConfigs);
 
         $this->objectManager->persist($gear);
 

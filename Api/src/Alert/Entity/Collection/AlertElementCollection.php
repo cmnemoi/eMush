@@ -6,6 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Equipment\Entity\Door;
 
+/**
+ * @template-extends ArrayCollection<int, AlertElement>
+ */
 class AlertElementCollection extends ArrayCollection
 {
     public function getBrokenDoors(): AlertElementCollection

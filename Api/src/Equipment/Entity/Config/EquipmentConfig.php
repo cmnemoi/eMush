@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity]
@@ -106,6 +107,9 @@ class EquipmentConfig
         return $this->mechanics;
     }
 
+    /**
+     * @psalm-param ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Blueprint>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Book>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Document>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Drug>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Fruit>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Gear>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Plant>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Ration>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Tool>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Weapon>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Gear|\Mush\Equipment\Entity\Mechanics\Tool> $mechanics
+     */
     public function setMechanics(Collection $mechanics): static
     {
         $this->mechanics = $mechanics;
@@ -156,6 +160,9 @@ class EquipmentConfig
         return $this;
     }
 
+    /**
+     * @param Collection<int, Action> $actions
+     */
     public function setActions(Collection $actions): static
     {
         $this->actions = $actions;
@@ -175,7 +182,10 @@ class EquipmentConfig
         return new ArrayCollection($actions);
     }
 
-    public function setInitStatus(Collection $initStatus): static
+    /**
+     * @psalm-param ArrayCollection<int, ChargeStatusConfig>|ArrayCollection<int, StatusConfig> $initStatus
+     */
+    public function setInitStatus(ArrayCollection $initStatus): static
     {
         $this->initStatus = $initStatus;
 

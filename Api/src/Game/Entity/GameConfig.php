@@ -91,6 +91,9 @@ class GameConfig
         return new CharacterConfigCollection($this->charactersConfig->toArray());
     }
 
+    /**
+     * @param Collection<int, CharacterConfig> $charactersConfig
+     */
     public function setCharactersConfig(Collection $charactersConfig): static
     {
         $this->charactersConfig = $charactersConfig;
@@ -110,6 +113,9 @@ class GameConfig
         return new TriumphConfigCollection($this->triumphConfig->toArray());
     }
 
+    /**
+     * @param Collection<int, TriumphConfig> $triumphConfig
+     */
     public function setTriumphConfig(Collection $triumphConfig): self
     {
         $this->triumphConfig = $triumphConfig;
@@ -148,6 +154,9 @@ class GameConfig
         return $this->diseaseCauseConfig;
     }
 
+    /**
+     * @param Collection<int, DiseaseCauseConfig> $diseaseCauseConfig
+     */
     public function setDiseaseCauseConfig(Collection $diseaseCauseConfig): static
     {
         $this->diseaseCauseConfig = $diseaseCauseConfig;
@@ -224,6 +233,9 @@ class GameConfig
         return $this->statusConfigs;
     }
 
+    /**
+     * @param Collection<int, StatusConfig> $statusConfigs
+     */
     public function setStatusConfigs(Collection $statusConfigs): static
     {
         $this->statusConfigs = $statusConfigs;

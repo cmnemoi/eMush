@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FIRST_DAEDALUS_NAME=$1
-FIRST_DAEDALUS_LANGUAGE=$1
+FIRST_DAEDALUS_LANGUAGE=$2
 
 composer install
 php bin/console doctrine:schema:drop -f

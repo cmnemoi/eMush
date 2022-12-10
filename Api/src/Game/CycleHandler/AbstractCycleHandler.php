@@ -11,7 +11,7 @@ abstract class AbstractCycleHandler
         return $this->name;
     }
 
-    abstract public function handleNewCycle($object, \DateTime $dateTime): void;
+    abstract public function handleNewCycle(\Mush\Equipment\Entity\GameEquipment $object, \DateTime $dateTime): void;
 
-    abstract public function handleNewDay($object, \DateTime $dateTime): void;
+    abstract public function handleNewDay(\Mush\Equipment\Entity\GameEquipment $object, \DateTime $dateTime): void;
 }

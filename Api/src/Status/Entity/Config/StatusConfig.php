@@ -70,6 +70,9 @@ class StatusConfig
         return $this->modifierConfigs;
     }
 
+    /**
+     * @param array<int, ModifierConfig>|Collection<int, ModifierConfig> $modifierConfigs
+     */
     public function setModifierConfigs(array|Collection $modifierConfigs): static
     {
         if (is_array($modifierConfigs)) {

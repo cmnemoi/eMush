@@ -6,6 +6,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Game\Entity\LocalizationConfig;
 
+/**
+ * @template-extends ServiceEntityRepository<LocalizationConfig>
+ */
 class LocalizationConfigRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

@@ -51,7 +51,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onDiseaseCure(DiseaseEvent $event)
+    public function onDiseaseCure(DiseaseEvent $event): void
     {
         $player = $event->getPlayerDisease()->getPlayer();
 
@@ -77,7 +77,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         $this->createEventLog($key, $event, $player);
     }
 
-    public function onDiseaseTreated(DiseaseEvent $event)
+    public function onDiseaseTreated(DiseaseEvent $event): void
     {
         $player = $event->getPlayerDisease()->getPlayer();
 
@@ -94,7 +94,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         $this->createEventLog($key, $event, $player);
     }
 
-    public function onDiseaseAppear(DiseaseEvent $event)
+    public function onDiseaseAppear(DiseaseEvent $event): void
     {
         $player = $event->getPlayer();
         $diseaseConfig = $event->getDiseaseConfig();

@@ -29,7 +29,7 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
 
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
-        /** @var Action $takeAction */
+        /** @var Action $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
 
         /** @var Action $updateTalkieAction */

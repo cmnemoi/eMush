@@ -28,9 +28,9 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
-        /** @var Action $takeAction */
+        /** @var Action $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
-        /** @var Action $buildAction */
+        /** @var Action $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
         /** @var Action $attackAction */
         $attackAction = $this->getReference(ActionsFixtures::ATTACK_DEFAULT);
@@ -186,8 +186,11 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($natamy);
         $manager->persist($natamyMechanic);
 
+        /** @var Action $dismantle412 */
+        $dismantle412 = $this->getReference(TechnicianFixtures::DISMANTLE_4_12);
+
         $oldFaithfulActions = clone $actions;
-        $oldFaithfulActions->add($this->getReference(TechnicianFixtures::DISMANTLE_4_12));
+        $oldFaithfulActions->add($dismantle412);
         $oldFaithfulActions->add($repair12);
         $oldFaithfulActions->add($sabotage12);
         $oldFaithfulActions->add($reportAction);

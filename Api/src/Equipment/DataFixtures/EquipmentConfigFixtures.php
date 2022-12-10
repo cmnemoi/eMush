@@ -52,6 +52,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
 
+        /** @var Action $dismantle25 */
+        $dismantle25 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
+
         // @TODO terminals
         $icarus = new EquipmentConfig();
         $icarus
@@ -62,6 +65,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($icarus);
 
+        /** @var Action $moveAction */
         $moveAction = $this->getReference(ActionsFixtures::MOVE_DEFAULT);
 
         // @TODO terminals
@@ -235,7 +239,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$showerMechanic]))
-            ->setActions(new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_25), $examineAction]))
+            ->setActions(new ArrayCollection([$dismantle25, $examineAction]))
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
         ;
         $manager->persist($thalasso);
@@ -272,7 +276,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$cameraMechanic]))
-            ->setActions(new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_25), $repair25, $sabotage25, $reportAction, $examineAction]))
+            ->setActions(new ArrayCollection([$dismantle25, $repair25, $sabotage25, $reportAction, $examineAction]))
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
         ;
 
@@ -335,7 +339,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$distillerMechanic]))
             ->setInitStatus(new ArrayCollection([$dispenserCharge]))
-            ->setActions(new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_25), $examineAction]))
+            ->setActions(new ArrayCollection([$dismantle25, $examineAction]))
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 2])
         ;
 
@@ -349,7 +353,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setMechanics(new ArrayCollection([$showerMechanic]))
-            ->setActions(new ArrayCollection([$this->getReference(TechnicianFixtures::DISMANTLE_3_25), $examineAction]))
+            ->setActions(new ArrayCollection([$dismantle25, $examineAction]))
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
         ;
         $manager->persist($shower);
@@ -584,13 +588,16 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
     {
         $gear = new Gear();
 
-        $modifierConfigs = [];
+        /** @var ArrayCollection<int, ModifierConfig> */
+        $modifierConfigs = new ArrayCollection();
         foreach ($modifierConfigNames as $modifierConfigName) {
-            /* @var ModifierConfig $modifierConfig */
-            $modifierConfigs[] = $this->getReference($modifierConfigName);
+            $currentModifierConfig = $this->getReference($modifierConfigName);
+            if ($currentModifierConfig instanceof ModifierConfig) {
+                $modifierConfigs->add($currentModifierConfig);
+            }
         }
 
-        $gear->setModifierConfigs(new ArrayCollection($modifierConfigs));
+        $gear->setModifierConfigs($modifierConfigs);
 
         return $gear;
     }

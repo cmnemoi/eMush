@@ -91,7 +91,7 @@ class DiseaseConfig implements LogParameterInterface
     }
 
     /**
-     * @return static
+     * @psalm-param ArrayCollection<int, ModifierConfig> $modifierConfigs
      */
     public function setModifierConfigs(Collection $modifierConfigs): self
     {

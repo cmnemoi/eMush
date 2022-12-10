@@ -9,6 +9,9 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 
+/**
+ * @template-extends ServiceEntityRepository<RoomLog>
+ */
 class RoomLogRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

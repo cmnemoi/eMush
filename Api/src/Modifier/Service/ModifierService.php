@@ -77,7 +77,10 @@ class ModifierService implements ModifierServiceInterface
         ModifierHolder $holder,
     ): void {
         $modifier = $holder->getModifiers()->getModifierFromConfig($modifierConfig);
-        $this->delete($modifier);
+
+        if ($modifier) {
+            $this->delete($modifier);
+        }
     }
 
     private function getModifiedValue(ModifierCollection $modifierCollection, ?float $initValue): int
@@ -214,6 +217,9 @@ class ModifierService implements ModifierServiceInterface
         return $modifiedValue;
     }
 
+    /**
+     * @param ArrayCollection<int, Modifier> $modifiers
+     */
     private function dispatchModifiersEvent(ArrayCollection $modifiers, string $reason, \DateTime $time, bool $isSuccessful = true): void
     {
         foreach ($modifiers as $modifier) {

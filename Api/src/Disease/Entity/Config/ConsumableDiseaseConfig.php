@@ -158,6 +158,9 @@ class ConsumableDiseaseConfig
         return $this->consumableAttributes;
     }
 
+    /**
+     * @psalm-param ArrayCollection<int, ConsumableDiseaseAttribute> $diseases
+     */
     public function setAttributes(Collection $diseases): self
     {
         $this->consumableAttributes = $diseases;

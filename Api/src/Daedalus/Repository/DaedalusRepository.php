@@ -8,6 +8,9 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameStatusEnum;
 
+/**
+ * @template-extends ServiceEntityRepository<Daedalus>
+ */
 class DaedalusRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

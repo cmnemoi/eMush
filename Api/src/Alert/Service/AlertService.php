@@ -188,12 +188,13 @@ class AlertService implements AlertServiceInterface
     public function getAlertEquipmentElement(Alert $alert, GameEquipment $equipment): AlertElement
     {
         $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getEquipment() === $equipment);
+        $alertEquipment = $filteredList->first();
 
-        if ($filteredList->count() !== 1) {
+        if ($filteredList->count() !== 1 || !$alertEquipment) {
             throw new \LogicException('this equipment should be reported exactly one time');
         }
 
-        return $filteredList->first();
+        return $alertEquipment;
     }
 
     public function handleFireStart(Place $place): void
@@ -231,12 +232,13 @@ class AlertService implements AlertServiceInterface
     public function getAlertFireElement(Alert $alert, Place $place): AlertElement
     {
         $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getPlace() === $place);
+        $fireAlert = $filteredList->first();
 
-        if ($filteredList->count() !== 1) {
+        if ($filteredList->count() !== 1 || !$fireAlert) {
             throw new \LogicException('this fire should be reported exactly one time');
         }
 
-        return $filteredList->first();
+        return $fireAlert;
     }
 
     private function getAlert(Daedalus $daedalus, string $alertName): Alert

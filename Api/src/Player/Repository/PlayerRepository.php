@@ -10,6 +10,9 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 
+/**
+ * @template-extends ServiceEntityRepository<Player>
+ */
 class PlayerRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

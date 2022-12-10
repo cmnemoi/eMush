@@ -11,6 +11,9 @@ use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 
+/**
+ * @template-extends ServiceEntityRepository<Channel>
+ */
 class ChannelRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

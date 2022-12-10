@@ -6,6 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierConfig;
 
+/**
+ * @template-extends ArrayCollection<int, Modifier>
+ */
 class ModifierCollection extends ArrayCollection
 {
     public function addModifiers(self $modifierCollection): self
@@ -28,9 +31,11 @@ class ModifierCollection extends ArrayCollection
         return $this->filter(fn (Modifier $modifier) => in_array($modifier->getModifierConfig()->getScope(), $scopes));
     }
 
-    public function getModifierFromConfig(ModifierConfig $modifierConfig): Modifier
+    public function getModifierFromConfig(ModifierConfig $modifierConfig): ?Modifier
     {
-        return $this->filter(fn (Modifier $modifier) => $modifier->getModifierConfig() === $modifierConfig)->first();
+        $modifierConfig = $this->filter(fn (Modifier $modifier) => $modifier->getModifierConfig() === $modifierConfig)->first();
+
+        return $modifierConfig ?: null;
     }
 
     public function sortModifiersByDelta(bool $ascending = true): self

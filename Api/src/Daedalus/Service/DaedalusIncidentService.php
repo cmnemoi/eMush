@@ -63,8 +63,8 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     {
         $numberOfNewTremor = $this->getNumberOfIncident($daedalus);
 
-        $isARoom = fn (Place $place) => $place->getType() === PlaceTypeEnum::ROOM;
-        $hasPlayersInside = fn (Place $place) => $place->getPlayers()->getPlayerAlive()->count() > 0;
+        $isARoom = fn (Place $place): bool => $place->getType() === PlaceTypeEnum::ROOM;
+        $hasPlayersInside = fn (Place $place): bool => $place->getPlayers()->getPlayerAlive()->count() > 0;
 
         $rooms = $daedalus->getRooms()->filter($isARoom)->filter($hasPlayersInside);
 

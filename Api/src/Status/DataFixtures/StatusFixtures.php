@@ -169,7 +169,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($reinforced);
 
-        /** @var ModifierConfig $frozenModifier */
+        /** @var ModifierConfig $antisocialModifier */
         $antisocialModifier = $this->getReference(StatusModifierConfigFixtures::ANTISOCIAL_MODIFIER);
 
         $antisocial = new StatusConfig();
@@ -305,7 +305,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($lost);
 
-        /** @var ModifierConfig $disabledConversionModifier */
+        /** @var ModifierConfig $lyingDownModifier */
         $lyingDownModifier = $this->getReference(StatusModifierConfigFixtures::LYING_DOWN_MODIFIER);
         $lyingDown = new StatusConfig();
         $lyingDown
@@ -346,7 +346,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($pregnant);
 
-        /** @var ModifierConfig $pacifistModifier */
+        /** @var ModifierConfig $starvingModifier */
         $starvingModifier = $this->getReference(StatusModifierConfigFixtures::STARVING_MODIFIER);
         $starving = new StatusConfig();
         $starving

@@ -183,7 +183,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         }
     }
 
-    private function translateAction(?string $action, $language): string
+    private function translateAction(?string $action, string $language): string
     {
         if ($action) {
             return $this->translationService->translate($action . '.name', [], 'actions', $language);

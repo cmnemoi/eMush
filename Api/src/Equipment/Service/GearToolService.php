@@ -134,7 +134,9 @@ class GearToolService implements GearToolServiceInterface
         }
 
         if (!$tools->isEmpty()) {
-            return $tools->first();
+            $tool = $tools->first();
+
+            return !$tool ? null : $tool;
         }
 
         return null;

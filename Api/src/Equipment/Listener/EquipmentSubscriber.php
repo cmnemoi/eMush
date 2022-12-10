@@ -52,7 +52,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function initModifier(EquipmentEvent $event)
+    public function initModifier(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
         $config = $equipment->getEquipment();
@@ -92,7 +92,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $this->gameEquipmentService->persist($equipment);
     }
 
-    public function checkInventoryOverflow(EquipmentEvent $event)
+    public function checkInventoryOverflow(EquipmentEvent $event): void
     {
         $equipment = $event->getEquipment();
         $holder = $equipment->getHolder();

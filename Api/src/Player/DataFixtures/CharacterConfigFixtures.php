@@ -369,6 +369,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
     private function buildDefaultCharacterConfig(): CharacterConfig
     {
         // ADMIN ONLY
+        /** @var Action $suicideAction */
         $suicideAction = $this->getReference(ActionsFixtures::SUICIDE);
 
         // @TODO: remove when the game is ready

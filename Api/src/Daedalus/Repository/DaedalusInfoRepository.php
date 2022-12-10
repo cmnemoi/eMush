@@ -7,6 +7,9 @@ use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Enum\GameStatusEnum;
 
+/**
+ * @template-extends ServiceEntityRepository<DaedalusInfo>
+ */
 class DaedalusInfoRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

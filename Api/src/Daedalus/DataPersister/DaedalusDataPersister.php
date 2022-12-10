@@ -33,6 +33,9 @@ class DaedalusDataPersister implements ContextAwareDataPersisterInterface
         return $this->daedalusService->createDaedalus($config, $data->getName(), $language);
     }
 
+    /**
+     * @return void
+     */
     public function remove($data, array $context = [])
     {
         // TODO: Implement remove() method.

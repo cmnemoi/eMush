@@ -56,7 +56,7 @@ class AreSymptomsPreventingActionValidator extends ConstraintValidator
         }
     }
 
-    private function isSymptomConditionMet(SymptomCondition $symptomCondition, $parameter): bool
+    private function isSymptomConditionMet(SymptomCondition $symptomCondition, \Mush\RoomLog\Entity\LogParameterInterface|null $parameter): bool
     {
         switch ($symptomCondition->getName()) {
             case SymptomConditionEnum::ITEM_STATUS:

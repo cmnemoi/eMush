@@ -254,8 +254,10 @@ class DaedalusService implements DaedalusServiceInterface
             ;
 
             if (!$mushPlayers->isEmpty()) {
+                /** @var Player $currentPlayer */
+                $currentPlayer = $mushPlayers->first();
                 $playerEvent = new PlayerEvent(
-                    $mushPlayers->first(),
+                    $currentPlayer,
                     DaedalusEvent::FULL_DAEDALUS,
                     $date
                 );

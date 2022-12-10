@@ -296,8 +296,9 @@ class CycleServiceTest extends TestCase
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalus
-            ->setCreatedAt(new \DateTime("2020-09-09 23:30:00.0 {$timeZone}"))
+            ->setCreatedAt(new \DateTime('2020-09-09 21:30:00.0 UTC'))
             ->setCycle(8)
+            ->setDay(3)
         ;
         $this->assertEquals($this->service->getDaedalusStartingCycleDate($daedalus), new \DateTime("2020-09-09 23:00:00.0 {$timeZone}"));
 

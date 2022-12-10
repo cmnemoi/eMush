@@ -27,6 +27,9 @@ class Gear extends EquipmentMechanic
         return $this->modifierConfigs;
     }
 
+    /**
+     * @param Collection<int, ModifierConfig> $modifierConfigs
+     */
     public function setModifierConfigs(Collection $modifierConfigs): static
     {
         $this->modifierConfigs = $modifierConfigs;

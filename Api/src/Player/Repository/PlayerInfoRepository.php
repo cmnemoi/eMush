@@ -8,6 +8,9 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 
+/**
+ * @template-extends ServiceEntityRepository<PlayerInfo>
+ */
 class PlayerInfoRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

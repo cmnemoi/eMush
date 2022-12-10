@@ -3,7 +3,6 @@
 namespace Mush\Test\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\ReadBook;
 use Mush\Action\Enum\ActionEnum;
@@ -26,7 +25,7 @@ class ReadBookActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::READ_BOOK, 2);
 
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new ReadBook(
             $this->eventDispatcher,
@@ -40,7 +39,7 @@ class ReadBookActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()

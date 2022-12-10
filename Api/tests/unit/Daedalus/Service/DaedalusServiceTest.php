@@ -66,15 +66,15 @@ class DaedalusServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->repository = Mockery::mock(DaedalusRepository::class);
-        $this->cycleService = Mockery::mock(CycleServiceInterface::class);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->localizationConfigRepository = Mockery::mock(LocalizationConfigRepository::class);
-        $this->daedalusInfoRepository = Mockery::mock(DaedalusInfoRepository::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
+        $this->repository = \Mockery::mock(DaedalusRepository::class);
+        $this->cycleService = \Mockery::mock(CycleServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
+        $this->localizationConfigRepository = \Mockery::mock(LocalizationConfigRepository::class);
+        $this->daedalusInfoRepository = \Mockery::mock(DaedalusInfoRepository::class);
 
         $this->service = new DaedalusService(
             $this->entityManager,
@@ -94,7 +94,7 @@ class DaedalusServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testCreateDaedalus()

@@ -39,12 +39,12 @@ class DoTheThingActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::DO_THE_THING);
 
-        $this->diseaseCauseService = Mockery::mock(DiseaseCauseServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $this->playerDiseaseService = Mockery::mock(PlayerDiseaseServiceInterface::class);
-        $this->playerVariableService = Mockery::mock(PlayerVariableServiceInterface::class);
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
+        $this->diseaseCauseService = \Mockery::mock(DiseaseCauseServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
+        $this->playerDiseaseService = \Mockery::mock(PlayerDiseaseServiceInterface::class);
+        $this->playerVariableService = \Mockery::mock(PlayerVariableServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
 
         $this->action = new DoTheThing(
             $this->eventDispatcher,
@@ -64,7 +64,7 @@ class DoTheThingActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()

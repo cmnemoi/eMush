@@ -28,7 +28,7 @@ class UniqueCharacterTest extends TestCase
      */
     public function before()
     {
-        $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
+        $this->daedalusService = \Mockery::mock(DaedalusServiceInterface::class);
         $this->validator = new UniqueCharacterValidator($this->daedalusService);
     }
 
@@ -37,7 +37,7 @@ class UniqueCharacterTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValid()
@@ -94,8 +94,8 @@ class UniqueCharacterTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

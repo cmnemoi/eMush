@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Status\Service;
 
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
@@ -49,9 +48,9 @@ class StatusServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->repository = Mockery::mock(StatusRepository::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
+        $this->repository = \Mockery::mock(StatusRepository::class);
 
         $this->service = new StatusService(
             $this->entityManager,
@@ -65,7 +64,7 @@ class StatusServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testPersist()
@@ -105,15 +104,15 @@ class StatusServiceTest extends TestCase
 
         $hidden1 = new Status($item1, $statusConfig);
         $hidden1
-            ->setCreatedAt(new DateTime());
+            ->setCreatedAt(new \DateTime());
 
         $hidden2 = new Status($item3, $statusConfig);
         $hidden2
-            ->setCreatedAt(new DateTime());
+            ->setCreatedAt(new \DateTime());
 
         $hidden3 = new Status($item2, $statusConfig);
         $hidden3
-            ->setCreatedAt(new DateTime());
+            ->setCreatedAt(new \DateTime());
 
         $mostRecent = $this->service->getMostRecent('hidden', new ArrayCollection([$item1, $item2, $item3]));
 

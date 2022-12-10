@@ -1,0 +1,10 @@
+Mush\Game\Entity\LocalizationConfig:
+  attributes:
+    id:
+      groups: [ 'localization_config_read' ]
+    name:
+      groups: [ 'localization_config_read', 'localization_config_write' ]
+    language:
+      groups: [ 'localization_config_read', 'localization_config_write' ]
+    timezone:
+      groups: [ 'localization_config_read', 'localization_config_write' ]

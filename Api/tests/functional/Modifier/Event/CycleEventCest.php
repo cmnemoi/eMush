@@ -3,7 +3,6 @@
 namespace Mush\Tests\Modifier\Event;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -57,7 +56,7 @@ class CycleEventCest
 
         $actionPointBefore = $player->getActionPoint();
 
-        $time = new DateTime();
+        $time = new \DateTime();
 
         $statusConfig = new StatusConfig();
         $statusConfig->setName(PlayerStatusEnum::LYING_DOWN);
@@ -115,7 +114,7 @@ class CycleEventCest
 
         $moralePointBefore = $player->getMoralPoint();
 
-        $time = new DateTime();
+        $time = new \DateTime();
 
         $statusConfig = new StatusConfig();
         $statusConfig->setName(PlayerStatusEnum::LYING_DOWN);
@@ -178,7 +177,7 @@ class CycleEventCest
 
         $actionPointBefore = $player->getActionPoint();
 
-        $time = new DateTime();
+        $time = new \DateTime();
 
         $statusConfig = new StatusConfig();
         $statusConfig->setName(PlayerStatusEnum::LYING_DOWN);

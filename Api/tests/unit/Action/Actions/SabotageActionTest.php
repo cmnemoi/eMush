@@ -29,7 +29,7 @@ class SabotageActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::SABOTAGE, 2);
 
@@ -46,7 +46,7 @@ class SabotageActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()

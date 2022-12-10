@@ -3,7 +3,6 @@
 namespace Mush\Tests\Disease\Event;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -93,7 +92,7 @@ class NewDiseaseOnCycleCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $time = new DateTime();
+        $time = new \DateTime();
 
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);

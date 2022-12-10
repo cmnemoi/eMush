@@ -3,7 +3,6 @@
 namespace functional\Equipment\Listener;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
@@ -95,7 +94,7 @@ class PlantCycleEventCest
         ;
         $I->haveInRepository($youngStatus);
 
-        $time = new DateTime();
+        $time = new \DateTime();
 
         $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::NEW_CYCLE, $time);
 
@@ -106,7 +105,7 @@ class PlantCycleEventCest
         $I->assertEquals(7, $gameEquipment->getStatuses()->first()->getCharge());
 
         // growing up
-        $time = new DateTime();
+        $time = new \DateTime();
         $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::NEW_CYCLE, $time);
 
         $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
@@ -197,7 +196,7 @@ class PlantCycleEventCest
         $I->haveInRepository($youngStatus);
 
         // Plant is young : no fruit or oxygen
-        $time = new DateTime();
+        $time = new \DateTime();
 
         $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::PLANT_PRODUCTION, $time);
 
@@ -236,7 +235,7 @@ class PlantCycleEventCest
         $thirstyStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DRY);
         $gameEquipment->removeStatus($thirstyStatus);
 
-        $time = new DateTime();
+        $time = new \DateTime();
         $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, EventEnum::PLANT_PRODUCTION, $time);
 
         $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);
@@ -278,7 +277,7 @@ class PlantCycleEventCest
             $gameEquipment2,
             $daedalus,
             EventEnum::PLANT_PRODUCTION,
-            new DateTime()
+            new \DateTime()
         );
 
         $this->eventDispatcher->dispatch($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_DAY);

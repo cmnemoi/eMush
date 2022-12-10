@@ -23,8 +23,8 @@ class CanGrantRoleTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->roleHierarchy = Mockery::mock(RoleHierarchyInterface::class);
-        $this->tokenStorage = Mockery::mock(TokenStorageInterface::class);
+        $this->roleHierarchy = \Mockery::mock(RoleHierarchyInterface::class);
+        $this->tokenStorage = \Mockery::mock(TokenStorageInterface::class);
 
         $this->tokenStorage
             ->shouldReceive('getToken')
@@ -40,7 +40,7 @@ class CanGrantRoleTest extends TestCase
 
     protected function tearDown(): void
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValid()
@@ -76,8 +76,8 @@ class CanGrantRoleTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

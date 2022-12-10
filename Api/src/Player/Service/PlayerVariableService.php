@@ -2,7 +2,6 @@
 
 namespace Mush\Player\Service;
 
-use Error;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Player\Entity\Player;
@@ -39,7 +38,7 @@ class PlayerVariableService implements PlayerVariableServiceInterface
                 $maxValue = $characterConfig->getMaxMoralPoint();
                 break;
             default:
-                throw new Error('getMaxPlayerVariable : invalid target string');
+                throw new \Error('getMaxPlayerVariable : invalid target string');
         }
 
         return $this->modifierService->getEventModifiedValue(

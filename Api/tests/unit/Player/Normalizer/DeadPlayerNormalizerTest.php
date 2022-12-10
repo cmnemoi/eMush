@@ -32,7 +32,7 @@ class DeadPlayerNormalizerTest extends TestCase
      */
     public function before()
     {
-        $this->translationService = Mockery::mock(TranslationServiceInterface::class);
+        $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
 
         $this->normalizer = new DeadPlayerNormalizer($this->translationService);
     }
@@ -42,7 +42,7 @@ class DeadPlayerNormalizerTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testNormalizer()

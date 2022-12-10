@@ -46,9 +46,9 @@ class RoomLogServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->repository = Mockery::mock(RoomLogRepository::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->repository = \Mockery::mock(RoomLogRepository::class);
 
         $this->service = new RoomLogService(
             $this->entityManager,
@@ -62,7 +62,7 @@ class RoomLogServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testFindById()

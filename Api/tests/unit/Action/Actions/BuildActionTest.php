@@ -32,8 +32,8 @@ class BuildActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gearToolService = \Mockery::mock(GearToolServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
@@ -51,7 +51,7 @@ class BuildActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()

@@ -4,7 +4,6 @@ namespace Mush\Equipment\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Error;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
@@ -61,7 +60,7 @@ class GearToolService implements GearToolServiceInterface
             default:
                 $room = $player->getDaedalus()->getPlaceByName($reach);
                 if ($room === null) {
-                    throw new Error('Invalid reach');
+                    throw new \Error('Invalid reach');
                 }
 
                 return $room

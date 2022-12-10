@@ -28,8 +28,8 @@ class PlayerVariableServiceTest extends TestCase
      */
     public function before()
     {
-        $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->modifierService = \Mockery::mock(ModifierServiceInterface::class);
+        $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
         $this->service = new PlayerVariableService(
             $this->modifierService,
@@ -42,7 +42,7 @@ class PlayerVariableServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testSatietyModifier()

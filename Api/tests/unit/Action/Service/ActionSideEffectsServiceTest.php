@@ -39,10 +39,10 @@ class ActionSideEffectsServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
+        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
+        $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->modifierService = \Mockery::mock(ModifierServiceInterface::class);
 
         $this->actionService = new ActionSideEffectsService(
             $this->eventDispatcher,
@@ -55,7 +55,7 @@ class ActionSideEffectsServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testHandleActionSideEffectDirty()

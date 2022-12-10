@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\ActionOutputEnum;
@@ -41,8 +42,7 @@ class PhagocyteActionCest
 
     public function testPhagocyteWithOneSpore(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();
 

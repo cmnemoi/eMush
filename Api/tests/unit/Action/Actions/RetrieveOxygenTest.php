@@ -28,7 +28,7 @@ class RetrieveOxygenTest extends AbstractActionTest
     public function before()
     {
         parent::before();
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_OXYGEN);
 
         $this->action = new RetrieveOxygen(
@@ -44,7 +44,7 @@ class RetrieveOxygenTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()

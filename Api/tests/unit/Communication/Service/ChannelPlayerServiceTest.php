@@ -26,7 +26,7 @@ class ChannelPlayerServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
 
         $this->service = new ChannelPlayerService(
             $this->entityManager,
@@ -38,7 +38,7 @@ class ChannelPlayerServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testAddPlayer()

@@ -3,7 +3,6 @@
 namespace functional\Daedalus\Event;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -53,8 +52,8 @@ class LastPlayerKilledCest
             'oxygen' => 1,
             'cycle' => 5,
             'day' => 10,
-            'filledAt' => new DateTime(),
-            'cycleStartedAt' => new DateTime(),
+            'filledAt' => new \DateTime(),
+            'cycleStartedAt' => new \DateTime(),
         ]);
 
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -92,7 +91,7 @@ class LastPlayerKilledCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $event = new PlayerEvent($player, ActionEnum::HIT, new DateTime());
+        $event = new PlayerEvent($player, ActionEnum::HIT, new \DateTime());
         $this->eventDispatcher->dispatch($event, PlayerEvent::DEATH_PLAYER);
 
         $I->assertEquals(GameStatusEnum::FINISHED, $daedalus->getGameStatus());

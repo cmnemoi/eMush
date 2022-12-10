@@ -3,7 +3,6 @@
 namespace functional\Daedalus\Event;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -51,7 +50,7 @@ class DaedalusVariableEventCest
             DaedalusVariableEnum::OXYGEN,
             -2,
             EventEnum::NEW_CYCLE,
-            new DateTime()
+            new \DateTime()
         );
         $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
 
@@ -80,7 +79,7 @@ class DaedalusVariableEventCest
             DaedalusVariableEnum::OXYGEN,
             -2,
             'other_reason',
-            new DateTime()
+            new \DateTime()
         );
         $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
 
@@ -91,7 +90,7 @@ class DaedalusVariableEventCest
             DaedalusVariableEnum::OXYGEN,
             -2,
             EventEnum::NEW_CYCLE,
-            new DateTime()
+            new \DateTime()
         );
         $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);
 

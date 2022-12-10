@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Validator;
 
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\HasDiseases;
 use Mush\Action\Validator\HasDiseasesValidator;
@@ -34,7 +33,7 @@ class HasDiseasesValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValidDisease()
@@ -47,7 +46,7 @@ class HasDiseasesValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -75,7 +74,7 @@ class HasDiseasesValidatorTest extends TestCase
 
         $player->addMedicalCondition($playerDisease);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -104,7 +103,7 @@ class HasDiseasesValidatorTest extends TestCase
         $playerDisease->setPlayer($player)->setDiseaseConfig($diseaseConfig);
         $player->addMedicalCondition($playerDisease);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -125,7 +124,7 @@ class HasDiseasesValidatorTest extends TestCase
         $player = new Player();
         $player->setPlace($room);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -155,7 +154,7 @@ class HasDiseasesValidatorTest extends TestCase
         $playerDisease->setPlayer($player)->setDiseaseConfig($diseaseConfig);
         $player->addMedicalCondition($playerDisease);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -183,7 +182,7 @@ class HasDiseasesValidatorTest extends TestCase
         $playerDisease->setPlayer($player)->setDiseaseConfig($diseaseConfig);
         $player->addMedicalCondition($playerDisease);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -215,7 +214,7 @@ class HasDiseasesValidatorTest extends TestCase
 
         $player->addMedicalCondition($playerDisease);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -229,8 +228,8 @@ class HasDiseasesValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

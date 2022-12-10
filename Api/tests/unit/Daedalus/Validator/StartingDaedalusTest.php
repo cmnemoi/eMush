@@ -29,7 +29,7 @@ class StartingDaedalusTest extends TestCase
      */
     public function before()
     {
-        $this->gameConfigService = Mockery::mock(GameConfigService::class);
+        $this->gameConfigService = \Mockery::mock(GameConfigService::class);
         $this->validator = new StartingDaedalusValidator($this->gameConfigService);
     }
 
@@ -38,7 +38,7 @@ class StartingDaedalusTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValid()
@@ -79,8 +79,8 @@ class StartingDaedalusTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

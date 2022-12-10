@@ -25,7 +25,7 @@ class MoveActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::MOVE, 0, 1);
 
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
         $this->action = new Move(
             $this->eventDispatcher,
@@ -40,7 +40,7 @@ class MoveActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()

@@ -2,7 +2,6 @@
 
 namespace Mush\User\Entity;
 
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\User\Enum\RoleEnum;
@@ -33,7 +32,7 @@ class User implements UserInterface
     private ?string $nonceCode = null;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?DateTime $nonceExpiryDate = null;
+    private ?\DateTime $nonceExpiryDate = null;
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $roles = [RoleEnum::USER];
@@ -125,12 +124,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getNonceExpiryDate(): ?DateTime
+    public function getNonceExpiryDate(): ?\DateTime
     {
         return $this->nonceExpiryDate;
     }
 
-    public function setNonceExpiryDate(?DateTime $nonceExpiryDate): self
+    public function setNonceExpiryDate(?\DateTime $nonceExpiryDate): self
     {
         $this->nonceExpiryDate = $nonceExpiryDate;
 

@@ -18,6 +18,7 @@ use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -47,8 +48,7 @@ class RepairActionCest
 
     public function testRepair(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();
 

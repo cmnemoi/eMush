@@ -38,7 +38,7 @@ class IsReportedValidatorTest extends TestCase
      */
     public function before()
     {
-        $this->alertService = Mockery::mock(AlertServiceInterface::class);
+        $this->alertService = \Mockery::mock(AlertServiceInterface::class);
 
         $this->validator = new IsReportedValidator($this->alertService);
         $this->constraint = new IsReported();
@@ -49,7 +49,7 @@ class IsReportedValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValidFire()
@@ -74,7 +74,7 @@ class IsReportedValidatorTest extends TestCase
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::FIRES)->addAlertElement($alertElement);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -120,7 +120,7 @@ class IsReportedValidatorTest extends TestCase
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::FIRES)->addAlertElement($alertElement);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -164,7 +164,7 @@ class IsReportedValidatorTest extends TestCase
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::BROKEN_EQUIPMENTS)->addAlertElement($alertElement);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -211,7 +211,7 @@ class IsReportedValidatorTest extends TestCase
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::BROKEN_EQUIPMENTS)->addAlertElement($alertElement);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -234,8 +234,8 @@ class IsReportedValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

@@ -30,8 +30,8 @@ class UltraHealActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::ULTRAHEAL);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $this->playerVariableService = Mockery::mock(PlayerVariableServiceInterface::class);
+        $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
+        $this->playerVariableService = \Mockery::mock(PlayerVariableServiceInterface::class);
 
         $this->action = new UltraHeal(
             $this->eventDispatcher,
@@ -47,7 +47,7 @@ class UltraHealActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()

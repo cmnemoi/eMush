@@ -36,7 +36,7 @@ abstract class AbstractActionTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
         $this->eventDispatcher
             ->shouldReceive('dispatch')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof ActionEvent &&
@@ -45,10 +45,10 @@ abstract class AbstractActionTest extends TestCase
             ->times(3)
         ;
 
-        $this->actionService = Mockery::mock(ActionServiceInterface::class);
+        $this->actionService = \Mockery::mock(ActionServiceInterface::class);
         $this->actionService->shouldReceive('canPlayerDoAction')->andReturn(true);
 
-        $this->validator = Mockery::mock(ValidatorInterface::class);
+        $this->validator = \Mockery::mock(ValidatorInterface::class);
         $this->validator->shouldReceive('validate')->andReturn(new ConstraintViolationList());
     }
 
@@ -57,7 +57,7 @@ abstract class AbstractActionTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     protected function createActionEntity(string $name, int $actionPointCost = 0, int $movementPoint = 0): Action

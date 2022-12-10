@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Validator;
 
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\DailySporesLimit;
 use Mush\Action\Validator\DailySporesLimitValidator;
@@ -34,7 +33,7 @@ class DailySporesLimitValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValidForDaedalus()
@@ -47,7 +46,7 @@ class DailySporesLimitValidatorTest extends TestCase
 
         $this->constraint->target = DailySporesLimit::DAEDALUS;
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -70,7 +69,7 @@ class DailySporesLimitValidatorTest extends TestCase
 
         $this->constraint->target = DailySporesLimit::DAEDALUS;
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -98,7 +97,7 @@ class DailySporesLimitValidatorTest extends TestCase
 
         $this->constraint->target = DailySporesLimit::PLAYER;
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -121,7 +120,7 @@ class DailySporesLimitValidatorTest extends TestCase
 
         $this->constraint->target = DailySporesLimit::PLAYER;
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -144,8 +143,8 @@ class DailySporesLimitValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

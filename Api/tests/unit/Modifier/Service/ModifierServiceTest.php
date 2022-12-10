@@ -44,10 +44,10 @@ class ModifierServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->conditionService = Mockery::mock(ModifierConditionServiceInterface::class);
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
+        $this->conditionService = \Mockery::mock(ModifierConditionServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new ModifierService(
             $this->entityManager,
@@ -62,7 +62,7 @@ class ModifierServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testPersist()

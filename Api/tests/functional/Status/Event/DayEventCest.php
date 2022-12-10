@@ -3,7 +3,6 @@
 namespace Mush\Tests\Status\Event;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -30,7 +29,7 @@ class DayEventCest
     {
         // Day Increment
         $daedalus = new Daedalus();
-        $time = new DateTime();
+        $time = new \DateTime();
         $player = $I->have(Player::class);
 
         $daedalus->setCycle(1);

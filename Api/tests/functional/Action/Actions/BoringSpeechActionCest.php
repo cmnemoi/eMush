@@ -13,6 +13,7 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -41,8 +42,7 @@ class BoringSpeechActionCest
 
     public function testBoringSpeech(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $didBoringSpeechStatus = new ChargeStatusConfig();
         $didBoringSpeechStatus
             ->setName(PlayerStatusEnum::DID_BORING_SPEECH)

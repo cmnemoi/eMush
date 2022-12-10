@@ -2,7 +2,6 @@
 
 namespace Mush\Status\Listener;
 
-use Error;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\ChargeStatus;
@@ -49,7 +48,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $playerSpores = $player->getStatusByName(PlayerStatusEnum::SPORES);
 
         if ($playerSpores === null) {
-            throw new Error('Player should have a spore status');
+            throw new \Error('Player should have a spore status');
         }
 
         $playerSpores->addCharge(1);
@@ -69,7 +68,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             $sporeStatus = $player->getStatusByName(PlayerStatusEnum::SPORES);
 
             if (!($sporeStatus instanceof ChargeStatus)) {
-                throw new Error('Player should have a spore status');
+                throw new \Error('Player should have a spore status');
             }
 
             $sporeStatus->setCharge(0);

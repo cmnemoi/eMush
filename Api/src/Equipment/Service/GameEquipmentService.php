@@ -4,7 +4,6 @@ namespace Mush\Equipment\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Error;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -120,7 +119,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
         if ($config->isPersonal()) {
             if (!($holder instanceof Player)) {
-                throw new Error('holder should be a player');
+                throw new \Error('holder should be a player');
             }
             $gameEquipment->setOwner($holder);
         }

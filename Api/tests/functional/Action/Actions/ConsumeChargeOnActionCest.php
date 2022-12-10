@@ -22,6 +22,7 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -53,8 +54,7 @@ class ConsumeChargeOnActionCest
 
     public function testToolCharge(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
             ->setName(StatusEnum::ATTEMPT)
@@ -158,8 +158,7 @@ class ConsumeChargeOnActionCest
 
     public function testGearCharge(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $equipmentCoffee = new EquipmentConfig();
         $equipmentCoffee
             ->setName(GameRationEnum::COFFEE)
@@ -294,8 +293,7 @@ class ConsumeChargeOnActionCest
 
     public function testGearMovementActionConversionCharge(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $actionCost = new ActionCost();
         $actionCost->setMovementPointCost(1);
         $actionEntity = new Action();

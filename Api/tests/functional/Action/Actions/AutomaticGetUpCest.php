@@ -14,6 +14,7 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\ActionOutputEnum;
@@ -42,8 +43,7 @@ class AutomaticGetUpCest
 
     public function testAutomaticGetUp(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setName(PlayerStatusEnum::LYING_DOWN)

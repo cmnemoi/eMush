@@ -38,8 +38,8 @@ class AlertServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->repository = Mockery::mock(AlertRepository::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->repository = \Mockery::mock(AlertRepository::class);
 
         $this->alertService = new AlertService(
             $this->entityManager,
@@ -52,7 +52,7 @@ class AlertServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testNoOxygenAlert()

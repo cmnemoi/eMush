@@ -39,9 +39,9 @@ class PlaceServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->repository = Mockery::mock(PlaceRepository::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
+        $this->repository = \Mockery::mock(PlaceRepository::class);
 
         $this->placeService = new PlaceService(
             $this->entityManager,
@@ -55,7 +55,7 @@ class PlaceServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testCreateRoom()

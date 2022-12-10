@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\ActionOutputEnum;
@@ -45,8 +46,7 @@ class WashInSinkActionCest
 
     public function testHumanWashInSink(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $alreadyWashedInTheSink = new ChargeStatusConfig();
         $alreadyWashedInTheSink
             ->setName(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK)

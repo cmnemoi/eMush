@@ -13,6 +13,7 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -48,7 +49,7 @@ class ActionSubscriberCest
 
     public function testOnPostActionSubscriberInjury(FunctionalTester $I)
     {
-        $I->loadFixtures(GameConfigFixtures::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();
@@ -99,7 +100,7 @@ class ActionSubscriberCest
 
     public function testOnPostActionSubscriberDirty(FunctionalTester $I)
     {
-        $I->loadFixtures(GameConfigFixtures::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
 
         $dirtyConfig = new StatusConfig();
         $dirtyConfig
@@ -163,7 +164,7 @@ class ActionSubscriberCest
 
     public function testOnPostActionSubscriberAlreadyDirty(FunctionalTester $I)
     {
-        $I->loadFixtures(GameConfigFixtures::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
 
         $dirtyConfig = new StatusConfig();
         $dirtyConfig
@@ -225,7 +226,7 @@ class ActionSubscriberCest
 
     public function testOnPostActionSubscriberDirtyApron(FunctionalTester $I)
     {
-        $I->loadFixtures(GameConfigFixtures::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();

@@ -41,7 +41,7 @@ class MessageNormalizerTest extends TestCase
      */
     public function before()
     {
-        $this->translationService = Mockery::mock(TranslationServiceInterface::class);
+        $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
 
         $this->normalizer = new MessageNormalizer(
             $this->translationService,
@@ -53,7 +53,7 @@ class MessageNormalizerTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testNormalizePlayerMessage()
@@ -221,7 +221,7 @@ class MessageNormalizerTest extends TestCase
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('name' . '.name', [], 'characters', LanguageEnum::FRENCH)
+            ->with('name.name', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translated player name')
             ->once()
         ;

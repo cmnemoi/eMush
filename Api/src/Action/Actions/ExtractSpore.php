@@ -2,7 +2,6 @@
 
 namespace Mush\Action\Actions;
 
-use Error;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
@@ -58,7 +57,7 @@ class ExtractSpore extends AbstractAction
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
 
         if ($sporeStatus === null) {
-            throw new Error('Player should have a spore status');
+            throw new \Error('Player should have a spore status');
         }
 
         return new Success();
@@ -70,7 +69,7 @@ class ExtractSpore extends AbstractAction
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
 
         if ($sporeStatus === null) {
-            throw new Error('Player should have a spore status');
+            throw new \Error('Player should have a spore status');
         }
 
         $sporeStatus->addCharge(1);

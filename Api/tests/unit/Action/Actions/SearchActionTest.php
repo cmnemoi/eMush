@@ -32,8 +32,8 @@ class SearchActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::SEARCH, 1);
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new Search(
             $this->eventDispatcher,
@@ -48,7 +48,7 @@ class SearchActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecuteNoItem()

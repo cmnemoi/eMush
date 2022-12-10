@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Validator;
 
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\AreMedicalSuppliesOnReach;
 use Mush\Action\Validator\AreMedicalSuppliesOnReachValidator;
@@ -35,7 +34,7 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValidInMedlab()
@@ -51,7 +50,7 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
         $target = new Player();
         $target->setPlace($medlab);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
@@ -80,7 +79,7 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
         $target = new Player();
         $target->setPlace($room);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
@@ -109,7 +108,7 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
         $target = new Player();
         $target->setPlace($room);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
@@ -137,7 +136,7 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
         $target = new Player();
         $target->setPlace($medlab);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $target,
@@ -151,8 +150,8 @@ class AreMedicalSuppliesOnReachValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

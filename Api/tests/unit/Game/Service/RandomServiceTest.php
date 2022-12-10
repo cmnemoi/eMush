@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Game\Service;
 
-use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -34,7 +33,7 @@ class RandomServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testRandom()

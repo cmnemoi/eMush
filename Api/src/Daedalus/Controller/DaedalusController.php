@@ -6,17 +6,23 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\Dto\DaedalusCreateRequest;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
+use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\User\Entity\User;
+use Mush\User\Enum\RoleEnum;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class UsersController.
@@ -29,17 +35,20 @@ class DaedalusController extends AbstractFOSRestController
     private DaedalusWidgetServiceInterface $daedalusWidgetService;
     private TranslationServiceInterface $translationService;
     private PlayerInfoRepository $playerInfoRepository;
+    private ValidatorInterface $validator;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         DaedalusWidgetServiceInterface $daedalusWidgetService,
         TranslationServiceInterface $translationService,
         PlayerInfoRepository $playerInfoRepository,
+        ValidatorInterface $validator
     ) {
         $this->daedalusService = $daedalusService;
         $this->daedalusWidgetService = $daedalusWidgetService;
         $this->translationService = $translationService;
         $this->playerInfoRepository = $playerInfoRepository;
+        $this->validator = $validator;
     }
 
     /**
@@ -99,5 +108,67 @@ class DaedalusController extends AbstractFOSRestController
         }
 
         return $this->view($this->daedalusWidgetService->getMinimap($daedalus, $playerInfo->getPlayer()), 200);
+    }
+
+    /**
+     * Create a Daedalus.
+     *
+     * @OA\RequestBody (
+     *      description="Input data format",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *      @OA\Schema(
+     *              type="object",
+     *                  @OA\Property(
+     *                     property="name",
+     *                     description="The name of the Daedalus",
+     *                     type="string",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="config",
+     *                     description="The daedalus config",
+     *                     type="integer",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="language",
+     *                     description="The language for this daedalus",
+     *                     type="string"
+     *                 )
+     *             )
+     *             )
+     *         )
+     *     )
+     * @OA\Tag (name="Daedalus")
+     *
+     * @Security (name="Bearer")
+     *
+     * @ParamConverter("daedalusCreateRequest", converter="DaedalusCreateRequestConverter")
+     * @Rest\Post(path="/create-daedalus", requirements={"id"="\d+"})
+     */
+    public function createDaedalus(DaedalusCreateRequest $daedalusCreateRequest): View
+    {
+        if (count($violations = $this->validator->validate($daedalusCreateRequest))) {
+            return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $userRoles = $user->getRoles();
+        if (!(in_array(RoleEnum::SUPER_ADMIN, $userRoles, true) ||
+            in_array(RoleEnum::ADMIN, $userRoles, true))) {
+            throw new AccessDeniedException('User is not an admin');
+        }
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $daedalusCreateRequest->getConfig();
+
+        $this->daedalusService->createDaedalus(
+            $gameConfig,
+            $daedalusCreateRequest->getName(),
+            $daedalusCreateRequest->getLanguage()
+        );
+
+        return $this->view(null, 200);
     }
 }

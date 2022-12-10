@@ -15,6 +15,7 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -44,7 +45,7 @@ class AttemptActionChangeCest
 
     public function testChangeAttemptAction(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
 
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
@@ -166,8 +167,7 @@ class AttemptActionChangeCest
 
     public function testNormalizeAnotherAction(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
             ->setName(StatusEnum::ATTEMPT)

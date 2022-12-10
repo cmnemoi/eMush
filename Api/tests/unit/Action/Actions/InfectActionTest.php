@@ -27,7 +27,7 @@ class InfectActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::INFECT, 1);
 
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new Infect(
             $this->eventDispatcher,
@@ -42,7 +42,7 @@ class InfectActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()

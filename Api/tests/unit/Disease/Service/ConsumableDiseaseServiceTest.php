@@ -40,10 +40,10 @@ class ConsumableDiseaseServiceTest extends TestCase
      */
     public function before()
     {
-        $this->consumableDiseaseRepository = Mockery::mock(ConsumableDiseaseRepository::class);
-        $this->consumableDiseaseConfigRepository = Mockery::mock(ConsumableDiseaseConfigRepository::class);
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->consumableDiseaseRepository = \Mockery::mock(ConsumableDiseaseRepository::class);
+        $this->consumableDiseaseConfigRepository = \Mockery::mock(ConsumableDiseaseConfigRepository::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->consumableDiseaseService = new ConsumableDiseaseService(
             $this->consumableDiseaseRepository,
@@ -58,7 +58,7 @@ class ConsumableDiseaseServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testCreateConsumableDiseasesWithPredefinedDiseases()

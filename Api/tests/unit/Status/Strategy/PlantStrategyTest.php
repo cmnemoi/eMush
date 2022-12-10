@@ -24,7 +24,7 @@ class PlantStrategyTest extends TestCase
      */
     public function before()
     {
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->strategy = new PlantStrategy($this->statusService);
     }
@@ -34,7 +34,7 @@ class PlantStrategyTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testIncrement()

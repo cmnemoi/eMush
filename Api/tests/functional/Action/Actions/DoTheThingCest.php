@@ -20,6 +20,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -56,7 +57,7 @@ class DoTheThingCest
 
     public function testDoTheThing(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, DaedalusConfigFixtures::class]);
+        $I->loadFixtures([GameConfigFixtures::class, DaedalusConfigFixtures::class, LocalizationConfigFixtures::class]);
 
         $didTheThingStatus = new ChargeStatusConfig();
         $didTheThingStatus
@@ -221,8 +222,7 @@ class DoTheThingCest
 
     public function testNoFlirt(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
 
         /** @var Daedalus $daedalus */
@@ -307,8 +307,7 @@ class DoTheThingCest
 
     public function testWitness(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -404,8 +403,7 @@ class DoTheThingCest
 
     public function testRoomHasBed(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);

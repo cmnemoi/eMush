@@ -42,8 +42,8 @@ class GearToolServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->service = new GearToolService(
             $this->eventDispatcher,
@@ -56,7 +56,7 @@ class GearToolServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testGetEquipmentOnReach()

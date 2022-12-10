@@ -33,8 +33,8 @@ class PlayerSuscriberTest extends TestCase
      */
     public function before()
     {
-        $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->daedalusService = \Mockery::mock(DaedalusServiceInterface::class);
+        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
 
         $this->playerSubscriber = new PlayerSubscriber(
             $this->daedalusService,
@@ -47,7 +47,7 @@ class PlayerSuscriberTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testOnDaedalusDestruction()

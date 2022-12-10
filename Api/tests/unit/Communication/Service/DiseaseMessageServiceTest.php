@@ -45,8 +45,8 @@ class DiseaseMessageServiceTest extends TestCase
      */
     public function before()
     {
-        $this->translationService = Mockery::mock(TranslationService::class);
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->translationService = \Mockery::mock(TranslationService::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new DiseaseMessageService(
             $this->randomService,
@@ -59,7 +59,7 @@ class DiseaseMessageServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testDeafPlayer()

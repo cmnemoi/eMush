@@ -26,7 +26,7 @@ class UpdateTalkieActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::UPDATE_TALKIE);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->action = new UpdateTalkie(
             $this->eventDispatcher,
@@ -41,7 +41,7 @@ class UpdateTalkieActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecuteRation()

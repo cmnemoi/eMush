@@ -17,6 +17,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -49,8 +50,7 @@ class TakeDropActionCest
 
     public function testTakeDropItem(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();
 
@@ -161,8 +161,7 @@ class TakeDropActionCest
 
     public function TakeDropHeavyItem(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $burdenedStatusConfig = new StatusConfig();
         $burdenedStatusConfig
             ->setName(PlayerStatusEnum::BURDENED)
@@ -290,8 +289,7 @@ class TakeDropActionCest
 
     public function TakeHiddenItem(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $hiddenConfig = new StatusConfig();
         $hiddenConfig->setName(EquipmentStatusEnum::HIDDEN);
         $I->haveInRepository($hiddenConfig);
@@ -383,8 +381,7 @@ class TakeDropActionCest
 
     public function HideHeavyItemInInventory(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $hiddenStatusConfig = new StatusConfig();
         $hiddenStatusConfig->setName(EquipmentStatusEnum::HIDDEN);
         $I->haveInRepository($hiddenStatusConfig);

@@ -46,9 +46,9 @@ class DaedalusIncidentServiceTest extends TestCase
      */
     public function before()
     {
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->gameEquipmentRepository = Mockery::mock(GameEquipmentRepository::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
+        $this->gameEquipmentRepository = \Mockery::mock(GameEquipmentRepository::class);
 
         $this->service = new DaedalusIncidentService(
             $this->randomService,
@@ -62,7 +62,7 @@ class DaedalusIncidentServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testHandleFireEvents()

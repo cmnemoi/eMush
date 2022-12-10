@@ -3,11 +3,14 @@ import { Alert } from "@/entities/Alerts";
 import { Daedalus } from "@/entities/Daedalus";
 import urlJoin from "url-join";
 import { Minimap } from "@/entities/Minimap";
+import { GameConfig } from "@/entities/Config/GameConfig";
 
 // @ts-ignore
 const DAEDALUS_ALERTS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "alert");
 // @ts-ignore
 const DAEDALUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "daedaluses");
+// @ts-ignore
+const CREATE_DAEDALUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "daedaluses/create-daedalus");
 
 const DaedalusService = {
     loadAlerts: async (daedalus: Daedalus): Promise<Alert[]> => {
@@ -33,9 +36,11 @@ const DaedalusService = {
         }
         return minimap;
     },
-    createDaedalus: async (name: string): Promise<any> => {
-        return ApiService.post(DAEDALUS_ENDPOINT + '?XDEBUG_SESSION_START=PHPSTORM', {
-            name: name
+    createDaedalus: async (name: string, config: string, language: string): Promise<any> => {
+        return ApiService.post(CREATE_DAEDALUS_ENDPOINT, {
+            'config' : config,
+            'name' : name,
+            'language' : language
         });
     }
 };

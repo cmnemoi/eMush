@@ -20,14 +20,14 @@ class UserVoterTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->roleHierarchy = Mockery::mock(RoleHierarchyInterface::class);
+        $this->roleHierarchy = \Mockery::mock(RoleHierarchyInterface::class);
 
         $this->voter = new UserVoter($this->roleHierarchy);
     }
 
     protected function tearDown(): void
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testCanEditRole()

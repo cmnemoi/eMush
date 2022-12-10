@@ -27,9 +27,9 @@ class ShowerActionTest extends AbstractActionTest
     public function before()
     {
         parent::before();
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
+        $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
+        $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::SHOWER, 2);
 
@@ -46,7 +46,7 @@ class ShowerActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()

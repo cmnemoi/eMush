@@ -45,9 +45,9 @@ class DiseaseCauseServiceTest extends TestCase
      */
     public function before()
     {
-        $this->playerDiseaseService = Mockery::mock(PlayerDiseaseService::class);
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->consumableDiseaseService = Mockery::mock(ConsumableDiseaseServiceInterface::class);
+        $this->playerDiseaseService = \Mockery::mock(PlayerDiseaseService::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->consumableDiseaseService = \Mockery::mock(ConsumableDiseaseServiceInterface::class);
 
         $this->diseaseCauseService = new DiseaseCauseService(
             $this->playerDiseaseService,
@@ -61,7 +61,7 @@ class DiseaseCauseServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testSpoiledFoodHazardous()

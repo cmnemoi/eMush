@@ -2,8 +2,6 @@
 
 namespace Mush\Game\Service;
 
-use DateInterval;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
@@ -24,7 +22,7 @@ class CycleService implements CycleServiceInterface
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function handleCycleChange(DateTime $dateTime, Daedalus $daedalus): int
+    public function handleCycleChange(\DateTime $dateTime, Daedalus $daedalus): int
     {
         $daedalusInfo = $daedalus->getDaedalusInfo();
         $daedalusConfig = $daedalusInfo->getGameConfig()->getDaedalusConfig();
@@ -49,7 +47,7 @@ class CycleService implements CycleServiceInterface
 
             try {
                 for ($i = 0; $i < $cycleElapsed; ++$i) {
-                    $dateDaedalusLastCycle->add(new DateInterval('PT' . strval($daedalusConfig->getCycleLength()) . 'M'));
+                    $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($daedalusConfig->getCycleLength()) . 'M'));
                     $cycleEvent = new DaedalusCycleEvent(
                         $daedalus,
                         EventEnum::NEW_CYCLE,
@@ -74,7 +72,7 @@ class CycleService implements CycleServiceInterface
         return $cycleElapsed;
     }
 
-    public function getDateStartNextCycle(Daedalus $daedalus): DateTime
+    public function getDateStartNextCycle(Daedalus $daedalus): \DateTime
     {
         $daedalusConfig = $daedalus->getGameConfig()->getDaedalusConfig();
 
@@ -84,11 +82,11 @@ class CycleService implements CycleServiceInterface
 
         $nextCycleStartAt = clone $dateDaedalusLastCycle;
 
-        return $nextCycleStartAt->add(new DateInterval('PT' . strval($daedalusConfig->getCycleLength()) . 'M'));
+        return $nextCycleStartAt->add(new \DateInterval('PT' . strval($daedalusConfig->getCycleLength()) . 'M'));
     }
 
     // get day cycle from date (value between 1 and $gameConfig->getCyclePerGameDay())
-    public function getInDayCycleFromDate(DateTime $date, Daedalus $daedalus): int
+    public function getInDayCycleFromDate(\DateTime $date, Daedalus $daedalus): int
     {
         $daedalusInfo = $daedalus->getDaedalusInfo();
 
@@ -109,14 +107,14 @@ class CycleService implements CycleServiceInterface
      * Get Daedalus first cycle date
      * First actual cycle of the ship (ie: for 3h cycle in fr, if the ship start C8, then it will be 21h:00).
      */
-    public function getDaedalusStartingCycleDate(Daedalus $daedalus): DateTime
+    public function getDaedalusStartingCycleDate(Daedalus $daedalus): \DateTime
     {
         $daedalusInfo = $daedalus->getDaedalusInfo();
 
         $timeConfig = $daedalusInfo->getLocalizationConfig();
         $daedalusConfig = $daedalusInfo->getGameConfig()->getDaedalusConfig();
 
-        $firstCycleDate = $daedalus->getCreatedAt() ?? new DateTime();
+        $firstCycleDate = $daedalus->getCreatedAt() ?? new \DateTime();
 
         $firstDayDate = clone $firstCycleDate;
         $firstDayDate
@@ -129,10 +127,10 @@ class CycleService implements CycleServiceInterface
         $numberOfCompleteDay = intval($this->getDateIntervalAsMinutes($firstCycleDate, $firstDayDate) / $gameDayLength);
         $minutesBetweenDayStartAndDaedalusFirstCycle = $numberOfCompleteDay * $gameDayLength + (($daedalus->getCycle() - 1) * $daedalusConfig->getCycleLength());
 
-        return $firstDayDate->add(new DateInterval('PT' . strval($minutesBetweenDayStartAndDaedalusFirstCycle) . 'M'));
+        return $firstDayDate->add(new \DateInterval('PT' . strval($minutesBetweenDayStartAndDaedalusFirstCycle) . 'M'));
     }
 
-    private function getNumberOfCycleElapsed(DateTime $start, DateTime $end, Daedalus $daedalus): int
+    private function getNumberOfCycleElapsed(\DateTime $start, \DateTime $end, Daedalus $daedalus): int
     {
         $daedalusInfo = $daedalus->getDaedalusInfo();
         $localizationConfig = $daedalusInfo->getLocalizationConfig();
@@ -147,7 +145,7 @@ class CycleService implements CycleServiceInterface
         return intval(floor($differencesInMinutes / $daedalusConfig->getCycleLength()));
     }
 
-    private function getDateIntervalAsMinutes(DateTime $dateStart, DateTime $dateEnd): int
+    private function getDateIntervalAsMinutes(\DateTime $dateStart, \DateTime $dateEnd): int
     {
         $dateInterval = $dateEnd->diff($dateStart);
 

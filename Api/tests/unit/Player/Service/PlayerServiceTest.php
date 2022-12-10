@@ -52,12 +52,12 @@ class PlayerServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->repository = Mockery::mock(PlayerRepository::class);
-        $this->deadPlayerInfoRepository = Mockery::mock(DeadPlayerInfoRepository::class);
-        $this->roomLogService = Mockery::mock(RoomLogServiceInterface::class);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
+        $this->repository = \Mockery::mock(PlayerRepository::class);
+        $this->deadPlayerInfoRepository = \Mockery::mock(DeadPlayerInfoRepository::class);
+        $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->charactersConfigs = new CharacterConfigCollection();
 
@@ -76,7 +76,7 @@ class PlayerServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testCreatePlayer()

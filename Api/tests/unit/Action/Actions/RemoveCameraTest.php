@@ -30,7 +30,7 @@ class RemoveCameraActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::REMOVE_CAMERA);
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->action = new RemoveCamera(
             $this->eventDispatcher,
@@ -45,7 +45,7 @@ class RemoveCameraActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()

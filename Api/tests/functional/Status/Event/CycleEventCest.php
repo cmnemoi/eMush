@@ -3,7 +3,6 @@
 namespace Mush\Tests\Status\Event;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -45,7 +44,7 @@ class CycleEventCest
     {
         // Cycle Increment
         $daedalus = new Daedalus();
-        $time = new DateTime();
+        $time = new \DateTime();
         /** @var Player $player */
         $player = $I->have(Player::class);
 
@@ -152,7 +151,7 @@ class CycleEventCest
         $moralPointBefore = $player->getMoralPoint();
         $hullPointBefore = $daedalus->getHull();
 
-        $time = new DateTime();
+        $time = new \DateTime();
 
         $statusConfig = new ChargeStatusConfig();
         $statusConfig->setName(StatusEnum::FIRE);

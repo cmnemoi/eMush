@@ -3,7 +3,6 @@
 namespace functional\Action\Actions;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\ExtinguishManually;
 use Mush\Action\Entity\Action;
@@ -18,6 +17,7 @@ use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
@@ -50,7 +50,7 @@ class ExtinguishManuallyActionCest
 
     public function testExtinguishManually(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class, DaedalusConfigFixtures::class]);
+        $I->loadFixtures([GameConfigFixtures::class, DaedalusConfigFixtures::class, LocalizationConfigFixtures::class]);
 
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
@@ -96,7 +96,7 @@ class ExtinguishManuallyActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $statusEvent = new StatusEvent(StatusEnum::FIRE, $room, EventEnum::NEW_CYCLE, new DateTime());
+        $statusEvent = new StatusEvent(StatusEnum::FIRE, $room, EventEnum::NEW_CYCLE, new \DateTime());
 
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 

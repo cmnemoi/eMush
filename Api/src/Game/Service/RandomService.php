@@ -2,7 +2,6 @@
 
 namespace Mush\Game\Service;
 
-use Error;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
@@ -35,7 +34,7 @@ class RandomService implements RandomServiceInterface
         $chance = $this->randomPercent();
 
         if ($criticalFailRate > $successRate || 100 - $criticalSuccessRate < $successRate) {
-            throw new Error('$criticalFailRate must be lower than $successRate and 100 - $criticalSuccessRate higher than $successRate');
+            throw new \Error('$criticalFailRate must be lower than $successRate and 100 - $criticalSuccessRate higher than $successRate');
         }
 
         if ($chance <= $criticalFailRate) {
@@ -48,13 +47,13 @@ class RandomService implements RandomServiceInterface
             return ActionOutputEnum::CRITICAL_SUCCESS;
         }
 
-        throw new Error('input percentages should range between 0 and 100');
+        throw new \Error('input percentages should range between 0 and 100');
     }
 
     public function getRandomPlayer(PlayerCollection $players): Player
     {
         if ($players->isEmpty()) {
-            throw new Error('getRandomPlayer: collection is empty');
+            throw new \Error('getRandomPlayer: collection is empty');
         }
 
         return current($this->getRandomElements($players->toArray()));
@@ -63,7 +62,7 @@ class RandomService implements RandomServiceInterface
     public function getRandomDisease(PlayerDiseaseCollection $collection): PlayerDisease
     {
         if ($collection->isEmpty()) {
-            throw new Error('getRandomDisease: collection is empty');
+            throw new \Error('getRandomDisease: collection is empty');
         }
 
         return current($this->getRandomElements($collection->toArray()));
@@ -82,7 +81,7 @@ class RandomService implements RandomServiceInterface
     public function getItemInRoom(Place $place): GameItem
     {
         if ($place->getEquipments()->isEmpty()) {
-            throw new Error('getItemInRoom: room has no items');
+            throw new \Error('getItemInRoom: room has no items');
         }
 
         $items = $place->getEquipments()->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem);
@@ -112,14 +111,14 @@ class RandomService implements RandomServiceInterface
     public function getSingleRandomElementFromProbaArray(array $array): string
     {
         if (count($array) < 1) {
-            throw new Error('getSingleRandomElement: array is not large enough');
+            throw new \Error('getSingleRandomElement: array is not large enough');
         }
 
         // first create a cumulative form of the array
         $cumuProba = 0;
         foreach ($array as $event => $proba) {
             if (!is_int($proba)) {
-                throw new Error('Proba weight should be provided as integers');
+                throw new \Error('Proba weight should be provided as integers');
             }
 
             $cumuProba = $cumuProba + $proba;
@@ -127,7 +126,7 @@ class RandomService implements RandomServiceInterface
         }
 
         if ($cumuProba === 0) {
-            throw new Error('getSingleRandomElement: only 0 proba element in array');
+            throw new \Error('getSingleRandomElement: only 0 proba element in array');
         }
 
         $probaLim = $this->random(0, $cumuProba);
@@ -143,7 +142,7 @@ class RandomService implements RandomServiceInterface
     public function getRandomElementsFromProbaArray(array $array, int $number): array
     {
         if (count($array) < $number) {
-            throw new Error('getRandomElements: array is not large enough');
+            throw new \Error('getRandomElements: array is not large enough');
         }
 
         $randomElements = [];
@@ -163,7 +162,7 @@ class RandomService implements RandomServiceInterface
     public function poissonRandom(float $lambda): int
     {
         if ($lambda < 0) {
-            throw new Error('poissonRandom: lambda must be positive');
+            throw new \Error('poissonRandom: lambda must be positive');
         }
 
         $L = exp(-$lambda);

@@ -25,8 +25,8 @@ class PlayerModifierSubscriberTest extends TestCase
      */
     public function before()
     {
-        $this->playerVariableService = Mockery::mock(PlayerVariableServiceInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->playerVariableService = \Mockery::mock(PlayerVariableServiceInterface::class);
+        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
 
         $this->playerModifierSubscriber = new PlayerModifierSubscriber(
             $this->playerVariableService,
@@ -39,7 +39,7 @@ class PlayerModifierSubscriberTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testOnMovementPointModifier()

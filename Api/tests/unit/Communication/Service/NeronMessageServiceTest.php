@@ -39,11 +39,11 @@ class NeronMessageServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->channelService = Mockery::mock(ChannelServiceInterface::class);
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->repository = Mockery::mock(MessageRepository::class);
-        $this->translationService = Mockery::mock(TranslationServiceInterface::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->channelService = \Mockery::mock(ChannelServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->repository = \Mockery::mock(MessageRepository::class);
+        $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
 
         $this->entityManager->shouldReceive([
             'persist' => null,

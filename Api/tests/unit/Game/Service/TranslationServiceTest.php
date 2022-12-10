@@ -25,7 +25,7 @@ class TranslationServiceTest extends TestCase
      */
     public function before()
     {
-        $this->translator = Mockery::mock(TranslatorInterface::class);
+        $this->translator = \Mockery::mock(TranslatorInterface::class);
 
         $this->translationService = new TranslationService(
             $this->translator,
@@ -37,7 +37,7 @@ class TranslationServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testGetSimpleTranslationParameters()

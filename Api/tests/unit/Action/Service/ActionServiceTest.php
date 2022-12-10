@@ -41,11 +41,11 @@ class ActionServiceTest extends TestCase
      */
     public function before()
     {
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
+        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
+        $this->modifierService = \Mockery::mock(ModifierServiceInterface::class);
 
-        $this->actionService = Mockery::mock(ActionServiceInterface::class);
-        $this->validator = Mockery::mock(ValidatorInterface::class);
+        $this->actionService = \Mockery::mock(ActionServiceInterface::class);
+        $this->validator = \Mockery::mock(ValidatorInterface::class);
 
         $this->service = new ActionService(
             $this->eventDispatcher,
@@ -58,7 +58,7 @@ class ActionServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testApplyCostToPlayer()

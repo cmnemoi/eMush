@@ -13,6 +13,24 @@
             >
             <ErrorList v-if="errors.name" :errors="errors.name"></ErrorList>
         </div>
+        <div class="flex-grow-1">
+            <label for="daedalus_config">{{ $t('admin.daedalus.config') }}</label>
+            <select v-model="config">
+                <option v-for="option in configs" :value="option.id" :key="option.id">
+                    {{ option.name }}
+                </option>
+            </select>
+            <ErrorList v-if="errors.gameConfig" :errors="errors.gameConfig"></ErrorList>
+        </div>
+        <div class="flex-grow-2">
+            <label for="daedalus_language">{{ $t('admin.daedalus.language') }}</label>
+            <select v-model="language">
+                <option v-for="option in languages" :value="option.language" :key="option.id">
+                    {{ option.name }}
+                </option>
+            </select>
+            <ErrorList v-if="errors.language" :errors="errors.language"></ErrorList>
+        </div>
         <button class="action-button" type="submit" @click="save">
             {{ $t('admin.save') }}
         </button>
@@ -25,6 +43,11 @@ import DaedalusService from "@/services/daedalus.service";
 import ErrorList from "@/components/Utils/ErrorList.vue";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import store from "@/store";
+import { GameConfig } from "@/entities/Config/GameConfig";
+import qs from "qs";
+import ApiService from "@/services/api.service";
+import urlJoin from "url-join";
+import { LocalizationConfig } from "@/entities/Config/LocalizationConfig";
 
 export default defineComponent({
     name: "DaedalusDetailPage",
@@ -33,14 +56,45 @@ export default defineComponent({
     },
     data() {
         return {
+            configs: [GameConfig],
+            languages: [LocalizationConfig],
             name: '',
-            errors: {}
+            config: '',
+            language: '',
+            errors: {},
+            loading: false,
         };
     },
     methods: {
+        loadData() {
+            this.loading = true;
+            const params: any = {
+                header: {
+                    'accept': 'application/ld+json'
+                },
+                params: {},
+                paramsSerializer: qs.stringify
+            };
+
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+ 'game_configs'))
+                .then((result) => {
+                    return result.data;
+                })
+                .then((remoteRowData: any) => {
+                    this.configs = remoteRowData['hydra:member'];
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+ 'localization_configs'))
+                .then((result) => {
+                    return result.data;
+                })
+                .then((remoteRowData: any) => {
+                    this.languages = remoteRowData['hydra:member'];
+                    this.loading = false;
+                });
+        },
         save(): void {
             store.dispatch('gameConfig/setLoading', { loading: true });
-            DaedalusService.createDaedalus(this.name)
+            DaedalusService.createDaedalus(this.name, this.config, this.language)
                 .then(() => (this.$router.push({ name: 'AdminDaedalusList' })))
                 .catch((error) => {
                     if (error.response) {
@@ -58,6 +112,9 @@ export default defineComponent({
                 .finally(() => store.dispatch('gameConfig/setLoading', { loading: false }))
             ;
         }
+    },
+    beforeMount() {
+        this.loadData();
     }
 });
 </script>

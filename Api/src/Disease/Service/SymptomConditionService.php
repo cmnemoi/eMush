@@ -2,7 +2,6 @@
 
 namespace Mush\Disease\Service;
 
-use DateTime;
 use Mush\Action\Entity\Action;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\SymptomCondition;
@@ -92,7 +91,7 @@ class SymptomConditionService implements SymptomConditionServiceInterface
             $dirtyRate,
             [ModifierScopeEnum::EVENT_DIRTY],
             $action->getName(),
-            new DateTime(),
+            new \DateTime(),
             $player
         ) || $isSuperDirty;
     }

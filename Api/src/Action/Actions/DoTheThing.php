@@ -2,7 +2,6 @@
 
 namespace Mush\Action\Actions;
 
-use Error;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
@@ -255,7 +254,7 @@ class DoTheThing extends AbstractAction
         $sporeStatus = $mush->getStatusByName(PlayerStatusEnum::SPORES);
 
         if ($sporeStatus === null) {
-            throw new Error('Player should have a spore status');
+            throw new \Error('Player should have a spore status');
         }
 
         if ($sporeStatus->getCharge() > 0) {

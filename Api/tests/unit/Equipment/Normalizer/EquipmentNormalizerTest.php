@@ -44,10 +44,10 @@ class EquipmentNormalizerTest extends TestCase
      */
     public function before()
     {
-        $this->translationService = Mockery::mock(TranslationService::class);
-        $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
-        $this->consumableDiseaseService = Mockery::mock(ConsumableDiseaseServiceInterface::class);
-        $this->equipmentEffectService = Mockery::mock(EquipmentEffectServiceInterface::class);
+        $this->translationService = \Mockery::mock(TranslationService::class);
+        $this->gearToolService = \Mockery::mock(GearToolServiceInterface::class);
+        $this->consumableDiseaseService = \Mockery::mock(ConsumableDiseaseServiceInterface::class);
+        $this->equipmentEffectService = \Mockery::mock(EquipmentEffectServiceInterface::class);
 
         $this->normalizer = new EquipmentNormalizer(
             $this->translationService,
@@ -62,7 +62,7 @@ class EquipmentNormalizerTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testEquipmentNormalizer()
@@ -79,7 +79,7 @@ class EquipmentNormalizerTest extends TestCase
 
         $equipmentConfig = new EquipmentConfig();
 
-        $equipment = Mockery::mock(GameEquipment::class);
+        $equipment = \Mockery::mock(GameEquipment::class);
         $equipment->shouldReceive('getId')->andReturn(2);
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->shouldReceive('getHolder')->andReturn($place);
@@ -141,7 +141,7 @@ class EquipmentNormalizerTest extends TestCase
 
         $equipmentConfig = new ItemConfig();
 
-        $equipment = Mockery::mock(GameItem::class);
+        $equipment = \Mockery::mock(GameItem::class);
         $equipment->shouldReceive('getId')->andReturn(2);
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->shouldReceive('getHolder')->andReturn($place);
@@ -212,7 +212,7 @@ class EquipmentNormalizerTest extends TestCase
         $equipmentConfig = new EquipmentConfig();
         $equipmentConfig->setMechanics(new ArrayCollection([$blueprint]));
 
-        $equipment = Mockery::mock(GameEquipment::class);
+        $equipment = \Mockery::mock(GameEquipment::class);
         $equipment->shouldReceive('getId')->andReturn(2);
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->shouldReceive('getHolder')->andReturn($place);

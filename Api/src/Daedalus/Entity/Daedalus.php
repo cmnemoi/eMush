@@ -2,7 +2,6 @@
 
 namespace Mush\Daedalus\Entity;
 
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -66,13 +65,13 @@ class Daedalus implements ModifierHolder
     private int $dailySpores = 0;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?DateTime $filledAt = null;
+    private ?\DateTime $filledAt = null;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?DateTime $finishedAt = null;
+    private ?\DateTime $finishedAt = null;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?DateTime $cycleStartedAt = null;
+    private ?\DateTime $cycleStartedAt = null;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isCycleChange = false;
@@ -307,36 +306,36 @@ class Daedalus implements ModifierHolder
         return $this;
     }
 
-    public function getFilledAt(): ?DateTime
+    public function getFilledAt(): ?\DateTime
     {
         return $this->filledAt;
     }
 
-    public function setFilledAt(DateTime $filledAt): static
+    public function setFilledAt(\DateTime $filledAt): static
     {
         $this->filledAt = $filledAt;
 
         return $this;
     }
 
-    public function getFinishedAt(): ?DateTime
+    public function getFinishedAt(): ?\DateTime
     {
         return $this->finishedAt;
     }
 
-    public function setFinishedAt(DateTime $finishedAt): static
+    public function setFinishedAt(\DateTime $finishedAt): static
     {
         $this->finishedAt = $finishedAt;
 
         return $this;
     }
 
-    public function getCycleStartedAt(): ?DateTime
+    public function getCycleStartedAt(): ?\DateTime
     {
         return $this->cycleStartedAt;
     }
 
-    public function setCycleStartedAt(DateTime $cycleStartedAt): static
+    public function setCycleStartedAt(\DateTime $cycleStartedAt): static
     {
         $this->cycleStartedAt = $cycleStartedAt;
 

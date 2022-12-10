@@ -25,7 +25,7 @@ class DailyDecrementTest extends TestCase
      */
     public function before()
     {
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->strategy = new DailyDecrement($this->statusService);
     }
@@ -35,7 +35,7 @@ class DailyDecrementTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testDecrement()

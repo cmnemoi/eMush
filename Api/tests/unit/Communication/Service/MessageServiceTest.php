@@ -35,8 +35,8 @@ class MessageServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->diseaseMessageService = Mockery::mock(DiseaseMessageServiceInterface::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->diseaseMessageService = \Mockery::mock(DiseaseMessageServiceInterface::class);
 
         $this->entityManager->shouldReceive([
             'persist' => null,
@@ -54,12 +54,12 @@ class MessageServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testCreatePlayerMessage()
     {
-        $messageClass = Mockery::mock(Message::class);
+        $messageClass = \Mockery::mock(Message::class);
 
         $channel = new Channel();
         $player = new Player();
@@ -91,7 +91,7 @@ class MessageServiceTest extends TestCase
 
     public function testCreatePlayerMessageWithParent()
     {
-        $messageClass = Mockery::mock(Message::class);
+        $messageClass = \Mockery::mock(Message::class);
 
         $message = new Message();
 

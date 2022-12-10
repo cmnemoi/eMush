@@ -28,8 +28,8 @@ class PlayerStatusServiceTest extends TestCase
      */
     public function before()
     {
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
+        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
 
         $this->playerStatusService = new PlayerStatusService($this->statusService, $this->eventDispatcher);
     }
@@ -39,7 +39,7 @@ class PlayerStatusServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testHandleMoralNoStatuses()

@@ -31,7 +31,7 @@ class ModifierConditionServiceTest extends TestCase
      */
     public function before()
     {
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new ModifierConditionService(
             $this->randomService,
@@ -43,7 +43,7 @@ class ModifierConditionServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testRandomConditionModifier()

@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\LanguageEnum;
@@ -41,7 +42,7 @@ class CreateDaedalusCest
     public function createDaedalusTest(FunctionalTester $I)
     {
         // Lets create a Daedalus with 3 rooms, few random equipment.
-        $I->loadFixtures(GameConfigFixtures::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
 
         // roomConfigs

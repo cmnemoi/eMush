@@ -3,7 +3,6 @@
 namespace Mush\Tests\Alert\Listener;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
@@ -64,7 +63,7 @@ class FireStatusSubscriberCest
             StatusEnum::FIRE,
             $room,
             EventEnum::NEW_CYCLE,
-            new DateTime()
+            new \DateTime()
         );
         $this->statusSubscriber->onStatusApplied($statusEvent);
 
@@ -118,7 +117,7 @@ class FireStatusSubscriberCest
             StatusEnum::FIRE,
             $room,
             ActionEnum::EXTINGUISH,
-            new DateTime()
+            new \DateTime()
         );
         $this->statusSubscriber->onStatusRemoved($statusEvent);
 

@@ -32,7 +32,7 @@ class AlertNormalizerTest extends TestCase
      */
     public function before()
     {
-        $this->translationService = Mockery::mock(TranslationService::class);
+        $this->translationService = \Mockery::mock(TranslationService::class);
 
         $this->normalizer = new AlertNormalizer($this->translationService);
     }
@@ -42,7 +42,7 @@ class AlertNormalizerTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testNormalize()

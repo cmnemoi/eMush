@@ -3,7 +3,6 @@
 namespace Mush\Tests\Place\Event;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -46,7 +45,7 @@ class RoomEventCest
 
     public function testRoomEventOnNonRoomPlace(FunctionalTester $I)
     {
-        $time = new DateTime();
+        $time = new \DateTime();
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -99,7 +98,7 @@ class RoomEventCest
             ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
-        $time = new DateTime();
+        $time = new \DateTime();
         /** @var Place $room */
         $room = $I->have(Place::class);
 
@@ -119,7 +118,7 @@ class RoomEventCest
 
     public function testTremor(FunctionalTester $I)
     {
-        $time = new DateTime();
+        $time = new \DateTime();
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class);
         /** @var GameConfig $gameConfig */
@@ -183,7 +182,7 @@ class RoomEventCest
         ;
         $I->haveInRepository($statusConfig);
 
-        $time = new DateTime();
+        $time = new \DateTime();
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class);
         /** @var GameConfig $gameConfig */

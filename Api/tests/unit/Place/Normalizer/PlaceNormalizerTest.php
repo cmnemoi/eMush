@@ -31,7 +31,7 @@ class PlaceNormalizerTest extends TestCase
      */
     public function before()
     {
-        $this->translationService = Mockery::mock(TranslationServiceInterface::class);
+        $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
 
         $this->normalizer = new PlaceNormalizer($this->translationService);
     }
@@ -41,7 +41,7 @@ class PlaceNormalizerTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testRoomNormalizer()
@@ -95,7 +95,7 @@ class PlaceNormalizerTest extends TestCase
 
         $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 
-        $normalizer = Mockery::mock(NormalizerInterface::class);
+        $normalizer = \Mockery::mock(NormalizerInterface::class);
         $normalizer->shouldReceive('normalize')->andReturn([]);
 
         $this->normalizer->setNormalizer($normalizer);
@@ -134,7 +134,7 @@ class PlaceNormalizerTest extends TestCase
 
         $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 
-        $normalizer = Mockery::mock(NormalizerInterface::class);
+        $normalizer = \Mockery::mock(NormalizerInterface::class);
         $normalizer->shouldReceive('normalize')->andReturn([]);
 
         $this->normalizer->setNormalizer($normalizer);
@@ -173,7 +173,7 @@ class PlaceNormalizerTest extends TestCase
 
         $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 
-        $normalizer = Mockery::mock(NormalizerInterface::class);
+        $normalizer = \Mockery::mock(NormalizerInterface::class);
         $normalizer->shouldReceive('normalize')->andReturn([]);
 
         $player = new Player();
@@ -219,7 +219,7 @@ class PlaceNormalizerTest extends TestCase
 
         $room->method('getEquipments')->willReturn(new ArrayCollection([$gameItem1, $gameItem2, $gameItem3]));
 
-        $normalizer = Mockery::mock(NormalizerInterface::class);
+        $normalizer = \Mockery::mock(NormalizerInterface::class);
         $normalizer->shouldReceive('normalize')->andReturn([])->twice();
 
         $player = new Player();

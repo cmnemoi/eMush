@@ -34,9 +34,9 @@ class TreatPlantActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::TREAT_PLANT, 2);
 
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->playerService = Mockery::mock(PlayerServiceInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new TreatPlant(
             $this->eventDispatcher,
@@ -51,7 +51,7 @@ class TreatPlantActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()

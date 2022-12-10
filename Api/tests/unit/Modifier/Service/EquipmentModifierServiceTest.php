@@ -34,7 +34,7 @@ class EquipmentModifierServiceTest extends TestCase
      */
     public function before()
     {
-        $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
+        $this->modifierService = \Mockery::mock(ModifierServiceInterface::class);
 
         $this->service = new EquipmentModifierService(
             $this->modifierService,
@@ -46,7 +46,7 @@ class EquipmentModifierServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testGearCreated()

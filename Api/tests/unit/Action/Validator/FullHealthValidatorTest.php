@@ -27,7 +27,7 @@ class FullHealthValidatorTest extends TestCase
      */
     public function before()
     {
-        $this->playerVariableService = Mockery::mock(PlayerVariableServiceInterface::class);
+        $this->playerVariableService = \Mockery::mock(PlayerVariableServiceInterface::class);
 
         $this->validator = new FullHealthValidator($this->playerVariableService);
         $this->constraint = new FullHealth();
@@ -38,7 +38,7 @@ class FullHealthValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValid()
@@ -50,7 +50,7 @@ class FullHealthValidatorTest extends TestCase
             ->setDaedalus($daedalus)
         ;
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $player,
@@ -77,7 +77,7 @@ class FullHealthValidatorTest extends TestCase
             ->setDaedalus($daedalus)
         ;
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getParameter' => $player,
@@ -94,8 +94,8 @@ class FullHealthValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

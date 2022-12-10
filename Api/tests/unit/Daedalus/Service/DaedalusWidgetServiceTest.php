@@ -30,7 +30,7 @@ class DaedalusWidgetServiceTest extends TestCase
      */
     public function before()
     {
-        $this->alertService = Mockery::mock(AlertServiceInterface::class);
+        $this->alertService = \Mockery::mock(AlertServiceInterface::class);
 
         $this->service = new DaedalusWidgetService(
             $this->alertService,
@@ -42,7 +42,7 @@ class DaedalusWidgetServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testgetMinimap()

@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Validator;
 
-use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasEquipmentValidator;
@@ -35,7 +34,7 @@ class HasEquipmentValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValidForEquipment()
@@ -56,7 +55,7 @@ class HasEquipmentValidatorTest extends TestCase
         $gameEquipment = new GameItem($room);
         $gameEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -86,7 +85,7 @@ class HasEquipmentValidatorTest extends TestCase
         $gameEquipment = new GameItem($room);
         $gameEquipment->setName(ItemEnum::CAMERA_ITEM);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -116,7 +115,7 @@ class HasEquipmentValidatorTest extends TestCase
         $gameEquipment = new GameItem($room);
         $gameEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -148,7 +147,7 @@ class HasEquipmentValidatorTest extends TestCase
         $gameEquipment2 = new GameItem($room);
         $gameEquipment2->setName(EquipmentEnum::ANTENNA);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -178,7 +177,7 @@ class HasEquipmentValidatorTest extends TestCase
         $gameEquipment = new GameItem($room);
         $gameEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -208,7 +207,7 @@ class HasEquipmentValidatorTest extends TestCase
         $gameEquipment = new GameItem($player2);
         $gameEquipment->setName(ItemEnum::ITRACKIE);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
@@ -222,8 +221,8 @@ class HasEquipmentValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

@@ -38,9 +38,9 @@ class PlayerDiseaseServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
 
         $this->playerDiseaseService = new PlayerDiseaseService(
             $this->entityManager,
@@ -54,7 +54,7 @@ class PlayerDiseaseServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testCreateDiseaseFromNameAndWithDiseaseConfigDelay()

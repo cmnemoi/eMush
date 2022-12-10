@@ -32,9 +32,9 @@ class DaedalusNormalizerTest extends TestCase
      */
     public function before()
     {
-        $this->cycleService = Mockery::mock(CycleServiceInterface::class);
-        $this->translationService = Mockery::mock(TranslationServiceInterface::class);
-        $this->daedalusWidgetService = Mockery::mock(DaedalusWidgetServiceInterface::class);
+        $this->cycleService = \Mockery::mock(CycleServiceInterface::class);
+        $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
+        $this->daedalusWidgetService = \Mockery::mock(DaedalusWidgetServiceInterface::class);
 
         $this->normalizer = new DaedalusNormalizer($this->cycleService, $this->translationService, $this->daedalusWidgetService);
     }
@@ -44,14 +44,14 @@ class DaedalusNormalizerTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testNormalizer()
     {
         $nextCycle = new \DateTime();
         $this->cycleService->shouldReceive('getDateStartNextCycle')->andReturn($nextCycle);
-        $daedalus = Mockery::mock(Daedalus::class);
+        $daedalus = \Mockery::mock(Daedalus::class);
         $daedalus->shouldReceive('getId')->andReturn(2);
         $daedalus->makePartial();
         $daedalus->setPlayers(new ArrayCollection());

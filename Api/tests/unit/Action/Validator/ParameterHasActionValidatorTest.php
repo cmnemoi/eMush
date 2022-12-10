@@ -31,7 +31,7 @@ class ParameterHasActionValidatorTest extends TestCase
      */
     public function before()
     {
-        $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
+        $this->gearToolService = \Mockery::mock(GearToolServiceInterface::class);
 
         $this->validator = new HasActionValidator($this->gearToolService);
         $this->constraint = new HasAction();
@@ -42,7 +42,7 @@ class ParameterHasActionValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValid()
@@ -55,7 +55,7 @@ class ParameterHasActionValidatorTest extends TestCase
         $gameItem = new GameItem(new Place());
         $gameItem->setEquipment($itemConfig);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getAction' => $actionEntity,
@@ -78,7 +78,7 @@ class ParameterHasActionValidatorTest extends TestCase
         $gameItem = new GameItem(new Place());
         $gameItem->setEquipment($itemConfig);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getAction' => new Action(),
@@ -104,7 +104,7 @@ class ParameterHasActionValidatorTest extends TestCase
         $gameItem = new GameItem(new Place());
         $gameItem->setEquipment($itemConfig);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getAction' => new Action(),
@@ -130,7 +130,7 @@ class ParameterHasActionValidatorTest extends TestCase
         $gameItem = new GameItem(new Place());
         $gameItem->setEquipment($itemConfig);
 
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getAction' => new Action(),
@@ -148,8 +148,8 @@ class ParameterHasActionValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

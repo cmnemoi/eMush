@@ -30,8 +30,8 @@ class PlantActionTest extends AbstractActionTest
         parent::before();
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::TRANSPLANT, 1);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->gearToolService = \Mockery::mock(GearToolServiceInterface::class);
 
         $this->action = new Transplant(
             $this->eventDispatcher,
@@ -47,7 +47,7 @@ class PlantActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()

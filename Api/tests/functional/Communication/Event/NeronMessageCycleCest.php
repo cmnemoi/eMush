@@ -3,7 +3,6 @@
 namespace Mush\Tests\Communication\Event;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
@@ -132,7 +131,7 @@ class NeronMessageCycleCest
         $room->addDoor($door3);
         $room4->addDoor($door3);
 
-        $time = new DateTime();
+        $time = new \DateTime();
         $statusConfig = new ChargeStatusConfig();
         $statusConfig->setName(StatusEnum::FIRE);
         $I->haveInRepository($statusConfig);

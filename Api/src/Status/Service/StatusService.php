@@ -5,7 +5,6 @@ namespace Mush\Status\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
-use Error;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Daedalus\Entity\Daedalus;
@@ -191,7 +190,7 @@ class StatusService implements StatusServiceInterface
             ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getStatusByName($statusName) !== null)
         ;
         if ($pickedEquipments->isEmpty()) {
-            throw new Error('no such status in item collection');
+            throw new \Error('no such status in item collection');
         } else {
             /** @var GameEquipment $pickedEquipment */
             $pickedEquipment = $pickedEquipments->first();

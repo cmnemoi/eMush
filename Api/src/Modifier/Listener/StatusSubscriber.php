@@ -84,7 +84,6 @@ class StatusSubscriber implements EventSubscriberInterface
 
             /** @var Modifier $modifier */
             foreach ($modifiers as $modifier) {
-                /** @var  */
                 $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getReason());
                 $event->setVisibility(VisibilityEnum::HIDDEN);
                 $this->eventDispatcher->dispatch($event, AbstractQuantityEvent::CHANGE_VARIABLE);

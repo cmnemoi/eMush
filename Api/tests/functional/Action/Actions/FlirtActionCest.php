@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -36,7 +37,7 @@ class FlirtActionCest
 
     public function testFlirt(FunctionalTester $I)
     {
-        $I->loadFixtures(GameConfigFixtures::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();
@@ -125,7 +126,7 @@ class FlirtActionCest
 
     public function testCoupleOfMenFlirt(FunctionalTester $I)
     {
-        $I->loadFixtures(GameConfigFixtures::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();
@@ -198,7 +199,7 @@ class FlirtActionCest
 
     public function testCoupleOfWomenFlirt(FunctionalTester $I)
     {
-        $I->loadFixtures(GameConfigFixtures::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();
@@ -271,7 +272,7 @@ class FlirtActionCest
 
     public function testAndieAndWomanFlirt(FunctionalTester $I)
     {
-        $I->loadFixtures(GameConfigFixtures::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();
@@ -359,7 +360,7 @@ class FlirtActionCest
 
     public function testAndieAndManFlirt(FunctionalTester $I)
     {
-        $I->loadFixtures(GameConfigFixtures::class);
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();

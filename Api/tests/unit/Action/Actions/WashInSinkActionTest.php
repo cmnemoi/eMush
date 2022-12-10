@@ -24,7 +24,7 @@ class WashInSinkActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
         $this->actionEntity = $this->createActionEntity(ActionEnum::WASH_IN_SINK, 3);
 
         $this->action = new WashInSink(
@@ -39,7 +39,7 @@ class WashInSinkActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()

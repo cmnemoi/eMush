@@ -28,7 +28,7 @@ class EquipmentReachableValidatorTest extends TestCase
      */
     public function before()
     {
-        $this->gearToolService = Mockery::mock(GearToolServiceInterface::class);
+        $this->gearToolService = \Mockery::mock(GearToolServiceInterface::class);
 
         $this->validator = new EquipmentReachableValidator($this->gearToolService);
         $this->constraint = new EquipmentReachable();
@@ -40,12 +40,12 @@ class EquipmentReachableValidatorTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testValid()
     {
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => new Player(),
@@ -64,7 +64,7 @@ class EquipmentReachableValidatorTest extends TestCase
 
     public function testNotValid()
     {
-        $action = Mockery::mock(AbstractAction::class);
+        $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => new Player(),
@@ -81,8 +81,8 @@ class EquipmentReachableValidatorTest extends TestCase
 
     protected function initValidator(?string $expectedMessage = null)
     {
-        $builder = Mockery::mock(ConstraintViolationBuilder::class);
-        $context = Mockery::mock(ExecutionContext::class);
+        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $context = \Mockery::mock(ExecutionContext::class);
 
         if ($expectedMessage) {
             $builder->shouldReceive('addViolation')->andReturn($builder)->once();

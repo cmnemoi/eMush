@@ -41,8 +41,8 @@ class SymptomConditionServiceTest extends TestCase
      */
     public function before()
     {
-        $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->modifierService = \Mockery::mock(ModifierServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new SymptomConditionService(
             $this->modifierService,
@@ -55,7 +55,7 @@ class SymptomConditionServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testItemInRoomSymptomCondition()

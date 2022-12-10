@@ -29,7 +29,7 @@ class RemoveSporeActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::REMOVE_SPORE, 1);
 
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->action = new RemoveSpore(
             $this->eventDispatcher,
@@ -44,7 +44,7 @@ class RemoveSporeActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()

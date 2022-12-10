@@ -38,9 +38,9 @@ class DaedalusCycleEventTest extends TestCase
      */
     public function before()
     {
-        $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
-        $this->daedalusIncidentService = Mockery::mock(DaedalusIncidentServiceInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
+        $this->daedalusService = \Mockery::mock(DaedalusServiceInterface::class);
+        $this->daedalusIncidentService = \Mockery::mock(DaedalusIncidentServiceInterface::class);
+        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
 
         $this->daedalusCycleSubscriber = new DaedalusCycleSubscriber(
             $this->daedalusService,
@@ -54,7 +54,7 @@ class DaedalusCycleEventTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testOnDaedalusDestruction()

@@ -30,9 +30,9 @@ class EquipmentEffectServiceTest extends TestCase
      */
     public function before()
     {
-        $this->consumableEffectRepository = Mockery::mock(ConsumableEffectRepository::class);
-        $this->plantEffectRepository = Mockery::mock(PlantEffectRepository::class);
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
+        $this->consumableEffectRepository = \Mockery::mock(ConsumableEffectRepository::class);
+        $this->plantEffectRepository = \Mockery::mock(PlantEffectRepository::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new EquipmentEffectService(
             $this->consumableEffectRepository,
@@ -46,7 +46,7 @@ class EquipmentEffectServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testGetConsumableEffect()

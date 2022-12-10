@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -43,8 +44,7 @@ class PublicBroadcastActionCest
 
     public function testPublicBroadcast(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $watchedPublicBroadcastStatus = new ChargeStatusConfig();
         $watchedPublicBroadcastStatus
             ->setName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST)
@@ -156,8 +156,7 @@ class PublicBroadcastActionCest
 
     public function testPublicBroadcastAlreadyWatched(FunctionalTester $I)
     {
-        $I->loadFixtures([GameConfigFixtures::class]);
-
+        $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $watchedPublicBroadcastStatus = new ChargeStatusConfig();
         $watchedPublicBroadcastStatus
             ->setName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST)

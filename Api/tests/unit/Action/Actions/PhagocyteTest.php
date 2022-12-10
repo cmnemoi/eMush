@@ -25,7 +25,7 @@ class PhagocyteTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::PHAGOCYTE);
         $this->action = new Phagocyte(
@@ -41,7 +41,7 @@ class PhagocyteTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()

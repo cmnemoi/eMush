@@ -2,7 +2,6 @@
 
 namespace Mush\Action\Actions;
 
-use Error;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Fail;
 use Mush\Action\ActionResult\Success;
@@ -67,7 +66,7 @@ class RemoveSpore extends AbstractAction
         $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
 
         if ($sporeStatus === null) {
-            throw new Error('Player should have a spore status');
+            throw new \Error('Player should have a spore status');
         }
 
         $nbSpores = $sporeStatus->getCharge();
@@ -96,14 +95,14 @@ class RemoveSpore extends AbstractAction
         $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         if ($sporeStatus === null) {
-            throw new Error('Player should have a spore status');
+            throw new \Error('Player should have a spore status');
         }
 
         if ($sporeStatus->getCharge() > 0) {
             $sporeStatus = $this->statusService->updateCharge($sporeStatus, -1);
 
             if ($sporeStatus === null) {
-                throw new Error('Player should have a spore status');
+                throw new \Error('Player should have a spore status');
             }
 
             $this->statusService->persist($sporeStatus);

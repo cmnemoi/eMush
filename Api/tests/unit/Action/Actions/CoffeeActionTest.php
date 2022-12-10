@@ -31,8 +31,8 @@ class CoffeeActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
 
@@ -49,7 +49,7 @@ class CoffeeActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testExecute()

@@ -37,9 +37,9 @@ class AttackActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::ATTACK);
 
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->modifierService = Mockery::mock(ModifierServiceInterface::class);
-        $this->diseaseCauseService = Mockery::mock(DiseaseCauseServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->modifierService = \Mockery::mock(ModifierServiceInterface::class);
+        $this->diseaseCauseService = \Mockery::mock(DiseaseCauseServiceInterface::class);
 
         $this->action = new Attack(
             $this->eventDispatcher,
@@ -56,7 +56,7 @@ class AttackActionTest extends AbstractActionTest
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testSuccessful()

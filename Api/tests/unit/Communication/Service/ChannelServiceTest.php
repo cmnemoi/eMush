@@ -58,11 +58,11 @@ class ChannelServiceTest extends TestCase
      */
     public function before()
     {
-        $this->entityManager = Mockery::mock(EntityManagerInterface::class);
-        $this->channelRepository = Mockery::mock(ChannelRepository::class);
-        $this->channelPlayerRepository = Mockery::mock(ChannelPlayerRepository::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->statusService = Mockery::mock(StatusServiceInterface::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->channelRepository = \Mockery::mock(ChannelRepository::class);
+        $this->channelPlayerRepository = \Mockery::mock(ChannelPlayerRepository::class);
+        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->service = new ChannelService(
             $this->entityManager,
@@ -78,7 +78,7 @@ class ChannelServiceTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testCreatePublicChannel()

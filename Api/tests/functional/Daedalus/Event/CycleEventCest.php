@@ -3,7 +3,6 @@
 namespace functional\Daedalus\Event;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -70,7 +69,7 @@ class CycleEventCest
         $I->haveInRepository($neron);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['oxygen' => 1, 'cycleStartedAt' => new DateTime()]);
+        $daedalus = $I->have(Daedalus::class, ['oxygen' => 1, 'cycleStartedAt' => new \DateTime()]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
@@ -127,7 +126,7 @@ class CycleEventCest
         $event = new DaedalusCycleEvent(
             $daedalus,
             EventEnum::NEW_CYCLE,
-            new DateTime()
+            new \DateTime()
         );
         $this->eventDispatcher->dispatch($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 

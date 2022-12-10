@@ -3,7 +3,6 @@
 namespace Mush\Tests\Alert\Listener;
 
 use App\Tests\FunctionalTester;
-use DateTime;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
@@ -80,7 +79,7 @@ class StatusSubscriberCest
             EquipmentStatusEnum::BROKEN,
             $gravitySimulator,
             ActionEnum::SABOTAGE,
-            new DateTime()
+            new \DateTime()
         );
         $this->statusSubscriber->onStatusApplied($statusEvent);
 
@@ -149,7 +148,7 @@ class StatusSubscriberCest
             EquipmentStatusEnum::BROKEN,
             $gravitySimulator,
             ActionEnum::REPAIR,
-            new DateTime()
+            new \DateTime()
         );
         $this->statusSubscriber->onStatusRemoved($statusEvent);
 
@@ -200,7 +199,7 @@ class StatusSubscriberCest
             EquipmentStatusEnum::BROKEN,
             $gameEquipment,
             RoomEventEnum::CYCLE_FIRE,
-            new DateTime()
+            new \DateTime()
         );
         $this->statusSubscriber->onStatusApplied($statusEvent);
 
@@ -254,7 +253,7 @@ class StatusSubscriberCest
             EquipmentStatusEnum::BROKEN,
             $gameEquipment,
             EventEnum::NEW_CYCLE,
-            new DateTime()
+            new \DateTime()
         );
         $this->statusSubscriber->onStatusApplied($statusEvent);
 
@@ -321,7 +320,7 @@ class StatusSubscriberCest
             EquipmentStatusEnum::BROKEN,
             $gravitySimulator,
             ActionEnum::REPAIR,
-            new DateTime()
+            new \DateTime()
         );
         $this->statusSubscriber->onStatusRemoved($statusEvent);
 

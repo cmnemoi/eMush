@@ -45,10 +45,10 @@ class FireTest extends TestCase
      */
     public function before()
     {
-        $this->randomService = Mockery::mock(RandomServiceInterface::class);
-        $this->eventDispatcher = Mockery::mock(EventDispatcherInterface::class);
-        $this->gameEquipmentService = Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->daedalusService = Mockery::mock(DaedalusServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->daedalusService = \Mockery::mock(DaedalusServiceInterface::class);
 
         $this->cycleHandler = new Fire(
             $this->randomService,
@@ -63,7 +63,7 @@ class FireTest extends TestCase
      */
     public function after()
     {
-        Mockery::close();
+        \Mockery::close();
     }
 
     public function testNewCycleFireDamage()

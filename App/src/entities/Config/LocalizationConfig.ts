@@ -1,21 +1,16 @@
-import { GameConfig } from "@/entities/Config/GameConfig";
-
-export class DifficultyConfig {
-    public cyclePerGameDay: number|null;
-    public cycleLength: number|null;
+export class LocalizationConfig {
+    public name: string | null;
     public timeZone: string|null;
     public language: string|null;
 
     constructor() {
-        this.cyclePerGameDay = null;
-        this.cycleLength = null;
+        this.name = null;
         this.timeZone = null;
         this.language = null;
     }
-    load(object:any) : DifficultyConfig {
+    load(object:any) : LocalizationConfig {
         if (typeof object !== "undefined") {
-            this.cyclePerGameDay = object.cyclePerGameDay;
-            this.cycleLength = object.cycleLength;
+            this.name = object.name;
             this.timeZone = object.timeZone;
             this.language = object.language;
         }
@@ -23,17 +18,15 @@ export class DifficultyConfig {
     }
     jsonEncode() : object {
         return {
-            'cyclePerGameDay': this.cyclePerGameDay,
-            'cycleLength': this.cycleLength,
+            'name': this.name,
             'timeZone': this.timeZone,
             'language': this.language,
         };
     }
-    decode(jsonString : string): DifficultyConfig {
+    decode(jsonString : string): LocalizationConfig {
         if (jsonString) {
             const object = JSON.parse(jsonString);
-            this.cyclePerGameDay = object.cyclePerGameDay;
-            this.cycleLength = object.cycleLength;
+            this.name = object.name;
             this.timeZone = object.timeZone;
             this.language = object.language;
         }

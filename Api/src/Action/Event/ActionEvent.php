@@ -25,7 +25,7 @@ class ActionEvent extends AbstractGameEvent
         $this->player = $player;
         $this->actionParameter = $actionParameter;
 
-        parent::__construct($action->getName(), new \DateTime());
+        parent::__construct($action->getActionName(), new \DateTime());
     }
 
     public function getPlayer(): Player

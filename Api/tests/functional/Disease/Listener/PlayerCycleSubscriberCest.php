@@ -12,6 +12,7 @@ use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Listener\PlayerCycleSubscriber;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -55,7 +56,8 @@ class PlayerCycleSubscriberCest
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('Name')
+            ->setDiseaseName('Name')
+            ->buildName(GameConfigENum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -111,7 +113,8 @@ class PlayerCycleSubscriberCest
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('Name')
+            ->setDiseaseName('Name')
+            ->buildName(GameConfigENum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -168,7 +171,8 @@ class PlayerCycleSubscriberCest
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('Name')
+            ->setDiseaseName('Name')
+            ->buildName(GameConfigENum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -246,14 +250,16 @@ class PlayerCycleSubscriberCest
         $symptomConfig = new SymptomConfig('biting');
         $symptomConfig
             ->setTrigger(EventEnum::NEW_CYCLE)
+            ->buildName(GameConfigENum::TEST)
         ;
 
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('Name')
+            ->setDiseaseName('Name')
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->buildName(GameConfigENum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);

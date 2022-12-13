@@ -31,27 +31,39 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
     public const REDUCE_MAX_2_ACTION_POINT = 'reduce_max_2_action_point';
     public const REDUCE_MAX_3_MORAL_POINT = 'reduce_max_3_moral_point';
     public const REDUCE_MAX_4_MORAL_POINT = 'reduce_max_4_moral_point';
+    public const NOT_REASON_MOVE = 'not_reason_move';
 
     public function load(ObjectManager $manager): void
     {
         $catInRoomCondition = new ModifierCondition(ModifierConditionEnum::ITEM_IN_ROOM);
-        $catInRoomCondition->setCondition(ItemEnum::SCHRODINGER);
+        $catInRoomCondition
+            ->setCondition(ItemEnum::SCHRODINGER)
+            ->buildName()
+        ;
         $manager->persist($catInRoomCondition);
 
         $fourPeopleInRoomCondition = new ModifierCondition(ModifierConditionEnum::PLAYER_IN_ROOM);
-        $fourPeopleInRoomCondition->setCondition(ModifierConditionEnum::FOUR_PEOPLE);
+        $fourPeopleInRoomCondition
+            ->setCondition(ModifierConditionEnum::FOUR_PEOPLE)
+            ->buildName()
+        ;
         $manager->persist($fourPeopleInRoomCondition);
 
         $notMoveActionCondition = new ModifierCondition(ModifierConditionEnum::NOT_REASON);
-        $notMoveActionCondition->setCondition(ActionEnum::MOVE);
+        $notMoveActionCondition
+            ->setCondition(ActionEnum::MOVE)
+            ->buildName()
+        ;
         $manager->persist($notMoveActionCondition);
 
-        $randCondition16 = new ModifierCondition(ModifierConditionEnum::RANDOM);
-        $randCondition16->setValue(16);
-        $manager->persist($randCondition16);
+        /** @var ModifierCondition $randCondition16 */
+        $randCondition16 = $this->getReference(DiseaseModifierConfigFixtures::RANDOM_16);
 
         $randCondition70 = new ModifierCondition(ModifierConditionEnum::RANDOM);
-        $randCondition70->setValue(70);
+        $randCondition70
+            ->setValue(70)
+            ->buildName()
+        ;
         $manager->persist($randCondition70);
 
         $catInRoomMove2MovementIncrease = new ModifierConfig();
@@ -62,6 +74,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($catInRoomCondition)
+            ->buildName()
         ;
         $manager->persist($catInRoomMove2MovementIncrease);
 
@@ -74,6 +87,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($catInRoomCondition)
             ->addModifierCondition($notMoveActionCondition)
+            ->buildName()
         ;
         $manager->persist($catInRoomNotMove2ActionIncrease);
 
@@ -85,7 +99,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($randCondition16)
-            ->setName(ModifierNameEnum::SCREAMING)
+            ->setModifierName(ModifierNameEnum::SCREAMING)
+            ->buildName()
         ;
         $manager->persist($cycle1ActionLostRand16WithScreaming);
 
@@ -97,7 +112,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($randCondition16)
-            ->setName(ModifierNameEnum::WALL_HEAD_BANG)
+            ->setModifierName(ModifierNameEnum::WALL_HEAD_BANG)
+            ->buildName()
         ;
         $manager->persist($cycle1HealthLostRand16WithWallHeadBang);
 
@@ -109,6 +125,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($randCondition70)
+            ->buildName()
         ;
         $manager->persist($cycle1MoralLostRand70);
 
@@ -120,7 +137,8 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($randCondition16)
-            ->setName(ModifierNameEnum::RUN_IN_CIRCLES)
+            ->setModifierName(ModifierNameEnum::RUN_IN_CIRCLES)
+            ->buildName()
         ;
         $manager->persist($cycle2MovementLostRand16WithRunInCircles);
 
@@ -132,6 +150,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($fourPeopleInRoomCondition)
+            ->buildName()
         ;
         $manager->persist($fourPeopleOneActionIncrease);
 
@@ -143,6 +162,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($fourPeopleInRoomCondition)
+            ->buildName()
         ;
         $manager->persist($fourPeopleOneMovementIncrease);
 
@@ -153,18 +173,9 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setDelta(-2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($reduceMax2ActionPoint);
-
-        $reduceMax2MoralPoint = new ModifierConfig();
-        $reduceMax2MoralPoint
-            ->setScope(ModifierScopeEnum::MAX_POINT)
-            ->setTarget(PlayerVariableEnum::MORAL_POINT)
-            ->setDelta(-2)
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
-        $manager->persist($reduceMax2MoralPoint);
 
         $reduceMax3MoralPoint = new ModifierConfig();
         $reduceMax3MoralPoint
@@ -173,6 +184,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setDelta(-3)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($reduceMax3MoralPoint);
 
@@ -183,6 +195,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setDelta(-4)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($reduceMax4MoralPoint);
 
@@ -199,12 +212,14 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         $this->addReference(self::REDUCE_MAX_2_ACTION_POINT, $reduceMax2ActionPoint);
         $this->addReference(self::REDUCE_MAX_3_MORAL_POINT, $reduceMax3MoralPoint);
         $this->addReference(self::REDUCE_MAX_4_MORAL_POINT, $reduceMax4MoralPoint);
+        $this->addReference(self::NOT_REASON_MOVE, $notMoveActionCondition);
     }
 
     public function getDependencies(): array
     {
         return [
             GameConfigFixtures::class,
+            DiseaseModifierConfigFixtures::class,
         ];
     }
 }

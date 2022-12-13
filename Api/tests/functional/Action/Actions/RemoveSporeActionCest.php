@@ -48,8 +48,9 @@ class RemoveSporeActionCest
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
+            ->setStatusName(StatusEnum::ATTEMPT)
             ->setVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($attemptConfig);
 
@@ -88,9 +89,10 @@ class RemoveSporeActionCest
 
         $sporeStatusConfig = new ChargeStatusConfig();
         $sporeStatusConfig
-            ->setName(PlayerStatusEnum::SPORES)
+            ->setStatusName(PlayerStatusEnum::SPORES)
             ->setVisibility(VisibilityEnum::MUSH)
             ->setChargeVisibility(VisibilityEnum::MUSH)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($sporeStatusConfig);
@@ -103,15 +105,17 @@ class RemoveSporeActionCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(1)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::REMOVE_SPORE)
+            ->setActionName(ActionEnum::REMOVE_SPORE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($actionCost)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
 
@@ -119,7 +123,7 @@ class RemoveSporeActionCest
         $itemConfig = $I->have(ItemConfig::class);
 
         $itemConfig
-            ->setName(ToolItemEnum::SPORE_SUCKER)
+            ->setEquipmentName(ToolItemEnum::SPORE_SUCKER)
             ->setActions(new ArrayCollection([$action]))
         ;
 

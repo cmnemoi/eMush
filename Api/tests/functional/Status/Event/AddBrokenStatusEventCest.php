@@ -36,8 +36,8 @@ class AddBrokenStatusEventCest
     public function testDispatchEquipmentBroken(FunctionalTester $I)
     {
         $statusConfig = new StatusConfig();
-        $statusConfig
-            ->setName(EquipmentStatusEnum::BROKEN)
+        $statusConfig->setStatusName(EquipmentStatusEnum::BROKEN)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
 

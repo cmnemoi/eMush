@@ -56,7 +56,7 @@ class RetrieveOxygenTest extends AbstractActionTest
         $gameItem->setEquipment($item);
 
         $item
-            ->setName(ItemEnum::OXYGEN_CAPSULE)
+            ->setEquipmentName(ItemEnum::OXYGEN_CAPSULE)
         ;
 
         $player = $this->createPlayer($daedalus, $room);

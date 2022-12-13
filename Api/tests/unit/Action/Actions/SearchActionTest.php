@@ -97,7 +97,7 @@ class SearchActionTest extends AbstractActionTest
         ;
 
         $hiddenConfig = new StatusConfig();
-        $hiddenConfig->setName(EquipmentStatusEnum::HIDDEN);
+        $hiddenConfig->setStatusName(EquipmentStatusEnum::HIDDEN);
         $hidden = new Status($gameItem, $hiddenConfig);
         $hiddenBy = $this->createPlayer(new Daedalus(), new Place());
         $hidden
@@ -136,7 +136,7 @@ class SearchActionTest extends AbstractActionTest
         $hiddenBy = $this->createPlayer(new Daedalus(), new Place());
 
         $hiddenConfig = new StatusConfig();
-        $hiddenConfig->setName(EquipmentStatusEnum::HIDDEN);
+        $hiddenConfig->setStatusName(EquipmentStatusEnum::HIDDEN);
         $hidden = new Status($gameItem, $hiddenConfig);
         $hidden
             ->setTarget($hiddenBy)

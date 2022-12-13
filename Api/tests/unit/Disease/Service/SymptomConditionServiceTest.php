@@ -186,7 +186,7 @@ class SymptomConditionServiceTest extends TestCase
         ;
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::MUSH);
+        $statusConfig->setStatusName(PlayerStatusEnum::MUSH);
         $mushStatus = new Status($mush, $statusConfig);
 
         $mush->addStatus($mushStatus);

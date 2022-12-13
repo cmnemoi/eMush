@@ -44,7 +44,7 @@ class StatusSubscriber implements EventSubscriberInterface
         $player = $statusHolder;
 
         $statusAppliedSymptomConfigs = $this->getPlayerSymptomConfigs($player)->getTriggeredSymptoms([StatusEvent::STATUS_APPLIED]);
-        $statusAppliedSymptomConfigs = $this->symptomConditionService->getActiveSymptoms($statusAppliedSymptomConfigs, $player, $statusConfig->getName());
+        $statusAppliedSymptomConfigs = $this->symptomConditionService->getActiveSymptoms($statusAppliedSymptomConfigs, $player, $statusConfig->getStatusName());
 
         foreach ($statusAppliedSymptomConfigs as $symptomConfig) {
             $this->symptomService->handleStatusAppliedSymptom($symptomConfig, $player, $event->getTime());

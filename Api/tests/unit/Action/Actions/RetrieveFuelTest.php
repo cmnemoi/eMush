@@ -57,7 +57,7 @@ class RetrieveFuelTest extends AbstractActionTest
         $gameItem->setEquipment($item);
         $gameItem->setName(ItemEnum::FUEL_CAPSULE);
 
-        $item->setName(ItemEnum::FUEL_CAPSULE);
+        $item->setEquipmentName(ItemEnum::FUEL_CAPSULE);
 
         $player = $this->createPlayer($daedalus, $room);
 

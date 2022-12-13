@@ -19,6 +19,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -183,7 +184,10 @@ class ActionEffectSubscriberCest
         $I->refreshEntities($player);
 
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setName('someName');
+        $diseaseConfig
+            ->setDiseaseName('someName')
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($diseaseConfig);
 
         $diseasePlayer = new PlayerDisease();
@@ -244,7 +248,10 @@ class ActionEffectSubscriberCest
         $I->refreshEntities($player);
 
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setName('someName');
+        $diseaseConfig
+            ->setDiseaseName('someName')
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($diseaseConfig);
 
         $diseasePlayer = new PlayerDisease();
@@ -281,7 +288,8 @@ class ActionEffectSubscriberCest
     ): DiseaseConfig {
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName($diseaseName)
+            ->setDiseaseName($diseaseName)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $this->tester->haveInRepository($diseaseConfig);
 
@@ -315,12 +323,14 @@ class ActionEffectSubscriberCest
     private function createRation(FunctionalTester $I): GameItem
     {
         $ration = new Ration();
+        $ration->setName('ration_test');
         $I->haveInRepository($ration);
 
         $itemConfig = new ItemConfig();
         $itemConfig
-            ->setName('itemName')
+            ->setEquipmentName('itemName')
             ->setMechanics(new ArrayCollection([$ration]))
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($itemConfig);

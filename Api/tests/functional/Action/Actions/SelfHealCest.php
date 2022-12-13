@@ -52,15 +52,18 @@ class SelfHealCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(3)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::SELF_HEAL)
+            ->setActionName(ActionEnum::SELF_HEAL)
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($actionCost)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */

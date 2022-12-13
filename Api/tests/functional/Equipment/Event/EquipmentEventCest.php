@@ -11,6 +11,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -34,10 +35,16 @@ class EquipmentEventCest
     public function testHeavyStatusOverflowingInventory(FunctionalTester $I)
     {
         $heavyStatusConfig = new StatusConfig();
-        $heavyStatusConfig->setName(EquipmentStatusEnum::HEAVY);
+        $heavyStatusConfig
+            ->setStatusName(EquipmentStatusEnum::HEAVY)
+            ->buildName(GameConfigENum::TEST)
+        ;
         $I->haveInRepository($heavyStatusConfig);
         $burdenedStatusConfig = new StatusConfig();
-        $burdenedStatusConfig->setName(PlayerStatusEnum::BURDENED);
+        $burdenedStatusConfig
+            ->setStatusName(PlayerStatusEnum::BURDENED)
+            ->buildName(GameConfigENum::TEST)
+        ;
         $I->haveInRepository($burdenedStatusConfig);
 
         /** @var GameConfig $gameConfig */
@@ -70,6 +77,7 @@ class EquipmentEventCest
         $itemConfig = $I->have(ItemConfig::class, [
             'gameConfig' => $gameConfig,
             'name' => 'equipment_name',
+            'equipmentName' => 'equipment_name',
             'initStatus' => new ArrayCollection([$heavyStatusConfig]),
         ]);
 

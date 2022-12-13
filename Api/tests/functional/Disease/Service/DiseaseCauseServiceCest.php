@@ -14,6 +14,7 @@ use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -34,25 +35,28 @@ class DiseaseCauseServiceCest
     {
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName(DiseaseEnum::FOOD_POISONING)
+            ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseConfig);
 
         $diseaseCause = new DiseaseCauseConfig();
         $diseaseCause
-            ->setName(DiseaseCauseEnum::CYCLE)
+            ->setCauseName(DiseaseCauseEnum::CYCLE)
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
+            ->buildName(GameConfigENum::TEST)
         ;
         $I->haveInRepository($diseaseCause);
 
         $diseaseCause2 = new DiseaseCauseConfig();
         $diseaseCause2
-            ->setName(DiseaseCauseEnum::PERISHED_FOOD)
+            ->setCauseName(DiseaseCauseEnum::PERISHED_FOOD)
             ->setDiseases(
                 [DiseaseEnum::MUSH_ALLERGY => 1]
             )
+            ->buildName(GameConfigENum::TEST)
         ;
         $I->haveInRepository($diseaseCause2);
 

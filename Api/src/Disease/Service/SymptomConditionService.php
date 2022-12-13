@@ -40,7 +40,7 @@ class SymptomConditionService implements SymptomConditionServiceInterface
 
     private function checkCondition(SymptomCondition $condition, Player $player, string $reason, ?Action $action): bool
     {
-        switch ($condition->getName()) {
+        switch ($condition->getConditionName()) {
             case SymptomConditionEnum::ACTION_DIRTY_RATE:
                 return $this->checkActionDirtyRateCondition($player, $action);
 
@@ -90,7 +90,7 @@ class SymptomConditionService implements SymptomConditionServiceInterface
         return $this->modifierService->isSuccessfulWithModifiers(
             $dirtyRate,
             [ModifierScopeEnum::EVENT_DIRTY],
-            $action->getName(),
+            $action->getActionName(),
             new \DateTime(),
             $player
         ) || $isSuperDirty;

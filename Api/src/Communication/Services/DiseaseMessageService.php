@@ -49,7 +49,7 @@ class DiseaseMessageService implements DiseaseMessageServiceInterface
             ->getMedicalConditions()
             ->getActiveDiseases()
             ->getAllSymptoms()
-            ->getTriggeredSymptoms([EventEnum::ON_NEW_MESSAGE])
+            ->getTriggeredSymptoms([EventEnum::NEW_MESSAGE])
         ;
 
         if ($playerSymptoms->hasSymptomByName(SymptomEnum::COPROLALIA_MESSAGES)) {

@@ -13,6 +13,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 
 class ExplorationConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -49,21 +50,23 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
         $compass = new ItemConfig();
         $compass
-            ->setName(ItemEnum::QUADRIMETRIC_COMPASS)
+            ->setEquipmentName(ItemEnum::QUADRIMETRIC_COMPASS)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setActions($actions)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($compass);
 
         $rope = new ItemConfig();
         $rope
-            ->setName(ItemEnum::ROPE)
+            ->setEquipmentName(ItemEnum::ROPE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setActions($actions)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($rope);
 
@@ -75,34 +78,37 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
         $drill = new ItemConfig();
         $drill
-            ->setName(ItemEnum::DRILL)
+            ->setEquipmentName(ItemEnum::DRILL)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActions($drillActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
 
         $manager->persist($drill);
 
         $babelModule = new ItemConfig();
         $babelModule
-            ->setName(ItemEnum::BABEL_MODULE)
+            ->setEquipmentName(ItemEnum::BABEL_MODULE)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setActions($actions)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($babelModule);
 
         $echolocator = new ItemConfig();
         $echolocator
-            ->setName(ItemEnum::ECHOLOCATOR)
+            ->setEquipmentName(ItemEnum::ECHOLOCATOR)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setActions($actions)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($echolocator);
 
@@ -114,23 +120,25 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
         $thermosensor = new ItemConfig();
         $thermosensor
-            ->setName(ItemEnum::THERMOSENSOR)
+            ->setEquipmentName(ItemEnum::THERMOSENSOR)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
             ->setActions($thermosensorActions)
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($thermosensor);
 
         $whiteFlag = new ItemConfig();
         $whiteFlag
-            ->setName(ItemEnum::WHITE_FLAG)
+            ->setEquipmentName(ItemEnum::WHITE_FLAG)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setActions($actions)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($whiteFlag);
 

@@ -87,7 +87,7 @@ class FireTest extends TestCase
         $daedalus->setHull($daedalusHull);
 
         $statusConfig = new ChargeStatusConfig();
-        $statusConfig->setName(StatusEnum::FIRE);
+        $statusConfig->setStatusName(StatusEnum::FIRE);
         $status = new ChargeStatus($room, $statusConfig);
         $status
             ->setCharge(1)

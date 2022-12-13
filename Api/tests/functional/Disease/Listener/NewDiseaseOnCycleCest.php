@@ -14,6 +14,7 @@ use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -40,23 +41,26 @@ class NewDiseaseOnCycleCest
     {
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName(DiseaseEnum::FOOD_POISONING)
+            ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseConfig);
         $diseaseCause = new DiseaseCauseConfig();
         $diseaseCause
-            ->setName(DiseaseCauseEnum::CYCLE)
+            ->setCauseName(DiseaseCauseEnum::CYCLE)
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
+            ->buildName(GameConfigENum::TEST)
         ;
         $I->haveInRepository($diseaseCause);
         $diseaseCauseLowMorale = new DiseaseCauseConfig();
         $diseaseCauseLowMorale
-            ->setName(DiseaseCauseEnum::CYCLE_LOW_MORALE)
+            ->setCauseName(DiseaseCauseEnum::CYCLE_LOW_MORALE)
             ->setDiseases([
                 DiseaseEnum::FLU => 2,
             ])
+            ->buildName(GameConfigENum::TEST)
         ;
         $I->haveInRepository($diseaseCauseLowMorale);
 
@@ -109,23 +113,26 @@ class NewDiseaseOnCycleCest
     {
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName(DiseaseEnum::FLU)
+            ->setDiseaseName(DiseaseEnum::FLU)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseConfig);
         $diseaseCause = new DiseaseCauseConfig();
         $diseaseCause
-            ->setName(DiseaseCauseEnum::CYCLE)
+            ->setCauseName(DiseaseCauseEnum::CYCLE)
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
+            ->buildName(GameConfigENum::TEST)
         ;
         $I->haveInRepository($diseaseCause);
         $diseaseCauseLowMorale = new DiseaseCauseConfig();
         $diseaseCauseLowMorale
-            ->setName(DiseaseCauseEnum::CYCLE_LOW_MORALE)
+            ->setCauseName(DiseaseCauseEnum::CYCLE_LOW_MORALE)
             ->setDiseases([
                 DiseaseEnum::FLU => 2,
             ])
+            ->buildName(GameConfigENum::TEST)
         ;
         $I->haveInRepository($diseaseCauseLowMorale);
 
@@ -163,8 +170,9 @@ class NewDiseaseOnCycleCest
 
         $statusConfig = new StatusConfig();
         $statusConfig
-            ->setName(PlayerStatusEnum::DEMORALIZED)
+            ->setStatusName(PlayerStatusEnum::DEMORALIZED)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
         $status = new Status($player, $statusConfig);

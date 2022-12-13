@@ -147,7 +147,7 @@ class DaedalusWidgetServiceTest extends TestCase
         ;
 
         $fireConfig = new StatusConfig();
-        $fireConfig->setName(StatusEnum::FIRE);
+        $fireConfig->setStatusName(StatusEnum::FIRE);
 
         $fire1 = new Status($room, $fireConfig);
         $fire2 = new Status($room2, $fireConfig);

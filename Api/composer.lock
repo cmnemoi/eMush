@@ -13309,16 +13309,16 @@
         },
         {
             "name": "weirdan/doctrine-psalm-plugin",
-            "version": "v2.6.0",
+            "version": "v2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/psalm/psalm-plugin-doctrine.git",
-                "reference": "1b670dea41e903b4a812464ca470c8a14ba7f441"
+                "reference": "6e388e170f583e235288d22b9497344a96666908"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psalm/psalm-plugin-doctrine/zipball/1b670dea41e903b4a812464ca470c8a14ba7f441",
-                "reference": "1b670dea41e903b4a812464ca470c8a14ba7f441",
+                "url": "https://api.github.com/repos/psalm/psalm-plugin-doctrine/zipball/6e388e170f583e235288d22b9497344a96666908",
+                "reference": "6e388e170f583e235288d22b9497344a96666908",
                 "shasum": ""
             },
             "require": {
@@ -13381,9 +13381,9 @@
             ],
             "support": {
                 "issues": "https://github.com/psalm/psalm-plugin-doctrine/issues",
-                "source": "https://github.com/psalm/psalm-plugin-doctrine/tree/v2.6.0"
+                "source": "https://github.com/psalm/psalm-plugin-doctrine/tree/v2.7.0"
             },
-            "time": "2022-12-01T17:37:28+00:00"
+            "time": "2022-12-10T11:13:05+00:00"
         }
     ],
     "aliases": [],

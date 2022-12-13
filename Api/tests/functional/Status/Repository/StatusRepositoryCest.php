@@ -10,6 +10,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
@@ -73,31 +74,46 @@ class StatusRepositoryCest
         $I->assertCount(0, $result);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName('name_room');
+        $statusConfig
+            ->setStatusName('name_room')
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig);
         $status = new Status($room, $statusConfig);
         $I->haveInRepository($status);
 
         $statusConfig2 = new StatusConfig();
-        $statusConfig2->setName('name_player');
+        $statusConfig2
+            ->setStatusName('name_player')
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig2);
         $status2 = new Status($player, $statusConfig2);
         $I->haveInRepository($status2);
 
         $statusConfig3 = new StatusConfig();
-        $statusConfig3->setName('name_equipment');
+        $statusConfig3
+            ->setStatusName('name_equipment')
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig3);
         $status3 = new Status($equipment, $statusConfig3);
         $I->haveInRepository($status3);
 
         $statusConfig4 = new StatusConfig();
-        $statusConfig4->setName('name_item');
+        $statusConfig4
+            ->setStatusName('name_item')
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig4);
         $status4 = new Status($item, $statusConfig4);
         $I->haveInRepository($status4);
 
         $statusConfig5 = new StatusConfig();
-        $statusConfig5->setName('name_door');
+        $statusConfig5
+            ->setStatusName('name_door')
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig5);
         $status5 = new Status($door, $statusConfig5);
         $I->haveInRepository($status5);
@@ -122,25 +138,37 @@ class StatusRepositoryCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName('name_room');
+        $statusConfig
+            ->setStatusName('name_room')
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig);
         $status = new Status($room, $statusConfig);
         $I->haveInRepository($status);
 
         $statusConfig2 = new StatusConfig();
-        $statusConfig2->setName('name_player');
+        $statusConfig2
+            ->setStatusName('name_player')
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig2);
         $status2 = new Status($room, $statusConfig2);
         $I->haveInRepository($status2);
 
         $statusConfig3 = new StatusConfig();
-        $statusConfig3->setName('name_equipment');
+        $statusConfig3
+            ->setStatusName('name_equipment')
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig3);
         $status3 = new Status($room, $statusConfig3);
         $I->haveInRepository($status3);
 
         $statusConfig4 = new StatusConfig();
-        $statusConfig4->setName('name_item');
+        $statusConfig4
+            ->setStatusName('name_item')
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig4);
         $status4 = new Status($room, $statusConfig4);
         $I->haveInRepository($status4);

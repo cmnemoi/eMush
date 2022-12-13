@@ -62,7 +62,7 @@ class RemoveSporeActionTest extends AbstractActionTest
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
         $sporeConfig = new ChargeStatusConfig();
-        $sporeConfig->setName(PlayerStatusEnum::SPORES);
+        $sporeConfig->setStatusName(PlayerStatusEnum::SPORES);
         $sporeStatus = new ChargeStatus($player, $sporeConfig);
         $sporeStatus
             ->setCharge(1)

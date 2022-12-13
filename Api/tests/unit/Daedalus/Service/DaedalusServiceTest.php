@@ -105,11 +105,11 @@ class DaedalusServiceTest extends TestCase
         $daedalusConfig = new DaedalusConfig();
 
         $item = new ItemConfig();
-        $item->setName('item');
+        $item->setEquipmentName('item');
 
         $randomItem = new RandomItemPlaces();
         $randomItem
-            ->setItems([$item->getName()])
+            ->setItems([$item->getEquipmentName()])
             ->setPlaces([RoomEnum::LABORATORY])
         ;
 
@@ -240,7 +240,7 @@ class DaedalusServiceTest extends TestCase
         $threeCapsulePlayer->setPlace($room3);
 
         $oxCapsuleConfig = new ItemConfig();
-        $oxCapsuleConfig->setName(ItemEnum::OXYGEN_CAPSULE);
+        $oxCapsuleConfig->setEquipmentName(ItemEnum::OXYGEN_CAPSULE);
 
         $oxCapsule1 = new GameItem($twoCapsulePlayer);
         $oxCapsule2 = new GameItem($twoCapsulePlayer);
@@ -326,7 +326,7 @@ class DaedalusServiceTest extends TestCase
         $imunizedPlayer = $this->createPlayer($daedalus, 'imunizedPlayer');
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::IMMUNIZED);
+        $statusConfig->setStatusName(PlayerStatusEnum::IMMUNIZED);
         $characterConfigImunized = $imunizedPlayer->getPlayerInfo()->getCharacterConfig();
         $characterConfigImunized->setInitStatuses(new ArrayCollection([$statusConfig]));
         $characterConfigCollection->add($characterConfigImunized);

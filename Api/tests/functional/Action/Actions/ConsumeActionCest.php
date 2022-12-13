@@ -77,22 +77,27 @@ class ConsumeActionCest
         $I->refreshEntities($player);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
         $I->haveInRepository($actionCost);
 
         $consumeActionEntity = new Action();
         $consumeActionEntity
-            ->setName(ActionEnum::CONSUME)
+            ->setActionName(ActionEnum::CONSUME)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $consumeActionEntity->setActionCost($actionCost);
 
         $I->haveInRepository($consumeActionEntity);
 
         $ration = new Ration();
-        $ration->setActions(new ArrayCollection([$consumeActionEntity]));
+        $ration
+            ->setActions(new ArrayCollection([$consumeActionEntity]))
+            ->setName(GameRationEnum::STANDARD_RATION . '_' . GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($ration);
 
         $effect = new ConsumableEffect();
@@ -174,22 +179,27 @@ class ConsumeActionCest
         $I->refreshEntities($player);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
         $I->haveInRepository($actionCost);
 
         $consumeActionEntity = new Action();
         $consumeActionEntity
-            ->setName(ActionEnum::CONSUME)
+            ->setActionName(ActionEnum::CONSUME)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $consumeActionEntity->setActionCost($actionCost);
 
         $I->haveInRepository($consumeActionEntity);
 
         $ration = new Ration();
-        $ration->setActions(new ArrayCollection([$consumeActionEntity]));
+        $ration
+            ->setActions(new ArrayCollection([$consumeActionEntity]))
+            ->setName(GameRationEnum::STANDARD_RATION . '_' . GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($ration);
 
         $effect = new ConsumableEffect();
@@ -213,7 +223,7 @@ class ConsumeActionCest
 
         $equipmentConfig
             ->setMechanics(new ArrayCollection([$ration]))
-            ->setName('ration')
+            ->setEquipmentName('ration')
         ;
 
         $I->haveInRepository($equipmentConfig);
@@ -244,14 +254,16 @@ class ConsumeActionCest
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $mushConfig = new StatusConfig();
         $mushConfig
-            ->setName(PlayerStatusEnum::MUSH)
+            ->setStatusName(PlayerStatusEnum::MUSH)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($mushConfig);
 
         $fullStomach = new StatusConfig();
         $fullStomach
-            ->setName(PlayerStatusEnum::FULL_STOMACH)
+            ->setStatusName(PlayerStatusEnum::FULL_STOMACH)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($fullStomach);
 
@@ -292,22 +304,27 @@ class ConsumeActionCest
         $I->haveInRepository($mushStatus);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
         $I->haveInRepository($actionCost);
 
         $consumeActionEntity = new Action();
         $consumeActionEntity
-            ->setName(ActionEnum::CONSUME)
+            ->setActionName(ActionEnum::CONSUME)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $consumeActionEntity->setActionCost($actionCost);
 
         $I->haveInRepository($consumeActionEntity);
 
         $ration = new Ration();
-        $ration->setActions(new ArrayCollection([$consumeActionEntity]));
+        $ration
+            ->setActions(new ArrayCollection([$consumeActionEntity]))
+            ->setName(GameRationEnum::STANDARD_RATION . '_' . GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($ration);
 
         $effect = new ConsumableEffect();
@@ -327,7 +344,7 @@ class ConsumeActionCest
 
         $equipmentConfig
             ->setMechanics(new ArrayCollection([$ration]))
-            ->setName('ration')
+            ->setEquipmentName('ration')
         ;
 
         $I->haveInRepository($equipmentConfig);

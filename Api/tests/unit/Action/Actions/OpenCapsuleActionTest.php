@@ -59,7 +59,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
 
         $gameSpaceCapsule = new GameEquipment($room);
         $spaceCapsule = new EquipmentConfig();
-        $spaceCapsule->setName(EquipmentEnum::COFFEE_MACHINE);
+        $spaceCapsule->setEquipmentName(EquipmentEnum::COFFEE_MACHINE);
         $gameSpaceCapsule
             ->setEquipment($spaceCapsule)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
@@ -75,7 +75,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
         $gameMetalScrap = new GameItem(new Place());
         $metalScrap = new ItemConfig();
         $metalScrap
-            ->setName(ItemEnum::METAL_SCRAPS)
+            ->setEquipmentName(ItemEnum::METAL_SCRAPS)
         ;
         $gameMetalScrap
         ->setEquipment($metalScrap)

@@ -141,7 +141,7 @@ class ActionService implements ActionServiceInterface
         ?LogParameterInterface $parameter
     ): int {
         // Get number of attempt
-        $numberOfAttempt = $this->getNumberOfAttempt($player, $action->getName());
+        $numberOfAttempt = $this->getNumberOfAttempt($player, $action->getActionName());
 
         // Get modifiers
         $modifiedValue = $this->modifierService->getActionModifiedValue(

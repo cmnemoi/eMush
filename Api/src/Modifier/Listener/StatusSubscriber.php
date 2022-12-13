@@ -201,7 +201,7 @@ class StatusSubscriber implements EventSubscriberInterface
 
         $target = $modifierConfig->getTarget();
         $value = intval($modifierConfig->getDelta());
-        $reason = $modifierConfig->getName() ?: $eventReason;
+        $reason = $modifierConfig->getModifierName() ?: $eventReason;
 
         switch (true) {
             case $holder instanceof Player:

@@ -69,7 +69,7 @@ abstract class AbstractActionTest extends TestCase
         ;
         $action = new Action();
         $action
-            ->setName($name)
+            ->setActionName($name)
             ->setActionCost($actionCost);
 
         return $action;

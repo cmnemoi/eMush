@@ -71,7 +71,7 @@ class DaedalusCycleEventTest extends TestCase
         $player->setDaedalus($daedalus)->setPlayerInfo($playerInfo);
 
         $mushConfig = new StatusConfig();
-        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
         $mush = new Status($player, $mushConfig);
 
         $date = new \DateTime('tomorrow');

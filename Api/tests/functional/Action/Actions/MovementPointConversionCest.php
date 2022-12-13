@@ -49,15 +49,20 @@ class MovementPointConversionCest
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
 
         $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(null)->setMovementPointCost(1);
+        $actionCost
+            ->setActionPointCost(null)
+            ->setMovementPointCost(1)
+            ->buildName()
+        ;
         $I->haveInRepository($actionCost);
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
+            ->setActionName(ActionEnum::MOVE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
@@ -121,15 +126,20 @@ class MovementPointConversionCest
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
 
         $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(null)->setMovementPointCost(2);
+        $actionCost
+            ->setActionPointCost(null)
+            ->setMovementPointCost(2)
+            ->buildName()
+        ;
         $I->haveInRepository($actionCost);
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
+            ->setActionName(ActionEnum::MOVE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
@@ -191,15 +201,20 @@ class MovementPointConversionCest
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
 
         $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(null)->setMovementPointCost(5);
+        $actionCost
+            ->setActionPointCost(null)
+            ->setMovementPointCost(5)
+            ->buildName()
+        ;
         $I->haveInRepository($actionCost);
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
+            ->setActionName(ActionEnum::MOVE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 

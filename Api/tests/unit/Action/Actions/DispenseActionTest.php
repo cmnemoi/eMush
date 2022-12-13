@@ -60,7 +60,7 @@ class DispenseActionTest extends AbstractActionTest
 
         $distillerMachine = new EquipmentConfig();
         $gameDistillerMachine = new GameEquipment($room);
-        $distillerMachine->setName(EquipmentEnum::NARCOTIC_DISTILLER);
+        $distillerMachine->setEquipmentName(EquipmentEnum::NARCOTIC_DISTILLER);
         $gameDistillerMachine
             ->setEquipment($distillerMachine)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
@@ -77,7 +77,7 @@ class DispenseActionTest extends AbstractActionTest
         $gameDrug = new GameItem(new Place());
         $drug = new ItemConfig();
         $drug
-            ->setName(GameDrugEnum::PHUXX);
+            ->setEquipmentName(GameDrugEnum::PHUXX);
         $gameDrug
             ->setEquipment($drug)
             ->setName(GameDrugEnum::PHUXX);

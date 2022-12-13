@@ -54,16 +54,19 @@ class PhagocyteActionCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
         $I->haveInRepository($actionCost);
 
         $phagocyteActionEntity = new Action();
         $phagocyteActionEntity
-            ->setName(ActionEnum::PHAGOCYTE)
+            ->setActionName(ActionEnum::PHAGOCYTE)
             ->setScope(ActionScopeEnum::SELF)
             ->setDirtyRate(0)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($phagocyteActionEntity);
 
         /** @var CharacterConfig $characterConfig */
@@ -86,8 +89,9 @@ class PhagocyteActionCest
 
         $mushConfig = new StatusConfig();
         $mushConfig
-            ->setName(PlayerStatusEnum::MUSH)
+            ->setStatusName(PlayerStatusEnum::MUSH)
             ->setVisibility(VisibilityEnum::MUSH)
+           ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($mushConfig);
 
@@ -96,9 +100,10 @@ class PhagocyteActionCest
 
         $sporeStatusConfig = new ChargeStatusConfig();
         $sporeStatusConfig
-            ->setName(PlayerStatusEnum::SPORES)
+            ->setStatusName(PlayerStatusEnum::SPORES)
             ->setVisibility(VisibilityEnum::MUSH)
             ->setChargeVisibility(VisibilityEnum::MUSH)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($sporeStatusConfig);
 

@@ -13,8 +13,11 @@ class SymptomCondition
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $conditionName;
 
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $condition = null;
@@ -22,9 +25,9 @@ class SymptomCondition
     #[ORM\Column(type: 'integer', nullable: true)]
     private int $value = 100;
 
-    public function __construct(string $name)
+    public function __construct(string $conditionName)
     {
-        $this->name = $name;
+        $this->conditionName = $conditionName;
     }
 
     public function getId(): ?int
@@ -42,6 +45,32 @@ class SymptomCondition
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function buildName(): static
+    {
+        $name = $this->conditionName;
+        if ($this->condition !== null) {
+            $name = $name . '_' . $this->condition;
+        }
+        if ($this->value !== 100) {
+            $name = $name . '_' . $this->value;
+        }
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function setConditionName(string $conditionName): self
+    {
+        $this->conditionName = $conditionName;
+
+        return $this;
+    }
+
+    public function getConditionName(): string
+    {
+        return $this->conditionName;
     }
 
     public function setCondition(string $condition): self

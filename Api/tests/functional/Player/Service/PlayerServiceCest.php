@@ -7,6 +7,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -58,7 +59,10 @@ class PlayerServiceCest
         $I->refreshEntities($player);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::FULL_STOMACH);
+        $statusConfig
+            ->setStatusName(PlayerStatusEnum::FULL_STOMACH)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig);
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
@@ -103,13 +107,19 @@ class PlayerServiceCest
         $I->refreshEntities($player);
 
         $mushConfig = new ChargeStatusConfig();
-        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mushConfig
+            ->setStatusName(PlayerStatusEnum::MUSH)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($mushConfig);
         $mushStatus = new ChargeStatus($player, $mushConfig);
         $I->haveInRepository($mushStatus);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::FULL_STOMACH);
+        $statusConfig
+            ->setStatusName(PlayerStatusEnum::FULL_STOMACH)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig);
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
@@ -171,7 +181,10 @@ class PlayerServiceCest
         $I->refreshEntities($mushPlayer);
 
         $mushConfig = new ChargeStatusConfig();
-        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mushConfig
+            ->setStatusName(PlayerStatusEnum::MUSH)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($mushConfig);
         $mushStatus = new ChargeStatus($mushPlayer, $mushConfig);
         $I->haveInRepository($mushStatus);

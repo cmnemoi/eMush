@@ -532,7 +532,7 @@ class AlertServiceTest extends TestCase
         $room->setDaedalus($daedalus);
 
         $fireConfig = new StatusConfig();
-        $fireConfig->setName(StatusEnum::FIRE);
+        $fireConfig->setStatusName(StatusEnum::FIRE);
         $fireStatus = new Status($room, $fireConfig);
 
         $alertElement = new AlertElement();
@@ -566,7 +566,7 @@ class AlertServiceTest extends TestCase
         $room->setDaedalus($daedalus);
 
         $fireConfig = new StatusConfig();
-        $fireConfig->setName(StatusEnum::FIRE);
+        $fireConfig->setStatusName(StatusEnum::FIRE);
         $fireStatus = new Status($room, $fireConfig);
 
         $alertElement = new AlertElement();
@@ -598,7 +598,7 @@ class AlertServiceTest extends TestCase
 
         $gameEquipment = new GameEquipment($room);
         $brokenConfig = new StatusConfig();
-        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $status = new Status($gameEquipment, $brokenConfig);
 
         $alertElement = new AlertElement();
@@ -633,7 +633,7 @@ class AlertServiceTest extends TestCase
 
         $gameEquipment = new GameEquipment($room);
         $brokenConfig = new StatusConfig();
-        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $status = new Status($gameEquipment, $brokenConfig);
 
         $alertElement = new AlertElement();

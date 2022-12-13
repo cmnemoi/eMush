@@ -46,7 +46,7 @@ class EquipmentSubscriberCest
 
         $equipment = new GameItem($room);
         $equipment
-            ->setName($equipmentConfig->getName())
+            ->setName($equipmentConfig->getEquipmentName())
             ->setEquipment($equipmentConfig)
         ;
         $I->haveInRepository($equipment);

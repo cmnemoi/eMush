@@ -57,7 +57,7 @@ class ModifierConditionService implements ModifierConditionServiceInterface
 
     private function checkCondition(ModifierCondition $condition, string $reason, ModifierHolder $holder): bool
     {
-        switch ($condition->getName()) {
+        switch ($condition->getConditionName()) {
             case ModifierConditionEnum::REASON:
                 return $reason === $condition->getCondition();
 

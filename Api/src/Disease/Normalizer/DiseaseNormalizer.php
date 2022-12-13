@@ -41,7 +41,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
         $description = $this->translationService->translate(
-            "{$diseaseConfig->getName()}.description",
+            "{$diseaseConfig->getDiseaseName()}.description",
             [],
             'disease',
             $language
@@ -51,9 +51,9 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         $description = $this->getModifierEffects($diseaseConfig, $description, $language);
 
         return [
-            'key' => $diseaseConfig->getName(),
+            'key' => $diseaseConfig->getDiseaseName(),
             'name' => $this->translationService->translate(
-                $diseaseConfig->getName() . '.name',
+                $diseaseConfig->getDiseaseName() . '.name',
                 [],
                 'disease',
                 $language
@@ -69,10 +69,10 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
         $symptomEffects = [];
         /** @var SymptomConfig $symptomConfig */
         foreach ($diseaseConfig->getSymptomConfigs() as $symptomConfig) {
-            $name = $symptomConfig->getName();
+            $name = $symptomConfig->getSymptomName();
 
             $randomCondition = $symptomConfig->getSymptomConditions()
-                ->filter(fn (SymptomCondition $condition) => $condition->getName() === SymptomConditionEnum::RANDOM);
+                ->filter(fn (SymptomCondition $condition) => $condition->getConditionName() === SymptomConditionEnum::RANDOM);
             if (!$randomCondition->isEmpty()) {
                 $chance = $randomCondition->first()->getValue();
             } else {
@@ -164,7 +164,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
     private function getModifierChance(ModifierConfig $modifierConfig): int
     {
         $randomCondition = $modifierConfig->getModifierConditions()
-                ->filter(fn (ModifierCondition $condition) => $condition->getName() === SymptomConditionEnum::RANDOM);
+                ->filter(fn (ModifierCondition $condition) => $condition->getConditionName() === SymptomConditionEnum::RANDOM);
         if (!$randomCondition->isEmpty()) {
             return $randomCondition->first()->getValue();
         } else {
@@ -175,7 +175,7 @@ class DiseaseNormalizer implements ContextAwareNormalizerInterface
     private function getModifierAction(ModifierConfig $modifierConfig): ?string
     {
         $reasonCondition = $modifierConfig->getModifierConditions()
-            ->filter(fn (ModifierCondition $condition) => $condition->getName() === SymptomConditionEnum::REASON);
+            ->filter(fn (ModifierCondition $condition) => $condition->getConditionName() === SymptomConditionEnum::REASON);
         if (!$reasonCondition->isEmpty()) {
             return $reasonCondition->first()->getCondition();
         } else {

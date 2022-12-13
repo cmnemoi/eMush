@@ -51,11 +51,15 @@ class CreateDestroyEquipmentSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
+        $gear
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
+            ->setName('gear_test')
+        ;
         $I->haveInRepository($gear);
 
         $name = 'test item';
@@ -64,6 +68,7 @@ class CreateDestroyEquipmentSubscriberCest
         $equipmentConfig = $I->have(ItemConfig::class, [
             'mechanics' => new ArrayCollection([$gear]),
             'name' => $name,
+            'equipmentName' => $name,
         ]);
 
         /** @var GameConfig $gameConfig */
@@ -116,11 +121,15 @@ class CreateDestroyEquipmentSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
+        $gear
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
+            ->setName('gear_test')
+        ;
         $I->haveInRepository($gear);
 
         $name = 'test item';
@@ -128,6 +137,7 @@ class CreateDestroyEquipmentSubscriberCest
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, [
             'name' => $name,
+            'equipmentName' => $name,
             'mechanics' => new ArrayCollection([$gear]),
         ]);
 
@@ -178,17 +188,22 @@ class CreateDestroyEquipmentSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLACE)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
+        $gear
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
+            ->setName('gear_test')
+        ;
         $I->haveInRepository($gear);
 
         $name = 'test name';
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, [
             'mechanics' => new ArrayCollection([$gear]),
+            'equipmentName' => $name,
             'name' => $name,
         ]);
 
@@ -234,15 +249,17 @@ class CreateDestroyEquipmentSubscriberCest
     public function testDestroyGear(FunctionalTester $I): void
     {
         $actionCost = new ActionCost();
+        $actionCost->buildName();
         $I->haveInRepository($actionCost);
 
         $takeActionEntity = new Action();
         $takeActionEntity
-            ->setName(ActionEnum::DROP)
+            ->setActionName(ActionEnum::DROP)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($takeActionEntity);
 
@@ -253,11 +270,15 @@ class CreateDestroyEquipmentSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
+        $gear
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
+            ->setName('gear_test')
+        ;
         $I->haveInRepository($gear);
 
         $name = 'test name';
@@ -266,6 +287,7 @@ class CreateDestroyEquipmentSubscriberCest
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$gear]),
             'name' => $name,
+            'equipmentName' => $name,
         ]);
 
         /** @var GameConfig $gameConfig */
@@ -313,15 +335,17 @@ class CreateDestroyEquipmentSubscriberCest
     public function testDestroyOneOfTwoGear(FunctionalTester $I): void
     {
         $actionCost = new ActionCost();
+        $actionCost->buildName();
         $I->haveInRepository($actionCost);
 
         $takeActionEntity = new Action();
         $takeActionEntity
-            ->setName(ActionEnum::DROP)
+            ->setActionName(ActionEnum::DROP)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($takeActionEntity);
 
@@ -332,11 +356,15 @@ class CreateDestroyEquipmentSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
+        $gear
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
+            ->setName('gear_test')
+        ;
         $I->haveInRepository($gear);
 
         $name = 'test name';
@@ -345,6 +373,7 @@ class CreateDestroyEquipmentSubscriberCest
         $itemConfig = $I->have(ItemConfig::class, [
             'mechanics' => new ArrayCollection([$gear]),
             'name' => $name,
+            'equipmentName' => $name,
         ]);
 
         /** @var GameConfig $gameConfig */
@@ -411,15 +440,17 @@ class CreateDestroyEquipmentSubscriberCest
     public function testTransformGear(FunctionalTester $I): void
     {
         $actionCost = new ActionCost();
+        $actionCost->buildName();
         $I->haveInRepository($actionCost);
 
         $takeActionEntity = new Action();
         $takeActionEntity
-            ->setName(ActionEnum::DROP)
+            ->setActionName(ActionEnum::DROP)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($takeActionEntity);
 
@@ -430,6 +461,7 @@ class CreateDestroyEquipmentSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
@@ -440,26 +472,35 @@ class CreateDestroyEquipmentSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig2);
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
+        $gear
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
+            ->setName('gear_test')
+        ;
         $I->haveInRepository($gear);
 
         $gear2 = new Gear();
-        $gear2->setModifierConfigs(new ArrayCollection([$modifierConfig2]));
+        $gear2
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig2]))
+            ->setName('gear_test_2')
+        ;
         $I->haveInRepository($gear2);
 
         /** @var ItemConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, [
             'mechanics' => new ArrayCollection([$gear]),
             'name' => ItemEnum::OXYGEN_CAPSULE,
+            'equipmentName' => ItemEnum::OXYGEN_CAPSULE,
         ]);
         /** @var ItemConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(ItemConfig::class, [
             'mechanics' => new ArrayCollection([$gear2]),
             'name' => ItemEnum::APPRENTON,
+            'equipmentName' => ItemEnum::APPRENTON,
         ]);
 
         /** @var GameConfig $gameConfig */

@@ -79,7 +79,7 @@ class StatusService implements StatusServiceInterface
 
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
     {
-        $statusConfigs = $daedalus->getGameConfig()->getStatusConfigs()->filter(fn (StatusConfig $statusConfig) => $statusConfig->getName() === $name);
+        $statusConfigs = $daedalus->getGameConfig()->getStatusConfigs()->filter(fn (StatusConfig $statusConfig) => $statusConfig->getStatusName() === $name);
 
         if ($statusConfigs->count() < 1) {
             throw new \LogicException("there should be at least 1 statusConfig with this name ({$name}). There are currently {$statusConfigs->count()}");
@@ -105,7 +105,7 @@ class StatusService implements StatusServiceInterface
         $this->persist($status);
 
         $statusEvent = new StatusEvent(
-            $statusConfig->getName(),
+            $statusConfig->getStatusName(),
             $holder,
             $reason,
             $time

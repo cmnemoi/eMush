@@ -202,7 +202,7 @@ class EquipmentNormalizerTest extends TestCase
         $player->setDaedalus($daedalus);
 
         $resultEquipment = new EquipmentConfig();
-        $resultEquipment->setName(EquipmentEnum::ASTRO_TERMINAL);
+        $resultEquipment->setEquipmentName(EquipmentEnum::ASTRO_TERMINAL);
         $blueprint = new Blueprint();
         $blueprint
             ->setEquipment($resultEquipment)

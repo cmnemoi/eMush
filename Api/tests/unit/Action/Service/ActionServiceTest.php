@@ -232,7 +232,7 @@ class ActionServiceTest extends TestCase
         $player = $this->createPlayer(5, 5, 5);
 
         $statusConfig = new ChargeStatusConfig();
-        $statusConfig->setName(StatusEnum::ATTEMPT);
+        $statusConfig->setStatusName(StatusEnum::ATTEMPT);
         $attempt = new Attempt($player, $statusConfig);
         $attempt
             ->setAction(ActionEnum::TAKE)
@@ -323,7 +323,7 @@ class ActionServiceTest extends TestCase
         $action = new Action();
 
         $action
-            ->setName(ActionEnum::TAKE)
+            ->setActionName(ActionEnum::TAKE)
             ->setActionCost($actionCost)
         ;
 

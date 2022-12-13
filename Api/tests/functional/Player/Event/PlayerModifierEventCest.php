@@ -38,11 +38,13 @@ class PlayerModifierEventCest
     {
         $suicidalStatusConfig = new StatusConfig();
         $suicidalStatusConfig
-            ->setName(PlayerStatusEnum::SUICIDAL)
+            ->setStatusName(PlayerStatusEnum::SUICIDAL)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $demoralizedStatusConfig = new StatusConfig();
         $demoralizedStatusConfig
-            ->setName(PlayerStatusEnum::DEMORALIZED)
+            ->setStatusName(PlayerStatusEnum::DEMORALIZED)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($suicidalStatusConfig);
         $I->haveInRepository($demoralizedStatusConfig);
@@ -155,11 +157,13 @@ class PlayerModifierEventCest
     {
         $fullStatusConfig = new StatusConfig();
         $fullStatusConfig
-            ->setName(PlayerStatusEnum::FULL_STOMACH)
+            ->setStatusName(PlayerStatusEnum::FULL_STOMACH)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $starvingStatusConfig = new StatusConfig();
         $starvingStatusConfig
-            ->setName(PlayerStatusEnum::STARVING)
+            ->setStatusName(PlayerStatusEnum::STARVING)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($fullStatusConfig);
         $I->haveInRepository($starvingStatusConfig);
@@ -258,7 +262,8 @@ class PlayerModifierEventCest
     {
         $fullStatusConfig = new StatusConfig();
         $fullStatusConfig
-            ->setName(PlayerStatusEnum::FULL_STOMACH)
+            ->setStatusName(PlayerStatusEnum::FULL_STOMACH)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($fullStatusConfig);
 
@@ -295,7 +300,10 @@ class PlayerModifierEventCest
         $I->refreshEntities($player);
 
         $mushConfig = new ChargeStatusConfig();
-        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mushConfig
+            ->setStatusName(PlayerStatusEnum::MUSH)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($mushConfig);
         $mushStatus = new ChargeStatus($player, $mushConfig);
         $I->haveInRepository($mushStatus);

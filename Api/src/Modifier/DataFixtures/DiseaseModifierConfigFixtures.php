@@ -53,35 +53,58 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
     public const TAKE_CAT_6_HEALTH_LOSS = 'take_cat_6_health_loss';
     public const INFECTED_4_HEALTH_LOSS = 'infected_4_health_loss';
     public const INCREASE_CYCLE_DISEASE_CHANCES_10 = 'increase_cycle_disease_chances_10';
+    public const RANDOM_16 = 'random_16_modifier';
+    public const REASON_CONSUME = 'reason_consume';
 
     public function load(ObjectManager $manager): void
     {
         $randCondition10 = new ModifierCondition(ModifierConditionEnum::RANDOM);
-        $randCondition10->setValue(10);
+        $randCondition10
+            ->setValue(10)
+            ->buildName()
+        ;
         $manager->persist($randCondition10);
 
         $randCondition16 = new ModifierCondition(ModifierConditionEnum::RANDOM);
-        $randCondition16->setValue(16);
+        $randCondition16
+            ->setValue(16)
+            ->buildName()
+        ;
         $manager->persist($randCondition16);
 
         $randCondition20 = new ModifierCondition(ModifierConditionEnum::RANDOM);
-        $randCondition20->setValue(20);
+        $randCondition20
+            ->setValue(20)
+            ->buildName()
+        ;
         $manager->persist($randCondition20);
 
         $randCondition30 = new ModifierCondition(ModifierConditionEnum::RANDOM);
-        $randCondition30->setValue(30);
+        $randCondition30
+            ->setValue(30)
+            ->buildName()
+        ;
         $manager->persist($randCondition30);
 
         $randCondition40 = new ModifierCondition(ModifierConditionEnum::RANDOM);
-        $randCondition40->setValue(40);
+        $randCondition40
+            ->setValue(40)
+            ->buildName()
+        ;
         $manager->persist($randCondition40);
 
         $randCondition50 = new ModifierCondition(ModifierConditionEnum::RANDOM);
-        $randCondition50->setValue(50);
+        $randCondition50
+            ->setValue(50)
+            ->buildName()
+        ;
         $manager->persist($randCondition50);
 
         $lyingDownCondition = new ModifierCondition(ModifierConditionEnum::PLAYER_STATUS);
-        $lyingDownCondition->setCondition(PlayerStatusEnum::LYING_DOWN);
+        $lyingDownCondition
+            ->setCondition(PlayerStatusEnum::LYING_DOWN)
+            ->buildName()
+        ;
         $manager->persist($lyingDownCondition);
 
         $moveIncreaseMovement = new ModifierConfig();
@@ -91,6 +114,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setDelta(1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($moveIncreaseMovement);
 
@@ -101,6 +125,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($reduceMax1HealthPoint);
 
@@ -111,6 +136,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setDelta(-2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($reduceMax2HealthPoint);
 
@@ -121,6 +147,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setDelta(-4)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($reduceMax4HealthPoint);
 
@@ -131,6 +158,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($reduceMax1MoralPoint);
 
@@ -141,6 +169,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setDelta(-2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($reduceMax2MoralPoint);
 
@@ -151,6 +180,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
+            ->buildName()
         ;
         $manager->persist($cycle1HealthLost);
 
@@ -161,6 +191,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setDelta(-2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
+            ->buildName()
         ;
         $manager->persist($cycle2HealthLost);
 
@@ -171,6 +202,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setDelta(-4)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
+            ->buildName()
         ;
         $manager->persist($cycle4HealthLost);
 
@@ -181,6 +213,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
+            ->buildName()
         ;
         $manager->persist($cycle1MovementLost);
 
@@ -191,6 +224,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
+            ->buildName()
         ;
         $manager->persist($cycle1SatietyLost);
 
@@ -202,6 +236,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($randCondition10)
+            ->buildName()
         ;
         $manager->persist($cycle1ActionLostRand10);
 
@@ -213,6 +248,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($randCondition10)
+            ->buildName()
         ;
         $manager->persist($cycle1HealthLostRand10);
 
@@ -224,6 +260,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($randCondition16)
+            ->buildName()
         ;
         $manager->persist($cycle1ActionLostRand16);
 
@@ -235,6 +272,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($randCondition16)
+            ->buildName()
         ;
         $manager->persist($cycle1HealthLostRand16);
 
@@ -246,6 +284,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($randCondition20)
+            ->buildName()
         ;
         $manager->persist($cycle1ActionLostRand20);
 
@@ -257,6 +296,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($randCondition30)
+            ->buildName()
         ;
         $manager->persist($cycle1ActionLostRand30);
 
@@ -268,6 +308,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($randCondition40)
+            ->buildName()
         ;
         $manager->persist($cycle2ActionLostRand40);
 
@@ -279,6 +320,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($randCondition50)
+            ->buildName()
         ;
         $manager->persist($cycle1MovementLostRand50);
 
@@ -290,11 +332,15 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($randCondition50)
+            ->buildName()
         ;
         $manager->persist($cycle1HealthLostRand50);
 
         $consumeActionCondition = new ModifierCondition(ModifierConditionEnum::REASON);
-        $consumeActionCondition->setCondition(ActionEnum::CONSUME);
+        $consumeActionCondition
+            ->setCondition(ActionEnum::CONSUME)
+            ->buildName()
+        ;
         $manager->persist($consumeActionCondition);
 
         $consume1ActionLoss = new ModifierConfig();
@@ -305,6 +351,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($consumeActionCondition)
+            ->buildName()
         ;
         $manager->persist($consume1ActionLoss);
 
@@ -316,6 +363,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($consumeActionCondition)
+            ->buildName()
         ;
         $manager->persist($consume2ActionLoss);
 
@@ -326,11 +374,15 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setDelta(-4)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
+            ->buildName()
         ;
         $manager->persist($infected4HealthLost);
 
         $takeCatCondition = new ModifierCondition(ModifierConditionEnum::PLAYER_EQUIPMENT);
-        $takeCatCondition->setCondition(ItemEnum::SCHRODINGER);
+        $takeCatCondition
+            ->setCondition(ItemEnum::SCHRODINGER)
+            ->buildName()
+        ;
         $manager->persist($takeCatCondition);
 
         $takeCat6HealthLost = new ModifierConfig();
@@ -341,6 +393,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($takeCatCondition)
+            ->buildName()
         ;
         $manager->persist($takeCat6HealthLost);
 
@@ -351,6 +404,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setDelta(1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($cycle1SatietyIncrease);
 
@@ -361,6 +415,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setDelta(0.9)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->buildName()
         ;
         $manager->persist($shootAction10PercentAccuracyLost);
 
@@ -371,6 +426,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setDelta(10)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($increaseCycleDiseaseChances10);
 
@@ -380,10 +436,11 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
-            ->setMode(ModifierModeEnum::SET_VALUE)
-            ->setName(ModifierNameEnum::FITFULL_SLEEP)
+            ->setMode(ModifierModeEnum::ADDITIVE)
+            ->setModifierName(ModifierNameEnum::FITFULL_SLEEP)
             ->addModifierCondition($randCondition16)
             ->addModifierCondition($lyingDownCondition)
+            ->buildName()
         ;
         $manager->persist($cycle1ActionLostRand16FitfullSleep);
 
@@ -417,6 +474,8 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $this->addReference(self::CYCLE_1_SATIETY_INCREASE, $cycle1SatietyIncrease);
         $this->addReference(self::SHOOT_ACTION_10_PERCENT_ACCURACY_LOST, $shootAction10PercentAccuracyLost);
         $this->addReference(self::INCREASE_CYCLE_DISEASE_CHANCES_10, $increaseCycleDiseaseChances10);
+        $this->addReference(self::RANDOM_16, $randCondition16);
+        $this->addReference(self::REASON_CONSUME, $consumeActionCondition);
     }
 
     public function getDependencies(): array

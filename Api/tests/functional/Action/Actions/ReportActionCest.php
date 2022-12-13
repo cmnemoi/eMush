@@ -98,14 +98,16 @@ class ReportActionCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(0)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::REPORT_EQUIPMENT)
+            ->setActionName(ActionEnum::REPORT_EQUIPMENT)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
 
@@ -123,7 +125,11 @@ class ReportActionCest
         $I->haveInRepository($gameEquipment);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::BROKEN)->setVisibility(VisibilityEnum::PUBLIC);
+        $statusConfig
+            ->setStatusName(EquipmentStatusEnum::BROKEN)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig);
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
@@ -187,14 +193,16 @@ class ReportActionCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(0)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::REPORT_EQUIPMENT)
+            ->setActionName(ActionEnum::REPORT_EQUIPMENT)
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
 
@@ -216,7 +224,11 @@ class ReportActionCest
         $I->refreshEntities($player);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(StatusEnum::FIRE)->setVisibility(VisibilityEnum::PUBLIC);
+        $statusConfig
+            ->setStatusName(StatusEnum::FIRE)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig);
         $status = new Status($room, $statusConfig);
         $I->haveInRepository($status);

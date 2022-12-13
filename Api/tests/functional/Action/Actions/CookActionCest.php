@@ -38,7 +38,7 @@ class CookActionCest
         $gameEquipment = $this->createEquipment(GameRationEnum::STANDARD_RATION, $room2);
 
         $cookActionEntity = new Action();
-        $cookActionEntity->setName(ActionEnum::COOK);
+        $cookActionEntity->setActionName(ActionEnum::COOK);
 
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$cookActionEntity]));
@@ -66,7 +66,7 @@ class CookActionCest
         $gameEquipment = $this->createEquipment(GameRationEnum::STANDARD_RATION, $room);
 
         $cookActionEntity = new Action();
-        $cookActionEntity->setName(ActionEnum::COOK);
+        $cookActionEntity->setActionName(ActionEnum::COOK);
 
         $this->cookAction->loadParameters($cookActionEntity, $player, $gameEquipment);
 
@@ -90,7 +90,7 @@ class CookActionCest
         $gameEquipment = $this->createEquipment(GameRationEnum::STANDARD_RATION, $room);
 
         $cookActionEntity = new Action();
-        $cookActionEntity->setName(ActionEnum::COOK);
+        $cookActionEntity->setActionName(ActionEnum::COOK);
 
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$cookActionEntity]));
@@ -100,7 +100,7 @@ class CookActionCest
 
         $I->assertTrue($this->cookAction->isVisible());
 
-        $gameEquipment->getEquipment()->setName(GameRationEnum::COFFEE);
+        $gameEquipment->getEquipment()->setEquipmentName(GameRationEnum::COFFEE);
 
         $I->assertFalse($this->cookAction->isVisible());
     }
@@ -129,7 +129,7 @@ class CookActionCest
     {
         $gameEquipment = new GameEquipment($place);
         $equipment = new EquipmentConfig();
-        $equipment->setName($name);
+        $equipment->setEquipmentName($name);
         $gameEquipment
             ->setEquipment($equipment)
             ->setHolder($place)

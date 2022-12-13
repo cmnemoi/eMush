@@ -73,7 +73,8 @@ class RoomEventCest
     {
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
-            ->setName(StatusEnum::FIRE)
+            ->setStatusName(StatusEnum::FIRE)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
 
@@ -177,8 +178,8 @@ class RoomEventCest
     public function testElectricArc(FunctionalTester $I)
     {
         $statusConfig = new StatusConfig();
-        $statusConfig
-            ->setName(EquipmentStatusEnum::BROKEN)
+        $statusConfig->setStatusName(EquipmentStatusEnum::BROKEN)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
 

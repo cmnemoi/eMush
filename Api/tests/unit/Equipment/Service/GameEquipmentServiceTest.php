@@ -75,7 +75,7 @@ class GameEquipmentServiceTest extends TestCase
         // Basic item
         $itemConfig = new ItemConfig();
         $itemConfig
-            ->setName('some Name')
+            ->setEquipmentName('some Name')
             ->setMechanics(new ArrayCollection([]));
 
         $this->entityManager
@@ -105,7 +105,7 @@ class GameEquipmentServiceTest extends TestCase
         // Equipment
         $equipmentConfig = new EquipmentConfig();
         $equipmentConfig
-            ->setName('equipment Name')
+            ->setEquipmentName('equipment Name')
             ->setMechanics(new ArrayCollection([]))
         ;
 
@@ -139,7 +139,7 @@ class GameEquipmentServiceTest extends TestCase
         $plantMechanic = new Plant();
         $itemConfig = new ItemConfig();
         $itemConfig
-            ->setName('some plant')
+            ->setEquipmentName('some plant')
             ->setMechanics(new ArrayCollection([$plantMechanic]))
         ;
 
@@ -185,7 +185,7 @@ class GameEquipmentServiceTest extends TestCase
 
         $itemConfig = new ItemConfig();
         $itemConfig
-            ->setName('some document')
+            ->setEquipmentName('some document')
             ->setMechanics(new ArrayCollection([$documentMechanic]))
         ;
 

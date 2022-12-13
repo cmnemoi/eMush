@@ -49,7 +49,8 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(-100)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setName(ModifierNameEnum::APRON_MODIFIER)
+            ->setModifierName(ModifierNameEnum::APRON_MODIFIER)
+            ->buildName()
         ;
         $manager->persist($apronModifier);
 
@@ -60,6 +61,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::TARGET_PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($armorModifier);
 
@@ -70,6 +72,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1.5)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->buildName()
         ;
         $manager->persist($wrenchModifier);
 
@@ -80,7 +83,8 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(0)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
-            ->setName(ModifierNameEnum::GLOVES_MODIFIER)
+            ->setModifierName(ModifierNameEnum::GLOVES_MODIFIER)
+            ->buildName()
         ;
         $manager->persist($glovesModifier);
 
@@ -91,6 +95,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($soapModifier);
 
@@ -101,6 +106,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($soapSinkModifier);
 
@@ -111,6 +117,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1.1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->buildName()
         ;
         $manager->persist($aimModifier);
 
@@ -121,11 +128,15 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($antiGravScooterModifier);
 
         $evenCyclesCondition = new ModifierCondition(ModifierConditionEnum::CYCLE);
-        $evenCyclesCondition->setCondition(ModifierConditionEnum::EVEN);
+        $evenCyclesCondition
+            ->setCondition(ModifierConditionEnum::EVEN)
+            ->buildName()
+        ;
         $manager->persist($evenCyclesCondition);
 
         $rollingBoulderModifier = new ModifierConfig();
@@ -136,6 +147,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($evenCyclesCondition)
+            ->buildName()
         ;
         $manager->persist($rollingBoulderModifier);
 
@@ -146,11 +158,15 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1.5)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->buildName()
         ;
         $manager->persist($oscilloscopeSuccessModifier);
 
         $strengthenCondition = new ModifierCondition(ModifierConditionEnum::REASON);
-        $strengthenCondition->setCondition(ActionEnum::STRENGTHEN_HULL);
+        $strengthenCondition
+            ->setCondition(ActionEnum::STRENGTHEN_HULL)
+            ->buildName()
+        ;
         $manager->persist($strengthenCondition);
 
         $oscilloscopeRepairModifier = new ModifierConfig();
@@ -161,6 +177,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
             ->addModifierCondition($strengthenCondition)
+            ->buildName()
         ;
         $manager->persist($oscilloscopeRepairModifier);
 
@@ -171,6 +188,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($antennaModifier);
 
@@ -181,11 +199,15 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($gravityConversionModifier);
 
         $cycleEventCondition = new ModifierCondition(ModifierConditionEnum::REASON);
-        $cycleEventCondition->setCondition(EventEnum::NEW_CYCLE);
+        $cycleEventCondition
+            ->setCondition(EventEnum::NEW_CYCLE)
+            ->buildName()
+        ;
         $manager->persist($cycleEventCondition);
 
         $gravityCycleModifier = new ModifierConfig();
@@ -196,6 +218,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($cycleEventCondition)
+            ->buildName()
         ;
         $manager->persist($gravityCycleModifier);
 
@@ -207,6 +230,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($cycleEventCondition)
+            ->buildName()
         ;
         $manager->persist($oxygenTankModifier);
 

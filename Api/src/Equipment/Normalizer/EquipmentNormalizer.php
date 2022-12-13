@@ -86,7 +86,7 @@ class EquipmentNormalizer implements ContextAwareNormalizerInterface, Normalizer
         if (($blueprint = $object->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) instanceof Blueprint) {
             $key = ItemEnum::BLUEPRINT;
             $resultEquipment = $blueprint->getEquipment();
-            $nameParameters[$resultEquipment->getLogKey()] = $blueprint->getEquipment()->getName();
+            $nameParameters[$resultEquipment->getLogKey()] = $blueprint->getEquipment()->getEquipmentName();
         }
 
         if (($book = $object->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK)) instanceof Book) {

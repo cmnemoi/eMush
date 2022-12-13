@@ -53,7 +53,7 @@ class ActionStrategyService implements ActionStrategyServiceInterface
             throw new NotFoundHttpException('This action does not exist');
         }
 
-        $actionService = $this->getAction($action->getName());
+        $actionService = $this->getAction($action->getActionName());
 
         if (null === $actionService) {
             return new Error('Action do not exist');

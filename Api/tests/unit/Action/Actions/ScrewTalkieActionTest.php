@@ -90,7 +90,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
         ;
 
         $brokenConfig = new StatusConfig();
-        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $brokenStatus = new Status($gameItem, $brokenConfig);
 
         $mushStatus = new ChargeStatus($player, new ChargeStatusConfig());

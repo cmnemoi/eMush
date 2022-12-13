@@ -38,7 +38,7 @@ class ActionSubscriber implements EventSubscriberInterface
         if ($actionResult === null) {
             return;
         }
-        $actionName = $event->getAction()->getName();
+        $actionName = $event->getAction()->getActionName();
 
         $target = $event->getActionParameter();
 
@@ -77,7 +77,7 @@ class ActionSubscriber implements EventSubscriberInterface
     public function onPreAction(ActionEvent $event): void
     {
         $player = $event->getPlayer();
-        $actionName = $event->getAction()->getName();
+        $actionName = $event->getAction()->getActionName();
 
         switch ($actionName) {
             case ActionEnum::MOVE:

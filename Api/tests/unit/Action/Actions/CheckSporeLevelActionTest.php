@@ -48,7 +48,7 @@ class CheckSporeLevelActionTest extends AbstractActionTest
         $player = $this->createPlayer($daedalus, $room);
 
         $sporeConfig = new ChargeStatusConfig();
-        $sporeConfig->setName(PlayerStatusEnum::SPORES);
+        $sporeConfig->setStatusName(PlayerStatusEnum::SPORES);
         $sporeStatus = new ChargeStatus($player, $sporeConfig);
         $sporeStatus
             ->setCharge(1)

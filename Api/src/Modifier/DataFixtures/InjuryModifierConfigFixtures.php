@@ -5,12 +5,10 @@ namespace Mush\Modifier\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Modifier\Entity\ModifierCondition;
 use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Enum\ModifierConditionEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
@@ -31,9 +29,8 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
     public function load(ObjectManager $manager): void
     {
-        $notMoveActionCondition = new ModifierCondition(ModifierConditionEnum::NOT_REASON);
-        $notMoveActionCondition->setCondition(ActionEnum::MOVE);
-        $manager->persist($notMoveActionCondition);
+        /** @var ModifierCondition $notMoveActionCondition */
+        $notMoveActionCondition = $this->getReference(DisorderModifierConfigFixtures::NOT_REASON_MOVE);
 
         $notMoveAction1Increase = new ModifierConfig();
         $notMoveAction1Increase
@@ -43,6 +40,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($notMoveActionCondition)
+            ->buildName()
         ;
         $manager->persist($notMoveAction1Increase);
 
@@ -54,6 +52,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($notMoveActionCondition)
+            ->buildName()
         ;
         $manager->persist($notMoveAction2Increase);
 
@@ -65,6 +64,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($notMoveActionCondition)
+            ->buildName()
         ;
         $manager->persist($notMoveAction3Increase);
 
@@ -75,6 +75,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(-3)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($reduceMax3MovementPoint);
 
@@ -85,6 +86,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(-5)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($reduceMax5MovementPoint);
 
@@ -95,6 +97,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(-12)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($reduceMax12MovementPoint);
 
@@ -105,6 +108,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(0.85)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->buildName()
         ;
         $manager->persist($shootAction15PercentAccuracyLost);
 
@@ -115,6 +119,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(0.80)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->buildName()
         ;
         $manager->persist($shootAction20PercentAccuracyLost);
 
@@ -125,6 +130,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setDelta(0.60)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->buildName()
         ;
         $manager->persist($shootAction40PercentAccuracyLost);
 
@@ -145,6 +151,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
     {
         return [
             GameConfigFixtures::class,
+            DisorderModifierConfigFixtures::class,
         ];
     }
 }

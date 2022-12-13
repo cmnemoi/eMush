@@ -61,8 +61,9 @@ class ShowerActionCest
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
+            ->setStatusName(StatusEnum::ATTEMPT)
             ->setVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($attemptConfig);
 
@@ -101,7 +102,10 @@ class ShowerActionCest
         $I->refreshEntities($player);
 
         $showerActionCondition = new ModifierCondition(ModifierConditionEnum::REASON);
-        $showerActionCondition->setCondition(ActionEnum::SHOWER);
+        $showerActionCondition
+            ->setCondition(ActionEnum::SHOWER)
+            ->buildName()
+        ;
         $I->haveInRepository($showerActionCondition);
 
         $mushShowerModifier = new ModifierConfig();
@@ -112,34 +116,40 @@ class ShowerActionCest
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($showerActionCondition)
-            ->setName(ModifierNameEnum::MUSH_SHOWER_MALUS)
+            ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)
+            ->buildName()
         ;
         $I->haveInRepository($mushShowerModifier);
 
         $mushConfig = new StatusConfig();
         $mushConfig
-            ->setName(PlayerStatusEnum::MUSH)
+            ->setStatusName(PlayerStatusEnum::MUSH)
             ->setVisibility(VisibilityEnum::MUSH)
             ->setModifierConfigs(new ArrayCollection([$mushShowerModifier]))
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($mushConfig);
         $mushStatus = new Status($player, $mushConfig);
         $I->haveInRepository($mushStatus);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
 
         $actionCost
             ->setActionPointCost(2)
             ->setMovementPointCost(0)
-            ->setMoralPointCost(0);
+            ->setMoralPointCost(0)
+            ->buildName()
+        ;
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::SHOWER)
+            ->setActionName(ActionEnum::SHOWER)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($actionCost);
         $I->haveInRepository($action);
@@ -161,6 +171,7 @@ class ShowerActionCest
             ->setScope(ActionEnum::SHOWER)
             ->setReach(ReachEnum::INVENTORY)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
@@ -209,7 +220,7 @@ class ShowerActionCest
 
         $soap = new ItemConfig();
         $soap
-            ->setName(GearItemEnum::SOAP)
+            ->setEquipmentName(GearItemEnum::SOAP)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)

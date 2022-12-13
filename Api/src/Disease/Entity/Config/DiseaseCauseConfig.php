@@ -13,6 +13,9 @@ class DiseaseCauseConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    private string $name;
+
     #[ORM\Column(type: 'string', nullable: false)]
     private string $causeName;
 
@@ -24,14 +27,33 @@ class DiseaseCauseConfig
         return $this->id;
     }
 
-    public function getName(): string
+    public function getCauseName(): string
     {
         return $this->causeName;
     }
 
-    public function setName(string $causeName): self
+    public function setCauseName(string $causeName): self
     {
         $this->causeName = $causeName;
+
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function buildName(string $configName): self
+    {
+        $this->name = $this->causeName . '_' . $configName;
 
         return $this;
     }

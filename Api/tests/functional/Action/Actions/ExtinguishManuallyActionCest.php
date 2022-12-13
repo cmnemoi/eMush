@@ -54,13 +54,15 @@ class ExtinguishManuallyActionCest
 
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
+            ->setStatusName(StatusEnum::ATTEMPT)
             ->setVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($attemptConfig);
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
-            ->setName(StatusEnum::FIRE)
+            ->setStatusName(StatusEnum::FIRE)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
 
@@ -103,15 +105,17 @@ class ExtinguishManuallyActionCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(1)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::EXTINGUISH_MANUALLY)
+            ->setActionName(ActionEnum::EXTINGUISH_MANUALLY)
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($actionCost)
             ->setSuccessRate(101)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
 

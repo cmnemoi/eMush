@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
@@ -62,15 +63,17 @@ class TakeSubscriberCest
         $I->refreshEntities($player);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
         $I->haveInRepository($actionCost);
 
         $takeActionEntity = new Action();
         $takeActionEntity
-            ->setName(ActionEnum::TAKE)
+            ->setActionName(ActionEnum::TAKE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($takeActionEntity);
 
@@ -81,11 +84,15 @@ class TakeSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
+        $gear
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
+            ->setName('gear_test')
+        ;
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -136,15 +143,17 @@ class TakeSubscriberCest
         $I->refreshEntities($player);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
         $I->haveInRepository($actionCost);
 
         $takeActionEntity = new Action();
         $takeActionEntity
-            ->setName(ActionEnum::TAKE)
+            ->setActionName(ActionEnum::TAKE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($takeActionEntity);
 
@@ -155,11 +164,15 @@ class TakeSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
+        $gear
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
+            ->setName('gear_test')
+        ;
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -178,14 +191,12 @@ class TakeSubscriberCest
         $I->haveInRepository($gameEquipment);
 
         $statusConfig = new ChargeStatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::HAZARDOUS);
-        $I->haveInRepository($statusConfig);
-
-        $statusConfig = new ChargeStatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::HAZARDOUS)
+            ->setStatusName(EquipmentStatusEnum::HAZARDOUS)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDischargeStrategy(ActionEnum::SHOWER);
+            ->setDischargeStrategy(ActionEnum::SHOWER)
+            ->buildName(GameConfigEnum::TEST)
+        ;
 
         $I->haveInRepository($statusConfig);
         $status = new ChargeStatus($gameEquipment, $statusConfig);
@@ -225,15 +236,17 @@ class TakeSubscriberCest
         $I->refreshEntities($player);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
         $I->haveInRepository($actionCost);
 
         $takeActionEntity = new Action();
         $takeActionEntity
-            ->setName(ActionEnum::TAKE)
+            ->setActionName(ActionEnum::TAKE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($takeActionEntity);
 
@@ -244,11 +257,15 @@ class TakeSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
+        $gear
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
+            ->setName('gear_test')
+        ;
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -267,15 +284,12 @@ class TakeSubscriberCest
         $I->haveInRepository($gameEquipment);
 
         $statusConfig = new ChargeStatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::HAZARDOUS);
-        $I->haveInRepository($statusConfig);
-
-        $statusConfig = new ChargeStatusConfig();
         $statusConfig
-            ->setName(ActionEnum::REPAIR)
+            ->setStatusName(ActionEnum::REPAIR)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDischargeStrategy(ActionEnum::SHOWER);
-
+            ->setDischargeStrategy(ActionEnum::SHOWER)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig);
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
@@ -314,15 +328,17 @@ class TakeSubscriberCest
         $I->refreshEntities($player);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
         $I->haveInRepository($actionCost);
 
         $takeActionEntity = new Action();
         $takeActionEntity
-            ->setName(ActionEnum::TAKE)
+            ->setActionName(ActionEnum::TAKE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($takeActionEntity);
 
@@ -333,11 +349,15 @@ class TakeSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
+        $gear
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
+            ->setName('gear_test')
+        ;
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -356,13 +376,10 @@ class TakeSubscriberCest
         $I->haveInRepository($gameEquipment);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::BROKEN);
-        $I->haveInRepository($statusConfig);
-
-        $statusConfig = new StatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setStatusName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
         $status = new Status($gameEquipment, $statusConfig);
@@ -400,15 +417,17 @@ class TakeSubscriberCest
         $I->refreshEntities($player);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
         $I->haveInRepository($actionCost);
 
         $takeActionEntity = new Action();
         $takeActionEntity
-            ->setName(ActionEnum::TAKE)
+            ->setActionName(ActionEnum::TAKE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($takeActionEntity);
 
@@ -419,11 +438,15 @@ class TakeSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
+        $gear
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
+            ->setName('gear_test')
+        ;
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -442,13 +465,10 @@ class TakeSubscriberCest
         $I->haveInRepository($gameEquipment);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::BROKEN);
-        $I->haveInRepository($statusConfig);
-
-        $statusConfig = new StatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setStatusName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
         $status = new Status($gameEquipment, $statusConfig);

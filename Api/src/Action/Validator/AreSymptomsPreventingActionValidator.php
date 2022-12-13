@@ -58,7 +58,7 @@ class AreSymptomsPreventingActionValidator extends ConstraintValidator
 
     private function isSymptomConditionMet(SymptomCondition $symptomCondition, \Mush\RoomLog\Entity\LogParameterInterface|null $parameter): bool
     {
-        switch ($symptomCondition->getName()) {
+        switch ($symptomCondition->getConditionName()) {
             case SymptomConditionEnum::ITEM_STATUS:
                 if (!$parameter instanceof GameItem) {
                     throw new UnexpectedTypeException($parameter, GameItem::class);

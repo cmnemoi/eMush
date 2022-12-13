@@ -43,7 +43,9 @@ class CoffeeActionCest
         $gameEquipment = $this->createEquipment('coffee_machine', $room2);
 
         $coffeeActionEntity = new Action();
-        $coffeeActionEntity->setName(ActionEnum::COFFEE);
+        $coffeeActionEntity
+            ->setActionName(ActionEnum::COFFEE)
+        ;
 
         $gameEquipment->getEquipment()->setActions(new ArrayCollection([$coffeeActionEntity]));
 
@@ -65,7 +67,7 @@ class CoffeeActionCest
         $gameEquipment = $this->createEquipment('coffee_machine', $room);
 
         $coffeeActionEntity = new Action();
-        $coffeeActionEntity->setName(ActionEnum::COFFEE);
+        $coffeeActionEntity->setActionName(ActionEnum::COFFEE);
 
         $this->coffeeAction->loadParameters($coffeeActionEntity, $player, $gameEquipment);
 
@@ -85,7 +87,7 @@ class CoffeeActionCest
         $gameEquipment = $this->createEquipment('coffee_machine', $room);
 
         $coffeeActionEntity = new Action();
-        $coffeeActionEntity->setName(ActionEnum::COFFEE);
+        $coffeeActionEntity->setActionName(ActionEnum::COFFEE);
         $coffeeActionEntity->setActionCost(new ActionCost());
 
         $this->coffeeAction->loadParameters($coffeeActionEntity, $player, $gameEquipment);
@@ -94,7 +96,7 @@ class CoffeeActionCest
 
         $statusConfig = new StatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setStatusName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
         ;
         $status = new Status($gameEquipment, $statusConfig);
@@ -111,7 +113,7 @@ class CoffeeActionCest
         $gameEquipment = $this->createEquipment('coffee_machine', $room);
 
         $coffeeActionEntity = new Action();
-        $coffeeActionEntity->setName(ActionEnum::COFFEE);
+        $coffeeActionEntity->setActionName(ActionEnum::COFFEE);
         $coffeeActionEntity->setActionCost(new ActionCost());
 
         $this->coffeeAction->loadParameters($coffeeActionEntity, $player, $gameEquipment);
@@ -120,7 +122,7 @@ class CoffeeActionCest
 
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::HEAVY)
+            ->setStatusName(EquipmentStatusEnum::HEAVY)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setDischargeStrategy(ActionEnum::COFFEE)
         ;
@@ -157,7 +159,7 @@ class CoffeeActionCest
     {
         $gameEquipment = new GameEquipment($place);
         $equipment = new EquipmentConfig();
-        $equipment->setName($name);
+        $equipment->setEquipmentName($name);
         $gameEquipment
             ->setEquipment($equipment)
             ->setName($name)

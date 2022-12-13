@@ -16,8 +16,11 @@ class SymptomConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $symptomName;
 
     #[ORM\Column(type: 'string', nullable: true)]
     private string $trigger = 'None';
@@ -28,9 +31,9 @@ class SymptomConfig
     #[ORM\ManyToMany(targetEntity: SymptomCondition::class)]
     private Collection $symptomConditions;
 
-    public function __construct(string $name)
+    public function __construct(string $symptomName)
     {
-        $this->name = $name;
+        $this->symptomName = $symptomName;
         $this->symptomConditions = new ArrayCollection([]);
     }
 
@@ -39,9 +42,32 @@ class SymptomConfig
         return $this->id;
     }
 
+    public function setSymptomName(string $symptomName): self
+    {
+        $this->symptomName = $symptomName;
+
+        return $this;
+    }
+
+    public function getSymptomName(): string
+    {
+        return $this->symptomName;
+    }
+
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function buildName(string $configName, ?string $details = null): self
+    {
+        if ($details === null) {
+            $this->name = $this->symptomName . '_ON_' . $this->getTrigger() . '_' . $configName;
+        } else {
+            $this->name = $this->symptomName . '_ON_' . $this->getTrigger() . '_' . $details . '_' . $configName;
+        }
 
         return $this;
     }

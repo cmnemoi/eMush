@@ -13,6 +13,9 @@ class ActionCost
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    private string $name;
+
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $actionPointCost = null;
 
@@ -75,5 +78,36 @@ class ActionCost
         }
 
         return null;
+    }
+
+    public function buildName(): static
+    {
+        $name = 'cost';
+
+        $actionPointCost = $this->actionPointCost;
+        $movementPointCost = $this->movementPointCost;
+        $moralPointCost = $this->moralPointCost;
+
+        if ($actionPointCost !== 0) {
+            $string = strval($actionPointCost);
+            $name = $name . '_' . $string . '_action';
+        }
+        if ($movementPointCost !== 0) {
+            $string = strval($movementPointCost);
+            $name = $name . '_' . $string . '_movement';
+        }
+        if ($moralPointCost !== 0) {
+            $string = strval($moralPointCost);
+            $name = $name . '_' . $string . '_morale';
+        }
+
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 }

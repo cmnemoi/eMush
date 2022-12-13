@@ -105,7 +105,7 @@ class PlaceServiceTest extends TestCase
         $roomConfig = new PlaceConfig();
 
         $roomConfig
-            ->setName($name)
+            ->setPlaceName($name)
             ->setDoors([
                 DoorEnum::BRIDGE_FRONT_ALPHA_TURRET,
                 DoorEnum::BRIDGE_FRONT_BRAVO_TURRET,
@@ -127,7 +127,7 @@ class PlaceServiceTest extends TestCase
         $equipmentConfig = new EquipmentConfig();
 
         $equipmentConfig
-            ->setName($name)
+            ->setEquipmentName($name)
         ;
 
         return $equipmentConfig;

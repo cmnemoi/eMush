@@ -50,14 +50,18 @@ class AttemptActionChangeCest
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
             ->setName(StatusEnum::ATTEMPT)
+            ->setStatusName(StatusEnum::ATTEMPT)
             ->setVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($attemptConfig);
 
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setName(EquipmentStatusEnum::BROKEN)
+            ->setStatusName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
 
@@ -92,12 +96,15 @@ class AttemptActionChangeCest
         $actionCost = new ActionCost();
         $actionCost->setActionPointCost(1)
             ->setMovementPointCost(0)
-            ->setMoralPointCost(0);
+            ->setMoralPointCost(0)
+            ->buildName()
+        ;
         $I->haveInRepository($actionCost);
 
         $actionRepair = new Action();
         $actionRepair
             ->setName(ActionEnum::REPAIR)
+            ->setActionName(ActionEnum::REPAIR)
             ->setDirtyRate(0)
             ->setInjuryRate(0)
             ->setSuccessRate(0)
@@ -109,6 +116,7 @@ class AttemptActionChangeCest
         $actionDisassemble = new Action();
         $actionDisassemble
             ->setName(ActionEnum::DISASSEMBLE)
+            ->setActionName(ActionEnum::DISASSEMBLE)
             ->setDirtyRate(0)
             ->setInjuryRate(0)
             ->setSuccessRate(0)
@@ -170,15 +178,17 @@ class AttemptActionChangeCest
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
+            ->setStatusName(StatusEnum::ATTEMPT)
             ->setVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($attemptConfig);
 
         $statusConfig = new StatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setStatusName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
 
@@ -211,28 +221,32 @@ class AttemptActionChangeCest
         $actionCost = new ActionCost();
         $actionCost->setActionPointCost(1)
             ->setMovementPointCost(0)
-            ->setMoralPointCost(0);
+            ->setMoralPointCost(0)
+            ->buildName()
+        ;
         $I->haveInRepository($actionCost);
 
         $actionRepair = new Action();
         $actionRepair
-            ->setName(ActionEnum::REPAIR)
+            ->setActionName(ActionEnum::REPAIR)
             ->setDirtyRate(0)
             ->setInjuryRate(0)
             ->setSuccessRate(0)
             ->setActionCost($actionCost)
             ->setScope(ActionScopeEnum::CURRENT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($actionRepair);
 
         $actionDisassemble = new Action();
         $actionDisassemble
-            ->setName(ActionEnum::DISASSEMBLE)
+            ->setActionName(ActionEnum::DISASSEMBLE)
             ->setDirtyRate(0)
             ->setInjuryRate(0)
             ->setSuccessRate(75)
             ->setActionCost($actionCost)
             ->setScope(ActionScopeEnum::CURRENT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($actionDisassemble);
 
@@ -248,23 +262,6 @@ class AttemptActionChangeCest
             ->setName('some name')
         ;
         $I->haveInRepository($gameEquipment);
-
-        $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-        ;
-        $I->haveInRepository($attemptConfig);
-
-        $statusConfig = new StatusConfig();
-        $statusConfig
-            ->setName(EquipmentStatusEnum::BROKEN)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-        ;
-        $I->haveInRepository($statusConfig);
-
-        $gameConfig->addStatusConfig($attemptConfig)->addStatusConfig($statusConfig);
-        $I->refreshEntities($gameConfig);
 
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);

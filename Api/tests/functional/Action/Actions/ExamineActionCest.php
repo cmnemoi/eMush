@@ -69,20 +69,23 @@ class ExamineActionCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(0)
+           ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::EXAMINE)
+            ->setActionName(ActionEnum::EXAMINE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'name' => EquipmentEnum::NARCOTIC_DISTILLER,
+            'equipmentName' => EquipmentEnum::NARCOTIC_DISTILLER . '_' . GameConfigEnum::TEST,
             'actions' => new ArrayCollection([$action]),
         ]);
 

@@ -13,8 +13,11 @@ class ModifierCondition
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $conditionName;
 
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $condition = null;
@@ -22,14 +25,41 @@ class ModifierCondition
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $value = 100;
 
-    public function __construct(string $name)
+    public function __construct(string $conditionName)
     {
-        $this->name = $name;
+        $this->conditionName = $conditionName;
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function buildName(): static
+    {
+        $name = $this->conditionName;
+
+        if ($this->condition !== null) {
+            $name = $name . '_' . $this->condition;
+        }
+        if ($this->value !== 100) {
+            $name = $name . '_' . $this->value;
+        }
+        $this->name = $name;
+
+        return $this;
     }
 
     public function setValue(int $value): self
@@ -46,9 +76,9 @@ class ModifierCondition
         return $this;
     }
 
-    public function getName(): string
+    public function getConditionName(): string
     {
-        return $this->name;
+        return $this->conditionName;
     }
 
     public function getCondition(): ?string

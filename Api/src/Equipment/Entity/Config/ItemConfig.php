@@ -18,7 +18,7 @@ class ItemConfig extends EquipmentConfig
     ): GameItem {
         $gameItem = new GameItem($holder);
         $gameItem
-            ->setName($this->getShortName())
+            ->setName($this->getEquipmentShortName())
             ->setEquipment($this)
         ;
 

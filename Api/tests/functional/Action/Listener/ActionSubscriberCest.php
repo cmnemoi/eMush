@@ -81,7 +81,9 @@ class ActionSubscriberCest
         $action
             ->setDirtyRate(0)
             ->setInjuryRate(100)
-            ->setName(ActionEnum::TAKE);
+            ->setActionName(ActionEnum::TAKE)
+            ->buildName(GameConfigEnum::TEST)
+        ;
 
         $actionEvent = new ActionEvent($action, $player, null);
 
@@ -104,7 +106,8 @@ class ActionSubscriberCest
 
         $dirtyConfig = new StatusConfig();
         $dirtyConfig
-            ->setName(PlayerStatusEnum::DIRTY)
+            ->setStatusName(PlayerStatusEnum::DIRTY)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($dirtyConfig);
 
@@ -143,7 +146,8 @@ class ActionSubscriberCest
         $action
             ->setDirtyRate(100)
             ->setInjuryRate(0)
-            ->setName(ActionEnum::TAKE)
+            ->setActionName(ActionEnum::TAKE)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $actionEvent = new ActionEvent($action, $player, null);
@@ -168,7 +172,8 @@ class ActionSubscriberCest
 
         $dirtyConfig = new StatusConfig();
         $dirtyConfig
-            ->setName(PlayerStatusEnum::DIRTY)
+            ->setStatusName(PlayerStatusEnum::DIRTY)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($dirtyConfig);
 
@@ -208,7 +213,8 @@ class ActionSubscriberCest
         $action
             ->setDirtyRate(100)
             ->setInjuryRate(0)
-            ->setName(ActionEnum::TAKE)
+            ->setActionName(ActionEnum::TAKE)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $dirty = new Status($player, $dirtyConfig);
@@ -262,7 +268,7 @@ class ActionSubscriberCest
         $action
             ->setDirtyRate(100)
             ->setInjuryRate(0)
-            ->setName(ActionEnum::TAKE);
+            ->setActionName(ActionEnum::TAKE);
 
         $actionEvent = new ActionEvent($action, $player, null);
 
@@ -276,7 +282,8 @@ class ActionSubscriberCest
             ->setDelta(-100)
             ->setTarget(ModifierTargetEnum::PERCENTAGE)
             ->setScope(ModifierScopeEnum::EVENT_DIRTY)
-            ->setName(ModifierNameEnum::APRON_MODIFIER)
+            ->setModifierName(ModifierNameEnum::APRON_MODIFIER)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 

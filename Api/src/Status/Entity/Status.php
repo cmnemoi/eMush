@@ -54,7 +54,7 @@ class Status
 
     public function getName(): string
     {
-        return $this->statusConfig->getName();
+        return $this->statusConfig->getStatusName();
     }
 
     public function getVisibility(): string

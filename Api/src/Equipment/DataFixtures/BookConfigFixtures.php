@@ -15,6 +15,7 @@ use Mush\Equipment\Enum\DocumentContentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\SkillEnum;
 
 class BookConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -63,16 +64,18 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             $apprentonMechanic
                 ->setSkill($skillName)
                 ->addAction($readBook)
+                ->buildName(ItemEnum::APPRENTON . '_' . $skillName, GameConfigEnum::DEFAULT)
             ;
 
             $apprenton = new ItemConfig();
             $apprenton
-                ->setName(ItemEnum::APPRENTON . '_' . $skillName)
+                ->setEquipmentName(ItemEnum::APPRENTON . '_' . $skillName)
                 ->setIsStackable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
                 ->setMechanics(new ArrayCollection([$apprentonMechanic]))
                 ->setActions($actions)
+                ->buildName(GameConfigEnum::DEFAULT)
             ;
 
             $manager->persist($apprentonMechanic);
@@ -87,16 +90,18 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsTranslated(true)
             ->setCanShred(true)
             ->addAction($readDocument)
+            ->buildName(ItemEnum::DOCUMENT, GameConfigEnum::DEFAULT)
         ;
 
         $document = new ItemConfig();
         $document
-            ->setName(ItemEnum::DOCUMENT)
+            ->setEquipmentName(ItemEnum::DOCUMENT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$documentMechanic]))
             ->setActions($actions)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
 
         $manager->persist($documentMechanic);
@@ -107,16 +112,18 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsTranslated(true)
             ->setContent(DocumentContentEnum::COMMANDERS_MANUAL)
             ->addAction($readDocument)
+            ->buildName(ItemEnum::COMMANDERS_MANUAL, GameConfigEnum::DEFAULT)
         ;
 
         $commandersManual = new ItemConfig();
         $commandersManual
-            ->setName(ItemEnum::COMMANDERS_MANUAL)
+            ->setEquipmentName(ItemEnum::COMMANDERS_MANUAL)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$commandersManualMechanic]))
             ->setActions($actions)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
 
         $manager->persist($commandersManualMechanic);
@@ -127,16 +134,18 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsTranslated(true)
             ->setContent(DocumentContentEnum::MUSH_RESEARCH_REVIEW)
             ->addAction($readDocument)
+            ->buildName(ItemEnum::MUSH_RESEARCH_REVIEW, GameConfigEnum::DEFAULT)
         ;
 
         $mushResearch = new ItemConfig();
         $mushResearch
-            ->setName(ItemEnum::MUSH_RESEARCH_REVIEW)
+            ->setEquipmentName(ItemEnum::MUSH_RESEARCH_REVIEW)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$mushResearchMechanic]))
             ->setActions($actions)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
 
         $manager->persist($mushResearchMechanic);
@@ -147,16 +156,18 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsTranslated(false)
             ->setCanShred(true)
             ->addAction($readDocument)
+            ->buildName(ItemEnum::POST_IT, GameConfigEnum::DEFAULT)
         ;
 
         $postIt = new ItemConfig();
         $postIt
-            ->setName(ItemEnum::POST_IT)
+            ->setEquipmentName(ItemEnum::POST_IT)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics(new ArrayCollection([$postItMechanic]))
             ->setActions($actions)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
 
         $manager->persist($postItMechanic);

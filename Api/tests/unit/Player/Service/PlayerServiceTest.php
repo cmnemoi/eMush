@@ -92,7 +92,7 @@ class PlayerServiceTest extends TestCase
         $daedalus->addPlace($laboratory);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName('some status');
+        $statusConfig->setStatusName('some status');
 
         $characterConfig = new CharacterConfig();
         $characterConfig

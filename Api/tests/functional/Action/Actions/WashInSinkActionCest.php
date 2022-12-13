@@ -49,12 +49,13 @@ class WashInSinkActionCest
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $alreadyWashedInTheSink = new ChargeStatusConfig();
         $alreadyWashedInTheSink
-            ->setName(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK)
+            ->setStatusName(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
             ->setStartCharge(1)
             ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($alreadyWashedInTheSink);
 
@@ -92,17 +93,22 @@ class WashInSinkActionCest
         $I->refreshEntities($player);
 
         $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(3);
+        $actionCost
+            ->setActionPointCost(3)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::WASH_IN_SINK)
+            ->setActionName(ActionEnum::WASH_IN_SINK)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($action);
 
         /** @var EquipmentConfig $equipmentConfig */

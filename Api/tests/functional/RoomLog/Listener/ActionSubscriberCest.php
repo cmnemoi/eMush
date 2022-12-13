@@ -48,7 +48,7 @@ class ActionSubscriberCest
         $I->refreshEntities($player);
 
         $action = new Action();
-        $action->setName(ActionEnum::GET_UP);
+        $action->setActionName(ActionEnum::GET_UP);
 
         $actionEvent = new ActionEvent($action, $player, null);
 

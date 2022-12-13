@@ -219,7 +219,7 @@ class ChannelServiceTest extends TestCase
         $place = new Place();
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::BRAINSYNC);
+        $statusConfig->setStatusName(PlayerStatusEnum::BRAINSYNC);
 
         $status = new Status($player, $statusConfig);
 
@@ -522,7 +522,7 @@ class ChannelServiceTest extends TestCase
         $item3->setName(ItemEnum::ITRACKIE);
         $player3->setPlace($place);
         $piratedStatusConfig = new StatusConfig();
-        $piratedStatusConfig->setName(PlayerStatusEnum::TALKIE_SCREWED);
+        $piratedStatusConfig->setStatusName(PlayerStatusEnum::TALKIE_SCREWED);
         $piratedStatus = new Status($player3, $piratedStatusConfig);
         $piratedStatus->setTarget($player);
 
@@ -654,7 +654,7 @@ class ChannelServiceTest extends TestCase
 
         $player2 = new Player();
         $piratedStatusConfig = new StatusConfig();
-        $piratedStatusConfig->setName(PlayerStatusEnum::TALKIE_SCREWED);
+        $piratedStatusConfig->setStatusName(PlayerStatusEnum::TALKIE_SCREWED);
         $piratedStatus = new Status($player2, $piratedStatusConfig);
         $piratedStatus->setTarget($player);
 
@@ -685,7 +685,7 @@ class ChannelServiceTest extends TestCase
         $player2 = new Player();
 
         $piratedStatusConfig = new StatusConfig();
-        $piratedStatusConfig->setName(PlayerStatusEnum::TALKIE_SCREWED);
+        $piratedStatusConfig->setStatusName(PlayerStatusEnum::TALKIE_SCREWED);
         $piratedStatus = new Status($player2, $piratedStatusConfig);
         $piratedStatus->setTarget($player);
 

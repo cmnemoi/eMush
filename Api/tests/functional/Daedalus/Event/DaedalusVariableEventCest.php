@@ -58,7 +58,10 @@ class DaedalusVariableEventCest
 
         // add an oxygen tank
         $modifierCondition = new ModifierCondition(ModifierConditionEnum::REASON);
-        $modifierCondition->setCondition(EventEnum::NEW_CYCLE);
+        $modifierCondition
+            ->setCondition(EventEnum::NEW_CYCLE)
+            ->buildName()
+        ;
         $I->haveInRepository($modifierCondition);
 
         $modifierConfig = new ModifierConfig();
@@ -68,6 +71,7 @@ class DaedalusVariableEventCest
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope(AbstractQuantityEvent::CHANGE_VARIABLE)
             ->addModifierCondition($modifierCondition)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 

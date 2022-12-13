@@ -21,6 +21,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -44,7 +45,8 @@ class StatusSubscriberCest
     {
         $statusConfig = new StatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setStatusName(EquipmentStatusEnum::BROKEN)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
 
@@ -135,7 +137,7 @@ class StatusSubscriberCest
         $I->refreshEntities($publicChannel);
 
         $dropAction = new Action();
-        $dropAction->setName(ActionEnum::DROP);
+        $dropAction->setActionName(ActionEnum::DROP);
 
         $time = new \DateTime();
 

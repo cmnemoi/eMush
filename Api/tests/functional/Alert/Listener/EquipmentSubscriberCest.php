@@ -40,9 +40,10 @@ class EquipmentSubscriberCest
     {
         $statusConfig = new StatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::BROKEN)
-            ->setVisibility(VisibilityEnum::PUBLIC);
-
+            ->setStatusName(EquipmentStatusEnum::BROKEN)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig);
 
         /** @var GameConfig $gameConfig */
@@ -74,13 +75,14 @@ class EquipmentSubscriberCest
 
         /** @var EquipmentConfig $gravitySimulatorConfig */
         $gravitySimulatorConfig = $I->have(EquipmentConfig::class, [
+            'equipmentName' => EquipmentEnum::GRAVITY_SIMULATOR,
             'name' => EquipmentEnum::GRAVITY_SIMULATOR,
             'gameConfig' => $gameConfig,
         ]);
 
         $gravitySimulator = new GameEquipment($room);
         $gravitySimulator
-            ->setName($gravitySimulatorConfig->getName())
+            ->setName($gravitySimulatorConfig->getEquipmentName())
             ->setEquipment($gravitySimulatorConfig)
         ;
 

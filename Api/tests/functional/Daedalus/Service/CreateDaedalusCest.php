@@ -19,6 +19,7 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\DataFixtures\LocalizationConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\ModifierConfig;
@@ -48,20 +49,23 @@ class CreateDaedalusCest
         // roomConfigs
         $placeConfig1 = new PlaceConfig();
         $placeConfig1
-            ->setName(RoomEnum::FRONT_CORRIDOR)
+            ->setPlaceName(RoomEnum::FRONT_CORRIDOR)
             ->setDoors([DoorEnum::FRONT_CORRIDOR_CENTRAL_CORRIDOR])
+            ->buildName(GameConfigEnum::TEST)
         ;
         $placeConfig2 = new PlaceConfig();
         $placeConfig2
-            ->setName(RoomEnum::CENTRAL_CORRIDOR)
+            ->setPlaceName(RoomEnum::CENTRAL_CORRIDOR)
             ->setDoors([DoorEnum::FRONT_CORRIDOR_CENTRAL_CORRIDOR, DoorEnum::REFECTORY_CENTRAL_CORRIDOR])
             ->setItems([ItemEnum::HYDROPOT])
+            ->buildName(GameConfigEnum::TEST)
         ;
         $placeConfig3 = new PlaceConfig();
         $placeConfig3
-            ->setName(RoomEnum::REFECTORY)
+            ->setPlaceName(RoomEnum::REFECTORY)
             ->setDoors([DoorEnum::REFECTORY_CENTRAL_CORRIDOR])
             ->setEquipments([EquipmentEnum::GRAVITY_SIMULATOR])
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($placeConfig1);
         $I->haveInRepository($placeConfig2);
@@ -73,8 +77,9 @@ class CreateDaedalusCest
         // status config
         $alienArtifact = new StatusConfig();
         $alienArtifact
-            ->setName(EquipmentStatusEnum::ALIEN_ARTEFACT)
+            ->setStatusName(EquipmentStatusEnum::ALIEN_ARTEFACT)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($alienArtifact);
 
@@ -84,34 +89,42 @@ class CreateDaedalusCest
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setScope(ActionEnum::MOVE)
             ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->buildName()
         ;
         $I->haveInRepository($gravityModifier);
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$gravityModifier]));
+        $gear
+            ->setModifierConfigs(new ArrayCollection([$gravityModifier]))
+            ->setName('gear_test')
+        ;
         $I->haveInRepository($gear);
 
         // Equipment Configs
         $waterStick = new ItemConfig();
         $waterStick
-            ->setName(ItemEnum::WATER_STICK)
+            ->setEquipmentName(ItemEnum::WATER_STICK)
             ->setInitStatus(new ArrayCollection([$alienArtifact]))
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($waterStick);
         $gravitySimulator = new EquipmentConfig();
         $gravitySimulator
             ->setMechanics(new ArrayCollection([$gear]))
-            ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
+            ->setEquipmentName(EquipmentEnum::GRAVITY_SIMULATOR)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($gravitySimulator);
         $hydropot = new ItemConfig();
         $hydropot
-            ->setName(ItemEnum::HYDROPOT)
+            ->setEquipmentName(ItemEnum::HYDROPOT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($hydropot);
         $door = new EquipmentConfig();
         $door
-            ->setName(EquipmentEnum::DOOR)
+            ->setEquipmentName(EquipmentEnum::DOOR)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($door);
 

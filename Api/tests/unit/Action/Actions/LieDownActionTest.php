@@ -54,7 +54,7 @@ class LieDownActionTest extends AbstractActionTest
         $tool->setActions(new ArrayCollection([$this->actionEntity]));
         $item = new EquipmentConfig();
         $item
-            ->setName(EquipmentEnum::BED)
+            ->setEquipmentName(EquipmentEnum::BED)
             ->setMechanics(new ArrayCollection([$tool]))
         ;
 

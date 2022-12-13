@@ -32,7 +32,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
         $time = $event->getTime();
 
-        $actionName = $event->getAction()->getName();
+        $actionName = $event->getAction()->getActionName();
 
         $target = $event->getActionParameter();
 

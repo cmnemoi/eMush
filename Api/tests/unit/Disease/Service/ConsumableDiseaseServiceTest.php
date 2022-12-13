@@ -74,7 +74,7 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $consumableDiseaseConfig = new ConsumableDiseaseConfig();
         $consumableDiseaseConfig
-            ->setName('name')
+            ->setCauseName('name')
             ->setAttributes(new ArrayCollection([$disease1, $disease2]))
         ;
 
@@ -110,7 +110,7 @@ class ConsumableDiseaseServiceTest extends TestCase
             ->setCuresChances([30 => 1, 45 => 2])
             ->setDiseasesChances([20 => 1, 25 => 2])
             ->setDiseasesDelayMin([0 => 1])
-            ->setName('name')
+            ->setCauseName('name')
         ;
 
         $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);
@@ -196,7 +196,7 @@ class ConsumableDiseaseServiceTest extends TestCase
             ->setDiseasesChances([20 => 1])
             ->setDiseasesDelayMin([1 => 1])
             ->setDiseasesDelayLength([5 => 1, 8 => 5])
-            ->setName('name')
+            ->setCauseName('name')
         ;
 
         $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);
@@ -277,7 +277,7 @@ class ConsumableDiseaseServiceTest extends TestCase
             ->setDiseasesChances([100 => 1])
             ->setDiseasesDelayMin([1 => 1])
             ->setDiseasesDelayLength([5 => 1, 8 => 5])
-            ->setName('name')
+            ->setCauseName('name')
         ;
 
         $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);
@@ -353,7 +353,7 @@ class ConsumableDiseaseServiceTest extends TestCase
             ->setDiseasesChances([])
             ->setDiseasesDelayMin([1 => 1])
             ->setDiseasesDelayLength([5 => 1, 8 => 5])
-            ->setName('name')
+            ->setCauseName('name')
         ;
 
         $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);

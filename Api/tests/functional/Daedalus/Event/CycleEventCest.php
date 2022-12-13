@@ -19,6 +19,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -40,15 +41,17 @@ class CycleEventCest
     {
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName(DiseaseEnum::FOOD_POISONING)
+            ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
+                ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseConfig);
         $diseaseCause = new DiseaseCauseConfig();
         $diseaseCause
-            ->setName(DiseaseCauseEnum::TRAUMA)
+            ->setCauseName(DiseaseCauseEnum::TRAUMA)
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
+            ->buildName(GameConfigENum::TEST)
         ;
         $I->haveInRepository($diseaseCause);
 

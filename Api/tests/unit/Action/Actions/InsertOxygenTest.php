@@ -55,7 +55,7 @@ class InsertOxygenTest extends AbstractActionTest
         $gameItem->setEquipment($item);
 
         $item
-            ->setName(ItemEnum::OXYGEN_CAPSULE)
+            ->setEquipmentName(ItemEnum::OXYGEN_CAPSULE)
         ;
 
         $gameItem->setName(ItemEnum::OXYGEN_CAPSULE);
@@ -70,7 +70,7 @@ class InsertOxygenTest extends AbstractActionTest
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $tank = new EquipmentConfig();
-        $tank->setName(EquipmentEnum::OXYGEN_TANK);
+        $tank->setEquipmentName(EquipmentEnum::OXYGEN_TANK);
         $gameTank = new GameEquipment($room);
         $gameTank
             ->setEquipment($tank)

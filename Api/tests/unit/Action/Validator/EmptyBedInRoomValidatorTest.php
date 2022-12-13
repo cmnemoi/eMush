@@ -71,7 +71,7 @@ class EmptyBedInRoomValidatorTest extends TestCase
         $gameEquipment->setName(EquipmentEnum::BED);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setVisibility(VisibilityEnum::PUBLIC)->setName(PlayerStatusEnum::LYING_DOWN);
+        $statusConfig->setVisibility(VisibilityEnum::PUBLIC)->setStatusName(PlayerStatusEnum::LYING_DOWN);
         $lyingDownStatus = new Status($player, $statusConfig);
         $lyingDownStatus
             ->setTarget($gameEquipment)

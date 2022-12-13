@@ -52,16 +52,19 @@ class FlirtActionCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(1)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::FLIRT)
+            ->setActionName(ActionEnum::FLIRT)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(0)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($actionCost);
         $I->haveInRepository($action);
 
@@ -141,16 +144,19 @@ class FlirtActionCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(1)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::FLIRT)
+            ->setActionName(ActionEnum::FLIRT)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(0)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($actionCost);
         $I->haveInRepository($action);
 
@@ -214,16 +220,19 @@ class FlirtActionCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(1)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::FLIRT)
+            ->setActionName(ActionEnum::FLIRT)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(0)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($actionCost);
         $I->haveInRepository($action);
 
@@ -287,16 +296,19 @@ class FlirtActionCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(1)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::FLIRT)
+            ->setActionName(ActionEnum::FLIRT)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(0)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($actionCost);
         $I->haveInRepository($action);
 
@@ -375,16 +387,19 @@ class FlirtActionCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(1)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::FLIRT)
+            ->setActionName(ActionEnum::FLIRT)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(0)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($actionCost);
         $I->haveInRepository($action);
 

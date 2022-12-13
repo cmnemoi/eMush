@@ -57,7 +57,7 @@ abstract class AbstractCook extends AbstractAction
         $parameter = $this->parameter;
         $time = new \DateTime();
 
-        if ($parameter->getEquipment()->getName() === GameRationEnum::STANDARD_RATION) {
+        if ($parameter->getEquipment()->getEquipmentName() === GameRationEnum::STANDARD_RATION) {
             $this->gameEquipmentService->transformGameEquipmentToEquipmentWithName(
                 GameRationEnum::COOKED_RATION,
                 $parameter,

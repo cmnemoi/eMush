@@ -10,7 +10,7 @@ class ActionEnum
     public const SUICIDE = 'suicide';
 
     // alpha actions
-    public const REJUVENATE_ALPHA = 'rejuvenate_alpha';
+    public const REJUVENATE = 'rejuvenate';
     public const FAKE_DISEASE = 'fake_disease';
     public const UPDATE_TALKIE = 'update_talkie';
 
@@ -196,7 +196,7 @@ class ActionEnum
             self::SELF_SURGERY,
             self::CONSUME,
             self::CONSUME_DRUG,
-            self::REJUVENATE_ALPHA,
+            self::REJUVENATE,
             self::SUICIDE,
         ];
     }

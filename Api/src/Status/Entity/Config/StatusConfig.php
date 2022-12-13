@@ -22,8 +22,11 @@ class StatusConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     protected int $id;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
     protected string $name;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    protected string $statusName;
 
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $visibility = VisibilityEnum::PUBLIC;
@@ -41,6 +44,18 @@ class StatusConfig
         return $this->id;
     }
 
+    public function getStatusName(): string
+    {
+        return $this->statusName;
+    }
+
+    public function setStatusName(string $statusName): static
+    {
+        $this->statusName = $statusName;
+
+        return $this;
+    }
+
     public function getName(): string
     {
         return $this->name;
@@ -49,6 +64,17 @@ class StatusConfig
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function buildName(string $configName, ?string $details = null): static
+    {
+        if ($details === null) {
+            $this->name = $this->statusName . '_' . $configName;
+        } else {
+            $this->name = $this->statusName . '_' . $details . '_' . $configName;
+        }
 
         return $this;
     }

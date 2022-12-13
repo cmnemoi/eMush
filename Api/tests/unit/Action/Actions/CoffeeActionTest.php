@@ -58,7 +58,7 @@ class CoffeeActionTest extends AbstractActionTest
 
         $gameCoffeeMachine = new GameEquipment($room);
         $coffeeMachine = new EquipmentConfig();
-        $coffeeMachine->setName(EquipmentEnum::COFFEE_MACHINE);
+        $coffeeMachine->setEquipmentName(EquipmentEnum::COFFEE_MACHINE);
         $gameCoffeeMachine
             ->setEquipment($coffeeMachine)
             ->setName(EquipmentEnum::COFFEE_MACHINE)
@@ -73,7 +73,7 @@ class CoffeeActionTest extends AbstractActionTest
         $gameCoffee = new GameItem(new Place());
         $coffee = new ItemConfig();
         $coffee
-             ->setName(GameRationEnum::COFFEE)
+             ->setEquipmentName(GameRationEnum::COFFEE)
         ;
         $gameCoffee
             ->setEquipment($coffee)

@@ -144,7 +144,7 @@ class MessageServiceTest extends TestCase
         $this->assertTrue($this->service->canPlayerPostMessage($player, $channel));
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::GAGGED);
+        $statusConfig->setStatusName(PlayerStatusEnum::GAGGED);
         $status = new Status($player, $statusConfig);
         $this->assertFalse($this->service->canPlayerPostMessage($player, $channel));
     }

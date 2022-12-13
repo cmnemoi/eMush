@@ -49,7 +49,7 @@ class GetUpActionTest extends AbstractActionTest
         $gameItem = new GameEquipment($room);
         $item = new EquipmentConfig();
         $item
-            ->setName(EquipmentEnum::BED)
+            ->setEquipmentName(EquipmentEnum::BED)
         ;
         $gameItem
             ->setEquipment($item)
@@ -57,7 +57,7 @@ class GetUpActionTest extends AbstractActionTest
         ;
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::LYING_DOWN);
+        $statusConfig->setStatusName(PlayerStatusEnum::LYING_DOWN);
         $status = new Status($player, $statusConfig);
         $status
             ->setTarget($gameItem)

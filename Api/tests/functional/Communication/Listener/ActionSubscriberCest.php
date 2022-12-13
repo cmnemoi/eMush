@@ -120,7 +120,7 @@ class ActionSubscriberCest
         $I->refreshEntities($publicChannel);
 
         $dropAction = new Action();
-        $dropAction->setName(ActionEnum::DROP);
+        $dropAction->setActionName(ActionEnum::DROP);
 
         $actionEvent = new ActionEvent($dropAction, $player, $iTrackie);
 
@@ -232,7 +232,7 @@ class ActionSubscriberCest
         $I->refreshEntities($publicChannel);
 
         $dropAction = new Action();
-        $dropAction->setName(ActionEnum::DROP);
+        $dropAction->setActionName(ActionEnum::DROP);
 
         $actionEvent = new ActionEvent($dropAction, $player, $iTrackie);
 
@@ -329,7 +329,7 @@ class ActionSubscriberCest
         $I->refreshEntities($publicChannel);
 
         $dropAction = new Action();
-        $dropAction->setName(ActionEnum::DROP);
+        $dropAction->setActionName(ActionEnum::DROP);
 
         $actionEvent = new ActionEvent($dropAction, $player, $iTrackie);
 
@@ -427,7 +427,7 @@ class ActionSubscriberCest
         $I->refreshEntities($publicChannel);
 
         $moveAction = new Action();
-        $moveAction->setName(ActionEnum::MOVE);
+        $moveAction->setActionName(ActionEnum::MOVE);
 
         $actionEvent = new ActionEvent($moveAction, $player, null);
 
@@ -518,7 +518,7 @@ class ActionSubscriberCest
         $I->refreshEntities($publicChannel);
 
         $moveAction = new Action();
-        $moveAction->setName(ActionEnum::MOVE);
+        $moveAction->setActionName(ActionEnum::MOVE);
 
         $actionEvent = new ActionEvent($moveAction, $player, null);
 
@@ -610,7 +610,7 @@ class ActionSubscriberCest
         $I->refreshEntities($publicChannel);
 
         $moveAction = new Action();
-        $moveAction->setName(ActionEnum::MOVE);
+        $moveAction->setActionName(ActionEnum::MOVE);
 
         $actionEvent = new ActionEvent($moveAction, $player, null);
 

@@ -75,17 +75,19 @@ class RepairActionCest
             ->setActionPointCost(1)
             ->setMovementPointCost(0)
             ->setMoralPointCost(0)
+            ->buildName()
         ;
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::REPAIR)
+            ->setActionName(ActionEnum::REPAIR)
             ->setDirtyRate(0)
             ->setInjuryRate(0)
             ->setSuccessRate(25)
             ->setActionCost($actionCost)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($actionCost);
@@ -110,8 +112,9 @@ class RepairActionCest
 
         $statusConfig = new StatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setStatusName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
         $status = new Status($gameEquipment, $statusConfig);
@@ -128,6 +131,7 @@ class RepairActionCest
             ->setScope(ActionTypeEnum::ACTION_TECHNICIAN)
             ->setReach(ReachEnum::INVENTORY)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
+            ->buildName()
         ;
 
         $I->haveInRepository($modifierConfig);
@@ -142,7 +146,7 @@ class RepairActionCest
 
         $wrench = new ItemConfig();
         $wrench
-            ->setName(GearItemEnum::ADJUSTABLE_WRENCH)
+            ->setEquipmentName(GearItemEnum::ADJUSTABLE_WRENCH)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)

@@ -7,8 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\ModifierConfig;
@@ -53,153 +58,167 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
 
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
+            ->setStatusName(StatusEnum::ATTEMPT)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::NONE)
             ->setStartCharge(0)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($attemptConfig);
 
         $microwaveCharge = new ChargeStatusConfig();
         $microwaveCharge
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setMaxCharge(4)
             ->setStartCharge(1)
             ->setDischargeStrategy(ActionEnum::EXPRESS_COOK)
+            ->buildName(GameConfigEnum::DEFAULT, ToolItemEnum::MICROWAVE)
         ;
         $manager->persist($microwaveCharge);
 
         $scooterCharge = new ChargeStatusConfig();
         $scooterCharge
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setMaxCharge(8)
             ->setStartCharge(2)
             ->setDischargeStrategy(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
+            ->buildName(GameConfigEnum::DEFAULT, GearItemEnum::ANTIGRAV_SCOOTER)
         ;
         $manager->persist($scooterCharge);
 
         $blasterCharge = new ChargeStatusConfig();
         $blasterCharge
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setMaxCharge(3)
             ->setStartCharge(1)
             ->setDischargeStrategy(ActionEnum::SHOOT)
+            ->buildName(GameConfigEnum::DEFAULT, ItemEnum::BLASTER)
         ;
         $manager->persist($blasterCharge);
 
         $oldFaithfulCharge = new ChargeStatusConfig();
         $oldFaithfulCharge
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setMaxCharge(12)
             ->setStartCharge(12)
             ->setDischargeStrategy(ActionEnum::SHOOT)
+            ->buildName(GameConfigEnum::DEFAULT, ItemEnum::OLD_FAITHFUL)
         ;
         $manager->persist($oldFaithfulCharge);
 
         $bigWeaponCharge = new ChargeStatusConfig();
         $bigWeaponCharge
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setMaxCharge(1)
             ->setStartCharge(1)
             ->setDischargeStrategy(ActionEnum::SHOOT)
+            ->buildName(GameConfigEnum::DEFAULT, ItemEnum::ROCKET_LAUNCHER)
         ;
         $manager->persist($bigWeaponCharge);
 
         $dispenserCharge = new ChargeStatusConfig();
         $dispenserCharge
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
             ->setMaxCharge(1)
             ->setStartCharge(1)
             ->setDischargeStrategy(ActionEnum::DISPENSE)
+            ->buildName(GameConfigEnum::DEFAULT, EquipmentEnum::NARCOTIC_DISTILLER)
         ;
         $manager->persist($dispenserCharge);
 
         $coffeeCharge = new ChargeStatusConfig();
         $coffeeCharge
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
             ->setMaxCharge(1)
             ->setStartCharge(1)
             ->setDischargeStrategy(ActionEnum::COFFEE)
+            ->buildName(GameConfigEnum::DEFAULT, EquipmentEnum::COFFEE_MACHINE)
         ;
         $manager->persist($coffeeCharge);
 
         $turretCharge = new ChargeStatusConfig();
         $turretCharge
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setMaxCharge(4)
             ->setStartCharge(4)
             ->setDischargeStrategy(ActionEnum::SHOOT_HUNTER)
+            ->buildName(GameConfigEnum::DEFAULT, EquipmentEnum::TURRET_COMMAND)
         ;
         $manager->persist($turretCharge);
 
         $fireStatus = new ChargeStatusConfig();
         $fireStatus
-            ->setName(StatusEnum::FIRE)
+            ->setStatusName(StatusEnum::FIRE)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
 
         $manager->persist($fireStatus);
 
         $plantYoung = new ChargeStatusConfig();
         $plantYoung
-            ->setName(EquipmentStatusEnum::PLANT_YOUNG)
+            ->setStatusName(EquipmentStatusEnum::PLANT_YOUNG)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($plantYoung);
 
         $eurekaMoment = new ChargeStatusConfig();
         $eurekaMoment
-            ->setName(PlayerStatusEnum::EUREKA_MOMENT)
+            ->setStatusName(PlayerStatusEnum::EUREKA_MOMENT)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($eurekaMoment);
 
         $firstTime = new ChargeStatusConfig();
         $firstTime
-            ->setName(PlayerStatusEnum::FIRST_TIME)
+            ->setStatusName(PlayerStatusEnum::FIRST_TIME)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setStartCharge(1)
             ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($firstTime);
 
         $spores = new ChargeStatusConfig();
         $spores
-            ->setName(PlayerStatusEnum::SPORES)
+            ->setStatusName(PlayerStatusEnum::SPORES)
             ->setVisibility(VisibilityEnum::MUSH)
             ->setChargeVisibility(VisibilityEnum::MUSH)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($spores);
 
@@ -218,7 +237,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
 
         $mushStatus = new ChargeStatusConfig();
         $mushStatus
-            ->setName(PlayerStatusEnum::MUSH)
+            ->setStatusName(PlayerStatusEnum::MUSH)
             ->setVisibility(VisibilityEnum::MUSH)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_RESET)
@@ -232,77 +251,85 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
                 $consumeMovementModifier,
                 $consumeSatietyModifier,
             ]))
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($mushStatus);
 
         $contaminated = new ChargeStatusConfig();
         $contaminated
-            ->setName(EquipmentStatusEnum::CONTAMINATED)
+            ->setStatusName(EquipmentStatusEnum::CONTAMINATED)
             ->setVisibility(VisibilityEnum::MUSH)
             ->setChargeVisibility(VisibilityEnum::MUSH)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($contaminated);
 
         $combustionChamber = new ChargeStatusConfig();
         $combustionChamber
-            ->setName(EquipmentStatusEnum::FUEL_CHARGE)
+            ->setStatusName(EquipmentStatusEnum::FUEL_CHARGE)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($combustionChamber);
 
         $drug_eaten = new ChargeStatusConfig();
         $drug_eaten
-            ->setName(PlayerStatusEnum::DRUG_EATEN)
+            ->setStatusName(PlayerStatusEnum::DRUG_EATEN)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
             ->setStartCharge(2)
             ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($drug_eaten);
 
         $did_the_thing = new ChargeStatusConfig();
         $did_the_thing
-            ->setName(PlayerStatusEnum::DID_THE_THING)
+            ->setStatusName(PlayerStatusEnum::DID_THE_THING)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
             ->setStartCharge(1)
             ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($did_the_thing);
 
         $did_boring_speech = new ChargeStatusConfig();
         $did_boring_speech
-            ->setName(PlayerStatusEnum::DID_BORING_SPEECH)
+            ->setStatusName(PlayerStatusEnum::DID_BORING_SPEECH)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
             ->setStartCharge(1)
             ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($did_boring_speech);
 
         $already_washed_in_the_sink = new ChargeStatusConfig();
         $already_washed_in_the_sink
-            ->setName(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK)
+            ->setStatusName(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
             ->setStartCharge(1)
             ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($already_washed_in_the_sink);
 
         $updatingTrackie = new ChargeStatusConfig();
         $updatingTrackie
-            ->setName(EquipmentStatusEnum::UPDATING)
+            ->setStatusName(EquipmentStatusEnum::UPDATING)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setStartCharge(4)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
             ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($updatingTrackie);
 

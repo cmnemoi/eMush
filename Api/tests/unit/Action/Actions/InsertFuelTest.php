@@ -51,7 +51,7 @@ class InsertFuelTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
 
-        $item->setName(ItemEnum::FUEL_CAPSULE);
+        $item->setEquipmentName(ItemEnum::FUEL_CAPSULE);
 
         $gameItem->setName(ItemEnum::FUEL_CAPSULE);
 
@@ -61,7 +61,7 @@ class InsertFuelTest extends AbstractActionTest
         $daedalus->setFuel(10);
 
         $tank = new EquipmentConfig();
-        $tank->setName(EquipmentEnum::FUEL_TANK);
+        $tank->setEquipmentName(EquipmentEnum::FUEL_TANK);
 
         $gameTank = new GameEquipment($room);
         $gameTank->setEquipment($tank)->setName(EquipmentEnum::FUEL_TANK);

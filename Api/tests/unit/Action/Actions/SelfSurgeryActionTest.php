@@ -69,7 +69,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
         $tool->setActions(new ArrayCollection([$this->actionEntity]));
         $item = new EquipmentConfig();
         $item
-            ->setName(EquipmentEnum::SURGERY_PLOT)
+            ->setEquipmentName(EquipmentEnum::SURGERY_PLOT)
             ->setMechanics(new ArrayCollection([$tool]))
         ;
 
@@ -131,7 +131,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
         $tool->setActions(new ArrayCollection([$this->actionEntity]));
         $item = new EquipmentConfig();
         $item
-            ->setName(EquipmentEnum::SURGERY_PLOT)
+            ->setEquipmentName(EquipmentEnum::SURGERY_PLOT)
             ->setMechanics(new ArrayCollection([$tool]))
         ;
 
@@ -194,7 +194,7 @@ class SelfSurgeryActionTest extends AbstractActionTest
         $tool->setActions(new ArrayCollection([$this->actionEntity]));
         $item = new EquipmentConfig();
         $item
-            ->setName(EquipmentEnum::SURGERY_PLOT)
+            ->setEquipmentName(EquipmentEnum::SURGERY_PLOT)
             ->setMechanics(new ArrayCollection([$tool]))
         ;
 

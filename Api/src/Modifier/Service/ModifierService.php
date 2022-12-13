@@ -123,7 +123,7 @@ class ModifierService implements ModifierServiceInterface
 
     private function getActionModifiers(Action $action, Player $player, ?LogParameterInterface $parameter): ModifierCollection
     {
-        $scopes = array_merge([ModifierScopeEnum::ACTIONS, $action->getName()], $action->getTypes());
+        $scopes = array_merge([ModifierScopeEnum::ACTIONS, $action->getActionName()], $action->getTypes());
 
         $modifiers = $player->getAllModifiers()->getScopedModifiers($scopes);
 
@@ -133,7 +133,7 @@ class ModifierService implements ModifierServiceInterface
             $modifiers = $modifiers->addModifiers($parameter->getModifiers()->getScopedModifiers($scopes));
         }
 
-        return $this->conditionService->getActiveModifiers($modifiers, $action->getName(), $player);
+        return $this->conditionService->getActiveModifiers($modifiers, $action->getActionName(), $player);
     }
 
     public function getActionModifiedValue(Action $action, Player $player, string $target, ?LogParameterInterface $parameter, ?int $attemptNumber = null): int
@@ -150,7 +150,7 @@ class ModifierService implements ModifierServiceInterface
         }
 
         if ($target === PlayerVariableEnum::ACTION_POINT &&
-            in_array($action->getName(), ActionEnum::getActionPointModifierProtectedActions())) {
+            in_array($action->getActionName(), ActionEnum::getActionPointModifierProtectedActions())) {
             $actionPoints = $action->getActionCost()->getActionPointCost();
 
             return $actionPoints ? $actionPoints : 0;
@@ -163,7 +163,7 @@ class ModifierService implements ModifierServiceInterface
     {
         $modifiers = $this->getActionModifiers($action, $player, $parameter);
 
-        $this->dispatchModifiersEvent($modifiers, $action->getName(), new \DateTime());
+        $this->dispatchModifiersEvent($modifiers, $action->getActionName(), new \DateTime());
     }
 
     public function isSuccessfulWithModifiers(
@@ -223,7 +223,7 @@ class ModifierService implements ModifierServiceInterface
     private function dispatchModifiersEvent(ArrayCollection $modifiers, string $reason, \DateTime $time, bool $isSuccessful = true): void
     {
         foreach ($modifiers as $modifier) {
-            $reason = $modifier->getModifierConfig()->getName() ?: $reason;
+            $reason = $modifier->getModifierConfig()->getModifierName() ?: $reason;
             $modifierEvent = new ModifierEvent($modifier, $reason, $time, $isSuccessful);
 
             $this->eventDispatcher->dispatch($modifierEvent, ModifierEvent::APPLY_MODIFIER);

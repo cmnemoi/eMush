@@ -47,11 +47,12 @@ class PublicBroadcastActionCest
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $watchedPublicBroadcastStatus = new ChargeStatusConfig();
         $watchedPublicBroadcastStatus
-            ->setName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST)
+            ->setStatusName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::NONE)
             ->setStartCharge(1)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($watchedPublicBroadcastStatus);
 
@@ -74,20 +75,23 @@ class PublicBroadcastActionCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(2)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::PUBLIC_BROADCAST)
+            ->setActionName(ActionEnum::PUBLIC_BROADCAST)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+           ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($action);
 
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class);
         $itemConfig
-            ->setName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
+            ->setEquipmentName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
             ->setActions(new ArrayCollection([$action]))
         ;
 
@@ -159,11 +163,12 @@ class PublicBroadcastActionCest
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $watchedPublicBroadcastStatus = new ChargeStatusConfig();
         $watchedPublicBroadcastStatus
-            ->setName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST)
+            ->setStatusName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::NONE)
             ->setStartCharge(1)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($watchedPublicBroadcastStatus);
 
@@ -186,20 +191,23 @@ class PublicBroadcastActionCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(2)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::PUBLIC_BROADCAST)
+            ->setActionName(ActionEnum::PUBLIC_BROADCAST)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+           ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($action);
 
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class);
         $itemConfig
-            ->setName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
+            ->setEquipmentName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
             ->setActions(new ArrayCollection([$action]))
         ;
 

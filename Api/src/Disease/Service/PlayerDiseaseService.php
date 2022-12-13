@@ -117,7 +117,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
     private function findDiseaseConfigByNameAndDaedalus(string $diseaseName, Daedalus $daedalus): DiseaseConfig
     {
-        $diseaseConfigs = $daedalus->getGameConfig()->getDiseaseConfig()->filter(fn (DiseaseConfig $diseaseConfig) => $diseaseConfig->getName() === $diseaseName);
+        $diseaseConfigs = $daedalus->getGameConfig()->getDiseaseConfig()->filter(fn (DiseaseConfig $diseaseConfig) => $diseaseConfig->getDiseaseName() === $diseaseName);
 
         if ($diseaseConfigs->count() !== 1) {
             throw new \Error('there should be exactly 1 diseaseConfig with this name');

@@ -17,6 +17,7 @@ use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -41,7 +42,8 @@ class NeronMessageCycleCest
     {
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
-            ->setName(StatusEnum::FIRE)
+            ->setStatusName(StatusEnum::FIRE)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
 
@@ -133,11 +135,15 @@ class NeronMessageCycleCest
 
         $time = new \DateTime();
         $statusConfig = new ChargeStatusConfig();
-        $statusConfig->setName(StatusEnum::FIRE);
+        $statusConfig
+            ->setStatusName(StatusEnum::FIRE)
+            ->setName('otherFireStatus')
+        ;
         $I->haveInRepository($statusConfig);
         $status = new ChargeStatus($room, $statusConfig);
         $status
-            ->setCharge(1);
+            ->setCharge(1)
+        ;
 
         $room->addStatus($status);
 

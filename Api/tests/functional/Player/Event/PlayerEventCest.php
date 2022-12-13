@@ -16,6 +16,7 @@ use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -109,26 +110,33 @@ class PlayerEventCest
     {
         $mushStatusConfig = new ChargeStatusConfig();
         $mushStatusConfig
-            ->setName(PlayerStatusEnum::MUSH)
+            ->setStatusName(PlayerStatusEnum::MUSH)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($mushStatusConfig);
 
         $sporeConfig = new ChargeStatusConfig();
-        $sporeConfig->setName(PlayerStatusEnum::SPORES)->setVisibility(VisibilityEnum::MUSH);
+        $sporeConfig
+            ->setStatusName(PlayerStatusEnum::SPORES)
+            ->setVisibility(VisibilityEnum::MUSH)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($sporeConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName(DiseaseEnum::FUNGIC_INFECTION)
+            ->setDiseaseName(DiseaseEnum::FUNGIC_INFECTION)
+                ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseConfig);
 
         $diseaseCause = new DiseaseCauseConfig();
         $diseaseCause
-            ->setName(DiseaseCauseEnum::INFECTION)
+            ->setCauseName(DiseaseCauseEnum::INFECTION)
             ->setDiseases([
                 DiseaseEnum::FUNGIC_INFECTION => 1,
             ])
+            ->buildName(GameConfigENum::TEST)
         ;
         $I->haveInRepository($diseaseCause);
 
@@ -194,7 +202,8 @@ class PlayerEventCest
     {
         $mushStatusConfig = new ChargeStatusConfig();
         $mushStatusConfig
-            ->setName(PlayerStatusEnum::MUSH)
+            ->setStatusName(PlayerStatusEnum::MUSH)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($mushStatusConfig);
 
@@ -231,7 +240,11 @@ class PlayerEventCest
         $I->refreshEntities($player);
 
         $sporeConfig = new ChargeStatusConfig();
-        $sporeConfig->setName(PlayerStatusEnum::SPORES)->setVisibility(VisibilityEnum::MUSH);
+        $sporeConfig
+            ->setStatusName(PlayerStatusEnum::SPORES)
+            ->setVisibility(VisibilityEnum::MUSH)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($sporeConfig);
         $sporeStatus = new ChargeStatus($player, $sporeConfig);
         $sporeStatus

@@ -36,6 +36,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
         $extractSporeAction = new Action();
         $extractSporeAction
             ->setName(ActionEnum::EXTRACT_SPORE)
+            ->setActionName(ActionEnum::EXTRACT_SPORE)
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($twoActionPointCost)
             ->setDirtyRate(101)
@@ -47,6 +48,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
         $infectAction = new Action();
         $infectAction
             ->setName(ActionEnum::INFECT)
+            ->setActionName(ActionEnum::INFECT)
             ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost($oneActionPointCost)
@@ -58,6 +60,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
         $spreadFireAction = new Action();
         $spreadFireAction
             ->setName(ActionEnum::SPREAD_FIRE)
+            ->setActionName(ActionEnum::SPREAD_FIRE)
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($fourActionPointCost)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
@@ -68,6 +71,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
         $makeSickAction = new Action();
         $makeSickAction
             ->setName(ActionEnum::MAKE_SICK)
+            ->setActionName(ActionEnum::MAKE_SICK)
             ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost($oneActionPointCost)
@@ -79,6 +83,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
         $fakeDiseaseAction = new Action();
         $fakeDiseaseAction
             ->setName(ActionEnum::FAKE_DISEASE)
+            ->setActionName(ActionEnum::FAKE_DISEASE)
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($oneActionPointCost)
             ->setDirtyRate(60)
@@ -90,6 +95,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
         $screwTalkieAction = new Action();
         $screwTalkieAction
             ->setName(ActionEnum::SCREW_TALKIE)
+            ->setActionName(ActionEnum::SCREW_TALKIE)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
             ->setActionCost($threeActionPointCost)

@@ -50,11 +50,12 @@ class CycleEventCest
 
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::FROZEN)
+            ->setStatusName(EquipmentStatusEnum::FROZEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setMaxCharge(1)
             ->setAutoRemove(true)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
         $status = new ChargeStatus($player, $statusConfig);
@@ -76,8 +77,9 @@ class CycleEventCest
     {
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
-            ->setName(StatusEnum::FIRE)
+            ->setStatusName(StatusEnum::FIRE)
             ->setModifierConfigs(new ArrayCollection([]))
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
 
@@ -132,11 +134,16 @@ class CycleEventCest
         $I->refreshEntities($player);
 
         /** @var EquipmentConfig $doorConfig */
-        $doorConfig = $I->have(EquipmentConfig::class, ['isFireBreakable' => false, 'isFireDestroyable' => false, 'gameConfig' => $gameConfig]);
+        $doorConfig = $I->have(EquipmentConfig::class, [
+            'isFireBreakable' => false,
+            'isFireDestroyable' => false,
+            'name' => 'door_test',
+        ]);
 
         $doorConfig
             ->setIsFireBreakable(false)
-            ->setIsFireDestroyable(false);
+            ->setIsFireDestroyable(false)
+        ;
 
         $door = new Door($room);
         $door
@@ -153,9 +160,6 @@ class CycleEventCest
 
         $time = new \DateTime();
 
-        $statusConfig = new ChargeStatusConfig();
-        $statusConfig->setName(StatusEnum::FIRE);
-        $I->haveInRepository($statusConfig);
         $status = new ChargeStatus($room, $statusConfig);
         $status
             ->setCharge(1)

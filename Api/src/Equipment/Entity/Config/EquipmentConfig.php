@@ -29,8 +29,11 @@ class EquipmentConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $equipmentName;
 
     #[ORM\ManyToMany(targetEntity: EquipmentMechanic::class)]
     private Collection $mechanics;
@@ -67,7 +70,7 @@ class EquipmentConfig
     {
         $gameEquipment = new GameEquipment($holder);
         $gameEquipment
-            ->setName($this->getShortName())
+            ->setName($this->getEquipmentShortName())
             ->setEquipment($this)
         ;
 
@@ -79,12 +82,12 @@ class EquipmentConfig
         return $this->id;
     }
 
-    public function getName(): string
+    public function getEquipmentName(): string
     {
-        return $this->name;
+        return $this->equipmentName;
     }
 
-    public function getShortName(): string
+    public function getEquipmentShortName(): string
     {
         if ($this->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) {
             return ItemEnum::BLUEPRINT;
@@ -92,12 +95,31 @@ class EquipmentConfig
             return ItemEnum::APPRENTON;
         }
 
+        return $this->equipmentName;
+    }
+
+    public function setEquipmentName(string $equipmentName): static
+    {
+        $this->equipmentName = $equipmentName;
+
+        return $this;
+    }
+
+    public function getName(): string
+    {
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function buildName(string $configName): self
+    {
+        $this->name = $this->equipmentName . '_' . $configName;
 
         return $this;
     }
@@ -199,7 +221,7 @@ class EquipmentConfig
 
     public function hasAction(string $actionName): bool
     {
-        return $this->getActions()->exists(fn (int $id, Action $action) => $action->getName() === $actionName);
+        return $this->getActions()->exists(fn (int $id, Action $action) => $action->getActionName() === $actionName);
     }
 
     public function getDismountedProducts(): array

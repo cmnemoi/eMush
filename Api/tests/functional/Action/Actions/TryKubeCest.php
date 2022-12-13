@@ -13,6 +13,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ToolItemEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -42,14 +43,16 @@ class TryKubeCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(1)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::TRY_KUBE)
+            ->setActionName(ActionEnum::TRY_KUBE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($actionCost)
+           ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
 
@@ -72,7 +75,7 @@ class TryKubeCest
         $itemConfig = $I->have(ItemConfig::class);
 
         $itemConfig
-            ->setName(ToolItemEnum::MAD_KUBE)
+            ->setEquipmentName(ToolItemEnum::MAD_KUBE)
             ->setActions(new ArrayCollection([$action]))
         ;
 

@@ -40,7 +40,7 @@ class ActionSubscriber implements EventSubscriberInterface
             throw new \LogicException('$actionResult should not be null');
         }
 
-        $actionName = $event->getAction()->getName();
+        $actionName = $event->getAction()->getActionName();
 
         $this->roomLogService->createLogFromActionResult($actionName, $actionResult, $player, $actionParameter, $event->getTime());
     }
@@ -52,7 +52,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
 
         if ($actionParameter instanceof Player &&
-            in_array($action->getName(), ActionEnum::getForceGetUpActions()) &&
+            in_array($action->getActionName(), ActionEnum::getForceGetUpActions()) &&
             $lyingDownStatus = $actionParameter->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
             $actionParameter->removeStatus($lyingDownStatus);
@@ -71,7 +71,7 @@ class ActionSubscriber implements EventSubscriberInterface
             );
         }
 
-        if ($action->getName() === ActionEnum::MOVE) {
+        if ($action->getActionName() === ActionEnum::MOVE) {
             $this->roomLogService->createLog(
                 ActionLogEnum::ENTER_ROOM,
                 $player->getPlace(),

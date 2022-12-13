@@ -92,7 +92,7 @@ class PlantCycleHandlerTest extends TestCase
         $gamePlant->setEquipment($plant);
 
         $chargeStatusConfig = new ChargeStatusConfig();
-        $chargeStatusConfig->setName(EquipmentStatusEnum::PLANT_YOUNG);
+        $chargeStatusConfig->setStatusName(EquipmentStatusEnum::PLANT_YOUNG);
 
         $chargeStatus = new ChargeStatus($gamePlant, $chargeStatusConfig);
         $chargeStatus->setCharge(1);
@@ -140,7 +140,7 @@ class PlantCycleHandlerTest extends TestCase
         $gamePlant->setEquipment($plant);
 
         $chargeStatusConfig = new ChargeStatusConfig();
-        $chargeStatusConfig->setName(EquipmentStatusEnum::PLANT_YOUNG);
+        $chargeStatusConfig->setStatusName(EquipmentStatusEnum::PLANT_YOUNG);
         $chargeStatus = new ChargeStatus($gamePlant, $chargeStatusConfig);
         $chargeStatus->setCharge(1);
 
@@ -193,7 +193,7 @@ class PlantCycleHandlerTest extends TestCase
 
         // Plant already diseased can't get disease
         $diseaseConfig = new StatusConfig();
-        $diseaseConfig->setName(EquipmentStatusEnum::PLANT_DISEASED);
+        $diseaseConfig->setStatusName(EquipmentStatusEnum::PLANT_DISEASED);
         $diseaseStatus = new Status($gamePlant, $diseaseConfig);
 
         $plantEffect = new PlantEffect();
@@ -222,14 +222,14 @@ class PlantCycleHandlerTest extends TestCase
         $time = new \DateTime();
 
         $newFruit = new ItemConfig();
-        $newFruit->setName('fruit name');
+        $newFruit->setEquipmentName('fruit name');
 
         $gameFruit = new GameItem(new Place());
         $gameFruit->setEquipment($newFruit);
 
         $plant = new ItemConfig();
         $plant
-            ->setName('plant name');
+            ->setEquipmentName('plant name');
         $plantType = new Plant();
         $plantType->setFruit($newFruit);
 
@@ -280,13 +280,13 @@ class PlantCycleHandlerTest extends TestCase
         $room->setDaedalus($daedalus);
 
         $newFruit = new ItemConfig();
-        $newFruit->setName('fruit name');
+        $newFruit->setEquipmentName('fruit name');
 
         $this->gameEquipmentService->shouldReceive('persist');
 
         $plant = new ItemConfig();
         $plant
-            ->setName('plant name');
+            ->setEquipmentName('plant name');
         $plantType = new Plant();
         $plantType->setFruit($newFruit);
 
@@ -304,7 +304,7 @@ class PlantCycleHandlerTest extends TestCase
             ->setEquipment($plant)
         ;
         $thirstyConfig = new StatusConfig();
-        $thirstyConfig->setName(EquipmentStatusEnum::PLANT_THIRSTY);
+        $thirstyConfig->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY);
         $status = new Status($gamePlant, $thirstyConfig);
 
         $this->eventDispatcher
@@ -341,11 +341,11 @@ class PlantCycleHandlerTest extends TestCase
         $time = new \DateTime();
 
         $newFruit = new ItemConfig();
-        $newFruit->setName('fruit name');
+        $newFruit->setEquipmentName('fruit name');
 
         $plant = new ItemConfig();
         $plant
-            ->setName('plant name')
+            ->setEquipmentName('plant name')
         ;
         $plantType = new Plant();
         $plantType->setFruit($newFruit);
@@ -365,7 +365,7 @@ class PlantCycleHandlerTest extends TestCase
         ;
 
         $dryConfig = new StatusConfig();
-        $dryConfig->setName(EquipmentStatusEnum::PLANT_DRY);
+        $dryConfig->setStatusName(EquipmentStatusEnum::PLANT_DRY);
         $status = new Status($gamePlant, $dryConfig);
 
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);

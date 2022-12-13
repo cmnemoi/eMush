@@ -21,6 +21,9 @@ class DiseaseConfig implements LogParameterInterface
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    private string $diseaseName;
+
+    #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
     #[ORM\Column(type: 'string', nullable: false)]
@@ -61,6 +64,18 @@ class DiseaseConfig implements LogParameterInterface
         return $this->id;
     }
 
+    public function getDiseaseName(): string
+    {
+        return $this->diseaseName;
+    }
+
+    public function setDiseaseName(string $diseaseName): self
+    {
+        $this->diseaseName = $diseaseName;
+
+        return $this;
+    }
+
     public function getName(): string
     {
         return $this->name;
@@ -69,6 +84,13 @@ class DiseaseConfig implements LogParameterInterface
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function buildName(string $configName): self
+    {
+        $this->name = $this->diseaseName . '_' . $configName;
 
         return $this;
     }
@@ -136,7 +158,7 @@ class DiseaseConfig implements LogParameterInterface
 
     public function getLogName(): string
     {
-        return $this->getName();
+        return $this->getDiseaseName();
     }
 
     public function getLogKey(): string

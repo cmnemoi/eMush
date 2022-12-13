@@ -5,6 +5,7 @@ namespace Mush\Tests\Modifier\Event;
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierCondition;
@@ -59,7 +60,10 @@ class CycleEventCest
         $time = new \DateTime();
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::LYING_DOWN);
+        $statusConfig
+            ->setStatusName(PlayerStatusEnum::LYING_DOWN)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig);
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
@@ -71,6 +75,7 @@ class CycleEventCest
             ->setDelta(1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
@@ -117,13 +122,19 @@ class CycleEventCest
         $time = new \DateTime();
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::LYING_DOWN);
+        $statusConfig
+            ->setStatusName(PlayerStatusEnum::LYING_DOWN)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig);
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
 
         $notAloneCondition = new ModifierCondition(ModifierConditionEnum::PLAYER_IN_ROOM);
-        $notAloneCondition->setCondition(ModifierConditionEnum::NOT_ALONE);
+        $notAloneCondition
+            ->setCondition(ModifierConditionEnum::NOT_ALONE)
+            ->buildName()
+        ;
         $I->haveInRepository($notAloneCondition);
 
         $modifierConfig = new ModifierConfig();
@@ -133,8 +144,9 @@ class CycleEventCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setName(ModifierNameEnum::ANTISOCIAL_MODIFIER)
+            ->setModifierName(ModifierNameEnum::ANTISOCIAL_MODIFIER)
             ->addModifierCondition($notAloneCondition)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
@@ -180,7 +192,10 @@ class CycleEventCest
         $time = new \DateTime();
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::LYING_DOWN);
+        $statusConfig
+            ->setStatusName(PlayerStatusEnum::LYING_DOWN)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig);
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
@@ -192,6 +207,7 @@ class CycleEventCest
             ->setDelta(1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
@@ -205,7 +221,8 @@ class CycleEventCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
-            ->setName(ModifierNameEnum::FITFULL_SLEEP)
+            ->setModifierName(ModifierNameEnum::FITFULL_SLEEP)
+            ->buildName()
         ;
         $I->haveInRepository($fitfullModifierConfig);
 

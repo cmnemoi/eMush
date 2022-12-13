@@ -17,11 +17,11 @@ class SymptomConfigCollection extends ArrayCollection
 
     public function getSymptomFromConfig(SymptomConfig $symptomConfig): SymptomConfig|false
     {
-        return $this->filter(fn (SymptomConfig $symptomConfig) => $symptomConfig->getName())->first();
+        return $this->filter(fn (SymptomConfig $symptomConfig) => $symptomConfig->getSymptomName())->first();
     }
 
     public function hasSymptomByName(string $name): bool
     {
-        return !$this->filter(fn (SymptomConfig $symptomConfig) => $symptomConfig->getName() === $name)->isEmpty();
+        return !$this->filter(fn (SymptomConfig $symptomConfig) => $symptomConfig->getSymptomName() === $name)->isEmpty();
     }
 }

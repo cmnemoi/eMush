@@ -70,13 +70,13 @@ class EquipmentModifierServiceTest extends TestCase
 
         $equipmentConfig = new ItemConfig();
         $equipmentConfig
-            ->setName('gear')
+            ->setEquipmentName('gear')
             ->setMechanics(new ArrayCollection([$gear]))
         ;
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName($equipmentConfig->getName())
+            ->setName($equipmentConfig->getEquipmentName())
         ;
 
         $this->modifierService
@@ -124,13 +124,13 @@ class EquipmentModifierServiceTest extends TestCase
 
         $equipmentConfig = new ItemConfig();
         $equipmentConfig
-            ->setName('gear')
+            ->setEquipmentName('gear')
             ->setMechanics(new ArrayCollection([$gear]))
         ;
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName($equipmentConfig->getName())
+            ->setName($equipmentConfig->getEquipmentName())
         ;
 
         $this->modifierService
@@ -167,7 +167,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $equipmentConfig = new ItemConfig();
         $equipmentConfig
-            ->setName('gear')
+            ->setEquipmentName('gear')
             ->setMechanics(new ArrayCollection([$gear]))
         ;
         $gameEquipment = new GameItem($room);
@@ -216,13 +216,13 @@ class EquipmentModifierServiceTest extends TestCase
 
         $equipmentConfig = new ItemConfig();
         $equipmentConfig
-            ->setName('gear')
+            ->setEquipmentName('gear')
             ->setMechanics(new ArrayCollection([$gear]))
         ;
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName($equipmentConfig->getName())
+            ->setName($equipmentConfig->getEquipmentName())
         ;
 
         $this->service->takeEquipment($gameEquipment, $player);
@@ -242,13 +242,13 @@ class EquipmentModifierServiceTest extends TestCase
 
         $equipmentConfig = new ItemConfig();
         $equipmentConfig
-            ->setName('gear')
+            ->setEquipmentName('gear')
             ->setMechanics(new ArrayCollection([$gear]))
         ;
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName($equipmentConfig->getName())
+            ->setName($equipmentConfig->getEquipmentName())
         ;
 
         $this->modifierService
@@ -261,7 +261,7 @@ class EquipmentModifierServiceTest extends TestCase
         // Modifier with a charge
         $chargeConfig = new ChargeStatusConfig();
         $chargeConfig
-            ->setName(EquipmentStatusEnum::FUEL_CHARGE)
+            ->setStatusName(EquipmentStatusEnum::FUEL_CHARGE)
             ->setDischargeStrategy('action')
         ;
         $charge = new ChargeStatus($gameEquipment, $chargeConfig);
@@ -297,7 +297,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $equipmentConfig = new ItemConfig();
         $equipmentConfig
-            ->setName('gear')
+            ->setEquipmentName('gear')
             ->setMechanics(new ArrayCollection([$gear]))
         ;
         $gameEquipment = new GameItem($room);
@@ -322,7 +322,7 @@ class EquipmentModifierServiceTest extends TestCase
 
         $equipmentConfig = new ItemConfig();
         $equipmentConfig
-            ->setName('gear')
+            ->setEquipmentName('gear')
             ->setMechanics(new ArrayCollection([$gear]))
         ;
         $gameEquipment = new GameItem($room);

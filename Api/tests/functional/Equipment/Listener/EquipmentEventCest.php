@@ -54,12 +54,16 @@ class EquipmentEventCest
         $I->refreshEntities($player);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'name' => 'equipment_name']);
+        $equipmentConfig = $I->have(EquipmentConfig::class, [
+            'gameConfig' => $gameConfig,
+            'name' => 'equipment_name_test',
+            'equipmentName' => 'equipment_name',
+        ]);
 
         $equipment = new GameItem($room);
         $equipment
             ->setEquipment($equipmentConfig)
-            ->setName($equipmentConfig->getName());
+            ->setName($equipmentConfig->getEquipmentName());
         $I->haveInRepository($equipment);
 
         $equipmentEvent = new EquipmentEvent(
@@ -94,7 +98,11 @@ class EquipmentEventCest
         $I->assertCount(1, $player->getEquipments());
 
         /** @var ItemConfig $equipmentConfig */
-        $equipmentConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig, 'name' => 'item_name']);
+        $equipmentConfig = $I->have(ItemConfig::class, [
+            'gameConfig' => $gameConfig,
+            'name' => 'item_name_test',
+            'equipmentName' => 'item_name',
+        ]);
 
         $equipment = $equipmentConfig->createGameItem($player);
         $I->haveInRepository($equipment);

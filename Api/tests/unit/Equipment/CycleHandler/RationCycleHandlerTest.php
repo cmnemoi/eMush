@@ -64,17 +64,17 @@ class RationCycleHandlerTest extends TestCase
         ;
 
         $frozenConfig = new StatusConfig();
-        $frozenConfig->setName(EquipmentStatusEnum::FROZEN);
+        $frozenConfig->setStatusName(EquipmentStatusEnum::FROZEN);
         $frozen = new Status($gameFruit, $frozenConfig);
 
         $unstableConfig = new StatusConfig();
-        $unstableConfig->setName(EquipmentStatusEnum::UNSTABLE);
+        $unstableConfig->setStatusName(EquipmentStatusEnum::UNSTABLE);
         $unstable = new Status(new GameItem($place), $unstableConfig);
         $hazardousConfig = new StatusConfig();
-        $hazardousConfig->setName(EquipmentStatusEnum::HAZARDOUS);
+        $hazardousConfig->setStatusName(EquipmentStatusEnum::HAZARDOUS);
         $hazardous = new Status(new GameItem($place), $hazardousConfig);
         $decomposingConfig = new StatusConfig();
-        $decomposingConfig->setName(EquipmentStatusEnum::DECOMPOSING);
+        $decomposingConfig->setStatusName(EquipmentStatusEnum::DECOMPOSING);
         $decomposing = new Status(new GameItem($place), $decomposingConfig);
 
         // frozen

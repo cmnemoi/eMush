@@ -14,6 +14,7 @@ use Mush\Disease\Enum\SymptomConditionEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -31,47 +32,75 @@ class InjurySymptomConfigFixtures extends Fixture implements DependentFixtureInt
     public function load(ObjectManager $manager): void
     {
         $actionDirtyRateCondition = new SymptomCondition(SymptomConditionEnum::ACTION_DIRTY_RATE);
+        $actionDirtyRateCondition->buildName();
         $manager->persist($actionDirtyRateCondition);
 
         $dirtyStatusCondition = new SymptomCondition(SymptomConditionEnum::PLAYER_STATUS);
-        $dirtyStatusCondition->setCondition(PlayerStatusEnum::DIRTY);
+        $dirtyStatusCondition
+            ->setCondition(PlayerStatusEnum::DIRTY)
+            ->buildName()
+        ;
         $manager->persist($dirtyStatusCondition);
 
         $heavyItemCondition = new SymptomCondition(SymptomConditionEnum::ITEM_STATUS);
-        $heavyItemCondition->setCondition(EquipmentStatusEnum::HEAVY);
+        $heavyItemCondition
+            ->setCondition(EquipmentStatusEnum::HEAVY)
+            ->buildName()
+        ;
         $manager->persist($heavyItemCondition);
 
         $cantMove = new SymptomConfig(SymptomEnum::CANT_MOVE);
-        $cantMove->setTrigger(ActionEnum::MOVE);
+        $cantMove
+            ->setTrigger(ActionEnum::MOVE)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
         $manager->persist($cantMove);
 
         $cantPickUpHeavyItems = new SymptomConfig(SymptomEnum::CANT_PICK_UP_HEAVY_ITEMS);
-        $cantPickUpHeavyItems->setTrigger(ActionEnum::TAKE);
-        $cantPickUpHeavyItems->addSymptomCondition($heavyItemCondition);
+        $cantPickUpHeavyItems
+            ->setTrigger(ActionEnum::TAKE)
+            ->addSymptomCondition($heavyItemCondition)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
         $manager->persist($cantPickUpHeavyItems);
 
         $deaf = new SymptomConfig(SymptomEnum::DEAF);
-        $deaf->setTrigger(EventEnum::ON_NEW_MESSAGE);
+        $deaf
+            ->setTrigger(EventEnum::NEW_MESSAGE)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
         $manager->persist($deaf);
 
         $septicemiaOnCycleChange = new SymptomConfig(SymptomEnum::SEPTICEMIA);
-        $septicemiaOnCycleChange->setTrigger(EventEnum::NEW_CYCLE);
-        $septicemiaOnCycleChange->addSymptomCondition($dirtyStatusCondition);
+        $septicemiaOnCycleChange
+            ->setTrigger(EventEnum::NEW_CYCLE)
+            ->addSymptomCondition($dirtyStatusCondition)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
         $manager->persist($septicemiaOnCycleChange);
 
         $septicemiaOnDirtyEvent = new SymptomConfig(SymptomEnum::SEPTICEMIA);
-        $septicemiaOnDirtyEvent->setTrigger(StatusEvent::STATUS_APPLIED);
-        $septicemiaOnDirtyEvent->addSymptomCondition($dirtyStatusCondition);
+        $septicemiaOnDirtyEvent
+            ->setTrigger(StatusEvent::STATUS_APPLIED)
+            ->addSymptomCondition($dirtyStatusCondition)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
         $manager->persist($septicemiaOnDirtyEvent);
 
         $septicemiaOnPostAction = new SymptomConfig(SymptomEnum::SEPTICEMIA);
-        $septicemiaOnPostAction->setTrigger(ActionEvent::POST_ACTION);
-        $septicemiaOnPostAction->addSymptomCondition($actionDirtyRateCondition);
-        $septicemiaOnPostAction->addSymptomCondition($dirtyStatusCondition);
+        $septicemiaOnPostAction
+            ->setTrigger(ActionEvent::POST_ACTION)
+            ->addSymptomCondition($actionDirtyRateCondition)
+            ->addSymptomCondition($dirtyStatusCondition)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
         $manager->persist($septicemiaOnPostAction);
 
         $mute = new SymptomConfig(SymptomEnum::MUTE);
-        $mute->setTrigger(ActionTypeEnum::ACTION_SPOKEN);
+        $mute
+            ->setTrigger(ActionTypeEnum::ACTION_SPOKEN)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
         $manager->persist($mute);
 
         $manager->flush();

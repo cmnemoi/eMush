@@ -100,7 +100,7 @@ class StatusServiceTest extends TestCase
         $item3->setName('item 3');
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::HIDDEN);
+        $statusConfig->setStatusName(EquipmentStatusEnum::HIDDEN);
 
         $hidden1 = new Status($item1, $statusConfig);
         $hidden1
@@ -164,7 +164,7 @@ class StatusServiceTest extends TestCase
         $gameEquipment = new GameItem(new Place());
         $statusConfig = new StatusConfig();
         $statusConfig
-            ->setName(PlayerStatusEnum::EUREKA_MOMENT)
+            ->setStatusName(PlayerStatusEnum::EUREKA_MOMENT)
             ->setVisibility(VisibilityEnum::MUSH)
         ;
 
@@ -184,7 +184,7 @@ class StatusServiceTest extends TestCase
         $gameEquipment = new GameItem(new Place());
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
-            ->setName(PlayerStatusEnum::GUARDIAN)
+            ->setStatusName(PlayerStatusEnum::GUARDIAN)
             ->setVisibility(VisibilityEnum::MUSH)
             ->setAutoRemove(true)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
@@ -212,7 +212,7 @@ class StatusServiceTest extends TestCase
     public function testCreateAttemptStatus()
     {
         $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig->setName(StatusEnum::ATTEMPT);
+        $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
 
         $gameConfig = new GameConfig();
         $gameConfig->addStatusConfig($attemptConfig);
@@ -239,7 +239,7 @@ class StatusServiceTest extends TestCase
         $player = new Player();
         $actionResult = new Fail();
         $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig->setName(StatusEnum::ATTEMPT);
+        $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
 
         $attempt = new Attempt($player, $attemptConfig);
         $attempt
@@ -263,7 +263,7 @@ class StatusServiceTest extends TestCase
         $player = new Player();
         $actionResult = new Fail();
         $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig->setName(StatusEnum::ATTEMPT);
+        $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
 
         $attempt = new Attempt($player, $attemptConfig);
         $attempt
@@ -288,7 +288,7 @@ class StatusServiceTest extends TestCase
 
         $actionResult = new Success();
         $attemptConfig = new ChargeStatusConfig();
-        $attemptConfig->setName(StatusEnum::ATTEMPT);
+        $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
 
         $attempt = new Attempt($player, $attemptConfig);
         $attempt

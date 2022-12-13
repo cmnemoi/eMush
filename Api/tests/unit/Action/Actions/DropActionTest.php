@@ -48,7 +48,7 @@ class DropActionTest extends AbstractActionTest
         $gameItem->setEquipment($item);
 
         $item
-            ->setName('itemName')
+            ->setEquipmentName('itemName')
         ;
 
         $player = $this->createPlayer(new Daedalus(), $room);

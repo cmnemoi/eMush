@@ -55,7 +55,7 @@ class PublicBroadcastActionTest extends AbstractActionTest
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
         $alienTVConfig = new ChargeStatusConfig();
-        $alienTVConfig->setName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST);
+        $alienTVConfig->setStatusName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST);
         $alienTVStatus = new ChargeStatus($player, $alienTVConfig);
         $alienTVStatus
             ->setCharge(1)

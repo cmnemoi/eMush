@@ -80,21 +80,26 @@ class InsertFuelCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(0)
+           ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::INSERT_FUEL)
+            ->setActionName(ActionEnum::INSERT_FUEL)
             ->setScope(ActionScopeEnum::ROOM)
             ->setDirtyRate(0)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
 
         $tankTool = new Tool();
-        $tankTool->setActions(new ArrayCollection([$action]));
+        $tankTool
+            ->setActions(new ArrayCollection([$action]))
+            ->setName('tool_tank_test')
+        ;
         $I->haveInRepository($tankTool);
 
         /** @var EquipmentConfig $tankConfig */
@@ -108,7 +113,11 @@ class InsertFuelCest
         $I->haveInRepository($gameEquipment);
 
         /** @var EquipmentConfig $capsuleConfig */
-        $capsuleConfig = $I->have(EquipmentConfig::class, ['isBreakable' => false, 'name' => ItemEnum::FUEL_CAPSULE]);
+        $capsuleConfig = $I->have(EquipmentConfig::class, [
+            'isBreakable' => false,
+            'equipmentName' => ItemEnum::FUEL_CAPSULE,
+            'name' => ItemEnum::FUEL_CAPSULE,
+        ]);
 
         $gameCapsule = new GameItem($player);
         $gameCapsule
@@ -164,21 +173,26 @@ class InsertFuelCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(0)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::INSERT_FUEL)
+            ->setActionName(ActionEnum::INSERT_FUEL)
             ->setScope(ActionScopeEnum::ROOM)
             ->setDirtyRate(0)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
 
         $tankTool = new Tool();
-        $tankTool->setActions(new ArrayCollection([$action]));
+        $tankTool
+            ->setActions(new ArrayCollection([$action]))
+            ->setName('tank_tool_test')
+        ;
         $I->haveInRepository($tankTool);
 
         /** @var EquipmentConfig $tankConfig */
@@ -192,7 +206,11 @@ class InsertFuelCest
         $I->haveInRepository($gameEquipment);
 
         /** @var EquipmentConfig $capsuleConfig */
-        $capsuleConfig = $I->have(EquipmentConfig::class, ['isBreakable' => false, 'name' => ItemEnum::FUEL_CAPSULE]);
+        $capsuleConfig = $I->have(EquipmentConfig::class, [
+            'isBreakable' => false,
+            'equipmentName' => ItemEnum::FUEL_CAPSULE,
+            'name' => ItemEnum::FUEL_CAPSULE,
+        ]);
 
         $gameCapsule = new GameItem($player);
         $gameCapsule
@@ -203,8 +221,9 @@ class InsertFuelCest
 
         $statusConfig = new StatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::BROKEN)
+            ->setStatusName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
         $status = new Status($gameEquipment, $statusConfig);

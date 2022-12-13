@@ -132,7 +132,7 @@ class CharacterConfig
 
     public function getActionByName(string $name): ?Action
     {
-        $actions = $this->actions->filter(fn (Action $action) => $action->getName() === $name);
+        $actions = $this->actions->filter(fn (Action $action) => $action->getActionName() === $name);
 
         return $actions->isEmpty() ? null : $actions->first();
     }

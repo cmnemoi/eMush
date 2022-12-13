@@ -14,7 +14,9 @@ use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -30,47 +32,80 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
     public const FOAMING_MOUTH = 'foaming_mouth';
     public const MOVE_VOMITING = 'move_vomiting';
     public const MUSH_SNEEZING = 'mush_sneezing';
+    public const ITEM_IN_ROOM_CAT = 'item_in_room_cat';
+    public const REASON_MOVE = 'reason_move';
+    public const RANDOM_16 = 'random_16';
 
     public function load(ObjectManager $manager): void
     {
         $catIsInRoomCondition = new SymptomCondition(SymptomConditionEnum::ITEM_IN_ROOM);
-        $catIsInRoomCondition->setCondition(ItemEnum::SCHRODINGER);
+        $catIsInRoomCondition
+            ->setCondition(ItemEnum::SCHRODINGER)
+            ->buildName()
+        ;
         $manager->persist($catIsInRoomCondition);
 
         $consumeActionCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $consumeActionCondition->setCondition(ActionEnum::CONSUME);
+        $consumeActionCondition
+            ->setCondition(ActionEnum::CONSUME)
+            ->buildName()
+        ;
         $manager->persist($consumeActionCondition);
 
         $consumeDrugActionCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $consumeDrugActionCondition->setCondition(ActionEnum::CONSUME_DRUG);
+        $consumeDrugActionCondition
+            ->setCondition(ActionEnum::CONSUME_DRUG)
+            ->buildName()
+        ;
         $manager->persist($consumeDrugActionCondition);
 
         $holdCatCondition = new SymptomCondition(SymptomConditionEnum::PLAYER_EQUIPMENT);
-        $holdCatCondition->setCondition(ItemEnum::SCHRODINGER);
+        $holdCatCondition
+            ->setCondition(ItemEnum::SCHRODINGER)
+            ->buildName()
+        ;
         $manager->persist($holdCatCondition);
 
         $moveActionCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $moveActionCondition->setCondition(ActionEnum::MOVE);
+        $moveActionCondition
+            ->setCondition(ActionEnum::MOVE)
+            ->buildName()
+        ;
         $manager->persist($moveActionCondition);
 
         $mushIsInRoomCondition = new SymptomCondition(SymptomConditionEnum::PLAYER_IN_ROOM);
-        $mushIsInRoomCondition->setCondition(SymptomConditionEnum::MUSH_IN_ROOM);
+        $mushIsInRoomCondition
+            ->setCondition(SymptomConditionEnum::MUSH_IN_ROOM)
+            ->buildName()
+        ;
         $manager->persist($mushIsInRoomCondition);
 
         $notAloneCondition = new SymptomCondition(SymptomConditionEnum::PLAYER_IN_ROOM);
-        $notAloneCondition->setCondition(SymptomConditionEnum::NOT_ALONE);
+        $notAloneCondition
+            ->setCondition(SymptomConditionEnum::NOT_ALONE)
+            ->buildName()
+        ;
         $manager->persist($notAloneCondition);
 
         $randCondition16 = new SymptomCondition(SymptomConditionEnum::RANDOM);
-        $randCondition16->setValue(16);
+        $randCondition16
+            ->setValue(16)
+            ->buildName()
+        ;
         $manager->persist($randCondition16);
 
         $randCondition40 = new SymptomCondition(SymptomConditionEnum::RANDOM);
-        $randCondition40->setValue(40);
+        $randCondition40
+            ->setValue(40)
+            ->buildName()
+        ;
         $manager->persist($randCondition40);
 
         $takeActionCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $takeActionCondition->setCondition(ActionEnum::TAKE);
+        $takeActionCondition
+            ->setCondition(ActionEnum::TAKE)
+            ->buildName()
+        ;
         $manager->persist($takeActionCondition);
 
         $biting = new SymptomConfig(SymptomEnum::BITING);
@@ -78,6 +113,7 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTrigger(EventEnum::NEW_CYCLE)
             ->addSymptomCondition($notAloneCondition)
             ->addSymptomCondition($randCondition16)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($biting);
 
@@ -86,6 +122,7 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTrigger(ActionEvent::POST_ACTION)
             ->addSymptomCondition($randCondition16)
             ->addSymptomCondition($moveActionCondition)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($breakouts);
 
@@ -94,6 +131,7 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTrigger(ActionEvent::POST_ACTION)
             ->addSymptomCondition($holdCatCondition)
             ->addSymptomCondition($takeActionCondition)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($catAllergySymptom);
 
@@ -102,6 +140,7 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTrigger(ActionEvent::POST_ACTION)
             ->addSymptomCondition($moveActionCondition)
             ->addSymptomCondition($catIsInRoomCondition)
+            ->buildName(GameConfigEnum::DEFAULT, 'cat')
         ;
         $manager->persist($catSneezing);
 
@@ -110,6 +149,7 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTrigger(ActionEvent::POST_ACTION)
             ->setVisibility(VisibilityEnum::SECRET)
             ->addSymptomCondition($consumeDrugActionCondition)
+            ->buildName(GameConfigEnum::DEFAULT, ActionEnum::CONSUME_DRUG)
         ;
         $manager->persist($consumeDrugVomiting);
 
@@ -118,6 +158,7 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTrigger(ActionEvent::POST_ACTION)
             ->setVisibility(VisibilityEnum::SECRET)
             ->addSymptomCondition($consumeActionCondition)
+            ->buildName(GameConfigEnum::DEFAULT, ActionEnum::CONSUME)
         ;
         $manager->persist($consumeVomiting);
 
@@ -125,6 +166,7 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
         $cycleDirtiness
             ->setTrigger(EventEnum::NEW_CYCLE)
             ->setVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($cycleDirtiness);
 
@@ -133,6 +175,7 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTrigger(EventEnum::NEW_CYCLE)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->addSymptomCondition($randCondition40)
+            ->buildName(GameConfigEnum::DEFAULT, 'random_40')
         ;
         $manager->persist($cycleDirtinessRand40);
 
@@ -141,6 +184,7 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTrigger(ActionEvent::POST_ACTION)
             ->addSymptomCondition($randCondition16)
             ->addSymptomCondition($moveActionCondition)
+            ->buildName(GameConfigEnum::DEFAULT)
 
         ;
         $manager->persist($drooling);
@@ -150,6 +194,7 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTrigger(ActionEvent::POST_ACTION)
             ->addSymptomCondition($randCondition16)
             ->addSymptomCondition($moveActionCondition)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($foamingMouth);
 
@@ -158,6 +203,7 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTrigger(ActionEvent::POST_ACTION)
             ->addSymptomCondition($moveActionCondition)
             ->addSymptomCondition($randCondition16)
+            ->buildName(GameConfigEnum::DEFAULT, ActionEnum::MOVE)
         ;
         $manager->persist($moveVomiting);
 
@@ -167,6 +213,7 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
             ->addSymptomCondition($mushIsInRoomCondition)
             ->addSymptomCondition($moveActionCondition)
             ->addSymptomCondition($randCondition16)
+            ->buildName(GameConfigEnum::DEFAULT, PlayerStatusEnum::MUSH)
         ;
         $manager->persist($mushSneezing);
 
@@ -184,6 +231,9 @@ class DiseaseSymptomConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::FOAMING_MOUTH, $foamingMouth);
         $this->addReference(self::MOVE_VOMITING, $moveVomiting);
         $this->addReference(self::MUSH_SNEEZING, $mushSneezing);
+        $this->addReference(self::ITEM_IN_ROOM_CAT, $catIsInRoomCondition);
+        $this->addReference(self::REASON_MOVE, $moveActionCondition);
+        $this->addReference(self::RANDOM_16, $randCondition16);
     }
 
     public function getDependencies(): array

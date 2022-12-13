@@ -62,7 +62,7 @@ class PlayerDiseaseServiceTest extends TestCase
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDelayMin(4)->setDelayLength(4)
-            ->setName('name')
+            ->setDiseaseName('name')
         ;
 
         $gameConfig = new GameConfig();
@@ -97,7 +97,7 @@ class PlayerDiseaseServiceTest extends TestCase
     public function testCreateDiseaseFromNameAndWithArgumentsDelay()
     {
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setName('name');
+        $diseaseConfig->setDiseaseName('name');
 
         $gameConfig = new GameConfig();
         $gameConfig->addDiseaseConfig($diseaseConfig);
@@ -127,7 +127,7 @@ class PlayerDiseaseServiceTest extends TestCase
     public function testCreateDiseaseFromNameAndWithoutDelay()
     {
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setName('name');
+        $diseaseConfig->setDiseaseName('name');
 
         $gameConfig = new GameConfig();
         $gameConfig->addDiseaseConfig($diseaseConfig);
@@ -246,7 +246,7 @@ class PlayerDiseaseServiceTest extends TestCase
         ;
 
         $diseaseConfig2 = new DiseaseConfig();
-        $diseaseConfig2->setName(InjuryEnum::BROKEN_SHOULDER);
+        $diseaseConfig2->setDiseaseName(InjuryEnum::BROKEN_SHOULDER);
         $diseasePlayer2 = new PlayerDisease();
         $diseasePlayer2
             ->setPlayer($player)

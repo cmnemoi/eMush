@@ -91,7 +91,7 @@ class DailySporesLimitValidatorTest extends TestCase
         $player->setDaedalus($daedalus);
 
         $mushConfig = new ChargeStatusConfig();
-        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
         $mushStatus = new ChargeStatus($player, $mushConfig);
         $mushStatus->setCharge(1);
 
@@ -131,7 +131,7 @@ class DailySporesLimitValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
 
         $mushConfig = new ChargeStatusConfig();
-        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
         $mushStatus = new ChargeStatus($player, $mushConfig);
         $mushStatus->setCharge(0);
 

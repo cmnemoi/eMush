@@ -212,7 +212,7 @@ class PlaceNormalizerTest extends TestCase
         $gameItem3 = $this->createGameItem('name', true);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::FROZEN);
+        $statusConfig->setStatusName(EquipmentStatusEnum::FROZEN);
         $status = new Status($gameItem3, $statusConfig);
 
         $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
@@ -254,7 +254,7 @@ class PlaceNormalizerTest extends TestCase
         ;
         $itemConfig
             ->setIsStackable($isStackable)
-            ->setName($name)
+            ->setEquipmentName($name)
         ;
 
         return $gameItem;

@@ -16,8 +16,11 @@ class ConsumableDiseaseConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $causeName;
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $diseasesName = [];
@@ -57,6 +60,18 @@ class ConsumableDiseaseConfig
         return $this->id;
     }
 
+    public function getCauseName(): string
+    {
+        return $this->causeName;
+    }
+
+    public function setCauseName(string $causeName): self
+    {
+        $this->causeName = $causeName;
+
+        return $this;
+    }
+
     public function getName(): string
     {
         return $this->name;
@@ -65,6 +80,13 @@ class ConsumableDiseaseConfig
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function appendConfigKeyToName(string $configName): self
+    {
+        $this->name = $this->causeName . '_' . $configName;
 
         return $this;
     }

@@ -3,6 +3,7 @@
 namespace Mush\Modifier\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
@@ -21,7 +22,7 @@ use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 
-class StatusModifierConfigFixtures extends Fixture
+class StatusModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public const FROZEN_MODIFIER = 'frozen_modifier';
     public const DISABLED_CONVERSION_MODIFIER = 'disabled_conversion_modifier';
@@ -51,6 +52,7 @@ class StatusModifierConfigFixtures extends Fixture
             ->setDelta(1)
             ->setReach(ModifierReachEnum::EQUIPMENT)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($frozenModifier);
 
@@ -61,11 +63,15 @@ class StatusModifierConfigFixtures extends Fixture
             ->setDelta(-2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($disabledConversionModifier);
 
         $notAloneCondition = new ModifierCondition(ModifierConditionEnum::PLAYER_IN_ROOM);
-        $notAloneCondition->setCondition(ModifierConditionEnum::NOT_ALONE);
+        $notAloneCondition
+            ->setCondition(ModifierConditionEnum::NOT_ALONE)
+            ->buildName()
+        ;
         $manager->persist($notAloneCondition);
 
         $disabledNotAloneModifier = new ModifierConfig();
@@ -76,6 +82,7 @@ class StatusModifierConfigFixtures extends Fixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($notAloneCondition)
+            ->buildName()
         ;
         $manager->persist($disabledNotAloneModifier);
 
@@ -86,6 +93,7 @@ class StatusModifierConfigFixtures extends Fixture
             ->setDelta(2)
             ->setReach(ModifierReachEnum::PLACE)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($pacifistModifier);
 
@@ -96,6 +104,7 @@ class StatusModifierConfigFixtures extends Fixture
             ->setDelta(2)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($burdenedModifier);
 
@@ -107,7 +116,8 @@ class StatusModifierConfigFixtures extends Fixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->addModifierCondition($notAloneCondition)
-            ->setName(ModifierNameEnum::ANTISOCIAL_MODIFIER)
+            ->setModifierName(ModifierNameEnum::ANTISOCIAL_MODIFIER)
+            ->buildName()
         ;
         $manager->persist($antisocialModifier);
 
@@ -118,6 +128,7 @@ class StatusModifierConfigFixtures extends Fixture
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($lostModifier);
 
@@ -127,8 +138,9 @@ class StatusModifierConfigFixtures extends Fixture
             ->setTarget(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setReach(ModifierReachEnum::PLAYER)
-            ->setName(ModifierNameEnum::LYING_DOWN_MODIFIER)
+            ->setModifierName(ModifierNameEnum::LYING_DOWN_MODIFIER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($lyingDownModifier);
 
@@ -139,7 +151,8 @@ class StatusModifierConfigFixtures extends Fixture
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->setName(ModifierNameEnum::STARVING)
+            ->setModifierName(ModifierNameEnum::STARVING)
+            ->buildName()
         ;
         $manager->persist($starvingModifier);
 
@@ -150,11 +163,15 @@ class StatusModifierConfigFixtures extends Fixture
             ->setDelta(30)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $manager->persist($increaseCycleDiseaseChances30);
 
         $showerActionCondition = new ModifierCondition(ModifierConditionEnum::REASON);
-        $showerActionCondition->setCondition(ActionEnum::SHOWER);
+        $showerActionCondition
+            ->setCondition(ActionEnum::SHOWER)
+            ->buildName()
+        ;
         $manager->persist($showerActionCondition);
 
         $mushShowerModifier = new ModifierConfig();
@@ -165,12 +182,16 @@ class StatusModifierConfigFixtures extends Fixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($showerActionCondition)
-            ->setName(ModifierNameEnum::MUSH_SHOWER_MALUS)
+            ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)
+            ->buildName()
         ;
         $manager->persist($mushShowerModifier);
 
         $sinkActionCondition = new ModifierCondition(ModifierConditionEnum::REASON);
-        $sinkActionCondition->setCondition(ActionEnum::WASH_IN_SINK);
+        $sinkActionCondition
+            ->setCondition(ActionEnum::WASH_IN_SINK)
+            ->buildName()
+        ;
         $manager->persist($sinkActionCondition);
 
         $mushSinkModifier = new ModifierConfig();
@@ -181,13 +202,13 @@ class StatusModifierConfigFixtures extends Fixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($sinkActionCondition)
-            ->setName(ModifierNameEnum::MUSH_SHOWER_MALUS)
+            ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)
+            ->buildName()
         ;
         $manager->persist($mushSinkModifier);
 
-        $consumeActionCondition = new ModifierCondition(ModifierConditionEnum::REASON);
-        $consumeActionCondition->setCondition(ActionEnum::CONSUME);
-        $manager->persist($consumeActionCondition);
+        /** @var ModifierCondition $consumeActionCondition */
+        $consumeActionCondition = $this->getReference(DiseaseModifierConfigFixtures::REASON_CONSUME);
 
         $mushConsumeSatietyModifier = new ModifierConfig();
         $mushConsumeSatietyModifier
@@ -197,6 +218,7 @@ class StatusModifierConfigFixtures extends Fixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($consumeActionCondition)
+            ->buildName()
         ;
         $manager->persist($mushConsumeSatietyModifier);
 
@@ -208,6 +230,7 @@ class StatusModifierConfigFixtures extends Fixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($consumeActionCondition)
+            ->buildName()
         ;
         $manager->persist($mushConsumeHealthModifier);
 
@@ -219,6 +242,7 @@ class StatusModifierConfigFixtures extends Fixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($consumeActionCondition)
+            ->buildName()
         ;
         $manager->persist($mushConsumeMoralModifier);
 
@@ -230,6 +254,7 @@ class StatusModifierConfigFixtures extends Fixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($consumeActionCondition)
+            ->buildName()
         ;
         $manager->persist($mushConsumeActionModifier);
 
@@ -241,6 +266,7 @@ class StatusModifierConfigFixtures extends Fixture
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->addModifierCondition($consumeActionCondition)
+            ->buildName()
         ;
         $manager->persist($mushConsumeMovementModifier);
 
@@ -269,6 +295,7 @@ class StatusModifierConfigFixtures extends Fixture
     {
         return [
             GameConfigFixtures::class,
+            DiseaseModifierConfigFixtures::class,
         ];
     }
 }

@@ -84,23 +84,27 @@ class TakeDropActionCest
         $actionCost
             ->setActionPointCost(0)
             ->setMovementPointCost(0)
-            ->setMoralPointCost(0);
+            ->setMoralPointCost(0)
+            ->buildName()
+        ;
 
         $actionTake = new Action();
         $actionTake
-            ->setName(ActionEnum::TAKE)
+            ->setActionName(ActionEnum::TAKE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $actionDrop = new Action();
         $actionDrop
-            ->setName(ActionEnum::DROP)
+            ->setActionName(ActionEnum::DROP)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($actionCost);
         $I->haveInRepository($actionTake);
@@ -164,7 +168,8 @@ class TakeDropActionCest
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $burdenedStatusConfig = new StatusConfig();
         $burdenedStatusConfig
-            ->setName(PlayerStatusEnum::BURDENED)
+            ->setStatusName(PlayerStatusEnum::BURDENED)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($burdenedStatusConfig);
 
@@ -204,23 +209,27 @@ class TakeDropActionCest
         $actionCost
             ->setActionPointCost(0)
             ->setMovementPointCost(0)
-            ->setMoralPointCost(0);
+            ->setMoralPointCost(0)
+            ->buildName()
+        ;
 
         $actionTake = new Action();
         $actionTake
-            ->setName(ActionEnum::TAKE)
+            ->setActionName(ActionEnum::TAKE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $actionDrop = new Action();
         $actionDrop
-            ->setName(ActionEnum::DROP)
+            ->setActionName(ActionEnum::DROP)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($actionCost);
         $I->haveInRepository($actionTake);
@@ -237,7 +246,10 @@ class TakeDropActionCest
         $I->haveInRepository($gameItem);
 
         $heavyConfig = new StatusConfig();
-        $heavyConfig->setName(EquipmentStatusEnum::HEAVY);
+        $heavyConfig
+            ->setStatusName(EquipmentStatusEnum::HEAVY)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($heavyConfig);
         $heavyStatus = new Status($gameItem, $heavyConfig);
         $I->haveInRepository($heavyStatus);
@@ -291,7 +303,10 @@ class TakeDropActionCest
     {
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $hiddenConfig = new StatusConfig();
-        $hiddenConfig->setName(EquipmentStatusEnum::HIDDEN);
+        $hiddenConfig
+            ->setStatusName(EquipmentStatusEnum::HIDDEN)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($hiddenConfig);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
@@ -330,17 +345,19 @@ class TakeDropActionCest
         $actionCost
             ->setActionPointCost(0)
             ->setMovementPointCost(0)
-            ->setMoralPointCost(0);
+            ->setMoralPointCost(0)
+            ->buildName()
+        ;
 
         $actionTake = new Action();
         $actionTake
-            ->setName(ActionEnum::TAKE)
+            ->setActionName(ActionEnum::TAKE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
-
         $I->haveInRepository($actionCost);
         $I->haveInRepository($actionTake);
 
@@ -383,10 +400,16 @@ class TakeDropActionCest
     {
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $hiddenStatusConfig = new StatusConfig();
-        $hiddenStatusConfig->setName(EquipmentStatusEnum::HIDDEN);
+        $hiddenStatusConfig
+            ->setStatusName(EquipmentStatusEnum::HIDDEN)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($hiddenStatusConfig);
         $burdenedStatusConfig = new StatusConfig();
-        $burdenedStatusConfig->setName(PlayerStatusEnum::BURDENED);
+        $burdenedStatusConfig
+            ->setStatusName(PlayerStatusEnum::BURDENED)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($burdenedStatusConfig);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
@@ -425,15 +448,18 @@ class TakeDropActionCest
         $actionCost
             ->setActionPointCost(0)
             ->setMovementPointCost(0)
-            ->setMoralPointCost(0);
+            ->setMoralPointCost(0)
+            ->buildName()
+        ;
 
         $actionHide = new Action();
         $actionHide
-            ->setName(ActionEnum::HIDE)
+            ->setActionName(ActionEnum::HIDE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($actionCost);
         $I->haveInRepository($actionHide);
@@ -452,7 +478,10 @@ class TakeDropActionCest
         $I->haveInRepository($burdenedStatus);
         $heavyConfig = new StatusConfig();
 
-        $heavyConfig->setName(EquipmentStatusEnum::HEAVY);
+        $heavyConfig
+            ->setStatusName(EquipmentStatusEnum::HEAVY)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($heavyConfig);
         $heavyStatus = new Status($gameItem, $heavyConfig);
         $I->haveInRepository($heavyStatus);

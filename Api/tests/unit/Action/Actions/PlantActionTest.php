@@ -67,7 +67,7 @@ class PlantActionTest extends AbstractActionTest
         $item->setMechanics(new ArrayCollection([$fruit]));
 
         $plant = new ItemConfig();
-        $plant->setName('banana_tree');
+        $plant->setEquipmentName('banana_tree');
         $gamePlant = new GameItem(new Place());
         $gamePlant
             ->setEquipment($plant)
@@ -76,7 +76,7 @@ class PlantActionTest extends AbstractActionTest
 
         $gameHydropot = new GameItem($room);
         $hydropot = new ItemConfig();
-        $hydropot->setName(ItemEnum::HYDROPOT);
+        $hydropot->setEquipmentName(ItemEnum::HYDROPOT);
         $gameHydropot
                     ->setEquipment($hydropot)
                     ->setName(ItemEnum::HYDROPOT)

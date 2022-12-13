@@ -75,7 +75,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
 
     public function findCauseConfigByDaedalus(string $causeName, Daedalus $daedalus): DiseaseCauseConfig
     {
-        $causesConfigs = $daedalus->getGameConfig()->getDiseaseCauseConfig()->filter(fn (DiseaseCauseConfig $causeConfig) => $causeConfig->getName() === $causeName);
+        $causesConfigs = $daedalus->getGameConfig()->getDiseaseCauseConfig()->filter(fn (DiseaseCauseConfig $causeConfig) => $causeConfig->getCauseName() === $causeName);
 
         if ($causesConfigs->count() !== 1) {
             throw new \Error('there should be exactly 1 diseaseCauseConfig for this cause');
@@ -90,7 +90,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
 
         $playerDiseases = $player->getMedicalConditions()->toArray();
         $playerDiseasesNames = array_map(function (PlayerDisease $playerDisease) {
-            return $playerDisease->getDiseaseConfig()->getName();
+            return $playerDisease->getDiseaseConfig()->getDiseaseName();
         }, $playerDiseases);
 
         $diseasesNames = array_diff(array_keys($diseasesProbaArray), $playerDiseasesNames);

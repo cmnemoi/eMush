@@ -60,7 +60,7 @@ class ActionServiceCest
         $actionCost->setActionPointCost(5);
 
         $action = new Action();
-        $action->setName('some name');
+        $action->setActionName('some name');
         $action->setActionCost($actionCost);
 
         $this->actionService->applyCostToPlayer($player, $action, null);
@@ -103,7 +103,7 @@ class ActionServiceCest
         $actionCost->setMovementPointCost(1);
 
         $action = new Action();
-        $action->setName('some name');
+        $action->setActionName('some name');
         $action->setActionCost($actionCost);
 
         $this->actionService->applyCostToPlayer($player, $action, null);
@@ -144,6 +144,7 @@ class ActionServiceCest
             ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
             ->setReach(ModifierReachEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
 
         $I->haveInRepository($modifierConfig);
@@ -156,7 +157,7 @@ class ActionServiceCest
         $actionCost->setMovementPointCost(1);
 
         $action = new Action();
-        $action->setName('some name');
+        $action->setActionName('some name');
         $action->setActionCost($actionCost);
 
         $this->actionService->applyCostToPlayer($player, $action, null);

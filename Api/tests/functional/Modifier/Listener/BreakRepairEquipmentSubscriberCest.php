@@ -42,7 +42,10 @@ class BreakRepairEquipmentSubscriberCest
     public function testRepairGearPlaceReach(FunctionalTester $I)
     {
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::BROKEN);
+        $statusConfig
+            ->setStatusName(EquipmentStatusEnum::BROKEN)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($statusConfig);
 
         /** @var GameConfig $gameConfig */
@@ -63,7 +66,8 @@ class BreakRepairEquipmentSubscriberCest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC);
+            ->setScope(ChannelScopeEnum::PUBLIC)
+        ;
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -81,6 +85,7 @@ class BreakRepairEquipmentSubscriberCest
             ->setDelta(-1)
             ->setReach(ModifierReachEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
@@ -88,11 +93,14 @@ class BreakRepairEquipmentSubscriberCest
         $I->haveInRepository($modifier);
 
         $gear = new Gear();
-        $gear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
+        $gear
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
+            ->setName('gear_test')
+        ;
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'mechanics' => new ArrayCollection([$gear])]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['mechanics' => new ArrayCollection([$gear])]);
 
         // Case of a game Equipment
         $gameEquipment = new GameItem($player);

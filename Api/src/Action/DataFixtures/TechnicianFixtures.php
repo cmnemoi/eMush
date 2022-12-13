@@ -49,7 +49,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $repair1 = new Action();
         $repair1
-            ->setName(ActionEnum::REPAIR)
+            ->setName(ActionEnum::REPAIR . '_percent_1')
+            ->setActionName(ActionEnum::REPAIR)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(20)
@@ -61,7 +62,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $repair3 = new Action();
         $repair3
-            ->setName(ActionEnum::REPAIR)
+            ->setName(ActionEnum::REPAIR . '_percent_3')
+            ->setActionName(ActionEnum::REPAIR)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(20)
@@ -73,7 +75,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $repair6 = new Action();
         $repair6
-            ->setName(ActionEnum::REPAIR)
+            ->setName(ActionEnum::REPAIR . '_percent_6')
+            ->setActionName(ActionEnum::REPAIR)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(20)
@@ -85,7 +88,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $repair12 = new Action();
         $repair12
-            ->setName(ActionEnum::REPAIR)
+            ->setName(ActionEnum::REPAIR . '_percent_12')
+            ->setActionName(ActionEnum::REPAIR)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(20)
@@ -97,7 +101,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $repair25 = new Action();
         $repair25
-            ->setName(ActionEnum::REPAIR)
+            ->setName(ActionEnum::REPAIR . '_percent_25')
+            ->setActionName(ActionEnum::REPAIR)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(20)
@@ -109,7 +114,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $repair50 = new Action();
         $repair50
-            ->setName(ActionEnum::REPAIR)
+            ->setName(ActionEnum::REPAIR . '_percent_50')
+            ->setActionName(ActionEnum::REPAIR)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(20)
@@ -121,7 +127,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $dismantle312 = new Action();
         $dismantle312
-            ->setName(ActionEnum::DISASSEMBLE)
+            ->setName(ActionEnum::DISASSEMBLE . '_percent_12_cost_3')
+            ->setActionName(ActionEnum::DISASSEMBLE)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
@@ -133,7 +140,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $dismantle325 = new Action();
         $dismantle325
-            ->setName(ActionEnum::DISASSEMBLE)
+            ->setName(ActionEnum::DISASSEMBLE . '_percent_25_cost_3')
+            ->setActionName(ActionEnum::DISASSEMBLE)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
@@ -145,7 +153,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $dismantle350 = new Action();
         $dismantle350
-            ->setName(ActionEnum::DISASSEMBLE)
+            ->setName(ActionEnum::DISASSEMBLE . '_percent_50_cost_3')
+            ->setActionName(ActionEnum::DISASSEMBLE)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
@@ -157,7 +166,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $dismantle46 = new Action();
         $dismantle46
-            ->setName(ActionEnum::DISASSEMBLE)
+            ->setName(ActionEnum::DISASSEMBLE . '_percent_6_cost_4')
+            ->setActionName(ActionEnum::DISASSEMBLE)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
@@ -169,7 +179,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $dismantle412 = new Action();
         $dismantle412
-            ->setName(ActionEnum::DISASSEMBLE)
+            ->setName(ActionEnum::DISASSEMBLE . '_percent_12_cost_4')
+            ->setActionName(ActionEnum::DISASSEMBLE)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
@@ -181,7 +192,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $dismantle425 = new Action();
         $dismantle425
-            ->setName(ActionEnum::DISASSEMBLE)
+            ->setName(ActionEnum::DISASSEMBLE . '_percent_25_cost_4')
+            ->setActionName(ActionEnum::DISASSEMBLE)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
@@ -193,7 +205,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $sabotageAction1 = new Action();
         $sabotageAction1
-            ->setName(ActionEnum::SABOTAGE)
+            ->setName(ActionEnum::SABOTAGE . '_percent_1')
+            ->setActionName(ActionEnum::SABOTAGE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(0)
@@ -206,7 +219,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $sabotageAction3 = new Action();
         $sabotageAction3
-            ->setName(ActionEnum::SABOTAGE)
+            ->setName(ActionEnum::SABOTAGE . '_percent_3')
+            ->setActionName(ActionEnum::SABOTAGE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(0)
@@ -219,7 +233,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $sabotageAction6 = new Action();
         $sabotageAction6
-            ->setName(ActionEnum::SABOTAGE)
+            ->setName(ActionEnum::SABOTAGE . '_percent_6')
+            ->setActionName(ActionEnum::SABOTAGE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(0)
@@ -232,7 +247,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $sabotageAction12 = new Action();
         $sabotageAction12
-            ->setName(ActionEnum::SABOTAGE)
+            ->setName(ActionEnum::SABOTAGE . '_percent_12')
+            ->setActionName(ActionEnum::SABOTAGE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(0)
@@ -245,7 +261,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $sabotageAction25 = new Action();
         $sabotageAction25
-            ->setName(ActionEnum::SABOTAGE)
+            ->setName(ActionEnum::SABOTAGE . '_percent_25')
+            ->setActionName(ActionEnum::SABOTAGE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(0)
@@ -258,7 +275,8 @@ class TechnicianFixtures extends Fixture implements DependentFixtureInterface
 
         $sabotageAction50 = new Action();
         $sabotageAction50
-            ->setName(ActionEnum::SABOTAGE)
+            ->setName(ActionEnum::SABOTAGE . '_percent_50')
+            ->setActionName(ActionEnum::SABOTAGE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(25)
             ->setInjuryRate(0)

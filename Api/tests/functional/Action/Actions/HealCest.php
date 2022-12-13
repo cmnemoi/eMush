@@ -56,20 +56,23 @@ class HealCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(2)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::HEAL)
+            ->setActionName(ActionEnum::HEAL)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+           ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($action);
 
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class);
         $itemConfig
-            ->setName(ToolItemEnum::MEDIKIT)
+            ->setEquipmentName(ToolItemEnum::MEDIKIT)
             ->setActions(new ArrayCollection([$action]));
 
         $I->haveInRepository($itemConfig);
@@ -136,20 +139,23 @@ class HealCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(2)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::HEAL)
+            ->setActionName(ActionEnum::HEAL)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+           ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($action);
 
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class);
         $itemConfig
-            ->setName(ToolItemEnum::MEDIKIT)
+            ->setEquipmentName(ToolItemEnum::MEDIKIT)
             ->setActions(new ArrayCollection([$action]));
 
         $I->haveInRepository($itemConfig);

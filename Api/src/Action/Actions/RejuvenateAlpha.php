@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RejuvenateAlpha extends AbstractAction
 {
-    protected string $name = ActionEnum::REJUVENATE_ALPHA;
+    protected string $name = ActionEnum::REJUVENATE;
 
     private PlayerServiceInterface $playerService;
     private PlayerVariableServiceInterface $playerVariableService;

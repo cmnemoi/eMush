@@ -68,7 +68,7 @@ class ActionSideEffectsServiceTest extends TestCase
         $action
             ->setDirtyRate(0)
             ->setInjuryRate(0)
-            ->setName(ActionEnum::DROP)
+            ->setActionName(ActionEnum::DROP)
         ;
 
         $date = new \DateTime();
@@ -120,7 +120,7 @@ class ActionSideEffectsServiceTest extends TestCase
         $action
             ->setDirtyRate(100)
             ->setInjuryRate(0)
-            ->setName(ActionEnum::DROP)
+            ->setActionName(ActionEnum::DROP)
         ;
 
         $this->modifierService
@@ -153,7 +153,7 @@ class ActionSideEffectsServiceTest extends TestCase
         $action
             ->setDirtyRate(0)
             ->setInjuryRate(0)
-            ->setName(ActionEnum::DROP)
+            ->setActionName(ActionEnum::DROP)
         ;
 
         $this->modifierService
@@ -172,7 +172,7 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $player = $this->actionService->handleActionSideEffect($action, $player, $date);
 
-        $action->setInjuryRate(100)->setName(ActionEnum::DROP);
+        $action->setInjuryRate(100)->setActionName(ActionEnum::DROP);
 
         $this->modifierService
             ->shouldReceive('isSuccessfulWithModifiers')

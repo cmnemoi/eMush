@@ -46,8 +46,9 @@ class AutomaticGetUpCest
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $statusConfig = new StatusConfig();
         $statusConfig
-            ->setName(PlayerStatusEnum::LYING_DOWN)
+            ->setStatusName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
 
@@ -66,13 +67,15 @@ class AutomaticGetUpCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         $getUpCost = new ActionCost();
+        $getUpCost->buildName();
         $getUpAction = new Action();
         $getUpAction
-            ->setName(ActionEnum::GET_UP)
+            ->setActionName(ActionEnum::GET_UP)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::SELF)
             ->setInjuryRate(0)
             ->setActionCost($getUpCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($getUpCost);
         $I->haveInRepository($getUpAction);
@@ -97,18 +100,16 @@ class AutomaticGetUpCest
         $lyingDownStatus = new Status($player, $statusConfig);
         $I->haveInRepository($lyingDownStatus);
 
-        $actionCost = new ActionCost();
-
         $action = new Action();
         $action
-            ->setName(ActionEnum::SHOWER)
+            ->setActionName(ActionEnum::SHOWER)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->setActionCost($getUpCost)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->buildName(GameConfigEnum::TEST)
         ;
-        $I->haveInRepository($actionCost);
         $I->haveInRepository($action);
 
         /** @var EquipmentConfig $equipmentConfig */

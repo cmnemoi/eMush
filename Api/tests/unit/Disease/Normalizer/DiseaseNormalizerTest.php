@@ -62,7 +62,7 @@ class DiseaseNormalizerTest extends TestCase
         $player->setDaedalus($daedalus);
 
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setName('name');
+        $diseaseConfig->setDiseaseName('name');
 
         $playerDisease = new PlayerDisease();
         $playerDisease->setDiseaseConfig($diseaseConfig);
@@ -109,7 +109,7 @@ class DiseaseNormalizerTest extends TestCase
         ;
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('name')
+            ->setDiseaseName('name')
             ->setModifierConfigs(new ModifierCollection([$modifierConfig]))
         ;
 
@@ -170,7 +170,7 @@ class DiseaseNormalizerTest extends TestCase
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('name')
+            ->setDiseaseName('name')
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
         ;
 

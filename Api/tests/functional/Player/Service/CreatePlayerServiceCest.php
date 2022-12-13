@@ -12,6 +12,7 @@ use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -37,11 +38,13 @@ class CreatePlayerServiceCest
 
         $mushStatusConfig = new ChargeStatusConfig();
         $mushStatusConfig
-            ->setName(PlayerStatusEnum::MUSH)
+            ->setStatusName(PlayerStatusEnum::MUSH)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $sporeStatusConfig = new ChargeStatusConfig();
         $sporeStatusConfig
-            ->setName(PlayerStatusEnum::SPORES)
+            ->setStatusName(PlayerStatusEnum::SPORES)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($mushStatusConfig);
         $I->haveInRepository($sporeStatusConfig);

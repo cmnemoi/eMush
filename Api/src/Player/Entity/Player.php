@@ -268,7 +268,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function getMedicalConditionByName(string $diseaseName): ?PlayerDisease
     {
-        $disease = $this->medicalCondition->filter(fn (PlayerDisease $playerDisease) => ($playerDisease->getDiseaseConfig()->getName() === $diseaseName));
+        $disease = $this->medicalCondition->filter(fn (PlayerDisease $playerDisease) => ($playerDisease->getDiseaseConfig()->getDiseaseName() === $diseaseName));
 
         return $disease->isEmpty() ? null : $disease->first();
     }

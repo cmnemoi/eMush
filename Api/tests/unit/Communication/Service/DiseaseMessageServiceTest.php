@@ -68,7 +68,7 @@ class DiseaseMessageServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $symptomConfig = new SymptomConfig(SymptomEnum::DEAF);
-        $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
+        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
         $playerDisease = new PlayerDisease();
@@ -101,7 +101,7 @@ class DiseaseMessageServiceTest extends TestCase
         $player->setDaedalus($daedalus);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::COPROLALIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
+        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
@@ -138,7 +138,7 @@ class DiseaseMessageServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $symptomConfig = new SymptomConfig(SymptomEnum::COPROLALIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
+        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
@@ -196,7 +196,7 @@ class DiseaseMessageServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $symptomConfig = new SymptomConfig(SymptomEnum::COPROLALIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
+        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
@@ -255,7 +255,7 @@ class DiseaseMessageServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
+        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
@@ -312,7 +312,7 @@ class DiseaseMessageServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
+        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));
@@ -386,7 +386,7 @@ class DiseaseMessageServiceTest extends TestCase
         $player->setDaedalus($daedalus)->setPlayerInfo($playerInfo);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::PARANOIA_MESSAGES);
-        $symptomConfig->setTrigger(EventEnum::ON_NEW_MESSAGE);
+        $symptomConfig->setTrigger(EventEnum::NEW_MESSAGE);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]));

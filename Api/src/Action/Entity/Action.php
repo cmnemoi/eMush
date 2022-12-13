@@ -14,8 +14,11 @@ class Action
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $actionName;
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $types = [];
@@ -57,6 +60,25 @@ class Action
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function buildName(string $configName): self
+    {
+        $this->name = $this->actionName . '_' . $configName;
+
+        return $this;
+    }
+
+    public function getActionName(): string
+    {
+        return $this->actionName;
+    }
+
+    public function setActionName(string $actionName): self
+    {
+        $this->actionName = $actionName;
 
         return $this;
     }

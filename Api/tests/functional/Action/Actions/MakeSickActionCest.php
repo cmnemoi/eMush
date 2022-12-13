@@ -53,16 +53,18 @@ class MakeSickActionCest
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName(DiseaseEnum::FOOD_POISONING)
+            ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseConfig);
 
         $diseaseCause = new DiseaseCauseConfig();
         $diseaseCause
-            ->setName(ActionEnum::MAKE_SICK)
+            ->setCauseName(ActionEnum::MAKE_SICK)
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
+            ->buildName(GameConfigENum::TEST)
         ;
         $I->haveInRepository($diseaseCause);
 
@@ -89,15 +91,17 @@ class MakeSickActionCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(1)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::MAKE_SICK)
+            ->setActionName(ActionEnum::MAKE_SICK)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost($actionCost)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
 
@@ -121,8 +125,9 @@ class MakeSickActionCest
 
         $mushConfig = new StatusConfig();
         $mushConfig
-            ->setName(PlayerStatusEnum::MUSH)
+            ->setStatusName(PlayerStatusEnum::MUSH)
             ->setVisibility(VisibilityEnum::MUSH)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($mushConfig);
         $mushStatus = new Status($mushPlayer, $mushConfig);

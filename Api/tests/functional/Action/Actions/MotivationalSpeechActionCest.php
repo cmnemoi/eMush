@@ -54,14 +54,17 @@ class MotivationalSpeechActionCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(2)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::MOTIVATIONAL_SPEECH)
+            ->setActionName(ActionEnum::MOTIVATIONAL_SPEECH)
             ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+           ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $speakerConfig */

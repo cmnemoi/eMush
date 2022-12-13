@@ -54,7 +54,7 @@ class PlantWaterableValidatorTest extends TestCase
         ;
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::PLANT_THIRSTY);
+        $statusConfig->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY);
         $status = new Status($target, $statusConfig);
 
         $this->initValidator();
@@ -71,7 +71,7 @@ class PlantWaterableValidatorTest extends TestCase
         ;
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::PLANT_DRY);
+        $statusConfig->setStatusName(EquipmentStatusEnum::PLANT_DRY);
         $status = new Status($target, $statusConfig);
 
         $this->initValidator();
@@ -95,7 +95,7 @@ class PlantWaterableValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(PlayerStatusEnum::GUARDIAN);
+        $statusConfig->setStatusName(PlayerStatusEnum::GUARDIAN);
         $status = new Status($target, $statusConfig);
 
         $this->initValidator($this->constraint->message);

@@ -41,7 +41,7 @@ class CookableValidatorTest extends TestCase
     public function testValid()
     {
         $itemConfig = new ItemConfig();
-        $itemConfig->setName(GameRationEnum::STANDARD_RATION);
+        $itemConfig->setEquipmentName(GameRationEnum::STANDARD_RATION);
 
         $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);
@@ -56,10 +56,10 @@ class CookableValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $itemConfig->setName('toto');
+        $itemConfig->setEquipmentName('toto');
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::FROZEN);
+        $statusConfig->setStatusName(EquipmentStatusEnum::FROZEN);
         $chargeStatus = new Status($target, $statusConfig);
 
         $this->initValidator();
@@ -71,7 +71,7 @@ class CookableValidatorTest extends TestCase
     public function testNotValid()
     {
         $itemConfig = new ItemConfig();
-        $itemConfig->setName('toto');
+        $itemConfig->setEquipmentName('toto');
 
         $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);
@@ -87,7 +87,7 @@ class CookableValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::HAZARDOUS);
+        $statusConfig->setStatusName(EquipmentStatusEnum::HAZARDOUS);
         $chargeStatus = new Status($target, $statusConfig);
 
         $this->initValidator($this->constraint->message);

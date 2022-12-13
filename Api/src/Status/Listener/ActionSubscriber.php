@@ -34,7 +34,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $actionPaCost = $event->getAction()->getActionCost()->getActionPointCost();
 
         if ($actionPaCost !== null && $actionPaCost > 0) {
-            $this->statusService->handleAttempt($player, $event->getAction()->getName(), $actionResult);
+            $this->statusService->handleAttempt($player, $event->getAction()->getActionName(), $actionResult);
         }
     }
 }

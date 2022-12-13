@@ -13,6 +13,7 @@ use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\InjuryEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 
 class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -25,7 +26,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCauseAlienFruit = new DiseaseCauseConfig();
         $diseaseCauseAlienFruit
-            ->setName(DiseaseCauseEnum::ALIEN_FRUIT)
+            ->setCauseName(DiseaseCauseEnum::ALIEN_FRUIT)
             ->setDiseases(
                 [
                     DiseaseEnum::CAT_ALLERGY => 1,
@@ -64,71 +65,73 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                     DiseaseEnum::TAPEWORM => 8,
                 ]
             )
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($diseaseCauseAlienFruit);
 
         $diseaseCausePerishedFood = new DiseaseCauseConfig();
         $diseaseCausePerishedFood
-            ->setName(DiseaseCauseEnum::PERISHED_FOOD)
+            ->setCauseName(DiseaseCauseEnum::PERISHED_FOOD)
             ->setDiseases([DiseaseEnum::FOOD_POISONING => 1])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($diseaseCausePerishedFood);
 
         $diseaseCauseCycle = new DiseaseCauseConfig();
         $diseaseCauseCycle
-            ->setName(DiseaseCauseEnum::CYCLE)
-            ->setDiseases(
-                [
-                    DiseaseEnum::MUSH_ALLERGY => 1,
-                    DiseaseEnum::CAT_ALLERGY => 1,
-                    DiseaseEnum::FUNGIC_INFECTION => 2,
-                    DiseaseEnum::SINUS_STORM => 2,
-                    DiseaseEnum::VITAMIN_DEFICIENCY => 4,
-                    DiseaseEnum::ACID_REFLUX => 4,
-                    DiseaseEnum::MIGRAINE => 4,
-                    DiseaseEnum::GASTROENTERIS => 8,
-                    DiseaseEnum::COLD => 8,
-                    DiseaseEnum::SLIGHT_NAUSEA => 8,
-                ]
-            );
+            ->setCauseName(DiseaseCauseEnum::CYCLE)
+            ->setDiseases([
+                DiseaseEnum::MUSH_ALLERGY => 1,
+                DiseaseEnum::CAT_ALLERGY => 1,
+                DiseaseEnum::FUNGIC_INFECTION => 2,
+                DiseaseEnum::SINUS_STORM => 2,
+                DiseaseEnum::VITAMIN_DEFICIENCY => 4,
+                DiseaseEnum::ACID_REFLUX => 4,
+                DiseaseEnum::MIGRAINE => 4,
+                DiseaseEnum::GASTROENTERIS => 8,
+                DiseaseEnum::COLD => 8,
+                DiseaseEnum::SLIGHT_NAUSEA => 8,
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
 
         $diseaseCauseCycleDepressed = new DiseaseCauseConfig();
         $diseaseCauseCycleDepressed
-            ->setName(DiseaseCauseEnum::CYCLE_LOW_MORALE)
-            ->setDiseases(
-                [
-                    DiseaseEnum::MUSH_ALLERGY => 1,
-                    DiseaseEnum::CAT_ALLERGY => 1,
-                    DiseaseEnum::FUNGIC_INFECTION => 2,
-                    DiseaseEnum::SINUS_STORM => 2,
-                    DiseaseEnum::VITAMIN_DEFICIENCY => 4,
-                    DiseaseEnum::ACID_REFLUX => 4,
-                    DiseaseEnum::MIGRAINE => 4,
-                    DiseaseEnum::GASTROENTERIS => 8,
-                    DiseaseEnum::COLD => 8,
-                    DiseaseEnum::SLIGHT_NAUSEA => 8,
-                    DisorderEnum::DEPRESSION => 32,
-                ]
-            );
+            ->setCauseName(DiseaseCauseEnum::CYCLE_LOW_MORALE)
+            ->setDiseases([
+                DiseaseEnum::MUSH_ALLERGY => 1,
+                DiseaseEnum::CAT_ALLERGY => 1,
+                DiseaseEnum::FUNGIC_INFECTION => 2,
+                DiseaseEnum::SINUS_STORM => 2,
+                DiseaseEnum::VITAMIN_DEFICIENCY => 4,
+                DiseaseEnum::ACID_REFLUX => 4,
+                DiseaseEnum::MIGRAINE => 4,
+                DiseaseEnum::GASTROENTERIS => 8,
+                DiseaseEnum::COLD => 8,
+                DiseaseEnum::SLIGHT_NAUSEA => 8,
+                DisorderEnum::DEPRESSION => 32,
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
         $manager->persist($diseaseCauseCycleDepressed);
         $manager->persist($diseaseCauseCycle);
 
         $diseaseCausesBacterialContact = new DiseaseCauseConfig();
         $diseaseCausesBacterialContact
-            ->setName(ActionEnum::MAKE_SICK)
-            ->setDiseases(
-                [
-                    DiseaseEnum::COLD => 1,
-                    DiseaseEnum::FUNGIC_INFECTION => 1,
-                    DiseaseEnum::FLU => 1,
-                    DiseaseEnum::EXTREME_TINNITUS => 1,
-                ]
-            );
+            ->setCauseName(ActionEnum::MAKE_SICK)
+            ->setDiseases([
+                DiseaseEnum::COLD => 1,
+                DiseaseEnum::FUNGIC_INFECTION => 1,
+                DiseaseEnum::FLU => 1,
+                DiseaseEnum::EXTREME_TINNITUS => 1,
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
         $manager->persist($diseaseCausesBacterialContact);
 
         $diseaseCausesFakeDisease = new DiseaseCauseConfig();
         $diseaseCausesFakeDisease
-            ->setName(ActionEnum::FAKE_DISEASE)
+            ->setCauseName(ActionEnum::FAKE_DISEASE)
             ->setDiseases(
                 [
                     DiseaseEnum::CAT_ALLERGY => 1,
@@ -186,54 +189,60 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                     InjuryEnum::DAMAGED_EARS => 1,
                     InjuryEnum::BROKEN_LEG => 1,
                 ]
-            );
+            )
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
 
         $manager->persist($diseaseCausesFakeDisease);
 
         $diseaseCauseFailedSurgery = new DiseaseCauseConfig();
         $diseaseCauseFailedSurgery
-            ->setName(ActionEnum::SURGERY)
+            ->setCauseName(ActionEnum::SURGERY)
             ->setDiseases([DiseaseEnum::SEPSIS => 1])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($diseaseCauseFailedSurgery);
 
         $diseaseCauseCatAllergy = new DiseaseCauseConfig();
         $diseaseCauseCatAllergy
-            ->setName(DiseaseEnum::CAT_ALLERGY)
+            ->setCauseName(DiseaseEnum::CAT_ALLERGY)
             ->setDiseases([
                 InjuryEnum::BURNT_ARMS => 1,
                 InjuryEnum::BURNT_HAND => 1,
-                ])
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($diseaseCauseCatAllergy);
 
         $diseaseCauseInfection = new DiseaseCauseConfig();
         $diseaseCauseInfection
-            ->setName(DiseaseCauseEnum::INFECTION)
+            ->setCauseName(DiseaseCauseEnum::INFECTION)
             ->setDiseases([
                 DiseaseEnum::FLU => 50,
                 DiseaseEnum::GASTROENTERIS => 20,
                 DiseaseEnum::FUNGIC_INFECTION => 15,
                 DiseaseEnum::MIGRAINE => 10,
                 DiseaseEnum::MUSH_ALLERGY => 5,
-                ])
+            ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($diseaseCauseInfection);
 
         $diseaseCauseSex = new DiseaseCauseConfig();
         $diseaseCauseSex
-            ->setName(DiseaseCauseEnum::SEX)
+            ->setCauseName(DiseaseCauseEnum::SEX)
             ->setDiseases([
                 DiseaseEnum::FLU => 1,
                 DiseaseEnum::GASTROENTERIS => 1,
                 DiseaseEnum::SKIN_INFLAMMATION => 1,
             ])
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($diseaseCauseSex);
 
         $diseaseCauseTrauma = new DiseaseCauseConfig();
         $diseaseCauseTrauma
-            ->setName(DiseaseCauseEnum::TRAUMA)
+            ->setCauseName(DiseaseCauseEnum::TRAUMA)
             ->setDiseases(
                 [
                     DiseaseEnum::MIGRAINE => 30,
@@ -249,35 +258,41 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                     DisorderEnum::CHRONIC_VERTIGO => 3,
                     DisorderEnum::SPLEEN => 1,
                 ]
-            );
+            )
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
         $manager->persist($diseaseCauseTrauma);
 
         $diseaseCauseContact = new DiseaseCauseConfig();
         $diseaseCauseContact
-            ->setName(DiseaseCauseEnum::CONTACT)
+            ->setCauseName(DiseaseCauseEnum::CONTACT)
             ->setDiseases(
                 [
                     DiseaseEnum::FLU => 1,
                     DiseaseEnum::GASTROENTERIS => 1,
                     DiseaseEnum::SKIN_INFLAMMATION => 1,
                 ]
-            );
+            )
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
         $manager->persist($diseaseCauseContact);
 
         $diseaseCauseCriticalFailKnife = new DiseaseCauseConfig();
         $diseaseCauseCriticalFailKnife
-            ->setName(DiseaseCauseEnum::CRITICAL_FAIL_KNIFE)
+            ->setCauseName(DiseaseCauseEnum::CRITICAL_FAIL_KNIFE)
             ->setDiseases(
                 [
                     InjuryEnum::TORN_TONGUE => 1,
                     InjuryEnum::BUSTED_SHOULDER => 1,
                 ]
-            );
+            )
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
         $manager->persist($diseaseCauseCriticalFailKnife);
 
         $diseaseCauseCriticalSuccessKnife = new DiseaseCauseConfig();
         $diseaseCauseCriticalSuccessKnife
-            ->setName(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE)
+            ->setCauseName(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE)
             ->setDiseases(
                 [
                     InjuryEnum::CRITICAL_HAEMORRHAGE => 30,
@@ -304,23 +319,27 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                     InjuryEnum::DAMAGED_EARS => 1,
                     InjuryEnum::BROKEN_LEG => 1,
                 ]
-            );
+            )
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
         $manager->persist($diseaseCauseCriticalSuccessKnife);
 
         $diseaseCauseCriticalFailBlaster = new DiseaseCauseConfig();
         $diseaseCauseCriticalFailBlaster
-            ->setName(DiseaseCauseEnum::CRITICAL_FAIL_BLASTER)
+            ->setCauseName(DiseaseCauseEnum::CRITICAL_FAIL_BLASTER)
             ->setDiseases(
                 [
                     InjuryEnum::BROKEN_LEG => 1,
                     InjuryEnum::BROKEN_SHOULDER => 1,
                 ]
-            );
+            )
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
         $manager->persist($diseaseCauseCriticalFailBlaster);
 
         $diseaseCauseCriticalSuccessBlaster = new DiseaseCauseConfig();
         $diseaseCauseCriticalSuccessBlaster
-            ->setName(DiseaseCauseEnum::CRITICAL_SUCCESS_BLASTER)
+            ->setCauseName(DiseaseCauseEnum::CRITICAL_SUCCESS_BLASTER)
             ->setDiseases(
                 [
                     InjuryEnum::DAMAGED_EARS => 10,
@@ -334,7 +353,9 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
                     InjuryEnum::HEAD_TRAUMA => 1,
                     InjuryEnum::BURNS_50_OF_BODY => 1,
                 ]
-            );
+            )
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
         $manager->persist($diseaseCauseCriticalSuccessBlaster);
 
         $gameConfig

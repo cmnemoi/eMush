@@ -20,8 +20,11 @@ class ModifierConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    private string $name;
+
     #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $name = null;
+    private ?string $modifierName = null;
 
     #[ORM\Column(type: 'float', nullable: false)]
     private float $delta = 0;
@@ -49,6 +52,69 @@ class ModifierConfig
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function buildName(): static
+    {
+        $modifierName = $this->modifierName;
+
+        if ($modifierName === null) {
+            $name = 'modifier';
+        } else {
+            $name = $modifierName;
+        }
+
+        $reach = $this->reach;
+        if ($reach !== null) {
+            $name = $name . '_for_' . $reach;
+        }
+
+        $mode = $this->mode;
+        $delta = $this->delta;
+        $target = $this->target;
+        switch ($mode) {
+            case ModifierModeEnum::ADDITIVE:
+                if ($delta > 0) {
+                    $name = $name . '_+' . strval($delta) . $target;
+                } elseif ($delta < 0) {
+                    $name = $name . '_-' . strval(-$delta) . $target;
+                }
+                break;
+            case ModifierModeEnum::SET_VALUE:
+                $name = $name . '_set_' . strval($delta) . $target;
+                break;
+            case ModifierModeEnum::MULTIPLICATIVE:
+                $name = $name . '_x' . strval($delta) . $target;
+                break;
+        }
+
+        $name = $name . '_on_' . $this->scope;
+
+        /** @var ModifierCondition $condition */
+        foreach ($this->modifierConditions as $condition) {
+            $name = $name . '_if_' . $condition->getName();
+        }
+
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setModifierName(string $modifierName): self
+    {
+        $this->modifierName = $modifierName;
+
+        return $this;
+    }
+
+    public function getModifierName(): ?string
+    {
+        return $this->modifierName;
     }
 
     public function getDelta(): float
@@ -132,17 +198,5 @@ class ModifierConfig
         $this->modifierConditions = $modifierConditions;
 
         return $this;
-    }
-
-    public function setName(?string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
     }
 }

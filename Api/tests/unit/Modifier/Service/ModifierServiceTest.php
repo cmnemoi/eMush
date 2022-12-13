@@ -178,7 +178,7 @@ class ModifierServiceTest extends TestCase
             ->setMoralPointCost(null)
         ;
         $action = new Action();
-        $action->setName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
+        $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
 
         $this->conditionService
             ->shouldReceive('getActiveModifiers')
@@ -281,7 +281,7 @@ class ModifierServiceTest extends TestCase
             ->setMoralPointCost(null)
         ;
         $action = new Action();
-        $action->setName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
+        $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
 
         // Daedalus Modifier
         $modifierConfig1 = new ModifierConfig();
@@ -353,7 +353,7 @@ class ModifierServiceTest extends TestCase
             ->setMoralPointCost(null)
         ;
         $action = new Action();
-        $action->setName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
+        $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
 
         // Movement Point
         $modifierConfig1 = new ModifierConfig();
@@ -424,7 +424,7 @@ class ModifierServiceTest extends TestCase
         ;
 
         $action = new Action();
-        $action->setName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost)->setSuccessRate(50);
+        $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost)->setSuccessRate(50);
 
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
@@ -463,7 +463,7 @@ class ModifierServiceTest extends TestCase
         ;
 
         $action = new Action();
-        $action->setName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost)->setSuccessRate(50);
+        $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost)->setSuccessRate(50);
 
         // multiplicative
         $modifierConfig1 = new ModifierConfig();
@@ -543,7 +543,7 @@ class ModifierServiceTest extends TestCase
         ;
 
         $action = new Action();
-        $action->setName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
+        $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
 
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
@@ -585,7 +585,7 @@ class ModifierServiceTest extends TestCase
         ;
 
         $action = new Action();
-        $action->setName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
+        $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
 
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1

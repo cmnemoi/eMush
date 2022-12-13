@@ -40,6 +40,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -81,16 +82,18 @@ class ActionSubscriberCest
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
 
         $I->haveInRepository($actionCost);
 
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
+            ->setActionName(ActionEnum::MOVE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
@@ -128,6 +131,7 @@ class ActionSubscriberCest
         $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
         $moveActionSymptomCondition
             ->setCondition(ActionEnum::MOVE)
+            ->buildName()
         ;
 
         $I->haveInRepository($moveActionSymptomCondition);
@@ -136,14 +140,16 @@ class ActionSubscriberCest
         $symptomConfig
             ->setTrigger(ActionEvent::POST_ACTION)
             ->addSymptomCondition($moveActionSymptomCondition)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('Name')
+            ->setDiseaseName('Name')
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -183,16 +189,18 @@ class ActionSubscriberCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
 
         $I->haveInRepository($actionCost);
 
         $takeActionEntity = new Action();
         $takeActionEntity
-            ->setName(ActionEnum::TAKE)
+            ->setActionName(ActionEnum::TAKE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($takeActionEntity);
 
@@ -225,13 +233,16 @@ class ActionSubscriberCest
         $takeActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
         $takeActionSymptomCondition
             ->setCondition(ActionEnum::TAKE)
+            ->buildName()
         ;
 
         $I->haveInRepository($takeActionSymptomCondition);
 
         $holdCatSymptomCondition = new SymptomCondition(SymptomConditionEnum::PLAYER_EQUIPMENT);
         $holdCatSymptomCondition
-            ->setCondition(ItemEnum::SCHRODINGER);
+            ->setCondition(ItemEnum::SCHRODINGER)
+            ->buildName()
+        ;
 
         $I->haveInRepository($holdCatSymptomCondition);
 
@@ -240,14 +251,16 @@ class ActionSubscriberCest
             ->setTrigger(ActionEvent::POST_ACTION)
             ->addSymptomCondition($takeActionSymptomCondition)
             ->addSymptomCondition($holdCatSymptomCondition)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName(DiseaseEnum::CAT_ALLERGY)
+            ->setDiseaseName(DiseaseEnum::CAT_ALLERGY)
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -291,16 +304,18 @@ class ActionSubscriberCest
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
 
         $I->haveInRepository($actionCost);
 
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
+            ->setActionName(ActionEnum::MOVE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
@@ -338,6 +353,7 @@ class ActionSubscriberCest
         $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
         $moveActionSymptomCondition
             ->setCondition(ActionEnum::MOVE)
+            ->buildName()
         ;
 
         $I->haveInRepository($moveActionSymptomCondition);
@@ -346,14 +362,16 @@ class ActionSubscriberCest
         $symptomConfig
             ->setTrigger(ActionEvent::POST_ACTION)
             ->addSymptomCondition($moveActionSymptomCondition)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('Name')
+            ->setDiseaseName('Name')
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -395,16 +413,18 @@ class ActionSubscriberCest
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
 
         $I->haveInRepository($actionCost);
 
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
+            ->setActionName(ActionEnum::MOVE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
@@ -442,6 +462,7 @@ class ActionSubscriberCest
         $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
         $moveActionSymptomCondition
             ->setCondition(ActionEnum::MOVE)
+            ->buildName()
         ;
 
         $I->haveInRepository($moveActionSymptomCondition);
@@ -450,14 +471,16 @@ class ActionSubscriberCest
         $symptomConfig
             ->setTrigger(ActionEvent::POST_ACTION)
             ->addSymptomCondition($moveActionSymptomCondition)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('Name')
+            ->setDiseaseName('Name')
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -499,16 +522,18 @@ class ActionSubscriberCest
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
 
         $I->haveInRepository($actionCost);
 
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
+            ->setActionName(ActionEnum::MOVE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
@@ -546,6 +571,7 @@ class ActionSubscriberCest
         $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
         $moveActionSymptomCondition
             ->setCondition(ActionEnum::MOVE)
+            ->buildName()
         ;
 
         $I->haveInRepository($moveActionSymptomCondition);
@@ -554,14 +580,16 @@ class ActionSubscriberCest
         $symptomConfig
             ->setTrigger(ActionEvent::POST_ACTION)
             ->addSymptomCondition($moveActionSymptomCondition)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('Name')
+            ->setDiseaseName('Name')
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -594,7 +622,8 @@ class ActionSubscriberCest
     {
         $dirtyStatusConfig = new StatusConfig();
         $dirtyStatusConfig
-            ->setName('dirty')
+            ->setStatusName('dirty')
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($dirtyStatusConfig);
 
@@ -613,36 +642,40 @@ class ActionSubscriberCest
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
 
         $I->haveInRepository($actionCost);
 
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
+            ->setActionName(ActionEnum::MOVE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
         $consumeActionEntity = new Action();
         $consumeActionEntity
-            ->setName(ActionEnum::CONSUME)
+            ->setActionName(ActionEnum::CONSUME)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($consumeActionEntity);
 
         $consumeDrugActionEntity = new Action();
         $consumeDrugActionEntity
-            ->setName(ActionEnum::CONSUME_DRUG)
+            ->setActionName(ActionEnum::CONSUME_DRUG)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($consumeDrugActionEntity);
 
@@ -664,7 +697,10 @@ class ActionSubscriberCest
         $I->refreshEntities($room, $room2, $door);
 
         $ration = new Ration();
-        $ration->setActions(new ArrayCollection([$consumeActionEntity]));
+        $ration
+            ->setActions(new ArrayCollection([$consumeActionEntity]))
+            ->setName('ration_test')
+        ;
         $I->haveInRepository($ration);
 
         $effect = new ConsumableEffect();
@@ -684,11 +720,12 @@ class ActionSubscriberCest
             'mechanics' => new ArrayCollection([$ration]),
             'place' => $room,
             'name' => 'ration',
+            'equipmentName' => 'ration',
         ]);
 
         $equipmentConfig
             ->setMechanics(new ArrayCollection([$ration]))
-            ->setName('ration')
+            ->setEquipmentName('ration')
         ;
 
         $I->haveInRepository($equipmentConfig);
@@ -720,6 +757,7 @@ class ActionSubscriberCest
         $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
         $moveActionSymptomCondition
             ->setCondition(ActionEnum::MOVE)
+            ->buildName()
         ;
 
         $I->haveInRepository($moveActionSymptomCondition);
@@ -727,6 +765,7 @@ class ActionSubscriberCest
         $consumeActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
         $consumeActionSymptomCondition
             ->setCondition(ActionEnum::CONSUME)
+            ->buildName()
         ;
 
         $I->haveInRepository($consumeActionSymptomCondition);
@@ -735,6 +774,7 @@ class ActionSubscriberCest
         $moveVomitingConfig
             ->setTrigger(ActionEvent::POST_ACTION)
             ->addSymptomCondition($moveActionSymptomCondition)
+            ->buildName(GameConfigEnum::TEST, ActionEnum::MOVE)
         ;
 
         $I->haveInRepository($moveVomitingConfig);
@@ -743,14 +783,16 @@ class ActionSubscriberCest
         $consumeVomitingConfig
             ->setTrigger(ActionEvent::POST_ACTION)
             ->addSymptomCondition($consumeActionSymptomCondition)
+            ->buildName(GameConfigEnum::TEST, ActionEnum::CONSUME)
         ;
 
         $I->haveInRepository($consumeVomitingConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('Name')
+            ->setDiseaseName('Name')
             ->setSymptomConfigs(new SymptomConfigCollection([$moveVomitingConfig, $consumeVomitingConfig]))
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -818,22 +860,25 @@ class ActionSubscriberCest
         $I->haveInRepository($cat);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
 
         $I->haveInRepository($actionCost);
 
         $moveActionEntity = new Action();
         $moveActionEntity
-            ->setName(ActionEnum::MOVE)
+            ->setActionName(ActionEnum::MOVE)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(0)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = new EquipmentConfig();
         $doorConfig
+            ->setEquipmentName('door')
             ->setName('door')
             ->setActions(new ArrayCollection([$moveActionEntity]))
         ;
@@ -871,13 +916,16 @@ class ActionSubscriberCest
         $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
         $moveActionSymptomCondition
             ->setCondition(ActionEnum::MOVE)
+            ->buildName()
         ;
 
         $I->haveInRepository($moveActionSymptomCondition);
 
         $catInRoomSymptomCondition = new SymptomCondition(SymptomConditionEnum::ITEM_IN_ROOM);
         $catInRoomSymptomCondition
-            ->setCondition(ItemEnum::SCHRODINGER);
+            ->setCondition(ItemEnum::SCHRODINGER)
+            ->buildName()
+        ;
 
         $I->haveInRepository($catInRoomSymptomCondition);
 
@@ -886,14 +934,16 @@ class ActionSubscriberCest
             ->setTrigger(ActionEvent::POST_ACTION)
             ->addSymptomCondition($moveActionSymptomCondition)
             ->addSymptomCondition($catInRoomSymptomCondition)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('Name')
+            ->setDiseaseName('Name')
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -927,19 +977,22 @@ class ActionSubscriberCest
         $symptomConfig = new SymptomConfig('psychotic_attacks');
         $symptomConfig
             ->setTrigger(ActionEvent::POST_ACTION)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('Name')
+            ->setDiseaseName('Name')
             ->setSymptomConfigs(new SymptomConfigCollection([$symptomConfig]))
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseConfig);
         $diseaseCauseConfig = new DiseaseCauseConfig();
         $diseaseCauseConfig
             ->setDiseases(['Name' => 1])
-            ->setName(DiseaseCauseEnum::TRAUMA)
+            ->setCauseName(DiseaseCauseEnum::TRAUMA)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseCauseConfig);
 
@@ -975,23 +1028,28 @@ class ActionSubscriberCest
         $I->haveInRepository($channel);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
 
         $attackAction = new Action();
         $attackAction
-            ->setName(ActionEnum::ATTACK)
+            ->setActionName(ActionEnum::ATTACK)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(0)
             ->setSuccessRate(100)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
+        ;
 
         $searchAction = new Action();
         $searchAction
-            ->setName(ActionEnum::SEARCH)
+            ->setActionName(ActionEnum::SEARCH)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::SELF)
             ->setInjuryRate(0)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
+        ;
 
         $I->haveInRepository($actionCost);
         $I->haveInRepository($attackAction);
@@ -1034,6 +1092,7 @@ class ActionSubscriberCest
         $knifeMechanic
             ->setBaseDamageRange([1 => 100])
             ->setActions(new ArrayCollection([$attackAction]))
+            ->setName('weapon_knife_test')
         ;
         $I->haveInRepository($knifeMechanic);
 

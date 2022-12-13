@@ -63,7 +63,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $ration = new ItemConfig();
         $ration
              ->setMechanics(new ArrayCollection([$rationType]))
-             ->setName('fruit')
+             ->setEquipmentName('fruit')
         ;
         $gameRation
             ->setEquipment($ration)
@@ -72,7 +72,7 @@ class HyperfreezeActionTest extends AbstractActionTest
 
         $gameSuperfreezer = new GameItem($room);
         $superfreezer = new ItemConfig();
-        $superfreezer->setName(ToolItemEnum::SUPERFREEZER);
+        $superfreezer->setEquipmentName(ToolItemEnum::SUPERFREEZER);
         $gameSuperfreezer
             ->setEquipment($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER)
@@ -113,7 +113,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $ration = new ItemConfig();
         $ration
              ->setMechanics(new ArrayCollection([$rationType]))
-             ->setName(GameRationEnum::ALIEN_STEAK)
+             ->setEquipmentName(GameRationEnum::ALIEN_STEAK)
         ;
         $gameRation
             ->setEquipment($ration)
@@ -122,7 +122,7 @@ class HyperfreezeActionTest extends AbstractActionTest
 
         $gameSuperfreezer = new GameItem($room);
         $superfreezer = new ItemConfig();
-        $superfreezer->setName(ToolItemEnum::SUPERFREEZER);
+        $superfreezer->setEquipmentName(ToolItemEnum::SUPERFREEZER);
         $gameSuperfreezer
             ->setEquipment($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER)
@@ -133,7 +133,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $gameStandardRation = new GameItem(new Place());
         $standardRation = new ItemConfig();
         $standardRation
-             ->setName(GameRationEnum::STANDARD_RATION)
+             ->setEquipmentName(GameRationEnum::STANDARD_RATION)
         ;
         $gameStandardRation
             ->setEquipment($standardRation)

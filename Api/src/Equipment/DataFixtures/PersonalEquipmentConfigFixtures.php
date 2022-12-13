@@ -13,6 +13,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\Entity\Config\StatusConfig;
 
@@ -46,36 +47,39 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
 
         $walkieTalkie = new ItemConfig();
         $walkieTalkie
-            ->setName(ItemEnum::WALKIE_TALKIE)
+            ->setEquipmentName(ItemEnum::WALKIE_TALKIE)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             // ->setActions(new ArrayCollection([$takeAction, $examineAction, $repair25, $dropAction, $updateTalkieAction]))
             ->setActions(new ArrayCollection([$takeAction, $examineAction, $repair25, $dropAction]))
             ->setIsPersonal(true)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($walkieTalkie);
 
         $iTrackie = new ItemConfig();
         $iTrackie
-            ->setName(ItemEnum::ITRACKIE)
+            ->setEquipmentName(ItemEnum::ITRACKIE)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setActions(new ArrayCollection([$takeAction, $examineAction, $repair25, $dropAction]))
             // ->setInitStatus(new ArrayCollection([$updatingStatus]))
             ->setIsPersonal(true)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($iTrackie);
 
         $tracker = new ItemConfig();
         $tracker
-            ->setName(ItemEnum::TRACKER)
+            ->setEquipmentName(ItemEnum::TRACKER)
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setActions(new ArrayCollection([$takeAction, $examineAction, $repair25, $dropAction]))
             ->setIsPersonal(true)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($tracker);
 

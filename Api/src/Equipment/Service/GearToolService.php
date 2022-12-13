@@ -116,7 +116,7 @@ class GearToolService implements GearToolServiceInterface
             $weaponMechanics = $tool->getEquipment()->getMechanics()->filter(fn (EquipmentMechanic $mechanic) => $mechanic instanceof Weapon);
 
             if ($toolMechanic &&
-                !$toolMechanic->getActions()->filter(fn (Action $action) => $action->getName() === $actionName)->isEmpty()
+                !$toolMechanic->getActions()->filter(fn (Action $action) => $action->getActionName() === $actionName)->isEmpty()
             ) {
                 $chargeStatus = $this->getChargeStatus($actionName, $tool);
 

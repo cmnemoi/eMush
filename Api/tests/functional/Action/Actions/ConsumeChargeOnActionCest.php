@@ -17,6 +17,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Tool;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -57,42 +58,50 @@ class ConsumeChargeOnActionCest
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
+            ->setStatusName(StatusEnum::ATTEMPT)
             ->setVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($attemptConfig);
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setDischargeStrategy(ActionEnum::COFFEE)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
 
         $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(2);
+        $actionCost
+            ->setActionPointCost(2)
+            ->buildName()
+        ;
         $actionEntity = new Action();
         $actionEntity
-            ->setName(ActionEnum::COFFEE)
+            ->setActionName(ActionEnum::COFFEE)
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($actionCost);
         $I->haveInRepository($actionEntity);
 
         $tool = new Tool();
-        $tool->addAction($actionEntity);
+        $tool->addAction($actionEntity)->buildName(ItemEnum::FUEL_CAPSULE, GameConfigEnum::TEST);
         $I->haveInRepository($tool);
 
         $equipment = new EquipmentConfig();
         $equipment
-            ->setName(ItemEnum::FUEL_CAPSULE)
+            ->setEquipmentName(ItemEnum::FUEL_CAPSULE)
             ->setMechanics(new ArrayCollection([$tool]))
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($equipment);
         $equipmentCoffee = new ItemConfig();
         $equipmentCoffee
-            ->setName(GameRationEnum::COFFEE)
+            ->setEquipmentName(GameRationEnum::COFFEE)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($equipmentCoffee);
 
@@ -161,32 +170,36 @@ class ConsumeChargeOnActionCest
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $equipmentCoffee = new EquipmentConfig();
         $equipmentCoffee
-            ->setName(GameRationEnum::COFFEE)
+            ->setEquipmentName(GameRationEnum::COFFEE)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($equipmentCoffee);
 
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
+            ->setStatusName(StatusEnum::ATTEMPT)
             ->setVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($attemptConfig);
 
         $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(2);
+        $actionCost->setActionPointCost(2)->buildName();
         $actionEntity = new Action();
         $actionEntity
-            ->setName(ActionEnum::COFFEE)
+            ->setActionName(ActionEnum::COFFEE)
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($actionCost);
         $I->haveInRepository($actionEntity);
 
         $equipment = new EquipmentConfig();
         $equipment
-            ->setName(ItemEnum::FUEL_CAPSULE)
+            ->setEquipmentName(ItemEnum::FUEL_CAPSULE)
             ->setActions(new ArrayCollection([$actionEntity]))
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($equipment);
         $modifierConfig = new ModifierConfig();
@@ -196,13 +209,18 @@ class ConsumeChargeOnActionCest
             ->setScope(ActionEnum::COFFEE)
             ->setReach(ReachEnum::INVENTORY)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
         $gearMechanic = new Gear();
-        $gearMechanic->setModifierConfigs(new arrayCollection([$modifierConfig]));
+        $gearMechanic
+            ->setModifierConfigs(new arrayCollection([$modifierConfig]))
+            ->buildName(EquipmentMechanicEnum::GEAR, GameConfigEnum::TEST)
+        ;
         $gearConfig = new ItemConfig();
         $gearConfig
-            ->setName(GearItemEnum::SOAP)
+            ->setEquipmentName(GearItemEnum::SOAP)
             ->setMechanics(new ArrayCollection([$gearMechanic]))
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($modifierConfig);
         $I->haveInRepository($gearMechanic);
@@ -263,9 +281,10 @@ class ConsumeChargeOnActionCest
 
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setDischargeStrategy(ActionEnum::COFFEE)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
         $chargeStatus = new ChargeStatus($gameGear, $statusConfig);
@@ -295,25 +314,28 @@ class ConsumeChargeOnActionCest
     {
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $actionCost = new ActionCost();
-        $actionCost->setMovementPointCost(1);
+        $actionCost->setMovementPointCost(1)->buildName();
         $actionEntity = new Action();
         $actionEntity
-            ->setName(ActionEnum::COFFEE)
+            ->setActionName(ActionEnum::COFFEE)
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($actionCost);
         $I->haveInRepository($actionEntity);
 
         $equipmentCoffee = new EquipmentConfig();
         $equipmentCoffee
-            ->setName(GameRationEnum::COFFEE)
+            ->setEquipmentName(GameRationEnum::COFFEE)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($equipmentCoffee);
         $equipment = new EquipmentConfig();
         $equipment
-            ->setName(ItemEnum::FUEL_CAPSULE)
+            ->setEquipmentName(ItemEnum::FUEL_CAPSULE)
             ->setActions(new ArrayCollection([$actionEntity]))
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($equipment);
         $modifierConfig = new ModifierConfig();
@@ -323,14 +345,19 @@ class ConsumeChargeOnActionCest
             ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
             ->setReach(ReachEnum::INVENTORY)
             ->setMode(ModifierModeEnum::ADDITIVE)
+            ->buildName()
         ;
 
         $gearMechanic = new Gear();
-        $gearMechanic->setModifierConfigs(new arrayCollection([$modifierConfig]));
+        $gearMechanic
+            ->setModifierConfigs(new arrayCollection([$modifierConfig]))
+            ->setName(EquipmentMechanicEnum::GEAR, GameConfigEnum::TEST)
+        ;
         $gearConfig = new ItemConfig();
         $gearConfig
-            ->setName(GearItemEnum::SOAP)
+            ->setEquipmentName(GearItemEnum::SOAP)
             ->setMechanics(new ArrayCollection([$gearMechanic]))
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($modifierConfig);
         $I->haveInRepository($gearMechanic);
@@ -338,9 +365,10 @@ class ConsumeChargeOnActionCest
 
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
-            ->setName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setDischargeStrategy(ActionEnum::COFFEE)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
 

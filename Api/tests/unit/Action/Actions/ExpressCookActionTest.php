@@ -58,19 +58,19 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $gameRation = new GameItem($player);
         $ration = new ItemConfig();
-        $ration->setName('ration');
+        $ration->setEquipmentName('ration');
         $gameRation
             ->setEquipment($ration)
             ->setName('ration')
         ;
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::FROZEN);
+        $statusConfig->setStatusName(EquipmentStatusEnum::FROZEN);
         $frozenStatus = new Status($gameRation, $statusConfig);
 
         $gameMicrowave = new GameItem($room);
         $microwave = new ItemConfig();
-        $microwave->setName(ToolItemEnum::MICROWAVE);
+        $microwave->setEquipmentName(ToolItemEnum::MICROWAVE);
         $gameMicrowave
             ->setEquipment($microwave)
             ->setName(ToolItemEnum::MICROWAVE)
@@ -99,7 +99,7 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $gameRation = new GameItem($room);
         $ration = new ItemConfig();
-        $ration->setName(GameRationEnum::STANDARD_RATION);
+        $ration->setEquipmentName(GameRationEnum::STANDARD_RATION);
         $gameRation
             ->setEquipment($ration)
             ->setName(GameRationEnum::STANDARD_RATION)
@@ -107,7 +107,7 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $gameMicrowave = new GameItem($room);
         $microwave = new ItemConfig();
-        $microwave->setName(ToolItemEnum::MICROWAVE);
+        $microwave->setEquipmentName(ToolItemEnum::MICROWAVE);
         $gameMicrowave
             ->setEquipment($microwave)
             ->setName(ToolItemEnum::MICROWAVE)
@@ -120,7 +120,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $gameCookedRation = new GameItem(new Place());
         $cookedRation = new ItemConfig();
         $cookedRation
-             ->setName(GameRationEnum::COOKED_RATION)
+             ->setEquipmentName(GameRationEnum::COOKED_RATION)
         ;
         $gameCookedRation
             ->setEquipment($cookedRation)

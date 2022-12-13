@@ -47,8 +47,9 @@ class ForceGetUpCest
 
         $statusConfig = new StatusConfig();
         $statusConfig
-            ->setName(PlayerStatusEnum::LYING_DOWN)
+            ->setStatusName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
 
@@ -73,14 +74,17 @@ class ForceGetUpCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         $actionCost = new ActionCost();
+        $actionCost->buildName();
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::HIT)
+            ->setActionName(ActionEnum::HIT)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(0)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($actionCost);
         $I->haveInRepository($action);
 

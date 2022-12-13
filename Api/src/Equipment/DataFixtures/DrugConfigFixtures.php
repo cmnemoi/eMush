@@ -13,6 +13,7 @@ use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\GameConfigEnum;
 
 class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -40,17 +41,19 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setActionPoints([0 => 98, 1 => 1, 3 => 1])
             ->setMovementPoints([0 => 98, 2 => 1, 4 => 1])
             ->addAction($consumeDrugAction)
+            ->buildName('drug', GameConfigEnum::DEFAULT)
         ;
 
         foreach (GameDrugEnum::getAll() as $drugName) {
             $drug = new ItemConfig();
             $drug
-                ->setName($drugName)
+                ->setEquipmentName($drugName)
                 ->setIsStackable(true)
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
                 ->setMechanics(new ArrayCollection([$drugMechanic]))
                 ->setActions($actions)
+                ->buildName(GameConfigEnum::DEFAULT)
             ;
             $manager->persist($drug);
             $gameConfig->addEquipmentConfig($drug);

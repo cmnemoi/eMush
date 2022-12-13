@@ -237,7 +237,7 @@ class DaedalusService implements DaedalusServiceInterface
 
             $mushChance = 1;
             if (!$characterConfig->getInitStatuses()
-                ->filter(fn (StatusConfig $statusConfig) => $statusConfig->getName() === PlayerStatusEnum::IMMUNIZED)->isEmpty()
+                ->filter(fn (StatusConfig $statusConfig) => $statusConfig->getStatusName() === PlayerStatusEnum::IMMUNIZED)->isEmpty()
             ) {
                 $mushChance = 0;
             }

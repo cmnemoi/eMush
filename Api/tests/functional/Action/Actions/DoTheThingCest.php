@@ -61,36 +61,42 @@ class DoTheThingCest
 
         $didTheThingStatus = new ChargeStatusConfig();
         $didTheThingStatus
-            ->setName(PlayerStatusEnum::DID_THE_THING)
+            ->setStatusName(PlayerStatusEnum::DID_THE_THING)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
             ->setStartCharge(1)
             ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($didTheThingStatus);
         $pregnantStatus = new StatusConfig();
         $pregnantStatus
-            ->setName(PlayerStatusEnum::PREGNANT)
+            ->setStatusName(PlayerStatusEnum::PREGNANT)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($pregnantStatus);
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig
-            ->setName(StatusEnum::ATTEMPT)
+            ->setStatusName(StatusEnum::ATTEMPT)
             ->setVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($attemptConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setName('disease')
+            ->setDiseaseName('disease')
+            ->buildName(GameConfigEnum::TEST)
+                ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseConfig);
         $diseaseCauseConfig = new DiseaseCauseConfig();
         $diseaseCauseConfig
-            ->setName('sex')
+            ->setCauseName('sex')
             ->setDiseases(['disease'])
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseCauseConfig);
 
@@ -118,16 +124,19 @@ class DoTheThingCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(1)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::DO_THE_THING)
+            ->setActionName(ActionEnum::DO_THE_THING)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(0)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $femaleCharacterConfig */
@@ -233,16 +242,19 @@ class DoTheThingCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(1)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::DO_THE_THING)
+            ->setActionName(ActionEnum::DO_THE_THING)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(0)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $femaleCharacterConfig */
@@ -320,16 +332,19 @@ class DoTheThingCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(1)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::DO_THE_THING)
+            ->setActionName(ActionEnum::DO_THE_THING)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(0)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $femaleCharacterConfig */
@@ -414,16 +429,19 @@ class DoTheThingCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(1)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::DO_THE_THING)
+            ->setActionName(ActionEnum::DO_THE_THING)
             ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setInjuryRate(0)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $femaleCharacterConfig */

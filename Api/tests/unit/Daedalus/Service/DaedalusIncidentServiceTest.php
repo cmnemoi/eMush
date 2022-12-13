@@ -203,7 +203,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $equipment = new GameEquipment(new Place());
         $brokenConfig = new StatusConfig();
-        $brokenConfig->setName(EquipmentStatusEnum::BROKEN);
+        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $brokenStatus = new Status($equipment, $brokenConfig);
 
         $this->gameEquipmentRepository
@@ -358,7 +358,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $mushPlayer->setPlayerInfo($mushPlayerInfo);
 
         $mushConfig = new StatusConfig();
-        $mushConfig->setName(PlayerStatusEnum::MUSH);
+        $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
         $mush = new Status($mushPlayer, $mushConfig);
 
         $daedalus->addPlayer($mushPlayer);

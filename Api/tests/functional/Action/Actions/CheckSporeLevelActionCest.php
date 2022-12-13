@@ -46,9 +46,10 @@ class CheckSporeLevelActionCest
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $sporeStatusConfig = new ChargeStatusConfig();
         $sporeStatusConfig
-            ->setName(PlayerStatusEnum::SPORES)
+            ->setStatusName(PlayerStatusEnum::SPORES)
             ->setVisibility(VisibilityEnum::MUSH)
             ->setChargeVisibility(VisibilityEnum::MUSH)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($sporeStatusConfig);
@@ -89,15 +90,17 @@ class CheckSporeLevelActionCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(0)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::CHECK_SPORE_LEVEL)
+            ->setActionName(ActionEnum::CHECK_SPORE_LEVEL)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost($actionCost)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
 

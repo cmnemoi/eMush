@@ -21,25 +21,25 @@ class ActionCostFixture extends Fixture
      */
     public function load(ObjectManager $manager)
     {
-        $freeCost = $this->buildActionCost(0);
+        $freeCost = $this->buildActionCost(0)->buildName();
         $manager->persist($freeCost);
 
-        $oneActionPointCost = $this->buildActionCost(1);
+        $oneActionPointCost = $this->buildActionCost(1)->buildName();
         $manager->persist($oneActionPointCost);
 
-        $twoActionPointCost = $this->buildActionCost(2);
+        $twoActionPointCost = $this->buildActionCost(2)->buildName();
         $manager->persist($twoActionPointCost);
 
-        $threeActionPointCost = $this->buildActionCost(3);
+        $threeActionPointCost = $this->buildActionCost(3)->buildName();
         $manager->persist($threeActionPointCost);
 
-        $fourActionPointCost = $this->buildActionCost(4);
+        $fourActionPointCost = $this->buildActionCost(4)->buildName();
         $manager->persist($fourActionPointCost);
 
-        $oneMovementPoint = $this->buildActionCost(0, 1);
+        $oneMovementPoint = $this->buildActionCost(0, 1)->buildName();
         $manager->persist($oneMovementPoint);
 
-        $twoMovementPoint = $this->buildActionCost(0, 2);
+        $twoMovementPoint = $this->buildActionCost(0, 2)->buildName();
         $manager->persist($twoMovementPoint);
 
         $manager->flush();

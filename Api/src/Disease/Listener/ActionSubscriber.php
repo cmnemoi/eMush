@@ -69,7 +69,7 @@ class ActionSubscriber implements EventSubscriberInterface
 
     private function handleContactDiseases(ActionEvent $event): void
     {
-        if ($event->getAction()->getName() !== ActionEnum::MOVE) {
+        if ($event->getAction()->getActionName() !== ActionEnum::MOVE) {
             return;
         }
 
@@ -119,7 +119,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $action = $event->getAction();
 
         $postActionSymptomConfigs = $this->getPlayerSymptomConfigs($player)->getTriggeredSymptoms([ActionEvent::POST_ACTION]);
-        $postActionSymptomConfigs = $this->symptomConditionService->getActiveSymptoms($postActionSymptomConfigs, $player, $action->getName(), $action);
+        $postActionSymptomConfigs = $this->symptomConditionService->getActiveSymptoms($postActionSymptomConfigs, $player, $action->getActionName(), $action);
 
         foreach ($postActionSymptomConfigs as $symptomConfig) {
             $this->symptomService->handleBreakouts($symptomConfig, $player, $event->getTime());

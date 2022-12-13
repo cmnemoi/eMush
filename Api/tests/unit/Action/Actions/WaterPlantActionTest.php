@@ -56,7 +56,7 @@ class WaterPlantActionTest extends AbstractActionTest
         $item->setMechanics(new ArrayCollection([$plant]));
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::PLANT_THIRSTY);
+        $statusConfig->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY);
         $thirsty = new Status($gameItem, $statusConfig);
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -91,7 +91,7 @@ class WaterPlantActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::PLANT_DRY);
+        $statusConfig->setStatusName(EquipmentStatusEnum::PLANT_DRY);
         $thirsty = new Status($gameItem, $statusConfig);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);

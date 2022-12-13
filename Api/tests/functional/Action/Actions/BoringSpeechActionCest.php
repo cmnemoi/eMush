@@ -45,12 +45,13 @@ class BoringSpeechActionCest
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
         $didBoringSpeechStatus = new ChargeStatusConfig();
         $didBoringSpeechStatus
-            ->setName(PlayerStatusEnum::DID_BORING_SPEECH)
+            ->setStatusName(PlayerStatusEnum::DID_BORING_SPEECH)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
             ->setStartCharge(1)
             ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($didBoringSpeechStatus);
@@ -72,14 +73,17 @@ class BoringSpeechActionCest
         $actionCost = new ActionCost();
         $actionCost
             ->setActionPointCost(2)
+            ->buildName()
         ;
         $I->haveInRepository($actionCost);
 
         $action = new Action();
         $action
-            ->setName(ActionEnum::BORING_SPEECH)
+            ->setActionName(ActionEnum::BORING_SPEECH)
             ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($actionCost);
+            ->setActionCost($actionCost)
+            ->buildName(GameConfigEnum::TEST)
+        ;
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $speakerConfig */

@@ -71,7 +71,7 @@ class DiseaseCauseServiceTest extends TestCase
         $diseaseCauseConfig = new DiseaseCauseConfig();
         $diseaseCauseConfig
             ->setDiseases([$diseaseName => 1])
-            ->setName(DiseaseCauseEnum::PERISHED_FOOD)
+            ->setCauseName(DiseaseCauseEnum::PERISHED_FOOD)
         ;
 
         $gameConfig = new GameConfig();
@@ -93,7 +93,7 @@ class DiseaseCauseServiceTest extends TestCase
         $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::HAZARDOUS);
+        $statusConfig->setStatusName(EquipmentStatusEnum::HAZARDOUS);
         $hazardous = new Status($gameEquipment, $statusConfig);
 
         $this->randomService
@@ -133,7 +133,7 @@ class DiseaseCauseServiceTest extends TestCase
         $diseaseCauseConfig = new DiseaseCauseConfig();
         $diseaseCauseConfig
             ->setDiseases([$diseaseName => 1])
-            ->setName(DiseaseCauseEnum::PERISHED_FOOD)
+            ->setCauseName(DiseaseCauseEnum::PERISHED_FOOD)
         ;
 
         $gameConfig = new GameConfig();
@@ -155,7 +155,7 @@ class DiseaseCauseServiceTest extends TestCase
         $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
 
         $statusConfig = new StatusConfig();
-        $statusConfig->setName(EquipmentStatusEnum::DECOMPOSING);
+        $statusConfig->setStatusName(EquipmentStatusEnum::DECOMPOSING);
         $hazardous = new Status($gameEquipment, $statusConfig);
 
         $this->randomService
@@ -294,7 +294,7 @@ class DiseaseCauseServiceTest extends TestCase
         ;
 
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setName($diseaseName);
+        $diseaseConfig->setDiseaseName($diseaseName);
 
         $playerDisease = new PlayerDisease();
         $playerDisease
@@ -319,7 +319,7 @@ class DiseaseCauseServiceTest extends TestCase
         $diseaseCauseConfig = new DiseaseCauseConfig();
         $diseaseCauseConfig
             ->setDiseases([$diseaseName => 1])
-            ->setName(DiseaseCauseEnum::PERISHED_FOOD)
+            ->setCauseName(DiseaseCauseEnum::PERISHED_FOOD)
         ;
 
         $gameConfig = new GameConfig();

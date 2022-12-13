@@ -36,7 +36,7 @@ class BuildActionCest
         $player = $this->createPlayer(new Daedalus(), $room1);
 
         $buildActionEntity = new Action();
-        $buildActionEntity->setName(ActionEnum::BUILD);
+        $buildActionEntity->setActionName(ActionEnum::BUILD);
 
         $gameEquipment = $this->createEquipment('blueprint', $room2);
 
@@ -62,7 +62,7 @@ class BuildActionCest
         $gameEquipment = $this->createEquipment('blueprint', $room);
 
         $buildActionEntity = new Action();
-        $buildActionEntity->setName(ActionEnum::BUILD);
+        $buildActionEntity->setActionName(ActionEnum::BUILD);
 
         $this->buildAction->loadParameters($buildActionEntity, $player, $gameEquipment);
 
@@ -99,7 +99,7 @@ class BuildActionCest
     {
         $gameEquipment = new GameEquipment($place);
         $equipment = new EquipmentConfig();
-        $equipment->setName($name);
+        $equipment->setEquipmentName($name);
         $gameEquipment
             ->setEquipment($equipment)
             ->setName($name)
@@ -112,7 +112,7 @@ class BuildActionCest
     {
         if ($product === null) {
             $product = new ItemConfig();
-            $product->setName('product');
+            $product->setEquipmentName('product');
             $gameProduct = new GameItem(new Place());
             $gameProduct
                 ->setEquipment($product)

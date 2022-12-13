@@ -16,8 +16,11 @@ class PlaceConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $placeName;
 
     #[ORM\Column(type: 'string', nullable: false)]
     private string $type = PlaceTypeEnum::ROOM;
@@ -36,6 +39,18 @@ class PlaceConfig
         return $this->id;
     }
 
+    public function getPlaceName(): string
+    {
+        return $this->placeName;
+    }
+
+    public function setPlaceName(string $placeName): static
+    {
+        $this->placeName = $placeName;
+
+        return $this;
+    }
+
     public function getName(): string
     {
         return $this->name;
@@ -44,6 +59,13 @@ class PlaceConfig
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function buildName(string $configName): static
+    {
+        $this->name = $this->placeName . '_' . $configName;
 
         return $this;
     }

@@ -50,7 +50,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             $isSoiled = $this->modifierService->isSuccessfulWithModifiers(
                 $baseDirtyRate,
                 [ModifierScopeEnum::EVENT_DIRTY],
-                $action->getName(),
+                $action->getActionName(),
                 $date,
                 $player,
             );
@@ -60,7 +60,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
             }
         }
 
-        $statusEvent = new StatusEvent(PlayerStatusEnum::DIRTY, $player, $action->getName(), new \DateTime());
+        $statusEvent = new StatusEvent(PlayerStatusEnum::DIRTY, $player, $action->getActionName(), new \DateTime());
         $statusEvent->setVisibility(VisibilityEnum::PRIVATE);
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
     }
@@ -72,7 +72,7 @@ class ActionSideEffectsService implements ActionSideEffectsServiceInterface
         $isHurt = $this->modifierService->isSuccessfulWithModifiers(
             $baseInjuryRate,
             [ModifierScopeEnum::EVENT_CLUMSINESS],
-            $action->getName(),
+            $action->getActionName(),
             $date,
             $player,
         );

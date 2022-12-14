@@ -12,6 +12,8 @@ import ActionConfigListPage from "@/components/Admin/Config/ActionConfig/ActionC
 import ActionConfigDetailPage from "@/components/Admin/Config/ActionConfig/ActionConfigDetailPage.vue";
 import DaedalusConfigListPage from "@/components/Admin/Config/DaedalusConfig/DaedalusConfigListPage.vue";
 import DaedalusConfigDetailPage from "@/components/Admin/Config/DaedalusConfig/DaedalusConfigDetailPage.vue";
+import DifficultyConfigListPage from "@/components/Admin/Config/DifficultyConfig/DifficultyConfigListPage.vue";
+import DifficultyConfigDetailPage from "@/components/Admin/Config/DifficultyConfig/DifficultyConfigDetailPage.vue";
 
 export const adminConfigRoutes = [
     {
@@ -83,5 +85,15 @@ export const adminConfigRoutes = [
         name: "AdminDaedalusConfigDetail",
         path: 'daedalus-config/:daedalusConfigId',
         component: DaedalusConfigDetailPage
+    },
+    {
+        name: "AdminDifficultyConfigList",
+        path: 'difficulty-config-list',
+        component: DifficultyConfigListPage
+    },
+    {
+        name: "AdminDifficultyConfigDetail",
+        path: 'difficulty-config/:difficultyConfigId',
+        component: DifficultyConfigDetailPage
     }
 ];

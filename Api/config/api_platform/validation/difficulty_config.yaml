@@ -1,0 +1,79 @@
+Mush\Game\Entity\DifficultyConfig:
+  properties:
+    id:
+      - NotBlank: ~
+    name:
+      - NotBlank: ~
+      - Type: string
+    equipmentBreakRate:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    doorBreakRate:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    equipmentFireBreakRate:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    startingFireRate:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    propagatingFireRate:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    hullFireDamageRate:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    tremorRate:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    electricArcRate:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    metalPlateRate:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    panicCrisisRate:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    firePlayerDamage:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: array
+    fireHullDamage:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: array
+    electricArcPlayerDamage:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: array
+    tremorPlayerDamage:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: array
+    metalPlatePlayerDamage:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: array
+    panicCrisisPlayerDamage:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: array
+    plantDiseaseRate:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer
+    cycleDiseaseRate:
+      - NotBlank: ~
+      - PositiveOrZero: ~
+      - Type: integer

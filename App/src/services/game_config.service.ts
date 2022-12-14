@@ -8,6 +8,7 @@ import { StatusConfig } from "@/entities/Config/StatusConfig";
 import store from "@/store";
 import { ActionCost } from "@/entities/Config/ActionCost";
 import { ActionConfig } from "@/entities/Config/ActionConfig";
+import { DifficultyConfig } from "@/entities/Config/DifficultyConfig";
 
 // @ts-ignore
 const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");
@@ -23,6 +24,8 @@ const CONFIG_ACTION_COST_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "action
 const CONFIG_ACTION_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "actions");
 // @ts-ignore
 const CONFIG_DAEDALUS_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "daedalus_configs");
+// @ts-ignore
+const DIFFICULTY_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "difficulty_configs");
 
 const GameConfigService = {
     loadGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {
@@ -233,6 +236,36 @@ const GameConfigService = {
         }
 
         return daedalusConfig;
+    },
+
+    loadDifficultyConfig: async(difficultyConfigId: number): Promise<DifficultyConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const difficultyConfigData = await ApiService.get(DIFFICULTY_CONFIG_ENDPOINT + '/' + difficultyConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        let difficultyConfig = null;
+        if (difficultyConfigData.data) {
+            difficultyConfig = (new DifficultyConfig()).load(difficultyConfigData.data);
+        }
+
+        return difficultyConfig;
+    },
+
+    updateDifficultyConfig: async(difficultyConfig: DifficultyConfig): Promise<DifficultyConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const difficultyConfigData = await ApiService.put(DIFFICULTY_CONFIG_ENDPOINT + '/' + difficultyConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', difficultyConfig.jsonEncode())
+            .catch((e) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw e;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        if (difficultyConfigData.data) {
+            difficultyConfig = (new DifficultyConfig()).load(difficultyConfigData.data);
+        }
+
+        return difficultyConfig;
     }
 };
 export default GameConfigService;

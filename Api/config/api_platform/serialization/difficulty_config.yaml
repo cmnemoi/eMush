@@ -2,7 +2,7 @@ Mush\Game\Entity\DifficultyConfig:
   attributes:
     id:
       groups: [ 'difficulty_config_read' ]
-    gameConfig:
+    name: 
       groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
     equipmentBreakRate:
       groups: [ 'difficulty_config_read', 'difficulty_config_write' ]

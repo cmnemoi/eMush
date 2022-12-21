@@ -37,7 +37,7 @@ class Daedalus implements ModifierHolder
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Place::class)]
     private Collection $places;
 
-    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Modifier::class)]
+    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Modifier::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
     #[ORM\Column(type: 'integer', nullable: false)]

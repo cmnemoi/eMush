@@ -94,6 +94,7 @@ class LastPlayerKilledCest
         $event = new PlayerEvent($player, ActionEnum::HIT, new \DateTime());
         $this->eventDispatcher->dispatch($event, PlayerEvent::DEATH_PLAYER);
 
+        $I->assertEquals(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
         $I->assertEquals(GameStatusEnum::FINISHED, $daedalus->getGameStatus());
         $I->assertCount(0, $daedalus->getPlayers()->getPlayerAlive());
         $I->seeInRepository(ClosedDaedalus::class);

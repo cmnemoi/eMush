@@ -135,7 +135,8 @@ class TakeDropActionCest
         $I->assertCount(0, $player->getStatuses());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::TAKE,
             'visibility' => VisibilityEnum::PUBLIC,
@@ -156,7 +157,8 @@ class TakeDropActionCest
         $I->assertCount(0, $player->getStatuses());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::DROP,
             'visibility' => VisibilityEnum::PUBLIC,
@@ -270,7 +272,8 @@ class TakeDropActionCest
         $I->assertCount(1, $gameItem->getStatuses());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::TAKE,
             'visibility' => VisibilityEnum::PUBLIC,
@@ -292,7 +295,8 @@ class TakeDropActionCest
         $I->assertCount(1, $gameItem->getStatuses());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::DROP,
             'visibility' => VisibilityEnum::PUBLIC,
@@ -389,7 +393,8 @@ class TakeDropActionCest
         $I->assertCount(0, $gameItem->getStatuses());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::TAKE,
             'visibility' => VisibilityEnum::PUBLIC,

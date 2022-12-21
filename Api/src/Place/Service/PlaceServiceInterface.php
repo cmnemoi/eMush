@@ -10,6 +10,8 @@ interface PlaceServiceInterface
 {
     public function persist(Place $place): Place;
 
+    public function delete(Place $place): bool;
+
     public function findById(int $id): ?Place;
 
     public function createPlace(PlaceConfig $roomConfig, Daedalus $daedalus, string $reason, \DateTime $time): Place;

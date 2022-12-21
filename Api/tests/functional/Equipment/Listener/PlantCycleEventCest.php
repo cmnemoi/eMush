@@ -123,7 +123,8 @@ class PlantCycleEventCest
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(0, $room->getEquipments()->first()->getStatuses());
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => PlantLogEnum::PLANT_MATURITY,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -260,7 +261,8 @@ class PlantCycleEventCest
         $I->assertTrue($room->getEquipments()->exists(fn (int $key, GameEquipment $item) => $item->getName() === 'fruit'));
         $I->assertEquals(11, $daedalus->getOxygen());
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => PlantLogEnum::PLANT_NEW_FRUIT,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);

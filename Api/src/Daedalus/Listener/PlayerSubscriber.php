@@ -83,11 +83,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         if ($daedalus->getPlayers()->filter(fn (Player $player) => $playerInfo->getGameStatus() !== GameStatusEnum::CLOSED)->isEmpty() &&
             $daedalus->getGameStatus() === GameStatusEnum::FINISHED
         ) {
-            $daedalusInfo = $daedalus->getDaedalusInfo();
-
-            $daedalusInfo->setGameStatus(GameStatusEnum::CLOSED);
-
-            $this->daedalusService->persistDaedalusInfo($daedalusInfo);
+            $this->daedalusService->closeDaedalus($daedalus, $event->getReason(), $event->getTime());
         }
     }
 }

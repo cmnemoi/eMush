@@ -145,7 +145,8 @@ class RemoveSporeActionCest
         $I->assertEquals(6, $player->getHealthPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room,
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo(),
             'visibility' => VisibilityEnum::PRIVATE,
             'log' => ActionLogEnum::REMOVE_SPORE_SUCCESS,
@@ -158,7 +159,8 @@ class RemoveSporeActionCest
         $I->assertEquals(3, $player->getHealthPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room,
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo(),
             'visibility' => VisibilityEnum::PRIVATE,
             'log' => ActionLogEnum::REMOVE_SPORE_FAIL,

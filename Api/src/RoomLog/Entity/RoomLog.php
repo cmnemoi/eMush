@@ -4,7 +4,7 @@ namespace Mush\RoomLog\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Place\Entity\Place;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Repository\RoomLogRepository;
 
@@ -18,8 +18,11 @@ class RoomLog
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: Place::class)]
-    private Place $place;
+    #[ORM\ManyToOne(targetEntity: DaedalusInfo::class)]
+    private DaedalusInfo $daedalusInfo;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $place;
 
     #[ORM\ManyToOne(targetEntity: PlayerInfo::class)]
     private ?PlayerInfo $playerInfo;
@@ -50,12 +53,24 @@ class RoomLog
         return $this->id;
     }
 
-    public function getPlace(): Place
+    public function getDaedalusInfo(): DaedalusInfo
+    {
+        return $this->daedalusInfo;
+    }
+
+    public function setDaedalusInfo(DaedalusInfo $daedalusInfo): static
+    {
+        $this->daedalusInfo = $daedalusInfo;
+
+        return $this;
+    }
+
+    public function getPlace(): string
     {
         return $this->place;
     }
 
-    public function setPlace(Place $place): static
+    public function setPlace(string $place): static
     {
         $this->place = $place;
 

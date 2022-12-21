@@ -129,7 +129,8 @@ class WashInSinkActionCest
         $I->assertTrue($player->hasStatus(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK));
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::WASH_IN_SINK_HUMAN,
             'visibility' => VisibilityEnum::PRIVATE,

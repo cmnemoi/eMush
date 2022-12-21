@@ -133,14 +133,16 @@ class AutomaticGetUpCest
         $I->assertCount(0, $player->getStatuses());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::GET_UP,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::SHOWER_HUMAN,
             'visibility' => VisibilityEnum::PRIVATE,

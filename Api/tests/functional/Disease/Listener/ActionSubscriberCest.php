@@ -74,7 +74,6 @@ class ActionSubscriberCest
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -173,7 +172,8 @@ class ActionSubscriberCest
 
         $I->seeInRepository(RoomLog::class, [
             'playerInfo' => $playerInfo,
-            'place' => $room2,
+            'place' => $room2->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => SymptomEnum::BREAKOUTS,
         ]);
     }
@@ -184,6 +184,10 @@ class ActionSubscriberCest
         $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -286,7 +290,8 @@ class ActionSubscriberCest
 
         // $I->seeInRepository(RoomLog::class, [
         //     'player' => $player,
-        //     'place' => $room,
+        //     'place' => $room->getName(),
+        //     'daedalusInfo' => $daedalusInfo,
         //     'log' => SymptomEnum::CAT_ALLERGY
         // ]);
     }
@@ -297,6 +302,10 @@ class ActionSubscriberCest
         $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -395,7 +404,8 @@ class ActionSubscriberCest
 
         $I->seeInRepository(RoomLog::class, [
             'playerInfo' => $playerInfo,
-            'place' => $room2,
+            'place' => $room2->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => SymptomEnum::DROOLING,
         ]);
     }
@@ -406,6 +416,10 @@ class ActionSubscriberCest
         $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -504,7 +518,8 @@ class ActionSubscriberCest
 
         $I->seeInRepository(RoomLog::class, [
             'playerInfo' => $playerInfo,
-            'place' => $room2,
+            'place' => $room2->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => SymptomEnum::FOAMING_MOUTH,
         ]);
     }
@@ -515,6 +530,10 @@ class ActionSubscriberCest
         $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
@@ -613,7 +632,8 @@ class ActionSubscriberCest
 
         $I->seeInRepository(RoomLog::class, [
             'playerInfo' => $playerInfo,
-            'place' => $room2,
+            'place' => $room2->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => SymptomEnum::SNEEZING,
         ]);
     }
@@ -816,7 +836,8 @@ class ActionSubscriberCest
 
         $I->seeInRepository(RoomLog::class, [
             'playerInfo' => $playerInfo,
-            'place' => $room2,
+            'place' => $room2->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => SymptomEnum::VOMITING,
         ]);
 
@@ -827,7 +848,8 @@ class ActionSubscriberCest
 
         $I->seeInRepository(RoomLog::class, [
             'playerInfo' => $playerInfo,
-            'place' => $room2,
+            'place' => $room2->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => SymptomEnum::VOMITING,
         ]);
     }
@@ -967,7 +989,8 @@ class ActionSubscriberCest
 
         $I->seeInRepository(RoomLog::class, [
             'playerInfo' => $playerInfo,
-            'place' => $room,
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => SymptomEnum::FEAR_OF_CATS,
         ]);
     }
@@ -1128,7 +1151,8 @@ class ActionSubscriberCest
 
         $I->seeInRepository(RoomLog::class, [
             'playerInfo' => $playerInfo,
-            'place' => $place,
+            'place' => $place->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => 'attack_success',
         ]);
     }

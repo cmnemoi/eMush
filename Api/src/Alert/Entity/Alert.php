@@ -22,7 +22,7 @@ class Alert
     #[ORM\ManyToOne(targetEntity: Daedalus::class)]
     private Daedalus $daedalus;
 
-    #[ORM\OneToMany(mappedBy: 'alert', targetEntity: AlertElement::class)]
+    #[ORM\OneToMany(mappedBy: 'alert', targetEntity: AlertElement::class, cascade: ['ALL'])]
     private Collection $alertElements;
 
     public function __construct()

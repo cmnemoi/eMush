@@ -4,12 +4,15 @@ namespace Mush\Tests\functional\Disease\Listener;
 
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Listener\PlayerCycleSubscriber;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
@@ -33,8 +36,15 @@ class PlayerCycleSubscriberCest
 
     public function testOnPlayerCycle(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
@@ -90,8 +100,16 @@ class PlayerCycleSubscriberCest
 
     public function testOnPlayerCycleSpontaneousCure(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
@@ -141,15 +159,23 @@ class PlayerCycleSubscriberCest
 
         $I->seeInRepository(RoomLog::class, [
             'playerInfo' => $playerInfo->getId(),
-            'place' => $place->getId(),
+            'place' => $place->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => LogEnum::DISEASE_CURED,
         ]);
     }
 
     public function testOnPlayerCycleDiseaseAppear(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
@@ -203,15 +229,23 @@ class PlayerCycleSubscriberCest
 
         $I->seeInRepository(RoomLog::class, [
             'playerInfo' => $playerInfo,
-            'place' => $place,
+            'place' => $place->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => LogEnum::DISEASE_APPEAR,
         ]);
     }
 
     public function testOnPlayerCycleBitingSymptom(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $place */
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
@@ -282,7 +316,8 @@ class PlayerCycleSubscriberCest
 
         $I->seeInRepository(RoomLog::class, [
             'playerInfo' => $playerInfo,
-            'place' => $place,
+            'place' => $place->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => 'biting',
         ]);
     }

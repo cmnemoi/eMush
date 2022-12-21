@@ -32,6 +32,8 @@ interface DaedalusServiceInterface
 
     public function startDaedalus(Daedalus $daedalus): Daedalus;
 
+    public function closeDaedalus(Daedalus $daedalus, string $reason, \DateTime $date): DaedalusInfo;
+
     public function selectAlphaMush(Daedalus $daedalus, \DateTime $date): Daedalus;
 
     public function getRandomAsphyxia(Daedalus $daedalus, \DateTime $date): Daedalus;

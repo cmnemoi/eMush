@@ -10,6 +10,8 @@ interface PlayerServiceInterface
 {
     public function persist(Player $player): Player;
 
+    public function delete(Player $player): bool;
+
     public function findById(int $id): ?Player;
 
     public function findOneByCharacter(string $character, Daedalus $daedalus): ?Player;

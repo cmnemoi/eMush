@@ -3,6 +3,10 @@
 namespace Mush\Tests\functional\RoomLog\Repository;
 
 use App\Tests\FunctionalTester;
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -23,11 +27,22 @@ class RoomLogRepositoryCest
 
     public function testRoomLogVisibility(FunctionalTester $I)
     {
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $place */
-        $place = $I->have(Place::class);
+        $place = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $place,
+            'daedalus' => $daedalus,
         ]);
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
@@ -41,7 +56,8 @@ class RoomLogRepositoryCest
 
         $roomLog = new RoomLog();
         $roomLog
-            ->setPlace($place)
+            ->setPlace($place->getName())
+            ->setDaedalusInfo($daedalusInfo)
             ->setLog('someLog')
             ->setType('type')
             ->setDate(new \DateTime())
@@ -75,12 +91,23 @@ class RoomLogRepositoryCest
 
     public function testRoomLogPlace(FunctionalTester $I)
     {
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $place */
-        $place = $I->have(Place::class);
+        $place = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $place,
+            'daedalus' => $daedalus,
         ]);
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
@@ -95,6 +122,7 @@ class RoomLogRepositoryCest
         $roomLog = new RoomLog();
         $roomLog
             ->setLog('someLog')
+            ->setPlace('test')
             ->setType('type')
             ->setDate(new \DateTime())
             ->setDay(1)
@@ -108,7 +136,10 @@ class RoomLogRepositoryCest
 
         $I->assertEmpty($logs);
 
-        $roomLog->setPlace($place);
+        $roomLog
+            ->setDaedalusInfo($daedalusInfo)
+            ->setPlace($place->getName())
+        ;
 
         $I->haveInRepository($roomLog);
 
@@ -119,11 +150,23 @@ class RoomLogRepositoryCest
 
     public function testRoomLogAge(FunctionalTester $I)
     {
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $place */
-        $place = $I->have(Place::class);
+        $place = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $place,
+            'daedalus' => $daedalus,
         ]);
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
@@ -143,7 +186,8 @@ class RoomLogRepositoryCest
             ->setDay(1)
             ->setCycle(1)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setPlace($place)
+            ->setPlace($place->getName())
+            ->setDaedalusInfo($daedalusInfo)
         ;
 
         $I->haveInRepository($roomLog);

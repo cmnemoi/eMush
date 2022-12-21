@@ -27,6 +27,19 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
         $this->randomService = $randomService;
     }
 
+    public function removeAllEffects(Daedalus $daedalus): void
+    {
+        $consumableEffects = $this->consumableEffectRepository->findBy(['daedalus' => $daedalus]);
+        foreach ($consumableEffects as $effect) {
+            $this->consumableEffectRepository->remove($effect);
+        }
+
+        $plantEffects = $this->plantEffectRepository->findBy(['daedalus' => $daedalus]);
+        foreach ($plantEffects as $effect) {
+            $this->plantEffectRepository->remove($effect);
+        }
+    }
+
     public function getConsumableEffect(Ration $ration, Daedalus $daedalus): ConsumableEffect
     {
         $consumableEffect = $this->consumableEffectRepository

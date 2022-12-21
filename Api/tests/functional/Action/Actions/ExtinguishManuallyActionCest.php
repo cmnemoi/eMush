@@ -147,7 +147,8 @@ class ExtinguishManuallyActionCest
         $I->assertEquals(9, $player->getActionPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::EXTINGUISH_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,

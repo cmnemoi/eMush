@@ -9,6 +9,7 @@ use Mush\Place\Event\RoomEvent;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Player\Service\PlayerServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -16,11 +17,14 @@ class RoomSubscriber implements EventSubscriberInterface
 {
     private RandomServiceInterface $randomService;
     private EventDispatcherInterface $eventDispatcher;
+    private PlayerServiceInterface $playerService;
 
     public function __construct(
+        PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
         EventDispatcherInterface $eventDispatcher
     ) {
+        $this->playerService = $playerService;
         $this->randomService = $randomService;
         $this->eventDispatcher = $eventDispatcher;
     }
@@ -30,6 +34,7 @@ class RoomSubscriber implements EventSubscriberInterface
         return [
             RoomEvent::TREMOR => 'onTremor',
             RoomEvent::ELECTRIC_ARC => 'onElectricArc',
+            RoomEvent::DELETE_PLACE => 'onDeletePlace',
         ];
     }
 
@@ -76,6 +81,13 @@ class RoomSubscriber implements EventSubscriberInterface
                 $event->getTime()
             );
             $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
+        }
+    }
+
+    public function onDeletePlace(RoomEvent $event): void
+    {
+        foreach ($event->getPlace()->getPlayers() as $player) {
+            $this->playerService->delete($player);
         }
     }
 }

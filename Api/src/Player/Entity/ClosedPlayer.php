@@ -39,6 +39,9 @@ class ClosedPlayer
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $likes = 0;
 
+    #[ORM\Column(type: 'boolean', nullable: false)]
+    private bool $isMush = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,5 +123,17 @@ class ClosedPlayer
         $this->endCause = $endCause;
 
         return $this;
+    }
+
+    public function setIsMush(bool $isMush): static
+    {
+        $this->isMush = $isMush;
+
+        return $this;
+    }
+
+    public function isMush(): bool
+    {
+        return $this->isMush;
     }
 }

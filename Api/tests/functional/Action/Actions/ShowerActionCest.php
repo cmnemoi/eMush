@@ -195,7 +195,8 @@ class ShowerActionCest
         $I->assertEquals(1, $player->getActionPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => PlayerModifierLogEnum::SHOWER_MUSH,
             'visibility' => VisibilityEnum::PRIVATE,

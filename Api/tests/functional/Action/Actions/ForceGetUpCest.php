@@ -134,7 +134,8 @@ class ForceGetUpCest
         $I->assertCount(0, $player->getStatuses());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => LogEnum::FORCE_GET_UP,
             'visibility' => VisibilityEnum::PUBLIC,

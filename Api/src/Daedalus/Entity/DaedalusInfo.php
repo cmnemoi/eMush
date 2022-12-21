@@ -47,13 +47,21 @@ class DaedalusInfo
         $this->localizationConfig = $localizationConfig;
 
         $daedalus->setDaedalusInfo($this);
-        $closedDaedalus = $this->closedDaedalus = new ClosedDaedalus();
-        $closedDaedalus->setDaedalusInfo($this);
+
+        $this->closedDaedalus = new ClosedDaedalus();
+        $this->closedDaedalus->setDaedalusInfo($this);
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function deleteDaedalus(): static
+    {
+        $this->daedalus = null;
+
+        return $this;
     }
 
     public function getDaedalus(): ?Daedalus

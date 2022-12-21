@@ -98,6 +98,12 @@ class PlayerSubscriber implements EventSubscriberInterface
                 $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::TRAUMA, $player);
             }
         }
+
+        // remove disease of the player
+        $diseases = $event->getPlayer()->getMedicalConditions();
+        foreach ($diseases as $disease) {
+            $this->playerDiseaseService->delete($disease);
+        }
     }
 
     public function onInfectionPlayer(PlayerEvent $event): void

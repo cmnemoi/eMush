@@ -93,7 +93,8 @@ class ActionSubscriberCest
         $I->assertEquals(8, $player->getHealthPoint());
         $I->assertCount(0, $player->getStatuses());
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => PlayerModifierLogEnum::CLUMSINESS,
             'visibility' => VisibilityEnum::PRIVATE,
@@ -159,7 +160,8 @@ class ActionSubscriberCest
         $I->assertCount(1, $player->getStatuses());
         $I->assertEquals(PlayerStatusEnum::DIRTY, $player->getStatuses()->first()->getName());
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => StatusEventLogEnum::SOILED,
             'visibility' => VisibilityEnum::PRIVATE,
@@ -297,7 +299,8 @@ class ActionSubscriberCest
         $I->assertEquals(10, $player->getHealthPoint());
         $I->assertCount(0, $player->getStatuses());
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => LogEnum::SOIL_PREVENTED,
             'visibility' => VisibilityEnum::PRIVATE,

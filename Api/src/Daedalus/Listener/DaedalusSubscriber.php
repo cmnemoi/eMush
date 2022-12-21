@@ -23,7 +23,6 @@ class DaedalusSubscriber implements EventSubscriberInterface
             DaedalusEvent::START_DAEDALUS => 'onDaedalusStart',
             DaedalusEvent::FULL_DAEDALUS => 'onDaedalusFull',
             DaedalusEvent::FINISH_DAEDALUS => 'onDaedalusFinish',
-            DaedalusEvent::CLOSE_DAEDALUS => 'onCloseDaedalus',
         ];
     }
 

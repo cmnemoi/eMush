@@ -4,6 +4,9 @@ namespace Mush\Tests\Modifier\Event;
 
 use App\Tests\FunctionalTester;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -39,8 +42,15 @@ class CycleEventCest
 
     public function testLieDownStatusCycleSubscriber(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var CharacterConfig $characterConfig */
@@ -93,8 +103,15 @@ class CycleEventCest
 
     public function testAntisocialStatusCycleSubscriber(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var CharacterConfig $characterConfig */
@@ -163,6 +180,8 @@ class CycleEventCest
         $I->assertEquals($moralePointBefore, $player2->getMoralPoint());
 
         $I->seeInRepository(RoomLog::class, [
+            'daedalusInfo' => $daedalusInfo,
+            'place' => $room->getName(),
             'playerInfo' => $playerInfo,
             'log' => PlayerModifierLogEnum::ANTISOCIAL_MORALE_LOSS,
             'visibility' => VisibilityEnum::PRIVATE,
@@ -171,8 +190,15 @@ class CycleEventCest
 
     public function testFitfullSleepCycleSubscriber(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var CharacterConfig $characterConfig */
@@ -238,6 +264,7 @@ class CycleEventCest
         $I->assertEquals($actionPointBefore, $player->getActionPoint());
 
         $I->seeInRepository(RoomLog::class, [
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $playerInfo,
             'log' => PlayerModifierLogEnum::FITFULL_SLEEP,
             'visibility' => VisibilityEnum::PRIVATE,

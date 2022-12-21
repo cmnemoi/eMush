@@ -23,4 +23,10 @@ class PlantEffectRepository extends ServiceEntityRepository
 
         return $plantEffect;
     }
+
+    public function remove(PlantEffect $plantEffect): void
+    {
+        $this->getEntityManager()->remove($plantEffect);
+        $this->getEntityManager()->flush();
+    }
 }

@@ -28,6 +28,7 @@ In case of trouble when running tests
 ```
 vendor/bin/codecept clean
 vendor/bin/psalm --no-cache
+PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix
 ```
 Test should cover at least 70 % of the lines. To check test coverage run:
 ```

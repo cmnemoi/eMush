@@ -9,6 +9,7 @@ import store from "@/store";
 import { ActionCost } from "@/entities/Config/ActionCost";
 import { ActionConfig } from "@/entities/Config/ActionConfig";
 import { DifficultyConfig } from "@/entities/Config/DifficultyConfig";
+import { CharacterConfig } from "@/entities/Config/CharacterConfig";
 
 // @ts-ignore
 const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");
@@ -26,6 +27,8 @@ const CONFIG_ACTION_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "acti
 const CONFIG_DAEDALUS_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "daedalus_configs");
 // @ts-ignore
 const DIFFICULTY_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "difficulty_configs");
+// @ts-ignore
+const CHARACTER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "character_configs");
 
 const GameConfigService = {
     loadGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {
@@ -266,6 +269,36 @@ const GameConfigService = {
         }
 
         return difficultyConfig;
-    }
+    },
+
+    loadCharacterConfig: async(characterConfigId: number): Promise<CharacterConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const characterConfigData = await ApiService.get(CHARACTER_CONFIG_ENDPOINT + '/' + characterConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        let characterConfig = null;
+        if (characterConfigData.data) {
+            characterConfig = (new CharacterConfig()).load(characterConfigData.data);
+        }
+
+        return characterConfig;
+    },
+
+    updateCharacterConfig: async(characterConfig: CharacterConfig): Promise<CharacterConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const characterConfigData = await ApiService.put(CHARACTER_CONFIG_ENDPOINT + '/' + characterConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', characterConfig.jsonEncode())
+            .catch((e) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw e;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        if (characterConfigData.data) {
+            characterConfig = (new CharacterConfig()).load(characterConfigData.data);
+        }
+
+        return characterConfig;
+    }  
 };
 export default GameConfigService;

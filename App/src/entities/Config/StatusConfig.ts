@@ -30,7 +30,7 @@ export class StatusConfig {
     }
     load(object:any) : StatusConfig {
         if (typeof object !== "undefined") {
-            this.iri = object.iri;
+            this.iri = object["@id"];
             this.id = object.id;
             this.name = object.name;
             this.visibility = object.visibility;

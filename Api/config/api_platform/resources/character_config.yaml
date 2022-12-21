@@ -11,6 +11,16 @@ Mush\Player\Entity\Config\CharacterConfig:
     get:
       filters: [ 'default.search_filter', 'default.order_filter' ]
   itemOperations:
-    get: ~
+    get: 
+      security: 'is_granted("ROLE_ADMIN")'
     put:
       security: 'is_granted("ROLE_ADMIN")'
+  properties:
+    initStatuses:
+      subresource:
+        resourceClass: 'Mush\Status\Entity\Config\StatusConfig'
+        collection: true
+    actions:
+      subresource:
+        resourceClass: 'Mush\Action\Entity\Action'
+        collection: true

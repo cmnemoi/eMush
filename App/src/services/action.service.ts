@@ -9,12 +9,14 @@ import urlJoin from "url-join";
 import store from "@/store";
 
 // @ts-ignore
-const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player");
+const PLAYER_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player");
+// @ts-ignore
+const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "actions");
 
 const ActionService = {
     executeTargetAction(target: Item | Equipment | Player | null, action: Action): Promise<AxiosResponse> {
         const currentPlayer = store.getters["player/player"];
-        return ApiService.post(urlJoin(ACTION_ENDPOINT, String(currentPlayer.id),'action'), {
+        return ApiService.post(urlJoin(PLAYER_ENDPOINT, String(currentPlayer.id),'action'), {
             action: action.id,
             params: buildParams()
         });
@@ -30,6 +32,19 @@ const ActionService = {
                 return { player: target.id };
             }
         }
-    }
+    },
+    loadAction: async(actionId: number): Promise<Action | null> => {
+        store.dispatch('action/setLoading', { loading: true });
+        const actionData = await ApiService.get(ACTION_ENDPOINT + '/' + actionId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('action/setLoading', { loading: false })));
+        store.dispatch('action/setLoading', { loading: false });
+        let action = null;
+        if (actionData.data) {
+            action = (new Action()).load(actionData.data);
+        }
+
+        return action;
+    },
+
 };
 export default ActionService;

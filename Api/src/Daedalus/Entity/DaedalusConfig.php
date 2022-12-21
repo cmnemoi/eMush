@@ -2,6 +2,7 @@
 
 namespace Mush\Daedalus\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
@@ -146,8 +147,12 @@ class DaedalusConfig
     /**
      * @param Collection<int, PlaceConfig> $placeConfigs
      */
-    public function setPlaceConfigs(Collection $placeConfigs): static
+    public function setPlaceConfigs(Collection|array $placeConfigs): static
     {
+        if (is_array($placeConfigs)) {
+            $placeConfigs = new ArrayCollection($placeConfigs);
+        }
+
         $this->placeConfigs = $placeConfigs;
 
         return $this;

@@ -37,7 +37,7 @@
                 Actions
             </template>
             <template #row-actions="slotProps">
-                <router-link :to="{ name: 'AdminDifficultyConfigDetail', params: { difficultyConfigId : slotProps.id } }">{{ $t('admin.edit') }}</router-link>
+                <router-link :to="{ name: 'AdminCharacterConfigDetail', params: { characterConfigId : slotProps.id } }">{{ $t('admin.edit') }}</router-link>
             </template>
         </Datatable>
     </div>
@@ -51,7 +51,7 @@ import qs from "qs";
 import ApiService from "@/services/api.service";
 
 export default defineComponent({
-    name: "GameConfigListPage",
+    name: "CharacterConfigListPage",
     components: {
         Datatable
     },
@@ -115,9 +115,8 @@ export default defineComponent({
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'difficulty_configs'), params)
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'character_configs'), params)
                 .then((result) => {
-                    console.log(result.data);
                     return result.data;
                 })
                 .then((remoteRowData: any) => {

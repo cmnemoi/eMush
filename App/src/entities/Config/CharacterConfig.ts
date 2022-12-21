@@ -1,12 +1,17 @@
-import { GameConfig } from "@/entities/Config/GameConfig";
+import { Action } from "@/entities/Action";
+import { StatusConfig } from "@/entities/Config/StatusConfig";
+
 
 export class CharacterConfig {
     public iri: string|null;
     public id: number|null;
     public name: string|null;
-    public initStatuses: string|null;
-    public actions: Array<any>|null;
+    public characterName: string|null;
+    public initStatuses: StatusConfig[]|null;
+    public actions: Action[]|null;
+    public skills: Array<string>|null;
     public startingItems: Array<any>|null;
+    public initDiseases: Array<any>|null;
     public initHealthPoint: number|null;
     public maxHealthPoint: number|null;
     public initMoralPoint: number|null;
@@ -23,9 +28,12 @@ export class CharacterConfig {
         this.iri = null;
         this.id = null;
         this.name = null;
+        this.characterName = null;
         this.initStatuses = null;
-        this.actions = [];
+        this.actions = null;
+        this.skills = [];
         this.startingItems = [];
+        this.initDiseases = [];
         this.initHealthPoint = null;
         this.maxHealthPoint = null;
         this.initMoralPoint = null;
@@ -43,9 +51,10 @@ export class CharacterConfig {
             this.iri = object.iri;
             this.id = object.id;
             this.name = object.name;
-            this.initStatuses = object.initStatuses;
-            this.actions = object.actions;
+            this.characterName = object.characterName;
+            this.skills = object.skills;
             this.startingItems = object.startingItems;
+            this.initDiseases = object.initDiseases;
             this.initHealthPoint = object.initHealthPoint;
             this.maxHealthPoint = object.maxHealthPoint;
             this.initMoralPoint = object.initMoralPoint;
@@ -57,16 +66,39 @@ export class CharacterConfig {
             this.maxMovementPoint = object.maxMovementPoint;
             this.maxItemInInventory = object.maxItemInInventory;
             this.maxNumberPrivateChannel = object.maxNumberPrivateChannel;
+            if (typeof object.actions !== 'undefined') {
+                const actions : Action[] = [];
+                object.actions.forEach((actionData: any) => {
+                    const action = (new Action()).load(actionData);
+                    actions.push(action);
+                });
+                this.actions = actions;
+            }
+            if (typeof object.initStatuses !== 'undefined') {
+                const initStatuses : StatusConfig[] = [];
+                object.initStatuses.forEach((initStatusData: any) => {
+                    const statusConfig = (new StatusConfig()).load(initStatusData);
+                    initStatuses.push(statusConfig);
+                });
+                this.initStatuses = initStatuses;
+            }
         }
         return this;
     }
-    jsonEncode() : object {
-        return {
+    jsonEncode() : any {
+        const actions : string[] = [];
+        this.actions?.forEach(action => (typeof action.iri === 'string' ? actions.push(action.iri) : null));
+        const initStatuses : string[] = [];
+        this.initStatuses?.forEach(statusConfig => (typeof statusConfig.iri === 'string' ? initStatuses.push(statusConfig.iri) : null));
+        const data: any = {
             'id': this.id,
             'name': this.name,
-            'initStatuses': this.initStatuses,
-            'actions': this.actions,
+            'characterName': this.characterName,
+            'initStatuses': initStatuses,
+            'actions': actions,
+            'skills': this.skills,
             'startingItems': this.startingItems,
+            'initDiseases': this.initDiseases,
             'initHealthPoint': this.initHealthPoint,
             'maxHealthPoint': this.maxHealthPoint,
             'initMoralPoint': this.initMoralPoint,
@@ -79,27 +111,12 @@ export class CharacterConfig {
             'maxItemInInventory': this.maxItemInInventory,
             'maxNumberPrivateChannel': this.maxNumberPrivateChannel
         };
+        return data;
     }
     decode(jsonString : string): CharacterConfig {
         if (jsonString) {
             const object = JSON.parse(jsonString);
-            this.iri = object.iri;
-            this.id = object.id;
-            this.name = object.name;
-            this.initStatuses = object.initStatuses;
-            this.actions = object.actions;
-            this.startingItems = object.startingItems;
-            this.initHealthPoint = object.initHealthPoint;
-            this.maxHealthPoint = object.maxHealthPoint;
-            this.initMoralPoint = object.initMoralPoint;
-            this.maxMoralPoint = object.maxMoralPoint;
-            this.initSatiety = object.initSatiety;
-            this.initActionPoint = object.initActionPoint;
-            this.maxActionPoint = object.maxActionPoint;
-            this.initMovementPoint = object.initMovementPoint;
-            this.maxMovementPoint = object.maxMovementPoint;
-            this.maxItemInInventory = object.maxItemInInventory;
-            this.maxNumberPrivateChannel = object.maxNumberPrivateChannel;
+            this.load(object);
         }
 
         return this;

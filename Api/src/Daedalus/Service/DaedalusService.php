@@ -89,6 +89,19 @@ class DaedalusService implements DaedalusServiceInterface
         return $daedalusInfo;
     }
 
+    public function delete(Daedalus $daedalus): Daedalus
+    {
+        $daedalusInfo = $daedalus->getDaedalusInfo();
+        $daedalusInfo->deleteDaedalus();
+
+        $this->persistDaedalusInfo($daedalusInfo);
+
+        $this->entityManager->remove($daedalus);
+        $this->entityManager->flush();
+
+        return $daedalus;
+    }
+
     /**
      * @codeCoverageIgnore
      */
@@ -205,6 +218,24 @@ class DaedalusService implements DaedalusServiceInterface
         $this->entityManager->flush();
 
         return $closedDaedalus;
+    }
+
+    public function closeDaedalus(Daedalus $daedalus, string $reason, \DateTime $date): DaedalusInfo
+    {
+        $daedalusInfo = $daedalus->getDaedalusInfo();
+
+        $daedalusInfo->setGameStatus(GameStatusEnum::CLOSED);
+
+        $daedalusEvent = new DaedalusEvent(
+            $daedalus,
+            $reason,
+            $date
+        );
+        $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::DELETE_DAEDALUS);
+
+        $this->delete($daedalus);
+
+        return $daedalusInfo;
     }
 
     public function startDaedalus(Daedalus $daedalus): Daedalus

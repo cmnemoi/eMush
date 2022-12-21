@@ -29,6 +29,8 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -44,10 +46,18 @@ class PlayerEventCest
 
     public function testDispatchPlayerDeath(FunctionalTester $I)
     {
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setStatusName(PlayerStatusEnum::DEMORALIZED)
+            ->setVisibility(VisibilityEnum::MUSH)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($statusConfig);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$statusConfig])]);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -91,15 +101,113 @@ class PlayerEventCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
+        $status = new Status($player, $statusConfig);
+        $I->haveInRepository($status);
+
         $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
         $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
 
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
 
         $I->assertEquals(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
+        $closedPlayer = $playerInfo->getClosedPlayer();
 
+        $I->assertEquals($closedPlayer->getEndCause(), EndCauseEnum::CLUMSINESS);
+        $I->assertEquals($closedPlayer->getMessage(), null);
+        $I->assertEquals($closedPlayer->getCycleDeath(), 5);
+        $I->assertEquals($closedPlayer->getDayDeath(), 89);
+        $I->assertEquals($closedPlayer->getClosedDaedalus(), $daedalusInfo->getClosedDaedalus());
+        $I->assertFalse($closedPlayer->isMush());
+
+        $I->dontSeeInRepository(Status::class);
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
+            'playerInfo' => $player->getPlayerInfo()->getId(),
+            'log' => LogEnum::DEATH,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+    }
+
+    public function testDispatchPlayerDeathMush(FunctionalTester $I)
+    {
+        $mushConfig = new StatusConfig();
+        $mushConfig
+            ->setStatusName(PlayerStatusEnum::MUSH)
+            ->setVisibility(VisibilityEnum::MUSH)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $I->haveInRepository($mushConfig);
+
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$mushConfig])]);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
+
+        $neron = new Neron();
+        $neron->setIsInhibited(true);
+        $I->haveInRepository($neron);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, [
+            'cycle' => 5,
+            'day' => 89,
+            'filledAt' => new \DateTime(),
+        ]);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo->setNeron($neron);
+        $I->haveInRepository($daedalusInfo);
+
+        $channel = new Channel();
+        $channel
+            ->setDaedalus($daedalusInfo)
+            ->setScope(ChannelScopeEnum::PUBLIC)
+        ;
+        $I->haveInRepository($channel);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+
+        /** @var Player $player */
+        $player = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        $status = new Status($player, $mushConfig);
+        $I->haveInRepository($status);
+
+        $playerEvent = new PlayerEvent($player, EndCauseEnum::CLUMSINESS, new \DateTime());
+        $playerEvent->setVisibility(VisibilityEnum::PUBLIC);
+
+        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::DEATH_PLAYER);
+
+        $I->assertEquals(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
+        $closedPlayer = $playerInfo->getClosedPlayer();
+
+        $I->assertEquals($closedPlayer->getEndCause(), EndCauseEnum::CLUMSINESS);
+        $I->assertEquals($closedPlayer->getMessage(), null);
+        $I->assertEquals($closedPlayer->getCycleDeath(), 5);
+        $I->assertEquals($closedPlayer->getDayDeath(), 89);
+        $I->assertEquals($closedPlayer->getClosedDaedalus(), $daedalusInfo->getClosedDaedalus());
+        $I->assertTrue($closedPlayer->isMush());
+
+        $I->dontSeeInRepository(Status::class);
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => LogEnum::DEATH,
             'visibility' => VisibilityEnum::PUBLIC,

@@ -205,7 +205,8 @@ class DoTheThingCest
         $I->assertEquals(8, $player->getMoralPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::DO_THE_THING_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,
@@ -223,7 +224,8 @@ class DoTheThingCest
         $this->eventDispatcher->dispatch($pregnantStatusEvent, StatusEvent::STATUS_APPLIED);
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => StatusEventLogEnum::BECOME_PREGNANT,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);

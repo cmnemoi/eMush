@@ -19,6 +19,7 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -45,10 +46,17 @@ class RoomEventCest
 
     public function testRoomEventOnNonRoomPlace(FunctionalTester $I)
     {
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class);
+
         $time = new \DateTime();
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus, 'type' => PlaceTypeEnum::SPACE]);
@@ -133,9 +141,9 @@ class RoomEventCest
         $I->haveInRepository($daedalusInfo);
 
         /** @var Place $roomWithPlayers */
-        $roomWithPlayers = $I->have(Place::class, ['daedalus' => $daedalus]);
+        $roomWithPlayers = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
         /** @var Place $roomWithoutPlayers */
-        $roomWithoutPlayers = $I->have(Place::class, ['daedalus' => $daedalus]);
+        $roomWithoutPlayers = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::BRAVO_BAY]);
 
         $rooms = new ArrayCollection([$roomWithPlayers, $roomWithoutPlayers]);
 
@@ -164,12 +172,12 @@ class RoomEventCest
 
         $I->assertEquals(8, $player->getHealthPoint());
         $I->seeInRepository(RoomLog::class, [
-            'place' => $roomWithPlayers->getId(),
+            'place' => $roomWithPlayers->getName(),
             'log' => LogEnum::TREMOR_GRAVITY,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
         $I->dontSeeInRepository(RoomLog::class, [
-            'place' => $roomWithoutPlayers->getId(),
+            'place' => $roomWithoutPlayers->getName(),
             'log' => LogEnum::TREMOR_GRAVITY,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -242,7 +250,8 @@ class RoomEventCest
         $I->assertEquals(7, $player->getHealthPoint());
         $I->assertTrue($gameEquipment->isBroken());
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => LogEnum::ELECTRIC_ARC,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);

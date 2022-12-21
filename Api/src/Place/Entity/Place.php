@@ -55,7 +55,7 @@ class Place implements StatusHolderInterface, ModifierHolder, EquipmentHolderInt
     #[ORM\OneToMany(mappedBy: 'place', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $statuses;
 
-    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Modifier::class)]
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Modifier::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
     public function __construct()

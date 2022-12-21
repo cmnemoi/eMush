@@ -23,4 +23,10 @@ class ConsumableEffectRepository extends ServiceEntityRepository
 
         return $consumableEffect;
     }
+
+    public function remove(ConsumableEffect $consumableEffect): void
+    {
+        $this->getEntityManager()->remove($consumableEffect);
+        $this->getEntityManager()->flush();
+    }
 }

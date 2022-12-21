@@ -87,6 +87,22 @@ class PlayerService implements PlayerServiceInterface
         return $player;
     }
 
+    public function delete(Player $player): bool
+    {
+        $playerInfo = $player->getPlayerInfo();
+        $playerInfo->deletePlayer();
+        $this->persistPlayerInfo($playerInfo);
+
+        $daedalus = $player->getDaedalus();
+        $daedalus->removePlayer($player);
+        $this->entityManager->persist($daedalus);
+
+        $this->entityManager->remove($player);
+        $this->entityManager->flush();
+
+        return true;
+    }
+
     public function findById(int $id): ?Player
     {
         $player = $this->repository->find($id);
@@ -178,7 +194,6 @@ class PlayerService implements PlayerServiceInterface
 
         $closedPlayer
             ->setMessage($message)
-            ->setEndCause(GameStatusEnum::CLOSED)
         ;
 
         $playerInfo->setGameStatus(GameStatusEnum::CLOSED);
@@ -190,8 +205,6 @@ class PlayerService implements PlayerServiceInterface
             new \DateTime()
         );
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::END_PLAYER);
-
-        $this->persist($player);
 
         return $player;
     }
@@ -317,6 +330,7 @@ class PlayerService implements PlayerServiceInterface
         $closedPlayer
             ->setDayCycleDeath($player->getDaedalus())
             ->setEndCause($reason)
+            ->setIsMush($player->isMush())
         ;
         $this->persistPlayerInfo($playerInfo);
 
@@ -328,7 +342,7 @@ class PlayerService implements PlayerServiceInterface
 
             /** @var Player $daedalusPlayer */
             foreach ($player->getDaedalus()->getPlayers()->getPlayerAlive() as $daedalusPlayer) {
-                if ($daedalusPlayer !== $player) {
+                if ($daedalusPlayer !== $player && !$daedalusPlayer->isMush()) {
                     $playerModifierEvent = new PlayerVariableEvent(
                         $daedalusPlayer,
                         PlayerVariableEnum::MORAL_POINT,

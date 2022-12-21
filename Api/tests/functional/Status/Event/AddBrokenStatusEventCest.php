@@ -92,7 +92,8 @@ class AddBrokenStatusEventCest
         $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
         $I->assertTrue($room->getEquipments()->first()->isBroken());
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'log' => StatusEventLogEnum::EQUIPMENT_BROKEN,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);

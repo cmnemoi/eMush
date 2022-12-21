@@ -136,7 +136,8 @@ class BoringSpeechActionCest
         $I->assertEquals(9, $listener->getMovementPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $speaker->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::BORING_SPEECH,
             'visibility' => VisibilityEnum::PUBLIC,

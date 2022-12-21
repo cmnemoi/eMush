@@ -17,7 +17,6 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Repository\StatusRepository;
@@ -59,10 +58,9 @@ class StatusService implements StatusServiceInterface
 
     public function removeAllStatuses(StatusHolderInterface $holder, string $reason, \DateTime $time): void
     {
+        /** @var Status $status */
         foreach ($holder->getStatuses() as $status) {
-            if (($statusName = $status->getName()) !== PlayerStatusEnum::MUSH) {
-                $this->removeStatus($statusName, $holder, $reason, $time);
-            }
+            $this->removeStatus($status->getName(), $holder, $reason, $time);
         }
     }
 

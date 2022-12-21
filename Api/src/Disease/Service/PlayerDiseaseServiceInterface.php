@@ -9,6 +9,8 @@ interface PlayerDiseaseServiceInterface
 {
     public function persist(PlayerDisease $playerDisease): PlayerDisease;
 
+    public function delete(PlayerDisease $playerDisease): void;
+
     public function removePlayerDisease(
         PlayerDisease $playerDisease,
         string $cause,

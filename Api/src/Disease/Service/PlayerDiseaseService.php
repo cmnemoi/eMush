@@ -39,6 +39,12 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         return $playerDisease;
     }
 
+    public function delete(PlayerDisease $playerDisease): void
+    {
+        $this->entityManager->remove($playerDisease);
+        $this->entityManager->flush();
+    }
+
     public function removePlayerDisease(
         PlayerDisease $playerDisease,
         string $cause,
@@ -56,8 +62,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $event->setAuthor($author)->setVisibility($visibility);
         $this->eventDispatcher->dispatch($event, DiseaseEvent::CURE_DISEASE);
 
-        $this->entityManager->remove($playerDisease);
-        $this->entityManager->flush();
+        $this->delete($playerDisease);
 
         return true;
     }

@@ -84,13 +84,15 @@ class RoomLogServiceTest extends TestCase
 
     public function testCreateSimpleLog()
     {
-        $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo(new Daedalus(), new GameConfig(), new LocalizationConfig());
+        $daedalus = $daedalusInfo->getDaedalus();
+
         $daedalus->setCycle(4);
         $daedalus->setDay(2);
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
         $place = new Place();
-        $place->setDaedalus($daedalus);
+        $place->setDaedalus($daedalus)->setName('test');
         $visibility = VisibilityEnum::PUBLIC;
         $type = 'log';
         $player = null;
@@ -113,7 +115,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals($logKey, $test->getLog());
         $this->assertEquals([], $test->getParameters());
         $this->assertEquals('log', $test->getType());
-        $this->assertEquals($place, $test->getPlace());
+        $this->assertEquals($place->getName(), $test->getPlace());
         $this->assertEquals($player, $test->getPlayerInfo());
         $this->assertEquals($visibility, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
@@ -123,6 +125,7 @@ class RoomLogServiceTest extends TestCase
     public function testCreateLogWithParameters()
     {
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $daedalus->setCycle(4);
         $daedalus->setDay(2);
 
@@ -133,7 +136,7 @@ class RoomLogServiceTest extends TestCase
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
         $place = new Place();
-        $place->setDaedalus($daedalus);
+        $place->setDaedalus($daedalus)->setName('test');
         $visibility = VisibilityEnum::PUBLIC;
         $type = 'log';
         $player = new Player();
@@ -162,7 +165,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals($logKey, $test->getLog());
         $this->assertEquals($parameters, $test->getParameters());
         $this->assertEquals('log', $test->getType());
-        $this->assertEquals($place, $test->getPlace());
+        $this->assertEquals($place->getName(), $test->getPlace());
         $this->assertEquals($playerInfo, $test->getPlayerInfo());
         $this->assertEquals($visibility, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
@@ -172,6 +175,7 @@ class RoomLogServiceTest extends TestCase
     public function testCreateSecretLog()
     {
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $daedalus->setCycle(4);
         $daedalus->setDay(2);
 
@@ -180,7 +184,7 @@ class RoomLogServiceTest extends TestCase
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
         $place = new Place();
-        $place->setDaedalus($daedalus);
+        $place->setDaedalus($daedalus)->setName('test');
         $visibility = VisibilityEnum::SECRET;
         $type = 'log';
         $player = new Player();
@@ -209,7 +213,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals($logKey, $test->getLog());
         $this->assertEquals($parameters, $test->getParameters());
         $this->assertEquals('log', $test->getType());
-        $this->assertEquals($place, $test->getPlace());
+        $this->assertEquals($place->getName(), $test->getPlace());
         $this->assertEquals($playerInfo, $test->getPlayerInfo());
         $this->assertEquals($visibility, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
@@ -219,6 +223,7 @@ class RoomLogServiceTest extends TestCase
     public function testCreateSecretRevealedLog()
     {
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $daedalus->setCycle(4);
         $daedalus->setDay(2);
 
@@ -227,7 +232,7 @@ class RoomLogServiceTest extends TestCase
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
         $place = new Place();
-        $place->setDaedalus($daedalus);
+        $place->setDaedalus($daedalus)->setName('test');
         $visibility = VisibilityEnum::SECRET;
         $type = 'log';
         $player = new Player();
@@ -260,7 +265,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals($logKey, $test->getLog());
         $this->assertEquals($parameters, $test->getParameters());
         $this->assertEquals('log', $test->getType());
-        $this->assertEquals($place, $test->getPlace());
+        $this->assertEquals($place->getName(), $test->getPlace());
         $this->assertEquals($playerInfo, $test->getPlayerInfo());
         $this->assertEquals(VisibilityEnum::REVEALED, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
@@ -270,6 +275,7 @@ class RoomLogServiceTest extends TestCase
     public function testCreateCovertRevealedLog()
     {
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $daedalus->setCycle(4);
         $daedalus->setDay(2);
 
@@ -278,7 +284,7 @@ class RoomLogServiceTest extends TestCase
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
         $place = new Place();
-        $place->setDaedalus($daedalus);
+        $place->setDaedalus($daedalus)->setName('test');
         $visibility = VisibilityEnum::COVERT;
         $type = 'log';
         $player = new Player();
@@ -311,7 +317,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals($logKey, $test->getLog());
         $this->assertEquals($parameters, $test->getParameters());
         $this->assertEquals('log', $test->getType());
-        $this->assertEquals($place, $test->getPlace());
+        $this->assertEquals($place->getName(), $test->getPlace());
         $this->assertEquals($playerInfo, $test->getPlayerInfo());
         $this->assertEquals(VisibilityEnum::REVEALED, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
@@ -321,6 +327,7 @@ class RoomLogServiceTest extends TestCase
     public function testCreateCovertItemCameraLog()
     {
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $daedalus->setCycle(4);
         $daedalus->setDay(2);
 
@@ -329,7 +336,7 @@ class RoomLogServiceTest extends TestCase
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
         $place = new Place();
-        $place->setDaedalus($daedalus);
+        $place->setDaedalus($daedalus)->setName('test');
         $visibility = VisibilityEnum::COVERT;
         $type = 'log';
         $player = new Player();
@@ -360,7 +367,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals($logKey, $test->getLog());
         $this->assertEquals($parameters, $test->getParameters());
         $this->assertEquals('log', $test->getType());
-        $this->assertEquals($place, $test->getPlace());
+        $this->assertEquals($place->getName(), $test->getPlace());
         $this->assertEquals($playerInfo, $test->getPlayerInfo());
         $this->assertEquals($visibility, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
@@ -370,11 +377,12 @@ class RoomLogServiceTest extends TestCase
     public function testCreateActionSuccessLog()
     {
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $daedalus->setCycle(4);
         $daedalus->setDay(2);
 
         $place = new Place();
-        $place->setDaedalus($daedalus);
+        $place->setDaedalus($daedalus)->setName('test');
 
         $characterConfig1 = new CharacterConfig();
         $characterConfig1->setCharacterName('andie');
@@ -402,7 +410,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals(ActionLogEnum::STRENGTHEN_SUCCESS, $test->getLog());
         $this->assertEquals(['character' => 'andie'], $test->getParameters());
         $this->assertEquals('actions_log', $test->getType());
-        $this->assertEquals($place, $test->getPlace());
+        $this->assertEquals($place->getName(), $test->getPlace());
         $this->assertEquals($playerInfo, $test->getPlayerInfo());
         $this->assertEquals(VisibilityEnum::PUBLIC, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
@@ -412,11 +420,12 @@ class RoomLogServiceTest extends TestCase
     public function testCreateActionFailLog()
     {
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $daedalus->setCycle(4);
         $daedalus->setDay(2);
 
         $place = new Place();
-        $place->setDaedalus($daedalus);
+        $place->setDaedalus($daedalus)->setName('test');
 
         $characterConfig1 = new CharacterConfig();
         $characterConfig1->setCharacterName('andie');
@@ -444,7 +453,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals(ActionLogEnum::DEFAULT_FAIL, $test->getLog());
         $this->assertEquals(['character' => 'andie'], $test->getParameters());
         $this->assertEquals('actions_log', $test->getType());
-        $this->assertEquals($place, $test->getPlace());
+        $this->assertEquals($place->getName(), $test->getPlace());
         $this->assertEquals($playerInfo, $test->getPlayerInfo());
         $this->assertEquals(VisibilityEnum::PRIVATE, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
@@ -454,11 +463,12 @@ class RoomLogServiceTest extends TestCase
     public function testCreateActionWithParameterLog()
     {
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $daedalus->setCycle(4);
         $daedalus->setDay(2);
 
         $place = new Place();
-        $place->setDaedalus($daedalus);
+        $place->setDaedalus($daedalus)->setName('test');
 
         $characterConfig1 = new CharacterConfig();
         $characterConfig1->setCharacterName('andie');
@@ -490,7 +500,7 @@ class RoomLogServiceTest extends TestCase
         $this->assertEquals(ActionLogEnum::DEFAULT_FAIL, $test->getLog());
         $this->assertEquals(['character' => 'andie', 'target_equipment' => 'equipment'], $test->getParameters());
         $this->assertEquals('actions_log', $test->getType());
-        $this->assertEquals($place, $test->getPlace());
+        $this->assertEquals($place->getName(), $test->getPlace());
         $this->assertEquals($playerInfo, $test->getPlayerInfo());
         $this->assertEquals(VisibilityEnum::PRIVATE, $test->getVisibility());
         $this->assertEquals(4, $test->getCycle());
@@ -504,6 +514,7 @@ class RoomLogServiceTest extends TestCase
         $gameConfig = new GameConfig();
 
         $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $place = new Place();

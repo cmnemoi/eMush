@@ -53,7 +53,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: Modifier::class)]
+    #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: Modifier::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
     #[ORM\ManyToOne(targetEntity: Player::class)]

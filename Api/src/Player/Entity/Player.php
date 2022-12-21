@@ -66,7 +66,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\JoinTable(name: 'player_player_flirts')]
     private Collection $flirts;
 
-    #[ORM\OneToMany(mappedBy: 'player', targetEntity: Modifier::class)]
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: Modifier::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
     #[ORM\Column(type: 'array', nullable: true)]

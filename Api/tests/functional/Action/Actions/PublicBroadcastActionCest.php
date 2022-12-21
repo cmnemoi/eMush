@@ -151,7 +151,8 @@ class PublicBroadcastActionCest
         $I->assertEquals(9, $player2->getMoralPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player1->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::PUBLIC_BROADCAST,
             'visibility' => VisibilityEnum::PUBLIC,
@@ -268,7 +269,8 @@ class PublicBroadcastActionCest
         $I->assertEquals(9, $player2->getMoralPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $player1->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::PUBLIC_BROADCAST,
             'visibility' => VisibilityEnum::PUBLIC,

@@ -54,6 +54,13 @@ class PlayerInfo
         return $this->id;
     }
 
+    public function deletePlayer(): static
+    {
+        $this->player = null;
+
+        return $this;
+    }
+
     public function getPlayer(): ?Player
     {
         return $this->player;

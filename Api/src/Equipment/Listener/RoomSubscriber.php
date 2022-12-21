@@ -4,6 +4,7 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
@@ -26,6 +27,7 @@ class RoomSubscriber implements EventSubscriberInterface
     {
         return [
             RoomEvent::ELECTRIC_ARC => 'onElectricArc',
+            RoomEvent::DELETE_PLACE => 'onDeletePlace',
         ];
     }
 
@@ -51,6 +53,21 @@ class RoomSubscriber implements EventSubscriberInterface
                 $statusEvent->setVisibility(VisibilityEnum::PUBLIC);
                 $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
             }
+        }
+    }
+
+    public function onDeletePlace(RoomEvent $event): void
+    {
+        foreach ($event->getPlace()->getEquipments() as $equipment) {
+            $equipmentEvent = new EquipmentEvent(
+                $equipment,
+                false,
+                VisibilityEnum::HIDDEN,
+                $event->getReason(),
+                $event->getTime()
+            );
+
+            $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DELETE);
         }
     }
 }

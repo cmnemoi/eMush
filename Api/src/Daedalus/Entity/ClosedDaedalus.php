@@ -6,12 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Enum\EndCauseEnum;
 
-#[ORM\Entity(repositoryClass: DaedalusRepository::class)]
+#[ORM\Entity]
 #[ORM\Table(name: 'daedalus_closed')]
 class ClosedDaedalus
 {

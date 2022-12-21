@@ -151,7 +151,8 @@ class MakeSickActionCest
         $I->assertEquals(1, $mushPlayer->getActionPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getId(),
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $mushPlayer->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::MAKE_SICK,
             'visibility' => VisibilityEnum::COVERT,

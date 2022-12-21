@@ -31,6 +31,15 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
         $this->randomService = $randomService;
     }
 
+    public function removeAllConsumableDisease(Daedalus $daedalus): void
+    {
+        $consumableEffects = $this->consumableDiseaseRepository->findBy(['daedalus' => $daedalus]);
+        foreach ($consumableEffects as $effect) {
+            $this->entityManager->remove($effect);
+            $this->entityManager->flush();
+        }
+    }
+
     public function findConsumableDiseases(string $name, Daedalus $daedalus): ?ConsumableDisease
     {
         $consumableDisease = $this->consumableDiseaseRepository->findOneBy(

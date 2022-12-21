@@ -9,8 +9,7 @@ class RoomEvent extends PlaceCycleEvent implements LoggableEventInterface
 {
     public const TREMOR = 'tremor';
     public const ELECTRIC_ARC = 'electric.arc';
-    // public const STARTING_FIRE = 'starting.fire';
-    // public const STOP_FIRE = 'stop.fire';
+    public const DELETE_PLACE = 'delete.place';
 
     private bool $isGravity = true;
     private string $visibility = VisibilityEnum::PUBLIC;

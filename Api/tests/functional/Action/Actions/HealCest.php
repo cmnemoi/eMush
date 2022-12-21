@@ -10,6 +10,7 @@ use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -49,6 +50,8 @@ class HealCest
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
         /** @var Place $medlab */
         $medlab = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::MEDLAB]);
@@ -115,7 +118,8 @@ class HealCest
         $I->assertEquals(9, $healedPlayer->getHealthPoint());
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $medlab->getId(),
+            'place' => $medlab->getName(),
+            'daedalusInfo' => $daedalusInfo,
             'playerInfo' => $healerPlayer->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::HEAL_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,

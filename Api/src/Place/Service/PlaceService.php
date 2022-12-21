@@ -34,6 +34,18 @@ class PlaceService implements PlaceServiceInterface
         return $place;
     }
 
+    public function delete(Place $place): bool
+    {
+        $daedalus = $place->getDaedalus();
+        $daedalus->removePlace($place);
+        $this->entityManager->persist($daedalus);
+
+        $this->entityManager->remove($place);
+        $this->entityManager->flush();
+
+        return true;
+    }
+
     public function findById(int $id): ?Place
     {
         $place = $this->repository->find($id);

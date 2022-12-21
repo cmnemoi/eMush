@@ -14,6 +14,8 @@ import DaedalusConfigListPage from "@/components/Admin/Config/DaedalusConfig/Dae
 import DaedalusConfigDetailPage from "@/components/Admin/Config/DaedalusConfig/DaedalusConfigDetailPage.vue";
 import DifficultyConfigListPage from "@/components/Admin/Config/DifficultyConfig/DifficultyConfigListPage.vue";
 import DifficultyConfigDetailPage from "@/components/Admin/Config/DifficultyConfig/DifficultyConfigDetailPage.vue";
+import CharacterConfigListPage from "@/components/Admin/Config/CharacterConfig/CharacterConfigListPage.vue";
+import CharacterConfigDetailPage from "@/components/Admin/Config/CharacterConfig/CharacterConfigDetailPage.vue";
 
 export const adminConfigRoutes = [
     {
@@ -95,5 +97,15 @@ export const adminConfigRoutes = [
         name: "AdminDifficultyConfigDetail",
         path: 'difficulty-config/:difficultyConfigId',
         component: DifficultyConfigDetailPage
+    },
+    {
+        name: "AdminCharacterConfigList",
+        path: 'character-config-list',
+        component: CharacterConfigListPage
+    },
+    {
+        name: "AdminCharacterConfigDetail",
+        path: 'character-config/:characterConfigId',
+        component: CharacterConfigDetailPage
     }
 ];

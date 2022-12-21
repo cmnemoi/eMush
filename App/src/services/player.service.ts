@@ -5,11 +5,11 @@ import { DeadPlayerInfo } from "@/entities/DeadPlayerInfo";
 import urlJoin from "url-join";
 
 // @ts-ignore
-const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player");
+const PLAYER_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player");
 
 const PlayerService = {
     loadPlayer: async(playerId: number): Promise<Player | null> => {
-        const playerData = await ApiService.get(ACTION_ENDPOINT + '/' + playerId);
+        const playerData = await ApiService.get(PLAYER_ENDPOINT + '/' + playerId);
 
         let player = null;
         if (playerData.data) {
@@ -21,7 +21,7 @@ const PlayerService = {
 
     loadDeadPlayerInfo: async(playerId: number): Promise<DeadPlayerInfo | null> => {
         store.dispatch('player/setLoading', { loading: true });
-        const deadPlayerData = await ApiService.get(ACTION_ENDPOINT + '/' + playerId);
+        const deadPlayerData = await ApiService.get(PLAYER_ENDPOINT + '/' + playerId);
 
         let deadPlayer = null;
         if (deadPlayerData.data) {
@@ -38,7 +38,7 @@ const PlayerService = {
             message: message
         };
 
-        return ApiService.post(ACTION_ENDPOINT + '/' + player.id + '/end', data)
+        return ApiService.post(PLAYER_ENDPOINT + '/' + player.id + '/end', data)
             .then(() => {
                 store.dispatch('auth/userInfo');
             });

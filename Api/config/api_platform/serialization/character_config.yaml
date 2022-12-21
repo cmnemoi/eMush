@@ -2,13 +2,39 @@ Mush\Player\Entity\Config\CharacterConfig:
   attributes:
     id:
       groups: [ 'character_config_read' ]
-    gameConfig:
-      groups: [ 'character_config_read', 'character_config_write' ]
     name:
+      groups: [ 'character_config_read', 'character_config_write' ]
+    characterName:
       groups: [ 'character_config_read', 'character_config_write' ]
     initStatuses:
       groups: [ 'character_config_read', 'character_config_write' ]
     actions:
       groups: [ 'character_config_read', 'character_config_write' ]
+    skills:
+      groups: [ 'character_config_read', 'character_config_write' ]
     startingItems:
+      groups: [ 'character_config_read', 'character_config_write' ]
+    initDiseases:
+      groups: [ 'character_config_read', 'character_config_write' ]
+    maxNumberPrivateChannel:
+      groups: [ 'character_config_read', 'character_config_write' ]
+    maxHealthPoint:
+      groups: [ 'character_config_read', 'character_config_write' ]
+    maxMoralPoint:
+      groups: [ 'character_config_read', 'character_config_write' ]
+    maxActionPoint:
+      groups: [ 'character_config_read', 'character_config_write' ]
+    maxMovementPoint:
+      groups: [ 'character_config_read', 'character_config_write' ]
+    maxItemInInventory:
+      groups: [ 'character_config_read', 'character_config_write' ]
+    initHealthPoint:
+      groups: [ 'character_config_read', 'character_config_write' ]
+    initMoralPoint:
+      groups: [ 'character_config_read', 'character_config_write' ]
+    initActionPoint:
+      groups: [ 'character_config_read', 'character_config_write' ]
+    initMovementPoint:
+      groups: [ 'character_config_read', 'character_config_write' ]
+    initSatiety:
       groups: [ 'character_config_read', 'character_config_write' ]

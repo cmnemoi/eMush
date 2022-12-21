@@ -127,7 +127,6 @@ import GameConfigService from "@/services/game_config.service";
 import { DifficultyConfig } from "@/entities/Config/DifficultyConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import Input from "@/components/Utils/Input.vue";
-import DatatableVue from "@/components/Utils/Datatable/Datatable.vue";
 
 interface DifficultyConfigState {
     difficultyConfig: null|DifficultyConfig

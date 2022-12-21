@@ -1,4 +1,5 @@
 export class Action {
+    public iri: string|null;
     public id: number|null;
     public key: string|null;
     public canExecute: boolean;
@@ -9,6 +10,7 @@ export class Action {
     public successRate: number|null;
 
     constructor() {
+        this.iri = null;
         this.id = null;
         this.key = null;
         this.canExecute = false;
@@ -20,6 +22,7 @@ export class Action {
     }
     load(object:any) : Action {
         if (typeof object !== "undefined") {
+            this.iri = object["@id"];
             this.id = object.id;
             this.key = object.key;
             this.canExecute = object.canExecute;

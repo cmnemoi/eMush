@@ -20,7 +20,7 @@ export class PlaceConfig {
     }
     load(object:any) : PlaceConfig {
         if (typeof object !== "undefined") {
-            this.iri = object.iri;
+            this.iri = object["@id"];
             this.id = object.id;
             this.name = object.name;
             this.type = object.type;

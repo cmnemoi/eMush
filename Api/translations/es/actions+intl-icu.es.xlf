@@ -251,14 +251,14 @@
         <target>search.description</target>
       </segment>
     </unit>
-    <unit id="rejuvenate_alpha">
-      <segment id="rejuvenate_alpha" state="initial">
-        <source>rejuvenate_alpha.name</source>
-        <target>rejuvenate_alpha.name</target>
+    <unit id="rejuvenate">
+      <segment id="rejuvenate" state="initial">
+        <source>rejuvenate.name</source>
+        <target>rejuvenate.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>rejuvenate_alpha.description</source>
-        <target>rejuvenate_alpha.description</target>
+        <source>rejuvenate.description</source>
+        <target>rejuvenate.description</target>
       </segment>
     </unit>
     <unit id="shred">

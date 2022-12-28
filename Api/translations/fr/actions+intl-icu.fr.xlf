@@ -251,13 +251,13 @@
         <target>Permet de retrouver un objet caché à l'endroit où vous vous trouvez.</target>
       </segment>
     </unit>
-    <unit id="rejuvenate_alpha">
-      <segment id="rejuvenate_alpha" state="final">
-        <source>rejuvenate_alpha.name</source>
+    <unit id="rejuvenate">
+      <segment id="rejuvenate" state="final">
+        <source>rejuvenate.name</source>
         <target>Restaurer</target>
       </segment>
       <segment id="description" state="final">
-        <source>rejuvenate_alpha.description</source>
+        <source>rejuvenate.description</source>
         <target>Permet de retrouver tout ses :pa:, :pm:, :hp: et :pmo:.
 //
 Uniquement valable pendant l'alpha.

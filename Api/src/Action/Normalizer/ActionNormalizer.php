@@ -46,12 +46,12 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
      */
     public function normalize($object, string $format = null, array $context = []): array
     {
-        $actionClass = $this->actionStrategyService->getAction($object->getName());
+        $actionClass = $this->actionStrategyService->getAction($object->getActionName());
         if (!$actionClass) {
             return [];
         }
 
-        $actionName = $object->getName();
+        $actionName = $object->getActionName();
 
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
@@ -74,7 +74,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
         if ($actionClass->isVisible()) {
             $normalizedAction = [
                 'id' => $object->getId(),
-                'key' => $object->getName(),
+                'key' => $object->getActionName(),
                 'name' => $this->translationService->translate(
                     "{$actionName}.name",
                     $translationParameters,

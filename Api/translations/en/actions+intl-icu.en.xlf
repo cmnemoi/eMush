@@ -257,13 +257,13 @@
         <target>Allows you to search for hidden objects.</target>
       </segment>
     </unit>
-    <unit id="rejuvenate_alpha">
-      <segment id="rejuvenate_alpha" state="final">
-        <source>rejuvenate_alpha.name</source>
+    <unit id="rejuvenate">
+      <segment id="rejuvenate" state="final">
+        <source>rejuvenate.name</source>
         <target>Recover</target>
       </segment>
       <segment id="description" state="final">
-        <source>rejuvenate_alpha.description</source>
+        <source>rejuvenate.description</source>
         <target>Allows you to recover all your :pa:, :pm:, :hp: and :pmo:. 
 //
 Available only during the alpha. 

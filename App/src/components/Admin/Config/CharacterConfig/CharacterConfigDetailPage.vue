@@ -108,46 +108,46 @@
                 :errors="errors.maxItemInInventory"
             />
         </div>
-        <h3> {{$t('admin.characterconfig.initStatuses')}} </h3>
+        <h3> {{$t('admin.characterConfig.initStatuses')}} </h3>
         <ChildCollectionManager :children="characterConfig.initStatuses" @addId="selectNewInitStatus" @remove="removeInitStatus">
             <template #header="child">
                 <span>{{ child.id }} - {{ child.name }}</span>
             </template>
             <template #body="child">
-                <span>{{ $t('admin.characterconfig.name') }} {{ child.name }}</span>
+                <span>{{ $t('admin.characterConfig.name') }} {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
-        <h3> {{$t('admin.characterconfig.actions')}} </h3>
+        <h3> {{$t('admin.characterConfig.actions')}} </h3>
         <ChildCollectionManager :children="characterConfig.actions" @addId="selectNewAction" @remove="removeAction">
             <template #header="child">
                 <span>{{ child.id }} - {{ child.name }}</span>
             </template>
             <template #body="child">
-                <span>{{ $t('admin.characterconfig.name') }} {{ child.name }}</span>
+                <span>{{ $t('admin.characterConfig.name') }} {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
-        <h3> {{$t('admin.characterconfig.skills')}} </h3>
+        <h3> {{$t('admin.characterConfig.skills')}} </h3>
         <select>
             <option v-for="(item, index) in characterConfig.skills" :key="index">
                 {{ item }}
             </option>
         </select>
-        <h3> {{$t('admin.characterconfig.startingItems')}} </h3>
+        <h3> {{$t('admin.characterConfig.startingItems')}} </h3>
         <ChildCollectionManager :children="characterConfig.startingItems" @addId="selectNewStartingItem" @remove="removeStartingItem">
             <template #header="child">
                 <span>{{ child.id }} - {{ child.name }}</span>
             </template>
             <template #body="child">
-                <span>{{ $t('admin.characterconfig.name') }} {{ child.name }}</span>
+                <span>{{ $t('admin.characterConfig.name') }} {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
-        <h3> {{$t('admin.characterconfig.initDiseases')}} </h3>
+        <h3> {{$t('admin.characterConfig.initDiseases')}} </h3>
         <ChildCollectionManager :children="characterConfig.initDiseases" @addId="selectNewInitDisease" @remove="removeInitDisease">
             <template #header="child">
                 <span>{{ child.id }} - {{ child.name }}</span>
             </template>
             <template #body="child">
-                <span>{{ $t('admin.characterconfig.name') }} {{ child.name }}</span>
+                <span>{{ $t('admin.characterConfig.name') }} {{ child.name }}</span>
             </template>
         </ChildCollectionManager>
         <button class="action-button" type="submit" @click="update">

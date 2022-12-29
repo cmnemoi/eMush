@@ -146,6 +146,41 @@
 			"nbMush": "Nombre de Mushs de départ",
 			"cyclePerGameDay": "Nombre de cycles par jour",
 			"cycleLength": "Durée du cycle (en minutes)"
+		},
+		"difficultyConfig": {
+			"name": "Nom",
+			"equipmentBreakRate": "Probabilité de casse spontanée des équipements",
+			"doorBreakRate": "Probabilité de casse spontanée des portes",
+			"equipmentFireBreakRate": "Probabilité de casse des équipements par les incendies",
+			"startingFireRate": "Probabilité d'incendies spontanés",
+			"propagatingFireRate": "Probabilité de propagation des incendies",
+			"hullFireDamageRate": "Probabilité de dégâts à la coque par les incendies",
+			"tremorRate": "Probabilité de secousses",
+			"electricArcRate": "Probabilité de décharges électriques",
+			"metalPlateRate": "Probabilité de plaques de métal",
+			"panicCrisisRate": "Probabilité de crises de panique",
+			"plantDiseaseRate": "Probabilité de maladies spontanées (plantes)",
+			"cycleDiseaseRate": "Probabilité de maladies spontanées (joueurs)"
+		},
+		"characterConfig": {
+			"name": "Nom",
+			"characterName": "Nom du personnage",
+			"maxNumberPrivateChannel": "Nombre maximum de canaux privés",
+			"initHealthPoint": "Points de Vie de départ",
+			"initMovementPoint": "Points de Mouvement de départ",
+			"initMoralPoint":"Points de Moral de départ",
+			"initActionPoint": "Points d'Action de départ",
+			"initSatiety": "Satiété de départ",
+			"maxActionPoint": "Points d'Action maximum",
+			"maxMovementPoint": "Points de Mouvement maximum",
+			"maxMoralPoint": "Points de Moral maximum",
+			"maxHealthPoint": "Points de Vie maximum",
+			"maxItemInInventory":"Nombre maximum d'objets en inventaire",
+			"initStatuses": "Statuts de départ",
+			"actions": "Actions",
+			"skills": "Compétences",
+			"startingItems": "Objets de départ",
+			"initDiseases": "Maladies de départ"
 		}
 	},
 	"charselection": {

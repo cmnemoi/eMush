@@ -11,71 +11,6 @@
         </div>
         <div class="flex-row">
             <Input
-                :label="$t('admin.difficultyConfig.equipmentBreakRate')"
-                id="difficultyConfig_equipmentBreakRate"
-                v-model="difficultyConfig.equipmentBreakRate"
-                type="number"
-                :errors="errors.name"
-            />
-            <Input
-                :label="$t('admin.difficultyConfig.equipmentBreakRate')"
-                id="difficultyConfig_attribute"
-                v-model="difficultyConfig.equipmentBreakRate"
-                type="number"
-                :errors="errors.equipmentBreakRate"
-            />
-            
-            <Input
-                :label="$t('admin.difficultyConfig.doorBreakRate')"
-                id="difficultyConfig_attribute"
-                v-model="difficultyConfig.doorBreakRate"
-                type="number"
-                :errors="errors.doorBreakRate"
-            />
-            
-            <Input
-                :label="$t('admin.difficultyConfig.equipmentFireBreakRate')"
-                id="difficultyConfig_attribute"
-                v-model="difficultyConfig.equipmentFireBreakRate"
-                type="number"
-                :errors="errors.equipmentFireBreakRate"
-            />
-        </div>
-        <div class="flex-row">
-            <Input
-                :label="$t('admin.difficultyConfig.startingFireRate')"
-                id="difficultyConfig_attribute"
-                v-model="difficultyConfig.startingFireRate"
-                type="number"
-                :errors="errors.startingFireRate"
-            />
-            
-            <Input
-                :label="$t('admin.difficultyConfig.propagatingFireRate')"
-                id="difficultyConfig_attribute"
-                v-model="difficultyConfig.propagatingFireRate"
-                type="number"
-                :errors="errors.propagatingFireRate"
-            />
-            
-            <Input
-                :label="$t('admin.difficultyConfig.hullFireDamageRate')"
-                id="difficultyConfig_attribute"
-                v-model="difficultyConfig.hullFireDamageRate"
-                type="number"
-                :errors="errors.hullFireDamageRate"
-            />
-            
-            <Input
-                :label="$t('admin.difficultyConfig.tremorRate')"
-                id="difficultyConfig_attribute"
-                v-model="difficultyConfig.tremorRate"
-                type="number"
-                :errors="errors.tremorRate"
-            />
-        </div>
-        <div class="flex-row">
-            <Input
                 :label="$t('admin.difficultyConfig.electricArcRate')"
                 id="difficultyConfig_attribute"
                 v-model="difficultyConfig.electricArcRate"
@@ -99,20 +34,75 @@
                 :errors="errors.panicCrisisRate"
             />
             <Input
-                :label="$t('admin.difficultyConfig.plantDiseaseRate')"
+                :label="$t('admin.difficultyConfig.tremorRate')"
                 id="difficultyConfig_attribute"
-                v-model="difficultyConfig.plantDiseaseRate"
+                v-model="difficultyConfig.tremorRate"
                 type="number"
-                :errors="errors.plantDiseaseRate"
+                :errors="errors.tremorRate"
+            />
+            <Input
+                :label="$t('admin.difficultyConfig.startingFireRate')"
+                id="difficultyConfig_attribute"
+                v-model="difficultyConfig.startingFireRate"
+                type="number"
+                :errors="errors.startingFireRate"
             />
         </div>
         <div class="flex-row">
+            <Input
+                :label="$t('admin.difficultyConfig.equipmentBreakRate')"
+                id="difficultyConfig_attribute"
+                v-model="difficultyConfig.equipmentBreakRate"
+                type="number"
+                :errors="errors.equipmentBreakRate"
+            />
+            
+            <Input
+                :label="$t('admin.difficultyConfig.doorBreakRate')"
+                id="difficultyConfig_attribute"
+                v-model="difficultyConfig.doorBreakRate"
+                type="number"
+                :errors="errors.doorBreakRate"
+            />
+            
+            <Input
+                :label="$t('admin.difficultyConfig.equipmentFireBreakRate')"
+                id="difficultyConfig_attribute"
+                v-model="difficultyConfig.equipmentFireBreakRate"
+                type="number"
+                :errors="errors.equipmentFireBreakRate"
+            />
+            
+            <Input
+                :label="$t('admin.difficultyConfig.propagatingFireRate')"
+                id="difficultyConfig_attribute"
+                v-model="difficultyConfig.propagatingFireRate"
+                type="number"
+                :errors="errors.propagatingFireRate"
+            />
             <Input
                 :label="$t('admin.difficultyConfig.cycleDiseaseRate')"
                 id="difficultyConfig_attribute"
                 v-model="difficultyConfig.cycleDiseaseRate"
                 type="number"
                 :errors="errors.cycleDiseaseRate"
+            />
+            
+        </div>
+        <div class="flex-row">
+            <Input
+                :label="$t('admin.difficultyConfig.hullFireDamageRate')"
+                id="difficultyConfig_attribute"
+                v-model="difficultyConfig.hullFireDamageRate"
+                type="number"
+                :errors="errors.hullFireDamageRate"
+            />
+            <Input
+                :label="$t('admin.difficultyConfig.plantDiseaseRate')"
+                id="difficultyConfig_attribute"
+                v-model="difficultyConfig.plantDiseaseRate"
+                type="number"
+                :errors="errors.plantDiseaseRate"
             />
         </div>
         <button class="action-button" type="submit" @click="update">

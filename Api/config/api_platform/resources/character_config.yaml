@@ -24,3 +24,11 @@ Mush\Player\Entity\Config\CharacterConfig:
       subresource:
         resourceClass: 'Mush\Action\Entity\Action'
         collection: true
+    startingItems:
+      subresource:
+        resourceClass: 'Mush\Equipment\Entity\Config\ItemConfig'
+        collection: true
+    initDiseases:
+      subresource:
+        resourceClass: 'Mush\Disease\Entity\Config\DiseaseConfig'
+        collection: true

@@ -22,3 +22,5 @@ Mush\Equipment\Entity\Config\EquipmentConfig:
       groups: [ 'equipment_config_read', 'equipment_config_write' ]
     isPersonal:
       groups: [ 'equipment_config_read', 'equipment_config_write' ]
+    startingItems:
+      groups: [ 'equipment_config_read', 'equipment_config_write' ]

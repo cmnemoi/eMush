@@ -1,10 +1,12 @@
+import { SymptomCondition } from "@/entities/Config/SymptomCondition";
+
 export class SymptomConfig {
     public iri: string|null;
     public id: number|null;
     public name: string|null;
     public trigger: string|null;
     public visibility: number|null;
-    public symptomConditions: Array<any>|null;
+    public symptomConditions: SymptomCondition[]|null;
 
     constructor() {
         this.iri = null;
@@ -12,37 +14,41 @@ export class SymptomConfig {
         this.name = null;
         this.trigger = null;
         this.visibility = null;
-        this.symptomConditions = [];
+        this.symptomConditions = null;
     }
     load(object:any) : SymptomConfig {
         if (typeof object !== "undefined") {
-            this.iri = object.iri;
+            this.iri = object['@id'];
             this.id = object.id;
             this.name = object.name;
             this.trigger = object.trigger;
             this.visibility = object.visibility;
-            this.symptomConditions = object.symptomConditions;
+        }
+        if (typeof object.symptomCondition !== 'undefined') {
+            const symptomConditions : SymptomCondition[] = [];
+            object.symptomCondition.forEach((symptomConditionData: any) => {
+                const symptomCondition = (new SymptomCondition()).load(symptomConditionData);
+                symptomConditions.push(symptomCondition);
+            });
+            this.symptomConditions = symptomConditions;
         }
         return this;
     }
     jsonEncode() : object {
+        const symptomConditions : string[] = [];
+        this.symptomConditions?.forEach(symptomCondition => (typeof symptomCondition.iri === 'string' ? symptomConditions.push(symptomCondition.iri) : null));
         return {
             'id': this.id,
             'name': this.name,
             'trigger': this.trigger,
             'visibility': this.visibility,
-            'symptomConditions': this.symptomConditions
+            'symptomConditions': symptomConditions
         };
     }
     decode(jsonString : string): SymptomConfig {
         if (jsonString) {
             const object = JSON.parse(jsonString);
-            this.iri = object.iri;
-            this.id = object.id;
-            this.name = object.name;
-            this.trigger = object.trigger;
-            this.visibility = object.visibility;
-            this.symptomConditions = object.symptomConditions;
+            this.load(object);
         }
 
         return this;

@@ -11,6 +11,7 @@ use Mush\Action\DataFixtures\MushActionFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
 use Mush\Disease\DataFixtures\DisorderConfigFixtures;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Equipment\DataFixtures\PersonalEquipmentConfigFixtures;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -49,7 +50,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::PILOT,
                 SkillEnum::POLYVALENT,
             ])
-            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
+            ->setStartingItems(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($andie);
 
@@ -66,7 +67,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::TORTURER,
                 SkillEnum::WRESTLER,
             ])
-        ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
+        ->setStartingItems(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($chao);
 
@@ -85,7 +86,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::PREMONITION,
                 SkillEnum::SNEAK,
             ])
-            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
+            ->setStartingItems(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($chun);
 
@@ -104,9 +105,12 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::WRESTLER,
                 SkillEnum::HYGIENIST,
             ])
-            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
+            ->setStartingItems(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($derek);
+
+        /** @var DiseaseConfig $chronicVertigo */
+        $chronicVertigo = $this->getReference(DisorderEnum::CHRONIC_VERTIGO);
 
         $eleesha = $this->buildDefaultCharacterConfig();
         $eleesha
@@ -121,8 +125,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::TECHNICIAN,
                 SkillEnum::TRACKER,
             ])
-            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
-            ->setInitDiseases([DisorderEnum::CHRONIC_VERTIGO])
+            ->setStartingItems(new ArrayCollection([$trackerConfig, $talkieConfig]))
+            ->setInitDiseases(new ArrayCollection([$chronicVertigo]))
         ;
         $manager->persist($eleesha);
 
@@ -156,7 +160,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::RADIO_EXPERT,
                 SkillEnum::SURVIVALIST,
             ])
-            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
+            ->setStartingItems(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($frieda);
 
@@ -173,7 +177,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::SOLID,
                 SkillEnum::VICTIMIZER,
             ])
-            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
+            ->setStartingItems(new ArrayCollection([$iTrackieConfig]))
         ;
         $manager->persist($gioele);
 
@@ -190,7 +194,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::TECHNICIAN,
                 SkillEnum::U_TURN,
             ])
-            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
+            ->setStartingItems(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($hua);
 
@@ -210,7 +214,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::GREEN_THUMB,
                 SkillEnum::MYCOLOGIST,
             ])
-            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
+            ->setStartingItems(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($ian);
 
@@ -227,7 +231,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::SELF_SACRIFICE,
                 SkillEnum::SHRINK,
             ])
-            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
+            ->setStartingItems(new ArrayCollection([$iTrackieConfig]))
         ;
         $manager->persist($janice);
 
@@ -244,7 +248,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::SHOOTER,
                 SkillEnum::STRATEGURU,
             ])
-            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
+            ->setStartingItems(new ArrayCollection([$iTrackieConfig]))
         ;
         $manager->persist($jinSu);
 
@@ -261,7 +265,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::TECHNICIAN,
                 SkillEnum::OPTIMIST,
             ])
-            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
+            ->setStartingItems(new ArrayCollection([$iTrackieConfig]))
         ;
         $manager->persist($kuanTi);
 
@@ -278,7 +282,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::REBEL,
                 SkillEnum::SHOOTER,
             ])
-            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
+            ->setStartingItems(new ArrayCollection([$iTrackieConfig]))
         ;
         $manager->persist($paola);
 
@@ -296,7 +300,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::PHYSICIST,
                 SkillEnum::TECHNICIAN,
             ])
-            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
+            ->setStartingItems(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($raluca);
 
@@ -313,7 +317,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::SPRINTER,
                 SkillEnum::OPTIMIST,
             ])
-            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
+            ->setStartingItems(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($roland);
 
@@ -330,7 +334,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::SHOOTER,
                 SkillEnum::SOLID,
             ])
-            ->setStartingItem(new ArrayCollection([$trackerConfig, $talkieConfig]))
+            ->setStartingItems(new ArrayCollection([$trackerConfig, $talkieConfig]))
         ;
         $manager->persist($stephen);
 
@@ -350,7 +354,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::SHOOTER,
                 SkillEnum::TECHNICIAN,
             ])
-            ->setStartingItem(new ArrayCollection([$iTrackieConfig]))
+            ->setStartingItems(new ArrayCollection([$iTrackieConfig]))
         ;
         $manager->persist($terrence);
 

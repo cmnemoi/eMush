@@ -127,6 +127,14 @@ class PlayerSubscriber implements EventSubscriberInterface
         $reason = $event->getReason();
 
         $initDiseases = $characterConfig->getInitDiseases();
+        // get diseases name from initDiseases configs with a closure
+        $initDiseases = array_map(
+            function ($diseaseConfig) {
+                return $diseaseConfig->getDiseaseName();
+            },
+            $initDiseases->toArray()
+        );
+
         foreach ($initDiseases as $diseaseName) {
             $this->playerDiseaseService->createDiseaseFromName(
                 $diseaseName,

@@ -1,6 +1,6 @@
 Mush\Disease\Entity\Config\DiseaseConfig:
   shortName: 'DiseaseConfig'
-  description: 'eMush SymptomConfig'
+  description: 'eMush DiseaseConfig'
   attributes:
     pagination_items_per_page: 25
     normalization_context:
@@ -11,7 +11,8 @@ Mush\Disease\Entity\Config\DiseaseConfig:
     get:
       filters: [ 'default.search_filter', 'default.order_filter' ]
   itemOperations:
-    get: ~
+    get: 
+      security: 'is_granted("ROLE_ADMIN")'
     put:
       security: 'is_granted("ROLE_ADMIN")'
   properties:

@@ -108,7 +108,7 @@
                 :errors="errors.maxItemInInventory"
             />
         </div>
-        <h3> {{$t('admin.characterconfig.initstatuses')}} </h3>
+        <h3> {{$t('admin.characterconfig.initStatuses')}} </h3>
         <ChildCollectionManager :children="characterConfig.initStatuses" @addId="selectNewInitStatus" @remove="removeInitStatus">
             <template #header="child">
                 <span>{{ child.id }} - {{ child.name }}</span>
@@ -132,6 +132,24 @@
                 {{ item }}
             </option>
         </select>
+        <h3> {{$t('admin.characterconfig.startingItems')}} </h3>
+        <ChildCollectionManager :children="characterConfig.startingItems" @addId="selectNewStartingItem" @remove="removeStartingItem">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+            <template #body="child">
+                <span>{{ $t('admin.characterconfig.name') }} {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
+        <h3> {{$t('admin.characterconfig.initDiseases')}} </h3>
+        <ChildCollectionManager :children="characterConfig.initDiseases" @addId="selectNewInitDisease" @remove="removeInitDisease">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+            <template #body="child">
+                <span>{{ $t('admin.characterconfig.name') }} {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
         <button class="action-button" type="submit" @click="update">
             {{ $t('admin.save') }}
         </button>
@@ -151,6 +169,8 @@ import { StatusConfig } from "@/entities/Config/StatusConfig";
 import { Action } from "@/entities/Action";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
+import { ItemConfig } from "@/entities/Config/ItemConfig";
+import { DiseaseConfig } from "@/entities/Config/DiseaseConfig";
 
 interface CharacterConfigState {
     characterConfig: null|CharacterConfig
@@ -202,6 +222,28 @@ export default defineComponent({
                                     this.characterConfig.actions = actions;
                                 }
                             });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'character_configs', String(this.characterConfig.id), 'starting_items'))
+                            .then((result) => {
+                                const startingItems: ItemConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    const currentItemConfig = (new ItemConfig()).load(datum);
+                                    startingItems.push(currentItemConfig);
+                                });
+                                if (this.characterConfig instanceof CharacterConfig) {
+                                    this.characterConfig.startingItems = startingItems;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'character_configs', String(this.characterConfig.id), 'init_diseases'))
+                            .then((result) => {
+                                const initDiseases: DiseaseConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    const currentDiseaseConfig = (new DiseaseConfig()).load(datum);
+                                    initDiseases.push(currentDiseaseConfig);
+                                });
+                                if (this.characterConfig instanceof CharacterConfig) {
+                                    this.characterConfig.initDiseases = initDiseases;
+                                }
+                            });
                     }
                 })
                 .catch((error) => {
@@ -241,7 +283,31 @@ export default defineComponent({
             if (this.characterConfig && this.characterConfig.actions) {
                 this.characterConfig.actions = removeItem(this.characterConfig.actions, child);
             }
-        }
+        },
+        selectNewStartingItem(selectedId: any) {
+            GameConfigService.loadItemConfig(selectedId).then((res) => {
+                if (res && this.characterConfig && this.characterConfig.startingItems) {
+                    this.characterConfig.startingItems.push(res);
+                }
+            });
+        },
+        removeStartingItem(child: any) {
+            if (this.characterConfig && this.characterConfig.startingItems) {
+                this.characterConfig.startingItems = removeItem(this.characterConfig.startingItems, child);
+            }
+        },
+        selectNewInitDisease(selectedId: any) {
+            GameConfigService.loadDiseaseConfig(selectedId).then((res) => {
+                if (res && this.characterConfig && this.characterConfig.initDiseases) {
+                    this.characterConfig.initDiseases.push(res);
+                }
+            });
+        },
+        removeInitDisease(child: any) {
+            if (this.characterConfig && this.characterConfig.initDiseases) {
+                this.characterConfig.initDiseases = removeItem(this.characterConfig.initDiseases, child);
+            }
+        },
     },
     beforeMount() {
         const characterConfigId = String(this.$route.params.characterConfigId);
@@ -267,6 +333,28 @@ export default defineComponent({
                     });
                     if (this.characterConfig instanceof CharacterConfig) {
                         this.characterConfig.actions = actions;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'character_configs', characterConfigId, 'starting_items'))
+                .then((result) => {
+                    const startingItems : ItemConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        const currentItemConfig = (new ItemConfig()).load(datum);
+                        startingItems.push(currentItemConfig);
+                    });
+                    if (this.characterConfig instanceof CharacterConfig) {
+                        this.characterConfig.startingItems = startingItems;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'character_configs', characterConfigId, 'init_diseases'))
+                .then((result) => {
+                    const initDiseases : DiseaseConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        const currentDiseaseConfig = (new DiseaseConfig()).load(datum);
+                        initDiseases.push(currentDiseaseConfig);
+                    });
+                    if (this.characterConfig instanceof CharacterConfig) {
+                        this.characterConfig.initDiseases = initDiseases;
                     }
                 });
         });

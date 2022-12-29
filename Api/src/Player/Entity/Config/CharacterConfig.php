@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\Action;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 
@@ -36,8 +37,8 @@ class CharacterConfig
     #[ORM\ManyToMany(targetEntity: ItemConfig::class)]
     private Collection $startingItems;
 
-    #[ORM\Column(type: 'array', nullable: true)]
-    private array $initDiseases;
+    #[ORM\ManyToMany(targetEntity: DiseaseConfig::class)]
+    private Collection $initDiseases;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $maxNumberPrivateChannel = 0;
@@ -77,7 +78,7 @@ class CharacterConfig
         $this->initStatuses = new ArrayCollection();
         $this->actions = new ArrayCollection();
         $this->startingItems = new ArrayCollection();
-        $this->initDiseases = [];
+        $this->initDiseases = new ArrayCollection();
         $this->skills = [];
     }
 
@@ -167,7 +168,7 @@ class CharacterConfig
         return $this;
     }
 
-    public function getStartingItem(): Collection
+    public function getStartingItems(): Collection
     {
         return $this->startingItems;
     }
@@ -175,20 +176,31 @@ class CharacterConfig
     /**
      * @param Collection<int, ItemConfig> $items
      */
-    public function setStartingItem(Collection $items): static
+    public function setStartingItems(Collection|array $items): static
     {
+        if (is_array($items)) {
+            $items = new ArrayCollection($items);
+        }
+
         $this->startingItems = $items;
 
         return $this;
     }
 
-    public function getInitDiseases(): array
+    public function getInitDiseases(): Collection
     {
         return $this->initDiseases;
     }
 
-    public function setInitDiseases(array $initDiseases): static
+    /**
+     * @param Collection<int, DiseaseConfig> $initDiseases
+     */
+    public function setInitDiseases(Collection|array $initDiseases): static
     {
+        if (is_array($initDiseases)) {
+            $initDiseases = new ArrayCollection($initDiseases);
+        }
+
         $this->initDiseases = $initDiseases;
 
         return $this;

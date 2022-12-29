@@ -172,7 +172,7 @@ class PlayerService implements PlayerServiceInterface
         ;
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::NEW_PLAYER);
 
-        foreach ($characterConfig->getStartingItem() as $itemConfig) {
+        foreach ($characterConfig->getStartingItems() as $itemConfig) {
             // Create the equipment
             $item = $this->gameEquipmentService->createGameEquipment(
                 $itemConfig,

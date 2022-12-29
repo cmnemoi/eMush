@@ -14,7 +14,7 @@ export class SymptomCondition {
     }
     load(object:any) : SymptomCondition {
         if (typeof object !== "undefined") {
-            this.iri = object.iri;
+            this.iri = object['@id'];
             this.id = object.id;
             this.name = object.name;
             this.condition = object.condition;

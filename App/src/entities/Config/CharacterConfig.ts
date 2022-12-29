@@ -1,5 +1,7 @@
 import { Action } from "@/entities/Action";
 import { StatusConfig } from "@/entities/Config/StatusConfig";
+import { ItemConfig } from "@/entities/Config/ItemConfig";
+import { DiseaseConfig } from "./DiseaseConfig";
 
 
 export class CharacterConfig {
@@ -10,8 +12,8 @@ export class CharacterConfig {
     public initStatuses: StatusConfig[]|null;
     public actions: Action[]|null;
     public skills: Array<string>|null;
-    public startingItems: Array<any>|null;
-    public initDiseases: Array<any>|null;
+    public startingItems: ItemConfig[]|null;
+    public initDiseases: DiseaseConfig[]|null;
     public initHealthPoint: number|null;
     public maxHealthPoint: number|null;
     public initMoralPoint: number|null;
@@ -32,8 +34,8 @@ export class CharacterConfig {
         this.initStatuses = null;
         this.actions = null;
         this.skills = [];
-        this.startingItems = [];
-        this.initDiseases = [];
+        this.startingItems = null;
+        this.initDiseases = null;
         this.initHealthPoint = null;
         this.maxHealthPoint = null;
         this.initMoralPoint = null;
@@ -53,8 +55,6 @@ export class CharacterConfig {
             this.name = object.name;
             this.characterName = object.characterName;
             this.skills = object.skills;
-            this.startingItems = object.startingItems;
-            this.initDiseases = object.initDiseases;
             this.initHealthPoint = object.initHealthPoint;
             this.maxHealthPoint = object.maxHealthPoint;
             this.initMoralPoint = object.initMoralPoint;
@@ -82,6 +82,22 @@ export class CharacterConfig {
                 });
                 this.initStatuses = initStatuses;
             }
+            if (typeof object.startingItems !== 'undefined') {
+                const startingItems : ItemConfig[] = [];
+                object.startingItems.forEach((startingItemData: any) => {
+                    const itemConfig = (new ItemConfig()).load(startingItemData);
+                    startingItems.push(itemConfig);
+                });
+                this.startingItems = startingItems;
+            }
+            if (typeof object.initDiseases !== 'undefined') {
+                const initDiseases : DiseaseConfig[] = [];
+                object.initDiseases.forEach((initDiseaseData: any) => {
+                    const diseaseConfig = (new DiseaseConfig()).load(initDiseaseData);
+                    initDiseases.push(diseaseConfig);
+                });
+                this.initDiseases = initDiseases;
+            }
         }
         return this;
     }
@@ -90,6 +106,10 @@ export class CharacterConfig {
         this.actions?.forEach(action => (typeof action.iri === 'string' ? actions.push(action.iri) : null));
         const initStatuses : string[] = [];
         this.initStatuses?.forEach(statusConfig => (typeof statusConfig.iri === 'string' ? initStatuses.push(statusConfig.iri) : null));
+        const startingItems : string[] = [];
+        this.startingItems?.forEach(itemConfig => (typeof itemConfig.iri === 'string' ? startingItems.push(itemConfig.iri) : null));
+        const initDiseases : string[] = [];
+        this.initDiseases?.forEach(diseaseConfig => (typeof diseaseConfig.iri === 'string' ? initDiseases.push(diseaseConfig.iri) : null));
         const data: any = {
             'id': this.id,
             'name': this.name,
@@ -97,8 +117,8 @@ export class CharacterConfig {
             'initStatuses': initStatuses,
             'actions': actions,
             'skills': this.skills,
-            'startingItems': this.startingItems,
-            'initDiseases': this.initDiseases,
+            'startingItems': startingItems,
+            'initDiseases': initDiseases,
             'initHealthPoint': this.initHealthPoint,
             'maxHealthPoint': this.maxHealthPoint,
             'initMoralPoint': this.initMoralPoint,

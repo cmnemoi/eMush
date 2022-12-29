@@ -291,7 +291,8 @@
         <target>:psy_disease: Vous ne vous sentez pas très très bien... Votre tête tourne, vous vous sentez confus, 
 {character_gender, select,
 male {stressé, angoissé}
-female {stressée, angoisée}
+female {stressée, angoissée}
+other {stressé, angoissé}
 }. Vous devriez voir un *Psy*. Vous avez développé une maladie mentale : {disease}.</target>
       </segment>
     </unit>

@@ -260,7 +260,7 @@
     <unit id="rejuvenate">
       <segment id="rejuvenate" state="final">
         <source>rejuvenate.name</source>
-        <target>Recover</target>
+        <target>Rejuvenate</target>
       </segment>
       <segment id="description" state="final">
         <source>rejuvenate.description</source>

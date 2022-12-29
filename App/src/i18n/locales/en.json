@@ -146,6 +146,41 @@
 			"nbMush": "Initial number of Mushs",
 			"cyclePerGameDay": "Number of cycles per day",
 			"cycleLength": "Cycle length (in minutes)"
+		},
+		"difficultyConfig": {
+			"name": "Name",
+			"equipmentBreakRate": "Equipment break rate at cycle change",
+			"doorBreakRate": "Door break rate at cycle change",
+			"equipmentFireBreakRate": "Equipment break rate by fires",
+			"startingFireRate": "Starting fire rate at cycle change",
+			"propagatingFireRate": "Fire propagating rate",
+			"hullFireDamageRate": "Fire damage rate to hull",
+			"tremorRate": "Tremor rate",
+			"electricArcRate": "Electric arc rate",
+			"metalPlateRate": "Metal plate rate",
+			"panicCrisisRate": "Panic attack rate",
+			"plantDiseaseRate": "Disease rate at cycle change (plants)",
+			"cycleDiseaseRate": "Disease rate at cycle change (players)"
+		},
+		"characterConfig": {
+			"name": "Name",
+			"characterName": "Character name",
+			"maxNumberPrivateChannel": "Maximum amount of private channels",
+			"initHealthPoint": "Initial Health Points",
+			"initMovementPoint": "Initial Movement Points",
+			"initMoralPoint": "Initial Moral Points amount",
+			"initActionPoint": "Initial Action Points amount",
+			"initSatiety": "Initial satiety",
+			"maxActionPoint": "Maximum Action Points amount",
+			"maxMovementPoint": "Maximum Movement Points amount",
+			"maxMoralPoint": "Maximum Moral Points amount",
+			"maxHealthPoint": "Maximum Health Points amount",
+			"maxItemInInventory": "Maximum amount of items in inventory",
+			"initStatuses": "Initial statuses",
+			"actions": "Actions",
+			"skills": "Skills",
+			"startingItems": "Starting items",
+			"initDiseases": "Initial diseases"
 		}
 	},
 	"charselection": {

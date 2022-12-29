@@ -36,6 +36,8 @@ interface RandomServiceInterface
 
     public function getRandomElementsFromProbaArray(array $array, int $number): array;
 
+    public function getRandomDaedalusEquipmentFromProbaArray(array $array, int $number, Daedalus $daedalus): array;
+
     /** Generate a random number from a Poisson process (Knuth algorithm).
      *
      * P(k) = exp(-lambda) * lambda^k / k!

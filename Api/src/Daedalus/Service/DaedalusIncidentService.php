@@ -5,7 +5,6 @@ namespace Mush\Daedalus\Service;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
@@ -109,13 +108,24 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         $numberOfEquipmentBroken = $this->getNumberOfIncident($daedalus);
 
         if ($numberOfEquipmentBroken > 0) {
-            $criteria = new GameEquipmentCriteria($daedalus);
-            $criteria->setNotInstanceOf([Door::class, GameItem::class]);
-            $criteria->setBreakable(true);
+            $workingEquipmentBreakRateDistribution = $this->getWorkingEquipmentBreakRateDistribution($daedalus);
 
-            $daedalusEquipments = $this->gameEquipmentRepository->findByCriteria($criteria);
+            // If there is no working equipment, we don't have to break anything so we return 0
+            if (count($workingEquipmentBreakRateDistribution) === 0) {
+                return 0;
+            }
+            // If there is less working equipment than the number of equipment we want to break
+            // we break the number of working equipment instead to avoid an error
+            if ($numberOfEquipmentBroken > count($workingEquipmentBreakRateDistribution)) {
+                $numberOfEquipmentBroken = count($workingEquipmentBreakRateDistribution);
+            }
 
-            $brokenEquipments = $this->randomService->getRandomElements($daedalusEquipments, $numberOfEquipmentBroken);
+            $brokenEquipments = $this
+                ->randomService
+                ->getRandomDaedalusEquipmentFromProbaArray(
+                    $workingEquipmentBreakRateDistribution,
+                    $numberOfEquipmentBroken,
+                    $daedalus);
 
             foreach ($brokenEquipments as $gameEquipment) {
                 if (!$gameEquipment->isBroken()) {
@@ -245,13 +255,47 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         }
     }
 
-    // Incident number follows approximatively a Poisson distribution P(lambda)
-    // where lambda = 3.3*10^(-3) * day^1.7 is the average number of incidents per cycle
-    // @TODO : handle accumulated incidents
+    /**
+     * Get the number of incidents that will happen during the cycle.
+     * Incident number follows approximatively a Poisson distribution P(lambda)
+     * where lambda = 3.3*10^(-3) * day^1.7 is the average number of incidents per cycle.
+     */
     private function getNumberOfIncident(Daedalus $daedalus): int
     {
-        $averageIncidentsPerCycle = 3.3 * pow(10, -3) * $daedalus->getDay() ** 1.7;
+        $averageIncidentsPerCycle = 3.3 * 10 ** (-3) * $daedalus->getDay() ** 1.7;
 
         return $this->randomService->poissonRandom($averageIncidentsPerCycle);
+    }
+
+    /**
+     * This function returns the distribution of the working equipment break rate
+     * to avoid trying to break a piece of equipment that is already broken
+     * (and get less broken equipment than expected).
+     *
+     * @return array<string, int>
+     */
+    private function getWorkingEquipmentBreakRateDistribution(Daedalus $daedalus): array
+    {
+        $equipmentBreakRateDistribution = $daedalus
+            ->getGameConfig()
+            ->getDifficultyConfig()
+            ->getEquipmentBreakRateDistribution();
+
+        $workingEquipmentBreakRateDistribution = [];
+        foreach (array_keys($equipmentBreakRateDistribution) as $equipmentName) {
+            // If the equipment is not found, it means it hasn't been build yet (Calculator, Thalasso, etc.)
+            // and therefore can't be broken
+            try {
+                $equipment = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus)[0];
+            } catch (\Exception $e) {
+                continue;
+            }
+            if ($equipment->isBroken()) {
+                continue;
+            }
+            $workingEquipmentBreakRateDistribution[$equipmentName] = $equipmentBreakRateDistribution[$equipmentName];
+        }
+
+        return $workingEquipmentBreakRateDistribution;
     }
 }

@@ -258,11 +258,11 @@
       </segment>
     </unit>
     <unit id="rejuvenate">
-      <segment id="rejuvenate" state="final">
+      <segment id="rejuvenate" state="translated">
         <source>rejuvenate.name</source>
         <target>Rejuvenate</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>rejuvenate.description</source>
         <target>Allows you to recover all your :pa:, :pm:, :hp: and :pmo:. 
 //

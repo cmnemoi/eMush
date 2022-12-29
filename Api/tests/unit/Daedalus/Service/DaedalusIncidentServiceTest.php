@@ -5,6 +5,7 @@ namespace unit\Daedalus\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Service\DaedalusIncidentService;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
@@ -12,6 +13,9 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
+use Mush\Game\Entity\DifficultyConfig;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -161,9 +165,19 @@ class DaedalusIncidentServiceTest extends TestCase
 
     public function testHandleEquipmentBreakEvents()
     {
+        $difficultyConfig = new DifficultyConfig();
+        $difficultyConfig->setEquipmentBreakRateDistribution(['communication_center' => 1]);
+
+        $gameConfig = new GameConfig();
+        $gameConfig->setDifficultyConfig($difficultyConfig);
+
+        $daedalus = new Daedalus();
+
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+
         $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
 
-        $broken = $this->service->handleEquipmentBreak(new Daedalus(), new \DateTime());
+        $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
 
         $this->assertEquals(0, $broken);
 
@@ -171,15 +185,18 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $equipment = new GameEquipment(new Place());
 
+        $this->isFalse($equipment->isBroken());
+
         $this->gameEquipmentRepository
-            ->shouldReceive('findByCriteria')
-            ->withArgs(fn (GameEquipmentCriteria $criteria) => $criteria->getNotInstanceOf() === [Door::class, GameItem::class])
+            ->shouldReceive('findByNameAndDaedalus')
+            ->withArgs(['communication_center', $daedalus])
             ->andReturn([$equipment])
             ->once()
         ;
 
         $this->randomService
-            ->shouldReceive('getRandomElements')
+            ->shouldReceive('getRandomDaedalusEquipmentFromProbaArray')
+            ->withArgs([['communication_center' => 1], 1, $daedalus])
             ->andReturn([$equipment])
             ->once()
         ;
@@ -192,13 +209,24 @@ class DaedalusIncidentServiceTest extends TestCase
             ->once()
         ;
 
-        $broken = $this->service->handleEquipmentBreak(new Daedalus(), new \DateTime());
+        $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
 
+        $this->isTrue($equipment->isBroken());
         $this->assertEquals(1, $broken);
     }
 
     public function testEquipmentBreakAlreadyBrokenEvent()
     {
+        $difficultyConfig = new DifficultyConfig();
+        $difficultyConfig->setEquipmentBreakRateDistribution(['communication_center' => 1]);
+
+        $gameConfig = new GameConfig();
+        $gameConfig->setDifficultyConfig($difficultyConfig);
+
+        $daedalus = new Daedalus();
+
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
         $equipment = new GameEquipment(new Place());
@@ -207,16 +235,16 @@ class DaedalusIncidentServiceTest extends TestCase
         $brokenStatus = new Status($equipment, $brokenConfig);
 
         $this->gameEquipmentRepository
-            ->shouldReceive('findByCriteria')
-            ->withArgs(fn (GameEquipmentCriteria $criteria) => $criteria->getNotInstanceOf() === [Door::class, GameItem::class])
+            ->shouldReceive('findByNameAndDaedalus')
+            ->withArgs(['communication_center', $daedalus])
             ->andReturn([$equipment])
             ->once()
         ;
 
         $this->randomService
-            ->shouldReceive('getRandomElements')
+            ->shouldReceive('getRandomDaedalusEquipmentFromProbaArray')
             ->andReturn([$equipment])
-            ->once()
+            ->never()
         ;
 
         $this->eventDispatcher
@@ -227,13 +255,23 @@ class DaedalusIncidentServiceTest extends TestCase
             ->never()
         ;
 
-        $broken = $this->service->handleEquipmentBreak(new Daedalus(), new \DateTime());
+        $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
 
-        $this->assertEquals(1, $broken);
+        $this->assertEquals(0, $broken);
     }
 
     public function testNotBreakingGameItems()
     {
+        $difficultyConfig = new DifficultyConfig();
+        $difficultyConfig->setEquipmentBreakRateDistribution(['communication_center' => 1]);
+
+        $gameConfig = new GameConfig();
+        $gameConfig->setDifficultyConfig($difficultyConfig);
+
+        $daedalus = new Daedalus();
+
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+
         $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
 
         $broken = $this->service->handleEquipmentBreak(new Daedalus(), new \DateTime());
@@ -246,14 +284,15 @@ class DaedalusIncidentServiceTest extends TestCase
         $equipment = new GameEquipment(new Place());
 
         $this->gameEquipmentRepository
-            ->shouldReceive('findByCriteria')
-            ->withArgs(fn (GameEquipmentCriteria $criteria) => $criteria->getNotInstanceOf() === [Door::class, GameItem::class])
+            ->shouldReceive('findByNameAndDaedalus')
+            ->withArgs(['communication_center', $daedalus])
             ->andReturn([$equipment])
             ->once()
         ;
 
         $this->randomService
-            ->shouldReceive('getRandomElements')
+            ->shouldReceive('getRandomDaedalusEquipmentFromProbaArray')
+            ->withArgs([['communication_center' => 1], 1, $daedalus])
             ->andReturn([$equipment])
             ->once()
         ;
@@ -266,7 +305,7 @@ class DaedalusIncidentServiceTest extends TestCase
             ->once()
         ;
 
-        $broken = $this->service->handleEquipmentBreak(new Daedalus(), new \DateTime());
+        $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
 
         $this->assertEquals(1, $broken);
     }

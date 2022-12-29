@@ -7,6 +7,7 @@ use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -14,6 +15,13 @@ use Mush\Player\Entity\Player;
 
 class RandomService implements RandomServiceInterface
 {
+    private GameEquipmentRepository $gameEquipmentRepository;
+
+    public function __construct(GameEquipmentRepository $gameEquipmentRepository)
+    {
+        $this->gameEquipmentRepository = $gameEquipmentRepository;
+    }
+
     public function random(int $min, int $max): int
     {
         return random_int($min, $max);
@@ -153,6 +161,23 @@ class RandomService implements RandomServiceInterface
         }
 
         return $randomElements;
+    }
+
+    public function getRandomDaedalusEquipmentFromProbaArray(array $array, int $number, Daedalus $daedalus): array
+    {
+        $equipmentNames = $this->getRandomElementsFromProbaArray($array, $number);
+
+        $equipments = [];
+        foreach ($equipmentNames as $equipmentName) {
+            try {
+                $equipment = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus)[0];
+            } catch (\Exception $e) {
+                continue;
+            }
+            $equipments[] = $equipment;
+        }
+
+        return $equipments;
     }
 
     /** Generate a random number from a Poisson process (Knuth algorithm).

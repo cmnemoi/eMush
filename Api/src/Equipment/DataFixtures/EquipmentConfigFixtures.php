@@ -256,7 +256,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions(new ArrayCollection([$dismantle25, $examineAction, $showerAction]))
+            ->setActions(new ArrayCollection([$repair25, $dismantle25, $examineAction, $showerAction]))
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -268,7 +268,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setEquipmentName(EquipmentEnum::PATROL_SHIP)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions(new ArrayCollection([$examineAction]))
+            ->setIsBreakable(true)
+            ->setActions(new ArrayCollection([$repair12, $examineAction]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($patrolShip);
@@ -278,7 +279,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setEquipmentName(EquipmentEnum::PASIPHAE)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions(new ArrayCollection([$examineAction]))
+            ->setIsBreakable(true)
+            ->setActions(new ArrayCollection([$repair12, $examineAction]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($pasiphae);
@@ -370,7 +372,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions(new ArrayCollection([$dismantle25, $examineAction, $showerAction]))
+            ->setActions(new ArrayCollection([$repair25, $dismantle25, $examineAction, $showerAction]))
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
             ->buildName(GameConfigEnum::DEFAULT)
         ;

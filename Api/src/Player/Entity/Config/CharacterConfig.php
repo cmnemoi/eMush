@@ -36,7 +36,7 @@ class CharacterConfig
     #[ORM\ManyToMany(targetEntity: ItemConfig::class)]
     private Collection $startingItems;
 
-    #[ORM\Column(type: 'array', nullable: false)]
+    #[ORM\Column(type: 'array', nullable: true)]
     private array $initDiseases;
 
     #[ORM\Column(type: 'integer', nullable: false)]

@@ -73,6 +73,9 @@ class DifficultyConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $cycleDiseaseRate = 0;
 
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $equipmentBreakRateDistribution = [];
+
     public function getId(): int
     {
         return $this->id;
@@ -302,6 +305,18 @@ class DifficultyConfig
     public function setCycleDiseaseRate(int $cycleDiseaseRate): static
     {
         $this->cycleDiseaseRate = $cycleDiseaseRate;
+
+        return $this;
+    }
+
+    public function getEquipmentBreakRateDistribution(): array
+    {
+        return $this->equipmentBreakRateDistribution;
+    }
+
+    public function setEquipmentBreakRateDistribution(array $equipmentBreakRateDistribution): static
+    {
+        $this->equipmentBreakRateDistribution = $equipmentBreakRateDistribution;
 
         return $this;
     }

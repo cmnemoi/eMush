@@ -132,7 +132,7 @@
         <target>{neronMood, select,
                     neutral {Alert! **Fuel tank** anomaly detected : contents inaccesible. *Repair required.*}
                     crazy {ME no access to fuel tank... Isolated, isolated ! Why?... REPAIR!! Humans, *repair* immediately !! ME hate deprivation !! REPAIR!! [Hax!]}
-                    uninhibited {Shameful. A **fuel tank** appears to be damaged!! FAO All crew members, please *repair* this vital trinket immediately!
+                    uninhibited {Shameful. A **fuel tank** appears to be damaged!! FAO All crew members, please *repair* this vital trinket immediately!}
                     other {invalid mood input}
                 }</target>
       </segment>

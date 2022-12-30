@@ -115,8 +115,12 @@ class DiseaseConfig implements LogParameterInterface
     /**
      * @psalm-param ArrayCollection<int, ModifierConfig> $modifierConfigs
      */
-    public function setModifierConfigs(Collection $modifierConfigs): self
+    public function setModifierConfigs(Collection|array $modifierConfigs): self
     {
+        if (is_array($modifierConfigs)) {
+            $modifierConfigs = new ArrayCollection($modifierConfigs);
+        }
+
         $this->modifierConfigs = $modifierConfigs;
 
         return $this;
@@ -144,8 +148,12 @@ class DiseaseConfig implements LogParameterInterface
         return $symptomConfigs;
     }
 
-    public function setSymptomConfigs(SymptomConfigCollection $symptomConfigs): self
+    public function setSymptomConfigs(SymptomConfigCollection|array $symptomConfigs): self
     {
+        if (is_array($symptomConfigs)) {
+            $symptomConfigs = new SymptomConfigCollection($symptomConfigs);
+        }
+
         $this->symptomConfigs = $symptomConfigs;
 
         return $this;

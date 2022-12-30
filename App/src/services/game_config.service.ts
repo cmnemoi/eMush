@@ -12,6 +12,7 @@ import { DifficultyConfig } from "@/entities/Config/DifficultyConfig";
 import { CharacterConfig } from "@/entities/Config/CharacterConfig";
 import { ItemConfig } from "@/entities/Config/ItemConfig";
 import { DiseaseConfig } from "@/entities/Config/DiseaseConfig";
+import { SymptomConfig } from "@/entities/Config/SymptomConfig";
 
 // @ts-ignore
 const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");
@@ -35,6 +36,8 @@ const CHARACTER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "characte
 const ITEM_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "item_configs");
 // @ts-ignore
 const DISEASE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "disease_configs");
+// @ts-ignore
+const SYMPTOM_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "symptom_configs");
 
 const GameConfigService = {
     loadGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {
@@ -365,6 +368,36 @@ const GameConfigService = {
         }
 
         return diseaseConfig;
+    },
+
+    loadSymptomConfig: async(symptomConfigId: number): Promise<SymptomConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const symptomConfigData = await ApiService.get(SYMPTOM_CONFIG_ENDPOINT + '/' + symptomConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        let symptomConfig = null;
+        if (symptomConfigData.data) {
+            symptomConfig = (new SymptomConfig()).load(symptomConfigData.data);
+        }
+
+        return symptomConfig;
+    },
+
+    updateSymptomConfig: async(symptomConfig: SymptomConfig): Promise<SymptomConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const symptomConfigData = await ApiService.put(SYMPTOM_CONFIG_ENDPOINT + '/' + symptomConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', symptomConfig.jsonEncode())
+            .catch((e) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw e;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        if (symptomConfigData.data) {
+            symptomConfig = (new SymptomConfig()).load(symptomConfigData.data);
+        }
+
+        return symptomConfig;
     }
 };
 export default GameConfigService;

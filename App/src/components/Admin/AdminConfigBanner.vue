@@ -1,10 +1,10 @@
 <template>
     <div class="banner">
         <div class="admin-menu">
-            <router-link :to="{ name: 'AdminGameConfigList' }">Game Config</router-link>
             <router-link :to="{ name: 'AdminDaedalusConfigList' }">Daedalus Config</router-link>
             <router-link :to="{ name: 'AdminDifficultyConfigList' }">Difficulty Config</router-link>
             <router-link :to="{ name: 'AdminCharacterConfigList' }">Character Config</router-link>
+            <router-link :to="{ name: 'AdminDiseaseConfigList' }">Disease Config</router-link>
             <router-link :to="{ name: 'AdminModifierConfigList' }">Modifier Config</router-link>
             <router-link :to="{ name: 'AdminModifierConditionList' }">Modifier Condition</router-link>
             <router-link :to="{ name: 'AdminStatusConfigList' }">Status Config</router-link>

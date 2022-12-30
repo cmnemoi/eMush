@@ -4,7 +4,7 @@ Mush\Disease\Entity\Config\DiseaseConfig:
       groups: [ 'disease_config_read' ]
     name:
       groups: [ 'disease_config_read', 'disease_config_write' ]
-    gameConfig:
+    diseaseName:
       groups: [ 'disease_config_read', 'disease_config_write' ]
     type:
       groups: [ 'disease_config_read', 'disease_config_write' ]
@@ -21,4 +21,6 @@ Mush\Disease\Entity\Config\DiseaseConfig:
     diseasePointMin:
       groups: [ 'disease_config_read', 'disease_config_write' ]
     diseasePointLength:
+      groups: [ 'disease_config_read', 'disease_config_write' ]
+    override:
       groups: [ 'disease_config_read', 'disease_config_write' ]

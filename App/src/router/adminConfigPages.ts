@@ -16,6 +16,8 @@ import DifficultyConfigListPage from "@/components/Admin/Config/DifficultyConfig
 import DifficultyConfigDetailPage from "@/components/Admin/Config/DifficultyConfig/DifficultyConfigDetailPage.vue";
 import CharacterConfigListPage from "@/components/Admin/Config/CharacterConfig/CharacterConfigListPage.vue";
 import CharacterConfigDetailPage from "@/components/Admin/Config/CharacterConfig/CharacterConfigDetailPage.vue";
+import DiseaseConfigListPage from "@/components/Admin/Config/DiseaseConfig/DiseaseConfigListPage.vue";
+import DiseaseConfigDetailPage from "@/components/Admin/Config/DiseaseConfig/DiseaseConfigDetailPage.vue";
 
 export const adminConfigRoutes = [
     {
@@ -107,5 +109,15 @@ export const adminConfigRoutes = [
         name: "AdminCharacterConfigDetail",
         path: 'character-config/:characterConfigId',
         component: CharacterConfigDetailPage
+    },
+    {
+        name: "AdminDiseaseConfigList",
+        path: 'disease-config-list',
+        component: DiseaseConfigListPage
+    },
+    {
+        name: "AdminDiseaseConfigDetail",
+        path: 'disease-config/:diseaseConfigId',
+        component: DiseaseConfigDetailPage
     }
 ];

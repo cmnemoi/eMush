@@ -4,6 +4,7 @@ export class SymptomConfig {
     public iri: string|null;
     public id: number|null;
     public name: string|null;
+    public symptomName: string|null;
     public trigger: string|null;
     public visibility: number|null;
     public symptomConditions: SymptomCondition[]|null;
@@ -12,6 +13,7 @@ export class SymptomConfig {
         this.iri = null;
         this.id = null;
         this.name = null;
+        this.symptomName = null;
         this.trigger = null;
         this.visibility = null;
         this.symptomConditions = null;
@@ -21,6 +23,7 @@ export class SymptomConfig {
             this.iri = object['@id'];
             this.id = object.id;
             this.name = object.name;
+            this.symptomName = object.symptomName;
             this.trigger = object.trigger;
             this.visibility = object.visibility;
         }
@@ -40,6 +43,7 @@ export class SymptomConfig {
         return {
             'id': this.id,
             'name': this.name,
+            'symptomName': this.symptomName,
             'trigger': this.trigger,
             'visibility': this.visibility,
             'symptomConditions': symptomConditions

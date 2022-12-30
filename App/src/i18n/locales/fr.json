@@ -181,6 +181,39 @@
 			"skills": "Compétences",
 			"startingItems": "Objets de départ",
 			"initDiseases": "Maladies de départ"
+		},
+		"diseaseConfig":
+		{	
+			"pageTitle": "Modification de la maladie ",
+			"name": "Nom complet",
+			"diseaseName": "Nom de la maladie",
+			"type": "Type",
+			"resistance": "Résistance",
+			"delayMin": "Nombre de cycles avant activation",
+			"delayLength": "Nombre de cycles d'incubation",
+			"diseasePointMin": "Points de maladie minimum",
+			"diseasePointLength": "Points de maladie maximum",
+			"override": "Maladies remplacées",
+			"overrideDiseaseToAdd": "Nom de la maladie à ajouter : ",
+			"modifierConfigs": "Modificateurs",
+			"symptomConfigs": "Symptômes"
+		},
+		"symptomConfig":
+		{
+			"pageTitle": "Modification du symptôme ",
+			"name": "Nom",
+			"symptomName": "Nom du symptôme",
+			"trigger": "Déclencheur",
+			"visibility": "Visibilité",
+			"symptomConditions": "Conditions de déclenchement"
+		},
+		"buttons": {
+			"add": "Ajouter",
+			"delete": "Supprimer"
+		},
+		"childCollectionManager":
+		{
+			"idToAdd": "ID à ajouter : "
 		}
 	},
 	"charselection": {

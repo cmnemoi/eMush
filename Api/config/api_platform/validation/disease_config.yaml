@@ -1,0 +1,31 @@
+Mush\Disease\Entity\Config\DiseaseConfig:
+  properties:
+    id:
+      - NotBlank: ~
+    name:
+      - NotBlank: ~
+      - Type: string
+    diseaseName:
+      - NotBlank: ~
+      - Type: string
+    type:
+      - NotBlank: ~
+      - Type: string
+    resistance:
+      - NotBlank: ~
+      - Type: integer
+    delayMin:
+      - NotBlank: ~
+      - Type: integer
+    delayLength:
+      - NotBlank: ~
+      - Type: integer
+    diseasePointMin:
+      - NotBlank: ~
+      - Type: integer
+    diseasePointLength:
+      - NotBlank: ~
+      - Type: integer
+    override:
+      - NotBlank: ~
+      - Type: array

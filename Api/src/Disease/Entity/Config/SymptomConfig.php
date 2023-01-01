@@ -111,6 +111,17 @@ class SymptomConfig
         return $this->symptomConditions;
     }
 
+    public function setSymptomConditions(Collection|array $symptomConditions): self
+    {
+        if (is_array($symptomConditions)) {
+            $symptomConditions = new ArrayCollection($symptomConditions);
+        }
+
+        $this->symptomConditions = $symptomConditions;
+
+        return $this;
+    }
+
     public function addSymptomCondition(SymptomCondition $symptomCondition): self
     {
         $this->symptomConditions->add($symptomCondition);

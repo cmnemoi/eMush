@@ -18,6 +18,8 @@ import CharacterConfigListPage from "@/components/Admin/Config/CharacterConfig/C
 import CharacterConfigDetailPage from "@/components/Admin/Config/CharacterConfig/CharacterConfigDetailPage.vue";
 import DiseaseConfigListPage from "@/components/Admin/Config/DiseaseConfig/DiseaseConfigListPage.vue";
 import DiseaseConfigDetailPage from "@/components/Admin/Config/DiseaseConfig/DiseaseConfigDetailPage.vue";
+import SymptomConfigListPage from "@/components/Admin/Config/SymptomConfig/SymptomConfigListPage.vue";
+import SymptomConfigDetailPage from "@/components/Admin/Config/SymptomConfig/SymptomConfigDetailPage.vue";
 
 export const adminConfigRoutes = [
     {
@@ -119,5 +121,15 @@ export const adminConfigRoutes = [
         name: "AdminDiseaseConfigDetail",
         path: 'disease-config/:diseaseConfigId',
         component: DiseaseConfigDetailPage
+    },
+    {
+        name: "AdminSymptomConfigList",
+        path: 'symptom-config-list',
+        component: SymptomConfigListPage
+    },
+    {
+        name: "AdminSymptomConfigDetail",
+        path: 'symptom-config/:symptomConfigId',
+        component: SymptomConfigDetailPage
     }
 ];

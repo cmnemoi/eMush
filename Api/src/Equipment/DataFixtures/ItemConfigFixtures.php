@@ -199,7 +199,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setActions($hideableActions)
-            ->setInitStatus(new ArrayCollection([$alienArtifactStatus]))
+            ->setInitStatuses(new ArrayCollection([$alienArtifactStatus]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($waterStick);

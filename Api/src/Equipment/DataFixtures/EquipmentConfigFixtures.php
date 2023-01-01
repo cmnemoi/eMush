@@ -316,7 +316,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setInitStatus(new ArrayCollection([$combustionChargeStatus]))
+            ->setInitStatuses(new ArrayCollection([$combustionChargeStatus]))
             ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -358,7 +358,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setEquipmentName(EquipmentEnum::NARCOTIC_DISTILLER)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setInitStatus(new ArrayCollection([$dispenserCharge]))
+            ->setInitStatuses(new ArrayCollection([$dispenserCharge]))
             ->setActions(new ArrayCollection([$dismantle25, $examineAction, $dispenseAction]))
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::METAL_SCRAPS => 2])
             ->buildName(GameConfigEnum::DEFAULT)
@@ -421,7 +421,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setInitStatus(new ArrayCollection([$coffeeCharge]))
+            ->setInitStatuses(new ArrayCollection([$coffeeCharge]))
             ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction, $coffeeAction]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -459,7 +459,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setInitStatus(new ArrayCollection([$turretCharge]))
+            ->setInitStatuses(new ArrayCollection([$turretCharge]))
             ->setActions(new ArrayCollection([$repair12, $sabotage12, $reportAction, $examineAction]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;

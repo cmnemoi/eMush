@@ -216,7 +216,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMechanics(new ArrayCollection([$microwaveMechanic]))
             ->setActions($microwaveActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 2])
-            ->setInitStatus(new ArrayCollection([$heavyStatus, $microwaveCharge]))
+            ->setInitStatuses(new ArrayCollection([$heavyStatus, $microwaveCharge]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
 
@@ -247,7 +247,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMechanics(new ArrayCollection([$superFreezerMechanic]))
             ->setActions($superfreezerActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 2])
-            ->setInitStatus(new ArrayCollection([$heavyStatus]))
+            ->setInitStatuses(new ArrayCollection([$heavyStatus]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
 
@@ -269,7 +269,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
                 $repair3, $sabotage3, $reportAction, $examineAction,
                 $alienHolographicTVAction,
                 ]))
-            ->setInitStatus(new ArrayCollection([$alienArtifactStatus]))
+            ->setInitStatuses(new ArrayCollection([$alienArtifactStatus]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($alienHolographicTV);
@@ -314,7 +314,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setActions(new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction, $ultraHealAction]))
-            ->setInitStatus(new ArrayCollection([$alienArtifactStatus]))
+            ->setInitStatuses(new ArrayCollection([$alienArtifactStatus]))
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($jarOfAlienOil);

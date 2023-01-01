@@ -169,7 +169,7 @@ import { StatusConfig } from "@/entities/Config/StatusConfig";
 import { Action } from "@/entities/Action";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
-import { ItemConfig } from "@/entities/Config/ItemConfig";
+import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { DiseaseConfig } from "@/entities/Config/DiseaseConfig";
 
 interface CharacterConfigState {
@@ -224,10 +224,10 @@ export default defineComponent({
                             });
                         ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'character_configs', String(this.characterConfig.id), 'starting_items'))
                             .then((result) => {
-                                const startingItems: ItemConfig[] = [];
+                                const startingItems: EquipmentConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
-                                    const currentItemConfig = (new ItemConfig()).load(datum);
-                                    startingItems.push(currentItemConfig);
+                                    const currentEquipmentConfig = (new EquipmentConfig()).load(datum);
+                                    startingItems.push(currentEquipmentConfig);
                                 });
                                 if (this.characterConfig instanceof CharacterConfig) {
                                     this.characterConfig.startingItems = startingItems;
@@ -285,7 +285,7 @@ export default defineComponent({
             }
         },
         selectNewStartingItem(selectedId: any) {
-            GameConfigService.loadItemConfig(selectedId).then((res) => {
+            GameConfigService.loadEquipmentConfig(selectedId).then((res) => {
                 if (res && this.characterConfig && this.characterConfig.startingItems) {
                     this.characterConfig.startingItems.push(res);
                 }
@@ -337,10 +337,10 @@ export default defineComponent({
                 });
             ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'character_configs', characterConfigId, 'starting_items'))
                 .then((result) => {
-                    const startingItems : ItemConfig[] = [];
+                    const startingItems : EquipmentConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {
-                        const currentItemConfig = (new ItemConfig()).load(datum);
-                        startingItems.push(currentItemConfig);
+                        const currentEquipmentConfig = (new EquipmentConfig()).load(datum);
+                        startingItems.push(currentEquipmentConfig);
                     });
                     if (this.characterConfig instanceof CharacterConfig) {
                         this.characterConfig.startingItems = startingItems;

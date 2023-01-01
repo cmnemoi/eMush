@@ -1,0 +1,22 @@
+Mush\Equipment\Entity\Config\EquipmentConfig:
+  properties:
+    name:
+      - NotBlank: ~
+      - Length:
+          max: 48
+      - Type: string  
+    equipmentName:
+      - NotBlank: ~
+      - Length:
+          max: 48
+      - Type: string    
+    isFireDestroyable:
+      - Type: bool
+    isFireBreakable:
+      - Type: bool
+    isBreakable:
+      - Type: bool
+    dismountedProducts:
+      - Type: array
+    isPersonal:
+      - Type: bool

@@ -236,6 +236,16 @@
 			"initStatuses": "Statuts",
 			"mechanics": "Mécaniques"
 		},
+		"placeConfig":
+		{
+			"pageTitle": "Modification de la salle ",
+			"name": "Nom complet",
+			"placeName": "Nom de la salle",
+			"type": "Type de salle",
+			"doors": "Portes",
+			"equipments": "Équipements",
+			"items": "Objets"
+		},
 		"buttons": {
 			"add": "Ajouter",
 			"delete": "Supprimer"
@@ -243,6 +253,10 @@
 		"childCollectionManager":
 		{
 			"idToAdd": "ID à ajouter : "
+		},
+		"stringArrayManager":
+		{
+			"elementToAdd": "Élément à ajouter : "
 		}
 	},
 	"charselection": {

@@ -11,6 +11,7 @@
             <router-link :to="{ name: 'AdminSymptomConditionList' }">Symptom Condition</router-link>
         </div> 
         <div class="admin-menu">
+            <router-link :to="{ name: 'AdminPlaceConfigList' }">Place Config</router-link>
             <router-link :to="{ name: 'AdminEquipmentConfigList' }">Equipment Config</router-link>
             <router-link :to="{ name: 'AdminStatusConfigList' }">Status Config</router-link>
             <router-link :to="{ name: 'AdminActionConfigList' }">Action Config</router-link>

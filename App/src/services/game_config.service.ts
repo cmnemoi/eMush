@@ -15,6 +15,7 @@ import { DiseaseConfig } from "@/entities/Config/DiseaseConfig";
 import { SymptomConfig } from "@/entities/Config/SymptomConfig";
 import { SymptomCondition } from "@/entities/Config/SymptomCondition";
 import { Mechanics } from "@/entities/Config/Mechanics";
+import { PlaceConfig } from "@/entities/Config/PlaceConfig";
 
 // @ts-ignore
 const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");
@@ -44,6 +45,8 @@ const SYMPTOM_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "symptom_co
 const SYMPTOM_CONDITION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "symptom_conditions");
 // @ts-ignore
 const MECHANICS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "mechanics");
+// @ts-ignore
+const PLACE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "place_configs");
 
 const GameConfigService = {
     loadGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {
@@ -464,6 +467,36 @@ const GameConfigService = {
         }
 
         return mechanics;
+    },
+
+    loadPlaceConfig: async(placeConfigId: number): Promise<PlaceConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const placeConfigData = await ApiService.get(PLACE_CONFIG_ENDPOINT + '/' + placeConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        let placeConfig = null;
+        if (placeConfigData.data) {
+            placeConfig = (new PlaceConfig()).load(placeConfigData.data);
+        }
+
+        return placeConfig;
+    },
+
+    updatePlaceConfig: async(placeConfig: PlaceConfig): Promise<PlaceConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const placeConfigData = await ApiService.put(PLACE_CONFIG_ENDPOINT + '/' + placeConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', placeConfig.jsonEncode())
+            .catch((e) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw e;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        if (placeConfigData.data) {
+            placeConfig = (new PlaceConfig()).load(placeConfigData.data);
+        }
+
+        return placeConfig;
     }
 };
 export default GameConfigService;

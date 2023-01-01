@@ -54,7 +54,7 @@ class EquipmentConfig
     private Collection $actions;
 
     #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
-    private Collection $initStatus;
+    private Collection $initStatuses;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isPersonal = false;
@@ -63,7 +63,7 @@ class EquipmentConfig
     {
         $this->mechanics = new ArrayCollection();
         $this->actions = new ArrayCollection();
-        $this->initStatus = new ArrayCollection();
+        $this->initStatuses = new ArrayCollection();
     }
 
     public function createGameEquipment(EquipmentHolderInterface $holder): GameEquipment
@@ -132,8 +132,12 @@ class EquipmentConfig
     /**
      * @psalm-param ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Blueprint>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Book>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Document>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Drug>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Fruit>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Gear>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Plant>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Ration>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Tool>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Weapon>|ArrayCollection<int, \Mush\Equipment\Entity\Mechanics\Gear|\Mush\Equipment\Entity\Mechanics\Tool> $mechanics
      */
-    public function setMechanics(Collection $mechanics): static
+    public function setMechanics(Collection|array $mechanics): static
     {
+        if (is_array($mechanics)) {
+            $mechanics = new ArrayCollection($mechanics);
+        }
+
         $this->mechanics = $mechanics;
 
         return $this;
@@ -146,9 +150,15 @@ class EquipmentConfig
         return $equipmentMechanics->count() > 0 ? $equipmentMechanics->first() : null;
     }
 
-    public function isFireDestroyable(): bool
+    // this is needed for api_platform to work
+    public function getIsFireDestroyable(): bool
     {
         return $this->isFireDestroyable;
+    }
+
+    public function isFireDestroyable(): bool
+    {
+        return $this->getIsFireDestroyable();
     }
 
     public function setIsFireDestroyable(bool $isFireDestroyable): static
@@ -158,9 +168,15 @@ class EquipmentConfig
         return $this;
     }
 
-    public function isFireBreakable(): bool
+    // this is needed for api_platform to work
+    public function getIsFireBreakable(): bool
     {
         return $this->isFireBreakable;
+    }
+
+    public function isFireBreakable(): bool
+    {
+        return $this->getIsFireBreakable();
     }
 
     public function setIsFireBreakable(bool $isFireBreakable): static
@@ -170,9 +186,15 @@ class EquipmentConfig
         return $this;
     }
 
-    public function isBreakable(): bool
+    // this is needed for api_platform to work
+    public function getIsBreakable(): bool
     {
         return $this->isBreakable;
+    }
+
+    public function isBreakable(): bool
+    {
+        return $this->getIsBreakable();
     }
 
     public function setIsBreakable(bool $isBreakable): static
@@ -185,8 +207,12 @@ class EquipmentConfig
     /**
      * @param Collection<int, Action> $actions
      */
-    public function setActions(Collection $actions): static
+    public function setActions(Collection|array $actions): static
     {
+        if (is_array($actions)) {
+            $actions = new ArrayCollection($actions);
+        }
+
         $this->actions = $actions;
 
         return $this;
@@ -205,18 +231,22 @@ class EquipmentConfig
     }
 
     /**
-     * @psalm-param ArrayCollection<int, ChargeStatusConfig>|ArrayCollection<int, StatusConfig> $initStatus
+     * @psalm-param ArrayCollection<int, ChargeStatusConfig>|ArrayCollection<int, StatusConfig> $initStatuses
      */
-    public function setInitStatus(ArrayCollection $initStatus): static
+    public function setInitStatuses(ArrayCollection|array $initStatuses): static
     {
-        $this->initStatus = $initStatus;
+        if (is_array($initStatuses)) {
+            $initStatuses = new ArrayCollection($initStatuses);
+        }
+
+        $this->initStatuses = $initStatuses;
 
         return $this;
     }
 
-    public function getInitStatus(): Collection
+    public function getInitStatuses(): Collection
     {
-        return $this->initStatus;
+        return $this->initStatuses;
     }
 
     public function hasAction(string $actionName): bool
@@ -241,9 +271,15 @@ class EquipmentConfig
         return LogParameterKeyEnum::EQUIPMENT;
     }
 
-    public function isPersonal(): bool
+    // this is needed for api_platform to work
+    public function getIsPersonal(): bool
     {
         return $this->isPersonal;
+    }
+
+    public function isPersonal(): bool
+    {
+        return $this->getIsPersonal();
     }
 
     public function setIsPersonal(bool $isPersonal): static

@@ -10,10 +10,11 @@ import { ActionCost } from "@/entities/Config/ActionCost";
 import { ActionConfig } from "@/entities/Config/ActionConfig";
 import { DifficultyConfig } from "@/entities/Config/DifficultyConfig";
 import { CharacterConfig } from "@/entities/Config/CharacterConfig";
-import { ItemConfig } from "@/entities/Config/ItemConfig";
+import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { DiseaseConfig } from "@/entities/Config/DiseaseConfig";
 import { SymptomConfig } from "@/entities/Config/SymptomConfig";
 import { SymptomCondition } from "@/entities/Config/SymptomCondition";
+import { Mechanics } from "@/entities/Config/Mechanics";
 
 // @ts-ignore
 const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");
@@ -34,13 +35,15 @@ const DIFFICULTY_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "difficu
 // @ts-ignore
 const CHARACTER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "character_configs");
 // @ts-ignore
-const ITEM_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "item_configs");
+const EQUIPMENT_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "equipment_configs");
 // @ts-ignore
 const DISEASE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "disease_configs");
 // @ts-ignore
 const SYMPTOM_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "symptom_configs");
 // @ts-ignore
 const SYMPTOM_CONDITION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "symptom_conditions");
+// @ts-ignore
+const MECHANICS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "mechanics");
 
 const GameConfigService = {
     loadGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {
@@ -313,22 +316,22 @@ const GameConfigService = {
         return characterConfig;
     },
 
-    loadItemConfig: async(itemConfigId: number): Promise<ItemConfig | null> => {
+    loadEquipmentConfig: async(equipmentConfigId: number): Promise<EquipmentConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const itemConfigData = await ApiService.get(ITEM_CONFIG_ENDPOINT + '/' + itemConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
+        const equipmentConfigData = await ApiService.get(EQUIPMENT_CONFIG_ENDPOINT + '/' + equipmentConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
-        let itemConfig = null;
-        if (itemConfigData.data) {
-            itemConfig = (new ItemConfig()).load(itemConfigData.data);
+        let equipmentConfig = null;
+        if (equipmentConfigData.data) {
+            equipmentConfig = (new EquipmentConfig()).load(equipmentConfigData.data);
         }
 
-        return itemConfig;
+        return equipmentConfig;
     },
 
-    updateItemConfig: async(itemConfig: ItemConfig): Promise<ItemConfig | null> => {
+    updateEquipmentConfig: async(equipmentConfig: EquipmentConfig): Promise<EquipmentConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const itemConfigData = await ApiService.put(ITEM_CONFIG_ENDPOINT + '/' + itemConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', itemConfig.jsonEncode())
+        const equipmentConfigData = await ApiService.put(EQUIPMENT_CONFIG_ENDPOINT + '/' + equipmentConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', equipmentConfig.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
@@ -336,11 +339,11 @@ const GameConfigService = {
 
         store.dispatch('gameConfig/setLoading', { loading: false });
 
-        if (itemConfigData.data) {
-            itemConfig = (new ItemConfig()).load(itemConfigData.data);
+        if (equipmentConfigData.data) {
+            equipmentConfig = (new EquipmentConfig()).load(equipmentConfigData.data);
         }
 
-        return itemConfig;
+        return equipmentConfig;
     },
 
     loadDiseaseConfig: async(diseaseConfigId: number): Promise<DiseaseConfig | null> => {
@@ -431,6 +434,36 @@ const GameConfigService = {
         }
 
         return symptomCondition;
+    },
+
+    loadMechanics: async(mechanicsId: number): Promise<Mechanics | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const mechanicsData = await ApiService.get(MECHANICS_ENDPOINT + '/' + mechanicsId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        let mechanics = null;
+        if (mechanicsData.data) {
+            mechanics = (new Mechanics()).load(mechanicsData.data);
+        }
+
+        return mechanics;
+    },
+
+    updateMechanics: async(mechanics: Mechanics): Promise<Mechanics | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const mechanicsData = await ApiService.put(MECHANICS_ENDPOINT + '/' + mechanics.id + '?XDEBUG_SESSION_START=PHPSTORM', mechanics.jsonEncode())
+            .catch((e) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw e;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        if (mechanicsData.data) {
+            mechanics = (new Mechanics()).load(mechanicsData.data);
+        }
+
+        return mechanics;
     }
 };
 export default GameConfigService;

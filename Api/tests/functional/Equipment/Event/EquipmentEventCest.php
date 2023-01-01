@@ -78,7 +78,7 @@ class EquipmentEventCest
             'gameConfig' => $gameConfig,
             'name' => 'equipment_name',
             'equipmentName' => 'equipment_name',
-            'initStatus' => new ArrayCollection([$heavyStatusConfig]),
+            'initStatuses' => new ArrayCollection([$heavyStatusConfig]),
         ]);
 
         $equipment = $itemConfig->createGameItem($player);

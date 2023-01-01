@@ -215,6 +215,27 @@
 			"condition": "Condition",
 			"value": "Probabilité de déclenchement"
 		},
+		"equipmentConfig":
+		{
+			"pageTitle": "Modification de l'équipement ",
+			"name": "Nom",
+			"equipmentName": "Nom de l'équipement",
+			"isBreakable": "Cassable",
+			"isNotBreakable": "Non cassable",
+			"isFireBreakable": "Cassable par les incendies",
+			"isNotFireBreakable": "Non cassable par les incendies",
+			"isFireDestroyable": "Peut être détruit par les incendies",
+			"isNotFireDestroyable": "Ne peut pas être détruit par les incendies",
+			"isPersonal": "Personnel",
+			"isNotPersonal": "Non personnel",
+			"dismountedProducts": "Produits du démontage",
+			"addDismountedProducts": "Ajouter un produit :",
+			"isStackable": "Empilable",
+			"isNotStackable": "Non empilable",
+			"actions": "Actions",
+			"initStatuses": "Statuts",
+			"mechanics": "Mécaniques"
+		},
 		"buttons": {
 			"add": "Ajouter",
 			"delete": "Supprimer"

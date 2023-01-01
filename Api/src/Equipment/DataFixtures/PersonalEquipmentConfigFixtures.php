@@ -65,7 +65,7 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setActions(new ArrayCollection([$takeAction, $examineAction, $repair25, $dropAction]))
-            // ->setInitStatus(new ArrayCollection([$updatingStatus]))
+            // ->setInitStatuses(new ArrayCollection([$updatingStatus]))
             ->setIsPersonal(true)
             ->buildName(GameConfigEnum::DEFAULT)
         ;

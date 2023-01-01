@@ -22,6 +22,8 @@ import SymptomConfigListPage from "@/components/Admin/Config/SymptomConfig/Sympt
 import SymptomConfigDetailPage from "@/components/Admin/Config/SymptomConfig/SymptomConfigDetailPage.vue";
 import SymptomConditionListPage from "@/components/Admin/Config/SymptomCondition/SymptomConditionListPage.vue";
 import SymptomConditionDetailPage from "@/components/Admin/Config/SymptomCondition/SymptomConditionDetailPage.vue";
+import EquipmentConfigListPage from "@/components/Admin/Config/EquipmentConfig/EquipmentConfigListPage.vue";
+import EquipmentConfigDetailPage from "@/components/Admin/Config/EquipmentConfig/EquipmentConfigDetailPage.vue";
 
 export const adminConfigRoutes = [
     {
@@ -143,5 +145,15 @@ export const adminConfigRoutes = [
         name: "AdminSymptomConditionDetail",
         path: 'symptom-condition/:symptomConditionId',
         component: SymptomConditionDetailPage
+    },
+    {
+        name: "AdminEquipmentConfigList",
+        path: 'equipment-config-list',
+        component: EquipmentConfigListPage
+    },
+    {
+        name: "AdminEquipmentConfigDetail",
+        path: 'equipment-config/:equipmentConfigId',
+        component: EquipmentConfigDetailPage
     }
 ];

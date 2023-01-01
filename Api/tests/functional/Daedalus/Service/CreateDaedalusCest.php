@@ -104,7 +104,7 @@ class CreateDaedalusCest
         $waterStick = new ItemConfig();
         $waterStick
             ->setEquipmentName(ItemEnum::WATER_STICK)
-            ->setInitStatus(new ArrayCollection([$alienArtifact]))
+            ->setInitStatuses(new ArrayCollection([$alienArtifact]))
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($waterStick);

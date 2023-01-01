@@ -1,19 +1,4 @@
 Mush\Equipment\Entity\Config\ItemConfig:
   properties:
-    name:
-      - NotBlank: ~
-      - Length:
-          max: 48
-      - Type: string      
-    isFireDestroyable:
-      - Type: bool
-    isFireBreakable:
-      - Type: bool
-    isBreakable:
-      - Type: bool
-    dismountedProducts:
-      - Type: array
-    isPersonal:
-      - Type: bool
     isStackable:
       - Type: bool

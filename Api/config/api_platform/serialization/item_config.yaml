@@ -4,6 +4,8 @@ Mush\Equipment\Entity\Config\ItemConfig:
       groups: [ 'item_config_read' ]
     name:
       groups: [ 'item_config_read', 'item_config_write' ]
+    equipmentName:
+      groups: [ 'item_config_read', 'item_config_write' ]
     mechanics:
       groups: [ 'item_config_read', 'item_config_write' ]
     isFireDestroyable:
@@ -14,13 +16,10 @@ Mush\Equipment\Entity\Config\ItemConfig:
       groups: [ 'item_config_read', 'item_config_write' ]
     actions:
       groups: [ 'item_config_read', 'item_config_write' ]
-    initStatus:
+    initStatuses:
       groups: [ 'item_config_read', 'item_config_write' ]
     dismountedProducts:
       groups: [ 'item_config_read', 'item_config_write' ]
-    isPersonal:
-      groups: [ 'item_config_read', 'item_config_write' ]
     isStackable:
       groups: [ 'item_config_read', 'item_config_write' ]
-    startingItems:
-      groups: [ 'item_config_read', 'item_config_write' ]
+ 

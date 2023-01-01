@@ -20,6 +20,8 @@ import DiseaseConfigListPage from "@/components/Admin/Config/DiseaseConfig/Disea
 import DiseaseConfigDetailPage from "@/components/Admin/Config/DiseaseConfig/DiseaseConfigDetailPage.vue";
 import SymptomConfigListPage from "@/components/Admin/Config/SymptomConfig/SymptomConfigListPage.vue";
 import SymptomConfigDetailPage from "@/components/Admin/Config/SymptomConfig/SymptomConfigDetailPage.vue";
+import SymptomConditionListPage from "@/components/Admin/Config/SymptomCondition/SymptomConditionListPage.vue";
+import SymptomConditionDetailPage from "@/components/Admin/Config/SymptomCondition/SymptomConditionDetailPage.vue";
 
 export const adminConfigRoutes = [
     {
@@ -131,5 +133,15 @@ export const adminConfigRoutes = [
         name: "AdminSymptomConfigDetail",
         path: 'symptom-config/:symptomConfigId',
         component: SymptomConfigDetailPage
+    },
+    {
+        name: "AdminSymptomConditionList",
+        path: 'symptom-condition-list',
+        component: SymptomConditionListPage
+    },
+    {
+        name: "AdminSymptomConditionDetail",
+        path: 'symptom-condition/:symptomConditionId',
+        component: SymptomConditionDetailPage
     }
 ];

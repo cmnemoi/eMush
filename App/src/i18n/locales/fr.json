@@ -207,6 +207,14 @@
 			"visibility": "Visibilité",
 			"symptomConditions": "Conditions de déclenchement"
 		},
+		"symptomCondition":
+		{
+			"pageTitle": "Modification de la condition de déclenchement ",
+			"conditionName": "Nom",
+			"name": "Nom complet",
+			"condition": "Condition",
+			"value": "Probabilité de déclenchement"
+		},
 		"buttons": {
 			"add": "Ajouter",
 			"delete": "Supprimer"

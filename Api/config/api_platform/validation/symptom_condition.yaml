@@ -1,0 +1,11 @@
+Mush\Disease\Entity\Config\SymptomCondition:
+  properties:                        # optional
+    name:
+      - Type: string
+    conditionName:
+      - Type: string
+    condition:
+      - Type: string
+    value:
+      - Type: integer
+

@@ -8,9 +8,10 @@
             <router-link :to="{ name: 'AdminModifierConfigList' }">Modifier Config</router-link>
             <router-link :to="{ name: 'AdminModifierConditionList' }">Modifier Condition</router-link>
             <router-link :to="{ name: 'AdminSymptomConfigList' }">Symptom Config</router-link>
-            <router-link :to="{ name: 'AdminStatusConfigList' }">Status Config</router-link>
+            <router-link :to="{ name: 'AdminSymptomConditionList' }">Symptom Condition</router-link>
         </div> 
         <div class="admin-menu">
+            <router-link :to="{ name: 'AdminStatusConfigList' }">Status Config</router-link>
             <router-link :to="{ name: 'AdminActionConfigList' }">Action Config</router-link>
             <router-link :to="{ name: 'AdminActionCostList' }">Action Cost</router-link>
         </div>

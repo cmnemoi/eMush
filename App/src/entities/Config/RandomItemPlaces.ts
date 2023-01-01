@@ -1,20 +1,23 @@
 
-export class RandomItemPlace {
+export class RandomItemPlaces {
     public iri: string|null;
     public id: number|null;
-    public places: Array<any>|null;
-    public items: Array<any>|null;
+    public name: string|null;
+    public places: Array<string>|null;
+    public items: Array<string>|null;
 
     constructor() {
         this.iri = null;
         this.id = null;
+        this.name = null;
         this.places = [];
         this.items = [];
     }
-    load(object:any) : RandomItemPlace {
+    load(object:any) : RandomItemPlaces {
         if (typeof object !== "undefined") {
-            this.iri = object.iri;
+            this.iri = object['@id'];
             this.id = object.id;
+            this.name = object.name;
             this.places = object.places;
             this.items = object.items;
         }
@@ -23,17 +26,15 @@ export class RandomItemPlace {
     jsonEncode() : object {
         return {
             'id': this.id,
+            'name': this.name,
             'places': this.places,
             'items': this.items
         };
     }
-    decode(jsonString : string): RandomItemPlace {
+    decode(jsonString : string): RandomItemPlaces {
         if (jsonString) {
             const object = JSON.parse(jsonString);
-            this.iri = object.iri;
-            this.id = object.id;
-            this.places = object.places;
-            this.items = object.items;
+            this.load(object);
         }
 
         return this;

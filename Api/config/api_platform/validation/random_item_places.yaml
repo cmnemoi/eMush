@@ -1,0 +1,12 @@
+Mush\Daedalus\Entity\RandomItemPlaces:
+  properties:
+    name:
+      - NotBlank: ~
+      - Length:
+          min: 3
+          max: 255
+      - Type: string
+    places:
+      - Type: array
+    items:
+      - Type: array

@@ -189,6 +189,7 @@ class CreateDaedalusCest
 
         $randomItemPlaces = new RandomItemPlaces();
         $randomItemPlaces
+            ->setName('test')
             ->setItems([
                 ItemEnum::WATER_STICK,
             ])

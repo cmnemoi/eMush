@@ -13,6 +13,7 @@
         <div class="admin-menu">
             <router-link :to="{ name: 'AdminPlaceConfigList' }">Place Config</router-link>
             <router-link :to="{ name: 'AdminEquipmentConfigList' }">Equipment Config</router-link>
+            <router-link :to="{ name: 'AdminRandomItemPlacesList' }">Random Item Places</router-link>
             <router-link :to="{ name: 'AdminStatusConfigList' }">Status Config</router-link>
             <router-link :to="{ name: 'AdminActionConfigList' }">Action Config</router-link>
             <router-link :to="{ name: 'AdminActionCostList' }">Action Cost</router-link>

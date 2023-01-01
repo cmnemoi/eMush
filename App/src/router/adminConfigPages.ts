@@ -26,6 +26,8 @@ import EquipmentConfigListPage from "@/components/Admin/Config/EquipmentConfig/E
 import EquipmentConfigDetailPage from "@/components/Admin/Config/EquipmentConfig/EquipmentConfigDetailPage.vue";
 import PlaceConfigDetailPage from "@/components/Admin/Config/PlaceConfig/PlaceConfigDetailPage.vue";
 import PlaceConfigListPage from "@/components/Admin/Config/PlaceConfig/PlaceConfigListPage.vue";
+import RandomItemPlacesListPage from "@/components/Admin/Config/RandomItemPlaces/RandomItemPlacesListPage.vue";
+import RandomItemPlacesDetailPage from "@/components/Admin/Config/RandomItemPlaces/RandomItemPlacesDetailPage.vue";
 
 export const adminConfigRoutes = [
     {
@@ -167,5 +169,15 @@ export const adminConfigRoutes = [
         name: "AdminPlaceConfigDetail",
         path: 'place-config/:placeConfigId',
         component: PlaceConfigDetailPage
-    }
+    },
+    {
+        name: "AdminRandomItemPlacesList",
+        path: 'random-item-places-list',
+        component: RandomItemPlacesListPage
+    },
+    {
+        name: "AdminRandomItemPlacesDetail",
+        path: 'random-item-places/:randomItemPlacesId',
+        component: RandomItemPlacesDetailPage
+    },
 ];

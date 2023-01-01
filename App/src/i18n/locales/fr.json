@@ -246,6 +246,13 @@
 			"equipments": "Équipements",
 			"items": "Objets"
 		},
+		"randomItemPlaces":
+		{
+			"pageTitle": "Modification de la répartition aléatoire des objets dans les salles ",
+			"name": "Nom",
+			"items": "Objets",
+			"places": "Salles"
+		},
 		"buttons": {
 			"add": "Ajouter",
 			"delete": "Supprimer"

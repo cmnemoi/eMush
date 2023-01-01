@@ -2,6 +2,8 @@ Mush\Daedalus\Entity\RandomItemPlaces:
   attributes:
     id:
       groups: [ 'random_item_place_read' ]
+    name:
+      groups: [ 'random_item_place_read', 'random_item_place_write' ]
     places:
       groups: [ 'random_item_place_read', 'random_item_place_write' ]
     items:

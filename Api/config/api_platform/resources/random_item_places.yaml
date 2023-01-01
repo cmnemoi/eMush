@@ -1,6 +1,6 @@
 Mush\Daedalus\Entity\RandomItemPlaces:
-  shortName: 'RandomItemPlace'
-  description: 'eMush RandomItemPlace'
+  shortName: 'RandomItemPlaces'
+  description: 'eMush RandomItemPlaces'
   attributes:
     pagination_items_per_page: 25
     normalization_context:
@@ -14,3 +14,6 @@ Mush\Daedalus\Entity\RandomItemPlaces:
       security: 'is_granted("ROLE_ADMIN")'
   itemOperations:
     get:
+      security: 'is_granted("ROLE_ADMIN")'
+    put:
+      security: 'is_granted("ROLE_ADMIN")'

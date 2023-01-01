@@ -16,6 +16,7 @@ import { SymptomConfig } from "@/entities/Config/SymptomConfig";
 import { SymptomCondition } from "@/entities/Config/SymptomCondition";
 import { Mechanics } from "@/entities/Config/Mechanics";
 import { PlaceConfig } from "@/entities/Config/PlaceConfig";
+import { RandomItemPlaces } from "@/entities/Config/RandomItemPlaces";
 
 // @ts-ignore
 const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");
@@ -47,6 +48,8 @@ const SYMPTOM_CONDITION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "symptom
 const MECHANICS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "mechanics");
 // @ts-ignore
 const PLACE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "place_configs");
+// @ts-ignore
+const RANDOM_ITEM_PLACES_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "random_item_places");
 
 const GameConfigService = {
     loadGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {
@@ -497,6 +500,38 @@ const GameConfigService = {
         }
 
         return placeConfig;
+    },
+
+    loadRandomItemPlaces: async(randomItemPlacesId: number): Promise<RandomItemPlaces | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const randomItemPlacesData = await ApiService.get(RANDOM_ITEM_PLACES_ENDPOINT + '/' + randomItemPlacesId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        let randomItemPlaces = null;
+        if (randomItemPlacesData.data) {
+            randomItemPlaces = (new RandomItemPlaces()).load(randomItemPlacesData.data);
+        }
+
+        return randomItemPlaces;
+    },
+
+    updateRandomItemPlaces: async(randomItemPlaces: RandomItemPlaces): Promise<RandomItemPlaces | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const randomItemPlacesData = await ApiService.put(RANDOM_ITEM_PLACES_ENDPOINT + '/' + randomItemPlaces.id + '?XDEBUG_SESSION_START=PHPSTORM', randomItemPlaces.jsonEncode())
+            .catch((e) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw e;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        if (randomItemPlacesData.data) {
+            randomItemPlaces = (new RandomItemPlaces()).load(randomItemPlacesData.data);
+        }
+
+        return randomItemPlaces;
     }
+
+
 };
 export default GameConfigService;

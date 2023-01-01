@@ -1,0 +1,17 @@
+Mush\Place\Entity\PlaceConfig:
+  properties:
+    name:
+      - NotBlank: ~
+      - Type: string
+    placeName:
+      - NotBlank: ~
+      - Type: string
+    type:
+      - NotBlank: ~
+      - Type: string
+    doors:
+      - Type: array
+    items:
+      - Type: array
+    equipments:
+      - Type: array

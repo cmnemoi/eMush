@@ -1,0 +1,9 @@
+Mush\Equipment\Entity\Mechanics\Blueprint:
+  attributes:
+    name:
+      - NotBlank: ~
+      - Type: string
+    mechanics:
+      - Type: array
+    ingredients:
+      - Type: array

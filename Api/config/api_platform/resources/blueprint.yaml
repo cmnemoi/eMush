@@ -1,12 +1,12 @@
-Mush\Equipment\Entity\EquipmentMechanic:
-  shortName: 'Mechanics'
-  description: 'eMush Mechanics'
+Mush\Equipment\Entity\Mechanics\Blueprint:
+  shortName: 'Blueprint'
+  description: 'eMush Blueprint'
   attributes:
     pagination_items_per_page: 25
     normalization_context:
-      groups: [ 'equipment_mechanic_read' ]
+      groups: [ 'blueprint_read' ]
     denormalization_context:
-      groups: [ 'equipment_mechanic_write' ]
+      groups: [ 'blueprint_write' ]
   collectionOperations:
     get:
       filters: [ 'default.search_filter', 'default.order_filter' ]
@@ -18,7 +18,7 @@ Mush\Equipment\Entity\EquipmentMechanic:
     put:
       security: 'is_granted("ROLE_ADMIN")'
   properties:
-    actions:
+    equipment:
       subresource:
-        resourceClass: 'Mush\Action\Entity\Action'
+        resourceClass: 'Mush\Equipment\Entity\Config\EquipmentConfig'
         collection: true

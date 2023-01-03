@@ -1,0 +1,8 @@
+Mush\Equipment\Entity\Mechanics\Document:
+  attributes:
+    content:
+      groups: [ 'document_read', 'document_write' ]
+    isTranslated:
+      groups: [ 'document_read', 'document_write' ]
+    canShred:
+      groups: [ 'document_read', 'document_write' ]

@@ -1,0 +1,9 @@
+Mush\Equipment\Entity\Mechanics\Document:
+  attributes:
+    content:
+      - NotBlank: ~
+      - Type: string
+    isTranslated:
+      - Type: bool
+    canShred:
+      - Type: bool

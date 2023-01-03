@@ -5,9 +5,8 @@
         <Banner />
         <router-view />
         <ErrorPopup />
-        <LocaleChange />
         <Thanks />
-        <Version />
+        <LocaleChange />
     </div>
 </template>
 
@@ -20,7 +19,6 @@ import { mapGetters } from "vuex";
 import LocaleChange from "@/components/Utils/LocaleChange.vue";
 import Title from "@/components/Utils/Title.vue";
 import Thanks from "@/components/Thanks.vue";
-import Version from "@/components/Version.vue";
 
 export default {
     name: 'App',
@@ -31,7 +29,6 @@ export default {
         LocaleChange,
         Title,
         Thanks,
-        Version
     },
     computed: {
         ...mapGetters({
@@ -51,7 +48,6 @@ export default {
     flex-grow: 1;
     min-width: 100%;
     min-height: 100%;
-    padding-bottom: 5em;
     background: #0f0f43 url("~@/assets/images/bg.jpg") no-repeat center 0;
 }
 

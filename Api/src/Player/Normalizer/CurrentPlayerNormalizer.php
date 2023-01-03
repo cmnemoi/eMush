@@ -96,17 +96,19 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
             'items' => $items,
             'statuses' => $statuses,
             'diseases' => $diseases,
-            'actionPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::ACTION_POINT, $language),
-            'movementPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::MOVEMENT_POINT, $language),
-            'healthPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::HEALTH_POINT, $language),
-            'moralPoint' => $this->normalizePlayerParameter($player, PlayerVariableEnum::MORAL_POINT, $language),
+            'actionPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::ACTION_POINT, $language),
+            'movementPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MOVEMENT_POINT, $language),
+            'healthPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::HEALTH_POINT, $language),
+            'moralPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MORAL_POINT, $language),
         ]);
 
         return $playerData;
     }
 
-    private function normalizePlayerParameter(Player $player, string $variable, string $language): array
+    private function normalizePlayerGameVariable(Player $player, string $variable, string $language): array
     {
+        $gameVariable = $player->getVariableFromName($variable);
+
         $name = $this->translationService->translate(
             $variable . '.name', [
             'quantityHealth' => $player->getHealthPoint(),
@@ -124,8 +126,8 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
         );
 
         return [
-                'quantity' => $player->getVariableFromName($variable),
-                'max' => $this->playerVariableService->getMaxPlayerVariable($player, $variable),
+                'quantity' => $gameVariable->getValue(),
+                'max' => $gameVariable->getMaxValue(),
                 'name' => $name,
                 'description' => $description,
         ];

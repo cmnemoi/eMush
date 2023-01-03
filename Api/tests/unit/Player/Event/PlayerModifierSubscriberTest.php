@@ -3,11 +3,14 @@
 namespace Mush\Test\Player\Event;
 
 use Mockery;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Listener\PlayerModifierSubscriber;
 use Mush\Player\Service\PlayerVariableServiceInterface;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -44,7 +47,7 @@ class PlayerModifierSubscriberTest extends TestCase
 
     public function testOnMovementPointModifier()
     {
-        $player = new Player();
+        $player = $this->createPlayer(0, 0, 0, 0, 0);
 
         $event = new PlayerVariableEvent(
             $player,
@@ -65,7 +68,7 @@ class PlayerModifierSubscriberTest extends TestCase
 
     public function testOnActionPointModifier()
     {
-        $player = new Player();
+        $player = $this->createPlayer(0, 0, 0, 0, 0);
 
         $event = new PlayerVariableEvent(
             $player,
@@ -86,7 +89,7 @@ class PlayerModifierSubscriberTest extends TestCase
 
     public function testOnMoralPointModifier()
     {
-        $player = new Player();
+        $player = $this->createPlayer(0, 0, 0, 0, 0);
 
         $player->setMoralPoint(1);
 
@@ -120,7 +123,7 @@ class PlayerModifierSubscriberTest extends TestCase
 
     public function testOnHealthPointModifier()
     {
-        $player = new Player();
+        $player = $this->createPlayer(0, 0, 0, 0, 0);
 
         $player->setHealthPoint(1);
         $event = new PlayerVariableEvent(
@@ -155,7 +158,7 @@ class PlayerModifierSubscriberTest extends TestCase
 
     public function testOnSatietyPointModifier()
     {
-        $player = new Player();
+        $player = $this->createPlayer(0, 0, 0, 0, 0);
 
         $event = new PlayerVariableEvent(
             $player,
@@ -172,5 +175,36 @@ class PlayerModifierSubscriberTest extends TestCase
         ;
 
         $this->playerModifierSubscriber->onChangeVariable($event);
+    }
+
+    protected function createPlayer(int $health, int $moral, int $movement, int $action, int $satiety): Player
+    {
+        $characterConfig = new CharacterConfig();
+        $characterConfig
+            ->setMaxHealthPoint(16)
+            ->setMaxMoralPoint(16)
+            ->setMaxActionPoint(16)
+            ->setMaxMovementPoint(16)
+            ->setInitActionPoint($action)
+            ->setInitMovementPoint($movement)
+            ->setInitMoralPoint($moral)
+            ->setInitSatiety($satiety)
+            ->setInitHealthPoint($health)
+        ;
+
+        $player = new Player();
+        $player
+            ->setPlayerVariables($characterConfig)
+        ;
+
+        $playerInfo = new PlayerInfo(
+            $player,
+            new User(),
+            $characterConfig
+        );
+
+        $player->setPlayerInfo($playerInfo);
+
+        return $player;
     }
 }

@@ -73,7 +73,6 @@ class LastPlayerCloseGameCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, [
-            'oxygen' => 1,
             'cycle' => 5,
             'day' => 10,
             'filledAt' => new \DateTime(),
@@ -151,7 +150,6 @@ class LastPlayerCloseGameCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, [
-            'oxygen' => 1,
             'cycle' => 5,
             'day' => 10,
             'filledAt' => new \DateTime(),
@@ -260,7 +258,6 @@ class LastPlayerCloseGameCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, [
-            'oxygen' => 1,
             'cycle' => 5,
             'day' => 10,
             'filledAt' => new \DateTime(),
@@ -358,7 +355,6 @@ class LastPlayerCloseGameCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, [
-            'oxygen' => 1,
             'cycle' => 5,
             'day' => 10,
             'filledAt' => new \DateTime(),
@@ -444,7 +440,6 @@ class LastPlayerCloseGameCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, [
-            'oxygen' => 1,
             'cycle' => 5,
             'day' => 10,
             'filledAt' => new \DateTime(),
@@ -537,7 +532,6 @@ class LastPlayerCloseGameCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, [
-            'oxygen' => 1,
             'cycle' => 5,
             'day' => 10,
             'filledAt' => new \DateTime(),
@@ -655,7 +649,6 @@ class LastPlayerCloseGameCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, [
-            'oxygen' => 1,
             'cycle' => 5,
             'day' => 10,
             'filledAt' => new \DateTime(),

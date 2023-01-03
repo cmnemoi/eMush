@@ -31,12 +31,15 @@ class DaedalusVariableEventCest
 
     public function testChangeOxygenWithTanks(FunctionalTester $I)
     {
-        /** @var DaedalusConfig $gameConfig */
+        /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig]);
+
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['oxygen' => 32]);
+        $daedalus = $I->have(Daedalus::class);
+        $daedalus->setDaedalusVariables($daedalusConfig);
+        $daedalus->setOxygen(32);
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);

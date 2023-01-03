@@ -9,6 +9,8 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\GameVariable;
+use Mush\Game\Entity\GameVariableCollection;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -40,29 +42,14 @@ class Daedalus implements ModifierHolder
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Modifier::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $oxygen = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $fuel = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $hull = 100;
+    #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
+    private DaedalusVariables $daedalusVariables;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $day = 1;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $cycle = 1;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $shield = -2;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $spores = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $dailySpores = 0;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTime $filledAt = null;
@@ -189,59 +176,91 @@ class Daedalus implements ModifierHolder
         return $this;
     }
 
-    public function getOxygen(): int
+    public function getVariableFromName(string $variableName): GameVariable
     {
-        return $this->oxygen;
+        return $this->daedalusVariables->getVariableByName($variableName);
     }
 
-    public function setOxygen(int $oxygen): static
+    public function getVariableValueFromName(string $variableName): int
     {
-        $this->oxygen = $oxygen;
+        return $this->daedalusVariables->getValueByName($variableName);
+    }
+
+    public function setVariableFromName(int $value, string $variableName): static
+    {
+        $this->daedalusVariables->setValueByName($value, $variableName);
 
         return $this;
     }
 
-    public function addOxygen(int $change): static
+    public function getDaedalusVariables(): DaedalusVariables
     {
-        $this->oxygen += $change;
+        return $this->daedalusVariables;
+    }
+
+    public function setDaedalusVariables(DaedalusConfig $daedalusConfig): static
+    {
+        $this->daedalusVariables = new DaedalusVariables($daedalusConfig);
+
+        return $this;
+    }
+
+    public function getOxygen(): int
+    {
+        return $this->getVariableValueFromName(DaedalusVariableEnum::OXYGEN);
+    }
+
+    public function setOxygen(int $oxygen): static
+    {
+        $this->setVariableFromName($oxygen, DaedalusVariableEnum::OXYGEN);
 
         return $this;
     }
 
     public function getFuel(): int
     {
-        return $this->fuel;
+        return $this->getVariableValueFromName(DaedalusVariableEnum::FUEL);
     }
 
     public function setFuel(int $fuel): static
     {
-        $this->fuel = $fuel;
-
-        return $this;
-    }
-
-    public function addFuel(int $change): static
-    {
-        $this->fuel += $change;
+        $this->setVariableFromName($fuel, DaedalusVariableEnum::FUEL);
 
         return $this;
     }
 
     public function getHull(): int
     {
-        return $this->hull;
-    }
-
-    public function addHull(int $change): static
-    {
-        $this->hull += $change;
-
-        return $this;
+        return $this->getVariableValueFromName(DaedalusVariableEnum::HULL);
     }
 
     public function setHull(int $hull): static
     {
-        $this->hull = $hull;
+        $this->setVariableFromName($hull, DaedalusVariableEnum::HULL);
+
+        return $this;
+    }
+
+    public function getShield(): int
+    {
+        return $this->getVariableValueFromName(DaedalusVariableEnum::SHIELD);
+    }
+
+    public function setShield(int $shield): static
+    {
+        $this->setVariableFromName($shield, DaedalusVariableEnum::SHIELD);
+
+        return $this;
+    }
+
+    public function getSpores(): int
+    {
+        return $this->getVariableValueFromName(DaedalusVariableEnum::SPORE);
+    }
+
+    public function setSpores(int $spores): static
+    {
+        $this->setVariableFromName($spores, DaedalusVariableEnum::SPORE);
 
         return $this;
     }
@@ -266,42 +285,6 @@ class Daedalus implements ModifierHolder
     public function setDay(int $day): static
     {
         $this->day = $day;
-
-        return $this;
-    }
-
-    public function getShield(): int
-    {
-        return $this->shield;
-    }
-
-    public function setShield(int $shield): static
-    {
-        $this->shield = $shield;
-
-        return $this;
-    }
-
-    public function getSpores(): int
-    {
-        return $this->spores;
-    }
-
-    public function setSpores(int $spores): static
-    {
-        $this->spores = $spores;
-
-        return $this;
-    }
-
-    public function getDailySpores(): int
-    {
-        return $this->dailySpores;
-    }
-
-    public function setDailySpores(int $dailySpores): static
-    {
-        $this->dailySpores = $dailySpores;
 
         return $this;
     }
@@ -357,22 +340,6 @@ class Daedalus implements ModifierHolder
     public function getClassName(): string
     {
         return get_class($this);
-    }
-
-    public function getVariableFromName(string $variableName): int
-    {
-        switch ($variableName) {
-            case DaedalusVariableEnum::OXYGEN:
-                return $this->oxygen;
-            case DaedalusVariableEnum::FUEL:
-                return $this->fuel;
-            case DaedalusVariableEnum::HULL:
-                return $this->hull;
-            case DaedalusVariableEnum::SHIELD:
-                return $this->shield;
-            default:
-                throw new \LogicException('this is not a valid daedalusVariable');
-        }
     }
 
     public function getLanguage(): string

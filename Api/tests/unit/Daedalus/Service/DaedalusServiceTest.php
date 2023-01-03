@@ -345,11 +345,12 @@ class DaedalusServiceTest extends TestCase
     public function testChangeHull()
     {
         $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setMaxHull(100)->setInitHull(10);
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
 
         $daedalus = new Daedalus();
-        $daedalus->setHull(10);
+        $daedalus->setDaedalusVariables($daedalusConfig);
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $time = new \DateTime('yesterday');
@@ -378,9 +379,7 @@ class DaedalusServiceTest extends TestCase
 
         $player = new Player();
         $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
+            ->setPlayerVariables($characterConfig)
             ->setDaedalus($daedalus)
         ;
 

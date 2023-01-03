@@ -74,8 +74,10 @@ class CheckSporeLevelActionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player->setActionPoint(2);
+        $I->flushToDatabase($player);
 
         /** @var User $user */
         $user = $I->have(User::class);

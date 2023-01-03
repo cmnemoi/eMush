@@ -7,6 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\ExtractSpore;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -46,8 +47,16 @@ class ExtractSporeActionTest extends AbstractActionTest
 
     public function testExecute()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig
+            ->setDailySporeNb(1)
+            ->setInitOxygen(1)
+            ->setInitFuel(1)
+            ->setInitHull(1)
+            ->setInitShield(1)
+        ;
         $daedalus = new Daedalus();
-        $daedalus->setSpores(1);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $room = new Place();
 

@@ -45,8 +45,8 @@ class DaedalusFactory extends \Codeception\Module
             'maxOxygen' => 32,
             'maxFuel' => 32,
             'maxHull' => 100,
-            'initOxygen' => 32,
-            'initFuel' => 32,
+            'initOxygen' => 10,
+            'initFuel' => 10,
             'initHull' => 100,
             'initShield' => -2,
             'dailySporeNb' => 4,
@@ -67,10 +67,6 @@ class DaedalusFactory extends \Codeception\Module
         ]);
 
         $factory->_define(Daedalus::class, [
-            'oxygen' => 10,
-            'fuel' => 10,
-            'hull' => 100,
-            'shield' => -2,
             'day' => 1,
             'cycle' => 1,
             'cycleStartedAt' => new \DateTime('today midnight'),

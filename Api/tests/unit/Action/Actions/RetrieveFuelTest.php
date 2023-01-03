@@ -62,9 +62,12 @@ class RetrieveFuelTest extends AbstractActionTest
         $player = $this->createPlayer($daedalus, $room);
 
         $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig->setMaxFuel(32);
+        $daedalusConfig
+            ->setMaxFuel(32)
+            ->setInitFuel(10)
+        ;
 
-        $daedalus->setFuel(10);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $tank = new EquipmentConfig();
         $tank->setActions(new ArrayCollection([$this->actionEntity]));

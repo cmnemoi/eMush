@@ -47,7 +47,7 @@ class PlayerVariableServiceTest extends TestCase
 
     public function testSatietyModifier()
     {
-        $player = new Player();
+        $player = $this->createPlayer(0, 0, 0, 0, 0);
 
         $this->playerService->shouldReceive('persist')->once();
         $this->service->handleSatietyModifier(-1, $player);
@@ -68,7 +68,7 @@ class PlayerVariableServiceTest extends TestCase
 
     public function testMushSatietyModifier()
     {
-        $player = new Player();
+        $player = $this->createPlayer(0, 0, 0, 0, 0);
 
         $this->playerService->shouldReceive('persist')->once();
         $this->service->handleSatietyModifier(-1, $player);
@@ -90,14 +90,12 @@ class PlayerVariableServiceTest extends TestCase
 
         $room = new Place();
 
-        $player = new Player();
+        $player = $this->createPlayer(0, 0, 0, 0, 0);
         $player
             ->setMoralPoint(5)
             ->setDaedalus($daedalus)
             ->setPlace($room)
         ;
-
-        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
 
         // go below 4 moral
         $this->playerService->shouldReceive('persist')->once();
@@ -150,13 +148,12 @@ class PlayerVariableServiceTest extends TestCase
         $daedalus = new Daedalus();
         $room = new Place();
 
-        $player = new Player();
+        $player = $this->createPlayer(0, 0, 0, 0, 0);
         $player
             ->setActionPoint(5)
             ->setDaedalus($daedalus)
             ->setPlace($room)
         ;
-        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
 
         $this->playerService->shouldReceive('persist')->once();
         $this->modifierService->shouldReceive('getEventModifiedValue')
@@ -196,7 +193,7 @@ class PlayerVariableServiceTest extends TestCase
         $daedalus = new Daedalus();
         $room = new Place();
 
-        $player = new Player();
+        $player = $this->createPlayer(0, 0, 0, 0, 0);
         $player
             ->setHealthPoint(5)
             ->setDaedalus($daedalus)
@@ -211,5 +208,36 @@ class PlayerVariableServiceTest extends TestCase
         $this->service->handleHealthPointModifier(-2, $player);
 
         $this->assertEquals(3, $player->getHealthPoint());
+    }
+
+    protected function createPlayer(int $health, int $moral, int $movement, int $action, int $satiety): Player
+    {
+        $characterConfig = new CharacterConfig();
+        $characterConfig
+            ->setMaxHealthPoint(16)
+            ->setMaxMoralPoint(16)
+            ->setMaxActionPoint(16)
+            ->setMaxMovementPoint(16)
+            ->setInitActionPoint($action)
+            ->setInitMovementPoint($movement)
+            ->setInitMoralPoint($moral)
+            ->setInitSatiety($satiety)
+            ->setInitHealthPoint($health)
+        ;
+
+        $player = new Player();
+        $player
+            ->setPlayerVariables($characterConfig)
+        ;
+
+        $playerInfo = new PlayerInfo(
+            $player,
+            new User(),
+            $characterConfig
+        );
+
+        $player->setPlayerInfo($playerInfo);
+
+        return $player;
     }
 }

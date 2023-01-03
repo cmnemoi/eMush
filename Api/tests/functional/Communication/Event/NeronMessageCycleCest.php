@@ -88,12 +88,17 @@ class NeronMessageCycleCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+        $characterConfig
+            ->setMaxHealthPoint(99)
+            ->setInitHealthPoint(99)
+        ;
+        $I->refreshEntities($characterConfig);
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'healthPoint' => 99,
         ]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

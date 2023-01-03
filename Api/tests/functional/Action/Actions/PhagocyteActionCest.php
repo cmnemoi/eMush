@@ -79,9 +79,12 @@ class PhagocyteActionCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 1,
-            'healthPoint' => 1,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(1)
+            ->setHealthPoint(1)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

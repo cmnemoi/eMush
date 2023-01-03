@@ -88,9 +88,12 @@ class MovementPointConversionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'movementPoint' => 0,
-            'actionPoint' => 2,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+            ->setMovementPoint(0)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -166,9 +169,12 @@ class MovementPointConversionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'movementPoint' => 1,
-            'actionPoint' => 10,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setMovementPoint(1)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -243,9 +249,12 @@ class MovementPointConversionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'movementPoint' => 1,
-            'actionPoint' => 10,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setMovementPoint(1)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

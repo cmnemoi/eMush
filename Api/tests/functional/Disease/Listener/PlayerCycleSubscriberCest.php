@@ -187,6 +187,7 @@ class PlayerCycleSubscriberCest
             'daedalus' => $daedalus,
             'place' => $place,
         ]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -258,7 +259,6 @@ class PlayerCycleSubscriberCest
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $place,
         ]);
         /** @var User $user */
@@ -272,9 +272,9 @@ class PlayerCycleSubscriberCest
         /** @var Player $otherPlayer */
         $otherPlayer = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'characterConfig' => $characterConfig,
             'place' => $place,
         ]);
+        $otherPlayer->setPlayerVariables($characterConfig);
         $otherPlayerInfo = new PlayerInfo($otherPlayer, $user, $characterConfig);
 
         $I->haveInRepository($otherPlayerInfo);

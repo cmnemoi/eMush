@@ -4,9 +4,10 @@ namespace Mush\Test\Action\Validator;
 
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Validator\FullHealth;
-use Mush\Action\Validator\FullHealthValidator;
+use Mush\Action\Validator\GameVariableLevel;
+use Mush\Action\Validator\GameVariableLevelValidator;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerVariableServiceInterface;
@@ -16,8 +17,8 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 class FullHealthValidatorTest extends TestCase
 {
-    private FullHealthValidator $validator;
-    private FullHealth $constraint;
+    private GameVariableLevelValidator $validator;
+    private GameVariableLevel $constraint;
 
     /** @var PlayerVariableServiceInterface|Mockery\Mock */
     private PlayerVariableServiceInterface $gearToolService;
@@ -27,10 +28,8 @@ class FullHealthValidatorTest extends TestCase
      */
     public function before()
     {
-        $this->playerVariableService = \Mockery::mock(PlayerVariableServiceInterface::class);
-
-        $this->validator = new FullHealthValidator($this->playerVariableService);
-        $this->constraint = new FullHealth();
+        $this->validator = new GameVariableLevelValidator();
+        $this->constraint = new GameVariableLevel();
     }
 
     /**
@@ -43,10 +42,20 @@ class FullHealthValidatorTest extends TestCase
 
     public function testValid()
     {
+        $this->constraint->target = GameVariableLevel::TARGET_PLAYER;
+        $this->constraint->checkMode = GameVariableLevel::IS_MAX;
+        $this->constraint->variableName = PlayerVariableEnum::HEALTH_POINT;
+
+        $characterConfig = new CharacterConfig();
+        $characterConfig
+            ->setMaxHealthPoint(12)
+            ->setInitHealthPoint(5)
+        ;
+
         $daedalus = new Daedalus();
         $player = new Player();
         $player
-            ->setHealthPoint(5)
+            ->setPlayerVariables($characterConfig)
             ->setDaedalus($daedalus)
         ;
 
@@ -57,23 +66,26 @@ class FullHealthValidatorTest extends TestCase
             ])
         ;
 
-        $this->playerVariableService->shouldReceive('getMaxPlayerVariable')
-            ->with($player, PlayerVariableEnum::HEALTH_POINT)
-            ->andReturn(12)
-        ;
-
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
     }
 
     public function testNotValid()
     {
-        $this->constraint->target = FullHealth::PARAMETER;
+        $this->constraint->target = GameVariableLevel::TARGET_PLAYER;
+        $this->constraint->checkMode = GameVariableLevel::IS_MAX;
+        $this->constraint->variableName = PlayerVariableEnum::HEALTH_POINT;
+
+        $characterConfig = new CharacterConfig();
+        $characterConfig
+            ->setMaxHealthPoint(12)
+            ->setInitHealthPoint(12)
+        ;
 
         $daedalus = new Daedalus();
         $player = new Player();
         $player
-            ->setHealthPoint(12)
+            ->setPlayerVariables($characterConfig)
             ->setDaedalus($daedalus)
         ;
 
@@ -82,11 +94,6 @@ class FullHealthValidatorTest extends TestCase
             ->shouldReceive([
                 'getParameter' => $player,
             ]);
-
-        $this->playerVariableService->shouldReceive('getMaxPlayerVariable')
-            ->with($player, PlayerVariableEnum::HEALTH_POINT)
-            ->andReturn(12)
-        ;
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);

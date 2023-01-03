@@ -21,16 +21,16 @@ class DaedalusConfig
     private string $name;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private int $initOxygen;
+    private int $initOxygen = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private int $initFuel;
+    private int $initFuel = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private int $initHull;
+    private int $initHull = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private int $initShield;
+    private int $initShield = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $maxOxygen = 0;

@@ -8,4 +8,5 @@ class DaedalusVariableEnum
     public const OXYGEN = 'oxygen';
     public const FUEL = 'fuel';
     public const SHIELD = 'shield';
+    public const SPORE = 'spore';
 }

@@ -153,12 +153,7 @@ class DaedalusService implements DaedalusServiceInterface
 
         $daedalus
             ->setCycle(0)
-            ->setOxygen($daedalusConfig->getInitOxygen())
-            ->setFuel($daedalusConfig->getInitFuel())
-            ->setHull($daedalusConfig->getInitHull())
-            ->setShield($daedalusConfig->getInitShield())
-            ->setSpores($daedalusConfig->getDailySporeNb())
-            ->setDailySpores($daedalusConfig->getDailySporeNb())
+            ->setDaedalusVariables($daedalusConfig)
         ;
 
         $localizationConfig = $this->localizationConfigRepository->findByLanguage($language);

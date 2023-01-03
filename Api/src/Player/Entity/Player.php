@@ -15,11 +15,14 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Game\Entity\GameVariable;
+use Mush\Game\Entity\GameVariableCollection;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Modifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -72,23 +75,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\Column(type: 'array', nullable: true)]
     private array $skills = [];
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $healthPoint = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $moralPoint = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $actionPoint = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $movementPoint = 0;
+    #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
+    private PlayerVariables $playerVariables;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $triumph = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $satiety = 0;
 
     public function __construct()
     {
@@ -354,78 +345,74 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    public function getHealthPoint(): int
+    public function getPlayerVariables(): PlayerVariables
     {
-        return $this->healthPoint;
+        return $this->playerVariables;
     }
 
-    public function setHealthPoint(int $healthPoint): static
+    public function setPlayerVariables(CharacterConfig $characterConfig): static
     {
-        $this->healthPoint = $healthPoint;
+        $this->playerVariables = new PlayerVariables($characterConfig);
 
         return $this;
     }
 
-    public function addHealthPoint(int $healthPoint): static
+    public function getHealthPoint(): int
     {
-        $this->healthPoint += $healthPoint;
+        return $this->playerVariables->getValueByName(PlayerVariableEnum::HEALTH_POINT);
+    }
+
+    public function setHealthPoint(int $healthPoint): static
+    {
+        $this->playerVariables->setValueByName($healthPoint, PlayerVariableEnum::HEALTH_POINT);
 
         return $this;
     }
 
     public function getMoralPoint(): int
     {
-        return $this->moralPoint;
+        return $this->playerVariables->getValueByName(PlayerVariableEnum::MORAL_POINT);
     }
 
     public function setMoralPoint(int $moralPoint): static
     {
-        $this->moralPoint = $moralPoint;
-
-        return $this;
-    }
-
-    public function addMoralPoint(int $moralPoint): static
-    {
-        $this->moralPoint += $moralPoint;
+        $this->playerVariables->setValueByName($moralPoint, PlayerVariableEnum::MORAL_POINT);
 
         return $this;
     }
 
     public function getActionPoint(): int
     {
-        return $this->actionPoint;
+        return $this->playerVariables->getValueByName(PlayerVariableEnum::ACTION_POINT);
     }
 
     public function setActionPoint(int $actionPoint): static
     {
-        $this->actionPoint = $actionPoint;
-
-        return $this;
-    }
-
-    public function addActionPoint(int $actionPoint): static
-    {
-        $this->actionPoint += $actionPoint;
+        $this->playerVariables->setValueByName($actionPoint, PlayerVariableEnum::ACTION_POINT);
 
         return $this;
     }
 
     public function getMovementPoint(): int
     {
-        return $this->movementPoint;
+        return $this->playerVariables->getValueByName(PlayerVariableEnum::MOVEMENT_POINT);
     }
 
     public function setMovementPoint(int $movementPoint): static
     {
-        $this->movementPoint = $movementPoint;
+        $this->playerVariables->setValueByName($movementPoint, PlayerVariableEnum::MOVEMENT_POINT);
 
         return $this;
     }
 
-    public function addMovementPoint(int $movementPoint): static
+    public function getSatiety(): int
     {
-        $this->movementPoint += $movementPoint;
+        return $this->playerVariables->getValueByName(PlayerVariableEnum::SATIETY);
+    }
+
+    public function setSatiety(int $satiety): static
+    {
+        $this->playerVariables->setValueByName($satiety, PlayerVariableEnum::SATIETY);
 
         return $this;
     }
@@ -449,75 +436,21 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    public function getSatiety(): int
+    public function getVariableFromName(string $variableName): GameVariable
     {
-        return $this->satiety;
+        return $this->playerVariables->getVariableByName($variableName);
     }
 
-    public function setSatiety(int $satiety): static
+    public function getVariableValueFromName(string $variableName): int
     {
-        $this->satiety = $satiety;
-
-        return $this;
-    }
-
-    public function addSatiety(int $satiety): static
-    {
-        $this->satiety += $satiety;
-
-        return $this;
-    }
-
-    public function getVariableFromName(string $variableName): int
-    {
-        switch ($variableName) {
-            case PlayerVariableEnum::MORAL_POINT:
-                return $this->moralPoint;
-            case PlayerVariableEnum::MOVEMENT_POINT:
-                return $this->movementPoint;
-            case PlayerVariableEnum::HEALTH_POINT:
-                return $this->healthPoint;
-            case PlayerVariableEnum::ACTION_POINT:
-                return $this->actionPoint;
-            case PlayerVariableEnum::SATIETY:
-                return $this->satiety;
-            case PlayerVariableEnum::TRIUMPH:
-                return $this->triumph;
-            default:
-                throw new \LogicException('this is not a valid playerVariable');
-        }
+        return $this->playerVariables->getValueByName($variableName);
     }
 
     public function setVariableFromName(string $variableName, int $value): static
     {
-        switch ($variableName) {
-            case PlayerVariableEnum::MORAL_POINT:
-                $this->moralPoint = $value;
+        $this->playerVariables->setValueByName($value, $variableName);
 
-                return $this;
-            case PlayerVariableEnum::MOVEMENT_POINT:
-                $this->movementPoint = $value;
-
-                return $this;
-            case PlayerVariableEnum::HEALTH_POINT:
-                $this->healthPoint = $value;
-
-                return $this;
-            case PlayerVariableEnum::ACTION_POINT:
-                $this->actionPoint = $value;
-
-                return $this;
-            case PlayerVariableEnum::SATIETY:
-                $this->satiety = $value;
-
-                return $this;
-            case PlayerVariableEnum::TRIUMPH:
-                $this->triumph = $value;
-
-                return $this;
-            default:
-                throw new \LogicException('this is not a valid playerVariable');
-        }
+        return $this;
     }
 
     public function getClassName(): string

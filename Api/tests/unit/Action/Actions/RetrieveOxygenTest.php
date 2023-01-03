@@ -65,9 +65,12 @@ class RetrieveOxygenTest extends AbstractActionTest
         ;
 
         $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig->setMaxOxygen(32);
+        $daedalusConfig
+            ->setMaxOxygen(32)
+            ->setInitOxygen(10)
+        ;
 
-        $daedalus->setOxygen(10);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $tank = new EquipmentConfig();
         $tank->setActions(new ArrayCollection([$this->actionEntity]));

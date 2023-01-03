@@ -12,6 +12,7 @@ use Mush\Alert\Repository\AlertRepository;
 use Mush\Alert\Service\AlertService;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
@@ -57,8 +58,11 @@ class AlertServiceTest extends TestCase
 
     public function testNoOxygenAlert()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setInitOxygen(15);
+
         $daedalus = new Daedalus();
-        $daedalus->setOxygen(15);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         // oxygen don't go bellow the threshold of 8 oxygen
         $this->entityManager->shouldReceive('persist')->never();
@@ -71,8 +75,11 @@ class AlertServiceTest extends TestCase
 
     public function testOxygenAlert()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setInitOxygen(8);
+
         $daedalus = new Daedalus();
-        $daedalus->setOxygen(8);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('remove')->never();
@@ -84,8 +91,11 @@ class AlertServiceTest extends TestCase
 
     public function testSolveOxygenAlert()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setInitOxygen(9);
+
         $daedalus = new Daedalus();
-        $daedalus->setOxygen(9);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::LOW_OXYGEN);
@@ -103,8 +113,11 @@ class AlertServiceTest extends TestCase
 
     public function testNoHullAlert()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setInitHull(95);
+
         $daedalus = new Daedalus();
-        $daedalus->setHull(95);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         // oxygen don't go bellow the threshold of 8 oxygen
         $this->entityManager->shouldReceive('persist')->never();
@@ -117,8 +130,11 @@ class AlertServiceTest extends TestCase
 
     public function testHullAlert()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setInitHull(20);
+
         $daedalus = new Daedalus();
-        $daedalus->setHull(20);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('remove')->never();
@@ -130,8 +146,11 @@ class AlertServiceTest extends TestCase
 
     public function testSolveHullAlert()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setInitHull(90);
+
         $daedalus = new Daedalus();
-        $daedalus->setHull(90);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $alert = new Alert();
         $alert->setDaedalus($daedalus)->setName(AlertEnum::LOW_HULL);
@@ -378,12 +397,15 @@ class AlertServiceTest extends TestCase
 
     public function testSatietyAlertActivate()
     {
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setInitSatiety(-24);
+
         $daedalus = new Daedalus();
 
         $player1 = new Player();
         $player1
             ->setDaedalus($daedalus)
-            ->setSatiety(-24)
+            ->setPlayerVariables($characterConfig)
         ;
         $playerInfo1 = new PlayerInfo($player1, new User(), new CharacterConfig());
         $player1->setPlayerInfo($playerInfo1);
@@ -391,7 +413,7 @@ class AlertServiceTest extends TestCase
         $player2 = new Player();
         $player2
             ->setDaedalus($daedalus)
-            ->setSatiety(-24)
+            ->setPlayerVariables($characterConfig)
         ;
         $playerInfo2 = new PlayerInfo($player2, new User(), new CharacterConfig());
         $player2->setPlayerInfo($playerInfo2);
@@ -411,12 +433,15 @@ class AlertServiceTest extends TestCase
 
     public function testSatietyAlertAlreadyActive()
     {
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setInitSatiety(-24);
+
         $daedalus = new Daedalus();
 
         $player1 = new Player();
         $player1
             ->setDaedalus($daedalus)
-            ->setSatiety(-24)
+            ->setPlayerVariables($characterConfig)
         ;
         $playerInfo1 = new PlayerInfo($player1, new User(), new CharacterConfig());
         $player1->setPlayerInfo($playerInfo1);
@@ -424,7 +449,7 @@ class AlertServiceTest extends TestCase
         $player2 = new Player();
         $player2
             ->setDaedalus($daedalus)
-            ->setSatiety(-24)
+            ->setPlayerVariables($characterConfig)
         ;
         $playerInfo2 = new PlayerInfo($player1, new User(), new CharacterConfig());
         $player2->setPlayerInfo($playerInfo2);
@@ -447,11 +472,15 @@ class AlertServiceTest extends TestCase
 
     public function testSatietyAlertDeactivate()
     {
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setInitSatiety(-24);
+
         $daedalus = new Daedalus();
 
         $player1 = new Player();
         $player1
             ->setDaedalus($daedalus)
+            ->setPlayerVariables($characterConfig)
             ->setSatiety(-22)
         ;
         $playerInfo1 = new PlayerInfo($player1, new User(), new CharacterConfig());
@@ -460,7 +489,7 @@ class AlertServiceTest extends TestCase
         $player2 = new Player();
         $player2
             ->setDaedalus($daedalus)
-            ->setSatiety(-24)
+            ->setPlayerVariables($characterConfig)
         ;
         $playerInfo2 = new PlayerInfo($player2, new User(), new CharacterConfig());
         $player2->setPlayerInfo($playerInfo2);

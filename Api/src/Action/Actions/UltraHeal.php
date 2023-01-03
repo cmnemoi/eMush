@@ -7,7 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\FullHealth;
+use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
@@ -54,7 +54,12 @@ class UltraHeal extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new FullHealth(['target' => FullHealth::PLAYER, 'groups' => ['visible']]));
+        $metadata->addConstraint(new GameVariableLevel([
+            'target' => GameVariableLevel::PLAYER,
+            'checkMode' => GameVariableLevel::IS_MAX,
+            'variableName' => PlayerVariableEnum::HEALTH_POINT,
+            'groups' => ['visibility'],
+        ]));
     }
 
     protected function checkResult(): ActionResult

@@ -6,6 +6,7 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\DailySporesLimit;
 use Mush\Action\Validator\DailySporesLimitValidator;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -36,10 +37,17 @@ class DailySporesLimitValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValidForDaedalus()
+    // @TODO once spore status is totaly replaced by the spore variable on player, rework this test using GameVariableLevel validator
+    /*public function testValidForDaedalus()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setDailySporeNb(4);
+
         $daedalus = new Daedalus();
-        $daedalus->setSpores(1);
+        $daedalus
+            ->setDaedalusVariables($daedalusConfig)
+            ->setSpores(1)
+        ;
 
         $player = new Player();
         $player->setDaedalus($daedalus);
@@ -80,12 +88,18 @@ class DailySporesLimitValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
 
         $this->assertTrue(true);
-    }
+    }*/
 
     public function testValidForPlayer()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setDailySporeNb(4);
+
         $daedalus = new Daedalus();
-        $daedalus->setSpores(1);
+        $daedalus
+            ->setDaedalusVariables($daedalusConfig)
+            ->setSpores(1)
+        ;
 
         $player = new Player();
         $player->setDaedalus($daedalus);
@@ -112,8 +126,16 @@ class DailySporesLimitValidatorTest extends TestCase
 
     public function testNotValidForPlayer()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig
+            ->setDailySporeNb(4)
+        ;
+
         $daedalus = new Daedalus();
-        $daedalus->setSpores(0);
+        $daedalus
+            ->setDaedalusVariables($daedalusConfig)
+            ->setSpores(0)
+        ;
 
         $player = new Player();
         $player->setDaedalus($daedalus);

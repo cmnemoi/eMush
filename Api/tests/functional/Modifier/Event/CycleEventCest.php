@@ -57,6 +57,7 @@ class CycleEventCest
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -118,6 +119,7 @@ class CycleEventCest
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -128,6 +130,7 @@ class CycleEventCest
 
         /** @var Player $player2 */
         $player2 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player2->setPlayerVariables($characterConfig);
         $player2Info = new PlayerInfo($player2, $user, $characterConfig);
 
         $I->haveInRepository($player2Info);
@@ -205,6 +208,7 @@ class CycleEventCest
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

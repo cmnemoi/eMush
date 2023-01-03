@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -86,7 +87,8 @@ class CycleEventCest
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class, [
             'propagatingFireRate' => 100,
-            'hullFireDamageRate' => 100, ]);
+            'hullFireDamageRate' => 100,
+        ]);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
@@ -98,8 +100,11 @@ class CycleEventCest
         $neron->setIsInhibited(true);
         $I->haveInRepository($neron);
 
+        /** @var DaedalusConfig $daedalusConfig */
+        $daedalusConfig = $I->have(DaedalusConfig::class, ['name' => GameConfigEnum::TEST]);
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
@@ -124,7 +129,7 @@ class CycleEventCest
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
-
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

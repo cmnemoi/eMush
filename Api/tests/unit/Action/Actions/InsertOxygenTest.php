@@ -60,7 +60,9 @@ class InsertOxygenTest extends AbstractActionTest
 
         $gameItem->setName(ItemEnum::OXYGEN_CAPSULE);
 
-        $daedalus->setOxygen(10);
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setMaxOxygen(32)->setInitOxygen(10);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setMaxOxygen(32);

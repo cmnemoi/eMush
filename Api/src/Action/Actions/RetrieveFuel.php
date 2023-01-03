@@ -4,7 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Validator\Fuel;
+use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\InventoryFull;
 use Mush\Action\Validator\ParameterName;
@@ -25,7 +25,12 @@ class RetrieveFuel extends RetrieveAction
         $metadata->addConstraints([
             new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]),
             new ParameterName(['name' => EquipmentEnum::FUEL_TANK, 'groups' => ['visibility']]),
-            new Fuel(['groups' => ['visibility']]),
+            new GameVariableLevel([
+                'target' => GameVariableLevel::DAEDALUS,
+                'checkMode' => GameVariableLevel::IS_MIN,
+                'variableName' => DaedalusVariableEnum::FUEL,
+                'groups' => ['visibility'],
+            ]),
             new InventoryFull(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FULL_INVENTORY]),
             new HasStatus([
                 'status' => EquipmentStatusEnum::BROKEN,

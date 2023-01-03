@@ -87,8 +87,9 @@ class DaedalusNormalizer implements NormalizerInterface
 
     private function normalizeDaedalusVariable(Daedalus $daedalus, string $variable, string $language): array
     {
-        $quantity = $daedalus->getVariableFromName($variable);
-        $maxValue = $daedalus->getGameConfig()->getDaedalusConfig()->getVariableFromName($variable);
+        $gameVariable = $daedalus->getVariableFromName($variable);
+        $maxValue = $gameVariable->getMaxValue();
+        $quantity = $gameVariable->getValue();
 
         return [
             'quantity' => $quantity,

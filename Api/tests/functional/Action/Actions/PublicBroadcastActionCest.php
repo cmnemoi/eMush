@@ -116,9 +116,12 @@ class PublicBroadcastActionCest
         /** @var Player $player1 */
         $player1 = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
         ]);
+        $player1->setPlayerVariables($player1Config);
+        $player1
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $player1Info = new PlayerInfo($player1, $user, $player1Config);
@@ -129,9 +132,12 @@ class PublicBroadcastActionCest
         /** @var Player $player2 */
         $player2 = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
         ]);
+        $player2->setPlayerVariables($player2Config);
+        $player2
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
         $player2Info = new PlayerInfo($player2, $user, $player2Config);
         $I->haveInRepository($player2Info);
         $player2->setPlayerInfo($player2Info);
@@ -233,9 +239,12 @@ class PublicBroadcastActionCest
         /** @var Player $player1 */
         $player1 = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
         ]);
+        $player1->setPlayerVariables($player1Config);
+        $player1
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $player1Info = new PlayerInfo($player1, $user, $player1Config);
@@ -246,9 +255,12 @@ class PublicBroadcastActionCest
         /** @var Player $player2 */
         $player2 = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
         ]);
+        $player2->setPlayerVariables($player2Config);
+        $player2
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
         $player2Info = new PlayerInfo($player2, $user, $player2Config);
         $I->haveInRepository($player2Info);
         $player2->setPlayerInfo($player2Info);

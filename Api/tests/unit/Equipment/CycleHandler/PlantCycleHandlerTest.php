@@ -5,6 +5,7 @@ namespace Mush\Unit\Equipment\CycleHandler;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
 use Mush\Equipment\CycleHandler\PlantCycleHandler;
@@ -211,8 +212,10 @@ class PlantCycleHandlerTest extends TestCase
 
     public function testNewDayPlantHealthy()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setMaxOxygen(32)->setInitOxygen(10);
         $daedalus = new Daedalus();
-        $daedalus->setOxygen(10);
+        $daedalus->setDaedalusVariables($daedalusConfig);
         $player = new Player();
         $player->setDaedalus($daedalus);
         $room = new Place();
@@ -271,8 +274,10 @@ class PlantCycleHandlerTest extends TestCase
 
     public function testNewDayPlantThirsty()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setMaxOxygen(32)->setInitOxygen(10);
         $daedalus = new Daedalus();
-        $daedalus->setOxygen(10);
+        $daedalus->setDaedalusVariables($daedalusConfig);
         $player = new Player();
         $player->setDaedalus($daedalus);
         $room = new Place();
@@ -330,8 +335,10 @@ class PlantCycleHandlerTest extends TestCase
 
     public function testNewDayPlantDry()
     {
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setMaxOxygen(32)->setInitOxygen(10);
         $daedalus = new Daedalus();
-        $daedalus->setOxygen(10);
+        $daedalus->setDaedalusVariables($daedalusConfig);
         $player = new Player();
         $player->setDaedalus($daedalus);
         $room = new Place();

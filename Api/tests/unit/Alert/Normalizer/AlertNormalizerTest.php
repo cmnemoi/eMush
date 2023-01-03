@@ -8,6 +8,7 @@ use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Normalizer\AlertNormalizer;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -85,11 +86,13 @@ class AlertNormalizerTest extends TestCase
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setInitHull(5);
 
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
-        $daedalus->setHull(5);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $alert = new Alert();
         $alert
@@ -128,8 +131,6 @@ class AlertNormalizerTest extends TestCase
 
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-
-        $daedalus->setHull(5);
 
         $characterConfig = new CharacterConfig();
         $characterConfig->setCharacterName('andie');

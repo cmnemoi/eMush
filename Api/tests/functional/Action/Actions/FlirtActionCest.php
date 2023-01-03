@@ -80,9 +80,12 @@ class FlirtActionCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'healthPoint' => 6,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+            ->setHealthPoint(6)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -101,9 +104,12 @@ class FlirtActionCest
         $targetPlayer = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'healthPoint' => 6,
         ]);
+        $targetPlayer->setPlayerVariables($characterConfig2);
+        $targetPlayer
+            ->setActionPoint(2)
+            ->setHealthPoint(6)
+        ;
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
 
         $I->haveInRepository($targetPlayerInfo);
@@ -175,9 +181,12 @@ class FlirtActionCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'healthPoint' => 6,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+            ->setHealthPoint(6)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -195,9 +204,12 @@ class FlirtActionCest
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'healthPoint' => 6,
         ]);
+        $targetPlayer->setPlayerVariables($characterConfig);
+        $targetPlayer
+            ->setActionPoint(2)
+            ->setHealthPoint(6)
+        ;
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
 
         $I->haveInRepository($targetPlayerInfo);
@@ -253,9 +265,12 @@ class FlirtActionCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'healthPoint' => 6,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+            ->setHealthPoint(6)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -273,9 +288,12 @@ class FlirtActionCest
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'healthPoint' => 6,
         ]);
+        $targetPlayer->setPlayerVariables($characterConfig);
+        $targetPlayer
+            ->setActionPoint(2)
+            ->setHealthPoint(6)
+        ;
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
 
         $I->haveInRepository($targetPlayerInfo);
@@ -331,9 +349,12 @@ class FlirtActionCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'healthPoint' => 6,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+            ->setHealthPoint(6)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -351,9 +372,12 @@ class FlirtActionCest
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'healthPoint' => 6,
         ]);
+        $targetPlayer->setPlayerVariables($characterConfig);
+        $targetPlayer
+            ->setActionPoint(2)
+            ->setHealthPoint(6)
+        ;
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
 
         $I->haveInRepository($targetPlayerInfo);
@@ -424,9 +448,12 @@ class FlirtActionCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'healthPoint' => 6,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+            ->setHealthPoint(6)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -444,9 +471,12 @@ class FlirtActionCest
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'healthPoint' => 6,
         ]);
+        $targetPlayer->setPlayerVariables($characterConfig);
+        $targetPlayer
+            ->setActionPoint(2)
+            ->setHealthPoint(6)
+        ;
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
 
         $I->haveInRepository($targetPlayerInfo);

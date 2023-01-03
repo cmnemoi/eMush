@@ -54,7 +54,7 @@ class PlayerVariableService implements PlayerVariableServiceInterface
     public function setPlayerVariableToMax(Player $player, string $target, \DateTime $date = null): Player
     {
         $maxAmount = $this->getMaxPlayerVariable($player, $target);
-        $delta = $maxAmount - $player->getVariableFromName($target);
+        $delta = $maxAmount - $player->getVariableValueFromName($target);
 
         $newAmount = $this->getValueInInterval($maxAmount + $delta, 0, $maxAmount);
 

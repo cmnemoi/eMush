@@ -180,6 +180,8 @@ class PlayerServiceCest
             'place' => $room,
             'daedalus' => $daedalus,
         ]);
+        $player2->setPlayerVariables($characterConfig);
+        $player2->setMoralPoint(10);
         $player2Info = new PlayerInfo($player2, $user, $characterConfig);
 
         $I->haveInRepository($player2Info);
@@ -191,6 +193,8 @@ class PlayerServiceCest
             'place' => $room,
             'daedalus' => $daedalus,
         ]);
+        $mushPlayer->setPlayerVariables($characterConfig);
+        $mushPlayer->setMoralPoint(10);
         $mushPlayerInfo = new PlayerInfo($mushPlayer, $user, $characterConfig);
 
         $I->haveInRepository($mushPlayerInfo);

@@ -35,7 +35,7 @@ class DiseaseSubscriber implements EventSubscriberInterface
         foreach (PlayerVariableEnum::getCappedPlayerVariables() as $variableName) {
             $maxAmount = $this->playerVariableService->getMaxPlayerVariable($player, $variableName);
 
-            if ($player->getVariableFromName($variableName) > $maxAmount) {
+            if ($player->getVariableValueFromName($variableName) > $maxAmount) {
                 $player->setVariableFromName($variableName, $maxAmount);
                 $this->playerService->persist($player);
             }

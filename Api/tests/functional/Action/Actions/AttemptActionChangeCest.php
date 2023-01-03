@@ -83,8 +83,11 @@ class AttemptActionChangeCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
         ]);
+
+        $player->setPlayerVariables($characterConfig);
+        $player->setActionPoint(10);
+        $I->flushToDatabase($player);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -208,7 +211,11 @@ class AttemptActionChangeCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'actionPoint' => 10]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+
+        $player->setPlayerVariables($characterConfig);
+        $player->setActionPoint(10);
+        $I->flushToDatabase($player);
 
         /** @var User $user */
         $user = $I->have(User::class);

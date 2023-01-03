@@ -118,6 +118,7 @@ class ActionEffectSubscriberCest
             'daedalus' => $daedalus,
             'place' => $place,
         ]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

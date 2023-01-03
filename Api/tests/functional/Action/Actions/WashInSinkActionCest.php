@@ -82,8 +82,11 @@ class WashInSinkActionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 3,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(3)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

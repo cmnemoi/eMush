@@ -52,7 +52,9 @@ class InsertFuelCest
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['fuel' => 5, 'cycleStartedAt' => new \DateTime()]);
+        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
+        $daedalus->setDaedalusVariables($daedalusConfig);
+        $daedalus->setFuel(5);
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
 
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -67,8 +69,11 @@ class InsertFuelCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -145,9 +150,10 @@ class InsertFuelCest
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['fuel' => 5, 'cycleStartedAt' => new \DateTime()]);
+        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
+        $daedalus->setDaedalusVariables($daedalusConfig);
+        $daedalus->setFuel(5);
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
@@ -160,8 +166,11 @@ class InsertFuelCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

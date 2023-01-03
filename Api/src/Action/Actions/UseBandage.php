@@ -6,7 +6,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Validator\FullHealth;
+use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
@@ -33,7 +33,13 @@ class UseBandage extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new FullHealth(['target' => FullHealth::PLAYER, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::HEAL_NO_INJURY]));
+        $metadata->addConstraint(new GameVariableLevel([
+            'target' => GameVariableLevel::PLAYER,
+            'checkMode' => GameVariableLevel::IS_MAX,
+            'variableName' => PlayerVariableEnum::HEALTH_POINT,
+            'message' => ActionImpossibleCauseEnum::HEAL_NO_INJURY,
+            'groups' => ['execute'],
+        ]));
     }
 
     protected function checkResult(): ActionResult

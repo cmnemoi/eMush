@@ -60,8 +60,12 @@ class ActionServiceCest
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
-            'actionPoint' => 10,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(10)
+        ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -110,9 +114,12 @@ class ActionServiceCest
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
-            'actionPoint' => 10,
-            'movementPoint' => 0,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setMovementPoint(0)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -155,9 +162,13 @@ class ActionServiceCest
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
-            'actionPoint' => 10,
-            'movementPoint' => 0,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setMovementPoint(0)
+        ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

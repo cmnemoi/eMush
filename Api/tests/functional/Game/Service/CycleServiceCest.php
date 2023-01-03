@@ -27,6 +27,7 @@ class CycleServiceCest
 
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+        $daedalusConfig->setInitOxygen(9999)->setMaxOxygen(9999);
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test', 'timezone' => 'UTC']);
@@ -40,10 +41,10 @@ class CycleServiceCest
         $daedalus = $I->have(Daedalus::class, [
             'cycle' => 1,
             'day' => 1,
-            'oxygen' => 32,
             'createdAt' => $daedalusCreatedAt,
             'cycleStartedAt' => $daedalusCreatedAt,
         ]);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
@@ -65,6 +66,7 @@ class CycleServiceCest
 
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+        $daedalusConfig->setInitOxygen(9999)->setMaxOxygen(9999);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
@@ -75,13 +77,14 @@ class CycleServiceCest
         $daedalus = $I->have(Daedalus::class, [
             'cycle' => 1,
             'day' => 1,
-            'oxygen' => 32,
             'createdAt' => $daedalusCreatedAt,
             'cycleStartedAt' => $daedalusCreatedAt,
         ]);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
+
         $daedalusInfo->setGameStatus(GameStatusEnum::STARTING);
 
         $this->cycleService->handleCycleChange($daedalusNewCycleAt, $daedalus);

@@ -78,13 +78,16 @@ class BuildActionCest
     private function createPlayer(Daedalus $daedalus, Place $room): Player
     {
         $characterConfig = new CharacterConfig();
-        $characterConfig->setName('character name');
+        $characterConfig
+            ->setName('character name')
+            ->setInitActionPoint(10)
+            ->setInitMovementPoint(10)
+            ->setInitMoralPoint(10)
+        ;
 
         $player = new Player();
         $player
-            ->setActionPoint(10)
-            ->setMovementPoint(10)
-            ->setMoralPoint(10)
+            ->setPlayerVariables($characterConfig)
             ->setDaedalus($daedalus)
             ->setPlace($room)
         ;

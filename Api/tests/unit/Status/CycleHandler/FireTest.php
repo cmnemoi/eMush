@@ -72,7 +72,8 @@ class FireTest extends TestCase
 
         $difficultyConfig = new DifficultyConfig();
         $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig->setMaxHull(100);
+        $daedalusHull = 100;
+        $daedalusConfig->setMaxHull(100)->setInitHull($daedalusHull);
 
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
@@ -83,8 +84,7 @@ class FireTest extends TestCase
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
         $room->setDaedalus($daedalus);
 
-        $daedalusHull = 100;
-        $daedalus->setHull($daedalusHull);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $statusConfig = new ChargeStatusConfig();
         $statusConfig->setStatusName(StatusEnum::FIRE);
@@ -93,7 +93,9 @@ class FireTest extends TestCase
             ->setCharge(1)
         ;
 
+        $characterConfig = new CharacterConfig();
         $player = new Player();
+        $player->setPlayerVariables($characterConfig);
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player
             ->setPlayerInfo($playerInfo)

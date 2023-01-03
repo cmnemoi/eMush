@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Service\ActionStrategyServiceInterface;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
@@ -65,7 +66,7 @@ class ActionNormalizer implements ContextAwareNormalizerInterface
         // translation parameters
         $translationParameters = [$currentPlayer->getLogKey() => $currentPlayer->getLogName()];
         if ($actionName === ActionEnum::EXTRACT_SPORE) {
-            $translationParameters['quantity'] = $currentPlayer->getDaedalus()->getDailySpores();
+            $translationParameters['quantity'] = $currentPlayer->getDaedalus()->getVariableFromName(DaedalusVariableEnum::SPORE)->getMaxValue();
         }
         if ($parameter instanceof Player) {
             $translationParameters['target.' . $parameter->getLogKey()] = $parameter->getLogName();

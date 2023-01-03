@@ -96,9 +96,12 @@ class ForceGetUpCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'healthPoint' => 6,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+            ->setHealthPoint(6)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -112,10 +115,12 @@ class ForceGetUpCest
         /** @var Player $player2 */
         $player2 = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
-            'healthPoint' => 6,
-            'characterConfig' => $characterConfig,
         ]);
+        $player2->setPlayerVariables($characterConfig);
+        $player2
+            ->setActionPoint(2)
+            ->setHealthPoint(6)
+        ;
         $playerInfo2 = new PlayerInfo($player2, $user, $characterConfig2);
         $I->haveInRepository($playerInfo2);
         $player2->setPlayerInfo($playerInfo2);

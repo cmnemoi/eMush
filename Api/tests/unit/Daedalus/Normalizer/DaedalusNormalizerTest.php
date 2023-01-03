@@ -69,6 +69,10 @@ class DaedalusNormalizerTest extends TestCase
             ->setMaxHull(100)
             ->setMaxOxygen(100)
             ->setMaxShield(100)
+            ->setInitFuel(24)
+            ->setInitHull(100)
+            ->setInitOxygen(24)
+            ->setInitShield(100)
         ;
 
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -76,10 +80,7 @@ class DaedalusNormalizerTest extends TestCase
         $daedalus
             ->setCycle(4)
             ->setDay(4)
-            ->setHull(100)
-            ->setOxygen(24)
-            ->setFuel(24)
-            ->setShield(100)
+            ->setDaedalusVariables($daedalusConfig)
         ;
 
         $this->translationService

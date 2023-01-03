@@ -11,6 +11,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Service\ModifierServiceInterface;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -301,11 +302,18 @@ class ActionServiceTest extends TestCase
 
     private function createPlayer(int $actionPoint, int $movementPoint, int $moralPoint): Player
     {
+        $characterConfig = new CharacterConfig();
+        $characterConfig
+            ->setInitActionPoint($actionPoint)
+            ->setMaxActionPoint(12)
+            ->setInitMoralPoint($moralPoint)
+            ->setMaxMoralPoint(12)
+            ->setMaxMovementPoint(12)
+            ->setInitMovementPoint($movementPoint)
+        ;
         $player = new Player();
         $player
-            ->setActionPoint($actionPoint)
-            ->setMovementPoint($movementPoint)
-            ->setMoralPoint($moralPoint)
+            ->setPlayerVariables($characterConfig)
         ;
 
         return $player;

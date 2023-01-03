@@ -129,9 +129,13 @@ class ConsumeChargeOnActionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'healthPoint' => 10,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setHealthPoint(10)
+        ;
+        $I->flushToDatabase($player);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -250,9 +254,13 @@ class ConsumeChargeOnActionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'healthPoint' => 10,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setHealthPoint(10)
+        ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -396,10 +404,14 @@ class ConsumeChargeOnActionCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'movementPoint' => 0,
-            'actionPoint' => 10,
-            'healthPoint' => 10,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setHealthPoint(10)
+            ->setMovementPoint(0)
+        ;
+        $I->flushToDatabase($player);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

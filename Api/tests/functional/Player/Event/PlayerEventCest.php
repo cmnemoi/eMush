@@ -273,6 +273,7 @@ class PlayerEventCest
 
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player->setPlayerVariables($characterConfig);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
         $I->haveInRepository($playerInfo);
@@ -339,8 +340,9 @@ class PlayerEventCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'moralPoint' => 8,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player->setMoralPoint(8);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
         $I->haveInRepository($playerInfo);

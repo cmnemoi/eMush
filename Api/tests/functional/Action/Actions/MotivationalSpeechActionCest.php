@@ -85,9 +85,12 @@ class MotivationalSpeechActionCest
         /** @var Player $speaker */
         $speaker = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
         ]);
+        $speaker->setPlayerVariables($speakerConfig);
+        $speaker
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $speakerInfo = new PlayerInfo($speaker, $user, $speakerConfig);
@@ -98,10 +101,13 @@ class MotivationalSpeechActionCest
         /** @var Player $listener */
         $listener = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
             'characterConfig' => $listenerConfig,
         ]);
+        $listener->setPlayerVariables($listenerConfig);
+        $listener
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
         $listenerInfo = new PlayerInfo($listener, $user, $listenerConfig);
         $I->haveInRepository($listenerInfo);
         $listener->setPlayerInfo($listenerInfo);

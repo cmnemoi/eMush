@@ -62,7 +62,7 @@ class RoomEventCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus, 'type' => PlaceTypeEnum::SPACE]);
 
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
 
         $roomEvent = new RoomEvent($room, RoomEvent::ELECTRIC_ARC, $time);
 
@@ -150,7 +150,8 @@ class RoomEventCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $roomWithPlayers, 'healthPoint' => 10]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $roomWithPlayers]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -225,7 +226,8 @@ class RoomEventCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'healthPoint' => 10, 'characterConfig' => $characterConfig]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

@@ -83,11 +83,10 @@ class AutomaticGetUpCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$getUpAction])]);
         /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus,
-                                            'place' => $room,
-                                            'actionPoint' => 2,
-                                            'healthPoint' => 6,
-                                        ]);
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player->setPlayerVariables($characterConfig);
+        $player->setActionPoint(2)->setHealthPoint(6);
+        $I->flushToDatabase($player);
 
         /** @var User $user */
         $user = $I->have(User::class);

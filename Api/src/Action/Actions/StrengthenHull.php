@@ -6,7 +6,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Validator\FullHull;
+use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusModifierEvent;
@@ -33,7 +33,13 @@ class StrengthenHull extends AttemptAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new FullHull(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DAEDALUS_ALREADY_FULL_HULL]));
+        $metadata->addConstraint(new GameVariableLevel([
+            'target' => GameVariableLevel::DAEDALUS,
+            'variableName' => DaedalusVariableEnum::HULL,
+            'checkMode' => GameVariableLevel::IS_MAX,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::DAEDALUS_ALREADY_FULL_HULL,
+        ]));
     }
 
     protected function applyEffect(ActionResult $result): void

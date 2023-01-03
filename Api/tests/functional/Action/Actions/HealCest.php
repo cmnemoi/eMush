@@ -88,8 +88,11 @@ class HealCest
         /** @var Player $healerPlayer */
         $healerPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $medlab,
-            'actionPoint' => 2,
         ]);
+        $healerPlayer->setPlayerVariables($characterConfig);
+        $healerPlayer
+            ->setActionPoint(2)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $healerPlayerInfo = new PlayerInfo($healerPlayer, $user, $characterConfig);
@@ -100,8 +103,11 @@ class HealCest
         /** @var Player $healedPlayer */
         $healedPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $medlab,
-            'healthPoint' => 6,
         ]);
+        $healedPlayer->setPlayerVariables($characterConfig);
+        $healedPlayer
+            ->setHealthPoint(6)
+        ;
         $healedPlayerInfo = new PlayerInfo($healedPlayer, $user, $characterConfig);
         $I->haveInRepository($healedPlayerInfo);
         $healedPlayer->setPlayerInfo($healedPlayerInfo);
@@ -172,8 +178,11 @@ class HealCest
         /** @var Player $healerPlayer */
         $healerPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $laboratory,
-            'actionPoint' => 2,
         ]);
+        $healerPlayer->setPlayerVariables($characterConfig);
+        $healerPlayer
+            ->setActionPoint(2)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $healerPlayerInfo = new PlayerInfo($healerPlayer, $user, $characterConfig);
@@ -184,8 +193,11 @@ class HealCest
         /** @var Player $healedPlayer */
         $healedPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $laboratory,
-            'healthPoint' => 6,
         ]);
+        $healedPlayer->setPlayerVariables($characterConfig);
+        $healedPlayer
+            ->setHealthPoint(6)
+        ;
         $healedPlayerInfo = new PlayerInfo($healedPlayer, $user, $characterConfig);
         $I->haveInRepository($healedPlayerInfo);
         $healedPlayer->setPlayerInfo($healedPlayerInfo);

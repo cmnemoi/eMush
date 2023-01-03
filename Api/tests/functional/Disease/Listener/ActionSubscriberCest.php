@@ -119,6 +119,7 @@ class ActionSubscriberCest
             'daedalus' => $daedalus,
             'place' => $room,
         ]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -351,6 +352,7 @@ class ActionSubscriberCest
             'daedalus' => $daedalus,
             'place' => $room,
         ]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -465,6 +467,7 @@ class ActionSubscriberCest
             'daedalus' => $daedalus,
             'place' => $room,
         ]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -579,6 +582,7 @@ class ActionSubscriberCest
             'daedalus' => $daedalus,
             'place' => $room,
         ]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -758,14 +762,13 @@ class ActionSubscriberCest
         $I->haveInRepository($gameItem);
 
         /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-        $characterConfig->setActions(new ArrayCollection([$moveActionEntity]));
+        $characterConfig = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$moveActionEntity])]);
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'satiety' => 0,
         ]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -927,6 +930,7 @@ class ActionSubscriberCest
             'daedalus' => $daedalus,
             'place' => $room2,
         ]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -1091,8 +1095,9 @@ class ActionSubscriberCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $place,
-            'healthPoint' => 14,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player->setHealthPoint(14);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
         $I->haveInRepository($playerInfo);
@@ -1103,8 +1108,9 @@ class ActionSubscriberCest
         $otherPlayer = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $place,
-            'healthPoint' => 1,
         ]);
+        $otherPlayer->setPlayerVariables($characterConfig);
+        $otherPlayer->setHealthPoint(1);
         $otherPlayerInfo = new PlayerInfo($otherPlayer, $user, $otherCharacterConfig);
 
         $I->haveInRepository($otherPlayerInfo);

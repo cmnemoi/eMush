@@ -60,6 +60,7 @@ class TakeSubscriberCest
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -144,6 +145,7 @@ class TakeSubscriberCest
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -241,6 +243,7 @@ class TakeSubscriberCest
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -337,6 +340,7 @@ class TakeSubscriberCest
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -430,6 +434,7 @@ class TakeSubscriberCest
         $characterConfig = $I->have(CharacterConfig::class);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

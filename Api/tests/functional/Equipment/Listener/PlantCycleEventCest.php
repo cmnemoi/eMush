@@ -162,7 +162,7 @@ class PlantCycleEventCest
             'equipmentName' => ItemEnum::HYDROPOT,
         ]);
 
-        /** @var DaedalusConfig $gameConfig */
+        /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
 
         /** @var GameConfig $gameConfig */
@@ -172,7 +172,9 @@ class PlantCycleEventCest
             'equipmentsConfig' => new ArrayCollection([$fruitConfig, $hydropotConfig]),
         ]);
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['cycle' => 8, 'oxygen' => 10]);
+        $daedalus = $I->have(Daedalus::class, ['cycle' => 8]);
+        $daedalus->setDaedalusVariables($daedalusConfig);
+        $daedalus->setOxygen(10);
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);

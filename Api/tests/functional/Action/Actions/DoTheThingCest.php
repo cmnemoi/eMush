@@ -157,9 +157,13 @@ class DoTheThingCest
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
         ]);
+        $player->setPlayerVariables($maleCharacterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
+        $I->flushToDatabase($player);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);
@@ -171,9 +175,13 @@ class DoTheThingCest
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
         ]);
+        $targetPlayer->setPlayerVariables($maleCharacterConfig);
+        $targetPlayer
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
+        $I->flushToDatabase($targetPlayer);
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
 
         $I->haveInRepository($targetPlayerInfo);
@@ -276,9 +284,13 @@ class DoTheThingCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
         ]);
+        $player->setPlayerVariables($femaleCharacterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
+        $I->flushToDatabase($player);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);
@@ -290,9 +302,13 @@ class DoTheThingCest
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
         ]);
+        $targetPlayer->setPlayerVariables($maleCharacterConfig);
+        $targetPlayer
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
+        $I->flushToDatabase($targetPlayer);
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
 
         $I->haveInRepository($targetPlayerInfo);
@@ -366,9 +382,12 @@ class DoTheThingCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
         ]);
+        $player->setPlayerVariables($femaleCharacterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);
@@ -380,9 +399,12 @@ class DoTheThingCest
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
         ]);
+        $targetPlayer->setPlayerVariables($maleCharacterConfig);
+        $targetPlayer
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
 
         $I->haveInRepository($targetPlayerInfo);
@@ -406,8 +428,6 @@ class DoTheThingCest
         /** @var Player $targetPlayer */
         $witness = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
         ]);
 
         $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
@@ -463,9 +483,13 @@ class DoTheThingCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
         ]);
+        $player->setPlayerVariables($femaleCharacterConfig);
+        $player
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
+        $I->flushToDatabase($player);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);
@@ -477,9 +501,13 @@ class DoTheThingCest
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'moralPoint' => 6,
         ]);
+        $targetPlayer->setPlayerVariables($maleCharacterConfig);
+        $targetPlayer
+            ->setActionPoint(10)
+            ->setMoralPoint(6)
+        ;
+        $I->flushToDatabase($targetPlayer);
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
 
         $I->haveInRepository($targetPlayerInfo);

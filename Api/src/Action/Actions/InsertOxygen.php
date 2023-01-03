@@ -3,7 +3,7 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Validator\Oxygen;
+use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
@@ -19,7 +19,12 @@ class InsertOxygen extends InsertAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new ParameterName(['name' => ItemEnum::OXYGEN_CAPSULE, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new Oxygen(['retrieve' => false, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new GameVariableLevel([
+            'variableName' => DaedalusVariableEnum::OXYGEN,
+            'target' => GameVariableLevel::DAEDALUS,
+            'checkMode' => GameVariableLevel::IS_MAX,
+            'groups' => ['visibility'],
+        ]));
     }
 
     protected function getDaedalusVariable(): string

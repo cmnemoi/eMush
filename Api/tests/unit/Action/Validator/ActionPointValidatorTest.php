@@ -5,6 +5,7 @@ namespace Mush\Test\Action\Validator;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\ActionPoint;
 use Mush\Action\Validator\ActionPointValidator;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -34,11 +35,18 @@ class ActionPointValidatorTest extends TestCase
 
     public function testValid()
     {
+        $characterConfig = new CharacterConfig();
+        $characterConfig
+            ->setInitActionPoint(5)
+            ->setMaxActionPoint(12)
+            ->setInitMoralPoint(5)
+            ->setMaxMoralPoint(12)
+            ->setMaxMovementPoint(12)
+            ->setInitMovementPoint(5)
+        ;
         $player = new Player();
         $player
-            ->setActionPoint(5)
-            ->setMovementPoint(5)
-            ->setMoralPoint(5)
+            ->setPlayerVariables($characterConfig)
         ;
 
         $action = \Mockery::mock(AbstractAction::class);
@@ -57,11 +65,18 @@ class ActionPointValidatorTest extends TestCase
 
     public function testNotValid()
     {
+        $characterConfig = new CharacterConfig();
+        $characterConfig
+            ->setInitActionPoint(5)
+            ->setMaxActionPoint(12)
+            ->setInitMoralPoint(5)
+            ->setMaxMoralPoint(12)
+            ->setMaxMovementPoint(12)
+            ->setInitMovementPoint(5)
+        ;
         $player = new Player();
         $player
-            ->setActionPoint(5)
-            ->setMovementPoint(5)
-            ->setMoralPoint(5)
+            ->setPlayerVariables($characterConfig)
         ;
 
         $action = \Mockery::mock(AbstractAction::class);
@@ -80,10 +95,18 @@ class ActionPointValidatorTest extends TestCase
 
     public function testWithMovementPointConversion()
     {
+        $characterConfig = new CharacterConfig();
+        $characterConfig
+            ->setInitActionPoint(5)
+            ->setMaxActionPoint(12)
+            ->setInitMoralPoint(5)
+            ->setMaxMoralPoint(12)
+            ->setMaxMovementPoint(0)
+            ->setInitMovementPoint(5)
+        ;
         $player = new Player();
         $player
-            ->setActionPoint(5)
-            ->setMovementPoint(0)
+            ->setPlayerVariables($characterConfig)
         ;
 
         $action = \Mockery::mock(AbstractAction::class);

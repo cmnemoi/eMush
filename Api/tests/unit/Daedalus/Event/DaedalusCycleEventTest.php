@@ -4,6 +4,7 @@ namespace Mush\Tests\unit\Daedalus\Event;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
@@ -60,10 +61,12 @@ class DaedalusCycleEventTest extends TestCase
     public function testOnDaedalusDestruction()
     {
         $gameConfig = new GameConfig();
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig->setInitHull(0);
 
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
-        $daedalus->setHull(0);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());

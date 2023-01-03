@@ -77,9 +77,12 @@ class SelfHealCest
         /** @var Player $healerPlayer */
         $healerPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $medlab,
-            'actionPoint' => 3,
-            'healthPoint' => 6,
         ]);
+        $healerPlayer->setPlayerVariables($characterConfig);
+        $healerPlayer
+            ->setActionPoint(3)
+            ->setHealthPoint(6)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($healerPlayer, $user, $characterConfig);

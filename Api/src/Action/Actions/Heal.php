@@ -7,7 +7,7 @@ use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Validator\AreMedicalSuppliesOnReach;
-use Mush\Action\Validator\FullHealth;
+use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -45,7 +45,12 @@ class Heal extends AbstractAction
             'groups' => ['visibility'],
         ]));
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new FullHealth(['target' => FullHealth::PARAMETER, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new GameVariableLevel([
+            'target' => GameVariableLevel::TARGET_PLAYER,
+            'checkMode' => GameVariableLevel::IS_MAX,
+            'variableName' => PlayerVariableEnum::HEALTH_POINT,
+            'groups' => ['visibility'],
+        ]));
     }
 
     protected function checkResult(): ActionResult

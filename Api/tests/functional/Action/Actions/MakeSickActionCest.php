@@ -113,8 +113,11 @@ class MakeSickActionCest
         /** @var Player $mushPlayer */
         $mushPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 2,
         ]);
+        $mushPlayer->setPlayerVariables($characterConfig);
+        $mushPlayer
+            ->setActionPoint(2)
+        ;
         /** @var User $user */
         $user = $I->have(User::class);
         $mushPlayerInfo = new PlayerInfo($mushPlayer, $user, $characterConfig);
@@ -138,6 +141,7 @@ class MakeSickActionCest
             'daedalus' => $daedalus,
             'place' => $room,
         ]);
+        $targetPlayer->setPlayerVariables($characterConfig);
         $playerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig);
 
         $I->haveInRepository($playerInfo);

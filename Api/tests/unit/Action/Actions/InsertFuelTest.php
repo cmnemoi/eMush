@@ -56,9 +56,9 @@ class InsertFuelTest extends AbstractActionTest
         $gameItem->setName(ItemEnum::FUEL_CAPSULE);
 
         $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig->setMaxFuel(32);
+        $daedalusConfig->setMaxFuel(32)->setInitFuel(10);
 
-        $daedalus->setFuel(10);
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
         $tank = new EquipmentConfig();
         $tank->setEquipmentName(EquipmentEnum::FUEL_TANK);

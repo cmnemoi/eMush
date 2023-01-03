@@ -61,12 +61,15 @@ class ConsumeActionCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 5,
-            'healthPoint' => 5,
-            'moralPoint' => 5,
-            'movementPoint' => 5,
-            'satiety' => 0,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(5)
+            ->setHealthPoint(5)
+            ->setMoralPoint(5)
+            ->setMovementPoint(5)
+        ;
+        $I->flushToDatabase($player);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -164,12 +167,17 @@ class ConsumeActionCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 5,
-            'healthPoint' => 5,
-            'moralPoint' => 5,
-            'movementPoint' => 5,
-            'satiety' => -7,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(5)
+            ->setHealthPoint(5)
+            ->setMoralPoint(5)
+            ->setMovementPoint(5)
+            ->setSatiety(-7)
+        ;
+        $I->flushToDatabase($player);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -286,12 +294,15 @@ class ConsumeActionCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 5,
-            'healthPoint' => 5,
-            'moralPoint' => 5,
-            'movementPoint' => 5,
-            'satiety' => 0,
         ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(5)
+            ->setHealthPoint(5)
+            ->setMoralPoint(5)
+            ->setMovementPoint(5)
+        ;
+        $I->flushToDatabase($player);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

@@ -82,8 +82,8 @@ class DiseaseCauseServiceCest
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
-            'actionPoint' => 10,
         ]);
+        $player->setPlayerVariables($characterConfig);
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

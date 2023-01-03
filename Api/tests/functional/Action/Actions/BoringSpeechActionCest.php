@@ -101,9 +101,11 @@ class BoringSpeechActionCest
         /** @var Player $speaker */
         $speaker = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'movementPoint' => 6,
         ]);
+        $speaker->setPlayerVariables($speakerConfig);
+        $speaker->setActionPoint(10)->setMovementPoint(6);
+        $I->flushToDatabase($speaker);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $speakerInfo = new PlayerInfo($speaker, $user, $speakerConfig);
@@ -114,9 +116,10 @@ class BoringSpeechActionCest
         /** @var Player $listener */
         $listener = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
-            'actionPoint' => 10,
-            'movementPoint' => 6,
         ]);
+        $listener->setPlayerVariables($listenerConfig);
+        $listener->setActionPoint(10)->setMovementPoint(6);
+        $I->flushToDatabase($listener);
         $listenerInfo = new PlayerInfo($listener, $user, $listenerConfig);
         $I->haveInRepository($listenerInfo);
         $listener->setPlayerInfo($listenerInfo);

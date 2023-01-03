@@ -57,7 +57,7 @@ class CycleEventCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-        /** @var DaedalusConfig $gameConfig */
+        /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
@@ -72,7 +72,9 @@ class CycleEventCest
         $I->haveInRepository($neron);
 
         /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['oxygen' => 1, 'cycleStartedAt' => new \DateTime()]);
+        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
+        $daedalus->setDaedalusVariables($daedalusConfig);
+        $daedalus->setOxygen(1);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
@@ -95,17 +97,27 @@ class CycleEventCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
+        $characterConfig
+            ->setInitHealthPoint(99)
+            ->setMaxHealthPoint(99)
+        ;
+        $I->haveInRepository($characterConfig);
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->have(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
+        $characterConfig2
+            ->setInitHealthPoint(99)
+            ->setMaxHealthPoint(99)
+        ;
+        $I->haveInRepository($characterConfig2);
 
         /** @var Player $player */
         $player = $I->have(
             Player::class, [
                 'daedalus' => $daedalus,
                 'place' => $room,
-                'healthPoint' => 99,
             ]
         );
+        $player->setPlayerVariables($characterConfig);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
         $I->haveInRepository($playerInfo);
@@ -117,9 +129,9 @@ class CycleEventCest
             Player::class, [
                 'daedalus' => $daedalus,
                 'place' => $room,
-                'healthPoint' => 99,
             ]
         );
+        $player2->setPlayerVariables($characterConfig);
         $player2Info = new PlayerInfo($player2, $user, $characterConfig2);
 
         $I->haveInRepository($player2Info);

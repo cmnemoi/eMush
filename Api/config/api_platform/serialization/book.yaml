@@ -1,0 +1,4 @@
+Mush\Equipment\Entity\Mechanics\Book:
+  attributes:
+    skill:
+      groups: [ 'book_read', 'book_write' ]

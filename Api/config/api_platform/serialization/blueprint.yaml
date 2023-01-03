@@ -1,0 +1,6 @@
+Mush\Equipment\Entity\Mechanics\Blueprint:
+  attributes:
+    equipment:
+      groups: [ 'blueprint_read', 'blueprint_write' ]
+    ingredients:
+      groups: [ 'blueprint_read', 'blueprint_write' ]

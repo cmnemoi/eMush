@@ -28,6 +28,8 @@ import PlaceConfigDetailPage from "@/components/Admin/Config/PlaceConfig/PlaceCo
 import PlaceConfigListPage from "@/components/Admin/Config/PlaceConfig/PlaceConfigListPage.vue";
 import RandomItemPlacesListPage from "@/components/Admin/Config/RandomItemPlaces/RandomItemPlacesListPage.vue";
 import RandomItemPlacesDetailPage from "@/components/Admin/Config/RandomItemPlaces/RandomItemPlacesDetailPage.vue";
+import MechanicsListPage from "@/components/Admin/Config/Mechanics/MechanicsListPage.vue";
+import MechanicsDetailPage from "@/components/Admin/Config/Mechanics/MechanicsDetailPage.vue";
 
 export const adminConfigRoutes = [
     {
@@ -179,5 +181,15 @@ export const adminConfigRoutes = [
         name: "AdminRandomItemPlacesDetail",
         path: 'random-item-places/:randomItemPlacesId',
         component: RandomItemPlacesDetailPage
+    },
+    {
+        name: "AdminMechanicsList",
+        path: 'mechanics-list',
+        component: MechanicsListPage
+    },
+    {
+        name: "AdminMechanicsDetail",
+        path: 'mechanics/:mechanicsId',
+        component: MechanicsDetailPage
     },
 ];

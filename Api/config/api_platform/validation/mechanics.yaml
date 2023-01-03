@@ -3,3 +3,5 @@ Mush\Equipment\Entity\EquipmentMechanic:
     name:
       - NotBlank: ~
       - Type: string
+    mechanics:
+      - Type: array

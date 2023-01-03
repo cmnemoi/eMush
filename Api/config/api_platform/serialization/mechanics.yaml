@@ -4,3 +4,19 @@ Mush\Equipment\Entity\EquipmentMechanic:
       groups: [ 'equipment_mechanic_read' ]
     name:
       groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    mechanics:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    actions:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    equipment:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    ingredients:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    skill:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    content:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    isTranslated:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    canShred:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]

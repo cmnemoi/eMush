@@ -98,8 +98,12 @@ abstract class EquipmentMechanic
     /**
      * @param Collection<int, Action> $actions
      */
-    public function setActions(Collection $actions): static
+    public function setActions(Collection|array $actions): static
     {
+        if (is_array($actions)) {
+            $actions = new ArrayCollection($actions);
+        }
+
         $this->actions = $actions;
 
         return $this;

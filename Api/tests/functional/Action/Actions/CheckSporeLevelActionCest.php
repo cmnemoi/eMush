@@ -28,9 +28,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 
 class CheckSporeLevelActionCest
@@ -45,18 +42,8 @@ class CheckSporeLevelActionCest
     public function testCheckSporeLevel(FunctionalTester $I)
     {
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-        $sporeStatusConfig = new ChargeStatusConfig();
-        $sporeStatusConfig
-            ->setStatusName(PlayerStatusEnum::SPORES)
-            ->setVisibility(VisibilityEnum::MUSH)
-            ->setChargeVisibility(VisibilityEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-
-        $I->haveInRepository($sporeStatusConfig);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig->setStatusConfigs(new ArrayCollection([$sporeStatusConfig]));
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
@@ -76,7 +63,7 @@ class CheckSporeLevelActionCest
             'place' => $room,
         ]);
         $player->setPlayerVariables($characterConfig);
-        $player->setActionPoint(2);
+        $player->setActionPoint(2)->setSpores(2);
         $I->flushToDatabase($player);
 
         /** @var User $user */
@@ -86,11 +73,6 @@ class CheckSporeLevelActionCest
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
-
-        $sporeStatus = new ChargeStatus($player, $sporeStatusConfig);
-        $sporeStatus
-            ->setCharge(2)
-        ;
 
         $actionCost = new ActionCost();
         $actionCost

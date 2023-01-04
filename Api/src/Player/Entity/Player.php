@@ -417,6 +417,18 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
+    public function getSpores(): int
+    {
+        return $this->playerVariables->getValueByName(PlayerVariableEnum::SPORE);
+    }
+
+    public function setSpores(int $spores): static
+    {
+        $this->playerVariables->setValueByName($spores, PlayerVariableEnum::SPORE);
+
+        return $this;
+    }
+
     public function getTriumph(): int
     {
         return $this->triumph;
@@ -436,7 +448,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    public function getVariableFromName(string $variableName): GameVariable
+    public function getVariableByName(string $variableName): GameVariable
     {
         return $this->playerVariables->getVariableByName($variableName);
     }
@@ -446,7 +458,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->playerVariables->getValueByName($variableName);
     }
 
-    public function setVariableFromName(string $variableName, int $value): static
+    public function setVariableValueFromName(string $variableName, int $value): static
     {
         $this->playerVariables->setValueByName($value, $variableName);
 

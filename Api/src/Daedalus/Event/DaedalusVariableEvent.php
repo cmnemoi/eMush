@@ -7,7 +7,7 @@ use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Player\Entity\Player;
 
-class DaedalusModifierEvent extends DaedalusEvent implements AbstractQuantityEvent
+class DaedalusVariableEvent extends DaedalusEvent implements AbstractQuantityEvent
 {
     private int $quantity;
     private string $modifiedVariable;

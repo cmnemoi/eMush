@@ -12,6 +12,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -80,6 +81,16 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
                 $statuses[] = $normedStatus;
             }
         }
+        // if current player is mush add spores info
+        if ($player->isMush()) {
+            $normedSpores = [
+                'key' => PlayerStatusEnum::SPORES,
+                'name' => $this->translationService->translate(PlayerStatusEnum::SPORES . '.name', [], 'status', $language),
+                'description' => $this->translationService->translate(PlayerStatusEnum::SPORES . 'description', [], 'status', $language),
+                'charge' => $player->getSpores(),
+            ];
+            $statuses[] = $normedSpores;
+        }
 
         $diseases = [];
         foreach ($player->getMedicalConditions()->getActiveDiseases() as $disease) {
@@ -107,7 +118,7 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
 
     private function normalizePlayerGameVariable(Player $player, string $variable, string $language): array
     {
-        $gameVariable = $player->getVariableFromName($variable);
+        $gameVariable = $player->getVariableByName($variable);
 
         $name = $this->translationService->translate(
             $variable . '.name', [

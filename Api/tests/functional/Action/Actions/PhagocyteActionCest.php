@@ -25,8 +25,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -84,6 +82,7 @@ class PhagocyteActionCest
         $player
             ->setActionPoint(1)
             ->setHealthPoint(1)
+            ->setSpores(1)
         ;
         /** @var User $user */
         $user = $I->have(User::class);
@@ -104,25 +103,10 @@ class PhagocyteActionCest
         $mushStatus = new Status($player, $mushConfig);
         $I->haveInRepository($mushStatus);
 
-        $sporeStatusConfig = new ChargeStatusConfig();
-        $sporeStatusConfig
-            ->setStatusName(PlayerStatusEnum::SPORES)
-            ->setVisibility(VisibilityEnum::MUSH)
-            ->setChargeVisibility(VisibilityEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($sporeStatusConfig);
-
-        $sporeStatus = new ChargeStatus($player, $sporeStatusConfig);
-        $sporeStatus->setCharge(1);
-        $I->haveInRepository($sporeStatus);
-
         $this->phagocyteAction->loadParameters($phagocyteActionEntity, $player);
         $this->phagocyteAction->execute();
 
-        /** @var ChargeStatus $sporeStatus */
-        $sporeStatus = $player->getStatusByName(PlayerStatusEnum::SPORES);
-        $I->assertEquals(0, $sporeStatus->getCharge());
+        $I->assertEquals(0, $player->getSpores());
         $I->assertEquals(5, $player->getActionPoint());
         $I->assertEquals(5, $player->getHealthPoint());
 

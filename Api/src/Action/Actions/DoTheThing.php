@@ -26,16 +26,13 @@ use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -49,7 +46,6 @@ class DoTheThing extends AbstractAction
     protected string $name = ActionEnum::DO_THE_THING;
 
     private DiseaseCauseServiceInterface $diseaseCauseService;
-    private StatusServiceInterface $statusService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private PlayerVariableServiceInterface $playerVariableService;
     private RandomServiceInterface $randomService;
@@ -64,7 +60,6 @@ class DoTheThing extends AbstractAction
         PlayerVariableServiceInterface $playerVariableService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
-        StatusServiceInterface $statusService
     ) {
         parent::__construct(
             $eventDispatcher,
@@ -76,7 +71,6 @@ class DoTheThing extends AbstractAction
         $this->playerVariableService = $playerVariableService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
-        $this->statusService = $statusService;
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -153,10 +147,8 @@ class DoTheThing extends AbstractAction
         // @TODO add confirmation pop up
 
         // give two moral points, or max morale if it is their first time
-        $maxMoralePoint = $this->playerVariableService->getMaxPlayerVariable($player, PlayerVariableEnum::MORAL_POINT);
-
-        $this->addMoralPoints($player, $maxMoralePoint);
-        $this->addMoralPoints($parameter, $maxMoralePoint);
+        $this->addMoralPoints($player);
+        $this->addMoralPoints($parameter);
 
         // if one is mush and has a spore, infect other player
         if ($player->isMush() && !$parameter->isMush()) {
@@ -190,8 +182,14 @@ class DoTheThing extends AbstractAction
         $this->addDidTheThingStatus($parameter);
     }
 
-    private function addMoralPoints(Player $player, int $maxMoralePoint): void
+    private function addMoralPoints(Player $player): void
     {
+        $maxMoralePoint = $this->playerVariableService->getMaxPlayerVariable($player, PlayerVariableEnum::MORAL_POINT);
+
+        if ($maxMoralePoint === null) {
+            throw new \Error('moralPoints should have a maximum value');
+        }
+
         $firstTimeStatus = $player->getStatusByName(PlayerStatusEnum::FIRST_TIME);
         $moralePoints = $firstTimeStatus ? $maxMoralePoint : self::BASE_CONFORT;
 
@@ -250,19 +248,16 @@ class DoTheThing extends AbstractAction
 
     private function infect(Player $mush, Player $target)
     {
-        /** @var ?ChargeStatus $sporeStatus */
-        $sporeStatus = $mush->getStatusByName(PlayerStatusEnum::SPORES);
-
-        if ($sporeStatus === null) {
-            throw new \Error('Player should have a spore status');
-        }
-
-        if ($sporeStatus->getCharge() > 0) {
-            $playerEvent = new PlayerEvent($target, $this->getActionName(), new \DateTime());
-            $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
-
-            $sporeStatus->addCharge(-1);
-            $this->statusService->persist($sporeStatus);
+        $sporeNumber = $mush->getVariableValueFromName(PlayerVariableEnum::SPORE);
+        if ($sporeNumber > 0) {
+            $playerModifierEvent = new PlayerVariableEvent(
+                $mush,
+                PlayerVariableEnum::SPORE,
+                -1,
+                $this->getActionName(),
+                new \DateTime()
+            );
+            $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
         }
     }
 

@@ -8,7 +8,7 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Service\PlayerStatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PlayerModifierSubscriber implements EventSubscriberInterface
+class PlayerVariableSubscriber implements EventSubscriberInterface
 {
     private PlayerStatusServiceInterface $playerStatus;
 

@@ -3,29 +3,27 @@
 namespace Mush\Test\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Validator\MushSpore;
-use Mush\Action\Validator\MushSporeValidator;
-use Mush\Equipment\Entity\Config\ItemConfig;
+use Mush\Action\Validator\GameVariableLevel;
+use Mush\Action\Validator\GameVariableLevelValidator;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 class MushSporeValidatorTest extends TestCase
 {
-    private MushSporeValidator $validator;
-    private MushSpore $constraint;
+    private GameVariableLevelValidator $validator;
+    private GameVariableLevel $constraint;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new MushSporeValidator();
-        $this->constraint = new MushSpore();
+        $this->validator = new GameVariableLevelValidator();
+        $this->constraint = new GameVariableLevel();
     }
 
     /**
@@ -38,17 +36,13 @@ class MushSporeValidatorTest extends TestCase
 
     public function testValid()
     {
-        $itemConfig = new ItemConfig();
-        $itemConfig->setIsBreakable(true);
+        $this->constraint->target = GameVariableLevel::PLAYER;
+        $this->constraint->checkMode = GameVariableLevel::IS_MIN;
+        $this->constraint->variableName = DaedalusVariableEnum::SPORE;
 
         $player = new Player();
-
-        $sporeConfig = new ChargeStatusConfig();
-        $sporeConfig->setStatusName(PlayerStatusEnum::SPORES);
-        $chargeStatus = new ChargeStatus($player, $sporeConfig);
-        $chargeStatus
-            ->setCharge(1)
-        ;
+        $player->setPlayerVariables(new CharacterConfig());
+        $player->setSpores(1);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
@@ -65,23 +59,19 @@ class MushSporeValidatorTest extends TestCase
 
     public function testNotValid()
     {
-        $itemConfig = new ItemConfig();
-        $itemConfig->setIsBreakable(true);
+        $this->constraint->target = GameVariableLevel::PLAYER;
+        $this->constraint->checkMode = GameVariableLevel::IS_MIN;
+        $this->constraint->variableName = DaedalusVariableEnum::SPORE;
 
         $player = new Player();
+        $player->setPlayerVariables(new CharacterConfig());
+        $player->setSpores(0);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
             ])
-        ;
-
-        $sporeConfig = new ChargeStatusConfig();
-        $sporeConfig->setStatusName(PlayerStatusEnum::SPORES);
-        $chargeStatus = new ChargeStatus($player, $sporeConfig);
-        $chargeStatus
-            ->setCharge(0)
         ;
 
         $this->initValidator($this->constraint->message);

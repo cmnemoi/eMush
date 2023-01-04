@@ -2,13 +2,12 @@
 
 namespace Mush\Daedalus\Listener;
 
-use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class DaedalusModifierSubscriber implements EventSubscriberInterface
+class DaedalusVariableSubscriber implements EventSubscriberInterface
 {
     private DaedalusServiceInterface $daedalusService;
 
@@ -27,7 +26,7 @@ class DaedalusModifierSubscriber implements EventSubscriberInterface
 
     public function onChangeVariable(AbstractQuantityEvent $event): void
     {
-        if (!$event instanceof DaedalusModifierEvent) {
+        if (!$event instanceof DaedalusVariableEvent) {
             return;
         }
 
@@ -35,19 +34,6 @@ class DaedalusModifierSubscriber implements EventSubscriberInterface
         $date = $event->getTime();
         $change = $event->getQuantity();
 
-        switch ($event->getModifiedVariable()) {
-            case DaedalusVariableEnum::HULL:
-                $this->daedalusService->changeHull($daedalus, $change, $date);
-
-                return;
-            case DaedalusVariableEnum::OXYGEN:
-                $this->daedalusService->changeOxygenLevel($daedalus, $change);
-
-                return;
-            case DaedalusVariableEnum::FUEL:
-                $this->daedalusService->changeFuelLevel($daedalus, $change);
-
-                return;
-        }
+        $this->daedalusService->changeVariable($event->getModifiedVariable(), $daedalus, $change, $date);
     }
 }

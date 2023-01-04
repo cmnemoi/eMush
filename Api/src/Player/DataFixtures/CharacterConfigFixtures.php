@@ -35,14 +35,10 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $this->getReference(PersonalEquipmentConfigFixtures::ITRACKIE);
 
-        /** @var StatusConfig $sporeStatus */
-        $sporeStatus = $this->getReference(ChargeStatusFixtures::SPORES);
-
         $andie = $this->buildDefaultCharacterConfig();
         $andie
             ->setName(CharacterEnum::ANDIE)
             ->setCharacterName(CharacterEnum::ANDIE)
-            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::CONFIDENT,
                 SkillEnum::DEVOTION,
@@ -58,7 +54,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $chao
             ->setName(CharacterEnum::CHAO)
             ->setCharacterName(CharacterEnum::CHAO)
-            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::CRAZY_EYE,
                 SkillEnum::INTIMIDATING,
@@ -97,7 +92,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $derek
             ->setName(CharacterEnum::DEREK)
             ->setCharacterName(CharacterEnum::DEREK)
-            ->setInitStatuses(new ArrayCollection([$firstTimeStatus, $sporeStatus]))
+            ->setInitStatuses(new ArrayCollection([$firstTimeStatus]))
             ->setSkills([
                 SkillEnum::FIREFIGHTER,
                 SkillEnum::MOTIVATOR,
@@ -116,7 +111,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $eleesha
             ->setName(CharacterEnum::ELEESHA)
             ->setCharacterName(CharacterEnum::ELEESHA)
-            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::DETERMINED,
                 SkillEnum::IT_EXPERT,
@@ -136,7 +130,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $finola
             ->setName(CharacterEnum::FINOLA)
             ->setCharacterName(CharacterEnum::FINOLA)
-            ->setInitStatuses(new ArrayCollection([$sporeStatus, $ocdStatus]))
+            ->setInitStatuses(new ArrayCollection([$ocdStatus]))
             ->setSkills([
                 SkillEnum::BIOLOGIST,
                 SkillEnum::DIPLOMAT,
@@ -151,7 +145,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $frieda
             ->setName(CharacterEnum::FRIEDA)
             ->setCharacterName(CharacterEnum::FRIEDA)
-            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::ANTIQUE_PERFUME,
                 SkillEnum::ASTROPHYSICIST,
@@ -168,7 +161,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $gioele
             ->setName(CharacterEnum::GIOELE)
             ->setCharacterName(CharacterEnum::GIOELE)
-            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::ASTROPHYSICIST,
                 SkillEnum::CAFFEINE_JUNKIE,
@@ -185,7 +177,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $hua
             ->setName(CharacterEnum::HUA)
             ->setCharacterName(CharacterEnum::HUA)
-            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::BOTANIST,
                 SkillEnum::DETERMINED,
@@ -205,7 +196,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $ian
             ->setName(CharacterEnum::IAN)
             ->setCharacterName(CharacterEnum::IAN)
-            ->setInitStatuses(new ArrayCollection([$pacifistStatus, $sporeStatus]))
+            ->setInitStatuses(new ArrayCollection([$pacifistStatus]))
             ->setSkills([
                 SkillEnum::BIOLOGIST,
                 SkillEnum::BOTANIST,
@@ -222,7 +213,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $janice
             ->setName(CharacterEnum::JANICE)
             ->setCharacterName(CharacterEnum::JANICE)
-            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::DIPLOMAT,
                 SkillEnum::IT_EXPERT,
@@ -239,7 +229,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $jinSu
             ->setName(CharacterEnum::JIN_SU)
             ->setCharacterName(CharacterEnum::JIN_SU)
-            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::COLD_BLOODED,
                 SkillEnum::LEADER,
@@ -256,7 +245,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $kuanTi
             ->setName(CharacterEnum::KUAN_TI)
             ->setCharacterName(CharacterEnum::KUAN_TI)
-            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::ASTROPHYSICIST,
                 SkillEnum::DESIGNER,
@@ -273,7 +261,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $paola
             ->setName(CharacterEnum::PAOLA)
             ->setCharacterName(CharacterEnum::PAOLA)
-            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::BIOLOGIST,
                 SkillEnum::GUNNER,
@@ -292,7 +279,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $raluca
             ->setName(CharacterEnum::RALUCA)
             ->setCharacterName(CharacterEnum::RALUCA)
-            ->setInitStatuses(new ArrayCollection([$antisocialStatus, $sporeStatus]))
+            ->setInitStatuses(new ArrayCollection([$antisocialStatus]))
             ->setSkills([
                 SkillEnum::DESIGNER,
                 SkillEnum::DETACHED_CREWMEMBER,
@@ -308,7 +295,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $roland
             ->setName(CharacterEnum::ROLAND)
             ->setCharacterName(CharacterEnum::ROLAND)
-            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::CREATIVE,
                 SkillEnum::FIREFIGHTER,
@@ -325,7 +311,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $stephen
             ->setName(CharacterEnum::STEPHEN)
             ->setCharacterName(CharacterEnum::STEPHEN)
-            ->setInitStatuses(new ArrayCollection([$sporeStatus]))
             ->setSkills([
                 SkillEnum::APPRENTICE,
                 SkillEnum::CHEF,
@@ -345,7 +330,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $terrence
             ->setName(CharacterEnum::TERRENCE)
             ->setCharacterName(CharacterEnum::TERRENCE)
-            ->setInitStatuses(new ArrayCollection([$disabledStatus, $sporeStatus]))
+            ->setInitStatuses(new ArrayCollection([$disabledStatus]))
             ->setSkills([
                 SkillEnum::IT_EXPERT,
                 SkillEnum::METALWORKER,

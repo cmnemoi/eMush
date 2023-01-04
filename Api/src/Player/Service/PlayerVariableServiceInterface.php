@@ -6,17 +6,9 @@ use Mush\Player\Entity\Player;
 
 interface PlayerVariableServiceInterface
 {
-    public function getMaxPlayerVariable(Player $player, string $target): int;
+    public function getMaxPlayerVariable(Player $player, string $variableName): ?int;
 
-    public function handleActionPointModifier(int $delta, Player $player): Player;
+    public function handleGameVariableChange(string $variableName, int $delta, Player $player): Player;
 
-    public function handleMovementPointModifier(int $delta, Player $player): Player;
-
-    public function handleHealthPointModifier(int $delta, Player $player): Player;
-
-    public function handleMoralPointModifier(int $delta, Player $player): Player;
-
-    public function handleSatietyModifier(int $delta, Player $player): Player;
-
-    public function setPlayerVariableToMax(Player $player, string $target, \DateTime $date = null): Player;
+    public function setPlayerVariableToMax(Player $player, string $variableName, \DateTime $date = null): Player;
 }

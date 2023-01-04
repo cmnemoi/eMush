@@ -41,30 +41,22 @@ class CreatePlayerServiceCest
             ->setStatusName(PlayerStatusEnum::MUSH)
             ->buildName(GameConfigEnum::TEST)
         ;
-        $sporeStatusConfig = new ChargeStatusConfig();
-        $sporeStatusConfig
-            ->setStatusName(PlayerStatusEnum::SPORES)
-            ->buildName(GameConfigEnum::TEST)
-        ;
         $I->haveInRepository($mushStatusConfig);
-        $I->haveInRepository($sporeStatusConfig);
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'statusConfigs' => new ArrayCollection([$sporeStatusConfig, $mushStatusConfig]),
+            'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
         ]);
 
         /** @var CharacterConfig $gioeleCharacterConfig */
         $gioeleCharacterConfig = $I->have(CharacterConfig::class);
-        $gioeleCharacterConfig->setInitStatuses(new ArrayCollection([$sporeStatusConfig]));
         /** @var $andieCharacterConfig $characterConfig */
         $andieCharacterConfig = $I->have(CharacterConfig::class, [
             'name' => CharacterEnum::ANDIE,
             'characterName' => CharacterEnum::ANDIE,
         ]);
-        $andieCharacterConfig->setInitStatuses(new ArrayCollection([$sporeStatusConfig]));
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);

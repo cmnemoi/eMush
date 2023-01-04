@@ -8,12 +8,15 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\DailySporesLimit;
+use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\HasStatus;
-use Mush\Action\Validator\MushSpore;
 use Mush\Action\Validator\Reach;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -52,7 +55,13 @@ class Infect extends AbstractAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus(['status' => PlayerStatusEnum::MUSH, 'target' => HasStatus::PLAYER, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new MushSpore(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INFECT_NO_SPORE]));
+        $metadata->addConstraint(new GameVariableLevel([
+            'target' => GameVariableLevel::PLAYER,
+            'checkMode' => GameVariableLevel::IS_MIN,
+            'variableName' => DaedalusVariableEnum::SPORE,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::INFECT_NO_SPORE,
+        ]));
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::MUSH,
             'contain' => false,
@@ -78,13 +87,23 @@ class Infect extends AbstractAction
         /** @var Player $parameter */
         $parameter = $this->parameter;
 
-        $playerEvent = new PlayerEvent($parameter, $this->getActionName(), new \DateTime());
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $playerModifierEvent = new PlayerVariableEvent(
+            $parameter,
+            PlayerVariableEnum::SPORE,
+            1,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
-        /** @var ChargeStatus $sporeStatus */
-        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
-        $sporeStatus->addCharge(-1);
-        $this->statusService->persist($sporeStatus);
+        $playerModifierEvent = new PlayerVariableEvent(
+            $this->player,
+            PlayerVariableEnum::SPORE,
+            -1,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
         /** @var ChargeStatus $mushStatus */
         $mushStatus = $this->player->getStatusByName(PlayerStatusEnum::MUSH);

@@ -71,7 +71,7 @@ class ShootActionTest extends AbstractActionTest
         $mechanic = new Weapon();
         $mechanic
             ->setCriticalFailRate(0)
-            ->setCriticalSucessRate(0)
+            ->setCriticalSuccessRate(0)
             ->setBaseDamageRange([1 => 100])
             ->setOneShotRate(0)
         ;
@@ -112,7 +112,7 @@ class ShootActionTest extends AbstractActionTest
         $mechanic = new Weapon();
         $mechanic
             ->setCriticalFailRate(0)
-            ->setCriticalSucessRate(0)
+            ->setCriticalSuccessRate(0)
             ->setBaseDamageRange([1 => 100])
             ->setOneShotRate(0)
         ;
@@ -150,7 +150,7 @@ class ShootActionTest extends AbstractActionTest
         $mechanic = new Weapon();
         $mechanic
             ->setCriticalFailRate(0)
-            ->setCriticalSucessRate(0)
+            ->setCriticalSuccessRate(0)
             ->setBaseDamageRange([1 => 100])
             ->setOneShotRate(100)
         ;
@@ -189,7 +189,7 @@ class ShootActionTest extends AbstractActionTest
         $mechanic = new Weapon();
         $mechanic
             ->setCriticalFailRate(100)
-            ->setCriticalSucessRate(0)
+            ->setCriticalSuccessRate(0)
             ->setBaseDamageRange([1 => 100])
             ->setOneShotRate(0)
         ;

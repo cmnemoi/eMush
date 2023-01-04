@@ -1,24 +1,6 @@
 <template>
     <div v-if="mechanics" class="center">
         <h2>{{ $t('admin.mechanics.pageTitle') }} {{ mechanics.name }}</h2>
-        
-        <div class="flex-row">
-            <Input
-                :label="$t('admin.mechanics.name')"
-                id="mechanics_name"
-                v-model="mechanics.name"
-                type="text"
-                :errors="errors.name"
-            ></Input>
-        </div>
-        
-        <h3>{{ $t('admin.mechanics.mechanics') }}</h3>
-        <StringArrayManager
-            :array="mechanics.mechanics"
-            @addElement="mechanics.mechanics.push($event)"
-            @removeElement="mechanics?.mechanics.splice(mechanics?.mechanics.indexOf($event), 1)"
-        ></StringArrayManager>
-        
         <h3>{{ $t('admin.mechanics.actions') }}</h3>
         <ChildCollectionManager :children="mechanics.actions" @addId="selectNewAction" @remove="removeAction">
             <template #header="child">
@@ -59,7 +41,116 @@
                 </span>
             </div>
         </div>
-        
+
+        <div v-if="mechanics.mechanics?.includes('ration')">
+            <div class="flex-row">
+                <input type="checkbox"
+                       class="mechanicsCheckbox"
+                       id="isPerishable"
+                       v-model="mechanics.isPerishable" />
+                <label for="isPerishable">{{ mechanics.isPerishable ? $t('admin.mechanics.isPerishable') : $t('admin.mechanics.isNotPerishable') }}</label>
+                <Input
+                    :label="$t('admin.mechanics.satiety')"
+                    id="mechanics_satiety"
+                    v-model="mechanics.satiety"
+                    type="number"
+                    :errors="errors.satiety"
+                ></Input>
+            </div>
+            <MapManager :label="$t('admin.mechanics.actionPoints')"
+                        :map="mechanics.actionPoints" 
+                        mapIndexesType="number"
+                        @addTuple="addActionPoints" 
+                        @removeIndex="removeActionPoints"></MapManager>
+            <MapManager :map="mechanics.moralPoints"
+                        :label="$t('admin.mechanics.moralPoints')"
+                        mapIndexesType="number"
+                        @addTuple="addMoralPoints" 
+                        @removeIndex="removeMoralPoints"></MapManager>
+            <MapManager :map="mechanics.healthPoints" 
+                        :label="$t('admin.mechanics.healthPoints')"
+                        mapIndexesType="number"
+                        @addTuple="addHealthPoints" 
+                        @removeIndex="removeHealthPoints"></MapManager>
+            <MapManager :map="mechanics.movementPoints" 
+                        :label="$t('admin.mechanics.movementPoints')"
+                        mapIndexesType="number"
+                        @addTuple="addMovementPoints" 
+                        @removeIndex="removeMovementPoints"></MapManager>
+            <MapManager :map="mechanics.extraEffects" 
+                        :label="$t('admin.mechanics.extraEffects')"
+                        mapIndexesType="string"
+                        @addTuple="addExtraEffects" 
+                        @removeIndex="removeExtraEffects"></MapManager>
+        </div>
+
+        <div v-if="mechanics.mechanicsType == 'Gear'">
+            <h3>{{ $t('admin.mechanics.modifierConfigs') }}</h3>
+            <ChildCollectionManager :children="mechanics.modifierConfigs" @addId="selectNewModifierConfig" @remove="removeModifierConfig">
+                <template #header="child">
+                    <span>{{ child.id }} - {{ child.name }}</span>
+                </template>
+            </ChildCollectionManager>
+        </div>
+
+        <div v-if="mechanics.mechanicsType == 'Plant'">
+            <h3>{{ $t('admin.mechanics.maturationTime') }}</h3>
+            <MapManager :map="mechanics.maturationTime" 
+                        mapIndexesType="number"
+                        @addTuple="addMaturationTime" 
+                        @removeIndex="removeMaturationTime"></MapManager>
+            
+            <h3>{{ $t('admin.mechanics.oxygen') }}</h3>
+            <MapManager :map="mechanics.oxygen" 
+                        mapIndexesType="number"
+                        @addTuple="addOxygen" 
+                        @removeIndex="removeOxygen"></MapManager>
+        </div>
+
+        <div v-if="mechanics.mechanicsType == 'Weapon'">
+            <div class="flex-row">
+                <Input
+                    :label="$t('admin.mechanics.baseAccuracy')"
+                    id="mechanics_baseAccuracy"
+                    v-model="mechanics.baseAccuracy"
+                    type="number"
+                    :errors="errors.baseAccuracy"
+                ></Input>
+                <Input
+                    :label="$t('admin.mechanics.expeditionBonus')"
+                    id="mechanics_expeditionBonus"
+                    v-model="mechanics.expeditionBonus"
+                    type="number"
+                    :errors="errors.expeditionBonus"
+                ></Input>
+                <Input
+                    :label="$t('admin.mechanics.criticalSuccessRate')"
+                    id="mechanics_criticalSuccessRate"
+                    v-model="mechanics.criticalSuccessRate"
+                    type="number"
+                    :errors="errors.criticalSuccessRate"
+                ></Input>
+                <Input
+                    :label="$t('admin.mechanics.criticalFailRate')"
+                    id="mechanics_criticalFailRate"
+                    v-model="mechanics.criticalFailRate"
+                    type="number"
+                    :errors="errors.criticalFailRate"
+                ></Input>
+                <Input
+                    :label="$t('admin.mechanics.oneShotRate')"
+                    id="mechanics_oneShotRate"
+                    v-model="mechanics.oneShotRate"
+                    type="number"
+                    :errors="errors.oneShotRate"
+                ></Input>
+            </div>
+            <h3>{{ $t('admin.mechanics.baseDamageRange') }}</h3>
+            <MapManager :map="mechanics.baseDamageRange" 
+                        mapIndexesType="number"
+                        @addTuple="addBaseDamageRange" 
+                        @removeIndex="removeBaseDamageRange"></MapManager>
+        </div>
         <button class="action-button" type="submit" @click="update">
             {{ $t('admin.save') }}
         </button>
@@ -74,8 +165,10 @@ import ApiService from "@/services/api.service";
 import { Action } from "@/entities/Action";
 import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { Mechanics } from "@/entities/Config/Mechanics";
+import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import Input from "@/components/Utils/Input.vue";
+import MapManager from "@/components/Utils/MapManager.vue";
 import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import urlJoin from "url-join";
@@ -85,7 +178,7 @@ interface MechanicsState {
     mechanics: null|Mechanics
     errors: any,
     ingredients: string[],
-    ingredientToAdd: string
+    ingredientToAdd: string,
 }
 
 export default defineComponent({
@@ -93,14 +186,14 @@ export default defineComponent({
     components: {
         ChildCollectionManager,
         Input,
-        StringArrayManager
+        MapManager,
     },
     data: function (): MechanicsState {
         return {
             mechanics: null,
             errors: {},
             ingredients: ["metal_scraps", "plastic_scraps", "soap", "old_t_shirt", "thick_tube", "oxygen_capsule", "fuel_capsule"],
-            ingredientToAdd: ""
+            ingredientToAdd: "",
         };
     },
     methods: {
@@ -122,6 +215,17 @@ export default defineComponent({
                                 });
                                 if (this.mechanics instanceof Mechanics) {
                                     this.mechanics.actions = actions;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'gears', String(this.mechanics.id), 'modifier_configs'))
+                            .then((result) => {
+                                const modifierConfigs : ModifierConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    const currentModifierConfig = (new ModifierConfig()).load(datum);
+                                    modifierConfigs.push(currentModifierConfig);
+                                });
+                                if (this.mechanics instanceof Mechanics) {
+                                    this.mechanics.modifierConfigs = modifierConfigs;
                                 }
                             });
                     }
@@ -152,6 +256,18 @@ export default defineComponent({
                 this.mechanics.actions = removeItem(this.mechanics.actions, child);
             }
         },
+        selectNewModifierConfig(selectedId: any) {
+            GameConfigService.loadModifierConfig(selectedId).then((res) => {
+                if (res && this.mechanics && this.mechanics.modifierConfigs) {
+                    this.mechanics.modifierConfigs.push(res);
+                }
+            });
+        },
+        removeModifierConfig(child: any) {
+            if (this.mechanics && this.mechanics.modifierConfigs) {
+                this.mechanics.modifierConfigs = removeItem(this.mechanics.modifierConfigs, child);
+            }
+        },
         addIngredient(product: string): void {
             if (this.mechanics && this.mechanics.ingredients) {
                 if (this.mechanics.ingredients.get(product) !== undefined) {
@@ -170,6 +286,103 @@ export default defineComponent({
                         this.mechanics.ingredients.delete(product);
                     }
                 }
+            }
+        },
+        addMaturationTime(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.mechanics && this.mechanics.maturationTime) {
+                this.mechanics.maturationTime.set(index, value);
+            }
+        },
+        removeMaturationTime(index: number): void {
+            console.log(index);
+            if (this.mechanics && this.mechanics.maturationTime) {
+                this.mechanics.maturationTime.delete(index);
+            }
+        },
+        addOxygen(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.mechanics && this.mechanics.oxygen) {
+                this.mechanics.oxygen.set(index, value);
+            }
+        },
+        removeOxygen(index: number): void {
+            if (this.mechanics && this.mechanics.oxygen) {
+                this.mechanics.oxygen.delete(index);
+            }
+        },
+        addActionPoints(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.mechanics && this.mechanics.actionPoints) {
+                this.mechanics.actionPoints.set(index, value);
+            }
+        },
+        removeActionPoints(index: number): void {
+            if (this.mechanics && this.mechanics.actionPoints) {
+                this.mechanics.actionPoints.delete(index);
+            }
+        },
+        addMoralPoints(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.mechanics && this.mechanics.moralPoints) {
+                this.mechanics.moralPoints.set(index, value);
+            }
+        },
+        removeMoralPoints(index: number): void {
+            if (this.mechanics && this.mechanics.moralPoints) {
+                this.mechanics.moralPoints.delete(index);
+            }
+        },
+        addHealthPoints(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.mechanics && this.mechanics.healthPoints) {
+                this.mechanics.healthPoints.set(index, value);
+            }
+        },
+        removeHealthPoints(index: number): void {
+            if (this.mechanics && this.mechanics.healthPoints) {
+                this.mechanics.healthPoints.delete(index);
+            }
+        },
+        addMovementPoints(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.mechanics && this.mechanics.movementPoints) {
+                this.mechanics.movementPoints.set(index, value);
+            }
+        },
+        removeMovementPoints(index: number): void {
+            if (this.mechanics && this.mechanics.movementPoints) {
+                this.mechanics.movementPoints.delete(index);
+            }
+        },
+        addExtraEffects(tuple: any): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.mechanics && this.mechanics.extraEffects) {
+                this.mechanics.extraEffects.set(index, value);
+            }
+        },
+        removeExtraEffects(index: string): void {
+            if (this.mechanics && this.mechanics.extraEffects) {
+                this.mechanics.extraEffects.delete(index);
+            }
+        },
+        addBaseDamageRange(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.mechanics && this.mechanics.baseDamageRange) {
+                this.mechanics.baseDamageRange.set(index, value);
+            }
+        },
+        removeBaseDamageRange(index: number): void {
+            if (this.mechanics && this.mechanics.baseDamageRange) {
+                this.mechanics.baseDamageRange.delete(index);
             }
         },
     },
@@ -197,7 +410,29 @@ export default defineComponent({
                                 this.mechanics.equipment = equipment;
                             }
                         });
-                } 
+                }
+                if (this.mechanics.mechanicsType == "Gear"){
+                    ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'gears', String(mechanicsId), 'modifier_configs'))
+                        .then((result) => {
+                            const modifierConfigs : ModifierConfig[] = [];
+                            result.data['hydra:member'].forEach((datum: any) => {
+                                const currentModifierConfig = (new ModifierConfig()).load(datum);
+                                modifierConfigs.push(currentModifierConfig);
+                            });
+                            if (this.mechanics instanceof Mechanics) {
+                                this.mechanics.modifierConfigs = modifierConfigs;
+                            }
+                        });
+                }
+                if (this.mechanics.mechanicsType == "Fruit"){
+                    ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'plants', String(mechanicsId), 'fruit'))
+                        .then((result) => {
+                            const fruit : EquipmentConfig = (new EquipmentConfig()).load(result.data);
+                            if (this.mechanics instanceof Mechanics) {
+                                this.mechanics.fruit = fruit;
+                            }
+                        });
+                }
             }
         });
     }

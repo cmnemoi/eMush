@@ -253,6 +253,35 @@
 			"items": "Objets",
 			"places": "Salles"
 		},
+		"mechanics":
+		{
+			"pageTitle": "Modification de la mécanique ",
+			"name": "Nom",
+			"mechanics": "Mécaniques",
+			"actions": "Actions",
+			"maturationTime": "Temps de maturation (nombre de cycles => probabilité qu'il soit choisi)",
+			"addMaturationTime": "Supprimer un temps de maturation :",
+			"maturationTimeIndexToAdd": "Temps de maturation (en cycles) à ajouter :",
+			"maturationTimeValueToAdd": "Probabilité du temps de maturation :",
+			"oxygen": "Oxygène donné par jour (oxygène => probabilité)",
+			"baseAccuracy": "Probabilité de toucher",
+			"baseDamageRange": "Dégâts (nombre de points de vie retirés => probabilité)",
+			"expeditionBonus": "Bonus en expédition",
+			"criticalSuccessRate": "Probabilité de réussite critique",
+			"criticalFailRate": "Probabilité d'échec critique",
+			"oneShotRate": "Probabilité de tuer en un coup",
+			"ingredients": "Ingrédients",
+			"addIngredients": "Ajouter un ingrédient :",
+			"isPerishable": "Périssable",
+			"isNotPerishable": "Non périssable",
+			"satiety": "Satiété",
+			"actionPoints": "Points d'action gagnés (points => probabilité)",
+			"moralPoints": "Points de moral gagnés (points => probabilité)",
+			"healthPoints": "Points de vie gagnés (points => probabilité)",
+			"movementPoints": "Points de mouvement gagnés (points => probabilité)",
+			"extraEffects": "Effets supplémentaires"
+
+		},
 		"buttons": {
 			"add": "Ajouter",
 			"delete": "Supprimer"
@@ -260,6 +289,12 @@
 		"childCollectionManager":
 		{
 			"idToAdd": "ID à ajouter : "
+		},
+		"mapManager":
+		{
+			"indexToDelete": "Clé à supprimer :",
+			"mapIndexToAdd": "Clé à ajouter : ",
+			"mapValueToAdd": "Valeur à ajouter :"
 		},
 		"stringArrayManager":
 		{

@@ -11,12 +11,12 @@ Mush\Equipment\Entity\Config\EquipmentConfig:
           max: 48
       - Type: string    
     isFireDestroyable:
-      - Type: bool
+      - Type: boolean
     isFireBreakable:
-      - Type: bool
+      - Type: boolean
     isBreakable:
-      - Type: bool
+      - Type: boolean
     dismountedProducts:
       - Type: array
     isPersonal:
-      - Type: bool
+      - Type: boolean

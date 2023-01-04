@@ -1,5 +1,5 @@
 Mush\Equipment\Entity\Mechanics\Blueprint:
-  attributes:
+  properties:
     name:
       - NotBlank: ~
       - Type: string

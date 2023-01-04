@@ -112,6 +112,12 @@ class Ration extends EquipmentMechanic
         return $this;
     }
 
+    // a getter is needed for the serializer
+    public function getIsPerishable(): bool
+    {
+        return $this->isPerishable;
+    }
+
     public function isPerishable(): bool
     {
         return $this->isPerishable;

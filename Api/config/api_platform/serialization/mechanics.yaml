@@ -20,3 +20,39 @@ Mush\Equipment\Entity\EquipmentMechanic:
       groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
     canShred:
       groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    isPerishable:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    plantName:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    modifierConfigs:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    fruit:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    maturationTime:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    oxygen:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    moralPoints:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    actionPoints:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    movementPoints:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    healthPoints:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    satiety:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    extraEffects:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    baseAccuracy:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    baseDamageRange:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    expeditionBonus:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    criticalSuccessRate:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    criticalFailRate:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]
+    oneShotRate:
+      groups: [ 'equipment_mechanic_read', 'equipment_mechanic_write' ]

@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\Entity\Mechanics;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
@@ -30,8 +31,12 @@ class Gear extends EquipmentMechanic
     /**
      * @param Collection<int, ModifierConfig> $modifierConfigs
      */
-    public function setModifierConfigs(Collection $modifierConfigs): static
+    public function setModifierConfigs(Collection|array $modifierConfigs): static
     {
+        if (is_array($modifierConfigs)) {
+            $modifierConfigs = new ArrayCollection($modifierConfigs);
+        }
+
         $this->modifierConfigs = $modifierConfigs;
 
         return $this;

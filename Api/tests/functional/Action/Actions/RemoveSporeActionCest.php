@@ -28,9 +28,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\User\Entity\User;
 
@@ -81,6 +79,7 @@ class RemoveSporeActionCest
         $player
             ->setActionPoint(2)
             ->setHealthPoint(9)
+            ->setSpores(1)
         ;
         /** @var User $user */
         $user = $I->have(User::class);
@@ -89,21 +88,6 @@ class RemoveSporeActionCest
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
-
-        $sporeStatusConfig = new ChargeStatusConfig();
-        $sporeStatusConfig
-            ->setStatusName(PlayerStatusEnum::SPORES)
-            ->setVisibility(VisibilityEnum::MUSH)
-            ->setChargeVisibility(VisibilityEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-
-        $I->haveInRepository($sporeStatusConfig);
-
-        $sporeStatus = new ChargeStatus($player, $sporeStatusConfig);
-        $sporeStatus
-            ->setCharge(1)
-        ;
 
         $actionCost = new ActionCost();
         $actionCost
@@ -146,6 +130,7 @@ class RemoveSporeActionCest
 
         $I->assertEquals(1, $player->getActionPoint());
         $I->assertEquals(6, $player->getHealthPoint());
+        $I->assertEquals(0, $player->getSpores());
 
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getName(),

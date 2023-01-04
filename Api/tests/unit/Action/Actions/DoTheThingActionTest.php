@@ -13,14 +13,11 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
 
 class DoTheThingActionTest extends AbstractActionTest
 {
     /* @var DiseaseCauseServiceInterface|Mockery\Mock */
     private DiseaseCauseServiceInterface|Mockery\Mock $diseaseCauseService;
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
     /* @var PlayerDiseaseServiceInterface|Mockery\Mock */
     private PlayerDiseaseServiceInterface|Mockery\Mock $playerDiseaseService;
     /* @var PlayerVariableServiceInterface|Mockery\Mock */
@@ -40,7 +37,6 @@ class DoTheThingActionTest extends AbstractActionTest
         $this->actionEntity = $this->createActionEntity(ActionEnum::DO_THE_THING);
 
         $this->diseaseCauseService = \Mockery::mock(DiseaseCauseServiceInterface::class);
-        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
         $this->playerDiseaseService = \Mockery::mock(PlayerDiseaseServiceInterface::class);
         $this->playerVariableService = \Mockery::mock(PlayerVariableServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
@@ -55,7 +51,6 @@ class DoTheThingActionTest extends AbstractActionTest
             $this->playerVariableService,
             $this->randomService,
             $this->roomLogService,
-            $this->statusService,
         );
     }
 
@@ -82,7 +77,7 @@ class DoTheThingActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventDispatcher->shouldReceive('dispatch')->times(4);
-        $this->playerVariableService->shouldReceive('getMaxPlayerVariable')->andReturn(14)->once();
+        $this->playerVariableService->shouldReceive('getMaxPlayerVariable')->andReturn(14)->times(2);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false);
 
         $result = $this->action->execute();

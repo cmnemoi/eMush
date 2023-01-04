@@ -40,9 +40,5 @@ interface DaedalusServiceInterface
 
     public function killRemainingPlayers(Daedalus $daedalus, string $cause, \DateTime $date): Daedalus;
 
-    public function changeOxygenLevel(Daedalus $daedalus, int $change): Daedalus;
-
-    public function changeFuelLevel(Daedalus $daedalus, int $change): Daedalus;
-
-    public function changeHull(Daedalus $daedalus, int $change, \DateTime $date): Daedalus;
+    public function changeVariable(string $variableName, Daedalus $daedalus, int $change, \DateTime $date): Daedalus;
 }

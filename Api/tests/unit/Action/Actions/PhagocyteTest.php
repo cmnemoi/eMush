@@ -32,7 +32,6 @@ class PhagocyteTest extends AbstractActionTest
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->statusService
         );
     }
 
@@ -64,11 +63,7 @@ class PhagocyteTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->statusService
-            ->shouldReceive('updateCharge')
-            ->with($sporeStatus, -1)
-            ->once();
-        $this->eventDispatcher->shouldReceive('dispatch')->times(2);
+        $this->eventDispatcher->shouldReceive('dispatch')->times(3);
 
         $result = $this->action->execute();
 

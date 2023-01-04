@@ -186,7 +186,7 @@ class Daedalus implements ModifierHolder
         return $this->daedalusVariables->getValueByName($variableName);
     }
 
-    public function setVariableFromName(int $value, string $variableName): static
+    public function setVariableValueFromName(int $value, string $variableName): static
     {
         $this->daedalusVariables->setValueByName($value, $variableName);
 
@@ -212,7 +212,7 @@ class Daedalus implements ModifierHolder
 
     public function setOxygen(int $oxygen): static
     {
-        $this->setVariableFromName($oxygen, DaedalusVariableEnum::OXYGEN);
+        $this->setVariableValueFromName($oxygen, DaedalusVariableEnum::OXYGEN);
 
         return $this;
     }
@@ -224,7 +224,7 @@ class Daedalus implements ModifierHolder
 
     public function setFuel(int $fuel): static
     {
-        $this->setVariableFromName($fuel, DaedalusVariableEnum::FUEL);
+        $this->setVariableValueFromName($fuel, DaedalusVariableEnum::FUEL);
 
         return $this;
     }
@@ -236,7 +236,7 @@ class Daedalus implements ModifierHolder
 
     public function setHull(int $hull): static
     {
-        $this->setVariableFromName($hull, DaedalusVariableEnum::HULL);
+        $this->setVariableValueFromName($hull, DaedalusVariableEnum::HULL);
 
         return $this;
     }
@@ -248,7 +248,7 @@ class Daedalus implements ModifierHolder
 
     public function setShield(int $shield): static
     {
-        $this->setVariableFromName($shield, DaedalusVariableEnum::SHIELD);
+        $this->setVariableValueFromName($shield, DaedalusVariableEnum::SHIELD);
 
         return $this;
     }
@@ -260,7 +260,7 @@ class Daedalus implements ModifierHolder
 
     public function setSpores(int $spores): static
     {
-        $this->setVariableFromName($spores, DaedalusVariableEnum::SPORE);
+        $this->setVariableValueFromName($spores, DaedalusVariableEnum::SPORE);
 
         return $this;
     }

@@ -9,6 +9,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\RandomItemPlaces;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Daedalus\Repository\DaedalusInfoRepository;
@@ -362,12 +363,13 @@ class DaedalusServiceTest extends TestCase
 
         $this->entityManager->shouldReceive(['persist' => null, 'flush' => null]);
 
-        $this->service->changeHull($daedalus, -20, $time);
+        $this->service->changeVariable(DaedalusVariableEnum::HULL, $daedalus, -20, $time);
 
         $this->assertEquals(0, $daedalus->getHull());
 
         $daedalusConfig->setMaxHull(20);
-        $this->service->changeHull($daedalus, 100, $time);
+        $daedalus->setDaedalusVariables($daedalusConfig);
+        $this->service->changeVariable(DaedalusVariableEnum::HULL, $daedalus, 100, $time);
 
         $this->assertEquals(20, $daedalus->getHull());
     }

@@ -2,7 +2,6 @@
 
 namespace Mush\Test\Action\Actions;
 
-use Mockery;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Actions\ExtractSpore;
 use Mush\Action\Enum\ActionEnum;
@@ -12,12 +11,9 @@ use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 
 class ExtractSporeActionTest extends AbstractActionTest
 {
-    private StatusServiceInterface|Mockery\Mock $statusService;
-
     /**
      * @before
      */
@@ -27,13 +23,10 @@ class ExtractSporeActionTest extends AbstractActionTest
 
         $this->actionEntity = $this->createActionEntity(ActionEnum::EXTRACT_SPORE, 2);
 
-        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
-
         $this->action = new ExtractSpore(
             $this->eventDispatcher,
             $this->actionService,
             $this->validator,
-            $this->statusService,
         );
     }
 
@@ -61,6 +54,7 @@ class ExtractSporeActionTest extends AbstractActionTest
         $room = new Place();
 
         $player = $this->createPlayer($daedalus, $room);
+        $player->setSpores(1);
 
         $mushConfig = new ChargeStatusConfig();
         $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
@@ -69,22 +63,14 @@ class ExtractSporeActionTest extends AbstractActionTest
             ->setCharge(1)
         ;
 
-        $sporeConfig = new ChargeStatusConfig();
-        $sporeConfig->setStatusName(PlayerStatusEnum::SPORES);
-        $sporeStatus = new ChargeStatus($player, $sporeConfig);
-        $sporeStatus
-            ->setCharge(1)
-        ;
-
         $this->action->loadParameters($this->actionEntity, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->statusService->shouldReceive('persist')->once();
+        $this->eventDispatcher->shouldReceive('dispatch')->times(2);
 
         $result = $this->action->execute();
 
         $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(2, $player->getStatuses());
-        $this->assertEquals(2, $player->getStatusByName(PlayerStatusEnum::SPORES)->getCharge());
+        $this->assertCount(1, $player->getStatuses());
     }
 }

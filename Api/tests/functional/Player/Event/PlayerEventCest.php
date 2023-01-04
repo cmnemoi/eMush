@@ -19,15 +19,17 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
@@ -223,14 +225,6 @@ class PlayerEventCest
         ;
         $I->haveInRepository($mushStatusConfig);
 
-        $sporeConfig = new ChargeStatusConfig();
-        $sporeConfig
-            ->setStatusName(PlayerStatusEnum::SPORES)
-            ->setVisibility(VisibilityEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($sporeConfig);
-
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FUNGIC_INFECTION)
@@ -252,7 +246,7 @@ class PlayerEventCest
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'statusConfigs' => new ArrayCollection([$mushStatusConfig, $sporeConfig]),
+            'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
             'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
             'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
         ]);
@@ -274,36 +268,37 @@ class PlayerEventCest
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
+        $player->setSpores(0);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $I->haveInRepository($sporeConfig);
-        $sporeStatus = new ChargeStatus($player, $sporeConfig);
-        $sporeStatus
-            ->setCharge(0)
-        ;
-        $I->haveInRepository($sporeStatus);
+        $playerEvent = new PlayerVariableEvent(
+            $player,
+            PlayerVariableEnum::SPORE,
+            1,
+            ActionEnum::INFECT,
+            new \DateTime()
+        );
 
-        $playerEvent = new PlayerEvent($player, ActionEnum::INFECT, new \DateTime());
+        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
-
-        $I->assertCount(1, $player->getStatuses());
-        $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
+        $I->assertCount(0, $player->getStatuses());
+        $I->assertEquals(1, $player->getSpores());
         $I->assertEquals($room, $player->getPlace());
 
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
-        $I->assertCount(1, $player->getStatuses());
-        $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
+        $I->assertCount(0, $player->getStatuses());
+        $I->assertEquals(2, $player->getSpores());
         $I->assertEquals($room, $player->getPlace());
 
-        $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::INFECTION_PLAYER);
+        $this->eventDispatcher->dispatch($playerEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
-        $I->assertCount(2, $player->getStatuses());
+        $I->assertCount(1, $player->getStatuses());
+        $I->assertEquals(0, $player->getSpores());
         $I->assertEquals($room, $player->getPlace());
     }
 
@@ -342,32 +337,22 @@ class PlayerEventCest
             'place' => $room,
         ]);
         $player->setPlayerVariables($characterConfig);
-        $player->setMoralPoint(8);
+        $player->setMoralPoint(8)->setSpores(3);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $sporeConfig = new ChargeStatusConfig();
-        $sporeConfig
-            ->setStatusName(PlayerStatusEnum::SPORES)
-            ->setVisibility(VisibilityEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($sporeConfig);
-        $sporeStatus = new ChargeStatus($player, $sporeConfig);
-        $sporeStatus
-            ->setCharge(3)
-        ;
-        $I->haveInRepository($sporeStatus);
-
         $playerEvent = new PlayerEvent($player, ActionEnum::INFECT, new \DateTime());
 
         $this->eventDispatcher->dispatch($playerEvent, PlayerEvent::CONVERSION_PLAYER);
 
-        $I->assertCount(2, $player->getStatuses());
-        $I->assertEquals(0, $player->getStatuses()->first()->getCharge());
+        $sporesVariable = $player->getVariableByName(PlayerVariableEnum::SPORE);
+
+        $I->assertCount(1, $player->getStatuses());
+        $I->assertEquals(0, $sporesVariable->getValue());
+        $I->assertEquals(2, $sporesVariable->getMaxValue());
         $I->assertEquals($room, $player->getPlace());
         $I->assertEquals(12, $player->getMoralPoint());
     }

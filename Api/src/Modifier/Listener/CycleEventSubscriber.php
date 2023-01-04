@@ -5,7 +5,7 @@ namespace Mush\Modifier\Listener;
 use Mush\Action\Event\ActionEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractGameEvent;
@@ -131,7 +131,7 @@ class CycleEventSubscriber implements EventSubscriberInterface
                 );
 
             case $holder instanceof Daedalus:
-                return new DaedalusModifierEvent(
+                return new DaedalusVariableEvent(
                     $holder,
                     $target,
                     $value,

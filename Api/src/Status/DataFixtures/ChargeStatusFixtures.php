@@ -40,7 +40,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const PLANT_YOUNG = 'plant_young';
     public const EUREKA_MOMENT = 'eureka_moment';
     public const FIRST_TIME = 'first_time';
-    public const SPORES = 'spores';
     public const MUSH_STATUS = 'mush_status';
     public const CONTAMINATED_FOOD = 'contaminated_food';
     public const COMBUSTION_CHAMBER = 'combustion_chamber';
@@ -213,15 +212,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($firstTime);
 
-        $spores = new ChargeStatusConfig();
-        $spores
-            ->setStatusName(PlayerStatusEnum::SPORES)
-            ->setVisibility(VisibilityEnum::MUSH)
-            ->setChargeVisibility(VisibilityEnum::MUSH)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
-        $manager->persist($spores);
-
         /** @var ModifierConfig $showerModifier */
         $showerModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_SHOWER_MODIFIER);
         /** @var ModifierConfig $consumeSatietyModifier */
@@ -346,7 +336,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($plantYoung)
             ->addStatusConfig($eurekaMoment)
             ->addStatusConfig($firstTime)
-            ->addStatusConfig($spores)
             ->addStatusConfig($mushStatus)
             ->addStatusConfig($contaminated)
             ->addStatusConfig($combustionChamber)
@@ -373,7 +362,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::PLANT_YOUNG, $plantYoung);
         $this->addReference(self::EUREKA_MOMENT, $eurekaMoment);
         $this->addReference(self::FIRST_TIME, $firstTime);
-        $this->addReference(self::SPORES, $spores);
         $this->addReference(self::MUSH_STATUS, $mushStatus);
         $this->addReference(self::CONTAMINATED_FOOD, $contaminated);
         $this->addReference(self::COMBUSTION_CHAMBER, $combustionChamber);

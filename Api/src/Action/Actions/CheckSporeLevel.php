@@ -10,10 +10,9 @@ use Mush\Action\Validator\HasStatus as StatusValidator;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class CheckSporeLevel extends AbstractAction
@@ -40,23 +39,10 @@ class CheckSporeLevel extends AbstractAction
     {
         $player = $this->player;
 
-        if ($player->getStatusByName(PlayerStatusEnum::IMMUNIZED)) {
-            $success = new Success();
-
-            return $success->setQuantity(0);
-        }
-
-        /** @var ?ChargeStatus $sporeStatus */
-        $sporeStatus = $player->getStatusByName(PlayerStatusEnum::SPORES);
-
-        if ($sporeStatus === null) {
-            throw new \Error('Player should have a spore status');
-        }
-
         if ($player->isMush()) {
             $nbSpores = 0;
         } else {
-            $nbSpores = $sporeStatus->getCharge();
+            $nbSpores = $player->getVariableValueFromName(PlayerVariableEnum::SPORE);
         }
 
         $success = new Success();

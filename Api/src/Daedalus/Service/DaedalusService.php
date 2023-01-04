@@ -10,6 +10,7 @@ use Mush\Daedalus\Entity\Criteria\DaedalusCriteria;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Daedalus\Repository\DaedalusInfoRepository;
@@ -368,57 +369,41 @@ class DaedalusService implements DaedalusServiceInterface
         return $daedalus;
     }
 
-    public function changeOxygenLevel(Daedalus $daedalus, int $change): Daedalus
+    public function changeVariable(string $variableName, Daedalus $daedalus, int $change, \DateTime $date): Daedalus
     {
-        $maxOxygen = $daedalus->getGameConfig()->getDaedalusConfig()->getMaxOxygen();
-        $newOxygenLevel = $daedalus->getOxygen() + $change;
+        $gameVariable = $daedalus->getVariableFromName($variableName);
 
-        if ($newOxygenLevel > $maxOxygen) {
-            $daedalus->setOxygen($maxOxygen);
-        } elseif ($newOxygenLevel < 0) {
-            $daedalus->setOxygen(0);
-        } else {
-            $daedalus->setOxygen($newOxygenLevel);
+        $newVariableValuePoint = $gameVariable->getValue() + $change;
+        $maxVariableValuePoint = $gameVariable->getMaxValue();
+        $newVariableValuePoint = $this->getValueInInterval($newVariableValuePoint, 0, $maxVariableValuePoint);
+
+        $daedalus->setVariableValueFromName($newVariableValuePoint, $variableName);
+
+        switch ($variableName) {
+            case DaedalusVariableEnum::HULL:
+                if ($newVariableValuePoint === 0) {
+                    $daedalusEvent = new DaedalusEvent(
+                        $daedalus,
+                        EndCauseEnum::DAEDALUS_DESTROYED,
+                        $date
+                    );
+
+                    $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
+                }
+                break;
         }
 
         return $daedalus;
     }
 
-    public function changeFuelLevel(Daedalus $daedalus, int $change): Daedalus
+    private function getValueInInterval(int $value, ?int $min, ?int $max): int
     {
-        $maxFuel = $daedalus->getGameConfig()->getDaedalusConfig()->getMaxFuel();
-        $newFuelLevel = $daedalus->getFuel() + $change;
-
-        if ($newFuelLevel > $maxFuel) {
-            $daedalus->setFuel($maxFuel);
-        } elseif ($newFuelLevel < 0) {
-            $daedalus->setFuel(0);
-        } else {
-            $daedalus->setFuel($newFuelLevel);
+        if ($max !== null && $value > $max) {
+            return $max;
+        } elseif ($min !== null && $value < $min) {
+            return $min;
         }
 
-        return $daedalus;
-    }
-
-    public function changeHull(Daedalus $daedalus, int $change, \DateTime $date): Daedalus
-    {
-        $maxHull = $daedalus->getGameConfig()->getDaedalusConfig()->getMaxHull();
-        if (($newHull = $daedalus->getHull() + $change) < 0) {
-            $daedalus->setHull(0);
-
-            $daedalusEvent = new DaedalusEvent(
-                $daedalus,
-                EndCauseEnum::DAEDALUS_DESTROYED,
-                $date
-            );
-
-            $this->eventDispatcher->dispatch($daedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
-        } else {
-            $daedalus->setHull(min($newHull, $maxHull));
-        }
-
-        $this->persist($daedalus);
-
-        return $daedalus;
+        return $value;
     }
 }

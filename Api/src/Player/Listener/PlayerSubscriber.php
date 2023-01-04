@@ -93,5 +93,10 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
 
         $this->playerVariableService->setPlayerVariableToMax($player, PlayerVariableEnum::MORAL_POINT);
+
+        $sporeVariable = $player->getVariableByName(PlayerVariableEnum::SPORE);
+
+        $sporeVariable->setValue(0)->setMaxValue(2);
+        $this->playerService->persist($player);
     }
 }

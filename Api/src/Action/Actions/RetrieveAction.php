@@ -6,7 +6,7 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -53,7 +53,7 @@ abstract class RetrieveAction extends AbstractAction
             VisibilityEnum::HIDDEN
         );
 
-        $daedalusEvent = new DaedalusModifierEvent(
+        $daedalusEvent = new DaedalusVariableEvent(
             $this->player->getDaedalus(),
             $this->getDaedalusVariable(),
             -1,

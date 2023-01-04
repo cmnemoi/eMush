@@ -7,7 +7,7 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\CycleHandler\PlantCycleHandler;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
@@ -260,7 +260,7 @@ class PlantCycleHandlerTest extends TestCase
         ;
 
         $this->eventDispatcher->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusModifierEvent &&
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent &&
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10
             )->once();
@@ -320,7 +320,7 @@ class PlantCycleHandlerTest extends TestCase
             ->once();
 
         $this->eventDispatcher->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusModifierEvent &&
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent &&
                 $event->getDaedalus() === $daedalus &&
                 $event->getQuantity() === 10)
             ->once();

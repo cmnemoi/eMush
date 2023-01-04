@@ -54,6 +54,10 @@ class RejuvenateAlpha extends AbstractAction
         $maxMoralePoint = $this->playerVariableService->getMaxPlayerVariable($this->player, PlayerVariableEnum::MORAL_POINT);
         $maxHealthPoint = $this->playerVariableService->getMaxPlayerVariable($this->player, PlayerVariableEnum::HEALTH_POINT);
 
+        if ($maxMoralePoint === null || $maxActionPoint === null || $maxMovementPoint === null || $maxHealthPoint === null) {
+            throw new \Error('moral, movement, action and health points should have a maximum value');
+        }
+
         $this->player
             ->setActionPoint($maxActionPoint)
             ->setMovementPoint($maxMovementPoint)

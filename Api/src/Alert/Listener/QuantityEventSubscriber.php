@@ -4,7 +4,7 @@ namespace Mush\Alert\Listener;
 
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Game\Event\AbstractQuantityEvent;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -31,7 +31,7 @@ class QuantityEventSubscriber implements EventSubscriberInterface
     {
         if ($event instanceof PlayerVariableEvent) {
             $this->handlePlayerChange($event);
-        } elseif ($event instanceof DaedalusModifierEvent) {
+        } elseif ($event instanceof DaedalusVariableEvent) {
             $this->handleDaedalusChange($event);
         }
     }
@@ -43,7 +43,7 @@ class QuantityEventSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function handleDaedalusChange(DaedalusModifierEvent $daedalusEvent): void
+    private function handleDaedalusChange(DaedalusVariableEvent $daedalusEvent): void
     {
         $daedalus = $daedalusEvent->getDaedalus();
 

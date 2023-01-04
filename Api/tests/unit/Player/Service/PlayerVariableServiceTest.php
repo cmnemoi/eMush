@@ -9,6 +9,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableService;
 use Mush\User\Entity\User;
@@ -50,18 +51,18 @@ class PlayerVariableServiceTest extends TestCase
         $player = $this->createPlayer(0, 0, 0, 0, 0);
 
         $this->playerService->shouldReceive('persist')->once();
-        $this->service->handleSatietyModifier(-1, $player);
+        $this->service->handleGameVariableChange(PlayerVariableEnum::SATIETY, -1, $player);
 
         $this->playerService->shouldReceive('persist')->once();
-        $this->service->handleSatietyModifier(4, $player);
+        $this->service->handleGameVariableChange(PlayerVariableEnum::SATIETY, 4, $player);
 
         $this->playerService->shouldReceive('persist')->once();
-        $this->service->handleSatietyModifier(-1, $player);
+        $this->service->handleGameVariableChange(PlayerVariableEnum::SATIETY, -1, $player);
 
         $this->assertEquals(3, $player->getSatiety());
 
         $this->playerService->shouldReceive('persist')->once();
-        $this->service->handleSatietyModifier(-1, $player);
+        $this->service->handleGameVariableChange(PlayerVariableEnum::SATIETY, -1, $player);
 
         $this->assertEquals(2, $player->getSatiety());
     }
@@ -71,13 +72,13 @@ class PlayerVariableServiceTest extends TestCase
         $player = $this->createPlayer(0, 0, 0, 0, 0);
 
         $this->playerService->shouldReceive('persist')->once();
-        $this->service->handleSatietyModifier(-1, $player);
+        $this->service->handleGameVariableChange(PlayerVariableEnum::SATIETY, -1, $player);
 
         $this->playerService->shouldReceive('persist')->once();
-        $this->service->handleSatietyModifier(1, $player);
+        $this->service->handleGameVariableChange(PlayerVariableEnum::SATIETY, 1, $player);
 
         $this->playerService->shouldReceive('persist')->once();
-        $this->service->handleSatietyModifier(-1, $player);
+        $this->service->handleGameVariableChange(PlayerVariableEnum::SATIETY, -1, $player);
 
         $this->assertEquals(0, $player->getSatiety());
     }
@@ -103,7 +104,7 @@ class PlayerVariableServiceTest extends TestCase
             ->andReturn(16)
             ->once();
 
-        $this->service->handleMoralPointModifier(-2, $player);
+        $this->service->handleGameVariableChange(PlayerVariableEnum::MORAL_POINT, -2, $player);
 
         $this->assertEquals(3, $player->getMoralPoint());
 
@@ -113,7 +114,7 @@ class PlayerVariableServiceTest extends TestCase
             ->andReturn(16)
             ->once();
 
-        $this->service->handleMoralPointModifier(-2, $player);
+        $this->service->handleGameVariableChange(PlayerVariableEnum::MORAL_POINT, -2, $player);
 
         $this->assertEquals(1, $player->getMoralPoint());
 
@@ -123,7 +124,7 @@ class PlayerVariableServiceTest extends TestCase
             ->andReturn(16)
             ->once();
 
-        $this->service->handleMoralPointModifier(2, $player);
+        $this->service->handleGameVariableChange(PlayerVariableEnum::MORAL_POINT, 2, $player);
 
         $this->assertEquals(3, $player->getMoralPoint());
 
@@ -135,7 +136,7 @@ class PlayerVariableServiceTest extends TestCase
             ->andReturn(16)
             ->once();
 
-        $this->service->handleMoralPointModifier(22, $player);
+        $this->service->handleGameVariableChange(PlayerVariableEnum::MORAL_POINT, 22, $player);
 
         $this->assertEquals(16, $player->getMoralPoint());
     }
@@ -160,7 +161,7 @@ class PlayerVariableServiceTest extends TestCase
             ->andReturn(16)
             ->once();
 
-        $this->service->handleActionPointModifier(-2, $player);
+        $this->service->handleGameVariableChange(PlayerVariableEnum::ACTION_POINT, -2, $player);
 
         $this->assertEquals(3, $player->getActionPoint());
 
@@ -170,7 +171,7 @@ class PlayerVariableServiceTest extends TestCase
             ->andReturn(16)
             ->once();
 
-        $this->service->handleActionPointModifier(-6, $player);
+        $this->service->handleGameVariableChange(PlayerVariableEnum::ACTION_POINT, -6, $player);
 
         $this->assertEquals(0, $player->getActionPoint());
 
@@ -180,7 +181,7 @@ class PlayerVariableServiceTest extends TestCase
             ->andReturn(16)
             ->once();
 
-        $this->service->handleActionPointModifier(35, $player);
+        $this->service->handleGameVariableChange(PlayerVariableEnum::ACTION_POINT, 35, $player);
 
         $this->assertEquals(16, $player->getActionPoint());
     }
@@ -205,7 +206,7 @@ class PlayerVariableServiceTest extends TestCase
             ->andReturn(16)
             ->once();
         $this->playerService->shouldReceive('persist')->once();
-        $this->service->handleHealthPointModifier(-2, $player);
+        $this->service->handleGameVariableChange(PlayerVariableEnum::HEALTH_POINT, -2, $player);
 
         $this->assertEquals(3, $player->getHealthPoint());
     }

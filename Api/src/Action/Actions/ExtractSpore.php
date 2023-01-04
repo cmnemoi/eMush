@@ -6,39 +6,20 @@ use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\HasStatus;
-use Mush\Action\Validator\MushSpore;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
+use Mush\Game\Event\AbstractQuantityEvent;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ExtractSpore extends AbstractAction
 {
     protected string $name = ActionEnum::EXTRACT_SPORE;
-
-    private StatusServiceInterface $statusService;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        StatusServiceInterface $statusService
-    ) {
-        parent::__construct(
-            $eventDispatcher,
-            $actionService,
-            $validator
-        );
-
-        $this->statusService = $statusService;
-    }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -50,7 +31,13 @@ class ExtractSpore extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DAILY_SPORE_LIMIT,
         ]));
-        $metadata->addConstraint(new MushSpore(['threshold' => 2, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PERSONAL_SPORE_LIMIT]));
+        $metadata->addConstraint(new GameVariableLevel([
+            'target' => GameVariableLevel::PLAYER,
+            'checkMode' => GameVariableLevel::IS_MAX,
+            'variableName' => DaedalusVariableEnum::SPORE,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::PERSONAL_SPORE_LIMIT,
+        ]));
     }
 
     protected function support(?LogParameterInterface $parameter): bool
@@ -60,28 +47,29 @@ class ExtractSpore extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        /** @var ?ChargeStatus $sporeStatus */
-        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
-
-        if ($sporeStatus === null) {
-            throw new \Error('Player should have a spore status');
-        }
-
         return new Success();
     }
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var ?ChargeStatus $sporeStatus */
-        $sporeStatus = $this->player->getStatusByName(PlayerStatusEnum::SPORES);
+        $player = $this->player;
 
-        if ($sporeStatus === null) {
-            throw new \Error('Player should have a spore status');
-        }
+        $playerModifierEvent = new PlayerVariableEvent(
+            $player,
+            PlayerVariableEnum::SPORE,
+            1,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $this->eventDispatcher->dispatch($playerModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
 
-        $sporeStatus->addCharge(1);
-        $this->statusService->persist($sporeStatus);
-
-        $this->player->getDaedalus()->setSpores($this->player->getDaedalus()->getSpores() - 1);
+        $daedalusModifierEvent = new DaedalusVariableEvent(
+            $player->getDaedalus(),
+            DaedalusVariableEnum::SPORE,
+            -1,
+            $this->getActionName(),
+            new \DateTime()
+        );
+        $this->eventDispatcher->dispatch($daedalusModifierEvent, AbstractQuantityEvent::CHANGE_VARIABLE);
     }
 }

@@ -5,7 +5,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\ActionResult\ActionResult;
 use Mush\Action\ActionResult\Success;
 use Mush\Action\Validator\Fuel;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
@@ -42,7 +42,7 @@ abstract class InsertAction extends AbstractAction
         $this->eventDispatcher->dispatch($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         // Add to container
-        $daedalusEvent = new DaedalusModifierEvent(
+        $daedalusEvent = new DaedalusVariableEvent(
             $this->player->getDaedalus(),
             $this->getDaedalusVariable(),
             1,

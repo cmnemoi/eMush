@@ -9,7 +9,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Daedalus\Event\DaedalusModifierEvent;
+use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -51,7 +51,7 @@ class StrengthenHull extends AttemptAction
         if ($result instanceof Success) {
             $quantity = self::BASE_REPAIR;
 
-            $daedalusEvent = new DaedalusModifierEvent(
+            $daedalusEvent = new DaedalusVariableEvent(
                 $this->player->getDaedalus(),
                 DaedalusVariableEnum::HULL,
                 $quantity,

@@ -1,0 +1,8 @@
+Mush\Equipment\Entity\Mechanics\Plant:
+  attributes:
+    fruit:
+      groups: [ 'plant_read', 'plant_write' ]
+    maturationTime:
+      groups: [ 'plant_read', 'plant_write' ]
+    oxygen:
+      groups: [ 'plant_read', 'plant_write' ]

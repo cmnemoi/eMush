@@ -1,0 +1,4 @@
+Mush\Equipment\Entity\Mechanics\Fruit:
+  attributes:
+    plantName:
+      groups: [ 'fruit_read', 'fruit_write' ]

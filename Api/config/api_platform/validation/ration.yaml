@@ -1,0 +1,16 @@
+Mush\Equipment\Entity\Mechanics\Ration:
+  properties:
+    moralPoints:
+      - Type: array
+    actionPoints:
+      - Type: array
+    movementPoints:
+      - Type: array
+    healthPoints:
+      - Type: array
+    satiety:
+      - Type: integer
+    extraEffects:
+      - Type: array
+    isPerishable:
+      - Type: boolean

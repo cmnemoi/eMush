@@ -1,0 +1,4 @@
+Mush\Equipment\Entity\Mechanics\Gear:
+  attributes:
+    modifierConfigs:
+      groups: [ 'gear_read', 'gear_write' ]

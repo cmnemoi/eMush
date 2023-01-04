@@ -80,7 +80,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
                 5 => 5,
             ])
             ->setExpeditionBonus(1)
-            ->setCriticalSucessRate(5)
+            ->setCriticalSuccessRate(5)
             ->setCriticalFailRate(1)
             ->setOneShotRate(1)
             ->addAction($shootAction)
@@ -118,7 +118,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
                 5 => 12,
                 ])
             ->setExpeditionBonus(1)
-            ->setCriticalSucessRate(25)
+            ->setCriticalSuccessRate(25)
             ->setCriticalFailRate(20)
             ->setOneShotRate(2)
             ->addAction($attackAction)

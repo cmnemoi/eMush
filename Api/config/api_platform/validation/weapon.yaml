@@ -1,0 +1,19 @@
+Mush\Equipment\Entity\Mechanics\Weapon:
+  properties:
+    baseAccuracy:
+      - NotBlank: ~
+      - Type: integer
+    baseDamageRange:
+      - Type: array
+    expeditionBonus:
+      - NotBlank: ~
+      - Type: integer
+    criticalSuccessRate:
+      - NotBlank: ~
+      - Type: integer
+    criticalFailRate:
+      - NotBlank: ~
+      - Type: integer
+    oneShotRate:
+      - NotBlank: ~
+      - Type: integer

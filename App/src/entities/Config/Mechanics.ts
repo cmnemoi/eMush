@@ -1,5 +1,6 @@
 import { Action } from '@/entities/Action';
 import { EquipmentConfig } from '@/entities/Config/EquipmentConfig';
+import { ModifierConfig } from '@/entities/Config/ModifierConfig';
 
 export class Mechanics {
     public iri: string|null;
@@ -14,6 +15,24 @@ export class Mechanics {
     public content: string|null;
     public isTranslated: boolean|null;
     public canShred: boolean|null;
+    public isPerishable: boolean|null;
+    public plantName: string|null;
+    public modifierConfigs: ModifierConfig[]|null;
+    public fruit: EquipmentConfig|null;
+    public maturationTime: Map<integer, integer>|null;
+    public oxygen: Map<integer, integer>|null;
+    public healthPoints: Map<integer, integer>|null;
+    public moralPoints: Map<integer, integer>|null;
+    public actionPoints: Map<integer, integer>|null;
+    public movementPoints: Map<integer, integer>|null;
+    public satiety: number|null;
+    public extraEffects: Map<string, number>|null;
+    public baseAccuracy: number|null;
+    public baseDamageRange: Map<integer, integer>|null;
+    public expeditionBonus: number|null;
+    public criticalSuccessRate: number|null;
+    public criticalFailRate: number|null;
+    public oneShotRate: number|null;
 
     constructor() {
         this.iri = null;
@@ -28,6 +47,25 @@ export class Mechanics {
         this.content = null;
         this.isTranslated = null;
         this.canShred = null;
+        this.isPerishable = null;
+        this.plantName = null;
+        this.modifierConfigs = null;
+        this.fruit = null;
+        this.maturationTime = new Map();
+        this.oxygen = new Map();
+        this.healthPoints = new Map();
+        this.moralPoints = new Map();
+        this.actionPoints = new Map();
+        this.movementPoints = new Map();
+        this.healthPoints = new Map();
+        this.satiety = null;
+        this.extraEffects = new Map();
+        this.baseAccuracy = null;
+        this.baseDamageRange = new Map();
+        this.expeditionBonus = null;
+        this.criticalSuccessRate = null;
+        this.criticalFailRate = null;
+        this.oneShotRate = null;
     }
 
     load(object:any) : Mechanics {
@@ -51,6 +89,11 @@ export class Mechanics {
         this.addBlueprintAttributes(object);  
         this.addSkillAttributes(object);
         this.addDocumentAttributes(object);
+        this.addFruitAttributes(object);
+        this.addGearAttributes(object);
+        this.addPlantAttributes(object);
+        this.addRationAttributes(object);
+        this.addWeaponAttributes(object);
         
         return this;
     }
@@ -69,6 +112,11 @@ export class Mechanics {
         this.encodeBlueprintAttributes(data);
         this.encodeSkillAttributes(data);
         this.encodeDocumentAttributes(data);
+        this.encodeFruitAttributes(data);
+        this.encodeGearAttributes(data);
+        this.encodePlantAttributes(data);
+        this.encodeRationAttributes(data);
+        this.encodeWeaponAttributes(data);
 
         return data;
     }
@@ -83,7 +131,7 @@ export class Mechanics {
     }
 
     private addBlueprintAttributes(object: any){
-        if(this.mechanicsType !== "Blueprint") return;
+        if(!this.mechanics?.includes("blueprint")) return;
 
         this.equipment = (new EquipmentConfig()).load(object.equipment);
         if (typeof object.ingredients !== 'undefined') {
@@ -96,7 +144,7 @@ export class Mechanics {
     }
 
     private encodeBlueprintAttributes(data: any){
-        if(this.mechanicsType !== "Blueprint") return;
+        if(!this.mechanics?.includes("blueprint")) return;
 
         const ingredients : object = {};
         this.ingredients?.forEach((value, key) => {
@@ -108,19 +156,19 @@ export class Mechanics {
     }
 
     private encodeSkillAttributes(data: any){
-        if(this.mechanicsType !== "Skill") return;
+        if(!this.mechanics?.includes("skill")) return;
 
         data.skill = this.skill;
     }
 
     private addSkillAttributes(object: any){
-        if(this.mechanicsType !== "Skill") return;
+        if(!this.mechanics?.includes("skill")) return;
 
         this.skill = object.skill;
     }
 
     private addDocumentAttributes(object: any){
-        if(this.mechanicsType !== "Document") return;
+        if(!this.mechanics?.includes("document")) return;
 
         this.content = object.content;
         this.isTranslated = object.isTranslated;
@@ -128,10 +176,194 @@ export class Mechanics {
     }
 
     private encodeDocumentAttributes(data: any){
-        if(this.mechanicsType !== "Document") return;
+        if(!this.mechanics?.includes("document")) return;
 
         data.content = this.content;
         data.isTranslated = this.isTranslated;
         data.canShred = this.canShred;
     }
+
+    private addFruitAttributes(object: any){
+        if(!this.mechanics?.includes("fruit"))return;
+
+        this.plantName = object.plantName;
+    }
+
+    private encodeFruitAttributes(data: any){
+        if(!this.mechanics?.includes("fruit"))return;
+
+        data.plantName = this.plantName;
+    }
+
+    private addGearAttributes(object: any){
+        if(!this.mechanics?.includes("gear")) return;
+
+        this.modifierConfigs = [];
+        object.modifierConfigs.forEach((modifierConfigData: any) => {
+            const modifierConfig = (new ModifierConfig()).load(modifierConfigData);
+            this.modifierConfigs?.push(modifierConfig);
+        });
+    }
+
+    private encodeGearAttributes(data: any){
+        if(!this.mechanics?.includes("gear")) return;
+
+        const modifierConfigs : string[] = [];
+        this.modifierConfigs?.forEach(modifierConfig => (typeof modifierConfig.iri === 'string' ? modifierConfigs.push(modifierConfig.iri) : null));
+        data.modifierConfigs = modifierConfigs;
+    }
+
+    private addPlantAttributes(object: any){
+        if(!this.mechanics?.includes("plant"))return;
+
+        this.fruit = (new EquipmentConfig()).load(object.fruit);
+        if (typeof object.maturationTime !== 'undefined') {
+            for (const [key, value] of Object.entries(object.maturationTime)) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    this.maturationTime?.set(key, value);
+                }
+            }
+        }
+        if (typeof object.oxygen !== 'undefined') {
+            for (const [key, value] of Object.entries(object.oxygen)) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    this.oxygen?.set(key, value);
+                }
+            }
+        }
+    }
+
+    private encodePlantAttributes(data: any){
+        if(!this.mechanics?.includes("plant"))return;
+
+        const maturationTime : object = {};
+        this.maturationTime?.forEach((value, key) => {
+            maturationTime[key] = value;
+        });
+
+        const healthPoints : object = {};
+        this.healthPoints?.forEach((value, key) => {
+            healthPoints[key] = value;
+        });
+
+        data.fruit = this.fruit?.iri;
+        data.maturationTime = maturationTime;
+        data.healthPoints = healthPoints;
+    }
+
+    private addRationAttributes(object: any){
+        if(!this.mechanics?.includes("ration")) return;
+
+        this.isPerishable = object.isPerishable;
+        this.satiety = object.satiety;
+        if (typeof object.moralPoints !== 'undefined') {
+            for (const [key, value] of Object.entries(object.moralPoints)) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    this.moralPoints?.set(key, value);
+                }
+            }
+        }
+        if (typeof object.actionPoints !== 'undefined') {
+            for (const [key, value] of Object.entries(object.actionPoints)) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    this.actionPoints?.set(key, value);
+                }
+            }
+        }
+        if (typeof object.movementPoints !== 'undefined') {
+            for (const [key, value] of Object.entries(object.movementPoints)) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    this.movementPoints?.set(key, value);
+                }
+            }
+        }
+        if (typeof object.healthPoints !== 'undefined') {
+            for (const [key, value] of Object.entries(object.healthPoints)) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    this.healthPoints?.set(key, value);
+                }
+            }
+        }
+        if (typeof object.extraEffects !== 'undefined') {
+            for (const [key, value] of Object.entries(object.extraEffects)) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    this.extraEffects?.set(key, value);
+                }
+            }
+        }
+    }
+
+    private encodeRationAttributes(data: any){
+        if(!this.mechanics?.includes("ration")) return;
+
+        const moralPoints : object = {};
+        this.moralPoints?.forEach((value, key) => {
+            moralPoints[key] = value;
+        });
+
+        const actionPoints : object = {};
+        this.actionPoints?.forEach((value, key) => {
+            actionPoints[key] = value;
+        });
+
+        const movementPoints : object = {};
+        this.movementPoints?.forEach((value, key) => {
+            movementPoints[key] = value;
+        });
+
+        const healthPoints : object = {};
+        this.healthPoints?.forEach((value, key) => {
+            healthPoints[key] = value;
+        });
+
+        const extraEffects : object = {};
+        this.extraEffects?.forEach((value, key) => {
+            extraEffects[key] = value;
+        });
+
+        data.isPerishable = this.isPerishable;
+        data.satiety = this.satiety;
+        data.moralPoints = moralPoints;
+        data.actionPoints = actionPoints;
+        data.movementPoints = movementPoints;
+        data.healthPoints = healthPoints;
+        data.extraEffects = extraEffects;
+    }
+
+    private addWeaponAttributes(object: any){
+        if(!this.mechanics?.includes("weapon")) return;
+
+        this.baseAccuracy = object.baseAccuracy;
+        this.criticalSuccessRate = object.criticalSuccessRate;
+        this.criticalFailRate = object.criticalFailRate;
+        this.oneShotRate = object.oneShotRate;
+        this.expeditionBonus = object.expeditionBonus;
+
+        if (typeof object.baseDamageRange !== 'undefined') {
+            for (const [key, value] of Object.entries(object.baseDamageRange)) {
+                if (typeof key === 'string' && typeof value === 'number') {
+                    this.baseDamageRange?.set(key, value);
+                }
+            }
+        }
+    }
+
+    private encodeWeaponAttributes(data: any){
+        if(!this.mechanics?.includes("weapon")) return;
+
+        const baseDamageRange : object = {};
+        this.baseDamageRange?.forEach((value, key) => {
+            baseDamageRange[key] = value;
+        });
+
+        data.baseAccuracy = this.baseAccuracy;
+        data.criticalSuccessRate = this.criticalSuccessRate;
+        data.criticalFailRate = this.criticalFailRate;
+        data.oneShotRate = this.oneShotRate;
+        data.expeditionBonus = this.expeditionBonus;
+        data.baseDamageRange = baseDamageRange;
+
+
+    }
+
 }

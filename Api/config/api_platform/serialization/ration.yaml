@@ -1,0 +1,16 @@
+Mush\Equipment\Entity\Mechanics\Ration:
+  attributes:
+    moralPoints:
+      groups: [ 'ration_read', 'ration_write' ]
+    actionPoints:
+      groups: [ 'ration_read', 'ration_write' ]
+    movementPoints:
+      groups: [ 'ration_read', 'ration_write' ]
+    healthPoints:
+      groups: [ 'ration_read', 'ration_write' ]
+    satiety:
+      groups: [ 'ration_read', 'ration_write' ]
+    extraEffects:
+      groups: [ 'ration_read', 'ration_write' ]
+    isPerishable:
+      groups: [ 'ration_read', 'ration_write' ]

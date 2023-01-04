@@ -1,5 +1,5 @@
-Mush\Equipment\Entity\Mechanics\Blueprint:
+Mush\Equipment\Entity\Mechanics\Fruit:
   properties:
-    skill:
+    plantName:
       - NotBlank: ~
       - Type: string

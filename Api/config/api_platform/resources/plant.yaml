@@ -1,0 +1,24 @@
+Mush\Equipment\Entity\Mechanics\Plant:
+  shortName: 'Plant'
+  description: 'eMush Plant'
+  attributes:
+    pagination_items_per_page: 25
+    normalization_context:
+      groups: [ 'plant_read' ]
+    denormalization_context:
+      groups: [ 'plant_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+    post:
+      security: 'is_granted("ROLE_ADMIN")'
+  itemOperations:
+    get:
+      security: 'is_granted("ROLE_ADMIN")'
+    put:
+      security: 'is_granted("ROLE_ADMIN")'
+  properties:
+    fruit:
+      subresource:
+        resourceClass: 'Mush\Equipment\Entity\Config\EquipmentConfig'
+        collection: true

@@ -4,6 +4,6 @@ Mush\Equipment\Entity\Mechanics\Document:
       - NotBlank: ~
       - Type: string
     isTranslated:
-      - Type: bool
+      - Type: boolean
     canShred:
-      - Type: bool
+      - Type: boolean

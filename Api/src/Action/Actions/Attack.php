@@ -204,7 +204,7 @@ class Attack extends AttemptAction
             $player,
             [ActionTypeEnum::ACTION_ATTACK],
             ModifierTargetEnum::CRITICAL_PERCENTAGE,
-            $knife->getCriticalSucessRate(),
+            $knife->getCriticalSuccessRate(),
             $this->getActionName(),
             new \DateTime()
         );

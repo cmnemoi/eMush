@@ -18,7 +18,7 @@ class Weapon extends Tool
     private int $expeditionBonus = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private int $criticalSucessRate = 0;
+    private int $criticalSuccessRate = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $criticalFailRate = 0;
@@ -26,10 +26,12 @@ class Weapon extends Tool
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $oneShotRate = 0;
 
-    public function __construct()
+    public function getMechanics(): array
     {
-        parent::__construct();
-        $this->mechanics[] = EquipmentMechanicEnum::WEAPON;
+        $mechanics = parent::getMechanics();
+        $mechanics[] = EquipmentMechanicEnum::WEAPON;
+
+        return $mechanics;
     }
 
     public function getBaseAccuracy(): int
@@ -68,14 +70,14 @@ class Weapon extends Tool
         return $this;
     }
 
-    public function getCriticalSucessRate(): int
+    public function getCriticalSuccessRate(): int
     {
-        return $this->criticalSucessRate;
+        return $this->criticalSuccessRate;
     }
 
-    public function setCriticalSucessRate(int $criticalSucessRate): static
+    public function setCriticalSuccessRate(int $criticalSuccessRate): static
     {
-        $this->criticalSucessRate = $criticalSucessRate;
+        $this->criticalSuccessRate = $criticalSuccessRate;
 
         return $this;
     }

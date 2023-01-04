@@ -212,7 +212,7 @@ class Shoot extends AttemptAction
             $player,
             [ActionTypeEnum::ACTION_SHOOT],
             ModifierTargetEnum::CRITICAL_PERCENTAGE,
-            $blaster->getCriticalSucessRate(),
+            $blaster->getCriticalSuccessRate(),
             $this->getActionName(),
             new \DateTime()
         );

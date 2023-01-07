@@ -19,10 +19,10 @@ use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
-use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -107,16 +107,16 @@ class MoveSubscriberCest
         // first let create a gear with an irrelevant reach
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::MORAL_POINT)
+            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig1);
         $I->refreshEntities($player);
-        $modifier = new Modifier($player, $modifierConfig1);
+        $modifier = new GameModifier($player, $modifierConfig1);
         $I->haveInRepository($modifier);
 
         $gear = new Gear();
@@ -144,15 +144,15 @@ class MoveSubscriberCest
         // let's create a gear with room reach in player inventory
         $modifierConfig2 = new ModifierConfig();
         $modifierConfig2
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::MORAL_POINT)
+            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLACE)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLACE)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig2);
-        $modifier2 = new Modifier($room, $modifierConfig2);
+        $modifier2 = new GameModifier($room, $modifierConfig2);
         $I->haveInRepository($modifier2);
 
         $gear2 = new Gear();
@@ -175,7 +175,7 @@ class MoveSubscriberCest
         $I->refreshEntities($player);
 
         // let's create a status with modifier with room reach on player
-        $modifier3 = new Modifier($room, $modifierConfig2);
+        $modifier3 = new GameModifier($room, $modifierConfig2);
         $I->haveInRepository($modifier3);
 
         $statusConfig = new StatusConfig();
@@ -189,7 +189,7 @@ class MoveSubscriberCest
         $I->haveInRepository($statusPlayer);
 
         // let's create a status with modifier with room reach on equipment2
-        $modifier4 = new Modifier($room, $modifierConfig2);
+        $modifier4 = new GameModifier($room, $modifierConfig2);
         $I->haveInRepository($modifier4);
 
         $I->haveInRepository($statusConfig);

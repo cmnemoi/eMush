@@ -8,9 +8,9 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Event\ActionEvent;
-use Mush\Disease\Entity\Config\SymptomCondition;
+use Mush\Disease\Entity\Config\SymptomActivationRequirement;
 use Mush\Disease\Entity\Config\SymptomConfig;
-use Mush\Disease\Enum\SymptomConditionEnum;
+use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
@@ -31,23 +31,23 @@ class InjurySymptomConfigFixtures extends Fixture implements DependentFixtureInt
 
     public function load(ObjectManager $manager): void
     {
-        $actionDirtyRateCondition = new SymptomCondition(SymptomConditionEnum::ACTION_DIRTY_RATE);
-        $actionDirtyRateCondition->buildName();
-        $manager->persist($actionDirtyRateCondition);
+        $actionDirtyRateActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::ACTION_DIRTY_RATE);
+        $actionDirtyRateActivationRequirement->buildName();
+        $manager->persist($actionDirtyRateActivationRequirement);
 
-        $dirtyStatusCondition = new SymptomCondition(SymptomConditionEnum::PLAYER_STATUS);
-        $dirtyStatusCondition
-            ->setCondition(PlayerStatusEnum::DIRTY)
+        $dirtyStatusActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::PLAYER_STATUS);
+        $dirtyStatusActivationRequirement
+            ->setActivationRequirement(PlayerStatusEnum::DIRTY)
             ->buildName()
         ;
-        $manager->persist($dirtyStatusCondition);
+        $manager->persist($dirtyStatusActivationRequirement);
 
-        $heavyItemCondition = new SymptomCondition(SymptomConditionEnum::ITEM_STATUS);
-        $heavyItemCondition
-            ->setCondition(EquipmentStatusEnum::HEAVY)
+        $heavyItemActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::ITEM_STATUS);
+        $heavyItemActivationRequirement
+            ->setActivationRequirement(EquipmentStatusEnum::HEAVY)
             ->buildName()
         ;
-        $manager->persist($heavyItemCondition);
+        $manager->persist($heavyItemActivationRequirement);
 
         $cantMove = new SymptomConfig(SymptomEnum::CANT_MOVE);
         $cantMove
@@ -59,7 +59,7 @@ class InjurySymptomConfigFixtures extends Fixture implements DependentFixtureInt
         $cantPickUpHeavyItems = new SymptomConfig(SymptomEnum::CANT_PICK_UP_HEAVY_ITEMS);
         $cantPickUpHeavyItems
             ->setTrigger(ActionEnum::TAKE)
-            ->addSymptomCondition($heavyItemCondition)
+            ->addSymptomActivationRequirement($heavyItemActivationRequirement)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($cantPickUpHeavyItems);
@@ -74,7 +74,7 @@ class InjurySymptomConfigFixtures extends Fixture implements DependentFixtureInt
         $septicemiaOnCycleChange = new SymptomConfig(SymptomEnum::SEPTICEMIA);
         $septicemiaOnCycleChange
             ->setTrigger(EventEnum::NEW_CYCLE)
-            ->addSymptomCondition($dirtyStatusCondition)
+            ->addSymptomActivationRequirement($dirtyStatusActivationRequirement)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($septicemiaOnCycleChange);
@@ -82,7 +82,7 @@ class InjurySymptomConfigFixtures extends Fixture implements DependentFixtureInt
         $septicemiaOnDirtyEvent = new SymptomConfig(SymptomEnum::SEPTICEMIA);
         $septicemiaOnDirtyEvent
             ->setTrigger(StatusEvent::STATUS_APPLIED)
-            ->addSymptomCondition($dirtyStatusCondition)
+            ->addSymptomActivationRequirement($dirtyStatusActivationRequirement)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($septicemiaOnDirtyEvent);
@@ -90,8 +90,8 @@ class InjurySymptomConfigFixtures extends Fixture implements DependentFixtureInt
         $septicemiaOnPostAction = new SymptomConfig(SymptomEnum::SEPTICEMIA);
         $septicemiaOnPostAction
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($actionDirtyRateCondition)
-            ->addSymptomCondition($dirtyStatusCondition)
+            ->addSymptomActivationRequirement($actionDirtyRateActivationRequirement)
+            ->addSymptomActivationRequirement($dirtyStatusActivationRequirement)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($septicemiaOnPostAction);

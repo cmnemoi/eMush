@@ -1,10 +1,10 @@
-Mush\Disease\Entity\Config\SymptomCondition:
+Mush\Disease\Entity\Config\SymptomActivationRequirement:
   properties:                        # optional
     name:
       - Type: string
-    conditionName:
+    activationRequirementName:
       - Type: string
-    condition:
+    activationRequirement:
       - Type: string
     value:
       - Type: integer

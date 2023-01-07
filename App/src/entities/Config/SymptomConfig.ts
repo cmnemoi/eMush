@@ -1,4 +1,4 @@
-import { SymptomCondition } from "@/entities/Config/SymptomCondition";
+import { SymptomActivationRequirement } from "@/entities/Config/SymptomActivationRequirement";
 
 export class SymptomConfig {
     public iri: string|null;
@@ -7,7 +7,7 @@ export class SymptomConfig {
     public symptomName: string|null;
     public trigger: string|null;
     public visibility: number|null;
-    public symptomConditions: SymptomCondition[]|null;
+    public symptomActivationRequirements: SymptomActivationRequirement[]|null;
 
     constructor() {
         this.iri = null;
@@ -16,7 +16,7 @@ export class SymptomConfig {
         this.symptomName = null;
         this.trigger = null;
         this.visibility = null;
-        this.symptomConditions = null;
+        this.symptomActivationRequirements = null;
     }
     load(object:any) : SymptomConfig {
         if (typeof object !== "undefined") {
@@ -27,26 +27,26 @@ export class SymptomConfig {
             this.trigger = object.trigger;
             this.visibility = object.visibility;
         }
-        if (typeof object.symptomCondition !== 'undefined') {
-            const symptomConditions : SymptomCondition[] = [];
-            object.symptomCondition.forEach((symptomConditionData: any) => {
-                const symptomCondition = (new SymptomCondition()).load(symptomConditionData);
-                symptomConditions.push(symptomCondition);
+        if (typeof object.symptomActivationRequirements !== 'undefined') {
+            const symptomActivationRequirements : SymptomActivationRequirement[] = [];
+            object.symptomActivationRequirements.forEach((symptomActivationRequirementData: any) => {
+                const symptomActivationRequirement = (new SymptomActivationRequirement()).load(symptomActivationRequirementData);
+                symptomActivationRequirements.push(symptomActivationRequirement);
             });
-            this.symptomConditions = symptomConditions;
+            this.symptomActivationRequirements = symptomActivationRequirements;
         }
         return this;
     }
     jsonEncode() : object {
-        const symptomConditions : string[] = [];
-        this.symptomConditions?.forEach(symptomCondition => (typeof symptomCondition.iri === 'string' ? symptomConditions.push(symptomCondition.iri) : null));
+        const symptomActivationRequirements : string[] = [];
+        this.symptomActivationRequirements?.forEach(symptomActivationRequirement => (typeof symptomActivationRequirement.iri === 'string' ? symptomActivationRequirements.push(symptomActivationRequirement.iri) : null));
         return {
             'id': this.id,
             'name': this.name,
             'symptomName': this.symptomName,
             'trigger': this.trigger,
             'visibility': this.visibility,
-            'symptomConditions': symptomConditions
+            'symptomActivationRequirements': symptomActivationRequirements
         };
     }
     decode(jsonString : string): SymptomConfig {

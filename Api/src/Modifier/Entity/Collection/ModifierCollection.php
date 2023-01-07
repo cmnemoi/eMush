@@ -3,11 +3,11 @@
 namespace Mush\Modifier\Entity\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierConfig;
 
 /**
- * @template-extends ArrayCollection<int, Modifier>
+ * @template-extends ArrayCollection<int, GameModifier>
  */
 class ModifierCollection extends ArrayCollection
 {
@@ -18,22 +18,22 @@ class ModifierCollection extends ArrayCollection
 
     public function getTargetedModifiers(string $target): self
     {
-        return $this->filter(fn (Modifier $modifier) => $modifier->getModifierConfig()->getTarget() === $target);
+        return $this->filter(fn (GameModifier $modifier) => $modifier->getModifierConfig()->getTargetVariable() === $target);
     }
 
     public function getReachedModifiers(string $reach): self
     {
-        return $this->filter(fn (Modifier $modifier) => $modifier->getModifierConfig()->getReach() === $reach);
+        return $this->filter(fn (GameModifier $modifier) => $modifier->getModifierConfig()->getModifierHolderClass() === $reach);
     }
 
     public function getScopedModifiers(array $scopes): self
     {
-        return $this->filter(fn (Modifier $modifier) => in_array($modifier->getModifierConfig()->getScope(), $scopes));
+        return $this->filter(fn (GameModifier $modifier) => in_array($modifier->getModifierConfig()->getTargetEvent(), $scopes));
     }
 
-    public function getModifierFromConfig(ModifierConfig $modifierConfig): ?Modifier
+    public function getModifierFromConfig(ModifierConfig $modifierConfig): ?GameModifier
     {
-        $modifierConfig = $this->filter(fn (Modifier $modifier) => $modifier->getModifierConfig() === $modifierConfig)->first();
+        $modifierConfig = $this->filter(fn (GameModifier $modifier) => $modifier->getModifierConfig() === $modifierConfig)->first();
 
         return $modifierConfig ?: null;
     }
@@ -41,7 +41,7 @@ class ModifierCollection extends ArrayCollection
     public function sortModifiersByDelta(bool $ascending = true): self
     {
         $modifiers = $this->toArray();
-        usort($modifiers, function (Modifier $a, Modifier $b) use ($ascending) {
+        usort($modifiers, function (GameModifier $a, GameModifier $b) use ($ascending) {
             $aDelta = $a->getModifierConfig()->getDelta();
             $bDelta = $b->getModifierConfig()->getDelta();
             if ($aDelta === $bDelta) {

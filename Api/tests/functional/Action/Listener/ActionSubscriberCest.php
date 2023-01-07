@@ -19,10 +19,10 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
-use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Place\Entity\Place;
@@ -295,16 +295,16 @@ class ActionSubscriberCest
         //       $gear = new Gear();
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setDelta(-100)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
-            ->setScope(ModifierScopeEnum::EVENT_DIRTY)
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetEvent(ModifierScopeEnum::EVENT_DIRTY)
             ->setModifierName(ModifierNameEnum::APRON_MODIFIER)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
-        $modifier = new Modifier($player, $modifierConfig);
+        $modifier = new GameModifier($player, $modifierConfig);
         $I->refreshEntities($player);
         $I->haveInRepository($modifier);
 

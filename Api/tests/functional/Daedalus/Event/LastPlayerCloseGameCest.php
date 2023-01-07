@@ -26,7 +26,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Place\Entity\Place;
@@ -621,10 +621,10 @@ class LastPlayerCloseGameCest
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setScope(ActionEnum::SHOWER)
-            ->setReach(ReachEnum::INVENTORY)
+            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setModifierHolderClass(ReachEnum::INVENTORY)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -696,13 +696,13 @@ class LastPlayerCloseGameCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $modifierPlayer = new Modifier($player, $modifierConfig);
+        $modifierPlayer = new GameModifier($player, $modifierConfig);
         $I->haveInRepository($modifierPlayer);
-        $modifierPlace = new Modifier($room, $modifierConfig);
+        $modifierPlace = new GameModifier($room, $modifierConfig);
         $I->haveInRepository($modifierPlace);
-        $modifierDaedalus = new Modifier($daedalus, $modifierConfig);
+        $modifierDaedalus = new GameModifier($daedalus, $modifierConfig);
         $I->haveInRepository($modifierDaedalus);
-        $modifierEquipment = new Modifier($gameEquipment, $modifierConfig);
+        $modifierEquipment = new GameModifier($gameEquipment, $modifierConfig);
         $I->haveInRepository($modifierEquipment);
 
         $event = new PlayerEvent($player, ActionEnum::HIT, new \DateTime());
@@ -719,7 +719,7 @@ class LastPlayerCloseGameCest
         $I->seeInRepository(ClosedPlayer::class);
 
         $I->dontSeeInRepository(Place::class);
-        $I->dontSeeInRepository(Modifier::class);
+        $I->dontSeeInRepository(GameModifier::class);
         $I->seeInRepository(ModifierConfig::class);
         $I->dontSeeInRepository(GameEquipment::class);
     }

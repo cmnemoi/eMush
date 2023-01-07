@@ -16,27 +16,27 @@
                 :errors="errors.delta"
             />
             <Input
-                :label="$t('admin.modifierConfig.target')"
-                id="modifierConfig_target"
-                v-model="modifierConfig.target"
+                :label="$t('admin.modifierConfig.targetVariable')"
+                id="modifierConfig_targetVariable"
+                v-model="modifierConfig.targetVariable"
                 type="text"
-                :errors="errors.target"
+                :errors="errors.targetVariable"
             />
         </div>
         <div class="flex-row">
             <Input
-                :label="$t('admin.modifierConfig.scope')"
-                id="modifierConfig_scope"
-                v-model="modifierConfig.scope"
+                :label="$t('admin.modifierConfig.targetEvent')"
+                id="modifierConfig_targetEvent"
+                v-model="modifierConfig.targetEvent"
                 type="text"
-                :errors="errors.scope"
+                :errors="errors.targetEvent"
             />
             <Input
-                :label="$t('admin.modifierConfig.reach')"
-                id="modifierConfig_reach"
-                v-model="modifierConfig.reach"
+                :label="$t('admin.modifierConfig.modifierHolderClass')"
+                id="modifierConfig_modifierHolderClass"
+                v-model="modifierConfig.modifierHolderClass"
                 type="text"
-                :errors="errors.reach"
+                :errors="errors.modifierHolderClass"
             />
             <Input
                 :label="$t('admin.modifierConfig.mode')"
@@ -46,14 +46,14 @@
                 :errors="errors.mode"
             />
         </div>
-        <h3>Modifier Condition</h3>
-        <ChildCollectionManager :children="modifierConfig.modifierConditions" @addId="selectNewChild" @remove="removeChild">
+        <h3>Modifier Requirement</h3>
+        <ChildCollectionManager :children="modifierConfig.modifierActivationRequirements" @addId="selectNewChild" @remove="removeChild">
             <template #header="child">
                 <span>{{ child.id }} - {{ child.name }}</span>
             </template>
             <template #body="child">
                 <span>name: {{ child.name }}</span>
-                <span>condition: {{ child.condition }}</span>
+                <span>activationRequirement: {{ child.activationRequirement }}</span>
                 <span>value: {{ child.value }}</span>
             </template>
         </ChildCollectionManager>
@@ -70,7 +70,7 @@ import { handleErrors } from "@/utils/apiValidationErrors";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
-import { ModifierCondition } from "@/entities/Config/ModifierCondition";
+import { ModifierActivationRequirement } from "@/entities/Config/ModifierActivationRequirement";
 import Input from "@/components/Utils/Input.vue";
 import { removeItem } from "@/utils/misc";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
@@ -102,15 +102,15 @@ export default defineComponent({
                 .then((res: ModifierConfig | null) => {
                     this.modifierConfig = res;
                     if (this.modifierConfig !== null) {
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'modifier_configs', String(this.modifierConfig.id), 'modifier_conditions'))
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'modifier_configs', String(this.modifierConfig.id), 'modifier_activation_requirements'))
                             .then((result) => {
-                                const modifierConditions : ModifierCondition[] = [];
+                                const modifierActivationRequirements : ModifierActivationRequirement[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
-                                    const currentCondition = (new ModifierCondition()).load(datum);
-                                    modifierConditions.push(currentCondition);
+                                    const currentCondition = (new ModifierActivationRequirement()).load(datum);
+                                    modifierActivationRequirements.push(currentCondition);
                                 });
                                 if (this.modifierConfig instanceof ModifierConfig) {
-                                    this.modifierConfig.modifierConditions = modifierConditions;
+                                    this.modifierConfig.modifierActivationRequirements = modifierActivationRequirements;
                                 }
                             });
                     }
@@ -130,15 +130,15 @@ export default defineComponent({
                 });
         },
         selectNewChild(selectedId: any) {
-            GameConfigService.loadModifierCondition(selectedId).then((res) => {
-                if (res && this.modifierConfig && this.modifierConfig.modifierConditions) {
-                    this.modifierConfig.modifierConditions.push(res);
+            GameConfigService.loadModifierActivationRequirement(selectedId).then((res) => {
+                if (res && this.modifierConfig && this.modifierConfig.modifierActivationRequirements) {
+                    this.modifierConfig.modifierActivationRequirements.push(res);
                 }
             });
         },
         removeChild(child: any) {
-            if (this.modifierConfig && this.modifierConfig.modifierConditions) {
-                this.modifierConfig.modifierConditions = removeItem(this.modifierConfig.modifierConditions, child);
+            if (this.modifierConfig && this.modifierConfig.modifierActivationRequirements) {
+                this.modifierConfig.modifierActivationRequirements = removeItem(this.modifierConfig.modifierActivationRequirements, child);
             }
         }
     },
@@ -147,15 +147,15 @@ export default defineComponent({
         GameConfigService.loadModifierConfig(Number(modifierConfigId)).then((res: ModifierConfig | null) => {
             if (res instanceof ModifierConfig) {
                 this.modifierConfig = res;
-                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'modifier_configs', modifierConfigId, 'modifier_conditions'))
+                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'modifier_configs', modifierConfigId, 'modifier_activation_requirements'))
                     .then((result) => {
-                        const modifierConditions : ModifierCondition[] = [];
+                        const modifierActivationRequirements : ModifierActivationRequirement[] = [];
                         result.data['hydra:member'].forEach((datum: any) => {
-                            const currentCondition = (new ModifierCondition()).load(datum);
-                            modifierConditions.push(currentCondition);
+                            const currentRequirement = (new ModifierActivationRequirement()).load(datum);
+                            modifierActivationRequirements.push(currentRequirement);
                         });
                         if (this.modifierConfig instanceof ModifierConfig) {
-                            this.modifierConfig.modifierConditions = modifierConditions;
+                            this.modifierConfig.modifierActivationRequirements = modifierActivationRequirements;
                         }
                     });
             }

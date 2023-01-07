@@ -28,13 +28,13 @@ class SymptomConfig
     #[ORM\Column(type: 'string', nullable: false)]
     private string $visibility = VisibilityEnum::PUBLIC;
 
-    #[ORM\ManyToMany(targetEntity: SymptomCondition::class)]
-    private Collection $symptomConditions;
+    #[ORM\ManyToMany(targetEntity: SymptomActivationRequirement::class)]
+    private Collection $symptomActivationRequirements;
 
     public function __construct(string $symptomName)
     {
         $this->symptomName = $symptomName;
-        $this->symptomConditions = new ArrayCollection([]);
+        $this->symptomActivationRequirements = new ArrayCollection([]);
     }
 
     public function getId(): ?int
@@ -106,25 +106,25 @@ class SymptomConfig
         return $this;
     }
 
-    public function getSymptomConditions(): Collection
+    public function getSymptomActivationRequirements(): Collection
     {
-        return $this->symptomConditions;
+        return $this->symptomActivationRequirements;
     }
 
-    public function setSymptomConditions(Collection|array $symptomConditions): self
+    public function setSymptomActivationRequirements(Collection|array $symptomActivationRequirements): self
     {
-        if (is_array($symptomConditions)) {
-            $symptomConditions = new ArrayCollection($symptomConditions);
+        if (is_array($symptomActivationRequirements)) {
+            $symptomActivationRequirements = new ArrayCollection($symptomActivationRequirements);
         }
 
-        $this->symptomConditions = $symptomConditions;
+        $this->symptomActivationRequirements = $symptomActivationRequirements;
 
         return $this;
     }
 
-    public function addSymptomCondition(SymptomCondition $symptomCondition): self
+    public function addSymptomActivationRequirement(SymptomActivationRequirement $symptomActivationRequirement): self
     {
-        $this->symptomConditions->add($symptomCondition);
+        $this->symptomActivationRequirements->add($symptomActivationRequirement);
 
         return $this;
     }

@@ -6,13 +6,13 @@ Mush\Modifier\Entity\ModifierConfig:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     delta:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    target:
+    targetVariable:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    scope:
+    targetEvent:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    reach:
+    modifierHolderClass:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
     mode:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]
-    modifierConditions:
+    modifierActivationRequirements:
       groups: [ 'modifier_config_read', 'modifier_config_write' ]

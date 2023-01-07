@@ -1,15 +1,15 @@
-import { ModifierCondition } from "@/entities/Config/ModifierCondition";
+import { ModifierActivationRequirement } from "@/entities/Config/ModifierActivationRequirement";
 
 export class ModifierConfig {
     public iri: string|null;
     public id: number|null;
     public name: string|null;
     public delta: number|null;
-    public target: string|null;
-    public scope: string|null;
-    public reach: string|null;
+    public targetVariable: string|null;
+    public targetEvent: string|null;
+    public modifierHolderClass: string|null;
     public mode: string|null;
-    public modifierConditions:ModifierCondition[]|null;
+    public modifierActivationRequirements:ModifierActivationRequirement[]|null;
 
 
     constructor() {
@@ -17,11 +17,11 @@ export class ModifierConfig {
         this.id = null;
         this.name = null;
         this.delta = null;
-        this.target = null;
-        this.scope = null;
-        this.reach = null;
+        this.targetVariable = null;
+        this.targetEvent = null;
+        this.modifierHolderClass = null;
         this.mode = null;
-        this.modifierConditions = null;
+        this.modifierActivationRequirements = null;
     }
     load(object:any) : ModifierConfig {
         if (typeof object !== "undefined") {
@@ -29,25 +29,25 @@ export class ModifierConfig {
             this.id = object.id;
             this.name = object.name;
             this.delta = object.delta;
-            this.target = object.target;
-            this.scope = object.scope;
-            this.reach = object.reach;
+            this.targetVariable = object.targetVariable;
+            this.targetEvent = object.targetEvent;
+            this.modifierHolderClass = object.modifierHolderClass;
             this.mode = object.mode;
         }
         return this;
     }
     jsonEncode() : any {
-        const modifierConditions : string[] = [];
-        this.modifierConditions?.forEach(modifierCondition => (typeof modifierCondition.iri === 'string' ? modifierConditions.push(modifierCondition.iri) : null));
+        const modifierActivationRequirements : string[] = [];
+        this.modifierActivationRequirements?.forEach(modifierActivationRequirement => (typeof modifierActivationRequirement.iri === 'string' ? modifierActivationRequirements.push(modifierActivationRequirement.iri) : null));
         return {
             'id': this.id,
             'name': this.name,
             'delta': this.delta,
-            'target': this.target,
-            'scope': this.scope,
-            'reach': this.reach,
+            'targetVariable': this.targetVariable,
+            'targetEvent': this.targetEvent,
+            'modifierHolderClass': this.modifierHolderClass,
             'mode': this.mode,
-            'modifierConditions': modifierConditions
+            'modifierActivationRequirements': modifierActivationRequirements
         };
     }
     decode(jsonString : string): ModifierConfig {
@@ -56,9 +56,9 @@ export class ModifierConfig {
             this.id = object.id;
             this.name = object.name;
             this.delta = object.delta;
-            this.target = object.target;
-            this.scope = object.scope;
-            this.reach = object.reach;
+            this.targetVariable = object.targetVariable;
+            this.targetEvent = object.targetEvent;
+            this.modifierHolderClass = object.modifierHolderClass;
             this.mode = object.mode;
         }
 

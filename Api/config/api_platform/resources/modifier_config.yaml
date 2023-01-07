@@ -18,7 +18,7 @@ Mush\Modifier\Entity\ModifierConfig:
     put:
       security: 'is_granted("ROLE_ADMIN")'
   properties:
-    modifierConditions:
+    modifierActivationRequirements:
       subresource:
-        resourceClass: 'Mush\Modifier\Entity\ModifierCondition'
+        resourceClass: 'Mush\Modifier\Entity\ModifierActivationRequirement'
         collection: true

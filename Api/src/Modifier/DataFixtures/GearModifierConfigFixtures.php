@@ -11,12 +11,12 @@ use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Modifier\Entity\ModifierCondition;
+use Mush\Modifier\Entity\ModifierActivationRequirement;
 use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Enum\ModifierConditionEnum;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
-use Mush\Modifier\Enum\ModifierReachEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -44,10 +44,10 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $apronModifier = new ModifierConfig();
 
         $apronModifier
-            ->setScope(ModifierScopeEnum::EVENT_DIRTY)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetEvent(ModifierScopeEnum::EVENT_DIRTY)
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(-100)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->setModifierName(ModifierNameEnum::APRON_MODIFIER)
             ->buildName()
@@ -56,10 +56,10 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
         $armorModifier = new ModifierConfig();
         $armorModifier
-            ->setScope(ModifierScopeEnum::INJURY)
-            ->setTarget(PlayerVariableEnum::HEALTH_POINT)
+            ->setTargetEvent(ModifierScopeEnum::INJURY)
+            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setDelta(-1)
-            ->setReach(ModifierReachEnum::TARGET_PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::TARGET_PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -67,10 +67,10 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
         $wrenchModifier = new ModifierConfig();
         $wrenchModifier
-            ->setScope(ActionTypeEnum::ACTION_TECHNICIAN)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetEvent(ActionTypeEnum::ACTION_TECHNICIAN)
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
             ->buildName()
         ;
@@ -78,10 +78,10 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
         $glovesModifier = new ModifierConfig();
         $glovesModifier
-            ->setScope(ModifierScopeEnum::EVENT_CLUMSINESS)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetEvent(ModifierScopeEnum::EVENT_CLUMSINESS)
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(0)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->setModifierName(ModifierNameEnum::GLOVES_MODIFIER)
             ->buildName()
@@ -90,10 +90,10 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
         $soapModifier = new ModifierConfig();
         $soapModifier
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -101,10 +101,10 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
         $soapSinkModifier = new ModifierConfig();
         $soapSinkModifier
-            ->setScope(ActionEnum::WASH_IN_SINK)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetEvent(ActionEnum::WASH_IN_SINK)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -112,10 +112,10 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
         $aimModifier = new ModifierConfig();
         $aimModifier
-            ->setScope(ActionTypeEnum::ACTION_SHOOT)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.1)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
             ->buildName()
         ;
@@ -123,70 +123,70 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
         $antiGravScooterModifier = new ModifierConfig();
         $antiGravScooterModifier
-            ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setTargetEvent(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(2)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($antiGravScooterModifier);
 
-        $evenCyclesCondition = new ModifierCondition(ModifierConditionEnum::CYCLE);
-        $evenCyclesCondition
-            ->setCondition(ModifierConditionEnum::EVEN)
+        $evenCyclesActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::CYCLE);
+        $evenCyclesActivationRequirement
+            ->setActivationRequirement(ModifierRequirementEnum::EVEN)
             ->buildName()
         ;
-        $manager->persist($evenCyclesCondition);
+        $manager->persist($evenCyclesActivationRequirement);
 
         $rollingBoulderModifier = new ModifierConfig();
         $rollingBoulderModifier
-            ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setTargetEvent(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->addModifierCondition($evenCyclesCondition)
+            ->addModifierRequirement($evenCyclesActivationRequirement)
             ->buildName()
         ;
         $manager->persist($rollingBoulderModifier);
 
         $oscilloscopeSuccessModifier = new ModifierConfig();
         $oscilloscopeSuccessModifier
-            ->setScope(ActionEnum::STRENGTHEN_HULL)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetEvent(ActionEnum::STRENGTHEN_HULL)
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
             ->buildName()
         ;
         $manager->persist($oscilloscopeSuccessModifier);
 
-        $strengthenCondition = new ModifierCondition(ModifierConditionEnum::REASON);
-        $strengthenCondition
-            ->setCondition(ActionEnum::STRENGTHEN_HULL)
+        $strengthenActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::REASON);
+        $strengthenActivationRequirement
+            ->setActivationRequirement(ActionEnum::STRENGTHEN_HULL)
             ->buildName()
         ;
-        $manager->persist($strengthenCondition);
+        $manager->persist($strengthenActivationRequirement);
 
         $oscilloscopeRepairModifier = new ModifierConfig();
         $oscilloscopeRepairModifier
-            ->setScope(AbstractQuantityEvent::CHANGE_VARIABLE)
-            ->setTarget(DaedalusVariableEnum::HULL)
+            ->setTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE)
+            ->setTargetVariable(DaedalusVariableEnum::HULL)
             ->setDelta(2)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
-            ->addModifierCondition($strengthenCondition)
+            ->addModifierRequirement($strengthenActivationRequirement)
             ->buildName()
         ;
         $manager->persist($oscilloscopeRepairModifier);
 
         $antennaModifier = new ModifierConfig();
         $antennaModifier
-            ->setScope('TODO comms. action')
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetEvent('TODO comms. action')
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setReach(ModifierReachEnum::DAEDALUS)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -194,42 +194,42 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
         $gravityConversionModifier = new ModifierConfig();
         $gravityConversionModifier
-            ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setTargetEvent(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
-            ->setReach(ModifierReachEnum::DAEDALUS)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $manager->persist($gravityConversionModifier);
 
-        $cycleEventCondition = new ModifierCondition(ModifierConditionEnum::REASON);
-        $cycleEventCondition
-            ->setCondition(EventEnum::NEW_CYCLE)
+        $cycleEventActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::REASON);
+        $cycleEventActivationRequirement
+            ->setActivationRequirement(EventEnum::NEW_CYCLE)
             ->buildName()
         ;
-        $manager->persist($cycleEventCondition);
+        $manager->persist($cycleEventActivationRequirement);
 
         $gravityCycleModifier = new ModifierConfig();
         $gravityCycleModifier
-            ->setScope(AbstractQuantityEvent::CHANGE_VARIABLE)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE)
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
-            ->setReach(ModifierReachEnum::DAEDALUS)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->addModifierCondition($cycleEventCondition)
+            ->addModifierRequirement($cycleEventActivationRequirement)
             ->buildName()
         ;
         $manager->persist($gravityCycleModifier);
 
         $oxygenTankModifier = new ModifierConfig();
         $oxygenTankModifier
-            ->setScope(AbstractQuantityEvent::CHANGE_VARIABLE)
-            ->setTarget(DaedalusVariableEnum::OXYGEN)
+            ->setTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE)
+            ->setTargetVariable(DaedalusVariableEnum::OXYGEN)
             ->setDelta(1)
-            ->setReach(ModifierReachEnum::DAEDALUS)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->addModifierCondition($cycleEventCondition)
+            ->addModifierRequirement($cycleEventActivationRequirement)
             ->buildName()
         ;
         $manager->persist($oxygenTankModifier);

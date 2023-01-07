@@ -6,10 +6,10 @@
             <router-link :to="{ name: 'AdminCharacterConfigList' }">Character Config</router-link>
             <router-link :to="{ name: 'AdminDiseaseConfigList' }">Disease Config</router-link>
             <router-link :to="{ name: 'AdminModifierConfigList' }">Modifier Config</router-link>
-            <router-link :to="{ name: 'AdminModifierConditionList' }">Modifier Condition</router-link>
+            <router-link :to="{ name: 'AdminModifierActivationRequirementList' }">Modifier Requirements</router-link>
             <router-link :to="{ name: 'AdminSymptomConfigList' }">Symptom Config</router-link>
-            <router-link :to="{ name: 'AdminSymptomConditionList' }">Symptom Condition</router-link>
-        </div> 
+            <router-link :to="{ name: 'AdminSymptomActivationRequirementList' }">Symptom Requirement</router-link>
+        </div>
         <div class="admin-menu">
             <router-link :to="{ name: 'AdminPlaceConfigList' }">Place Config</router-link>
             <router-link :to="{ name: 'AdminEquipmentConfigList' }">Equipment Config</router-link>

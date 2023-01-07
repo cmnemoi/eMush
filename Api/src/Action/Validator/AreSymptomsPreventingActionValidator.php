@@ -4,8 +4,8 @@ namespace Mush\Action\Validator;
 
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Disease\Entity\Config\SymptomCondition;
-use Mush\Disease\Enum\SymptomConditionEnum;
+use Mush\Disease\Entity\Config\SymptomActivationRequirement;
+use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Equipment\Entity\GameItem;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -37,17 +37,17 @@ class AreSymptomsPreventingActionValidator extends ConstraintValidator
                 continue;
             }
 
-            /** @var Collection $symptomConditions */
-            $symptomConditions = $symptom->getSymptomConditions();
+            /** @var Collection $symptomActivationRequirements */
+            $symptomActivationRequirements = $symptom->getSymptomActivationRequirements();
 
-            if ($symptomConditions->isEmpty()) {
+            if ($symptomActivationRequirements->isEmpty()) {
                 $this->context->buildViolation($constraint->message)
                         ->addViolation();
                 break;
             }
 
-            foreach ($symptomConditions as $symptomCondition) {
-                if ($this->isSymptomConditionMet($symptomCondition, $parameter)) {
+            foreach ($symptomActivationRequirements as $symptomActivationRequirement) {
+                if ($this->isSymptomActivationRequirementMet($symptomActivationRequirement, $parameter)) {
                     $this->context->buildViolation($constraint->message)
                         ->addViolation();
                     break;
@@ -56,21 +56,21 @@ class AreSymptomsPreventingActionValidator extends ConstraintValidator
         }
     }
 
-    private function isSymptomConditionMet(SymptomCondition $symptomCondition, \Mush\RoomLog\Entity\LogParameterInterface|null $parameter): bool
+    private function isSymptomActivationRequirementMet(SymptomActivationRequirement $symptomActivationRequirement, \Mush\RoomLog\Entity\LogParameterInterface|null $parameter): bool
     {
-        switch ($symptomCondition->getConditionName()) {
-            case SymptomConditionEnum::ITEM_STATUS:
+        switch ($symptomActivationRequirement->getActivationRequirementName()) {
+            case SymptomActivationRequirementEnum::ITEM_STATUS:
                 if (!$parameter instanceof GameItem) {
                     throw new UnexpectedTypeException($parameter, GameItem::class);
                 }
                 $item = $parameter;
 
-                $condition = $symptomCondition->getCondition();
-                if ($condition === null) {
+                $activationRequirement = $symptomActivationRequirement->getActivationRequirement();
+                if ($activationRequirement === null) {
                     return false;
                 }
 
-                return $item->hasStatus($condition);
+                return $item->hasStatus($activationRequirement);
             default:
                 return false;
         }

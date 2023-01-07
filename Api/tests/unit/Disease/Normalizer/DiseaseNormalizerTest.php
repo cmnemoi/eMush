@@ -7,10 +7,10 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
-use Mush\Disease\Entity\Config\SymptomCondition;
+use Mush\Disease\Entity\Config\SymptomActivationRequirement;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Entity\PlayerDisease;
-use Mush\Disease\Enum\SymptomConditionEnum;
+use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Disease\Normalizer\DiseaseNormalizer;
 use Mush\Game\Entity\GameConfig;
@@ -104,8 +104,8 @@ class DiseaseNormalizerTest extends TestCase
         $modifierConfig = new ModifierConfig();
         $modifierConfig
             ->setDelta(-6)
-            ->setScope(ModifierScopeEnum::INJURY)
-            ->setTarget(PlayerVariableEnum::MORAL_POINT)
+            ->setTargetEvent(ModifierScopeEnum::INJURY)
+            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
         ;
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
@@ -162,11 +162,11 @@ class DiseaseNormalizerTest extends TestCase
 
         $player->setDaedalus($daedalus);
 
-        $symptomCondition = new SymptomCondition(SymptomConditionEnum::RANDOM);
-        $symptomCondition->setValue(15);
+        $symptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::RANDOM);
+        $symptomActivationRequirement->setValue(15);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::BITING);
-        $symptomConfig->addSymptomCondition($symptomCondition);
+        $symptomConfig->addSymptomActivationRequirement($symptomActivationRequirement);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig

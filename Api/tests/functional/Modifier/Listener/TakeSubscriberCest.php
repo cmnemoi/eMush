@@ -19,8 +19,8 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
-use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -86,10 +86,10 @@ class TakeSubscriberCest
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -171,10 +171,10 @@ class TakeSubscriberCest
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -269,10 +269,10 @@ class TakeSubscriberCest
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -366,10 +366,10 @@ class TakeSubscriberCest
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -460,10 +460,10 @@ class TakeSubscriberCest
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setScope(ActionEnum::SHOWER)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setReach(ModifierReachEnum::DAEDALUS)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;

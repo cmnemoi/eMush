@@ -18,7 +18,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableCollection;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -63,13 +63,13 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     private Collection $statuses;
 
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: PlayerDisease::class)]
-    private Collection $medicalCondition;
+    private Collection $medicalConditions;
 
     #[ORM\ManyToMany(targetEntity: Player::class, cascade: ['ALL'], orphanRemoval: true)]
     #[ORM\JoinTable(name: 'player_player_flirts')]
     private Collection $flirts;
 
-    #[ORM\OneToMany(mappedBy: 'player', targetEntity: Modifier::class, cascade: ['REMOVE'])]
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: GameModifier::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
     #[ORM\Column(type: 'array', nullable: true)]
@@ -85,7 +85,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     {
         $this->items = new ArrayCollection();
         $this->statuses = new ArrayCollection();
-        $this->medicalCondition = new PlayerDiseaseCollection();
+        $this->medicalConditions = new PlayerDiseaseCollection();
         $this->flirts = new PlayerCollection();
         $this->modifiers = new ModifierCollection();
     }
@@ -250,30 +250,30 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function getMedicalConditions(): PlayerDiseaseCollection
     {
-        if (!$this->medicalCondition instanceof PlayerDiseaseCollection) {
-            $this->medicalCondition = new PlayerDiseaseCollection($this->medicalCondition->toArray());
+        if (!$this->medicalConditions instanceof PlayerDiseaseCollection) {
+            $this->medicalConditions = new PlayerDiseaseCollection($this->medicalConditions->toArray());
         }
 
-        return $this->medicalCondition;
+        return $this->medicalConditions;
     }
 
     public function getMedicalConditionByName(string $diseaseName): ?PlayerDisease
     {
-        $disease = $this->medicalCondition->filter(fn (PlayerDisease $playerDisease) => ($playerDisease->getDiseaseConfig()->getDiseaseName() === $diseaseName));
+        $disease = $this->medicalConditions->filter(fn (PlayerDisease $playerDisease) => ($playerDisease->getDiseaseConfig()->getDiseaseName() === $diseaseName));
 
         return $disease->isEmpty() ? null : $disease->first();
     }
 
-    public function setMedicalCondition(Collection $medicalCondition): static
+    public function setMedicalConditions(Collection $medicalConditions): static
     {
-        $this->medicalCondition = $medicalCondition;
+        $this->medicalConditions = $medicalConditions;
 
         return $this;
     }
 
     public function addMedicalCondition(PlayerDisease $playerDisease): static
     {
-        $this->medicalCondition->add($playerDisease);
+        $this->medicalConditions->add($playerDisease);
 
         return $this;
     }
@@ -291,7 +291,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $allModifiers->addModifiers($this->daedalus->getModifiers());
     }
 
-    public function addModifier(Modifier $modifier): static
+    public function addModifier(GameModifier $modifier): static
     {
         $this->modifiers->add($modifier);
 

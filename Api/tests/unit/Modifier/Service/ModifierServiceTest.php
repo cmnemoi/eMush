@@ -10,13 +10,13 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
-use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
-use Mush\Modifier\Service\ModifierConditionServiceInterface;
+use Mush\Modifier\Service\ModifierRequirementServiceInterface;
 use Mush\Modifier\Service\ModifierService;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -32,8 +32,8 @@ class ModifierServiceTest extends TestCase
     private EntityManagerInterface $entityManager;
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
-    /** @var ModifierConditionServiceInterface|Mockery\Mock */
-    private ModifierConditionServiceInterface $conditionService;
+    /** @var ModifierRequirementServiceInterface|Mockery\Mock */
+    private ModifierRequirementServiceInterface $activationRequirementService;
     /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcher;
 
@@ -46,13 +46,13 @@ class ModifierServiceTest extends TestCase
     {
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
-        $this->conditionService = \Mockery::mock(ModifierConditionServiceInterface::class);
+        $this->activationRequirementService = \Mockery::mock(ModifierRequirementServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->service = new ModifierService(
             $this->entityManager,
             $this->eventDispatcher,
-            $this->conditionService,
+            $this->activationRequirementService,
             $this->randomService,
         );
     }
@@ -67,7 +67,7 @@ class ModifierServiceTest extends TestCase
 
     public function testPersist()
     {
-        $playerModifier = new Modifier(new Player(), new ModifierConfig());
+        $playerModifier = new GameModifier(new Player(), new ModifierConfig());
 
         $this->entityManager->shouldReceive('persist')->with($playerModifier)->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -77,7 +77,7 @@ class ModifierServiceTest extends TestCase
 
     public function testDelete()
     {
-        $playerModifier = new Modifier(new Player(), new ModifierConfig());
+        $playerModifier = new GameModifier(new Player(), new ModifierConfig());
 
         $this->entityManager->shouldReceive('remove')->with($playerModifier)->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -89,56 +89,56 @@ class ModifierServiceTest extends TestCase
     {
         $daedalus = new Daedalus();
 
-        // create a daedalus Modifier
+        // create a daedalus GameModifier
         $modifierConfig = new ModifierConfig();
-        $modifierConfig->setReach(ModifierReachEnum::DAEDALUS);
+        $modifierConfig->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS);
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (Modifier $modifier) => $modifier->getModifierHolder() instanceof Daedalus)
+            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Daedalus)
             ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->createModifier($modifierConfig, $daedalus);
 
-        // create a place Modifier
+        // create a place GameModifier
         $room = new Place();
         $modifierConfig = new ModifierConfig();
-        $modifierConfig->setReach(ModifierReachEnum::PLACE);
+        $modifierConfig->setModifierHolderClass(ModifierHolderClassEnum::PLACE);
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (Modifier $modifier) => $modifier->getModifierHolder() instanceof Place)
+            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Place)
             ->once()
         ;
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->createModifier($modifierConfig, $room);
 
-        // create a player Modifier
+        // create a player GameModifier
         $player = new Player();
         $modifierConfig = new ModifierConfig();
-        $modifierConfig->setReach(ModifierReachEnum::TARGET_PLAYER);
+        $modifierConfig->setModifierHolderClass(ModifierHolderClassEnum::TARGET_PLAYER);
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (Modifier $modifier) => $modifier->getModifierHolder() instanceof Player)
+            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Player)
             ->once()
         ;
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->createModifier($modifierConfig, $player);
 
-        // create a player Modifier with charge
+        // create a player GameModifier with charge
         $player = new Player();
         $charge = new ChargeStatus($player, new ChargeStatusConfig());
 
         $modifierConfig = new ModifierConfig();
-        $modifierConfig->setReach(ModifierReachEnum::TARGET_PLAYER);
+        $modifierConfig->setModifierHolderClass(ModifierHolderClassEnum::TARGET_PLAYER);
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (Modifier $modifier) => (
+            ->withArgs(fn (GameModifier $modifier) => (
                 $modifier->getModifierHolder() === $player &&
                 $modifier->getModifierConfig() === $modifierConfig &&
                 $modifier->getCharge() === $charge
@@ -149,14 +149,14 @@ class ModifierServiceTest extends TestCase
 
         $this->service->createModifier($modifierConfig, $player, $charge);
 
-        // create an equipment Modifier
+        // create an equipment GameModifier
         $equipment = new GameEquipment(new Place());
         $modifierConfig = new ModifierConfig();
-        $modifierConfig->setReach(ModifierReachEnum::EQUIPMENT);
+        $modifierConfig->setModifierHolderClass(ModifierHolderClassEnum::EQUIPMENT);
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (Modifier $modifier) => $modifier->getModifierHolder() instanceof GameEquipment)
+            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof GameEquipment)
             ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
@@ -180,7 +180,7 @@ class ModifierServiceTest extends TestCase
         $action = new Action();
         $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
 
-        $this->conditionService
+        $this->activationRequirementService
             ->shouldReceive('getActiveModifiers')
             ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 0)
             ->andReturn(new ModifierCollection([]))
@@ -194,25 +194,25 @@ class ModifierServiceTest extends TestCase
         // get action point modified with irrelevant modifiers
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope('action')
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent('action')
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier1 = new Modifier($daedalus, $modifierConfig1);
+        $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
         $modifierConfig2 = new ModifierConfig();
         $modifierConfig2
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope('notThisAction')
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent('notThisAction')
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier2 = new Modifier($daedalus, $modifierConfig2);
+        $modifier2 = new GameModifier($daedalus, $modifierConfig2);
 
-        $this->conditionService
+        $this->activationRequirementService
             ->shouldReceive('getActiveModifiers')
             ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 1)
             ->andReturn(new ModifierCollection([]))
@@ -225,15 +225,15 @@ class ModifierServiceTest extends TestCase
         // now add a relevant modifier
         $modifierConfig3 = new ModifierConfig();
         $modifierConfig3
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope('action')
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent('action')
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier3 = new Modifier($daedalus, $modifierConfig3);
+        $modifier3 = new GameModifier($daedalus, $modifierConfig3);
 
-        $this->conditionService
+        $this->activationRequirementService
             ->shouldReceive('getActiveModifiers')
             ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 2)
             ->andReturn(new ModifierCollection([$modifier3]))
@@ -246,15 +246,15 @@ class ModifierServiceTest extends TestCase
         // add another relevant modifier
         $modifierConfig4 = new ModifierConfig();
         $modifierConfig4
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope('type1')
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent('type1')
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier4 = new Modifier($daedalus, $modifierConfig4);
+        $modifier4 = new GameModifier($daedalus, $modifierConfig4);
 
-        $this->conditionService
+        $this->activationRequirementService
             ->shouldReceive('getActiveModifiers')
             ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 3)
             ->andReturn(new ModifierCollection([$modifier3, $modifier4]))
@@ -283,51 +283,51 @@ class ModifierServiceTest extends TestCase
         $action = new Action();
         $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
 
-        // Daedalus Modifier
+        // Daedalus GameModifier
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope('action')
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent('action')
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier1 = new Modifier($daedalus, $modifierConfig1);
+        $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
-        // Place Modifier
+        // Place GameModifier
         $modifierConfig2 = new ModifierConfig();
         $modifierConfig2
-            ->setReach(ModifierReachEnum::PLACE)
-            ->setScope('action')
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLACE)
+            ->setTargetEvent('action')
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(3)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier2 = new Modifier($room, $modifierConfig2);
+        $modifier2 = new GameModifier($room, $modifierConfig2);
 
-        // Player Modifier
+        // Player GameModifier
         $modifierConfig3 = new ModifierConfig();
         $modifierConfig3
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setScope('action')
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setTargetEvent('action')
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(5)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier3 = new Modifier($player, $modifierConfig3);
+        $modifier3 = new GameModifier($player, $modifierConfig3);
 
-        // Equipment Modifier
+        // Equipment GameModifier
         $modifierConfig4 = new ModifierConfig();
         $modifierConfig4
-            ->setReach(ModifierReachEnum::EQUIPMENT)
-            ->setScope('action')
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setModifierHolderClass(ModifierHolderClassEnum::EQUIPMENT)
+            ->setTargetEvent('action')
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(7)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier4 = new Modifier($gameEquipment, $modifierConfig4);
+        $modifier4 = new GameModifier($gameEquipment, $modifierConfig4);
 
-        $this->conditionService
+        $this->activationRequirementService
             ->shouldReceive('getActiveModifiers')
             ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 4)
             ->andReturn(new ModifierCollection([$modifier1, $modifier2, $modifier3, $modifier4]))
@@ -358,15 +358,15 @@ class ModifierServiceTest extends TestCase
         // Movement Point
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope('action')
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent('action')
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier1 = new Modifier($daedalus, $modifierConfig1);
+        $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
-        $this->conditionService
+        $this->activationRequirementService
             ->shouldReceive('getActiveModifiers')
             ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 1)
             ->andReturn(new ModifierCollection([$modifier1]))
@@ -392,15 +392,15 @@ class ModifierServiceTest extends TestCase
 
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope('action')
-            ->setTarget(PlayerVariableEnum::MORAL_POINT)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent('action')
+            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier1 = new Modifier($daedalus, $modifierConfig1);
+        $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
-        $this->conditionService
+        $this->activationRequirementService
             ->shouldReceive('getActiveModifiers')
             ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 1)
             ->andReturn(new ModifierCollection([$modifier1]))
@@ -428,15 +428,15 @@ class ModifierServiceTest extends TestCase
 
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope('action')
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent('action')
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(-10)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier1 = new Modifier($daedalus, $modifierConfig1);
+        $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
-        $this->conditionService
+        $this->activationRequirementService
             ->shouldReceive('getActiveModifiers')
             ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 1)
             ->andReturn(new ModifierCollection([$modifier1]))
@@ -468,15 +468,15 @@ class ModifierServiceTest extends TestCase
         // multiplicative
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope('action')
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent('action')
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
         ;
-        $modifier1 = new Modifier($daedalus, $modifierConfig1);
+        $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
-        $this->conditionService
+        $this->activationRequirementService
             ->shouldReceive('getActiveModifiers')
             ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 1)
             ->andReturn(new ModifierCollection([$modifier1]))
@@ -489,15 +489,15 @@ class ModifierServiceTest extends TestCase
         // multiplicative and additive
         $modifierConfig2 = new ModifierConfig();
         $modifierConfig2
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope('action')
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent('action')
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(10)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier2 = new Modifier($daedalus, $modifierConfig2);
+        $modifier2 = new GameModifier($daedalus, $modifierConfig2);
 
-        $this->conditionService
+        $this->activationRequirementService
             ->shouldReceive('getActiveModifiers')
             ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 2)
             ->andReturn(new ModifierCollection([$modifier1, $modifier2]))
@@ -508,7 +508,7 @@ class ModifierServiceTest extends TestCase
         $this->assertEquals(85, $modifiedCost);
 
         // add attempt
-        $this->conditionService
+        $this->activationRequirementService
             ->shouldReceive('getActiveModifiers')
             ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 2)
             ->andReturn(new ModifierCollection([$modifier1, $modifier2]))
@@ -517,7 +517,7 @@ class ModifierServiceTest extends TestCase
         $modifiedCost = $this->service->getActionModifiedValue($action, $player, ModifierTargetEnum::PERCENTAGE, null, 1);
         $this->assertEquals(intval(50 * 1.25 ** 1 * 1.5 + 10), $modifiedCost);
 
-        $this->conditionService
+        $this->activationRequirementService
             ->shouldReceive('getActiveModifiers')
             ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 2)
             ->andReturn(new ModifierCollection([$modifier1, $modifier2]))
@@ -547,15 +547,15 @@ class ModifierServiceTest extends TestCase
 
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope('action')
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent('action')
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(5)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier1 = new Modifier($daedalus, $modifierConfig1);
+        $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
-        $this->conditionService
+        $this->activationRequirementService
             ->shouldReceive('getActiveModifiers')
             ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 1)
             ->andReturn(new ModifierCollection([$modifier1]))
@@ -589,16 +589,16 @@ class ModifierServiceTest extends TestCase
 
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setScope('action')
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setTargetEvent('action')
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier1 = new Modifier($player, $modifierConfig1);
+        $modifier1 = new GameModifier($player, $modifierConfig1);
         $modifier1->setCharge($status);
 
-        $this->conditionService
+        $this->activationRequirementService
             ->shouldReceive('getActiveModifiers')
             ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 1)
             ->andReturn(new ModifierCollection([$modifier1]))
@@ -617,7 +617,7 @@ class ModifierServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus)->setPlace($room);
 
-        $this->conditionService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection())->once();
+        $this->activationRequirementService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection())->once();
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $modifiedValue = $this->service->getEventModifiedValue(
@@ -632,15 +632,15 @@ class ModifierServiceTest extends TestCase
 
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope(ModifierScopeEnum::MAX_POINT)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-6)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier1 = new Modifier($daedalus, $modifierConfig1);
+        $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
-        $this->conditionService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1]))->once();
+        $this->activationRequirementService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1]))->once();
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $modifiedValue = $this->service->getEventModifiedValue(
@@ -659,17 +659,17 @@ class ModifierServiceTest extends TestCase
 
         $modifierConfig2 = new ModifierConfig();
         $modifierConfig2
-            ->setReach(ModifierReachEnum::PLAYER)
-            ->setScope(ModifierScopeEnum::MAX_POINT)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(2)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
         ;
-        $modifier2 = new Modifier($player, $modifierConfig2);
+        $modifier2 = new GameModifier($player, $modifierConfig2);
         $modifier2->setCharge($status);
 
         $this->eventDispatcher->shouldReceive('dispatch')->once();
-        $this->conditionService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1, $modifier2]))->once();
+        $this->activationRequirementService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1, $modifier2]))->once();
 
         $modifiedValue = $this->service->getEventModifiedValue(
             $player,
@@ -692,15 +692,15 @@ class ModifierServiceTest extends TestCase
 
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope(ModifierScopeEnum::MAX_POINT)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-6)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
-        $modifier1 = new Modifier($daedalus, $modifierConfig1);
+        $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
-        $this->conditionService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1]))->once();
+        $this->activationRequirementService->shouldReceive('getActiveModifiers')->andReturn(new ModifierCollection([$modifier1]))->once();
         $this->eventDispatcher->shouldReceive('dispatch')->once();
 
         $modifiedValue = $this->service->getEventModifiedValue(

@@ -5,8 +5,8 @@ namespace Mush\Modifier\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'modifier_condition')]
-class ModifierCondition
+#[ORM\Table(name: 'modifier_activation_requirement')]
+class ModifierActivationRequirement
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,17 +17,17 @@ class ModifierCondition
     private string $name;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    private string $conditionName;
+    private string $activationRequirementName;
 
     #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $condition = null;
+    private ?string $activationRequirement = null;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $value = 100;
 
-    public function __construct(string $conditionName)
+    public function __construct(string $activationRequirementName)
     {
-        $this->conditionName = $conditionName;
+        $this->activationRequirementName = $activationRequirementName;
     }
 
     public function getId(): ?int
@@ -49,10 +49,10 @@ class ModifierCondition
 
     public function buildName(): static
     {
-        $name = $this->conditionName;
+        $name = $this->activationRequirementName;
 
-        if ($this->condition !== null) {
-            $name = $name . '_' . $this->condition;
+        if ($this->activationRequirement !== null) {
+            $name = $name . '_' . $this->activationRequirement;
         }
         if ($this->value !== 100) {
             $name = $name . '_' . $this->value;
@@ -69,21 +69,21 @@ class ModifierCondition
         return $this;
     }
 
-    public function setCondition(string $condition): self
+    public function setActivationRequirement(string $activationRequirement): self
     {
-        $this->condition = $condition;
+        $this->activationRequirement = $activationRequirement;
 
         return $this;
     }
 
-    public function getConditionName(): string
+    public function getActivationRequirementName(): string
     {
-        return $this->conditionName;
+        return $this->activationRequirementName;
     }
 
-    public function getCondition(): ?string
+    public function getActivationRequirement(): ?string
     {
-        return $this->condition;
+        return $this->activationRequirement;
     }
 
     public function getValue(): ?int

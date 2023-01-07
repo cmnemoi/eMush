@@ -37,7 +37,7 @@
                 Actions
             </template>
             <template #row-actions="slotProps">
-                <router-link :to="{ name: 'AdminModifierConditionDetail', params: { modifierConditionId : slotProps.id } }">{{ $t('admin.edit') }}</router-link>
+                <router-link :to="{ name: 'AdminSymptomActivationRequirementDetail', params: { symptomActivationRequirementId : slotProps.id } }">{{ $t('admin.edit') }}</router-link>
             </template>
         </Datatable>
     </div>
@@ -51,7 +51,7 @@ import qs from "qs";
 import ApiService from "@/services/api.service";
 
 export default defineComponent({
-    name: "ModifierConfigListPage",
+    name: "SymptomActivationRequirementListPage",
     components: {
         Datatable
     },
@@ -115,7 +115,7 @@ export default defineComponent({
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'modifier_conditions'), params)
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'symptom_activation_requirements'), params)
                 .then((result) => {
                     return result.data;
                 })

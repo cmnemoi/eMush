@@ -30,23 +30,23 @@ class ModifierConfig
     private float $delta = 0;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    private string $target;
+    private string $targetVariable;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    private string $scope;
+    private string $targetEvent;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $reach = null;
+    private ?string $modifierHolderClass = null;
 
     #[ORM\Column(type: 'string', nullable: false)]
     private string $mode = ModifierModeEnum::ADDITIVE;
 
-    #[ORM\ManyToMany(targetEntity: ModifierCondition::class)]
-    private Collection $modifierConditions;
+    #[ORM\ManyToMany(targetEntity: ModifierActivationRequirement::class)]
+    private Collection $modifierActivationRequirements;
 
     public function __construct()
     {
-        $this->modifierConditions = new ArrayCollection([]);
+        $this->modifierActivationRequirements = new ArrayCollection([]);
     }
 
     public function getId(): int
@@ -64,14 +64,14 @@ class ModifierConfig
             $name = $modifierName;
         }
 
-        $reach = $this->reach;
+        $reach = $this->modifierHolderClass;
         if ($reach !== null) {
             $name = $name . '_for_' . $reach;
         }
 
         $mode = $this->mode;
         $delta = $this->delta;
-        $target = $this->target;
+        $target = $this->targetVariable;
         switch ($mode) {
             case ModifierModeEnum::ADDITIVE:
                 if ($delta > 0) {
@@ -88,11 +88,11 @@ class ModifierConfig
                 break;
         }
 
-        $name = $name . '_on_' . $this->scope;
+        $name = $name . '_on_' . $this->targetEvent;
 
-        /** @var ModifierCondition $condition */
-        foreach ($this->modifierConditions as $condition) {
-            $name = $name . '_if_' . $condition->getName();
+        /** @var ModifierActivationRequirement $requirement */
+        foreach ($this->modifierActivationRequirements as $requirement) {
+            $name = $name . '_if_' . $requirement->getName();
         }
 
         $this->name = $name;
@@ -129,38 +129,38 @@ class ModifierConfig
         return $this;
     }
 
-    public function getScope(): string
+    public function getTargetEvent(): string
     {
-        return $this->scope;
+        return $this->targetEvent;
     }
 
-    public function setScope(string $scope): self
+    public function setTargetEvent(string $targetEvent): self
     {
-        $this->scope = $scope;
+        $this->targetEvent = $targetEvent;
 
         return $this;
     }
 
-    public function getTarget(): string
+    public function getTargetVariable(): string
     {
-        return $this->target;
+        return $this->targetVariable;
     }
 
-    public function setTarget(string $target): self
+    public function setTargetVariable(string $targetVariable): self
     {
-        $this->target = $target;
+        $this->targetVariable = $targetVariable;
 
         return $this;
     }
 
-    public function getReach(): ?string
+    public function getModifierHolderClass(): ?string
     {
-        return $this->reach;
+        return $this->modifierHolderClass;
     }
 
-    public function setReach(string $reach): self
+    public function setModifierHolderClass(string $modifierHolderClass): self
     {
-        $this->reach = $reach;
+        $this->modifierHolderClass = $modifierHolderClass;
 
         return $this;
     }
@@ -177,25 +177,25 @@ class ModifierConfig
         return $this;
     }
 
-    public function getModifierConditions(): Collection
+    public function getModifierActivationRequirements(): Collection
     {
-        return $this->modifierConditions;
+        return $this->modifierActivationRequirements;
     }
 
-    public function addModifierCondition(ModifierCondition $modifierCondition): self
+    public function addModifierRequirement(ModifierActivationRequirement $modifierRequirement): self
     {
-        $this->modifierConditions->add($modifierCondition);
+        $this->modifierActivationRequirements->add($modifierRequirement);
 
         return $this;
     }
 
-    public function setModifierConditions(array|Collection $modifierConditions): self
+    public function setModifierActivationRequirements(array|Collection $modifierActivationRequirements): self
     {
-        if (is_array($modifierConditions)) {
-            $modifierConditions = new ArrayCollection($modifierConditions);
+        if (is_array($modifierActivationRequirements)) {
+            $modifierActivationRequirements = new ArrayCollection($modifierActivationRequirements);
         }
 
-        $this->modifierConditions = $modifierConditions;
+        $this->modifierActivationRequirements = $modifierActivationRequirements;
 
         return $this;
     }

@@ -3,29 +3,29 @@
 namespace Mush\Disease\Enum;
 
 /**
- * Class enumerating the conditions applied on symptom
- * Symptom is only applied if the condition is valid.
+ * Class enumerating the activationRequirements applied on symptom
+ * Symptom is only applied if the activationRequirement is valid.
  *
  * REASON: check on the reason that triggered the event
  *
  * RANDOM: the symptom is triggered as random
  *
- * PLAYER_IN_ROOM: the condition is applied based on players in the room
+ * PLAYER_IN_ROOM: the activationRequirement is applied based on players in the room
  * NOT_ALONE: the player is not alone in the room
  * THREE_OTHERS: the player is alone in the room with at least 3 other players
- * MUSH_IN_ROOM: the condition is applied is there is a Mush in room
+ * MUSH_IN_ROOM: the activationRequirement is applied is there is a Mush in room
  *
- * ITEM_IN_ROOM: the condition is applied if the item is in the room
+ * ITEM_IN_ROOM: the activationRequirement is applied if the item is in the room
  *
- * PLAYER_EQUIPMENT: the condition is checked on player's equipment
+ * PLAYER_EQUIPMENT: the activationRequirement is checked on player's equipment
  *
- * ITEM_STATUS : the condition is checked on item status
+ * ITEM_STATUS : the activationRequirement is checked on item status
  *
- * PLAYER_STATUS : the condition is checked on player status
+ * PLAYER_STATUS : the activationRequirement is checked on player status
  *
- * ACTION_DIRTY_RATE : the condition is checked on action dirty rate
+ * ACTION_DIRTY_RATE : the activationRequirement is checked on action dirty rate
  */
-class SymptomConditionEnum
+class SymptomActivationRequirementEnum
 {
     public const REASON = 'reason';
 

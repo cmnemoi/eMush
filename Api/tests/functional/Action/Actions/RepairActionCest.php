@@ -24,7 +24,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
@@ -130,17 +130,17 @@ class RepairActionCest
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
-            ->setScope(ActionTypeEnum::ACTION_TECHNICIAN)
-            ->setReach(ReachEnum::INVENTORY)
+            ->setTargetEvent(ActionTypeEnum::ACTION_TECHNICIAN)
+            ->setModifierHolderClass(ReachEnum::INVENTORY)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
             ->buildName()
         ;
 
         $I->haveInRepository($modifierConfig);
 
-        $modifier = new Modifier($player, $modifierConfig);
+        $modifier = new GameModifier($player, $modifierConfig);
 
         $I->haveInRepository($modifier);
         $I->refreshEntities($player);

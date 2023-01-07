@@ -1,24 +1,24 @@
 <template>
-    <div v-if="modifierCondition" class="center">
+    <div v-if="modifierActivationRequirement" class="center">
         <div class="flex-row">
             <Input
-                :label="$t('admin.modifierCondition.name')"
+                :label="$t('admin.modifierActivationRequirement.name')"
                 id="modifierConfig_name"
-                v-model="modifierCondition.name"
+                v-model="modifierActivationRequirement.name"
                 type="text"
                 :errors="errors.name"
             ></Input>
             <Input
-                :label="$t('admin.modifierCondition.condition')"
-                id="modifierCondition_condition"
-                v-model="modifierCondition.condition"
+                :label="$t('admin.modifierActivationRequirement.activationRequirement')"
+                id="modifierActivationRequirement_activationRequirement"
+                v-model="modifierActivationRequirement.activationRequirement"
                 type="text"
-                :errors="errors.condition"
+                :errors="errors.activationRequirement"
             ></Input>
             <Input
-                :label="$t('admin.modifierCondition.value')"
-                id="modifierCondition_value"
-                v-model="modifierCondition.value"
+                :label="$t('admin.modifierActivationRequirement.value')"
+                id="modifierActivationRequirement_value"
+                v-model="modifierActivationRequirement.value"
                 type="text"
                 :errors="errors.value"
             ></Input>
@@ -33,34 +33,34 @@
 import { defineComponent } from "vue";
 import GameConfigService from "@/services/game_config.service";
 import { handleErrors } from "@/utils/apiValidationErrors";
-import { ModifierCondition } from "@/entities/Config/ModifierCondition";
+import { ModifierActivationRequirement } from "@/entities/Config/ModifierActivationRequirement";
 import Input from "@/components/Utils/Input.vue";
 
-interface ModifierConditionState {
-    modifierCondition: null|ModifierCondition
+interface ModifierActivationRequirementState {
+    modifierActivationRequirement: null|ModifierActivationRequirement
     errors: any
 }
 
 export default defineComponent({
-    name: "ModifierCondition",
+    name: "ModifierActivationRequirement",
     components: {
         Input
     },
-    data: function (): ModifierConditionState {
+    data: function (): ModifierActivationRequirementState {
         return {
-            modifierCondition: null,
+            modifierActivationRequirement: null,
             errors: {}
         };
     },
     methods: {
         update(): void {
-            if (this.modifierCondition === null) {
+            if (this.modifierActivationRequirement === null) {
                 return;
             }
             this.errors = {};
-            GameConfigService.updateModifierCondition(this.modifierCondition)
-                .then((res: ModifierCondition | null) => {
-                    this.modifierCondition = res;
+            GameConfigService.updateModifierActivationRequirement(this.modifierActivationRequirement)
+                .then((res: ModifierActivationRequirement | null) => {
+                    this.modifierActivationRequirement = res;
                 })
                 .catch((error) => {
                     if (error.response) {
@@ -78,9 +78,9 @@ export default defineComponent({
         }
     },
     beforeMount() {
-        const modifierConditionId = Number(this.$route.params.modifierConditionId);
-        GameConfigService.loadModifierCondition(modifierConditionId).then((res: ModifierCondition | null) => {
-            this.modifierCondition = res;
+        const modifierActivationRequirementId = Number(this.$route.params.modifierActivationRequirementId);
+        GameConfigService.loadModifierActivationRequirement(modifierActivationRequirementId).then((res: ModifierActivationRequirement | null) => {
+            this.modifierActivationRequirement = res;
         });
     }
 });

@@ -7,9 +7,9 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Event\ActionEvent;
-use Mush\Disease\Entity\Config\SymptomCondition;
+use Mush\Disease\Entity\Config\SymptomActivationRequirement;
 use Mush\Disease\Entity\Config\SymptomConfig;
-use Mush\Disease\Enum\SymptomConditionEnum;
+use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\EventEnum;
@@ -27,26 +27,26 @@ class DisorderSymptomConfigFixtures extends Fixture implements DependentFixtureI
 
     public function load(ObjectManager $manager): void
     {
-        /** @var SymptomCondition $catIsInRoomCondition */
-        $catIsInRoomCondition = $this->getReference(DiseaseSymptomConfigFixtures::ITEM_IN_ROOM_CAT);
-        /** @var SymptomCondition $moveActionCondition */
-        $moveActionCondition = $this->getReference(DiseaseSymptomConfigFixtures::REASON_MOVE);
-        /** @var SymptomCondition $randCondition16 */
-        $randCondition16 = $this->getReference(DiseaseSymptomConfigFixtures::RANDOM_16);
+        /** @var SymptomActivationRequirement $catIsInRoomActivationRequirement */
+        $catIsInRoomActivationRequirement = $this->getReference(DiseaseSymptomConfigFixtures::ITEM_IN_ROOM_CAT);
+        /** @var SymptomActivationRequirement $moveActionActivationRequirement */
+        $moveActionActivationRequirement = $this->getReference(DiseaseSymptomConfigFixtures::REASON_MOVE);
+        /** @var SymptomActivationRequirement $randActivationRequirement16 */
+        $randActivationRequirement16 = $this->getReference(DiseaseSymptomConfigFixtures::RANDOM_16);
 
-        $randCondition50 = new SymptomCondition(SymptomConditionEnum::RANDOM);
-        $randCondition50
+        $randActivationRequirement50 = new SymptomActivationRequirement(SymptomActivationRequirementEnum::RANDOM);
+        $randActivationRequirement50
             ->setValue(50)
             ->buildName()
         ;
-        $manager->persist($randCondition50);
+        $manager->persist($randActivationRequirement50);
 
         $fearOfCats = new SymptomConfig(SymptomEnum::FEAR_OF_CATS);
         $fearOfCats
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($catIsInRoomCondition)
-            ->addSymptomCondition($moveActionCondition)
-            ->addSymptomCondition($randCondition50)
+            ->addSymptomActivationRequirement($catIsInRoomActivationRequirement)
+            ->addSymptomActivationRequirement($moveActionActivationRequirement)
+            ->addSymptomActivationRequirement($randActivationRequirement50)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($fearOfCats);
@@ -75,8 +75,8 @@ class DisorderSymptomConfigFixtures extends Fixture implements DependentFixtureI
         $psychoticAttacks = new SymptomConfig(SymptomEnum::PSYCHOTIC_ATTACKS);
         $psychoticAttacks
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($moveActionCondition)
-            ->addSymptomCondition($randCondition16)
+            ->addSymptomActivationRequirement($moveActionActivationRequirement)
+            ->addSymptomActivationRequirement($randActivationRequirement16)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($psychoticAttacks);

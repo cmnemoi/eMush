@@ -31,8 +31,8 @@
                 :errors="errors.visibility"
             ></Input>
         </div>
-        <h3>{{ $t('admin.symptomConfig.symptomConditions')}}</h3>
-        <ChildCollectionManager :children="symptomConfig.symptomConditions" @addId="selectNewChild" @remove="removeChild">
+        <h3>{{ $t('admin.symptomConfig.symptomActivationRequirements')}}</h3>
+        <ChildCollectionManager :children="symptomConfig.symptomActivationRequirements" @addId="selectNewChild" @remove="removeChild">
             <template #header="child">
                 <span>{{ child.id }} - {{ child.name }}</span>
             </template>
@@ -50,7 +50,7 @@ import { handleErrors } from "@/utils/apiValidationErrors";
 import { SymptomConfig } from "@/entities/Config/SymptomConfig";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
-import { SymptomCondition } from "@/entities/Config/SymptomCondition";
+import { SymptomActivationRequirement } from "@/entities/Config/SymptomActivationRequirement";
 import Input from "@/components/Utils/Input.vue";
 import { removeItem } from "@/utils/misc";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
@@ -82,15 +82,15 @@ export default defineComponent({
                 .then((res: SymptomConfig | null) => {
                     this.symptomConfig = res;
                     if (this.symptomConfig !== null) {
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'symptom_configs', String(this.symptomConfig.id), 'symptom_conditions'))
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'symptom_configs', String(this.symptomConfig.id), 'symptom_activation_requirements'))
                             .then((result) => {
-                                const symptomConditions : SymptomCondition[] = [];
+                                const symptomActivationRequirements : SymptomActivationRequirement[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
-                                    const currentCondition = (new SymptomCondition()).load(datum);
-                                    symptomConditions.push(currentCondition);
+                                    const currentCondition = (new SymptomActivationRequirement()).load(datum);
+                                    symptomActivationRequirements.push(currentCondition);
                                 });
                                 if (this.symptomConfig instanceof SymptomConfig) {
-                                    this.symptomConfig.symptomConditions = symptomConditions;
+                                    this.symptomConfig.symptomActivationRequirements = symptomActivationRequirements;
                                 }
                             });
                     }
@@ -110,15 +110,15 @@ export default defineComponent({
                 });
         },
         selectNewChild(selectedId: any) {
-            GameConfigService.loadSymptomCondition(selectedId).then((res) => {
-                if (res && this.symptomConfig && this.symptomConfig.symptomConditions) {
-                    this.symptomConfig.symptomConditions.push(res);
+            GameConfigService.loadSymptomActivationRequirement(selectedId).then((res) => {
+                if (res && this.symptomConfig && this.symptomConfig.symptomActivationRequirements) {
+                    this.symptomConfig.symptomActivationRequirements.push(res);
                 }
             });
         },
         removeChild(child: any) {
-            if (this.symptomConfig && this.symptomConfig.symptomConditions) {
-                this.symptomConfig.symptomConditions = removeItem(this.symptomConfig.symptomConditions, child);
+            if (this.symptomConfig && this.symptomConfig.symptomActivationRequirements) {
+                this.symptomConfig.symptomActivationRequirements = removeItem(this.symptomConfig.symptomActivationRequirements, child);
             }
         }
     },
@@ -127,15 +127,15 @@ export default defineComponent({
         GameConfigService.loadSymptomConfig(Number(symptomConfigId)).then((res: SymptomConfig | null) => {
             if (res instanceof SymptomConfig) {
                 this.symptomConfig = res;
-                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'symptom_configs', symptomConfigId, 'symptom_conditions'))
+                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'symptom_configs', symptomConfigId, 'symptom_activation_requirements'))
                     .then((result) => {
-                        const symptomConditions : SymptomCondition[] = [];
+                        const symptomActivationRequirements : SymptomActivationRequirement[] = [];
                         result.data['hydra:member'].forEach((datum: any) => {
-                            const currentCondition = (new SymptomCondition()).load(datum);
-                            symptomConditions.push(currentCondition);
+                            const currentCondition = (new SymptomActivationRequirement()).load(datum);
+                            symptomActivationRequirements.push(currentCondition);
                         });
                         if (this.symptomConfig instanceof SymptomConfig) {
-                            this.symptomConfig.symptomConditions = symptomConditions;
+                            this.symptomConfig.symptomActivationRequirements = symptomActivationRequirements;
                         }
                     });
             }

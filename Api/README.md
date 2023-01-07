@@ -112,7 +112,7 @@ Obvious example:
     - The cycle change
     - A player die
     
- For instance a player can make the action 'hit' on an other player, this will trigger the event 'player die'.  
+ For instance a player can make the action 'hit' on another player, this will trigger the event 'player die'.  
  Less obvious example:   
     A player make the action eat, that trigger the event 'become Dirty'
 

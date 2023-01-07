@@ -3,17 +3,17 @@
 namespace Mush\Modifier\Event;
 
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 
 class ModifierEvent extends AbstractGameEvent
 {
     public const APPLY_MODIFIER = 'apply_modifier';
 
-    protected Modifier $modifier;
+    protected GameModifier $modifier;
     protected bool $wasModifierUsed;
 
     public function __construct(
-        Modifier $modifier,
+        GameModifier $modifier,
         string $reason,
         \DateTime $time,
         bool $wasModifierUsed
@@ -24,7 +24,7 @@ class ModifierEvent extends AbstractGameEvent
         $this->wasModifierUsed = $wasModifierUsed;
     }
 
-    public function getModifier(): Modifier
+    public function getModifier(): GameModifier
     {
         return $this->modifier;
     }

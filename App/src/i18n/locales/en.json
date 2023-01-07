@@ -89,14 +89,14 @@
 		"modifierConfig": {
 			"name": "Name",
 			"delta": "Delta",
-			"target": "Target variable",
-			"scope": "Trigger (or Scope)",
-			"reach": "Reach",
+			"targetVariable": "Target variable",
+			"targetEvent": "Trigger (or Scope)",
+			"modifierHolderClass": "Class of the modifier Holder",
 			"mode": "Calculation Mode"
 		},
-		"modifierCondition": {
+		"modifierRequirement": {
 			"name": "Name",
-			"condition": "Condition",
+			"activationRequirement": "Requirement",
 			"value": "Value"
 		},
 		"statusConfig": {

@@ -6,12 +6,12 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
-use Mush\Modifier\Enum\ModifierReachEnum;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Service\EquipmentModifierService;
-use Mush\Modifier\Service\ModifierConditionService;
+use Mush\Modifier\Service\ModifierRequirementService;
 use Mush\Modifier\Service\ModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -27,18 +27,18 @@ class StatusSubscriber implements EventSubscriberInterface
 {
     private EquipmentModifierService $gearModifierService;
     private ModifierServiceInterface $modifierService;
-    private ModifierConditionService $modifierConditionService;
+    private ModifierRequirementService $modifierActivationRequirementService;
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EquipmentModifierService $gearModifierService,
         ModifierServiceInterface $modifierService,
-        ModifierConditionService $modifierConditionService,
+        ModifierRequirementService $modifierActivationRequirementService,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->gearModifierService = $gearModifierService;
         $this->modifierService = $modifierService;
-        $this->modifierConditionService = $modifierConditionService;
+        $this->modifierActivationRequirementService = $modifierActivationRequirementService;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -80,9 +80,9 @@ class StatusSubscriber implements EventSubscriberInterface
         $player = $this->getPlayer($statusHolder);
         if ($player !== null) {
             $modifiers = $player->getModifiers()->getScopedModifiers([StatusEvent::STATUS_APPLIED]);
-            $modifiers = $this->modifierConditionService->getActiveModifiers($modifiers, $event->getReason(), $player);
+            $modifiers = $this->modifierActivationRequirementService->getActiveModifiers($modifiers, $event->getReason(), $player);
 
-            /** @var Modifier $modifier */
+            /** @var GameModifier $modifier */
             foreach ($modifiers as $modifier) {
                 $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getReason());
                 $event->setVisibility(VisibilityEnum::HIDDEN);
@@ -120,15 +120,15 @@ class StatusSubscriber implements EventSubscriberInterface
 
     private function getModifierHolderFromConfig(StatusHolderInterface $statusHolder, ModifierConfig $modifierConfig): ?ModifierHolder
     {
-        switch ($modifierConfig->getReach()) {
-            case ModifierReachEnum::DAEDALUS:
+        switch ($modifierConfig->getModifierHolderClass()) {
+            case ModifierHolderClassEnum::DAEDALUS:
                 return $this->getDaedalus($statusHolder);
-            case ModifierReachEnum::PLACE:
+            case ModifierHolderClassEnum::PLACE:
                 return $this->getPlace($statusHolder);
-            case ModifierReachEnum::PLAYER:
-            case ModifierReachEnum::TARGET_PLAYER:
+            case ModifierHolderClassEnum::PLAYER:
+            case ModifierHolderClassEnum::TARGET_PLAYER:
                 return $this->getPlayer($statusHolder);
-            case ModifierReachEnum::EQUIPMENT:
+            case ModifierHolderClassEnum::EQUIPMENT:
                 return $this->getEquipment($statusHolder);
         }
 
@@ -195,11 +195,11 @@ class StatusSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function createQuantityEvent(ModifierHolder $holder, Modifier $modifier, \DateTime $time, string $eventReason): PlayerVariableEvent
+    private function createQuantityEvent(ModifierHolder $holder, GameModifier $modifier, \DateTime $time, string $eventReason): PlayerVariableEvent
     {
         $modifierConfig = $modifier->getModifierConfig();
 
-        $target = $modifierConfig->getTarget();
+        $target = $modifierConfig->getTargetVariable();
         $value = intval($modifierConfig->getDelta());
         $reason = $modifierConfig->getModifierName() ?: $eventReason;
 

@@ -4,7 +4,7 @@ namespace Mush\Disease\Listener;
 
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
-use Mush\Disease\Service\SymptomConditionServiceInterface;
+use Mush\Disease\Service\SymptomActivationRequirementServiceInterface;
 use Mush\Disease\Service\SymptomServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Player\Entity\Player;
@@ -15,16 +15,16 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
 {
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private SymptomServiceInterface $symptomService;
-    private SymptomConditionServiceInterface $symptomConditionService;
+    private SymptomActivationRequirementServiceInterface $symptomActivationRequirementService;
 
     public function __construct(
         PlayerDiseaseServiceInterface $playerDiseaseService,
         SymptomServiceInterface $symptomService,
-        SymptomConditionServiceInterface $symptomConditionService)
+        SymptomActivationRequirementServiceInterface $symptomActivationRequirementService)
     {
         $this->playerDiseaseService = $playerDiseaseService;
         $this->symptomService = $symptomService;
-        $this->symptomConditionService = $symptomConditionService;
+        $this->symptomActivationRequirementService = $symptomActivationRequirementService;
     }
 
     public static function getSubscribedEvents()
@@ -43,7 +43,7 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
         }
 
         $cycleSymptomConfigs = $this->getPlayerSymptomConfigs($player)->getTriggeredSymptoms([EventEnum::NEW_CYCLE]);
-        $cycleSymptomConfigs = $this->symptomConditionService->getActiveSymptoms($cycleSymptomConfigs, $player, EventEnum::NEW_CYCLE);
+        $cycleSymptomConfigs = $this->symptomActivationRequirementService->getActiveSymptoms($cycleSymptomConfigs, $player, EventEnum::NEW_CYCLE);
 
         foreach ($cycleSymptomConfigs as $symptomConfig) {
             $this->symptomService->handleCycleSymptom($symptomConfig, $player, $event->getTime());

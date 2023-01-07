@@ -9,7 +9,7 @@ use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PlayerModifierSubscriber implements EventSubscriberInterface
+class PlayerVariableSubscriber implements EventSubscriberInterface
 {
     private RoomLogServiceInterface $roomLogService;
 

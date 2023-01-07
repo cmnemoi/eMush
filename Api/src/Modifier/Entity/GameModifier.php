@@ -11,8 +11,8 @@ use Mush\Status\Entity\ChargeStatus;
 use Symfony\Component\Validator\Exception\LogicException;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'modifier')]
-class Modifier
+#[ORM\Table(name: 'game_modifier')]
+class GameModifier
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

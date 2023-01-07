@@ -7,10 +7,10 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Modifier\Entity\ModifierCondition;
+use Mush\Modifier\Entity\ModifierActivationRequirement;
 use Mush\Modifier\Entity\ModifierConfig;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
-use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -29,51 +29,51 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
     public function load(ObjectManager $manager): void
     {
-        /** @var ModifierCondition $notMoveActionCondition */
-        $notMoveActionCondition = $this->getReference(DisorderModifierConfigFixtures::NOT_REASON_MOVE);
+        /** @var ModifierActivationRequirement $notMoveActionActivationRequirement */
+        $notMoveActionActivationRequirement = $this->getReference(DisorderModifierConfigFixtures::NOT_REASON_MOVE);
 
         $notMoveAction1Increase = new ModifierConfig();
         $notMoveAction1Increase
-            ->setScope(ModifierScopeEnum::ACTIONS)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->addModifierCondition($notMoveActionCondition)
+            ->addModifierRequirement($notMoveActionActivationRequirement)
             ->buildName()
         ;
         $manager->persist($notMoveAction1Increase);
 
         $notMoveAction2Increase = new ModifierConfig();
         $notMoveAction2Increase
-            ->setScope(ModifierScopeEnum::ACTIONS)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(2)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->addModifierCondition($notMoveActionCondition)
+            ->addModifierRequirement($notMoveActionActivationRequirement)
             ->buildName()
         ;
         $manager->persist($notMoveAction2Increase);
 
         $notMoveAction3Increase = new ModifierConfig();
         $notMoveAction3Increase
-            ->setScope(ModifierScopeEnum::ACTIONS)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetEvent(ModifierScopeEnum::ACTIONS)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(3)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
-            ->addModifierCondition($notMoveActionCondition)
+            ->addModifierRequirement($notMoveActionActivationRequirement)
             ->buildName()
         ;
         $manager->persist($notMoveAction3Increase);
 
         $reduceMax3MovementPoint = new ModifierConfig();
         $reduceMax3MovementPoint
-            ->setScope(ModifierScopeEnum::MAX_POINT)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-3)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -81,10 +81,10 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $reduceMax5MovementPoint = new ModifierConfig();
         $reduceMax5MovementPoint
-            ->setScope(ModifierScopeEnum::MAX_POINT)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-5)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -92,10 +92,10 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $reduceMax12MovementPoint = new ModifierConfig();
         $reduceMax12MovementPoint
-            ->setScope(ModifierScopeEnum::MAX_POINT)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setTargetEvent(ModifierScopeEnum::MAX_POINT)
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-12)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -103,10 +103,10 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $shootAction15PercentAccuracyLost = new ModifierConfig();
         $shootAction15PercentAccuracyLost
-            ->setScope(ActionTypeEnum::ACTION_SHOOT)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(0.85)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
             ->buildName()
         ;
@@ -114,10 +114,10 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $shootAction20PercentAccuracyLost = new ModifierConfig();
         $shootAction20PercentAccuracyLost
-            ->setScope(ActionTypeEnum::ACTION_SHOOT)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(0.80)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
             ->buildName()
         ;
@@ -125,10 +125,10 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $shootAction40PercentAccuracyLost = new ModifierConfig();
         $shootAction40PercentAccuracyLost
-            ->setScope(ActionTypeEnum::ACTION_SHOOT)
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetEvent(ActionTypeEnum::ACTION_SHOOT)
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(0.60)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::MULTIPLICATIVE)
             ->buildName()
         ;

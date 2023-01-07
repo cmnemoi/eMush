@@ -10,9 +10,9 @@ use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
-use Mush\Modifier\Service\ModifierConditionService;
+use Mush\Modifier\Service\ModifierRequirementService;
 use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerCycleEvent;
@@ -23,14 +23,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class CycleEventSubscriber implements EventSubscriberInterface
 {
     private EventDispatcherInterface $eventDispatcher;
-    private ModifierConditionService $modifierConditionService;
+    private ModifierRequirementService $modifierActivationRequirementService;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        ModifierConditionService $modifierConditionService,
+        ModifierRequirementService $modifierActivationRequirementService,
     ) {
         $this->eventDispatcher = $eventDispatcher;
-        $this->modifierConditionService = $modifierConditionService;
+        $this->modifierActivationRequirementService = $modifierActivationRequirementService;
     }
 
     public static function getSubscribedEvents(): array
@@ -53,10 +53,10 @@ class CycleEventSubscriber implements EventSubscriberInterface
         $holder = $this->getModifierHolder($event);
 
         $cycleModifiers = $holder->getModifiers()->getScopedModifiers([EventEnum::NEW_CYCLE]);
-        $cycleModifiers = $this->modifierConditionService->getActiveModifiers($cycleModifiers, EventEnum::NEW_CYCLE, $holder);
+        $cycleModifiers = $this->modifierActivationRequirementService->getActiveModifiers($cycleModifiers, EventEnum::NEW_CYCLE, $holder);
         $cycleModifiers = $cycleModifiers->sortModifiersByDelta(false);
 
-        /** @var Modifier $modifier */
+        /** @var GameModifier $modifier */
         foreach ($cycleModifiers as $modifier) {
             $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
 
@@ -69,10 +69,10 @@ class CycleEventSubscriber implements EventSubscriberInterface
         $holder = $this->getModifierHolder($event);
 
         $cycleModifiers = $holder->getModifiers()->getScopedModifiers([EventEnum::NEW_DAY]);
-        $cycleModifiers = $this->modifierConditionService->getActiveModifiers($cycleModifiers, EventEnum::NEW_CYCLE, $holder);
+        $cycleModifiers = $this->modifierActivationRequirementService->getActiveModifiers($cycleModifiers, EventEnum::NEW_CYCLE, $holder);
         $cycleModifiers = $cycleModifiers->sortModifiersByDelta(false);
 
-        /** @var Modifier $modifier */
+        /** @var GameModifier $modifier */
         foreach ($cycleModifiers as $modifier) {
             $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
 
@@ -85,10 +85,10 @@ class CycleEventSubscriber implements EventSubscriberInterface
         $holder = $event->getPlayer();
 
         $modifiers = $holder->getModifiers()->getScopedModifiers([ActionEvent::POST_ACTION]);
-        $modifiers = $this->modifierConditionService->getActiveModifiers($modifiers, $event->getReason(), $holder);
+        $modifiers = $this->modifierActivationRequirementService->getActiveModifiers($modifiers, $event->getReason(), $holder);
         $modifiers = $modifiers->sortModifiersByDelta(false);
 
-        /** @var Modifier $modifier */
+        /** @var GameModifier $modifier */
         foreach ($modifiers as $modifier) {
             $event = $this->createQuantityEvent($holder, $modifier, $event->getTime(), $event->getReason());
 
@@ -112,11 +112,11 @@ class CycleEventSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function createQuantityEvent(ModifierHolder $holder, Modifier $modifier, \DateTime $time, string $eventReason): AbstractQuantityEvent
+    private function createQuantityEvent(ModifierHolder $holder, GameModifier $modifier, \DateTime $time, string $eventReason): AbstractQuantityEvent
     {
         $modifierConfig = $modifier->getModifierConfig();
 
-        $target = $modifierConfig->getTarget();
+        $target = $modifierConfig->getTargetVariable();
         $value = intval($modifierConfig->getDelta());
         $reason = $modifierConfig->getModifierName() ?: $eventReason;
 

@@ -1,14 +1,13 @@
-Mush\Modifier\Entity\ModifierCondition:
+Mush\Modifier\Entity\ModifierActivationRequirement:
   properties:
     name:
       - NotBlank: ~
       - Length:
           max: 48
       - Type: string
-    condition:
+    activationRequirement:
       - NotBlank: ~
       - Type: string
     value:
       - NotBlank: ~
       - Type: integer
-    modifierConditions: ~

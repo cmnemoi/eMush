@@ -2,8 +2,8 @@ import GameConfigListPage from "@/components/Admin/Config/GameConfig/GameConfigL
 import GameConfigDetailPage from "@/components/Admin/Config/GameConfig/GameConfigDetailPage.vue";
 import ModifierConfigListPage from "@/components/Admin/Config/ModifierConfig/ModifierConfigListPage.vue";
 import ModifierConfigDetailPage from "@/components/Admin/Config/ModifierConfig/ModifierConfigDetailPage.vue";
-import ModifierConditionListPage from "@/components/Admin/Config/ModifierCondition/ModifierConditionListPage.vue";
-import ModifierConditionDetailPage from "@/components/Admin/Config/ModifierCondition/ModifierConditionDetailPage.vue";
+import ModifierActivationRequirementListPage from "@/components/Admin/Config/ModifierActivationRequirement/ModifierActivationRequirementListPage.vue";
+import ModifierActivationRequirementDetailPage from "@/components/Admin/Config/ModifierActivationRequirement/ModifierActivationRequirementDetailPage.vue";
 import StatusConfigListPage from "@/components/Admin/Config/StatusConfig/StatusConfigListPage.vue";
 import StatusConfigDetailPage from "@/components/Admin/Config/StatusConfig/StatusConfigDetailPage.vue";
 import ActionCostListPage from "@/components/Admin/Config/ActionCost/ActionCostListPage.vue";
@@ -20,8 +20,8 @@ import DiseaseConfigListPage from "@/components/Admin/Config/DiseaseConfig/Disea
 import DiseaseConfigDetailPage from "@/components/Admin/Config/DiseaseConfig/DiseaseConfigDetailPage.vue";
 import SymptomConfigListPage from "@/components/Admin/Config/SymptomConfig/SymptomConfigListPage.vue";
 import SymptomConfigDetailPage from "@/components/Admin/Config/SymptomConfig/SymptomConfigDetailPage.vue";
-import SymptomConditionListPage from "@/components/Admin/Config/SymptomCondition/SymptomConditionListPage.vue";
-import SymptomConditionDetailPage from "@/components/Admin/Config/SymptomCondition/SymptomConditionDetailPage.vue";
+import SymptomActivationRequirementListPage from "@/components/Admin/Config/SymptomActivationRequirement/SymptomActivationRequirementListPage.vue";
+import SymptomActivationRequirementDetailPage from "@/components/Admin/Config/SymptomActivationRequirement/SymptomActivationRequirementDetailPage.vue";
 import EquipmentConfigListPage from "@/components/Admin/Config/EquipmentConfig/EquipmentConfigListPage.vue";
 import EquipmentConfigDetailPage from "@/components/Admin/Config/EquipmentConfig/EquipmentConfigDetailPage.vue";
 import PlaceConfigDetailPage from "@/components/Admin/Config/PlaceConfig/PlaceConfigDetailPage.vue";
@@ -53,14 +53,14 @@ export const adminConfigRoutes = [
         component: ModifierConfigDetailPage
     },
     {
-        name: "AdminModifierConditionList",
-        path: 'modifier-condition-list',
-        component: ModifierConditionListPage
+        name: "AdminModifierActivationRequirementList",
+        path: 'modifier-activation-requirement-list',
+        component: ModifierActivationRequirementListPage
     },
     {
-        name: "AdminModifierConditionDetail",
-        path: 'modifier-condition/:modifierConditionId',
-        component: ModifierConditionDetailPage
+        name: "AdminModifierActivationRequirementDetail",
+        path: 'modifier-activation-requirement/:modifierActivationRequirementId',
+        component: ModifierActivationRequirementDetailPage
     },
     {
         name: "AdminStatusConfigList",
@@ -143,14 +143,14 @@ export const adminConfigRoutes = [
         component: SymptomConfigDetailPage
     },
     {
-        name: "AdminSymptomConditionList",
-        path: 'symptom-condition-list',
-        component: SymptomConditionListPage
+        name: "AdminSymptomActivationRequirementList",
+        path: 'symptom-activation-requirement-list',
+        component: SymptomActivationRequirementListPage
     },
     {
-        name: "AdminSymptomConditionDetail",
-        path: 'symptom-condition/:symptomConditionId',
-        component: SymptomConditionDetailPage
+        name: "AdminSymptomActivationRequirementDetail",
+        path: 'symptom-activation-requirement/:symptomActivationRequirementId',
+        component: SymptomActivationRequirementDetailPage
     },
     {
         name: "AdminEquipmentConfigList",

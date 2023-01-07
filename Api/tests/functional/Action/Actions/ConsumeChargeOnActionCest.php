@@ -29,7 +29,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
@@ -208,10 +208,10 @@ class ConsumeChargeOnActionCest
         $I->haveInRepository($equipment);
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setScope(ActionEnum::COFFEE)
-            ->setReach(ReachEnum::INVENTORY)
+            ->setTargetEvent(ActionEnum::COFFEE)
+            ->setModifierHolderClass(ReachEnum::INVENTORY)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -301,7 +301,7 @@ class ConsumeChargeOnActionCest
         ;
         $I->haveInRepository($chargeStatus);
 
-        $modifier = new Modifier($player, $modifierConfig);
+        $modifier = new GameModifier($player, $modifierConfig);
         $modifier->setCharge($chargeStatus);
         $I->haveInRepository($modifier);
 
@@ -348,10 +348,10 @@ class ConsumeChargeOnActionCest
         $I->haveInRepository($equipment);
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
-            ->setScope(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
-            ->setReach(ReachEnum::INVENTORY)
+            ->setTargetEvent(ModifierScopeEnum::EVENT_ACTION_MOVEMENT_CONVERSION)
+            ->setModifierHolderClass(ReachEnum::INVENTORY)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
@@ -445,7 +445,7 @@ class ConsumeChargeOnActionCest
         ;
         $I->haveInRepository($chargeStatus);
 
-        $modifier = new Modifier($player, $modifierConfig);
+        $modifier = new GameModifier($player, $modifierConfig);
         $modifier->setCharge($chargeStatus);
         $I->haveInRepository($modifier);
 

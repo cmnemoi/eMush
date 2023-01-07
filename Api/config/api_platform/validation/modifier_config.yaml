@@ -1,19 +1,18 @@
 Mush\Modifier\Entity\ModifierConfig:
   properties:
     name:
-      - Length:
-          max: 48
+      - NotBlank: ~
       - Type: string
     delta:
       - NotBlank: ~
       - Type: float
-    target:
+    targetVariable:
       - NotBlank: ~
       - Type: string
-    scope:
+    targetEvent:
       - NotBlank: ~
       - Type: string
-    reach:
+    modifierHolderClass:
       - NotBlank: ~
       - Type: string
     mode:

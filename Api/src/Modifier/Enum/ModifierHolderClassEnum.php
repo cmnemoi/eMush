@@ -3,7 +3,7 @@
 namespace Mush\Modifier\Enum;
 
 /**
- * Class enumerating the different modifier reaches.
+ * Class enumerating the entities that can hold a gameModifier.
  *
  * PLAYER: modifier is linked to a player
  * TARGET_PLAYER: modifier is linked to a player and activate when the player is targeted
@@ -11,7 +11,7 @@ namespace Mush\Modifier\Enum;
  * DAEDALUS: modifier is linked to the Daedalus
  * EQUIPMENT: modifier is linked to an equipment
  */
-class ModifierReachEnum
+class ModifierHolderClassEnum
 {
     public const PLAYER = 'player';
     public const TARGET_PLAYER = 'target_player';

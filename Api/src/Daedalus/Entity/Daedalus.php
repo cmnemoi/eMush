@@ -12,7 +12,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableCollection;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
@@ -39,7 +39,7 @@ class Daedalus implements ModifierHolder
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Place::class)]
     private Collection $places;
 
-    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Modifier::class, cascade: ['REMOVE'])]
+    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: GameModifier::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
@@ -169,7 +169,7 @@ class Daedalus implements ModifierHolder
         return new ModifierCollection($this->modifiers->toArray());
     }
 
-    public function addModifier(Modifier $modifier): static
+    public function addModifier(GameModifier $modifier): static
     {
         $this->modifiers->add($modifier);
 

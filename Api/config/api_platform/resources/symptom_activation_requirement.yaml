@@ -1,12 +1,12 @@
-Mush\Disease\Entity\Config\SymptomCondition:
-  shortName: 'SymptomCondition'
-  description: 'eMush SymptomCondition'
+Mush\Disease\Entity\Config\SymptomActivationRequirement:
+  shortName: 'SymptomActivationRequirement'
+  description: 'eMush SymptomActivationRequirement'
   attributes:
     pagination_items_per_page: 25
     normalization_context:
-      groups: [ 'symptom_condition_read' ]
+      groups: [ 'symptom_activation_requirement_read' ]
     denormalization_context:
-      groups: [ 'symptom_condition_write' ]
+      groups: [ 'symptom_activation_requirement_write' ]
   collectionOperations:
     get:
       filters: [ 'default.search_filter', 'default.order_filter' ]

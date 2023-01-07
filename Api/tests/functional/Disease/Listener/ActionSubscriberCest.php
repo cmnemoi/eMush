@@ -20,13 +20,13 @@ use Mush\Daedalus\Entity\Neron;
 use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
-use Mush\Disease\Entity\Config\SymptomCondition;
+use Mush\Disease\Entity\Config\SymptomActivationRequirement;
 use Mush\Disease\Entity\Config\SymptomConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
-use Mush\Disease\Enum\SymptomConditionEnum;
+use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Disease\Listener\ActionSubscriber;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -128,18 +128,18 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $moveActionSymptomCondition
-            ->setCondition(ActionEnum::MOVE)
+        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
+        $moveActionSymptomActivationRequirement
+            ->setActivationRequirement(ActionEnum::MOVE)
             ->buildName()
         ;
 
-        $I->haveInRepository($moveActionSymptomCondition);
+        $I->haveInRepository($moveActionSymptomActivationRequirement);
 
         $symptomConfig = new SymptomConfig('breakouts');
         $symptomConfig
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($moveActionSymptomCondition)
+            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
             ->buildName(GameConfigEnum::TEST)
         ;
 
@@ -235,27 +235,27 @@ class ActionSubscriberCest
 
         $I->haveInRepository($cat);
 
-        $takeActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $takeActionSymptomCondition
-            ->setCondition(ActionEnum::TAKE)
+        $takeActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
+        $takeActionSymptomActivationRequirement
+            ->setActivationRequirement(ActionEnum::TAKE)
             ->buildName()
         ;
 
-        $I->haveInRepository($takeActionSymptomCondition);
+        $I->haveInRepository($takeActionSymptomActivationRequirement);
 
-        $holdCatSymptomCondition = new SymptomCondition(SymptomConditionEnum::PLAYER_EQUIPMENT);
-        $holdCatSymptomCondition
-            ->setCondition(ItemEnum::SCHRODINGER)
+        $holdCatSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::PLAYER_EQUIPMENT);
+        $holdCatSymptomActivationRequirement
+            ->setActivationRequirement(ItemEnum::SCHRODINGER)
             ->buildName()
         ;
 
-        $I->haveInRepository($holdCatSymptomCondition);
+        $I->haveInRepository($holdCatSymptomActivationRequirement);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::CAT_ALLERGY);
         $symptomConfig
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($takeActionSymptomCondition)
-            ->addSymptomCondition($holdCatSymptomCondition)
+            ->addSymptomActivationRequirement($takeActionSymptomActivationRequirement)
+            ->addSymptomActivationRequirement($holdCatSymptomActivationRequirement)
             ->buildName(GameConfigEnum::TEST)
         ;
 
@@ -361,18 +361,18 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $moveActionSymptomCondition
-            ->setCondition(ActionEnum::MOVE)
+        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
+        $moveActionSymptomActivationRequirement
+            ->setActivationRequirement(ActionEnum::MOVE)
             ->buildName()
         ;
 
-        $I->haveInRepository($moveActionSymptomCondition);
+        $I->haveInRepository($moveActionSymptomActivationRequirement);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::DROOLING);
         $symptomConfig
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($moveActionSymptomCondition)
+            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
             ->buildName(GameConfigEnum::TEST)
         ;
 
@@ -476,18 +476,18 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $moveActionSymptomCondition
-            ->setCondition(ActionEnum::MOVE)
+        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
+        $moveActionSymptomActivationRequirement
+            ->setActivationRequirement(ActionEnum::MOVE)
             ->buildName()
         ;
 
-        $I->haveInRepository($moveActionSymptomCondition);
+        $I->haveInRepository($moveActionSymptomActivationRequirement);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::FOAMING_MOUTH);
         $symptomConfig
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($moveActionSymptomCondition)
+            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
             ->buildName(GameConfigEnum::TEST)
         ;
 
@@ -591,18 +591,18 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $moveActionSymptomCondition
-            ->setCondition(ActionEnum::MOVE)
+        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
+        $moveActionSymptomActivationRequirement
+            ->setActivationRequirement(ActionEnum::MOVE)
             ->buildName()
         ;
 
-        $I->haveInRepository($moveActionSymptomCondition);
+        $I->haveInRepository($moveActionSymptomActivationRequirement);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::SNEEZING);
         $symptomConfig
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($moveActionSymptomCondition)
+            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
             ->buildName(GameConfigEnum::TEST)
         ;
 
@@ -777,26 +777,26 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $moveActionSymptomCondition
-            ->setCondition(ActionEnum::MOVE)
+        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
+        $moveActionSymptomActivationRequirement
+            ->setActivationRequirement(ActionEnum::MOVE)
             ->buildName()
         ;
 
-        $I->haveInRepository($moveActionSymptomCondition);
+        $I->haveInRepository($moveActionSymptomActivationRequirement);
 
-        $consumeActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $consumeActionSymptomCondition
-            ->setCondition(ActionEnum::CONSUME)
+        $consumeActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
+        $consumeActionSymptomActivationRequirement
+            ->setActivationRequirement(ActionEnum::CONSUME)
             ->buildName()
         ;
 
-        $I->haveInRepository($consumeActionSymptomCondition);
+        $I->haveInRepository($consumeActionSymptomActivationRequirement);
 
         $moveVomitingConfig = new SymptomConfig(SymptomEnum::VOMITING);
         $moveVomitingConfig
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($moveActionSymptomCondition)
+            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
             ->buildName(GameConfigEnum::TEST, ActionEnum::MOVE)
         ;
 
@@ -805,7 +805,7 @@ class ActionSubscriberCest
         $consumeVomitingConfig = new SymptomConfig(SymptomEnum::VOMITING);
         $consumeVomitingConfig
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($consumeActionSymptomCondition)
+            ->addSymptomActivationRequirement($consumeActionSymptomActivationRequirement)
             ->buildName(GameConfigEnum::TEST, ActionEnum::CONSUME)
         ;
 
@@ -939,27 +939,27 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $moveActionSymptomCondition = new SymptomCondition(SymptomConditionEnum::REASON);
-        $moveActionSymptomCondition
-            ->setCondition(ActionEnum::MOVE)
+        $moveActionSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::REASON);
+        $moveActionSymptomActivationRequirement
+            ->setActivationRequirement(ActionEnum::MOVE)
             ->buildName()
         ;
 
-        $I->haveInRepository($moveActionSymptomCondition);
+        $I->haveInRepository($moveActionSymptomActivationRequirement);
 
-        $catInRoomSymptomCondition = new SymptomCondition(SymptomConditionEnum::ITEM_IN_ROOM);
-        $catInRoomSymptomCondition
-            ->setCondition(ItemEnum::SCHRODINGER)
+        $catInRoomSymptomActivationRequirement = new SymptomActivationRequirement(SymptomActivationRequirementEnum::ITEM_IN_ROOM);
+        $catInRoomSymptomActivationRequirement
+            ->setActivationRequirement(ItemEnum::SCHRODINGER)
             ->buildName()
         ;
 
-        $I->haveInRepository($catInRoomSymptomCondition);
+        $I->haveInRepository($catInRoomSymptomActivationRequirement);
 
         $symptomConfig = new SymptomConfig(SymptomEnum::FEAR_OF_CATS);
         $symptomConfig
             ->setTrigger(ActionEvent::POST_ACTION)
-            ->addSymptomCondition($moveActionSymptomCondition)
-            ->addSymptomCondition($catInRoomSymptomCondition)
+            ->addSymptomActivationRequirement($moveActionSymptomActivationRequirement)
+            ->addSymptomActivationRequirement($catInRoomSymptomActivationRequirement)
             ->buildName(GameConfigEnum::TEST)
         ;
 

@@ -3,8 +3,8 @@
 namespace Mush\Modifier\Enum;
 
 /**
- * Class enumerating the conditions applied on modifiers
- * Modifier is only applied if the condition is valid.
+ * Class enumerating the activationRequirements applied on modifiers
+ * GameModifier is only applied if the activationRequirement is valid.
  *
  * MAX_POINT: modify the max amount of a player or Daedalus variable
  * ACTIONS: apply on all actions

@@ -9,11 +9,11 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierConfig;
 use Mush\Modifier\Entity\ModifierHolder;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
-use Mush\Modifier\Enum\ModifierReachEnum;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Modifier\Enum\ModifierTargetEnum;
 use Mush\Modifier\Event\ModifierEvent;
@@ -29,22 +29,22 @@ class ModifierService implements ModifierServiceInterface
     private const ATTEMPT_INCREASE = 1.25;
     private EntityManagerInterface $entityManager;
     private EventDispatcherInterface $eventDispatcher;
-    private ModifierConditionServiceInterface $conditionService;
+    private ModifierRequirementServiceInterface $activationRequirementService;
     private RandomServiceInterface $randomService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher,
-        ModifierConditionServiceInterface $conditionService,
+        ModifierRequirementServiceInterface $activationRequirementService,
         RandomServiceInterface $randomService
     ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
-        $this->conditionService = $conditionService;
+        $this->activationRequirementService = $activationRequirementService;
         $this->randomService = $randomService;
     }
 
-    public function persist(Modifier $modifier): Modifier
+    public function persist(GameModifier $modifier): GameModifier
     {
         $this->entityManager->persist($modifier);
         $this->entityManager->flush();
@@ -52,7 +52,7 @@ class ModifierService implements ModifierServiceInterface
         return $modifier;
     }
 
-    public function delete(Modifier $modifier): void
+    public function delete(GameModifier $modifier): void
     {
         $this->entityManager->remove($modifier);
         $this->entityManager->flush();
@@ -63,7 +63,7 @@ class ModifierService implements ModifierServiceInterface
         ModifierHolder $holder,
         ?ChargeStatus $chargeStatus = null
     ): void {
-        $modifier = new Modifier($holder, $modifierConfig);
+        $modifier = new GameModifier($holder, $modifierConfig);
 
         if ($chargeStatus) {
             $modifier->setCharge($chargeStatus);
@@ -88,7 +88,7 @@ class ModifierService implements ModifierServiceInterface
         $multiplicativeDelta = 1;
         $additiveDelta = 0;
 
-        /** @var Modifier $modifier */
+        /** @var GameModifier $modifier */
         foreach ($modifierCollection as $modifier) {
             switch ($modifier->getModifierConfig()->getMode()) {
                 case ModifierModeEnum::SET_VALUE:
@@ -128,12 +128,12 @@ class ModifierService implements ModifierServiceInterface
         $modifiers = $player->getAllModifiers()->getScopedModifiers($scopes);
 
         if ($parameter instanceof Player) {
-            $modifiers = $modifiers->addModifiers($parameter->getModifiers()->getScopedModifiers($scopes)->getReachedModifiers(ModifierReachEnum::TARGET_PLAYER));
+            $modifiers = $modifiers->addModifiers($parameter->getModifiers()->getScopedModifiers($scopes)->getReachedModifiers(ModifierHolderClassEnum::TARGET_PLAYER));
         } elseif ($parameter instanceof GameEquipment) {
             $modifiers = $modifiers->addModifiers($parameter->getModifiers()->getScopedModifiers($scopes));
         }
 
-        return $this->conditionService->getActiveModifiers($modifiers, $action->getActionName(), $player);
+        return $this->activationRequirementService->getActiveModifiers($modifiers, $action->getActionName(), $player);
     }
 
     public function getActionModifiedValue(Action $action, Player $player, string $target, ?LogParameterInterface $parameter, ?int $attemptNumber = null): int
@@ -206,7 +206,7 @@ class ModifierService implements ModifierServiceInterface
             ->getTargetedModifiers($target)
         ;
 
-        $modifiers = $this->conditionService->getActiveModifiers($modifiers, $reason, $holder);
+        $modifiers = $this->activationRequirementService->getActiveModifiers($modifiers, $reason, $holder);
 
         $modifiedValue = $this->getModifiedValue($modifiers, $initValue);
 
@@ -218,7 +218,7 @@ class ModifierService implements ModifierServiceInterface
     }
 
     /**
-     * @param ArrayCollection<int, Modifier> $modifiers
+     * @param ArrayCollection<int, GameModifier> $modifiers
      */
     private function dispatchModifiersEvent(ArrayCollection $modifiers, string $reason, \DateTime $time, bool $isSuccessful = true): void
     {
@@ -236,8 +236,9 @@ class ModifierService implements ModifierServiceInterface
 
         foreach ($player->getStatuses() as $status) {
             $statusConfig = $status->getStatusConfig();
+            /** @var ModifierConfig $modifierConfig */
             foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
-                if ($modifierConfig->getReach() === ModifierReachEnum::PLACE) {
+                if ($modifierConfig->getModifierHolderClass() === ModifierHolderClassEnum::PLACE) {
                     $this->createModifier($modifierConfig, $place);
                 }
             }
@@ -250,8 +251,9 @@ class ModifierService implements ModifierServiceInterface
 
         foreach ($player->getStatuses() as $status) {
             $statusConfig = $status->getStatusConfig();
+            /** @var ModifierConfig $modifierConfig */
             foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
-                if ($modifierConfig->getReach() === ModifierReachEnum::PLACE) {
+                if ($modifierConfig->getModifierHolderClass() === ModifierHolderClassEnum::PLACE) {
                     $this->deleteModifier($modifierConfig, $place);
                 }
             }

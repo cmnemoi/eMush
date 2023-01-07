@@ -9,7 +9,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -53,7 +53,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: Modifier::class, cascade: ['REMOVE'])]
+    #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: GameModifier::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
     #[ORM\ManyToOne(targetEntity: Player::class)]
@@ -181,7 +181,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $allModifiers->addModifiers($this->getDaedalus()->getModifiers());
     }
 
-    public function addModifier(Modifier $modifier): static
+    public function addModifier(GameModifier $modifier): static
     {
         $this->modifiers->add($modifier);
 

@@ -87,4 +87,4 @@ doctrine:
                 type: attribute
                 dir: '%kernel.project_dir%/src/Modifier/Entity'
                 prefix: 'Mush\Modifier\Entity'
-                alias: Modifier
+                alias: GameModifier

@@ -3,7 +3,7 @@
 namespace Mush\Modifier\Listener;
 
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Modifier\Entity\Modifier;
+use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Service\ModifierService;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
@@ -45,7 +45,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
         $eventModifiers = $player->getModifiers()->getScopedModifiers([PlayerEvent::INFECTION_PLAYER]);
 
-        /** @var Modifier $modifier */
+        /** @var GameModifier $modifier */
         foreach ($eventModifiers as $modifier) {
             $event = $this->createQuantityEvent($player, $modifier, $event->getTime(), $event->getReason());
 
@@ -53,11 +53,11 @@ class PlayerSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function createQuantityEvent(Player $player, Modifier $modifier, \DateTime $time, string $eventReason): AbstractQuantityEvent
+    private function createQuantityEvent(Player $player, GameModifier $modifier, \DateTime $time, string $eventReason): AbstractQuantityEvent
     {
         $modifierConfig = $modifier->getModifierConfig();
 
-        $target = $modifierConfig->getTarget();
+        $target = $modifierConfig->getTargetVariable();
         $value = intval($modifierConfig->getDelta());
         $reason = $modifierConfig->getModifierName() ?: $eventReason;
 

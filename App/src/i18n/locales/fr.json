@@ -89,14 +89,14 @@
 		"modifierConfig": {
 			"name": "Nom",
 			"delta": "Delta",
-			"target": "Variable cible",
-			"scope": "Déclencheur",
-			"reach": "Portée",
+			"targetVariable": "Variable cible",
+			"targetEvent": "Déclencheur",
+			"modifierHolderClass": "Entité porteuse du modificateur",
 			"mode": "Mode de calcul"
 		},
-		"modifierCondition": {
+		"modifierActivationRequirement": {
 			"name": "Nom",
-			"condition": "Condition",
+			"activationRequirement": "Condition",
 			"value": "Valeur"
 		},
 		"statusConfig": {
@@ -205,14 +205,14 @@
 			"symptomName": "Nom du symptôme",
 			"trigger": "Déclencheur",
 			"visibility": "Visibilité",
-			"symptomConditions": "Conditions de déclenchement"
+			"symptomActivationRequirements": "Conditions de déclenchement"
 		},
-		"symptomCondition":
+		"symptomActivationRequirement":
 		{
 			"pageTitle": "Modification de la condition de déclenchement ",
-			"conditionName": "Nom",
+			"activationRequirementName": "Nom",
 			"name": "Nom complet",
-			"condition": "Condition",
+			"activationRequirement": "Condition",
 			"value": "Probabilité de déclenchement"
 		},
 		"equipmentConfig":

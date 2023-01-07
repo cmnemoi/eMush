@@ -8,7 +8,7 @@ use Mush\Disease\Entity\Collection\SymptomConfigCollection;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
-use Mush\Disease\Service\SymptomConditionServiceInterface;
+use Mush\Disease\Service\SymptomActivationRequirementServiceInterface;
 use Mush\Disease\Service\SymptomServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -22,20 +22,20 @@ class ActionSubscriber implements EventSubscriberInterface
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private RandomServiceInterface $randomService;
     private SymptomServiceInterface $symptomService;
-    private SymptomConditionServiceInterface $symptomConditionService;
+    private SymptomActivationRequirementServiceInterface $symptomActivationRequirementService;
 
     public function __construct(
         DiseaseCauseServiceInterface $diseaseCauseService,
         RandomServiceInterface $randomService,
         PlayerDiseaseServiceInterface $playerDiseaseService,
         SymptomServiceInterface $symptomService,
-        SymptomConditionServiceInterface $symptomConditionService)
+        SymptomActivationRequirementServiceInterface $symptomActivationRequirementService)
     {
         $this->diseaseCauseService = $diseaseCauseService;
         $this->randomService = $randomService;
         $this->playerDiseaseService = $playerDiseaseService;
         $this->symptomService = $symptomService;
-        $this->symptomConditionService = $symptomConditionService;
+        $this->symptomActivationRequirementService = $symptomActivationRequirementService;
     }
 
     public static function getSubscribedEvents(): array
@@ -119,7 +119,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $action = $event->getAction();
 
         $postActionSymptomConfigs = $this->getPlayerSymptomConfigs($player)->getTriggeredSymptoms([ActionEvent::POST_ACTION]);
-        $postActionSymptomConfigs = $this->symptomConditionService->getActiveSymptoms($postActionSymptomConfigs, $player, $action->getActionName(), $action);
+        $postActionSymptomConfigs = $this->symptomActivationRequirementService->getActiveSymptoms($postActionSymptomConfigs, $player, $action->getActionName(), $action);
 
         foreach ($postActionSymptomConfigs as $symptomConfig) {
             $this->symptomService->handleBreakouts($symptomConfig, $player, $event->getTime());

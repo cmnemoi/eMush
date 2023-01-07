@@ -26,13 +26,13 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\ModifierCondition;
+use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Entity\ModifierActivationRequirement;
 use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Enum\ModifierConditionEnum;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
-use Mush\Modifier\Enum\ModifierReachEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -104,21 +104,21 @@ class ShowerActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $showerActionCondition = new ModifierCondition(ModifierConditionEnum::REASON);
-        $showerActionCondition
-            ->setCondition(ActionEnum::SHOWER)
+        $showerActionActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::REASON);
+        $showerActionActivationRequirement
+            ->setActivationRequirement(ActionEnum::SHOWER)
             ->buildName()
         ;
-        $I->haveInRepository($showerActionCondition);
+        $I->haveInRepository($showerActionActivationRequirement);
 
         $mushShowerModifier = new ModifierConfig();
         $mushShowerModifier
-            ->setScope(ActionEvent::POST_ACTION)
-            ->setTarget(PlayerVariableEnum::HEALTH_POINT)
+            ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setDelta(-3)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
-            ->addModifierCondition($showerActionCondition)
+            ->addModifierRequirement($showerActionActivationRequirement)
             ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)
             ->buildName()
         ;
@@ -169,19 +169,19 @@ class ShowerActionCest
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setScope(ActionEnum::SHOWER)
-            ->setReach(ReachEnum::INVENTORY)
+            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setModifierHolderClass(ReachEnum::INVENTORY)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
-        $modifier = new Modifier($player, $modifierConfig);
+        $modifier = new GameModifier($player, $modifierConfig);
         $I->haveInRepository($modifier);
 
-        $mushModifier = new Modifier($player, $mushShowerModifier);
+        $mushModifier = new GameModifier($player, $mushShowerModifier);
         $I->haveInRepository($mushModifier);
 
         $I->refreshEntities($player);
@@ -212,10 +212,10 @@ class ShowerActionCest
     {
         $modifier = new ModifierConfig();
         $modifier
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setScope(ActionEnum::SHOWER)
-            ->setReach(ReachEnum::INVENTORY)
+            ->setTargetEvent(ActionEnum::SHOWER)
+            ->setModifierHolderClass(ReachEnum::INVENTORY)
             ->setMode(ModifierModeEnum::ADDITIVE)
         ;
 

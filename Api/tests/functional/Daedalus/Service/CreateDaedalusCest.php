@@ -23,7 +23,7 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Enum\ModifierReachEnum;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\DoorEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -83,12 +83,12 @@ class CreateDaedalusCest
         ;
         $I->haveInRepository($alienArtifact);
 
-        // Modifier configs
+        // GameModifier configs
         $gravityModifier = new ModifierConfig();
         $gravityModifier
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope(ActionEnum::MOVE)
-            ->setTarget(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent(ActionEnum::MOVE)
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->buildName()
         ;
         $I->haveInRepository($gravityModifier);

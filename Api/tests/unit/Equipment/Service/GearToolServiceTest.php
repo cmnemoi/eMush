@@ -315,10 +315,10 @@ class GearToolServiceTest extends TestCase
 
         $modifier1 = new ModifierConfig();
         $modifier1
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
-            ->setScope(ActionEnum::REPAIR)
-            ->setReach(ReachEnum::INVENTORY)
+            ->setTargetEvent(ActionEnum::REPAIR)
+            ->setModifierHolderClass(ReachEnum::INVENTORY)
         ;
         $gear1 = new Gear();
         $gear1->setModifierConfigs(new arrayCollection([$modifier1]));
@@ -335,10 +335,10 @@ class GearToolServiceTest extends TestCase
 
         $modifier2 = new ModifierConfig();
         $modifier2
-            ->setTarget(ModifierTargetEnum::PERCENTAGE)
+            ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
-            ->setScope(ActionEnum::REPAIR)
-            ->setReach(ReachEnum::INVENTORY)
+            ->setTargetEvent(ActionEnum::REPAIR)
+            ->setModifierHolderClass(ReachEnum::INVENTORY)
         ;
         $gear2 = new Gear();
         $gear2->setModifierConfigs(new arrayCollection([$modifier2]));
@@ -359,10 +359,10 @@ class GearToolServiceTest extends TestCase
 
         $modifier3 = new ModifierConfig();
         $modifier3
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
-            ->setScope(ActionEnum::REPAIR)
-            ->setReach(ReachEnum::INVENTORY)
+            ->setTargetEvent(ActionEnum::REPAIR)
+            ->setModifierHolderClass(ReachEnum::INVENTORY)
         ;
         $gear3 = new Gear();
         $gear3->setModifierConfigs(new arrayCollection([$modifier3]));

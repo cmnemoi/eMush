@@ -16,7 +16,7 @@ Mush\Disease\Entity\Config\SymptomConfig:
     put:
       security: 'is_granted("ROLE_ADMIN")'
   properties:
-    symptomConditions:
+    symptomActivationRequirements:
       subresource:
-        resourceClass: 'Mush\Disease\Entity\SymptomCondition'
+        resourceClass: 'Mush\Disease\Entity\SymptomActivationRequirement'
         collection: true

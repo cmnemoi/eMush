@@ -2,7 +2,7 @@ import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
 import { GameConfig } from "@/entities/Config/GameConfig";
 import { DaedalusConfig } from "@/entities/Config/DaedalusConfig";
-import { ModifierCondition } from "@/entities/Config/ModifierCondition";
+import { ModifierActivationRequirement } from "@/entities/Config/ModifierActivationRequirement";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import { StatusConfig } from "@/entities/Config/StatusConfig";
 import store from "@/store";
@@ -13,7 +13,7 @@ import { CharacterConfig } from "@/entities/Config/CharacterConfig";
 import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { DiseaseConfig } from "@/entities/Config/DiseaseConfig";
 import { SymptomConfig } from "@/entities/Config/SymptomConfig";
-import { SymptomCondition } from "@/entities/Config/SymptomCondition";
+import { SymptomActivationRequirement } from "@/entities/Config/SymptomActivationRequirement";
 import { Mechanics } from "@/entities/Config/Mechanics";
 import { PlaceConfig } from "@/entities/Config/PlaceConfig";
 import { RandomItemPlaces } from "@/entities/Config/RandomItemPlaces";
@@ -23,7 +23,7 @@ const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs"
 // @ts-ignore
 const MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_configs");
 // @ts-ignore
-const MODIFIER_CONDITION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_conditions");
+const MODIFIER_REQUIREMENT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_activation_requirements");
 // @ts-ignore
 const CONFIG_STATUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "status_configs");
 // @ts-ignore
@@ -43,7 +43,7 @@ const DISEASE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "disease_co
 // @ts-ignore
 const SYMPTOM_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "symptom_configs");
 // @ts-ignore
-const SYMPTOM_CONDITION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "symptom_conditions");
+const SYMPTOM_REQUIREMENT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "symptom_activation_requirements");
 // @ts-ignore
 const MECHANICS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "mechanics");
 // @ts-ignore
@@ -112,22 +112,22 @@ const GameConfigService = {
         return modifierConfig;
     },
 
-    loadModifierCondition: async(modifierConditionId: number): Promise<ModifierCondition | null> => {
+    loadModifierActivationRequirement: async(modifierRequirementId: number): Promise<ModifierActivationRequirement | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const modifierConditionData = await ApiService.get(MODIFIER_CONDITION_ENDPOINT + '/' + modifierConditionId + '?XDEBUG_SESSION_START=PHPSTORM')
+        const modifierRequirementData = await ApiService.get(MODIFIER_REQUIREMENT_ENDPOINT + '/' + modifierRequirementId + '?XDEBUG_SESSION_START=PHPSTORM')
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
-        let modifierCondition = null;
-        if (modifierConditionData.data) {
-            modifierCondition = (new ModifierCondition()).load(modifierConditionData.data);
+        let modifierRequirement = null;
+        if (modifierRequirementData.data) {
+            modifierRequirement = (new ModifierActivationRequirement()).load(modifierRequirementData.data);
         }
 
-        return modifierCondition;
+        return modifierRequirement;
     },
 
-    updateModifierCondition: async(modifierCondition: ModifierCondition): Promise<ModifierCondition | null> => {
+    updateModifierActivationRequirement: async(modifierRequirement: ModifierActivationRequirement): Promise<ModifierActivationRequirement | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const modifierConditionData = await ApiService.put(MODIFIER_CONDITION_ENDPOINT + '/' + modifierCondition.id + '?XDEBUG_SESSION_START=PHPSTORM', modifierCondition)
+        const modifierRequirementData = await ApiService.put(MODIFIER_REQUIREMENT_ENDPOINT + '/' + modifierRequirement.id + '?XDEBUG_SESSION_START=PHPSTORM', modifierRequirement)
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
@@ -135,11 +135,11 @@ const GameConfigService = {
 
         store.dispatch('gameConfig/setLoading', { loading: false });
 
-        if (modifierConditionData.data) {
-            modifierCondition = (new ModifierCondition()).load(modifierConditionData.data);
+        if (modifierRequirementData.data) {
+            modifierRequirement = (new ModifierActivationRequirement()).load(modifierRequirementData.data);
         }
 
-        return modifierCondition;
+        return modifierRequirement;
     },
 
     loadStatusConfig: async(statusConfigId: number): Promise<StatusConfig | null> => {
@@ -412,22 +412,22 @@ const GameConfigService = {
         return symptomConfig;
     },
 
-    loadSymptomCondition: async(symptomConditionId: number): Promise<SymptomCondition | null> => {
+    loadSymptomActivationRequirement: async(symptomActivationRequirementId: number): Promise<SymptomActivationRequirement | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const symptomConditionData = await ApiService.get(SYMPTOM_CONDITION_ENDPOINT + '/' + symptomConditionId + '?XDEBUG_SESSION_START=PHPSTORM')
+        const symptomActivationRequirementData = await ApiService.get(SYMPTOM_REQUIREMENT_ENDPOINT + '/' + symptomActivationRequirementId + '?XDEBUG_SESSION_START=PHPSTORM')
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
-        let symptomCondition = null;
-        if (symptomConditionData.data) {
-            symptomCondition = (new SymptomCondition()).load(symptomConditionData.data);
+        let symptomActivationRequirement = null;
+        if (symptomActivationRequirementData.data) {
+            symptomActivationRequirement = (new SymptomActivationRequirement()).load(symptomActivationRequirementData.data);
         }
 
-        return symptomCondition;
+        return symptomActivationRequirement;
     },
 
-    updateSymptomCondition: async(symptomCondition: SymptomCondition): Promise<SymptomCondition | null> => {
+    updateSymptomActivationRequirement: async(symptomActivationRequirement: SymptomActivationRequirement): Promise<SymptomActivationRequirement | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const symptomConditionData = await ApiService.put(SYMPTOM_CONDITION_ENDPOINT + '/' + symptomCondition.id + '?XDEBUG_SESSION_START=PHPSTORM', symptomCondition.jsonEncode())
+        const symptomActivationRequirementData = await ApiService.put(SYMPTOM_REQUIREMENT_ENDPOINT + '/' + symptomActivationRequirement.id + '?XDEBUG_SESSION_START=PHPSTORM', symptomActivationRequirement.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
@@ -435,11 +435,11 @@ const GameConfigService = {
 
         store.dispatch('gameConfig/setLoading', { loading: false });
 
-        if (symptomConditionData.data) {
-            symptomCondition = (new SymptomCondition()).load(symptomConditionData.data);
+        if (symptomActivationRequirementData.data) {
+            symptomActivationRequirement = (new SymptomActivationRequirement()).load(symptomActivationRequirementData.data);
         }
 
-        return symptomCondition;
+        return symptomActivationRequirement;
     },
 
     loadMechanics: async(mechanicsId: number): Promise<Mechanics | null> => {

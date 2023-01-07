@@ -94,9 +94,9 @@
 			"reach": "Portée",
 			"mode": "Mode"
 		},
-		"modifierCondition": {
+		"modifierActivationRequirement": {
 			"name": "Nom",
-			"condition": "Condition",
+			"activationRequirement": "Condition",
 			"value": "Valeur"
 		},
 		"statusConfig": {

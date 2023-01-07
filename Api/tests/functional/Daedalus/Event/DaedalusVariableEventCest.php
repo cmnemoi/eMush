@@ -12,11 +12,11 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\AbstractQuantityEvent;
-use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\ModifierCondition;
+use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Entity\ModifierActivationRequirement;
 use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Enum\ModifierConditionEnum;
-use Mush\Modifier\Enum\ModifierReachEnum;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Place\Entity\Place;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -60,25 +60,25 @@ class DaedalusVariableEventCest
         $I->assertEquals(30, $daedalus->getOxygen());
 
         // add an oxygen tank
-        $modifierCondition = new ModifierCondition(ModifierConditionEnum::REASON);
-        $modifierCondition
-            ->setCondition(EventEnum::NEW_CYCLE)
+        $modifierActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::REASON);
+        $modifierActivationRequirement
+            ->setActivationRequirement(EventEnum::NEW_CYCLE)
             ->buildName()
         ;
-        $I->haveInRepository($modifierCondition);
+        $I->haveInRepository($modifierActivationRequirement);
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setTarget(DaedalusVariableEnum::OXYGEN)
+            ->setTargetVariable(DaedalusVariableEnum::OXYGEN)
             ->setDelta(1)
-            ->setReach(ModifierReachEnum::DAEDALUS)
-            ->setScope(AbstractQuantityEvent::CHANGE_VARIABLE)
-            ->addModifierCondition($modifierCondition)
+            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent(AbstractQuantityEvent::CHANGE_VARIABLE)
+            ->addModifierRequirement($modifierActivationRequirement)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
-        $modifier = new Modifier($daedalus, $modifierConfig);
+        $modifier = new GameModifier($daedalus, $modifierConfig);
         $I->haveInRepository($modifier);
 
         $event = new DaedalusVariableEvent(

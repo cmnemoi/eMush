@@ -251,7 +251,7 @@ class ActionServiceTest extends TestCase
         ;
         $this->assertEquals(20, $this->service->getSuccessRate($action, $player, null));
 
-        // With Modifier
+        // With GameModifier
         $this->modifierService->shouldReceive('getActionModifiedValue')
             ->with($action, $player, ModifierTargetEnum::PERCENTAGE, null, 0)
             ->andReturn(40)

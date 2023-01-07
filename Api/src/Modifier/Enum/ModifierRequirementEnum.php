@@ -3,8 +3,8 @@
 namespace Mush\Modifier\Enum;
 
 /**
- * Class enumerating the conditions applied on modifiers
- * Modifier is only applied if the condition is valid.
+ * Class enumerating the activationRequirements applied on modifiers
+ * GameModifier is only applied if the activationRequirement is valid.
  *
  * REASON: the modifier is applied on a certain reason.
  *        For example, only on Move actions.
@@ -14,21 +14,21 @@ namespace Mush\Modifier\Enum;
  *
  * RANDOM: the application of the modifier is random
  *
- * PLAYER_IN_ROOM: the condition is applied on the number of player in the room
+ * PLAYER_IN_ROOM: the activationRequirement is applied on the number of player in the room
  * ALONE: the player is alone in the room
  * NOT_ALONE: the player is not alone in the room
  * FOUR_PEOPLE: there is 4 players in the room
  *
- * ITEM_IN_ROOM: the condition is applied if item is in the room
+ * ITEM_IN_ROOM: the activationRequirement is applied if item is in the room
  *
- * CYCLE: condition on the cycle (number, even)
- * EVEN: in case of a CYCLE condition, check if the cycle is even
+ * CYCLE: activationRequirement on the cycle (number, even)
+ * EVEN: in case of a CYCLE activationRequirement, check if the cycle is even
  *
- * PLAYER_EQUIPMENT: the condition is applied on the player equipment
+ * PLAYER_EQUIPMENT: the activationRequirement is applied on the player equipment
  *
- * PLAYER_STATUS: the condition is applied on the player status
+ * PLAYER_STATUS: the activationRequirement is applied on the player status
  */
-class ModifierConditionEnum
+class ModifierRequirementEnum
 {
     public const REASON = 'reason';
 

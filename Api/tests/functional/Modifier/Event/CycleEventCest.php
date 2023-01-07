@@ -10,13 +10,13 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Modifier;
-use Mush\Modifier\Entity\ModifierCondition;
+use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Entity\ModifierActivationRequirement;
 use Mush\Modifier\Entity\ModifierConfig;
-use Mush\Modifier\Enum\ModifierConditionEnum;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierModeEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
-use Mush\Modifier\Enum\ModifierReachEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Listener\CycleEventSubscriber;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -81,16 +81,16 @@ class CycleEventCest
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setScope(EventEnum::NEW_CYCLE)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
-        $modifier = new Modifier($player, $modifierConfig);
+        $modifier = new GameModifier($player, $modifierConfig);
         $I->haveInRepository($modifier);
 
         $cycleEvent = new PlayerCycleEvent($player, EventEnum::NEW_CYCLE, $time);
@@ -150,27 +150,27 @@ class CycleEventCest
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
 
-        $notAloneCondition = new ModifierCondition(ModifierConditionEnum::PLAYER_IN_ROOM);
-        $notAloneCondition
-            ->setCondition(ModifierConditionEnum::NOT_ALONE)
+        $notAloneActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::PLAYER_IN_ROOM);
+        $notAloneActivationRequirement
+            ->setActivationRequirement(ModifierRequirementEnum::NOT_ALONE)
             ->buildName()
         ;
-        $I->haveInRepository($notAloneCondition);
+        $I->haveInRepository($notAloneActivationRequirement);
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setScope(EventEnum::NEW_CYCLE)
-            ->setTarget(PlayerVariableEnum::MORAL_POINT)
+            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->setModifierName(ModifierNameEnum::ANTISOCIAL_MODIFIER)
-            ->addModifierCondition($notAloneCondition)
+            ->addModifierRequirement($notAloneActivationRequirement)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
-        $modifier = new Modifier($player, $modifierConfig);
+        $modifier = new GameModifier($player, $modifierConfig);
         $I->haveInRepository($modifier);
 
         $cycleEvent = new PlayerCycleEvent($player, EventEnum::NEW_CYCLE, $time);
@@ -232,31 +232,31 @@ class CycleEventCest
 
         $modifierConfig = new ModifierConfig();
         $modifierConfig
-            ->setScope(EventEnum::NEW_CYCLE)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::ADDITIVE)
             ->buildName()
         ;
         $I->haveInRepository($modifierConfig);
 
-        $modifier = new Modifier($player, $modifierConfig);
+        $modifier = new GameModifier($player, $modifierConfig);
         $I->haveInRepository($modifier);
 
         $fitfullModifierConfig = new ModifierConfig();
         $fitfullModifierConfig
-            ->setScope(EventEnum::NEW_CYCLE)
-            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+            ->setTargetEvent(EventEnum::NEW_CYCLE)
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
-            ->setReach(ModifierReachEnum::PLAYER)
+            ->setModifierHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setMode(ModifierModeEnum::SET_VALUE)
             ->setModifierName(ModifierNameEnum::FITFULL_SLEEP)
             ->buildName()
         ;
         $I->haveInRepository($fitfullModifierConfig);
 
-        $fitfullModifier = new Modifier($player, $fitfullModifierConfig);
+        $fitfullModifier = new GameModifier($player, $fitfullModifierConfig);
         $I->haveInRepository($fitfullModifier);
 
         $cycleEvent = new PlayerCycleEvent($player, EventEnum::NEW_CYCLE, $time);

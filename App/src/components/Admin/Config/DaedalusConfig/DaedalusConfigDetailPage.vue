@@ -99,6 +99,12 @@
                 :errors="errors.cycleLength"
             ></Input>
         </div>
+        <h3>{{ $t('admin.daedalusConfig.placeConfigs') }}</h3>
+        <ChildCollectionManager :children="daedalusConfig.placeConfigs" @addId="selectNewPlaceConfigs" @remove="removePlaceConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
         <button class="action-button" type="submit" @click="update">
             {{ $t('admin.save') }}
         </button>
@@ -111,6 +117,12 @@ import GameConfigService from "@/services/game_config.service";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import Input from "@/components/Utils/Input.vue";
 import { DaedalusConfig } from "@/entities/Config/DaedalusConfig";
+import { RandomItemPlaces } from "@/entities/Config/RandomItemPlaces";
+import { PlaceConfig } from "@/entities/Config/PlaceConfig";
+import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
+import ApiService from "@/services/api.service";
+import urlJoin from "url-join";
+import { removeItem } from "@/utils/misc";
 
 interface DaedalusConfigState {
     daedalusConfig: null|DaedalusConfig
@@ -120,6 +132,7 @@ interface DaedalusConfigState {
 export default defineComponent({
     name: "DaedalusConfigDetailPage",
     components: {
+        ChildCollectionManager,
         Input
     },
     data: function (): DaedalusConfigState {
@@ -137,6 +150,30 @@ export default defineComponent({
             GameConfigService.updateDaedalusConfig(this.daedalusConfig)
                 .then((res: DaedalusConfig | null) => {
                     this.daedalusConfig = res;
+                    if (this.daedalusConfig !== null) {
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'daedalus_configs', String(this.daedalusConfig.id), 'random_item_places'))
+                            .then((result) => {
+                                const randomItemPlaces: RandomItemPlaces[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    const currentRandomItemPlaces = (new RandomItemPlaces()).load(datum);
+                                    randomItemPlaces.push(currentRandomItemPlaces);
+                                });
+                                if (this.daedalusConfig instanceof DaedalusConfig) {
+                                    this.daedalusConfig.randomItemPlaces = randomItemPlaces;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'daedalus_configs', String(this.daedalusConfig.id), 'place_configs'))
+                            .then((result) => {
+                                const placeConfigs: PlaceConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    const currentPlaceConfig = (new PlaceConfig()).load(datum);
+                                    placeConfigs.push(currentPlaceConfig);
+                                });
+                                if (this.daedalusConfig instanceof DaedalusConfig) {
+                                    this.daedalusConfig.placeConfigs = placeConfigs;
+                                }
+                            });
+                    }
                 })
                 .catch((error) => {
                     if (error.response) {
@@ -151,12 +188,46 @@ export default defineComponent({
                         console.error('Error', error.message);
                     }
                 });
+        },
+        selectNewPlaceConfigs(selectedId: number): void {
+            GameConfigService.loadPlaceConfig(selectedId).then((res) => {
+                if (res && this.daedalusConfig && this.daedalusConfig.placeConfigs) {
+                    this.daedalusConfig.placeConfigs.push(res);
+                }
+            });
+        },
+        removePlaceConfig(child: any): void {
+            if (this.daedalusConfig && this.daedalusConfig.placeConfigs) {
+                this.daedalusConfig.placeConfigs = removeItem(this.daedalusConfig.placeConfigs, child);
+            }
         }
     },
     beforeMount() {
-        const daedalusConfigId = Number(this.$route.params.daedalusConfigId);
-        GameConfigService.loadDaedalusConfig(daedalusConfigId).then((res: DaedalusConfig | null) => {
+        const daedalusConfigId = String(this.$route.params.daedalusConfigId);
+        GameConfigService.loadDaedalusConfig(Number(daedalusConfigId)).then((res: DaedalusConfig | null) => {
             this.daedalusConfig = res;
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'daedalus_configs', daedalusConfigId, 'random_item_places'))
+                .then((result) => {
+                    const randomItemPlaces : RandomItemPlaces[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        const currentRandomItemPlaces = (new RandomItemPlaces()).load(datum);
+                        randomItemPlaces.push(currentRandomItemPlaces);
+                    });
+                    if (this.daedalusConfig instanceof DaedalusConfig) {
+                        this.daedalusConfig.randomItemPlaces = randomItemPlaces;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'daedalus_configs', daedalusConfigId, 'place_configs'))
+                .then((result) => {
+                    const placeConfigs : PlaceConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        const currentPlaceConfig = (new PlaceConfig()).load(datum);
+                        placeConfigs.push(currentPlaceConfig);
+                    });
+                    if (this.daedalusConfig instanceof DaedalusConfig) {
+                        this.daedalusConfig.placeConfigs = placeConfigs;
+                    }
+                });
         });
     }
 });

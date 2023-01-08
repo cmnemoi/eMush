@@ -80,7 +80,7 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setPlaces(RoomEnum::getStorages())
         ;
 
-        $daedalusConfig->setRandomItemPlace($randomStorageItemPlaces);
+        $daedalusConfig->setRandomItemPlaces($randomStorageItemPlaces);
 
         $manager->persist($daedalusConfig);
 

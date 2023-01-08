@@ -198,7 +198,7 @@ class CreateDaedalusCest
                 RoomEnum::FRONT_CORRIDOR,
             ])
         ;
-        $daedalusConfig->setRandomItemPlace($randomItemPlaces);
+        $daedalusConfig->setRandomItemPlaces($randomItemPlaces);
 
         return $daedalusConfig;
     }

@@ -11,6 +11,8 @@ Mush\Disease\Entity\Config\ConsumableDiseaseConfig:
     get:
       filters: [ 'default.search_filter', 'default.order_filter' ]
   itemOperations:
-    get: ~
+    get: 
+      security: 'is_granted("ROLE_ADMIN")'
     put:
       security: 'is_granted("ROLE_ADMIN")'
+

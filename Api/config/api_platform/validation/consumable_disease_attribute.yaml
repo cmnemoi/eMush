@@ -1,0 +1,17 @@
+Mush\Disease\Entity\ConsumableDiseaseAttribute:
+  properties:
+    disease:
+      - NotBlank: ~
+      - Type: string
+    type:
+      - NotBlank: ~
+      - Type: string
+    rate:
+      - NotBlank: ~
+      - Type: integer
+    delayMin:
+      - NotBlank: ~
+      - Type: integer
+    delayLength:
+      - NotBlank: ~
+      - Type: integer

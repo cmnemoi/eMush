@@ -4,17 +4,20 @@
             <router-link :to="{ name: 'AdminDaedalusConfigList' }">Daedalus Config</router-link>
             <router-link :to="{ name: 'AdminDifficultyConfigList' }">Difficulty Config</router-link>
             <router-link :to="{ name: 'AdminCharacterConfigList' }">Character Config</router-link>
+            <router-link :to="{ name: 'AdminPlaceConfigList' }">Place Config</router-link>
+            <router-link :to="{ name: 'AdminRandomItemPlacesList' }">Random Item Places</router-link>
+            <router-link :to="{ name: 'AdminEquipmentConfigList' }">Equipment Config</router-link>
+            <router-link :to="{ name: 'AdminMechanicsList' }">Mechanics</router-link>
+        </div>
+        <div class="admin-menu">
             <router-link :to="{ name: 'AdminDiseaseConfigList' }">Disease Config</router-link>
+            <router-link :to="{ name: 'AdminConsumableDiseaseConfigList' }">Consumable Disease Config</router-link>
             <router-link :to="{ name: 'AdminModifierConfigList' }">Modifier Config</router-link>
             <router-link :to="{ name: 'AdminModifierActivationRequirementList' }">Modifier Requirements</router-link>
             <router-link :to="{ name: 'AdminSymptomConfigList' }">Symptom Config</router-link>
             <router-link :to="{ name: 'AdminSymptomActivationRequirementList' }">Symptom Requirement</router-link>
         </div>
         <div class="admin-menu">
-            <router-link :to="{ name: 'AdminPlaceConfigList' }">Place Config</router-link>
-            <router-link :to="{ name: 'AdminEquipmentConfigList' }">Equipment Config</router-link>
-            <router-link :to="{ name: 'AdminMechanicsList' }">Mechanics</router-link>
-            <router-link :to="{ name: 'AdminRandomItemPlacesList' }">Random Item Places</router-link>
             <router-link :to="{ name: 'AdminStatusConfigList' }">Status Config</router-link>
             <router-link :to="{ name: 'AdminActionConfigList' }">Action Config</router-link>
             <router-link :to="{ name: 'AdminActionCostList' }">Action Cost</router-link>

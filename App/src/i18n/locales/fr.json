@@ -299,6 +299,17 @@
 		"stringArrayManager":
 		{
 			"elementToAdd": "Élément à ajouter : "
+		},
+		"consumableDiseaseConfig":
+		{
+			"pageTitle": "Modification de la configuration des maladies de la nourriture ",
+			"curesName": "Maladies guéries par la nourritre (maladie => probabilité qu'elle soit choisie)",
+			"diseasesName": "Maladies provoquées par la nourriture (maladie => probabilité qu'elle soit choisie)",
+			"diseasesChances": "Probabilité de contracter une maladie (probabilité => probabilité qu'elle soit choisie)",
+			"curesChances": "Probabilité de guérir d'une maladie (probabilité => probabilité qu'elle soit choisie)",
+			"diseasesDelayMin": "Nombre de cycles avant effet (nombre de cycles => probabilité qu'il soit choisi)",
+			"diseasesDelayLength": "Nombre de cycles d'incubation (nombre de cycles => probabilité qu'il soit choisi)",
+			"effectNumber": "Nombre d'effets (nombre d'effets => probabilité qu'il soit choisi)"
 		}
 	},
 	"charselection": {

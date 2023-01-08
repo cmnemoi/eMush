@@ -17,6 +17,8 @@ import { SymptomActivationRequirement } from "@/entities/Config/SymptomActivatio
 import { Mechanics } from "@/entities/Config/Mechanics";
 import { PlaceConfig } from "@/entities/Config/PlaceConfig";
 import { RandomItemPlaces } from "@/entities/Config/RandomItemPlaces";
+import { ConsumableDiseaseConfig } from "@/entities/Config/ConsumableDiseaseConfig";
+import { ConsumableDiseaseAttribute } from "@/entities/ConsumableDiseaseAttribute";
 
 // @ts-ignore
 const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");
@@ -50,6 +52,10 @@ const MECHANICS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "mechanics");
 const PLACE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "place_configs");
 // @ts-ignore
 const RANDOM_ITEM_PLACES_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "random_item_places");
+// @ts-ignore
+const CONSUMABLE_DISEASE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "consumable_disease_configs");
+// @ts-ignore
+const CONSUMABLE_DISEASE_ATTRIBUTE_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "consumable_disease_attributes");
 
 const GameConfigService = {
     loadGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {
@@ -530,8 +536,66 @@ const GameConfigService = {
         }
 
         return randomItemPlaces;
+    },
+
+    loadConsumableDiseaseConfig: async(consumableDiseaseConfigId: number): Promise<ConsumableDiseaseConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const consumableDiseaseConfigData = await ApiService.get(CONSUMABLE_DISEASE_CONFIG_ENDPOINT + '/' + consumableDiseaseConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        let consumableDiseaseConfig = null;
+        if (consumableDiseaseConfigData.data) {
+            consumableDiseaseConfig = (new ConsumableDiseaseConfig()).load(consumableDiseaseConfigData.data);
+        }
+
+        return consumableDiseaseConfig;
+    },
+
+    updateConsumableDiseaseConfig: async(consumableDiseaseConfig: ConsumableDiseaseConfig): Promise<ConsumableDiseaseConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const consumableDiseaseConfigData = await ApiService.put(CONSUMABLE_DISEASE_CONFIG_ENDPOINT + '/' + consumableDiseaseConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', consumableDiseaseConfig.jsonEncode())
+            .catch((e) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw e;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        if (consumableDiseaseConfigData.data) {
+            consumableDiseaseConfig = (new ConsumableDiseaseConfig()).load(consumableDiseaseConfigData.data);
+        }
+
+        return consumableDiseaseConfig;
+    },
+
+    loadConsumableDiseaseAttribute: async(consumableDiseaseAttributeId: number): Promise<ConsumableDiseaseAttribute | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const consumableDiseaseAttributeData = await ApiService.get(CONSUMABLE_DISEASE_ATTRIBUTE_ENDPOINT + '/' + consumableDiseaseAttributeId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        let consumableDiseaseAttribute = null;
+        if (consumableDiseaseAttributeData.data) {
+            consumableDiseaseAttribute = (new ConsumableDiseaseAttribute()).load(consumableDiseaseAttributeData.data);
+        }
+
+        return consumableDiseaseAttribute;
+    },
+
+    updateConsumableDiseaseAttribute: async(consumableDiseaseAttribute: ConsumableDiseaseAttribute): Promise<ConsumableDiseaseAttribute | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const consumableDiseaseAttributeData = await ApiService.put(CONSUMABLE_DISEASE_ATTRIBUTE_ENDPOINT + '/' + consumableDiseaseAttribute.id + '?XDEBUG_SESSION_START=PHPSTORM', consumableDiseaseAttribute.jsonEncode())
+            .catch((e) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw e;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        if (consumableDiseaseAttributeData.data) {
+            consumableDiseaseAttribute = (new ConsumableDiseaseAttribute()).load(consumableDiseaseAttributeData.data);
+        }
+
+        return consumableDiseaseAttribute;
     }
-
-
 };
 export default GameConfigService;

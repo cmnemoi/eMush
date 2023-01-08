@@ -3,17 +3,15 @@
 namespace Mush\Action\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 
-class MushActionFixtures extends Fixture implements DependentFixtureInterface
+class MushActionFixtures extends Fixture
 {
     public const SPREAD_FIRE = 'spread.fire';
     public const EXTRACT_SPORE = 'extract.spore';
@@ -21,25 +19,17 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
     public const MAKE_SICK = 'make.sick';
     public const FAKE_DISEASE = 'fake.disease';
     public const SCREW_TALKIE = 'screw.talkie';
+    public const PHAGOCYTE = 'phagocyte';
 
     public function load(ObjectManager $manager): void
     {
-        /** @var ActionCost $oneActionPointCost */
-        $oneActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_ONE_ACTION);
-        /** @var ActionCost $twoActionPointCost */
-        $twoActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_TWO_ACTION);
-        /** @var ActionCost $threeActionPointCost */
-        $threeActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_THREE_ACTION);
-        /** @var ActionCost $fourActionPointCost */
-        $fourActionPointCost = $this->getReference(ActionCostFixture::ACTION_COST_FOUR_ACTION);
-
         $extractSporeAction = new Action();
         $extractSporeAction
             ->setName(ActionEnum::EXTRACT_SPORE)
             ->setActionName(ActionEnum::EXTRACT_SPORE)
             ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($twoActionPointCost)
-            ->setDirtyRate(101)
+            ->setActionCost(2)
+            ->setDirtyRate(100, true)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
         ;
 
@@ -51,7 +41,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
             ->setActionName(ActionEnum::INFECT)
             ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setActionCost($oneActionPointCost)
+            ->setActionCost(1)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT)
         ;
 
@@ -62,7 +52,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ActionEnum::SPREAD_FIRE)
             ->setActionName(ActionEnum::SPREAD_FIRE)
             ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($fourActionPointCost)
+            ->setActionCost(4)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
         ;
 
@@ -74,7 +64,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
             ->setActionName(ActionEnum::MAKE_SICK)
             ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setActionCost($oneActionPointCost)
+            ->setActionCost(1)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT)
         ;
 
@@ -85,7 +75,7 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
             ->setName(ActionEnum::FAKE_DISEASE)
             ->setActionName(ActionEnum::FAKE_DISEASE)
             ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($oneActionPointCost)
+            ->setActionCost(1)
             ->setDirtyRate(60)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
         ;
@@ -98,11 +88,21 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
             ->setActionName(ActionEnum::SCREW_TALKIE)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
-            ->setActionCost($threeActionPointCost)
+            ->setActionCost(3)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT)
         ;
 
         $manager->persist($screwTalkieAction);
+
+        $phagocyteAction = new Action();
+        $phagocyteAction
+            ->setName(ActionEnum::PHAGOCYTE)
+            ->setActionName(ActionEnum::PHAGOCYTE)
+            ->setScope(ActionScopeEnum::SELF)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+        ;
+
+        $manager->persist($phagocyteAction);
 
         $manager->flush();
 
@@ -112,12 +112,6 @@ class MushActionFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::MAKE_SICK, $makeSickAction);
         $this->addReference(self::FAKE_DISEASE, $fakeDiseaseAction);
         $this->addReference(self::SCREW_TALKIE, $screwTalkieAction);
-    }
-
-    public function getDependencies(): array
-    {
-        return [
-            ActionCostFixture::class,
-        ];
+        $this->addReference(self::PHAGOCYTE, $phagocyteAction);
     }
 }

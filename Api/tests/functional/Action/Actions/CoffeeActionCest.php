@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Coffee;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -88,7 +87,6 @@ class CoffeeActionCest
 
         $coffeeActionEntity = new Action();
         $coffeeActionEntity->setActionName(ActionEnum::COFFEE);
-        $coffeeActionEntity->setActionCost(new ActionCost());
 
         $this->coffeeAction->loadParameters($coffeeActionEntity, $player, $gameEquipment);
 
@@ -114,7 +112,6 @@ class CoffeeActionCest
 
         $coffeeActionEntity = new Action();
         $coffeeActionEntity->setActionName(ActionEnum::COFFEE);
-        $coffeeActionEntity->setActionCost(new ActionCost());
 
         $this->coffeeAction->loadParameters($coffeeActionEntity, $player, $gameEquipment);
 

@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\TryKube;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -53,18 +52,11 @@ class TryKubeCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(1)
-            ->buildName()
-        ;
-        $I->haveInRepository($actionCost);
-
         $action = new Action();
         $action
             ->setActionName(ActionEnum::TRY_KUBE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setActionCost($actionCost)
+            ->setActionCost(1)
            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);

@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Coffee;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -72,19 +71,13 @@ class ConsumeChargeOnActionCest
         ;
         $I->haveInRepository($statusConfig);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(2)
-            ->buildName()
-        ;
         $actionEntity = new Action();
         $actionEntity
             ->setActionName(ActionEnum::COFFEE)
             ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($actionCost)
+            ->setActionCost(2)
             ->buildName(GameConfigEnum::TEST)
         ;
-        $I->haveInRepository($actionCost);
         $I->haveInRepository($actionEntity);
 
         $tool = new Tool();
@@ -187,16 +180,13 @@ class ConsumeChargeOnActionCest
         ;
         $I->haveInRepository($attemptConfig);
 
-        $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(2)->buildName();
         $actionEntity = new Action();
         $actionEntity
             ->setActionName(ActionEnum::COFFEE)
             ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($actionCost)
+            ->setActionCost(2)
             ->buildName(GameConfigEnum::TEST)
         ;
-        $I->haveInRepository($actionCost);
         $I->haveInRepository($actionEntity);
 
         $equipment = new EquipmentConfig();
@@ -321,16 +311,14 @@ class ConsumeChargeOnActionCest
     public function testGearMovementActionConversionCharge(FunctionalTester $I)
     {
         $I->loadFixtures([GameConfigFixtures::class, LocalizationConfigFixtures::class]);
-        $actionCost = new ActionCost();
-        $actionCost->setMovementPointCost(1)->buildName();
+
         $actionEntity = new Action();
         $actionEntity
             ->setActionName(ActionEnum::COFFEE)
             ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($actionCost)
+            ->setMovementCost(1)
             ->buildName(GameConfigEnum::TEST)
         ;
-        $I->haveInRepository($actionCost);
         $I->haveInRepository($actionEntity);
 
         $equipmentCoffee = new EquipmentConfig();

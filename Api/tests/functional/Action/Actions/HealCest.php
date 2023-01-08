@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Heal;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -56,18 +55,11 @@ class HealCest
         /** @var Place $medlab */
         $medlab = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::MEDLAB]);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(2)
-            ->buildName()
-        ;
-        $I->haveInRepository($actionCost);
-
         $action = new Action();
         $action
             ->setActionName(ActionEnum::HEAL)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setActionCost($actionCost)
+            ->setActionCost(2)
            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
@@ -146,18 +138,11 @@ class HealCest
         /** @var Place $laboratory */
         $laboratory = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::LABORATORY]);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(2)
-            ->buildName()
-        ;
-        $I->haveInRepository($actionCost);
-
         $action = new Action();
         $action
             ->setActionName(ActionEnum::HEAL)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setActionCost($actionCost)
+            ->setActionCost(2)
            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);

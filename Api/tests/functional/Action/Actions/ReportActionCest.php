@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\ReportEquipment;
 use Mush\Action\Actions\ReportFire;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Alert\Entity\Alert;
@@ -98,18 +97,10 @@ class ReportActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(0)
-            ->buildName()
-        ;
-        $I->haveInRepository($actionCost);
-
         $action = new Action();
         $action
             ->setActionName(ActionEnum::REPORT_EQUIPMENT)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
@@ -193,18 +184,10 @@ class ReportActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(0)
-            ->buildName()
-        ;
-        $I->haveInRepository($actionCost);
-
         $action = new Action();
         $action
             ->setActionName(ActionEnum::REPORT_EQUIPMENT)
             ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);

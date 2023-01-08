@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\DoTheThing;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionScopeEnum;
@@ -121,20 +120,11 @@ class DoTheThingCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(1)
-            ->buildName()
-        ;
-        $I->haveInRepository($actionCost);
-
         $action = new Action();
         $action
             ->setActionName(ActionEnum::DO_THE_THING)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
@@ -249,20 +239,11 @@ class DoTheThingCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(1)
-            ->buildName()
-        ;
-        $I->haveInRepository($actionCost);
-
         $action = new Action();
         $action
             ->setActionName(ActionEnum::DO_THE_THING)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
@@ -347,20 +328,11 @@ class DoTheThingCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(1)
-            ->buildName()
-        ;
-        $I->haveInRepository($actionCost);
-
         $action = new Action();
         $action
             ->setActionName(ActionEnum::DO_THE_THING)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
@@ -448,20 +420,11 @@ class DoTheThingCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(1)
-            ->buildName()
-        ;
-        $I->haveInRepository($actionCost);
-
         $action = new Action();
         $action
             ->setActionName(ActionEnum::DO_THE_THING)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);

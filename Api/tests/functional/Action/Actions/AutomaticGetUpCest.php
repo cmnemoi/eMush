@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Shower;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -66,18 +65,12 @@ class AutomaticGetUpCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $getUpCost = new ActionCost();
-        $getUpCost->buildName();
         $getUpAction = new Action();
         $getUpAction
             ->setActionName(ActionEnum::GET_UP)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::SELF)
-            ->setInjuryRate(0)
-            ->setActionCost($getUpCost)
             ->buildName(GameConfigEnum::TEST)
         ;
-        $I->haveInRepository($getUpCost);
         $I->haveInRepository($getUpAction);
 
         /** @var CharacterConfig $characterConfig */
@@ -102,10 +95,7 @@ class AutomaticGetUpCest
         $action = new Action();
         $action
             ->setActionName(ActionEnum::SHOWER)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($getUpCost)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->buildName(GameConfigEnum::TEST)
         ;

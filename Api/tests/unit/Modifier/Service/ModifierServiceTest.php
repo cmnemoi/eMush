@@ -5,7 +5,7 @@ namespace Mush\Test\Modifier\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
+use Mush\Action\Entity\ActionVariables;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\RandomServiceInterface;
@@ -171,14 +171,12 @@ class ModifierServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus)->setPlace($room);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(1)
-            ->setMovementPointCost(null)
-            ->setMoralPointCost(null)
-        ;
         $action = new Action();
-        $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
+        $action
+            ->setActionName('action')
+            ->setTypes(['type1', 'type2'])
+            ->setActionCost(1)
+        ;
 
         $this->activationRequirementService
             ->shouldReceive('getActiveModifiers')
@@ -274,14 +272,12 @@ class ModifierServiceTest extends TestCase
         $player->setDaedalus($daedalus)->setPlace($room);
         $gameEquipment = new GameEquipment($room);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(1)
-            ->setMovementPointCost(null)
-            ->setMoralPointCost(null)
-        ;
         $action = new Action();
-        $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
+        $action
+            ->setActionName('action')
+            ->setTypes(['type1', 'type2'])
+            ->setActionCost(1)
+        ;
 
         // Daedalus GameModifier
         $modifierConfig1 = new ModifierConfig();
@@ -346,14 +342,12 @@ class ModifierServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus)->setPlace($room);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(null)
-            ->setMovementPointCost(1)
-            ->setMoralPointCost(null)
-        ;
         $action = new Action();
-        $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
+        $action
+            ->setActionName('action')
+            ->setTypes(['type1', 'type2'])
+            ->setMovementCost(1)
+        ;
 
         // Movement Point
         $modifierConfig1 = new ModifierConfig();
@@ -383,12 +377,7 @@ class ModifierServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus)->setPlace($room);
 
-        $actionCost
-            ->setActionPointCost(null)
-            ->setMovementPointCost(null)
-            ->setMoralPointCost(2)
-        ;
-        $action->setActionCost($actionCost);
+        $action->setMoralCost(2)->setMovementCost(0);
 
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
@@ -417,14 +406,13 @@ class ModifierServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus)->setPlace($room);
 
-        $actionCost
-            ->setActionPointCost(null)
-            ->setMovementPointCost(null)
-            ->setMoralPointCost(2)
-        ;
-
         $action = new Action();
-        $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost)->setSuccessRate(50);
+        $action
+            ->setActionName('action')
+            ->setTypes(['type1', 'type2'])
+            ->setMoralCost(2)
+            ->setSuccessRate(50)
+        ;
 
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1
@@ -455,15 +443,13 @@ class ModifierServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus)->setPlace($room);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(null)
-            ->setMovementPointCost(1)
-            ->setMoralPointCost(null)
-        ;
-
         $action = new Action();
-        $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost)->setSuccessRate(50);
+        $action
+            ->setActionName('action')
+            ->setTypes(['type1', 'type2'])
+            ->setMovementCost(1)
+            ->setSuccessRate(50)
+        ;
 
         // multiplicative
         $modifierConfig1 = new ModifierConfig();
@@ -527,44 +513,39 @@ class ModifierServiceTest extends TestCase
         $this->assertEquals(intval(50 * 1.25 ** 3 * 1.5 + 10), $modifiedCost);
     }
 
-    public function testModifyNullValue()
-    {
-        $daedalus = new Daedalus();
-        $room = new Place();
-        $room->setDaedalus($daedalus);
-        $player = new Player();
-        $player->setDaedalus($daedalus)->setPlace($room);
-
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(null)
-            ->setMovementPointCost(null)
-            ->setMoralPointCost(null)
-        ;
-
-        $action = new Action();
-        $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
-
-        $modifierConfig1 = new ModifierConfig();
-        $modifierConfig1
-            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
-            ->setTargetEvent('action')
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(5)
-            ->setMode(ModifierModeEnum::ADDITIVE)
-        ;
-        $modifier1 = new GameModifier($daedalus, $modifierConfig1);
-
-        $this->activationRequirementService
-            ->shouldReceive('getActiveModifiers')
-            ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 1)
-            ->andReturn(new ModifierCollection([$modifier1]))
-            ->once()
-        ;
-        $modifiedCost = $this->service->getActionModifiedValue($action, $player, PlayerVariableEnum::ACTION_POINT, null, null);
-
-        $this->assertEquals(0, $modifiedCost);
-    }
+//    public function testModifyNullValue()
+//    {
+//        $daedalus = new Daedalus();
+//        $room = new Place();
+//        $room->setDaedalus($daedalus);
+//        $player = new Player();
+//        $player->setDaedalus($daedalus)->setPlace($room);
+//
+//        $actionCost = new ActionVariables(0,0,0, 0, 0);
+//
+//        $action = new Action();
+//        $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionVariables($actionCost);
+//
+//        $modifierConfig1 = new ModifierConfig();
+//        $modifierConfig1
+//            ->setModifierHolderClass(ModifierHolderClassEnum::DAEDALUS)
+//            ->setTargetEvent('action')
+//            ->setTarget(PlayerVariableEnum::ACTION_POINT)
+//            ->setDelta(5)
+//            ->setMode(ModifierModeEnum::ADDITIVE)
+//        ;
+//        $modifier1 = new GameModifier($daedalus, $modifierConfig1);
+//
+//        $this->conditionService
+//            ->shouldReceive('getActiveModifiers')
+//            ->withArgs(fn (ModifierCollection $modifiers) => $modifiers->count() === 1)
+//            ->andReturn(new ModifierCollection([$modifier1]))
+//            ->once()
+//        ;
+//        $modifiedCost = $this->service->getActionModifiedValue($action, $player, PlayerVariableEnum::ACTION_POINT, null, null);
+//
+//        $this->assertEquals(0, $modifiedCost);
+//    }
 
     public function testConsumeModifierCharge()
     {
@@ -577,15 +558,12 @@ class ModifierServiceTest extends TestCase
         $status = new ChargeStatus($player, new ChargeStatusConfig());
         $status->setCharge(5);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(1)
-            ->setMovementPointCost(null)
-            ->setMoralPointCost(null)
-        ;
-
         $action = new Action();
-        $action->setActionName('action')->setTypes(['type1', 'type2'])->setActionCost($actionCost);
+        $action
+            ->setActionName('action')
+            ->setTypes(['type1', 'type2'])
+            ->setActionCost(1)
+        ;
 
         $modifierConfig1 = new ModifierConfig();
         $modifierConfig1

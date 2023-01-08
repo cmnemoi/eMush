@@ -6,7 +6,7 @@ import { ModifierActivationRequirement } from "@/entities/Config/ModifierActivat
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import { StatusConfig } from "@/entities/Config/StatusConfig";
 import store from "@/store";
-import { ActionCost } from "@/entities/Config/ActionCost";
+import { ActionVariables } from "@/entities/Config/ActionVariables";
 import { ActionConfig } from "@/entities/Config/ActionConfig";
 import { DifficultyConfig } from "@/entities/Config/DifficultyConfig";
 import { CharacterConfig } from "@/entities/Config/CharacterConfig";
@@ -208,20 +208,20 @@ const GameConfigService = {
         return actionConfig;
     },
 
-    loadActionCost: async(actionCostId: number): Promise<ActionCost | null> => {
+    loadActionCost: async(actionCostId: number): Promise<ActionVariables | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const actionCostData = await ApiService.get(CONFIG_ACTION_COST_ENDPOINT + '/' + actionCostId + '?XDEBUG_SESSION_START=PHPSTORM')
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         let actionCost = null;
         if (actionCostData.data) {
-            actionCost = (new ActionCost()).load(actionCostData.data);
+            actionCost = (new ActionVariables()).load(actionCostData.data);
         }
 
         return actionCost;
     },
 
-    updateActionCost: async(actionCost: ActionCost): Promise<ActionCost | null> => {
+    updateActionCost: async(actionCost: ActionVariables): Promise<ActionVariables | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const actionCostData = await ApiService.put(CONFIG_ACTION_COST_ENDPOINT + '/' + actionCost.id + '?XDEBUG_SESSION_START=PHPSTORM', actionCost.jsonEncode())
             .catch((e) => {
@@ -232,7 +232,7 @@ const GameConfigService = {
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (actionCostData.data) {
-            actionCost = (new ActionCost()).load(actionCostData.data);
+            actionCost = (new ActionVariables()).load(actionCostData.data);
         }
 
         return actionCost;

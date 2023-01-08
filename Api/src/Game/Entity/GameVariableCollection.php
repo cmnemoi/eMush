@@ -5,6 +5,7 @@ namespace Mush\Game\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Entity\ActionVariables;
 use Mush\Daedalus\Entity\DaedalusVariables;
 use Mush\Equipment\Entity\Mechanics\Entity;
 use Mush\Player\Entity\PlayerVariables;
@@ -15,6 +16,7 @@ use Mush\Player\Entity\PlayerVariables;
 #[ORM\DiscriminatorMap([
     'daedalusVariables' => DaedalusVariables::class,
     'playerVariables' => PlayerVariables::class,
+    'actionVariables' => ActionVariables::class,
 ])]
 abstract class GameVariableCollection
 {
@@ -24,7 +26,7 @@ abstract class GameVariableCollection
     private int $id;
 
     #[ORM\OneToMany(mappedBy: 'gameVariableCollection', targetEntity: GameVariable::class, cascade: ['ALL'])]
-    private Collection $gameVariables;
+    protected Collection $gameVariables;
 
     public function __construct(array $variables)
     {

@@ -1,3 +1,6 @@
+import { ActionVariables } from "@/entities/Config/ActionVariables";
+import { QuantityPoint } from "@/entities/QuantityPoint";
+
 export class ActionConfig {
     public iri: string|null;
     public id: number|null;
@@ -5,9 +8,7 @@ export class ActionConfig {
     public types: string[]|null;
     public target: string|null;
     public scope: string|null;
-    public successRate: number|null;
-    public injuryRate: number|null;
-    public dirtyRate: number|null;
+    public actionVariablesArray: ActionVariables|null;
 
     constructor() {
         this.iri = null;
@@ -16,9 +17,7 @@ export class ActionConfig {
         this.types = null;
         this.target = null;
         this.scope = null;
-        this.successRate = null;
-        this.injuryRate = null;
-        this.dirtyRate = null;
+        this.actionVariablesArray = null;
     }
     load(object:any) : ActionConfig {
         if (typeof object !== "undefined") {
@@ -28,9 +27,7 @@ export class ActionConfig {
             this.types = object.types;
             this.target = object.target;
             this.scope = object.scope;
-            this.successRate = object.successRate;
-            this.injuryRate = object.injuryRate;
-            this.dirtyRate = object.dirtyRate;
+            this.actionVariablesArray = (new ActionVariables()).load(object.actionVariablesArray);
         }
         return this;
     }
@@ -41,9 +38,7 @@ export class ActionConfig {
             'types': this.types,
             'target': this.target,
             'scope': this.scope,
-            'successRate': this.successRate,
-            'injuryRate': this.injuryRate,
-            'dirtyRate': this.dirtyRate
+            'actionVariablesArray': this.actionVariablesArray,
         };
     }
     decode(jsonString : string): ActionConfig {
@@ -55,9 +50,7 @@ export class ActionConfig {
             this.types = object.types;
             this.target = object.target;
             this.scope = object.scope;
-            this.successRate = object.successRate;
-            this.injuryRate = object.injuryRate;
-            this.dirtyRate = object.dirtyRate;
+            this.actionVariablesArray = (new ActionVariables()).load(object.actionVariablesArray);
         }
 
         return this;

@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Phagocyte;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -54,17 +53,10 @@ class PhagocyteActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-        $I->haveInRepository($actionCost);
-
         $phagocyteActionEntity = new Action();
         $phagocyteActionEntity
             ->setActionName(ActionEnum::PHAGOCYTE)
             ->setScope(ActionScopeEnum::SELF)
-            ->setDirtyRate(0)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->buildName(GameConfigEnum::TEST)
         ;

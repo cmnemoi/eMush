@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
@@ -74,27 +73,15 @@ class RepairActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(1)
-            ->setMovementPointCost(0)
-            ->setMoralPointCost(0)
-            ->buildName()
-        ;
-
         $action = new Action();
         $action
             ->setActionName(ActionEnum::REPAIR)
-            ->setDirtyRate(0)
-            ->setInjuryRate(0)
+            ->setActionCost(1)
             ->setSuccessRate(25)
-            ->setActionCost($actionCost)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->buildName(GameConfigEnum::TEST)
         ;
-
-        $I->haveInRepository($actionCost);
         $I->haveInRepository($action);
 
         /** @var EquipmentConfig $equipmentConfig */

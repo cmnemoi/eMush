@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\ExtinguishManually;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Communication\Entity\Channel;
@@ -102,19 +101,11 @@ class ExtinguishManuallyActionCest
 
         $this->eventDispatcher->dispatch($statusEvent, StatusEvent::STATUS_APPLIED);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(1)
-            ->buildName()
-        ;
-        $I->haveInRepository($actionCost);
-
         $action = new Action();
         $action
             ->setActionName(ActionEnum::EXTINGUISH_MANUALLY)
             ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($actionCost)
-            ->setSuccessRate(101)
+            ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);

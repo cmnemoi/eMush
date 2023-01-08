@@ -151,12 +151,12 @@ class ModifierService implements ModifierServiceInterface
 
         if ($target === PlayerVariableEnum::ACTION_POINT &&
             in_array($action->getActionName(), ActionEnum::getActionPointModifierProtectedActions())) {
-            $actionPoints = $action->getActionCost()->getActionPointCost();
+            $actionPoints = $action->getActionVariables()->getValueByName(PlayerVariableEnum::ACTION_POINT);
 
             return $actionPoints ? $actionPoints : 0;
         }
 
-        return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $action->getActionCost()->getVariableCost($target));
+        return $this->getModifiedValue($modifiers->getTargetedModifiers($target), $action->getActionVariables()->getValueByName($target));
     }
 
     public function applyActionModifiers(Action $action, Player $player, ?LogParameterInterface $parameter): void

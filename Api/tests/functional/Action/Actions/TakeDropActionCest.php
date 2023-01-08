@@ -8,7 +8,6 @@ use Mush\Action\Actions\Drop;
 use Mush\Action\Actions\Hide;
 use Mush\Action\Actions\Take;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -83,33 +82,18 @@ class TakeDropActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(0)
-            ->setMovementPointCost(0)
-            ->setMoralPointCost(0)
-            ->buildName()
-        ;
-
         $actionTake = new Action();
         $actionTake
             ->setActionName(ActionEnum::TAKE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $actionDrop = new Action();
         $actionDrop
             ->setActionName(ActionEnum::DROP)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
-        $I->haveInRepository($actionCost);
         $I->haveInRepository($actionTake);
         $I->haveInRepository($actionDrop);
 
@@ -213,33 +197,18 @@ class TakeDropActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(0)
-            ->setMovementPointCost(0)
-            ->setMoralPointCost(0)
-            ->buildName()
-        ;
-
         $actionTake = new Action();
         $actionTake
             ->setActionName(ActionEnum::TAKE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $actionDrop = new Action();
         $actionDrop
             ->setActionName(ActionEnum::DROP)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
-        $I->haveInRepository($actionCost);
         $I->haveInRepository($actionTake);
         $I->haveInRepository($actionDrop);
 
@@ -354,24 +323,12 @@ class TakeDropActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(0)
-            ->setMovementPointCost(0)
-            ->setMoralPointCost(0)
-            ->buildName()
-        ;
-
         $actionTake = new Action();
         $actionTake
             ->setActionName(ActionEnum::TAKE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
-        $I->haveInRepository($actionCost);
         $I->haveInRepository($actionTake);
 
         /** @var EquipmentConfig $itemConfig */
@@ -461,24 +418,12 @@ class TakeDropActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(0)
-            ->setMovementPointCost(0)
-            ->setMoralPointCost(0)
-            ->buildName()
-        ;
-
         $actionHide = new Action();
         $actionHide
             ->setActionName(ActionEnum::HIDE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
-        $I->haveInRepository($actionCost);
         $I->haveInRepository($actionHide);
 
         /** @var EquipmentConfig $itemConfig */

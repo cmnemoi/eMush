@@ -5,7 +5,6 @@ namespace Mush\Test\Action\Actions;
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
@@ -62,15 +61,12 @@ abstract class AbstractActionTest extends TestCase
 
     protected function createActionEntity(string $name, int $actionPointCost = 0, int $movementPoint = 0): Action
     {
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost($actionPointCost)
-            ->setMovementPointCost($movementPoint)
-        ;
         $action = new Action();
         $action
+            ->setActionCost($actionPointCost)
+            ->setMovementCost($movementPoint)
             ->setActionName($name)
-            ->setActionCost($actionCost);
+        ;
 
         return $action;
     }

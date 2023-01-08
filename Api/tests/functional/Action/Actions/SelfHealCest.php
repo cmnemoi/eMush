@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\SelfHeal;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -52,18 +51,11 @@ class SelfHealCest
         /** @var Place $medlab */
         $medlab = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::MEDLAB]);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(3)
-            ->buildName()
-        ;
-        $I->haveInRepository($actionCost);
-
         $action = new Action();
         $action
             ->setActionName(ActionEnum::SELF_HEAL)
             ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($actionCost)
+            ->setActionCost(3)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->buildName(GameConfigEnum::TEST)
         ;

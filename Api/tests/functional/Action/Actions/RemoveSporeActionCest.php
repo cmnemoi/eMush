@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\RemoveSpore;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -89,18 +88,11 @@ class RemoveSporeActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($actionCost);
-
         $action = new Action();
         $action
             ->setActionName(ActionEnum::REMOVE_SPORE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setActionCost($actionCost)
+            ->setActionCost(1)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->buildName(GameConfigEnum::TEST)
         ;

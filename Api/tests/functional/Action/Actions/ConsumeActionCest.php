@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Consume;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -79,20 +78,12 @@ class ConsumeActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-        $I->haveInRepository($actionCost);
-
         $consumeActionEntity = new Action();
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
-        $consumeActionEntity->setActionCost($actionCost);
 
         $I->haveInRepository($consumeActionEntity);
 
@@ -186,20 +177,12 @@ class ConsumeActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-        $I->haveInRepository($actionCost);
-
         $consumeActionEntity = new Action();
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
-        $consumeActionEntity->setActionCost($actionCost);
 
         $I->haveInRepository($consumeActionEntity);
 
@@ -314,21 +297,12 @@ class ConsumeActionCest
         $mushStatus = new Status($player, $mushConfig);
         $I->haveInRepository($mushStatus);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-        $I->haveInRepository($actionCost);
-
         $consumeActionEntity = new Action();
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
-        $consumeActionEntity->setActionCost($actionCost);
-
         $I->haveInRepository($consumeActionEntity);
 
         $ration = new Ration();

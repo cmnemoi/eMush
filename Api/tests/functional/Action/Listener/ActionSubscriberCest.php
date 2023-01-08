@@ -81,9 +81,7 @@ class ActionSubscriberCest
         $I->refreshEntities($player);
 
         $action = new Action();
-
         $action
-            ->setDirtyRate(0)
             ->setInjuryRate(100)
             ->setActionName(ActionEnum::TAKE)
             ->buildName(GameConfigEnum::TEST)
@@ -150,11 +148,10 @@ class ActionSubscriberCest
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
-        $action = new Action();
 
+        $action = new Action();
         $action
             ->setDirtyRate(100)
-            ->setInjuryRate(0)
             ->setActionName(ActionEnum::TAKE)
             ->buildName(GameConfigEnum::TEST)
         ;
@@ -223,10 +220,8 @@ class ActionSubscriberCest
         $I->refreshEntities($player);
 
         $action = new Action();
-
         $action
             ->setDirtyRate(100)
-            ->setInjuryRate(0)
             ->setActionName(ActionEnum::TAKE)
             ->buildName(GameConfigEnum::TEST)
         ;
@@ -281,11 +276,10 @@ class ActionSubscriberCest
         $I->refreshEntities($player);
 
         $action = new Action();
-
         $action
             ->setDirtyRate(100)
-            ->setInjuryRate(0)
-            ->setActionName(ActionEnum::TAKE);
+            ->setActionName(ActionEnum::TAKE)
+        ;
 
         $actionEvent = new ActionEvent($action, $player, null);
 

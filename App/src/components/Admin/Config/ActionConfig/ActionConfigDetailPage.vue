@@ -32,26 +32,66 @@
         </div>
         <div class="flex-row">
             <Input
-                :label="$t('admin.actionConfig.successRate')"
-                id="actionConfig_successRate"
-                v-model="actionConfig.successRate"
+                :label="$t('admin.actionConfig.actionPoint')"
+                id="actionConfig_actionPoint"
+                v-model="actionConfig.actionVariablesArray.actionPoint"
                 type="number"
-                :errors="errors.successRate"
+                :errors="errors.actionPoint"
             ></Input>
             <Input
-                :label="$t('admin.actionConfig.injuryRate')"
-                id="actionConfig_injuryRate"
-                v-model="actionConfig.injuryRate"
+                :label="$t('admin.actionConfig.movementPoint')"
+                id="actionConfig_movementPoint"
+                v-model="actionConfig.actionVariablesArray.movementPoint"
                 type="number"
-                :errors="errors.injuryRate"
+                :errors="errors.movementPoint"
             ></Input>
             <Input
-                :label="$t('admin.actionConfig.dirtyRate')"
+                :label="$t('admin.actionConfig.moralPoint')"
+                id="actionConfig_moralPoint"
+                v-model="actionConfig.actionVariablesArray.moralPoint"
+                type="number"
+                :errors="errors.moralPoint"
+            ></Input>
+        </div>
+        <div class="flex-row">
+            <Input
+                :label="$t('admin.actionConfig.percentageSuccess')"
+                id="actionConfig_percentageSuccess"
+                v-model="actionConfig.actionVariablesArray.percentageSuccess"
+                type="number"
+                :errors="errors.percentageSuccess"
+            ></Input>
+            <Input
+                :label="$t('admin.actionConfig.percentageCritical')"
+                id="actionConfig_percentageCritical"
+                v-model="actionConfig.actionVariablesArray.percentageCritical"
+                type="number"
+                :errors="errors.percentageCritical"
+            ></Input>
+        </div>
+        <div class="flex-row">
+            <Input
+                :label="$t('admin.actionConfig.percentageInjury')"
+                id="actionConfig_percentageInjury"
+                v-model="actionConfig.actionVariablesArray.percentageInjury"
+                type="number"
+                :errors="errors.percentageInjury"
+            ></Input>
+            <Input
+                :label="$t('admin.actionConfig.percentageDirtiness')"
                 id="actionConfig_dirtyRate"
-                v-model="actionConfig.dirtyRate"
+                v-model="actionConfig.actionVariablesArray.percentageDirtiness"
                 type="number"
-                :errors="errors.dirtyRate"
+                :errors="errors.percentageDirtiness"
             ></Input>
+            <input
+                type="checkbox"
+                class="actionConfigCheckbox"
+                id="actionConfig_isSuperDirty"
+                v-model="actionConfig.actionVariablesArray.isSuperDirty"
+            />
+            <label for="actionConfig_isSuperDirty">{{ actionConfig.actionVariablesArray.isSuperDirty ? $t('admin.actionConfig.isSuperDirty') : $t('admin.actionConfig.isNotSuperDirty') }}</label>
+
         </div>
         <button class="action-button" type="submit" @click="update">
             {{ $t('admin.save') }}

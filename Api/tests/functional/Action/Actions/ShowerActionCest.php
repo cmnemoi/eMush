@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Shower;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Event\ActionEvent;
@@ -135,26 +134,13 @@ class ShowerActionCest
         $mushStatus = new Status($player, $mushConfig);
         $I->haveInRepository($mushStatus);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-
-        $actionCost
-            ->setActionPointCost(2)
-            ->setMovementPointCost(0)
-            ->setMoralPointCost(0)
-            ->buildName()
-        ;
-
         $action = new Action();
         $action
             ->setActionName(ActionEnum::SHOWER)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->setActionCost(2)
             ->buildName(GameConfigEnum::TEST)
         ;
-        $I->haveInRepository($actionCost);
         $I->haveInRepository($action);
 
         /** @var EquipmentConfig $equipmentConfig */

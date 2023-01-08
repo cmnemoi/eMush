@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Disassemble;
 use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -86,7 +85,9 @@ class AttemptActionChangeCest
         ]);
 
         $player->setPlayerVariables($characterConfig);
-        $player->setActionPoint(10);
+        $player
+            ->setActionPoint(10)
+        ;
         $I->flushToDatabase($player);
 
         /** @var User $user */
@@ -96,22 +97,12 @@ class AttemptActionChangeCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(1)
-            ->setMovementPointCost(0)
-            ->setMoralPointCost(0)
-            ->buildName()
-        ;
-        $I->haveInRepository($actionCost);
-
         $actionRepair = new Action();
         $actionRepair
             ->setName(ActionEnum::REPAIR)
             ->setActionName(ActionEnum::REPAIR)
-            ->setDirtyRate(0)
-            ->setInjuryRate(0)
+            ->setActionCost(1)
             ->setSuccessRate(0)
-            ->setActionCost($actionCost)
             ->setScope(ActionScopeEnum::CURRENT)
         ;
         $I->haveInRepository($actionRepair);
@@ -120,10 +111,8 @@ class AttemptActionChangeCest
         $actionDisassemble
             ->setName(ActionEnum::DISASSEMBLE)
             ->setActionName(ActionEnum::DISASSEMBLE)
-            ->setDirtyRate(0)
-            ->setInjuryRate(0)
+            ->setActionCost(1)
             ->setSuccessRate(0)
-            ->setActionCost($actionCost)
             ->setScope(ActionScopeEnum::CURRENT)
         ;
         $I->haveInRepository($actionDisassemble);
@@ -225,21 +214,11 @@ class AttemptActionChangeCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(1)
-            ->setMovementPointCost(0)
-            ->setMoralPointCost(0)
-            ->buildName()
-        ;
-        $I->haveInRepository($actionCost);
-
         $actionRepair = new Action();
         $actionRepair
             ->setActionName(ActionEnum::REPAIR)
-            ->setDirtyRate(0)
-            ->setInjuryRate(0)
+            ->setActionCost(1)
             ->setSuccessRate(0)
-            ->setActionCost($actionCost)
             ->setScope(ActionScopeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST)
         ;
@@ -248,10 +227,8 @@ class AttemptActionChangeCest
         $actionDisassemble = new Action();
         $actionDisassemble
             ->setActionName(ActionEnum::DISASSEMBLE)
-            ->setDirtyRate(0)
-            ->setInjuryRate(0)
+            ->setActionCost(1)
             ->setSuccessRate(75)
-            ->setActionCost($actionCost)
             ->setScope(ActionScopeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST)
         ;

@@ -94,7 +94,7 @@ class ActionService implements ActionServiceInterface
         bool $consumeCharge = false
     ): int {
         $conversionCost = 0;
-        $missingMovementPoints = $action->getActionCost()->getMovementPointCost() - $player->getMovementPoint();
+        $missingMovementPoints = $this->getTotalMovementPointCost($player, $action, $parameter) - $player->getMovementPoint();
         if ($missingMovementPoints > 0) {
             $numberOfConversions = (int) ceil($missingMovementPoints / $this->getMovementPointConversionGain($player));
 

@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -52,20 +51,11 @@ class MovementPointConversionCest
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(null)
-            ->setMovementPointCost(1)
-            ->buildName()
-        ;
-        $I->haveInRepository($actionCost);
         $moveActionEntity = new Action();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->setMovementCost(1)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
@@ -132,20 +122,11 @@ class MovementPointConversionCest
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(null)
-            ->setMovementPointCost(2)
-            ->buildName()
-        ;
-        $I->haveInRepository($actionCost);
         $moveActionEntity = new Action();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->setMovementCost(2)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
@@ -213,20 +194,11 @@ class MovementPointConversionCest
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(null)
-            ->setMovementPointCost(5)
-            ->buildName()
-        ;
-        $I->haveInRepository($actionCost);
         $moveActionEntity = new Action();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
+            ->setMovementCost(5)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);

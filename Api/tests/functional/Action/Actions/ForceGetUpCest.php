@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Hit;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
@@ -73,19 +72,12 @@ class ForceGetUpCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-
         $action = new Action();
         $action
             ->setActionName(ActionEnum::HIT)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
-        $I->haveInRepository($actionCost);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */

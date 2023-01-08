@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Consume;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Event\ActionEvent;
@@ -80,18 +79,10 @@ class ActionSubscriberCest
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-
-        $I->haveInRepository($actionCost);
-
         $moveActionEntity = new Action();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
@@ -193,18 +184,10 @@ class ActionSubscriberCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-
-        $I->haveInRepository($actionCost);
-
         $takeActionEntity = new Action();
         $takeActionEntity
             ->setActionName(ActionEnum::TAKE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($takeActionEntity);
@@ -313,18 +296,10 @@ class ActionSubscriberCest
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-
-        $I->haveInRepository($actionCost);
-
         $moveActionEntity = new Action();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
@@ -428,18 +403,10 @@ class ActionSubscriberCest
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-
-        $I->haveInRepository($actionCost);
-
         $moveActionEntity = new Action();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
@@ -543,18 +510,10 @@ class ActionSubscriberCest
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-
-        $I->haveInRepository($actionCost);
-
         $moveActionEntity = new Action();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
@@ -665,18 +624,10 @@ class ActionSubscriberCest
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-
-        $I->haveInRepository($actionCost);
-
         $moveActionEntity = new Action();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
@@ -684,10 +635,7 @@ class ActionSubscriberCest
         $consumeActionEntity = new Action();
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($consumeActionEntity);
@@ -695,10 +643,7 @@ class ActionSubscriberCest
         $consumeDrugActionEntity = new Action();
         $consumeDrugActionEntity
             ->setActionName(ActionEnum::CONSUME_DRUG)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($consumeDrugActionEntity);
@@ -884,18 +829,10 @@ class ActionSubscriberCest
 
         $I->haveInRepository($cat);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-
-        $I->haveInRepository($actionCost);
-
         $moveActionEntity = new Action();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($moveActionEntity);
@@ -1054,31 +991,20 @@ class ActionSubscriberCest
         ;
         $I->haveInRepository($channel);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-
         $attackAction = new Action();
         $attackAction
             ->setActionName(ActionEnum::ATTACK)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setInjuryRate(0)
-            ->setSuccessRate(100)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
 
         $searchAction = new Action();
         $searchAction
             ->setActionName(ActionEnum::SEARCH)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::SELF)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
 
-        $I->haveInRepository($actionCost);
         $I->haveInRepository($attackAction);
         $I->haveInRepository($searchAction);
 

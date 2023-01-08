@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\BoringSpeech;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionScopeEnum;
@@ -70,18 +69,11 @@ class BoringSpeechActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
 
-        $actionCost = new ActionCost();
-        $actionCost
-            ->setActionPointCost(2)
-            ->buildName()
-        ;
-        $I->haveInRepository($actionCost);
-
         $action = new Action();
         $action
             ->setActionName(ActionEnum::BORING_SPEECH)
             ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost($actionCost)
+            ->setActionCost(2)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);

@@ -4,7 +4,6 @@ namespace functional\Action\Service;
 
 use App\Tests\FunctionalTester;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
@@ -74,12 +73,11 @@ class ActionServiceCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost->setActionPointCost(5);
-
         $action = new Action();
-        $action->setActionName('some name');
-        $action->setActionCost($actionCost);
+        $action
+            ->setActionName('some name')
+            ->setActionCost(5)
+        ;
 
         $this->actionService->applyCostToPlayer($player, $action, null);
 
@@ -128,12 +126,9 @@ class ActionServiceCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost->setMovementPointCost(1);
-
         $action = new Action();
         $action->setActionName('some name');
-        $action->setActionCost($actionCost);
+        $action->setMovementCost(1);
 
         $this->actionService->applyCostToPlayer($player, $action, null);
 
@@ -193,12 +188,9 @@ class ActionServiceCest
 
         $I->haveInRepository($disabledModifier);
 
-        $actionCost = new ActionCost();
-        $actionCost->setMovementPointCost(1);
-
         $action = new Action();
         $action->setActionName('some name');
-        $action->setActionCost($actionCost);
+        $action->setMovementCost(1);
 
         $this->actionService->applyCostToPlayer($player, $action, null);
 

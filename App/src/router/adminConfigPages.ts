@@ -6,8 +6,6 @@ import ModifierActivationRequirementListPage from "@/components/Admin/Config/Mod
 import ModifierActivationRequirementDetailPage from "@/components/Admin/Config/ModifierActivationRequirement/ModifierActivationRequirementDetailPage.vue";
 import StatusConfigListPage from "@/components/Admin/Config/StatusConfig/StatusConfigListPage.vue";
 import StatusConfigDetailPage from "@/components/Admin/Config/StatusConfig/StatusConfigDetailPage.vue";
-import ActionCostListPage from "@/components/Admin/Config/ActionCost/ActionCostListPage.vue";
-import ActionCostDetailPage from "@/components/Admin/Config/ActionCost/ActionCostDetailPage.vue";
 import ActionConfigListPage from "@/components/Admin/Config/ActionConfig/ActionConfigListPage.vue";
 import ActionConfigDetailPage from "@/components/Admin/Config/ActionConfig/ActionConfigDetailPage.vue";
 import DaedalusConfigListPage from "@/components/Admin/Config/DaedalusConfig/DaedalusConfigListPage.vue";
@@ -73,16 +71,6 @@ export const adminConfigRoutes = [
         name: "AdminStatusConfigDetail",
         path: 'status-config/:statusConfigId',
         component: StatusConfigDetailPage
-    },
-    {
-        name: "AdminActionCostList",
-        path: 'action-cost-list',
-        component: ActionCostListPage
-    },
-    {
-        name: "AdminActionCostDetail",
-        path: 'action-cost/:actionCostId',
-        component: ActionCostDetailPage
     },
     {
         name: "AdminActionConfigList",

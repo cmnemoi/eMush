@@ -6,7 +6,6 @@ use App\Tests\FunctionalTester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Take;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionCost;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -69,17 +68,10 @@ class TakeSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-        $I->haveInRepository($actionCost);
-
         $takeActionEntity = new Action();
         $takeActionEntity
             ->setActionName(ActionEnum::TAKE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($takeActionEntity);
@@ -154,17 +146,10 @@ class TakeSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-        $I->haveInRepository($actionCost);
-
         $takeActionEntity = new Action();
         $takeActionEntity
             ->setActionName(ActionEnum::TAKE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($takeActionEntity);
@@ -252,17 +237,10 @@ class TakeSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-        $I->haveInRepository($actionCost);
-
         $takeActionEntity = new Action();
         $takeActionEntity
             ->setActionName(ActionEnum::TAKE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($takeActionEntity);
@@ -349,17 +327,10 @@ class TakeSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-        $I->haveInRepository($actionCost);
-
         $takeActionEntity = new Action();
         $takeActionEntity
             ->setActionName(ActionEnum::TAKE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($takeActionEntity);
@@ -443,17 +414,10 @@ class TakeSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionCost = new ActionCost();
-        $actionCost->buildName();
-        $I->haveInRepository($actionCost);
-
         $takeActionEntity = new Action();
         $takeActionEntity
             ->setActionName(ActionEnum::TAKE)
-            ->setDirtyRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(0)
-            ->setActionCost($actionCost)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($takeActionEntity);

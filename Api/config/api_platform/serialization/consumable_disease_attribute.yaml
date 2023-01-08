@@ -1,0 +1,14 @@
+Mush\Disease\Entity\ConsumableDiseaseAttribute:
+  attributes:
+    id: 
+      groups: [ 'consumable_disease_attribute_read' ]
+    disease:
+      groups: [ 'consumable_disease_attribute_read', 'consumable_disease_attribute_write' ]
+    type:
+      groups: [ 'consumable_disease_attribute_read', 'consumable_disease_attribute_write' ]
+    rate:
+      groups: [ 'consumable_disease_attribute_read', 'consumable_disease_attribute_write' ]
+    delayMin:
+      groups: [ 'consumable_disease_attribute_read', 'consumable_disease_attribute_write' ]
+    delayLength:
+      groups: [ 'consumable_disease_attribute_read', 'consumable_disease_attribute_write' ]

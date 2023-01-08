@@ -1,0 +1,29 @@
+Mush\Disease\Entity\Config\ConsumableDiseaseConfig:
+  properties:
+    name:
+      - NotBlank: ~
+      - Type: string
+    causeName:
+      - NotBlank: ~
+      - Type: array
+    diseasesName:
+      - NotBlank: ~
+      - Type: array
+    curesName:
+      - NotBlank: ~
+      - Type: array
+    diseasesChances:
+      - NotBlank: ~
+      - Type: array
+    curesChances:
+      - NotBlank: ~
+      - Type: array
+    diseasesDelayMin:
+      - NotBlank: ~
+      - Type: array
+    diseasesDelayLength:
+      - NotBlank: ~
+      - Type: array
+    effectNumber:
+      - NotBlank: ~
+      - Type: array

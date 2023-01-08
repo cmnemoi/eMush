@@ -30,6 +30,8 @@ import RandomItemPlacesListPage from "@/components/Admin/Config/RandomItemPlaces
 import RandomItemPlacesDetailPage from "@/components/Admin/Config/RandomItemPlaces/RandomItemPlacesDetailPage.vue";
 import MechanicsListPage from "@/components/Admin/Config/Mechanics/MechanicsListPage.vue";
 import MechanicsDetailPage from "@/components/Admin/Config/Mechanics/MechanicsDetailPage.vue";
+import ConsumableDiseaseConfigListPage from "@/components/Admin/Config/ConsumableDiseaseConfig/ConsumableDiseaseConfigListPage.vue";
+import ConsumableDiseaseConfigDetailPage from "@/components/Admin/Config/ConsumableDiseaseConfig/ConsumableDiseaseConfigDetailPage.vue";
 
 export const adminConfigRoutes = [
     {
@@ -191,5 +193,15 @@ export const adminConfigRoutes = [
         name: "AdminMechanicsDetail",
         path: 'mechanics/:mechanicsId',
         component: MechanicsDetailPage
+    },
+    {
+        name: "AdminConsumableDiseaseConfigList",
+        path: 'consumable-disease-config-list',
+        component: ConsumableDiseaseConfigListPage
+    },
+    {
+        name: "AdminConsumableDiseaseConfigDetail",
+        path: 'consumable-disease-config/:consumableDiseaseConfigId',
+        component: ConsumableDiseaseConfigDetailPage
     },
 ];

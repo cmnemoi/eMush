@@ -1,4 +1,6 @@
-import { GameConfig } from "@/entities/Config/GameConfig";
+import { PlaceConfig } from "@/entities/Config/PlaceConfig";
+import { RandomItemPlaces } from "@/entities/Config/RandomItemPlaces";
+
 
 export class DaedalusConfig {
     public iri: string|null;
@@ -8,8 +10,8 @@ export class DaedalusConfig {
     public initFuel: number|null;
     public initHull: number|null;
     public initShield: number|null;
-    public randomItemPlace: Array<any>|null;
-    public placeConfigs: Array<any>|null;
+    public randomItemPlaces: RandomItemPlaces|null;
+    public placeConfigs: Array<PlaceConfig>|null;
     public dailySporeNb: number|null;
     public maxOxygen: number|null;
     public maxFuel: number|null;
@@ -27,7 +29,7 @@ export class DaedalusConfig {
         this.initFuel = null;
         this.initHull = null;
         this.initShield = null;
-        this.randomItemPlace = [];
+        this.randomItemPlaces = null;
         this.placeConfigs = [];
         this.dailySporeNb = null;
         this.maxOxygen = null;
@@ -40,15 +42,13 @@ export class DaedalusConfig {
     }
     load(object:any) : DaedalusConfig {
         if (typeof object !== "undefined") {
-            this.iri = object.iri;
+            this.iri = object['@id'];
             this.id = object.id;
             this.name = object.name;
             this.initOxygen = object.initOxygen;
             this.initFuel = object.initFuel;
             this.initHull = object.initHull;
             this.initShield = object.initShield;
-            this.randomItemPlace = object.randomItemPlace;
-            this.placeConfigs = object.placeConfigs;
             this.dailySporeNb = object.dailySporeNb;
             this.maxOxygen = object.maxOxygen;
             this.maxFuel = object.maxFuel;
@@ -57,10 +57,22 @@ export class DaedalusConfig {
             this.nbMush = object.nbMush;
             this.cyclePerGameDay = object.cyclePerGameDay;
             this.cycleLength = object.cycleLength;
+            if (object.randomItemPlaces) {
+                this.randomItemPlaces = (new RandomItemPlaces()).load(object.randomItemPlaces);
+            }
+            if (object.placeConfigs) {
+                this.placeConfigs = [];
+                for (const placeConfig of object.placeConfigs) {
+                    this.placeConfigs.push(new PlaceConfig().load(placeConfig));
+                }
+            }
         }
         return this;
     }
     jsonEncode() : object {
+        const randomItemPlaces = this.randomItemPlaces?.iri;
+        const placeConfigs : string[] = [];
+        this.placeConfigs?.forEach(placeConfig => (typeof placeConfig.iri === 'string' ? placeConfigs.push(placeConfig.iri) : null));
         return {
             'id': this.id,
             'name': this.name,
@@ -68,8 +80,6 @@ export class DaedalusConfig {
             'initFuel': this.initFuel,
             'initHull': this.initHull,
             'initShield': this.initShield,
-            'randomItemPlace': this.randomItemPlace,
-            'placeConfigs': this.placeConfigs,
             'dailySporeNb': this.dailySporeNb,
             'maxOxygen': this.maxOxygen,
             'maxFuel': this.maxFuel,
@@ -78,28 +88,14 @@ export class DaedalusConfig {
             'nbMush': this.nbMush,
             'cyclePerGameDay': this.cyclePerGameDay,
             'cycleLength': this.cycleLength,
+            'randomItemPlaces': randomItemPlaces,
+            'placeConfigs': placeConfigs,
         };
     }
     decode(jsonString : string): DaedalusConfig {
         if (jsonString) {
             const object = JSON.parse(jsonString);
-            this.iri = object.iri;
-            this.id = object.id;
-            this.name = object.name;
-            this.initOxygen = object.initOxygen;
-            this.initFuel = object.initFuel;
-            this.initHull = object.initHull;
-            this.initShield = object.initShield;
-            this.randomItemPlace = object.randomItemPlace;
-            this.placeConfigs = object.placeConfigs;
-            this.dailySporeNb = object.dailySporeNb;
-            this.maxOxygen = object.maxOxygen;
-            this.maxFuel = object.maxFuel;
-            this.maxHull = object.maxHull;
-            this.maxShield = object.maxShield;
-            this.nbMush = object.nbMush;
-            this.cyclePerGameDay = object.cyclePerGameDay;
-            this.cycleLength = object.cycleLength;
+            this.load(object);
         }
 
         return this;

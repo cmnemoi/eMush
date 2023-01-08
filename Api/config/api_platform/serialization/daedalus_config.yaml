@@ -12,7 +12,7 @@ Mush\Daedalus\Entity\DaedalusConfig:
       groups: [ 'daedalus_config_read', 'daedalus_config_write' ]
     initShield:
       groups: [ 'daedalus_config_read', 'daedalus_config_write' ]
-    randomItemPlace:
+    randomItemPlaces:
       groups: [ 'daedalus_config_read', 'daedalus_config_write' ]
     placeConfigs:
       groups: [ 'daedalus_config_read', 'daedalus_config_write' ]

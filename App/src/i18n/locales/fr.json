@@ -145,7 +145,8 @@
 			"maxShield": "Bouclier maximal",
 			"nbMush": "Nombre de Mushs de départ",
 			"cyclePerGameDay": "Nombre de cycles par jour",
-			"cycleLength": "Durée du cycle (en minutes)"
+			"cycleLength": "Durée du cycle (en minutes)",
+			"placeConfigs": "Salles"
 		},
 		"difficultyConfig": {
 			"name": "Nom",

@@ -45,7 +45,7 @@ class DaedalusConfig
     private int $maxShield = 0;
 
     #[ORM\OneToOne(targetEntity: RandomItemPlaces::class, cascade: ['ALL'])]
-    private ?RandomItemPlaces $randomItemPlace = null;
+    private ?RandomItemPlaces $randomItemPlaces = null;
 
     #[ORM\ManyToMany(targetEntity: PlaceConfig::class)]
     private Collection $placeConfigs;
@@ -127,14 +127,14 @@ class DaedalusConfig
         return $this;
     }
 
-    public function getRandomItemPlace(): ?RandomItemPlaces
+    public function getRandomItemPlaces(): ?RandomItemPlaces
     {
-        return $this->randomItemPlace;
+        return $this->randomItemPlaces;
     }
 
-    public function setRandomItemPlace(RandomItemPlaces $randomItemPlace): static
+    public function setRandomItemPlaces(RandomItemPlaces $randomItemPlaces): static
     {
-        $this->randomItemPlace = $randomItemPlace;
+        $this->randomItemPlaces = $randomItemPlaces;
 
         return $this;
     }

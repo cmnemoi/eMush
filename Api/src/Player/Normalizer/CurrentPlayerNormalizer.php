@@ -68,6 +68,8 @@ class CurrentPlayerNormalizer implements ContextAwareNormalizerInterface, Normal
             'character' => [
                 'key' => $character,
                 'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
+                'description' => $this->translationService->translate($character . '.description', [], 'characters', $language),
+                'skills' => $player->getPlayerInfo()->getCharacterConfig()->getSkills(),
             ],
             'gameStatus' => $player->getPlayerInfo()->getGameStatus(),
             'triumph' => $player->getTriumph(),

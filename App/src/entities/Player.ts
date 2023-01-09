@@ -45,6 +45,8 @@ export class Player {
             this.character = new Character();
             this.character.key = object.character['key'];
             this.character.name = object.character['value'];
+            this.character.description = object.character['description'];
+            this.character.skills = object.character['skills'];
 
             this.triumph = object.triumph;
             this.gameStatus = object.gameStatus;

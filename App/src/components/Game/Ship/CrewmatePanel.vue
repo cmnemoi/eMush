@@ -15,11 +15,13 @@
                 </div>
             </div>
             <p class="presentation">
-                Description (to be implemented)
+                {{ target.character.description  }}
             </p>
-            <div class="skills">
-                Skills (to be implemented)
-            </div>
+            <!-- <div class="skills">
+                <div class="skill" v-for="skill in target.character.skills">
+                    <img class="skill-image" :src="skillImage(skill)" :alt="skill">
+                </div>
+            </div> -->
         </div>
         <div class="interactions">
             <ActionButton
@@ -85,6 +87,9 @@ export default defineComponent ({
                     await this.executeAction({ target: this.selectedTarget, action });
                 }
             }
+        },
+        skillImage(skill: string): string {
+            return require(`@/assets/images/skills/human/${skill}.png`) ? require(`@/assets/images/skills/human/${skill}.png`) : require('@/assets/images/items/todo.jpg');
         }
     }
 });

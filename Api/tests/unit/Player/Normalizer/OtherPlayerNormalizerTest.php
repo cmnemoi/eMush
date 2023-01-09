@@ -68,6 +68,12 @@ class OtherPlayerNormalizerTest extends TestCase
             ->andReturn('translated eleesha')
             ->once()
         ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('eleesha.description', [], 'characters', LanguageEnum::FRENCH)
+            ->andReturn('translated eleesha description')
+            ->once()
+        ;
 
         $this->gearToolService->shouldReceive('getActionsTools')->once()->andReturn(new ArrayCollection([]));
 
@@ -78,6 +84,8 @@ class OtherPlayerNormalizerTest extends TestCase
             'character' => [
                 'key' => CharacterEnum::ELEESHA,
                 'value' => 'translated eleesha',
+                'description' => 'translated eleesha description',
+                'skills' => [],
             ],
             'skills' => [],
             'statuses' => [],

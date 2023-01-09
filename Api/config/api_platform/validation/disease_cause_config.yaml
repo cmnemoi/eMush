@@ -1,0 +1,11 @@
+Mush\Disease\Entity\Config\DiseaseCauseConfig:
+  properties:                          # optional
+    name:
+      - NotBlank: ~
+      - Type: string
+    causeName:
+      - NotBlank: ~
+      - Type: string
+    diseases:
+      - NotBlank: ~
+      - Type: array

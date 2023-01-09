@@ -19,6 +19,7 @@ import { PlaceConfig } from "@/entities/Config/PlaceConfig";
 import { RandomItemPlaces } from "@/entities/Config/RandomItemPlaces";
 import { ConsumableDiseaseConfig } from "@/entities/Config/ConsumableDiseaseConfig";
 import { ConsumableDiseaseAttribute } from "@/entities/ConsumableDiseaseAttribute";
+import { DiseaseCauseConfig } from "@/entities/Config/DiseaseCauseConfig";
 
 // @ts-ignore
 const GAME_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "game_configs");
@@ -56,6 +57,8 @@ const RANDOM_ITEM_PLACES_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "random
 const CONSUMABLE_DISEASE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "consumable_disease_configs");
 // @ts-ignore
 const CONSUMABLE_DISEASE_ATTRIBUTE_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "consumable_disease_attributes");
+// @ts-ignore
+const DISEASE_CAUSE_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "disease_cause_configs");
 
 const GameConfigService = {
     loadGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {
@@ -596,6 +599,36 @@ const GameConfigService = {
         }
 
         return consumableDiseaseAttribute;
+    },
+
+    loadDiseaseCauseConfig: async(diseaseCauseConfigId: number): Promise<DiseaseCauseConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const diseaseCauseConfigData = await ApiService.get(DISEASE_CAUSE_CONFIG_ENDPOINT + '/' + diseaseCauseConfigId + '?XDEBUG_SESSION_START=PHPSTORM')
+            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        let diseaseCauseConfig = null;
+        if (diseaseCauseConfigData.data) {
+            diseaseCauseConfig = (new DiseaseCauseConfig()).load(diseaseCauseConfigData.data);
+        }
+
+        return diseaseCauseConfig;
+    },
+
+    updateDiseaseCauseConfig: async(diseaseCauseConfig: DiseaseCauseConfig): Promise<DiseaseCauseConfig | null> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const diseaseCauseConfigData = await ApiService.put(DISEASE_CAUSE_CONFIG_ENDPOINT + '/' + diseaseCauseConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', diseaseCauseConfig.jsonEncode())
+            .catch((e) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw e;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        if (diseaseCauseConfigData.data) {
+            diseaseCauseConfig = (new DiseaseCauseConfig()).load(diseaseCauseConfigData.data);
+        }
+
+        return diseaseCauseConfig;
     }
 };
 export default GameConfigService;

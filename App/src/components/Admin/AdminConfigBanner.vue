@@ -10,6 +10,7 @@
             <router-link :to="{ name: 'AdminMechanicsList' }">Mechanics</router-link>
         </div>
         <div class="admin-menu">
+            <router-link :to="{ name: 'AdminDiseaseCauseConfigList' }">Disease Cause Config</router-link>
             <router-link :to="{ name: 'AdminDiseaseConfigList' }">Disease Config</router-link>
             <router-link :to="{ name: 'AdminConsumableDiseaseConfigList' }">Consumable Disease Config</router-link>
             <router-link :to="{ name: 'AdminModifierConfigList' }">Modifier Config</router-link>

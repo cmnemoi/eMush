@@ -28,6 +28,7 @@ export class DiseaseCauseConfig {
     jsonEncode() : object {
         const diseases : object = {};
         this.diseases?.forEach((value, key) => {
+            // @ts-ignore
             diseases[key] = value;
         });
         return {

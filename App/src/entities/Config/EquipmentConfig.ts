@@ -93,6 +93,7 @@ export class EquipmentConfig {
         // TODO: could we work with an object instead of a Map from the beginning?
         const dismountedProducts : object = {};
         this.dismountedProducts?.forEach((value, key) => {
+            // @ts-ignore
             dismountedProducts[key] = value;
         });
         const data : any = {

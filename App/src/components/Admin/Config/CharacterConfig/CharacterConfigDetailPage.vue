@@ -173,7 +173,7 @@ import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { DiseaseConfig } from "@/entities/Config/DiseaseConfig";
 
 interface CharacterConfigState {
-    characterConfig: null|CharacterConfig
+    characterConfig: CharacterConfig|null
     errors: any
 }
 
@@ -196,8 +196,9 @@ export default defineComponent({
                 return;
             }
             this.errors = {};
-            GameConfigService.updateCharacterConfig(this.characterConfig)
-                .then((res: CharacterConfig | null) => {
+            //@ts-ignore
+            GameConfigService.updateCharacterConfig(this.characterConfig) 
+                .then((res: CharacterConfig | null) => { 
                     this.characterConfig = res;
                     if (this.characterConfig !== null) {
                         ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'character_configs', String(this.characterConfig.id), 'init_statuses'))

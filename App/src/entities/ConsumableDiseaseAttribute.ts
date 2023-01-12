@@ -63,6 +63,7 @@ export class ConsumableDiseaseAttribute {
     private encodeMapAttribute(data: any, attributeName: string, map: Map<any, number>) {
         const mapObject : object = {};
         map.forEach((value, key) => {
+            // @ts-ignore
             mapObject[key] = value;
         });
         data[attributeName] = mapObject;

@@ -148,6 +148,7 @@ export class Mechanics {
 
         const ingredients : object = {};
         this.ingredients?.forEach((value, key) => {
+            // @ts-ignore
             ingredients[key] = value;
         });
 
@@ -220,14 +221,14 @@ export class Mechanics {
         if (typeof object.maturationTime !== 'undefined') {
             for (const [key, value] of Object.entries(object.maturationTime)) {
                 if (typeof key === 'string' && typeof value === 'number') {
-                    this.maturationTime?.set(key, value);
+                    this.maturationTime?.set(Number(key), value);
                 }
             }
         }
         if (typeof object.oxygen !== 'undefined') {
             for (const [key, value] of Object.entries(object.oxygen)) {
                 if (typeof key === 'string' && typeof value === 'number') {
-                    this.oxygen?.set(key, value);
+                    this.oxygen?.set(Number(key), value);
                 }
             }
         }
@@ -238,11 +239,13 @@ export class Mechanics {
 
         const maturationTime : object = {};
         this.maturationTime?.forEach((value, key) => {
+            // @ts-ignore
             maturationTime[key] = value;
         });
 
         const healthPoints : object = {};
         this.healthPoints?.forEach((value, key) => {
+            // @ts-ignore
             healthPoints[key] = value;
         });
 
@@ -259,28 +262,28 @@ export class Mechanics {
         if (typeof object.moralPoints !== 'undefined') {
             for (const [key, value] of Object.entries(object.moralPoints)) {
                 if (typeof key === 'string' && typeof value === 'number') {
-                    this.moralPoints?.set(key, value);
+                    this.moralPoints?.set(Number(key), value);
                 }
             }
         }
         if (typeof object.actionPoints !== 'undefined') {
             for (const [key, value] of Object.entries(object.actionPoints)) {
                 if (typeof key === 'string' && typeof value === 'number') {
-                    this.actionPoints?.set(key, value);
+                    this.actionPoints?.set(Number(key), value);
                 }
             }
         }
         if (typeof object.movementPoints !== 'undefined') {
             for (const [key, value] of Object.entries(object.movementPoints)) {
                 if (typeof key === 'string' && typeof value === 'number') {
-                    this.movementPoints?.set(key, value);
+                    this.movementPoints?.set(Number(key), value);
                 }
             }
         }
         if (typeof object.healthPoints !== 'undefined') {
             for (const [key, value] of Object.entries(object.healthPoints)) {
                 if (typeof key === 'string' && typeof value === 'number') {
-                    this.healthPoints?.set(key, value);
+                    this.healthPoints?.set(Number(key), value);
                 }
             }
         }
@@ -298,26 +301,31 @@ export class Mechanics {
 
         const moralPoints : object = {};
         this.moralPoints?.forEach((value, key) => {
+            // @ts-ignore
             moralPoints[key] = value;
         });
 
         const actionPoints : object = {};
         this.actionPoints?.forEach((value, key) => {
+            // @ts-ignore
             actionPoints[key] = value;
         });
 
         const movementPoints : object = {};
         this.movementPoints?.forEach((value, key) => {
+            // @ts-ignore
             movementPoints[key] = value;
         });
 
         const healthPoints : object = {};
         this.healthPoints?.forEach((value, key) => {
+            // @ts-ignore
             healthPoints[key] = value;
         });
 
         const extraEffects : object = {};
         this.extraEffects?.forEach((value, key) => {
+            // @ts-ignore
             extraEffects[key] = value;
         });
 
@@ -342,7 +350,7 @@ export class Mechanics {
         if (typeof object.baseDamageRange !== 'undefined') {
             for (const [key, value] of Object.entries(object.baseDamageRange)) {
                 if (typeof key === 'string' && typeof value === 'number') {
-                    this.baseDamageRange?.set(key, value);
+                    this.baseDamageRange?.set(Number(key), value);
                 }
             }
         }
@@ -353,6 +361,7 @@ export class Mechanics {
 
         const baseDamageRange : object = {};
         this.baseDamageRange?.forEach((value, key) => {
+            // @ts-ignore
             baseDamageRange[key] = value;
         });
 

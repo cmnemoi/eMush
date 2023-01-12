@@ -141,6 +141,7 @@ export default defineComponent({
                 return;
             }
             this.errors = {};
+            // @ts-ignore
             GameConfigService.updateEquipmentConfig(this.equipmentConfig)
                 .then((res: EquipmentConfig | null) => {
                     this.equipmentConfig = res;
@@ -196,8 +197,9 @@ export default defineComponent({
         },
         addDismountedProduct(product: string): void {
             if (this.equipmentConfig && this.equipmentConfig.dismountedProducts) {
-                if (this.equipmentConfig.dismountedProducts.get(product) !== undefined) {
-                    this.equipmentConfig.dismountedProducts.set(product, this.equipmentConfig.dismountedProducts.get(product) + 1);
+                const productKey = this.equipmentConfig.dismountedProducts.get(product);
+                if (productKey !== undefined) {
+                    this.equipmentConfig.dismountedProducts.set(product, productKey + 1);
                 } else {
                     this.equipmentConfig.dismountedProducts.set(product, 1);
                 }
@@ -205,9 +207,10 @@ export default defineComponent({
         },
         removeDismountedProduct(product: string): void {
             if (this.equipmentConfig && this.equipmentConfig.dismountedProducts) {
-                if (this.equipmentConfig.dismountedProducts.get(product) !== undefined) {
-                    if (this.equipmentConfig.dismountedProducts.get(product) > 1) {
-                        this.equipmentConfig.dismountedProducts.set(product, this.equipmentConfig.dismountedProducts.get(product) - 1);
+                const productKey = this.equipmentConfig.dismountedProducts.get(product);
+                if (productKey !== undefined) {
+                    if (productKey > 1) {
+                        this.equipmentConfig.dismountedProducts.set(product, productKey - 1);
                     } else {
                         this.equipmentConfig.dismountedProducts.delete(product);
                     }

@@ -6,7 +6,6 @@ import { ModifierActivationRequirement } from "@/entities/Config/ModifierActivat
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import { StatusConfig } from "@/entities/Config/StatusConfig";
 import store from "@/store";
-import { ActionVariables } from "@/entities/Config/ActionVariables";
 import { ActionConfig } from "@/entities/Config/ActionConfig";
 import { DifficultyConfig } from "@/entities/Config/DifficultyConfig";
 import { CharacterConfig } from "@/entities/Config/CharacterConfig";
@@ -29,8 +28,6 @@ const MODIFIER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_
 const MODIFIER_REQUIREMENT_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "modifier_activation_requirements");
 // @ts-ignore
 const CONFIG_STATUS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "status_configs");
-// @ts-ignore
-const CONFIG_ACTION_COST_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "action_costs");
 // @ts-ignore
 const CONFIG_ACTION_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "actions");
 // @ts-ignore
@@ -209,36 +206,6 @@ const GameConfigService = {
         }
 
         return actionConfig;
-    },
-
-    loadActionCost: async(actionCostId: number): Promise<ActionVariables | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-        const actionCostData = await ApiService.get(CONFIG_ACTION_COST_ENDPOINT + '/' + actionCostId + '?XDEBUG_SESSION_START=PHPSTORM')
-            .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
-
-        let actionCost = null;
-        if (actionCostData.data) {
-            actionCost = (new ActionVariables()).load(actionCostData.data);
-        }
-
-        return actionCost;
-    },
-
-    updateActionCost: async(actionCost: ActionVariables): Promise<ActionVariables | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-        const actionCostData = await ApiService.put(CONFIG_ACTION_COST_ENDPOINT + '/' + actionCost.id + '?XDEBUG_SESSION_START=PHPSTORM', actionCost.jsonEncode())
-            .catch((e) => {
-                store.dispatch('gameConfig/setLoading', { loading: false });
-                throw e;
-            });
-
-        store.dispatch('gameConfig/setLoading', { loading: false });
-
-        if (actionCostData.data) {
-            actionCost = (new ActionVariables()).load(actionCostData.data);
-        }
-
-        return actionCost;
     },
 
     loadDaedalusConfig: async(daedalusConfigId: number): Promise<DaedalusConfig | null> => {

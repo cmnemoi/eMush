@@ -64,7 +64,11 @@ export class ConsumableDiseaseConfig {
 
         return this;
     }
-    private loadMapAttribute(object: any, attributeName: string, map: Map<any, number>) {
+    private loadMapAttribute(object: any, attributeName: string, map: Map<any, number> | null) {
+        if (map === null) {
+            return;
+        }
+        
         if (typeof object[attributeName] !== 'undefined') {
             for (const [key, value] of Object.entries(object[attributeName])) {
                 if (typeof key === 'string' && typeof value === 'number') {
@@ -73,9 +77,14 @@ export class ConsumableDiseaseConfig {
             }
         }
     }
-    private encodeMapAttribute(data: any, attributeName: string, map: Map<any, number>) {
+    private encodeMapAttribute(data: any, attributeName: string, map: Map<any, number> | null) {
+        if (map === null) {
+            return;
+        }
+
         const mapObject : object = {};
         map.forEach((value, key) => {
+            // @ts-ignore
             mapObject[key] = value;
         });
         data[attributeName] = mapObject;

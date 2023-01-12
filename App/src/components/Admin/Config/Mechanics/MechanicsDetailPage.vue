@@ -169,7 +169,6 @@ import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import Input from "@/components/Utils/Input.vue";
 import MapManager from "@/components/Utils/MapManager.vue";
-import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import urlJoin from "url-join";
 import { removeItem } from "@/utils/misc";
@@ -202,6 +201,7 @@ export default defineComponent({
                 return;
             }
             this.errors = {};
+            // @ts-ignore
             GameConfigService.updateMechanics(this.mechanics)
                 .then((res: Mechanics | null) => {
                     this.mechanics = res;
@@ -270,8 +270,9 @@ export default defineComponent({
         },
         addIngredient(product: string): void {
             if (this.mechanics && this.mechanics.ingredients) {
-                if (this.mechanics.ingredients.get(product) !== undefined) {
-                    this.mechanics.ingredients.set(product, this.mechanics.ingredients.get(product) + 1);
+                const productKey = this.mechanics.ingredients.get(product);
+                if (productKey !== undefined) {
+                    this.mechanics.ingredients.set(product, productKey + 1);
                 } else {
                     this.mechanics.ingredients.set(product, 1);
                 }
@@ -279,9 +280,10 @@ export default defineComponent({
         },
         removeIngredient(product: string): void {
             if (this.mechanics && this.mechanics.ingredients) {
-                if (this.mechanics.ingredients.get(product) !== undefined) {
-                    if (this.mechanics.ingredients.get(product) > 1) {
-                        this.mechanics.ingredients.set(product, this.mechanics.ingredients.get(product) - 1);
+                const productKey = this.mechanics.ingredients.get(product);
+                if (productKey !== undefined) {
+                    if (productKey > 1) {
+                        this.mechanics.ingredients.set(product, productKey - 1);
                     } else {
                         this.mechanics.ingredients.delete(product);
                     }

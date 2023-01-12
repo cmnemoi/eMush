@@ -152,13 +152,12 @@ export default defineComponent({
                     this.daedalusConfig = res;
                     if (this.daedalusConfig !== null) {
                         ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'daedalus_configs', String(this.daedalusConfig.id), 'random_item_places'))
-                            .then((result) => {
-                                const randomItemPlaces: RandomItemPlaces[] = [];
-                                result.data['hydra:member'].forEach((datum: any) => {
-                                    const currentRandomItemPlaces = (new RandomItemPlaces()).load(datum);
-                                    randomItemPlaces.push(currentRandomItemPlaces);
-                                });
+                            .then((result) => {                                
                                 if (this.daedalusConfig instanceof DaedalusConfig) {
+                                    const randomItemPlaces: RandomItemPlaces = new RandomItemPlaces();
+                                    result.data['hydra:member'].forEach((datum: any) => {
+                                        randomItemPlaces.load(datum);
+                                    });
                                     this.daedalusConfig.randomItemPlaces = randomItemPlaces;
                                 }
                             });
@@ -208,12 +207,11 @@ export default defineComponent({
             this.daedalusConfig = res;
             ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'daedalus_configs', daedalusConfigId, 'random_item_places'))
                 .then((result) => {
-                    const randomItemPlaces : RandomItemPlaces[] = [];
-                    result.data['hydra:member'].forEach((datum: any) => {
-                        const currentRandomItemPlaces = (new RandomItemPlaces()).load(datum);
-                        randomItemPlaces.push(currentRandomItemPlaces);
-                    });
                     if (this.daedalusConfig instanceof DaedalusConfig) {
+                        const randomItemPlaces: RandomItemPlaces = new RandomItemPlaces();
+                        result.data['hydra:member'].forEach((datum: any) => {
+                            randomItemPlaces.load(datum);
+                        });
                         this.daedalusConfig.randomItemPlaces = randomItemPlaces;
                     }
                 });

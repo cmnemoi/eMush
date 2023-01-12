@@ -64,10 +64,7 @@ import { defineComponent } from "vue";
 import GameConfigService from "@/services/game_config.service";
 import { ConsumableDiseaseConfig } from "@/entities/Config/ConsumableDiseaseConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
-import { removeItem } from "@/utils/misc";
 import MapManager from "@/components/Utils/MapManager.vue";
-import ApiService from "@/services/api.service";
-import urlJoin from "url-join";
 
 interface ConsumableDiseaseConfigState {
     consumableDiseaseConfig: null|ConsumableDiseaseConfig
@@ -91,6 +88,7 @@ export default defineComponent({
                 return;
             }
             this.errors = {};
+            //@ts-ignore
             GameConfigService.updateConsumableDiseaseConfig(this.consumableDiseaseConfig)
                 .then((res: ConsumableDiseaseConfig | null) => {
                     this.consumableDiseaseConfig = res;

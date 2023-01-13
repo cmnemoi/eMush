@@ -11,7 +11,22 @@ Mush\Game\Entity\GameConfig:
   collectionOperations:
     get:
       filters: [ 'default.search_filter', 'default.order_filter' ]
+    post:
+      security: 'is_granted("ROLE_ADMIN")'
   itemOperations:
-    get: ~
+    get: 
+      security: 'is_granted("ROLE_USER")'
     put:
       security: 'is_granted("ROLE_ADMIN")'
+  properties:
+    daedalusConfig:
+      subresource:
+        resourceClass: 'Mush\Daedalus\Entity\DaedalusConfig'
+    charactersConfig:
+      subresource:
+        resourceClass: 'Mush\Player\Entity\Config\CharacterConfig'
+        collection: true
+    equipmentsConfig:
+      subresource:
+        resourceClass: 'Mush\Equipment\Entity\Config\EquipmentConfig'
+        collection: true

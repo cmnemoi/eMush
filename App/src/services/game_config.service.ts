@@ -73,7 +73,7 @@ const GameConfigService = {
 
     updateGameConfig: async(gameConfig: GameConfig): Promise<GameConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const gameConfigData = await ApiService.put(GAME_CONFIG_ENDPOINT + '/' + gameConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', gameConfig)
+        const gameConfigData = await ApiService.put(GAME_CONFIG_ENDPOINT + '/' + gameConfig.id + '?XDEBUG_SESSION_START=PHPSTORM', gameConfig.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;

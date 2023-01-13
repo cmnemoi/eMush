@@ -94,8 +94,12 @@ class GameConfig
     /**
      * @param Collection<int, CharacterConfig> $charactersConfig
      */
-    public function setCharactersConfig(Collection $charactersConfig): static
+    public function setCharactersConfig(Collection|array $charactersConfig): static
     {
+        if(is_array($charactersConfig)) {
+            $charactersConfig = new ArrayCollection($charactersConfig);
+        }
+        
         $this->charactersConfig = $charactersConfig;
 
         return $this;

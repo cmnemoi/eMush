@@ -9,6 +9,22 @@
                 :errors="errors.name"
             />
         </div>
+        <h3>{{ $t("admin.gameConfig.characterConfigs") }}</h3>
+        <ChildCollectionManager :children="gameConfig.charactersConfig" @addId="add" @remove="remove">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
+        <h3>{{ $t("admin.gameConfig.daedalusConfig") }}</h3>
+        <Pannel>
+            <template #header>
+                <div class="header-container">
+                    <slot name="header" v-bind="gameConfig.daedalusConfig"/>
+                    <span>{{ gameConfig.daedalusConfig?.id  }} - {{ gameConfig.daedalusConfig?.name  }}</span>
+                    <button @click="test">{{$t('admin.buttons.delete')}}</button>
+                </div>
+            </template>
+        </Pannel>
         <button class="action-button" type="submit" @click="update">
             {{ $t('admin.save') }}
         </button>
@@ -18,9 +34,15 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import GameConfigService from "@/services/game_config.service";
+import { CharacterConfig } from "@/entities/Config/CharacterConfig";
+import { DaedalusConfig } from "@/entities/Config/DaedalusConfig";
 import { GameConfig } from "@/entities/Config/GameConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
+import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import Input from "@/components/Utils/Input.vue";
+import Pannel from "@/components/Utils/Pannel.vue";
+import ApiService from "@/services/api.service";
+import urlJoin from "url-join";
 
 interface GameConfigState {
     gameConfig: null|GameConfig
@@ -30,7 +52,9 @@ interface GameConfigState {
 export default defineComponent({
     name: "GameConfigDetailPage",
     components: {
-        Input
+        ChildCollectionManager,
+        Input,
+        Pannel
     },
     data: function (): GameConfigState {
         return {
@@ -47,6 +71,28 @@ export default defineComponent({
             GameConfigService.updateGameConfig(this.gameConfig)
                 .then((res: GameConfig | null) => {
                     this.gameConfig = res;
+                    if (this.gameConfig !== null){
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'daedalus_config'))
+                            .then((result) => {
+                                const daedalusConfig: DaedalusConfig = new DaedalusConfig();
+                                daedalusConfig.load(result.data);
+
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.daedalusConfig = daedalusConfig;
+                                }
+                            });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'characters_configs'))
+                            .then((result) => {
+                                const charactersConfig: CharacterConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    charactersConfig.push((new CharacterConfig()).load(datum));
+                                });
+
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.charactersConfig = charactersConfig;
+                                }
+                            });
+                    }
                 })
                 .catch((error) => {
                     if (error.response) {
@@ -67,6 +113,26 @@ export default defineComponent({
         const gameConfigId = Number(this.$route.params.gameConfigId);
         GameConfigService.loadGameConfig(gameConfigId).then((res: GameConfig | null) => {
             this.gameConfig = res;
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'game_configs', String(gameConfigId), 'daedalus_config'))
+                .then((result) => {
+                    const daedalusConfig: DaedalusConfig = new DaedalusConfig();
+                    daedalusConfig.load(result.data);
+
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.daedalusConfig = daedalusConfig;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'game_configs', String(gameConfigId), 'characters_configs'))
+                .then((result) => {
+                    const charactersConfig: CharacterConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        charactersConfig.push((new CharacterConfig()).load(datum));
+                    });
+
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.charactersConfig = charactersConfig;
+                    }
+                });
         });
     }
 });

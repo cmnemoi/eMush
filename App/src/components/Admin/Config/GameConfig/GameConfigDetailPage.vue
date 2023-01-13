@@ -9,12 +9,6 @@
                 :errors="errors.name"
             />
         </div>
-        <h3>{{ $t("admin.gameConfig.characterConfigs") }}</h3>
-        <ChildCollectionManager :children="gameConfig.charactersConfig" @addId="add" @remove="remove">
-            <template #header="child">
-                <span>{{ child.id }} - {{ child.name }}</span>
-            </template>
-        </ChildCollectionManager>
         <h3>{{ $t("admin.gameConfig.daedalusConfig") }}</h3>
         <Pannel>
             <template #header>
@@ -25,6 +19,18 @@
                 </div>
             </template>
         </Pannel>
+        <h3>{{ $t("admin.gameConfig.characterConfigs") }}</h3>
+        <ChildCollectionManager :children="gameConfig.charactersConfig" @addId="addNewCharacterConfig" @remove="removeCharacterConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
+        <h3>{{ $t("admin.gameConfig.equipmentConfigs") }}</h3>
+        <ChildCollectionManager :children="gameConfig.equipmentsConfig" @addId="addNewEquipmentConfig" @remove="removeEquipmentConfig">
+            <template #header="child">
+                <span>{{ child.id }} - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
         <button class="action-button" type="submit" @click="update">
             {{ $t('admin.save') }}
         </button>
@@ -36,6 +42,7 @@ import { defineComponent } from "vue";
 import GameConfigService from "@/services/game_config.service";
 import { CharacterConfig } from "@/entities/Config/CharacterConfig";
 import { DaedalusConfig } from "@/entities/Config/DaedalusConfig";
+import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 import { GameConfig } from "@/entities/Config/GameConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
@@ -43,6 +50,7 @@ import Input from "@/components/Utils/Input.vue";
 import Pannel from "@/components/Utils/Pannel.vue";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
+import { removeItem } from "@/utils/misc";
 
 interface GameConfigState {
     gameConfig: null|GameConfig
@@ -92,6 +100,17 @@ export default defineComponent({
                                     this.gameConfig.charactersConfig = charactersConfig;
                                 }
                             });
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'equipments_configs'))
+                            .then((result) => {
+                                const equipmentsConfig: EquipmentConfig[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    equipmentsConfig.push((new EquipmentConfig()).load(datum));
+                                });
+                                
+                                if (this.gameConfig instanceof GameConfig) {
+                                    this.gameConfig.equipmentsConfig = equipmentsConfig;
+                                }
+                            });
                     }
                 })
                 .catch((error) => {
@@ -107,6 +126,30 @@ export default defineComponent({
                         console.error('Error', error.message);
                     }
                 });
+        },
+        addNewCharacterConfig(selectedId: integer){
+            GameConfigService.loadCharacterConfig(selectedId).then((res) => {
+                if (res && this.gameConfig && this.gameConfig.charactersConfig){
+                    this.gameConfig.charactersConfig.push(res);
+                }
+            });
+        },
+        removeCharacterConfig(characterConfig: any){
+            if (this.gameConfig && this.gameConfig.charactersConfig){
+                this.gameConfig.charactersConfig = removeItem(this.gameConfig.charactersConfig, characterConfig);
+            }
+        },
+        addNewEquipmentConfig(selectedId: integer){
+            GameConfigService.loadEquipmentConfig(selectedId).then((res) => {
+                if (res && this.gameConfig && this.gameConfig.equipmentsConfig){
+                    this.gameConfig.equipmentsConfig.push(res);
+                }
+            });
+        },
+        removeEquipmentConfig(equipmentConfig: any){
+            if (this.gameConfig && this.gameConfig.equipmentsConfig){
+                this.gameConfig.equipmentsConfig = removeItem(this.gameConfig.equipmentsConfig, equipmentConfig);
+            }
         }
     },
     beforeMount() {
@@ -131,6 +174,17 @@ export default defineComponent({
 
                     if (this.gameConfig instanceof GameConfig) {
                         this.gameConfig.charactersConfig = charactersConfig;
+                    }
+                });
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'equipments_configs'))
+                .then((result) => {
+                    const equipmentsConfig: EquipmentConfig[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        equipmentsConfig.push((new EquipmentConfig()).load(datum));
+                    });
+                    
+                    if (this.gameConfig instanceof GameConfig) {
+                        this.gameConfig.equipmentsConfig = equipmentsConfig;
                     }
                 });
         });

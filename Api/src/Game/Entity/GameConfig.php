@@ -139,8 +139,13 @@ class GameConfig
         return $this->equipmentsConfig;
     }
 
-    public function setEquipmentsConfig(Collection $equipmentsConfig): static
+    public function setEquipmentsConfig(Collection|array $equipmentsConfig): static
     {
+        if(is_array($equipmentsConfig))
+        {
+            $equipmentsConfig = new ArrayCollection($equipmentsConfig);
+        }
+        
         $this->equipmentsConfig = $equipmentsConfig;
 
         return $this;

@@ -30,3 +30,4 @@ Mush\Game\Entity\GameConfig:
       subresource:
         resourceClass: 'Mush\Equipment\Entity\Config\EquipmentConfig'
         collection: true
+        pagination_items_per_page: 200

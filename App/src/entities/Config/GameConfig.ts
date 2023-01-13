@@ -1,5 +1,6 @@
 import { CharacterConfig } from "@/entities/Config/CharacterConfig";
 import { DaedalusConfig } from "@/entities/Config/DaedalusConfig";
+import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
 
 export class GameConfig {
     public iri: string|null;
@@ -7,6 +8,7 @@ export class GameConfig {
     public name: string|null;
     public daedalusConfig: DaedalusConfig|null;
     public charactersConfig: CharacterConfig[]|null;
+    public equipmentsConfig: EquipmentConfig[]|null;
 
     constructor() {
         this.iri = null;
@@ -14,6 +16,7 @@ export class GameConfig {
         this.name = null;
         this.daedalusConfig = null;
         this.charactersConfig = null;
+        this.equipmentsConfig = null;
     }
     load(object:any) : GameConfig {
         if (typeof object !== "undefined") {
@@ -31,17 +34,28 @@ export class GameConfig {
                 });
                 this.charactersConfig = charactersConfig;
             }
+            if (typeof object.equipmentsConfig !== "undefined") {
+                const equipmentsConfig : EquipmentConfig[] = [];
+                object.equipmentsConfig.forEach((equipmentsConfigData: any) => {
+                    const equipmentConfig = (new EquipmentConfig()).load(equipmentsConfigData);
+                    equipmentsConfig.push(equipmentConfig);
+                });
+                this.equipmentsConfig = equipmentsConfig;
+            }
         }
         return this;
     }
     jsonEncode() : string {
         const charactersConfig : string[] = [];
         this.charactersConfig?.forEach(characterConfig => (typeof characterConfig.iri === 'string' ? charactersConfig.push(characterConfig.iri) : null));
+        const equipmentsConfig : string[] = [];
+        this.equipmentsConfig?.forEach(equipmentConfig => (typeof equipmentConfig.iri === 'string' ? equipmentsConfig.push(equipmentConfig.iri) : null));
         const data : any = {
             'id': this.id,
             'name': this.name,
             'daedalusConfig': this.daedalusConfig?.iri,
             'charactersConfig': charactersConfig,
+            'equipmentConfig': equipmentsConfig
         };
 
         return data;

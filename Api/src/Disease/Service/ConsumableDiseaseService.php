@@ -58,7 +58,7 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
     private function findConsumableDiseaseConfigByNameAndDaedalus(string $name, Daedalus $daedalus): ?ConsumableDiseaseConfig
     {
         $consumableDiseaseConfigs = $daedalus->getGameConfig()
-            ->getConsumableDiseaseConfig()->filter(fn (ConsumableDiseaseConfig $consumableDiseaseConfig) => $consumableDiseaseConfig->getCauseName() === $name);
+            ->getConsumableDiseaseConfigs()->filter(fn (ConsumableDiseaseConfig $consumableDiseaseConfig) => $consumableDiseaseConfig->getCauseName() === $name);
 
         if ($consumableDiseaseConfigs->count() === 0) {
             return null;

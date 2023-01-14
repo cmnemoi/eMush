@@ -50,7 +50,7 @@ class GameConfig
     private Collection $diseaseConfigs;
 
     #[ORM\ManyToMany(targetEntity: ConsumableDiseaseConfig::class)]
-    private Collection $consumableDiseaseConfig;
+    private Collection $consumableDiseaseConfigs;
 
     #[ORM\ManyToOne(targetEntity: DifficultyConfig::class)]
     private DifficultyConfig $difficultyConfig;
@@ -65,7 +65,7 @@ class GameConfig
         $this->triumphConfigs = new ArrayCollection();
         $this->diseaseCauseConfigs = new ArrayCollection();
         $this->diseaseConfigs = new ArrayCollection();
-        $this->consumableDiseaseConfig = new ArrayCollection();
+        $this->consumableDiseaseConfigs = new ArrayCollection();
         $this->statusConfigs = new ArrayCollection();
     }
 
@@ -198,21 +198,21 @@ class GameConfig
         return $this;
     }
 
-    public function getConsumableDiseaseConfig(): Collection
+    public function getConsumableDiseaseConfigs(): Collection
     {
-        return $this->consumableDiseaseConfig;
+        return $this->consumableDiseaseConfigs;
     }
 
-    public function setConsumableDiseaseConfig(Collection $consumableDiseaseConfig): static
+    public function setConsumableDiseaseConfigs(Collection $consumableDiseaseConfigs): static
     {
-        $this->consumableDiseaseConfig = $consumableDiseaseConfig;
+        $this->consumableDiseaseConfigs = $consumableDiseaseConfigs;
 
         return $this;
     }
 
-    public function addConsumableDiseaseConfig(ConsumableDiseaseConfig $consumableDiseaseConfig): static
+    public function addConsumableDiseaseConfig(ConsumableDiseaseConfig $consumableDiseaseConfigs): static
     {
-        $this->consumableDiseaseConfig->add($consumableDiseaseConfig);
+        $this->consumableDiseaseConfigs->add($consumableDiseaseConfigs);
 
         return $this;
     }

@@ -100,13 +100,13 @@ export default defineComponent({
                                     this.gameConfig.charactersConfig = charactersConfig;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'equipments_configs'))
+                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(this.gameConfig.id), 'equipments_configs?pagination=false'))
                             .then((result) => {
                                 const equipmentsConfig: EquipmentConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
                                     equipmentsConfig.push((new EquipmentConfig()).load(datum));
                                 });
-                                
+                            
                                 if (this.gameConfig instanceof GameConfig) {
                                     this.gameConfig.equipmentsConfig = equipmentsConfig;
                                 }
@@ -176,7 +176,7 @@ export default defineComponent({
                         this.gameConfig.charactersConfig = charactersConfig;
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'equipments_configs'))
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'game_configs', String(gameConfigId), 'equipments_configs?pagination=false'))
                 .then((result) => {
                     const equipmentsConfig: EquipmentConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {
